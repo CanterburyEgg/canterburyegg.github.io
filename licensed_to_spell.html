@@ -1,0 +1,81 @@
+<html>
+<head>
+	<title>Licensed to Spell</title>
+</head>
+<body>
+	<div id="license"></div>
+	<input type="text" name="search" id="search" spellcheck="false" autocomplete="off" autocorrext="off" spellcheck="false">
+	<button type="submit" onclick="submit()" id="submit">Submit</button>
+	<div id="congrats" style="display:none;">Well Done!<button type="submit" onclick="nextLevel()" id="nextLevel">Next Level ></button></div>
+	<div id="words"></div>
+	<script>
+		let levels = []
+		let levelWords = []
+		let level = 0
+		let found = 0
+
+		document.addEventListener("DOMContentLoaded", async function () {
+            // this is all to prepare a random card of the day lol
+            await fetch('./lists/levels.txt')
+                .then(response => response.text())
+                .then(text => {
+                    // Do something with the text content
+                    levels = text.split('\t\n'); 
+            }).catch(error => console.error('Error:', error));
+
+            prepareGrid();
+        });
+
+        document.getElementById("search").addEventListener("keypress", function(event) {
+		  if (event.key === "Enter") {
+			event.preventDefault();
+			document.getElementById("submit").click();
+		  }
+		});
+
+        function prepareGrid() {
+        	found = 0;
+        	const levelSpecs = levels[level].split('\t');
+        	document.getElementById("license").innerText = levelSpecs[0];
+        	document.getElementById("words").innerHTML = "";
+        	levelWords = JSON.parse(levelSpecs[2].replaceAll('\'', '"'))
+
+			let wordIndex = 1
+        	for (const word of levelWords)
+        	{
+        		const wordBlanks = document.createElement("div");
+        		wordBlanks.id = wordIndex;
+        		wordBlanks.innerText = "_";
+        		for (let i = 0; i < word.length - 1; i++)
+        		{
+        			wordBlanks.innerText = wordBlanks.innerText + " _";
+        		}
+				document.getElementById("words").appendChild(wordBlanks);
+
+				wordIndex++;
+        	}
+        }
+
+        function submit() {
+        	const check = document.getElementById("search").value;
+        	if (levelWords.includes(check))
+        	{
+        		found++
+        		document.getElementById(levelWords.indexOf(check)+1).innerText = check;
+        		document.getElementById("search").value = "";
+
+        		if (found == levelWords.length)
+        		{
+        			document.getElementById("congrats").style.display = '';
+        		}
+        	}
+        }
+
+        function nextLevel() {
+        	level++;
+        	document.getElementById("congrats").style.display = 'none';
+        	prepareGrid();
+        }
+	</script>
+</body>
+</html>
