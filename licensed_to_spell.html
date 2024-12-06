@@ -2,6 +2,7 @@
 <head>
 	<title>Licensed to Spell</title>
 	<link rel="icon" type="image/x-icon" href="/img/favicon.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
 	body {
@@ -26,11 +27,11 @@
 		max-height: 500px;
 		position: absolute;
 		top: 50%;
-	    left: 50%;
-	    transform: translate(-50%,-50%);
-	    justify-items: center;
-	    align-items: center;
-	    display: grid;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		justify-items: center;
+		align-items: center;
+		display: grid;
 	}
 	.faq .x {
 		position: absolute;
@@ -38,7 +39,7 @@
 		right: 10px;
 		width: 50px;
 		cursor: pointer;
-		z-index: 2;
+		z-index: 4;
 	}
 	.faq .square {
 		width: 100%;
@@ -47,20 +48,19 @@
 		background-color: #D3D3D3;
 		position: absolute;
 		top: 50%;
-	    left: 50%;
-	    transform: translate(-50%,-50%);
-	    z-index: -1;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		z-index: 2;
 	}
 	.faq .text {
 		width: 90%;
 		height: auto;
 		position: relative;
 		font-weight: normal;
-		font-size: 19px;
+		font-size: 17px;
+		z-index: 3;
 	}
 	.header-bar {
-		padding-top: 10px;
-		padding-left: 10px;
 		justify-items: left;
 		width: 100%;
 		display: flex;
@@ -69,14 +69,18 @@
 		width: 50px;
 		height: auto;
 		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
 	}
 	.selects {
+		width: 90px;
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 4px;
-		padding-left: 10px;
+		gap: 5px;
+		align-items: center;
+		justify-items: center;
 	}
 	select {
+		width: 100%;
 		text-align: center;
 		font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 		font-weight: 500;
@@ -85,7 +89,7 @@
 	}
 	.logo-container {
 		text-align: center;
-		margin-top: -50px;
+		margin-top: -90px;
 	}
 	.logo-container img {
 		width: 150px;
@@ -114,16 +118,16 @@
 		justify-items: center;
 	}
 	.search-grid input {
-	    width: 100%;
-	    font-size: 16px;
-	    background-color: #F3F3F3;
-	    border: 1px #808080 solid;
+		width: 100%;
+		font-size: 16px;
+		background-color: #F3F3F3;
+		border: 1px #808080 solid;
 	}
 	/* courtesy of https://getcssscan.com/css-buttons-examples */
 	button {
-	    width: 100%;
-	    height: auto;
-	    font-size: 15px;
+		width: 100%;
+		height: auto;
+		font-size: 15px;
 		appearance: none;
 		background-color: #F3F3F3;
 		border: 1px #808080 solid;
@@ -138,7 +142,7 @@
 		line-height: 20px;
 		list-style: none;
 		padding: 6px 16px;
-		position: relative;
+		/*position: relative;*/
 		transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
 		user-select: none;
 		-webkit-user-select: none;
@@ -191,21 +195,16 @@
 		text-align: center;
 		overflow-y: scroll;
 	}
-	.footer {
-		position: absolute;
-		font-size: 14px;
-		top: 12px;
-		right: 16px;
-	}
 	/* mobile view */
 	@media ( max-width: 750px ) {
+		.page-contents {
+			width: 90%;
+		}
 		.word-box {
-	    	grid-template-columns: 1fr 1fr;  
-	    	font-size: 30px;
-	    	width: 95%;
+			column-gap: 15px;
 		}
 		.faq .text {
-			font-size: 17px;
+			font-size: 12.5px;
 		}
 	}
 </style>
@@ -222,17 +221,21 @@
 			<br><br>
 			It's weirdly hard to find a list online that feels complete but doesn't also have a hundred-thousand arcane words no one has ever heard of, so I made my own using a cross-section of the Scrabble dictionary and the <a href="https://www.spreadthewordlist.com/">Spread the Wordlist</a> list. If you need words for anything, check them out. It's a great project, and it's free!
 			<br><br>
+			<b>Pretty backgrounds!</b>
+			<br><br>
+			Thanks! They're courtesy of <a href="https://uigradients.com/" target="_blank">uiGradients</a>, and I agree, they're quite pretty.
+			<br><br>
 			<b>Anything else I should know?</b>
 			<br><br>
 			For the sake of this game, 'Y' is always a consonant.</div>
 	</div>
 	<div class="header-bar" id="header">
-		<img src="./img/qm.png" onclick="toggleFAQ()">
 		<div class="selects" id="selects">
-			<select id="color-select" onchange="setGradient()">
-			</select>
+			<img src="./img/qm.png" onclick="toggleFAQ()">
 			<select id="level-select" onchange="changeLevel(this)">
 				<option value="default">Level ...</option>
+			</select>
+			<select id="color-select" onchange="setGradient()">
 			</select>
 		</div>
 	</div>
@@ -251,7 +254,6 @@
 		</div>
 		<div class="word-box" id="words"></div>
 	</div>
-	<div class="footer">Gradients courtesy of <a href="https://uigradients.com/" target="_blank">uiGradients</a>.</div>
 	<script>
 		let levels = []
 		let levelWords = []
@@ -260,26 +262,26 @@
 		let gradients = []
 
 		document.addEventListener("DOMContentLoaded", async function () {
-            try {
-            	const response1 = await fetch('./lists/levels.txt');
-            	raw_levels = await response1.text();
+			try {
+				const response1 = await fetch('./lists/levels.txt');
+				raw_levels = await response1.text();
 
-            	const response2 = await fetch('./lists/gradients.txt');
-            	raw_gradients = await response2.text();
-            }
-            catch(error) {
-            	console.error('Error:', error);
-            }
+				const response2 = await fetch('./lists/gradients.txt');
+				raw_gradients = await response2.text();
+			}
+			catch(error) {
+				console.error('Error:', error);
+			}
 
-            levels = raw_levels.split('\t\n');
-            gradients = raw_gradients.split('\n');
+			levels = raw_levels.split('\t\n');
+			gradients = raw_gradients.split('\n');
 
-            prepareGrid();
-            populateLevelDropdown();
-            prepareGradients();
-        });
+			prepareGrid();
+			populateLevelDropdown();
+			prepareGradients();
+		});
 
-        document.getElementById("search").addEventListener("keypress", function(event) {
+		document.getElementById("search").addEventListener("keypress", function(event) {
 		  if (event.key === "Enter") {
 			event.preventDefault();
 			document.getElementById("submit").click();
@@ -287,77 +289,65 @@
 		});
 
 		window.addEventListener('resize', function(event) {
-			if(self.innerWidth <= 750)
-			{
-				document.getElementById("words").style.gridTemplateColumns = "";
-				document.getElementById("words").style.fontSize = "";
-				document.getElementById("words").style.width = "";
-			}
-			else
-			{
-				updateGridPaint();
-			}
+			updateGridPaint();
 		}, true);
 
-        function prepareGrid() {
-        	foundWords = [];
-        	const levelSpecs = levels[level - 1].split('\t');
-        	document.getElementById("level-title").innerText = "Level " + level;
-        	document.getElementById("license").innerText = levelSpecs[0];
-        	document.getElementById("words").innerHTML = "";
-        	document.getElementById("search-grid").style.display = '';
-        	document.getElementById("congrats").style.display = 'none';
-        	levelWords = JSON.parse(levelSpecs[2].replaceAll('\'', '"'))
+		function prepareGrid() {
+			foundWords = [];
+			const levelSpecs = levels[level - 1].split('\t');
+			document.getElementById("level-title").innerText = "Level " + level;
+			document.getElementById("license").innerText = levelSpecs[0];
+			document.getElementById("words").innerHTML = "";
+			document.getElementById("search-grid").style.display = '';
+			document.getElementById("congrats").style.display = 'none';
+			levelWords = JSON.parse(levelSpecs[2].replaceAll('\'', '"'))
 
 			let wordIndex = 1
-        	for (const word of levelWords)
-        	{
-        		const wordBlanks = document.createElement("div");
-        		wordBlanks.id = wordIndex;
-        		wordBlanks.innerText = "_";
-        		for (let i = 0; i < word.length - 1; i++)
-        		{
-        			wordBlanks.innerText = wordBlanks.innerText + " _";
-        		}
+			for (const word of levelWords)
+			{
+				const wordBlanks = document.createElement("div");
+				wordBlanks.id = wordIndex;
+				wordBlanks.innerText = "_";
+				for (let i = 0; i < word.length - 1; i++)
+				{
+					wordBlanks.innerText = wordBlanks.innerText + " _";
+				}
 				document.getElementById("words").appendChild(wordBlanks);
 
 				wordIndex++;
-        	}
-
-        	if(self.innerWidth > 750)
-        	{
-	        	updateGridPaint();
 			}
-        }
 
-        function populateLevelDropdown() {
-        	for (let i = 1; i <= levels.length; i++)
-        	{
-        		const opt = document.createElement("option");
-        		opt.value = i;
-        		opt.text = "Level " + i;
-        		document.getElementById("level-select").appendChild(opt);
-        	}
-        }
+			updateGridPaint();
+		}
 
-        function submit() {
-        	const check = document.getElementById("search").value.toLowerCase();
-        	if (levelWords.includes(check) && !foundWords.includes(check))
-        	{
-        		foundWords.push(check);
-        		document.getElementById(levelWords.indexOf(check)+1).innerText = check.toUpperCase();
-        		document.getElementById("search").value = "";
+		function populateLevelDropdown() {
+			for (let i = 1; i <= levels.length; i++)
+			{
+				const opt = document.createElement("option");
+				opt.value = i;
+				opt.text = "Level " + i;
+				document.getElementById("level-select").appendChild(opt);
+			}
+		}
 
-        		if (foundWords.length == levelWords.length)
-        		{
-        			midLevelDisplay();
-        			document.getElementById("level-over-text").innerText = 'All words found!';
-        		}
-        	}
-        }
+		function submit() {
+			const check = document.getElementById("search").value.toLowerCase();
+			if (levelWords.includes(check) && !foundWords.includes(check))
+			{
+				foundWords.push(check);
+				document.getElementById(levelWords.indexOf(check)+1).innerText = check.toUpperCase();
+				document.getElementById("search").value = "";
 
-        function giveUp() {
-        	midLevelDisplay();
+				if (foundWords.length == levelWords.length)
+				{
+					midLevelDisplay();
+					document.getElementById("level-over-text").innerText = 'All words found!';
+				}
+			}
+		}
+
+		function giveUp() {
+			midLevelDisplay();
 			document.getElementById("level-over-text").innerText = `${foundWords.length} of ${levelWords.length} words found.`;
 
 			for (let i = 0; i < levelWords.length; i++)
@@ -368,10 +358,10 @@
 					document.getElementById(i+1).style.color = "#bf0000";
 				}
 			}
-        }
+		}
 
-        function midLevelDisplay() {
-        	document.getElementById("search-grid").style.display = 'none';
+		function midLevelDisplay() {
+			document.getElementById("search-grid").style.display = 'none';
 			document.getElementById("congrats").style.display = '';
 
 			if (level == levels.length)
@@ -382,63 +372,87 @@
 			{
 				document.getElementById("nextLevel").disabled = false;
 			}
-        }
+		}
 
-        function nextLevel() {
-        	level++;
-        	prepareGrid();
-        }
+		function nextLevel() {
+			level++;
+			prepareGrid();
+		}
 
-        function changeLevel(sel) {
-        	level = sel.value;
-        	prepareGrid();
-        }
+		function changeLevel(sel) {
+			level = sel.value;
+			prepareGrid();
+		}
 
-        function toggleFAQ() {
-        	document.getElementById("faq").style.display = document.getElementById("faq").style.display == "none" ? "" : "none";
-        }
+		function toggleFAQ() {
+			document.getElementById("faq").style.display = document.getElementById("faq").style.display == "none" ? "" : "none";
+		}
 
-        function updateGridPaint() {
-        	gridColCount = Math.min(5, Math.floor(levelWords.length / 6) + 1);
-        	gridWidth = 50 + (gridColCount * 9);
-        	gridFontSize = Math.max(48 - (6 * gridColCount), 22);
+		function updateGridPaint() {
+			// mobile
+			if (window.matchMedia("(max-width: 768px)").matches)
+			{
+				document.getElementById("words").style.gridTemplateColumns = "1fr 1fr";
+				document.getElementById("words").style.fontSize = (30 - maxLevelLength()) + "px";
+				document.getElementById("words").style.width = "95%";
+			}
+			// desktop
+			else
+			{
+				gridColCount = Math.min(5, Math.floor(levelWords.length / 6) + 1);
+				gridWidth = 50 + (gridColCount * 9);
+				gridFontSize = Math.max(48 - (6 * gridColCount), 22);
 
-			document.getElementById("words").style.gridTemplateColumns = "repeat(" + gridColCount + ", 1fr)";
-			document.getElementById("words").style.fontSize = gridFontSize + "px";
-			document.getElementById("words").style.width = gridWidth + "%";
-        }
+				document.getElementById("words").style.gridTemplateColumns = "repeat(" + gridColCount + ", 1fr)";
+				document.getElementById("words").style.fontSize = gridFontSize + "px";
+				document.getElementById("words").style.width = gridWidth + "%";
+			}
+		}
 
-        function prepareGradients() {
-            for (const gradient of gradients)
-            {
-            	gradientStats = gradient.split('\t');
+		function maxLevelLength() {
+			let l = 0
+			for (const word of levelWords)
+			{
+				if (word.length > l)
+				{
+					l = word.length;
+				}
+			}
+			console.log(l);
+			return l;
+		}
 
-            	const opt = document.createElement("option");
-	    		opt.value = gradientStats[0].replace(' ', '-');
-	    		opt.text = gradientStats[0];
+		function prepareGradients() {
+			for (const gradient of gradients)
+			{
+				gradientStats = gradient.split('\t');
+
+				const opt = document.createElement("option");
+				opt.value = gradientStats[0].replace(' ', '-');
+				opt.text = gradientStats[0];
 				document.getElementById("color-select").appendChild(opt);
-            }
+			}
 
-            setGradient();
-        }
+			setGradient();
+		}
 
-        function setGradient() {
-        	gradient = document.getElementById("color-select").value;
+		function setGradient() {
+			gradient = document.getElementById("color-select").value;
 
-        	gradTop = "#000000";
-        	gradBottom = "#FFFFFF";
-        	for (const grad of gradients)
-        	{
-        		gradientStats = grad.split('\t');
-        		if (gradient == gradientStats[0].replace(' ', '-'))
-        		{
-        			gradTop = gradientStats[1];
-        			gradBottom = gradientStats[2];
-        		}
-        	}
+			gradTop = "#000000";
+			gradBottom = "#FFFFFF";
+			for (const grad of gradients)
+			{
+				gradientStats = grad.split('\t');
+				if (gradient == gradientStats[0].replace(' ', '-'))
+				{
+					gradTop = gradientStats[1];
+					gradBottom = gradientStats[2];
+				}
+			}
 
-        	document.body.style.backgroundImage = `linear-gradient(to bottom, ${gradTop}, ${gradBottom})`;
-        }
+			document.body.style.backgroundImage = `linear-gradient(to bottom, ${gradTop}, ${gradBottom})`;
+		}
 	</script>
 </body>
 </html>
