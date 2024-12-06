@@ -77,6 +77,10 @@
 	}
 	select {
 		text-align: center;
+		font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+		font-weight: 500;
+		cursor: pointer;
+		background-color: #F3F3F3;
 	}
 	.logo-container {
 		text-align: center;
@@ -111,11 +115,61 @@
 	.search-grid input {
 	    width: 100%;
 	    font-size: 16px;
+	    background-color: #F3F3F3;
+	    border: 1px #808080 solid;
 	}
-	.search-grid button {
+	/* courtesy of https://getcssscan.com/css-buttons-examples */
+	button {
 	    width: 100%;
 	    height: auto;
-	    font-size: 16px;
+	    font-size: 15px;
+		appearance: none;
+		background-color: #F3F3F3;
+		border: 1px #808080 solid;
+		border-radius: 6px;
+		box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+		box-sizing: border-box;
+		color: #24292E;
+		cursor: pointer;
+		display: inline-block;
+		font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+		font-weight: 500;
+		line-height: 20px;
+		list-style: none;
+		padding: 6px 16px;
+		position: relative;
+		transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+		user-select: none;
+		-webkit-user-select: none;
+		touch-action: manipulation;
+		vertical-align: middle;
+		white-space: nowrap;
+		word-wrap: break-word;
+	}
+	button:hover {
+	  background-color: #F3F4F6;
+	  text-decoration: none;
+	  transition-duration: 0.1s;
+	}
+	button:disabled {
+	  background-color: #FAFBFC;
+	  border-color: rgba(27, 31, 35, 0.15);
+	  color: #959DA5;
+	  cursor: default;
+	}
+	button:active {
+	  background-color: #EDEFF2;
+	  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+	  transition: none 0s;
+	}
+	button:focus {
+	  outline: 1px transparent;
+	}
+	button:before {
+	  display: none;
+	}
+	button:-webkit-details-marker {
+	  display: none;
 	}
 	.mid-level-grid {
 		width: 95%;
@@ -127,11 +181,6 @@
 		gap: 10px;
 		justify-items: center;
 		align-items: center;
-	}
-	.mid-level-grid button {
-	    width: 100%;
-	    height: auto;
-	    font-size: 18px;
 	}
 	.word-box {
 		padding-top: 40px;
@@ -168,9 +217,9 @@
 			<br><br>
 			This is a game I came up with when stuck in traffic, staring at license plates. Here in Washington state, new license plates always follow the pattern BCD####, which is great if your brain forces you to play word games ad nauseam. The goal is to find all words that consist of the three-letter pattern shown, plus any number of vowels in any spaces. For instance, if you were shown RZZ, you would type RAZZ, or perhaps RIZZ. Find them all and you complete the level!
 			<br><br>
-			<b>Why don't I recognize some of these words?</b>
+			<b>How did you prepare the word list for this?</b>
 			<br><br>
-			It's weirdly hard to find a wordlist online that has all the words I wanted but not a bunch of weird words also, so I'm using the official Scrabble dictionary. If you don't recognize some of the words shown, play more Scrabble, I guess.
+			It's weirdly hard to find a list online that feels complete but doesn't also have a hundred-thousand arcane words no one has ever heard of, so I made my own using a cross-section of the Scrabble dictionary and the <a href="https://www.spreadthewordlist.com/">Spread the Wordlist</a> list. If you need words for anything, check them out. It's a great project, and it's free!
 			<br><br>
 			<b>Anything else I should know?</b>
 			<br><br>

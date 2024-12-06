@@ -5,7 +5,7 @@ consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', '
 words_stripped = []
 cc_scored = []
 
-with open('words_stripped.txt') as f:
+with open('lists/words_final.txt') as f:
 	for line in f:
 		words_stripped.append([''.join([x for x in line.rstrip() if x not in 'aeiou']), line.rstrip()])
 
@@ -21,12 +21,12 @@ for first in consonants:
 					matches.append(w[1])
 					score = score + len(w[1])
 			
-			if len(matches) >= 8:
+			if len(matches) >= 4:
 				cc_scored.append([conso_combo, score, matches])
 
 ccs_sorted = sorted(cc_scored, key=lambda x: x[1])
 
-with open('levels.txt', 'w') as f:
+with open('lists/levels.txt', 'w') as f:
 	for arr in ccs_sorted:
 		for item in arr:
 			f.write('%s\t' % item)
