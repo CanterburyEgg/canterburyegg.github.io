@@ -2,28 +2,231 @@
 <head>
 	<title>Licensed to Spell</title>
 </head>
+<style>
+	body {
+		background-image: linear-gradient(to bottom, #2193b0, #6dd5ed);
+		background-size: cover;
+		background-attachment: fixed;
+		font-size: 24px;
+		font-family: 'Georgia';
+		font-weight: bolder;
+		text-shadow: 1px 1px 2px white;
+		justify-items: center;
+		overscroll-behavior: none;
+	}
+	@font-face {
+		font-family: license;
+		src: url('fonts/LicensePlate.ttf');
+	}
+	.faq {
+		width: 95%;
+		max-width: 700px;
+		height: 70%;
+		max-height: 500px;
+		position: absolute;
+		top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    justify-items: center;
+	    align-items: center;
+	    display: grid;
+	}
+	.faq .x {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 50px;
+		cursor: pointer;
+		z-index: 2;
+	}
+	.faq .square {
+		width: 100%;
+		height: 100%;
+		border:3px solid #171717;
+		background-color: #D3D3D3;
+		position: absolute;
+		top: 50%;
+	    left: 50%;
+	    transform: translate(-50%,-50%);
+	    z-index: -1;
+	}
+	.faq .text {
+		width: 90%;
+		height: auto;
+		position: relative;
+		font-weight: normal;
+		font-size: 19px;
+	}
+	.header-bar {
+		padding-top: 10px;
+		padding-left: 10px;
+		justify-items: left;
+		width: 100%;
+		display: flex;
+	}
+	.header-bar img {
+		width: 50px;
+		height: auto;
+		cursor: pointer;
+	}
+	.selects {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 4px;
+		padding-left: 10px;
+	}
+	select {
+		text-align: center;
+	}
+	.logo-container {
+		text-align: center;
+		margin-top: -50px;
+	}
+	.logo-container img {
+		width: 150px;
+	}
+	.page-contents {
+		width: 80%;
+		justify-items: center;
+		align-items: center;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+	.page-title {
+		padding-top: 10px;
+		padding-bottom: 20px;
+		font-family: license;
+		font-size: 140px;
+	}
+	.search-grid {
+		width: 95%;
+		max-width: 500px;
+		height: 30px;
+		margin: auto;
+		display: grid;
+		grid-template-columns: 3fr 1fr 1fr;
+		gap: 10px;
+		justify-items: center;
+	}
+	.search-grid input {
+	    width: 100%;
+	    font-size: 16px;
+	}
+	.search-grid button {
+	    width: 100%;
+	    height: auto;
+	    font-size: 16px;
+	}
+	.mid-level-grid {
+		width: 95%;
+		max-width: 500px;
+		height: 30px;
+		margin: auto;
+		display: grid;
+		grid-template-columns: 3.5fr 1.5fr;
+		gap: 10px;
+		justify-items: center;
+		align-items: center;
+	}
+	.mid-level-grid button {
+	    width: 100%;
+	    height: auto;
+	    font-size: 18px;
+	}
+	.word-box {
+		padding-top: 40px;
+		display: grid;
+		column-gap: 30px;
+		row-gap: 15px;
+		text-align: center;
+		overflow-y: scroll;
+	}
+	.footer {
+		position: absolute;
+		font-size: 14px;
+		top: 12px;
+		right: 16px;
+	}
+	/* mobile view */
+	@media ( max-width: 750px ) {
+		.word-box {
+	    	grid-template-columns: 1fr 1fr;  
+	    	font-size: 30px;
+	    	width: 95%;
+		}
+		.faq .text {
+			font-size: 17px;
+		}
+	}
+</style>
 <body>
-	<div id="license"></div>
-	<input type="text" name="search" id="search" spellcheck="false" autocomplete="off" autocorrext="off" spellcheck="false">
-	<button type="submit" onclick="submit()" id="submit">Submit</button>
-	<div id="congrats" style="display:none;">Well Done!<button type="submit" onclick="nextLevel()" id="nextLevel">Next Level ></button></div>
-	<div id="words"></div>
+	<div class="faq" id="faq" style="display: none;">
+		<img class="x" src="./img/x-icon.png" onclick="toggleFAQ()">
+		<div class="square"></div>
+		<div class="text">
+			<b>What is Licensed to Spell?</b>
+			<br><br>
+			This is a game I came up with when stuck in traffic, staring at license plates. Here in Washington state, new license plates always follow the pattern BCD####, which is great if your brain forces you to play word games ad nauseam. The goal is to find all words that consist of the three-letter pattern shown, plus any number of vowels in any spaces. For instance, if you were shown RZZ, you would type RAZZ, or perhaps RIZZ. Find them all and you complete the level!
+			<br><br>
+			<b>Why don't I recognize some of these words?</b>
+			<br><br>
+			It's weirdly hard to find a wordlist online that has all the words I wanted but not a bunch of weird words also, so I'm using the official Scrabble dictionary. If you don't recognize some of the words shown, play more Scrabble, I guess.
+			<br><br>
+			<b>Anything else I should know?</b>
+			<br><br>
+			For the sake of this game, 'Y' is always a consonant.</div>
+	</div>
+	<div class="header-bar" id="header">
+		<img src="./img/qm.png" onclick="toggleFAQ()">
+		<div class="selects" id="selects">
+			<select id="color-select" onchange="setGradient()">
+			</select>
+			<select id="level-select" onchange="changeLevel(this)">
+				<option value="default">Level ...</option>
+			</select>
+		</div>
+	</div>
+	<div class="logo-container" id="logo"><img src="./img/lts-logo.png"></div>
+	<div class="page-contents">
+		<div class="level-title" id="level-title">Level 1</div>
+		<div class="page-title" id="license"></div>
+		<div class="search-grid" id="search-grid">
+			<input type="text" name="search" id="search" spellcheck="false" autocomplete="off" autocorrext="off" spellcheck="false">
+			<button type="submit" onclick="submit()" id="submit">SUBMIT</button>
+			<button type="submit" onclick="giveUp()" id="submit">GIVE UP</button>
+		</div>
+		<div class="mid-level-grid" id="congrats" style="display:none;">
+			<div id="level-over-text">All words found!</div>
+			<button type="submit" onclick="nextLevel()" id="nextLevel">NEXT LEVEL ></button>
+		</div>
+		<div class="word-box" id="words"></div>
+	</div>
+	<div class="footer">Gradients courtesy of <a href="https://uigradients.com/" target="_blank">uiGradients</a>.</div>
 	<script>
 		let levels = []
 		let levelWords = []
-		let level = 0
-		let found = 0
+		let foundWords = []
+		let level = 1
+		let gradients = []
 
 		document.addEventListener("DOMContentLoaded", async function () {
-            // this is all to prepare a random card of the day lol
-            await fetch('./lists/levels.txt')
-                .then(response => response.text())
-                .then(text => {
-                    // Do something with the text content
-                    levels = text.split('\t\n'); 
-            }).catch(error => console.error('Error:', error));
+            try {
+            	const response1 = await fetch('./lists/levels.txt');
+            	raw_levels = await response1.text();
+
+            	const response2 = await fetch('./lists/gradients.txt');
+            	raw_gradients = await response2.text();
+            }
+            catch(error) {
+            	console.error('Error:', error);
+            }
+
+            levels = raw_levels.split('\t\n');
+            gradients = raw_gradients.split('\n');
 
             prepareGrid();
+            populateLevelDropdown();
+            prepareGradients();
         });
 
         document.getElementById("search").addEventListener("keypress", function(event) {
@@ -33,11 +236,27 @@
 		  }
 		});
 
+		window.addEventListener('resize', function(event) {
+			if(self.innerWidth <= 750)
+			{
+				document.getElementById("words").style.gridTemplateColumns = "";
+				document.getElementById("words").style.fontSize = "";
+				document.getElementById("words").style.width = "";
+			}
+			else
+			{
+				updateGridPaint();
+			}
+		}, true);
+
         function prepareGrid() {
-        	found = 0;
-        	const levelSpecs = levels[level].split('\t');
+        	foundWords = [];
+        	const levelSpecs = levels[level - 1].split('\t');
+        	document.getElementById("level-title").innerText = "Level " + level;
         	document.getElementById("license").innerText = levelSpecs[0];
         	document.getElementById("words").innerHTML = "";
+        	document.getElementById("search-grid").style.display = '';
+        	document.getElementById("congrats").style.display = 'none';
         	levelWords = JSON.parse(levelSpecs[2].replaceAll('\'', '"'))
 
 			let wordIndex = 1
@@ -54,27 +273,121 @@
 
 				wordIndex++;
         	}
+
+        	if(self.innerWidth > 750)
+        	{
+	        	updateGridPaint();
+			}
+        }
+
+        function populateLevelDropdown() {
+        	for (let i = 1; i <= levels.length; i++)
+        	{
+        		const opt = document.createElement("option");
+        		opt.value = i;
+        		opt.text = "Level " + i;
+        		document.getElementById("level-select").appendChild(opt);
+        	}
         }
 
         function submit() {
-        	const check = document.getElementById("search").value;
-        	if (levelWords.includes(check))
+        	const check = document.getElementById("search").value.toLowerCase();
+        	if (levelWords.includes(check) && !foundWords.includes(check))
         	{
-        		found++
-        		document.getElementById(levelWords.indexOf(check)+1).innerText = check;
+        		foundWords.push(check);
+        		document.getElementById(levelWords.indexOf(check)+1).innerText = check.toUpperCase();
         		document.getElementById("search").value = "";
 
-        		if (found == levelWords.length)
+        		if (foundWords.length == levelWords.length)
         		{
-        			document.getElementById("congrats").style.display = '';
+        			midLevelDisplay();
+        			document.getElementById("level-over-text").innerText = 'All words found!';
         		}
         	}
         }
 
+        function giveUp() {
+        	midLevelDisplay();
+			document.getElementById("level-over-text").innerText = `${foundWords.length} of ${levelWords.length} words found.`;
+
+			for (let i = 0; i < levelWords.length; i++)
+			{
+				if (!foundWords.includes(levelWords[i]))
+				{
+					document.getElementById(i+1).innerText = levelWords[i].toUpperCase();
+					document.getElementById(i+1).style.color = "#bf0000";
+				}
+			}
+        }
+
+        function midLevelDisplay() {
+        	document.getElementById("search-grid").style.display = 'none';
+			document.getElementById("congrats").style.display = '';
+
+			if (level == levels.length)
+			{
+				document.getElementById("nextLevel").disabled = true;
+			}
+			else
+			{
+				document.getElementById("nextLevel").disabled = false;
+			}
+        }
+
         function nextLevel() {
         	level++;
-        	document.getElementById("congrats").style.display = 'none';
         	prepareGrid();
+        }
+
+        function changeLevel(sel) {
+        	level = sel.value;
+        	prepareGrid();
+        }
+
+        function toggleFAQ() {
+        	document.getElementById("faq").style.display = document.getElementById("faq").style.display == "none" ? "" : "none";
+        }
+
+        function updateGridPaint() {
+        	gridColCount = Math.min(5, Math.floor(levelWords.length / 6) + 1);
+        	gridWidth = 50 + (gridColCount * 9);
+        	gridFontSize = Math.max(48 - (6 * gridColCount), 22);
+
+			document.getElementById("words").style.gridTemplateColumns = "repeat(" + gridColCount + ", 1fr)";
+			document.getElementById("words").style.fontSize = gridFontSize + "px";
+			document.getElementById("words").style.width = gridWidth + "%";
+        }
+
+        function prepareGradients() {
+            for (const gradient of gradients)
+            {
+            	gradientStats = gradient.split('\t');
+
+            	const opt = document.createElement("option");
+	    		opt.value = gradientStats[0].replace(' ', '-');
+	    		opt.text = gradientStats[0];
+				document.getElementById("color-select").appendChild(opt);
+            }
+
+            setGradient();
+        }
+
+        function setGradient() {
+        	gradient = document.getElementById("color-select").value;
+
+        	gradTop = "#000000";
+        	gradBottom = "#FFFFFF";
+        	for (const grad of gradients)
+        	{
+        		gradientStats = grad.split('\t');
+        		if (gradient == gradientStats[0].replace(' ', '-'))
+        		{
+        			gradTop = gradientStats[1];
+        			gradBottom = gradientStats[2];
+        		}
+        	}
+
+        	document.body.style.backgroundImage = `linear-gradient(to bottom, ${gradTop}, ${gradBottom})`;
         }
 	</script>
 </body>
