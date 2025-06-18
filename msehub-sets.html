@@ -188,7 +188,7 @@
 
 	function sortByKey(key) {
 		return function (a, b) {
-			if (typeof a === "string")
+			if (key != "count") // this is bad coding, don't do this kids
 			{
 				if (a[key].toLowerCase() < b[key].toLowerCase()) {
 					return -1;
