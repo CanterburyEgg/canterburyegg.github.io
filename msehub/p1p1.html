@@ -46,9 +46,7 @@
 <body>
 	<div class="set-list-header">MSE Hub Cards of the Day</div>
 	<div class="set-list-subheader">Pack 1, Pick 1</div>
-	<div class="placeholder" id="placeholder">
-		Generating image ...
-	</div>
+	<div class="placeholder" id="placeholder">Generating image ... (0 of 15)</div>
 	<canvas id="canvas" class="canvas"></canvas>
 	</div>
 </body>
@@ -152,6 +150,8 @@
 				const image = new Image();
 				image.src = card_url;
 				img_list.push(image);
+
+				document.getElementById("placeholder").innerText = "Generating image ... (" + img_list.length + " of 15)";
 			}
 
 			if (img_list.length == 15)
