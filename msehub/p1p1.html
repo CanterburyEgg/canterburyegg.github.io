@@ -214,7 +214,7 @@
 
 	function getDailySeed() {
 	    const today = new Date();
-	    return today.getFullYear() * 10000 + today.getMonth() * 100 + today.getDate();
+	    return today.getUTCFullYear() * 10000 + today.getUTCMonth() * 100 + today.getUTCDate();
 	}
 
 	function shuffleArraySeeded(array, randomFunc) {
