@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>MSE Hub Sets</title>
+	<link rel="icon" href="/img/mse-favicon.png" type="image/x-icon">
 </head>
 <style>
 	@font-face {
@@ -84,7 +85,7 @@
 		margin: auto;
 		display: grid;
 		grid-template-columns: 4fr 1fr;
-		gap: 10px;
+		gap: 20px;
 		padding-top: 20px;
 		padding-bottom: 20px;
 		justify-items: center;
@@ -126,11 +127,41 @@
 		box-shadow: none;
 		color: #cccccc;
 	}
+	.search-container {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		width: 100%;
+		gap: 10px;
+		align-items: center;
+		text-align: center;
+	}
+	.search-container input {
+		width: 100%;
+		height: 35px;
+		font-size: 16px;
+		background-color: #fafafa;
+		border: 1px solid #d5d9d9;
+		border-radius: 4px;
+		outline: none;
+		padding: 0 10px;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	.search-container input:focus {
+		border-color: #171717;
+	}
+	.search-results-text {
+		min-width: fit-content;
+	}
 </style>
 <body>
 	<div class="set-list-header">MSE Hub Sets</div>
 	<div class="button-grid">
-		<div id="set-results"></div>
+		<div class="search-container">
+			<div class="search-results-text" id="set-results"></div>
+			<input type="text" inputmode="search" placeholder="Search ..." name="search" id="search" spellcheck="false" autocomplete="off" autocorrect="off" spellcheck="false">
+		</div>
 		<div class="prev-next-btns">
 			<button id="prev" onclick="turnPage(-1)">< Prev</button>
 			<button id="next" onclick="turnPage(1)">Next ></button>
@@ -158,7 +189,7 @@
 
 <script>
 	let hub_json = {};
-	let sets = [];
+	let sets_raw = [];
 	let key = '';
 	let page = 0;
 	
@@ -178,12 +209,16 @@
 					set.title = fixCapitalization(set.title);
 					set.author = user;
 					set.count = Number(set.count);
-					sets.push(set);
+					sets_raw.push(set);
 				}
 			}
 		}
 
 		sortAndRender("title");
+	});
+
+	document.getElementById("search").addEventListener("input", (event) => {
+		build_page();
 	});
 
 	function sortByKey(key) {
@@ -219,18 +254,18 @@
 
 		if (key == str)
 		{
-			sets = sets.reverse();
+			sets_raw = sets_raw.reverse();
 		}
 		else
 		{
 			if (str != "title") // sort by title first so results with similar comparators are alphabetical
 			{
-				sets = sets.sort(sortByKey("title"));
+				sets_raw = sets_raw.sort(sortByKey("title"));
 			}
-			sets = sets.sort(sortByKey(str));
+			sets_raw = sets_raw.sort(sortByKey(str));
 			if (str == "count")
 			{
-				sets = sets.reverse(); // put highest counts first
+				sets_raw = sets_raw.reverse(); // put highest counts first
 			}
 		}
 
@@ -245,13 +280,23 @@
 	}
 
 	function build_page() {
+		let sets = [];
+		let search = document.getElementById("search").value.toLowerCase();
+		for (const set of sets_raw)
+		{
+			if (set.title.toLowerCase().includes(search) || set.author.toLowerCase().includes(search) || set.code.toLowerCase().includes(search))
+			{
+				sets.push(set);
+			}
+		}
+
 		document.getElementById("prev").disabled = (page == 0);
 		document.getElementById("next").disabled = ((page + 1) * 20 > sets.length);
 
 		document.getElementById("prev-footer").disabled = (page == 0);
 		document.getElementById("next-footer").disabled = ((page + 1) * 20 > sets.length);
 
-		document.getElementById("set-results").innerText = "Sets " + ((20 * page) + 1) + " \u2013 " + Math.min((20 * (page + 1)), sets.length + 1) + " of " + (sets.length + 1);
+		document.getElementById("set-results").innerText = ((20 * page) + 1) + " \u2013 " + Math.min((20 * (page + 1)), sets.length) + " of " + (sets.length);
 
 		document.getElementById("hub-list").innerHTML = "";
 

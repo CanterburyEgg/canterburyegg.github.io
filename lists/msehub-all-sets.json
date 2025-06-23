@@ -1,6 +1,41 @@
 ﻿{
-    "BluePhoenix234": [],
+    "viola-mse": [
+        {
+            "href": "https://viola-mse.github.io/sets/BHES",
+            "img_src": "https://viola-mse.github.io/sets/BHES-files/icon.png",
+            "title": "Bauhinia: Eternal Spring",
+            "code": "BHES",
+            "count": "240"
+        }
+    ],
+    "CH4INS4WM4N": [
+        {
+            "href": "https://CH4INS4WM4N.github.io/sets/PS1",
+            "img_src": "https://CH4INS4WM4N.github.io/sets/PS1-files/icon.png",
+            "title": "Pack Set 1",
+            "code": "PS1",
+            "count": "565"
+        }
+    ],
     "Asertygoyf": [],
+    "SigeaMtG": [
+        {
+            "href": "https://SigeaMtG.github.io/sets/IRA",
+            "img_src": "https://SigeaMtG.github.io/sets/IRA-files/icon.png",
+            "title": "IRA Design File",
+            "code": "IRA",
+            "count": "176"
+        }
+    ],
+    "BluePhoenix234": [
+        {
+            "href": "https://BluePhoenix234.github.io/sets/ESO",
+            "img_src": "https://BluePhoenix234.github.io/sets/ESO-files/icon.png",
+            "title": "The Elder Scrolls: Osimer",
+            "code": "ESO",
+            "count": "155"
+        }
+    ],
     "Virgile198": [
         {
             "href": "https://Virgile198.github.io/sets/RNF",
@@ -65,20 +100,13 @@
             "count": "146"
         }
     ],
-    "uiwow7": [
+    "Aanginer": [
         {
             "href": "https://uiwow7.github.io/sets/DCO",
             "img_src": "https://uiwow7.github.io/sets/DCO-files/icon.png",
             "title": "Dazon: Cosmic Outcasts",
             "code": "DCO",
             "count": "212"
-        },
-        {
-            "href": "https://uiwow7.github.io/sets/SHS",
-            "img_src": "https://uiwow7.github.io/sets/SHS-files/icon.png",
-            "title": "A Shattered Sword",
-            "code": "SHS",
-            "count": "201"
         }
     ],
     "redpandersbear": [
@@ -130,7 +158,7 @@
             "img_src": "https://RickyRister.github.io/sets/F2HU-files/icon.png",
             "title": "Universes Beyond: Touhou Fangames/Albums",
             "code": "F2HU",
-            "count": "200"
+            "count": "205"
         }
     ],
     "argetbrisingr": [
@@ -190,6 +218,13 @@
             "title": "Velesta Discovered",
             "code": "VLD",
             "count": "356"
+        },
+        {
+            "href": "https://kidkamando.github.io/sets/VRG",
+            "img_src": "https://kidkamando.github.io/sets/VRG-files/icon.png",
+            "title": "Velesta Reforged",
+            "code": "VRG",
+            "count": "309"
         },
         {
             "href": "https://kidkamando.github.io/sets/VWT",
@@ -278,7 +313,7 @@
             "img_src": "https://hkrat.github.io/sets/Kube-files/icon.png",
             "title": "Krowkube",
             "code": "Kube",
-            "count": "456"
+            "count": "460"
         },
         {
             "href": "https://hkrat.github.io/sets/COT",
@@ -360,11 +395,11 @@
     ],
     "yumyum36": [
         {
-            "href": "https://yumyum36.github.io/sets/CCC",
-            "img_src": "https://yumyum36.github.io/sets/CCC-files/icon.png",
+            "href": "https://yumyum36.github.io/sets/UOL",
+            "img_src": "https://yumyum36.github.io/sets/UOL-files/icon.png",
             "title": "UOL Custom Card Contest",
-            "code": "CCC",
-            "count": "1597"
+            "code": "UOL",
+            "count": "1613"
         }
     ],
     "Plaster-Man": [
@@ -616,7 +651,7 @@
             "img_src": "https://Nixolium.github.io/sets/AEK-files/icon.png",
             "title": "Aekyu: Idyllic Days",
             "code": "AEK",
-            "count": "245"
+            "count": "241"
         },
         {
             "href": "https://Nixolium.github.io/sets/AQJ",
@@ -716,7 +751,7 @@
             "img_src": "https://Itaho.github.io/sets/WUWA-files/icon.png",
             "title": "Wuthering Waves",
             "code": "WUWA",
-            "count": "63"
+            "count": "69"
         }
     ],
     "crushcastles23": [
@@ -855,7 +890,7 @@
         {
             "href": "https://MrBlueTie.github.io/sets/KEC",
             "img_src": "https://MrBlueTie.github.io/sets/KEC-files/icon.png",
-            "title": "Kylems Oncore",
+            "title": "Kylems Encore",
             "code": "KEC",
             "count": "271"
         }
@@ -1346,7 +1381,7 @@
             "img_src": "https://kxu9969.github.io/sets/DTH-files/icon.png",
             "title": "Defy the Heavens",
             "code": "DTH",
-            "count": "225"
+            "count": "247"
         }
     ],
     "mattelonian": [
@@ -1402,6 +1437,20 @@
             "title": "Kallatree Ascension",
             "code": "KLA",
             "count": "286"
+        },
+        {
+            "href": "https://ProvocativeMTG.github.io/sets/MOX",
+            "img_src": "https://ProvocativeMTG.github.io/sets/MOX-files/icon.png",
+            "title": "Midnight Omens of Xogoa",
+            "code": "MOX",
+            "count": "204"
+        },
+        {
+            "href": "https://ProvocativeMTG.github.io/sets/EDR",
+            "img_src": "https://ProvocativeMTG.github.io/sets/EDR-files/icon.png",
+            "title": "The Elden Ring Commander Cube",
+            "code": "EDR",
+            "count": "458"
         }
     ],
     "Crashington": [
@@ -1670,7 +1719,14 @@
             "img_src": "https://grapplex.github.io/sets/TAL-files/icon.png",
             "title": "Ulaith: Cos Teilo\u2019s Feast",
             "code": "TAL",
-            "count": "27"
+            "count": "326"
+        },
+        {
+            "href": "https://grapplex.github.io/sets/PFG",
+            "img_src": "https://grapplex.github.io/sets/PFG-files/icon.png",
+            "title": "Profondo Giallo",
+            "code": "PFG",
+            "count": "0"
         },
         {
             "href": "https://grapplex.github.io/sets/666",
@@ -1828,7 +1884,7 @@
             "img_src": "https://schwa77.github.io/sets/MOX-files/icon.png",
             "title": "Midnight Omens of Xogoa",
             "code": "MOX",
-            "count": "202"
+            "count": "204"
         },
         {
             "href": "https://schwa77.github.io/sets/GS2",
@@ -1900,13 +1956,6 @@
             "title": "Popcorn",
             "code": "POP",
             "count": "368"
-        },
-        {
-            "href": "https://rrredbay.github.io/sets/RBL",
-            "img_src": "https://rrredbay.github.io/sets/RBL-files/icon.png",
-            "title": "Rebels Masters",
-            "code": "RBL",
-            "count": "91"
         },
         {
             "href": "https://rrredbay.github.io/sets/TLC",
@@ -2017,6 +2066,13 @@
         }
     ],
     "CanterburyEgg": [
+        {
+            "href": "https://magictheegg.github.io/sets/ATR",
+            "img_src": "https://magictheegg.github.io/sets/ATR-files/icon.png",
+            "title": "The Shattered Pantheon of Atros",
+            "code": "ATR",
+            "count": "261"
+        },
         {
             "href": "https://magictheegg.github.io/sets/SHF",
             "img_src": "https://magictheegg.github.io/sets/SHF-files/icon.png",
@@ -2198,6 +2254,36 @@
             "title": "Aldmore Cube",
             "code": "ACE",
             "count": "450"
+        }
+    ],
+    "DrChillbrain": [
+        {
+            "href": "https://chillbrain.net/sets/2022",
+            "img_src": "https://chillbrain.net/sets/2022-files/icon.png",
+            "title": "The 2022be",
+            "code": "2022",
+            "count": "360"
+        },
+        {
+            "href": "https://chillbrain.net/sets/PMD",
+            "img_src": "https://chillbrain.net/sets/PMD-files/icon.png",
+            "title": "Commander Legends: Pok\u00e9mon Mystery Dungeon",
+            "code": "PMD",
+            "count": "319"
+        },
+        {
+            "href": "https://chillbrain.net/sets/SOJ",
+            "img_src": "https://chillbrain.net/sets/SOJ-files/icon.png",
+            "title": "Song of Jannada",
+            "code": "SOJ",
+            "count": "268"
+        },
+        {
+            "href": "https://chillbrain.net/sets/VRD",
+            "img_src": "https://chillbrain.net/sets/VRD-files/icon.png",
+            "title": "Viridian\u2019s Last Mission",
+            "code": "VRD",
+            "count": "271"
         }
     ]
 }

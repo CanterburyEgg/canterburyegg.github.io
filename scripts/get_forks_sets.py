@@ -3,7 +3,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-def get_a_tags(username, url):
+def get_a_tags(url):
 	url = 'https://' + url
 	response = requests.get(url + '/all-sets')
 	soup = BeautifulSoup(response.content, 'html.parser')
@@ -20,6 +20,7 @@ def get_a_tags(username, url):
 
 			set_list.append(a_dict)
 
+	print('Sets loaded for ' + url + '.')
 	return set_list
 
 
@@ -27,10 +28,15 @@ if __name__ == '__main__':
 	with open('lists/msehub-list.json', encoding='utf-8-sig') as f:
 		js = json.load(f)
 
+	with open('lists/msehub-alias.json', encoding='utf-8-sig') as f:
+		alias = json.load(f)
+
 	all_sets = {}
 	for fork in js['forks']:
 		username = fork[:-10] # <USERNAME>[.github.io]
-		all_sets[username] = get_a_tags(username, fork)
+		if username in alias:
+			username = alias[username]
+		all_sets[username] = get_a_tags(fork)
 
 	with open('lists/msehub-include.txt', encoding='utf-8-sig') as f:
 		includelist = f.readlines()
@@ -38,8 +44,8 @@ if __name__ == '__main__':
 	for site in includelist:
 		contents = site.split('\t')
 		username = contents[0]
-		url = contents[1]
-		all_sets[username] = get_a_tags(username, url)
+		url = contents[1].rstrip()
+		all_sets[username] = get_a_tags(url)
 
 	with open('lists/msehub-all-sets.json', 'w', encoding='utf-8-sig') as f:
 		json.dump(all_sets, f, indent=4)
