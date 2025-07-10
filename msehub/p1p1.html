@@ -15,18 +15,34 @@
 	}
 	body {
 		height: 100%;
+		background: #f3f3f3;
+		color: #171717;
+		padding: 20px 0;
 	}
 	.set-list-header {
 		font-family: 'Beleren Small Caps';
 	  	font-size: 40px;
 	  	width: 100%;
 	  	text-align: center;
+	  	text-decoration: underline;
 	}
-	.set-list-subheader {
+	.selector-container {
 		font-family: 'Beleren';
 	  	font-size: 32px;
-	  	width: 100%;
+	  	width: 90%;
 	  	text-align: center;
+	  	display: grid;
+	  	grid-template-columns: repeat(4, 1fr);
+	  	margin: 15px auto;
+	  	background: #171717;
+	  	gap: 2px;
+	}
+	.selector {
+		cursor: pointer;
+		background: #f3f3f3;
+	}
+	.selector:hover {
+		color: #777777;
 	}
 	.canvas {
 		max-width: 90vw;
@@ -35,7 +51,7 @@
 		height: auto;
 		display: flex;
 		justify-self: center;
-		padding: 20px 0;
+		padding-top: 5px;
 	}
 	.placeholder {
 		width: 100%;
@@ -45,24 +61,41 @@
 	}
 </style>
 <body>
-	<div class="set-list-header">MSE Hub Cards of the Day</div>
-	<div class="set-list-subheader">Pack 1, Pick 1</div>
-	<div class="placeholder" id="placeholder">Generating image ... (0 of 15)</div>
+	<div class="set-list-header">MSE Hub: Pack 1, Pick 1</div>
+	<div class="selector-container">
+		<div class="selector" onclick='renderCanvas("p1p1")'>Default</div>
+		<div class="selector" onclick='renderCanvas("pauper")'>Pauper</div>
+		<div class="selector" onclick='renderCanvas("peasant")'>Peasant</div>
+		<div class="selector" onclick='renderCanvas("prince")'>Prince</div>
+	</div>
+	<div class="placeholder" id="placeholder">Generating images ...</div>
 	<canvas id="canvas" class="canvas"></canvas>
 	</div>
 </body>
 
 <script>
-	async function checkFileExists(url) {
-		try {
-			const response = await fetch(url, {
-				method: 'HEAD'
-			});
-			return response.ok;
-		} catch (error) {
-			return false;
+	let p1p1_lists = {
+		"p1p1": {
+			"forks": [],
+			"cards": []
+		},
+		"pauper": {
+			"rarities": [ "common" ],
+			"forks": [],
+			"cards": []
+		},
+		"peasant": {
+			"rarities": [ "common", "uncommon" ],
+			"forks": [],
+			"cards": []
+		},
+		"prince": {
+			"rarities": [ "rare", "mythic" ],
+			"forks": [],
+			"cards": []
 		}
-	}
+	};
+	let pack_size = 15;
 
 	async function checkImageLoads(url) {
 		return new Promise((resolve) => {
@@ -77,47 +110,27 @@
 		});
 	}
 
-	function containsOnlyLatinCharacters(str) {
-		const nonLatinRegex = /[^\p{Script=Latin}\p{N}\s.,!?:;"'@#$%^&*()-_+=\/\[\]{}|`~`]/u;
-
-		return !nonLatinRegex.test(str);
-	}
-
 	document.addEventListener("DOMContentLoaded", async function () {
-		await fetch('/lists/msehub-list.json')
-			.then(response => response.json())
-			.then(data => {
-				js = data; 
-		}).catch(error => console.error('Error:', error));
-
-		const r = await fetch('/lists/msehub-include.txt');
+		const r = await fetch('/lists/msehub-p1p1-include.txt');
 		i = await r.text();
-		includelist = i.split('\n');
+		forks = i.split('\n');
+		fork_cardlists = [];
 
-		forks = js.forks;
-		for (const line of includelist)
+		let mod = 0;
+		let myUrl = 'magictheegg.github.io';
+		for (const l in p1p1_lists)
 		{
-			forks.push(line.split('\t')[1]);
-		}		
+			tmp_forks = shuffleArraySeeded(forks, seededRandomFunc(getDailySeed(mod)));
 
-		forks = shuffleArraySeeded(forks, seededRandomFunc(getDailySeed()));
+			// I made it, so I always get to play
+			tmp_forks.splice(tmp_forks.indexOf(myUrl), 1);
+			tmp_forks.splice(reallyRand(14, mod), 0, myUrl);
 
-		// I made it so I always get to play
-		myUrl = 'magictheegg.github.io';
-		forks.splice(forks.indexOf(myUrl), 1);
-		forks.splice(reallyRand(14), 0, myUrl);
+			card_list = [];
+			for (let i = 0; i < tmp_forks.length; i++)
+			{
+				let url = 'https://' + tmp_forks[i] + '/lists/all-cards.json';
 
-		a_list = [];
-		img_list = [];
-
-		for (const fork of forks)
-		{
-			let url = 'https://' + fork + '/lists/all-cards.json';
-			let card_list = [];
-
-			const fileExists = await checkFileExists(url);
-
-			if (fileExists) {
 				try {
 					const response = await fetch(url);
 					json = await response.json();
@@ -125,71 +138,117 @@
 				} catch (error) {
 					console.error(`Error fetching JSON from ${url}: ${error}`)
 				}
-			}
-			else {
-				continue;
-			}
 
-			card_list_cleaned = [];
+				card_list_cleaned = [];
 
-			for (const card of card_list)
-			{
-				if (!card.shape.toLowerCase().includes("token") && !card.type.toLowerCase().includes("basic"))
+				for (const card of card_list)
 				{
-					card_list_cleaned.push(card);
+					if (!card.shape.toLowerCase().includes("token") && !card.type.toLowerCase().includes("basic"))
+					{
+						card_list_cleaned.push(card);
+					}
+				}
+
+				p1p1_lists[l]['cards'].push(card_list_cleaned);
+				p1p1_lists[l]['forks'].push(tmp_forks[i]);
+			}
+
+			p1p1_lists[l]['mod'] = mod;
+			mod -= 1;
+		}
+
+		await renderCanvas('p1p1');
+	});
+
+	async function renderCanvas(x) {
+		if (!p1p1_lists[x]['loaded'])
+		{
+			placeholder.innerText = "Generating images ...";
+			placeholder.style.display = "block";
+		}
+
+		const canvas = document.getElementById("canvas");
+		const ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		let cardlists = p1p1_lists[x]['cards'];
+		let forks = p1p1_lists[x]['forks'];
+		let mod = p1p1_lists[x]['mod'];
+		let rarities = p1p1_lists[x]['rarities'];
+		
+		let img_list = [];
+
+		for (let i = 0; i < pack_size; i++)
+		{
+			let list = cardlists[i];
+			let fork = forks[i];
+
+			let cotd = reallyRand(list.length, mod);
+			let card = list[cotd];
+			let attempts = 0;
+
+			while (rarities && !rarities.includes(card.rarity))
+			{
+				cotd = cotd != list.length - 1 ? cotd + 1 : 0;
+				card = list[cotd];
+
+				attempts = attempts + 1;
+				if (attempts == list.length)
+				{
+					console.log("No matching cards found for " + fork);
+					break;
 				}
 			}
 
-			const cotd = reallyRand(card_list_cleaned.length);
-			const card = card_list_cleaned[cotd];
+			if (attempts == list.length)
+			{
+				p1p1_lists[x]['cards'].splice(i, 1);
+				p1p1_lists[x]['forks'].splice(i, 1);
+				i = i - 1;
+				continue;
+			}
+
 			const card_url = 'https://' + fork + '/sets/' + card.set + '-files/img/' + card.number + '_' + card.card_name + (card.shape.includes('double') ? '_front' : '') + '.' + (card.image_type ? card.image_type : 'png');
 
 			const imageExistsAndLoads = await checkImageLoads(card_url);
 
-			if (imageExistsAndLoads && card.artist && card.artist != "" && (card.rules_text != "" || card.special_text != "") && containsOnlyLatinCharacters(card.card_name))
+			if (imageExistsAndLoads)
 			{
 				const image = new Image();
 				image.src = card_url;
 				img_list.push(image);
 
-				document.getElementById("placeholder").innerText = "Generating image ... (" + img_list.length + " of 15)";
-			}
-
-			if (img_list.length == 15)
-			{
-				const canvas = document.getElementById("canvas");
-				const ctx = canvas.getContext('2d');
-
-				canvas.width = 1883;
-				canvas.height = 1573;
-
-				x_offset = 0;
-				y_offset = 0;
-
-				for (let i = 1; i <= img_list.length; i++)
-				{
-					ctx.drawImage(img_list[i-1], x_offset, y_offset, 375, 523);
-
-					if (i % 5 == 0)
-					{
-						x_offset = 0;
-						y_offset += 525;
-					}
-					else
-					{
-						x_offset += 377;
-					}
-				}
-
-				document.getElementById("placeholder").style.display = "none";
-
-				break;
+				placeholder.innerText = "Generating images ... (" + img_list.length + " of " + pack_size + ")";
 			}
 		}
-	});
 
-	function reallyRand(x) {
-		const seed = getDailySeed();
+		canvas.width = 1883;
+		canvas.height = 1573;
+
+		x_offset = 0;
+		y_offset = 0;
+
+		for (let i = 1; i <= img_list.length; i++)
+		{
+			ctx.drawImage(img_list[i-1], x_offset, y_offset, 375, 523);
+
+			if (i % 5 == 0)
+			{
+				x_offset = 0;
+				y_offset += 525;
+			}
+			else
+			{
+				x_offset += 377;
+			}
+		}
+
+		placeholder.style.display = "none";
+		p1p1_lists[x]['loaded'] = true;
+	}
+
+	function reallyRand(x, mod=0) {
+		const seed = getDailySeed(mod);
 
 		const a = 1103515245;
 		const c = 12345;
@@ -213,9 +272,9 @@
 	    };
 	}
 
-	function getDailySeed() {
+	function getDailySeed(mod=0) {
 	    const today = new Date();
-	    return today.getUTCFullYear() * 10000 + today.getUTCMonth() * 100 + today.getUTCDate();
+	    return (today.getUTCFullYear() + mod) * 10000 + today.getUTCMonth() * 100 + today.getUTCDate();
 	}
 
 	function shuffleArraySeeded(array, randomFunc) {
