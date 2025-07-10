@@ -1,4 +1,51 @@
 ﻿{
+    "yzjdriel": [],
+    "kattalist": [
+        {
+            "href": "https://kattalist.github.io/sets/sgp",
+            "img_src": "https://kattalist.github.io/sets/sgp-files/icon.png",
+            "title": "Stirrings in Goldport",
+            "code": "sgp",
+            "count": "111"
+        }
+    ],
+    "Capitalich": [
+        {
+            "href": "https://Capitalich.github.io/sets/ATC",
+            "img_src": "https://Capitalich.github.io/sets/ATC-files/icon.png",
+            "title": "Adventure Time Cube",
+            "code": "ATC",
+            "count": "420"
+        }
+    ],
+    "leetwizard": [
+        {
+            "href": "https://leetwizard.github.io/sets/ord",
+            "img_src": "https://leetwizard.github.io/sets/ord-files/icon.png",
+            "title": "Crucible of Ordeval",
+            "code": "ord",
+            "count": "80"
+        }
+    ],
+    "garduu": [
+        {
+            "href": "https://garduu.github.io/sets/HSS",
+            "img_src": "https://garduu.github.io/sets/HSS-files/icon.png",
+            "title": "Hot Santa Summer",
+            "code": "HSS",
+            "count": "104"
+        }
+    ],
+    "bachtigh": [
+        {
+            "href": "https://bachtigh.github.io/sets/RUS",
+            "img_src": "https://bachtigh.github.io/sets/RUS-files/icon.png",
+            "title": "",
+            "code": "RUS",
+            "count": "45"
+        }
+    ],
+    "GnericUsername711": [],
     "viola-mse": [
         {
             "href": "https://viola-mse.github.io/sets/BHES",
@@ -24,7 +71,7 @@
             "img_src": "https://SigeaMtG.github.io/sets/IRA-files/icon.png",
             "title": "IRA Design File",
             "code": "IRA",
-            "count": "176"
+            "count": "201"
         }
     ],
     "BluePhoenix234": [
@@ -33,7 +80,7 @@
             "img_src": "https://BluePhoenix234.github.io/sets/ESO-files/icon.png",
             "title": "The Elder Scrolls: Osimer",
             "code": "ESO",
-            "count": "155"
+            "count": "164"
         }
     ],
     "Virgile198": [
@@ -65,9 +112,9 @@
         {
             "href": "https://mattaurawarrior.github.io/sets/UCB",
             "img_src": "https://mattaurawarrior.github.io/sets/UCB-files/icon.png",
-            "title": "",
+            "title": "Urshad: Covenant of Blood",
             "code": "UCB",
-            "count": "296"
+            "count": "297"
         }
     ],
     "thatguythattime": [
@@ -76,7 +123,7 @@
             "img_src": "https://thatguythattime.github.io/sets/cmi-files/icon.png",
             "title": "COMMANDER ICONS",
             "code": "cmi",
-            "count": "49"
+            "count": "163"
         },
         {
             "href": "https://thatguythattime.github.io/sets/cms",
@@ -149,7 +196,7 @@
             "img_src": "https://Scribbl16.github.io/sets/SOL-files/icon.png",
             "title": "Solastere",
             "code": "SOL",
-            "count": "318"
+            "count": "313"
         }
     ],
     "RickyRister": [
@@ -255,9 +302,24 @@
             "title": "Rampage of the Super Warriors",
             "code": "DM03",
             "count": "61"
+        },
+        {
+            "href": "https://Glowmus.github.io/sets/DUEL",
+            "img_src": "https://Glowmus.github.io/sets/DUEL-files/icon.png",
+            "title": "Duel Masters ALL",
+            "code": "DUEL",
+            "count": "312"
         }
     ],
-    "raser43": [],
+    "raser43": [
+        {
+            "href": "https://raser43.github.io/sets/HME",
+            "img_src": "https://raser43.github.io/sets/HME-files/icon.png",
+            "title": "Halo: Magic Evolved",
+            "code": "HME",
+            "count": "77"
+        }
+    ],
     "hkrat": [
         {
             "href": "https://hkrat.github.io/sets/TOC",
@@ -346,7 +408,7 @@
             "img_src": "https://Opacana.github.io/sets/AVA-files/icon.png",
             "title": "Avallus: Rediscovery",
             "code": "AVA",
-            "count": "271"
+            "count": "272"
         }
     ],
     "Syphren": [
@@ -399,7 +461,7 @@
             "img_src": "https://yumyum36.github.io/sets/UOL-files/icon.png",
             "title": "UOL Custom Card Contest",
             "code": "UOL",
-            "count": "1613"
+            "count": "1759"
         }
     ],
     "Plaster-Man": [
@@ -576,6 +638,13 @@
             "count": "43"
         },
         {
+            "href": "https://Beacon-of-Creation-MTG.github.io/sets/TVN",
+            "img_src": "https://Beacon-of-Creation-MTG.github.io/sets/TVN-files/icon.png",
+            "title": "Titans of Viludin Microset",
+            "code": "TVN",
+            "count": "45"
+        },
+        {
             "href": "https://Beacon-of-Creation-MTG.github.io/sets/VGT",
             "img_src": "https://Beacon-of-Creation-MTG.github.io/sets/VGT-files/icon.png",
             "title": "Voc-Gal Techniques",
@@ -622,11 +691,18 @@
     ],
     "Silver-Parabellum": [
         {
+            "href": "https://Silver-Parabellum.github.io/sets/DWA",
+            "img_src": "https://Silver-Parabellum.github.io/sets/DWA-files/icon.png",
+            "title": "Drauholm: Winter\u2019s Approach",
+            "code": "DWA",
+            "count": "269"
+        },
+        {
             "href": "https://Silver-Parabellum.github.io/sets/ONI",
             "img_src": "https://Silver-Parabellum.github.io/sets/ONI-files/icon.png",
             "title": "Onigaiko: Future Past",
             "code": "ONI",
-            "count": "288"
+            "count": "290"
         },
         {
             "href": "https://Silver-Parabellum.github.io/sets/RSD",
@@ -651,7 +727,7 @@
             "img_src": "https://Nixolium.github.io/sets/AEK-files/icon.png",
             "title": "Aekyu: Idyllic Days",
             "code": "AEK",
-            "count": "241"
+            "count": "249"
         },
         {
             "href": "https://Nixolium.github.io/sets/AQJ",
@@ -1193,6 +1269,13 @@
             "count": "88"
         },
         {
+            "href": "https://pipsqueakMTG.github.io/sets/SOL",
+            "img_src": "https://pipsqueakMTG.github.io/sets/SOL-files/icon.png",
+            "title": "",
+            "code": "SOL",
+            "count": "132"
+        },
+        {
             "href": "https://pipsqueakMTG.github.io/sets/WTM",
             "img_src": "https://pipsqueakMTG.github.io/sets/WTM-files/icon.png",
             "title": "Walking the Multiverse",
@@ -1363,7 +1446,7 @@
             "img_src": "https://anarchist-cm.github.io/sets/NFL-files/icon.png",
             "title": "Nightfall",
             "code": "NFL",
-            "count": "262"
+            "count": "263"
         }
     ],
     "theIntethesis": [
@@ -1381,7 +1464,35 @@
             "img_src": "https://kxu9969.github.io/sets/DTH-files/icon.png",
             "title": "Defy the Heavens",
             "code": "DTH",
-            "count": "247"
+            "count": "279"
+        },
+        {
+            "href": "https://kxu9969.github.io/sets/FAE",
+            "img_src": "https://kxu9969.github.io/sets/FAE-files/icon.png",
+            "title": "Faerie Tales",
+            "code": "FAE",
+            "count": "249"
+        },
+        {
+            "href": "https://kxu9969.github.io/sets/GSS",
+            "img_src": "https://kxu9969.github.io/sets/GSS-files/icon.png",
+            "title": "Golden Shores of Shiryen",
+            "code": "GSS",
+            "count": "221"
+        },
+        {
+            "href": "https://kxu9969.github.io/sets/TW2",
+            "img_src": "https://kxu9969.github.io/sets/TW2-files/icon.png",
+            "title": "",
+            "code": "TW2",
+            "count": "1"
+        },
+        {
+            "href": "https://kxu9969.github.io/sets/TWE",
+            "img_src": "https://kxu9969.github.io/sets/TWE-files/icon.png",
+            "title": "",
+            "code": "TWE",
+            "count": "2"
         }
     ],
     "mattelonian": [
@@ -1451,6 +1562,13 @@
             "title": "The Elden Ring Commander Cube",
             "code": "EDR",
             "count": "458"
+        },
+        {
+            "href": "https://ProvocativeMTG.github.io/sets/SOL",
+            "img_src": "https://ProvocativeMTG.github.io/sets/SOL-files/icon.png",
+            "title": "The Solitudines Teaser",
+            "code": "SOL",
+            "count": "45"
         }
     ],
     "Crashington": [
@@ -1647,7 +1765,7 @@
         {
             "href": "https://grapplex.github.io/sets/AKI",
             "img_src": "https://grapplex.github.io/sets/AKI-files/icon.png",
-            "title": "Akkadi: Empire\u2019s End",
+            "title": "Akaddi: Empire\u2019s End",
             "code": "AKI",
             "count": "261"
         },
@@ -1726,7 +1844,7 @@
             "img_src": "https://grapplex.github.io/sets/PFG-files/icon.png",
             "title": "Profondo Giallo",
             "code": "PFG",
-            "count": "0"
+            "count": "6"
         },
         {
             "href": "https://grapplex.github.io/sets/666",
@@ -1787,11 +1905,18 @@
     ],
     "DNAZangy": [
         {
-            "href": "https://DNAZangy.github.io/sets/ACT",
-            "img_src": "https://DNAZangy.github.io/sets/ACT-files/icon.png",
-            "title": "The Stage Presents: The Neverending Act",
-            "code": "ACT",
-            "count": "281"
+            "href": "https://DNAZangy.github.io/sets/SRC",
+            "img_src": "https://DNAZangy.github.io/sets/SRC-files/icon.png",
+            "title": "Secrets of the River Cities",
+            "code": "SRC",
+            "count": "254"
+        },
+        {
+            "href": "https://DNAZangy.github.io/sets/TRX",
+            "img_src": "https://DNAZangy.github.io/sets/TRX-files/icon.png",
+            "title": "Theros: Age of Trax",
+            "code": "TRX",
+            "count": "300"
         },
         {
             "href": "https://DNAZangy.github.io/sets/ALK",
@@ -1799,6 +1924,20 @@
             "title": "Alkabah",
             "code": "ALK",
             "count": "297"
+        },
+        {
+            "href": "https://DNAZangy.github.io/sets/ACT",
+            "img_src": "https://DNAZangy.github.io/sets/ACT-files/icon.png",
+            "title": "The Stage Presents: The Neverending Act",
+            "code": "ACT",
+            "count": "281"
+        },
+        {
+            "href": "https://DNAZangy.github.io/sets/ROS",
+            "img_src": "https://DNAZangy.github.io/sets/ROS-files/icon.png",
+            "title": "Alkabah: Rise of Soli",
+            "code": "ROS",
+            "count": "290"
         },
         {
             "href": "https://DNAZangy.github.io/sets/HOD",
@@ -1822,39 +1961,18 @@
             "count": "281"
         },
         {
-            "href": "https://DNAZangy.github.io/sets/RAR",
-            "img_src": "https://DNAZangy.github.io/sets/RAR-files/icon.png",
-            "title": "Ravnica: Resurgence",
-            "code": "RAR",
-            "count": "278"
-        },
-        {
-            "href": "https://DNAZangy.github.io/sets/ROS",
-            "img_src": "https://DNAZangy.github.io/sets/ROS-files/icon.png",
-            "title": "Alkabah: Rise of Soli",
-            "code": "ROS",
-            "count": "290"
-        },
-        {
-            "href": "https://DNAZangy.github.io/sets/SRC",
-            "img_src": "https://DNAZangy.github.io/sets/SRC-files/icon.png",
-            "title": "Secrets of the River Cities",
-            "code": "SRC",
-            "count": "254"
-        },
-        {
             "href": "https://DNAZangy.github.io/sets/TRO",
             "img_src": "https://DNAZangy.github.io/sets/TRO-files/icon.png",
             "title": "Trovsko",
             "code": "TRO",
-            "count": "283"
+            "count": "288"
         },
         {
-            "href": "https://DNAZangy.github.io/sets/TRX",
-            "img_src": "https://DNAZangy.github.io/sets/TRX-files/icon.png",
-            "title": "Theros: Age of Trax",
-            "code": "TRX",
-            "count": "300"
+            "href": "https://DNAZangy.github.io/sets/TWI",
+            "img_src": "https://DNAZangy.github.io/sets/TWI-files/icon.png",
+            "title": "Exalts of Twiltrie",
+            "code": "TWI",
+            "count": "303"
         },
         {
             "href": "https://DNAZangy.github.io/sets/ZANG",
@@ -1862,6 +1980,13 @@
             "title": "Zangy Cube",
             "code": "ZANG",
             "count": "453"
+        },
+        {
+            "href": "https://DNAZangy.github.io/sets/RAR",
+            "img_src": "https://DNAZangy.github.io/sets/RAR-files/icon.png",
+            "title": "Ravnica: Resurgence",
+            "code": "RAR",
+            "count": "278"
         },
         {
             "href": "https://DNAZangy.github.io/sets/ZNU",
@@ -1908,6 +2033,13 @@
             "count": "45"
         },
         {
+            "href": "https://schwa77.github.io/sets/X24",
+            "img_src": "https://schwa77.github.io/sets/X24-files/icon.png",
+            "title": "Moxtober 2024",
+            "code": "X24",
+            "count": "32"
+        },
+        {
             "href": "https://schwa77.github.io/sets/MRV",
             "img_src": "https://schwa77.github.io/sets/MRV-files/icon.png",
             "title": "Marvel Comics: The Cosmic Cube",
@@ -1942,6 +2074,13 @@
             "count": "280"
         },
         {
+            "href": "https://DrChipmunk.github.io/sets/LIM",
+            "img_src": "https://DrChipmunk.github.io/sets/LIM-files/icon.png",
+            "title": "Escape From Limbo",
+            "code": "LIM",
+            "count": "251"
+        },
+        {
             "href": "https://DrChipmunk.github.io/sets/PRU",
             "img_src": "https://DrChipmunk.github.io/sets/PRU-files/icon.png",
             "title": "Perennial Ultimatum",
@@ -1950,6 +2089,13 @@
         }
     ],
     "rrredbay": [
+        {
+            "href": "https://rrredbay.github.io/sets/FILM",
+            "img_src": "https://rrredbay.github.io/sets/FILM-files/icon.png",
+            "title": "Film",
+            "code": "FILM",
+            "count": "81"
+        },
         {
             "href": "https://rrredbay.github.io/sets/POP",
             "img_src": "https://rrredbay.github.io/sets/POP-files/icon.png",
