@@ -32,7 +32,7 @@
 	  	width: 90%;
 	  	text-align: center;
 	  	display: grid;
-	  	grid-template-columns: repeat(4, 1fr);
+	  	grid-template-columns: repeat(5, 1fr);
 	  	margin: 15px auto;
 	  	background: #171717;
 	  	gap: 2px;
@@ -67,6 +67,7 @@
 		<div class="selector" onclick='renderCanvas("pauper")'>Pauper</div>
 		<div class="selector" onclick='renderCanvas("peasant")'>Peasant</div>
 		<div class="selector" onclick='renderCanvas("prince")'>Prince</div>
+		<div class="selector" onclick='renderCanvas("cube")'>Cube</div>
 	</div>
 	<div class="placeholder" id="placeholder">Generating images ...</div>
 	<canvas id="canvas" class="canvas"></canvas>
@@ -91,6 +92,11 @@
 		},
 		"prince": {
 			"rarities": [ "rare", "mythic" ],
+			"forks": [],
+			"cards": []
+		},
+		"cube": {
+			"rarities": [ "cube" ],
 			"forks": [],
 			"cards": []
 		}
@@ -143,14 +149,17 @@
 
 				for (const card of card_list)
 				{
-					if (!card.shape.toLowerCase().includes("token") && !card.type.toLowerCase().includes("basic"))
+					if (!card.shape.toLowerCase().includes("token") && !card.type.toLowerCase().includes("basic") && (!p1p1_lists[l]['rarities'] || p1p1_lists[l]['rarities'].includes(card.rarity)))
 					{
 						card_list_cleaned.push(card);
 					}
 				}
 
-				p1p1_lists[l]['cards'].push(card_list_cleaned);
-				p1p1_lists[l]['forks'].push(tmp_forks[i]);
+				if (card_list_cleaned.length > 0)
+				{
+					p1p1_lists[l]['cards'].push(card_list_cleaned);
+					p1p1_lists[l]['forks'].push(tmp_forks[i]);
+				}
 			}
 
 			p1p1_lists[l]['mod'] = mod;
@@ -180,33 +189,19 @@
 
 		for (let i = 0; i < pack_size; i++)
 		{
+			if (i == cardlists.length)
+			{
+				cardlists.push(...cardlists);
+				forks.push(...forks);
+				mod = mod - 1;
+			}
+
 			let list = cardlists[i];
 			let fork = forks[i];
 
 			let cotd = reallyRand(list.length, mod);
 			let card = list[cotd];
 			let attempts = 0;
-
-			while (rarities && !rarities.includes(card.rarity))
-			{
-				cotd = cotd != list.length - 1 ? cotd + 1 : 0;
-				card = list[cotd];
-
-				attempts = attempts + 1;
-				if (attempts == list.length)
-				{
-					console.log("No matching cards found for " + fork);
-					break;
-				}
-			}
-
-			if (attempts == list.length)
-			{
-				p1p1_lists[x]['cards'].splice(i, 1);
-				p1p1_lists[x]['forks'].splice(i, 1);
-				i = i - 1;
-				continue;
-			}
 
 			const card_url = 'https://' + fork + '/sets/' + card.set + '-files/img/' + card.number + '_' + card.card_name + (card.shape.includes('double') ? '_front' : '') + '.' + (card.image_type ? card.image_type : 'png');
 
