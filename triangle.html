@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hollywood Triangle</title>
+    <style>
+    /* --- GLOBAL --- */
+    body { font-family: 'Helvetica Neue', sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; background: #f8f9fa; color: #333; }
+    h1 { text-align: center; margin-bottom: 5px; color: #2c3e50; }
+    .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 40px; font-size: 0.9rem; }
+
+    /* --- THE BOARD --- */
+    .triangle-board {
+        position: relative;
+        width: 100%;
+        height: 350px; /* Slightly shorter to keep it tight */
+        margin: 0 auto 30px auto;
+    }
+
+    /* --- ACTOR NODES --- */
+    .actor-node {
+        position: absolute;
+        background: #bdc3c7;
+        color: #2c3e50;
+        padding: 8px 16px;       /* Good padding for text */
+        border-radius: 50px;     /* Pill shape */
+        font-weight: 700;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+
+        /* CENTERING MAGIC */
+        transform: translate(-50%, -50%);
+        white-space: nowrap;     /* Forces bubble to expand, never wrap */
+        width: auto;             /* Allow growth */
+        min-width: 30px;         /* Ensures '?' is a nice circle */
+        min-height: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;             /* Sit above lines/inputs */
+        transition: all 0.3s;
+    }
+
+    .actor-node.revealed { background: #34495e; color: white; }
+    .actor-node.solved { background: #27ae60; color: white; box-shadow: 0 0 15px rgba(39, 174, 96, 0.6); }
+
+    /* POSITIONS (Moved slightly inwards to prevent edge clipping) */
+    #node-0 { top: 5%;  left: 50%; } /* Top */
+    #node-1 { top: 85%; left: 85%; } /* Bottom Right */
+    #node-2 { top: 85%; left: 15%; } /* Bottom Left */
+
+    /* --- EDGE INFO (THE CLUES CONTAINER) --- */
+    .edge-info {
+        position: absolute;
+        transform: translate(-50%, -50%);
+
+        /* FIX: Change fixed width to auto so it shrinks to fit content */
+        width: auto;
+        max-width: 300px; /* Cap it so long titles wrap */
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        z-index: 20;
+        pointer-events: none;
+    }
+
+    .edge-info > * { pointer-events: auto; }
+
+    /* Positions remain the same */
+    #edge-0 { top: 45%; left: 78%; }
+    #edge-1 { top: 85%; left: 50%; }
+    #edge-2 { top: 45%; left: 22%; }
+
+
+    /* --- THE GREEN CORRECT BOX --- */
+    .solved-title {
+        font-weight: bold; color: white; font-size: 0.85rem;
+        background: #27ae60; padding: 6px 12px; border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
+
+        /* FIX: Ensure text centers and box hugs the content */
+        text-align: center;
+        width: fit-content;
+        min-width: 60px; /* Prevents it from being too tiny for short words */
+
+        white-space: nowrap;
+        display: none;
+    }
+
+    /* Small Pills for Year/Cast */
+    .clue-pill {
+        font-size: 0.75rem; font-weight: bold;
+        padding: 4px 8px; border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        white-space: nowrap;
+        display: none;
+    }
+
+    .clue-year { background: #fff3e0; color: #e67e22; border: 1px solid #ffe0b2; }
+    .clue-cast { background: #f3e5f5; color: #8e44ad; border: 1px solid #e1bee7; }
+
+    /* --- THE PLOT FIX --- */
+    .clue-plot-container {
+        position: relative;
+        display: none;
+    }
+
+    .plot-badge {
+        background: #34495e; color: white;
+        font-size: 0.7rem; padding: 4px 10px;
+        border-radius: 12px; cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: background 0.2s;
+    }
+    .plot-badge:hover { background: #2c3e50; }
+
+    /* The Popup Text */
+    .plot-text {
+        position: absolute;
+        bottom: 120%; /* Sits above the badge */
+        left: 50%; transform: translateX(-50%);
+        width: 250px;
+        background: #fff; color: #333;
+        padding: 10px; border-radius: 8px;
+        font-size: 0.75rem; line-height: 1.3;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        border: 1px solid #eee;
+        text-align: justify;
+        display: none; /* Hidden until hover */
+        z-index: 100;
+    }
+
+    /* FIX: When hovering over an edge (to read the plot), 
+       force it to the very top of the stack so nothing blocks it. */
+    .edge-info:hover {
+        z-index: 1000 !important;
+    }
+
+    /* Show plot on hover */
+    .clue-plot-container:hover .plot-text { display: block; }
+
+    /* --- INPUT --- */
+    .input-container { position: relative; max-width: 320px; margin: 0 auto; z-index: 20; }
+    input {
+        width: 100%; padding: 14px;
+        border: 2px solid #bdc3c7; border-radius: 3px;
+        font-size: 1rem; text-align: center; outline: none;
+        box-sizing: border-box; background: white;
+    }
+    input:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52,152,219,0.2); }
+
+    /* --- STRIKES --- */
+    .strikes { text-align: center; margin: 20px 0; font-size: 1.2rem; height: 24px; }
+    .strike-dot { display: inline-block; width: 10px; height: 10px; background: #e0e0e0; border-radius: 50%; margin: 0 4px; transition: 0.3s; }
+    .strike-dot.active { background: #e74c3c; transform: scale(1.2); }
+
+    /* --- AUTOCOMPLETE --- */
+    .suggestions {
+        position: absolute; bottom: 100%; left: 0; width: 100%;
+        background: white; border: 1px solid #ddd; border-radius: 3px;
+        max-height: 220px; overflow-y: auto; list-style: none; padding: 0; margin: 0;
+        display: none; z-index: 100; text-align: left;
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    }
+    .suggestions li { padding: 12px; border-bottom: 1px solid #f1f1f1; cursor: pointer; color: #333; }
+    .suggestions li:hover { background: #f0f8ff; color: #2980b9; }
+
+    /* SVG Lines */
+    .connections { position: absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events: none; }
+    line { stroke: #bdc3c7; stroke-width: 3; transition: all 0.5s; stroke-linecap: round; }
+    line.active { stroke: #27ae60; stroke-width: 5; }
+
+    /* --- GAME OVER STYLES --- */
+
+    /* Red Actors */
+    .actor-node.missed {
+        background: #e74c3c; /* Red */
+        color: white;
+        box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    }
+
+    /* Red Lines */
+    line.missed {
+        stroke: #e74c3c; /* Red */
+        stroke-width: 4;
+    }
+
+    /* --- CONTROLS --- */
+    .controls { display: flex; justify-content: center; gap: 20px; padding-top: 20px; }
+    
+    .btn {
+        padding: 8px 16px; border: none; border-radius: 5px;
+        font-size: 0.85rem; font-weight: bold; cursor: pointer;
+        transition: transform 0.1s;
+    }
+    .btn:active { transform: scale(0.95); }
+
+    .btn-new { background: #34495e; color: white; }
+    
+    /* Easy Mode Styles */
+    .btn-easy { background: #ecf0f1; color: #7f8c8d; border: 1px solid #bdc3c7; }
+    
+    /* When Active (Yellow) */
+    .btn-easy.active { 
+        background: #f1c40f; color: #2c3e50; border-color: #f39c12; 
+        box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
+    }
+</style>
+</head>
+<body>
+
+    <h1>The Triangle</h1>
+    <div class="subtitle">Guess the 3 movies to connect the actors.</div>
+
+    <div class="triangle-board">
+        <svg class="connections">
+            <line id="line-0" x1="50%" y1="5%" x2="85%" y2="85%" />
+            <line id="line-1" x1="85%" y1="85%" x2="15%" y2="85%" />
+            <line id="line-2" x1="15%" y1="85%" x2="50%" y2="5%" />
+        </svg>
+
+        <div id="node-0" class="actor-node revealed">A</div>
+        <div id="node-1" class="actor-node">?</div>
+        <div id="node-2" class="actor-node">?</div>
+
+        <div id="edge-0" class="edge-info">
+            <div class="solved-title"></div>
+            <div class="clue-pill clue-year"></div>
+            <div class="clue-pill clue-cast"></div>
+            <div class="clue-plot-container">
+                <div class="plot-badge">📖 Plot Hint</div>
+                <div class="plot-text"></div>
+            </div>
+        </div>
+
+        <div id="edge-1" class="edge-info">
+            <div class="solved-title"></div>
+            <div class="clue-pill clue-year"></div>
+            <div class="clue-pill clue-cast"></div>
+            <div class="clue-plot-container">
+                <div class="plot-badge">📖 Plot Hint</div>
+                <div class="plot-text"></div>
+            </div>
+        </div>
+
+        <div id="edge-2" class="edge-info">
+            <div class="solved-title"></div>
+            <div class="clue-pill clue-year"></div>
+            <div class="clue-pill clue-cast"></div>
+            <div class="clue-plot-container">
+                <div class="plot-badge">📖 Plot Hint</div>
+                <div class="plot-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <ul class="suggestions" id="suggestions"></ul>
+        <input type="text" id="guess-input" placeholder="Enter a movie title..." autocomplete="off">
+    </div>
+
+    <div class="strikes" id="strikes-display"></div>
+
+    <div class="controls">
+        <button class="btn btn-new" onclick="resetGame()">New Game</button>
+        <button class="btn btn-easy" id="btn-easy" onclick="toggleEasyMode()">★ Easy Mode: OFF</button>
+    </div>
+
+    <script>
+        const MAX_STRIKES = 6;
+        let allPuzzles = [];
+        let movieList = [];
+        let currentPuzzle = null;
+        let strikes = 0;
+        let solvedEdges = [false, false, false];
+
+        let easyMode = false;
+        const EASY_RANK_LIMIT = 300;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            // Setup Dots
+            const dots = document.getElementById('strikes-display');
+            for(let i=0; i<MAX_STRIKES; i++) dots.innerHTML += '<span class="strike-dot"></span>';
+
+            await loadData();
+            initGame();
+        });
+
+        async function loadData() {
+            try {
+                const res = await fetch('jsons/triangles.json');
+                const data = await res.json();
+
+                // 1. Get Puzzles
+                allPuzzles = data.puzzles;
+
+                // 2. Get Full Movie List (The pool we plumbed)
+                movieList = data.all_movies;
+
+                console.log(`Loaded ${allPuzzles.length} puzzles and ${movieList.length} movies.`);
+            } catch (e) {
+                console.error(e);
+                document.querySelector('.subtitle').textContent = "Error loading data.";
+            }
+        }
+
+        function initGame() {
+            let pool = allPuzzles;
+            
+            // FILTER: If easy mode is on, only use puzzles with difficulty <= 250
+            if (easyMode) {
+                pool = allPuzzles.filter(p => p.difficulty && p.difficulty <= EASY_RANK_LIMIT);
+                if(pool.length === 0) pool = allPuzzles; // Safety fallback
+            }
+
+            currentPuzzle = pool[Math.floor(Math.random() * pool.length)];
+            
+            // A = Top, B = Bottom Right, C = Bottom Left
+            setNode(0, currentPuzzle.actors[0], true);  
+            setNode(1, currentPuzzle.actors[1], false); 
+            setNode(2, currentPuzzle.actors[2], false); 
+
+            // Populate Clues
+            for(let i=0; i<3; i++) {
+                const edge = document.getElementById(`edge-${i}`);
+                edge.querySelector('.clue-year').textContent = currentPuzzle.years[i];
+                edge.querySelector('.clue-cast').textContent = "⭐ " + currentPuzzle.clue_cast[i];
+                edge.querySelector('.plot-text').textContent = currentPuzzle.plots[i];
+            }
+            updateClueState();
+        }
+
+        function setNode(idx, name, isRevealed) {
+            const el = document.getElementById(`node-${idx}`);
+            el.textContent = isRevealed ? name : "?";
+            el.classList.toggle('revealed', isRevealed);
+        }
+
+        // --- INPUT ---
+        const input = document.getElementById('guess-input');
+        const list = document.getElementById('suggestions');
+
+        input.addEventListener('input', (e) => {
+            const val = e.target.value.toLowerCase();
+            list.innerHTML = '';
+            if(val.length < 2) { list.style.display = 'none'; return; }
+
+            const matches = movieList.filter(m => m.toLowerCase().includes(val));
+            if(matches.length) {
+                matches.forEach(m => {
+                    const li = document.createElement('li');
+                    li.textContent = m;
+                    li.onclick = () => submitGuess(m);
+                    list.appendChild(li);
+                });
+                list.style.display = 'block';
+            } else list.style.display = 'none';
+        });
+
+        function submitGuess(guess) {
+            input.value = '';
+            list.style.display = 'none';
+            const cleanGuess = guess.toLowerCase().replace(/[^a-z0-9]/g, '');
+            let hit = false;
+
+            currentPuzzle.movies.forEach((movie, idx) => {
+                const cleanAns = movie.toLowerCase().replace(/[^a-z0-9]/g, '');
+                if(cleanGuess === cleanAns && !solvedEdges[idx]) {
+                    solveEdge(idx, movie);
+                    hit = true;
+                }
+            });
+
+            if(!hit) {
+                strikes++;
+                updateClueState();
+            }
+
+            if(solvedEdges.every(x => x)) {
+                document.querySelector('.subtitle').innerHTML = "<b style='color:green'>YOU WON! 🎉</b>";
+                input.disabled = true;
+            } else if(strikes >= MAX_STRIKES) {
+                document.querySelector('.subtitle').innerHTML = "<b style='color:red'>GAME OVER</b>";
+                revealAll();
+                input.disabled = true;
+            }
+        }
+
+        function solveEdge(idx, title) {
+            solvedEdges[idx] = true;
+            const edge = document.getElementById(`edge-${idx}`);
+            const titleEl = edge.querySelector('.solved-title');
+
+            titleEl.textContent = title;
+            titleEl.style.display = 'block';
+
+            // HIDE ALL CLUES on this edge immediately
+            edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
+
+            document.getElementById(`line-${idx}`).classList.add('active');
+
+            if(idx === 0 || idx === 2) checkNodeSolved(0);
+            if(idx === 0 || idx === 1) checkNodeSolved(1);
+            if(idx === 1 || idx === 2) checkNodeSolved(2);
+        }
+
+        function checkNodeSolved(nodeIdx) {
+            let isSolved = false;
+            // Node 0 (Top) needs Edge 0 & 2
+            if(nodeIdx === 0 && solvedEdges[0] && solvedEdges[2]) isSolved = true;
+            // Node 1 (BR) needs Edge 0 & 1
+            if(nodeIdx === 1 && solvedEdges[0] && solvedEdges[1]) isSolved = true;
+            // Node 2 (BL) needs Edge 1 & 2
+            if(nodeIdx === 2 && solvedEdges[1] && solvedEdges[2]) isSolved = true;
+
+            if(isSolved) document.getElementById(`node-${nodeIdx}`).classList.add('solved');
+        }
+
+        function updateClueState() {
+            // Update dots
+            document.querySelectorAll('.strike-dot').forEach((d, i) => {
+                if(i < strikes) d.classList.add('active');
+            });
+
+            if(strikes >= 1) setNode(1, currentPuzzle.actors[1], true);
+            if(strikes >= 2) toggleClue('.clue-year');
+            if(strikes >= 3) setNode(2, currentPuzzle.actors[2], true);
+            if(strikes >= 4) toggleClue('.clue-cast');
+            if(strikes >= 5) toggleClue('.clue-plot-container'); // CHANGED SELECTOR
+        }
+
+        function toggleClue(selector) {
+            for(let i=0; i<3; i++) {
+                // Only show if NOT solved
+                if(!solvedEdges[i]) {
+                    const edge = document.getElementById(`edge-${i}`);
+
+                    // --- THE FIX ---
+                    // We must make the container visible (opacity: 1)
+                    edge.classList.add('visible');
+
+                    // Then show the specific clue
+                    edge.querySelector(selector).style.display = 'block';
+                }
+            }
+        }
+
+        function toggleEasyMode() {
+            easyMode = !easyMode;
+            const btn = document.getElementById('btn-easy');
+            
+            if(easyMode) {
+                btn.classList.add('active');
+                btn.textContent = "★ Easy Mode: ON";
+            } else {
+                btn.classList.remove('active');
+                btn.textContent = "★ Easy Mode: OFF";
+            }
+        }
+
+        function resetGame() {
+            // 1. Reset Game State
+            strikes = 0;
+            solvedEdges = [false, false, false];
+            
+            // 2. Reset UI Header/Input
+            document.querySelectorAll('.strike-dot').forEach(d => d.classList.remove('active'));
+            document.querySelector('.subtitle').innerHTML = "Guess the 3 movies to connect the actors.";
+            
+            const input = document.getElementById('guess-input');
+            input.value = '';
+            input.disabled = false;
+            
+            // 3. Clear Board Elements
+            for(let i=0; i<3; i++) {
+                // --- RESET NODES ---
+                const node = document.getElementById(`node-${i}`);
+                node.className = 'actor-node'; // Reset to base class
+                node.textContent = '?';
+
+                // --- RESET LINES (The Fix) ---
+                const line = document.getElementById(`line-${i}`);
+                // Explicitly remove the status classes
+                line.classList.remove('active', 'missed');
+                // Force wipe the class attribute (SVG safe method)
+                line.setAttribute('class', ''); 
+
+                // --- RESET EDGES ---
+                const edge = document.getElementById(`edge-${i}`);
+                edge.classList.remove('visible'); 
+                
+                // Reset Title Box (Clear colors/borders/text)
+                const title = edge.querySelector('.solved-title');
+                title.style.display = 'none';
+                title.style.background = ''; 
+                title.style.color = '';
+                title.style.border = '';
+                title.textContent = '';
+                
+                // Hide Clues
+                edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
+            }
+
+            // 4. Start New Game
+            initGame();
+        }
+
+        function revealAll() {
+            // 1. Reveal Missed Edges (Lines & Titles)
+            for(let i=0; i<3; i++) {
+                if(!solvedEdges[i]) {
+                    const edge = document.getElementById(`edge-${i}`);
+
+                    // Set Title Text
+                    const titleEl = edge.querySelector('.solved-title');
+                    titleEl.textContent = currentPuzzle.movies[i];
+
+                    // Style: Red Text, White Box
+                    titleEl.style.cssText = `
+                        display: block;
+                        background: white;
+                        color: #e74c3c;
+                        border: 2px solid #e74c3c;
+                    `;
+
+                    // Hide Clues
+                    edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
+                    edge.classList.add('visible'); // Ensure container is shown
+
+                    // Turn Line Red
+                    document.getElementById(`line-${i}`).classList.add('missed');
+                }
+            }
+
+            // 2. Reveal Missed Nodes (Actors)
+            // If an actor isn't fully solved (green), turn them red and reveal name
+            for(let i=0; i<3; i++) {
+                const node = document.getElementById(`node-${i}`);
+                if (!node.classList.contains('solved')) {
+                    node.textContent = currentPuzzle.actors[i];
+                    node.classList.remove('revealed'); // Remove dark gray style
+                    node.classList.add('missed');      // Add red style
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troped</title>
+    <style>
+	    /* --- 1. GLOBAL & LAYOUT --- */
+	    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; background: #f4f4f9; }
+	    h1 { text-align: center; color: #333; }
+	    
+	    #loading { text-align: center; color: #666; margin-top: 2rem; }
+	    #game-area { display: none; }
+
+	    /* --- 2. HEADER & ICONS --- */
+	    .game-header {
+	        text-align: center;
+	        color: #333;
+	        position: relative; /* Anchor for the icons */
+	        margin-bottom: 20px;
+	        padding: 0 40px; /* Prevent text from hitting icons */
+	    }
+
+	    /* Container for the buttons on the right */
+	    .header-icons {
+	        position: absolute;
+	        right: 2px;
+	        top: 50%;
+	        transform: translateY(-50%);
+	        display: flex;
+	        gap: 12px; /* Space between Bulb and Calendar */
+	    }
+
+	    /* The Buttons (Shared Styles) */
+	    .icon-btn {
+	        background: none;
+	        border: none;
+	        cursor: pointer;
+	        padding: 0;
+	        transition: transform 0.2s ease-in-out;
+	        display: flex;
+	        align-items: center;
+	        justify-content: center;
+	    }
+
+	    /* Hover Effect: Subtle Pop */
+	    .icon-btn:hover {
+	        transform: scale(1.15);
+	    }
+
+	    /* The Images inside the buttons */
+	    .header-icon {
+	        width: 28px; /* Standard size for both */
+	        height: auto;
+	        opacity: 0.6; /* Faded by default */
+	        transition: opacity 0.2s;
+	    }
+
+	    /* Make image opaque when button is hovered */
+	    .icon-btn:hover .header-icon {
+	        opacity: 1.0;
+	    }
+
+
+	    /* --- 3. INPUT AREA --- */
+	    .input-wrapper {
+	        position: relative;
+	        display: flex;
+	        gap: 10px;
+	        align-items: flex-start;
+	        margin-bottom: 20px;
+	    }
+
+	    input { 
+	        width: 100%;
+	        box-sizing: border-box;
+	        padding: 12px; 
+	        font-size: 16px; 
+	        border: 2px solid #ddd; 
+	        border-radius: 8px; 
+	        outline: none; 
+	    }
+	    input:focus { border-color: #6200ee; }
+
+	    button { padding: 12px 20px; background: #6200ee; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+
+	    /* --- 4. DROPDOWN SUGGESTIONS --- */
+	    .suggestions-list {
+	        position: absolute;
+	        top: 100%;
+	        left: 0;
+	        width: 100%;
+	        background: white;
+	        border: 1px solid #ddd;
+	        border-radius: 0 0 8px 8px;
+	        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	        max-height: 200px;
+	        overflow-y: auto;
+	        z-index: 1000;
+	        list-style: none;
+	        padding: 0;
+	        margin: 0;
+	        display: none;
+	    }
+
+	    .suggestions-list li { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; }
+	    .suggestions-list li:hover { background-color: #f0f0f0; color: #6200ee; }
+
+
+	    /* --- 5. GUESS LIST --- */
+	    .guesses { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+	    
+	    .guess-row { 
+	        display: flex; justify-content: space-between; align-items: center;
+	        padding: 10px 15px; border-radius: 6px; background: white; 
+	        box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-weight: 500;
+	    }
+
+	    .rank-win { color: white; border: 2px solid gold; }
+
+
+	    /* --- 6. LAST GUESS BANNER --- */
+	    .last-guess-hidden { display: none; }
+
+	    .last-guess-box {
+	        display: flex;
+	        justify-content: space-between;
+	        align-items: center;
+	        padding: 15px;
+	        margin-bottom: 15px;
+	        border-radius: 8px;
+	        font-weight: bold;
+	        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+	        animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	    }
+	    
+	    /* Text overrides for banner */
+	    .lg-rank { font-size: 1.2rem; }
+	    .lg-title { font-size: 1.1rem; }
+	    .lg-score { font-size: 0.9rem; opacity: 0.9; }
+
+	    @keyframes popIn {
+	        from { opacity: 0; transform: scale(0.9) translateY(-10px); }
+	        to { opacity: 1; transform: scale(1) translateY(0); }
+	    }
+
+
+	    /* --- 7. MODALS (Archive & Win) --- */
+	    .modal {
+	        display: none;
+	        position: fixed;
+	        z-index: 2000;
+	        left: 0; top: 0;
+	        width: 100%; height: 100%;
+	        background-color: rgba(0,0,0,0.7);
+	        backdrop-filter: blur(3px);
+	    }
+
+	    .modal-content {
+	        background-color: #fff;
+	        margin: 5% auto;
+	        padding: 20px;
+	        border-radius: 12px;
+	        width: 90%;
+	        max-width: 500px;
+	        max-height: 80vh;
+	        display: flex;
+	        flex-direction: column;
+	        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+	    }
+
+	    .close-btn { color: #aaa; align-self: flex-end; font-size: 28px; font-weight: bold; cursor: pointer; }
+	    .close-btn:hover { color: #000; }
+
+	    /* Win Modal Specifics */
+	    .share-btn {
+	        background-color: #6200ee; color: white; padding: 12px;
+	        width: 100%; border: none; border-radius: 8px;
+	        font-size: 1rem; font-weight: bold; cursor: pointer;
+	        margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 8px;
+	    }
+	    .share-btn:hover { background-color: #3700b3; }
+
+	    .list-wrapper {
+	        overflow-y: auto; flex-grow: 1; border: 1px solid #eee;
+	        border-radius: 8px; margin: 10px 0; padding: 5px; background: #fafafa;
+	    }
+
+	    .top-list { list-style: none; padding: 0; margin: 0; }
+	    .top-list li { padding: 8px 12px; border-bottom: 1px solid #eee; font-size: 0.9rem; display: flex; justify-content: space-between; }
+	    .top-list li:first-child { background: #d1e7dd; font-weight: bold; }
+	    .top-list li:nth-child(2) { background: #fff3cd; }
+	    .top-list li:nth-child(3) { background: #fff3cd; }
+
+	    .button-grid { display: flex; flex-direction: column; gap: 5px; }
+	    .play-on-btn { margin-top: 10px; background: #4caf50; width: 100%; }
+	    .give-up-link { background: none; border: none; color: #999; text-decoration: none; cursor: pointer; font-size: 0.8rem; padding: 0; }
+	    .give-up-link:hover { color: #d32f2f; }
+
+	    /* Archive Grid */
+	    .archive-grid {
+	        display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+	        gap: 10px; padding: 10px; max-height: 400px; overflow-y: auto;
+	    }
+	    .archive-btn { background: #ccc; border: 1px solid #aaa; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; text-align: center; }
+	    .archive-btn:hover { background: #d1c4e9; border-color: #6200ee; }
+	    .archive-btn.current { background: #6200ee; color: white; border-color: #6200ee; }
+
+
+	    /* --- 8. HINT DRAWER (Slide-Out) --- */
+	    #hint-drawer {
+	        position: fixed;
+	        top: 0; right: -350px;
+	        width: 320px; height: 100%;
+	        background: white;
+	        box-shadow: -4px 0 15px rgba(0,0,0,0.2);
+	        z-index: 2000;
+	        transition: right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	        display: flex; flex-direction: column;
+	    }
+	    #hint-drawer.open { right: 0; }
+
+	    .drawer-header { padding: 20px; background: #6200ee; color: white; display: flex; justify-content: space-between; align-items: center; }
+	    .drawer-header h2 { margin: 0; font-size: 1.5rem; }
+	    .close-drawer { font-size: 2rem; cursor: pointer; line-height: 1; }
+	    .drawer-content { padding: 20px; overflow-y: auto; flex-grow: 1; }
+	    .drawer-intro { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
+
+	    #drawer-reveal-btn {
+	        width: 100%; padding: 12px; background: #ff9800; color: white;
+	        border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
+	        margin-bottom: 20px; font-size: 1rem;
+	    }
+	    #drawer-reveal-btn:hover { background: #f57c00; }
+	    #drawer-reveal-btn:disabled { background: #ccc; cursor: default; }
+
+	    #drawer-hint-list { display: flex; flex-direction: column; gap: 10px; }
+
+	    /* Hint Cards */
+	    .hint-card {
+	        background: #f8f9fa; border: 1px solid #e9ecef; border-left: 5px solid #ff9800;
+	        border-radius: 8px; padding: 12px 16px; width: 90%; max-width: 400px;
+	        text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+	        opacity: 0; transform: translateY(10px); animation: slideUp 0.4s ease-out forwards;
+	    }
+	    .hint-level-1 { border-left-color: #2196f3; }
+	    .hint-level-2 { border-left-color: #9c27b0; }
+	    .hint-level-3 { border-left-color: #4caf50; }
+
+	    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+	</style>
+</head>
+<body>
+
+    <h1 class="game-header">
+    	Troped <small id="puzzle-number">#...</small>
+
+    	<div class="header-icons">
+	    	<button class="icon-btn" id="archive-trigger-btn" onclick="openArchive()" title="View Past Puzzles">
+		        <img src="img/calendar.png" alt="Archive" class="header-icon">
+		    </button>
+		    <button class="icon-btn" onclick="toggleHintDrawer()" title="Get a Hint">
+	            <img src="img/lightbulb.png" alt="Hints" class="header-icon">
+	        </button>
+	    </div>
+    </h1>
+
+    <div id="loading">Loading Dictionary & Vectors...</div>
+
+    <div id="game-area">
+        <div class="input-wrapper">
+		    <div style="flex: 1; position: relative;">
+		        <input type="text" id="guess-input" placeholder="Type a TV Show..." autocomplete="off">
+		        <ul id="suggestions" class="suggestions-list"></ul>
+		    </div>
+		    <div class="button-grid">
+			    <button onclick="submitGuess()">Guess</button>
+			    <button onclick="giveUp()" class="give-up-link">I give up</button>
+			</div>
+		</div>
+
+		<div id="last-guess-banner" class="last-guess-hidden"></div>
+        <ul id="guess-list" class="guesses">
+        </ul>
+    </div>
+
+    <div id="win-modal" class="modal">
+	    <div class="modal-content">
+	        <button id="share-btn" onclick="shareResult()" class="share-btn">📤 Share Result</button>
+			<button onclick="closeModal()" class="play-on-btn">Close</button>
+	        <h2>🎉 You Found It!</h2>
+	        <p>The answer was <strong><span id="win-title"></span></strong>.</p>
+	        <p>Here were the top 50 closest shows:</p>
+	        
+	        <div class="list-wrapper">
+	            <ul id="top-50-list" class="top-list">
+	                </ul>
+	        </div>
+	        
+	        <button onclick="closeModal()" class="play-on-btn">Close</button>
+	    </div>
+	</div>
+
+	<div id="archive-modal" class="modal">
+	    <div class="modal-content">
+	        <span class="close-btn" onclick="closeArchive()">&times;</span>
+	        <h2>Past Puzzles</h2>
+	        <div class="archive-grid" id="archive-list">
+	            </div>
+	    </div>
+	</div>
+
+	<div id="hint-drawer">
+	    <div class="drawer-header">
+	        <h2>Hints</h2>
+	        <span class="close-drawer" onclick="toggleHintDrawer()">&times;</span>
+	    </div>
+	    
+	    <div class="drawer-content">
+	        <p class="drawer-intro">Stuck? Reveal details about the show gradually.</p>
+	        
+	        <button id="drawer-reveal-btn" onclick="revealHint()">
+	            Reveal Hint (Level 1)
+	        </button>
+
+	        <div id="drawer-hint-list"></div>
+	    </div>
+	</div>
+
+    <script>
+    	// --- HINTS ---
+    	const TMDB_API_KEY = 'f5cc68dfbe5836293db6212bb383ffff';
+		const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+		let hintLevel = 0; // 0 = No hints, 1 = Year, 2 = Genre, 3 = Cast
+		let currentShowDetails = null; // Cache the API response
+
+        // --- CONFIGURATION ---
+        const DATA_FILE = 'jsons/tv_vectors.json';
+        const START_DATE = new Date('2025-12-01T00:00:00Z');
+        let gameData = null;
+        let secretShowIndex = 0; // FORCED TO 0 AS REQUESTED
+        let rankedList = []; 
+
+        // --- FIX #1: DEFINE THESE VARIABLES ---
+        let guesses = [];
+        let hasWon = false;
+
+        // --- INIT ---
+        async function init() {
+		    try {
+		        // 1. Load Data
+		        const response = await fetch(DATA_FILE);
+		        gameData = await response.json();
+
+		        // 2. Determine Day Number (URL or Today)
+		        const msPerDay = 1000 * 60 * 60 * 24;
+		        const today = new Date();
+		        
+		        // Calculate "Max Day" (Today's Puzzle Number)
+		        // +1 because we want Dec 1st to be Puzzle #1
+		        const maxDayIndex = getGameDay();
+
+		        // Check URL for "?day=X" to see if we are playing an archive game
+		        const urlParams = new URLSearchParams(window.location.search);
+		        let dayParam = parseInt(urlParams.get('day'));
+
+		        // Validate: If no day provided, OR day is in the future/invalid, default to Today
+		        if (!dayParam || isNaN(dayParam) || dayParam > maxDayIndex || dayParam < 1) {
+		            dayParam = maxDayIndex;
+		            // Optional: Clean URL if it was specifically invalid
+		            if (window.location.search && !urlParams.get('day')) {
+		                window.history.replaceState({}, document.title, window.location.pathname);
+		            }
+		        }
+
+		        // 3. Set UI & Secret
+		        document.getElementById('puzzle-number').textContent = `#${dayParam}`;
+		        
+		        // --- NEW SELECTION LOGIC ---
+				let secretShowIndex;
+
+				// PHASE 1: The "Golden Era" (Days 1 to 730)
+				// We cycle through the Top 730 shows exactly once, in a random order.
+				if (dayParam <= 730) {
+				    // The Formula: (Day * Prime + Offset) % Pool_Size
+				    // 499 is coprime to 730, guaranteeing a unique unique show for every single day.
+				    // We use (dayParam - 1) to make the math 0-indexed.
+				    secretShowIndex = ((dayParam - 1) * 499 + 37) % 730;
+				} 
+				// PHASE 2: The "Wild West" (Day 731+)
+				// After 2 years, we open the floodgates to the full catalog (Top 1200).
+				else {
+				    const seed = dayParam * 9973; 
+				    secretShowIndex = seed % 1200;
+				}
+
+				console.log(`📅 Loading Puzzle #${dayParam} (Index: ${secretShowIndex})`);
+				// ---------------------------
+		        
+		        setupRound(secretShowIndex);
+
+		        // 4. RESTORE SAVED GAME
+		        const savedState = loadGame();
+
+		        if (savedState) {
+		            console.log("📂 Game restored from save.");
+		            
+		            guesses = []; // Reset internal array before refilling
+		            
+		            // Re-render the UI for each saved guess
+		            savedState.guesses.forEach(g => {
+		                guesses.push(g);
+		                addGuessToUI(g.title, g.rank);
+		            });
+		            
+		            // Check if they already won
+		            if (savedState.isWon) {
+		                hasWon = true;
+		                document.getElementById('guess-input').disabled = true;
+		                setTimeout(showWinModal, 500); 
+		            }
+		        }
+
+		        // 5. Hide Loading / Show Game
+		        document.getElementById('loading').style.display = 'none';
+		        document.getElementById('game-area').style.display = 'block';
+
+		    } catch (error) {
+		        console.error("Error initializing game:", error);
+		        document.getElementById('loading').textContent = "Error loading data. Check console.";
+		    }
+		}
+
+        const input = document.getElementById('guess-input');
+        const suggestionsBox = document.getElementById('suggestions');
+
+        // Listen for typing
+        input.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            suggestionsBox.innerHTML = ''; 
+
+            if (query.length < 2) {
+                suggestionsBox.style.display = 'none';
+                return;
+            }
+
+            const matches = gameData.titles.filter(t => t.toLowerCase().includes(query));
+
+            if (matches.length > 0) {
+                matches.forEach(match => {
+                    const li = document.createElement('li');
+                    li.textContent = match;
+                    li.onclick = () => {
+                        input.value = match;
+                        suggestionsBox.style.display = 'none';
+                        input.focus();
+                    };
+                    suggestionsBox.appendChild(li);
+                });
+                suggestionsBox.style.display = 'block';
+            } else {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+
+        // Hide dropdown if user clicks outside of it
+        document.addEventListener('click', function(e) {
+            if (e.target !== input && e.target !== suggestionsBox) {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+
+        function getDailyShowIndex() {
+		    const today = new Date();
+
+		    // Calculate "Day Number" (0, 1, 2...)
+		    const dayIndex = Math.floor((today - START_DATE) / (1000 * 60 * 60 * 24));
+
+		    const seed = dayIndex * 9973; // Multiply by a prime to jump around the list
+    		return seed % 1200;
+		}
+
+        // --- MATH LOGIC ---
+        function dotProduct(vecA, vecB) {
+            let dot = 0.0;
+            for (let i = 0; i < vecA.length; i++) {
+                dot += vecA[i] * vecB[i];
+            }
+            return dot;
+        }
+
+        function setupRound(targetIndex) {
+            secretShowIndex = targetIndex;
+            const targetVec = gameData.vectors[targetIndex];
+            const targetName = gameData.titles[targetIndex];
+
+            // --- HINTS ---
+            hintLevel = 0;
+			currentShowDetails = null;
+			// --- END HINTS ---
+
+            console.time("Ranking Calc");
+
+            rankedList = gameData.vectors.map((vec, index) => {
+                return {
+                    id: index,
+                    score: dotProduct(targetVec, vec)
+                };
+            });
+
+            rankedList.sort((a, b) => b.score - a.score);
+
+            console.timeEnd("Ranking Calc");
+        }
+
+        function getRank(showIndex) {
+            return rankedList.findIndex(item => item.id === showIndex) + 1;
+        }
+
+        // --- UI LOGIC ---
+        function submitGuess() {
+            const input = document.getElementById('guess-input');
+            const userText = input.value.trim(); // Removed .toLowerCase() here to preserve Title Case in UI if needed, but matches usually handles it
+
+            if (!userText) return;
+
+            // Normalize for search
+            const foundIndex = gameData.titles.findIndex(t => t.toLowerCase() === userText.toLowerCase());
+
+            if (foundIndex === -1) {
+                alert(`Show not found in database! (Try "${gameData.titles[1]}")`);
+                return;
+            }
+
+            // --- NEW: DUPLICATE CHECK ---
+		    const realTitle = gameData.titles[foundIndex];
+		    
+		    // Check if this title is already in our guesses array
+		    const isDuplicate = guesses.some(g => g.title === realTitle);
+		    
+		    if (isDuplicate) {
+		        input.value = ''; // Clear input so they can try again
+		        input.focus();
+		        return; // Stop here! Don't add it again.
+		    }
+		    // ----------------------------
+
+            // 2. Get the Rank
+            const rank = getRank(foundIndex);
+
+            // Update Internal State
+            guesses.push({ title: realTitle, rank: rank });
+
+            // 3. Render
+            updateLastGuessBanner(realTitle, rank);
+            addGuessToUI(realTitle, rank);
+
+            if (rank === 1) {
+                hasWon = true;
+                setTimeout(() => {
+                    showWinModal();
+                }, 500); 
+            }
+
+            saveGame();
+
+            // 4. Clear input
+            input.value = '';
+        }
+
+        // --- COLOR LOGIC ---
+		function getColorForRank(rank) {
+		    // Define our "Soft" Palette (R, G, B)
+		    const cBlue   = {r: 100, g: 181, b: 246}; // #64b5f6 (Soft Blue)
+		    const cGreen  = {r: 129, g: 199, b: 132}; // #81c784 (Soft Green)
+		    const cYellow = {r: 255, g: 241, b: 118}; // #fff176 (Soft Yellow)
+		    const cRed    = {r: 229, g: 115, b: 115}; // #e57373 (Soft Red)
+
+		    // Helper: Mix two colors
+		    function lerp(start, end, t) {
+		        const r = Math.round(start.r + (end.r - start.r) * t);
+		        const g = Math.round(start.g + (end.g - start.g) * t);
+		        const b = Math.round(start.b + (end.b - start.b) * t);
+		        return `rgb(${r}, ${g}, ${b})`;
+		    }
+
+		    // 1. Blue -> Green (Rank 1 to 50)
+		    if (rank <= 50) {
+		        const t = (rank - 1) / (50 - 1); // 0.0 at Rank 1, 1.0 at Rank 50
+		        return lerp(cBlue, cGreen, t);
+		    }
+		    
+		    // 2. Green -> Yellow (Rank 50 to 250)
+		    if (rank <= 250) {
+		        const t = (rank - 50) / (250 - 50);
+		        return lerp(cGreen, cYellow, t);
+		    }
+
+		    // 3. Yellow -> Red (Rank 250 to 500)
+		    if (rank <= 500) {
+		        const t = (rank - 250) / (500 - 250);
+		        return lerp(cYellow, cRed, t);
+		    }
+
+		    // 4. Everything else is Red
+		    return `rgb(${cRed.r}, ${cRed.g}, ${cRed.b})`;
+		}
+
+        function addGuessToUI(title, rank) {
+            const list = document.getElementById('guess-list');
+            const li = document.createElement('li');
+            li.className = 'guess-row';
+            li.setAttribute('data-rank', rank);
+
+            // --- NEW: DYNAMIC COLOR ---
+            const bgColor = getColorForRank(rank);
+            li.style.backgroundColor = bgColor;
+
+            // Text color: Since we are using "Soft" pastels, 
+            // dark grey text looks best (and is readable).
+            li.style.color = '#333'; 
+
+            // Optional: Add a gold border for #1
+            if (rank === 1) {
+                li.style.border = "3px solid #FFD700"; // Gold
+                li.style.fontWeight = "bold";
+            } else {
+                li.style.border = "1px solid rgba(0,0,0,0.05)"; // Subtle border for others
+            }
+
+            li.innerHTML = `
+                <span>${title}</span>
+                <span>#${rank}</span>
+            `;
+
+            const existingItems = list.children;
+            let inserted = false;
+
+            for (let i = 0; i < existingItems.length; i++) {
+                const currentItemRank = parseInt(existingItems[i].getAttribute('data-rank'));
+
+                if (rank < currentItemRank) {
+                    list.insertBefore(li, existingItems[i]);
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if (!inserted) {
+                list.appendChild(li);
+            }
+
+            li.style.animation = "highlight 1s ease";
+        }
+
+        function showWinModal() {
+            const modal = document.getElementById('win-modal');
+            const list = document.getElementById('top-50-list');
+            const winTitle = document.getElementById('win-title');
+
+            winTitle.textContent = gameData.titles[secretShowIndex];
+            list.innerHTML = '';
+
+            const top50 = rankedList.slice(0, 50);
+
+            top50.forEach((item, index) => {
+                const title = gameData.titles[item.id];
+                const rank = index + 1;
+
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${title}</span>
+                    <small>#${rank}</small>
+                `;
+                list.appendChild(li);
+            });
+
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('win-modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('win-modal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // --- PERSISTENCE LOGIC ---
+        const STORAGE_KEY = 'troped_game_state';
+
+        function saveGame() {
+            const state = {
+                date: new Date().toISOString().split('T')[0], 
+                showIndex: secretShowIndex,
+                guesses: guesses, 
+                isWon: hasWon     
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function loadGame() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return null;
+
+            try {
+                const state = JSON.parse(saved);
+                const today = new Date().toISOString().split('T')[0];
+
+                if (state.date !== today) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    return null;
+                }
+
+                if (state.showIndex !== secretShowIndex) {
+                    return null;
+                }
+
+                return state;
+            } catch (e) {
+                console.error("Save file corrupted, starting fresh.");
+                return null;
+            }
+        }
+
+        function shareResult() {
+		    // 1. Calculate Day Number
+		    const today = new Date();
+		    const dayDiff = getGameDay();
+
+		    // 2. Build the Grid
+		    // 🟦 = Winner (#1)
+		    // 🟩 = Top 50
+		    // 🟨 = Top 250
+		    // 🟥 = Cold (> 250)
+		    let emojiGrid = `Troped #${dayDiff}`;
+			if (hintLevel > 0) emojiGrid += ` (Hints: ${hintLevel})`;
+		    
+		    guesses.forEach(g => {
+		        if (g.rank === 1) emojiGrid += "🟦";       // Blue for #1
+		        else if (g.rank <= 50) emojiGrid += "🟩";  // Green Zone
+		        else if (g.rank <= 250) emojiGrid += "🟨"; // Yellow Zone
+		        else emojiGrid += "🟥";                    // Red Zone
+		    });
+
+		    emojiGrid += `\nFound in ${guesses.length} guesses!`;
+		    emojiGrid += `\nPlay Troped: https://your-game-url.com`;
+
+		    // 3. Copy to Clipboard
+		    navigator.clipboard.writeText(emojiGrid).then(() => {
+		        const btn = document.getElementById('share-btn');
+		        const originalText = btn.innerHTML; // Save "Share Result" text
+		        
+		        btn.innerHTML = "✅ Copied!";
+		        btn.style.backgroundColor = "#4caf50"; // Flash Green
+		        
+		        setTimeout(() => {
+		            btn.innerHTML = originalText;
+		            btn.style.backgroundColor = "#6200ee"; // Reset to Purple
+		        }, 2000);
+		    }).catch(err => {
+		        console.error('Failed to copy:', err);
+		        alert("Could not copy to clipboard. Matches: \n" + emojiGrid);
+		    });
+		}
+
+		function giveUp() {
+		    if (confirm("Are you sure? This will end your streak.")) {
+		        // Disable game
+		        document.getElementById('guess-input').disabled = true;
+		        hasWon = true; // Technically game over
+		        saveGame(); // Save the 'loss' state
+		        
+		        // Show modal with a slightly different title
+		        document.querySelector('#win-modal h2').textContent = "💔 The Show Was...";
+		        showWinModal();
+		    }
+		}
+
+		// --- DRAWER LOGIC ---
+		function toggleHintDrawer() {
+		    const drawer = document.getElementById('hint-drawer');
+		    drawer.classList.toggle('open');
+		}
+
+		// --- UPDATED REVEAL LOGIC ---
+		async function revealHint() {
+		    const hintBtn = document.getElementById('drawer-reveal-btn'); // CHANGED ID
+		    const hintList = document.getElementById('drawer-hint-list'); // CHANGED ID
+		    const targetID = gameData.ids[secretShowIndex]; 
+
+		    // 1. Fetch Data
+		    if (!currentShowDetails) {
+		        hintBtn.textContent = "Loading...";
+		        try {
+		            const res = await fetch(`${TMDB_BASE_URL}/tv/${targetID}?api_key=${TMDB_API_KEY}&append_to_response=credits`);
+		            currentShowDetails = await res.json();
+		        } catch (e) {
+		            console.error(e);
+		            hintBtn.textContent = "Error!";
+		            return;
+		        }
+		    }
+
+		    hintLevel++;
+		    
+		    // Create the card
+		    const card = document.createElement('div');
+		    card.className = `hint-card hint-level-${hintLevel}`; 
+		    
+		    // 2. Build Content
+		    if (hintLevel === 1) {
+		        const year = currentShowDetails.first_air_date ? currentShowDetails.first_air_date.split('-')[0] : 'Unknown';
+		        const network = currentShowDetails.networks[0] ? currentShowDetails.networks[0].name : 'Unknown Network';
+		        card.innerHTML = `📅 <strong>Year:</strong> ${year} <br> 📺 <strong>Network:</strong> ${network}`;
+		        hintBtn.textContent = "💡 Reveal Level 2";
+		        
+		    } else if (hintLevel === 2) {
+		        const genres = currentShowDetails.genres.map(g => g.name).join(', ');
+		        card.innerHTML = `🎭 <strong>Genres:</strong> ${genres}`;
+		        hintBtn.textContent = "💡 Reveal Level 3";
+		        
+		    } else if (hintLevel === 3) {
+		        const cast = currentShowDetails.credits.cast.slice(0, 3).map(c => c.name).join(', ');
+		        card.innerHTML = `👥 <strong>Stars:</strong> ${cast}`;
+		        
+		        hintBtn.textContent = "Max Hints Revealed";
+		        hintBtn.disabled = true;
+		    }
+
+		    // 3. Append to Drawer List
+		    hintList.appendChild(card);
+		}
+
+		function getGameDay() {
+		    // 1. The Fixed Start Date (Dec 1, 2025)
+		    // We treat this as "Day 1"
+		    const startObj = new Date('2025-12-01T00:00:00');
+		    
+		    // 2. Get the Current Date in Seattle (PST/PDT)
+		    const now = new Date();
+		    const formatter = new Intl.DateTimeFormat('en-US', {
+		        timeZone: 'America/Los_Angeles',
+		        year: 'numeric',
+		        month: 'numeric',
+		        day: 'numeric'
+		    });
+		    
+		    // This gives us a string like "12/21/2025" regardless of where the user lives
+		    const pstString = formatter.format(now);
+		    const pstDate = new Date(pstString);
+		    
+		    // We also need to format the start date consistently to compare apples to apples
+		    const startString = formatter.format(startObj);
+		    const startDate = new Date(startString);
+
+		    // 3. Diff them
+		    const diffTime = pstDate - startDate;
+		    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)); 
+		    
+		    return diffDays + 1; // +1 because we want Dec 1st to be Day #1
+		}
+
+		// --- ARCHIVE LOGIC ---
+		function openArchive() {
+		    const list = document.getElementById('archive-list');
+		    list.innerHTML = '';
+		    
+		    // Calculate Today's Number
+		    const today = new Date();
+		    const msPerDay = 1000 * 60 * 60 * 24;
+		    const maxDay = getGameDay();
+		    
+		    // Check which puzzle we are currently playing
+		    const urlParams = new URLSearchParams(window.location.search);
+		    const currentPlaying = parseInt(urlParams.get('day')) || maxDay;
+
+		    // Generate Buttons (From Day 1 up to Today)
+		    for (let i = 1; i <= maxDay; i++) {
+		        const btn = document.createElement('button');
+		        btn.className = 'archive-btn';
+		        btn.textContent = `#${i}`;
+		        
+		        // Highlight the one we are playing
+		        if (i === currentPlaying) {
+		            btn.classList.add('current');
+		        }
+
+		        btn.onclick = () => {
+		            // Reload page with new query param
+		            window.location.search = `?day=${i}`;
+		        };
+		        
+		        list.appendChild(btn);
+		    }
+		    
+		    document.getElementById('archive-modal').style.display = 'block';
+		}
+
+		function updateLastGuessBanner(title, rank) {
+		    const banner = document.getElementById('last-guess-banner');
+		    
+		    // 1. Get the EXACT gradient color
+		    const bgColor = getColorForRank(rank);
+
+		    // 2. Determine Text Color for contrast
+		    // Since your palette is "Soft/Pastel", dark text usually looks best on Yellow/Green.
+		    // White text looks good on the Blue (Win) and Red (Cold).
+		    let textColor = "white";
+		    if (rank > 20 && rank <= 400) { 
+		        textColor = "#333333"; // Dark text for the Green -> Yellow transition
+		    }
+
+		    // 3. Apply Styles
+		    banner.className = "last-guess-box"; 
+		    banner.style.display = "flex"; 
+		    banner.style.backgroundColor = bgColor; // <--- Uses your gradient function
+		    banner.style.color = textColor;
+
+		    // 4. Set Content
+		    banner.innerHTML = `
+		        <span class="lg-title">${title}</span>
+		        <span class="lg-rank">#${rank}</span>
+		    `;
+		}
+
+		function closeArchive() {
+		    document.getElementById('archive-modal').style.display = 'none';
+		}
+
+		// Close archive if clicking outside
+		window.onclick = function(event) {
+		    const aModal = document.getElementById('archive-modal');
+		    const wModal = document.getElementById('win-modal');
+		    if (event.target == aModal) aModal.style.display = "none";
+		    if (event.target == wModal) wModal.style.display = "none";
+		}
+
+        document.getElementById('guess-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') submitGuess();
+        });
+
+        // Run
+        init();
+
+    </script>
+</body>
+</html>
