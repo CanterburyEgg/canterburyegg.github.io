@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Troped</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
     <style>
 	    /* --- 1. GLOBAL & LAYOUT --- */
 	    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; background: #f4f4f9; }
@@ -907,19 +908,11 @@
 		    // 1. Get the EXACT gradient color
 		    const bgColor = getColorForRank(rank);
 
-		    // 2. Determine Text Color for contrast
-		    // Since your palette is "Soft/Pastel", dark text usually looks best on Yellow/Green.
-		    // White text looks good on the Blue (Win) and Red (Cold).
-		    let textColor = "white";
-		    if (rank > 20 && rank <= 400) { 
-		        textColor = "#333333"; // Dark text for the Green -> Yellow transition
-		    }
-
 		    // 3. Apply Styles
 		    banner.className = "last-guess-box"; 
 		    banner.style.display = "flex"; 
 		    banner.style.backgroundColor = bgColor; // <--- Uses your gradient function
-		    banner.style.color = textColor;
+		    banner.style.color = "#333";
 
 		    // 4. Set Content
 		    banner.innerHTML = `
