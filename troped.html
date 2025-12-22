@@ -289,7 +289,6 @@
     <div id="win-modal" class="modal">
 	    <div class="modal-content">
 	        <button id="share-btn" onclick="shareResult()" class="share-btn">📤 Share Result</button>
-			<button onclick="closeModal()" class="play-on-btn">Close</button>
 	        <h2>🎉 You Found It!</h2>
 	        <p>The answer was <strong><span id="win-title"></span></strong>.</p>
 	        <p>Here were the top 50 closest shows:</p>
@@ -777,7 +776,7 @@
 		        saveGame(); // Save the 'loss' state
 		        
 		        // Show modal with a slightly different title
-		        document.querySelector('#win-modal h2').textContent = "💔 The Show Was...";
+		        document.querySelector('#win-modal h2').textContent = "The Show Was...";
 		        showWinModal();
 		    }
 		}
