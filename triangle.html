@@ -87,6 +87,7 @@
         text-align: center;
         width: fit-content;
         min-width: 60px; /* Prevents it from being too tiny for short words */
+        max-width: 180px;
 
         white-space: nowrap;
         display: none;
@@ -342,9 +343,9 @@
         }
 
         function initGame() {
-            let limit = 1000;
-            if (currentDifficulty === 'easy') limit = 250;
-            else if (currentDifficulty === 'medium') limit = 500;
+            let limit = 2600;
+            if (currentDifficulty === 'easy') limit = 600;
+            else if (currentDifficulty === 'medium') limit = 1200;
 
             // Filter the pool
             // A puzzle is allowed if its 'difficulty' (worst movie rank) is <= limit
@@ -419,6 +420,10 @@
             }
 
             if(solvedEdges.every(x => x)) {
+                for (let i = 0; i < 3; i++) {
+                    // true = force it to be visible/active
+                    setNode(i, currentPuzzle.actors[i], true); 
+                }
                 document.querySelector('.subtitle').innerHTML = "<b style='color:green'>YOU WON! 🎉</b>";
                 input.disabled = true;
             } else if(strikes >= MAX_STRIKES) {

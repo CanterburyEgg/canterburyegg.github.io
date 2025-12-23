@@ -5,6 +5,7 @@ import itertools
 from datetime import datetime
 import difflib
 import json
+import re
 
 # --- CONFIG ---
 API_KEY = "f5cc68dfbe5836293db6212bb383ffff"  # <--- PASTE YOUR KEY HERE
@@ -44,7 +45,54 @@ FRANCHISE_SETS = [
     {"Now You See Me", "Now You See Me 2", "Now You See Me: Now You Don't"},
     {"Zootopia", "Zootopia 2"},
     {"Kung Fu Panda", "Kung Fu Panda 2", "Kung Fu Panda 3", "Kung Fu Panda 4"},
-    {"Venom", "Venom: Let There Be Carnage", "Venom: The Last Dance"}
+    {"Venom", "Venom: Let There Be Carnage", "Venom: The Last Dance"},
+    # Star Wars (Skywalker Saga + Rogue One/Solo/Clone Wars)
+    {"Star Wars", "Star Wars: Episode IV - A New Hope", "The Empire Strikes Back", "Star Wars: Episode V - The Empire Strikes Back", "Return of the Jedi", "Star Wars: Episode VI - Return of the Jedi", "Star Wars: Episode I - The Phantom Menace", "Star Wars: Episode II - Attack of the Clones", "Star Wars: Episode III - Revenge of the Sith", "Star Wars: The Force Awakens", "Star Wars: The Last Jedi", "Star Wars: The Rise of Skywalker", "Rogue One: A Star Wars Story", "Solo: A Star Wars Story", "Star Wars: The Clone Wars"},
+    # Star Trek (Original, TNG, and Kelvin Timeline)
+    {"Star Trek: The Motion Picture", "Star Trek II: The Wrath of Khan", "Star Trek III: The Search for Spock", "Star Trek IV: The Voyage Home", "Star Trek V: The Final Frontier", "Star Trek VI: The Undiscovered Country", "Star Trek: Generations", "Star Trek: First Contact", "Star Trek: Insurrection", "Star Trek: Nemesis", "Star Trek", "Star Trek Into Darkness", "Star Trek Beyond"},
+    # James Bond (The 007 Glue)
+    # Judi Dench (M) and Desmond Llewelyn (Q) connect Pierce Brosnan to Daniel Craig
+    {"Dr. No", "From Russia with Love", "Goldfinger", "Thunderball", "You Only Live Twice", "On Her Majesty's Secret Service", "Diamonds Are Forever", "Live and Let Die", "The Man with the Golden Gun", "The Spy Who Loved Me", "Moonraker", "For Your Eyes Only", "Octopussy", "A View to a Kill", "The Living Daylights", "Licence to Kill", "GoldenEye", "Tomorrow Never Dies", "The World Is Not Enough", "Die Another Day", "Casino Royale", "Quantum of Solace", "Skyfall", "Spectre", "No Time to Die"},
+
+    # X-Men (The Timeline Mess)
+    # Hugh Jackman connects almost all of these.
+    {"X-Men", "X2", "X-Men: The Last Stand", "X-Men Origins: Wolverine", "X-Men: First Class", "The Wolverine", "X-Men: Days of Future Past", "X-Men: Apocalypse", "Dark Phoenix", "Logan", "Deadpool", "Deadpool 2", "Deadpool & Wolverine", "The New Mutants"},
+
+    # Jurassic Park (The Legacy Cast)
+    # Sam Neill / Laura Dern / Jeff Goldblum bridge the 1993 and 2022 movies.
+    {"Jurassic Park", "The Lost World: Jurassic Park", "Jurassic Park III", "Jurassic World", "Jurassic World: Fallen Kingdom", "Jurassic World Dominion"},
+
+    # Transformers (The Shia/Wahlberg Bridge)
+    {"Transformers", "Transformers: Revenge of the Fallen", "Transformers: Dark of the Moon", "Transformers: Age of Extinction", "Transformers: The Last Knight", "Bumblebee", "Transformers: Rise of the Beasts"},
+
+    # The Happy Madison Universe (Adam Sandler Spam)
+    # These guys appear in almost all of these together.
+    {"Happy Gilmore", "Billy Madison", "The Waterboy", "Big Daddy", "Little Nicky", "Mr. Deeds", "Anger Management", "50 First Dates", "The Longest Yard", "Click", "I Now Pronounce You Chuck & Larry", "Grown Ups", "Grown Ups 2", "Just Go with It", "Blended", "Hubie Halloween", "Murder Mystery"},
+    
+    # The Wes Anderson Troupe (Bill Murray / Owen Wilson Spam)
+    # Stylish, but makes for very easy connections if you know the director.
+    {"Bottle Rocket", "Rushmore", "The Royal Tenenbaums", "The Life Aquatic with Steve Zissou", "The Darjeeling Limited", "Fantastic Mr. Fox", "Moonrise Kingdom", "The Grand Budapest Hotel", "Isle of Dogs", "The French Dispatch", "Asteroid City"},
+
+    # Rocky / Creed
+    {"Rocky", "Rocky II", "Rocky III", "Rocky IV", "Rocky V", "Rocky Balboa", "Creed", "Creed II", "Creed III"},
+
+    # Terminator (Arnold links them all)
+    {"The Terminator", "Terminator 2: Judgment Day", "Terminator 3: Rise of the Machines", "Terminator Salvation", "Terminator Genisys", "Terminator: Dark Fate"},
+
+    # Pirates of the Caribbean
+    {"Pirates of the Caribbean: The Curse of the Black Pearl", "Pirates of the Caribbean: Dead Man's Chest", "Pirates of the Caribbean: At World's End", "Pirates of the Caribbean: On Stranger Tides", "Pirates of the Caribbean: Dead Men Tell No Tales"},
+
+    # Indiana Jones
+    {"Raiders of the Lost Ark", "Indiana Jones and the Temple of Doom", "Indiana Jones and the Last Crusade", "Indiana Jones and the Kingdom of the Crystal Skull", "Indiana Jones and the Dial of Destiny"},
+    
+    # The Hunger Games
+    {"The Hunger Games", "The Hunger Games: Catching Fire", "The Hunger Games: Mockingjay - Part 1", "The Hunger Games: Mockingjay - Part 2", "The Hunger Games: The Ballad of Songbirds & Snakes"},
+
+    # View Askewniverse
+    {"Clerks", "Mallrats", "Chasing Amy", "Dogma", "Jay and Silent Bob Strike Back", "Clerks II", "Jay and Silent Bob Reboot", "Clerks III"},
+
+    # Cornetto Trilogy
+    {"Shaun of the Dead", "Hot Fuzz", "The World's End"}
 ]
 
 movie_rank_map = {}
@@ -55,6 +103,36 @@ def clean_title(title):
     if t.startswith("a "): return t[2:]
     if t.startswith("an "): return t[3:]
     return t
+
+def redact_title_from_plot(title, plot):
+    if not plot: return ""
+    
+    # 1. Identify the versions of the title to hide
+    #    Example: "The Dark Knight" -> ["The Dark Knight", "Dark Knight"]
+    clean_t = title.strip()
+    variations = [clean_t]
+    
+    # If it starts with "The ", add the version without it
+    if clean_t.lower().startswith("the "):
+        variations.append(clean_t[4:])
+    
+    # Sort by length (descending) so we replace the longest match first
+    # (prevents replacing just "Matrix" inside "The Matrix")
+    variations.sort(key=len, reverse=True)
+    
+    redacted_plot = plot
+    for variant in variations:
+        # Skip very short titles (like "Up", "Us", "It") to prevent false positives
+        # unless they are the exact full title string.
+        if len(variant) < 3: 
+            continue
+            
+        # Create a regex with IGNORECASE and Word Boundaries (\b)
+        # \b ensures we don't match "Alien" inside "Alienation"
+        pattern = r'\b' + re.escape(variant) + r'\b'
+        redacted_plot = re.sub(pattern, "[REDACTED]", redacted_plot, flags=re.IGNORECASE)
+        
+    return redacted_plot
 
 def is_too_similar(t1, t2):
     c1 = clean_title(t1)
@@ -87,80 +165,105 @@ def get_fourth_star(full_cast, exclude_names):
     return "Unknown"
 
 def fetch_top_movies():
-    movies = []
-    seen_ids = set()
+    unique_movies = {} 
+    global movie_rank_map
+    movie_rank_map = {}
     
-    # --- BUCKET 1: THE HALL OF FAME (Sorted by Vote Count) ---
-    # This captures "Memento", "The Matrix", "Pulp Fiction" - the classics people actually know.
-    print(f"🏛️  Fetching Hall of Fame (Most Voted)...")
+    # --- BUCKET 1: THE HALL OF FAME ---
+    # We grab the top 2,400 movies.
+    # This covers everything with > 2,000 votes (approx 2,445 movies exist).
+    print(f"🏛️  Fetching Hall of Fame (Top 2,400)...")
     page = 1
-    # We'll take the top 800 most voted movies
-    while len(movies) < 800 and page < 50:
-        # Note: We use discover/movie with sort_by=vote_count.desc
+    
+    while len(unique_movies) < 2400 and page < 150:
+        # Sort by most votes to guarantee we get the best ones first
         url = f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language=en-US&sort_by=vote_count.desc&page={page}"
         try:
             res = requests.get(url).json()
             if 'results' in res:
                 for m in res['results']:
-                    if m['id'] in seen_ids: continue
                     if not m.get('release_date') or m['release_date'] > TODAY: continue
                     
-                    # HARD FILTER: Must have at least 3000 votes to be considered "Famous"
-                    if m.get('vote_count', 0) < 3000: continue 
+                    # THRESHOLD: 2,000 Votes.
+                    # This guarantees quality while letting in "August Rush" (2,782) and "Challengers" (2,478)
+                    if m.get('vote_count', 0) < 2000: continue 
 
-                    seen_ids.add(m['id'])
+                    title_key = m['title'].lower().strip()
                     
-                    # Rank is roughly the order we find them (0-800)
-                    movie_rank_map[m['id']] = len(movies) + 1 
+                    # DEDUPLICATION LOGIC
+                    safe_plot = redact_title_from_plot(m['title'], m['overview'])
+                    if title_key in unique_movies:
+                        existing = unique_movies[title_key]
+                        if m['vote_count'] > existing['vote_count']:
+                            unique_movies[title_key] = {
+                                'id': m['id'], 'title': m['title'],
+                                'year': m['release_date'].split('-')[0],
+                                'overview': safe_plot,
+                                'vote_count': m['vote_count']
+                            }
+                    else:
+                        unique_movies[title_key] = {
+                            'id': m['id'], 'title': m['title'],
+                            'year': m['release_date'].split('-')[0],
+                            'overview': safe_plot,
+                            'vote_count': m['vote_count']
+                        }
 
-                    movies.append({
-                        'id': m['id'], 
-                        'title': m['title'],
-                        'year': m['release_date'].split('-')[0],
-                        'overview': m['overview']
-                    })
-            print(f"   [Fame] Page {page}: Total {len(movies)}...")
+            print(f"   [Fame] Page {page}: stored {len(unique_movies)} unique titles...")
             page += 1
             time.sleep(0.1)
         except Exception as e:
             print(f"Error: {e}")
             break
 
-    # --- BUCKET 2: THE CURRENT HITS (Sorted by Popularity) ---
-    # This captures brand new stuff like "Dune 2" that might not have 20k votes yet but everyone knows.
+    # --- BUCKET 2: THE TRENDING LIST ---
+    # Catches "Monkey Man" (1,280 votes) or brand new hits.
     print(f"🔥 Fetching Current Hits (Popularity)...")
     page = 1
-    target_count = len(movies) + 200 # Add 200 more
+    target_count = len(unique_movies) + 100 # Add top 100 trends
     
-    while len(movies) < target_count and page < 20:
+    while len(unique_movies) < target_count and page < 20:
         url = f"https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}&language=en-US&page={page}"
         try:
             res = requests.get(url).json()
             if 'results' in res:
                 for m in res['results']:
-                    if m['id'] in seen_ids: continue
                     if not m.get('release_date') or m['release_date'] > TODAY: continue
                     
-                    # Lower threshold for new stuff, but still needs to be legit
-                    if m.get('vote_count', 0) < 500: continue 
+                    # Low threshold for new stuff
+                    if m.get('vote_count', 0) < 400: continue 
 
-                    seen_ids.add(m['id'])
-                    movie_rank_map[m['id']] = len(movies) + 1 
-
-                    movies.append({
-                        'id': m['id'], 
-                        'title': m['title'],
-                        'year': m['release_date'].split('-')[0],
-                        'overview': m['overview']
-                    })
-            print(f"   [Trend] Page {page}: Total {len(movies)}...")
+                    title_key = m['title'].lower().strip()
+                    
+                    # Only add if we don't already have it
+                    if title_key not in unique_movies:
+                        safe_plot = redact_title_from_plot(m['title'], m['overview'])
+                        unique_movies[title_key] = {
+                            'id': m['id'], 'title': m['title'],
+                            'year': m['release_date'].split('-')[0],
+                            'overview': safe_plot,
+                            'vote_count': m['vote_count']
+                        }
+                        
+            print(f"   [Trend] Page {page}: Total {len(unique_movies)}...")
             page += 1
             time.sleep(0.1)
         except Exception as e:
             print(f"Error: {e}")
             break
 
-    return movies
+    # --- FINALIZE ---
+    final_list = []
+    rank = 1
+    # Sort by votes so "Easy Mode" is truly the most famous stuff
+    sorted_movies = sorted(unique_movies.values(), key=lambda x: x['vote_count'], reverse=True)
+    
+    for m in sorted_movies:
+        movie_rank_map[m['id']] = rank
+        final_list.append(m)
+        rank += 1
+        
+    return final_list
 
 def fetch_credits(movie_id):
     url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={API_KEY}"
