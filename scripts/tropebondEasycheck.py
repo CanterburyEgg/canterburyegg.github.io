@@ -1,8 +1,8 @@
 import json
 
 FILENAME = "jsons/triangles.json" # Make sure path is correct
-EASY_LIMIT = 600
-MEDIUM_LIMIT = 1200
+EASY_LIMIT = 475
+MEDIUM_LIMIT = 1000
 
 try:
     with open(FILENAME, 'r') as f:
