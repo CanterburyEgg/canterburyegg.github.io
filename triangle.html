@@ -382,19 +382,34 @@
             else if (currentDifficulty === 'medium') limit = 1000;
 
             // Filter the pool
-            // A puzzle is allowed if its 'difficulty' (worst movie rank) is <= limit
             let pool = allPuzzles.filter(p => p.difficulty && p.difficulty <= limit);
 
-            // Fallback if pool is empty (e.g., specific filter yields nothing)
             if(pool.length === 0) {
                 console.warn("Pool empty for this difficulty. Using full list.");
                 pool = allPuzzles;
             }
 
-            currentPuzzle = pool[Math.floor(Math.random() * pool.length)];
+            // 1. Pick a random puzzle from the data
+            const rawPuzzle = pool[Math.floor(Math.random() * pool.length)];
+
+            // 2. Pick a random rotation (0, 1, or 2)
+            // This determines which actor ends up at the 'Top' (Node 0)
+            const rotation = Math.floor(Math.random() * 3);
+
+            // 3. Create a new puzzle object with all arrays rotated
+            currentPuzzle = {
+                ...rawPuzzle, // Keep ID/Difficulty
+                actors: rotateArray(rawPuzzle.actors, rotation),
+                movies: rotateArray(rawPuzzle.movies, rotation),
+                years: rotateArray(rawPuzzle.years, rotation),
+                clue_cast: rotateArray(rawPuzzle.clue_cast, rotation),
+                plots: rotateArray(rawPuzzle.plots, rotation)
+            };
             
-            // ... (Rest of function: setNode, populate clues, etc. remains exactly the same) ...
-            setNode(0, currentPuzzle.actors[0], true);  
+            // 4. Setup the Board (Logic remains 'Static', Data is 'Rotated')
+            
+            // Always reveal Node 0 (Top), but now Node 0 is a random actor
+            setNode(0, currentPuzzle.actors[0], true);   
             setNode(1, currentPuzzle.actors[1], false); 
             setNode(2, currentPuzzle.actors[2], false); 
 
@@ -631,6 +646,10 @@
                     node.classList.add('missed');      // Add red style
                 }
             }
+        }
+
+        function rotateArray(arr, n) {
+            return [...arr.slice(n), ...arr.slice(0, n)];
         }
     </script>
 </body>
