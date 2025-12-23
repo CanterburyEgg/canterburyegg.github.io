@@ -89,7 +89,6 @@
         min-width: 60px; /* Prevents it from being too tiny for short words */
         max-width: 180px;
 
-        white-space: nowrap;
         display: none;
     }
 
@@ -241,10 +240,39 @@
         background: #f1c40f; color: #2c3e50; border-color: #f39c12; 
         box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
     }
+
+    #loading-screen {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: white; /* or your background color */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 </style>
 </head>
 <body>
-
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading Movie Database...</p>
+    </div>
     <h1>The Hollywood Triangle</h1>
     <div class="subtitle">Guess the 3 movies to connect the actors.</div>
 
@@ -334,6 +362,12 @@
 
                 // 2. Get Full Movie List (The pool we plumbed)
                 movieList = data.all_movies;
+
+                initGame(); // The board updates here
+                
+                // NOW we remove the loading screen
+                const loader = document.getElementById('loading-screen');
+                if(loader) loader.style.display = 'none';
 
                 console.log(`Loaded ${allPuzzles.length} puzzles and ${movieList.length} movies.`);
             } catch (e) {
