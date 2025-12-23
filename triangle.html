@@ -192,6 +192,36 @@
 
     /* --- CONTROLS --- */
     .controls { display: flex; justify-content: center; gap: 20px; padding-top: 20px; }
+
+    /* --- DIFFICULTY BUTTON COLORS --- */
+    #btn-diff {
+        min-width: 100px; /* Prevents button jumping size when text changes */
+    }
+
+    /* True Soft Green */
+    .diff-easy {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb; 
+    }
+    
+    /* True Soft Yellow */
+    .diff-medium { 
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeeba; 
+    }
+
+    .diff-hard { 
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb; 
+    }
+
+    /* Hover effects for all */
+    .diff-easy:hover, .diff-medium:hover, .diff-hard:hover {
+        filter: brightness(0.95);
+    }
     
     .btn {
         padding: 8px 16px; border: none; border-radius: 5px;
@@ -268,7 +298,10 @@
 
     <div class="controls">
         <button class="btn btn-new" onclick="resetGame()">New Game</button>
-        <button class="btn btn-easy" id="btn-easy" onclick="toggleEasyMode()">★ Easy Mode: OFF</button>
+        
+        <button id="btn-diff" class="btn diff-medium" onclick="cycleDifficulty()">
+            Medium
+        </button>
     </div>
 
     <script>
@@ -279,8 +312,7 @@
         let strikes = 0;
         let solvedEdges = [false, false, false];
 
-        let easyMode = false;
-        const EASY_RANK_LIMIT = 300;
+        let currentDifficulty = 'medium';
 
         window.addEventListener('DOMContentLoaded', async () => {
             // Setup Dots
@@ -310,22 +342,27 @@
         }
 
         function initGame() {
-            let pool = allPuzzles;
-            
-            // FILTER: If easy mode is on, only use puzzles with difficulty <= 250
-            if (easyMode) {
-                pool = allPuzzles.filter(p => p.difficulty && p.difficulty <= EASY_RANK_LIMIT);
-                if(pool.length === 0) pool = allPuzzles; // Safety fallback
+            let limit = 1000;
+            if (currentDifficulty === 'easy') limit = 250;
+            else if (currentDifficulty === 'medium') limit = 500;
+
+            // Filter the pool
+            // A puzzle is allowed if its 'difficulty' (worst movie rank) is <= limit
+            let pool = allPuzzles.filter(p => p.difficulty && p.difficulty <= limit);
+
+            // Fallback if pool is empty (e.g., specific filter yields nothing)
+            if(pool.length === 0) {
+                console.warn("Pool empty for this difficulty. Using full list.");
+                pool = allPuzzles;
             }
 
             currentPuzzle = pool[Math.floor(Math.random() * pool.length)];
             
-            // A = Top, B = Bottom Right, C = Bottom Left
+            // ... (Rest of function: setNode, populate clues, etc. remains exactly the same) ...
             setNode(0, currentPuzzle.actors[0], true);  
             setNode(1, currentPuzzle.actors[1], false); 
             setNode(2, currentPuzzle.actors[2], false); 
 
-            // Populate Clues
             for(let i=0; i<3; i++) {
                 const edge = document.getElementById(`edge-${i}`);
                 edge.querySelector('.clue-year').textContent = currentPuzzle.years[i];
@@ -450,19 +487,6 @@
             }
         }
 
-        function toggleEasyMode() {
-            easyMode = !easyMode;
-            const btn = document.getElementById('btn-easy');
-            
-            if(easyMode) {
-                btn.classList.add('active');
-                btn.textContent = "★ Easy Mode: ON";
-            } else {
-                btn.classList.remove('active');
-                btn.textContent = "★ Easy Mode: OFF";
-            }
-        }
-
         function resetGame() {
             // 1. Reset Game State
             strikes = 0;
@@ -508,6 +532,27 @@
 
             // 4. Start New Game
             initGame();
+        }
+
+        function cycleDifficulty() {
+            const btn = document.getElementById('btn-diff');
+            
+            // 1. Cycle State
+            if (currentDifficulty === 'easy') {
+                currentDifficulty = 'medium';
+                btn.textContent = "Medium";
+                btn.className = "btn diff-medium"; // Swap class
+            } 
+            else if (currentDifficulty === 'medium') {
+                currentDifficulty = 'hard';
+                btn.textContent = "Hard";
+                btn.className = "btn diff-hard";
+            } 
+            else {
+                currentDifficulty = 'easy';
+                btn.textContent = "Easy";
+                btn.className = "btn diff-easy";
+            }
         }
 
         function revealAll() {

@@ -88,40 +88,78 @@ def get_fourth_star(full_cast, exclude_names):
 
 def fetch_top_movies():
     movies = []
+    seen_ids = set()
+    
+    # --- BUCKET 1: THE HALL OF FAME (Sorted by Vote Count) ---
+    # This captures "Memento", "The Matrix", "Pulp Fiction" - the classics people actually know.
+    print(f"🏛️  Fetching Hall of Fame (Most Voted)...")
     page = 1
+    # We'll take the top 800 most voted movies
+    while len(movies) < 800 and page < 50:
+        # Note: We use discover/movie with sort_by=vote_count.desc
+        url = f"https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language=en-US&sort_by=vote_count.desc&page={page}"
+        try:
+            res = requests.get(url).json()
+            if 'results' in res:
+                for m in res['results']:
+                    if m['id'] in seen_ids: continue
+                    if not m.get('release_date') or m['release_date'] > TODAY: continue
+                    
+                    # HARD FILTER: Must have at least 3000 votes to be considered "Famous"
+                    if m.get('vote_count', 0) < 3000: continue 
 
-    rank_counter = 1
-    global movie_rank_map
-    movie_rank_map = {}
+                    seen_ids.add(m['id'])
+                    
+                    # Rank is roughly the order we find them (0-800)
+                    movie_rank_map[m['id']] = len(movies) + 1 
 
-    print(f"🎬 Fetching movies (Released < {TODAY})...")
+                    movies.append({
+                        'id': m['id'], 
+                        'title': m['title'],
+                        'year': m['release_date'].split('-')[0],
+                        'overview': m['overview']
+                    })
+            print(f"   [Fame] Page {page}: Total {len(movies)}...")
+            page += 1
+            time.sleep(0.1)
+        except Exception as e:
+            print(f"Error: {e}")
+            break
 
-    while len(movies) < MOVIE_LIMIT and page < 100:
+    # --- BUCKET 2: THE CURRENT HITS (Sorted by Popularity) ---
+    # This captures brand new stuff like "Dune 2" that might not have 20k votes yet but everyone knows.
+    print(f"🔥 Fetching Current Hits (Popularity)...")
+    page = 1
+    target_count = len(movies) + 200 # Add 200 more
+    
+    while len(movies) < target_count and page < 20:
         url = f"https://api.themoviedb.org/3/movie/popular?api_key={API_KEY}&language=en-US&page={page}"
         try:
             res = requests.get(url).json()
             if 'results' in res:
                 for m in res['results']:
-                    if len(movies) >= MOVIE_LIMIT: break
+                    if m['id'] in seen_ids: continue
                     if not m.get('release_date') or m['release_date'] > TODAY: continue
-                    if m.get('vote_count', 0) < 500: continue
-                    if any(existing['id'] == m['id'] for existing in movies): continue
+                    
+                    # Lower threshold for new stuff, but still needs to be legit
+                    if m.get('vote_count', 0) < 500: continue 
 
-                    movie_rank_map[m['id']] = rank_counter
-                    rank_counter += 1
+                    seen_ids.add(m['id'])
+                    movie_rank_map[m['id']] = len(movies) + 1 
 
-                    # SAVE METADATA HERE
                     movies.append({
-                        'id': m['id'],
+                        'id': m['id'], 
                         'title': m['title'],
                         'year': m['release_date'].split('-')[0],
                         'overview': m['overview']
                     })
-            print(f"   Page {page}: Found {len(movies)}/{MOVIE_LIMIT}...")
+            print(f"   [Trend] Page {page}: Total {len(movies)}...")
             page += 1
+            time.sleep(0.1)
         except Exception as e:
-            print(f"Error page {page}: {e}")
+            print(f"Error: {e}")
             break
+
     return movies
 
 def fetch_credits(movie_id):
