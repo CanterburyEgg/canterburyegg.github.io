@@ -266,6 +266,67 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
+    /* --- HELP BUTTON --- */
+    #btn-help {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #fff;
+        border: 2px solid #bdc3c7;
+        color: #7f8c8d;
+        font-weight: bold;
+        font-size: 1.2rem;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    #btn-help:hover {
+        filter: brightness(.95);
+        transform: scale(1.05);
+    }
+
+    /* --- MODAL OVERLAY --- */
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Dim background */
+        backdrop-filter: blur(3px);      /* Blur background */
+        z-index: 2000;
+        display: none; /* Hidden by default */
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* --- MODAL CONTENT --- */
+    .modal-content {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        position: relative;
+        text-align: left;
+    }
+
+    .modal-content h2 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px; }
+    .modal-content ul { padding-left: 20px; line-height: 1.6; color: #333; }
+    .modal-content li { margin-bottom: 8px; }
+
+    /* Close X button */
+    .close-btn {
+        position: absolute;
+        top: 10px; right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #aaa;
+    }
+    .close-btn:hover { color: #333; }
 </style>
 </head>
 <body>
@@ -327,10 +388,30 @@
 
     <div class="controls">
         <button class="btn btn-new" onclick="resetGame()">New Game</button>
-        
-        <button id="btn-diff" class="btn diff-medium" onclick="cycleDifficulty()">
-            Medium
-        </button>
+        <button id="btn-diff" class="btn diff-medium" onclick="cycleDifficulty()">Medium</button>
+        <button id="btn-help" onclick="toggleHelp()">?</button>
+    </div>
+
+    <div id="help-modal" class="modal-overlay" onclick="toggleHelp()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="toggleHelp()">&times;</span>
+            <h2>How to Play</h2>
+            <ul>
+                <li><strong>The Goal:</strong> Connect the 3 actors by naming the movies they starred in together.</li>
+                <li><strong>The Board:</strong> You start with one actor revealed. Guess the movie that links them to the hidden actors to reveal the rest of the triangle.</li>
+                <li><strong>Strikes & Clues:</strong> Every wrong guess is a <b>Strike</b>. Strikes unlock hints to help you:
+                    <ul style="margin-top:5px; color:#666;">
+                        <li>1 Strike: Second Actor</li>
+                        <li>2 Strikes: Release Year</li>
+                        <li>3 Strikes: Third Actor</li>
+                        <li>4 Strikes: Supporting Cast</li>
+                        <li>5 Strikes: Plot Summary</li>
+                    </ul>
+                </li>
+                <li><strong>Game Over:</strong> If you get <b>6 Strikes</b> before completing the triangle, you lose!</li>
+            </ul>
+            <button class="btn btn-new" onclick="toggleHelp()" style="width:100%">Got it!</button>
+        </div>
     </div>
 
     <script>
@@ -646,6 +727,12 @@
                     node.classList.add('missed');      // Add red style
                 }
             }
+        }
+
+        function toggleHelp() {
+            const modal = document.getElementById('help-modal');
+            // Toggle between flex (to center it) and none
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
         }
 
         function rotateArray(arr, n) {
