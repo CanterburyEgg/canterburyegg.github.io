@@ -274,7 +274,11 @@ def fetch_credits(movie_id):
             # Sort by order just in case
             sorted_cast = sorted(res['cast'], key=lambda x: x['order'])
             for c in sorted_cast[:CAST_LIMIT]:
-                cast.append({'id': c['id'], 'name': c['name']})
+                cast.append({
+                    'id': c['id'], 
+                    'name': c['name'], 
+                    'profile_path': c.get('profile_path') 
+                })
         return cast
     except:
         return []
@@ -295,7 +299,11 @@ for i, m in enumerate(movies):
     movie_cast_lookup[m['id']] = cast # Save cast for 4th star logic
 
     ids = [c['id'] for c in cast]
-    for c in cast: actor_map[c['id']] = c['name']
+    for c in cast: 
+        actor_map[c['id']] = {
+            'name': c['name'], 
+            'img': c['profile_path']
+        }
 
     for id_a, id_b in itertools.combinations(ids, 2):
         key = tuple(sorted((id_a, id_b)))
@@ -350,11 +358,19 @@ for actor_a in actor_connections:
                 if t_key not in seen_triangles:
                     seen_triangles.add(t_key)
 
-                    actors = [actor_map[actor_a], actor_map[actor_b], actor_map[actor_c]]
+                    # NEW: Retrieve Name and Image separately
+                    a_obj = actor_map[actor_a]
+                    b_obj = actor_map[actor_b]
+                    c_obj = actor_map[actor_c]
 
+                    actors = [a_obj['name'], b_obj['name'], c_obj['name']]
+                    actor_images = [a_obj['img'], b_obj['img'], c_obj['img']]
+
+                    # (Ranking logic remains the same)
                     ranks = [movie_rank_map[m['id']] for m in valid_set]
                     difficulty = max(ranks)
 
+                    # (4th Star logic remains the same)
                     clue_cast = []
                     for m in valid_set:
                         m_cast = movie_cast_lookup[m['id']]
@@ -363,6 +379,7 @@ for actor_a in actor_connections:
 
                     triangles.append({
                         'actors': actors,
+                        'actor_images': actor_images, # <--- ADD THIS FIELD
                         'movies': [m['title'] for m in valid_set],
                         'years': [m['year'] for m in valid_set],
                         'plots': [m['overview'] for m in valid_set],

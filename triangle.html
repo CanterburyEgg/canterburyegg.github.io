@@ -9,48 +9,91 @@
     /* --- GLOBAL --- */
     body { font-family: 'Helvetica Neue', sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; background: #f8f9fa; color: #333; }
     h1 { text-align: center; margin-bottom: 5px; color: #2c3e50; }
-    .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 40px; font-size: 0.9rem; }
+    .subtitle { text-align: center; color: #7f8c8d; padding-bottom: 40px; font-size: 0.9rem; }
 
     /* --- THE BOARD --- */
     .triangle-board {
         position: relative;
         width: 100%;
-        height: 350px; /* Slightly shorter to keep it tight */
-        margin: 0 auto 30px auto;
+        height: 350px;
+        margin: 30px auto;
     }
 
     /* --- ACTOR NODES --- */
     .actor-node {
         position: absolute;
-        background: #bdc3c7;
-        color: #2c3e50;
-        padding: 8px 16px;       /* Good padding for text */
-        border-radius: 50px;     /* Pill shape */
-        font-weight: 700;
-        font-size: 0.85rem;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-
-        /* CENTERING MAGIC */
         transform: translate(-50%, -50%);
-        white-space: nowrap;     /* Forces bubble to expand, never wrap */
-        width: auto;             /* Allow growth */
-        min-width: 30px;         /* Ensures '?' is a nice circle */
-        min-height: 30px;
-
         display: flex;
+        flex-direction: column; /* Stack Image on top of Name */
         align-items: center;
         justify-content: center;
-        z-index: 10;             /* Sit above lines/inputs */
+        z-index: 10;
         transition: all 0.3s;
     }
 
-    .actor-node.revealed { background: #34495e; color: white; }
-    .actor-node.solved { background: #27ae60; color: white; box-shadow: 0 0 15px rgba(39, 174, 96, 0.6); }
+    /* NEW: Actor Image Circle */
+    .actor-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 20%;
+        object-fit: cover;
+        border: 3px solid #bdc3c7;
+        background: #e0e0e0;
+        margin-bottom: -10px; /* Overlap nicely with the name pill */
+        z-index: 1;
+        transition: border-color 0.3s;
+        /* Default Silhouette */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2395a5a6'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+        background-size: 60%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 
-    /* POSITIONS (Moved slightly inwards to prevent edge clipping) */
-    #node-0 { top: 5%;  left: 50%; } /* Top */
-    #node-1 { top: 85%; left: 85%; } /* Bottom Right */
-    #node-2 { top: 85%; left: 15%; } /* Bottom Left */
+    /* THE NAME PILL (Updated to sit below image) */
+    .actor-node {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 0.85rem;
+    }
+    
+    /* We need to style the text div inside the node specifically */
+    .actor-name {
+        background: #bdc3c7;
+        color: #2c3e50;
+        padding: 6px 14px;
+        border-radius: 50px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        white-space: nowrap;
+        z-index: 2;
+        min-width: 20px;
+        text-align: center;
+    }
+
+    /* STATE STYLES */
+    .actor-node.revealed .actor-img { border-color: #34495e; }
+    .actor-node.revealed .actor-name { background: #34495e; color: white; }
+
+    /* POSITIONS */
+    #node-0 { top: 5%;  left: 50%; }
+    #node-1 { top: 85%; left: 85%; }
+    #node-2 { top: 85%; left: 15%; }
+    
+    /* NEW: MOVIE PLACEHOLDER (Dashed Box) */
+    .movie-placeholder {
+        width: 80px;
+        height: 24px;
+        border: 2px dashed #bdc3c7;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #bdc3c7;
+        font-weight: bold;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        padding-top: 3px;
+    }
 
     /* --- EDGE INFO (THE CLUES CONTAINER) --- */
     .edge-info {
@@ -176,13 +219,6 @@
     line.active { stroke: #27ae60; stroke-width: 5; }
 
     /* --- GAME OVER STYLES --- */
-
-    /* Red Actors */
-    .actor-node.missed {
-        background: #e74c3c; /* Red */
-        color: white;
-        box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
-    }
 
     /* Red Lines */
     line.missed {
@@ -344,12 +380,22 @@
             <line id="line-2" x1="15%" y1="85%" x2="50%" y2="5%" />
         </svg>
 
-        <div id="node-0" class="actor-node revealed">A</div>
-        <div id="node-1" class="actor-node">?</div>
-        <div id="node-2" class="actor-node">?</div>
+        <div id="node-0" class="actor-node revealed">
+            <img class="actor-img" src="">
+            <div class="actor-name">A</div>
+        </div>
+        <div id="node-1" class="actor-node">
+            <img class="actor-img" src="">
+            <div class="actor-name">?</div>
+        </div>
+        <div id="node-2" class="actor-node">
+            <img class="actor-img" src="">
+            <div class="actor-name">?</div>
+        </div>
 
         <div id="edge-0" class="edge-info">
             <div class="solved-title"></div>
+            <div class="movie-placeholder">???</div>
             <div class="clue-pill clue-year"></div>
             <div class="clue-pill clue-cast"></div>
             <div class="clue-plot-container">
@@ -360,6 +406,7 @@
 
         <div id="edge-1" class="edge-info">
             <div class="solved-title"></div>
+            <div class="movie-placeholder">???</div>
             <div class="clue-pill clue-year"></div>
             <div class="clue-pill clue-cast"></div>
             <div class="clue-plot-container">
@@ -370,6 +417,7 @@
 
         <div id="edge-2" class="edge-info">
             <div class="solved-title"></div>
+            <div class="movie-placeholder">???</div>
             <div class="clue-pill clue-year"></div>
             <div class="clue-pill clue-cast"></div>
             <div class="clue-plot-container">
@@ -424,6 +472,8 @@
 
         let currentDifficulty = 'medium';
 
+        const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w185";
+
         window.addEventListener('DOMContentLoaded', async () => {
             // Setup Dots
             const dots = document.getElementById('strikes-display');
@@ -462,51 +512,68 @@
             if (currentDifficulty === 'easy') limit = 475;
             else if (currentDifficulty === 'medium') limit = 1000;
 
-            // Filter the pool
             let pool = allPuzzles.filter(p => p.difficulty && p.difficulty <= limit);
+            if(pool.length === 0) pool = allPuzzles;
 
-            if(pool.length === 0) {
-                console.warn("Pool empty for this difficulty. Using full list.");
-                pool = allPuzzles;
-            }
-
-            // 1. Pick a random puzzle from the data
             const rawPuzzle = pool[Math.floor(Math.random() * pool.length)];
-
-            // 2. Pick a random rotation (0, 1, or 2)
-            // This determines which actor ends up at the 'Top' (Node 0)
             const rotation = Math.floor(Math.random() * 3);
 
-            // 3. Create a new puzzle object with all arrays rotated
+            // Handle Missing Image Array (Backward Compatibility)
+            const rawImages = rawPuzzle.actor_images || [null, null, null];
+
             currentPuzzle = {
-                ...rawPuzzle, // Keep ID/Difficulty
+                ...rawPuzzle,
                 actors: rotateArray(rawPuzzle.actors, rotation),
+                actor_images: rotateArray(rawImages, rotation), // Rotate Images too
                 movies: rotateArray(rawPuzzle.movies, rotation),
                 years: rotateArray(rawPuzzle.years, rotation),
                 clue_cast: rotateArray(rawPuzzle.clue_cast, rotation),
                 plots: rotateArray(rawPuzzle.plots, rotation)
             };
             
-            // 4. Setup the Board (Logic remains 'Static', Data is 'Rotated')
-            
-            // Always reveal Node 0 (Top), but now Node 0 is a random actor
-            setNode(0, currentPuzzle.actors[0], true);   
-            setNode(1, currentPuzzle.actors[1], false); 
-            setNode(2, currentPuzzle.actors[2], false); 
+            // Setup Nodes with Images
+            setNode(0, currentPuzzle.actors[0], currentPuzzle.actor_images[0], true);   
+            setNode(1, currentPuzzle.actors[1], currentPuzzle.actor_images[1], false); 
+            setNode(2, currentPuzzle.actors[2], currentPuzzle.actor_images[2], false); 
 
+            // Setup Edges
             for(let i=0; i<3; i++) {
                 const edge = document.getElementById(`edge-${i}`);
                 edge.querySelector('.clue-year').textContent = currentPuzzle.years[i];
                 edge.querySelector('.clue-cast').textContent = "⭐ " + currentPuzzle.clue_cast[i];
                 edge.querySelector('.plot-text').textContent = currentPuzzle.plots[i];
+                
+                // Reset Placeholder
+                edge.querySelector('.movie-placeholder').style.display = 'flex';
+                edge.querySelector('.solved-title').style.display = 'none';
             }
             updateClueState();
         }
 
-        function setNode(idx, name, isRevealed) {
-            const el = document.getElementById(`node-${idx}`);
-            el.textContent = isRevealed ? name : "?";
-            el.classList.toggle('revealed', isRevealed);
+        function setNode(idx, name, imgPath, isRevealed) {
+            const node = document.getElementById(`node-${idx}`);
+            const nameEl = node.querySelector('.actor-name');
+            const imgEl = node.querySelector('.actor-img');
+
+            nameEl.textContent = isRevealed ? name : "?";
+            
+            if(isRevealed && imgPath) {
+                // Load the real actor image
+                imgEl.src = TMDB_IMG_BASE + imgPath;
+                
+                // Fallback: If TMDB link breaks, revert to transparent pixel (showing silhouette)
+                imgEl.onerror = function() { 
+                    this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"; 
+                }; 
+            } else {
+                // THE FIX: Set to a transparent 1x1 pixel.
+                // This makes the 'foreground' image invisible, so the CSS 
+                // background-image (the silhouette) shows through without a broken icon.
+                imgEl.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+            }
+
+            node.classList.toggle('revealed', isRevealed);
+            node.classList.remove('solved', 'missed'); 
         }
 
         // --- INPUT ---
@@ -552,7 +619,12 @@
             if(solvedEdges.every(x => x)) {
                 for (let i = 0; i < 3; i++) {
                     // true = force it to be visible/active
-                    setNode(i, currentPuzzle.actors[i], true); 
+                    setNode(
+                        i, 
+                        currentPuzzle.actors[i], 
+                        currentPuzzle.actor_images[i],
+                        true
+                    ); 
                 }
                 document.querySelector('.subtitle').innerHTML = "<b style='color:green'>YOU WON! 🎉</b>";
                 input.disabled = true;
@@ -573,6 +645,7 @@
 
             // HIDE ALL CLUES on this edge immediately
             edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
+            edge.querySelector('.movie-placeholder').style.display = 'none';
 
             document.getElementById(`line-${idx}`).classList.add('active');
 
@@ -594,16 +667,36 @@
         }
 
         function updateClueState() {
-            // Update dots
+            // 1. Update the visual "Strike Dots"
             document.querySelectorAll('.strike-dot').forEach((d, i) => {
-                if(i < strikes) d.classList.add('active');
+                if (i < strikes) d.classList.add('active');
             });
 
-            if(strikes >= 1) setNode(1, currentPuzzle.actors[1], true);
-            if(strikes >= 2) toggleClue('.clue-year');
-            if(strikes >= 3) setNode(2, currentPuzzle.actors[2], true);
-            if(strikes >= 4) toggleClue('.clue-cast');
-            if(strikes >= 5) toggleClue('.clue-plot-container'); // CHANGED SELECTOR
+            // 2. Unlock hints based on strike count
+            // STRIKE 1: Reveal Bottom Right Actor
+            if (strikes >= 1) {
+                setNode(1, currentPuzzle.actors[1], currentPuzzle.actor_images[1], true);
+            }
+
+            // STRIKE 2: Show Release Years
+            if (strikes >= 2) {
+                toggleClue('.clue-year');
+            }
+
+            // STRIKE 3: Reveal Bottom Left Actor
+            if (strikes >= 3) {
+                setNode(2, currentPuzzle.actors[2], currentPuzzle.actor_images[2], true);
+            }
+
+            // STRIKE 4: Show Cast Member Hint
+            if (strikes >= 4) {
+                toggleClue('.clue-cast');
+            }
+
+            // STRIKE 5: Show Plot Hint
+            if (strikes >= 5) {
+                toggleClue('.clue-plot-container');
+            }
         }
 
         function toggleClue(selector) {
@@ -639,21 +732,23 @@
             for(let i=0; i<3; i++) {
                 // --- RESET NODES ---
                 const node = document.getElementById(`node-${i}`);
-                node.className = 'actor-node'; // Reset to base class
-                node.textContent = '?';
+                node.className = 'actor-node'; // Reset classes to default
 
-                // --- RESET LINES (The Fix) ---
+                // FIX: Use setNode to reset content without destroying the <img> tag
+                setNode(i, "?", null, false);
+
+                // --- RESET LINES ---
                 const line = document.getElementById(`line-${i}`);
-                // Explicitly remove the status classes
                 line.classList.remove('active', 'missed');
-                // Force wipe the class attribute (SVG safe method)
                 line.setAttribute('class', ''); 
 
                 // --- RESET EDGES ---
                 const edge = document.getElementById(`edge-${i}`);
                 edge.classList.remove('visible'); 
                 
-                // Reset Title Box (Clear colors/borders/text)
+                // --- RESET PLACEHOLDERS & TITLES ---
+                edge.querySelector('.movie-placeholder').style.display = 'flex';
+                
                 const title = edge.querySelector('.solved-title');
                 title.style.display = 'none';
                 title.style.background = ''; 
@@ -692,15 +787,13 @@
 
         function revealAll() {
             // 1. Reveal Missed Edges (Lines & Titles)
-            for(let i=0; i<3; i++) {
-                if(!solvedEdges[i]) {
+            for (let i = 0; i < 3; i++) {
+                if (!solvedEdges[i]) {
                     const edge = document.getElementById(`edge-${i}`);
 
-                    // Set Title Text
+                    // Reveal the Correct Movie Title
                     const titleEl = edge.querySelector('.solved-title');
                     titleEl.textContent = currentPuzzle.movies[i];
-
-                    // Style: Red Text, White Box
                     titleEl.style.cssText = `
                         display: block;
                         background: white;
@@ -708,23 +801,37 @@
                         border: 2px solid #e74c3c;
                     `;
 
-                    // Hide Clues
-                    edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
-                    edge.classList.add('visible'); // Ensure container is shown
+                    // Hide the "???" Placeholder
+                    edge.querySelector('.movie-placeholder').style.display = 'none';
 
-                    // Turn Line Red
+                    // Hide any other active clues to clean up the UI
+                    edge.querySelectorAll('.clue-pill, .clue-plot-container')
+                        .forEach(el => el.style.display = 'none');
+
+                    // Ensure the container is visible so we can see the title
+                    edge.classList.add('visible');
+
+                    // Turn the SVG line red
                     document.getElementById(`line-${i}`).classList.add('missed');
                 }
             }
 
             // 2. Reveal Missed Nodes (Actors)
-            // If an actor isn't fully solved (green), turn them red and reveal name
-            for(let i=0; i<3; i++) {
+            for (let i = 0; i < 3; i++) {
                 const node = document.getElementById(`node-${i}`);
+                
+                // If the actor wasn't solved (green), force reveal them now
                 if (!node.classList.contains('solved')) {
-                    node.textContent = currentPuzzle.actors[i];
-                    node.classList.remove('revealed'); // Remove dark gray style
-                    node.classList.add('missed');      // Add red style
+                    setNode(
+                        i, 
+                        currentPuzzle.actors[i], 
+                        currentPuzzle.actor_images[i], 
+                        true
+                    );
+                    
+                    // Remove standard styles and apply the red "Missed" style
+                    node.classList.remove('revealed');
+                    node.classList.add('missed');
                 }
             }
         }
