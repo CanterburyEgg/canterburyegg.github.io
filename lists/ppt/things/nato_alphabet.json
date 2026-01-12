@@ -1,0 +1,99 @@
+{
+  "category_name": "Nato Alphabet",
+  "master_list": [
+    "alfa",
+    "bravo",
+    "charlie",
+    "delta",
+    "echo",
+    "foxtrot",
+    "golf",
+    "hotel",
+    "india",
+    "juliet",
+    "kilo",
+    "lima",
+    "mike",
+    "november",
+    "oscar",
+    "papa",
+    "quebec",
+    "romeo",
+    "sierra",
+    "tango",
+    "uniform",
+    "victor",
+    "whiskey",
+    "xray",
+    "yankee",
+    "zulu"
+  ],
+  "auto_subsets": [
+    {
+      "name": "4 Letters Long",
+      "count": 9,
+      "items": [
+        "alfa",
+        "echo",
+        "golf",
+        "kilo",
+        "lima",
+        "mike",
+        "papa",
+        "xray",
+        "zulu"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 7,
+      "items": [
+        "bravo",
+        "delta",
+        "hotel",
+        "india",
+        "oscar",
+        "romeo",
+        "tango"
+      ]
+    },
+    {
+      "name": "7 Letters Long",
+      "count": 4,
+      "items": [
+        "charlie",
+        "foxtrot",
+        "uniform",
+        "whiskey"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "count": 5,
+      "items": [
+        "juliet",
+        "quebec",
+        "sierra",
+        "victor",
+        "yankee"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Names of People",
+      "count": 6,
+      "items": ["charlie", "juliet", "mike", "oscar", "romeo", "victor"]
+    },
+    {
+      "name": "Vowels",
+      "count": 5,
+      "items": ["alfa", "echo", "india", "oscar", "uniform"]
+    },
+    {
+      "name": "Consonants",
+      "count": 21,
+      "items": ["bravo", "charlie", "delta", "foxtrot", "golf", "hotel", "juliet", "kilo", "lima", "mike", "november", "papa", "quebec", "romeo", "sierra", "tango", "victor", "whiskey", "xray", "yankee", "zulu"]
+    }
+  ]
+}

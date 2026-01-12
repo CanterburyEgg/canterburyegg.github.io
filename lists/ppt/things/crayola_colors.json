@@ -1,0 +1,211 @@
+{
+  "category_name": "Crayola Colors",
+  "master_list": [
+    "apricot",
+    "aquamarine",
+    "bittersweet",
+    "black",
+    "blue",
+    "blue gray",
+    "blue green",
+    "blue violet",
+    "brick red",
+    "brown",
+    "burnt orange",
+    "burnt sienna",
+    "cadet blue",
+    "carnation pink",
+    "copper",
+    "cornflower",
+    "flesh",
+    "forest green",
+    "gold",
+    "goldenrod",
+    "gray",
+    "green",
+    "green blue",
+    "green yellow",
+    "indian red",
+    "lavender",
+    "lemon yellow",
+    "magenta",
+    "mahogany",
+    "maize",
+    "maroon",
+    "melon",
+    "midnight blue",
+    "mulberry",
+    "navy blue",
+    "olive green",
+    "orange",
+    "orange red",
+    "orange yellow",
+    "orchid",
+    "periwinkle",
+    "pine green",
+    "plum",
+    "raw sienna",
+    "raw umber",
+    "red",
+    "red orange",
+    "red violet",
+    "salmon",
+    "sea green",
+    "sepia",
+    "silver",
+    "sky blue",
+    "spring green",
+    "tan",
+    "thistle",
+    "turquoise blue",
+    "violet",
+    "violet blue",
+    "violet red",
+    "white",
+    "yellow",
+    "yellow green",
+    "yellow orange"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with B",
+      "count": 10,
+      "items": [
+        "bittersweet",
+        "black",
+        "blue",
+        "blue gray",
+        "blue green",
+        "blue violet",
+        "brick red",
+        "brown",
+        "burnt orange",
+        "burnt sienna"
+      ]
+    },
+    {
+      "name": "Starts with C",
+      "count": 4,
+      "items": [
+        "cadet blue",
+        "carnation pink",
+        "copper",
+        "cornflower"
+      ]
+    },
+    {
+      "name": "Starts with G",
+      "count": 6,
+      "items": [
+        "gold",
+        "goldenrod",
+        "gray",
+        "green",
+        "green blue",
+        "green yellow"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 7,
+      "items": [
+        "magenta",
+        "mahogany",
+        "maize",
+        "maroon",
+        "melon",
+        "midnight blue",
+        "mulberry"
+      ]
+    },
+    {
+      "name": "Starts with O",
+      "count": 5,
+      "items": [
+        "olive green",
+        "orange",
+        "orange red",
+        "orange yellow",
+        "orchid"
+      ]
+    },
+    {
+      "name": "Starts with R",
+      "count": 5,
+      "items": [
+        "raw sienna",
+        "raw umber",
+        "red",
+        "red orange",
+        "red violet"
+      ]
+    },
+    {
+      "name": "Starts with S",
+      "count": 6,
+      "items": [
+        "salmon",
+        "sea green",
+        "sepia",
+        "silver",
+        "sky blue",
+        "spring green"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 8,
+      "items": [
+        "black",
+        "brown",
+        "flesh",
+        "green",
+        "maize",
+        "melon",
+        "sepia",
+        "white"
+      ]
+    },
+    {
+      "name": "4 Letters Long",
+      "count": 4,
+      "items": [
+        "blue",
+        "gold",
+        "gray",
+        "plum"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "count": 8,
+      "items": [
+        "copper",
+        "maroon",
+        "orange",
+        "orchid",
+        "salmon",
+        "silver",
+        "violet",
+        "yellow"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Named After Plants or Flowers",
+      "count": 10,
+      "items": ["carnation pink", "cornflower", "goldenrod", "lavender", "maize", "mulberry", "orchid", "pine green", "thistle", "violet"]
+    },
+    {
+      "name": "Named After Fruits or Foods",
+      "count": 5,
+      "items": ["apricot", "lemon yellow", "melon", "plum", "salmon"]
+    },
+    {
+      "name": "The Original 8",
+      "count": 8,
+      "items": ["black", "blue", "brown", "green", "orange", "red", "violet", "yellow"]
+    }
+  ]
+}

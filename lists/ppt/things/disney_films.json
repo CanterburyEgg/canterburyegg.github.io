@@ -1,0 +1,228 @@
+{
+  "category_name": "Disney Films",
+  "master_list": [
+    "snow white and the seven dwarfs",
+    "pinocchio",
+    "fantasia",
+    "dumbo",
+    "bambi",
+    "saludos amigos",
+    "the three caballeros",
+    "make mine music",
+    "fun and fancy free",
+    "melody time",
+    "the adventures of ichabod and mr. toad",
+    "cinderella",
+    "alice in wonderland",
+    "peter pan",
+    "lady and the tramp",
+    "sleeping beauty",
+    "one hundred and one dalmatians",
+    "the sword in the stone",
+    "the jungle book",
+    "the aristocats",
+    "robin hood",
+    "the many adventures of winnie the pooh",
+    "the rescuers",
+    "the fox and the hound",
+    "the black cauldron",
+    "the great mouse detective",
+    "oliver & company",
+    "the little mermaid",
+    "the rescuers down under",
+    "beauty and the beast",
+    "aladdin",
+    "the lion king",
+    "pocahontas",
+    "the hunchback of notre dame",
+    "hercules",
+    "mulan",
+    "tarzan",
+    "fantasia 2000",
+    "dinosaur",
+    "the emperor's new groove",
+    "atlantis: the lost empire",
+    "lilo & stitch",
+    "treasure planet",
+    "brother bear",
+    "home on the range",
+    "chicken little",
+    "meet the robinsons",
+    "bolt",
+    "the princess and the frog",
+    "tangled",
+    "winnie the pooh",
+    "wreck-it ralph",
+    "frozen",
+    "big hero 6",
+    "zootopia",
+    "moana",
+    "ralph breaks the internet",
+    "frozen ii",
+    "raya and the last dragon",
+    "encanto",
+    "strange world",
+    "wish",
+    "moana 2",
+    "zootopia 2"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with S",
+      "count": 5,
+      "items": [
+        "saludos amigos",
+        "sleeping beauty",
+        "snow white and the seven dwarfs",
+        "strange world",
+        "the sword in the stone"
+      ]
+    },
+    {
+      "name": "Starts with P",
+      "count": 4,
+      "items": [
+        "peter pan",
+        "pinocchio",
+        "pocahontas",
+        "the princess and the frog"
+      ]
+    },
+    {
+      "name": "Starts with F",
+      "count": 6,
+      "items": [
+        "fantasia",
+        "fantasia 2000",
+        "frozen",
+        "frozen ii",
+        "fun and fancy free",
+        "the fox and the hound"
+      ]
+    },
+    {
+      "name": "Starts with B",
+      "count": 6,
+      "items": [
+        "bambi",
+        "beauty and the beast",
+        "big hero 6",
+        "bolt",
+        "brother bear",
+        "the black cauldron"
+      ]
+    },
+    {
+      "name": "Starts with T",
+      "count": 4,
+      "items": [
+        "tangled",
+        "tarzan",
+        "the three caballeros",
+        "treasure planet"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 7,
+      "items": [
+        "make mine music",
+        "meet the robinsons",
+        "melody time",
+        "moana",
+        "moana 2",
+        "mulan",
+        "the many adventures of winnie the pooh"
+      ]
+    },
+    {
+      "name": "Starts with A",
+      "count": 5,
+      "items": [
+        "aladdin",
+        "alice in wonderland",
+        "atlantis: the lost empire",
+        "the adventures of ichabod and mr. toad",
+        "the aristocats"
+      ]
+    },
+    {
+      "name": "Starts with L",
+      "count": 4,
+      "items": [
+        "lady and the tramp",
+        "lilo & stitch",
+        "the lion king",
+        "the little mermaid"
+      ]
+    },
+    {
+      "name": "Starts with R",
+      "count": 5,
+      "items": [
+        "ralph breaks the internet",
+        "raya and the last dragon",
+        "robin hood",
+        "the rescuers",
+        "the rescuers down under"
+      ]
+    },
+    {
+      "name": "8 Letters Long",
+      "count": 4,
+      "items": [
+        "dinosaur",
+        "fantasia",
+        "hercules",
+        "zootopia"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 4,
+      "items": [
+        "bambi",
+        "dumbo",
+        "moana",
+        "mulan"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "The Golden Age (1937–1942)",
+      "count": 5,
+      "items": ["snow white and the seven dwarfs", "pinocchio", "fantasia", "dumbo", "bambi"]
+    },
+    {
+      "name": "The Package Era (1943–1949)",
+      "count": 6,
+      "items": ["saludos amigos", "the three caballeros", "make mine music", "fun and fancy free", "melody time", "the adventures of ichabod and mr. toad"]
+    },
+    {
+      "name": "The Silver Age (1950–1967)",
+      "count": 8,
+      "items": ["cinderella", "alice in wonderland", "peter pan", "lady and the tramp", "sleeping beauty", "one hundred and one dalmatians", "the sword in the stone", "the jungle book"]
+    },
+    {
+      "name": "The Bronze Age (1970–1988)",
+      "count": 8,
+      "items": ["the aristocats", "robin hood", "the many adventures of winnie the pooh", "the rescuers", "the fox and the hound", "the black cauldron", "the great mouse detective", "oliver & company"]
+    },
+    {
+      "name": "The Disney Renaissance (1989–1999)",
+      "count": 10,
+      "items": ["the little mermaid", "the rescuers down under", "beauty and the beast", "aladdin", "the lion king", "pocahontas", "the hunchback of notre dame", "hercules", "mulan", "tarzan"]
+    },
+    {
+      "name": "The Post-Renaissance Era (2000–2008)",
+      "count": 11,
+      "items": ["fantasia 2000", "dinosaur", "the emperor's new groove", "atlantis: the lost empire", "lilo & stitch", "treasure planet", "brother bear", "home on the range", "chicken little", "meet the robinsons", "bolt"]
+    },
+    {
+      "name": "The Revival Era (2009–Present)",
+      "count": 16,
+      "items": ["the princess and the frog", "tangled", "winnie the pooh", "wreck-it ralph", "frozen", "big hero 6", "zootopia", "moana", "ralph breaks the internet", "frozen ii", "raya and the last dragon", "encanto", "strange world", "wish", "moana 2", "zootopia 2"]
+    }
+  ]
+}

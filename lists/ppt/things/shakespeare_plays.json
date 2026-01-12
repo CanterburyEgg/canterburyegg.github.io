@@ -1,0 +1,130 @@
+{
+  "category_name": "Shakespeare Plays",
+  "master_list": [
+    "all's well that ends well",
+    "antony and cleopatra",
+    "as you like it",
+    "the comedy of errors",
+    "coriolanus",
+    "cymbeline",
+    "hamlet",
+    "henry iv, part 1",
+    "henry iv, part 2",
+    "henry v",
+    "henry vi, part 1",
+    "henry vi, part 2",
+    "henry vi, part 3",
+    "henry viii",
+    "julius caesar",
+    "king john",
+    "king lear",
+    "love's labour's lost",
+    "macbeth",
+    "measure for measure",
+    "the merchant of venice",
+    "the merry wives of windsor",
+    "a midsummer night's dream",
+    "much ado about nothing",
+    "othello",
+    "pericles, prince of tyre",
+    "richard ii",
+    "richard iii",
+    "romeo and juliet",
+    "the taming of the shrew",
+    "the tempest",
+    "timon of athens",
+    "titus andronicus",
+    "troilus and cressida",
+    "twelfth night",
+    "two gentlemen of verona",
+    "the winter's tale",
+    "the two noble kinsmen"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with A",
+      "count": 3,
+      "items": [
+        "all's well that ends well",
+        "antony and cleopatra",
+        "as you like it"
+      ]
+    },
+    {
+      "name": "Starts with C",
+      "count": 3,
+      "items": [
+        "coriolanus",
+        "cymbeline",
+        "the comedy of errors"
+      ]
+    },
+    {
+      "name": "Starts with H",
+      "count": 8,
+      "items": [
+        "hamlet",
+        "henry iv, part 1",
+        "henry iv, part 2",
+        "henry v",
+        "henry vi, part 1",
+        "henry vi, part 2",
+        "henry vi, part 3",
+        "henry viii"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 6,
+      "items": [
+        "a midsummer night's dream",
+        "macbeth",
+        "measure for measure",
+        "much ado about nothing",
+        "the merchant of venice",
+        "the merry wives of windsor"
+      ]
+    },
+    {
+      "name": "Starts with T",
+      "count": 8,
+      "items": [
+        "the taming of the shrew",
+        "the tempest",
+        "the two noble kinsmen",
+        "timon of athens",
+        "titus andronicus",
+        "troilus and cressida",
+        "twelfth night",
+        "two gentlemen of verona"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "The Tragedies",
+      "count": 10,
+      "items": ["antony and cleopatra", "coriolanus", "hamlet", "julius caesar", "king lear", "macbeth", "othello", "romeo and juliet", "timon of athens", "titus andronicus"]
+    },
+    {
+      "name": "The Comedies",
+      "count": 12,
+      "items": ["all's well that ends well", "as you like it", "the comedy of errors", "love's labour's lost", "measure for measure", "the merchant of venice", "the merry wives of windsor", "a midsummer night's dream", "much ado about nothing", "the taming of the shrew", "twelfth night", "two gentlemen of verona"]
+    },
+    {
+      "name": "The Histories",
+      "count": 10,
+      "items": ["henry iv, part 1", "henry iv, part 2", "henry v", "henry vi, part 1", "henry vi, part 2", "henry vi, part 3", "henry viii", "king john", "richard ii", "richard iii"]
+    },
+    {
+      "name": "The Roman Plays",
+      "count": 4,
+      "items": ["antony and cleopatra", "coriolanus", "julius caesar", "titus andronicus"]
+    },
+    {
+      "name": "Late Romances",
+      "count": 5,
+      "items": ["cymbeline", "pericles, prince of tyre", "the tempest", "the winter's tale", "the two noble kinsmen"]
+    }
+  ]
+}

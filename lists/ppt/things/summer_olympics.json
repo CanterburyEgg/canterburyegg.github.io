@@ -1,0 +1,210 @@
+{
+  "category_name": "Summer Olympics",
+  "master_list": [
+    "basketball",
+    "archery",
+    "artistic swimming",
+    "athletics",
+    "badminton",
+    "baseball",
+    "boxing",
+    "canoeing",
+    "cricket",
+    "cycling",
+    "diving",
+    "equestrian",
+    "fencing",
+    "field hockey",
+    "flag football",
+    "football",
+    "golf",
+    "gymnastics",
+    "handball",
+    "judo",
+    "lacrosse",
+    "pentathlon",
+    "rowing",
+    "rugby",
+    "sailing",
+    "shooting",
+    "skateboarding",
+    "softball",
+    "climbing",
+    "squash",
+    "surfing",
+    "swimming",
+    "table tennis",
+    "taekwondo",
+    "tennis",
+    "triathlon",
+    "volleyball",
+    "water polo",
+    "weightlifting",
+    "wrestling"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with B",
+      "count": 4,
+      "items": [
+        "badminton",
+        "baseball",
+        "basketball",
+        "boxing"
+      ]
+    },
+    {
+      "name": "Starts with A",
+      "count": 3,
+      "items": [
+        "archery",
+        "artistic swimming",
+        "athletics"
+      ]
+    },
+    {
+      "name": "Starts with C",
+      "count": 4,
+      "items": [
+        "canoeing",
+        "climbing",
+        "cricket",
+        "cycling"
+      ]
+    },
+    {
+      "name": "Starts with F",
+      "count": 4,
+      "items": [
+        "fencing",
+        "field hockey",
+        "flag football",
+        "football"
+      ]
+    },
+    {
+      "name": "Starts with S",
+      "count": 7,
+      "items": [
+        "sailing",
+        "shooting",
+        "skateboarding",
+        "softball",
+        "squash",
+        "surfing",
+        "swimming"
+      ]
+    },
+    {
+      "name": "Starts with T",
+      "count": 4,
+      "items": [
+        "table tennis",
+        "taekwondo",
+        "tennis",
+        "triathlon"
+      ]
+    },
+    {
+      "name": "Starts with W",
+      "count": 3,
+      "items": [
+        "water polo",
+        "weightlifting",
+        "wrestling"
+      ]
+    },
+    {
+      "name": "10 Letters Long",
+      "count": 6,
+      "items": [
+        "basketball",
+        "equestrian",
+        "gymnastics",
+        "pentathlon",
+        "volleyball"
+      ]
+    },
+    {
+      "name": "7 Letters Long",
+      "count": 6,
+      "items": [
+        "archery",
+        "cricket",
+        "cycling",
+        "fencing",
+        "sailing",
+        "surfing"
+      ]
+    },
+    {
+      "name": "9 Letters Long",
+      "count": 5,
+      "items": [
+        "athletics",
+        "badminton",
+        "taekwondo",
+        "triathlon",
+        "wrestling"
+      ]
+    },
+    {
+      "name": "8 Letters Long",
+      "count": 9,
+      "items": [
+        "baseball",
+        "canoeing",
+        "climbing",
+        "football",
+        "handball",
+        "lacrosse",
+        "shooting",
+        "softball",
+        "swimming"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "count": 5,
+      "items": [
+        "boxing",
+        "diving",
+        "rowing",
+        "squash",
+        "tennis"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "The LA 2028 Additions",
+      "count": 6,
+      "items": ["baseball", "softball", "cricket", "flag football", "lacrosse", "squash"]
+    },
+    {
+      "name": "Combat Sports",
+      "count": 5,
+      "items": ["boxing", "fencing", "judo", "taekwondo", "wrestling"]
+    },
+    {
+      "name": "Aquatic Sports",
+      "count": 8,
+      "items": ["artistic swimming", "canoeing", "diving", "rowing", "sailing", "surfing", "swimming", "water polo"]
+    },
+    {
+      "name": "Racket and Paddle Sports",
+      "count": 4,
+      "items": ["badminton", "squash", "table tennis", "tennis"]
+    },
+    {
+      "name": "Target and Accuracy Sports",
+      "count": 4,
+      "items": ["archery", "golf", "shooting", "pentathlon"]
+    },
+    {
+      "name": "Team Ball Sports",
+      "count": 10,
+      "items": ["basketball", "cricket", "field hockey", "flag football", "football", "handball", "lacrosse", "rugby", "volleyball", "water polo"]
+    }
+  ]
+}

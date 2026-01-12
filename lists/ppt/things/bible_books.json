@@ -1,0 +1,244 @@
+{
+  "category_name": "Bible Books",
+  "master_list": [
+    "genesis",
+    "exodus",
+    "leviticus",
+    "numbers",
+    "deuteronomy",
+    "joshua",
+    "judges",
+    "ruth",
+    "samuel",
+    "kings",
+    "chronicles",
+    "ezra",
+    "nehemiah",
+    "esther",
+    "job",
+    "psalms",
+    "proverbs",
+    "ecclesiastes",
+    "song of songs",
+    "isaiah",
+    "jeremiah",
+    "lamentations",
+    "ezekiel",
+    "daniel",
+    "hosea",
+    "joel",
+    "amos",
+    "obadiah",
+    "jonah",
+    "micah",
+    "nahum",
+    "habakkuk",
+    "zephaniah",
+    "haggai",
+    "zechariah",
+    "malachi",
+    "matthew",
+    "mark",
+    "luke",
+    "john",
+    "acts",
+    "romans",
+    "corinthians",
+    "galatians",
+    "ephesians",
+    "philippians",
+    "colossians",
+    "thessalonians",
+    "timothy",
+    "titus",
+    "philemon",
+    "hebrews",
+    "james",
+    "peter",
+    "jude",
+    "revelation"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with E",
+      "count": 6,
+      "items": [
+        "ecclesiastes",
+        "ephesians",
+        "esther",
+        "exodus",
+        "ezekiel",
+        "ezra"
+      ]
+    },
+    {
+      "name": "Starts with J",
+      "count": 9,
+      "items": [
+        "james",
+        "jeremiah",
+        "job",
+        "joel",
+        "john",
+        "jonah",
+        "joshua",
+        "jude",
+        "judges"
+      ]
+    },
+    {
+      "name": "Starts with P",
+      "count": 5,
+      "items": [
+        "peter",
+        "philemon",
+        "philippians",
+        "proverbs",
+        "psalms"
+      ]
+    },
+    {
+      "name": "Starts with H",
+      "count": 4,
+      "items": [
+        "habakkuk",
+        "haggai",
+        "hebrews",
+        "hosea"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 4,
+      "items": [
+        "malachi",
+        "mark",
+        "matthew",
+        "micah"
+      ]
+    },
+    {
+      "name": "7 Letters Long",
+      "count": 8,
+      "items": [
+        "ezekiel",
+        "genesis",
+        "hebrews",
+        "malachi",
+        "matthew",
+        "numbers",
+        "obadiah",
+        "timothy"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "count": 10,
+      "items": [
+        "daniel",
+        "esther",
+        "exodus",
+        "haggai",
+        "isaiah",
+        "joshua",
+        "judges",
+        "psalms",
+        "romans",
+        "samuel"
+      ]
+    },
+    {
+      "name": "9 Letters Long",
+      "count": 5,
+      "items": [
+        "ephesians",
+        "galatians",
+        "leviticus",
+        "zechariah",
+        "zephaniah"
+      ]
+    },
+    {
+      "name": "4 Letters Long",
+      "count": 9,
+      "items": [
+        "acts",
+        "amos",
+        "ezra",
+        "joel",
+        "john",
+        "jude",
+        "luke",
+        "mark",
+        "ruth"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 8,
+      "items": [
+        "hosea",
+        "james",
+        "jonah",
+        "kings",
+        "micah",
+        "nahum",
+        "peter",
+        "titus"
+      ]
+    },
+    {
+      "name": "8 Letters Long",
+      "count": 5,
+      "items": [
+        "habakkuk",
+        "jeremiah",
+        "nehemiah",
+        "philemon",
+        "proverbs"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "The Pentateuch",
+      "count": 5,
+      "items": ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"]
+    },
+    {
+      "name": "The Four Gospels",
+      "count": 4,
+      "items": ["Matthew", "Mark", "Luke", "John"]
+    },
+    {
+      "name": "Wisdom and Poetry",
+      "count": 5,
+      "items": ["Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Songs"]
+    },
+    {
+      "name": "The Major Prophets",
+      "count": 5,
+      "items": ["Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel"]
+    },
+    {
+      "name": "The Minor Prophets",
+      "count": 12,
+      "items": ["Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"]
+    },
+    {
+      "name": "The Pauline Epistles",
+      "count": 10,
+      "items": ["Romans", "Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "Thessalonians", "Timothy", "Titus", "Philemon"]
+    },
+    {
+      "name": "Old Testament",
+      "count": 36,
+      "items": ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "Samuel", "Kings", "Chronicles", "Ezra", "Nehemiah", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Songs", "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"]
+    },
+    {
+      "name": "New Testament",
+      "count": 20,
+      "items": ["Matthew", "Mark", "Luke", "John", "Acts", "Romans", "Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "Thessalonians", "Timothy", "Titus", "Philemon", "Hebrews", "James", "Peter", "Jude", "Revelation"]
+    }
+  ]
+}

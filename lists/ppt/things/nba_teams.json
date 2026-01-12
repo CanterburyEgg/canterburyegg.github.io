@@ -1,0 +1,189 @@
+{
+  "category_name": "Nba Teams",
+  "master_list": [
+    "pistons",
+    "celtics",
+    "knicks",
+    "raptors",
+    "76ers",
+    "heat",
+    "cavaliers",
+    "magic",
+    "hawks",
+    "bulls",
+    "bucks",
+    "hornets",
+    "nets",
+    "wizards",
+    "pacers",
+    "thunder",
+    "spurs",
+    "nuggets",
+    "timberwolves",
+    "lakers",
+    "rockets",
+    "suns",
+    "warriors",
+    "trail blazers",
+    "grizzlies",
+    "clippers",
+    "mavericks",
+    "jazz",
+    "pelicans",
+    "kings"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with P",
+      "count": 3,
+      "items": [
+        "pacers",
+        "pelicans",
+        "pistons"
+      ]
+    },
+    {
+      "name": "Starts with C",
+      "count": 3,
+      "items": [
+        "cavaliers",
+        "celtics",
+        "clippers"
+      ]
+    },
+    {
+      "name": "Starts with H",
+      "count": 3,
+      "items": [
+        "hawks",
+        "heat",
+        "hornets"
+      ]
+    },
+    {
+      "name": "Starts with T",
+      "count": 3,
+      "items": [
+        "thunder",
+        "timberwolves",
+        "trail blazers"
+      ]
+    },
+    {
+      "name": "7 Letters Long",
+      "count": 8,
+      "items": [
+        "celtics",
+        "hornets",
+        "nuggets",
+        "pistons",
+        "raptors",
+        "rockets",
+        "thunder",
+        "wizards"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "count": 3,
+      "items": [
+        "knicks",
+        "lakers",
+        "pacers"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 7,
+      "items": [
+        "76ers",
+        "bucks",
+        "bulls",
+        "hawks",
+        "kings",
+        "magic",
+        "spurs"
+      ]
+    },
+    {
+      "name": "4 Letters Long",
+      "count": 4,
+      "items": [
+        "heat",
+        "jazz",
+        "nets",
+        "suns"
+      ]
+    },
+    {
+      "name": "9 Letters Long",
+      "count": 3,
+      "items": [
+        "cavaliers",
+        "grizzlies",
+        "mavericks"
+      ]
+    },
+    {
+      "name": "8 Letters Long",
+      "count": 3,
+      "items": [
+        "clippers",
+        "pelicans",
+        "warriors"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Eastern Conference",
+      "count": 15,
+      "items": ["pistons", "celtics", "knicks", "raptors", "76ers", "heat", "cavaliers", "magic", "hawks", "bulls", "bucks", "hornets", "nets", "wizards", "pacers"]
+    },
+    {
+      "name": "Western Conference",
+      "count": 15,
+      "items": ["thunder", "spurs", "nuggets", "timberwolves", "lakers", "rockets", "suns", "warriors", "trail blazers", "grizzlies", "clippers", "mavericks", "jazz", "pelicans", "kings"]
+    },
+    {
+      "name": "Atlantic Division",
+      "count": 5,
+      "items": ["celtics", "knicks", "raptors", "76ers", "nets"]
+    },
+    {
+      "name": "Central Division",
+      "count": 5,
+      "items": ["pistons", "cavaliers", "bulls", "bucks", "pacers"]
+    },
+    {
+      "name": "Southeast Division",
+      "count": 5,
+      "items": ["heat", "magic", "hawks", "hornets", "wizards"]
+    },
+    {
+      "name": "Northwest Division",
+      "count": 5,
+      "items": ["thunder", "nuggets", "timberwolves", "trail blazers", "jazz"]
+    },
+    {
+      "name": "Pacific Division",
+      "count": 5,
+      "items": ["lakers", "suns", "warriors", "clippers", "kings"]
+    },
+    {
+      "name": "Southwest Division",
+      "count": 5,
+      "items": ["spurs", "rockets", "grizzlies", "mavericks", "pelicans"]
+    },
+    {
+      "name": "Animal-Themed Names",
+      "count": 7,
+      "items": ["raptors", "hawks", "bulls", "hornets", "timberwolves", "grizzlies", "pelicans"]
+    },
+    {
+      "name": "California Teams",
+      "count": 4,
+      "items": ["lakers", "warriors", "clippers", "kings"]
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "category_name": "Hitchcock Films",
+  "master_list": [
+    "the pleasure garden",
+    "german title: der bergadler",
+    "the lodger: a story of the london fog",
+    "the ring",
+    "downhill",
+    "the farmer's wife",
+    "easy virtue",
+    "champagne",
+    "the manxman",
+    "blackmail",
+    "juno and the paycock",
+    "murder!",
+    "the skin game",
+    "rich and strange",
+    "number seventeen",
+    "waltzes from vienna",
+    "the 39 steps",
+    "secret agent",
+    "sabotage",
+    "young and innocent",
+    "the lady vanishes",
+    "jamaica inn",
+    "rebecca",
+    "foreign correspondent",
+    "mr. & mrs. smith",
+    "suspicion",
+    "saboteur",
+    "shadow of a doubt",
+    "lifeboat",
+    "spellbound",
+    "notorious",
+    "the paradine case",
+    "rope",
+    "under capricorn",
+    "stage fright",
+    "strangers on a train",
+    "i confess",
+    "dial m for murder",
+    "rear window",
+    "to catch a thief",
+    "the trouble with harry",
+    "the man who knew too much",
+    "the wrong man",
+    "vertigo",
+    "north by northwest",
+    "psycho",
+    "the birds",
+    "marnie",
+    "torn curtain",
+    "topaz",
+    "frenzy",
+    "family plot"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with R",
+      "count": 5,
+      "items": [
+        "rear window",
+        "rebecca",
+        "rich and strange",
+        "rope",
+        "the ring"
+      ]
+    },
+    {
+      "name": "Starts with F",
+      "count": 4,
+      "items": [
+        "family plot",
+        "foreign correspondent",
+        "frenzy",
+        "the farmer's wife"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 5,
+      "items": [
+        "marnie",
+        "mr. & mrs. smith",
+        "murder!",
+        "the man who knew too much",
+        "the manxman"
+      ]
+    },
+    {
+      "name": "Starts with S",
+      "count": 9,
+      "items": [
+        "sabotage",
+        "saboteur",
+        "secret agent",
+        "shadow of a doubt",
+        "spellbound",
+        "stage fright",
+        "strangers on a train",
+        "suspicion",
+        "the skin game"
+      ]
+    },
+    {
+      "name": "Starts with T",
+      "count": 4,
+      "items": [
+        "the trouble with harry",
+        "to catch a thief",
+        "topaz",
+        "torn curtain"
+      ]
+    },
+    {
+      "name": "8 Letters Long",
+      "count": 5,
+      "items": [
+        "downhill",
+        "lifeboat",
+        "sabotage",
+        "saboteur"
+      ]
+    },
+    {
+      "name": "9 Letters Long",
+      "count": 7,
+      "items": [
+        "blackmail",
+        "champagne",
+        "notorious",
+        "suspicion"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "The British Silent Era (1925–1929)",
+      "count": 9,
+      "items": ["the pleasure garden", "german title: der bergadler", "the lodger: a story of the london fog", "the ring", "downhill", "the farmer's wife", "easy virtue", "champagne", "the manxman"]
+    },
+    {
+      "name": "The British Sound Era (1929–1939)",
+      "count": 13,
+      "items": ["blackmail", "juno and the paycock", "murder!", "the skin game", "rich and strange", "number seventeen", "waltzes from vienna", "the 39 steps", "secret agent", "sabotage", "young and innocent", "the lady vanishes", "jamaica inn"]
+    },
+    {
+      "name": "The Early American / Selznick Years (1940–1947)",
+      "count": 10,
+      "items": ["rebecca", "foreign correspondent", "mr. & mrs. smith", "suspicion", "saboteur", "shadow of a doubt", "lifeboat", "spellbound", "notorious", "the paradine case"]
+    },
+    {
+      "name": "The Peak Golden Era (1950–1960)",
+      "count": 11,
+      "items": ["strangers on a train", "i confess", "dial m for murder", "rear window", "to catch a thief", "the trouble with harry", "the man who knew too much", "the wrong man", "vertigo", "north by northwest", "psycho"]
+    },
+    {
+      "name": "The Late Master / Final Films (1963–1976)",
+      "count": 6,
+      "items": ["the birds", "marnie", "torn curtain", "topaz", "frenzy", "family plot"]
+    },
+    {
+      "name": "Technicolor Productions (1948–1976)",
+      "count": 15,
+      "items": ["rope", "under capricorn", "dial m for murder", "rear window", "to catch a thief", "the trouble with harry", "the man who knew too much", "vertigo", "north by northwest", "the birds", "marnie", "torn curtain", "topaz", "frenzy", "family plot"]
+    }
+  ]
+}

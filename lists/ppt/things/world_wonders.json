@@ -1,0 +1,99 @@
+{
+  "category_name": "World Wonders",
+  "master_list": [
+    "great pyramid of giza",
+    "hanging gardens of babylon",
+    "statue of zeus",
+    "temple of artemis",
+    "mausoleum",
+    "colossus of rhodes",
+    "lighthouse of alexandria",
+    "great wall of china",
+    "petra",
+    "colosseum",
+    "chichen itza",
+    "machu picchu",
+    "taj mahal",
+    "christ the redeemer",
+    "mount everest",
+    "great barrier reef",
+    "grand canyon",
+    "victoria falls",
+    "paricutin volcano",
+    "aurora borealis",
+    "harbor of rio de janeiro"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with G",
+      "count": 4,
+      "items": [
+        "grand canyon",
+        "great barrier reef",
+        "great pyramid of giza",
+        "great wall of china"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 3,
+      "items": [
+        "machu picchu",
+        "mausoleum",
+        "mount everest"
+      ]
+    },
+    {
+      "name": "Starts with C",
+      "count": 4,
+      "items": [
+        "chichen itza",
+        "christ the redeemer",
+        "colosseum",
+        "colossus of rhodes"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "African Wonders",
+      "count": 3,
+      "items": ["great pyramid of giza", "lighthouse of alexandria", "victoria falls"]
+    },
+    {
+      "name": "Asian Wonders",
+      "count": 7,
+      "items": ["hanging gardens of babylon", "temple of artemis", "mausoleum", "taj mahal", "petra", "great wall of china", "mount everest"]
+    },
+    {
+      "name": "European Wonders",
+      "count": 3,
+      "items": ["statue of zeus", "colossus of rhodes", "colosseum"]
+    },
+    {
+      "name": "North American Wonders",
+      "count": 4,
+      "items": ["chichen itza", "grand canyon", "paricutin volcano", "aurora borealis"]
+    },
+    {
+      "name": "South American Wonders",
+      "count": 3,
+      "items": ["machu picchu", "christ the redeemer", "harbor of rio de janeiro"]
+    },
+    {
+      "name": "Seven Wonders of the Ancient World",
+      "count": 7,
+      "items": ["great pyramid of giza", "hanging gardens of babylon", "statue of zeus", "temple of artemis", "mausoleum", "colossus of rhodes", "lighthouse of alexandria"]
+    },
+    {
+      "name": "New 7 Wonders of the World",
+      "count": 7,
+      "items": ["great wall of china", "petra", "colosseum", "chichen itza", "machu picchu", "taj mahal", "christ the redeemer"]
+    },
+    {
+      "name": "Seven Natural Wonders of the World",
+      "count": 7,
+      "items": ["mount everest", "great barrier reef", "grand canyon", "victoria falls", "paricutin volcano", "aurora borealis", "harbor of rio de janeiro"]
+    }
+  ]
+}

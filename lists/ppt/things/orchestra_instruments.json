@@ -1,0 +1,147 @@
+{
+  "category_name": "Orchestra Instruments",
+  "master_list": [
+    "violin",
+    "viola",
+    "cello",
+    "double bass",
+    "harp",
+    "flute",
+    "piccolo",
+    "oboe",
+    "english horn",
+    "clarinet",
+    "bass clarinet",
+    "bassoon",
+    "contrabassoon",
+    "trumpet",
+    "french horn",
+    "trombone",
+    "bass trombone",
+    "tuba",
+    "timpani",
+    "snare drum",
+    "bass drum",
+    "cymbals",
+    "triangle",
+    "tambourine",
+    "xylophone",
+    "glockenspiel",
+    "chimes",
+    "piano",
+    "celesta"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with C",
+      "count": 6,
+      "items": [
+        "celesta",
+        "cello",
+        "chimes",
+        "clarinet",
+        "contrabassoon",
+        "cymbals"
+      ]
+    },
+    {
+      "name": "Starts with B",
+      "count": 4,
+      "items": [
+        "bass clarinet",
+        "bass drum",
+        "bass trombone",
+        "bassoon"
+      ]
+    },
+    {
+      "name": "Starts with T",
+      "count": 6,
+      "items": [
+        "tambourine",
+        "timpani",
+        "triangle",
+        "trombone",
+        "trumpet",
+        "tuba"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 4,
+      "items": [
+        "cello",
+        "flute",
+        "piano",
+        "viola"
+      ]
+    },
+    {
+      "name": "4 Letters Long",
+      "count": 3,
+      "items": [
+        "harp",
+        "oboe",
+        "tuba"
+      ]
+    },
+    {
+      "name": "7 Letters Long",
+      "count": 6,
+      "items": [
+        "bassoon",
+        "celesta",
+        "cymbals",
+        "piccolo",
+        "timpani",
+        "trumpet"
+      ]
+    },
+    {
+      "name": "8 Letters Long",
+      "count": 3,
+      "items": [
+        "clarinet",
+        "triangle",
+        "trombone"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "String Family",
+      "count": 5,
+      "items": ["violin", "viola", "cello", "double bass", "harp"]
+    },
+    {
+      "name": "Woodwind Family",
+      "count": 8,
+      "items": ["flute", "piccolo", "oboe", "english horn", "clarinet", "bass clarinet", "bassoon", "contrabassoon"]
+    },
+    {
+      "name": "Brass Family",
+      "count": 5,
+      "items": ["trumpet", "french horn", "trombone", "bass trombone", "tuba"]
+    },
+    {
+      "name": "Pitched Percussion and Keyboards",
+      "count": 6,
+      "items": ["timpani", "xylophone", "glockenspiel", "chimes", "piano", "celesta"]
+    },
+    {
+      "name": "Unpitched Percussion",
+      "count": 5,
+      "items": ["snare drum", "bass drum", "cymbals", "triangle", "tambourine"]
+    },
+    {
+      "name": "Treble Clef Primary",
+      "count": 10,
+      "items": ["violin", "flute", "piccolo", "oboe", "english horn", "clarinet", "trumpet", "french horn", "xylophone", "glockenspiel"]
+    },
+    {
+      "name": "Bass Clef Primary",
+      "count": 8,
+      "items": ["cello", "double bass", "bassoon", "contrabassoon", "trombone", "bass trombone", "tuba", "timpani"]
+    }
+  ]
+}

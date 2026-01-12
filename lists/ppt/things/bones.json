@@ -1,0 +1,201 @@
+{
+  "category_name": "Bones",
+  "master_list": [
+    "occipital",
+    "parietal",
+    "frontal",
+    "temporal",
+    "sphenoid",
+    "ethmoid",
+    "nasal",
+    "maxilla",
+    "lacrimal",
+    "zygomatic",
+    "palatine",
+    "inferior nasal concha",
+    "vomer",
+    "mandible",
+    "malleus",
+    "incus",
+    "stapes",
+    "hyoid",
+    "sternum",
+    "rib",
+    "vertebrae",
+    "sacrum",
+    "coccyx",
+    "ilium",
+    "ischium",
+    "pubis",
+    "clavicle",
+    "scapula",
+    "humerus",
+    "ulna",
+    "radius",
+    "carpal",
+    "metacarpal",
+    "phalange",
+    "femur",
+    "patella",
+    "tibia",
+    "fibula",
+    "tarsus",
+    "metatarsal"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with P",
+      "count": 5,
+      "items": [
+        "palatine",
+        "parietal",
+        "patella",
+        "phalange",
+        "pubis"
+      ]
+    },
+    {
+      "name": "Starts with S",
+      "count": 5,
+      "items": [
+        "sacrum",
+        "scapula",
+        "sphenoid",
+        "stapes",
+        "sternum"
+      ]
+    },
+    {
+      "name": "Starts with M",
+      "count": 5,
+      "items": [
+        "malleus",
+        "mandible",
+        "maxilla",
+        "metacarpal",
+        "metatarsal"
+      ]
+    },
+    {
+      "name": "Starts with I",
+      "count": 4,
+      "items": [
+        "ilium",
+        "incus",
+        "inferior nasal concha",
+        "ischium"
+      ]
+    },
+    {
+      "name": "Ends with a",
+      "count": 7,
+      "items": [
+        "fibula",
+        "inferior nasal concha",
+        "maxilla",
+        "patella",
+        "scapula",
+        "tibia",
+        "ulna"
+      ]
+    },
+    {
+      "name": "Ends with e",
+      "count": 5,
+      "items": [
+        "clavicle",
+        "mandible",
+        "palatine",
+        "phalange",
+        "vertebrae"
+      ]
+    },
+    {
+      "name": "Ends with s",
+      "count": 7,
+      "items": [
+        "humerus",
+        "incus",
+        "malleus",
+        "pubis",
+        "radius",
+        "stapes",
+        "tarsus"
+      ]
+    },
+    {
+      "name": "Ends with m",
+      "count": 4,
+      "items": [
+        "ilium",
+        "ischium",
+        "sacrum",
+        "sternum"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "count": 8,
+      "items": [
+        "femur",
+        "hyoid",
+        "ilium",
+        "incus",
+        "nasal",
+        "pubis",
+        "tibia",
+        "vomer"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "count": 7,
+      "items": [
+        "carpal",
+        "coccyx",
+        "fibula",
+        "radius",
+        "sacrum",
+        "stapes",
+        "tarsus"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Axial Skeleton",
+      "count": 23,
+      "items": ["occipital", "parietal", "frontal", "temporal", "sphenoid", "ethmoid", "nasal", "maxilla", "lacrimal", "zygomatic", "palatine", "inferior nasal concha", "vomer", "mandible", "malleus", "incus", "stapes", "hyoid", "sternum", "rib", "vertebrae", "sacrum", "coccyx"]
+    },
+    {
+      "name": "Appendicular Skeleton",
+      "count": 17,
+      "items": ["ilium", "ischium", "pubis", "clavicle", "scapula", "humerus", "ulna", "radius", "carpal", "metacarpal", "phalange", "femur", "patella", "tibia", "fibula", "tarsus", "metatarsal"]
+    },
+    {
+      "name": "Cranial Bones",
+      "count": 6,
+      "items": ["occipital", "parietal", "frontal", "temporal", "sphenoid", "ethmoid"]
+    },
+    {
+      "name": "Facial Bones",
+      "count": 8,
+      "items": ["nasal", "maxilla", "lacrimal", "zygomatic", "palatine", "inferior nasal concha", "vomer", "mandible"]
+    },
+    {
+      "name": "Bones of the Arm and Hand",
+      "count": 6,
+      "items": ["humerus", "ulna", "radius", "carpal", "metacarpal", "phalange"]
+    },
+    {
+      "name": "Bones of the Leg and Foot",
+      "count": 7,
+      "items": ["femur", "patella", "tibia", "fibula", "tarsus", "metatarsal", "phalange"]
+    },
+    {
+      "name": "Pelvic Girdle",
+      "count": 4,
+      "items": ["ilium", "ischium", "pubis", "sacrum"]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "category_name": "Winter Olympics",
+  "master_list": [
+    "alpine skiing",
+    "biathlon",
+    "bobsleigh",
+    "cross-country skiing",
+    "curling",
+    "figure skating",
+    "freestyle skiing",
+    "ice hockey",
+    "luge",
+    "nordic combined",
+    "speed skating",
+    "skeleton",
+    "ski jumping",
+    "ski mountaineering",
+    "snowboarding"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with S",
+      "count": 5,
+      "items": [
+        "skeleton",
+        "ski jumping",
+        "ski mountaineering",
+        "snowboarding",
+        "speed skating"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Sledding Sports",
+      "count": 3,
+      "items": ["bobsleigh", "luge", "skeleton"]
+    },
+    {
+      "name": "Nordic Skiing Disciplines",
+      "count": 4,
+      "items": ["biathlon", "cross-country skiing", "nordic combined", "ski jumping"]
+    },
+    {
+      "name": "Alpine and Vertical Skiing",
+      "count": 4,
+      "items": ["alpine skiing", "freestyle skiing", "snowboarding", "ski mountaineering"]
+    },
+    {
+      "name": "Ice Skating Disciplines",
+      "count": 3,
+      "items": ["figure skating", "speed skating", "ice hockey"]
+    }
+  ]
+}
