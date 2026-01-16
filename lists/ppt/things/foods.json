@@ -1,0 +1,113 @@
+{
+  "category_name": "25 Most Eaten Foods",
+  "master_list": [
+    "Mango",
+    "Yam",
+    "Grape",
+    "Watermelon",
+    "Barley",
+    "Beef",
+    "Sweet Potato",
+    "Apple",
+    "Egg",
+    "Sorghum",
+    "Orange",
+    "Onion",
+    "Banana",
+    "Pork",
+    "Beans",
+    "Chicken",
+    "Cassava",
+    "Seafood",
+    "Sugar",
+    "Corn",
+    "Tomato",
+    "Potato",
+    "Wheat",
+    "Rice",
+    "Milk"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with B",
+      "items": [
+        "Banana",
+        "Barley",
+        "Beans",
+        "Beef"
+      ]
+    },
+    {
+      "name": "Starts with S",
+      "items": [
+        "Seafood",
+        "Sorghum",
+        "Sugar",
+        "Sweet Potato"
+      ]
+    },
+    {
+      "name": "Starts with C",
+      "items": [
+        "Cassava",
+        "Chicken",
+        "Corn"
+      ]
+    },
+    {
+      "name": "5 Letters Long",
+      "items": [
+        "Apple",
+        "Beans",
+        "Grape",
+        "Mango",
+        "Onion",
+        "Sugar",
+        "Wheat"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "items": [
+        "Banana",
+        "Barley",
+        "Orange",
+        "Potato",
+        "Tomato"
+      ]
+    },
+    {
+      "name": "4 Letters Long",
+      "items": [
+        "Beef",
+        "Corn",
+        "Milk",
+        "Pork",
+        "Rice"
+      ]
+    },
+    {
+      "name": "7 Letters Long",
+      "items": [
+        "Cassava",
+        "Chicken",
+        "Seafood",
+        "Sorghum"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Fruits",
+      "items": ["Mango", "Grape", "Watermelon", "Apple", "Orange", "Banana", "Tomato"]
+    },
+    {
+      "name": "Starches & Grains",
+      "items": ["Yam", "Barley", "Sweet Potato", "Sorghum", "Cassava", "Corn", "Potato", "Wheat", "Rice"]
+    },
+    {
+      "name": "Animal Byproducts",
+      "items": ["Beef", "Egg", "Pork", "Chicken", "Seafood", "Milk"]
+    }
+  ]
+}
