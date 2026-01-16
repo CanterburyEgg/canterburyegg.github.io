@@ -1,0 +1,83 @@
+{
+    "category_name": "Chagall Ceiling Composers",
+    "master_list": [
+        "Wolfgang Amadeus Mozart",
+        "Richard Wagner",
+        "Modest Mussorgsky",
+        "Hector Berlioz",
+        "Maurice Ravel",
+        "Igor Stravinsky",
+        "Pyotr Ilyich Tchaikovsky",
+        "Adolphe Adam",
+        "Claude Debussy",
+        "Jean-Philippe Rameau",
+        "Georges Bizet",
+        "Giuseppe Verdi",
+        "Ludwig van Beethoven",
+        "Christoph Willibald Gluck"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Ludwig van Beethoven",
+                "Hector Berlioz",
+                "Georges Bizet"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "French Composers",
+            "items": [
+                "Adolphe Adam",
+                "Hector Berlioz",
+                "Georges Bizet",
+                "Claude Debussy",
+                "Jean-Philippe Rameau",
+                "Maurice Ravel"
+            ]
+        },
+        {
+            "name": "Russian Composers",
+            "items": [
+                "Modest Mussorgsky",
+                "Igor Stravinsky",
+                "Pyotr Ilyich Tchaikovsky"
+            ]
+        },
+        {
+            "name": "Central Panel",
+            "items": [
+                "Ludwig van Beethoven",
+                "Georges Bizet",
+                "Christoph Willibald Gluck",
+                "Giuseppe Verdi"
+            ]
+        },
+        {
+            "name": "Outer Ring",
+            "items": [
+                "Adolphe Adam",
+                "Hector Berlioz",
+                "Claude Debussy",
+                "Wolfgang Amadeus Mozart",
+                "Modest Mussorgsky",
+                "Jean-Philippe Rameau",
+                "Maurice Ravel",
+                "Igor Stravinsky",
+                "Pyotr Ilyich Tchaikovsky",
+                "Richard Wagner"
+            ]
+        },
+        {
+            "name": "Depicted with Ballet Scenes",
+            "items": [
+                "Adolphe Adam",
+                "Maurice Ravel",
+                "Igor Stravinsky",
+                "Pyotr Ilyich Tchaikovsky"
+            ]
+        }
+    ]
+}

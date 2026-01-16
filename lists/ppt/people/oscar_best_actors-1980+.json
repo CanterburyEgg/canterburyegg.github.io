@@ -1,0 +1,225 @@
+{
+    "category_name": "Oscar Best Actor Winners since 1980",
+    "master_list": [
+        "Adrien Brody",
+        "Al Pacino",
+        "Anthony Hopkins",
+        "Ben Kingsley",
+        "Brendan Fraser",
+        "Casey Affleck",
+        "Cillian Murphy",
+        "Colin Firth",
+        "Daniel Day-Lewis",
+        "Denzel Washington",
+        "Dustin Hoffman",
+        "Eddie Redmayne",
+        "F. Murray Abraham",
+        "Forest Whitaker",
+        "Gary Oldman",
+        "Geoffrey Rush",
+        "Henry Fonda",
+        "Jack Nicholson",
+        "Jamie Foxx",
+        "Jean Dujardin",
+        "Jeff Bridges",
+        "Jeremy Irons",
+        "Joaquin Phoenix",
+        "Kevin Spacey",
+        "Leonardo DiCaprio",
+        "Matthew McConaughey",
+        "Michael Douglas",
+        "Nicolas Cage",
+        "Paul Newman",
+        "Philip Seymour Hoffman",
+        "Rami Malek",
+        "Robert De Niro",
+        "Robert Duvall",
+        "Roberto Benigni",
+        "Russell Crowe",
+        "Sean Penn",
+        "Tom Hanks",
+        "Will Smith",
+        "William Hurt"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Adrien Brody",
+                "Anthony Hopkins",
+                "Al Pacino"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Casey Affleck",
+                "Colin Firth",
+                "Cillian Murphy"
+            ]
+        },
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "Daniel Day-Lewis",
+                "Dustin Hoffman",
+                "Denzel Washington"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jeff Bridges",
+                "Jean Dujardin",
+                "Jamie Foxx",
+                "Jeremy Irons",
+                "Jack Nicholson",
+                "Joaquin Phoenix"
+            ]
+        },
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Roberto Benigni",
+                "Russell Crowe",
+                "Robert Duvall",
+                "Rami Malek",
+                "Robert De Niro"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Roberto Benigni",
+                "Jeff Bridges",
+                "Adrien Brody"
+            ]
+        },
+        {
+            "name": "Last Name Starts with P",
+            "items": [
+                "Al Pacino",
+                "Sean Penn",
+                "Joaquin Phoenix"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Tom Hanks",
+                "Dustin Hoffman",
+                "Philip Seymour Hoffman",
+                "Anthony Hopkins",
+                "William Hurt"
+            ]
+        },
+        {
+            "name": "Last Name Starts with F",
+            "items": [
+                "Colin Firth",
+                "Henry Fonda",
+                "Jamie Foxx",
+                "Brendan Fraser"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Rami Malek",
+                "Matthew McConaughey",
+                "Cillian Murphy"
+            ]
+        },
+        {
+            "name": "Last Name Starts with D",
+            "items": [
+                "Daniel Day-Lewis",
+                "Leonardo DiCaprio",
+                "Michael Douglas",
+                "Jean Dujardin",
+                "Robert Duvall",
+                "Robert De Niro"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Ben Kingsley",
+                "Dustin Hoffman",
+                "F. Murray Abraham",
+                "Henry Fonda",
+                "Michael Douglas",
+                "Paul Newman",
+                "Robert Duvall",
+                "William Hurt"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Al Pacino",
+                "Anthony Hopkins",
+                "Geoffrey Rush",
+                "Jack Nicholson",
+                "Jeremy Irons",
+                "Kevin Spacey",
+                "Nicolas Cage",
+                "Roberto Benigni",
+                "Tom Hanks"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Adrien Brody",
+                "Daniel Day-Lewis",
+                "Denzel Washington",
+                "Forest Whitaker",
+                "Jamie Foxx",
+                "Jeff Bridges",
+                "Philip Seymour Hoffman",
+                "Russell Crowe",
+                "Sean Penn"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Casey Affleck",
+                "Colin Firth",
+                "Daniel Day-Lewis",
+                "Eddie Redmayne",
+                "Gary Oldman",
+                "Jean Dujardin",
+                "Joaquin Phoenix",
+                "Leonardo DiCaprio",
+                "Matthew McConaughey",
+                "Rami Malek"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Adrien Brody",
+                "Anthony Hopkins",
+                "Brendan Fraser",
+                "Cillian Murphy",
+                "Will Smith"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Adrien Brody",
+                "Anthony Hopkins",
+                "Daniel Day-Lewis",
+                "Dustin Hoffman",
+                "Jack Nicholson",
+                "Sean Penn",
+                "Tom Hanks"
+            ]
+        }
+    ]
+}

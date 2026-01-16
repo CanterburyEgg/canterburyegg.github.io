@@ -1,513 +1,591 @@
 {
-  "category_name": "Elements",
-  "master_list": [
-    "hydrogen",
-    "helium",
-    "lithium",
-    "beryllium",
-    "boron",
-    "carbon",
-    "nitrogen",
-    "oxygen",
-    "fluorine",
-    "neon",
-    "sodium",
-    "magnesium",
-    "aluminium",
-    "silicon",
-    "phosphorus",
-    "sulfur",
-    "chlorine",
-    "argon",
-    "potassium",
-    "calcium",
-    "scandium",
-    "titanium",
-    "vanadium",
-    "chromium",
-    "manganese",
-    "iron",
-    "cobalt",
-    "nickel",
-    "copper",
-    "zinc",
-    "gallium",
-    "germanium",
-    "arsenic",
-    "selenium",
-    "bromine",
-    "krypton",
-    "rubidium",
-    "strontium",
-    "yttrium",
-    "zirconium",
-    "niobium",
-    "molybdenum",
-    "technetium",
-    "ruthenium",
-    "rhodium",
-    "palladium",
-    "silver",
-    "cadmium",
-    "indium",
-    "tin",
-    "antimony",
-    "tellurium",
-    "iodine",
-    "xenon",
-    "caesium",
-    "barium",
-    "lanthanum",
-    "cerium",
-    "praseodymium",
-    "neodymium",
-    "promethium",
-    "samarium",
-    "europium",
-    "gadolinium",
-    "terbium",
-    "dysprosium",
-    "holmium",
-    "erbium",
-    "thulium",
-    "ytterbium",
-    "lutetium",
-    "hafnium",
-    "tantalum",
-    "tungsten",
-    "rhenium",
-    "osmium",
-    "iridium",
-    "platinum",
-    "gold",
-    "mercury",
-    "thallium",
-    "lead",
-    "bismuth",
-    "polonium",
-    "astatine",
-    "radon",
-    "francium",
-    "radium",
-    "actinium",
-    "thorium",
-    "protactinium",
-    "uranium",
-    "neptunium",
-    "plutonium",
-    "americium",
-    "curium",
-    "berkelium",
-    "californium",
-    "einsteinium",
-    "fermium",
-    "mendelevium",
-    "nobelium",
-    "lawrencium",
-    "rutherfordium",
-    "dubnium",
-    "seaborgium",
-    "bohrium",
-    "hassium",
-    "meitnerium",
-    "darmstadtium",
-    "roentgenium",
-    "copernicium",
-    "nihonium",
-    "flerovium",
-    "moscovium",
-    "livermorium",
-    "tennessine",
-    "oganesson"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with H",
-      "count": 5,
-      "items": [
-        "hafnium",
-        "hassium",
-        "helium",
-        "holmium",
-        "hydrogen"
-      ]
-    },
-    {
-      "name": "Starts with L",
-      "count": 6,
-      "items": [
-        "lanthanum",
-        "lawrencium",
-        "lead",
-        "lithium",
-        "livermorium",
-        "lutetium"
-      ]
-    },
-    {
-      "name": "Starts with B",
-      "count": 7,
-      "items": [
-        "barium",
-        "berkelium",
-        "beryllium",
-        "bismuth",
-        "bohrium",
-        "boron",
-        "bromine"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 12,
-      "items": [
-        "cadmium",
-        "caesium",
-        "calcium",
-        "californium",
-        "carbon",
-        "cerium",
-        "chlorine",
-        "chromium",
-        "cobalt",
-        "copernicium",
-        "copper",
-        "curium"
-      ]
-    },
-    {
-      "name": "Starts with N",
-      "count": 8,
-      "items": [
-        "neodymium",
-        "neon",
-        "neptunium",
-        "nickel",
-        "nihonium",
-        "niobium",
-        "nitrogen",
-        "nobelium"
-      ]
-    },
-    {
-      "name": "Starts with F",
-      "count": 4,
-      "items": [
-        "fermium",
-        "flerovium",
-        "fluorine",
-        "francium"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 9,
-      "items": [
-        "samarium",
-        "scandium",
-        "seaborgium",
-        "selenium",
-        "silicon",
-        "silver",
-        "sodium",
-        "strontium",
-        "sulfur"
-      ]
-    },
-    {
-      "name": "Starts with M",
-      "count": 7,
-      "items": [
-        "magnesium",
-        "manganese",
-        "meitnerium",
-        "mendelevium",
-        "mercury",
-        "molybdenum",
-        "moscovium"
-      ]
-    },
-    {
-      "name": "Starts with A",
-      "count": 7,
-      "items": [
-        "actinium",
-        "aluminium",
-        "americium",
-        "antimony",
-        "argon",
-        "arsenic",
-        "astatine"
-      ]
-    },
-    {
-      "name": "Starts with P",
-      "count": 9,
-      "items": [
-        "palladium",
-        "phosphorus",
-        "platinum",
-        "plutonium",
-        "polonium",
-        "potassium",
-        "praseodymium",
-        "promethium",
-        "protactinium"
-      ]
-    },
-    {
-      "name": "Starts with T",
-      "count": 11,
-      "items": [
-        "tantalum",
-        "technetium",
-        "tellurium",
-        "tennessine",
-        "terbium",
-        "thallium",
-        "thorium",
-        "thulium",
-        "tin",
-        "titanium",
-        "tungsten"
-      ]
-    },
-    {
-      "name": "Starts with I",
-      "count": 4,
-      "items": [
-        "indium",
-        "iodine",
-        "iridium",
-        "iron"
-      ]
-    },
-    {
-      "name": "Starts with G",
-      "count": 4,
-      "items": [
-        "gadolinium",
-        "gallium",
-        "germanium",
-        "gold"
-      ]
-    },
-    {
-      "name": "Starts with R",
-      "count": 8,
-      "items": [
-        "radium",
-        "radon",
-        "rhenium",
-        "rhodium",
-        "roentgenium",
-        "rubidium",
-        "ruthenium",
-        "rutherfordium"
-      ]
-    },
-    {
-      "name": "8 Letters Long",
-      "count": 24,
-      "items": [
-        "actinium",
-        "antimony",
-        "astatine",
-        "chlorine",
-        "chromium",
-        "europium",
-        "fluorine",
-        "francium",
+    "category_name": "Chemical Elements",
+    "master_list": [
         "hydrogen",
-        "lutetium",
-        "nihonium",
-        "nitrogen",
-        "nobelium",
-        "platinum",
-        "polonium",
-        "rubidium",
-        "samarium",
-        "scandium",
-        "selenium",
-        "tantalum",
-        "thallium",
-        "titanium",
-        "tungsten",
-        "vanadium"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 17,
-      "items": [
-        "barium",
-        "carbon",
-        "cerium",
-        "cobalt",
-        "copper",
-        "curium",
-        "erbium",
         "helium",
-        "indium",
-        "iodine",
-        "nickel",
-        "osmium",
-        "oxygen",
-        "radium",
-        "silver",
-        "sodium",
-        "sulfur"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 26,
-      "items": [
-        "arsenic",
-        "bismuth",
-        "bohrium",
-        "bromine",
-        "cadmium",
-        "caesium",
-        "calcium",
-        "dubnium",
-        "fermium",
-        "gallium",
-        "hafnium",
-        "hassium",
-        "holmium",
-        "iridium",
-        "krypton",
         "lithium",
-        "mercury",
-        "niobium",
-        "rhenium",
-        "rhodium",
-        "silicon",
-        "terbium",
-        "thorium",
-        "thulium",
-        "uranium",
-        "yttrium"
-      ]
-    },
-    {
-      "name": "9 Letters Long",
-      "count": 21,
-      "items": [
-        "aluminium",
-        "americium",
-        "berkelium",
         "beryllium",
-        "flerovium",
-        "germanium",
-        "lanthanum",
-        "magnesium",
-        "manganese",
-        "moscovium",
-        "neodymium",
-        "neptunium",
-        "oganesson",
-        "palladium",
-        "plutonium",
-        "potassium",
-        "ruthenium",
-        "strontium",
-        "tellurium",
-        "ytterbium",
-        "zirconium"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 4,
-      "items": [
-        "argon",
         "boron",
-        "radon",
-        "xenon"
-      ]
-    },
-    {
-      "name": "4 Letters Long",
-      "count": 5,
-      "items": [
-        "gold",
-        "iron",
-        "lead",
+        "carbon",
+        "nitrogen",
+        "oxygen",
+        "fluorine",
         "neon",
-        "zinc"
-      ]
-    },
-    {
-      "name": "10 Letters Long",
-      "count": 10,
-      "items": [
-        "dysprosium",
-        "gadolinium",
-        "lawrencium",
-        "meitnerium",
-        "molybdenum",
+        "sodium",
+        "magnesium",
+        "aluminium",
+        "silicon",
         "phosphorus",
-        "promethium",
-        "seaborgium",
+        "sulfur",
+        "chlorine",
+        "argon",
+        "potassium",
+        "calcium",
+        "scandium",
+        "titanium",
+        "vanadium",
+        "chromium",
+        "manganese",
+        "iron",
+        "cobalt",
+        "nickel",
+        "copper",
+        "zinc",
+        "gallium",
+        "germanium",
+        "arsenic",
+        "selenium",
+        "bromine",
+        "krypton",
+        "rubidium",
+        "strontium",
+        "yttrium",
+        "zirconium",
+        "niobium",
+        "molybdenum",
         "technetium",
-        "tennessine"
-      ]
-    },
-    {
-      "name": "11 Letters Long",
-      "count": 6,
-      "items": [
+        "ruthenium",
+        "rhodium",
+        "palladium",
+        "silver",
+        "cadmium",
+        "indium",
+        "tin",
+        "antimony",
+        "tellurium",
+        "iodine",
+        "xenon",
+        "caesium",
+        "barium",
+        "lanthanum",
+        "cerium",
+        "praseodymium",
+        "neodymium",
+        "promethium",
+        "samarium",
+        "europium",
+        "gadolinium",
+        "terbium",
+        "dysprosium",
+        "holmium",
+        "erbium",
+        "thulium",
+        "ytterbium",
+        "lutetium",
+        "hafnium",
+        "tantalum",
+        "tungsten",
+        "rhenium",
+        "osmium",
+        "iridium",
+        "platinum",
+        "gold",
+        "mercury",
+        "thallium",
+        "lead",
+        "bismuth",
+        "polonium",
+        "astatine",
+        "radon",
+        "francium",
+        "radium",
+        "actinium",
+        "thorium",
+        "protactinium",
+        "uranium",
+        "neptunium",
+        "plutonium",
+        "americium",
+        "curium",
+        "berkelium",
         "californium",
-        "copernicium",
         "einsteinium",
-        "livermorium",
+        "fermium",
         "mendelevium",
-        "roentgenium"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Noble Gases",
-      "count": 7,
-      "items": ["helium", "neon", "argon", "krypton", "xenon", "radon", "oganesson"]
-    },
-    {
-      "name": "Alkali Metals",
-      "count": 6,
-      "items": ["lithium", "sodium", "potassium", "rubidium", "caesium", "francium"]
-    },
-    {
-      "name": "Alkaline Earth Metals",
-      "count": 6,
-      "items": ["beryllium", "magnesium", "calcium", "strontium", "barium", "radium"]
-    },
-    {
-      "name": "Halogens",
-      "count": 6,
-      "items": ["fluorine", "chlorine", "bromine", "iodine", "astatine", "tennessine"]
-    },
-    {
-      "name": "Lanthanides",
-      "count": 15,
-      "items": ["lanthanum", "cerium", "praseodymium", "neodymium", "promethium", "samarium", "europium", "gadolinium", "terbium", "dysprosium", "holmium", "erbium", "thulium", "ytterbium", "lutetium"]
-    },
-    {
-      "name": "Actinides",
-      "count": 15,
-      "items": ["actinium", "thorium", "protactinium", "uranium", "neptunium", "plutonium", "americium", "curium", "berkelium", "californium", "einsteinium", "fermium", "mendelevium", "nobelium", "lawrencium"]
-    },
-    {
-      "name": "Metalloids",
-      "count": 7,
-      "items": ["boron", "silicon", "germanium", "arsenic", "antimony", "tellurium", "polonium"]
-    },
-    {
-      "name": "Transition Metals",
-      "count": 38,
-      "items": ["scandium", "titanium", "vanadium", "chromium", "manganese", "iron", "cobalt", "nickel", "copper", "zinc", "yttrium", "zirconium", "niobium", "molybdenum", "technetium", "ruthenium", "rhodium", "palladium", "silver", "cadmium", "hafnium", "tantalum", "tungsten", "rhenium", "osmium", "iridium", "platinum", "gold", "mercury", "rutherfordium", "dubnium", "seaborgium", "bohrium", "hassium", "meitnerium", "darmstadtium", "roentgenium", "copernicium"]
-    }
-  ]
+        "nobelium",
+        "lawrencium",
+        "rutherfordium",
+        "dubnium",
+        "seaborgium",
+        "bohrium",
+        "hassium",
+        "meitnerium",
+        "darmstadtium",
+        "roentgenium",
+        "copernicium",
+        "nihonium",
+        "flerovium",
+        "moscovium",
+        "livermorium",
+        "tennessine",
+        "oganesson"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with H",
+            "items": [
+                "hafnium",
+                "hassium",
+                "helium",
+                "holmium",
+                "hydrogen"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "lanthanum",
+                "lawrencium",
+                "lead",
+                "lithium",
+                "livermorium",
+                "lutetium"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "barium",
+                "berkelium",
+                "beryllium",
+                "bismuth",
+                "bohrium",
+                "boron",
+                "bromine"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cadmium",
+                "caesium",
+                "calcium",
+                "californium",
+                "carbon",
+                "cerium",
+                "chlorine",
+                "chromium",
+                "cobalt",
+                "copernicium",
+                "copper",
+                "curium"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "neodymium",
+                "neon",
+                "neptunium",
+                "nickel",
+                "nihonium",
+                "niobium",
+                "nitrogen",
+                "nobelium"
+            ]
+        },
+        {
+            "name": "Starts with F",
+            "items": [
+                "fermium",
+                "flerovium",
+                "fluorine",
+                "francium"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "samarium",
+                "scandium",
+                "seaborgium",
+                "selenium",
+                "silicon",
+                "silver",
+                "sodium",
+                "strontium",
+                "sulfur"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "magnesium",
+                "manganese",
+                "meitnerium",
+                "mendelevium",
+                "mercury",
+                "molybdenum",
+                "moscovium"
+            ]
+        },
+        {
+            "name": "Starts with A",
+            "items": [
+                "actinium",
+                "aluminium",
+                "americium",
+                "antimony",
+                "argon",
+                "arsenic",
+                "astatine"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "palladium",
+                "phosphorus",
+                "platinum",
+                "plutonium",
+                "polonium",
+                "potassium",
+                "praseodymium",
+                "promethium",
+                "protactinium"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "tantalum",
+                "technetium",
+                "tellurium",
+                "tennessine",
+                "terbium",
+                "thallium",
+                "thorium",
+                "thulium",
+                "tin",
+                "titanium",
+                "tungsten"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "indium",
+                "iodine",
+                "iridium",
+                "iron"
+            ]
+        },
+        {
+            "name": "Starts with G",
+            "items": [
+                "gadolinium",
+                "gallium",
+                "germanium",
+                "gold"
+            ]
+        },
+        {
+            "name": "Starts with R",
+            "items": [
+                "radium",
+                "radon",
+                "rhenium",
+                "rhodium",
+                "roentgenium",
+                "rubidium",
+                "ruthenium",
+                "rutherfordium"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "actinium",
+                "antimony",
+                "astatine",
+                "chlorine",
+                "chromium",
+                "europium",
+                "fluorine",
+                "francium",
+                "hydrogen",
+                "lutetium",
+                "nihonium",
+                "nitrogen",
+                "nobelium",
+                "platinum",
+                "polonium",
+                "rubidium",
+                "samarium",
+                "scandium",
+                "selenium",
+                "tantalum",
+                "thallium",
+                "titanium",
+                "tungsten",
+                "vanadium"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "barium",
+                "carbon",
+                "cerium",
+                "cobalt",
+                "copper",
+                "curium",
+                "erbium",
+                "helium",
+                "indium",
+                "iodine",
+                "nickel",
+                "osmium",
+                "oxygen",
+                "radium",
+                "silver",
+                "sodium",
+                "sulfur"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "arsenic",
+                "bismuth",
+                "bohrium",
+                "bromine",
+                "cadmium",
+                "caesium",
+                "calcium",
+                "dubnium",
+                "fermium",
+                "gallium",
+                "hafnium",
+                "hassium",
+                "holmium",
+                "iridium",
+                "krypton",
+                "lithium",
+                "mercury",
+                "niobium",
+                "rhenium",
+                "rhodium",
+                "silicon",
+                "terbium",
+                "thorium",
+                "thulium",
+                "uranium",
+                "yttrium"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "aluminium",
+                "americium",
+                "berkelium",
+                "beryllium",
+                "flerovium",
+                "germanium",
+                "lanthanum",
+                "magnesium",
+                "manganese",
+                "moscovium",
+                "neodymium",
+                "neptunium",
+                "oganesson",
+                "palladium",
+                "plutonium",
+                "potassium",
+                "ruthenium",
+                "strontium",
+                "tellurium",
+                "ytterbium",
+                "zirconium"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "argon",
+                "boron",
+                "radon",
+                "xenon"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "gold",
+                "iron",
+                "lead",
+                "neon",
+                "zinc"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "dysprosium",
+                "gadolinium",
+                "lawrencium",
+                "meitnerium",
+                "molybdenum",
+                "phosphorus",
+                "promethium",
+                "seaborgium",
+                "technetium",
+                "tennessine"
+            ]
+        },
+        {
+            "name": "11 Letters Long",
+            "items": [
+                "californium",
+                "copernicium",
+                "einsteinium",
+                "livermorium",
+                "mendelevium",
+                "roentgenium"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Noble Gases",
+            "items": [
+                "helium",
+                "neon",
+                "argon",
+                "krypton",
+                "xenon",
+                "radon",
+                "oganesson"
+            ]
+        },
+        {
+            "name": "Alkali Metals",
+            "items": [
+                "lithium",
+                "sodium",
+                "potassium",
+                "rubidium",
+                "caesium",
+                "francium"
+            ]
+        },
+        {
+            "name": "Alkaline Earth Metals",
+            "items": [
+                "beryllium",
+                "magnesium",
+                "calcium",
+                "strontium",
+                "barium",
+                "radium"
+            ]
+        },
+        {
+            "name": "Halogens",
+            "items": [
+                "fluorine",
+                "chlorine",
+                "bromine",
+                "iodine",
+                "astatine",
+                "tennessine"
+            ]
+        },
+        {
+            "name": "Lanthanides",
+            "items": [
+                "lanthanum",
+                "cerium",
+                "praseodymium",
+                "neodymium",
+                "promethium",
+                "samarium",
+                "europium",
+                "gadolinium",
+                "terbium",
+                "dysprosium",
+                "holmium",
+                "erbium",
+                "thulium",
+                "ytterbium",
+                "lutetium"
+            ]
+        },
+        {
+            "name": "Actinides",
+            "items": [
+                "actinium",
+                "thorium",
+                "protactinium",
+                "uranium",
+                "neptunium",
+                "plutonium",
+                "americium",
+                "curium",
+                "berkelium",
+                "californium",
+                "einsteinium",
+                "fermium",
+                "mendelevium",
+                "nobelium",
+                "lawrencium"
+            ]
+        },
+        {
+            "name": "Metalloids",
+            "items": [
+                "boron",
+                "silicon",
+                "germanium",
+                "arsenic",
+                "antimony",
+                "tellurium",
+                "polonium"
+            ]
+        },
+        {
+            "name": "Transition Metals",
+            "items": [
+                "scandium",
+                "titanium",
+                "vanadium",
+                "chromium",
+                "manganese",
+                "iron",
+                "cobalt",
+                "nickel",
+                "copper",
+                "zinc",
+                "yttrium",
+                "zirconium",
+                "niobium",
+                "molybdenum",
+                "technetium",
+                "ruthenium",
+                "rhodium",
+                "palladium",
+                "silver",
+                "cadmium",
+                "hafnium",
+                "tantalum",
+                "tungsten",
+                "rhenium",
+                "osmium",
+                "iridium",
+                "platinum",
+                "gold",
+                "mercury",
+                "rutherfordium",
+                "dubnium",
+                "seaborgium",
+                "bohrium",
+                "hassium",
+                "meitnerium",
+                "darmstadtium",
+                "roentgenium",
+                "copernicium"
+            ]
+        }
+    ]
 }

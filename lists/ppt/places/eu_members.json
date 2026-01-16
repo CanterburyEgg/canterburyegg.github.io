@@ -1,0 +1,165 @@
+{
+    "category_name": "EU Members",
+    "master_list": [
+        "austria",
+        "belgium",
+        "bulgaria",
+        "croatia",
+        "cyprus",
+        "czech republic",
+        "denmark",
+        "estonia",
+        "finland",
+        "france",
+        "germany",
+        "greece",
+        "hungary",
+        "ireland",
+        "italy",
+        "latvia",
+        "lithuania",
+        "luxembourg",
+        "malta",
+        "netherlands",
+        "poland",
+        "portugal",
+        "romania",
+        "slovakia",
+        "slovenia",
+        "spain",
+        "sweden"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "croatia",
+                "cyprus",
+                "czech republic"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "latvia",
+                "lithuania",
+                "luxembourg"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "slovakia",
+                "slovenia",
+                "spain",
+                "sweden"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "austria",
+                "belgium",
+                "croatia",
+                "denmark",
+                "estonia",
+                "finland",
+                "germany",
+                "hungary",
+                "ireland",
+                "romania"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "bulgaria",
+                "portugal",
+                "slovakia",
+                "slovenia"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "cyprus",
+                "france",
+                "greece",
+                "latvia",
+                "poland",
+                "sweden"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "italy",
+                "malta",
+                "spain"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Eurozone Members (2026)",
+            "items": [
+                "austria",
+                "belgium",
+                "bulgaria",
+                "croatia",
+                "cyprus",
+                "estonia",
+                "finland",
+                "france",
+                "germany",
+                "greece",
+                "ireland",
+                "italy",
+                "latvia",
+                "lithuania",
+                "luxembourg",
+                "malta",
+                "netherlands",
+                "portugal",
+                "slovakia",
+                "slovenia",
+                "spain"
+            ]
+        },
+        {
+            "name": "Landlocked EU Members",
+            "items": [
+                "austria",
+                "czech republic",
+                "hungary",
+                "luxembourg",
+                "slovakia"
+            ]
+        },
+        {
+            "name": "Mediterranean EU Members",
+            "items": [
+                "croatia",
+                "cyprus",
+                "france",
+                "greece",
+                "italy",
+                "malta",
+                "portugal",
+                "slovenia",
+                "spain"
+            ]
+        },
+        {
+            "name": "Nordic & Baltic EU Members",
+            "items": [
+                "denmark",
+                "estonia",
+                "finland",
+                "latvia",
+                "lithuania",
+                "sweden"
+            ]
+        }
+    ]
+}

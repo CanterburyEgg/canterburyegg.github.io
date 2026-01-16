@@ -1,0 +1,165 @@
+{
+    "category_name": "People's Most Beautiful People",
+    "master_list": [
+        "Michelle Pfeiffer",
+        "Julia Roberts",
+        "Jodie Foster",
+        "Cindy Crawford",
+        "Meg Ryan",
+        "Courteney Cox",
+        "Mel Gibson",
+        "Tom Cruise",
+        "Leonardo DiCaprio",
+        "Catherine Zeta-Jones",
+        "Nicole Kidman",
+        "Halle Berry",
+        "Jennifer Aniston",
+        "Angelina Jolie",
+        "Drew Barrymore",
+        "Kate Hudson",
+        "Rani Hudson Fujikawa",
+        "Christina Applegate",
+        "Jennifer Lopez",
+        "Beyonce",
+        "Gwyneth Paltrow",
+        "Lupita Nyong'o",
+        "Sandra Bullock",
+        "Pink",
+        "Jennifer Garner",
+        "Goldie Hawn",
+        "Chrissy Teigen",
+        "Helen Mirren",
+        "Melissa McCarthy",
+        "Sofia Vergara",
+        "Demi Moore"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Mel Gibson",
+                "Melissa McCarthy",
+                "Michelle Pfeiffer",
+                "Meg Ryan"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jennifer Aniston",
+                "Jodie Foster",
+                "Jennifer Garner",
+                "Jennifer Lopez",
+                "Julia Roberts"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Christina Applegate",
+                "Courteney Cox",
+                "Cindy Crawford",
+                "Chrissy Teigen",
+                "Catherine Zeta-Jones"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Courteney Cox",
+                "Cindy Crawford",
+                "Tom Cruise"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Drew Barrymore",
+                "Halle Berry",
+                "Sandra Bullock"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Melissa McCarthy",
+                "Helen Mirren",
+                "Demi Moore"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "90s Cover Stars",
+            "items": [
+                "Cindy Crawford",
+                "Courteney Cox",
+                "Jodie Foster",
+                "Julia Roberts",
+                "Leonardo DiCaprio",
+                "Meg Ryan",
+                "Mel Gibson",
+                "Michelle Pfeiffer",
+                "Tom Cruise"
+            ]
+        },
+        {
+            "name": "2000s Cover Stars",
+            "items": [
+                "Angelina Jolie",
+                "Catherine Zeta-Jones",
+                "Christina Applegate",
+                "Drew Barrymore",
+                "Halle Berry",
+                "Jennifer Aniston",
+                "Julia Roberts",
+                "Kate Hudson",
+                "Nicole Kidman"
+            ]
+        },
+        {
+            "name": "2010s Cover Stars",
+            "items": [
+                "Beyonce",
+                "Gwyneth Paltrow",
+                "Jennifer Aniston",
+                "Jennifer Garner",
+                "Jennifer Lopez",
+                "Julia Roberts",
+                "Lupita Nyong'o",
+                "Pink",
+                "Sandra Bullock"
+            ]
+        },
+        {
+            "name": "2020s Cover Stars",
+            "items": [
+                "Chrissy Teigen",
+                "Demi Moore",
+                "Goldie Hawn",
+                "Helen Mirren",
+                "Kate Hudson",
+                "Melissa McCarthy",
+                "Rani Hudson Fujikawa",
+                "Sofia Vergara"
+            ]
+        },
+        {
+            "name": "Multiple Wins (Cover)",
+            "items": [
+                "Jennifer Aniston",
+                "Julia Roberts",
+                "Kate Hudson",
+                "Michelle Pfeiffer"
+            ]
+        },
+        {
+            "name": "Men on the Cover",
+            "items": [
+                "Leonardo DiCaprio",
+                "Mel Gibson",
+                "Tom Cruise"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,71 @@
+{
+    "category_name": "South American Countries",
+    "master_list": [
+        "argentina",
+        "bolivia",
+        "brazil",
+        "chile",
+        "colombia",
+        "ecuador",
+        "guyana",
+        "paraguay",
+        "peru",
+        "suriname",
+        "uruguay",
+        "venezuela"
+    ],
+    "auto_subsets": [
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bolivia",
+                "ecuador",
+                "uruguay"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "colombia",
+                "paraguay",
+                "suriname"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Andean Community Members",
+            "items": [
+                "bolivia",
+                "colombia",
+                "ecuador",
+                "peru"
+            ]
+        },
+        {
+            "name": "The Southern Cone",
+            "items": [
+                "argentina",
+                "chile",
+                "paraguay",
+                "uruguay"
+            ]
+        },
+        {
+            "name": "Non-Spanish Speaking Nations",
+            "items": [
+                "brazil",
+                "guyana",
+                "suriname"
+            ]
+        },
+        {
+            "name": "The Guianas Region",
+            "items": [
+                "guyana",
+                "suriname",
+                "venezuela"
+            ]
+        }
+    ]
+}

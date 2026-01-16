@@ -1,60 +1,86 @@
 {
-  "category_name": "Hercules Labors",
-  "master_list": [
-    "nemean lion",
-    "lernaean hydra",
-    "ceryneian hind",
-    "erymanthian boar",
-    "augean stables",
-    "stymphalian birds",
-    "cretan bull",
-    "mares of diomedes",
-    "hippolyta's girdle",
-    "geryon's cattle",
-    "apples of the hesperides",
-    "cerberus"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with C",
-      "count": 3,
-      "items": [
-        "cerberus",
+    "category_name": "Labors of Hercules",
+    "master_list": [
+        "nemean lion",
+        "lernaean hydra",
         "ceryneian hind",
-        "cretan bull"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "The Peloponnesian Labors",
-      "count": 6,
-      "items": ["nemean lion", "lernaean hydra", "ceryneian hind", "erymanthian boar", "augean stables", "stymphalian birds"]
-    },
-    {
-      "name": "Labors Involving Living Mammals",
-      "count": 6,
-      "items": ["nemean lion", "ceryneian hind", "erymanthian boar", "cretan bull", "mares of diomedes", "geryon's cattle"]
-    },
-    {
-      "name": "Travel Beyond Greece",
-      "count": 6,
-      "items": ["cretan bull", "mares of diomedes", "hippolyta's girdle", "geryon's cattle", "apples of the hesperides", "cerberus"]
-    },
-    {
-      "name": "Monsters of Typhon's Lineage",
-      "count": 3,
-      "items": ["nemean lion", "lernaean hydra", "cerberus"]
-    },
-    {
-      "name": "Inanimate Objects or Crops",
-      "count": 3,
-      "items": ["augean stables", "hippolyta's girdle", "apples of the hesperides"]
-    },
-    {
-      "name": "Non-Mammalian Mythical Creatures",
-      "count": 3,
-      "items": ["lernaean hydra", "stymphalian birds", "cerberus"]
-    }
-  ]
+        "erymanthian boar",
+        "augean stables",
+        "stymphalian birds",
+        "cretan bull",
+        "mares of diomedes",
+        "hippolyta's girdle",
+        "geryon's cattle",
+        "apples of the hesperides",
+        "cerberus"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "cerberus",
+                "ceryneian hind",
+                "cretan bull"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Peloponnesian Labors",
+            "items": [
+                "nemean lion",
+                "lernaean hydra",
+                "ceryneian hind",
+                "erymanthian boar",
+                "augean stables",
+                "stymphalian birds"
+            ]
+        },
+        {
+            "name": "Labors Involving Living Mammals",
+            "items": [
+                "nemean lion",
+                "ceryneian hind",
+                "erymanthian boar",
+                "cretan bull",
+                "mares of diomedes",
+                "geryon's cattle"
+            ]
+        },
+        {
+            "name": "Travel Beyond Greece",
+            "items": [
+                "cretan bull",
+                "mares of diomedes",
+                "hippolyta's girdle",
+                "geryon's cattle",
+                "apples of the hesperides",
+                "cerberus"
+            ]
+        },
+        {
+            "name": "Monsters of Typhon's Lineage",
+            "items": [
+                "nemean lion",
+                "lernaean hydra",
+                "cerberus"
+            ]
+        },
+        {
+            "name": "Inanimate Objects or Crops",
+            "items": [
+                "augean stables",
+                "hippolyta's girdle",
+                "apples of the hesperides"
+            ]
+        },
+        {
+            "name": "Non-Mammalian Mythical Creatures",
+            "items": [
+                "lernaean hydra",
+                "stymphalian birds",
+                "cerberus"
+            ]
+        }
+    ]
 }

@@ -1,0 +1,139 @@
+{
+    "category_name": "Lead Actor in Comedy Emmy Winners since 1980",
+    "master_list": [
+        "Richard Mulligan",
+        "Judd Hirsch",
+        "Alan Alda",
+        "John Ritter",
+        "Robert Guillaume",
+        "Michael J. Fox",
+        "Ted Danson",
+        "Burt Reynolds",
+        "Craig T. Nelson",
+        "Kelsey Grammer",
+        "John Lithgow",
+        "Eric McCormack",
+        "Ray Romano",
+        "Tony Shalhoub",
+        "Ricky Gervais",
+        "Alec Baldwin",
+        "Jim Parsons",
+        "Jon Cryer",
+        "Jeffrey Tambor",
+        "Donald Glover",
+        "Bill Hader",
+        "Eugene Levy",
+        "Jason Sudeikis",
+        "Jeremy Allen White",
+        "Seth Rogen"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Ricky Gervais",
+                "Robert Guillaume",
+                "Richard Mulligan",
+                "Ray Romano"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jon Cryer",
+                "Judd Hirsch",
+                "John Lithgow",
+                "Jim Parsons",
+                "John Ritter",
+                "Jason Sudeikis",
+                "Jeffrey Tambor",
+                "Jeremy Allen White"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Burt Reynolds",
+                "John Ritter",
+                "Seth Rogen",
+                "Ray Romano"
+            ]
+        },
+        {
+            "name": "Last Name Starts with G",
+            "items": [
+                "Ricky Gervais",
+                "Donald Glover",
+                "Kelsey Grammer",
+                "Robert Guillaume"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Alan Alda",
+                "John Ritter",
+                "Judd Hirsch",
+                "Michael J. Fox",
+                "Richard Mulligan",
+                "Robert Guillaume"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Burt Reynolds",
+                "Craig T. Nelson",
+                "John Lithgow",
+                "Kelsey Grammer",
+                "Ted Danson"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Alec Baldwin",
+                "Eric McCormack",
+                "Ray Romano",
+                "Ricky Gervais",
+                "Tony Shalhoub"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Bill Hader",
+                "Donald Glover",
+                "Jeffrey Tambor",
+                "Jim Parsons",
+                "Jon Cryer"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Eugene Levy",
+                "Jason Sudeikis",
+                "Jeremy Allen White",
+                "Seth Rogen"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Alec Baldwin",
+                "Bill Hader",
+                "Jason Sudeikis",
+                "Jeremy Allen White",
+                "Jim Parsons",
+                "John Lithgow",
+                "Judd Hirsch",
+                "Kelsey Grammer",
+                "Michael J. Fox",
+                "Tony Shalhoub"
+            ]
+        }
+    ]
+}

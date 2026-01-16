@@ -1,0 +1,166 @@
+{
+    "category_name": "Summer Olympics Host Cities",
+    "master_list": [
+        "athens",
+        "paris",
+        "st. louis",
+        "london",
+        "stockholm",
+        "berlin",
+        "antwerp",
+        "amsterdam",
+        "los angeles",
+        "tokyo",
+        "helsinki",
+        "melbourne",
+        "rome",
+        "mexico city",
+        "munich",
+        "montreal",
+        "moscow",
+        "seoul",
+        "barcelona",
+        "atlanta",
+        "sydney",
+        "beijing",
+        "rio de janeiro"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "amsterdam",
+                "antwerp",
+                "athens",
+                "atlanta"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "seoul",
+                "st. louis",
+                "stockholm",
+                "sydney"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "barcelona",
+                "beijing",
+                "berlin"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "melbourne",
+                "mexico city",
+                "montreal",
+                "moscow",
+                "munich"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "athens",
+                "berlin",
+                "london",
+                "moscow",
+                "munich",
+                "sydney"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "paris",
+                "seoul",
+                "tokyo"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "amsterdam",
+                "barcelona",
+                "melbourne",
+                "stockholm"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "antwerp",
+                "atlanta",
+                "beijing",
+                "st. louis"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "European Summer Hosts",
+            "items": [
+                "amsterdam",
+                "antwerp",
+                "athens",
+                "barcelona",
+                "berlin",
+                "helsinki",
+                "london",
+                "moscow",
+                "munich",
+                "paris",
+                "rome",
+                "stockholm"
+            ]
+        },
+        {
+            "name": "North American Summer Hosts",
+            "items": [
+                "atlanta",
+                "los angeles",
+                "mexico city",
+                "montreal",
+                "st. louis"
+            ]
+        },
+        {
+            "name": "Asian Summer Hosts",
+            "items": [
+                "beijing",
+                "seoul",
+                "tokyo"
+            ]
+        },
+        {
+            "name": "Oceanian & South American Hosts",
+            "items": [
+                "melbourne",
+                "rio de janeiro",
+                "sydney"
+            ]
+        },
+        {
+            "name": "Repeat Summer Hosts",
+            "items": [
+                "athens",
+                "london",
+                "los angeles",
+                "paris",
+                "tokyo"
+            ]
+        },
+        {
+            "name": "Southern Hemisphere Games",
+            "items": [
+                "melbourne",
+                "rio de janeiro",
+                "sydney"
+            ]
+        }
+    ]
+}

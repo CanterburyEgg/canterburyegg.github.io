@@ -1,0 +1,179 @@
+{
+    "category_name": "Avengers in Endgame",
+    "master_list": [
+        "Iron Man",
+        "Captain America",
+        "Hulk",
+        "Thor",
+        "Black Widow",
+        "Hawkeye",
+        "War Machine",
+        "Ant-Man",
+        "Captain Marvel",
+        "Nebula",
+        "Wong",
+        "Rocket",
+        "Doctor Strange",
+        "Black Panther",
+        "Spider-Man",
+        "Gamora",
+        "Black Widow",
+        "Falcon",
+        "Winter Soldier",
+        "Loki",
+        "Mantis",
+        "Groot",
+        "Star-Lord",
+        "Wasp",
+        "Valkyrie",
+        "Vision",
+        "Drax",
+        "Scarlet Witch"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with B",
+            "items": [
+                "Black Panther",
+                "Black Widow",
+                "Black Widow"
+            ]
+        },
+        {
+            "name": "Starts with W",
+            "items": [
+                "War Machine",
+                "Wasp",
+                "Winter Soldier",
+                "Wong"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "Scarlet Witch",
+                "Spider-Man",
+                "Star-Lord"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "Drax",
+                "Hulk",
+                "Loki",
+                "Thor",
+                "Wasp",
+                "Wong"
+            ]
+        },
+        {
+            "name": "11 Letters Long",
+            "items": [
+                "Black Widow",
+                "Black Widow",
+                "War Machine"
+            ]
+        },
+        {
+            "name": "14 Letters Long",
+            "items": [
+                "Captain America",
+                "Captain Marvel",
+                "Doctor Strange",
+                "Winter Soldier"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "Ant-Man",
+                "Falcon",
+                "Gamora",
+                "Mantis",
+                "Nebula",
+                "Rocket",
+                "Vision"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Original Avengers",
+            "items": [
+                "Black Widow",
+                "Captain America",
+                "Hawkeye",
+                "Hulk",
+                "Iron Man",
+                "Thor"
+            ]
+        },
+        {
+            "name": "Guardians of the Galaxy",
+            "items": [
+                "Drax",
+                "Gamora",
+                "Groot",
+                "Mantis",
+                "Nebula",
+                "Rocket",
+                "Star-Lord"
+            ]
+        },
+        {
+            "name": "Non-human",
+            "items": [
+                "Drax",
+                "Gamora",
+                "Groot",
+                "Hulk",
+                "Loki",
+                "Mantis",
+                "Nebula",
+                "Rocket",
+                "Scarlet Witch",
+                "Thor",
+                "Valkyrie",
+                "Vision"
+            ]
+        },
+        {
+            "name": "Male",
+            "items": [
+                "Ant-Man",
+                "Black Panther",
+                "Captain America",
+                "Doctor Strange",
+                "Drax",
+                "Falcon",
+                "Groot",
+                "Hawkeye",
+                "Hulk",
+                "Iron Man",
+                "Loki",
+                "Rocket",
+                "Spider-Man",
+                "Star-Lord",
+                "Thor",
+                "Vision",
+                "War Machine",
+                "Winter Soldier",
+                "Wong"
+            ]
+        },
+        {
+            "name": "Female",
+            "items": [
+                "Black Widow",
+                "Captain Marvel",
+                "Gamora",
+                "Mantis",
+                "Nebula",
+                "Scarlet Witch",
+                "Valkyrie",
+                "Wasp"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People, Places, Things</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <style>
+        :root {
+            --bg: #94a3b8;
+            --card-bg: #2d2f31;
+            --primary: #52b788;
+            --text-main: #e2e2e2;
+            --text-muted: #9ba1a6;
+            --border: #3f4245;
+            --input-bg: #111214;
+            --danger: #e63946;
+            --success: #2d6a4f;
+            --all-in: #f4a261;
+            --gold: #d4af37;
+        }
+
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; justify-content: center; padding: 40px 20px; margin: 0; }
+
+        #game-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 950px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        #calendar-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 10;
+        }
+        #calendar-trigger:hover { transform: scale(1.1); }
+        #calendar-trigger img { width: 28px; height: 28px; display: block; opacity: 0.8; }
+
+        h1 { margin-top: 0; font-size: 2.2rem; letter-spacing: 2px; color: #fff; text-transform: uppercase; margin-bottom: 5px; }
+        .score-banner { font-size: 1.2rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px;}
+
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 2000; }
+        .picker-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; width: 350px; padding: 25px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .picker-box h2 { margin-top: 0; font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .game-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 5px; }
+        .game-num-btn { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-weight: 700; background: var(--input-bg); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; color: var(--text-main); transition: 0.1s; }
+        .game-num-btn:hover { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .game-num-btn.active { border-color: var(--primary); color: var(--primary); }
+
+        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 20px 0; }
+        .major-column { display: flex; flex-direction: column; gap: 12px; }
+        .major-header { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 6px; font-weight: 600; letter-spacing: 1.5px; margin-bottom: 4px; }
+
+        .card { background-color: var(--input-bg); padding: 18px; border-radius: 10px; border: 1px solid var(--border); }
+        .card.completed { opacity: 0.7; }
+        .card h3 { margin: 0 0 12px 0; font-size: 0.95rem; color: #fff; height: 2.2em; display: flex; align-items: center; justify-content: center; line-height: 1.2; }
+
+        #timer-display { font-size: 4.5rem; font-weight: 800; color: #fff; margin: 0; font-family: tabular-nums, monospace; opacity: 0.9; }
+        .blanks-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; min-height: 100px; }
+        .blank { width: 160px; height: 42px; border-bottom: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 600; text-transform: capitalize; color: var(--primary); font-size: 0.85rem; text-align: center; }
+        .blank.filled { border-bottom-color: var(--primary); color: #fff; background: rgba(255,255,255,0.03); font-size: 1rem; }
+
+        #main-input { padding: 16px; width: 80%; max-width: 450px; font-size: 1.3rem; border-radius: 8px; border: 1px solid var(--border); background: var(--input-bg); color: #fff; outline: none; margin-bottom: 15px; text-align: center; }
+
+        .wager-btn { background-color: var(--card-bg); color: var(--text-main); border: 1px solid var(--border); padding: 8px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
+        .wager-btn:hover:not(:disabled) { background-color: var(--border); color: #fff; }
+        .wager-btn.win { background-color: var(--success); color: #fff; opacity: 0.6; pointer-events: none;}
+        .wager-btn.loss { background-color: var(--danger); color: #fff; opacity: 0.6; pointer-events: none;}
+        .wager-btn.win-gold { background-color: var(--gold); color: #111; opacity: 0.9; pointer-events: none;}
+        .wager-btn:disabled { opacity: 0.2; cursor: default; }
+
+        #give-up-btn { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; margin-top: 20px; text-transform: uppercase; }
+        #give-up-btn:hover { background-color: var(--danger); color: #fff; }
+        .hidden { display: none !important; }
+
+        .game-grid::-webkit-scrollbar { width: 6px; }
+        .game-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="calendar-trigger" onclick="openPicker()">
+        <img src="img/calendar.png" alt="Select Game">
+    </div>
+
+    <h1 id="main-title">PEOPLE, PLACES, THINGS</h1>
+    <div class="score-banner">Score: <span id="total-score">0</span> / 20</div>
+
+    <div id="setup-stage">
+        <div id="all-in-control" style="margin-bottom:20px;">
+            <label style="color:var(--all-in); font-weight:800; font-size:0.8rem;">ALL IN</label>
+            <input type="checkbox" id="all-in-toggle" onchange="initDashboard()">
+        </div>
+        <div class="dashboard" id="main-dashboard">
+            <div class="major-column" id="col-people"><div class="major-header">People</div></div>
+            <div class="major-column" id="col-places"><div class="major-header">Places</div></div>
+            <div class="major-column" id="col-things"><div class="major-header">Things</div></div>
+        </div>
+    </div>
+
+    <div id="play-stage" class="hidden">
+        <div id="timer-display">60</div>
+        <h2 id="list-title-display"></h2>
+        <h3 id="subset-reveal" style="color: var(--text-muted); font-weight: 400; font-size: 1rem;"></h3>
+        <div class="blanks-container" id="blanks-wrapper"></div>
+        <input type="text" id="main-input" placeholder="Type answer..." autocomplete="off">
+        <br>
+        <button id="give-up-btn">Give Up Round</button>
+    </div>
+</div>
+
+<div id="picker-modal" class="modal hidden" onclick="closePicker()">
+    <div class="picker-box" onclick="event.stopPropagation()">
+        <h2>Select Game Number</h2>
+        <div class="game-grid" id="game-grid"></div>
+    </div>
+</div>
+
+<script>
+    let score = 0;
+    let activeTask = null;
+    let timeLeft = 60;
+    let timerInterval = null;
+    let foundAnswers = [];
+    let dailyLists = { people: [], places: [], things: [] };
+    let allInSpent = false;
+    let isTransitioning = false;
+
+    const startDate = new Date(2026, 0, 1);
+    const today = new Date();
+    const maxGameNum = Math.ceil(Math.abs(today - startDate) / (1000 * 60 * 60 * 24));
+    let currentGameNum = maxGameNum;
+
+    const fileManifest = {
+        people: ["25_richest_americans.json", "avengers_endgame.json", "chagall_ceiling_composers.json", "disney_princesses.json", "egots.json", "emmy_lead_actor_comedy-1980+.json", "emmy_lead_actor_drama-1980+.json", "emmy_lead_actress_comedy-1980+.json", "emmy_lead_actress_drama-1980+.json", "england_royals.json", "friends_characters.json", "golden_shoes.json", "grammy_album-oty.json", "mlb_mvps_1980+.json", "moonwalkers.json", "most-beautiful.json", "nba_mvps.json", "nfl_mvps.json", "office_characters.json", "olympians.json", "oscar_best_actors-1980+.json", "oscar_best_actresses-1980+.json", "people_on_currency.json", "r&r_hof_1986-89.json", "rat_brat_pack.json", "sexiest-man-alive.json", "snl_five-timers.json", "time_poty_1990+.json", "uk_pms_1950+.json", "us_presidents.json"],
+        places: ["20_largest_deserts.json", "20_longest_rivers.json", "500_meter_buildings.json", "8000_meter_peaks.json", "afr_countries.json", "arabic_speakers.json", "asia_countries.json", "ca_provinces.json", "commonwealth_of_nations.json", "english_speakers.json", "eu_capitals.json", "eu_countries.json", "eu_members.json", "french_speakers.json", "g20_nations.json", "island_countries.json", "landlocked_countries.json", "mediterranean_countries.json", "na_big4_sports_cities.json", "na_countries.json", "nato_members.json", "oceania_countries.json", "opec_members.json", "sa_countries.json", "spanish_speakers.json", "summer_olympics_hosts.json", "us_capitals.json", "us_national_parks.json", "us_states.json", "winter_olympics_hosts.json"],
+        things: ["anniversary_gifts.json", "best_pictures.json", "bible_books.json", "bones.json", "cabinet_departments.json", "constellations.json", "crayola_colors.json", "disney_films.json", "djia.json", "elements.json", "greek_alphabet.json", "hercules_labors.json", "hitchcock_films.json", "mlb_teams.json", "monopoly_properties.json", "nasdaq-100.json", "nato_alphabet.json", "nba_teams.json", "nfl_teams.json", "nhl_teams.json", "operation.json", "orchestra_instruments.json", "pixar_films.json", "shakespeare_plays.json", "state_birds.json", "summer_olympics.json", "tarot.json", "winter_olympics.json", "world_wonders.json", "zodiac.json"]
+    };
+
+    function getDailyRandom(s) {
+        let h = 0;
+        for(let i=0; i<s.length; i++) h = s.charCodeAt(i) + ((h << 5) - h);
+
+        // Ensure the initial hash is a positive 32-bit integer
+        h = h >>> 0;
+
+        return () => {
+            h = (h * 16807) % 2147483647;
+            // If h becomes negative after the multiplication/modulo, flip it positive
+            if (h <= 0) h += 2147483646;
+            return (h - 1) / 2147483646;
+        };
+    }
+
+    async function loadGame(num) {
+        score = 0;
+        allInSpent = false;
+        document.getElementById('total-score').innerText = '0';
+        document.getElementById('main-title').innerText = `PEOPLE, PLACES, THINGS #${num}`;
+
+        const blockNum = Math.floor((num - 1) / 15);
+        const indexInBlock = (num - 1) % 15;
+        dailyLists = { people: [], places: [], things: [] };
+
+        for (let cat of ['people', 'places', 'things']) {
+            const blockSeed = getDailyRandom("block-" + cat + "-" + blockNum);
+            let shuffled = [...fileManifest[cat]].sort(() => blockSeed() - 0.5);
+
+            // This picks indices 0-1, 2-3... up to 28-29 across the 15 days
+            let files = [shuffled[indexInBlock * 2], shuffled[(indexInBlock * 2) + 1]];
+
+            for (let f of files) {
+                const res = await fetch(`lists/ppt/${cat}/${f}`);
+                const d = await res.json();
+
+                const dSeed = getDailyRandom(f + num);
+                const subs = [...(d.auto_subsets || []), ...(d.manual_subsets || [])];
+
+                // Now guaranteed to be a positive index
+                let chosenSub = subs[Math.floor(dSeed() * subs.length)];
+
+                dailyLists[cat].push({
+                    name: d.category_name,
+                    master: d.master_list,
+                    secretSub: chosenSub,
+                    done: false,
+                    isGold: false
+                });
+            }
+        }
+        initDashboard();
+    }
+
+    function initDashboard() {
+        const allInChecked = document.getElementById('all-in-toggle').checked;
+        if(allInSpent) document.getElementById('all-in-control').classList.add('hidden');
+        else document.getElementById('all-in-control').classList.remove('hidden');
+
+        ['people', 'places', 'things'].forEach(cat => {
+            const col = document.getElementById(`col-${cat}`);
+            const header = col.querySelector('.major-header');
+            col.innerHTML = ''; col.appendChild(header);
+
+            dailyLists[cat].forEach((listObj, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card' + (listObj.done ? ' completed' : '');
+                let btns = '<div style="display:flex; flex-direction:column;">';
+                [1, 2, 3].forEach(w => {
+                    const isChosen = listObj.chosenWager === w;
+                    let resClass = isChosen ? (listObj.result === 'win' ? (listObj.isGold ? 'win-gold' : 'win') : 'loss') : '';
+                    let state = listObj.done ? (isChosen ? resClass : 'disabled') : '';
+                    if(!listObj.done && allInChecked && w < 3) state = 'disabled';
+                    btns += `<button class="wager-btn ${state}" ${state.includes('disabled') || listObj.done ? 'disabled' : `onclick="startSprint('${cat}', ${idx}, ${w})"`}>Wager ${w}</button>`;
+                });
+                card.innerHTML = `<h3>${listObj.name}</h3>${btns}</div>`;
+                col.appendChild(card);
+            });
+        });
+    }
+
+    function startSprint(cat, idx, wager) {
+        const data = dailyLists[cat][idx];
+
+        console.log("CLICKED WAGER:", wager, "LIST:", data.name);
+        if (!data.secretSub) console.error("CRITICAL: data.secretSub is undefined for", data.name);
+        if (!data.secretSub.items) console.error("CRITICAL: data.secretSub.items is undefined for", data.name);
+
+        const subSize = data.secretSub.items.length;
+        console.log("SUBSET SIZE:", subSize, "SUBSET NAME:", data.secretSub.name);
+
+        let required = 3;
+        if (wager > 1) {
+            const scale = {
+                3:[2,3], 4:[2,3], 5:[3,4], 6:[4,5], 7:[4,6],
+                8:[5,7], 9:[6,8], 10:[7,8], 11:[7,9]
+            };
+            if (subSize >= 12) {
+                required = (wager === 2) ? 7 : 10;
+            } else {
+                required = scale[subSize][wager - 2];
+            }
+        }
+
+        console.log("REQUIRED ITEMS FOR WIN:", required);
+
+        isTransitioning = false;
+        activeTask = { data, wager, required };
+        data.chosenWager = wager;
+        foundAnswers = [];
+        timeLeft = (required > 5) ? 120 : 60;
+
+        document.getElementById('play-stage').classList.remove('hidden');
+        document.getElementById('setup-stage').classList.add('hidden');
+        document.getElementById('list-title-display').innerText = data.name + (wager === 3 && document.getElementById('all-in-toggle').checked ? " (ALL IN)" : "");
+        document.getElementById('subset-reveal').innerText = (wager === 1) ? "Name any three" : `Name ${required} in: ${data.secretSub.name}`;
+
+        const wrapper = document.getElementById('blanks-wrapper');
+        wrapper.innerHTML = '';
+        for(let i=0; i<required; i++) {
+            const b = document.createElement('div');
+            b.id = `blank-${i}`;
+            b.className = 'blank';
+            wrapper.appendChild(b);
+        }
+        document.getElementById('main-input').disabled = false;
+        document.getElementById('main-input').value = '';
+        document.getElementById('main-input').focus();
+        startTimer();
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        document.getElementById('timer-display').innerText = timeLeft;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-display').innerText = timeLeft;
+            if (timeLeft <= 0) endRound(false);
+        }, 1000);
+    }
+
+    function endRound(success) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        clearInterval(timerInterval);
+
+        activeTask.data.done = true;
+        activeTask.data.result = success ? 'win' : 'loss';
+        const isAllIn = (activeTask.wager === 3 && document.getElementById('all-in-toggle').checked);
+
+        if (success) {
+            let pts = activeTask.wager;
+            if (isAllIn) { pts += 2; activeTask.data.isGold = true; allInSpent = true; }
+            score += pts;
+            document.getElementById('total-score').innerText = score;
+        } else if (isAllIn) {
+            allInSpent = true;
+        }
+
+        const delay = success ? 1500 : 0;
+        setTimeout(() => {
+            document.getElementById('all-in-toggle').checked = false;
+            document.getElementById('play-stage').classList.add('hidden');
+            document.getElementById('setup-stage').classList.remove('hidden');
+            initDashboard();
+        }, delay);
+    }
+
+    function openPicker() {
+        const grid = document.getElementById('game-grid');
+        grid.innerHTML = '';
+        for(let i=1; i<=maxGameNum; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'game-num-btn' + (i === currentGameNum ? ' active' : '');
+            btn.innerText = i;
+            btn.onclick = () => { currentGameNum = i; loadGame(i); closePicker(); };
+            grid.appendChild(btn);
+        }
+        document.getElementById('picker-modal').classList.remove('hidden');
+    }
+
+    function closePicker() { document.getElementById('picker-modal').classList.add('hidden'); }
+
+    document.getElementById('give-up-btn').onclick = () => endRound(false);
+    document.getElementById('main-input').addEventListener('input', (e) => {
+        const typed = e.target.value.toLowerCase().replace(/[^a-z0-9\s]/g, "");
+        const list = activeTask.wager === 1 ? activeTask.data.master : activeTask.data.secretSub.items;
+        const match = list.find(item => item.toLowerCase().replace(/[^a-z0-9\s]/g, "") === typed);
+        if (match && !foundAnswers.includes(match)) {
+            foundAnswers.push(match);
+            document.getElementById(`blank-${foundAnswers.length-1}`).innerText = match;
+            document.getElementById(`blank-${foundAnswers.length-1}`).classList.add('filled');
+            e.target.value = '';
+            if (foundAnswers.length === activeTask.required) endRound(true);
+        }
+    });
+
+    loadGame(currentGameNum);
+</script>
+</body>
+</html>

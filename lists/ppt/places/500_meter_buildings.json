@@ -1,0 +1,53 @@
+{
+    "category_name": "500-Meter Buildings",
+    "master_list": [
+        "burj khalifa",
+        "merdeka 118",
+        "shanghai tower",
+        "the clock towers",
+        "ping an international finance centre",
+        "lotte world tower",
+        "one world trade center",
+        "guangzhou ctf finance centre",
+        "tianjin ctf finance centre",
+        "china zun",
+        "taipei 101"
+    ],
+    "auto_subsets": [],
+    "manual_subsets": [
+        {
+            "name": "Megatall Skyscrapers (600m+)",
+            "items": [
+                "burj khalifa",
+                "merdeka 118",
+                "shanghai tower",
+                "the clock towers"
+            ]
+        },
+        {
+            "name": "East Asian Giants",
+            "items": [
+                "shanghai tower",
+                "ping an international finance centre",
+                "lotte world tower",
+                "guangzhou ctf finance centre",
+                "tianjin ctf finance centre",
+                "china zun",
+                "taipei 101"
+            ]
+        },
+        {
+            "name": "Mixed-Use Towers",
+            "items": [
+                "burj khalifa",
+                "merdeka 118",
+                "shanghai tower",
+                "the clock towers",
+                "lotte world tower",
+                "guangzhou ctf finance centre",
+                "tianjin ctf finance centre",
+                "taipei 101"
+            ]
+        }
+    ]
+}

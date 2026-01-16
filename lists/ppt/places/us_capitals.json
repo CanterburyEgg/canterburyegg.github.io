@@ -1,0 +1,336 @@
+{
+    "category_name": "US Capitals",
+    "master_list": [
+        "montgomery",
+        "juneau",
+        "phoenix",
+        "little rock",
+        "sacramento",
+        "denver",
+        "hartford",
+        "dover",
+        "tallahassee",
+        "atlanta",
+        "honolulu",
+        "boise",
+        "springfield",
+        "indianapolis",
+        "des moines",
+        "topeka",
+        "frankfort",
+        "baton rouge",
+        "augusta",
+        "annapolis",
+        "boston",
+        "lansing",
+        "saint paul",
+        "jackson",
+        "jefferson city",
+        "helena",
+        "lincoln",
+        "carson city",
+        "concord",
+        "trenton",
+        "santa fe",
+        "albany",
+        "raleigh",
+        "bismarck",
+        "columbus",
+        "oklahoma city",
+        "salem",
+        "harrisburg",
+        "providence",
+        "columbia",
+        "pierre",
+        "nashville",
+        "austin",
+        "salt lake city",
+        "montpelier",
+        "richmond",
+        "olympia",
+        "charleston",
+        "madison",
+        "cheyenne"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with M",
+            "items": [
+                "madison",
+                "montgomery",
+                "montpelier"
+            ]
+        },
+        {
+            "name": "Starts with J",
+            "items": [
+                "jackson",
+                "jefferson city",
+                "juneau"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "phoenix",
+                "pierre",
+                "providence"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "lansing",
+                "lincoln",
+                "little rock"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "sacramento",
+                "saint paul",
+                "salem",
+                "salt lake city",
+                "santa fe",
+                "springfield"
+            ]
+        },
+        {
+            "name": "Starts with D",
+            "items": [
+                "denver",
+                "des moines",
+                "dover"
+            ]
+        },
+        {
+            "name": "Starts with H",
+            "items": [
+                "harrisburg",
+                "hartford",
+                "helena",
+                "honolulu"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "tallahassee",
+                "topeka",
+                "trenton"
+            ]
+        },
+        {
+            "name": "Starts with A",
+            "items": [
+                "albany",
+                "annapolis",
+                "atlanta",
+                "augusta",
+                "austin"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "baton rouge",
+                "bismarck",
+                "boise",
+                "boston"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "carson city",
+                "charleston",
+                "cheyenne",
+                "columbia",
+                "columbus",
+                "concord"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "baton rouge",
+                "carson city",
+                "charleston",
+                "harrisburg",
+                "little rock",
+                "montgomery",
+                "montpelier",
+                "providence",
+                "sacramento"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "albany",
+                "austin",
+                "boston",
+                "denver",
+                "helena",
+                "juneau",
+                "pierre",
+                "topeka"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "atlanta",
+                "augusta",
+                "concord",
+                "jackson",
+                "lansing",
+                "lincoln",
+                "madison",
+                "olympia",
+                "phoenix",
+                "raleigh",
+                "santa fe",
+                "trenton"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "bismarck",
+                "cheyenne",
+                "columbia",
+                "columbus",
+                "hartford",
+                "honolulu",
+                "richmond"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "boise",
+                "dover",
+                "salem"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "annapolis",
+                "des moines",
+                "frankfort",
+                "nashville",
+                "saint paul"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Northeast Region Capitals",
+            "items": [
+                "albany",
+                "augusta",
+                "annapolis",
+                "boston",
+                "concord",
+                "dover",
+                "harrisburg",
+                "hartford",
+                "montpelier",
+                "providence",
+                "trenton"
+            ]
+        },
+        {
+            "name": "Midwest Region Capitals",
+            "items": [
+                "bismarck",
+                "columbus",
+                "des moines",
+                "indianapolis",
+                "jefferson city",
+                "lansing",
+                "lincoln",
+                "madison",
+                "pierre",
+                "saint paul",
+                "springfield",
+                "topeka"
+            ]
+        },
+        {
+            "name": "Southern Region Capitals",
+            "items": [
+                "atlanta",
+                "austin",
+                "baton rouge",
+                "charleston",
+                "columbia",
+                "frankfort",
+                "jackson",
+                "little rock",
+                "montgomery",
+                "nashville",
+                "oklahoma city",
+                "raleigh",
+                "richmond",
+                "tallahassee"
+            ]
+        },
+        {
+            "name": "Western Region Capitals",
+            "items": [
+                "boise",
+                "carson city",
+                "cheyenne",
+                "denver",
+                "helena",
+                "honolulu",
+                "juneau",
+                "olympia",
+                "phoenix",
+                "sacramento",
+                "salem",
+                "salt lake city",
+                "santa fe"
+            ]
+        },
+        {
+            "name": "Capitals Named After People",
+            "items": [
+                "bismarck",
+                "columbus",
+                "jackson",
+                "jefferson city",
+                "lincoln",
+                "madison",
+                "raleigh",
+                "saint paul"
+            ]
+        },
+        {
+            "name": "Capitals that are the State's Largest City",
+            "items": [
+                "atlanta",
+                "boise",
+                "boston",
+                "charleston",
+                "cheyenne",
+                "columbus",
+                "denver",
+                "des moines",
+                "honolulu",
+                "indianapolis",
+                "jackson",
+                "little rock",
+                "nashville",
+                "oklahoma city",
+                "phoenix",
+                "providence",
+                "salt lake city"
+            ]
+        }
+    ]
+}

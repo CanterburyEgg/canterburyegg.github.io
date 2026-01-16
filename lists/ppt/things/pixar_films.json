@@ -1,95 +1,116 @@
 {
-  "category_name": "Pixar Films",
-  "master_list": [
-    "toy story",
-    "a bug's life",
-    "toy story 2",
-    "monsters, inc.",
-    "finding nemo",
-    "the incredibles",
-    "cars",
-    "ratatouille",
-    "wall-e",
-    "up",
-    "toy story 3",
-    "cars 2",
-    "brave",
-    "monsters university",
-    "inside out",
-    "the good dinosaur",
-    "finding dory",
-    "cars 3",
-    "coco",
-    "incredibles 2",
-    "toy story 4",
-    "onward",
-    "soul",
-    "luca",
-    "turning red",
-    "lightyear",
-    "elemental",
-    "inside out 2",
-    "elio"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with T",
-      "count": 5,
-      "items": [
+    "category_name": "Pixar Films",
+    "master_list": [
         "toy story",
+        "a bug's life",
         "toy story 2",
+        "monsters, inc.",
+        "finding nemo",
+        "the incredibles",
+        "cars",
+        "ratatouille",
+        "wall-e",
+        "up",
         "toy story 3",
-        "toy story 4",
-        "turning red"
-      ]
-    },
-    {
-      "name": "Starts with I",
-      "count": 4,
-      "items": [
-        "incredibles 2",
-        "inside out",
-        "inside out 2",
-        "the incredibles"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 4,
-      "items": [
-        "cars",
         "cars 2",
+        "brave",
+        "monsters university",
+        "inside out",
+        "the good dinosaur",
+        "finding dory",
         "cars 3",
-        "coco"
-      ]
-    },
-    {
-      "name": "4 Letters Long",
-      "count": 5,
-      "items": [
-        "cars",
         "coco",
-        "elio",
+        "incredibles 2",
+        "toy story 4",
+        "onward",
+        "soul",
         "luca",
-        "soul"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Sequels / Prequels",
-      "count": 10,
-      "items": ["toy story 2", "toy story 3", "cars 2", "monsters university", "finding dory", "cars 3", "incredibles 2", "toy story 4", "lightyear", "inside out 2"]
-    },
-    {
-      "name": "Golden Era",
-      "count": 10,
-      "items": ["toy story", "a bug's life", "toy story 2", "monsters, inc.", "finding nemo", "the incredibles", "cars", "ratatouille", "wall-e", "up"]
-    },
-    {
-      "name": "Animal Protagonists",
-      "count": 5,
-      "items": ["a bug's life", "finding nemo", "ratatouille", "the good dinosaur", "finding dory"]
-    }
-  ]
+        "turning red",
+        "lightyear",
+        "elemental",
+        "inside out 2",
+        "elio"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with T",
+            "items": [
+                "toy story",
+                "toy story 2",
+                "toy story 3",
+                "toy story 4",
+                "turning red"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "incredibles 2",
+                "inside out",
+                "inside out 2",
+                "the incredibles"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cars",
+                "cars 2",
+                "cars 3",
+                "coco"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "cars",
+                "coco",
+                "elio",
+                "luca",
+                "soul"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Sequels / Prequels",
+            "items": [
+                "toy story 2",
+                "toy story 3",
+                "cars 2",
+                "monsters university",
+                "finding dory",
+                "cars 3",
+                "incredibles 2",
+                "toy story 4",
+                "lightyear",
+                "inside out 2"
+            ]
+        },
+        {
+            "name": "Golden Era",
+            "items": [
+                "toy story",
+                "a bug's life",
+                "toy story 2",
+                "monsters, inc.",
+                "finding nemo",
+                "the incredibles",
+                "cars",
+                "ratatouille",
+                "wall-e",
+                "up"
+            ]
+        },
+        {
+            "name": "Animal Protagonists",
+            "items": [
+                "a bug's life",
+                "finding nemo",
+                "ratatouille",
+                "the good dinosaur",
+                "finding dory"
+            ]
+        }
+    ]
 }

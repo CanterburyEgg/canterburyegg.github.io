@@ -1,0 +1,184 @@
+{
+    "category_name": "Lead Actress in Comedy Emmy Winners since 1980",
+    "master_list": [
+        "Cathryn Damon",
+        "Isabel Sanford",
+        "Carol Kane",
+        "Shelley Long",
+        "Jane Curtin",
+        "Betty White",
+        "Rue McClanahan",
+        "Bea Arthur",
+        "Candice Bergen",
+        "Kirstie Alley",
+        "Roseanne Barr",
+        "Helen Hunt",
+        "Patricia Heaton",
+        "Jennifer Aniston",
+        "Debra Messing",
+        "Sarah Jessica Parker",
+        "Felicity Huffman",
+        "Julia Louis-Dreyfus",
+        "America Ferrera",
+        "Tina Fey",
+        "Toni Collette",
+        "Edie Falco",
+        "Melissa McCarthy",
+        "Rachel Brosnahan",
+        "Phoebe Waller-Bridge",
+        "Catherine O'Hara",
+        "Jean Smart",
+        "Quinta Brunson"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Candice Bergen",
+                "Cathryn Damon",
+                "Carol Kane",
+                "Catherine O'Hara"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jennifer Aniston",
+                "Jane Curtin",
+                "Julia Louis-Dreyfus",
+                "Jean Smart"
+            ]
+        },
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Roseanne Barr",
+                "Rachel Brosnahan",
+                "Rue McClanahan"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Melissa McCarthy",
+                "Rue McClanahan",
+                "Debra Messing"
+            ]
+        },
+        {
+            "name": "Last Name Starts with A",
+            "items": [
+                "Kirstie Alley",
+                "Jennifer Aniston",
+                "Bea Arthur"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Roseanne Barr",
+                "Candice Bergen",
+                "Rachel Brosnahan",
+                "Quinta Brunson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Patricia Heaton",
+                "Felicity Huffman",
+                "Helen Hunt"
+            ]
+        },
+        {
+            "name": "Last Name Starts with F",
+            "items": [
+                "Edie Falco",
+                "America Ferrera",
+                "Tina Fey"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Golden Girls",
+            "items": [
+                "Bea Arthur",
+                "Betty White",
+                "Rue McClanahan"
+            ]
+        },
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Bea Arthur",
+                "Betty White",
+                "Candice Bergen",
+                "Carol Kane",
+                "Cathryn Damon",
+                "Isabel Sanford",
+                "Jane Curtin",
+                "Rue McClanahan",
+                "Shelley Long"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Helen Hunt",
+                "Kirstie Alley",
+                "Roseanne Barr"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "America Ferrera",
+                "Debra Messing",
+                "Felicity Huffman",
+                "Jennifer Aniston",
+                "Julia Louis-Dreyfus",
+                "Patricia Heaton",
+                "Sarah Jessica Parker",
+                "Tina Fey",
+                "Toni Collette"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Edie Falco",
+                "Melissa McCarthy",
+                "Phoebe Waller-Bridge",
+                "Rachel Brosnahan"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Catherine O'Hara",
+                "Jean Smart",
+                "Quinta Brunson"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Candice Bergen",
+                "Helen Hunt",
+                "Jane Curtin",
+                "Jean Smart",
+                "Julia Louis-Dreyfus",
+                "Patricia Heaton"
+            ]
+        },
+        {
+            "name": "SNL Alumni",
+            "items": [
+                "Jane Curtin",
+                "Julia Louis-Dreyfus",
+                "Tina Fey"
+            ]
+        }
+    ]
+}

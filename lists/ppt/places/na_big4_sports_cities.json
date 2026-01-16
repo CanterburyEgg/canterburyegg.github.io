@@ -1,0 +1,64 @@
+{
+    "category_name": "Cities with All Four Big 4 Sports Teams",
+    "master_list": [
+        "boston",
+        "chicago",
+        "dallas",
+        "denver",
+        "detroit",
+        "los angeles",
+        "miami",
+        "minneapolis",
+        "new york city",
+        "philadelphia",
+        "san francisco",
+        "washington d.c."
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with D",
+            "items": [
+                "dallas",
+                "denver",
+                "detroit"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "boston",
+                "dallas",
+                "denver"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Multi-Team Markets",
+            "items": [
+                "chicago",
+                "los angeles",
+                "new york city"
+            ]
+        },
+        {
+            "name": "All-Inner-City Teams",
+            "items": [
+                "chicago",
+                "denver",
+                "detroit",
+                "philadelphia"
+            ]
+        },
+        {
+            "name": "Atlantic Corridor Big 4",
+            "items": [
+                "boston",
+                "miami",
+                "new york city",
+                "philadelphia",
+                "washington d.c."
+            ]
+        }
+    ]
+}

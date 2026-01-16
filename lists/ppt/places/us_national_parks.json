@@ -1,0 +1,283 @@
+{
+    "category_name": "US National Parks",
+    "master_list": [
+        "acadia",
+        "american samoa",
+        "arches",
+        "badlands",
+        "big bend",
+        "biscayne",
+        "black canyon of the gunnison",
+        "bryce canyon",
+        "canyonlands",
+        "capitol reef",
+        "carlsbad caverns",
+        "channel islands",
+        "congaree",
+        "crater lake",
+        "cuyahoga valley",
+        "death valley",
+        "denali",
+        "dry tortugas",
+        "everglades",
+        "gates of the arctic",
+        "gateway arch",
+        "glacier",
+        "glacier bay",
+        "grand canyon",
+        "grand teton",
+        "great basin",
+        "great sand dunes",
+        "great smoky mountains",
+        "guadalupe mountains",
+        "haleakala\u00df",
+        "hawaii volcanoes",
+        "hot springs",
+        "indiana dunes",
+        "isle royale",
+        "joshua tree",
+        "katmai",
+        "kenai fjords",
+        "kings canyon",
+        "kobuk valley",
+        "lake clark",
+        "lassen volcanic",
+        "mammoth cave",
+        "mesa verde",
+        "mount rainier",
+        "new river gorge",
+        "north cascades",
+        "olympic",
+        "petrified forest",
+        "pinnacles",
+        "redwood",
+        "rocky mountain",
+        "saguaro",
+        "sequoia",
+        "shenandoah",
+        "theodore roosevelt",
+        "virgin islands",
+        "voyageurs",
+        "white sands",
+        "wind cave",
+        "wrangell\u2013st. elias",
+        "yellowstone",
+        "yosemite",
+        "zion"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "acadia",
+                "american samoa",
+                "arches"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "badlands",
+                "big bend",
+                "biscayne",
+                "black canyon of the gunnison",
+                "bryce canyon"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "canyonlands",
+                "capitol reef",
+                "carlsbad caverns",
+                "channel islands",
+                "congaree",
+                "crater lake",
+                "cuyahoga valley"
+            ]
+        },
+        {
+            "name": "Starts with D",
+            "items": [
+                "death valley",
+                "denali",
+                "dry tortugas"
+            ]
+        },
+        {
+            "name": "Starts with G",
+            "items": [
+                "gates of the arctic",
+                "gateway arch",
+                "glacier",
+                "glacier bay",
+                "grand canyon",
+                "grand teton",
+                "great basin",
+                "great sand dunes",
+                "great smoky mountains",
+                "guadalupe mountains"
+            ]
+        },
+        {
+            "name": "Starts with H",
+            "items": [
+                "haleakala\u00df",
+                "hawaii volcanoes",
+                "hot springs"
+            ]
+        },
+        {
+            "name": "Starts with K",
+            "items": [
+                "katmai",
+                "kenai fjords",
+                "kings canyon",
+                "kobuk valley"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "mammoth cave",
+                "mesa verde",
+                "mount rainier"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saguaro",
+                "sequoia",
+                "shenandoah"
+            ]
+        },
+        {
+            "name": "Starts with W",
+            "items": [
+                "white sands",
+                "wind cave",
+                "wrangell\u2013st. elias"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "acadia",
+                "arches",
+                "denali",
+                "katmai"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "badlands",
+                "biscayne",
+                "congaree",
+                "wind cave",
+                "yosemite"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "crater lake",
+                "everglades",
+                "glacier bay",
+                "grand teton",
+                "great basin",
+                "haleakala\u00df",
+                "hot springs",
+                "isle royale",
+                "joshua tree",
+                "shenandoah",
+                "white sands"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "big bend",
+                "glacier",
+                "olympic",
+                "redwood",
+                "saguaro",
+                "sequoia"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Alaska National Parks",
+            "items": [
+                "denali",
+                "gates of the arctic",
+                "glacier bay",
+                "katmai",
+                "kenai fjords",
+                "kobuk valley",
+                "lake clark",
+                "wrangell\u2013st. elias"
+            ]
+        },
+        {
+            "name": "Utah National Parks",
+            "items": [
+                "arches",
+                "bryce canyon",
+                "canyonlands",
+                "capitol reef",
+                "zion"
+            ]
+        },
+        {
+            "name": "Volcanic National Parks",
+            "items": [
+                "crater lake",
+                "haleakal\u0101",
+                "hawaii volcanoes",
+                "katmai",
+                "lassen volcanic",
+                "mount rainier",
+                "yellowstone"
+            ]
+        },
+        {
+            "name": "Underground & Cave Parks",
+            "items": [
+                "carlsbad caverns",
+                "mammoth cave",
+                "wind cave"
+            ]
+        },
+        {
+            "name": "Coastal & Island Parks",
+            "items": [
+                "american samoa",
+                "biscayne",
+                "channel islands",
+                "dry tortugas",
+                "isle royale",
+                "olympic",
+                "redwood",
+                "virgin islands",
+                "voyageurs"
+            ]
+        },
+        {
+            "name": "California National Parks",
+            "items": [
+                "channel islands",
+                "death valley",
+                "joshua tree",
+                "kings canyon",
+                "lassen volcanic",
+                "pinnacles",
+                "redwood",
+                "sequoia",
+                "yosemite"
+            ]
+        }
+    ]
+}

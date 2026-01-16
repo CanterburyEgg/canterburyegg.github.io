@@ -1,0 +1,267 @@
+{
+    "category_name": "African Countries",
+    "master_list": [
+        "algeria",
+        "angola",
+        "benin",
+        "botswana",
+        "burkina faso",
+        "burundi",
+        "cabo verde",
+        "cameroon",
+        "central african republic",
+        "chad",
+        "comoros",
+        "democratic republic of the congo",
+        "republic of the congo",
+        "cote d'ivoire",
+        "djibouti",
+        "egypt",
+        "equatorial guinea",
+        "eritrea",
+        "eswatini",
+        "ethiopia",
+        "gabon",
+        "gambia",
+        "ghana",
+        "guinea",
+        "guinea-bissau",
+        "kenya",
+        "lesotho",
+        "liberia",
+        "libya",
+        "madagascar",
+        "malawi",
+        "mali",
+        "mauritania",
+        "mauritius",
+        "morocco",
+        "mozambique",
+        "namibia",
+        "niger",
+        "nigeria",
+        "rwanda",
+        "sao tome and principe",
+        "senegal",
+        "seychelles",
+        "sierra leone",
+        "somalia",
+        "south africa",
+        "south sudan",
+        "sudan",
+        "tanzania",
+        "togo",
+        "tunisia",
+        "uganda",
+        "zambia",
+        "zimbabwe"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with B",
+            "items": [
+                "benin",
+                "botswana",
+                "burkina faso",
+                "burundi"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cabo verde",
+                "cameroon",
+                "central african republic",
+                "chad",
+                "comoros",
+                "cote d'ivoire"
+            ]
+        },
+        {
+            "name": "Starts with E",
+            "items": [
+                "egypt",
+                "equatorial guinea",
+                "eritrea",
+                "eswatini",
+                "ethiopia"
+            ]
+        },
+        {
+            "name": "Starts with G",
+            "items": [
+                "gabon",
+                "gambia",
+                "ghana",
+                "guinea",
+                "guinea-bissau"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "lesotho",
+                "liberia",
+                "libya"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "madagascar",
+                "malawi",
+                "mali",
+                "mauritania",
+                "mauritius",
+                "morocco",
+                "mozambique"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "namibia",
+                "niger",
+                "nigeria"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "sao tome and principe",
+                "senegal",
+                "seychelles",
+                "sierra leone",
+                "somalia",
+                "south africa",
+                "south sudan",
+                "sudan"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "tanzania",
+                "togo",
+                "tunisia"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "algeria",
+                "burundi",
+                "comoros",
+                "eritrea",
+                "lesotho",
+                "liberia",
+                "morocco",
+                "namibia",
+                "nigeria",
+                "senegal",
+                "somalia",
+                "tunisia"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "angola",
+                "gambia",
+                "guinea",
+                "malawi",
+                "rwanda",
+                "uganda",
+                "zambia"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "benin",
+                "egypt",
+                "gabon",
+                "ghana",
+                "kenya",
+                "libya",
+                "niger",
+                "sudan"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "botswana",
+                "cameroon",
+                "djibouti",
+                "eswatini",
+                "ethiopia",
+                "tanzania",
+                "zimbabwe"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "madagascar",
+                "mauritania",
+                "mozambique",
+                "seychelles",
+                "south sudan"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "chad",
+                "mali",
+                "togo"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Northern Africa",
+            "items": [
+                "algeria",
+                "egypt",
+                "libya",
+                "mauritania",
+                "morocco",
+                "tunisia"
+            ]
+        },
+        {
+            "name": "Island Nations",
+            "items": [
+                "cabo verde",
+                "comoros",
+                "madagascar",
+                "mauritius",
+                "sao tome and principe",
+                "seychelles"
+            ]
+        },
+        {
+            "name": "Landlocked Nations",
+            "items": [
+                "botswana",
+                "burkina faso",
+                "burundi",
+                "central african republic",
+                "chad",
+                "ethiopia",
+                "eswatini",
+                "lesotho",
+                "malawi",
+                "mali",
+                "niger",
+                "rwanda",
+                "south sudan",
+                "uganda",
+                "zambia",
+                "zimbabwe"
+            ]
+        }
+    ]
+}

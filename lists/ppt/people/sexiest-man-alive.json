@@ -1,0 +1,239 @@
+{
+    "category_name": "People's Sexiest Men Alive",
+    "master_list": [
+        "Mel Gibson",
+        "Mark Harmon",
+        "Harry Hamlin",
+        "John F. Kennedy Jr.",
+        "Sean Connery",
+        "Tom Cruise",
+        "Patrick Swayze",
+        "Nick Nolte",
+        "Richard Gere",
+        "Keanu Reeves",
+        "Brad Pitt",
+        "Denzel Washington",
+        "George Clooney",
+        "Harrison Ford",
+        "Pierce Brosnan",
+        "Ben Affleck",
+        "Johnny Depp",
+        "Jude Law",
+        "Matthew McConaughey",
+        "Matt Damon",
+        "Hugh Jackman",
+        "Ryan Reynolds",
+        "Bradley Cooper",
+        "Channing Tatum",
+        "Adam Levine",
+        "Chris Hemsworth",
+        "David Beckham",
+        "Dwayne Johnson",
+        "Blake Shelton",
+        "Idris Elba",
+        "John Legend",
+        "Michael B. Jordan",
+        "Paul Rudd",
+        "Chris Evans",
+        "Patrick Dempsey",
+        "John Krasinski",
+        "Jonathan Bailey"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Matt Damon",
+                "Mel Gibson",
+                "Mark Harmon",
+                "Michael B. Jordan",
+                "Matthew McConaughey"
+            ]
+        },
+        {
+            "name": "First Name Starts with H",
+            "items": [
+                "Harrison Ford",
+                "Harry Hamlin",
+                "Hugh Jackman"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jonathan Bailey",
+                "Johnny Depp",
+                "John F. Kennedy Jr.",
+                "John Krasinski",
+                "Jude Law",
+                "John Legend"
+            ]
+        },
+        {
+            "name": "First Name Starts with P",
+            "items": [
+                "Pierce Brosnan",
+                "Patrick Dempsey",
+                "Paul Rudd",
+                "Patrick Swayze"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Ben Affleck",
+                "Bradley Cooper",
+                "Brad Pitt",
+                "Blake Shelton"
+            ]
+        },
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "David Beckham",
+                "Dwayne Johnson",
+                "Denzel Washington"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Chris Evans",
+                "Chris Hemsworth",
+                "Channing Tatum"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Harry Hamlin",
+                "Mark Harmon",
+                "Chris Hemsworth"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "George Clooney",
+                "Sean Connery",
+                "Bradley Cooper",
+                "Tom Cruise"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Keanu Reeves",
+                "Ryan Reynolds",
+                "Paul Rudd"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Jonathan Bailey",
+                "David Beckham",
+                "Pierce Brosnan"
+            ]
+        },
+        {
+            "name": "Last Name Starts with D",
+            "items": [
+                "Matt Damon",
+                "Patrick Dempsey",
+                "Johnny Depp"
+            ]
+        },
+        {
+            "name": "Last Name Starts with L",
+            "items": [
+                "Jude Law",
+                "John Legend",
+                "Adam Levine"
+            ]
+        },
+        {
+            "name": "Last Name Starts with J",
+            "items": [
+                "Hugh Jackman",
+                "Dwayne Johnson",
+                "Michael B. Jordan"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Harry Hamlin",
+                "John F. Kennedy Jr.",
+                "Mark Harmon",
+                "Mel Gibson",
+                "Sean Connery"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Brad Pitt",
+                "Denzel Washington",
+                "George Clooney",
+                "Harrison Ford",
+                "Keanu Reeves",
+                "Nick Nolte",
+                "Patrick Swayze",
+                "Richard Gere",
+                "Tom Cruise"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Ben Affleck",
+                "Brad Pitt",
+                "George Clooney",
+                "Hugh Jackman",
+                "Johnny Depp",
+                "Jude Law",
+                "Matt Damon",
+                "Matthew McConaughey",
+                "Pierce Brosnan"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Adam Levine",
+                "Blake Shelton",
+                "Bradley Cooper",
+                "Channing Tatum",
+                "Chris Hemsworth",
+                "David Beckham",
+                "Dwayne Johnson",
+                "Idris Elba",
+                "John Legend",
+                "Ryan Reynolds"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Chris Evans",
+                "John Krasinski",
+                "Jonathan Bailey",
+                "Michael B. Jordan",
+                "Patrick Dempsey",
+                "Paul Rudd"
+            ]
+        },
+        {
+            "name": "The Two-Time Club",
+            "items": [
+                "Brad Pitt",
+                "George Clooney",
+                "Johnny Depp",
+                "Richard Gere"
+            ]
+        }
+    ]
+}

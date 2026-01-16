@@ -1,208 +1,285 @@
 {
-  "category_name": "Nfl Teams",
-  "master_list": [
-    "bengals",
-    "ravens",
-    "browns",
-    "steelers",
-    "patriots",
-    "bills",
-    "dolphins",
-    "jets",
-    "chiefs",
-    "broncos",
-    "raiders",
-    "chargers",
-    "jaguars",
-    "titans",
-    "colts",
-    "texans",
-    "seahawks",
-    "49ers",
-    "rams",
-    "cardinals",
-    "panthers",
-    "falcons",
-    "saints",
-    "buccaneers",
-    "vikings",
-    "packers",
-    "bears",
-    "lions",
-    "cowboys",
-    "eagles",
-    "giants",
-    "commanders"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with B",
-      "count": 6,
-      "items": [
-        "bears",
+    "category_name": "NFL Teams",
+    "master_list": [
         "bengals",
+        "ravens",
+        "browns",
+        "steelers",
+        "patriots",
         "bills",
+        "dolphins",
+        "jets",
+        "chiefs",
         "broncos",
-        "browns",
-        "buccaneers"
-      ]
-    },
-    {
-      "name": "Starts with R",
-      "count": 3,
-      "items": [
         "raiders",
-        "rams",
-        "ravens"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 3,
-      "items": [
-        "saints",
-        "seahawks",
-        "steelers"
-      ]
-    },
-    {
-      "name": "Starts with P",
-      "count": 3,
-      "items": [
-        "packers",
-        "panthers",
-        "patriots"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 6,
-      "items": [
-        "cardinals",
         "chargers",
-        "chiefs",
-        "colts",
-        "commanders",
-        "cowboys"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 8,
-      "items": [
-        "bengals",
-        "broncos",
-        "cowboys",
-        "falcons",
         "jaguars",
+        "titans",
+        "colts",
+        "texans",
+        "seahawks",
+        "49ers",
+        "rams",
+        "cardinals",
+        "panthers",
+        "falcons",
+        "saints",
+        "buccaneers",
+        "vikings",
         "packers",
-        "raiders",
-        "vikings"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 8,
-      "items": [
-        "browns",
-        "chiefs",
+        "bears",
+        "lions",
+        "cowboys",
         "eagles",
         "giants",
-        "ravens",
-        "saints",
-        "texans",
-        "titans"
-      ]
-    },
-    {
-      "name": "8 Letters Long",
-      "count": 6,
-      "items": [
-        "chargers",
-        "dolphins",
-        "panthers",
-        "patriots",
-        "seahawks",
-        "steelers"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 5,
-      "items": [
-        "49ers",
-        "bears",
-        "bills",
-        "colts",
-        "lions"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "American Football Conference (AFC)",
-      "count": 16,
-      "items": ["bengals", "ravens", "browns", "steelers", "patriots", "bills", "dolphins", "jets", "chiefs", "broncos", "raiders", "chargers", "jaguars", "titans", "colts", "texans"]
-    },
-    {
-      "name": "National Football Conference (NFC)",
-      "count": 16,
-      "items": ["seahawks", "49ers", "rams", "cardinals", "panthers", "falcons", "saints", "buccaneers", "vikings", "packers", "bears", "lions", "cowboys", "eagles", "giants", "commanders"]
-    },
-    {
-      "name": "AFC North",
-      "count": 4,
-      "items": ["bengals", "ravens", "browns", "steelers"]
-    },
-    {
-      "name": "AFC East",
-      "count": 4,
-      "items": ["patriots", "bills", "dolphins", "jets"]
-    },
-    {
-      "name": "AFC West",
-      "count": 4,
-      "items": ["chiefs", "broncos", "raiders", "chargers"]
-    },
-    {
-      "name": "AFC South",
-      "count": 4,
-      "items": ["jaguars", "titans", "colts", "texans"]
-    },
-    {
-      "name": "NFC West",
-      "count": 4,
-      "items": ["seahawks", "49ers", "rams", "cardinals"]
-    },
-    {
-      "name": "NFC South",
-      "count": 4,
-      "items": ["panthers", "falcons", "saints", "buccaneers"]
-    },
-    {
-      "name": "NFC North",
-      "count": 4,
-      "items": ["vikings", "packers", "bears", "lions"]
-    },
-    {
-      "name": "NFC East",
-      "count": 4,
-      "items": ["cowboys", "eagles", "giants", "commanders"]
-    },
-    {
-      "name": "Animal-Themed Names",
-      "count": 13,
-      "items": ["bengals", "ravens", "dolphins", "jaguars", "colts", "seahawks", "rams", "cardinals", "panthers", "falcons", "bears", "lions", "eagles"]
-    },
-    {
-      "name": "Bird-Specific Teams",
-      "count": 5,
-      "items": ["ravens", "seahawks", "cardinals", "falcons", "eagles"]
-    },
-    {
-      "name": "Cat-Specific Teams",
-      "count": 4,
-      "items": ["bengals", "jaguars", "panthers", "lions"]
-    }
-  ]
+        "commanders"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with B",
+            "items": [
+                "bears",
+                "bengals",
+                "bills",
+                "broncos",
+                "browns",
+                "buccaneers"
+            ]
+        },
+        {
+            "name": "Starts with R",
+            "items": [
+                "raiders",
+                "rams",
+                "ravens"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saints",
+                "seahawks",
+                "steelers"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "packers",
+                "panthers",
+                "patriots"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cardinals",
+                "chargers",
+                "chiefs",
+                "colts",
+                "commanders",
+                "cowboys"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bengals",
+                "broncos",
+                "cowboys",
+                "falcons",
+                "jaguars",
+                "packers",
+                "raiders",
+                "vikings"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "browns",
+                "chiefs",
+                "eagles",
+                "giants",
+                "ravens",
+                "saints",
+                "texans",
+                "titans"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "chargers",
+                "dolphins",
+                "panthers",
+                "patriots",
+                "seahawks",
+                "steelers"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "49ers",
+                "bears",
+                "bills",
+                "colts",
+                "lions"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "American Football Conference (AFC)",
+            "items": [
+                "bengals",
+                "ravens",
+                "browns",
+                "steelers",
+                "patriots",
+                "bills",
+                "dolphins",
+                "jets",
+                "chiefs",
+                "broncos",
+                "raiders",
+                "chargers",
+                "jaguars",
+                "titans",
+                "colts",
+                "texans"
+            ]
+        },
+        {
+            "name": "National Football Conference (NFC)",
+            "items": [
+                "seahawks",
+                "49ers",
+                "rams",
+                "cardinals",
+                "panthers",
+                "falcons",
+                "saints",
+                "buccaneers",
+                "vikings",
+                "packers",
+                "bears",
+                "lions",
+                "cowboys",
+                "eagles",
+                "giants",
+                "commanders"
+            ]
+        },
+        {
+            "name": "AFC North",
+            "items": [
+                "bengals",
+                "ravens",
+                "browns",
+                "steelers"
+            ]
+        },
+        {
+            "name": "AFC East",
+            "items": [
+                "patriots",
+                "bills",
+                "dolphins",
+                "jets"
+            ]
+        },
+        {
+            "name": "AFC West",
+            "items": [
+                "chiefs",
+                "broncos",
+                "raiders",
+                "chargers"
+            ]
+        },
+        {
+            "name": "AFC South",
+            "items": [
+                "jaguars",
+                "titans",
+                "colts",
+                "texans"
+            ]
+        },
+        {
+            "name": "NFC West",
+            "items": [
+                "seahawks",
+                "49ers",
+                "rams",
+                "cardinals"
+            ]
+        },
+        {
+            "name": "NFC South",
+            "items": [
+                "panthers",
+                "falcons",
+                "saints",
+                "buccaneers"
+            ]
+        },
+        {
+            "name": "NFC North",
+            "items": [
+                "vikings",
+                "packers",
+                "bears",
+                "lions"
+            ]
+        },
+        {
+            "name": "NFC East",
+            "items": [
+                "cowboys",
+                "eagles",
+                "giants",
+                "commanders"
+            ]
+        },
+        {
+            "name": "Animal-Themed Names",
+            "items": [
+                "bengals",
+                "ravens",
+                "dolphins",
+                "jaguars",
+                "colts",
+                "seahawks",
+                "rams",
+                "cardinals",
+                "panthers",
+                "falcons",
+                "bears",
+                "lions",
+                "eagles"
+            ]
+        },
+        {
+            "name": "Bird-Specific Teams",
+            "items": [
+                "ravens",
+                "seahawks",
+                "cardinals",
+                "falcons",
+                "eagles"
+            ]
+        },
+        {
+            "name": "Cat-Specific Teams",
+            "items": [
+                "bengals",
+                "jaguars",
+                "panthers",
+                "lions"
+            ]
+        }
+    ]
 }

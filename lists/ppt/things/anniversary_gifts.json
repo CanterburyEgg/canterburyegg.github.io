@@ -1,174 +1,185 @@
 {
-  "category_name": "Anniversary Gifts",
-  "master_list": [
-    "paper",
-    "cotton",
-    "leather",
-    "fruit",
-    "flowers",
-    "wood",
-    "iron",
-    "wool",
-    "copper",
-    "bronze",
-    "pottery",
-    "tin",
-    "aluminum",
-    "steel",
-    "silk",
-    "lace",
-    "ivory",
-    "crystal",
-    "porcelain",
-    "silver",
-    "pearl",
-    "coral",
-    "ruby",
-    "sapphire",
-    "gold",
-    "emerald",
-    "diamond"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with P",
-      "count": 4,
-      "items": [
+    "category_name": "Traditional Anniversary Gifts",
+    "master_list": [
         "paper",
-        "pearl",
-        "porcelain",
-        "pottery"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 4,
-      "items": [
-        "copper",
-        "coral",
         "cotton",
-        "crystal"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 4,
-      "items": [
-        "sapphire",
-        "silk",
-        "silver",
-        "steel"
-      ]
-    },
-    {
-      "name": "Ends with r",
-      "count": 4,
-      "items": [
-        "copper",
         "leather",
-        "paper",
-        "silver"
-      ]
-    },
-    {
-      "name": "Ends with n",
-      "count": 4,
-      "items": [
-        "cotton",
-        "iron",
-        "porcelain",
-        "tin"
-      ]
-    },
-    {
-      "name": "Ends with d",
-      "count": 4,
-      "items": [
-        "diamond",
-        "emerald",
-        "gold",
-        "wood"
-      ]
-    },
-    {
-      "name": "Ends with l",
-      "count": 5,
-      "items": [
-        "coral",
-        "crystal",
-        "pearl",
-        "steel",
-        "wool"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 6,
-      "items": [
-        "coral",
         "fruit",
-        "ivory",
-        "paper",
-        "pearl",
-        "steel"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 4,
-      "items": [
-        "bronze",
-        "copper",
-        "cotton",
-        "silver"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 6,
-      "items": [
-        "crystal",
-        "diamond",
-        "emerald",
         "flowers",
-        "leather",
-        "pottery"
-      ]
-    },
-    {
-      "name": "4 Letters Long",
-      "count": 7,
-      "items": [
-        "gold",
-        "iron",
-        "lace",
-        "ruby",
-        "silk",
         "wood",
-        "wool"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Metals",
-      "count": 8,
-      "items": ["iron", "copper", "bronze", "tin", "aluminum", "steel", "silver", "gold"]
-    },
-    {
-      "name": "Gemstones",
-      "count": 4,
-      "items": ["ruby", "sapphire", "emerald", "diamond"]
-    },
-    {
-      "name": "Fabrics and Textiles",
-      "count": 4,
-      "items": ["cotton", "wool", "silk", "lace"]
-    },
-    {
-      "name": "Animal Products",
-      "count": 6,
-      "items": ["leather", "wool", "silk", "ivory", "pearl", "coral"]
-    }
-  ]
+        "iron",
+        "wool",
+        "copper",
+        "bronze",
+        "pottery",
+        "tin",
+        "aluminum",
+        "steel",
+        "silk",
+        "lace",
+        "ivory",
+        "crystal",
+        "porcelain",
+        "silver",
+        "pearl",
+        "coral",
+        "ruby",
+        "sapphire",
+        "gold",
+        "emerald",
+        "diamond"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with P",
+            "items": [
+                "paper",
+                "pearl",
+                "porcelain",
+                "pottery"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "copper",
+                "coral",
+                "cotton",
+                "crystal"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "sapphire",
+                "silk",
+                "silver",
+                "steel"
+            ]
+        },
+        {
+            "name": "Ends with r",
+            "items": [
+                "copper",
+                "leather",
+                "paper",
+                "silver"
+            ]
+        },
+        {
+            "name": "Ends with n",
+            "items": [
+                "cotton",
+                "iron",
+                "porcelain",
+                "tin"
+            ]
+        },
+        {
+            "name": "Ends with d",
+            "items": [
+                "diamond",
+                "emerald",
+                "gold",
+                "wood"
+            ]
+        },
+        {
+            "name": "Ends with l",
+            "items": [
+                "coral",
+                "crystal",
+                "pearl",
+                "steel",
+                "wool"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "coral",
+                "fruit",
+                "ivory",
+                "paper",
+                "pearl",
+                "steel"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "bronze",
+                "copper",
+                "cotton",
+                "silver"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "crystal",
+                "diamond",
+                "emerald",
+                "flowers",
+                "leather",
+                "pottery"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "gold",
+                "iron",
+                "lace",
+                "ruby",
+                "silk",
+                "wood",
+                "wool"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Metals",
+            "items": [
+                "iron",
+                "copper",
+                "bronze",
+                "tin",
+                "aluminum",
+                "steel",
+                "silver",
+                "gold"
+            ]
+        },
+        {
+            "name": "Gemstones",
+            "items": [
+                "ruby",
+                "sapphire",
+                "emerald",
+                "diamond"
+            ]
+        },
+        {
+            "name": "Fabrics and Textiles",
+            "items": [
+                "cotton",
+                "wool",
+                "silk",
+                "lace"
+            ]
+        },
+        {
+            "name": "Animal Products",
+            "items": [
+                "leather",
+                "wool",
+                "silk",
+                "ivory",
+                "pearl",
+                "coral"
+            ]
+        }
+    ]
 }

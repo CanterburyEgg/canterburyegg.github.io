@@ -1,0 +1,165 @@
+{
+    "category_name": "Friends Characters in 5+ Episodes",
+    "master_list": [
+        "Rachel Green",
+        "Monica Geller",
+        "Phoebe Buffay",
+        "Joey Tribbiani",
+        "Chandler Bing",
+        "Ross Geller",
+        "Gunther",
+        "Jack Geller",
+        "Judy Geller",
+        "Janice",
+        "Mike Hannigan",
+        "Carol Willick",
+        "Emily Waltham",
+        "Susan Bunch",
+        "Estelle Leonard",
+        "Richard Burke",
+        "Charlie Wheeler",
+        "Frank Buffay Jr.",
+        "Julie",
+        "Tag Jones",
+        "Mona",
+        "Ben Geller",
+        "Pete Becker",
+        "Dr. Long",
+        "Mark Robinson",
+        "Kathy",
+        "Barry",
+        "Alice Knight",
+        "Mr. Zelner",
+        "David",
+        "Joshua Bergin",
+        "Janine Lecroix",
+        "Elizabeth Stevens",
+        "Mr. Heckles",
+        "Mr. Treeger",
+        "Nora Bing"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Richard Burke",
+                "Ross Geller",
+                "Rachel Green"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Monica Geller",
+                "Mike Hannigan",
+                "Mona",
+                "Mark Robinson"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Joshua Bergin",
+                "Jack Geller",
+                "Judy Geller",
+                "Janice",
+                "Julie",
+                "Janine Lecroix",
+                "Joey Tribbiani"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Chandler Bing",
+                "Charlie Wheeler",
+                "Carol Willick"
+            ]
+        },
+        {
+            "name": "First Name Starts with E",
+            "items": [
+                "Estelle Leonard",
+                "Elizabeth Stevens",
+                "Emily Waltham"
+            ]
+        },
+        {
+            "name": "Last Name Starts with G",
+            "items": [
+                "Monica Geller",
+                "Ross Geller",
+                "Jack Geller",
+                "Judy Geller",
+                "Ben Geller",
+                "Rachel Green"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Pete Becker",
+                "Joshua Bergin",
+                "Chandler Bing",
+                "Nora Bing",
+                "Phoebe Buffay",
+                "Frank Buffay Jr.",
+                "Susan Bunch",
+                "Richard Burke"
+            ]
+        },
+        {
+            "name": "Last Name Starts with W",
+            "items": [
+                "Emily Waltham",
+                "Charlie Wheeler",
+                "Carol Willick"
+            ]
+        },
+        {
+            "name": "Last Name Starts with L",
+            "items": [
+                "Janine Lecroix",
+                "Estelle Leonard",
+                "Dr. Long"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Main Six",
+            "items": [
+                "Chandler Bing",
+                "Joey Tribbiani",
+                "Monica Geller",
+                "Phoebe Buffay",
+                "Rachel Green",
+                "Ross Geller"
+            ]
+        },
+        {
+            "name": "Spouses of the Main Six",
+            "items": [
+                "Carol Willick",
+                "Chandler Bing",
+                "Emily Waltham",
+                "Mike Hannigan",
+                "Monica Geller",
+                "Phoebe Buffay",
+                "Rachel Green",
+                "Ross Geller"
+            ]
+        },
+        {
+            "name": "Main Six Family Members",
+            "items": [
+                "Ben Geller",
+                "Carol Willick",
+                "Frank Buffay Jr.",
+                "Jack Geller",
+                "Judy Geller",
+                "Nora Bing"
+            ]
+        }
+    ]
+}

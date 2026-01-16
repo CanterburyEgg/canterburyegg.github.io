@@ -1,0 +1,83 @@
+{
+    "category_name": "Exclusively Arabic-Speaking Countries",
+    "master_list": [
+        "bahrain",
+        "egypt",
+        "jordan",
+        "kuwait",
+        "lebanon",
+        "libya",
+        "mauritania",
+        "oman",
+        "palestine",
+        "qatar",
+        "saudi arabia",
+        "syria",
+        "tunisia",
+        "united arab emirates",
+        "yemen"
+    ],
+    "auto_subsets": [
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bahrain",
+                "lebanon",
+                "tunisia"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "egypt",
+                "libya",
+                "qatar",
+                "syria",
+                "yemen"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "GCC Member States",
+            "items": [
+                "bahrain",
+                "kuwait",
+                "oman",
+                "qatar",
+                "saudi arabia",
+                "united arab emirates"
+            ]
+        },
+        {
+            "name": "The Levant",
+            "items": [
+                "jordan",
+                "lebanon",
+                "palestine",
+                "syria"
+            ]
+        },
+        {
+            "name": "North African Nations",
+            "items": [
+                "egypt",
+                "libya",
+                "mauritania",
+                "tunisia"
+            ]
+        },
+        {
+            "name": "The Arabian Peninsula",
+            "items": [
+                "bahrain",
+                "kuwait",
+                "oman",
+                "qatar",
+                "saudi arabia",
+                "united arab emirates",
+                "yemen"
+            ]
+        }
+    ]
+}

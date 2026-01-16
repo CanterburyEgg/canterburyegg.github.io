@@ -1,0 +1,94 @@
+{
+    "category_name": "Canadian Provinces",
+    "master_list": [
+        "nunavut",
+        "yukon",
+        "northern territories",
+        "british columbia",
+        "saskatchewan",
+        "ontario",
+        "manitoba",
+        "alberta",
+        "quebec",
+        "newfoundland",
+        "new brunswick",
+        "prince edward island",
+        "nova scotia"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with N",
+            "items": [
+                "new brunswick",
+                "newfoundland",
+                "northern territories",
+                "nova scotia",
+                "nunavut"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "alberta",
+                "nunavut",
+                "ontario"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Provinces",
+            "items": [
+                "british columbia",
+                "alberta",
+                "saskatchewan",
+                "manitoba",
+                "ontario",
+                "quebec",
+                "new brunswick",
+                "prince edward island",
+                "nova scotia",
+                "newfoundland"
+            ]
+        },
+        {
+            "name": "Territories",
+            "items": [
+                "nunavut",
+                "yukon",
+                "northern territories"
+            ]
+        },
+        {
+            "name": "Borders U.S.",
+            "items": [
+                "yukon",
+                "british columbia",
+                "alberta",
+                "saskatchewan",
+                "manitoba",
+                "ontario",
+                "quebec",
+                "new brunswick"
+            ]
+        },
+        {
+            "name": "Doesn't Border U.S.",
+            "items": [
+                "nunavut",
+                "northern territories",
+                "newfoundland",
+                "nova scotia",
+                "prince edward island"
+            ]
+        },
+        {
+            "name": "Maritimes",
+            "items": [
+                "new brunswick",
+                "nova scotia",
+                "prince edward island"
+            ]
+        }
+    ]
+}

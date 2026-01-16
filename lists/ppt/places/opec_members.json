@@ -1,0 +1,60 @@
+{
+    "category_name": "OPEC Members",
+    "master_list": [
+        "algeria",
+        "congo",
+        "equatorial guinea",
+        "gabon",
+        "iran",
+        "iraq",
+        "kuwait",
+        "libya",
+        "nigeria",
+        "saudi arabia",
+        "united arab emirates",
+        "venezuela"
+    ],
+    "auto_subsets": [
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "congo",
+                "gabon",
+                "libya"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "OPEC Founder Members (1960)",
+            "items": [
+                "iran",
+                "iraq",
+                "kuwait",
+                "saudi arabia",
+                "venezuela"
+            ]
+        },
+        {
+            "name": "African OPEC Nations",
+            "items": [
+                "algeria",
+                "congo",
+                "equatorial guinea",
+                "gabon",
+                "libya",
+                "nigeria"
+            ]
+        },
+        {
+            "name": "Middle Eastern OPEC Nations",
+            "items": [
+                "iran",
+                "iraq",
+                "kuwait",
+                "saudi arabia",
+                "united arab emirates"
+            ]
+        }
+    ]
+}

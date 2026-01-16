@@ -1,0 +1,88 @@
+{
+    "category_name": "Exclusively Spanish-Speaking Countries",
+    "master_list": [
+        "chile",
+        "colombia",
+        "costa rica",
+        "cuba",
+        "dominican republic",
+        "ecuador",
+        "el salvador",
+        "guatemala",
+        "honduras",
+        "nicaragua",
+        "panama",
+        "spain",
+        "venezuela",
+        "peru",
+        "mexico",
+        "argentina"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "chile",
+                "colombia",
+                "costa rica",
+                "cuba"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "argentina",
+                "costa rica",
+                "guatemala",
+                "nicaragua",
+                "venezuela"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Central American Isthmus",
+            "items": [
+                "costa rica",
+                "el salvador",
+                "guatemala",
+                "honduras",
+                "nicaragua",
+                "panama"
+            ]
+        },
+        {
+            "name": "G20 Members & Permanent Guests",
+            "items": [
+                "argentina",
+                "mexico",
+                "spain"
+            ]
+        },
+        {
+            "name": "OECD Members",
+            "items": [
+                "chile",
+                "colombia",
+                "costa rica",
+                "mexico",
+                "spain"
+            ]
+        },
+        {
+            "name": "Pacific Coastline (LatAm)",
+            "items": [
+                "chile",
+                "colombia",
+                "costa rica",
+                "ecuador",
+                "el salvador",
+                "guatemala",
+                "mexico",
+                "nicaragua",
+                "panama",
+                "peru"
+            ]
+        }
+    ]
+}

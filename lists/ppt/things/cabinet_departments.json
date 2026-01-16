@@ -1,60 +1,85 @@
 {
-  "category_name": "Cabinet Departments",
-  "master_list": [
-    "agriculture",
-    "commerce",
-    "defense",
-    "education",
-    "energy",
-    "health and human services",
-    "homeland security",
-    "housing and urban development",
-    "interior",
-    "labor",
-    "state",
-    "transportation",
-    "treasury",
-    "veterans affairs",
-    "justice"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Ends with e",
-      "count": 5,
-      "items": [
+    "category_name": "US Cabinet Departments",
+    "master_list": [
         "agriculture",
         "commerce",
         "defense",
-        "justice",
-        "state"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "The Big Four",
-      "count": 4,
-      "items": ["state", "treasury", "defense", "justice"]
-    },
-    {
-      "name": "Modern Era Departments",
-      "count": 8,
-      "items": ["defense", "health and human services", "housing and urban development", "transportation", "energy", "education", "veterans affairs", "homeland security"]
-    },
-    {
-      "name": "Economic and Labor Departments",
-      "count": 5,
-      "items": ["commerce", "agriculture", "labor", "treasury", "energy"]
-    },
-    {
-      "name": "Infrastructure and Resources",
-      "count": 5,
-      "items": ["agriculture", "interior", "housing and urban development", "transportation", "energy"]
-    },
-    {
-      "name": "Security and Foreign Policy",
-      "count": 4,
-      "items": ["state", "defense", "justice", "homeland security"]
-    }
-  ]
+        "education",
+        "energy",
+        "health and human services",
+        "homeland security",
+        "housing and urban development",
+        "interior",
+        "labor",
+        "state",
+        "transportation",
+        "treasury",
+        "veterans affairs",
+        "justice"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Ends with e",
+            "items": [
+                "agriculture",
+                "commerce",
+                "defense",
+                "justice",
+                "state"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Big Four",
+            "items": [
+                "state",
+                "treasury",
+                "defense",
+                "justice"
+            ]
+        },
+        {
+            "name": "Modern Era Departments",
+            "items": [
+                "defense",
+                "health and human services",
+                "housing and urban development",
+                "transportation",
+                "energy",
+                "education",
+                "veterans affairs",
+                "homeland security"
+            ]
+        },
+        {
+            "name": "Economic and Labor Departments",
+            "items": [
+                "commerce",
+                "agriculture",
+                "labor",
+                "treasury",
+                "energy"
+            ]
+        },
+        {
+            "name": "Infrastructure and Resources",
+            "items": [
+                "agriculture",
+                "interior",
+                "housing and urban development",
+                "transportation",
+                "energy"
+            ]
+        },
+        {
+            "name": "Security and Foreign Policy",
+            "items": [
+                "state",
+                "defense",
+                "justice",
+                "homeland security"
+            ]
+        }
+    ]
 }

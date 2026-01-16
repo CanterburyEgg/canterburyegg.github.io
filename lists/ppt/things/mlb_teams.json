@@ -1,182 +1,242 @@
 {
-  "category_name": "Mlb Teams",
-  "master_list": [
-    "mariners",
-    "athletics",
-    "astros",
-    "angels",
-    "rangers",
-    "royals",
-    "white sox",
-    "twins",
-    "tigers",
-    "guardians",
-    "blue jays",
-    "yankees",
-    "red sox",
-    "orioles",
-    "rays",
-    "dodgers",
-    "diamondbacks",
-    "padres",
-    "giants",
-    "rockies",
-    "cubs",
-    "brewers",
-    "reds",
-    "cardinals",
-    "pirates",
-    "braves",
-    "mets",
-    "phillies",
-    "marlins",
-    "nationals"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with M",
-      "count": 3,
-      "items": [
+    "category_name": "MLB Teams",
+    "master_list": [
         "mariners",
-        "marlins",
-        "mets"
-      ]
-    },
-    {
-      "name": "Starts with A",
-      "count": 3,
-      "items": [
-        "angels",
-        "astros",
-        "athletics"
-      ]
-    },
-    {
-      "name": "Starts with R",
-      "count": 6,
-      "items": [
-        "rangers",
-        "rays",
-        "red sox",
-        "reds",
-        "rockies",
-        "royals"
-      ]
-    },
-    {
-      "name": "Starts with B",
-      "count": 3,
-      "items": [
-        "blue jays",
-        "braves",
-        "brewers"
-      ]
-    },
-    {
-      "name": "Starts with P",
-      "count": 3,
-      "items": [
-        "padres",
-        "phillies",
-        "pirates"
-      ]
-    },
-    {
-      "name": "9 Letters Long",
-      "count": 6,
-      "items": [
         "athletics",
-        "blue jays",
-        "cardinals",
-        "guardians",
-        "nationals",
-        "white sox"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 7,
-      "items": [
-        "angels",
         "astros",
-        "braves",
-        "giants",
-        "padres",
-        "royals",
-        "tigers"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 9,
-      "items": [
-        "brewers",
-        "dodgers",
-        "marlins",
-        "orioles",
-        "pirates",
+        "angels",
         "rangers",
+        "royals",
+        "white sox",
+        "twins",
+        "tigers",
+        "guardians",
+        "blue jays",
+        "yankees",
         "red sox",
-        "rockies",
-        "yankees"
-      ]
-    },
-    {
-      "name": "4 Letters Long",
-      "count": 4,
-      "items": [
-        "cubs",
-        "mets",
+        "orioles",
         "rays",
-        "reds"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "American League",
-      "count": 15,
-      "items": ["mariners", "athletics", "astros", "angels", "rangers", "royals", "white sox", "twins", "tigers", "guardians", "blue jays", "yankees", "red sox", "orioles", "rays"]
-    },
-    {
-      "name": "National League",
-      "count": 15,
-      "items": ["dodgers", "diamondbacks", "padres", "giants", "rockies", "cubs", "brewers", "reds", "cardinals", "pirates", "braves", "mets", "phillies", "marlins", "nationals"]
-    },
-    {
-      "name": "AL West",
-      "count": 5,
-      "items": ["mariners", "athletics", "astros", "angels", "rangers"]
-    },
-    {
-      "name": "AL Central",
-      "count": 5,
-      "items": ["royals", "white sox", "twins", "tigers", "guardians"]
-    },
-    {
-      "name": "AL East",
-      "count": 5,
-      "items": ["blue jays", "yankees", "red sox", "orioles", "rays"]
-    },
-    {
-      "name": "NL West",
-      "count": 5,
-      "items": ["dodgers", "diamondbacks", "padres", "giants", "rockies"]
-    },
-    {
-      "name": "NL Central",
-      "count": 5,
-      "items": ["cubs", "brewers", "reds", "cardinals", "pirates"]
-    },
-    {
-      "name": "NL East",
-      "count": 5,
-      "items": ["braves", "mets", "phillies", "marlins", "nationals"]
-    },
-    {
-      "name": "Animal-Themed Names",
-      "count": 8,
-      "items": ["diamondbacks", "marlins", "rays", "tigers", "cubs", "cardinals", "blue jays", "orioles"]
-    }
-  ]
+        "dodgers",
+        "diamondbacks",
+        "padres",
+        "giants",
+        "rockies",
+        "cubs",
+        "brewers",
+        "reds",
+        "cardinals",
+        "pirates",
+        "braves",
+        "mets",
+        "phillies",
+        "marlins",
+        "nationals"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with M",
+            "items": [
+                "mariners",
+                "marlins",
+                "mets"
+            ]
+        },
+        {
+            "name": "Starts with A",
+            "items": [
+                "angels",
+                "astros",
+                "athletics"
+            ]
+        },
+        {
+            "name": "Starts with R",
+            "items": [
+                "rangers",
+                "rays",
+                "red sox",
+                "reds",
+                "rockies",
+                "royals"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "blue jays",
+                "braves",
+                "brewers"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "padres",
+                "phillies",
+                "pirates"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "athletics",
+                "blue jays",
+                "cardinals",
+                "guardians",
+                "nationals",
+                "white sox"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "angels",
+                "astros",
+                "braves",
+                "giants",
+                "padres",
+                "red sox",
+                "royals",
+                "tigers"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "brewers",
+                "dodgers",
+                "marlins",
+                "orioles",
+                "pirates",
+                "rangers",
+                "red sox",
+                "rockies",
+                "yankees"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "cubs",
+                "mets",
+                "rays",
+                "reds"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "American League",
+            "items": [
+                "mariners",
+                "athletics",
+                "astros",
+                "angels",
+                "rangers",
+                "royals",
+                "white sox",
+                "twins",
+                "tigers",
+                "guardians",
+                "blue jays",
+                "yankees",
+                "red sox",
+                "orioles",
+                "rays"
+            ]
+        },
+        {
+            "name": "National League",
+            "items": [
+                "dodgers",
+                "diamondbacks",
+                "padres",
+                "giants",
+                "rockies",
+                "cubs",
+                "brewers",
+                "reds",
+                "cardinals",
+                "pirates",
+                "braves",
+                "mets",
+                "phillies",
+                "marlins",
+                "nationals"
+            ]
+        },
+        {
+            "name": "AL West",
+            "items": [
+                "mariners",
+                "athletics",
+                "astros",
+                "angels",
+                "rangers"
+            ]
+        },
+        {
+            "name": "AL Central",
+            "items": [
+                "royals",
+                "white sox",
+                "twins",
+                "tigers",
+                "guardians"
+            ]
+        },
+        {
+            "name": "AL East",
+            "items": [
+                "blue jays",
+                "yankees",
+                "red sox",
+                "orioles",
+                "rays"
+            ]
+        },
+        {
+            "name": "NL West",
+            "items": [
+                "dodgers",
+                "diamondbacks",
+                "padres",
+                "giants",
+                "rockies"
+            ]
+        },
+        {
+            "name": "NL Central",
+            "items": [
+                "cubs",
+                "brewers",
+                "reds",
+                "cardinals",
+                "pirates"
+            ]
+        },
+        {
+            "name": "NL East",
+            "items": [
+                "braves",
+                "mets",
+                "phillies",
+                "marlins",
+                "nationals"
+            ]
+        },
+        {
+            "name": "Animal-Themed Names",
+            "items": [
+                "diamondbacks",
+                "marlins",
+                "rays",
+                "tigers",
+                "cubs",
+                "cardinals",
+                "blue jays",
+                "orioles"
+            ]
+        }
+    ]
 }

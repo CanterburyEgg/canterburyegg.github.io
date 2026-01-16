@@ -1,0 +1,345 @@
+{
+    "category_name": "NFL MVPs",
+    "master_list": [
+        "Jim Brown",
+        "Johnny Unitas",
+        "Norm Van Brocklin",
+        "Paul Hornung",
+        "Jim Taylor",
+        "Y. A. Tittle",
+        "Bart Starr",
+        "Earl Morrall",
+        "Roman Gabriel",
+        "John Brodie",
+        "Alan Page",
+        "Larry Brown",
+        "O. J. Simpson",
+        "Ken Stabler",
+        "Fran Tarkenton",
+        "Bert Jones",
+        "Walter Payton",
+        "Terry Bradshaw",
+        "Earl Campbell",
+        "Brian Sipe",
+        "Ken Anderson",
+        "Mark Moseley",
+        "Joe Theismann",
+        "Dan Marino",
+        "Marcus Allen",
+        "Lawrence Taylor",
+        "John Elway",
+        "Boomer Esiason",
+        "Joe Montana",
+        "Thurman Thomas",
+        "Steve Young",
+        "Emmitt Smith",
+        "Brett Favre",
+        "Barry Sanders",
+        "Terrell Davis",
+        "Kurt Warner",
+        "Marshall Faulk",
+        "Rich Gannon",
+        "Peyton Manning",
+        "Steve McNair",
+        "Shaun Alexander",
+        "LaDainian Tomlinson",
+        "Tom Brady",
+        "Aaron Rodgers",
+        "Adrian Peterson",
+        "Cam Newton",
+        "Matt Ryan",
+        "Patrick Mahomes",
+        "Lamar Jackson",
+        "Josh Allen"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Josh Allen",
+                "John Brodie",
+                "Jim Brown",
+                "John Elway",
+                "Joe Montana",
+                "Jim Taylor",
+                "Joe Theismann",
+                "Johnny Unitas"
+            ]
+        },
+        {
+            "name": "First Name Starts with P",
+            "items": [
+                "Paul Hornung",
+                "Patrick Mahomes",
+                "Peyton Manning"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Boomer Esiason",
+                "Brett Favre",
+                "Bert Jones",
+                "Barry Sanders",
+                "Brian Sipe",
+                "Bart Starr"
+            ]
+        },
+        {
+            "name": "First Name Starts with E",
+            "items": [
+                "Earl Campbell",
+                "Earl Morrall",
+                "Emmitt Smith"
+            ]
+        },
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Alan Page",
+                "Adrian Peterson",
+                "Aaron Rodgers"
+            ]
+        },
+        {
+            "name": "First Name Starts with L",
+            "items": [
+                "Larry Brown",
+                "Lamar Jackson",
+                "Lawrence Taylor",
+                "LaDainian Tomlinson"
+            ]
+        },
+        {
+            "name": "First Name Starts with K",
+            "items": [
+                "Ken Anderson",
+                "Ken Stabler",
+                "Kurt Warner"
+            ]
+        },
+        {
+            "name": "First Name Starts with T",
+            "items": [
+                "Terry Bradshaw",
+                "Tom Brady",
+                "Terrell Davis",
+                "Thurman Thomas"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Marcus Allen",
+                "Marshall Faulk",
+                "Mark Moseley",
+                "Matt Ryan"
+            ]
+        },
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Shaun Alexander",
+                "Steve McNair",
+                "Steve Young"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Terry Bradshaw",
+                "Tom Brady",
+                "Norm Van Brocklin",
+                "John Brodie",
+                "Jim Brown",
+                "Larry Brown"
+            ]
+        },
+        {
+            "name": "Last Name Starts with T",
+            "items": [
+                "Fran Tarkenton",
+                "Jim Taylor",
+                "Lawrence Taylor",
+                "Joe Theismann",
+                "Thurman Thomas",
+                "Y. A. Tittle",
+                "LaDainian Tomlinson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Barry Sanders",
+                "O. J. Simpson",
+                "Brian Sipe",
+                "Emmitt Smith",
+                "Ken Stabler",
+                "Bart Starr"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Patrick Mahomes",
+                "Peyton Manning",
+                "Dan Marino",
+                "Steve McNair",
+                "Joe Montana",
+                "Earl Morrall",
+                "Mark Moseley"
+            ]
+        },
+        {
+            "name": "Last Name Starts with P",
+            "items": [
+                "Alan Page",
+                "Walter Payton",
+                "Adrian Peterson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with A",
+            "items": [
+                "Shaun Alexander",
+                "Marcus Allen",
+                "Josh Allen",
+                "Ken Anderson"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Pre-1970 Winners",
+            "items": [
+                "Bart Starr",
+                "Earl Morrall",
+                "Jim Brown",
+                "Jim Taylor",
+                "Johnny Unitas",
+                "Norm Van Brocklin",
+                "Paul Hornung",
+                "Roman Gabriel",
+                "Y. A. Tittle"
+            ]
+        },
+        {
+            "name": "1970s Winners",
+            "items": [
+                "Alan Page",
+                "Bert Jones",
+                "Earl Campbell",
+                "Fran Tarkenton",
+                "John Brodie",
+                "Ken Stabler",
+                "Larry Brown",
+                "O. J. Simpson",
+                "Terry Bradshaw",
+                "Walter Payton"
+            ]
+        },
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Boomer Esiason",
+                "Brian Sipe",
+                "Dan Marino",
+                "Joe Montana",
+                "Joe Theismann",
+                "John Elway",
+                "Ken Anderson",
+                "Lawrence Taylor",
+                "Marcus Allen",
+                "Mark Moseley"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Barry Sanders",
+                "Brett Favre",
+                "Emmitt Smith",
+                "Joe Montana",
+                "Kurt Warner",
+                "Steve Young",
+                "Terrell Davis",
+                "Thurman Thomas"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Kurt Warner",
+                "LaDainian Tomlinson",
+                "Marshall Faulk",
+                "Peyton Manning",
+                "Rich Gannon",
+                "Shaun Alexander",
+                "Steve McNair",
+                "Tom Brady"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Aaron Rodgers",
+                "Adrian Peterson",
+                "Cam Newton",
+                "Lamar Jackson",
+                "Matt Ryan",
+                "Patrick Mahomes",
+                "Peyton Manning",
+                "Tom Brady"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Aaron Rodgers",
+                "Josh Allen",
+                "Lamar Jackson",
+                "Patrick Mahomes"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Aaron Rodgers",
+                "Brett Favre",
+                "Jim Brown",
+                "Joe Montana",
+                "Johnny Unitas",
+                "Kurt Warner",
+                "Lamar Jackson",
+                "Patrick Mahomes",
+                "Peyton Manning",
+                "Steve Young",
+                "Tom Brady"
+            ]
+        },
+        {
+            "name": "Non-Quarterback Winners",
+            "items": [
+                "Adrian Peterson",
+                "Alan Page",
+                "Barry Sanders",
+                "Earl Campbell",
+                "Emmitt Smith",
+                "Jim Brown",
+                "Jim Taylor",
+                "LaDainian Tomlinson",
+                "Larry Brown",
+                "Lawrence Taylor",
+                "Marcus Allen",
+                "Mark Moseley",
+                "Marshall Faulk",
+                "O. J. Simpson",
+                "Paul Hornung",
+                "Shaun Alexander",
+                "Terrell Davis",
+                "Thurman Thomas",
+                "Walter Payton"
+            ]
+        }
+    ]
+}

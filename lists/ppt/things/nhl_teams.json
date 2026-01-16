@@ -1,178 +1,257 @@
 {
-  "category_name": "Nhl Teams",
-  "master_list": [
-    "canadiens",
-    "red wings",
-    "lightning",
-    "sabres",
-    "maple leafs",
-    "bruins",
-    "panthers",
-    "senators",
-    "hurricanes",
-    "islanders",
-    "flyers",
-    "capitals",
-    "penguins",
-    "devils",
-    "rangers",
-    "blue jackets",
-    "avalanche",
-    "stars",
-    "wild",
-    "mammoth",
-    "predators",
-    "blackhawks",
-    "blues",
-    "jets",
-    "golden knights",
-    "oilers",
-    "kraken",
-    "sharks",
-    "kings",
-    "ducks",
-    "flames",
-    "canucks"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with C",
-      "count": 3,
-      "items": [
+    "category_name": "NHL Teams",
+    "master_list": [
         "canadiens",
-        "canucks",
-        "capitals"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 4,
-      "items": [
-        "sabres",
-        "senators",
-        "sharks",
-        "stars"
-      ]
-    },
-    {
-      "name": "Starts with B",
-      "count": 4,
-      "items": [
-        "blackhawks",
-        "blue jackets",
-        "blues",
-        "bruins"
-      ]
-    },
-    {
-      "name": "Starts with P",
-      "count": 3,
-      "items": [
-        "panthers",
-        "penguins",
-        "predators"
-      ]
-    },
-    {
-      "name": "9 Letters Long",
-      "count": 5,
-      "items": [
-        "avalanche",
-        "canadiens",
-        "islanders",
+        "red wings",
         "lightning",
-        "predators"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 8,
-      "items": [
-        "bruins",
-        "devils",
-        "flames",
-        "flyers",
-        "kraken",
-        "oilers",
         "sabres",
-        "sharks"
-      ]
-    },
-    {
-      "name": "8 Letters Long",
-      "count": 4,
-      "items": [
-        "capitals",
+        "maple leafs",
+        "bruins",
         "panthers",
+        "senators",
+        "hurricanes",
+        "islanders",
+        "flyers",
+        "capitals",
         "penguins",
-        "senators"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 3,
-      "items": [
-        "canucks",
+        "devils",
+        "rangers",
+        "blue jackets",
+        "avalanche",
+        "stars",
+        "wild",
         "mammoth",
-        "rangers"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 4,
-      "items": [
+        "predators",
+        "blackhawks",
         "blues",
-        "ducks",
+        "jets",
+        "golden knights",
+        "oilers",
+        "kraken",
+        "sharks",
         "kings",
-        "stars"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Eastern Conference",
-      "count": 16,
-      "items": ["canadiens", "red wings", "lightning", "sabres", "maple leafs", "bruins", "panthers", "senators", "hurricanes", "islanders", "flyers", "capitals", "penguins", "devils", "rangers", "blue jackets"]
-    },
-    {
-      "name": "Western Conference",
-      "count": 16,
-      "items": ["avalanche", "stars", "wild", "mammoth", "predators", "blackhawks", "blues", "jets", "golden knights", "oilers", "kraken", "sharks", "kings", "ducks", "flames", "canucks"]
-    },
-    {
-      "name": "Atlantic Division",
-      "count": 8,
-      "items": ["canadiens", "red wings", "lightning", "sabres", "maple leafs", "bruins", "panthers", "senators"]
-    },
-    {
-      "name": "Metropolitan Division",
-      "count": 8,
-      "items": ["hurricanes", "islanders", "flyers", "capitals", "penguins", "devils", "rangers", "blue jackets"]
-    },
-    {
-      "name": "Central Division",
-      "count": 8,
-      "items": ["avalanche", "stars", "wild", "mammoth", "predators", "blackhawks", "blues", "jets"]
-    },
-    {
-      "name": "Pacific Division",
-      "count": 8,
-      "items": ["golden knights", "oilers", "kraken", "sharks", "kings", "ducks", "flames", "canucks"]
-    },
-    {
-      "name": "The Original Six",
-      "count": 6,
-      "items": ["canadiens", "red wings", "maple leafs", "bruins", "blackhawks", "rangers"]
-    },
-    {
-      "name": "Canadian Teams",
-      "count": 7,
-      "items": ["canadiens", "maple leafs", "senators", "jets", "oilers", "flames", "canucks"]
-    },
-    {
-      "name": "Animal or Mythical Creature Themes",
-      "count": 10,
-      "items": ["sabres", "bruins", "panthers", "penguins", "wild", "mammoth", "predators", "sharks", "ducks", "kraken"]
-    }
-  ]
+        "ducks",
+        "flames",
+        "canucks"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "canadiens",
+                "canucks",
+                "capitals"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "sabres",
+                "senators",
+                "sharks",
+                "stars"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "blackhawks",
+                "blue jackets",
+                "blues",
+                "bruins"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "panthers",
+                "penguins",
+                "predators"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "avalanche",
+                "canadiens",
+                "islanders",
+                "lightning",
+                "predators"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "bruins",
+                "devils",
+                "flames",
+                "flyers",
+                "kraken",
+                "oilers",
+                "sabres",
+                "sharks"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "capitals",
+                "panthers",
+                "penguins",
+                "red wings",
+                "senators"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "canucks",
+                "mammoth",
+                "rangers"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "blues",
+                "ducks",
+                "kings",
+                "stars"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Eastern Conference",
+            "items": [
+                "canadiens",
+                "red wings",
+                "lightning",
+                "sabres",
+                "maple leafs",
+                "bruins",
+                "panthers",
+                "senators",
+                "hurricanes",
+                "islanders",
+                "flyers",
+                "capitals",
+                "penguins",
+                "devils",
+                "rangers",
+                "blue jackets"
+            ]
+        },
+        {
+            "name": "Western Conference",
+            "items": [
+                "avalanche",
+                "stars",
+                "wild",
+                "mammoth",
+                "predators",
+                "blackhawks",
+                "blues",
+                "jets",
+                "golden knights",
+                "oilers",
+                "kraken",
+                "sharks",
+                "kings",
+                "ducks",
+                "flames",
+                "canucks"
+            ]
+        },
+        {
+            "name": "Atlantic Division",
+            "items": [
+                "canadiens",
+                "red wings",
+                "lightning",
+                "sabres",
+                "maple leafs",
+                "bruins",
+                "panthers",
+                "senators"
+            ]
+        },
+        {
+            "name": "Metropolitan Division",
+            "items": [
+                "hurricanes",
+                "islanders",
+                "flyers",
+                "capitals",
+                "penguins",
+                "devils",
+                "rangers",
+                "blue jackets"
+            ]
+        },
+        {
+            "name": "Central Division",
+            "items": [
+                "avalanche",
+                "stars",
+                "wild",
+                "mammoth",
+                "predators",
+                "blackhawks",
+                "blues",
+                "jets"
+            ]
+        },
+        {
+            "name": "Pacific Division",
+            "items": [
+                "golden knights",
+                "oilers",
+                "kraken",
+                "sharks",
+                "kings",
+                "ducks",
+                "flames",
+                "canucks"
+            ]
+        },
+        {
+            "name": "The Original Six",
+            "items": [
+                "canadiens",
+                "red wings",
+                "maple leafs",
+                "bruins",
+                "blackhawks",
+                "rangers"
+            ]
+        },
+        {
+            "name": "Canadian Teams",
+            "items": [
+                "canadiens",
+                "maple leafs",
+                "senators",
+                "jets",
+                "oilers",
+                "flames",
+                "canucks"
+            ]
+        },
+        {
+            "name": "Animal or Mythical Creature Themes",
+            "items": [
+                "sabres",
+                "bruins",
+                "panthers",
+                "penguins",
+                "wild",
+                "mammoth",
+                "predators",
+                "sharks",
+                "ducks",
+                "kraken"
+            ]
+        }
+    ]
 }

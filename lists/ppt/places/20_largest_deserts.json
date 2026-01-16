@@ -1,0 +1,145 @@
+{
+    "category_name": "20 Largest Deserts",
+    "master_list": [
+        "antarctic",
+        "arctic",
+        "saharan",
+        "arabian",
+        "great australian",
+        "gobi",
+        "kalahari",
+        "patagonian",
+        "syrian",
+        "great basin",
+        "chihuahuan",
+        "karakum",
+        "colorado plateau",
+        "sonoran",
+        "kyzylkum",
+        "taklamakan",
+        "thar",
+        "ogaden",
+        "ustyurt",
+        "margo"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "antarctic",
+                "arabian",
+                "arctic"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saharan",
+                "sonoran",
+                "syrian"
+            ]
+        },
+        {
+            "name": "Starts with G",
+            "items": [
+                "gobi",
+                "great australian",
+                "great basin"
+            ]
+        },
+        {
+            "name": "Starts with K",
+            "items": [
+                "kalahari",
+                "karakum",
+                "kyzylkum"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "arctic",
+                "ogaden",
+                "syrian"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "arabian",
+                "karakum",
+                "saharan",
+                "sonoran",
+                "ustyurt"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "chihuahuan",
+                "great basin",
+                "patagonian",
+                "taklamakan"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "African Deserts",
+            "items": [
+                "saharan",
+                "kalahari",
+                "ogaden"
+            ]
+        },
+        {
+            "name": "Middle Eastern & Arabian Deserts",
+            "items": [
+                "arabian",
+                "syrian",
+                "margo"
+            ]
+        },
+        {
+            "name": "North American Deserts",
+            "items": [
+                "great basin",
+                "chihuahuan",
+                "colorado plateau",
+                "sonoran"
+            ]
+        },
+        {
+            "name": "Central Asian & Silk Road Deserts",
+            "items": [
+                "gobi",
+                "karakum",
+                "kyzylkum",
+                "taklamakan",
+                "ustyurt"
+            ]
+        },
+        {
+            "name": "Subtropical (Hot) Deserts",
+            "items": [
+                "saharan",
+                "arabian",
+                "kalahari",
+                "thar",
+                "sonoran",
+                "chihuahuan"
+            ]
+        },
+        {
+            "name": "Cold Winter Deserts",
+            "items": [
+                "antarctic",
+                "arctic",
+                "gobi",
+                "patagonian",
+                "great basin",
+                "taklamakan"
+            ]
+        }
+    ]
+}

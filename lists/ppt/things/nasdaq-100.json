@@ -1,112 +1,6 @@
 {
-  "category_name": "Nasdaq-100",
-  "master_list": [
-    "adobe inc.",
-    "advanced micro devices",
-    "airbnb",
-    "alnylam pharmaceuticals",
-    "alphabet inc.",
-    "amazon",
-    "american electric power",
-    "amgen",
-    "analog devices",
-    "apple inc.",
-    "applied materials",
-    "applovin",
-    "arm holdings",
-    "asml holding",
-    "astrazeneca",
-    "atlassian",
-    "autodesk",
-    "automatic data processing",
-    "axon enterprise",
-    "baker hughes",
-    "booking holdings",
-    "broadcom",
-    "cadence design systems",
-    "charter communications",
-    "cintas",
-    "cisco",
-    "coca-cola europacific partners",
-    "cognizant",
-    "comcast",
-    "constellation energy",
-    "copart",
-    "costar group",
-    "costco",
-    "crowdstrike",
-    "csx corporation",
-    "datadog",
-    "dexcom",
-    "diamondback energy",
-    "doordash",
-    "electronic arts",
-    "exelon",
-    "fastenal",
-    "ferrovial",
-    "fortinet",
-    "ge healthcare",
-    "gilead sciences",
-    "honeywell",
-    "idexx laboratories",
-    "insmed incorporated",
-    "intel",
-    "intuit",
-    "intuitive surgical",
-    "keurig dr pepper",
-    "kla corporation",
-    "kraft heinz",
-    "lam research",
-    "linde plc",
-    "marriott international",
-    "marvell technology",
-    "mercado libre",
-    "meta platforms",
-    "microchip technology",
-    "micron technology",
-    "microsoft",
-    "microstrategy",
-    "mondelez international",
-    "monolithic power systems",
-    "monster beverage",
-    "netflix, inc.",
-    "nvidia",
-    "nxp semiconductors",
-    "o'reilly automotive",
-    "old dominion freight line",
-    "paccar",
-    "palantir technologies",
-    "palo alto networks",
-    "paychex",
-    "paypal",
-    "pdd holdings",
-    "pepsico",
-    "qualcomm",
-    "regeneron pharmaceuticals",
-    "roper technologies",
-    "ross stores",
-    "seagate technology",
-    "shopify",
-    "starbucks",
-    "synopsys",
-    "t-mobile us",
-    "take-two interactive",
-    "tesla, inc.",
-    "texas instruments",
-    "thomson reuters",
-    "verisk analytics",
-    "vertex pharmaceuticals",
-    "warner bros. discovery",
-    "western digital",
-    "workday, inc.",
-    "xcel energy",
-    "zscaler technology"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with A",
-      "count": 19,
-      "items": [
+    "category_name": "NASDAQ-100 Companies",
+    "master_list": [
         "adobe inc.",
         "advanced micro devices",
         "airbnb",
@@ -125,13 +19,10 @@
         "atlassian",
         "autodesk",
         "automatic data processing",
-        "axon enterprise"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 13,
-      "items": [
+        "axon enterprise",
+        "baker hughes",
+        "booking holdings",
+        "broadcom",
         "cadence design systems",
         "charter communications",
         "cintas",
@@ -144,34 +35,29 @@
         "costar group",
         "costco",
         "crowdstrike",
-        "csx corporation"
-      ]
-    },
-    {
-      "name": "Starts with D",
-      "count": 4,
-      "items": [
+        "csx corporation",
         "datadog",
         "dexcom",
         "diamondback energy",
-        "doordash"
-      ]
-    },
-    {
-      "name": "Starts with I",
-      "count": 5,
-      "items": [
+        "doordash",
+        "electronic arts",
+        "exelon",
+        "fastenal",
+        "ferrovial",
+        "fortinet",
+        "ge healthcare",
+        "gilead sciences",
+        "honeywell",
         "idexx laboratories",
         "insmed incorporated",
         "intel",
         "intuit",
-        "intuitive surgical"
-      ]
-    },
-    {
-      "name": "Starts with M",
-      "count": 11,
-      "items": [
+        "intuitive surgical",
+        "keurig dr pepper",
+        "kla corporation",
+        "kraft heinz",
+        "lam research",
+        "linde plc",
         "marriott international",
         "marvell technology",
         "mercado libre",
@@ -182,133 +68,297 @@
         "microstrategy",
         "mondelez international",
         "monolithic power systems",
-        "monster beverage"
-      ]
-    },
-    {
-      "name": "Starts with P",
-      "count": 7,
-      "items": [
+        "monster beverage",
+        "netflix, inc.",
+        "nvidia",
+        "nxp semiconductors",
+        "o'reilly automotive",
+        "old dominion freight line",
         "paccar",
         "palantir technologies",
         "palo alto networks",
         "paychex",
         "paypal",
         "pdd holdings",
-        "pepsico"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 4,
-      "items": [
+        "pepsico",
+        "qualcomm",
+        "regeneron pharmaceuticals",
+        "roper technologies",
+        "ross stores",
         "seagate technology",
         "shopify",
         "starbucks",
-        "synopsys"
-      ]
-    },
-    {
-      "name": "Starts with T",
-      "count": 5,
-      "items": [
+        "synopsys",
         "t-mobile us",
         "take-two interactive",
         "tesla, inc.",
         "texas instruments",
-        "thomson reuters"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 11,
-      "items": [
-        "airbnb",
-        "amazon",
-        "cintas",
-        "copart",
-        "costco",
-        "dexcom",
-        "exelon",
-        "intuit",
-        "nvidia",
-        "paccar",
-        "paypal"
-      ]
-    },
-    {
-      "name": "8 Letters Long",
-      "count": 8,
-      "items": [
-        "applovin",
-        "autodesk",
-        "broadcom",
-        "doordash",
-        "fastenal",
-        "fortinet",
-        "qualcomm",
-        "synopsys"
-      ]
-    },
-    {
-      "name": "9 Letters Long",
-      "count": 7,
-      "items": [
-        "atlassian",
-        "cognizant",
-        "ferrovial",
-        "honeywell",
-        "microsoft",
-        "starbucks"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 5,
-      "items": [
-        "comcast",
-        "datadog",
-        "paychex",
-        "pepsico",
-        "shopify"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "The Magnificent Seven",
-      "count": 7,
-      "items": ["alphabet inc.", "amazon", "apple inc.", "meta platforms", "microsoft", "nvidia", "tesla, inc."]
-    },
-    {
-      "name": "Semiconductors and Chip Equipment",
-      "count": 16,
-      "items": ["advanced micro devices", "analog devices", "arm holdings", "asml holding", "broadcom", "intel", "kla corporation", "lam research", "marvell technology", "microchip technology", "micron technology", "monolithic power systems", "nvidia", "nxp semiconductors", "qualcomm", "texas instruments"]
-    },
-    {
-      "name": "Biotechnology and Healthcare",
-      "count": 11,
-      "items": ["alnylam pharmaceuticals", "amgen", "astrazeneca", "dexcom", "ge healthcare", "gilead sciences", "idexx laboratories", "insmed incorporated", "intuitive surgical", "regeneron pharmaceuticals", "vertex pharmaceuticals"]
-    },
-    {
-      "name": "Cybersecurity",
-      "count": 4,
-      "items": ["crowdstrike", "fortinet", "palo alto networks", "zscaler technology"]
-    },
-    {
-      "name": "Consumer Retail and Food",
-      "count": 8,
-      "items": ["costco", "keurig dr pepper", "kraft heinz", "mondelez international", "monster beverage", "pepsico", "ross stores", "starbucks"]
-    },
-    {
-      "name": "Utilities and Energy",
-      "count": 6,
-      "items": ["american electric power", "constellation energy", "exelon", "xcel energy", "baker hughes", "diamondback energy"]
-    },
-    {
-      "name": "Travel and Marketplace Platforms",
-      "count": 5,
-      "items": ["airbnb", "booking holdings", "doordash", "mercado libre", "pdd holdings"]
-    }
-  ]
+        "thomson reuters",
+        "verisk analytics",
+        "vertex pharmaceuticals",
+        "warner bros. discovery",
+        "western digital",
+        "workday, inc.",
+        "xcel energy",
+        "zscaler technology"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "adobe inc.",
+                "advanced micro devices",
+                "airbnb",
+                "alnylam pharmaceuticals",
+                "alphabet inc.",
+                "amazon",
+                "american electric power",
+                "amgen",
+                "analog devices",
+                "apple inc.",
+                "applied materials",
+                "applovin",
+                "arm holdings",
+                "asml holding",
+                "astrazeneca",
+                "atlassian",
+                "autodesk",
+                "automatic data processing",
+                "axon enterprise"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cadence design systems",
+                "charter communications",
+                "cintas",
+                "cisco",
+                "coca-cola europacific partners",
+                "cognizant",
+                "comcast",
+                "constellation energy",
+                "copart",
+                "costar group",
+                "costco",
+                "crowdstrike",
+                "csx corporation"
+            ]
+        },
+        {
+            "name": "Starts with D",
+            "items": [
+                "datadog",
+                "dexcom",
+                "diamondback energy",
+                "doordash"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "idexx laboratories",
+                "insmed incorporated",
+                "intel",
+                "intuit",
+                "intuitive surgical"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "marriott international",
+                "marvell technology",
+                "mercado libre",
+                "meta platforms",
+                "microchip technology",
+                "micron technology",
+                "microsoft",
+                "microstrategy",
+                "mondelez international",
+                "monolithic power systems",
+                "monster beverage"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "paccar",
+                "palantir technologies",
+                "palo alto networks",
+                "paychex",
+                "paypal",
+                "pdd holdings",
+                "pepsico"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "seagate technology",
+                "shopify",
+                "starbucks",
+                "synopsys"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "t-mobile us",
+                "take-two interactive",
+                "tesla, inc.",
+                "texas instruments",
+                "thomson reuters"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "airbnb",
+                "amazon",
+                "cintas",
+                "copart",
+                "costco",
+                "dexcom",
+                "exelon",
+                "intuit",
+                "nvidia",
+                "paccar",
+                "paypal"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "adobe inc.",
+                "apple inc.",
+                "applovin",
+                "autodesk",
+                "broadcom",
+                "doordash",
+                "fastenal",
+                "fortinet",
+                "linde plc",
+                "qualcomm",
+                "synopsys"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "atlassian",
+                "cognizant",
+                "ferrovial",
+                "honeywell",
+                "microsoft",
+                "starbucks",
+                "t-mobile us",
+                "tesla, inc."
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "comcast",
+                "datadog",
+                "paychex",
+                "pepsico",
+                "shopify"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Magnificent Seven",
+            "items": [
+                "alphabet inc.",
+                "amazon",
+                "apple inc.",
+                "meta platforms",
+                "microsoft",
+                "nvidia",
+                "tesla, inc."
+            ]
+        },
+        {
+            "name": "Semiconductors and Chip Equipment",
+            "items": [
+                "advanced micro devices",
+                "analog devices",
+                "arm holdings",
+                "asml holding",
+                "broadcom",
+                "intel",
+                "kla corporation",
+                "lam research",
+                "marvell technology",
+                "microchip technology",
+                "micron technology",
+                "monolithic power systems",
+                "nvidia",
+                "nxp semiconductors",
+                "qualcomm",
+                "texas instruments"
+            ]
+        },
+        {
+            "name": "Biotechnology and Healthcare",
+            "items": [
+                "alnylam pharmaceuticals",
+                "amgen",
+                "astrazeneca",
+                "dexcom",
+                "ge healthcare",
+                "gilead sciences",
+                "idexx laboratories",
+                "insmed incorporated",
+                "intuitive surgical",
+                "regeneron pharmaceuticals",
+                "vertex pharmaceuticals"
+            ]
+        },
+        {
+            "name": "Cybersecurity",
+            "items": [
+                "crowdstrike",
+                "fortinet",
+                "palo alto networks",
+                "zscaler technology"
+            ]
+        },
+        {
+            "name": "Consumer Retail and Food",
+            "items": [
+                "costco",
+                "keurig dr pepper",
+                "kraft heinz",
+                "mondelez international",
+                "monster beverage",
+                "pepsico",
+                "ross stores",
+                "starbucks"
+            ]
+        },
+        {
+            "name": "Utilities and Energy",
+            "items": [
+                "american electric power",
+                "constellation energy",
+                "exelon",
+                "xcel energy",
+                "baker hughes",
+                "diamondback energy"
+            ]
+        },
+        {
+            "name": "Travel and Marketplace Platforms",
+            "items": [
+                "airbnb",
+                "booking holdings",
+                "doordash",
+                "mercado libre",
+                "pdd holdings"
+            ]
+        }
+    ]
 }

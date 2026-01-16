@@ -1,0 +1,230 @@
+{
+    "category_name": "Office Characters in 5+ Episodes",
+    "master_list": [
+        "Dwight Schrute",
+        "Jim Halpert",
+        "Stanley Hudson",
+        "Kevin Malone",
+        "Angela Martin",
+        "Phyllis Vance",
+        "Meredith Palmer",
+        "Pam Beesly",
+        "Creed Bratton",
+        "Oscar Martinez",
+        "Kelly Kapoor",
+        "Ryan Howard",
+        "Andy Bernard",
+        "Michael Scott",
+        "Toby Flenderson",
+        "Darryl Philbin",
+        "Erin Hannon",
+        "Gabe Lewis",
+        "Jan Levinson",
+        "David Wallace",
+        "Nellie Bertram",
+        "Roy Anderson",
+        "Karen Filippelli",
+        "Bob Vance",
+        "Hank",
+        "Pete Miller",
+        "Robert California",
+        "Clark",
+        "Nate",
+        "Holly Flax",
+        "Todd Packer",
+        "Val",
+        "Robert Lipton",
+        "Mose Schrute",
+        "Cathy Simms",
+        "Helene Beesly"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "Darryl Philbin",
+                "Dwight Schrute",
+                "David Wallace"
+            ]
+        },
+        {
+            "name": "First Name Starts with K",
+            "items": [
+                "Karen Filippelli",
+                "Kelly Kapoor",
+                "Kevin Malone"
+            ]
+        },
+        {
+            "name": "First Name Starts with P",
+            "items": [
+                "Pam Beesly",
+                "Pete Miller",
+                "Phyllis Vance"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Meredith Palmer",
+                "Mose Schrute",
+                "Michael Scott"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Creed Bratton",
+                "Clark",
+                "Cathy Simms"
+            ]
+        },
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Roy Anderson",
+                "Robert California",
+                "Ryan Howard",
+                "Robert Lipton"
+            ]
+        },
+        {
+            "name": "First Name Starts with H",
+            "items": [
+                "Helene Beesly",
+                "Holly Flax",
+                "Hank"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Dwight Schrute",
+                "Mose Schrute",
+                "Michael Scott",
+                "Cathy Simms"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Jim Halpert",
+                "Erin Hannon",
+                "Ryan Howard",
+                "Stanley Hudson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Kevin Malone",
+                "Angela Martin",
+                "Oscar Martinez",
+                "Pete Miller"
+            ]
+        },
+        {
+            "name": "Last Name Starts with P",
+            "items": [
+                "Todd Packer",
+                "Meredith Palmer",
+                "Darryl Philbin"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Pam Beesly",
+                "Helene Beesly",
+                "Andy Bernard",
+                "Nellie Bertram",
+                "Creed Bratton"
+            ]
+        },
+        {
+            "name": "Last Name Starts with F",
+            "items": [
+                "Karen Filippelli",
+                "Holly Flax",
+                "Toby Flenderson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with L",
+            "items": [
+                "Jan Levinson",
+                "Gabe Lewis",
+                "Robert Lipton"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Accounting Department",
+            "items": [
+                "Angela Martin",
+                "Kevin Malone",
+                "Oscar Martinez"
+            ]
+        },
+        {
+            "name": "Sales Team",
+            "items": [
+                "Andy Bernard",
+                "Dwight Schrute",
+                "Jim Halpert",
+                "Karen Filippelli",
+                "Phyllis Vance",
+                "Ryan Howard",
+                "Stanley Hudson",
+                "Todd Packer"
+            ]
+        },
+        {
+            "name": "Reception & Office Support",
+            "items": [
+                "Erin Hannon",
+                "Holly Flax",
+                "Kelly Kapoor",
+                "Nellie Bertram",
+                "Pam Beesly",
+                "Ryan Howard",
+                "Toby Flenderson"
+            ]
+        },
+        {
+            "name": "Warehouse Staff",
+            "items": [
+                "Darryl Philbin",
+                "Hank",
+                "Nate",
+                "Roy Anderson",
+                "Val"
+            ]
+        },
+        {
+            "name": "Corporate & Upper Management",
+            "items": [
+                "David Wallace",
+                "Gabe Lewis",
+                "Jan Levinson",
+                "Robert California",
+                "Robert Lipton",
+                "Ryan Howard"
+            ]
+        },
+        {
+            "name": "Scranton Branch Managers (List Subset)",
+            "items": [
+                "Andy Bernard",
+                "Creed Bratton",
+                "Dwight Schrute",
+                "Jim Halpert",
+                "Kevin Malone",
+                "Michael Scott",
+                "Nellie Bertram",
+                "Ryan Howard"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,188 @@
+{
+    "category_name": "Rock & Roll Hall of Fame 1980s Inductees",
+    "master_list": [
+        "Chuck Berry",
+        "James Brown",
+        "Ray Charles",
+        "Sam Cooke",
+        "Fats Domino",
+        "The Everly Brothers",
+        "Buddy Holly",
+        "Jerry Lee Lewis",
+        "Little Richard",
+        "Elvis Presley",
+        "The Coasters",
+        "Eddie Cochran",
+        "Bo Diddley",
+        "Aretha Franklin",
+        "Marvin Gaye",
+        "Bill Haley",
+        "B.B. King",
+        "Clyde McPhatter",
+        "Ricky Nelson",
+        "Roy Orbison",
+        "Carl Perkins",
+        "Smokey Robinson",
+        "Big Joe Turner",
+        "Muddy Waters",
+        "Jackie Wilson",
+        "The Beach Boys",
+        "The Beatles",
+        "The Drifters",
+        "Bob Dylan",
+        "The Supremes",
+        "Dion",
+        "Otis Redding",
+        "The Rolling Stones",
+        "The Temptations",
+        "Stevie Wonder"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Chuck Berry",
+                "Clyde McPhatter",
+                "Carl Perkins"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "James Brown",
+                "Jerry Lee Lewis",
+                "Jackie Wilson"
+            ]
+        },
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Ray Charles",
+                "Ricky Nelson",
+                "Roy Orbison"
+            ]
+        },
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Sam Cooke",
+                "Smokey Robinson",
+                "Stevie Wonder"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Bo Diddley",
+                "Bob Dylan",
+                "Bill Haley",
+                "Buddy Holly",
+                "B.B. King",
+                "Big Joe Turner"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Ray Charles",
+                "Eddie Cochran",
+                "Sam Cooke"
+            ]
+        },
+        {
+            "name": "Last Name Starts with D",
+            "items": [
+                "Bo Diddley",
+                "Dion",
+                "Fats Domino",
+                "Bob Dylan"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Otis Redding",
+                "Little Richard",
+                "Smokey Robinson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with W",
+            "items": [
+                "Muddy Waters",
+                "Jackie Wilson",
+                "Stevie Wonder"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Class of 1986 (Inaugural)",
+            "items": [
+                "Chuck Berry",
+                "Elvis Presley",
+                "Buddy Holly",
+                "Jerry Lee Lewis",
+                "Little Richard",
+                "Fats Domino",
+                "James Brown",
+                "Ray Charles",
+                "Sam Cooke",
+                "The Everly Brothers"
+            ]
+        },
+        {
+            "name": "Class of 1987",
+            "items": [
+                "Aretha Franklin",
+                "B.B. King",
+                "Big Joe Turner",
+                "Bill Haley",
+                "Bo Diddley",
+                "Carl Perkins",
+                "Clyde McPhatter",
+                "Eddie Cochran",
+                "Jackie Wilson",
+                "Marvin Gaye",
+                "Muddy Waters",
+                "Ricky Nelson",
+                "Roy Orbison",
+                "Smokey Robinson",
+                "The Coasters"
+            ]
+        },
+        {
+            "name": "Class of 1988",
+            "items": [
+                "The Beach Boys",
+                "The Beatles",
+                "The Drifters",
+                "Bob Dylan",
+                "The Supremes"
+            ]
+        },
+        {
+            "name": "Class of 1989",
+            "items": [
+                "Dion",
+                "Otis Redding",
+                "The Rolling Stones",
+                "The Temptations",
+                "Stevie Wonder"
+            ]
+        },
+        {
+            "name": "Groups & Duos",
+            "items": [
+                "The Beach Boys",
+                "The Beatles",
+                "The Coasters",
+                "The Drifters",
+                "The Everly Brothers",
+                "The Rolling Stones",
+                "The Supremes",
+                "The Temptations"
+            ]
+        }
+    ]
+}

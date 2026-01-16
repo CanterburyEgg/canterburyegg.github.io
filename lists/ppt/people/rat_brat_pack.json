@@ -1,0 +1,82 @@
+{
+    "category_name": "Rat Pack & Brat Pack",
+    "master_list": [
+        "Frank Sinatra",
+        "Dean Martin",
+        "Sammy Davis Jr.",
+        "Peter Lawford",
+        "Joey Bishop",
+        "Andrew McCarthy",
+        "Demi Moore",
+        "Emilio Estevez",
+        "Rob Lowe",
+        "Ally Sheedy",
+        "Molly Ringwald",
+        "Anthony Michael Hall",
+        "Judd Nelson"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Anthony Michael Hall",
+                "Andrew McCarthy",
+                "Ally Sheedy"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Dean Martin",
+                "Andrew McCarthy",
+                "Demi Moore"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Rat Pack",
+            "items": [
+                "Dean Martin",
+                "Frank Sinatra",
+                "Joey Bishop",
+                "Peter Lawford",
+                "Sammy Davis Jr."
+            ]
+        },
+        {
+            "name": "The Brat Pack",
+            "items": [
+                "Ally Sheedy",
+                "Andrew McCarthy",
+                "Anthony Michael Hall",
+                "Demi Moore",
+                "Emilio Estevez",
+                "Judd Nelson",
+                "Molly Ringwald",
+                "Rob Lowe"
+            ]
+        },
+        {
+            "name": "The 'St. Elmo's Fire' Group",
+            "items": [
+                "Ally Sheedy",
+                "Andrew McCarthy",
+                "Demi Moore",
+                "Emilio Estevez",
+                "Judd Nelson",
+                "Rob Lowe"
+            ]
+        },
+        {
+            "name": "The 'Breakfast Club' Group",
+            "items": [
+                "Ally Sheedy",
+                "Anthony Michael Hall",
+                "Emilio Estevez",
+                "Judd Nelson",
+                "Molly Ringwald"
+            ]
+        }
+    ]
+}

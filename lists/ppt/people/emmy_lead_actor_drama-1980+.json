@@ -1,0 +1,181 @@
+{
+    "category_name": "Lead Actor in Drama Emmy Winners since 1980",
+    "master_list": [
+        "Ed Asner",
+        "Daniel J. Travanti",
+        "Ed Flanders",
+        "Tom Selleck",
+        "William Daniels",
+        "Bruce Willis",
+        "Richard Kiley",
+        "Carroll O'Connor",
+        "Peter Falk",
+        "James Earl Jones",
+        "Christopher Lloyd",
+        "Tom Skerritt",
+        "Dennis Franz",
+        "Mandy Patinkin",
+        "Andre Braugher",
+        "James Gandolfini",
+        "Michael Chiklis",
+        "James Spader",
+        "Kiefer Sutherland",
+        "Bryan Cranston",
+        "Kyle Chandler",
+        "Damian Lewis",
+        "Jeff Daniels",
+        "Jon Hamm",
+        "Rami Malek",
+        "Sterling K. Brown",
+        "Matthew Rhys",
+        "Billy Porter",
+        "Jeremy Strong",
+        "Josh O'Connor",
+        "Lee Jung-jae",
+        "Kieran Culkin",
+        "Hiroyuki Sanada",
+        "Noah Wyle"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "Dennis Franz",
+                "Damian Lewis",
+                "Daniel J. Travanti"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Bryan Cranston",
+                "Billy Porter",
+                "Bruce Willis"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jeff Daniels",
+                "James Gandolfini",
+                "Jon Hamm",
+                "James Earl Jones",
+                "Josh O'Connor",
+                "James Spader",
+                "Jeremy Strong"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Michael Chiklis",
+                "Mandy Patinkin",
+                "Matthew Rhys"
+            ]
+        },
+        {
+            "name": "First Name Starts with K",
+            "items": [
+                "Kyle Chandler",
+                "Kieran Culkin",
+                "Kiefer Sutherland"
+            ]
+        },
+        {
+            "name": "Last Name Starts with F",
+            "items": [
+                "Peter Falk",
+                "Ed Flanders",
+                "Dennis Franz"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Hiroyuki Sanada",
+                "Tom Selleck",
+                "Tom Skerritt",
+                "James Spader",
+                "Jeremy Strong",
+                "Kiefer Sutherland"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Kyle Chandler",
+                "Michael Chiklis",
+                "Bryan Cranston",
+                "Kieran Culkin"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Bruce Willis",
+                "Carroll O'Connor",
+                "Daniel J. Travanti",
+                "Ed Asner",
+                "Ed Flanders",
+                "Peter Falk",
+                "Richard Kiley",
+                "Tom Selleck",
+                "William Daniels"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Andre Braugher",
+                "Christopher Lloyd",
+                "Dennis Franz",
+                "Mandy Patinkin",
+                "Tom Skerritt"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Bryan Cranston",
+                "Kiefer Sutherland",
+                "Michael Chiklis"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Billy Porter",
+                "Damian Lewis",
+                "Jeff Daniels",
+                "Jon Hamm",
+                "Kyle Chandler",
+                "Matthew Rhys",
+                "Rami Malek",
+                "Sterling K. Brown"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Hiroyuki Sanada",
+                "Jeremy Strong",
+                "Josh O'Connor",
+                "Kieran Culkin",
+                "Lee Jung-jae",
+                "Noah Wyle"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Bryan Cranston",
+                "Daniel J. Travanti",
+                "Dennis Franz",
+                "Ed Asner",
+                "William Daniels"
+            ]
+        }
+    ]
+}

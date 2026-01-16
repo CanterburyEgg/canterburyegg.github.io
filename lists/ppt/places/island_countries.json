@@ -1,0 +1,259 @@
+{
+    "category_name": "Island Countries",
+    "master_list": [
+        "antigua and barbuda",
+        "bahamas",
+        "bahrain",
+        "barbados",
+        "brunei",
+        "cape verde",
+        "comoros",
+        "cuba",
+        "cyprus",
+        "dominica",
+        "dominican republic",
+        "east timor",
+        "fiji",
+        "grenada",
+        "haiti",
+        "iceland",
+        "indonesia",
+        "ireland",
+        "jamaica",
+        "japan",
+        "kiribati",
+        "madagascar",
+        "maldives",
+        "malta",
+        "marshall islands",
+        "mauritius",
+        "micronesia",
+        "nauru",
+        "new zealand",
+        "palau",
+        "papua new guinea",
+        "philippines",
+        "saint kitts and nevis",
+        "saint lucia",
+        "saint vincent and the grenadines",
+        "samoa",
+        "sao tome and principe",
+        "seychelles",
+        "singapore",
+        "solomon islands",
+        "sri lanka",
+        "tonga",
+        "trinidad and tobago",
+        "tuvalu",
+        "united kingdom",
+        "vanuatu",
+        "taiwan"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with B",
+            "items": [
+                "bahamas",
+                "bahrain",
+                "barbados",
+                "brunei"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cape verde",
+                "comoros",
+                "cuba",
+                "cyprus"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "iceland",
+                "indonesia",
+                "ireland"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "madagascar",
+                "maldives",
+                "malta",
+                "marshall islands",
+                "mauritius",
+                "micronesia"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "palau",
+                "papua new guinea",
+                "philippines"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "samoa",
+                "sao tome and principe",
+                "seychelles",
+                "singapore",
+                "solomon islands",
+                "sri lanka"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "taiwan",
+                "tonga",
+                "trinidad and tobago",
+                "tuvalu"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bahamas",
+                "bahrain",
+                "comoros",
+                "grenada",
+                "iceland",
+                "ireland",
+                "jamaica",
+                "vanuatu"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "barbados",
+                "dominica",
+                "kiribati",
+                "maldives",
+                "sri lanka"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "brunei",
+                "cyprus",
+                "taiwan",
+                "tuvalu"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "madagascar",
+                "micronesia",
+                "new zealand",
+                "saint lucia",
+                "seychelles"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "haiti",
+                "japan",
+                "malta",
+                "nauru",
+                "palau",
+                "samoa",
+                "tonga"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "cape verde",
+                "east timor",
+                "indonesia",
+                "mauritius",
+                "singapore"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Caribbean Island Nations",
+            "items": [
+                "antigua and barbuda",
+                "bahamas",
+                "barbados",
+                "cuba",
+                "dominica",
+                "dominican republic",
+                "grenada",
+                "haiti",
+                "jamaica",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "trinidad and tobago"
+            ]
+        },
+        {
+            "name": "Pacific Island Nations",
+            "items": [
+                "fiji",
+                "kiribati",
+                "marshall islands",
+                "micronesia",
+                "nauru",
+                "palau",
+                "papua new guinea",
+                "samoa",
+                "solomon islands",
+                "tonga",
+                "tuvalu",
+                "vanuatu"
+            ]
+        },
+        {
+            "name": "Indian Ocean Island Nations",
+            "items": [
+                "bahrain",
+                "comoros",
+                "madagascar",
+                "maldives",
+                "mauritius",
+                "seychelles",
+                "sri lanka"
+            ]
+        },
+        {
+            "name": "Archipelagic States (UNCLOS)",
+            "items": [
+                "bahamas",
+                "fiji",
+                "indonesia",
+                "jamaica",
+                "papua new guinea",
+                "philippines",
+                "solomon islands",
+                "vanuatu"
+            ]
+        },
+        {
+            "name": "Northern Island Nations",
+            "items": [
+                "iceland",
+                "ireland",
+                "japan",
+                "malta",
+                "united kingdom",
+                "taiwan"
+            ]
+        }
+    ]
+}

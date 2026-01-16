@@ -1,109 +1,136 @@
 {
-  "category_name": "Djia",
-  "master_list": [
-    "3m",
-    "american express",
-    "amgen",
-    "amazon",
-    "apple",
-    "boeing",
-    "caterpillar",
-    "chevron",
-    "cisco",
-    "coca-cola",
-    "disney",
-    "goldman sachs",
-    "home depot",
-    "honeywell",
-    "ibm",
-    "johnson & johnson",
-    "jpmorgan chase",
-    "mcdonald's",
-    "merck",
-    "microsoft",
-    "nike",
-    "nvidia",
-    "procter & gamble",
-    "salesforce",
-    "sherwin-williams",
-    "travelers companies, inc.",
-    "unitedhealth group",
-    "verizon",
-    "visa",
-    "walmart"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with A",
-      "count": 4,
-      "items": [
-        "amazon",
+    "category_name": "DJIA Companies",
+    "master_list": [
+        "3m",
         "american express",
         "amgen",
-        "apple"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 4,
-      "items": [
+        "amazon",
+        "apple",
+        "boeing",
         "caterpillar",
         "chevron",
         "cisco",
-        "coca-cola"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 4,
-      "items": [
-        "amgen",
-        "apple",
-        "cisco",
-        "merck"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 4,
-      "items": [
-        "amazon",
-        "boeing",
+        "coca-cola",
         "disney",
-        "nvidia"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Tech and Software",
-      "count": 7,
-      "items": ["amazon", "apple", "cisco", "ibm", "microsoft", "nvidia", "salesforce"]
-    },
-    {
-      "name": "Financial Services",
-      "count": 5,
-      "items": ["american express", "goldman sachs", "jpmorgan chase", "travelers companies, inc.", "visa"]
-    },
-    {
-      "name": "Healthcare and Pharmaceuticals",
-      "count": 4,
-      "items": ["amgen", "johnson & johnson", "merck", "unitedhealth group"]
-    },
-    {
-      "name": "Retail and Consumer Goods",
-      "count": 6,
-      "items": ["coca-cola", "home depot", "mcdonald's", "nike", "procter & gamble", "walmart"]
-    },
-    {
-      "name": "Industrial and Aerospace",
-      "count": 4,
-      "items": ["3m", "boeing", "caterpillar", "honeywell"]
-    },
-    {
-      "name": "Added to the Dow since 2020",
-      "count": 5,
-      "items": ["amgen", "amazon", "nvidia", "salesforce", "sherwin-williams"]
-    }
-  ]
+        "goldman sachs",
+        "home depot",
+        "honeywell",
+        "ibm",
+        "johnson & johnson",
+        "jpmorgan chase",
+        "mcdonald's",
+        "merck",
+        "microsoft",
+        "nike",
+        "nvidia",
+        "procter & gamble",
+        "salesforce",
+        "sherwin-williams",
+        "travelers companies, inc.",
+        "unitedhealth group",
+        "verizon",
+        "visa",
+        "walmart"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "amazon",
+                "american express",
+                "amgen",
+                "apple"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "caterpillar",
+                "chevron",
+                "cisco",
+                "coca-cola"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "amgen",
+                "apple",
+                "cisco",
+                "merck"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "amazon",
+                "boeing",
+                "disney",
+                "nvidia"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Tech and Software",
+            "items": [
+                "amazon",
+                "apple",
+                "cisco",
+                "ibm",
+                "microsoft",
+                "nvidia",
+                "salesforce"
+            ]
+        },
+        {
+            "name": "Financial Services",
+            "items": [
+                "american express",
+                "goldman sachs",
+                "jpmorgan chase",
+                "travelers companies, inc.",
+                "visa"
+            ]
+        },
+        {
+            "name": "Healthcare and Pharmaceuticals",
+            "items": [
+                "amgen",
+                "johnson & johnson",
+                "merck",
+                "unitedhealth group"
+            ]
+        },
+        {
+            "name": "Retail and Consumer Goods",
+            "items": [
+                "coca-cola",
+                "home depot",
+                "mcdonald's",
+                "nike",
+                "procter & gamble",
+                "walmart"
+            ]
+        },
+        {
+            "name": "Industrial and Aerospace",
+            "items": [
+                "3m",
+                "boeing",
+                "caterpillar",
+                "honeywell"
+            ]
+        },
+        {
+            "name": "Added to the Dow since 2020",
+            "items": [
+                "amgen",
+                "amazon",
+                "nvidia",
+                "salesforce",
+                "sherwin-williams"
+            ]
+        }
+    ]
 }

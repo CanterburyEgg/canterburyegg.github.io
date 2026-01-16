@@ -1,0 +1,84 @@
+{
+    "category_name": "People On US Currency",
+    "master_list": [
+        "George Washington",
+        "Abraham Lincoln",
+        "Alexander Hamilton",
+        "Andrew Jackson",
+        "Ulysses S. Grant",
+        "Benjamin Franklin",
+        "Thomas Jefferson",
+        "William McKinley",
+        "Grover Cleveland",
+        "James Madison",
+        "Franklin D. Roosevelt",
+        "John F. Kennedy",
+        "Dwight D. Eisenhower",
+        "Susan B. Anthony",
+        "Sacagawea",
+        "Lady Liberty"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Alexander Hamilton",
+                "Andrew Jackson",
+                "Abraham Lincoln"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "On Current Paper Bills",
+            "items": [
+                "Abraham Lincoln",
+                "Alexander Hamilton",
+                "Andrew Jackson",
+                "Benjamin Franklin",
+                "George Washington",
+                "Thomas Jefferson",
+                "Ulysses S. Grant"
+            ]
+        },
+        {
+            "name": "On Current/Recent Coins",
+            "items": [
+                "Abraham Lincoln",
+                "Franklin D. Roosevelt",
+                "George Washington",
+                "John F. Kennedy",
+                "Sacagawea",
+                "Susan B. Anthony"
+            ]
+        },
+        {
+            "name": "High-Denomination (Discontinued)",
+            "items": [
+                "Grover Cleveland",
+                "James Madison",
+                "William McKinley"
+            ]
+        },
+        {
+            "name": "Non-Presidents",
+            "items": [
+                "Alexander Hamilton",
+                "Benjamin Franklin",
+                "Lady Liberty",
+                "Sacagawea",
+                "Susan B. Anthony"
+            ]
+        },
+        {
+            "name": "The Founding Fathers",
+            "items": [
+                "Alexander Hamilton",
+                "Benjamin Franklin",
+                "George Washington",
+                "James Madison",
+                "Thomas Jefferson"
+            ]
+        }
+    ]
+}

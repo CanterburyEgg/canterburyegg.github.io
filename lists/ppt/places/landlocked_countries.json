@@ -1,0 +1,253 @@
+{
+    "category_name": "Landlocked Countries",
+    "master_list": [
+        "afghanistan",
+        "andorra",
+        "armenia",
+        "austria",
+        "azerbaijan",
+        "belarus",
+        "bhutan",
+        "bolivia",
+        "botswana",
+        "burkina faso",
+        "burundi",
+        "central african republic",
+        "chad",
+        "czech republic",
+        "eswatini",
+        "ethiopia",
+        "hungary",
+        "kazakhstan",
+        "kosovo",
+        "kyrgyzstan",
+        "laos",
+        "lesotho",
+        "liechtenstein",
+        "luxembourg",
+        "malawi",
+        "mali",
+        "moldova",
+        "mongolia",
+        "nepal",
+        "niger",
+        "north macedonia",
+        "paraguay",
+        "rwanda",
+        "san marino",
+        "serbia",
+        "slovakia",
+        "south sudan",
+        "switzerland",
+        "tajikistan",
+        "turkmenistan",
+        "uganda",
+        "uzbekistan",
+        "vatican city",
+        "zambia",
+        "zimbabwe"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "afghanistan",
+                "andorra",
+                "armenia",
+                "austria",
+                "azerbaijan"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "belarus",
+                "bhutan",
+                "bolivia",
+                "botswana",
+                "burkina faso",
+                "burundi"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "central african republic",
+                "chad",
+                "czech republic"
+            ]
+        },
+        {
+            "name": "Starts with K",
+            "items": [
+                "kazakhstan",
+                "kosovo",
+                "kyrgyzstan"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "laos",
+                "lesotho",
+                "liechtenstein",
+                "luxembourg"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "malawi",
+                "mali",
+                "moldova",
+                "mongolia"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "nepal",
+                "niger",
+                "north macedonia"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "san marino",
+                "serbia",
+                "slovakia",
+                "south sudan",
+                "switzerland"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "andorra",
+                "armenia",
+                "austria",
+                "belarus",
+                "bolivia",
+                "burundi",
+                "hungary",
+                "lesotho",
+                "moldova"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "azerbaijan",
+                "kazakhstan",
+                "kyrgyzstan",
+                "luxembourg",
+                "south sudan",
+                "tajikistan",
+                "uzbekistan"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "bhutan",
+                "kosovo",
+                "malawi",
+                "rwanda",
+                "serbia",
+                "uganda",
+                "zambia"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "botswana",
+                "eswatini",
+                "ethiopia",
+                "mongolia",
+                "paraguay",
+                "slovakia",
+                "zimbabwe"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "chad",
+                "laos",
+                "mali"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Landlocked African Nations",
+            "items": [
+                "botswana",
+                "burkina faso",
+                "burundi",
+                "central african republic",
+                "chad",
+                "eswatini",
+                "ethiopia",
+                "lesotho",
+                "malawi",
+                "mali",
+                "niger",
+                "rwanda",
+                "south sudan",
+                "uganda",
+                "zambia",
+                "zimbabwe"
+            ]
+        },
+        {
+            "name": "Landlocked Asian Nations",
+            "items": [
+                "afghanistan",
+                "armenia",
+                "azerbaijan",
+                "bhutan",
+                "kazakhstan",
+                "kyrgyzstan",
+                "laos",
+                "mongolia",
+                "nepal",
+                "tajikistan",
+                "turkmenistan",
+                "uzbekistan"
+            ]
+        },
+        {
+            "name": "Landlocked European Nations",
+            "items": [
+                "andorra",
+                "austria",
+                "belarus",
+                "czech republic",
+                "hungary",
+                "kosovo",
+                "liechtenstein",
+                "luxembourg",
+                "moldova",
+                "north macedonia",
+                "san marino",
+                "serbia",
+                "slovakia",
+                "switzerland",
+                "vatican city"
+            ]
+        },
+        {
+            "name": "Doubly Landlocked & Enclaved Nations",
+            "items": [
+                "liechtenstein",
+                "uzbekistan",
+                "lesotho",
+                "san marino",
+                "vatican city"
+            ]
+        }
+    ]
+}

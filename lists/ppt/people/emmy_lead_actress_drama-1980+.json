@@ -1,0 +1,185 @@
+{
+    "category_name": "Lead Actress in Drama Emmy Winners since 1980",
+    "master_list": [
+        "Barbara Bel Geddes",
+        "Barbara Babcock",
+        "Michael Learned",
+        "Tyne Daly",
+        "Sharon Gless",
+        "Dana Delany",
+        "Patricia Wettig",
+        "Kathy Baker",
+        "Sela Ward",
+        "Gillian Anderson",
+        "Christine Lahti",
+        "Edie Falco",
+        "Allison Janney",
+        "Patricia Arquette",
+        "Mariska Hargitay",
+        "Sally Field",
+        "Glenn Close",
+        "Kyra Sedgwick",
+        "Julianna Margulies",
+        "Claire Danes",
+        "Viola Davis",
+        "Tatiana Maslany",
+        "Elisabeth Moss",
+        "Claire Foy",
+        "Jodie Comer",
+        "Zendaya",
+        "Olivia Colman",
+        "Sarah Snook",
+        "Anna Sawai",
+        "Britt Lower"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Barbara Babcock",
+                "Barbara Bel Geddes",
+                "Britt Lower"
+            ]
+        },
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Sally Field",
+                "Sharon Gless",
+                "Sarah Snook",
+                "Sela Ward"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Claire Danes",
+                "Claire Foy",
+                "Christine Lahti"
+            ]
+        },
+        {
+            "name": "Last Name Starts with L",
+            "items": [
+                "Christine Lahti",
+                "Michael Learned",
+                "Britt Lower"
+            ]
+        },
+        {
+            "name": "Last Name Starts with D",
+            "items": [
+                "Tyne Daly",
+                "Claire Danes",
+                "Viola Davis",
+                "Dana Delany"
+            ]
+        },
+        {
+            "name": "Last Name Starts with F",
+            "items": [
+                "Edie Falco",
+                "Sally Field",
+                "Claire Foy"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Glenn Close",
+                "Olivia Colman",
+                "Jodie Comer"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Anna Sawai",
+                "Kyra Sedgwick",
+                "Sarah Snook"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Julianna Margulies",
+                "Tatiana Maslany",
+                "Elisabeth Moss"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Barbara Babcock",
+                "Barbara Bel Geddes",
+                "Dana Delany",
+                "Michael Learned",
+                "Sharon Gless",
+                "Tyne Daly"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Christine Lahti",
+                "Gillian Anderson",
+                "Kathy Baker",
+                "Patricia Wettig",
+                "Sela Ward"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Allison Janney",
+                "Edie Falco",
+                "Glenn Close",
+                "Mariska Hargitay",
+                "Patricia Arquette",
+                "Sally Field"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Claire Danes",
+                "Claire Foy",
+                "Elisabeth Moss",
+                "Jodie Comer",
+                "Julianna Margulies",
+                "Kyra Sedgwick",
+                "Tatiana Maslany",
+                "Viola Davis"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Anna Sawai",
+                "Britt Lower",
+                "Olivia Colman",
+                "Sarah Snook",
+                "Zendaya"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Allison Janney",
+                "Claire Danes",
+                "Dana Delany",
+                "Edie Falco",
+                "Elisabeth Moss",
+                "Glenn Close",
+                "Julianna Margulies",
+                "Kathy Baker",
+                "Patricia Wettig",
+                "Sela Ward",
+                "Tyne Daly",
+                "Zendaya"
+            ]
+        }
+    ]
+}

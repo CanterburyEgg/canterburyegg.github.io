@@ -1,0 +1,121 @@
+{
+    "category_name": "EGOTs",
+    "master_list": [
+        "Richard Rodgers",
+        "Helen Hayes",
+        "Rita Moreno",
+        "John Gielgud",
+        "Audrey Hepburn",
+        "Marvin Hamlisch",
+        "Jonathan Tunick",
+        "Mel Brooks",
+        "Mike Nichols",
+        "Whoopi Goldberg",
+        "Scott Rudin",
+        "Robert Lopez",
+        "Andrew Lloyd Webber",
+        "Tim Rice",
+        "John Legend",
+        "Alan Menken",
+        "Jennifer Hudson",
+        "Viola Davis",
+        "Elton John",
+        "Benj Pasek",
+        "Justin Paul"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Robert Lopez",
+                "Rita Moreno",
+                "Richard Rodgers"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "John Gielgud",
+                "Jennifer Hudson",
+                "John Legend",
+                "Justin Paul",
+                "Jonathan Tunick"
+            ]
+        },
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Audrey Hepburn",
+                "Alan Menken",
+                "Andrew Lloyd Webber"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Mel Brooks",
+                "Marvin Hamlisch",
+                "Mike Nichols"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Tim Rice",
+                "Richard Rodgers",
+                "Scott Rudin"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Marvin Hamlisch",
+                "Helen Hayes",
+                "Audrey Hepburn",
+                "Jennifer Hudson"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Pre-2000",
+            "items": [
+                "Audrey Hepburn",
+                "Helen Hayes",
+                "John Gielgud",
+                "Jonathan Tunick",
+                "Marvin Hamlisch",
+                "Richard Rodgers",
+                "Rita Moreno"
+            ]
+        },
+        {
+            "name": "Post-2000",
+            "items": [
+                "Alan Menken",
+                "Andrew Lloyd Webber",
+                "Benj Pasek",
+                "Elton John",
+                "Jennifer Hudson",
+                "John Legend",
+                "Justin Paul",
+                "Mel Brooks",
+                "Mike Nichols",
+                "Robert Lopez",
+                "Scott Rudin",
+                "Tim Rice",
+                "Viola Davis",
+                "Whoopi Goldberg"
+            ]
+        },
+        {
+            "name": "Triple Crown of Acting (TCoA)",
+            "items": [
+                "Helen Hayes",
+                "John Gielgud",
+                "Rita Moreno",
+                "Viola Davis"
+            ]
+        }
+    ]
+}

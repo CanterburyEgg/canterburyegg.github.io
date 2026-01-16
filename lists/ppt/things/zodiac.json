@@ -1,121 +1,158 @@
 {
-  "category_name": "Zodiac",
-  "master_list": [
-    "aries",
-    "taurus",
-    "gemini",
-    "cancer",
-    "leo",
-    "virgo",
-    "libra",
-    "scorpio",
-    "sagittarius",
-    "capricorn",
-    "aquarius",
-    "pisces",
-    "rat",
-    "ox",
-    "tiger",
-    "rabbit",
-    "dragon",
-    "snake",
-    "horse",
-    "goat",
-    "monkey",
-    "rooster",
-    "dog",
-    "pig"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with S",
-      "count": 3,
-      "items": [
-        "sagittarius",
-        "scorpio",
-        "snake"
-      ]
-    },
-    {
-      "name": "Starts with R",
-      "count": 3,
-      "items": [
-        "rabbit",
-        "rat",
-        "rooster"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 6,
-      "items": [
+    "category_name": "Western & Chinese Zodiac",
+    "master_list": [
         "aries",
-        "horse",
-        "libra",
-        "snake",
-        "tiger",
-        "virgo"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 7,
-      "items": [
-        "cancer",
-        "dragon",
+        "taurus",
         "gemini",
-        "monkey",
-        "pisces",
-        "rabbit",
-        "taurus"
-      ]
-    },
-    {
-      "name": "3 Letters Long",
-      "count": 4,
-      "items": [
-        "dog",
+        "cancer",
         "leo",
-        "pig",
-        "rat"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Western Zodiac Signs",
-      "count": 12,
-      "items": ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"]
-    },
-    {
-      "name": "Chinese Zodiac Animals",
-      "count": 12,
-      "items": ["rat", "ox", "tiger", "rabbit", "dragon", "snake", "horse", "goat", "monkey", "rooster", "dog", "pig"]
-    },
-    {
-      "name": "Fire Signs",
-      "count": 3,
-      "items": ["aries", "leo", "sagittarius"]
-    },
-    {
-      "name": "Earth Signs",
-      "count": 3,
-      "items": ["taurus", "virgo", "capricorn"]
-    },
-    {
-      "name": "Air Signs",
-      "count": 3,
-      "items": ["gemini", "libra", "aquarius"]
-    },
-    {
-      "name": "Water Signs",
-      "count": 3,
-      "items": ["cancer", "scorpio", "pisces"]
-    },
-    {
-      "name": "Hooved Animals",
-      "count": 6,
-      "items": ["taurus", "capricorn", "ox", "horse", "goat", "pig"]
-    }
-  ]
+        "virgo",
+        "libra",
+        "scorpio",
+        "sagittarius",
+        "capricorn",
+        "aquarius",
+        "pisces",
+        "rat",
+        "ox",
+        "tiger",
+        "rabbit",
+        "dragon",
+        "snake",
+        "horse",
+        "goat",
+        "monkey",
+        "rooster",
+        "dog",
+        "pig"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with S",
+            "items": [
+                "sagittarius",
+                "scorpio",
+                "snake"
+            ]
+        },
+        {
+            "name": "Starts with R",
+            "items": [
+                "rabbit",
+                "rat",
+                "rooster"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "aries",
+                "horse",
+                "libra",
+                "snake",
+                "tiger",
+                "virgo"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "cancer",
+                "dragon",
+                "gemini",
+                "monkey",
+                "pisces",
+                "rabbit",
+                "taurus"
+            ]
+        },
+        {
+            "name": "3 Letters Long",
+            "items": [
+                "dog",
+                "leo",
+                "pig",
+                "rat"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Western Zodiac Signs",
+            "items": [
+                "aries",
+                "taurus",
+                "gemini",
+                "cancer",
+                "leo",
+                "virgo",
+                "libra",
+                "scorpio",
+                "sagittarius",
+                "capricorn",
+                "aquarius",
+                "pisces"
+            ]
+        },
+        {
+            "name": "Chinese Zodiac Animals",
+            "items": [
+                "rat",
+                "ox",
+                "tiger",
+                "rabbit",
+                "dragon",
+                "snake",
+                "horse",
+                "goat",
+                "monkey",
+                "rooster",
+                "dog",
+                "pig"
+            ]
+        },
+        {
+            "name": "Fire Signs",
+            "items": [
+                "aries",
+                "leo",
+                "sagittarius"
+            ]
+        },
+        {
+            "name": "Earth Signs",
+            "items": [
+                "taurus",
+                "virgo",
+                "capricorn"
+            ]
+        },
+        {
+            "name": "Air Signs",
+            "items": [
+                "gemini",
+                "libra",
+                "aquarius"
+            ]
+        },
+        {
+            "name": "Water Signs",
+            "items": [
+                "cancer",
+                "scorpio",
+                "pisces"
+            ]
+        },
+        {
+            "name": "Hooved Animals",
+            "items": [
+                "taurus",
+                "capricorn",
+                "ox",
+                "horse",
+                "goat",
+                "pig"
+            ]
+        }
+    ]
 }

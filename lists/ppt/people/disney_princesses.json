@@ -1,0 +1,103 @@
+{
+    "category_name": "Disney Princesses",
+    "master_list": [
+        "Snow White",
+        "Cinderella",
+        "Aurora",
+        "Ariel",
+        "Belle",
+        "Jasmine",
+        "Pocahontas",
+        "Mulan",
+        "Tiana",
+        "Rapunzel",
+        "Merida",
+        "Moana",
+        "Raya"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Merida",
+                "Moana",
+                "Mulan"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Merida",
+                "Moana",
+                "Mulan"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Classic Era (1937-1959)",
+            "items": [
+                "Snow White",
+                "Cinderella",
+                "Aurora"
+            ]
+        },
+        {
+            "name": "Renaissance Era (1989-1998)",
+            "items": [
+                "Ariel",
+                "Belle",
+                "Jasmine",
+                "Pocahontas",
+                "Mulan"
+            ]
+        },
+        {
+            "name": "Modern Era (2009-Present)",
+            "items": [
+                "Tiana",
+                "Rapunzel",
+                "Merida",
+                "Moana",
+                "Raya"
+            ]
+        },
+        {
+            "name": "Princesses by Birth",
+            "items": [
+                "Snow White",
+                "Aurora",
+                "Ariel",
+                "Jasmine",
+                "Pocahontas",
+                "Rapunzel",
+                "Merida",
+                "Moana",
+                "Raya"
+            ]
+        },
+        {
+            "name": "Princesses by Marriage",
+            "items": [
+                "Cinderella",
+                "Belle",
+                "Tiana"
+            ]
+        },
+        {
+            "name": "Animal Sidekicks",
+            "items": [
+                "Snow White",
+                "Cinderella",
+                "Ariel",
+                "Belle",
+                "Jasmine",
+                "Mulan",
+                "Tiana",
+                "Rapunzel",
+                "Moana",
+                "Raya"
+            ]
+        }
+    ]
+}

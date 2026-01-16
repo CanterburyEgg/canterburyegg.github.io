@@ -1,0 +1,60 @@
+{
+    "category_name": "Moonwalkers",
+    "master_list": [
+        "Neil Armstrong",
+        "Buzz Aldrin",
+        "Pete Conrad",
+        "Alan Bean",
+        "Alan Shepard",
+        "Ed Mitchell",
+        "David Scott",
+        "James Irwin",
+        "Charles Duke",
+        "Eugene Cernan",
+        "John Young",
+        "Harrison Schmitt"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Harrison Schmitt",
+                "David Scott",
+                "Alan Shepard"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Apollo 11-14 Landings",
+            "items": [
+                "Alan Bean",
+                "Alan Shepard",
+                "Buzz Aldrin",
+                "Ed Mitchell",
+                "Neil Armstrong",
+                "Pete Conrad"
+            ]
+        },
+        {
+            "name": "Apollo 15-17 Landings",
+            "items": [
+                "Charles Duke",
+                "David Scott",
+                "Eugene Cernan",
+                "Harrison Schmitt",
+                "James Irwin",
+                "John Young"
+            ]
+        },
+        {
+            "name": "Still Living (as of 2026)",
+            "items": [
+                "Buzz Aldrin",
+                "Charles Duke",
+                "David Scott",
+                "Harrison Schmitt"
+            ]
+        }
+    ]
+}

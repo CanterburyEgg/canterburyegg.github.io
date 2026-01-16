@@ -1,0 +1,129 @@
+{
+    "category_name": "Mediterranean Countries",
+    "master_list": [
+        "spain",
+        "france",
+        "monaco",
+        "italy",
+        "malta",
+        "slovenia",
+        "croatia",
+        "bosnia and herzegovina",
+        "montenegro",
+        "albania",
+        "greece",
+        "morocco",
+        "algeria",
+        "tunisia",
+        "libya",
+        "egypt",
+        "turkey",
+        "syria",
+        "lebanon",
+        "israel",
+        "palestine",
+        "cyprus"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with S",
+            "items": [
+                "slovenia",
+                "spain",
+                "syria"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "malta",
+                "monaco",
+                "montenegro",
+                "morocco"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "egypt",
+                "italy",
+                "libya",
+                "malta",
+                "spain",
+                "syria"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "cyprus",
+                "france",
+                "greece",
+                "israel",
+                "monaco",
+                "turkey"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "albania",
+                "algeria",
+                "croatia",
+                "lebanon",
+                "morocco",
+                "tunisia"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "European Mediterranean Nations",
+            "items": [
+                "spain",
+                "france",
+                "monaco",
+                "italy",
+                "malta",
+                "slovenia",
+                "croatia",
+                "bosnia and herzegovina",
+                "montenegro",
+                "albania",
+                "greece"
+            ]
+        },
+        {
+            "name": "North African Mediterranean Nations",
+            "items": [
+                "morocco",
+                "algeria",
+                "tunisia",
+                "libya",
+                "egypt"
+            ]
+        },
+        {
+            "name": "Levantine & West Asian Nations",
+            "items": [
+                "turkey",
+                "syria",
+                "lebanon",
+                "israel",
+                "palestine",
+                "cyprus"
+            ]
+        },
+        {
+            "name": "The Balkan Mediterranean",
+            "items": [
+                "slovenia",
+                "croatia",
+                "bosnia and herzegovina",
+                "montenegro",
+                "albania",
+                "greece"
+            ]
+        }
+    ]
+}

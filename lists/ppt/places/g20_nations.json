@@ -1,0 +1,136 @@
+{
+    "category_name": "G20 Nations",
+    "master_list": [
+        "argentina",
+        "australia",
+        "brazil",
+        "canada",
+        "china",
+        "france",
+        "germany",
+        "india",
+        "indonesia",
+        "italy",
+        "japan",
+        "south korea",
+        "mexico",
+        "russia",
+        "saudi arabia",
+        "south africa",
+        "turkey",
+        "united kingdom",
+        "united states",
+        "european union",
+        "african union"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "african union",
+                "argentina",
+                "australia"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "india",
+                "indonesia",
+                "italy"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saudi arabia",
+                "south africa",
+                "south korea"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "argentina",
+                "australia",
+                "indonesia"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "brazil",
+                "canada",
+                "france",
+                "mexico",
+                "russia",
+                "turkey"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "china",
+                "india",
+                "italy",
+                "japan"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The G7 (Group of Seven)",
+            "items": [
+                "canada",
+                "france",
+                "germany",
+                "italy",
+                "japan",
+                "united kingdom",
+                "united states"
+            ]
+        },
+        {
+            "name": "BRICS+ Members",
+            "items": [
+                "brazil",
+                "russia",
+                "india",
+                "china",
+                "south africa",
+                "saudi arabia"
+            ]
+        },
+        {
+            "name": "MIKTA Nations",
+            "items": [
+                "mexico",
+                "indonesia",
+                "south korea",
+                "turkey",
+                "australia"
+            ]
+        },
+        {
+            "name": "Nations of the Americas",
+            "items": [
+                "argentina",
+                "brazil",
+                "canada",
+                "mexico",
+                "united states"
+            ]
+        },
+        {
+            "name": "Asia-Pacific Members",
+            "items": [
+                "australia",
+                "china",
+                "india",
+                "indonesia",
+                "japan",
+                "south korea"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,175 @@
+{
+    "category_name": "25 Richest Americans",
+    "master_list": [
+        "Elon Musk",
+        "Larry Ellison",
+        "Mark Zuckerberg",
+        "Jeff Bezos",
+        "Larry Page",
+        "Sergey Brin",
+        "Steve Ballmer",
+        "Jensen Huang",
+        "Warren Buffett",
+        "Michael Dell",
+        "Rob Walton",
+        "Jim Walton",
+        "Michael Bloomberg",
+        "Bil Gates",
+        "Alice Walton",
+        "Julia Koch",
+        "Charles Koch",
+        "Thomas Peterffy",
+        "Jeff Yass",
+        "Stephen A. Schwarzman",
+        "Ken Griffin",
+        "Jacqueline Mars",
+        "John Mars",
+        "Lukas Walton",
+        "Miriam Adelson"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with L",
+            "items": [
+                "Larry Ellison",
+                "Larry Page",
+                "Lukas Walton"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Miriam Adelson",
+                "Michael Bloomberg",
+                "Michael Dell",
+                "Mark Zuckerberg"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jeff Bezos",
+                "Jensen Huang",
+                "Julia Koch",
+                "Jacqueline Mars",
+                "John Mars",
+                "Jim Walton",
+                "Jeff Yass"
+            ]
+        },
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Steve Ballmer",
+                "Sergey Brin",
+                "Stephen A. Schwarzman"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Jacqueline Mars",
+                "John Mars",
+                "Elon Musk"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Steve Ballmer",
+                "Jeff Bezos",
+                "Michael Bloomberg",
+                "Sergey Brin",
+                "Warren Buffett"
+            ]
+        },
+        {
+            "name": "Last Name Starts with W",
+            "items": [
+                "Rob Walton",
+                "Jim Walton",
+                "Alice Walton",
+                "Lukas Walton"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Technology Founders",
+            "items": [
+                "Bill Gates",
+                "Elon Musk",
+                "Jeff Bezos",
+                "Jensen Huang",
+                "Larry Ellison",
+                "Larry Page",
+                "Mark Zuckerberg",
+                "Michael Dell",
+                "Sergey Brin"
+            ]
+        },
+        {
+            "name": "Finance & Investments",
+            "items": [
+                "Ken Griffin",
+                "Stephen A. Schwarzman",
+                "Thomas Peterffy",
+                "Warren Buffett",
+                "Jeff Yass"
+            ]
+        },
+        {
+            "name": "The Walton Family",
+            "items": [
+                "Alice Walton",
+                "Jim Walton",
+                "Lukas Walton",
+                "Rob Walton"
+            ]
+        },
+        {
+            "name": "Women on the List",
+            "items": [
+                "Alice Walton",
+                "Jacqueline Mars",
+                "Julia Koch",
+                "Miriam Adelson"
+            ]
+        },
+        {
+            "name": "Self-Made",
+            "items": [
+                "Bill Gates",
+                "Elon Musk",
+                "Jeff Bezos",
+                "Jeff Yass",
+                "Jensen Huang",
+                "Ken Griffin",
+                "Larry Ellison",
+                "Larry Page",
+                "Mark Zuckerberg",
+                "Michael Bloomberg",
+                "Michael Dell",
+                "Sergey Brin",
+                "Steve Ballmer",
+                "Stephen A. Schwarzman",
+                "Thomas Peterffy",
+                "Warren Buffett"
+            ]
+        },
+        {
+            "name": "Inherited Wealth",
+            "items": [
+                "Alice Walton",
+                "Charles Koch",
+                "Jacqueline Mars",
+                "Jim Walton",
+                "John Mars",
+                "Julia Koch",
+                "Lukas Walton",
+                "Miriam Adelson",
+                "Rob Walton"
+            ]
+        }
+    ]
+}

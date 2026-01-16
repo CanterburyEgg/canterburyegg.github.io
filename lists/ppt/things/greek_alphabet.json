@@ -1,88 +1,119 @@
 {
-  "category_name": "Greek Alphabet",
-  "master_list": [
-    "alpha",
-    "beta",
-    "gamma",
-    "delta",
-    "epsilon",
-    "zeta",
-    "eta",
-    "theta",
-    "iota",
-    "kappa",
-    "lambda",
-    "mu",
-    "nu",
-    "xi",
-    "omicron",
-    "pi",
-    "rho",
-    "sigma",
-    "tau",
-    "upsilon",
-    "phi",
-    "chi",
-    "psi",
-    "omega"
-  ],
-  "auto_subsets": [
-    {
-      "name": "5 Letters Long",
-      "count": 7,
-      "items": [
+    "category_name": "Greek Alphabet",
+    "master_list": [
         "alpha",
-        "delta",
+        "beta",
         "gamma",
-        "kappa",
-        "omega",
-        "sigma",
-        "theta"
-      ]
-    },
-    {
-      "name": "3 Letters Long",
-      "count": 6,
-      "items": [
-        "chi",
+        "delta",
+        "epsilon",
+        "zeta",
         "eta",
-        "phi",
-        "psi",
-        "rho",
-        "tau"
-      ]
-    },
-    {
-      "name": "2 Letters Long",
-      "count": 4,
-      "items": [
+        "theta",
+        "iota",
+        "kappa",
+        "lambda",
         "mu",
         "nu",
+        "xi",
+        "omicron",
         "pi",
-        "xi"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Vowels",
-      "count": 7,
-      "items": ["alpha", "epsilon", "eta", "iota", "omicron", "upsilon", "omega"]
-    },
-    {
-      "name": "Consonants",
-      "count": 17,
-      "items": ["beta", "gamma", "delta", "zeta", "theta", "kappa", "lambda", "mu", "nu", "xi", "pi", "rho", "sigma", "tau", "phi", "chi", "psi"]
-    },
-    {
-      "name": "The First Five",
-      "count": 5,
-      "items": ["alpha", "beta", "gamma", "delta", "epsilon"]
-    },
-    {
-      "name": "The Last Five",
-      "count": 5,
-      "items": ["upsilon", "phi", "chi", "psi", "omega"]
-    }
-  ]
+        "rho",
+        "sigma",
+        "tau",
+        "upsilon",
+        "phi",
+        "chi",
+        "psi",
+        "omega"
+    ],
+    "auto_subsets": [
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "alpha",
+                "delta",
+                "gamma",
+                "kappa",
+                "omega",
+                "sigma",
+                "theta"
+            ]
+        },
+        {
+            "name": "3 Letters Long",
+            "items": [
+                "chi",
+                "eta",
+                "phi",
+                "psi",
+                "rho",
+                "tau"
+            ]
+        },
+        {
+            "name": "2 Letters Long",
+            "items": [
+                "mu",
+                "nu",
+                "pi",
+                "xi"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Vowels",
+            "items": [
+                "alpha",
+                "epsilon",
+                "eta",
+                "iota",
+                "omicron",
+                "upsilon",
+                "omega"
+            ]
+        },
+        {
+            "name": "Consonants",
+            "items": [
+                "beta",
+                "gamma",
+                "delta",
+                "zeta",
+                "theta",
+                "kappa",
+                "lambda",
+                "mu",
+                "nu",
+                "xi",
+                "pi",
+                "rho",
+                "sigma",
+                "tau",
+                "phi",
+                "chi",
+                "psi"
+            ]
+        },
+        {
+            "name": "The First Five",
+            "items": [
+                "alpha",
+                "beta",
+                "gamma",
+                "delta",
+                "epsilon"
+            ]
+        },
+        {
+            "name": "The Last Five",
+            "items": [
+                "upsilon",
+                "phi",
+                "chi",
+                "psi",
+                "omega"
+            ]
+        }
+    ]
 }

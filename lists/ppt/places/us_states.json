@@ -1,0 +1,331 @@
+{
+    "category_name": "US States",
+    "master_list": [
+        "alaska",
+        "alabama",
+        "arkansas",
+        "arizona",
+        "california",
+        "colorado",
+        "connecticut",
+        "delaware",
+        "florida",
+        "georgia",
+        "hawaii",
+        "iowa",
+        "idaho",
+        "illinois",
+        "indiana",
+        "kansas",
+        "kentucky",
+        "louisiana",
+        "massachusetts",
+        "maryland",
+        "maine",
+        "michigan",
+        "minnesota",
+        "missouri",
+        "mississippi",
+        "montana",
+        "north carolina",
+        "north dakota",
+        "nebraska",
+        "new hampshire",
+        "new jersey",
+        "new mexico",
+        "nevada",
+        "new york",
+        "ohio",
+        "oklahoma",
+        "oregon",
+        "pennsylvania",
+        "rhode island",
+        "south carolina",
+        "south dakota",
+        "tennessee",
+        "texas",
+        "utah",
+        "virginia",
+        "vermont",
+        "washington",
+        "wisconsin",
+        "west virginia",
+        "wyoming"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "alabama",
+                "alaska",
+                "arizona",
+                "arkansas"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "california",
+                "colorado",
+                "connecticut"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "idaho",
+                "illinois",
+                "indiana",
+                "iowa"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "maine",
+                "maryland",
+                "massachusetts",
+                "michigan",
+                "minnesota",
+                "mississippi",
+                "missouri",
+                "montana"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "nebraska",
+                "nevada",
+                "new hampshire",
+                "new jersey",
+                "new mexico",
+                "new york",
+                "north carolina",
+                "north dakota"
+            ]
+        },
+        {
+            "name": "Starts with O",
+            "items": [
+                "ohio",
+                "oklahoma",
+                "oregon"
+            ]
+        },
+        {
+            "name": "Starts with W",
+            "items": [
+                "washington",
+                "west virginia",
+                "wisconsin",
+                "wyoming"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "alaska",
+                "hawaii",
+                "kansas",
+                "nevada",
+                "oregon"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "alabama",
+                "arizona",
+                "florida",
+                "georgia",
+                "indiana",
+                "montana",
+                "new york",
+                "vermont",
+                "wyoming"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "arkansas",
+                "colorado",
+                "delaware",
+                "illinois",
+                "kentucky",
+                "maryland",
+                "michigan",
+                "missouri",
+                "nebraska",
+                "oklahoma",
+                "virginia"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "iowa",
+                "ohio",
+                "utah"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "idaho",
+                "maine",
+                "texas"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "louisiana",
+                "minnesota",
+                "new jersey",
+                "new mexico",
+                "tennessee",
+                "wisconsin"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Northeast Region",
+            "items": [
+                "connecticut",
+                "maine",
+                "massachusetts",
+                "new hampshire",
+                "rhode island",
+                "vermont",
+                "new jersey",
+                "new york",
+                "pennsylvania"
+            ]
+        },
+        {
+            "name": "Midwest Region",
+            "items": [
+                "illinois",
+                "indiana",
+                "michigan",
+                "ohio",
+                "wisconsin",
+                "iowa",
+                "kansas",
+                "minnesota",
+                "missouri",
+                "nebraska",
+                "north dakota",
+                "south dakota"
+            ]
+        },
+        {
+            "name": "Southern Region",
+            "items": [
+                "delaware",
+                "florida",
+                "georgia",
+                "maryland",
+                "north carolina",
+                "south carolina",
+                "virginia",
+                "west virginia",
+                "alabama",
+                "kentucky",
+                "mississippi",
+                "tennessee",
+                "arkansas",
+                "louisiana",
+                "oklahoma",
+                "texas"
+            ]
+        },
+        {
+            "name": "Western Region",
+            "items": [
+                "arizona",
+                "colorado",
+                "idaho",
+                "montana",
+                "nevada",
+                "new mexico",
+                "utah",
+                "wyoming",
+                "alaska",
+                "california",
+                "hawaii",
+                "oregon",
+                "washington"
+            ]
+        },
+        {
+            "name": "The Original Thirteen Colonies",
+            "items": [
+                "connecticut",
+                "delaware",
+                "georgia",
+                "maryland",
+                "massachusetts",
+                "new hampshire",
+                "new jersey",
+                "new york",
+                "north carolina",
+                "pennsylvania",
+                "rhode island",
+                "south carolina",
+                "virginia"
+            ]
+        },
+        {
+            "name": "States Ending in A",
+            "items": [
+                "alabama",
+                "alaska",
+                "arizona",
+                "california",
+                "florida",
+                "georgia",
+                "indiana",
+                "iowa",
+                "louisiana",
+                "minnesota",
+                "montana",
+                "nebraska",
+                "nevada",
+                "north carolina",
+                "north dakota",
+                "oklahoma",
+                "pennsylvania",
+                "south carolina",
+                "south dakota",
+                "virginia",
+                "west virginia"
+            ]
+        },
+        {
+            "name": "The Four Corners States",
+            "items": [
+                "arizona",
+                "colorado",
+                "new mexico",
+                "utah"
+            ]
+        },
+        {
+            "name": "Great Lakes States",
+            "items": [
+                "illinois",
+                "indiana",
+                "michigan",
+                "minnesota",
+                "new york",
+                "ohio",
+                "pennsylvania",
+                "wisconsin"
+            ]
+        }
+    ]
+}

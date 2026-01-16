@@ -1,0 +1,174 @@
+{
+    "category_name": "England Royal First Names",
+    "master_list": [
+        "Egbert",
+        "Aethelwulf",
+        "Aethelbald",
+        "Aethelbert",
+        "Aethelred",
+        "Alfred",
+        "Edward",
+        "Athelstan",
+        "Edmund",
+        "Eadred",
+        "Eadwig",
+        "Edgar",
+        "Canute",
+        "Harold",
+        "Harthacanute",
+        "William",
+        "Henry",
+        "Stephen",
+        "Richard",
+        "John",
+        "Mary",
+        "Elizabeth",
+        "James",
+        "Charles",
+        "Anne",
+        "George",
+        "Victoria"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with E",
+            "items": [
+                "Eadred",
+                "Eadwig",
+                "Edgar",
+                "Edmund",
+                "Edward",
+                "Egbert",
+                "Elizabeth"
+            ]
+        },
+        {
+            "name": "Starts with A",
+            "items": [
+                "Aethelbald",
+                "Aethelbert",
+                "Aethelred",
+                "Aethelwulf",
+                "Alfred",
+                "Anne",
+                "Athelstan"
+            ]
+        },
+        {
+            "name": "Starts with H",
+            "items": [
+                "Harold",
+                "Harthacanute",
+                "Henry"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "Alfred",
+                "Canute",
+                "Eadred",
+                "Eadwig",
+                "Edmund",
+                "Edward",
+                "Egbert",
+                "George",
+                "Harold"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "Aethelbald",
+                "Aethelbert",
+                "Aethelwulf"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "Aethelred",
+                "Athelstan",
+                "Elizabeth"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "Edgar",
+                "Henry",
+                "James"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "Charles",
+                "Richard",
+                "Stephen",
+                "William"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "Anne",
+                "John",
+                "Mary"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Wessex",
+            "items": [
+                "Aethelbald",
+                "Aethelbert",
+                "Aethelred",
+                "Aethelwulf",
+                "Alfred",
+                "Athelstan",
+                "Eadred",
+                "Eadwig",
+                "Edgar",
+                "Edmund",
+                "Edward",
+                "Egbert"
+            ]
+        },
+        {
+            "name": "Normandy",
+            "items": [
+                "Henry",
+                "Stephen",
+                "William"
+            ]
+        },
+        {
+            "name": "Stuart",
+            "items": [
+                "Anne",
+                "Charles",
+                "James",
+                "Mary"
+            ]
+        },
+        {
+            "name": "Female",
+            "items": [
+                "Anne",
+                "Elizabeth",
+                "Mary",
+                "Victoria"
+            ]
+        },
+        {
+            "name": "Danish",
+            "items": [
+                "Canute",
+                "Harold",
+                "Harthacanute"
+            ]
+        }
+    ]
+}

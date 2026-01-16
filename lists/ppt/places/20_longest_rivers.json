@@ -1,0 +1,146 @@
+{
+    "category_name": "20 Longest Rivers",
+    "master_list": [
+        "nile",
+        "amazon",
+        "yangtze",
+        "mississippi",
+        "yenisey",
+        "yellow",
+        "ob",
+        "rio de la plata",
+        "congo",
+        "amur",
+        "lena",
+        "mekong",
+        "mackenzie",
+        "niger",
+        "brahmaputra",
+        "murray",
+        "tocantins",
+        "volga",
+        "shatt al-arab",
+        "madeira"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with Y",
+            "items": [
+                "yangtze",
+                "yellow",
+                "yenisey"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "mackenzie",
+                "madeira",
+                "mekong",
+                "mississippi",
+                "murray"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "amur",
+                "lena",
+                "nile"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "amazon",
+                "mekong",
+                "murray",
+                "yellow"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "madeira",
+                "yangtze",
+                "yenisey"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "congo",
+                "niger",
+                "volga"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Big Three (Over 6,000km)",
+            "items": [
+                "nile",
+                "amazon",
+                "yangtze"
+            ]
+        },
+        {
+            "name": "Arctic Ocean Drainage",
+            "items": [
+                "yenisey",
+                "ob",
+                "lena",
+                "mackenzie"
+            ]
+        },
+        {
+            "name": "Atlantic Ocean Drainage",
+            "items": [
+                "amazon",
+                "congo",
+                "niger",
+                "tocantins",
+                "madeira"
+            ]
+        },
+        {
+            "name": "Pacific Ocean Drainage",
+            "items": [
+                "yangtze",
+                "yellow",
+                "amur",
+                "mekong"
+            ]
+        },
+        {
+            "name": "Asian Continental Rivers",
+            "items": [
+                "yangtze",
+                "yenisey",
+                "yellow",
+                "ob",
+                "amur",
+                "lena",
+                "mekong",
+                "brahmaputra"
+            ]
+        },
+        {
+            "name": "South American Rivers",
+            "items": [
+                "amazon",
+                "rio de la plata",
+                "tocantins",
+                "madeira"
+            ]
+        },
+        {
+            "name": "African Rivers",
+            "items": [
+                "nile",
+                "congo",
+                "niger"
+            ]
+        }
+    ]
+}

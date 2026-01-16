@@ -1,0 +1,469 @@
+{
+    "category_name": "MLB MVPs since 1980",
+    "master_list": [
+        "George Brett",
+        "Rollie Fingers",
+        "Robin Yount",
+        "Cal Ripken Jr.",
+        "Willie Hernandez",
+        "Don Mattingly",
+        "Roger Clemens",
+        "George Bell",
+        "Jose Canseco",
+        "Rickey Henderson",
+        "Dennis Eckersley",
+        "Frank Thomas",
+        "Mo Vaughn",
+        "Juan Gonzalez",
+        "Ken Griffey Jr.",
+        "Ivan Rodriguez",
+        "Jason Giambi",
+        "Ichiro Suzuki",
+        "Miguel Tejada",
+        "Alex Rodriguez",
+        "Vladimir Guerrero",
+        "Justin Morneau",
+        "Dustin Pedroia",
+        "Joe Mauer",
+        "Josh Hamilton",
+        "Justin Verlander",
+        "Miguel Cabrera",
+        "Mike Trout",
+        "Josh Donaldson",
+        "Jose Altuve",
+        "Mookie Betts",
+        "Jose Abreu",
+        "Shohei Ohtani",
+        "Aaron Judge",
+        "Mike Schmidt",
+        "Dale Murphy",
+        "Ryne Sandberg",
+        "Willie McGee",
+        "Andre Dawson",
+        "Kirk Gibson",
+        "Kevin Mitchell",
+        "Barry Bonds",
+        "Terry Pendleton",
+        "Jeff Bagwell",
+        "Barry Larkin",
+        "Ken Caminiti",
+        "Larry Walker",
+        "Sammy Sosa",
+        "Chipper Jones",
+        "Jeff Kent",
+        "Albert Pujols",
+        "Ryan Howard",
+        "Jimmy Rollins",
+        "Joey Votto",
+        "Ryan Braun",
+        "Buster Posey",
+        "Andrew McCutchen",
+        "Clayton Kershaw",
+        "Bryce Harper",
+        "Kris Bryant",
+        "Giancarlo Stanton",
+        "Christian Yelich",
+        "Cody Bellinger",
+        "Freddie Freeman",
+        "Paul Goldschmidt",
+        "Ronald Acuna Jr."
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with G",
+            "items": [
+                "George Bell",
+                "George Brett",
+                "Giancarlo Stanton"
+            ]
+        },
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Ronald Acuna Jr.",
+                "Ryan Braun",
+                "Roger Clemens",
+                "Rollie Fingers",
+                "Rickey Henderson",
+                "Ryan Howard",
+                "Ryne Sandberg",
+                "Robin Yount"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Cody Bellinger",
+                "Chipper Jones",
+                "Clayton Kershaw",
+                "Cal Ripken Jr.",
+                "Christian Yelich"
+            ]
+        },
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "Dennis Eckersley",
+                "Don Mattingly",
+                "Dale Murphy",
+                "Dustin Pedroia"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jose Abreu",
+                "Jose Altuve",
+                "Jeff Bagwell",
+                "Jose Canseco",
+                "Josh Donaldson",
+                "Jason Giambi",
+                "Juan Gonzalez",
+                "Josh Hamilton",
+                "Jeff Kent",
+                "Joe Mauer",
+                "Justin Morneau",
+                "Jimmy Rollins",
+                "Justin Verlander",
+                "Joey Votto"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Mookie Betts",
+                "Miguel Cabrera",
+                "Mike Schmidt",
+                "Miguel Tejada",
+                "Mike Trout",
+                "Mo Vaughn"
+            ]
+        },
+        {
+            "name": "First Name Starts with K",
+            "items": [
+                "Kris Bryant",
+                "Ken Caminiti",
+                "Kirk Gibson",
+                "Ken Griffey Jr.",
+                "Kevin Mitchell"
+            ]
+        },
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Andre Dawson",
+                "Aaron Judge",
+                "Andrew McCutchen",
+                "Albert Pujols",
+                "Alex Rodriguez"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Barry Bonds",
+                "Bryce Harper",
+                "Barry Larkin",
+                "Buster Posey"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Jeff Bagwell",
+                "George Bell",
+                "Cody Bellinger",
+                "Mookie Betts",
+                "Barry Bonds",
+                "Ryan Braun",
+                "George Brett",
+                "Kris Bryant"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Cal Ripken Jr.",
+                "Ivan Rodriguez",
+                "Alex Rodriguez",
+                "Jimmy Rollins"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Josh Hamilton",
+                "Bryce Harper",
+                "Rickey Henderson",
+                "Willie Hernandez",
+                "Ryan Howard"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Don Mattingly",
+                "Joe Mauer",
+                "Andrew McCutchen",
+                "Willie McGee",
+                "Kevin Mitchell",
+                "Justin Morneau",
+                "Dale Murphy"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Miguel Cabrera",
+                "Ken Caminiti",
+                "Jose Canseco",
+                "Roger Clemens"
+            ]
+        },
+        {
+            "name": "Last Name Starts with T",
+            "items": [
+                "Miguel Tejada",
+                "Frank Thomas",
+                "Mike Trout"
+            ]
+        },
+        {
+            "name": "Last Name Starts with V",
+            "items": [
+                "Mo Vaughn",
+                "Justin Verlander",
+                "Joey Votto"
+            ]
+        },
+        {
+            "name": "Last Name Starts with G",
+            "items": [
+                "Jason Giambi",
+                "Kirk Gibson",
+                "Paul Goldschmidt",
+                "Juan Gonzalez",
+                "Ken Griffey Jr.",
+                "Vladimir Guerrero"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Ryne Sandberg",
+                "Mike Schmidt",
+                "Sammy Sosa",
+                "Giancarlo Stanton",
+                "Ichiro Suzuki"
+            ]
+        },
+        {
+            "name": "Last Name Starts with P",
+            "items": [
+                "Dustin Pedroia",
+                "Terry Pendleton",
+                "Buster Posey",
+                "Albert Pujols"
+            ]
+        },
+        {
+            "name": "Last Name Starts with A",
+            "items": [
+                "Jose Abreu",
+                "Ronald Acuna Jr.",
+                "Jose Altuve"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Andre Dawson",
+                "Cal Ripken Jr.",
+                "Dale Murphy",
+                "Don Mattingly",
+                "George Bell",
+                "George Brett",
+                "Jose Canseco",
+                "Kevin Mitchell",
+                "Kirk Gibson",
+                "Mike Schmidt",
+                "Rickey Henderson",
+                "Robin Yount",
+                "Roger Clemens",
+                "Rollie Fingers",
+                "Ryne Sandberg",
+                "Willie Hernandez",
+                "Willie McGee"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Barry Bonds",
+                "Barry Larkin",
+                "Chipper Jones",
+                "Frank Thomas",
+                "Ivan Rodriguez",
+                "Jeff Bagwell",
+                "Juan Gonzalez",
+                "Ken Caminiti",
+                "Ken Griffey Jr.",
+                "Larry Walker",
+                "Mo Vaughn",
+                "Sammy Sosa",
+                "Terry Pendleton"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Albert Pujols",
+                "Alex Rodriguez",
+                "Dustin Pedroia",
+                "Ichiro Suzuki",
+                "Jason Giambi",
+                "Jeff Kent",
+                "Jimmy Rollins",
+                "Joe Mauer",
+                "Justin Morneau",
+                "Miguel Tejada",
+                "Ryan Howard",
+                "Vladimir Guerrero"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Andrew McCutchen",
+                "Bryce Harper",
+                "Buster Posey",
+                "Christian Yelich",
+                "Clayton Kershaw",
+                "Cody Bellinger",
+                "Freddie Freeman",
+                "Giancarlo Stanton",
+                "Joey Votto",
+                "Jose Altuve",
+                "Josh Donaldson",
+                "Josh Hamilton",
+                "Justin Verlander",
+                "Kris Bryant",
+                "Miguel Cabrera",
+                "Mike Trout",
+                "Mookie Betts",
+                "Ryan Braun"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Aaron Judge",
+                "Freddie Freeman",
+                "Jose Abreu",
+                "Paul Goldschmidt",
+                "Ronald Acuna Jr.",
+                "Shohei Ohtani"
+            ]
+        },
+        {
+            "name": "American League Winners",
+            "items": [
+                "Aaron Judge",
+                "Alex Rodriguez",
+                "Cal Ripken Jr.",
+                "Dennis Eckersley",
+                "Don Mattingly",
+                "Dustin Pedroia",
+                "Frank Thomas",
+                "George Bell",
+                "George Brett",
+                "Ichiro Suzuki",
+                "Ivan Rodriguez",
+                "Jason Giambi",
+                "Joe Mauer",
+                "Jon Cryer",
+                "Jose Abreu",
+                "Jose Altuve",
+                "Jose Canseco",
+                "Josh Donaldson",
+                "Josh Hamilton",
+                "Juan Gonzalez",
+                "Justin Morneau",
+                "Justin Verlander",
+                "Ken Griffey Jr.",
+                "Miguel Cabrera",
+                "Miguel Tejada",
+                "Mike Trout",
+                "Mo Vaughn",
+                "Mookie Betts",
+                "Rickey Henderson",
+                "Robin Yount",
+                "Roger Clemens",
+                "Rollie Fingers",
+                "Shohei Ohtani",
+                "Vladimir Guerrero",
+                "Willie Hernandez"
+            ]
+        },
+        {
+            "name": "National League Winners",
+            "items": [
+                "Albert Pujols",
+                "Andre Dawson",
+                "Andrew McCutchen",
+                "Barry Bonds",
+                "Barry Larkin",
+                "Bryce Harper",
+                "Buster Posey",
+                "Chipper Jones",
+                "Christian Yelich",
+                "Clayton Kershaw",
+                "Cody Bellinger",
+                "Dale Murphy",
+                "Freddie Freeman",
+                "Giancarlo Stanton",
+                "Jeff Bagwell",
+                "Jeff Kent",
+                "Jimmy Rollins",
+                "Joey Votto",
+                "Ken Caminiti",
+                "Kevin Mitchell",
+                "Kirk Gibson",
+                "Kris Bryant",
+                "Larry Walker",
+                "Mike Schmidt",
+                "Paul Goldschmidt",
+                "Ronald Acuna Jr.",
+                "Ryan Braun",
+                "Ryan Howard",
+                "Ryne Sandberg",
+                "Sammy Sosa",
+                "Shohei Ohtani",
+                "Terry Pendleton",
+                "Willie McGee"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Aaron Judge",
+                "Albert Pujols",
+                "Alex Rodriguez",
+                "Barry Bonds",
+                "Bryce Harper",
+                "Cal Ripken Jr.",
+                "Dale Murphy",
+                "Frank Thomas",
+                "Juan Gonzalez",
+                "Miguel Cabrera",
+                "Mike Schmidt",
+                "Mike Trout",
+                "Robin Yount",
+                "Shohei Ohtani"
+            ]
+        }
+    ]
+}

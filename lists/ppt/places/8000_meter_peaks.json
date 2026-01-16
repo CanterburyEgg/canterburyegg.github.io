@@ -1,0 +1,65 @@
+{
+    "category_name": "8000-Meter Peaks",
+    "master_list": [
+        "mount everest",
+        "k2",
+        "kangchenjunga",
+        "lhotse",
+        "makalu",
+        "cho oyu",
+        "dhaulagiri i",
+        "manaslu",
+        "nanga parbat",
+        "annapurna i",
+        "gasherbrum i",
+        "broad peak",
+        "gasherbrum ii",
+        "shishapangma"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with M",
+            "items": [
+                "makalu",
+                "manaslu",
+                "mount everest"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Karakoram Peaks",
+            "items": [
+                "k2",
+                "broad peak",
+                "gasherbrum i",
+                "gasherbrum ii"
+            ]
+        },
+        {
+            "name": "The Himalayan Peaks",
+            "items": [
+                "mount everest",
+                "kangchenjunga",
+                "lhotse",
+                "makalu",
+                "cho oyu",
+                "dhaulagiri i",
+                "manaslu",
+                "nanga parbat",
+                "annapurna i",
+                "shishapangma"
+            ]
+        },
+        {
+            "name": "The Top 5 (The Extreme Peaks)",
+            "items": [
+                "mount everest",
+                "k2",
+                "kangchenjunga",
+                "lhotse",
+                "makalu"
+            ]
+        }
+    ]
+}

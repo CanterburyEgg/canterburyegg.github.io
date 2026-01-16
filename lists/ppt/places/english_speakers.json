@@ -1,0 +1,139 @@
+{
+    "category_name": "Exclusively English-Speaking Countries",
+    "master_list": [
+        "bahamas",
+        "barbados",
+        "belize",
+        "dominica",
+        "the gambia",
+        "ghana",
+        "grenada",
+        "guyana",
+        "jamaica",
+        "liberia",
+        "malawi",
+        "federated states of micronesia",
+        "namibia",
+        "nigeria",
+        "saint kitts and nevis",
+        "saint lucia",
+        "saint vincent and the grenadines",
+        "sierra leone",
+        "solomon islands",
+        "south sudan",
+        "trinidad and tobago",
+        "zambia",
+        "antigua and barbuda",
+        "australia",
+        "united kingdom",
+        "united states"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with B",
+            "items": [
+                "bahamas",
+                "barbados",
+                "belize"
+            ]
+        },
+        {
+            "name": "Starts with G",
+            "items": [
+                "ghana",
+                "grenada",
+                "guyana",
+                "the gambia"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "sierra leone",
+                "solomon islands",
+                "south sudan"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bahamas",
+                "grenada",
+                "jamaica",
+                "liberia",
+                "namibia",
+                "nigeria"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "belize",
+                "guyana",
+                "malawi",
+                "zambia"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Caribbean Nations",
+            "items": [
+                "bahamas",
+                "barbados",
+                "dominica",
+                "grenada",
+                "jamaica",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "antigua and barbuda",
+                "trinidad and tobago"
+            ]
+        },
+        {
+            "name": "African Nations",
+            "items": [
+                "the gambia",
+                "ghana",
+                "liberia",
+                "malawi",
+                "namibia",
+                "nigeria",
+                "sierra leone",
+                "south sudan",
+                "zambia"
+            ]
+        },
+        {
+            "name": "Oceanian & Pacific Nations",
+            "items": [
+                "australia",
+                "federated states of micronesia",
+                "solomon islands"
+            ]
+        },
+        {
+            "name": "Island Nations (Global)",
+            "items": [
+                "bahamas",
+                "barbados",
+                "dominica",
+                "grenada",
+                "jamaica",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "antigua and barbuda",
+                "trinidad and tobago",
+                "australia",
+                "united kingdom",
+                "federated states of micronesia",
+                "solomon islands"
+            ]
+        }
+    ]
+}

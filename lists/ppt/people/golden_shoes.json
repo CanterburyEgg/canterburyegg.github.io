@@ -1,0 +1,126 @@
+{
+    "category_name": "Golden Shoe Winners",
+    "master_list": [
+        "Ronaldo",
+        "Nikos Machlas",
+        "Mario Jardel",
+        "Kevin Phillips",
+        "Henrik Larsson",
+        "Roy Makaay",
+        "Thierry Henry",
+        "Diego Forlan",
+        "Luca Toni",
+        "Francesco Totti",
+        "Cristiano Ronaldo",
+        "Lionel Messi",
+        "Luis Suarez",
+        "Ciro Immobile",
+        "Robert Lewandowski",
+        "Erling Haaland",
+        "Harry Kane",
+        "Kylian Mbappe"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Robert Lewandowski",
+                "Roy Makaay",
+                "Ronaldo"
+            ]
+        },
+        {
+            "name": "First Name Starts with L",
+            "items": [
+                "Lionel Messi",
+                "Luis Suarez",
+                "Luca Toni"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Nikos Machlas",
+                "Roy Makaay",
+                "Kylian Mbappe",
+                "Lionel Messi"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Mario Jardel",
+                "Nikos Machlas",
+                "Ronaldo"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Cristiano Ronaldo",
+                "Diego Forlan",
+                "Francesco Totti",
+                "Henrik Larsson",
+                "Kevin Phillips",
+                "Luca Toni",
+                "Roy Makaay",
+                "Thierry Henry"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Cristiano Ronaldo",
+                "Ciro Immobile",
+                "Lionel Messi",
+                "Luis Suarez"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Erling Haaland",
+                "Harry Kane",
+                "Kylian Mbappe",
+                "Robert Lewandowski"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Cristiano Ronaldo",
+                "Diego Forlan",
+                "Lionel Messi",
+                "Luis Suarez",
+                "Mario Jardel",
+                "Robert Lewandowski",
+                "Thierry Henry"
+            ]
+        },
+        {
+            "name": "Premier League Winners",
+            "items": [
+                "Cristiano Ronaldo",
+                "Erling Haaland",
+                "Harry Kane",
+                "Kevin Phillips",
+                "Luis Suarez",
+                "Thierry Henry"
+            ]
+        },
+        {
+            "name": "La Liga Winners",
+            "items": [
+                "Cristiano Ronaldo",
+                "Diego Forlan",
+                "Kylian Mbappe",
+                "Lionel Messi",
+                "Luis Suarez",
+                "Ronaldo",
+                "Roy Makaay"
+            ]
+        }
+    ]
+}

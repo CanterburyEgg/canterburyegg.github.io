@@ -1,0 +1,235 @@
+{
+    "category_name": "US Presidents",
+    "master_list": [
+        "George Washington",
+        "John Adams",
+        "Thomas Jefferson",
+        "James Madison",
+        "James Monroe",
+        "John Quincy Adams",
+        "Andrew Jackson",
+        "Martin Van Buren",
+        "William Henry Harrison",
+        "John Tyler",
+        "James K. Polk",
+        "Zachary Taylor",
+        "Millard Fillmore",
+        "Franklin Pierce",
+        "James Buchanan",
+        "Abraham Lincoln",
+        "Andrew Johnson",
+        "Ulysses S. Grant",
+        "Rutherford B. Hayes",
+        "James Garfield",
+        "Chester Arthur",
+        "Grover Cleveland",
+        "Benjamin Harrison",
+        "Grover Cleveland",
+        "William McKinley",
+        "Theodore Roosevelt",
+        "William Taft",
+        "Woodrow Wilson",
+        "Warren G. Harding",
+        "Calvin Coolidge",
+        "Herbert Hoover",
+        "Franklin D. Roosevelt",
+        "Harry S. Truman",
+        "Dwight Eisenhower",
+        "John F. Kennedy",
+        "Lyndon Johnson",
+        "Richard Nixon",
+        "Gerald Ford",
+        "Jimmy Carter",
+        "Ronald Reagan",
+        "George H.W. Bush",
+        "Bill Clinton",
+        "George W. Bush",
+        "Barack Obama",
+        "Donald Trump",
+        "Joe Biden"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with G",
+            "items": [
+                "George H.W. Bush",
+                "George W. Bush",
+                "Grover Cleveland",
+                "Grover Cleveland",
+                "Gerald Ford",
+                "George Washington"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "John Adams",
+                "John Quincy Adams",
+                "Joe Biden",
+                "James Buchanan",
+                "Jimmy Carter",
+                "James Garfield",
+                "John F. Kennedy",
+                "James Madison",
+                "James Monroe",
+                "James K. Polk",
+                "John Tyler"
+            ]
+        },
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Andrew Jackson",
+                "Andrew Johnson",
+                "Abraham Lincoln"
+            ]
+        },
+        {
+            "name": "First Name Starts with W",
+            "items": [
+                "Warren G. Harding",
+                "William Henry Harrison",
+                "William McKinley",
+                "William Taft",
+                "Woodrow Wilson"
+            ]
+        },
+        {
+            "name": "First Name Starts with R",
+            "items": [
+                "Rutherford B. Hayes",
+                "Richard Nixon",
+                "Ronald Reagan"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Bill Clinton",
+                "Benjamin Harrison",
+                "Barack Obama"
+            ]
+        },
+        {
+            "name": "Last Name Starts with A",
+            "items": [
+                "John Adams",
+                "John Quincy Adams",
+                "Chester Arthur"
+            ]
+        },
+        {
+            "name": "Last Name Starts with J",
+            "items": [
+                "Andrew Jackson",
+                "Thomas Jefferson",
+                "Andrew Johnson",
+                "Lyndon Johnson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "James Madison",
+                "William McKinley",
+                "James Monroe"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Joe Biden",
+                "James Buchanan",
+                "Martin Van Buren",
+                "George H.W. Bush",
+                "George W. Bush"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Warren G. Harding",
+                "William Henry Harrison",
+                "Benjamin Harrison",
+                "Rutherford B. Hayes",
+                "Herbert Hoover"
+            ]
+        },
+        {
+            "name": "Last Name Starts with T",
+            "items": [
+                "William Taft",
+                "Zachary Taylor",
+                "Harry S. Truman",
+                "Donald Trump",
+                "John Tyler"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Jimmy Carter",
+                "Grover Cleveland",
+                "Grover Cleveland",
+                "Bill Clinton",
+                "Calvin Coolidge"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Ronald Reagan",
+                "Theodore Roosevelt",
+                "Franklin D. Roosevelt"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Founding Fathers",
+            "items": [
+                "George Washington",
+                "James Madison",
+                "James Monroe",
+                "John Adams",
+                "Thomas Jefferson"
+            ]
+        },
+        {
+            "name": "Mount Rushmore Presidents",
+            "items": [
+                "Abraham Lincoln",
+                "George Washington",
+                "Theodore Roosevelt",
+                "Thomas Jefferson"
+            ]
+        },
+        {
+            "name": "Assassinated in Office",
+            "items": [
+                "Abraham Lincoln",
+                "James Garfield",
+                "John F. Kennedy",
+                "William McKinley"
+            ]
+        },
+        {
+            "name": "Died in Office (Natural Causes)",
+            "items": [
+                "Franklin D. Roosevelt",
+                "Warren G. Harding",
+                "William Henry Harrison",
+                "Zachary Taylor"
+            ]
+        },
+        {
+            "name": "Nobel Peace Prize Winners",
+            "items": [
+                "Barack Obama",
+                "Jimmy Carter",
+                "Theodore Roosevelt",
+                "Woodrow Wilson"
+            ]
+        }
+    ]
+}

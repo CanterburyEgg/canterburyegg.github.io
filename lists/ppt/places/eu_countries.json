@@ -1,0 +1,295 @@
+{
+    "category_name": "European Countries",
+    "master_list": [
+        "albania",
+        "andorra",
+        "austria",
+        "belarus",
+        "belgium",
+        "bosnia and herzegovina",
+        "bulgaria",
+        "croatia",
+        "cyprus",
+        "czechia",
+        "denmark",
+        "estonia",
+        "finland",
+        "france",
+        "germany",
+        "greece",
+        "hungary",
+        "iceland",
+        "ireland",
+        "italy",
+        "kosovo",
+        "latvia",
+        "liechtenstein",
+        "lithuania",
+        "luxembourg",
+        "malta",
+        "moldova",
+        "monaco",
+        "montenegro",
+        "netherlands",
+        "north macedonia",
+        "norway",
+        "poland",
+        "portugal",
+        "romania",
+        "russia",
+        "san marino",
+        "serbia",
+        "slovakia",
+        "slovenia",
+        "spain",
+        "sweden",
+        "switzerland",
+        "turkey",
+        "ukraine",
+        "united kingdom",
+        "vatican city"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "albania",
+                "andorra",
+                "austria"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "belarus",
+                "belgium",
+                "bosnia and herzegovina",
+                "bulgaria"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "croatia",
+                "cyprus",
+                "czechia"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "iceland",
+                "ireland",
+                "italy"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "latvia",
+                "liechtenstein",
+                "lithuania",
+                "luxembourg"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "malta",
+                "moldova",
+                "monaco",
+                "montenegro"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "netherlands",
+                "north macedonia",
+                "norway"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "san marino",
+                "serbia",
+                "slovakia",
+                "slovenia",
+                "spain",
+                "sweden",
+                "switzerland"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "albania",
+                "andorra",
+                "austria",
+                "belarus",
+                "belgium",
+                "croatia",
+                "czechia",
+                "denmark",
+                "estonia",
+                "finland",
+                "germany",
+                "hungary",
+                "iceland",
+                "ireland",
+                "moldova",
+                "romania",
+                "ukraine"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "bulgaria",
+                "portugal",
+                "slovakia",
+                "slovenia"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "cyprus",
+                "france",
+                "greece",
+                "kosovo",
+                "latvia",
+                "monaco",
+                "norway",
+                "poland",
+                "russia",
+                "serbia",
+                "sweden",
+                "turkey"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "italy",
+                "malta",
+                "spain"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Non-EU European Nations",
+            "items": [
+                "albania",
+                "andorra",
+                "belarus",
+                "bosnia and herzegovina",
+                "iceland",
+                "kosovo",
+                "liechtenstein",
+                "moldova",
+                "monaco",
+                "montenegro",
+                "north macedonia",
+                "norway",
+                "russia",
+                "san marino",
+                "serbia",
+                "switzerland",
+                "turkey",
+                "ukraine",
+                "united kingdom",
+                "vatican city"
+            ]
+        },
+        {
+            "name": "EU Member States",
+            "items": [
+                "austria",
+                "belgium",
+                "bulgaria",
+                "croatia",
+                "cyprus",
+                "czechia",
+                "denmark",
+                "estonia",
+                "finland",
+                "france",
+                "germany",
+                "greece",
+                "hungary",
+                "ireland",
+                "italy",
+                "latvia",
+                "lithuania",
+                "luxembourg",
+                "malta",
+                "netherlands",
+                "poland",
+                "portugal",
+                "romania",
+                "slovakia",
+                "slovenia",
+                "spain",
+                "sweden"
+            ]
+        },
+        {
+            "name": "Official English Status",
+            "items": [
+                "ireland",
+                "malta",
+                "united kingdom"
+            ]
+        },
+        {
+            "name": "European Microstates",
+            "items": [
+                "andorra",
+                "liechtenstein",
+                "monaco",
+                "san marino",
+                "vatican city",
+                "malta"
+            ]
+        },
+        {
+            "name": "Landlocked European Nations",
+            "items": [
+                "andorra",
+                "austria",
+                "belarus",
+                "czechia",
+                "hungary",
+                "kosovo",
+                "liechtenstein",
+                "luxembourg",
+                "moldova",
+                "north macedonia",
+                "san marino",
+                "serbia",
+                "slovakia",
+                "switzerland",
+                "vatican city"
+            ]
+        },
+        {
+            "name": "The Balkan Peninsula",
+            "items": [
+                "albania",
+                "bosnia and herzegovina",
+                "bulgaria",
+                "croatia",
+                "greece",
+                "kosovo",
+                "montenegro",
+                "north macedonia",
+                "romania",
+                "serbia",
+                "slovenia"
+            ]
+        }
+    ]
+}

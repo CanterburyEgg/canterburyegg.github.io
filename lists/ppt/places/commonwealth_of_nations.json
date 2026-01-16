@@ -1,0 +1,289 @@
+{
+    "category_name": "Commonwealth of Nations",
+    "master_list": [
+        "antigua and barbuda",
+        "australia",
+        "bahamas",
+        "bangladesh",
+        "barbados",
+        "belize",
+        "botswana",
+        "brunei",
+        "cameroon",
+        "canada",
+        "cyprus",
+        "dominica",
+        "eswatini",
+        "fiji",
+        "gabon",
+        "gambia",
+        "ghana",
+        "grenada",
+        "guyana",
+        "india",
+        "jamaica",
+        "kenya",
+        "kiribati",
+        "lesotho",
+        "malawi",
+        "malaysia",
+        "maldives",
+        "malta",
+        "mauritius",
+        "mozambique",
+        "namibia",
+        "nauru",
+        "new zealand",
+        "nigeria",
+        "pakistan",
+        "papua new guinea",
+        "rwanda",
+        "saint kitts and nevis",
+        "saint lucia",
+        "saint vincent and the grenadines",
+        "samoa",
+        "seychelles",
+        "sierra leone",
+        "singapore",
+        "solomon islands",
+        "south africa",
+        "sri lanka",
+        "tanzania",
+        "togo",
+        "tonga",
+        "trinidad and tobago",
+        "tuvalu",
+        "uganda",
+        "united kingdom",
+        "vanuatu",
+        "zambia"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with B",
+            "items": [
+                "bahamas",
+                "bangladesh",
+                "barbados",
+                "belize",
+                "botswana",
+                "brunei"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cameroon",
+                "canada",
+                "cyprus"
+            ]
+        },
+        {
+            "name": "Starts with G",
+            "items": [
+                "gabon",
+                "gambia",
+                "ghana",
+                "grenada",
+                "guyana"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "malawi",
+                "malaysia",
+                "maldives",
+                "malta",
+                "mauritius",
+                "mozambique"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "namibia",
+                "nauru",
+                "new zealand",
+                "nigeria"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "samoa",
+                "seychelles",
+                "sierra leone",
+                "singapore",
+                "solomon islands",
+                "south africa",
+                "sri lanka"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "tanzania",
+                "togo",
+                "tonga",
+                "trinidad and tobago",
+                "tuvalu"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "australia",
+                "mauritius",
+                "singapore"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bahamas",
+                "grenada",
+                "jamaica",
+                "lesotho",
+                "namibia",
+                "nigeria",
+                "vanuatu"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "bangladesh",
+                "mozambique",
+                "new zealand",
+                "saint lucia",
+                "seychelles"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "barbados",
+                "botswana",
+                "cameroon",
+                "dominica",
+                "eswatini",
+                "kiribati",
+                "malaysia",
+                "maldives",
+                "pakistan",
+                "sri lanka",
+                "tanzania"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "belize",
+                "brunei",
+                "canada",
+                "cyprus",
+                "gambia",
+                "guyana",
+                "malawi",
+                "rwanda",
+                "tuvalu",
+                "uganda",
+                "zambia"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "gabon",
+                "ghana",
+                "india",
+                "kenya",
+                "malta",
+                "nauru",
+                "samoa",
+                "tonga"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Commonwealth Realms",
+            "items": [
+                "antigua and barbuda",
+                "australia",
+                "bahamas",
+                "belize",
+                "canada",
+                "grenada",
+                "jamaica",
+                "new zealand",
+                "papua new guinea",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "solomon islands",
+                "tuvalu",
+                "united kingdom"
+            ]
+        },
+        {
+            "name": "Asian Commonwealth Members",
+            "items": [
+                "bangladesh",
+                "brunei",
+                "india",
+                "malaysia",
+                "maldives",
+                "pakistan",
+                "singapore",
+                "sri lanka"
+            ]
+        },
+        {
+            "name": "African Commonwealth Members",
+            "items": [
+                "botswana",
+                "cameroon",
+                "eswatini",
+                "gabon",
+                "gambia",
+                "ghana",
+                "kenya",
+                "lesotho",
+                "malawi",
+                "mauritius",
+                "mozambique",
+                "namibia",
+                "nigeria",
+                "rwanda",
+                "seychelles",
+                "sierra leone",
+                "south africa",
+                "tanzania",
+                "togo",
+                "uganda",
+                "zambia"
+            ]
+        },
+        {
+            "name": "Oceanian & Pacific Commonwealth Members",
+            "items": [
+                "australia",
+                "fiji",
+                "kiribati",
+                "nauru",
+                "new zealand",
+                "papua new guinea",
+                "samoa",
+                "solomon islands",
+                "tonga",
+                "tuvalu",
+                "vanuatu"
+            ]
+        }
+    ]
+}

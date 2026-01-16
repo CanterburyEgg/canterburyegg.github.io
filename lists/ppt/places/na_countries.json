@@ -1,0 +1,156 @@
+{
+    "category_name": "North American Countries",
+    "master_list": [
+        "canada",
+        "united states",
+        "mexico",
+        "nicaragua",
+        "honduras",
+        "cuba",
+        "guatemala",
+        "panama",
+        "costa rica",
+        "dominican republic",
+        "haiti",
+        "belize",
+        "el salvador",
+        "bahamas",
+        "jamaica",
+        "trinidad and tobago",
+        "dominica",
+        "saint lucia",
+        "antigua and barbuda",
+        "barbados",
+        "saint vincent and the grenadines",
+        "grenada",
+        "saint kitts and nevis"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "canada",
+                "costa rica",
+                "cuba"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "bahamas",
+                "barbados",
+                "belize"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "belize",
+                "canada",
+                "mexico",
+                "panama"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "barbados",
+                "dominica",
+                "honduras"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "bahamas",
+                "grenada",
+                "jamaica"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Central American Mainland",
+            "items": [
+                "belize",
+                "costa rica",
+                "el salvador",
+                "guatemala",
+                "honduras",
+                "nicaragua",
+                "panama"
+            ]
+        },
+        {
+            "name": "Caribbean Island Nations",
+            "items": [
+                "antigua and barbuda",
+                "bahamas",
+                "barbados",
+                "cuba",
+                "dominica",
+                "dominican republic",
+                "grenada",
+                "haiti",
+                "jamaica",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "trinidad and tobago"
+            ]
+        },
+        {
+            "name": "Spanish-Speaking North America",
+            "items": [
+                "costa rica",
+                "cuba",
+                "dominican republic",
+                "el salvador",
+                "guatemala",
+                "honduras",
+                "mexico",
+                "nicaragua",
+                "panama"
+            ]
+        },
+        {
+            "name": "English as Official or Primary Language",
+            "items": [
+                "antigua and barbuda",
+                "bahamas",
+                "barbados",
+                "belize",
+                "canada",
+                "dominica",
+                "grenada",
+                "jamaica",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines",
+                "united states"
+            ]
+        },
+        {
+            "name": "Commonwealth Realm Nations",
+            "items": [
+                "antigua and barbuda",
+                "bahamas",
+                "belize",
+                "canada",
+                "grenada",
+                "jamaica",
+                "saint kitts and nevis",
+                "saint lucia",
+                "saint vincent and the grenadines"
+            ]
+        }
+    ]
+}

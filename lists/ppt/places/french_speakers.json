@@ -1,0 +1,45 @@
+{
+    "category_name": "Exclusively French-Speaking Countries",
+    "master_list": [
+        "benin",
+        "democratic republic of the congo",
+        "republic of the congo",
+        "france",
+        "gabon",
+        "guinea",
+        "ivory coast",
+        "monaco",
+        "senegal",
+        "togo"
+    ],
+    "auto_subsets": [
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "france",
+                "guinea",
+                "monaco"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "West African Francophone Nations",
+            "items": [
+                "benin",
+                "guinea",
+                "ivory coast",
+                "senegal",
+                "togo"
+            ]
+        },
+        {
+            "name": "Central African Francophone Nations",
+            "items": [
+                "democratic republic of the congo",
+                "republic of the congo",
+                "gabon"
+            ]
+        }
+    ]
+}

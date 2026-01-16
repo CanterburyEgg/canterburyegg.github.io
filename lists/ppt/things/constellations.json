@@ -1,100 +1,6 @@
 {
-  "category_name": "Constellations",
-  "master_list": [
-    "andromeda",
-    "antlia",
-    "apus",
-    "aquarius",
-    "aquila",
-    "ara",
-    "aries",
-    "auriga",
-    "bootes",
-    "caelum",
-    "camelopardalis",
-    "cancer",
-    "canes venatici",
-    "canis major",
-    "canis minor",
-    "capricornus",
-    "carina",
-    "cassiopeia",
-    "centaurus",
-    "cepheus",
-    "cetus",
-    "chamaeleon",
-    "circinus",
-    "columba",
-    "coma berenices",
-    "corona australis",
-    "corona borealis",
-    "corvus",
-    "crater",
-    "crux",
-    "cygnus",
-    "delphinus",
-    "dorado",
-    "draco",
-    "equuleus",
-    "eridanus",
-    "fornax",
-    "gemini",
-    "grus",
-    "hercules",
-    "horologium",
-    "hydra",
-    "hydrus",
-    "indus",
-    "lacerta",
-    "leo",
-    "leo minor",
-    "lepus",
-    "libra",
-    "lupus",
-    "lynx",
-    "lyra",
-    "mensa",
-    "microscopium",
-    "monoceros",
-    "musca",
-    "norma",
-    "octans",
-    "ophiuchus",
-    "orion",
-    "pavo",
-    "pegasus",
-    "perseus",
-    "phoenix",
-    "pictor",
-    "pisces",
-    "piscis austrinus",
-    "puppis",
-    "pyxis",
-    "reticulum",
-    "sagitta",
-    "sagittarius",
-    "scorpius",
-    "sculptor",
-    "scutum",
-    "serpens",
-    "sextans",
-    "taurus",
-    "telescopium",
-    "triangulum",
-    "triangulum australe",
-    "tucana",
-    "ursa major",
-    "ursa minor",
-    "vela",
-    "virgo",
-    "volans",
-    "vulpecula"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with A",
-      "count": 8,
-      "items": [
+    "category_name": "Constellations",
+    "master_list": [
         "andromeda",
         "antlia",
         "apus",
@@ -102,13 +8,8 @@
         "aquila",
         "ara",
         "aries",
-        "auriga"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 22,
-      "items": [
+        "auriga",
+        "bootes",
         "caelum",
         "camelopardalis",
         "cancer",
@@ -130,23 +31,20 @@
         "corvus",
         "crater",
         "crux",
-        "cygnus"
-      ]
-    },
-    {
-      "name": "Starts with H",
-      "count": 4,
-      "items": [
+        "cygnus",
+        "delphinus",
+        "dorado",
+        "draco",
+        "equuleus",
+        "eridanus",
+        "fornax",
+        "gemini",
+        "grus",
         "hercules",
         "horologium",
         "hydra",
-        "hydrus"
-      ]
-    },
-    {
-      "name": "Starts with L",
-      "count": 8,
-      "items": [
+        "hydrus",
+        "indus",
         "lacerta",
         "leo",
         "leo minor",
@@ -154,23 +52,15 @@
         "libra",
         "lupus",
         "lynx",
-        "lyra"
-      ]
-    },
-    {
-      "name": "Starts with M",
-      "count": 4,
-      "items": [
+        "lyra",
         "mensa",
         "microscopium",
         "monoceros",
-        "musca"
-      ]
-    },
-    {
-      "name": "Starts with P",
-      "count": 9,
-      "items": [
+        "musca",
+        "norma",
+        "octans",
+        "ophiuchus",
+        "orion",
         "pavo",
         "pegasus",
         "perseus",
@@ -179,120 +69,310 @@
         "pisces",
         "piscis austrinus",
         "puppis",
-        "pyxis"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 7,
-      "items": [
+        "pyxis",
+        "reticulum",
         "sagitta",
         "sagittarius",
         "scorpius",
         "sculptor",
         "scutum",
         "serpens",
-        "sextans"
-      ]
-    },
-    {
-      "name": "Starts with T",
-      "count": 5,
-      "items": [
+        "sextans",
         "taurus",
         "telescopium",
         "triangulum",
         "triangulum australe",
-        "tucana"
-      ]
-    },
-    {
-      "name": "Starts with V",
-      "count": 4,
-      "items": [
+        "tucana",
+        "ursa major",
+        "ursa minor",
         "vela",
         "virgo",
         "volans",
         "vulpecula"
-      ]
-    },
-    {
-      "name": "6 Letters Long",
-      "count": 22,
-      "items": [
-        "antlia",
-        "aquila",
-        "auriga",
-        "bootes",
-        "caelum",
-        "cancer",
-        "carina",
-        "corvus",
-        "crater",
-        "cygnus",
-        "dorado",
-        "fornax",
-        "gemini",
-        "hydrus",
-        "octans",
-        "pictor",
-        "pisces",
-        "puppis",
-        "scutum",
-        "taurus",
-        "tucana",
-        "volans"
-      ]
-    },
-    {
-      "name": "8 Letters Long",
-      "count": 7,
-      "items": [
-        "aquarius",
-        "circinus",
-        "equuleus",
-        "eridanus",
-        "hercules",
-        "scorpius",
-        "sculptor"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 14,
-      "items": [
-        "aries",
-        "cetus",
-        "draco",
-        "hydra",
-        "indus",
-        "lepus",
-        "libra",
-        "lupus",
-        "mensa",
-        "musca",
-        "norma",
-        "orion",
-        "pyxis",
-        "virgo"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Zodiac Constellations",
-      "count": 12,
-      "items": ["aquarius", "aries", "cancer", "capricornus", "gemini", "leo", "libra", "pisces", "sagittarius", "scorpius", "taurus", "virgo"]
-    },
-    {
-      "name": "Ptolemaic Constellations",
-      "count": 47,
-      "items": ["andromeda", "aquarius", "aquila", "ara", "aries", "auriga", "bootes", "cancer", "canis major", "canis minor", "capricornus", "cassiopeia", "centaurus", "cepheus", "cetus", "corona australis", "corona borealis", "corvus", "crater", "cygnus", "delphinus", "draco", "equuleus", "eridanus", "gemini", "hercules", "hydra", "leo", "lepus", "libra", "lupus", "lyra", "ophiuchus", "orion", "pegasus", "perseus", "pisces", "piscis austrinus", "sagitta", "sagittarius", "scorpius", "serpens", "taurus", "triangulum", "ursa major", "ursa minor", "virgo"]
-    },
-    {
-      "name": "Named After Animals",
-      "count": 32,
-      "items": ["apus", "aquila", "cancer", "canis major", "canis minor", "chamaeleon", "columba", "corvus", "cygnus", "delphinus", "dorado", "draco", "grus", "hydra", "hydrus", "leo", "leo minor", "lepus", "lupus", "lynx", "musca", "pavo", "phoenix", "pisces", "piscis austrinus", "scorpius", "serpens", "tucana", "ursa major", "ursa minor", "volans", "vulpecula"]
-    }
-  ]
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "andromeda",
+                "antlia",
+                "apus",
+                "aquarius",
+                "aquila",
+                "ara",
+                "aries",
+                "auriga"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "caelum",
+                "camelopardalis",
+                "cancer",
+                "canes venatici",
+                "canis major",
+                "canis minor",
+                "capricornus",
+                "carina",
+                "cassiopeia",
+                "centaurus",
+                "cepheus",
+                "cetus",
+                "chamaeleon",
+                "circinus",
+                "columba",
+                "coma berenices",
+                "corona australis",
+                "corona borealis",
+                "corvus",
+                "crater",
+                "crux",
+                "cygnus"
+            ]
+        },
+        {
+            "name": "Starts with H",
+            "items": [
+                "hercules",
+                "horologium",
+                "hydra",
+                "hydrus"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "lacerta",
+                "leo",
+                "leo minor",
+                "lepus",
+                "libra",
+                "lupus",
+                "lynx",
+                "lyra"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "mensa",
+                "microscopium",
+                "monoceros",
+                "musca"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "pavo",
+                "pegasus",
+                "perseus",
+                "phoenix",
+                "pictor",
+                "pisces",
+                "piscis austrinus",
+                "puppis",
+                "pyxis"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "sagitta",
+                "sagittarius",
+                "scorpius",
+                "sculptor",
+                "scutum",
+                "serpens",
+                "sextans"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "taurus",
+                "telescopium",
+                "triangulum",
+                "triangulum australe",
+                "tucana"
+            ]
+        },
+        {
+            "name": "Starts with V",
+            "items": [
+                "vela",
+                "virgo",
+                "volans",
+                "vulpecula"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "antlia",
+                "aquila",
+                "auriga",
+                "bootes",
+                "caelum",
+                "cancer",
+                "carina",
+                "corvus",
+                "crater",
+                "cygnus",
+                "dorado",
+                "fornax",
+                "gemini",
+                "hydrus",
+                "octans",
+                "pictor",
+                "pisces",
+                "puppis",
+                "scutum",
+                "taurus",
+                "tucana",
+                "volans"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "aquarius",
+                "circinus",
+                "equuleus",
+                "eridanus",
+                "hercules",
+                "leo minor",
+                "scorpius",
+                "sculptor"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "aries",
+                "cetus",
+                "draco",
+                "hydra",
+                "indus",
+                "lepus",
+                "libra",
+                "lupus",
+                "mensa",
+                "musca",
+                "norma",
+                "orion",
+                "pyxis",
+                "virgo"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Zodiac Constellations",
+            "items": [
+                "aquarius",
+                "aries",
+                "cancer",
+                "capricornus",
+                "gemini",
+                "leo",
+                "libra",
+                "pisces",
+                "sagittarius",
+                "scorpius",
+                "taurus",
+                "virgo"
+            ]
+        },
+        {
+            "name": "Ptolemaic Constellations",
+            "items": [
+                "andromeda",
+                "aquarius",
+                "aquila",
+                "ara",
+                "aries",
+                "auriga",
+                "bootes",
+                "cancer",
+                "canis major",
+                "canis minor",
+                "capricornus",
+                "cassiopeia",
+                "centaurus",
+                "cepheus",
+                "cetus",
+                "corona australis",
+                "corona borealis",
+                "corvus",
+                "crater",
+                "cygnus",
+                "delphinus",
+                "draco",
+                "equuleus",
+                "eridanus",
+                "gemini",
+                "hercules",
+                "hydra",
+                "leo",
+                "lepus",
+                "libra",
+                "lupus",
+                "lyra",
+                "ophiuchus",
+                "orion",
+                "pegasus",
+                "perseus",
+                "pisces",
+                "piscis austrinus",
+                "sagitta",
+                "sagittarius",
+                "scorpius",
+                "serpens",
+                "taurus",
+                "triangulum",
+                "ursa major",
+                "ursa minor",
+                "virgo"
+            ]
+        },
+        {
+            "name": "Named After Animals",
+            "items": [
+                "apus",
+                "aquila",
+                "cancer",
+                "canis major",
+                "canis minor",
+                "chamaeleon",
+                "columba",
+                "corvus",
+                "cygnus",
+                "delphinus",
+                "dorado",
+                "draco",
+                "grus",
+                "hydra",
+                "hydrus",
+                "leo",
+                "leo minor",
+                "lepus",
+                "lupus",
+                "lynx",
+                "musca",
+                "pavo",
+                "phoenix",
+                "pisces",
+                "piscis austrinus",
+                "scorpius",
+                "serpens",
+                "tucana",
+                "ursa major",
+                "ursa minor",
+                "volans",
+                "vulpecula"
+            ]
+        }
+    ]
 }

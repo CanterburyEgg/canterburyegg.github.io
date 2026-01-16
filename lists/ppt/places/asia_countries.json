@@ -1,0 +1,312 @@
+{
+    "category_name": "Asian Countries",
+    "master_list": [
+        "afghanistan",
+        "armenia",
+        "azerbaijan",
+        "bahrain",
+        "bangladesh",
+        "bhutan",
+        "brunei",
+        "cambodia",
+        "china",
+        "cyprus",
+        "east timor",
+        "egypt",
+        "georgia",
+        "india",
+        "indonesia",
+        "iran",
+        "iraq",
+        "israel",
+        "japan",
+        "jordan",
+        "kazakhstan",
+        "kuwait",
+        "kyrgyzstan",
+        "laos",
+        "lebanon",
+        "malaysia",
+        "maldives",
+        "mongolia",
+        "myanmar",
+        "nepal",
+        "north korea",
+        "oman",
+        "pakistan",
+        "palestine",
+        "philippines",
+        "qatar",
+        "russia",
+        "saudi arabia",
+        "singapore",
+        "south korea",
+        "sri lanka",
+        "syria",
+        "taiwan",
+        "tajikistan",
+        "thailand",
+        "turkey",
+        "turkmenistan",
+        "united arab emirates",
+        "uzbekistan",
+        "vietnam",
+        "yemen"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "afghanistan",
+                "armenia",
+                "azerbaijan"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "bahrain",
+                "bangladesh",
+                "bhutan",
+                "brunei"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cambodia",
+                "china",
+                "cyprus"
+            ]
+        },
+        {
+            "name": "Starts with I",
+            "items": [
+                "india",
+                "indonesia",
+                "iran",
+                "iraq",
+                "israel"
+            ]
+        },
+        {
+            "name": "Starts with K",
+            "items": [
+                "kazakhstan",
+                "kuwait",
+                "kyrgyzstan"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "malaysia",
+                "maldives",
+                "mongolia",
+                "myanmar"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "pakistan",
+                "palestine",
+                "philippines"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "saudi arabia",
+                "singapore",
+                "south korea",
+                "sri lanka",
+                "syria"
+            ]
+        },
+        {
+            "name": "Starts with T",
+            "items": [
+                "taiwan",
+                "tajikistan",
+                "thailand",
+                "turkey",
+                "turkmenistan"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "armenia",
+                "bahrain",
+                "georgia",
+                "lebanon",
+                "myanmar",
+                "vietnam"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "azerbaijan",
+                "bangladesh",
+                "kazakhstan",
+                "kyrgyzstan",
+                "north korea",
+                "south korea",
+                "tajikistan",
+                "uzbekistan"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "bhutan",
+                "brunei",
+                "cyprus",
+                "israel",
+                "jordan",
+                "kuwait",
+                "russia",
+                "taiwan",
+                "turkey"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "cambodia",
+                "malaysia",
+                "maldives",
+                "mongolia",
+                "pakistan",
+                "sri lanka",
+                "thailand"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "china",
+                "egypt",
+                "india",
+                "japan",
+                "nepal",
+                "qatar",
+                "syria",
+                "yemen"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "east timor",
+                "indonesia",
+                "palestine",
+                "singapore"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "iran",
+                "iraq",
+                "laos",
+                "oman"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Southeast Asian (ASEAN) Nations",
+            "items": [
+                "brunei",
+                "cambodia",
+                "east timor",
+                "indonesia",
+                "laos",
+                "malaysia",
+                "myanmar",
+                "philippines",
+                "singapore",
+                "thailand",
+                "vietnam"
+            ]
+        },
+        {
+            "name": "Landlocked Asian Nations",
+            "items": [
+                "afghanistan",
+                "armenia",
+                "azerbaijan",
+                "bhutan",
+                "kazakhstan",
+                "kyrgyzstan",
+                "laos",
+                "mongolia",
+                "nepal",
+                "tajikistan",
+                "turkmenistan",
+                "uzbekistan"
+            ]
+        },
+        {
+            "name": "Island & Archipelago Nations",
+            "items": [
+                "bahrain",
+                "cyprus",
+                "east timor",
+                "indonesia",
+                "japan",
+                "maldives",
+                "philippines",
+                "singapore",
+                "sri lanka",
+                "taiwan"
+            ]
+        },
+        {
+            "name": "The Stans (Central & South Asia)",
+            "items": [
+                "afghanistan",
+                "kazakhstan",
+                "kyrgyzstan",
+                "pakistan",
+                "tajikistan",
+                "turkmenistan",
+                "uzbekistan"
+            ]
+        },
+        {
+            "name": "Middle Eastern (West Asian) Nations",
+            "items": [
+                "bahrain",
+                "iran",
+                "iraq",
+                "israel",
+                "jordan",
+                "kuwait",
+                "lebanon",
+                "oman",
+                "palestine",
+                "qatar",
+                "saudi arabia",
+                "syria",
+                "turkey",
+                "united arab emirates",
+                "yemen"
+            ]
+        },
+        {
+            "name": "Transcontinental Nations",
+            "items": [
+                "azerbaijan",
+                "egypt",
+                "georgia",
+                "kazakhstan",
+                "russia",
+                "turkey"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,97 @@
+{
+    "category_name": "Olympian Gods",
+    "master_list": [
+        "Aphrodite",
+        "Apollo",
+        "Ares",
+        "Artemis",
+        "Athena",
+        "Demeter",
+        "Dinoysus",
+        "Hephaestus",
+        "Hera",
+        "Hermes",
+        "Hestia",
+        "Poseidon",
+        "Zeus"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "Aphrodite",
+                "Apollo",
+                "Ares",
+                "Artemis",
+                "Athena"
+            ]
+        },
+        {
+            "name": "Starts with H",
+            "items": [
+                "Hephaestus",
+                "Hera",
+                "Hermes",
+                "Hestia"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "Apollo",
+                "Athena",
+                "Hermes",
+                "Hestia"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "Ares",
+                "Hera",
+                "Zeus"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The First Generation (Siblings)",
+            "items": [
+                "Demeter",
+                "Hera",
+                "Hestia",
+                "Poseidon",
+                "Zeus"
+            ]
+        },
+        {
+            "name": "The Second Generation (Children of Zeus)",
+            "items": [
+                "Apollo",
+                "Ares",
+                "Artemis",
+                "Athena",
+                "Dionysus",
+                "Hephaestus",
+                "Hermes"
+            ]
+        },
+        {
+            "name": "The Virgin Goddesses",
+            "items": [
+                "Artemis",
+                "Athena",
+                "Hestia"
+            ]
+        },
+        {
+            "name": "Nature & Agriculture",
+            "items": [
+                "Artemis",
+                "Demeter",
+                "Dionysus",
+                "Poseidon"
+            ]
+        }
+    ]
+}

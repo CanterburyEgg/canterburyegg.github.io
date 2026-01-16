@@ -1,0 +1,298 @@
+{
+    "category_name": "European Capitals",
+    "master_list": [
+        "amsterdam",
+        "andorra la vella",
+        "athens",
+        "belgrade",
+        "berlin",
+        "bern",
+        "bratislava",
+        "brussels",
+        "bucharest",
+        "budapest",
+        "chisinau",
+        "copenhagen",
+        "dublin",
+        "helsinki",
+        "kyiv",
+        "lisbon",
+        "ljubljana",
+        "london",
+        "luxembourg",
+        "madrid",
+        "minsk",
+        "monaco",
+        "moscow",
+        "nicosia",
+        "oslo",
+        "paris",
+        "podgorica",
+        "prague",
+        "reykjavik",
+        "riga",
+        "rome",
+        "san marino",
+        "sarajevo",
+        "skopje",
+        "sofia",
+        "stockholm",
+        "tallinn",
+        "tirana",
+        "vaduz",
+        "valletta",
+        "vatican city",
+        "vienna",
+        "vilnius",
+        "warsaw",
+        "zagreb",
+        "pristina",
+        "ankara"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with A",
+            "items": [
+                "amsterdam",
+                "andorra la vella",
+                "ankara",
+                "athens"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "belgrade",
+                "berlin",
+                "bern",
+                "bratislava",
+                "brussels",
+                "bucharest",
+                "budapest"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "lisbon",
+                "ljubljana",
+                "london",
+                "luxembourg"
+            ]
+        },
+        {
+            "name": "Starts with M",
+            "items": [
+                "madrid",
+                "minsk",
+                "monaco",
+                "moscow"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "paris",
+                "podgorica",
+                "prague",
+                "pristina"
+            ]
+        },
+        {
+            "name": "Starts with R",
+            "items": [
+                "reykjavik",
+                "riga",
+                "rome"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "san marino",
+                "sarajevo",
+                "skopje",
+                "sofia",
+                "stockholm"
+            ]
+        },
+        {
+            "name": "Starts with V",
+            "items": [
+                "vaduz",
+                "valletta",
+                "vatican city",
+                "vienna",
+                "vilnius"
+            ]
+        },
+        {
+            "name": "9 Letters Long",
+            "items": [
+                "amsterdam",
+                "bucharest",
+                "ljubljana",
+                "podgorica",
+                "reykjavik",
+                "san marino",
+                "stockholm"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "ankara",
+                "athens",
+                "berlin",
+                "dublin",
+                "lisbon",
+                "london",
+                "madrid",
+                "monaco",
+                "moscow",
+                "prague",
+                "skopje",
+                "tirana",
+                "vienna",
+                "warsaw",
+                "zagreb"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "belgrade",
+                "brussels",
+                "budapest",
+                "chisinau",
+                "helsinki",
+                "pristina",
+                "sarajevo",
+                "valletta"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "bern",
+                "kyiv",
+                "oslo",
+                "riga",
+                "rome"
+            ]
+        },
+        {
+            "name": "10 Letters Long",
+            "items": [
+                "bratislava",
+                "copenhagen",
+                "luxembourg"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "minsk",
+                "paris",
+                "sofia",
+                "vaduz"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "nicosia",
+                "tallinn",
+                "vilnius"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Coastal Capital Cities",
+            "items": [
+                "amsterdam",
+                "athens",
+                "copenhagen",
+                "dublin",
+                "helsinki",
+                "lisbon",
+                "monaco",
+                "nicosia",
+                "oslo",
+                "reykjavik",
+                "stockholm",
+                "tallinn",
+                "valletta"
+            ]
+        },
+        {
+            "name": "EU Member Capitals",
+            "items": [
+                "amsterdam",
+                "athens",
+                "berlin",
+                "bratislava",
+                "brussels",
+                "bucharest",
+                "budapest",
+                "copenhagen",
+                "dublin",
+                "helsinki",
+                "lisbon",
+                "ljubljana",
+                "luxembourg",
+                "madrid",
+                "nicosia",
+                "paris",
+                "prague",
+                "riga",
+                "rome",
+                "sofia",
+                "stockholm",
+                "tallinn",
+                "valletta",
+                "vienna",
+                "vilnius",
+                "warsaw",
+                "zagreb"
+            ]
+        },
+        {
+            "name": "Non-EU Capitals",
+            "items": [
+                "andorra la vella",
+                "belgrade",
+                "bern",
+                "chisinau",
+                "kyiv",
+                "london",
+                "minsk",
+                "monaco",
+                "moscow",
+                "oslo",
+                "podgorica",
+                "reykjavik",
+                "san marino",
+                "sarajevo",
+                "skopje",
+                "tirana",
+                "vaduz",
+                "vatican city",
+                "pristina",
+                "ankara"
+            ]
+        },
+        {
+            "name": "Microstate Capitals",
+            "items": [
+                "andorra la vella",
+                "monaco",
+                "san marino",
+                "vaduz",
+                "valletta",
+                "vatican city"
+            ]
+        }
+    ]
+}

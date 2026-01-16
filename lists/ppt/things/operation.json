@@ -1,60 +1,74 @@
 {
-  "category_name": "Operation",
-  "master_list": [
-    "adam's apple",
-    "wish bone",
-    "broken heart",
-    "spare ribs",
-    "butterflies in stomach",
-    "bread basket",
-    "writer's cramp",
-    "funny bone",
-    "charlie horse",
-    "anklebone connected to the knee bone",
-    "water on the knee",
-    "wrenched ankle"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with W",
-      "count": 4,
-      "items": [
-        "water on the knee",
+    "category_name": "Operation Ailments",
+    "master_list": [
+        "adam's apple",
         "wish bone",
-        "wrenched ankle",
-        "writer's cramp"
-      ]
-    },
-    {
-      "name": "Starts with B",
-      "count": 3,
-      "items": [
-        "bread basket",
         "broken heart",
-        "butterflies in stomach"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Lower Body Ailments",
-      "count": 4,
-      "items": ["charlie horse", "anklebone connected to the knee bone", "water on the knee", "wrenched ankle"]
-    },
-    {
-      "name": "Torso and Internal Ailments",
-      "count": 5,
-      "items": ["broken heart", "spare ribs", "butterflies in stomach", "bread basket", "wish bone"]
-    },
-    {
-      "name": "Upper Body and Extremities",
-      "count": 3,
-      "items": ["adam's apple", "writer's cramp", "funny bone"]
-    },
-    {
-      "name": "Culinary and Food Puns",
-      "count": 4,
-      "items": ["adam's apple", "spare ribs", "bread basket", "wish bone"]
-    }
-  ]
+        "spare ribs",
+        "butterflies in stomach",
+        "bread basket",
+        "writer's cramp",
+        "funny bone",
+        "charlie horse",
+        "anklebone connected to the knee bone",
+        "water on the knee",
+        "wrenched ankle"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with W",
+            "items": [
+                "water on the knee",
+                "wish bone",
+                "wrenched ankle",
+                "writer's cramp"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "bread basket",
+                "broken heart",
+                "butterflies in stomach"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Lower Body Ailments",
+            "items": [
+                "charlie horse",
+                "anklebone connected to the knee bone",
+                "water on the knee",
+                "wrenched ankle"
+            ]
+        },
+        {
+            "name": "Torso and Internal Ailments",
+            "items": [
+                "broken heart",
+                "spare ribs",
+                "butterflies in stomach",
+                "bread basket",
+                "wish bone"
+            ]
+        },
+        {
+            "name": "Upper Body and Extremities",
+            "items": [
+                "adam's apple",
+                "writer's cramp",
+                "funny bone"
+            ]
+        },
+        {
+            "name": "Culinary and Food Puns",
+            "items": [
+                "adam's apple",
+                "spare ribs",
+                "bread basket",
+                "wish bone"
+            ]
+        }
+    ]
 }

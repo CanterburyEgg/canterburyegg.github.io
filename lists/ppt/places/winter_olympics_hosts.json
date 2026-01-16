@@ -1,0 +1,129 @@
+{
+    "category_name": "Winter Olympics Host Cities",
+    "master_list": [
+        "chamonix",
+        "st. moritz",
+        "lake placid",
+        "garmisch-partenkirchen",
+        "sapporo",
+        "cortina d'ampezzo",
+        "oslo",
+        "squaw valley",
+        "innsbruck",
+        "grenoble",
+        "sarajevo",
+        "calgary",
+        "albertville",
+        "lillehammer",
+        "nagano",
+        "salt lake city",
+        "turin",
+        "vancouver",
+        "sochi",
+        "pyeongchang",
+        "beijing",
+        "milan"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "calgary",
+                "chamonix",
+                "cortina d'ampezzo"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "salt lake city",
+                "sapporo",
+                "sarajevo",
+                "sochi",
+                "squaw valley",
+                "st. moritz"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "chamonix",
+                "grenoble",
+                "sarajevo",
+                "st. moritz"
+            ]
+        },
+        {
+            "name": "11 Letters Long",
+            "items": [
+                "albertville",
+                "lillehammer",
+                "pyeongchang",
+                "squaw valley"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "beijing",
+                "calgary",
+                "sapporo"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "milan",
+                "sochi",
+                "turin"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Repeat Winter Hosts",
+            "items": [
+                "innsbruck",
+                "lake placid",
+                "st. moritz"
+            ]
+        },
+        {
+            "name": "North American Winter Hosts",
+            "items": [
+                "calgary",
+                "lake placid",
+                "salt lake city",
+                "squaw valley",
+                "vancouver"
+            ]
+        },
+        {
+            "name": "Asian Winter Hosts",
+            "items": [
+                "beijing",
+                "nagano",
+                "pyeongchang",
+                "sapporo"
+            ]
+        },
+        {
+            "name": "European Winter Hosts",
+            "items": [
+                "albertville",
+                "chamonix",
+                "cortina d'ampezzo",
+                "garmisch-partenkirchen",
+                "grenoble",
+                "innsbruck",
+                "lillehammer",
+                "milan",
+                "oslo",
+                "sarajevo",
+                "sochi",
+                "st. moritz",
+                "turin"
+            ]
+        }
+    ]
+}

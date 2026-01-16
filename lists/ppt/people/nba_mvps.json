@@ -1,0 +1,268 @@
+{
+    "category_name": "NBA MVPs",
+    "master_list": [
+        "Bob Pettit",
+        "Bob Cousy",
+        "Bill Russell",
+        "Wilt Chamberlain",
+        "Oscar Robertson",
+        "Wes Unseld",
+        "Willis Reed",
+        "Lew Alcindor",
+        "Kareem Abdul-Jabbar",
+        "Dave Cowens",
+        "Bob McAdoo",
+        "Bill Walton",
+        "Moses Malone",
+        "Julius Erving",
+        "Larry Bird",
+        "Magic Johnson",
+        "Michael Jordan",
+        "Charles Barkley",
+        "Hakeem Olajuwon",
+        "David Robinson",
+        "Karl Malone",
+        "Shaquille O'Neal",
+        "Allen Iverson",
+        "Tim Duncan",
+        "Kevin Garnett",
+        "Steve Nash",
+        "Dirk Nowitzki",
+        "Kobe Bryant",
+        "LeBron James",
+        "Derrick Rose",
+        "Kevin Durant",
+        "Stephen Curry",
+        "Russell Westbrook",
+        "James Harden",
+        "Giannis Antetokounmpo",
+        "Nikola Jokic",
+        "Joel Embiid",
+        "Shai Gilgeous-Alexander"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Bob Cousy",
+                "Bob McAdoo",
+                "Bob Pettit",
+                "Bill Russell",
+                "Bill Walton"
+            ]
+        },
+        {
+            "name": "First Name Starts with W",
+            "items": [
+                "Wilt Chamberlain",
+                "Willis Reed",
+                "Wes Unseld"
+            ]
+        },
+        {
+            "name": "First Name Starts with L",
+            "items": [
+                "Lew Alcindor",
+                "Larry Bird",
+                "LeBron James"
+            ]
+        },
+        {
+            "name": "First Name Starts with K",
+            "items": [
+                "Kareem Abdul-Jabbar",
+                "Kobe Bryant",
+                "Kevin Durant",
+                "Kevin Garnett",
+                "Karl Malone"
+            ]
+        },
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "Dave Cowens",
+                "Dirk Nowitzki",
+                "David Robinson",
+                "Derrick Rose"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Magic Johnson",
+                "Michael Jordan",
+                "Moses Malone"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Joel Embiid",
+                "Julius Erving",
+                "James Harden"
+            ]
+        },
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Stephen Curry",
+                "Shai Gilgeous-Alexander",
+                "Steve Nash",
+                "Shaquille O'Neal"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Wilt Chamberlain",
+                "Bob Cousy",
+                "Dave Cowens",
+                "Stephen Curry"
+            ]
+        },
+        {
+            "name": "Last Name Starts with R",
+            "items": [
+                "Willis Reed",
+                "Oscar Robertson",
+                "David Robinson",
+                "Derrick Rose",
+                "Bill Russell"
+            ]
+        },
+        {
+            "name": "Last Name Starts with A",
+            "items": [
+                "Kareem Abdul-Jabbar",
+                "Lew Alcindor",
+                "Giannis Antetokounmpo"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Moses Malone",
+                "Karl Malone",
+                "Bob McAdoo"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Charles Barkley",
+                "Larry Bird",
+                "Kobe Bryant"
+            ]
+        },
+        {
+            "name": "Last Name Starts with J",
+            "items": [
+                "LeBron James",
+                "Magic Johnson",
+                "Nikola Jokic",
+                "Michael Jordan"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Early Era (1950s-1960s)",
+            "items": [
+                "Bill Russell",
+                "Bob Cousy",
+                "Bob Pettit",
+                "Oscar Robertson",
+                "Wes Unseld",
+                "Wilt Chamberlain"
+            ]
+        },
+        {
+            "name": "1970s Winners",
+            "items": [
+                "Bill Walton",
+                "Bob McAdoo",
+                "Dave Cowens",
+                "Kareem Abdul-Jabbar",
+                "Lew Alcindor",
+                "Moses Malone",
+                "Willis Reed"
+            ]
+        },
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Julius Erving",
+                "Kareem Abdul-Jabbar",
+                "Larry Bird",
+                "Magic Johnson",
+                "Michael Jordan",
+                "Moses Malone"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Charles Barkley",
+                "David Robinson",
+                "Hakeem Olajuwon",
+                "Karl Malone",
+                "Magic Johnson",
+                "Michael Jordan"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Allen Iverson",
+                "Dirk Nowitzki",
+                "Kevin Garnett",
+                "Kobe Bryant",
+                "LeBron James",
+                "Shaquille O'Neal",
+                "Steve Nash",
+                "Tim Duncan"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Derrick Rose",
+                "Giannis Antetokounmpo",
+                "James Harden",
+                "Kevin Durant",
+                "LeBron James",
+                "Russell Westbrook",
+                "Stephen Curry"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Giannis Antetokounmpo",
+                "Joel Embiid",
+                "Nikola Jokic",
+                "Shai Gilgeous-Alexander"
+            ]
+        },
+        {
+            "name": "Multiple Wins",
+            "items": [
+                "Bill Russell",
+                "Bob Pettit",
+                "Giannis Antetokounmpo",
+                "Kareem Abdul-Jabbar",
+                "Karl Malone",
+                "Larry Bird",
+                "LeBron James",
+                "Magic Johnson",
+                "Michael Jordan",
+                "Moses Malone",
+                "Nikola Jokic",
+                "Stephen Curry",
+                "Steve Nash",
+                "Tim Duncan",
+                "Wilt Chamberlain"
+            ]
+        }
+    ]
+}

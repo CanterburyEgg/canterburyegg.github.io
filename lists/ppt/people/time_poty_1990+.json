@@ -1,0 +1,148 @@
+{
+    "category_name": "Time People of the Year Since 1990",
+    "master_list": [
+        "George H.W. Bush",
+        "Ted Turner",
+        "Bill Clinton",
+        "John Paul II",
+        "Newt Gingrich",
+        "David Ho",
+        "Andrew Grove",
+        "Ken Starr",
+        "Jeff Bezos",
+        "George W. Bush",
+        "Rudy Giuliani",
+        "Vladimir Putin",
+        "Barack Obama",
+        "Ben Bernanke",
+        "Mark Zuckerberg",
+        "Pope Francis",
+        "Angela Merkel",
+        "Donald Trump",
+        "Greta Thunberg",
+        "Joe Biden",
+        "Kamala Harris",
+        "Elon Musk",
+        "Volodymyr Zelenskyy",
+        "Taylor Swift"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with G",
+            "items": [
+                "George H.W. Bush",
+                "George W. Bush",
+                "Greta Thunberg"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Ben Bernanke",
+                "Bill Clinton",
+                "Barack Obama"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jeff Bezos",
+                "Joe Biden",
+                "John Paul II"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Ben Bernanke",
+                "Jeff Bezos",
+                "Joe Biden",
+                "George H.W. Bush",
+                "George W. Bush"
+            ]
+        },
+        {
+            "name": "Last Name Starts with T",
+            "items": [
+                "Greta Thunberg",
+                "Donald Trump",
+                "Ted Turner"
+            ]
+        },
+        {
+            "name": "Last Name Starts with G",
+            "items": [
+                "Newt Gingrich",
+                "Rudy Giuliani",
+                "Andrew Grove"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Andrew Grove",
+                "Bill Clinton",
+                "David Ho",
+                "George H.W. Bush",
+                "Jeff Bezos",
+                "John Paul II",
+                "Ken Starr",
+                "Newt Gingrich",
+                "Ted Turner"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Barack Obama",
+                "Ben Bernanke",
+                "George W. Bush",
+                "Rudy Giuliani",
+                "Vladimir Putin"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Angela Merkel",
+                "Donald Trump",
+                "Greta Thunberg",
+                "Mark Zuckerberg",
+                "Pope Francis"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Donald Trump",
+                "Elon Musk",
+                "Joe Biden",
+                "Kamala Harris",
+                "Taylor Swift",
+                "Volodymyr Zelenskyy"
+            ]
+        },
+        {
+            "name": "U.S. Presidents (Winners)",
+            "items": [
+                "Barack Obama",
+                "Bill Clinton",
+                "Donald Trump",
+                "George H.W. Bush",
+                "George W. Bush",
+                "Joe Biden"
+            ]
+        },
+        {
+            "name": "Repeat Winners",
+            "items": [
+                "Barack Obama",
+                "Bill Clinton",
+                "Donald Trump",
+                "George W. Bush"
+            ]
+        }
+    ]
+}

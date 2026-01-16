@@ -1,0 +1,195 @@
+{
+    "category_name": "NATO Members",
+    "master_list": [
+        "albania",
+        "belgium",
+        "bulgaria",
+        "canada",
+        "croatia",
+        "czech republic",
+        "denmark",
+        "estonia",
+        "finland",
+        "france",
+        "germany",
+        "greece",
+        "hungary",
+        "iceland",
+        "italy",
+        "latvia",
+        "lithuania",
+        "luxembourg",
+        "montenegro",
+        "netherlands",
+        "north macedonia",
+        "norway",
+        "poland",
+        "portugal",
+        "romania",
+        "slovakia",
+        "slovenia",
+        "spain",
+        "sweden",
+        "turkey",
+        "united kingdom",
+        "united states"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with C",
+            "items": [
+                "canada",
+                "croatia",
+                "czech republic"
+            ]
+        },
+        {
+            "name": "Starts with L",
+            "items": [
+                "latvia",
+                "lithuania",
+                "luxembourg"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "netherlands",
+                "north macedonia",
+                "norway"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "slovakia",
+                "slovenia",
+                "spain",
+                "sweden"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "albania",
+                "belgium",
+                "croatia",
+                "denmark",
+                "estonia",
+                "finland",
+                "germany",
+                "hungary",
+                "iceland",
+                "romania"
+            ]
+        },
+        {
+            "name": "8 Letters Long",
+            "items": [
+                "bulgaria",
+                "portugal",
+                "slovakia",
+                "slovenia"
+            ]
+        },
+        {
+            "name": "6 Letters Long",
+            "items": [
+                "canada",
+                "france",
+                "greece",
+                "latvia",
+                "norway",
+                "poland",
+                "sweden",
+                "turkey"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "NATO Founding Members (1949)",
+            "items": [
+                "belgium",
+                "canada",
+                "denmark",
+                "france",
+                "iceland",
+                "italy",
+                "luxembourg",
+                "netherlands",
+                "norway",
+                "portugal",
+                "united kingdom",
+                "united states"
+            ]
+        },
+        {
+            "name": "Non-Founding NATO Members",
+            "items": [
+                "albania",
+                "bulgaria",
+                "croatia",
+                "czech republic",
+                "estonia",
+                "finland",
+                "germany",
+                "greece",
+                "hungary",
+                "latvia",
+                "lithuania",
+                "montenegro",
+                "north macedonia",
+                "poland",
+                "romania",
+                "slovakia",
+                "slovenia",
+                "spain",
+                "sweden",
+                "turkey"
+            ]
+        },
+        {
+            "name": "NATO Members in the European Union",
+            "items": [
+                "belgium",
+                "bulgaria",
+                "croatia",
+                "czech republic",
+                "denmark",
+                "estonia",
+                "finland",
+                "france",
+                "germany",
+                "greece",
+                "hungary",
+                "italy",
+                "latvia",
+                "lithuania",
+                "luxembourg",
+                "netherlands",
+                "poland",
+                "portugal",
+                "romania",
+                "slovakia",
+                "slovenia",
+                "spain",
+                "sweden"
+            ]
+        },
+        {
+            "name": "NATO Members Not in the European Union",
+            "items": [
+                "albania",
+                "canada",
+                "iceland",
+                "montenegro",
+                "north macedonia",
+                "norway",
+                "turkey",
+                "united kingdom",
+                "united states"
+            ]
+        }
+    ]
+}

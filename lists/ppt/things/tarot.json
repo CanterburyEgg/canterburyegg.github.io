@@ -1,99 +1,110 @@
 {
-  "category_name": "Tarot",
-  "master_list": [
-    "fool",
-    "magician",
-    "high priestess",
-    "empress",
-    "emperor",
-    "hierophant",
-    "lovers",
-    "chariot",
-    "strength",
-    "hermit",
-    "wheel of fortune",
-    "justice",
-    "hanged man",
-    "death",
-    "temperance",
-    "devil",
-    "tower",
-    "star",
-    "moon",
-    "sun",
-    "judgement",
-    "world"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with H",
-      "count": 4,
-      "items": [
-        "hanged man",
-        "hermit",
-        "hierophant",
-        "high priestess"
-      ]
-    },
-    {
-      "name": "Starts with S",
-      "count": 3,
-      "items": [
-        "star",
-        "strength",
-        "sun"
-      ]
-    },
-    {
-      "name": "4 Letters Long",
-      "count": 3,
-      "items": [
+    "category_name": "Major Arcana Tarot Cards",
+    "master_list": [
         "fool",
-        "moon",
-        "star"
-      ]
-    },
-    {
-      "name": "7 Letters Long",
-      "count": 4,
-      "items": [
-        "chariot",
-        "emperor",
+        "magician",
+        "high priestess",
         "empress",
-        "justice"
-      ]
-    },
-    {
-      "name": "5 Letters Long",
-      "count": 4,
-      "items": [
+        "emperor",
+        "hierophant",
+        "lovers",
+        "chariot",
+        "strength",
+        "hermit",
+        "wheel of fortune",
+        "justice",
+        "hanged man",
         "death",
+        "temperance",
         "devil",
         "tower",
+        "star",
+        "moon",
+        "sun",
+        "judgement",
         "world"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Archetypal Pairs",
-      "count": 4,
-      "items": ["high priestess", "empress", "emperor", "hierophant"]
-    },
-    {
-      "name": "The Cardinal Virtues",
-      "count": 4,
-      "items": ["strength", "justice", "temperance", "judgement"]
-    },
-    {
-      "name": "Celestial Entities",
-      "count": 4,
-      "items": ["star", "moon", "sun", "world"]
-    },
-    {
-      "name": "External Forces of Change",
-      "count": 4,
-      "items": ["wheel of fortune", "death", "devil", "tower"]
-    }
-  ]
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with H",
+            "items": [
+                "hanged man",
+                "hermit",
+                "hierophant",
+                "high priestess"
+            ]
+        },
+        {
+            "name": "Starts with S",
+            "items": [
+                "star",
+                "strength",
+                "sun"
+            ]
+        },
+        {
+            "name": "4 Letters Long",
+            "items": [
+                "fool",
+                "moon",
+                "star"
+            ]
+        },
+        {
+            "name": "7 Letters Long",
+            "items": [
+                "chariot",
+                "emperor",
+                "empress",
+                "justice"
+            ]
+        },
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "death",
+                "devil",
+                "tower",
+                "world"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Archetypal Pairs",
+            "items": [
+                "high priestess",
+                "empress",
+                "emperor",
+                "hierophant"
+            ]
+        },
+        {
+            "name": "The Cardinal Virtues",
+            "items": [
+                "strength",
+                "justice",
+                "temperance",
+                "judgement"
+            ]
+        },
+        {
+            "name": "Celestial Entities",
+            "items": [
+                "star",
+                "moon",
+                "sun",
+                "world"
+            ]
+        },
+        {
+            "name": "External Forces of Change",
+            "items": [
+                "wheel of fortune",
+                "death",
+                "devil",
+                "tower"
+            ]
+        }
+    ]
 }

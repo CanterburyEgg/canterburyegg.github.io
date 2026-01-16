@@ -1,0 +1,99 @@
+{
+    "category_name": "UK Prime Ministers Since 1950",
+    "master_list": [
+        "Clement Attlee",
+        "Winston Churchill",
+        "Anthony Eden",
+        "Harold Macmillan",
+        "Alec Douglas-Home",
+        "Harold Wilson",
+        "Edward Heath",
+        "James Callaghan",
+        "Margaret Thatcher",
+        "John Major",
+        "Tony Blair",
+        "Gordon Brown",
+        "David Cameron",
+        "Theresa May",
+        "Boris Johnson",
+        "Liz Truss",
+        "Rishi Sunak",
+        "Keir Starmer"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "James Callaghan",
+                "David Cameron",
+                "Winston Churchill"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Harold Macmillan",
+                "John Major",
+                "Theresa May"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Labour Prime Ministers",
+            "items": [
+                "Clement Attlee",
+                "Gordon Brown",
+                "Harold Wilson",
+                "James Callaghan",
+                "Keir Starmer",
+                "Tony Blair"
+            ]
+        },
+        {
+            "name": "Conservative Prime Ministers",
+            "items": [
+                "Alec Douglas-Home",
+                "Anthony Eden",
+                "Boris Johnson",
+                "David Cameron",
+                "Edward Heath",
+                "Harold Macmillan",
+                "John Major",
+                "Liz Truss",
+                "Margaret Thatcher",
+                "Rishi Sunak",
+                "Theresa May",
+                "Winston Churchill"
+            ]
+        },
+        {
+            "name": "Female Prime Ministers",
+            "items": [
+                "Liz Truss",
+                "Margaret Thatcher",
+                "Theresa May"
+            ]
+        },
+        {
+            "name": "Served Under King Charles III",
+            "items": [
+                "Keir Starmer",
+                "Liz Truss",
+                "Rishi Sunak"
+            ]
+        },
+        {
+            "name": "21st Century First-Timers",
+            "items": [
+                "Boris Johnson",
+                "David Cameron",
+                "Gordon Brown",
+                "Keir Starmer",
+                "Liz Truss",
+                "Rishi Sunak",
+                "Theresa May"
+            ]
+        }
+    ]
+}

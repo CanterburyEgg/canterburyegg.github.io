@@ -1,0 +1,146 @@
+{
+    "category_name": "SNL Five-Timers",
+    "master_list": [
+        "Buck Henry",
+        "Steve Martin",
+        "Elliott Gould",
+        "Paul Simon",
+        "Chevy Chase",
+        "Candice Bergen",
+        "Tom Hanks",
+        "Danny DeVito",
+        "John Goodman",
+        "Alec Baldwin",
+        "Bill Murray",
+        "Christopher Walken",
+        "Drew Barrymore",
+        "Justin Timberlake",
+        "Ben Affleck",
+        "Tina Fey",
+        "Scarlett Johansson",
+        "Melissa McCarthy",
+        "Dwayne Johnson",
+        "Jonah Hill",
+        "Will Ferrell",
+        "Paul Rudd",
+        "John Mulaney",
+        "Woody Harrelson",
+        "Emma Stone",
+        "Kristen Wiig",
+        "Martin Short"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Ben Affleck",
+                "Buck Henry",
+                "Bill Murray"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Candice Bergen",
+                "Chevy Chase",
+                "Christopher Walken"
+            ]
+        },
+        {
+            "name": "First Name Starts with D",
+            "items": [
+                "Drew Barrymore",
+                "Danny DeVito",
+                "Dwayne Johnson"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "John Goodman",
+                "Jonah Hill",
+                "John Mulaney",
+                "Justin Timberlake"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Tom Hanks",
+                "Woody Harrelson",
+                "Buck Henry",
+                "Jonah Hill"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Steve Martin",
+                "Melissa McCarthy",
+                "John Mulaney",
+                "Bill Murray"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Martin Short",
+                "Paul Simon",
+                "Emma Stone"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Alec Baldwin",
+                "Drew Barrymore",
+                "Candice Bergen"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Original Club (1990 Sketch)",
+            "items": [
+                "Buck Henry",
+                "Steve Martin",
+                "Elliott Gould",
+                "Chevy Chase",
+                "Candice Bergen",
+                "Tom Hanks"
+            ]
+        },
+        {
+            "name": "Former Cast Members",
+            "items": [
+                "Chevy Chase",
+                "Bill Murray",
+                "Tina Fey",
+                "Will Ferrell",
+                "Kristen Wiig",
+                "Martin Short"
+            ]
+        },
+        {
+            "name": "The Double-Digit Hosts",
+            "items": [
+                "Alec Baldwin",
+                "Steve Martin",
+                "John Goodman",
+                "Buck Henry",
+                "Tom Hanks"
+            ]
+        },
+        {
+            "name": "2020s Inductees",
+            "items": [
+                "Paul Rudd",
+                "John Mulaney",
+                "Woody Harrelson",
+                "Emma Stone",
+                "Kristen Wiig",
+                "Martin Short"
+            ]
+        }
+    ]
+}

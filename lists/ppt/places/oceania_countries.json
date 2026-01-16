@@ -1,0 +1,88 @@
+{
+    "category_name": "Oceania Countries",
+    "master_list": [
+        "australia",
+        "papua new guinea",
+        "new zealand",
+        "fiji",
+        "solomon islands",
+        "vanuatu",
+        "samoa",
+        "kiribati",
+        "micronesia",
+        "tonga",
+        "marshall islands",
+        "palau",
+        "nauru",
+        "tuvalu"
+    ],
+    "auto_subsets": [
+        {
+            "name": "5 Letters Long",
+            "items": [
+                "nauru",
+                "palau",
+                "samoa",
+                "tonga"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "The Melanesian Group",
+            "items": [
+                "fiji",
+                "papua new guinea",
+                "solomon islands",
+                "vanuatu"
+            ]
+        },
+        {
+            "name": "The Micronesian Group",
+            "items": [
+                "kiribati",
+                "marshall islands",
+                "micronesia",
+                "nauru",
+                "palau"
+            ]
+        },
+        {
+            "name": "The Polynesian Group",
+            "items": [
+                "new zealand",
+                "samoa",
+                "tonga",
+                "tuvalu"
+            ]
+        },
+        {
+            "name": "Commonwealth Realms in Oceania",
+            "items": [
+                "australia",
+                "new zealand",
+                "papua new guinea",
+                "solomon islands",
+                "tuvalu"
+            ]
+        },
+        {
+            "name": "Nations Ending in A",
+            "items": [
+                "australia",
+                "micronesia",
+                "samoa",
+                "tonga",
+                "papua new guinea"
+            ]
+        },
+        {
+            "name": "Nations Ending in U",
+            "items": [
+                "nauru",
+                "tuvalu",
+                "vanuatu"
+            ]
+        }
+    ]
+}

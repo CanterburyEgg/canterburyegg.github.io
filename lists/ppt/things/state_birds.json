@@ -1,99 +1,107 @@
 {
-  "category_name": "State Birds",
-  "master_list": [
-    "willow ptarmigan",
-    "cactus wren",
-    "northern mockingbird",
-    "california quail",
-    "lark bunting",
-    "american robin",
-    "blue hen chicken",
-    "wood thrush",
-    "brown thrasher",
-    "nene",
-    "mountain bluebird",
-    "northern cardinal",
-    "eastern goldfinch",
-    "western meadowlark",
-    "eastern brown pelican",
-    "chickadee",
-    "baltimore oriole",
-    "black-capped chickadee",
-    "common loon",
-    "eastern bluebird",
-    "purple finch",
-    "greater roadrunner",
-    "scissor-tailed flycatcher",
-    "ruffed grouse",
-    "rhode island red",
-    "carolina wren",
-    "ring-necked pheasant",
-    "california gull",
-    "hermit thrush",
-    "willow goldfinch"
-  ],
-  "auto_subsets": [
-    {
-      "name": "Starts with W",
-      "count": 4,
-      "items": [
-        "western meadowlark",
-        "willow goldfinch",
+    "category_name": "US State Birds",
+    "master_list": [
         "willow ptarmigan",
-        "wood thrush"
-      ]
-    },
-    {
-      "name": "Starts with C",
-      "count": 6,
-      "items": [
         "cactus wren",
-        "california gull",
+        "northern mockingbird",
         "california quail",
-        "carolina wren",
-        "chickadee",
-        "common loon"
-      ]
-    },
-    {
-      "name": "Starts with N",
-      "count": 3,
-      "items": [
+        "lark bunting",
+        "american robin",
+        "blue hen chicken",
+        "wood thrush",
+        "brown thrasher",
         "nene",
+        "mountain bluebird",
         "northern cardinal",
-        "northern mockingbird"
-      ]
-    },
-    {
-      "name": "Starts with B",
-      "count": 4,
-      "items": [
+        "eastern goldfinch",
+        "western meadowlark",
+        "eastern brown pelican",
+        "chickadee",
         "baltimore oriole",
         "black-capped chickadee",
-        "blue hen chicken",
-        "brown thrasher"
-      ]
-    },
-    {
-      "name": "Starts with R",
-      "count": 3,
-      "items": [
+        "common loon",
+        "eastern bluebird",
+        "purple finch",
+        "greater roadrunner",
+        "scissor-tailed flycatcher",
+        "ruffed grouse",
         "rhode island red",
+        "carolina wren",
         "ring-necked pheasant",
-        "ruffed grouse"
-      ]
-    }
-  ],
-  "manual_subsets": [
-    {
-      "name": "Game Birds and Domestic Fowl",
-      "count": 6,
-      "items": ["willow ptarmigan", "california quail", "blue hen chicken", "ruffed grouse", "rhode island red", "ring-necked pheasant"]
-    },
-    {
-      "name": "Directional Birds",
-      "count": 7,
-      "items": ["northern mockingbird", "northern cardinal", "eastern goldfinch", "western meadowlark", "eastern brown pelican", "eastern bluebird", "greater roadrunner"]
-    }
-  ]
+        "california gull",
+        "hermit thrush",
+        "willow goldfinch"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with W",
+            "items": [
+                "western meadowlark",
+                "willow goldfinch",
+                "willow ptarmigan",
+                "wood thrush"
+            ]
+        },
+        {
+            "name": "Starts with C",
+            "items": [
+                "cactus wren",
+                "california gull",
+                "california quail",
+                "carolina wren",
+                "chickadee",
+                "common loon"
+            ]
+        },
+        {
+            "name": "Starts with N",
+            "items": [
+                "nene",
+                "northern cardinal",
+                "northern mockingbird"
+            ]
+        },
+        {
+            "name": "Starts with B",
+            "items": [
+                "baltimore oriole",
+                "black-capped chickadee",
+                "blue hen chicken",
+                "brown thrasher"
+            ]
+        },
+        {
+            "name": "Starts with R",
+            "items": [
+                "rhode island red",
+                "ring-necked pheasant",
+                "ruffed grouse"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Game Birds and Domestic Fowl",
+            "items": [
+                "willow ptarmigan",
+                "california quail",
+                "blue hen chicken",
+                "ruffed grouse",
+                "rhode island red",
+                "ring-necked pheasant"
+            ]
+        },
+        {
+            "name": "Directional Birds",
+            "items": [
+                "northern mockingbird",
+                "northern cardinal",
+                "eastern goldfinch",
+                "western meadowlark",
+                "eastern brown pelican",
+                "eastern bluebird",
+                "greater roadrunner"
+            ]
+        }
+    ]
 }

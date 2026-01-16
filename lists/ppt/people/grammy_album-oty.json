@@ -1,0 +1,318 @@
+{
+    "category_name": "Album of the Year Grammy Winners",
+    "master_list": [
+        "Henry Mancini",
+        "Frank Sinatra",
+        "Bob Newhart",
+        "Judy Garland",
+        "Vaughn Meader",
+        "Barbra Streisand",
+        "Stan Getz",
+        "Joao Gilberto",
+        "The Beatles",
+        "Glen Campbell",
+        "Blood, Sweat & Tears",
+        "Simon & Garfunkel",
+        "Carole King",
+        "George Harrison",
+        "Stevie Wonder",
+        "Paul Simon",
+        "Fleetwood Mac",
+        "Billy Joel",
+        "Christopher Cross",
+        "John Lennon",
+        "Yoko Ono",
+        "Toto",
+        "Michael Jackson",
+        "Lionel Richie",
+        "Phil Collins",
+        "U2",
+        "George Michael",
+        "Bonnie Raitt",
+        "Quincy Jones",
+        "Natalie Cole",
+        "Eric Clapton",
+        "Whitney Houston",
+        "Tony Bennett",
+        "Alanis Morissette",
+        "Celine Dion",
+        "Bob Dylan",
+        "Lauryn Hill",
+        "Santana",
+        "Steely Dan",
+        "Norah Jones",
+        "OutKast",
+        "Ray Charles",
+        "Dixie Chicks",
+        "Herbie Hancock",
+        "Robert Plant",
+        "Alison Krauss",
+        "Taylor Swift",
+        "Arcade Fire",
+        "Adele",
+        "Mumford & Sons",
+        "Daft Punk",
+        "Beck",
+        "Bruno Mars",
+        "Kacey Musgraves",
+        "Billie Eilish",
+        "Jon Batiste",
+        "Harry Styles",
+        "Beyonce"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with H",
+            "items": [
+                "Herbie Hancock",
+                "Henry Mancini",
+                "Harry Styles"
+            ]
+        },
+        {
+            "name": "First Name Starts with B",
+            "items": [
+                "Beck",
+                "Beyonce",
+                "Bob Dylan",
+                "Billie Eilish",
+                "Billy Joel",
+                "Bruno Mars",
+                "Bob Newhart",
+                "Bonnie Raitt",
+                "Barbra Streisand",
+                "Blood, Sweat & Tears"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jon Batiste",
+                "Judy Garland",
+                "Joao Gilberto",
+                "John Lennon"
+            ]
+        },
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Steely Dan",
+                "Simon & Garfunkel",
+                "Stan Getz",
+                "Santana",
+                "Stevie Wonder"
+            ]
+        },
+        {
+            "name": "First Name Starts with T",
+            "items": [
+                "The Beatles",
+                "Tony Bennett",
+                "Taylor Swift",
+                "Toto"
+            ]
+        },
+        {
+            "name": "First Name Starts with G",
+            "items": [
+                "Glen Campbell",
+                "George Harrison",
+                "George Michael"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Christopher Cross",
+                "Celine Dion",
+                "Carole King"
+            ]
+        },
+        {
+            "name": "First Name Starts with A",
+            "items": [
+                "Adele",
+                "Arcade Fire",
+                "Alison Krauss",
+                "Alanis Morissette"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Fleetwood Mac",
+                "Henry Mancini",
+                "Bruno Mars",
+                "Vaughn Meader",
+                "George Michael",
+                "Alanis Morissette",
+                "Kacey Musgraves"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Santana",
+                "Paul Simon",
+                "Frank Sinatra",
+                "Barbra Streisand",
+                "Harry Styles",
+                "Taylor Swift"
+            ]
+        },
+        {
+            "name": "Last Name Starts with G",
+            "items": [
+                "Judy Garland",
+                "Stan Getz",
+                "Joao Gilberto"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Glen Campbell",
+                "Ray Charles",
+                "Eric Clapton",
+                "Natalie Cole",
+                "Phil Collins",
+                "Christopher Cross"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Herbie Hancock",
+                "George Harrison",
+                "Lauryn Hill",
+                "Whitney Houston"
+            ]
+        },
+        {
+            "name": "Last Name Starts with J",
+            "items": [
+                "Michael Jackson",
+                "Billy Joel",
+                "Quincy Jones",
+                "Norah Jones"
+            ]
+        },
+        {
+            "name": "Last Name Starts with D",
+            "items": [
+                "Steely Dan",
+                "Celine Dion",
+                "Bob Dylan"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1950s & 1960s Winners",
+            "items": [
+                "Barbra Streisand",
+                "Bob Newhart",
+                "Frank Sinatra",
+                "Glen Campbell",
+                "Henry Mancini",
+                "Joao Gilberto",
+                "Judy Garland",
+                "Stan Getz",
+                "The Beatles",
+                "Vaughn Meader"
+            ]
+        },
+        {
+            "name": "1970s Winners",
+            "items": [
+                "Billy Joel",
+                "Blood, Sweat & Tears",
+                "Carole King",
+                "Fleetwood Mac",
+                "George Harrison",
+                "Paul Simon",
+                "Simon & Garfunkel",
+                "Stevie Wonder"
+            ]
+        },
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Christopher Cross",
+                "George Michael",
+                "John Lennon",
+                "Lionel Richie",
+                "Michael Jackson",
+                "Phil Collins",
+                "Toto",
+                "U2",
+                "Yoko Ono"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Alanis Morissette",
+                "Bob Dylan",
+                "Bonnie Raitt",
+                "Celine Dion",
+                "Eric Clapton",
+                "Lauryn Hill",
+                "Natalie Cole",
+                "Quincy Jones",
+                "Tony Bennett",
+                "Whitney Houston"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Alison Krauss",
+                "Dixie Chicks",
+                "Herbie Hancock",
+                "Norah Jones",
+                "OutKast",
+                "Ray Charles",
+                "Robert Plant",
+                "Santana",
+                "Steely Dan",
+                "Taylor Swift"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Adele",
+                "Arcade Fire",
+                "Beck",
+                "Bruno Mars",
+                "Daft Punk",
+                "Kacey Musgraves",
+                "Mumford & Sons"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Beyonce",
+                "Billie Eilish",
+                "Harry Styles",
+                "Jon Batiste",
+                "Taylor Swift"
+            ]
+        },
+        {
+            "name": "Multiple Wins (Performer)",
+            "items": [
+                "Adele",
+                "Frank Sinatra",
+                "George Harrison",
+                "John Lennon",
+                "Paul Simon",
+                "Stevie Wonder",
+                "Taylor Swift",
+                "U2"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,258 @@
+{
+    "category_name": "Oscar Best Actress Winners since 1980",
+    "master_list": [
+        "Sissy Spacek",
+        "Katharine Hepburn",
+        "Meryl Streep",
+        "Shirley MacLaine",
+        "Sally Field",
+        "Geraldine Page",
+        "Marlee Matlin",
+        "Cher",
+        "Jodie Foster",
+        "Jessica Tandy",
+        "Kathy Bates",
+        "Emma Thompson",
+        "Holly Hunter",
+        "Jessica Lange",
+        "Susan Sarandon",
+        "Frances McDormand",
+        "Helen Hunt",
+        "Gwyneth Paltrow",
+        "Hilary Swank",
+        "Julia Roberts",
+        "Halle Berry",
+        "Nicole Kidman",
+        "Charlize Theron",
+        "Reese Witherspoon",
+        "Helen Mirren",
+        "Marion Cotillard",
+        "Kate Winslet",
+        "Sandra Bullock",
+        "Natalie Portman",
+        "Jennifer Lawrence",
+        "Cate Blanchett",
+        "Julianne Moore",
+        "Brie Larson",
+        "Emma Stone",
+        "Olivia Colman",
+        "Renee Zellweger",
+        "Jessica Chastain",
+        "Michelle Yeoh",
+        "Mikey Madison"
+    ],
+    "auto_subsets": [
+        {
+            "name": "First Name Starts with S",
+            "items": [
+                "Sandra Bullock",
+                "Sally Field",
+                "Shirley MacLaine",
+                "Susan Sarandon",
+                "Sissy Spacek"
+            ]
+        },
+        {
+            "name": "First Name Starts with K",
+            "items": [
+                "Kathy Bates",
+                "Katharine Hepburn",
+                "Kate Winslet"
+            ]
+        },
+        {
+            "name": "First Name Starts with M",
+            "items": [
+                "Marion Cotillard",
+                "Mikey Madison",
+                "Marlee Matlin",
+                "Meryl Streep",
+                "Michelle Yeoh"
+            ]
+        },
+        {
+            "name": "First Name Starts with C",
+            "items": [
+                "Cate Blanchett",
+                "Cher",
+                "Charlize Theron"
+            ]
+        },
+        {
+            "name": "First Name Starts with J",
+            "items": [
+                "Jessica Chastain",
+                "Jodie Foster",
+                "Jessica Lange",
+                "Jennifer Lawrence",
+                "Julianne Moore",
+                "Julia Roberts",
+                "Jessica Tandy"
+            ]
+        },
+        {
+            "name": "First Name Starts with H",
+            "items": [
+                "Halle Berry",
+                "Helen Hunt",
+                "Holly Hunter",
+                "Helen Mirren",
+                "Hilary Swank"
+            ]
+        },
+        {
+            "name": "Last Name Starts with S",
+            "items": [
+                "Susan Sarandon",
+                "Sissy Spacek",
+                "Emma Stone",
+                "Meryl Streep",
+                "Hilary Swank"
+            ]
+        },
+        {
+            "name": "Last Name Starts with H",
+            "items": [
+                "Katharine Hepburn",
+                "Helen Hunt",
+                "Holly Hunter"
+            ]
+        },
+        {
+            "name": "Last Name Starts with M",
+            "items": [
+                "Shirley MacLaine",
+                "Mikey Madison",
+                "Marlee Matlin",
+                "Frances McDormand",
+                "Helen Mirren",
+                "Julianne Moore"
+            ]
+        },
+        {
+            "name": "Last Name Starts with P",
+            "items": [
+                "Geraldine Page",
+                "Gwyneth Paltrow",
+                "Natalie Portman"
+            ]
+        },
+        {
+            "name": "Last Name Starts with C",
+            "items": [
+                "Jessica Chastain",
+                "Olivia Colman",
+                "Marion Cotillard"
+            ]
+        },
+        {
+            "name": "Last Name Starts with T",
+            "items": [
+                "Jessica Tandy",
+                "Charlize Theron",
+                "Emma Thompson"
+            ]
+        },
+        {
+            "name": "Last Name Starts with B",
+            "items": [
+                "Kathy Bates",
+                "Halle Berry",
+                "Cate Blanchett",
+                "Sandra Bullock"
+            ]
+        },
+        {
+            "name": "Last Name Starts with L",
+            "items": [
+                "Jessica Lange",
+                "Brie Larson",
+                "Jennifer Lawrence"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "1980s Winners",
+            "items": [
+                "Cher",
+                "Geraldine Page",
+                "Jodie Foster",
+                "Katharine Hepburn",
+                "Marlee Matlin",
+                "Meryl Streep",
+                "Sally Field",
+                "Shirley MacLaine",
+                "Sissy Spacek"
+            ]
+        },
+        {
+            "name": "1990s Winners",
+            "items": [
+                "Emma Thompson",
+                "Frances McDormand",
+                "Gwyneth Paltrow",
+                "Helen Hunt",
+                "Holly Hunter",
+                "Jessica Lange",
+                "Jessica Tandy",
+                "Jodie Foster",
+                "Kathy Bates",
+                "Susan Sarandon"
+            ]
+        },
+        {
+            "name": "2000s Winners",
+            "items": [
+                "Charlize Theron",
+                "Halle Berry",
+                "Helen Mirren",
+                "Hilary Swank",
+                "Julia Roberts",
+                "Kate Winslet",
+                "Marion Cotillard",
+                "Nicole Kidman",
+                "Reese Witherspoon"
+            ]
+        },
+        {
+            "name": "2010s Winners",
+            "items": [
+                "Brie Larson",
+                "Cate Blanchett",
+                "Emma Stone",
+                "Frances McDormand",
+                "Jennifer Lawrence",
+                "Julianne Moore",
+                "Meryl Streep",
+                "Natalie Portman",
+                "Olivia Colman",
+                "Sandra Bullock"
+            ]
+        },
+        {
+            "name": "2020s Winners",
+            "items": [
+                "Emma Stone",
+                "Frances McDormand",
+                "Jessica Chastain",
+                "Michelle Yeoh",
+                "Mikey Madison",
+                "Renee Zellweger"
+            ]
+        },
+        {
+            "name": "Multiple Wins (Total Career)",
+            "items": [
+                "Emma Stone",
+                "Frances McDormand",
+                "Hilary Swank",
+                "Jessica Lange",
+                "Jodie Foster",
+                "Katharine Hepburn",
+                "Meryl Streep",
+                "Sally Field"
+            ]
+        }
+    ]
+}
