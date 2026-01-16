@@ -1,0 +1,108 @@
+{
+    "category_name": "Monopoly Properties",
+    "master_list": [
+        "mediterranean avenue",
+        "baltic avenue",
+        "reading railroad",
+        "rhode island avenue",
+        "vermont avenue",
+        "connecticut avenue",
+        "st. charles place",
+        "electric company",
+        "states avenue",
+        "virginia avenue",
+        "pennsylvania railroad",
+        "st. james place",
+        "tennessee avenue",
+        "new york avenue",
+        "kentucky avenue",
+        "indiana avenue",
+        "illinois avenue",
+        "b&o railroad",
+        "atlantic avenue",
+        "ventnor avenue",
+        "water works",
+        "marvin gardens",
+        "pacific avenue",
+        "north carolina avenue",
+        "pennsylvania avenue",
+        "short line",
+        "park place",
+        "boardwalk"
+    ],
+    "auto_subsets": [
+        {
+            "name": "Starts with S",
+            "items": [
+                "short line",
+                "st. charles place",
+                "st. james place",
+                "states avenue"
+            ]
+        },
+        {
+            "name": "Starts with P",
+            "items": [
+                "pacific avenue",
+                "park place",
+                "pennsylvania avenue",
+                "pennsylvania railroad"
+            ]
+        }
+    ],
+    "manual_subsets": [
+        {
+            "name": "Transportation & Utilities",
+            "items": [
+                "reading railroad",
+                "pennsylvania railroad",
+                "b&o railroad",
+                "short line",
+                "electric company",
+                "water works"
+            ]
+        },
+        {
+            "name": "Named After U.S. States",
+            "items": [
+                "rhode island avenue",
+                "vermont avenue",
+                "connecticut avenue",
+                "states avenue",
+                "virginia avenue",
+                "tennessee avenue",
+                "kentucky avenue",
+                "indiana avenue",
+                "illinois avenue",
+                "north carolina avenue",
+                "pennsylvania avenue"
+            ]
+        },
+        {
+            "name": "The Starting Side (Brown, Light Blue, Pink)",
+            "items": [
+                "mediterranean avenue",
+                "baltic avenue",
+                "rhode island avenue",
+                "vermont avenue",
+                "connecticut avenue",
+                "st. charles place",
+                "states avenue",
+                "virginia avenue"
+            ]
+        },
+        {
+            "name": "The Expensive Side (Yellow, Green, Dark Blue)",
+            "items": [
+                "atlantic avenue",
+                "ventnor avenue",
+                "marvin gardens",
+                "pacific avenue",
+                "north carolina avenue",
+                "pennsylvania avenue",
+                "park place",
+                "boardwalk"
+            ]
+        }
+    ]
+}

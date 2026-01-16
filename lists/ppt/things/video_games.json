@@ -1,0 +1,84 @@
+{
+  "category_name": "Best-Selling Video Games",
+  "master_list": [
+    "Mario",
+    "Tetris",
+    "Call of Duty",
+    "Pokemon",
+    "Grand Theft Auto",
+    "Minecraft",
+    "FIFA",
+    "Assassin's Creed",
+    "Final Fantasy",
+    "Wii Sports",
+    "The Sims",
+    "Resident Evil",
+    "NBA 2K",
+    "Madden",
+    "Need for Speed",
+    "Sonic the Hedgehog",
+    "Legend of Zelda",
+    "Monster Hunter",
+    "Pro Evolution Soccer",
+    "Red Dead",
+    "Mortal Kombat",
+    "Tomb Raider",
+    "Gran Turismo",
+    "Bejeweled",
+    "Borderlands"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with M",
+      "items": [
+        "Madden",
+        "Mario",
+        "Minecraft",
+        "Monster Hunter",
+        "Mortal Kombat"
+      ]
+    },
+    {
+      "name": "6 Letters Long",
+      "items": [
+        "Madden",
+        "NBA 2K",
+        "Tetris"
+      ]
+    },
+    {
+      "name": "12 Letters Long",
+      "items": [
+        "Final Fantasy",
+        "Mortal Kombat",
+        "Resident Evil"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Platformers & Puzzles",
+      "items": ["Mario", "Tetris", "Minecraft", "The Sims", "Sonic the Hedgehog", "Mortal Kombat", "Bejeweled"]
+    },
+    {
+      "name": "Sports & Racing",
+      "items": ["FIFA", "NBA 2K", "Madden", "Need for Speed", "Pro Evolution Soccer", "Gran Turismo", "Wii Sports"]
+    },
+    {
+      "name": "Action & RPG",
+      "items": ["Pokemon", "Grand Theft Auto", "Assassin's Creed", "Final Fantasy", "Resident Evil", "Legend of Zelda", "Monster Hunter", "Red Dead", "Tomb Raider", "Borderlands"]
+    },
+    {
+      "name": "Published by Nintendo",
+      "items": ["Mario", "Pokemon", "Wii Sports", "Legend of Zelda"]
+    },
+    {
+      "name": "Published by Electronic Arts (EA)",
+      "items": ["FIFA", "The Sims", "Madden", "Need for Speed", "Bejeweled"]
+    },
+    {
+      "name": "Published by Take-Two",
+      "items": ["Grand Theft Auto", "Red Dead", "NBA 2K", "Borderlands"]
+    }
+  ]
+}
