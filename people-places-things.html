@@ -257,11 +257,11 @@
         activeTask = { data, wager, required };
         data.chosenWager = wager;
         foundAnswers = [];
-        timeLeft = (required > 5) ? 120 : 60;
+        timeLeft = (required > 5) ? 120 : 90;
 
         document.getElementById('play-stage').classList.remove('hidden');
         document.getElementById('setup-stage').classList.add('hidden');
-        document.getElementById('list-title-display').innerText = data.name + (wager === 3 && document.getElementById('all-in-toggle').checked ? " (ALL IN)" : "");
+        document.getElementById('list-title-display').innerText = data.name;
         document.getElementById('subset-reveal').innerText = (wager === 1) ? "Name any three" : `Name ${required} in: ${data.secretSub.name}`;
 
         const wrapper = document.getElementById('blanks-wrapper');
