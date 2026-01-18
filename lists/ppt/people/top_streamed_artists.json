@@ -1,0 +1,83 @@
+{
+  "category_name": "Spotify's 25 Most Streamed Artists",
+  "master_list": [
+    "Taylor Swift",
+    "Bad Bunny",
+    "Drake",
+    "The Weeknd",
+    "Ariana Grande",
+    "Ed Sheeran",
+    "Justin Bieber",
+    "Eminem",
+    "Billie Eilish",
+    "Kanye West",
+    "Post Malone",
+    "BTS",
+    "Coldplay",
+    "Rihanna",
+    "Travis Scott",
+    "Bruno Mars",
+    "Kendrick Lamar",
+    "Dua Lipa",
+    "Imagine Dragons",
+    "Juice WRLD",
+    "David Guetta",
+    "Lana Del Rey",
+    "XXXTENTACION",
+    "Lady Gaga",
+    "Maroon 5"
+  ],
+  "auto_subsets": [
+    {
+      "name": "Starts with B",
+      "items": [
+        "BTS",
+        "Bad Bunny",
+        "Billie Eilish",
+        "Bruno Mars"
+      ]
+    },
+    {
+      "name": "First Name Starts with D",
+      "items": [
+        "Drake",
+        "David Guetta",
+        "Dua Lipa"
+      ]
+    },
+    {
+      "name": "Last Name Starts with S",
+      "items": [
+        "Travis Scott",
+        "Ed Sheeran",
+        "Taylor Swift"
+      ]
+    },
+    {
+      "name": "Last Name Starts with G",
+      "items": [
+        "Lady Gaga",
+        "Ariana Grande",
+        "David Guetta"
+      ]
+    }
+  ],
+  "manual_subsets": [
+    {
+      "name": "Bands & Groups",
+      "items": ["BTS", "Coldplay", "Imagine Dragons", "Maroon 5"]
+    },
+    {
+      "name": "Hip Hop & Rap",
+      "items": ["Drake", "Eminem", "Kanye West", "Travis Scott", "Kendrick Lamar", "Juice WRLD", "XXXTENTACION"]
+    },
+    {
+      "name": "Solo Female Artists",
+      "items": ["Taylor Swift", "Ariana Grande", "Billie Eilish", "Rihanna", "Dua Lipa", "Lana Del Rey", "Lady Gaga"]
+    },
+    {
+      "name": "Artists from Outside the USA",
+      "items": ["The Weeknd", "Drake", "Justin Bieber", "Ed Sheeran", "Bad Bunny", "BTS", "Coldplay", "Dua Lipa", "David Guetta"]
+    }
+  ]
+}

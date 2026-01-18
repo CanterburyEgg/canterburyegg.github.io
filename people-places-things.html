@@ -44,6 +44,16 @@
         }
         #calendar-trigger:hover { transform: scale(1.1); }
         #calendar-trigger img { width: 28px; height: 28px; display: block; opacity: 0.8; }
+        #free-play-trigger { 
+            position: absolute;
+            top: 20px;
+            right: 60px; /* Positioned to the left of the calendar icon */
+            cursor: pointer; 
+            transition: transform 0.2s; 
+            z-index: 10;
+        }
+        #free-play-trigger:hover { transform: scale(1.1); }
+        #free-play-trigger img { width: 28px; height: 28px; display: block; opacity: 0.8; }
 
         h1 { margin-top: 0; font-size: 2.2rem; letter-spacing: 2px; color: #fff; text-transform: uppercase; margin-bottom: 5px; }
         .score-banner { font-size: 1.2rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px;}
@@ -89,6 +99,10 @@
 <body>
 
 <div id="game-container">
+    <div id="free-play-trigger" onclick="startFreePlay()" title="Random Chaos Mode">
+        <img src="img/free.png" alt="Free Play">
+    </div>
+
     <div id="calendar-trigger" onclick="openPicker()">
         <img src="img/calendar.png" alt="Select Game">
     </div>
@@ -142,7 +156,7 @@
     let currentGameNum = maxGameNum;
 
     const fileManifest = {
-        people: ["25_richest_americans.json", "avengers_endgame.json", "chagall_ceiling_composers.json", "disney_princesses.json", "egots.json", "emmy_lead_actor_comedy-1980+.json", "emmy_lead_actor_drama-1980+.json", "emmy_lead_actress_comedy-1980+.json", "emmy_lead_actress_drama-1980+.json", "england_royals.json", "friends_characters.json", "golden_shoes.json", "grammy_album-oty.json", "mlb_mvps_1980+.json", "moonwalkers.json", "most-beautiful.json", "nba_mvps.json", "nfl_mvps.json", "office_characters.json", "olympians.json", "oscar_best_actors-1980+.json", "oscar_best_actresses-1980+.json", "people_on_currency.json", "r&r_hof_1986-89.json", "rat_brat_pack.json", "sexiest-man-alive.json", "snl_five-timers.json", "time_poty_1990+.json", "uk_pms_1950+.json", "us_presidents.json"],
+        people: ["25_richest_americans.json", "avengers_endgame.json", "chagall_ceiling_composers.json", "disney_princesses.json", "egots.json", "emmy_lead_actor_comedy-1980+.json", "emmy_lead_actor_drama-1980+.json", "emmy_lead_actress_comedy-1980+.json", "emmy_lead_actress_drama-1980+.json", "top_streamed_artists.json", "friends_characters.json", "golden_shoes.json", "grammy_album-oty.json", "mlb_mvps_1980+.json", "moonwalkers.json", "most-beautiful.json", "nba_mvps.json", "nfl_mvps.json", "office_characters.json", "olympians.json", "oscar_best_actors-1980+.json", "oscar_best_actresses-1980+.json", "people_on_currency.json", "r&r_hof_1986-89.json", "rat_brat_pack.json", "sexiest-man-alive.json", "snl_five-timers.json", "time_poty_1990+.json", "uk_pms_1950+.json", "us_presidents.json"],
         places: ["monopoly_properties.json", "20_longest_rivers.json", "500_meter_buildings.json", "8000_meter_peaks.json", "afr_countries.json", "arabic_speakers.json", "asia_countries.json", "ca_provinces.json", "commonwealth_of_nations.json", "english_speakers.json", "eu_capitals.json", "eu_countries.json", "eu_members.json", "french_speakers.json", "g20_nations.json", "island_countries.json", "landlocked_countries.json", "mediterranean_countries.json", "na_big4_sports_cities.json", "na_countries.json", "nato_members.json", "oceania_countries.json", "opec_members.json", "sa_countries.json", "spanish_speakers.json", "summer_olympics_hosts.json", "us_capitals.json", "us_national_parks.json", "us_states.json", "winter_olympics_hosts.json"],
         things: ["anniversary_gifts.json", "best_pictures.json", "bible_books.json", "bones.json", "cabinet_departments.json", "constellations.json", "crayola_colors.json", "disney_films.json", "djia.json", "elements.json", "greek_alphabet.json", "hercules_labors.json", "hitchcock_films.json", "mlb_teams.json", "video_games.json", "foods.json", "nato_alphabet.json", "nba_teams.json", "nfl_teams.json", "nhl_teams.json", "operation.json", "orchestra_instruments.json", "pixar_films.json", "shakespeare_plays.json", "state_birds.json", "summer_olympics.json", "tarot.json", "winter_olympics.json", "world_wonders.json", "zodiac.json"]
     };
@@ -162,39 +176,64 @@
         };
     }
 
-    async function loadGame(num) {
-        score = 0;
+    async function startFreePlay() {
+        // Force reset the All-In toggle if it was checked
+        document.getElementById('all-in-toggle').checked = false;
+        await loadGame(null, true); 
+    }
+
+    async function loadGame(num, isFreePlay = false) {
+        score = 0; 
         allInSpent = false;
         document.getElementById('total-score').innerText = '0';
-        document.getElementById('main-title').innerText = `PEOPLE, PLACES, THINGS #${num}`;
-
-        const blockNum = Math.floor((num - 1) / 15);
-        const indexInBlock = (num - 1) % 15;
+        
+        if (isFreePlay) {
+            document.getElementById('main-title').innerText = `FREE PLAY MODE`;
+        } else {
+            currentGameNum = num;
+            document.getElementById('main-title').innerText = `PEOPLE, PLACES, THINGS #${num}`;
+        }
+        
+        const blockNum = isFreePlay ? 0 : Math.floor((num - 1) / 15);
+        const indexInBlock = isFreePlay ? 0 : (num - 1) % 15;
         dailyLists = { people: [], places: [], things: [] };
 
         for (let cat of ['people', 'places', 'things']) {
-            const blockSeed = getDailyRandom("block-" + cat + "-" + blockNum);
-            let shuffled = [...fileManifest[cat]].sort(() => blockSeed() - 0.5);
-
-            // This picks indices 0-1, 2-3... up to 28-29 across the 15 days
-            let files = [shuffled[indexInBlock * 2], shuffled[(indexInBlock * 2) + 1]];
+            let files = [];
+            
+            if (isFreePlay) {
+                const manifest = fileManifest[cat];
+                const f1 = manifest[Math.floor(Math.random() * manifest.length)];
+                let f2 = manifest[Math.floor(Math.random() * manifest.length)];
+                // Ensure we don't get the same list twice in one board
+                while (f1 === f2) f2 = manifest[Math.floor(Math.random() * manifest.length)]; 
+                files = [f1, f2];
+            } else {
+                const blockSeed = getDailyRandom("block-" + cat + "-" + blockNum);
+                let shuffled = [...fileManifest[cat]].sort(() => blockSeed() - 0.5);
+                files = [shuffled[indexInBlock * 2], shuffled[(indexInBlock * 2) + 1]];
+            }
 
             for (let f of files) {
                 const res = await fetch(`lists/ppt/${cat}/${f}`);
                 const d = await res.json();
-
-                const dSeed = getDailyRandom(f + num);
+                
                 const subs = [...(d.auto_subsets || []), ...(d.manual_subsets || [])];
+                let chosenSub;
+                
+                if (isFreePlay) {
+                    chosenSub = subs[Math.floor(Math.random() * subs.length)];
+                } else {
+                    const dSeed = getDailyRandom(f + num); 
+                    chosenSub = subs[Math.floor(dSeed() * subs.length)];
+                }
 
-                // Now guaranteed to be a positive index
-                let chosenSub = subs[Math.floor(dSeed() * subs.length)];
-
-                dailyLists[cat].push({
+                dailyLists[cat].push({ 
                     name: d.category_name,
                     master: d.master_list,
-                    secretSub: chosenSub,
-                    done: false,
-                    isGold: false
+                    secretSub: chosenSub, 
+                    done: false, 
+                    isGold: false 
                 });
             }
         }
