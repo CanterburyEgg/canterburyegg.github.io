@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghostgram</title>
+    <style>
+        :root {
+            --bg: #fcfcfc;
+            --text: #2d3436;
+            --mint: #00cec9;
+            --ghost: #c0bae6;
+            --grey: #b2bec3;
+            --slate: #636e72;
+            --missed: #fab1a0;
+            --card: #ffffff;
+            --border: #edf2f4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            max-width: 600px;
+            padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .calendar-btn { background: none; border: none; cursor: pointer; padding: 0; width: 42px; height: 42px; }
+
+        /* Bigger, All-Caps Title */
+        #game-title {
+            font-weight: 900;
+            letter-spacing: 3px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        #score-display { font-size: 1.4rem; font-weight: 900; }
+        .score-val { color: var(--mint); }
+        .score-max { color: var(--slate); }
+
+        /* Actual Text Box */
+        #guess-input {
+            width: 90%;
+            max-width: 400px;
+            height: 65px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            font-size: 2rem;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            outline: none;
+            margin-top: 1rem;
+            caret-color: var(--mint);
+        }
+
+        #guess-input:focus { border-color: var(--grey); }
+
+        .btn-row { display: flex; gap: 10px; margin: 15px 0 25px 0; }
+
+        .ctrl-btn {
+            padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border);
+            background: white; font-weight: 700; cursor: pointer;
+        }
+        .ctrl-btn.submit { background: var(--text); color: white; border: none; }
+        .ctrl-btn.give-up { border: 1px solid var(--missed); color: var(--missed); font-size: 0.7rem; }
+
+        .tray-area { position: relative; display: flex; flex-direction: column; align-items: center; }
+        .tray { display: flex; gap: 8px; margin-bottom: 10px; }
+        
+        .tile {
+            width: 52px; height: 62px; background: var(--card); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem; font-weight: 800; box-shadow: 0 3px 0 var(--border);
+            cursor: pointer; user-select: none;
+        }
+        .tile.center { background: var(--mint); color: white; box-shadow: 0 3px 0 #00b5b1; }
+        .tile.ghost-btn { border: 2px dashed var(--grey); color: var(--grey); background: transparent; box-shadow: none; }
+
+        #ghost-popover {
+            display: none; position: absolute; top: 75px; background: white;
+            border: 1px solid var(--border); border-radius: 12px; padding: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); z-index: 100; width: 280px;
+        }
+
+        .kb-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .key {
+            width: 32px; height: 32px; border-radius: 4px; border: 1px solid #f1f2f6;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; font-weight: 700; cursor: pointer; background: #f8f9fa;
+        }
+        .key.discovered { background: var(--ghost); color: white; border: none; }
+
+        .solution-columns {
+            display: flex; justify-content: center; gap: 15px;
+            width: 100%; max-width: 900px; overflow-x: auto;
+            padding: 20px 0 40px 0; margin: 0 auto;
+        }
+        .column { display: flex; flex-direction: column; gap: 5px; min-width: 100px; }
+        .column-header {
+            font-size: 0.7rem; font-weight: 900; color: var(--grey);
+            text-align: center; border-bottom: 2px solid var(--border);
+            padding-bottom: 4px; margin-bottom: 4px;
+        }
+
+        .word-tag {
+            background: white; border: 1px solid var(--border);
+            padding: 4px 6px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; text-align: center;
+        }
+        .tag-missed { color: var(--missed); border-color: var(--missed); }
+
+        #archive-modal {
+            display: none; position: fixed; inset: 0; background: white;
+            z-index: 2000; flex-direction: column; align-items: center; padding: 40px 20px;
+        }
+        .archive-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 15px; width: 100%; max-width: 600px; margin-top: 30px;
+        }
+        .day-box {
+            aspect-ratio: 1; border: 2px solid var(--border); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-weight: 800; cursor: pointer;
+        }
+
+        #toast {
+            position: fixed; top: 20px; padding: 10px 30px; border-radius: 30px;
+            background: var(--text); color: white; font-weight: 700;
+            opacity: 0; transition: 0.3s; pointer-events: none; z-index: 3000;
+        }
+    </style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<header>
+    <button class="calendar-btn" onclick="toggleArchive()"><img src="img/calendar.png" width="100%"></button>
+    <div id="game-title">GHOSTGRAM</div>
+    <div id="score-display">
+        <span class="score-val" id="score-num">0</span>
+        <span class="score-max" id="score-max-val"> / 0</span>
+    </div>
+</header>
+
+<input type="text" id="guess-input" autocomplete="off" spellcheck="false" maxlength="15">
+
+<div class="btn-row">
+    <button class="ctrl-btn" onclick="backspace()">Back</button>
+    <button class="ctrl-btn submit" onclick="submit()">Submit</button>
+    <button class="ctrl-btn give-up" onclick="giveUp()">Give Up</button>
+</div>
+
+<div class="tray-area">
+    <div class="tray" id="tray"></div>
+    <div id="ghost-popover">
+        <div style="font-size: 0.6rem; font-weight: 800; color: var(--grey); margin-bottom: 8px; text-align: center;">GHOST SELECTOR</div>
+        <div class="kb-grid" id="kb-grid"></div>
+    </div>
+</div>
+
+<div class="solution-columns" id="columns-container"></div>
+
+<div id="archive-modal">
+    <div style="width: 100%; max-width: 600px; display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-weight: 900; font-size: 2.2rem; text-transform: uppercase;">Archive</h2>
+        <button onclick="toggleArchive()" style="background:none; border:none; font-size: 3rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="archive-grid" id="archive-grid"></div>
+</div>
+
+<script>
+    let rawPuzzles = [];
+    let shuffledPuzzles = [];
+    let current = null;
+    let found = new Set();
+    let score = 0;
+    let maxScore = 0;
+    let discoveredGhosts = new Set();
+    let gameEnded = false;
+    const START_DATE = new Date('2026-01-01T00:00:00');
+
+    const inputField = document.getElementById('guess-input');
+
+    function seededRandom(seed) {
+        let x = Math.sin(seed) * 10000;
+        return x - Math.floor(x);
+    }
+
+    function shufflePuzzles(array, seed) {
+        let m = array.length, t, i;
+        while (m) {
+            i = Math.floor(seededRandom(seed++) * m--);
+            t = array[m]; array[m] = array[i]; array[i] = t;
+        }
+        return array;
+    }
+
+    async function init() {
+        const r = await fetch('jsons/ghostgram_puzzles.json');
+        rawPuzzles = await r.json();
+        shuffledPuzzles = shufflePuzzles([...rawPuzzles], 20260101);
+        const todayIdx = Math.floor((new Date() - START_DATE) / 86400000);
+        load(todayIdx);
+    }
+
+    function load(idx) {
+        current = shuffledPuzzles[idx % shuffledPuzzles.length];
+        found.clear(); score = 0; discoveredGhosts.clear(); inputField.value = ""; gameEnded = false;
+        document.getElementById('game-title').innerText = `GHOSTGRAM #${idx + 1}`;
+        calculateMaxScore();
+        renderTray();
+        refresh();
+        inputField.focus();
+    }
+
+    function calculateMaxScore() {
+        const sol = current.solutions;
+        const all = [...sol.common, ...sol.words_a, ...sol.words_b];
+        maxScore = 0;
+        all.forEach(w => maxScore += (w.length - 4 + (new Set(w).size === 7 ? 7 : 0)));
+        document.getElementById('score-max-val').innerText = ` / ${maxScore}`;
+    }
+
+    function submit() {
+        if (gameEnded) return;
+        const w = inputField.value.toUpperCase().trim();
+        const sol = current.solutions;
+        const isA = sol.words_a.includes(w), isB = sol.words_b.includes(w), isC = sol.common.includes(w);
+
+        if (isA || isB || isC) {
+            if (found.has(w)) notify("Already found");
+            else {
+                found.add(w);
+                if (isA) discoveredGhosts.add(current.wildcards[0]);
+                if (isB) discoveredGhosts.add(current.wildcards[1]);
+                score += (w.length - 4 + (new Set(w).size === 7 ? 7 : 0));
+                inputField.value = "";
+                refresh();
+            }
+        } else {
+            notify("Not in list");
+            inputField.value = "";
+        }
+        inputField.focus();
+    }
+
+    function giveUp() {
+        if (gameEnded) return;
+        gameEnded = true;
+        discoveredGhosts.add(current.wildcards[0]);
+        discoveredGhosts.add(current.wildcards[1]);
+        refresh();
+    }
+
+    function refresh() {
+        document.getElementById('score-num').innerText = score;
+        const container = document.getElementById('columns-container');
+        container.innerHTML = '';
+
+        const allPossible = [...current.solutions.common, ...current.solutions.words_a, ...current.solutions.words_b];
+        const lengths = [...new Set(allPossible.map(w => w.length))].sort((a,b) => a-b);
+
+        lengths.forEach(len => {
+            const col = document.createElement('div');
+            col.className = 'column';
+            const totalInLen = allPossible.filter(w => w.length === len).length;
+            const foundInLen = Array.from(found).filter(w => w.length === len).sort();
+            
+            const header = document.createElement('div');
+            header.className = 'column-header';
+            header.innerText = `${len}L (${foundInLen.length}/${totalInLen})`;
+            col.appendChild(header);
+
+            const displayWords = gameEnded 
+                ? allPossible.filter(w => w.length === len).sort()
+                : foundInLen;
+
+            displayWords.forEach(w => {
+                const tag = document.createElement('div');
+                const isMissed = !found.has(w);
+                tag.className = `word-tag ${new Set(w).size === 7 ? 'tag-pangram' : ''} ${isMissed ? 'tag-missed' : ''}`;
+                
+                [...w].forEach(char => {
+                    const s = document.createElement('span');
+                    if (char === current.center) s.style.color = isMissed ? 'inherit' : 'var(--mint)';
+                    else if (discoveredGhosts.has(char)) s.style.color = isMissed ? 'inherit' : 'var(--ghost)';
+                    s.innerText = char;
+                    tag.appendChild(s);
+                });
+                col.appendChild(tag);
+            });
+            container.appendChild(col);
+        });
+    }
+
+    function renderTray() {
+        const tray = document.getElementById('tray'); tray.innerHTML = '';
+        addTile(current.center, 'center');
+        current.core.split('').filter(l => l !== current.center).forEach(l => addTile(l, ''));
+        const g = document.createElement('div');
+        g.className = 'tile ghost-btn'; g.innerText = '?';
+        g.onclick = toggleGhostPopover; tray.appendChild(g);
+    }
+
+    function addTile(l, cls) {
+        const d = document.createElement('div'); d.className = `tile ${cls}`;
+        d.innerText = l; d.onclick = () => { if(!gameEnded) { inputField.value += l; inputField.focus(); } };
+        document.getElementById('tray').appendChild(d);
+    }
+
+    function backspace() { inputField.value = inputField.value.slice(0, -1); inputField.focus(); }
+
+    function toggleGhostPopover() {
+        const pop = document.getElementById('ghost-popover');
+        if (pop.style.display === 'block') pop.style.display = 'none';
+        else { renderKeyboard(); pop.style.display = 'block'; }
+    }
+
+    function renderKeyboard() {
+        const grid = document.getElementById('kb-grid'); grid.innerHTML = '';
+        const discovered = Array.from(discoveredGhosts).sort();
+        if (discoveredGhosts.size === 2) {
+            discovered.forEach(l => createKey(l, true));
+        } else {
+            discovered.forEach(l => createKey(l, true));
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').filter(l => !discovered.includes(l)).forEach(l => createKey(l, false));
+        }
+    }
+
+    function createKey(l, isDisc) {
+        const k = document.createElement('div'); k.className = `key ${isDisc ? 'discovered' : ''}`;
+        k.innerText = l; k.onclick = () => { if(!gameEnded) { inputField.value += l; popoverHide(); inputField.focus(); } };
+        document.getElementById('kb-grid').appendChild(k);
+    }
+
+    function popoverHide() { document.getElementById('ghost-popover').style.display = 'none'; }
+
+    function toggleArchive() {
+        const modal = document.getElementById('archive-modal');
+        if (modal.style.display === 'flex') modal.style.display = 'none';
+        else {
+            const grid = document.getElementById('archive-grid'); grid.innerHTML = '';
+            const todayLimit = Math.floor((new Date() - START_DATE) / 86400000);
+            for(let i=0; i<=todayLimit; i++) {
+                const box = document.createElement('div'); box.className = 'day-box'; box.innerText = i + 1;
+                box.onclick = () => { load(i); toggleArchive(); }; grid.appendChild(box);
+            }
+            modal.style.display = 'flex';
+        }
+    }
+
+    function notify(m) {
+        const t = document.getElementById('toast'); t.innerText = m; t.style.opacity = 1;
+        setTimeout(() => t.style.opacity = 0, 1500);
+    }
+
+    inputField.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+
+    init();
+</script>
+</body>
+</html>
