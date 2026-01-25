@@ -26,7 +26,7 @@ manual = {
         "Jack Ryan": ["John Krasinski", "Chris Pine", "Ben Affleck", "Harrison Ford", "Alec Baldwin"]
     },
     "awards_and_honors": {
-        "People's Sexiest Man Alive": ["Adam Levine", "Ben Affleck", "Blake Shelton", "Brad Pitt", "Bradley Cooper", "Channing Tatum", "Chris Evans", "Chris Hemsworth", "David Beckham", "Denzel Washington", "Dwayne Johnson", "George Clooney", "Harrison Ford", "Harry Hamlin", "Heath Ledger", "Hugh Jackman", "Idris Elba", "John F. Kennedy Jr.", "John Krasinski", "John Legend", "Johnny Depp", "Jonathan Bailey", "Jude Law", "Keanu Reeves", "Mark Harmon", "Matt Damon", "Matthew McConaughey", "Mel Gibson", "Michael B. Jordan", "Nick Nolte", "Patrick Dempsey", "Patrick Swayze", "Paul Rudd", "Pierce Brosnan", "Richard Gere", "Ryan Reynolds", "Sean Connery", "Tom Cruise"],
+        "People's Sexiest Man Alive": ["Adam Levine", "Ben Affleck", "Blake Shelton", "Brad Pitt", "Bradley Cooper", "Channing Tatum", "Chris Evans", "Chris Hemsworth", "David Beckham", "Denzel Washington", "Dwayne Johnson", "George Clooney", "Harrison Ford", "Harry Hamlin", "Heath Ledger", "Hugh Jackman", "Idris Elba", "John F. Kennedy Jr.", "John Krasinski", "John Legend", "Johnny Depp", "Jonathan Bailey", "Jude Law", "Keanu Reeves", "Mark Harmon", "Matt Damon", "Matthew McConaughey", "Mel Gibson", "Michael B. Jordan", "Nick Nolte", "Patrick Dempsey", "Patrick Swayze", "Paul Rudd", "Pierce Brosnan", "Richard Gere", "Husband", "Ryan Reynolds", "Sean Connery", "Tom Cruise"],
         "People's Most Beautiful": ["Angelina Jolie", "Beyoncé", "Catherine Zeta-Jones", "Chrissy Teigen", "Christina Applegate", "Cindy Crawford", "Courteney Cox", "Demi Moore", "Drew Barrymore", "Goldie Hawn", "Gwyneth Paltrow", "Halle Berry", "Helen Mirren", "Jennifer Aniston", "Jennifer Garner", "Jennifer Lopez", "Jodie Foster", "Julia Roberts", "Kate Hudson", "Leonardo DiCaprio", "Lupita Nyong'o", "Meg Ryan", "Mel Gibson", "Melissa McCarthy", "Michelle Pfeiffer", "Nicole Kidman", "Pink", "Sandra Bullock", "Sofía Vergara", "Tom Cruise"],
         "Best Actor Winners": ["Adrien Brody", "Al Pacino", "Anthony Hopkins", "Art Carney", "Ben Kingsley", "Bing Crosby", "Brendan Fraser", "Broderick Crawford", "Burt Lancaster", "Casey Affleck", "Charles Laughton", "Charlton Heston", "Christopher Plummer", "Cillian Murphy", "Clark Gable", "Cliff Robertson", "Colin Firth", "Daniel Day-Lewis", "Dustin Hoffman", "Eddie Redmayne", "Ernest Borgnine", "F. Murray Abraham", "Forest Whitaker", "Fredric March", "Gary Cooper", "Gary Oldman", "Gene Hackman", "Geoffrey Rush", "George Arliss", "George C. Scott", "Gregory Peck", "Humphrey Bogart", "Jack Lemmon", "Jack Nicholson", "James Cagney", "James Stewart", "Jamie Foxx", "Jean Dujardin", "Jeff Bridges", "Jeremy Irons", "Joaquin Phoenix", "John Wayne", "Jon Voight", "José Ferrer", "Kevin Spacey", "Laurence Olivier", "Lee Marvin", "Leonardo DiCaprio", "Lionel Barrymore", "Marlon Brando", "Matthew McConaughey", "Maximilian Schell", "Michael Douglas", "Nicolas Cage", "Paul Lucas", "Paul Muni", "Paul Newman", "Paul Scofield", "Peter Finch", "Philip Seymour Hoffman", "Rami Malek", "Ray Milland", "Richard Dreyfuss", "Robert De Niro", "Robert Donat", "Robert Duvall", "Roberto Benigni", "Rod Steiger", "Ronald Colman", "Russell Crowe", "Sean Penn", "Sidney Poitier", "Spencer Tracy", "Tom Hanks", "Vicente Minnelli", "Victor McLaglen", "Warner Baxter", "Will Smith", "William Holden", "William Hurt", "Yul Brunner"],
         "Best Actress Winners": ["Anne Bancroft", "Audrey Hepburn", "Barlbara Stanwyck", "Bette Davis", "Brie Larson", "Cate Blanchett", "Charlize Theron", "Cher", "Claudette Colbert", "Diane Keaton", "Elizabeth Taylor", "Ellen Burstyn", "Emma Stone", "Emma Thompson", "Faye Dunaway", "Frances McDormand", "Geraldine Page", "Glenda Jackson", "Grace Kelly", "Gwyneth Paltrow", "Halle Berry", "Helen Hunt", "Helen Mirren", "Hilary Swank", "Holly Hunter", "Ingrid Bergman", "Jane Fonda", "Janet Gaynor", "Jennifer Lawrence", "Jessica Chastain", "Jessica Lange", "Jessica Tandy", "Joan Crawford", "Joan Fontaine", "Jodie Foster", "Judy Holliday", "Julie Andrews", "Julie Christie", "Julia Roberts", "Julianne Moore", "Kate Winslet", "Katharine Hepburn", "Liza Nikki", "Loretta Young", "Louise Fletcher", "Maggie Smith", "Marie Dressler", "Marion Cotillard", "Mary Pickford", "Meryl Streep", "Michelle Yeoh", "Mikey Madison", "Natalie Portman", "Nicole Kidman", "Olivia Colman", "Olivia de Havilland", "Patricia Neal", "Reese Witherspoon", "Renée Zellweger", "Sally Field", "Sandra Bullock", "Shirley Booth", "Shirley MacLaine", "Simone Signoret", "Sissy Spacek", "Susan Hayward", "Susan Sarandon", "Vivien Leigh"],
@@ -60,7 +60,6 @@ class GlobalMemory:
         return movie_title not in recent
 
     def is_trio_legal(self, actors):
-        # Handle both list of strings and list of dicts
         names = sorted([a['name'] if isinstance(a, dict) else a for a in actors])
         for trio in combinations(names, 3):
             if trio in self.used_trios:
@@ -80,7 +79,6 @@ tracker = GlobalMemory(movie_window=50)
 # 3. HELPER: DATA PACKAGER
 # ==========================================
 def package_actors(df_pool, name_list):
-    """Converts a list of names into a list of {name, profile_path} dicts."""
     matches = df_pool[df_pool['name'].isin(name_list)]
     return matches[['name', 'profile_path']].to_dict('records')
 
@@ -227,46 +225,59 @@ def generate_puzzle(p_idx):
         puzzle.append(cat1)
         used_names.update([a['name'] for a in cat1['actors']])
 
-        # WRAPPER TO TRACK MOVIE FUNCTION BY NAME
+        # MOVIE WRAPPER
         def movie_func(p): return get_movie_cat(p, p_idx)
         movie_func.__name__ = "get_movie_cat"
 
-        main_logic = [get_award_cat, get_char_cat, get_name_cat, get_year_cat, get_place_cat, movie_func]
+        # CATEGORIES 2 & 3: NO MOVIES ALLOWED HERE
+        main_logic = [get_award_cat, get_char_cat, get_name_cat, get_year_cat, get_place_cat]
         random.shuffle(main_logic)
 
-        # CATEGORY 2 & 3
         for func in main_logic:
             if len(puzzle) >= 3: break
             rem = df[~df['name'].isin(used_names)]
             res = func(rem)
             if res:
+                # Strictly unique types for cat 2 and 3
                 current_types = [p['type'] for p in puzzle]
-                movie_count = current_types.count('movie')
-                if (res['type'] not in current_types) or (res['type'] == 'movie' and movie_count < 2):
+                if res['type'] not in current_types:
                     puzzle.append(res)
                     used_names.update([a['name'] for a in res['actors']])
 
-        # CATEGORY 4
-        rem = df[~df['name'].isin(used_names)]
-        cat4 = None
-        if random.random() < 0.33:
-            cat4 = get_restricted_cat(rem)
-        
-        if not cat4:
-            current_types = [p['type'] for p in puzzle]
-            movie_count = current_types.count('movie')
-            final_pool = [f for f in main_logic if f.__name__ != "movie_func" or movie_count < 2]
-            random.shuffle(final_pool)
-            for f in final_pool:
-                res = f(rem)
-                if res and (res['type'] not in current_types or (res['type'] == 'movie' and movie_count < 2)):
-                    cat4 = res; break
+        # CATEGORY 4: MOVIE AND RESTRICTED POOL
+        if len(puzzle) == 3:
+            rem = df[~df['name'].isin(used_names)]
+            cat4 = None
+            
+            # 33% chance to pick from Restricted OR a second movie
+            if random.random() < 0.33:
+                # Combine restricted and movie function for the special slot
+                special_pool = [get_restricted_cat, movie_func]
+                random.shuffle(special_pool)
+                for f in special_pool:
+                    cat4 = f(rem)
+                    if cat4: break
+            
+            # If 33% roll failed or function returned None, pick from general logic
+            if not cat4:
+                current_types = [p['type'] for p in puzzle]
+                final_pool = [f for f in main_logic if f.__name__ != "movie_func"]
+                random.shuffle(final_pool)
+                for f in final_pool:
+                    res = f(rem)
+                    if res and (res['type'] not in current_types):
+                        cat4 = res; break
 
-        if cat4 and len(puzzle) == 3:
-            puzzle.append(cat4)
-            for p in puzzle:
-                tracker.register(p['actors'], p_idx, movie_title=p.get('ref'))
-            return puzzle
+            if cat4:
+                puzzle.append(cat4)
+                all_actor_names = [actor['name'] for p in puzzle for actor in p['actors']]
+                if len(set(all_actor_names)) == 16:
+                    for p in puzzle:
+                        tracker.register(p['actors'], p_idx, movie_title=p.get('ref'))
+                    return puzzle
+                else:
+                    puzzle.pop() 
+
         attempts += 1
     return None
 
