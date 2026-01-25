@@ -7,7 +7,7 @@ from itertools import combinations
 # ==========================================
 # 1. SETUP & DATA LOADING
 # ==========================================
-df = pd.read_csv('lists/top_600_popular.csv')
+df = pd.read_csv('lists/top_600_stripped.csv')
 top_movies_df = pd.read_csv('lists/top_movies.csv')
 TOP_MOVIES_LIST = set(top_movies_df['title'].tolist())
 
@@ -59,17 +59,18 @@ class GlobalMemory:
         recent = [m for idx, m in self.movie_history if idx > current_idx - self.movie_window]
         return movie_title not in recent
 
-    def is_trio_legal(self, actors):
+    def is_trio_legal(self, actors, category_title):
         names = sorted([a['name'] if isinstance(a, dict) else a for a in actors])
         for trio in combinations(names, 3):
-            if trio in self.used_trios:
+            # Same trio is only illegal if it's paired with the same category title
+            if (trio, category_title) in self.used_trios:
                 return False
         return True
 
-    def register(self, actors, puzzle_idx, movie_title=None):
+    def register(self, actors, puzzle_idx, category_title, movie_title=None):
         names = sorted([a['name'] if isinstance(a, dict) else a for a in actors])
         for trio in combinations(names, 3):
-            self.used_trios.add(trio)
+            self.used_trios.add((trio, category_title))
         if movie_title:
             self.movie_history.append((puzzle_idx, movie_title))
 
@@ -101,11 +102,12 @@ def get_movie_cat(pool, current_idx):
     random.shuffle(valid_movies)
     for target in valid_movies:
         potential_actors = movie_counts[target]
+        title = f"In the movie '{target}'"
         for _ in range(10):
             selection_names = random.sample(potential_actors, 4)
-            if tracker.is_trio_legal(selection_names):
+            if tracker.is_trio_legal(selection_names, title):
                 return {
-                    "title": f"In the movie '{target}'", 
+                    "title": title, 
                     "actors": package_actors(pool, selection_names), 
                     "type": "movie", "ref": target
                 }
@@ -118,7 +120,7 @@ def get_award_cat(pool):
         matches = pool[pool['name'].isin(manual["awards_and_honors"][s])]['name'].tolist()
         if len(matches) >= 4:
             selection_names = random.sample(matches, 4)
-            if tracker.is_trio_legal(selection_names):
+            if tracker.is_trio_legal(selection_names, s):
                 return {"title": s, "actors": package_actors(pool, selection_names), "type": "award"}
     return None
 
@@ -129,8 +131,9 @@ def get_char_cat(pool):
         matches = pool[pool['name'].isin(manual["played_same_character"][s])]['name'].tolist()
         if len(matches) >= 4:
             selection_names = random.sample(matches, 4)
-            if tracker.is_trio_legal(selection_names):
-                return {"title": f"All played {s}", "actors": package_actors(pool, selection_names), "type": "char"}
+            title = f"All played {s}"
+            if tracker.is_trio_legal(selection_names, title):
+                return {"title": title, "actors": package_actors(pool, selection_names), "type": "char"}
     return None
 
 def get_place_cat(pool):
@@ -145,12 +148,13 @@ def get_place_cat(pool):
     random.shuffle(valid)
     for target in valid:
         selection_names = random.sample(places[target], 4)
-        if tracker.is_trio_legal(selection_names):
-            return {"title": f"Born in {target}", "actors": package_actors(pool, selection_names), "type": "place"}
+        title = f"Born in {target}"
+        if tracker.is_trio_legal(selection_names, title):
+            return {"title": title, "actors": package_actors(pool, selection_names), "type": "place"}
     return None
 
 def get_name_cat(pool):
-    mode = random.choice(['first', 'initials', 'alliterative'])
+    mode = random.choice(['first', 'initials', 'specialty'])
     if mode == 'first':
         v = pool['first_name'].value_counts()
         valid = v[v >= 4].index.tolist()
@@ -158,7 +162,9 @@ def get_name_cat(pool):
             t = random.choice(valid)
             sel = pool[pool['first_name'] == t]['name'].tolist()
             names = random.sample(sel, 4)
-            return {"title": f"First Name: {t}", "actors": package_actors(pool, names), "type": "name"}
+            title = "Same first name"
+            if tracker.is_trio_legal(names, title):
+                return {"title": title, "actors": package_actors(pool, names), "type": "name"}
     elif mode == 'initials':
         v = pool['initials'].value_counts()
         valid = v[v >= 4].index.tolist()
@@ -166,12 +172,38 @@ def get_name_cat(pool):
             t = random.choice(valid)
             sel = pool[pool['initials'] == t]['name'].tolist()
             names = random.sample(sel, 4)
-            return {"title": f"Initials: {t}", "actors": package_actors(pool, names), "type": "name"}
-    elif mode == 'alliterative':
-        matches = pool[pool['first_name'].str[0] == pool['last_name'].str[0]]['name'].tolist()
-        if len(matches) >= 4:
-            names = random.sample(matches, 4)
-            return {"title": "Alliterative Names", "actors": package_actors(pool, names), "type": "name"}
+            title = "Same initials"
+            if tracker.is_trio_legal(names, title):
+                return {"title": title, "actors": package_actors(pool, names), "type": "name"}
+    elif mode == 'specialty':
+        special_mode = random.choice(['alliterative', 'three names', 'hyphenated'])
+    
+        if special_mode == 'alliterative':
+            mask = pool['first_name'].str[0].str.lower() == pool['last_name'].str[0].str.lower()
+            matches = pool[mask]['name'].tolist()
+            if len(matches) >= 4:
+                names = random.sample(matches, 4)
+                title = "Alliterative Names"
+                if tracker.is_trio_legal(names, title):
+                    return {"title": title, "actors": package_actors(pool, names), "type": "name"}
+        elif special_mode == 'three names':
+            matches = pool[
+                (pool['name'].str.split().str.len() == 3) & 
+                (~pool['name'].str.contains(r'\.'))
+            ]['name'].tolist()
+            if len(matches) >= 4:
+                names = random.sample(matches, 4)
+                title = "Actors Known by Three Names"
+                if tracker.is_trio_legal(names, title):
+                    return {"title": title, "actors": package_actors(pool, names), "type": "name"}
+        elif special_mode == 'hyphenated':
+            matches = pool[pool['name'].str.contains('-', na=False)]['name'].tolist()
+            if len(matches) >= 4:
+                names = random.sample(matches, 4)
+                title = "Hyphenated Last Names"
+                if tracker.is_trio_legal(names, title):
+                    return {"title": title, "actors": package_actors(pool, names), "type": "name"}
+
     return None
 
 def get_year_cat(pool):
@@ -181,7 +213,10 @@ def get_year_cat(pool):
     t = random.choice(valid)
     sel = pool[pool['birth_year'] == t]['name'].tolist()
     names = random.sample(sel, 4)
-    return {"title": f"Born in {int(t)}", "actors": package_actors(pool, names), "type": "year"}
+    title = f"Born in {int(t)}"
+    if tracker.is_trio_legal(names, title):
+        return {"title": title, "actors": package_actors(pool, names), "type": "year"}
+    return None
 
 def get_restricted_cat(pool):
     options = list(RESTRICTED_KEYWORDS.keys()) + ["Ivy", "Sexiest", "Beautiful"]
@@ -205,7 +240,7 @@ def get_restricted_cat(pool):
             unique_surname_pool = matches.groupby('last_name').head(1)['name'].tolist()
             if len(unique_surname_pool) >= 4:
                 selection_names = random.sample(unique_surname_pool, 4)
-                if tracker.is_trio_legal(selection_names):
+                if tracker.is_trio_legal(selection_names, title):
                     return {"title": title, "actors": package_actors(pool, selection_names), "type": "restricted"}
     return None
 
@@ -273,7 +308,7 @@ def generate_puzzle(p_idx):
                 all_actor_names = [actor['name'] for p in puzzle for actor in p['actors']]
                 if len(set(all_actor_names)) == 16:
                     for p in puzzle:
-                        tracker.register(p['actors'], p_idx, movie_title=p.get('ref'))
+                        tracker.register(p['actors'], p_idx, p['title'], movie_title=p.get('ref'))
                     return puzzle
                 else:
                     puzzle.pop() 
