@@ -181,7 +181,7 @@
                 <input type="text" id="word-input" placeholder="Enter word..." autocomplete="off">
             </div>
             <button onclick="submitWord()">SUBMIT WORD</button>
-            <button id="hint-btn" onclick="getHint()">HINT (-5)</button>
+            <button id="hint-btn" onclick="getHint()">HINT</button>
             <div class="input-wrapper">
                 <input type="text" id="guess-input" placeholder="Guess Title..." autocomplete="off">
                 <div id="autocomplete-results"></div>
@@ -357,7 +357,7 @@
         function updateScore(points) {
             if (gameState.isGameOver) return;
             gameState.score += points;
-            if (gameState.score < 0) gameState.score = 0;
+            if (gameState.score < 1) gameState.score = 1;
             document.getElementById('score-display').innerText = `Score: ${gameState.score.toFixed(1)}`;
         }
 
@@ -406,11 +406,6 @@
         }
 
         function getHint() {
-            if (gameState.isGameOver || gameState.score < 5) {
-                showToast("Not enough score for a hint!");
-                return;
-            }
-
             const rawSnippet = gameState.currentScript.snippet.toLowerCase();
             const wordsInSnippet = rawSnippet.split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
             
