@@ -99,10 +99,10 @@
 
         button:hover { background: #f0f0f0; }
         .btn-giveup { color: var(--red-alert); font-size: 11px; border-color: #fcc; }
+        #hint-btn { background: #fffbe6; border-color: #ffe58f; }
 
         #score-display { font-weight: bold; font-size: 1.3rem; min-width: 150px; text-align: right; }
 
-        /* Victory Title Display */
         #victory-title {
             display: none;
             text-align: center;
@@ -141,7 +141,6 @@
         #game-list-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-height: 500px; overflow-y: auto; padding: 10px; }
         .game-link { padding: 15px; background: #f8f8f8; border: 1px solid #eee; text-align: center; text-decoration: none; color: #333; border-radius: 4px; }
         
-        /* Updated Toast - Enters from Top */
         #toast {
             visibility: hidden;
             min-width: 300px;
@@ -174,7 +173,7 @@
         <div class="header-top">
             <img src="img/calendar.png" id="calendar-btn" onclick="openModal()" alt="Archive">
             <h1 id="game-title">Draft Zero #--</h1>
-            <div id="score-display">Score: 100</div>
+            <div id="score-display">Score: 100.0</div>
         </div>
         
         <div class="controls">
@@ -182,6 +181,7 @@
                 <input type="text" id="word-input" placeholder="Enter word..." autocomplete="off">
             </div>
             <button onclick="submitWord()">SUBMIT WORD</button>
+            <button id="hint-btn" onclick="getHint()">HINT (-5)</button>
             <div class="input-wrapper">
                 <input type="text" id="guess-input" placeholder="Guess Title..." autocomplete="off">
                 <div id="autocomplete-results"></div>
@@ -214,8 +214,10 @@
             currentScript: null,
             gameNumber: 0,
             revealedWords: new Set(),
-            score: 100,
-            isGameOver: false
+            wrongGuesses: new Set(),
+            score: 100.0,
+            isGameOver: false,
+            toastTimer: null
         };
 
         const EPOCH = new Date('2026-01-01');
@@ -227,31 +229,41 @@
                     fetch('lists/common_words.txt'),
                     fetch('lists/redactle_source_list.csv')
                 ]);
-
                 gameState.scripts = await scriptsRes.json();
-                
                 const commonText = await commonRes.text();
-                commonText.split(/\r?\n/).forEach(w => {
-                    if(w.trim()) gameState.commonWords.add(w.trim().toLowerCase());
-                });
-
+                commonText.split(/\r?\n/).forEach(w => { if(w.trim()) gameState.commonWords.add(w.trim().toLowerCase()); });
                 const csvText = await csvRes.text();
                 gameState.titles = parseCSV(csvText);
-
                 calculateCurrentGame();
                 loadGame();
                 setupEventListeners();
             } catch (e) {
                 console.error(e);
-                document.getElementById('script-display').innerText = "Load Failure. Verify local server.";
+                document.getElementById('script-display').innerText = "Load Failure.";
             }
+        }
+
+        // Fuzzy Logic: Stemming
+        function getStem(word) {
+            word = word.toLowerCase();
+            if (word.endsWith('ies') && word.length > 5) return word.slice(0, -3) + 'y';
+            if (word.endsWith('ing') && word.length > 5) return word.slice(0, -3);
+            if (word.endsWith('ed') && word.length > 4) return word.slice(0, -2);
+            if (word.endsWith('es') && word.length > 4) return word.slice(0, -2);
+            if (word.endsWith('s') && word.length > 3 && !word.endsWith('ss')) return word.slice(0, -1);
+            return word;
         }
 
         function showToast(message) {
             const x = document.getElementById("toast");
+            if (gameState.toastTimer) {
+                clearTimeout(gameState.toastTimer);
+                x.classList.remove("show");
+                void x.offsetWidth; // Trigger reflow to restart animation
+            }
             x.innerText = message;
-            x.className = "show";
-            setTimeout(() => { x.className = ""; }, 3000);
+            x.classList.add("show");
+            gameState.toastTimer = setTimeout(() => { x.classList.remove("show"); }, 3000);
         }
 
         function setupEventListeners() {
@@ -260,33 +272,22 @@
             const resultsDiv = document.getElementById('autocomplete-results');
 
             wordIn.addEventListener('keypress', (e) => { if (e.key === 'Enter') submitWord(); });
-            
             guessIn.addEventListener('input', (e) => {
                 const val = e.target.value.toLowerCase();
                 resultsDiv.innerHTML = '';
-                if (val.length < 2) {
-                    resultsDiv.style.display = 'none';
-                    return;
-                }
-
+                if (val.length < 2) { resultsDiv.style.display = 'none'; return; }
                 const matches = gameState.titles.filter(t => t.toLowerCase().includes(val)).slice(0, 10);
                 if (matches.length > 0) {
                     matches.forEach(m => {
                         const div = document.createElement('div');
                         div.className = 'autocomplete-item';
                         div.innerText = m;
-                        div.onclick = () => {
-                            guessIn.value = m;
-                            resultsDiv.style.display = 'none';
-                        };
+                        div.onclick = () => { guessIn.value = m; resultsDiv.style.display = 'none'; };
                         resultsDiv.appendChild(div);
                     });
                     resultsDiv.style.display = 'block';
-                } else {
-                    resultsDiv.style.display = 'none';
-                }
+                } else { resultsDiv.style.display = 'none'; }
             });
-
             guessIn.addEventListener('keypress', (e) => { if (e.key === 'Enter') { resultsDiv.style.display = 'none'; submitGuess(); } });
             document.addEventListener('click', (e) => { if (e.target !== guessIn) resultsDiv.style.display = 'none'; });
         }
@@ -334,16 +335,20 @@
                     container.appendChild(document.createTextNode(word));
                 } else {
                     const clean = word.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+                    const stem = getStem(clean);
                     const isJustPunctuation = !/[a-z0-9]/i.test(word);
 
                     const span = document.createElement('span');
                     span.innerText = word;
 
-                    if (isJustPunctuation || gameState.commonWords.has(clean) || gameState.revealedWords.has(clean) || gameState.isGameOver) {
-                        span.className = 'revealed';
-                    } else {
-                        span.className = 'hidden';
-                    }
+                    // Reveal if matches direct word OR if stems match (fuzzy)
+                    const isRevealed = isJustPunctuation || 
+                                     gameState.commonWords.has(clean) || 
+                                     gameState.revealedWords.has(clean) || 
+                                     gameState.revealedWords.has(stem) ||
+                                     gameState.isGameOver;
+
+                    span.className = isRevealed ? 'revealed' : 'hidden';
                     container.appendChild(span);
                 }
             });
@@ -352,41 +357,104 @@
         function updateScore(points) {
             if (gameState.isGameOver) return;
             gameState.score += points;
-            if (gameState.score < 1) gameState.score = 1;
-            document.getElementById('score-display').innerText = `Score: ${gameState.score}`;
+            if (gameState.score < 0) gameState.score = 0;
+            document.getElementById('score-display').innerText = `Score: ${gameState.score.toFixed(1)}`;
         }
 
         function submitWord() {
             if (gameState.isGameOver) return;
             const input = document.getElementById('word-input');
             const word = input.value.trim().toLowerCase();
-            if (!word || gameState.revealedWords.has(word)) { input.value = ''; return; }
-            
-            const cleanSnippet = gameState.currentScript.snippet.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-            const snippetWords = cleanSnippet.split(/\s+/);
+            if (!word) return;
 
-            if (snippetWords.includes(word)) {
-                const count = snippetWords.filter(w => w === word).length;
-                showToast(`Hit! "${word}" found ${count} time(s).`);
-                updateScore(-1);
-                gameState.revealedWords.add(word);
+            const cleanInput = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+            const stemInput = getStem(cleanInput);
+
+            if (gameState.revealedWords.has(cleanInput) || gameState.revealedWords.has(stemInput)) {
+                showToast("Already revealed.");
+                input.value = '';
+                return;
+            }
+            if (gameState.wrongGuesses.has(cleanInput)) {
+                showToast("Already guessed.");
+                input.value = '';
+                return;
+            }
+
+            // Check snippet for word or related stems
+            const rawSnippet = gameState.currentScript.snippet.toLowerCase();
+            const wordsInSnippet = rawSnippet.split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
+            
+            let foundCount = 0;
+            wordsInSnippet.forEach(w => {
+                if (w === cleanInput || getStem(w) === stemInput || getStem(w) === cleanInput || getStem(cleanInput) === w) {
+                    foundCount++;
+                }
+            });
+
+            if (foundCount > 0) {
+                showToast(`Hit! Found ${foundCount} instance(s).`);
+                gameState.revealedWords.add(cleanInput);
+                gameState.revealedWords.add(stemInput);
                 renderScript();
             } else {
                 showToast(`Miss. "${word}" not found.`);
-                updateScore(-2);
+                gameState.wrongGuesses.add(cleanInput);
+                updateScore(-0.5);
             }
             input.value = '';
+        }
+
+        function getHint() {
+            if (gameState.isGameOver || gameState.score < 5) {
+                showToast("Not enough score for a hint!");
+                return;
+            }
+
+            const rawSnippet = gameState.currentScript.snippet.toLowerCase();
+            const wordsInSnippet = rawSnippet.split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
+            
+            // Map frequencies
+            const freqMap = {};
+            wordsInSnippet.forEach(w => {
+                if (gameState.commonWords.has(w)) return;
+                freqMap[w] = (freqMap[w] || 0) + 1;
+            });
+
+            // Filter unrevealed
+            const unrevealed = Object.keys(freqMap).filter(w => !gameState.revealedWords.has(w) && !gameState.revealedWords.has(getStem(w)));
+
+            if (unrevealed.length === 0) {
+                showToast("No hints left!");
+                return;
+            }
+
+            // Sort by fewiest occurrences, then longest length
+            unrevealed.sort((a, b) => {
+                if (freqMap[a] !== freqMap[b]) return freqMap[a] - freqMap[b];
+                return b.length - a.length;
+            });
+
+            const hintWord = unrevealed[0];
+            gameState.revealedWords.add(hintWord);
+            gameState.revealedWords.add(getStem(hintWord));
+            updateScore(-5.0);
+            renderScript();
+            showToast(`Hint: Revealed "${hintWord}"`);
         }
 
         function submitGuess() {
             if (gameState.isGameOver) return;
             const input = document.getElementById('guess-input');
-            if (input.value.trim().toLowerCase() === gameState.currentScript.title.toLowerCase()) {
+            const val = input.value.trim().toLowerCase();
+            if (!val) return;
+
+            if (val === gameState.currentScript.title.toLowerCase()) {
                 gameState.isGameOver = true;
                 showToast("SCENE! Correct Title.");
                 renderScript();
             } else {
-                updateScore(-3);
+                updateScore(-2.5);
                 showToast("Incorrect Title.");
             }
             input.value = '';
@@ -396,7 +464,7 @@
             if (gameState.isGameOver) return;
             gameState.isGameOver = true;
             gameState.score = 0;
-            document.getElementById('score-display').innerText = `Score: 0`;
+            document.getElementById('score-display').innerText = `Score: 0.0`;
             renderScript();
         }
 
