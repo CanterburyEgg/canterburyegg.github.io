@@ -41,7 +41,6 @@
 
         .calendar-btn { background: none; border: none; cursor: pointer; padding: 0; width: 42px; height: 42px; }
 
-        /* Bigger, All-Caps Title */
         #game-title {
             font-weight: 900;
             letter-spacing: 3px;
@@ -53,25 +52,52 @@
         .score-val { color: var(--mint); }
         .score-max { color: var(--slate); }
 
-        /* Actual Text Box */
-        #guess-input {
+        /* Mirror Container Logic */
+        .input-wrapper {
+            position: relative;
             width: 90%;
             max-width: 400px;
             height: 65px;
+            margin-top: 1rem;
+        }
+
+        #input-mirror {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            pointer-events: none;
+            white-space: pre;
+            z-index: 1;
+        }
+
+        #guess-input {
+            width: 100%;
+            height: 100%;
             border: 2px solid var(--border);
             border-radius: 12px;
-            background: white;
+            background: transparent;
             font-size: 2rem;
             font-weight: 900;
             text-align: center;
             letter-spacing: 4px;
             text-transform: uppercase;
             outline: none;
-            margin-top: 1rem;
+            color: transparent; /* Hide native text to show mirror */
             caret-color: var(--mint);
+            position: relative;
+            z-index: 2;
         }
 
         #guess-input:focus { border-color: var(--grey); }
+
+        .char-mint { color: var(--mint); }
+        .char-ghost { color: var(--ghost); }
 
         .btn-row { display: flex; gap: 10px; margin: 15px 0 25px 0; }
 
@@ -124,6 +150,7 @@
             background: white; border: 1px solid var(--border);
             padding: 4px 6px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; text-align: center;
         }
+        .tag-pangram { border: 1.5px solid var(--ghost); }
         .tag-missed { color: var(--missed); border-color: var(--missed); }
 
         #archive-modal {
@@ -159,7 +186,10 @@
     </div>
 </header>
 
-<input type="text" id="guess-input" autocomplete="off" spellcheck="false" maxlength="15">
+<div class="input-wrapper">
+    <div id="input-mirror"></div>
+    <input type="text" id="guess-input" autocomplete="off" spellcheck="false" maxlength="15">
+</div>
 
 <div class="btn-row">
     <button class="ctrl-btn" onclick="backspace()">Back</button>
@@ -197,6 +227,7 @@
     const START_DATE = new Date('2026-01-01T00:00:00');
 
     const inputField = document.getElementById('guess-input');
+    const inputMirror = document.getElementById('input-mirror');
 
     function seededRandom(seed) {
         let x = Math.sin(seed) * 10000;
@@ -222,7 +253,10 @@
 
     function load(idx) {
         current = shuffledPuzzles[idx % shuffledPuzzles.length];
-        found.clear(); score = 0; discoveredGhosts.clear(); inputField.value = ""; gameEnded = false;
+        found.clear(); score = 0; discoveredGhosts.clear(); 
+        inputField.value = ""; 
+        updateMirror();
+        gameEnded = false;
         document.getElementById('game-title').innerText = `GHOSTGRAM #${idx + 1}`;
         calculateMaxScore();
         renderTray();
@@ -236,6 +270,19 @@
         maxScore = 0;
         all.forEach(w => maxScore += (w.length - 4 + (new Set(w).size === 7 ? 7 : 0)));
         document.getElementById('score-max-val').innerText = ` / ${maxScore}`;
+    }
+
+    function updateMirror() {
+        const val = inputField.value.toUpperCase();
+        inputMirror.innerHTML = '';
+        [...val].forEach(char => {
+            const span = document.createElement('span');
+            if (char === current.center) span.className = 'char-mint';
+            else if (current.core.includes(char)) span.className = '';
+            else span.className = 'char-ghost';
+            span.innerText = char;
+            inputMirror.appendChild(span);
+        });
     }
 
     function submit() {
@@ -252,11 +299,13 @@
                 if (isB) discoveredGhosts.add(current.wildcards[1]);
                 score += (w.length - 4 + (new Set(w).size === 7 ? 7 : 0));
                 inputField.value = "";
+                updateMirror();
                 refresh();
             }
         } else {
             notify("Not in list");
             inputField.value = "";
+            updateMirror();
         }
         inputField.focus();
     }
@@ -321,11 +370,15 @@
 
     function addTile(l, cls) {
         const d = document.createElement('div'); d.className = `tile ${cls}`;
-        d.innerText = l; d.onclick = () => { if(!gameEnded) { inputField.value += l; inputField.focus(); } };
+        d.innerText = l; d.onclick = () => { if(!gameEnded) { inputField.value += l; updateMirror(); inputField.focus(); } };
         document.getElementById('tray').appendChild(d);
     }
 
-    function backspace() { inputField.value = inputField.value.slice(0, -1); inputField.focus(); }
+    function backspace() { 
+        inputField.value = inputField.value.slice(0, -1); 
+        updateMirror();
+        inputField.focus(); 
+    }
 
     function toggleGhostPopover() {
         const pop = document.getElementById('ghost-popover');
@@ -346,7 +399,7 @@
 
     function createKey(l, isDisc) {
         const k = document.createElement('div'); k.className = `key ${isDisc ? 'discovered' : ''}`;
-        k.innerText = l; k.onclick = () => { if(!gameEnded) { inputField.value += l; popoverHide(); inputField.focus(); } };
+        k.innerText = l; k.onclick = () => { if(!gameEnded) { inputField.value += l; updateMirror(); popoverHide(); inputField.focus(); } };
         document.getElementById('kb-grid').appendChild(k);
     }
 
@@ -372,6 +425,7 @@
     }
 
     inputField.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+    inputField.addEventListener('input', updateMirror);
 
     init();
 </script>
