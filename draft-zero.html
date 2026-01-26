@@ -268,7 +268,6 @@
 
         function renderScript() {
             const container = document.getElementById('script-display');
-            // Split by whitespace first
             const tokens = gameState.currentScript.snippet.split(/(\s+)/);
             container.innerHTML = '';
             
@@ -282,7 +281,6 @@
                 if (/\s+/.test(token)) {
                     container.appendChild(document.createTextNode(token));
                 } else {
-                    // Internal Split for Hyphens: "leaf-strewn" -> ["leaf", "-", "strewn"]
                     const subTokens = token.split(/(-)/);
                     subTokens.forEach(sub => {
                         if (sub === '-') {
@@ -293,15 +291,22 @@
                             const isJustPunctuation = !/[a-z0-9]/i.test(sub);
 
                             const span = document.createElement('span');
-                            span.innerText = sub;
-
+                            
                             const isRevealed = isJustPunctuation || 
                                              gameState.commonWords.has(clean) || 
                                              gameState.revealedWords.has(clean) || 
                                              gameState.revealedWords.has(stem) ||
                                              gameState.isGameOver;
 
-                            span.className = isRevealed ? 'revealed' : 'hidden';
+                            if (isRevealed) {
+                                span.innerText = sub;
+                                span.className = 'revealed';
+                            } else {
+                                // ANTI-CHEAT: Replace text with blocks of the same length
+                                // This makes Ctrl+F impossible because the word isn't in the DOM
+                                span.innerText = "█".repeat(sub.length);
+                                span.className = 'hidden';
+                            }
                             container.appendChild(span);
                         }
                     });
