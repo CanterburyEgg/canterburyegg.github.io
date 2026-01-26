@@ -47,93 +47,66 @@
         }
 
         .controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            width: 95%;
-            max-width: 1100px;
-            position: relative;
+            display: flex; gap: 10px; align-items: center;
+            width: 95%; max-width: 1100px; position: relative;
         }
 
         #calendar-btn { cursor: pointer; width: 32px; height: 32px; }
-
         .input-wrapper { flex: 1; position: relative; }
 
         input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            box-sizing: border-box;
+            width: 100%; padding: 10px; border: 1px solid #ccc;
+            border-radius: 4px; font-family: 'Courier New', monospace;
+            font-size: 14px; box-sizing: border-box;
         }
 
         #autocomplete-results {
-            position: absolute;
-            top: 42px;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            max-height: 250px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute; top: 42px; left: 0; right: 0;
+            background: white; border: 1px solid #ccc; border-radius: 4px;
+            max-height: 250px; overflow-y: auto; display: none;
+            z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .autocomplete-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 13px; }
         .autocomplete-item:hover { background: #f0f0f0; }
 
         button {
-            padding: 10px 15px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-            border: 1px solid #aaa;
-            background: #fff;
-            white-space: nowrap;
+            padding: 10px 15px; cursor: pointer; font-family: 'Courier New', monospace;
+            font-weight: bold; border: 1px solid #aaa; background: #fff; white-space: nowrap;
         }
 
         button:hover { background: #f0f0f0; }
         .btn-giveup { color: var(--red-alert); font-size: 11px; border-color: #fcc; }
-        #hint-btn { background: #fffbe6; border-color: #ffe58f; }
 
         #score-display { font-weight: bold; font-size: 1.3rem; min-width: 150px; text-align: right; }
 
         #victory-title {
-            display: none;
-            text-align: center;
-            font-size: 2rem;
-            color: var(--red-alert);
-            margin-bottom: 50px;
-            border: 3px solid var(--red-alert);
-            padding: 10px;
-            transform: rotate(-2deg);
-            width: fit-content;
-            align-self: center;
+            display: none; text-align: center; font-size: 2rem; color: var(--red-alert);
+            margin-bottom: 50px; border: 3px solid var(--red-alert); padding: 10px;
+            transform: rotate(-2deg); width: fit-content; align-self: center;
         }
 
         #main-content {
-            margin-top: 180px;
-            margin-bottom: 50px;
-            width: 90%;
-            max-width: 850px;
-            background: var(--paper-color);
-            padding: 60px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            min-height: 100vh;
-            line-height: 1.7;
-            font-size: 1.15rem;
-            white-space: pre-wrap;
-            display: flex;
-            flex-direction: column;
+            margin-top: 180px; margin-bottom: 50px; width: 90%; max-width: 850px;
+            background: var(--paper-color); padding: 60px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            min-height: 100vh; line-height: 1.7; font-size: 1.15rem; white-space: pre-wrap;
+            display: flex; flex-direction: column;
         }
 
-        .hidden { background-color: var(--hidden-color); color: var(--hidden-color); border-radius: 1px; user-select: none; }
-        .revealed { background-color: transparent; color: inherit; }
+        /* Anti-Cheat Styling */
+        .hidden { 
+            background-color: var(--hidden-color); 
+            color: var(--hidden-color); 
+            border-radius: 1px; 
+            user-select: none; /* Prevents selection */
+            content-visibility: hidden; /* Makes it invisible to browser Find (Ctrl+F) */
+        }
+        
+        .revealed { 
+            background-color: transparent; 
+            color: inherit; 
+            content-visibility: visible;
+        }
 
         .modal { display: none; position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); }
         .modal-content { background-color: white; margin: 5% auto; padding: 40px 20px; width: 80%; max-width: 600px; border-radius: 8px; position: relative; }
@@ -142,27 +115,13 @@
         .game-link { padding: 15px; background: #f8f8f8; border: 1px solid #eee; text-align: center; text-decoration: none; color: #333; border-radius: 4px; }
         
         #toast {
-            visibility: hidden;
-            min-width: 300px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 0 0 8px 8px;
-            padding: 16px;
-            position: fixed;
-            z-index: 300;
-            left: 50%;
-            top: 0;
-            transform: translateX(-50%);
-            font-size: 14px;
+            visibility: hidden; min-width: 300px; background-color: #333; color: #fff;
+            text-align: center; border-radius: 0 0 8px 8px; padding: 16px; position: fixed;
+            z-index: 300; left: 50%; top: 0; transform: translateX(-50%); font-size: 14px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        #toast.show {
-            visibility: visible;
-            animation: slideDown 0.4s forwards, slideUp 0.4s 2.6s forwards;
-        }
-
+        #toast.show { visibility: visible; animation: slideDown 0.4s forwards, slideUp 0.4s 2.6s forwards; }
         @keyframes slideDown { from { top: -100px; } to { top: 0; } }
         @keyframes slideUp { from { top: 0; } to { top: -100px; } }
     </style>
@@ -208,16 +167,10 @@
 
     <script>
         let gameState = {
-            scripts: [],
-            commonWords: new Set(),
-            titles: [],
-            currentScript: null,
-            gameNumber: 0,
-            revealedWords: new Set(),
-            wrongGuesses: new Set(),
-            score: 100.0,
-            isGameOver: false,
-            toastTimer: null
+            scripts: [], commonWords: new Set(), titles: [],
+            currentScript: null, gameNumber: 0,
+            revealedWords: new Set(), wrongGuesses: new Set(),
+            score: 100.0, isGameOver: false, toastTimer: null
         };
 
         const EPOCH = new Date('2026-01-01');
@@ -243,7 +196,6 @@
             }
         }
 
-        // Fuzzy Logic: Stemming
         function getStem(word) {
             word = word.toLowerCase();
             if (word.endsWith('ies') && word.length > 5) return word.slice(0, -3) + 'y';
@@ -256,11 +208,7 @@
 
         function showToast(message) {
             const x = document.getElementById("toast");
-            if (gameState.toastTimer) {
-                clearTimeout(gameState.toastTimer);
-                x.classList.remove("show");
-                void x.offsetWidth; // Trigger reflow to restart animation
-            }
+            if (gameState.toastTimer) { clearTimeout(gameState.toastTimer); x.classList.remove("show"); void x.offsetWidth; }
             x.innerText = message;
             x.classList.add("show");
             gameState.toastTimer = setTimeout(() => { x.classList.remove("show"); }, 3000);
@@ -280,8 +228,7 @@
                 if (matches.length > 0) {
                     matches.forEach(m => {
                         const div = document.createElement('div');
-                        div.className = 'autocomplete-item';
-                        div.innerText = m;
+                        div.className = 'autocomplete-item'; div.innerText = m;
                         div.onclick = () => { guessIn.value = m; resultsDiv.style.display = 'none'; };
                         resultsDiv.appendChild(div);
                     });
@@ -321,7 +268,8 @@
 
         function renderScript() {
             const container = document.getElementById('script-display');
-            const words = gameState.currentScript.snippet.split(/(\s+)/);
+            // Split by whitespace first
+            const tokens = gameState.currentScript.snippet.split(/(\s+)/);
             container.innerHTML = '';
             
             if (gameState.isGameOver) {
@@ -330,26 +278,33 @@
                 vTitle.style.display = 'block';
             }
 
-            words.forEach(word => {
-                if (/\s+/.test(word)) {
-                    container.appendChild(document.createTextNode(word));
+            tokens.forEach(token => {
+                if (/\s+/.test(token)) {
+                    container.appendChild(document.createTextNode(token));
                 } else {
-                    const clean = word.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-                    const stem = getStem(clean);
-                    const isJustPunctuation = !/[a-z0-9]/i.test(word);
+                    // Internal Split for Hyphens: "leaf-strewn" -> ["leaf", "-", "strewn"]
+                    const subTokens = token.split(/(-)/);
+                    subTokens.forEach(sub => {
+                        if (sub === '-') {
+                            container.appendChild(document.createTextNode(sub));
+                        } else {
+                            const clean = sub.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\_`~()]/g,"");
+                            const stem = getStem(clean);
+                            const isJustPunctuation = !/[a-z0-9]/i.test(sub);
 
-                    const span = document.createElement('span');
-                    span.innerText = word;
+                            const span = document.createElement('span');
+                            span.innerText = sub;
 
-                    // Reveal if matches direct word OR if stems match (fuzzy)
-                    const isRevealed = isJustPunctuation || 
-                                     gameState.commonWords.has(clean) || 
-                                     gameState.revealedWords.has(clean) || 
-                                     gameState.revealedWords.has(stem) ||
-                                     gameState.isGameOver;
+                            const isRevealed = isJustPunctuation || 
+                                             gameState.commonWords.has(clean) || 
+                                             gameState.revealedWords.has(clean) || 
+                                             gameState.revealedWords.has(stem) ||
+                                             gameState.isGameOver;
 
-                    span.className = isRevealed ? 'revealed' : 'hidden';
-                    container.appendChild(span);
+                            span.className = isRevealed ? 'revealed' : 'hidden';
+                            container.appendChild(span);
+                        }
+                    });
                 }
             });
         }
@@ -367,26 +322,21 @@
             const word = input.value.trim().toLowerCase();
             if (!word) return;
 
-            const cleanInput = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+            const cleanInput = word.replace(/[.,\/#!$%\^&\*;:{}=\_`~()]/g,"");
             const stemInput = getStem(cleanInput);
 
             if (gameState.revealedWords.has(cleanInput) || gameState.revealedWords.has(stemInput)) {
-                showToast("Already revealed.");
-                input.value = '';
-                return;
+                showToast("Already revealed."); input.value = ''; return;
             }
             if (gameState.wrongGuesses.has(cleanInput)) {
-                showToast("Already guessed.");
-                input.value = '';
-                return;
+                showToast("Already guessed."); input.value = ''; return;
             }
 
-            // Check snippet for word or related stems
-            const rawSnippet = gameState.currentScript.snippet.toLowerCase();
-            const wordsInSnippet = rawSnippet.split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
+            // Logic to find matches in snippet (including hyphenated parts)
+            const rawWords = gameState.currentScript.snippet.toLowerCase().split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
             
             let foundCount = 0;
-            wordsInSnippet.forEach(w => {
+            rawWords.forEach(w => {
                 if (w === cleanInput || getStem(w) === stemInput || getStem(w) === cleanInput || getStem(cleanInput) === w) {
                     foundCount++;
                 }
@@ -406,30 +356,16 @@
         }
 
         function getHint() {
-            const rawSnippet = gameState.currentScript.snippet.toLowerCase();
-            const wordsInSnippet = rawSnippet.split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
-            
-            // Map frequencies
+            const rawWords = gameState.currentScript.snippet.toLowerCase().split(/[\s,.;:!?()"-]+/).filter(w => w !== "");
             const freqMap = {};
-            wordsInSnippet.forEach(w => {
+            rawWords.forEach(w => {
                 if (gameState.commonWords.has(w)) return;
                 freqMap[w] = (freqMap[w] || 0) + 1;
             });
-
-            // Filter unrevealed
             const unrevealed = Object.keys(freqMap).filter(w => !gameState.revealedWords.has(w) && !gameState.revealedWords.has(getStem(w)));
+            if (unrevealed.length === 0) { showToast("No hints left!"); return; }
 
-            if (unrevealed.length === 0) {
-                showToast("No hints left!");
-                return;
-            }
-
-            // Sort by fewiest occurrences, then longest length
-            unrevealed.sort((a, b) => {
-                if (freqMap[a] !== freqMap[b]) return freqMap[a] - freqMap[b];
-                return b.length - a.length;
-            });
-
+            unrevealed.sort((a, b) => (freqMap[a] !== freqMap[b]) ? freqMap[a] - freqMap[b] : b.length - a.length);
             const hintWord = unrevealed[0];
             gameState.revealedWords.add(hintWord);
             gameState.revealedWords.add(getStem(hintWord));
@@ -443,14 +379,10 @@
             const input = document.getElementById('guess-input');
             const val = input.value.trim().toLowerCase();
             if (!val) return;
-
             if (val === gameState.currentScript.title.toLowerCase()) {
-                gameState.isGameOver = true;
-                showToast("SCENE! Correct Title.");
-                renderScript();
+                gameState.isGameOver = true; showToast("SCENE! Correct."); renderScript();
             } else {
-                updateScore(-2.5);
-                showToast("Incorrect Title.");
+                updateScore(-2.5); showToast("Incorrect Title.");
             }
             input.value = '';
         }
@@ -469,9 +401,7 @@
             const diffDays = Math.floor(Math.abs(new Date() - EPOCH) / (1000 * 60 * 60 * 24)) + 1;
             for (let i = 1; i <= diffDays; i++) {
                 const a = document.createElement('a');
-                a.className = 'game-link';
-                a.href = `?g=${i}`;
-                a.innerText = `#${i}`;
+                a.className = 'game-link'; a.href = `?g=${i}`; a.innerText = `#${i}`;
                 container.appendChild(a);
             }
             document.getElementById('calendar-modal').style.display = 'block';
