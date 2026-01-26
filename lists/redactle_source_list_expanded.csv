@@ -1,0 +1,751 @@
+title,year,media_type,tmdb_id
+Ralph Breaks the Internet,2018,movie,404368
+Guardians of the Galaxy Vol. 3,2023,movie,447365
+BlacKkKlansman,2018,movie,487558
+127 Hours,2010,movie,44115
+Pixels,2015,movie,257344
+Us,2019,movie,458723
+Fifty Shades Darker,2017,movie,341174
+Ted 2,2015,movie,214756
+Superbad,2007,movie,8363
+Snow White and the Seven Dwarfs,1938,movie,408
+Lost in Translation,2003,movie,153
+Valerian and the City of a Thousand Planets,2017,movie,339964
+Midsommar,2019,movie,530385
+Don't Breathe,2016,movie,300669
+Creed,2015,movie,312221
+Constantine,2005,movie,561
+Hercules,1997,movie,11970
+Shrek Forever After,2010,movie,10192
+Life,2017,movie,395992
+TRON: Legacy,2010,movie,20526
+Percy Jackson & the Olympians: The Lightning Thief,2010,movie,32657
+Ocean's Twelve,2004,movie,163
+Kung Fu Panda 2,2011,movie,49444
+The Thing,1982,movie,1091
+Jurassic Park III,2001,movie,331
+Fast & Furious,2009,movie,13804
+8 Mile,2002,movie,65
+Scream,1996,movie,4232
+Little Miss Sunshine,2006,movie,773
+John Wick: Chapter 4,2023,movie,603692
+Children of Men,2006,movie,9693
+Rush,2013,movie,96721
+Midnight in Paris,2011,movie,59436
+Fast & Furious Presents: Hobbs & Shaw,2019,movie,384018
+Everything Everywhere All at Once,2022,movie,545611
+Big Fish,2003,movie,587
+Sausage Party,2016,movie,223702
+American Hustle,2013,movie,168672
+Cloverfield,2008,movie,7191
+F9,2021,movie,385128
+50 First Dates,2004,movie,1824
+Sully,2016,movie,363676
+Grease,1978,movie,621
+Hugo,2011,movie,44826
+Green Lantern,2011,movie,44912
+Despicable Me 3,2017,movie,324852
+Dark Shadows,2012,movie,62213
+The Boy in the Striped Pyjamas,2008,movie,14574
+The Mummy,2017,movie,282035
+Juno,2007,movie,7326
+The Witch,2016,movie,310131
+Scary Movie,2000,movie,4247
+The Mummy Returns,2001,movie,1734
+Prey,2022,movie,766507
+Jack Reacher,2012,movie,75780
+Dune: Part Two,2024,movie,693134
+Mission: Impossible III,2006,movie,956
+Wanted,2008,movie,8909
+The Girl with the Dragon Tattoo,2011,movie,65754
+The Fast and the Furious: Tokyo Drift,2006,movie,9615
+The Croods,2013,movie,49519
+Brokeback Mountain,2005,movie,142
+Click,2006,movie,9339
+Moonlight,2016,movie,376867
+The Kissing Booth,2018,movie,454983
+Rampage,2018,movie,427641
+Cloud Atlas,2012,movie,83542
+Mission: Impossible II,2000,movie,955
+The Boss Baby,2017,movie,295693
+The Last Samurai,2003,movie,616
+Captain Phillips,2013,movie,109424
+The Irishman,2019,movie,398978
+Cinderella,2015,movie,150689
+Megamind,2010,movie,38055
+The Proposal,2009,movie,18240
+Marriage Story,2019,movie,492188
+Madagascar: Escape 2 Africa,2008,movie,10527
+Hellboy,2004,movie,1487
+Tomorrowland,2015,movie,158852
+Love Actually,2003,movie,508
+Easy A,2010,movie,37735
+Mystic River,2003,movie,322
+Black Panther: Wakanda Forever,2022,movie,505642
+Yes Man,2008,movie,10201
+Sleepy Hollow,1999,movie,2668
+Pokémon Detective Pikachu,2019,movie,447404
+Bullet Train,2022,movie,718930
+There Will Be Blood,2007,movie,7345
+Angels & Demons,2009,movie,13448
+Insidious,2011,movie,49018
+Tarzan,1999,movie,37135
+A Quiet Place Part II,2021,movie,520763
+Neighbors,2014,movie,195589
+The Accountant,2016,movie,302946
+The Intern,2015,movie,257211
+Night at the Museum: Battle of the Smithsonian,2009,movie,18360
+Raya and the Last Dragon,2021,movie,527774
+The Emperor's New Groove,2000,movie,11688
+Bridge of Spies,2015,movie,296098
+Warcraft,2016,movie,68735
+The Game,1997,movie,2649
+Seven Pounds,2008,movie,11321
+The Nun,2018,movie,439079
+Teenage Mutant Ninja Turtles,2014,movie,98566
+Terminator 3: Rise of the Machines,2003,movie,296
+The 40 Year Old Virgin,2005,movie,6957
+Ad Astra,2019,movie,419704
+Hachi: A Dog's Tale,2009,movie,28178
+Rio,2011,movie,46195
+Prince of Persia: The Sands of Time,2010,movie,9543
+Rise of the Guardians,2012,movie,81188
+The Expendables 2,2012,movie,76163
+Gangs of New York,2002,movie,3131
+Cinderella,1950,movie,11224
+"Lock, Stock and Two Smoking Barrels",1998,movie,100
+RED,2010,movie,39514
+Hansel & Gretel: Witch Hunters,2013,movie,60304
+The Age of Adaline,2015,movie,293863
+Jupiter Ascending,2015,movie,76757
+Rear Window,1954,movie,567
+Taken 2,2012,movie,82675
+mother!,2017,movie,381283
+The Others,2001,movie,1933
+Mulan,2020,movie,337401
+Nerve,2016,movie,328387
+Star Trek Beyond,2016,movie,188927
+Lilo & Stitch,2002,movie,11544
+How to Train Your Dragon: The Hidden World,2019,movie,166428
+Batman Returns,1992,movie,364
+Rango,2011,movie,44896
+Olympus Has Fallen,2013,movie,117263
+Dark Phoenix,2019,movie,320288
+Super 8,2011,movie,37686
+Predestination,2014,movie,206487
+Mamma Mia!,2008,movie,11631
+Allegiant,2016,movie,262504
+Terminator Salvation,2009,movie,534
+No Time to Die,2021,movie,370172
+Rain Man,1988,movie,380
+Pearl Harbor,2001,movie,676
+Lion,2016,movie,334543
+Black Adam,2022,movie,436270
+Jurassic World Dominion,2022,movie,507086
+Mulholland Drive,2001,movie,1018
+300: Rise of an Empire,2014,movie,53182
+Gremlins,1984,movie,927
+Pitch Perfect,2012,movie,114150
+Eyes Wide Shut,1999,movie,345
+It Follows,2015,movie,270303
+After Earth,2013,movie,82700
+Bad Boys,1995,movie,9737
+Jackie Brown,1997,movie,184
+The Polar Express,2004,movie,5255
+Resident Evil,2002,movie,1576
+Gattaca,1997,movie,782
+Tropic Thunder,2008,movie,7446
+Ocean's Thirteen,2007,movie,298
+The Lobster,2015,movie,254320
+Oz the Great and Powerful,2013,movie,68728
+First Blood,1982,movie,1368
+Captain Fantastic,2016,movie,334533
+The Man from U.N.C.L.E.,2015,movie,203801
+National Treasure,2004,movie,2059
+The Blind Side,2009,movie,22881
+Alice Through the Looking Glass,2016,movie,241259
+Ghostbusters,2016,movie,43074
+Little Women,2019,movie,331482
+This Is the End,2013,movie,109414
+The Godfather Part III,1990,movie,242
+Horrible Bosses,2011,movie,51540
+Project X,2012,movie,57214
+The Chronicles of Narnia: Prince Caspian,2008,movie,2454
+Speed,1994,movie,1637
+A Good Day to Die Hard,2013,movie,47964
+The Purge: Anarchy,2014,movie,238636
+Transformers: The Last Knight,2017,movie,335988
+Shark Tale,2004,movie,10555
+Uncharted,2022,movie,335787
+The Devil's Advocate,1997,movie,1813
+The Impossible,2012,movie,80278
+One Hundred and One Dalmatians,1961,movie,12230
+Clash of the Titans,2010,movie,18823
+Notting Hill,1999,movie,509
+The Jungle Book,1967,movie,9325
+Godzilla: King of the Monsters,2019,movie,373571
+Dumb and Dumber,1994,movie,8467
+The Hitman's Bodyguard,2017,movie,390043
+Inferno,2016,movie,207932
+Blade,1998,movie,36647
+The Book of Eli,2010,movie,20504
+The Ring,2002,movie,565
+Grown Ups,2010,movie,38365
+Atomic Blonde,2017,movie,341013
+A.I. Artificial Intelligence,2001,movie,644
+Die Hard: With a Vengeance,1995,movie,1572
+Glass Onion: A Knives Out Mystery,2022,movie,661374
+Bumblebee,2018,movie,424783
+Noah,2014,movie,86834
+Final Destination,2000,movie,9532
+Mrs. Doubtfire,1993,movie,788
+Underworld,2003,movie,277
+Annabelle,2014,movie,250546
+Onward,2020,movie,508439
+Happy Death Day,2017,movie,440021
+Extraction,2020,movie,545609
+Kick-Ass 2,2013,movie,59859
+Madagascar 3: Europe's Most Wanted,2012,movie,80321
+"Love, Rosie",2014,movie,200727
+Kung Fu Panda 3,2016,movie,140300
+Van Helsing,2004,movie,7131
+The Karate Kid,2010,movie,38575
+The Legend of Tarzan,2016,movie,258489
+Inside Out 2,2024,movie,1022789
+Enola Holmes,2020,movie,497582
+Dracula Untold,2014,movie,49017
+Dirty Dancing,1987,movie,88
+The Conjuring: The Devil Made Me Do It,2021,movie,423108
+Training Day,2001,movie,2034
+Lara Croft: Tomb Raider,2001,movie,1995
+Bolt,2008,movie,13053
+Contagion,2011,movie,39538
+Maleficent: Mistress of Evil,2019,movie,420809
+The Gentlemen,2020,movie,522627
+What Happened to Monday,2017,movie,406990
+Casino,1995,movie,524
+Independence Day: Resurgence,2016,movie,47933
+Cloudy with a Chance of Meatballs,2009,movie,22794
+From Dusk Till Dawn,1996,movie,755
+Fantastic Four,2015,movie,166424
+Flight,2012,movie,87502
+Stand by Me,1986,movie,235
+Ghost Rider,2007,movie,1250
+Warm Bodies,2013,movie,82654
+Space Jam,1996,movie,2300
+The Babadook,2014,movie,242224
+Spy,2015,movie,238713
+The Matrix Resurrections,2021,movie,624860
+Enemy,2014,movie,181886
+Red Sparrow,2018,movie,401981
+Interview with the Vampire,1994,movie,628
+Red Notice,2021,movie,512195
+Total Recall,1990,movie,861
+The Dictator,2012,movie,76493
+Manchester by the Sea,2016,movie,334541
+Cars 3,2017,movie,260514
+The Magnificent Seven,2016,movie,333484
+Meet the Parents,2000,movie,1597
+Central Intelligence,2016,movie,302699
+Die Hard 2,1990,movie,1573
+Monty Python and the Holy Grail,1975,movie,762
+Sweeney Todd: The Demon Barber of Fleet Street,2007,movie,13885
+Moonrise Kingdom,2012,movie,83666
+Ace Ventura: Pet Detective,1994,movie,3049
+Alien³,1992,movie,8077
+"Love, Simon",2018,movie,449176
+Live Free or Die Hard,2007,movie,1571
+Inside Man,2006,movie,388
+Vertigo,1958,movie,426
+Black Hawk Down,2001,movie,855
+Mortal Kombat,2021,movie,460465
+Fast X,2023,movie,385687
+Alice in Wonderland,1951,movie,12092
+Hulk,2003,movie,1927
+Pinocchio,1940,movie,10895
+Game Night,2018,movie,445571
+Night at the Museum: Secret of the Tomb,2014,movie,181533
+Paul,2011,movie,39513
+Ender's Game,2013,movie,80274
+The Invisible Man,2020,movie,570670
+Mr. Nobody,2009,movie,31011
+The Interview,2014,movie,228967
+Zombieland: Double Tap,2019,movie,338967
+Hitch,2005,movie,8488
+Moon,2009,movie,17431
+Jumper,2008,movie,8247
+The Goonies,1985,movie,9340
+Collateral,2004,movie,1538
+Signs,2002,movie,2675
+Liar Liar,1997,movie,1624
+"I, Tonya",2017,movie,389015
+Apocalypto,2006,movie,1579
+The Lone Ranger,2013,movie,57201
+Jason Bourne,2016,movie,324668
+Who Framed Roger Rabbit,1988,movie,856
+Halloween,1978,movie,948
+The Untouchables,1987,movie,117
+Jungle Cruise,2021,movie,451048
+Hotel Transylvania 2,2015,movie,159824
+Taken 3,2014,movie,260346
+School of Rock,2003,movie,1584
+Just Go with It,2011,movie,50546
+The Iron Giant,1999,movie,10386
+Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb,1964,movie,935
+The Hurt Locker,2008,movie,12162
+The Princess and the Frog,2009,movie,10198
+The Machinist,2004,movie,4553
+The Bourne Legacy,2012,movie,49040
+The Wizard of Oz,1939,movie,630
+John Carter,2012,movie,49529
+Pocahontas,1995,movie,10530
+King Arthur: Legend of the Sword,2017,movie,274857
+The 5th Wave,2016,movie,299687
+The Girl on the Train,2016,movie,346685
+Bambi,1942,movie,3170
+Fantastic Mr. Fox,2009,movie,10315
+Annabelle: Creation,2017,movie,396422
+Citizen Kane,1941,movie,15
+Wrath of Man,2021,movie,637649
+The Danish Girl,2015,movie,306819
+Sinister,2012,movie,82507
+The Good Dinosaur,2015,movie,105864
+Casablanca,1943,movie,289
+Ghost,1990,movie,251
+Bright,2017,movie,400106
+The Menu,2022,movie,593643
+The Italian Job,2003,movie,9654
+Once Upon a Time in America,1984,movie,311
+Five Feet Apart,2019,movie,527641
+American Gangster,2007,movie,4982
+Gifted,2017,movie,400928
+Battleship,2012,movie,44833
+The Chronicles of Narnia: The Voyage of the Dawn Treader,2010,movie,10140
+Salt,2010,movie,27576
+The Favourite,2018,movie,375262
+The Equalizer 2,2018,movie,345887
+Bad Boys II,2003,movie,8961
+Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan,2006,movie,496
+Total Recall,2012,movie,64635
+Mars Attacks!,1996,movie,75
+Sonic the Hedgehog 2,2022,movie,675353
+The World's End,2013,movie,107985
+Face/Off,1997,movie,754
+The Island,2005,movie,1635
+Apollo 13,1995,movie,568
+RoboCop,2014,movie,97020
+Saw II,2005,movie,215
+Southpaw,2015,movie,307081
+Transcendence,2014,movie,157353
+G.I. Joe: Retaliation,2013,movie,72559
+The Adventures of Tintin,2011,movie,17578
+Creed II,2018,movie,480530
+The Aviator,2004,movie,2567
+The Wild Robot,2024,movie,1184918
+Due Date,2010,movie,41733
+The Transporter,2002,movie,4108
+Brother Bear,2003,movie,10009
+The Mist,2007,movie,5876
+The Tourist,2010,movie,37710
+Turning Red,2022,movie,508947
+Knowing,2009,movie,13811
+Peter Pan,1953,movie,10693
+The Black Phone,2022,movie,756999
+Enchanted,2007,movie,4523
+Non-Stop,2014,movie,225574
+Meet Joe Black,1998,movie,297
+Wind River,2017,movie,395834
+Ant-Man and the Wasp: Quantumania,2023,movie,640146
+Bram Stoker's Dracula,1992,movie,6114
+True Grit,2010,movie,44264
+Hook,1991,movie,879
+The Substance,2024,movie,933260
+Chronicle,2012,movie,76726
+In Bruges,2008,movie,8321
+Moneyball,2011,movie,60308
+A Nightmare on Elm Street,1984,movie,377
+RoboCop,1987,movie,5548
+Lady and the Tramp,1955,movie,10340
+Orphan,2009,movie,21208
+First Man,2018,movie,369972
+Law Abiding Citizen,2009,movie,22803
+Anastasia,1997,movie,9444
+Terminator: Dark Fate,2019,movie,290859
+The Holiday,2006,movie,1581
+Collateral Beauty,2016,movie,345920
+Les Misérables,2012,movie,82695
+Man on Fire,2004,movie,9509
+Hellboy II: The Golden Army,2008,movie,11253
+Love & Other Drugs,2010,movie,43347
+Death Proof,2007,movie,1991
+Batman Forever,1995,movie,414
+El Camino: A Breaking Bad Movie,2019,movie,559969
+Escape Plan,2013,movie,107846
+Rush Hour,1998,movie,2109
+Pitch Perfect 2,2015,movie,254470
+The Town,2010,movie,23168
+13 Going on 30,2004,movie,10096
+The Great Wall,2016,movie,311324
+After We Collided,2020,movie,613504
+The Purge: Election Year,2016,movie,316727
+National Treasure: Book of Secrets,2007,movie,6637
+The Dark Tower,2017,movie,353491
+Boyhood,2014,movie,85350
+Darkest Hour,2017,movie,399404
+Alien Resurrection,1997,movie,8078
+Dredd,2012,movie,49049
+Sleeping Beauty,1959,movie,10882
+Bridget Jones's Diary,2001,movie,634
+The Lighthouse,2019,movie,503919
+L.A. Confidential,1997,movie,2118
+Happy Feet,2006,movie,9836
+Daredevil,2003,movie,9480
+Gemini Man,2019,movie,453405
+17 Again,2009,movie,16996
+Paranormal Activity,2007,movie,23827
+War Dogs,2016,movie,308266
+28 Weeks Later,2007,movie,1562
+Starship Troopers,1997,movie,563
+Percy Jackson: Sea of Monsters,2013,movie,76285
+Chicken Run,2000,movie,7443
+Batman & Robin,1997,movie,415
+The Aristocats,1970,movie,10112
+Panic Room,2002,movie,4547
+The Lego Batman Movie,2017,movie,324849
+Cowboys & Aliens,2011,movie,49849
+Shooter,2007,movie,7485
+The Blair Witch Project,1999,movie,2667
+The Founder,2016,movie,310307
+The Hunchback of Notre Dame,1996,movie,10545
+Isle of Dogs,2018,movie,399174
+The Mule,2018,movie,504172
+The Shallows,2016,movie,332567
+Ferris Bueller's Day Off,1986,movie,9377
+Skyscraper,2018,movie,447200
+Romeo + Juliet,1996,movie,454
+Poor Things,2023,movie,792307
+Men in Black: International,2019,movie,479455
+The Expendables 3,2014,movie,138103
+Pacific Rim: Uprising,2018,movie,268896
+Dumbo,1941,movie,11360
+There's Something About Mary,1998,movie,544
+Uncut Gems,2019,movie,473033
+Jack Reacher: Never Go Back,2016,movie,343611
+Lemony Snicket's A Series of Unfortunate Events,2004,movie,11774
+The Princess Diaries,2001,movie,9880
+The Illusionist,2006,movie,1491
+The Sorcerer's Apprentice,2010,movie,27022
+American Pie 2,2001,movie,2770
+Bloodshot,2020,movie,338762
+Lord of War,2005,movie,1830
+Crimson Peak,2015,movie,201085
+Transformers: Rise of the Beasts,2023,movie,667538
+Déjà Vu,2006,movie,7551
+Paper Towns,2015,movie,286565
+Jack the Giant Slayer,2013,movie,81005
+Bee Movie,2007,movie,5559
+Insomnia,2002,movie,320
+Elemental,2023,movie,976573
+Everest,2015,movie,253412
+Bridge to Terabithia,2007,movie,1265
+The Kissing Booth 2,2020,movie,583083
+Cube,1998,movie,431
+Blade II,2002,movie,36586
+The Place Beyond the Pines,2013,movie,97367
+Misery,1990,movie,1700
+Burn After Reading,2008,movie,4944
+Hannibal,2001,movie,9740
+Journey to the Center of the Earth,2008,movie,88751
+Ready or Not,2019,movie,567609
+Geostorm,2017,movie,274855
+6 Underground,2019,movie,509967
+The Visit,2015,movie,298312
+The Rock,1996,movie,9802
+Atlantis: The Lost Empire,2001,movie,10865
+Meet the Fockers,2004,movie,693
+Ghostbusters: Afterlife,2021,movie,425909
+The Predator,2018,movie,346910
+London Has Fallen,2016,movie,267860
+The Passion of the Christ,2004,movie,615
+White House Down,2013,movie,117251
+Mortal Engines,2018,movie,428078
+Greenland,2020,movie,524047
+Halloween,2018,movie,424139
+The Huntsman: Winter's War,2016,movie,290595
+Scary Movie 2,2001,movie,4248
+Sucker Punch,2011,movie,23629
+Fantastic Beasts: The Secrets of Dumbledore,2022,movie,338953
+The Princess Bride,1987,movie,2493
+Escape Room,2019,movie,522681
+The Addams Family,1991,movie,2907
+Platoon,1986,movie,792
+The King's Man,2021,movie,476669
+21,2008,movie,8065
+Mary Poppins,1964,movie,433
+No Strings Attached,2011,movie,41630
+Airplane!,1980,movie,813
+Evil Dead,2013,movie,109428
+Robin Hood,2010,movie,20662
+Rocketman,2019,movie,504608
+Fear and Loathing in Las Vegas,1998,movie,1878
+The A-Team,2010,movie,34544
+Lethal Weapon,1987,movie,941
+I Am Number Four,2011,movie,46529
+Warrior,2011,movie,59440
+Equilibrium,2002,movie,7299
+Perfume: The Story of a Murderer,2006,movie,1427
+The Northman,2022,movie,639933
+Mission: Impossible - Dead Reckoning Part One,2023,movie,575264
+Bad Teacher,2011,movie,52449
+Monsters vs Aliens,2009,movie,15512
+The Royal Tenenbaums,2001,movie,9428
+Watchmen,2019,tv,79788
+That '70s Show,1998,tv,52
+Station 19,2018,tv,76773
+Fate: The Winx Saga,2021,tv,97175
+iCarly,2007,tv,5371
+Defending Jacob,2020,tv,87784
+Shadow and Bone,2021,tv,85720
+Hazbin Hotel,2024,tv,94954
+Emily in Paris,2020,tv,82596
+Mr. Bean,1990,tv,4327
+Legion,2017,tv,67195
+White Collar,2009,tv,21510
+Succession,2018,tv,76331
+Primal,2019,tv,89456
+Castlevania,2017,tv,71024
+Dexter: New Blood,2021,tv,131927
+ONE PIECE,2023,tv,111110
+Star vs. the Forces of Evil,2015,tv,61923
+Penny Dreadful,2014,tv,54671
+Narcos: Mexico,2018,tv,80968
+Killing Eve,2018,tv,72750
+Rome,2005,tv,1891
+The Last Dance,2020,tv,79525
+Star Trek,1966,tv,253
+The Man in the High Castle,2015,tv,62017
+Mad Men,2007,tv,1104
+Doom Patrol,2019,tv,79501
+Taboo,2017,tv,65708
+Locke & Key,2020,tv,86423
+Monsters at Work,2021,tv,90461
+Black Sails,2014,tv,47665
+Ms. Marvel,2022,tv,92782
+Knight Rider,1982,tv,2384
+Archer,2009,tv,10283
+Orphan Black,2013,tv,56296
+Sex/Life,2021,tv,126280
+Xena: Warrior Princess,1995,tv,4616
+Adolescence,2025,tv,249042
+Snowpiercer,2020,tv,79680
+3 Body Problem,2024,tv,108545
+Carnival Row,2019,tv,90027
+Upload,2020,tv,86248
+Skins,2007,tv,900
+CSI: Crime Scene Investigation,2000,tv,1431
+Banshee,2013,tv,41727
+The Orville,2017,tv,71738
+The Haunting of Bly Manor,2020,tv,109958
+Secret Invasion,2023,tv,114472
+Drawn Together,2004,tv,4336
+Gen V,2023,tv,205715
+The OA,2016,tv,69061
+X-Men,1992,tv,4574
+Teen Titans,2003,tv,604
+The Resident,2018,tv,74016
+The White Lotus,2021,tv,111803
+Warrior Nun,2020,tv,87689
+Steven Universe,2013,tv,61175
+Normal People,2020,tv,89905
+Power,2014,tv,54650
+Falling Skies,2011,tv,34967
+It's Always Sunny in Philadelphia,2005,tv,2710
+The Peripheral,2022,tv,95403
+Disenchantment,2018,tv,73021
+Preacher,2016,tv,64230
+The Nanny,1993,tv,2352
+The Night Of,2016,tv,66276
+Californication,2007,tv,1215
+IT: Welcome to Derry,2025,tv,200875
+Chicago Med,2015,tv,62650
+NCIS: Los Angeles,2009,tv,17610
+Ratched,2020,tv,81354
+Boardwalk Empire,2010,tv,1621
+The Penguin,2024,tv,194764
+Gilmore Girls,2000,tv,4586
+Monk,2002,tv,1695
+"Sabrina, the Teenage Witch",1996,tv,605
+Planet Earth,2006,tv,1044
+The Walking Dead: World Beyond,2020,tv,94305
+9-1-1: Lone Star,2020,tv,89393
+The Night Manager,2016,tv,61859
+ALF,1986,tv,4658
+Atypical,2017,tv,71578
+Young Justice,2010,tv,33217
+The Sinner,2017,tv,39852
+Big Mouth,2017,tv,74204
+Shadowhunters,2016,tv,63210
+Wizards of Waverly Place,2007,tv,3498
+The Tom and Jerry Show,1975,tv,7842
+Luther,2010,tv,1426
+Chuck,2007,tv,1404
+Scream: The TV Series,2015,tv,62823
+Ben 10: Alien Force,2008,tv,6040
+Married... with Children,1987,tv,4239
+Danny Phantom,2004,tv,2309
+DC's Stargirl,2020,tv,80986
+Downton Abbey,2010,tv,33907
+The Leftovers,2014,tv,54344
+12 Monkeys,2015,tv,60948
+Outer Banks,2020,tv,100757
+Henry Danger,2014,tv,61852
+Ahsoka,2023,tv,114461
+Harley Quinn,2019,tv,74440
+Trollhunters: Tales of Arcadia,2016,tv,68267
+Midnight Mass,2021,tv,97400
+Invasion,2021,tv,127235
+Stargate Atlantis,2004,tv,2290
+Lioness,2023,tv,113962
+Star Wars: The Bad Batch,2021,tv,105971
+Project Blue Book,2019,tv,79649
+The Great,2020,tv,93812
+Spider-Man,1994,tv,888
+Full House,1987,tv,4313
+Sleepy Hollow,2013,tv,50825
+Scooby-Doo! Mystery Incorporated,2010,tv,18123
+Merlin,2008,tv,7225
+Everybody Hates Chris,2005,tv,252
+Barry,2018,tv,73107
+Designated Survivor,2016,tv,67026
+My Name Is Earl,2005,tv,2317
+ThunderCats,1985,tv,1988
+The Fairly OddParents,2001,tv,4630
+Dinosaurs,1991,tv,3763
+The Wonder Years,1988,tv,4500
+Six Feet Under,2001,tv,1274
+Baby Reindeer,2024,tv,241259
+New Amsterdam,2018,tv,80350
+Zoey 101,2005,tv,1778
+Bodyguard,2018,tv,80307
+Bob's Burgers,2011,tv,32726
+Star Trek: Voyager,1995,tv,1855
+Swamp Thing,2019,tv,79240
+The Night Agent,2023,tv,129552
+The Summer I Turned Pretty,2022,tv,194766
+The Terminal List,2022,tv,120911
+Avatar the Last Airbender,2024,tv,82452
+Marvel's Ultimate Spider-Man,2012,tv,34391
+The A-Team,1983,tv,1516
+American Crime Story,2016,tv,64513
+The Americans,2013,tv,46533
+Vikings: Valhalla,2022,tv,116135
+The Shannara Chronicles,2016,tv,64122
+Sharp Objects,2018,tv,70453
+After Life,2019,tv,79410
+The Last Ship,2014,tv,60802
+The Grim Adventures of Billy and Mandy,2001,tv,897
+Billions,2016,tv,62852
+Ned's Declassified School Survival Guide,2004,tv,1600
+A Series of Unfortunate Events,2017,tv,65294
+The Twilight Zone,1959,tv,6357
+Phineas and Ferb,2007,tv,1877
+Monarch: Legacy of Monsters,2023,tv,202411
+Angel,1999,tv,2426
+Misfits,2009,tv,31295
+When They See Us,2019,tv,81355
+Blue Bloods,2010,tv,32692
+The Powerpuff Girls,1998,tv,607
+Dickinson,2019,tv,89901
+Terminator: The Sarah Connor Chronicles,2008,tv,433
+Cursed,2020,tv,83125
+V,1983,tv,14141
+Star Wars Rebels,2014,tv,60554
+MacGyver,2016,tv,67133
+Hey Arnold!,1996,tv,537
+Little House on the Prairie,1974,tv,1781
+The Flintstones,1960,tv,1996
+Guillermo del Toro's Cabinet of Curiosities,2022,tv,83659
+Marvel's Runaways,2017,tv,67466
+Maniac,2018,tv,73411
+Russian Doll,2019,tv,84977
+Tales from the Crypt,1989,tv,2391
+Weeds,2005,tv,186
+Evil,2019,tv,86848
+The Bible,2013,tv,43899
+The Terror,2018,tv,75191
+The Last Man on Earth,2015,tv,61888
+Broadchurch,2013,tv,1427
+American Horror Stories,2021,tv,113036
+The Day of the Jackal,2024,tv,222766
+Inside Job,2021,tv,97727
+Battlestar Galactica,2003,tv,71365
+The Fall,2013,tv,49010
+Final Space,2018,tv,74387
+Z Nation,2014,tv,61345
+What We Do in the Shadows,2019,tv,83631
+Psych,2006,tv,1447
+Shadow Hunter,2005,tv,12313
+Black Lightning,2018,tv,71663
+The Office,2001,tv,2996
+Resident Alien,2021,tv,96580
+Keeping Up with the Kardashians,2007,tv,14814
+Limitless,2015,tv,62687
+Glee,2009,tv,1417
+Van Helsing,2016,tv,65820
+Star Trek: Enterprise,2001,tv,314
+Yellowjackets,2021,tv,117488
+Continuum,2012,tv,43020
+Star Trek: Deep Space Nine,1993,tv,580
+The Marvelous Mrs. Maisel,2017,tv,70796
+The Order,2019,tv,82104
+The O.C.,2003,tv,2673
+Deadwood,2004,tv,1406
+Black Bird,2022,tv,155537
+The Midnight Gospel,2020,tv,96713
+Agatha All Along,2024,tv,138501
+ER,1994,tv,4588
+MacGyver,1985,tv,2875
+War of the Worlds,2019,tv,86374
+Alien: Earth,2025,tv,157239
+Dynasty,2017,tv,72002
+Planet Earth II,2016,tv,68595
+Jane the Virgin,2014,tv,61418
+Slugterra,2012,tv,46994
+Curb Your Enthusiasm,2000,tv,4546
+Kung Fu Panda: The Paws of Destiny,2018,tv,82747
+FBI,2018,tv,80748
+The Spectacular Spider-Man,2008,tv,3854
+Dirk Gently's Holistic Detective Agency,2016,tv,67773
+Ben 10: Ultimate Alien,2010,tv,31109
+Reign,2013,tv,48865
+Wayward Pines,2015,tv,53425
+Servant,2019,tv,88055
+Dexter's Laboratory,1996,tv,4229
+Samurai Jack,2001,tv,2723
+Hanna,2019,tv,54155
+Jackie Chan Adventures,2000,tv,240
+Mums Make Porn,2019,tv,110290
+The Morning Show,2019,tv,90282
+For All Mankind,2019,tv,87917
+1883,2021,tv,118357
+Terra Nova,2011,tv,32754
+The L Word,2004,tv,3475
+Maid,2021,tv,111141
+Justice League Unlimited,2004,tv,84200
+Frasier,1993,tv,3452
+Freaks and Geeks,1999,tv,2382
+The Adventures of Jimmy Neutron: Boy Genius,2002,tv,2129
+BEEF,2023,tv,154385
+Mr. Pickles,2014,tv,61593
+The Killing,2011,tv,34415
+Top Gear,2002,tv,45
+Dark Matter,2015,tv,62425
+Travelers,2016,tv,67683
+Power Rangers,1993,tv,2328
+A Discovery of Witches,2018,tv,77236
+The Grand Tour,2016,tv,67557
+The Odyssey,1997,tv,9687
+Revenge,2011,tv,39358
+The Shield,2002,tv,1414
+The Undoing,2020,tv,83851
+Atlanta,2016,tv,65495

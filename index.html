@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egg's Games</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <style>
+        :root {
+            --bg: #f0f2f5;
+            --text: #2d3436;
+            --accent: #6c5ce7;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0 0 60px 0;
+        }
+
+        .hero {
+            width: 100%;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 90%;
+            max-width: 1100px;
+            padding: 0 20px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 6px;
+            background: var(--accent);
+            opacity: 0.8;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.2);
+        }
+
+        .game-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+            color: #1a1a1a;
+        }
+
+        .game-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #636e72;
+            margin: 0;
+        }
+
+        /* Themed accents */
+        .card-zero::before { background: #2d3436; }
+        .card-ghost::before { background: #00cec9; }
+        .card-conn::before { background: #5a5a5a; }
+        .card-tri::before { background: #fdcb6e; }
+        .card-spell::before { background: #2193b0; }
+        .card-melodle::before { background: #e84393; }
+        .card-ppt::before { background: #fab1a0; }
+        .card-troped::before { background: #a29bfe; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .game-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Egg's Games</h1>
+        <p>A collection of trivia-centric games and puzzles</p>
+    </div>
+
+    <div class="game-grid">
+        <a href="draft.html" class="game-card card-zero">
+            <img src="img/draft.png" alt="Draft Zero" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Draft Zero</h2>
+            <p class="game-desc">Unredact the screenplay. Can you identify the movie or show from its first few pages?</p>
+        </a>
+
+        <a href="ghostgram.html" class="game-card card-ghost">
+            <img src="img/ghost.png" alt="Ghostgram" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Ghostgram</h2>
+            <p class="game-desc">A spectral word game. Deduce the hidden pangrams and find the two ghost letters.</p>
+        </a>
+
+        <a href="hollywood-connections.html" class="game-card card-conn">
+            <img src="img/connections.png" alt="Hollywood Connections" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Hollywood Connections</h2>
+            <p class="game-desc">Connect the stars. Find the links between actors, directors, and their cinematic works.</p>
+        </a>
+
+        <a href="triangle.html" class="game-card card-tri">
+            <img src="img/triangle.png" alt="Hollywood Triangle" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Hollywood Triangle</h2>
+            <p class="game-desc">Connect three points of cinema. A geometric take on classic movie trivia.</p>
+        </a>
+
+        <a href="licensed-to-spell.html" class="game-card card-spell">
+            <img src="img/license.png" alt="Licensed to Spell" class="game-img" onerror="this.src='img/lts-logo.png'">
+            <h2 class="game-title">Licensed to Spell</h2>
+            <p class="game-desc">A clever word puzzle. Decode the license plates and spell your way to victory.</p>
+        </a>
+
+        <a href="https://www.melodle.me" class="game-card card-melodle">
+            <img src="img/melodle.png" alt="Melodle" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Melodle</h2>
+            <p class="game-desc">A music-guessing game. Identify the song from just a few seconds of audio.</p>
+        </a>
+
+        <a href="people-places-things.html" class="game-card card-ppt">
+            <img src="img/ppt.png" alt="People, Places, Things" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">People, Places, Things</h2>
+            <p class="game-desc">The ultimate trivia challenge. Categorize and identify across three major domains.</p>
+        </a>
+
+        <a href="troped.html" class="game-card card-troped">
+            <img src="img/troped.png" alt="Troped" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Troped</h2>
+            <p class="game-desc">Unmask the TV show. Identify the series through its common storytelling tropes.</p>
+        </a>
+    </div>
+
+</body>
+</html>
