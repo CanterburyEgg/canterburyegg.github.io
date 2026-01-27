@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Clabbers</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f0f0f0;
+            --text-color: #333;
+            --board-bg: #222;
+            --cell-size: 34px;
+            --tile-bg: #f0d9b5;
+            --tile-text: #333;
+            --word-highlight: rgba(144, 238, 144, 0.6);
+            --tw: #ff4d4d;
+            --dw: #ffb3b3;
+            --tl: #3399ff;
+            --dl: #b3d9ff;
+            --star: #ffcc00;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Roboto Mono', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+
+        #puzzle-title {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 25px !important;
+            padding-top: 10px;
+        }
+
+        #calendar-btn {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            background: url('img/calendar.png') no-repeat center center;
+            background-size: contain;
+            border: none;
+            z-index: 100;
+        }
+
+        #main-layout {
+            display: grid;
+            grid-template-columns: 250px auto 250px;
+            gap: 20px;
+            align-items: flex-start;
+            justify-content: center;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .sidebar-spacer {
+            width: 250px;
+        }
+
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(15, var(--cell-size));
+            grid-template-rows: repeat(15, var(--cell-size));
+            gap: 2px;
+            background-color: #444;
+            padding: 4px;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+        .cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .cell.tw { background-color: var(--tw); }
+        .cell.dw { background-color: var(--dw); color: #333; }
+        .cell.tl { background-color: var(--tl); }
+        .cell.dl { background-color: var(--dl); color: #333; }
+        .cell.center { background-color: var(--star); color: #333; }
+        .cell.highlight { 
+            background-color: var(--word-highlight) !important;
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+        .cell.preview { background-color: rgba(255, 255, 0, 0.2) !important; }
+
+        .tile {
+            width: calc(var(--cell-size) - 4px);
+            height: calc(var(--cell-size) - 4px);
+            background-color: var(--tile-bg);
+            color: var(--tile-text);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: grab;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            position: absolute;
+            z-index: 10;
+        }
+
+        .tile.fixed { background-color: #888; color: #eee; cursor: default; }
+        .tile.preview-tile { background-color: #ffcc00; opacity: 0.8; }
+        .tile .value { position: absolute; bottom: 1px; right: 2px; font-size: 6px; }
+
+        #rack {
+            display: flex;
+            gap: 6px;
+            background-color: #8b5a2b;
+            padding: 6px;
+            border-radius: 4px;
+            min-height: 44px;
+            min-width: 280px;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #5d3a1a;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .rack-slot {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #sidebar {
+            width: 250px;
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            visibility: hidden;
+            max-height: 600px;
+            overflow-y: auto;
+            color: #ccc;
+        }
+
+        #sidebar h5 {
+            color: #eee;
+        }
+
+        .option-item {
+            padding: 8px;
+            margin-bottom: 6px;
+            background: #2a2a2a;
+            border-radius: 4px;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .option-item:hover {
+            background: #3a3a3a;
+            border-left-color: #ffcc00;
+            color: #eee;
+        }
+
+        .option-item .score { font-weight: bold; color: #ffcc00; }
+
+        #controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .score-box { font-size: 18px; border: 1px solid #555; padding: 4px 12px; border-radius: 4px; }
+        
+        #archiveModal .modal-dialog {
+            margin-left: calc(50% - 260px);
+            margin-top: 60px;
+            max-width: 300px;
+        }
+
+        .dragging { opacity: 0.5; }
+        
+        /* Grade Toast Styles */
+        #grade-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #ff4d4d;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            z-index: 2000;
+            display: none;
+            min-width: 200px;
+            box-shadow: 0 0 20px rgba(255, 77, 77, 0.5);
+        }
+
+        #toast-score-msg {
+            color: #eee;
+        }
+
+        #grade-letter {
+            font-size: 100px;
+            color: #ff4d4d;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .modal-content { background-color: #222; color: #eee; }
+        .archive-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; padding: 20px; }
+        .archive-item { padding: 10px; background: #333; border: 1px solid #444; cursor: pointer; text-align: center; }
+        .archive-item:hover { background: #444; }
+    </style>
+</head>
+<body>
+
+    <button id="calendar-btn" data-bs-toggle="modal" data-bs-target="#archiveModal"></button>
+    <h1 id="puzzle-title" class="mb-2">Daily Clabbers</h1>
+    
+    <div id="main-layout">
+        <div class="sidebar-spacer"></div>
+        <div id="game-container">
+            <div id="board"></div>
+            <div id="rack"></div>
+            
+            <div id="controls">
+                <div class="score-box">Score: <span id="temp-score">0</span></div>
+                <button id="submit-btn" class="btn btn-success px-4">Submit</button>
+                <button id="reset-btn" class="btn btn-danger">Reset Rack</button>
+                <button id="reveal-btn" class="btn btn-warning">Reveal Top Plays</button>
+            </div>
+            <div id="message" class="text-info mt-2"></div>
+        </div>
+
+        <div id="sidebar">
+            <h5 class="mb-3">Top Plays</h5>
+            <div id="top-plays-list"></div>
+        </div>
+    </div>
+
+    <!-- Grade Toast -->
+    <div id="grade-toast">
+        <h3 id="toast-score-msg">Score: 0</h3>
+        <span id="grade-letter">A</span>
+        <button onclick="document.getElementById('grade-toast').style.display='none'" class="btn btn-sm btn-outline-light mt-3">Close</button>
+    </div>
+
+    <!-- Archive Modal -->
+    <div class="modal fade" id="archiveModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Puzzle Archive</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body archive-list" id="archive-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const TILE_VALUES = {'A':1, 'B':3, 'C':3, 'D':2, 'E':1, 'F':4, 'G':2, 'H':4, 'I':1, 'J':8, 'K':5, 'L':1, 'M':3, 'N':1, 'O':1, 'P':3, 'Q':10, 'R':1, 'S':1, 'T':1, 'U':1, 'V':4, 'W':4, 'X':8, 'Y':4, 'Z':10};
+        const MULTIPLIERS = {
+            TW: [[0,0], [7,0], [14,0], [0,7], [14,7], [0,14], [7,14], [14,14]],
+            DW: [[1,1], [2,2], [3,3], [4,4], [10,10], [11,11], [12,12], [13,13], [1,13], [2,12], [3,11], [4,10], [10,4], [11,3], [12,2], [13,1], [7,7]],
+            TL: [[1,5], [1,9], [5,1], [5,5], [5,9], [5,13], [9,1], [9,5], [9,9], [9,13], [13,5], [13,9]],
+            DL: [[0,3], [0,11], [2,6], [2,8], [3,0], [3,7], [3,14], [6,2], [6,6], [6,8], [6,12], [7,3], [7,11], [8,2], [8,6], [8,8], [8,12], [11,0], [11,7], [11,14], [12,6], [12,8], [14,3], [14,11]]
+        };
+
+        let alphagrams = {};
+        let puzzles = [];
+        let currentIdx = 0;
+        let boardState = Array(15).fill().map(() => Array(15).fill(null));
+        let fixedGrid = null;
+        let placedTiles = [];
+
+        async function init() {
+            try {
+                // Load Dictionary for validation
+                const dictRes = await fetch('lists/dictionary.txt');
+                const text = await dictRes.text();
+                const lines = text.split('\n');
+                lines.forEach(w => {
+                    const word = w.trim().toUpperCase();
+                    if (word.length >= 2) {
+                        const alpha = word.split('').sort().join('');
+                        alphagrams[alpha] = true;
+                    }
+                });
+                console.log(`Loaded ${Object.keys(alphagrams).length} alphagrams.`);
+                if (alphagrams['GHO']) console.log("GHO (HOG) is in dictionary.");
+                else console.log("GHO (HOG) is NOT in dictionary.");
+
+                const puzzleRes = await fetch('jsons/clabbers_puzzles.json');
+                puzzles = await puzzleRes.json();
+                
+                const seed = getDailySeed();
+                loadPuzzle(seed % puzzles.length);
+                setupArchive();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('message').innerText = "Error loading game.";
+            }
+        }
+
+        function getDailySeed() {
+            const start = new Date(2026, 0, 1);
+            return Math.floor((new Date() - start) / (1000 * 60 * 60 * 24));
+        }
+
+        function loadPuzzle(idx) {
+            currentIdx = idx;
+            const puzzle = puzzles[idx];
+            document.getElementById('puzzle-title').innerText = `Daily Clabbers #${idx + 1}`;
+            fixedGrid = puzzle.grid;
+            boardState = Array(15).fill().map(() => Array(15).fill(null));
+            placedTiles = [];
+            document.getElementById('message').innerText = "";
+            document.getElementById('sidebar').style.visibility = "hidden";
+            document.getElementById('temp-score').innerText = "0";
+            document.getElementById('submit-btn').disabled = true;
+            
+            createBoard();
+            createRack(puzzle.rack);
+        }
+
+        function setupArchive() {
+            const list = document.getElementById('archive-list');
+            list.innerHTML = "";
+            puzzles.forEach((p, i) => {
+                const item = document.createElement('div');
+                item.className = 'archive-item';
+                item.innerText = i + 1;
+                item.onclick = () => {
+                    loadPuzzle(i);
+                    bootstrap.Modal.getInstance(document.getElementById('archiveModal')).hide();
+                };
+                list.appendChild(item);
+            });
+        }
+
+        function createBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            for (let r = 0; r < 15; r++) {
+                for (let c = 0; c < 15; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.r = r; cell.dataset.c = c;
+                    
+                    if (MULTIPLIERS.TW.some(p => p[0]===r && p[1]===c)) cell.classList.add('tw');
+                    else if (MULTIPLIERS.DW.some(p => p[0]===r && p[1]===c)) cell.classList.add('dw');
+                    else if (MULTIPLIERS.TL.some(p => p[0]===r && p[1]===c)) cell.classList.add('tl');
+                    else if (MULTIPLIERS.DL.some(p => p[0]===r && p[1]===c)) cell.classList.add('dl');
+                    if (r===7 && c===7) cell.classList.add('center');
+
+                    if (fixedGrid[r][c] !== ' ') {
+                        cell.appendChild(createTile(fixedGrid[r][c], true));
+                        boardState[r][c] = fixedGrid[r][c];
+                    }
+                    cell.addEventListener('dragover', e => e.preventDefault());
+                    cell.addEventListener('drop', handleDrop);
+                    boardEl.appendChild(cell);
+                }
+            }
+        }
+
+        function createRack(letters) {
+            const rackEl = document.getElementById('rack');
+            rackEl.innerHTML = '';
+            letters.split('').forEach((l, i) => {
+                const slot = document.createElement('div');
+                slot.className = 'rack-slot';
+                slot.appendChild(createTile(l, false, i));
+                slot.addEventListener('dragover', e => e.preventDefault());
+                slot.addEventListener('drop', handleRackDrop);
+                rackEl.appendChild(slot);
+            });
+        }
+
+        function createTile(char, fixed, rackIdx) {
+            const tile = document.createElement('div');
+            tile.className = 'tile' + (fixed ? ' fixed' : '');
+            tile.innerText = char;
+            tile.draggable = !fixed;
+            if (!fixed) tile.dataset.rackIdx = rackIdx;
+            
+            const val = document.createElement('span');
+            val.className = 'value';
+            val.innerText = TILE_VALUES[char];
+            tile.appendChild(val);
+
+            tile.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    char, from: tile.parentElement.classList.contains('rack-slot') ? 'rack' : 'board',
+                    rackIdx: tile.dataset.rackIdx, r: tile.parentElement.dataset.r, c: tile.parentElement.dataset.c
+                }));
+                tile.classList.add('dragging');
+            });
+            tile.addEventListener('dragend', () => tile.classList.remove('dragging'));
+            return tile;
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const r = parseInt(this.dataset.r), c = parseInt(this.dataset.c);
+            if (boardState[r][c]) return;
+
+            const tileEl = document.querySelector('.dragging');
+            this.appendChild(tileEl);
+            if (data.from === 'board') boardState[data.r][data.c] = null;
+            boardState[r][c] = data.char;
+            
+            placedTiles = placedTiles.filter(t => !(t.element === tileEl));
+            placedTiles.push({ char: data.char, r, c, element: tileEl });
+            updateValidation();
+        }
+
+        function handleRackDrop(e) {
+            e.preventDefault();
+            if (this.children.length > 0) return;
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const tileEl = document.querySelector('.dragging');
+            this.appendChild(tileEl);
+            if (data.from === 'board') boardState[data.r][data.c] = null;
+            placedTiles = placedTiles.filter(t => !(t.element === tileEl));
+            updateValidation();
+        }
+
+        function updateValidation() {
+            document.querySelectorAll('.cell').forEach(c => c.classList.remove('highlight'));
+            const result = getScoreAndWords();
+            document.getElementById('temp-score').innerText = result.score;
+            
+            const submitBtn = document.getElementById('submit-btn');
+            if (result.isValid && placedTiles.length > 0) {
+                submitBtn.disabled = false;
+                result.wordCoords.forEach(coord => {
+                    document.querySelector(`.cell[data-r="${coord[0]}"][data-c="${coord[1]}"]`).classList.add('highlight');
+                });
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        function getScoreAndWords() {
+            if (placedTiles.length === 0) return { score: 0, isValid: false, wordCoords: [] };
+            
+            // 1. Check if all placed tiles are in a single row or column
+            const rs = placedTiles.map(t => t.r), cs = placedTiles.map(t => t.c);
+            const isHoriz = rs.every(r => r === rs[0]);
+            const isVert = cs.every(c => c === cs[0]);
+            if (!isHoriz && !isVert) return { score: 0, isValid: false, wordCoords: [] };
+
+            // 2. Connectivity check: Must touch an existing tile
+            let touchesExisting = false;
+            placedTiles.forEach(pt => {
+                [[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr, dc]) => {
+                    const nr = pt.r + dr, nc = pt.c + dc;
+                    if (nr >= 0 && nr < 15 && nc >= 0 && nc < 15) {
+                        if (fixedGrid[nr][nc] !== ' ') touchesExisting = true;
+                    }
+                });
+            });
+            if (!touchesExisting) return { score: 0, isValid: false, wordCoords: [] };
+
+            // Helper to get a full word containing a point (r,c) in direction (dr,dc)
+            function getWord(r, c, dr, dc) {
+                let startR = r, startC = c;
+                while (startR - dr >= 0 && startC - dc >= 0 && boardState[startR - dr][startC - dc]) {
+                    startR -= dr; startC -= dc;
+                }
+                let currR = startR, currC = startC, tiles = [];
+                while (currR < 15 && currC < 15 && boardState[currR][currC]) {
+                    tiles.push({ r: currR, c: currC, char: boardState[currR][currC] });
+                    currR += dr; currC += dc;
+                }
+                return tiles.length >= 2 ? tiles : null;
+            }
+
+            let foundWords = [];
+            let usedInWord = new Set(); // index in placedTiles
+
+            // Find all words in both directions for each placed tile
+            placedTiles.forEach((pt, i) => {
+                const hWord = getWord(pt.r, pt.c, 0, 1);
+                if (hWord) { foundWords.push(hWord); usedInWord.add(i); }
+                const vWord = getWord(pt.r, pt.c, 1, 0);
+                if (vWord) { foundWords.push(vWord); usedInWord.add(i); }
+            });
+
+            // If any placed tile is NOT part of a word, it's invalid (e.g. gaps)
+            if (usedInWord.size !== placedTiles.length) return { score: 0, isValid: false, wordCoords: [] };
+
+            // Calculate Score and Validate
+            let totalScore = 0;
+            let isValid = true;
+            let allWordCoords = new Set();
+
+            const uniqueWords = [];
+            const seenWordKeys = new Set();
+            foundWords.forEach(w => {
+                const key = w.map(t => `${t.r},${t.c}`).sort().join('|');
+                if (!seenWordKeys.has(key)) {
+                    seenWordKeys.add(key);
+                    uniqueWords.push(w);
+                }
+            });
+
+            uniqueWords.forEach(word => {
+                const alpha = word.map(t => t.char).sort().join('');
+                if (!alphagrams[alpha]) isValid = false;
+
+                let wordScore = 0;
+                let wordMult = 1;
+                word.forEach(t => {
+                    let val = TILE_VALUES[t.char];
+                    const isNew = placedTiles.some(pt => pt.r === t.r && pt.c === t.c);
+                    if (isNew) {
+                        if (MULTIPLIERS.TL.some(p => p[0] === t.r && p[1] === t.c)) val *= 3;
+                        else if (MULTIPLIERS.DL.some(p => p[0] === t.r && p[1] === t.c)) val *= 2;
+                        if (MULTIPLIERS.TW.some(p => p[0] === t.r && p[1] === t.c)) wordMult *= 3;
+                        else if (MULTIPLIERS.DW.some(p => p[0] === t.r && p[1] === t.c)) wordMult *= 2;
+                    }
+                    wordScore += val;
+                    allWordCoords.add(`${t.r},${t.c}`);
+                });
+                totalScore += (wordScore * wordMult);
+            });
+
+            if (placedTiles.length === 7) totalScore += 50;
+            const wordCoords = Array.from(allWordCoords).map(s => s.split(',').map(Number));
+            return { score: totalScore, isValid, wordCoords };
+        }
+
+        document.getElementById('submit-btn').addEventListener('click', () => {
+            const result = getScoreAndWords();
+            const best = puzzles[currentIdx].best_score;
+            const ratio = result.score / best;
+            
+            let grade = 'F';
+            if (result.score >= 20) {
+                if (ratio >= 0.9) grade = 'A';
+                else if (ratio >= 0.8) grade = 'B';
+                else if (ratio >= 0.7) grade = 'C';
+                else if (ratio >= 0.6) grade = 'D';
+                else grade = 'E';
+            }
+
+            showGrade(result.score, grade);
+        });
+
+        function showGrade(score, grade) {
+            document.getElementById('toast-score-msg').innerText = `Score: ${score}`;
+            document.getElementById('grade-letter').innerText = grade;
+            document.getElementById('grade-toast').style.display = 'block';
+        }
+
+        document.getElementById('reveal-btn').addEventListener('click', () => {
+            // Return placed tiles to rack before revealing
+            placedTiles.forEach(t => {
+                boardState[t.r][t.c] = null;
+                t.element.remove();
+            });
+            placedTiles = [];
+            createRack(puzzles[currentIdx].rack);
+            
+            // Clear highlights
+            document.querySelectorAll('.cell').forEach(c => c.classList.remove('highlight'));
+
+            // Lock Rack
+            document.querySelectorAll('#rack .tile').forEach(t => t.draggable = false);
+            
+            const sidebar = document.getElementById('sidebar');
+            const list = document.getElementById('top-plays-list');
+            sidebar.style.visibility = "visible";
+            list.innerHTML = "";
+            
+            if (!puzzles[currentIdx].options || puzzles[currentIdx].options.length === 0) {
+                list.innerHTML = "No top plays found in data.";
+                return;
+            }
+
+            puzzles[currentIdx].options.slice(0, 10).sort((a,b)=>b.score-a.score).forEach((opt, i) => {
+                const item = document.createElement('div');
+                item.className = 'option-item';
+                item.innerHTML = `<span class="score">${opt.score} pts</span>: ${opt.alpha}`;
+                
+                item.onmouseenter = () => previewPlay(opt);
+                item.onmouseleave = () => clearPreview();
+                item.onclick = () => {
+                    clearPreview();
+                    previewPlay(opt, true);
+                };
+                
+                list.appendChild(item);
+            });
+        });
+
+        function previewPlay(opt, permanent = false) {
+            clearPreview(permanent);
+            opt.empty_idxs.forEach((idx, i) => {
+                const r = opt.r + opt.dr * idx;
+                const c = opt.c + opt.dc * idx;
+                const cell = document.querySelector(`.cell[data-r="${r}"][data-c="${c}"]`);
+                if (!permanent) cell.classList.add('preview');
+                
+                const char = opt.perm[i];
+                const tile = createTile(char, true);
+                tile.classList.add('preview-tile');
+                cell.appendChild(tile);
+            });
+        }
+
+        function clearPreview(permanent = false) {
+            document.querySelectorAll('.preview-tile').forEach(el => el.remove());
+            document.querySelectorAll('.cell.preview').forEach(el => el.classList.remove('preview'));
+            if (permanent) {
+                document.querySelectorAll('.cell.highlight').forEach(el => el.classList.remove('highlight'));
+            }
+        }
+
+        document.getElementById('reset-btn').addEventListener('click', () => {
+            // Re-enable dragging if it was locked
+            document.querySelectorAll('#rack .tile').forEach(t => t.draggable = true);
+            
+            // Return placed tiles to rack (visually)
+            placedTiles.forEach(t => {
+                boardState[t.r][t.c] = null;
+                t.element.remove();
+            });
+            placedTiles = [];
+            
+            // Regenerate Rack to ensure it's fresh
+            createRack(puzzles[currentIdx].rack);
+            
+            document.getElementById('temp-score').innerText = "0";
+            document.getElementById('message').innerText = "";
+            document.getElementById('sidebar').style.visibility = "hidden";
+            document.querySelectorAll('.cell').forEach(c => {
+                c.classList.remove('highlight');
+                c.classList.remove('preview');
+            });
+            document.querySelectorAll('.preview-tile').forEach(el => el.remove());
+        });
+
+        init();
+    </script>
+</body>
+</html>

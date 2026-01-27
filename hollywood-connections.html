@@ -175,7 +175,7 @@
         solvedSection.innerHTML = '';
         selection = [];
 
-        solvedCategories.forEach(cat => {
+        solvedCategories.forEach((cat, index) => { 
             const row = document.createElement('div');
             row.className = `solved-row cat-${index}`;
             row.innerHTML = `<div class="solved-title">${cat.title}</div><div class="solved-actors">${cat.actors.map(a=>a.name).join(', ')}</div>`;
