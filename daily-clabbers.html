@@ -577,7 +577,8 @@
             
             let grade = 'F';
             if (result.score >= 20) {
-                if (ratio >= 0.9) grade = 'A';
+                if (ratio == 1.0) grade = 'S';
+                else if (ratio >= 0.9) grade = 'A';
                 else if (ratio >= 0.8) grade = 'B';
                 else if (ratio >= 0.7) grade = 'C';
                 else if (ratio >= 0.6) grade = 'D';
