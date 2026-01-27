@@ -52,7 +52,6 @@
         .score-val { color: var(--mint); }
         .score-max { color: var(--slate); }
 
-        /* Mirror Container Logic */
         .input-wrapper {
             position: relative;
             width: 90%;
@@ -88,7 +87,7 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             outline: none;
-            color: transparent; /* Hide native text to show mirror */
+            color: transparent;
             caret-color: var(--mint);
             position: relative;
             z-index: 2;
@@ -99,13 +98,15 @@
         .char-mint { color: var(--mint); }
         .char-ghost { color: var(--ghost); }
 
-        .btn-row { display: flex; gap: 10px; margin: 15px 0 25px 0; }
+        .btn-row { display: flex; gap: 10px; margin: 15px 0 25px 0; flex-wrap: wrap; justify-content: center; }
 
         .ctrl-btn {
             padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border);
             background: white; font-weight: 700; cursor: pointer;
         }
         .ctrl-btn.submit { background: var(--text); color: white; border: none; }
+        .ctrl-btn.hint { border: 1px solid var(--ghost); color: var(--ghost); }
+        .ctrl-btn.hint:disabled { border-color: var(--border); color: var(--grey); cursor: default; }
         .ctrl-btn.give-up { border: 1px solid var(--missed); color: var(--missed); font-size: 0.7rem; }
 
         .tray-area { position: relative; display: flex; flex-direction: column; align-items: center; }
@@ -139,7 +140,7 @@
             width: 100%; max-width: 900px; overflow-x: auto;
             padding: 20px 0 40px 0; margin: 0 auto;
         }
-        .column { display: flex; flex-direction: column; gap: 5px; min-width: 100px; }
+        .column { display: flex; flex-direction: column; gap: 5px; min-width: 110px; }
         .column-header {
             font-size: 0.7rem; font-weight: 900; color: var(--grey);
             text-align: center; border-bottom: 2px solid var(--border);
@@ -149,9 +150,11 @@
         .word-tag {
             background: white; border: 1px solid var(--border);
             padding: 4px 6px; border-radius: 4px; font-size: 0.85rem; font-weight: 700; text-align: center;
+            letter-spacing: 1px;
         }
         .tag-pangram { border: 1.5px solid var(--ghost); }
         .tag-missed { color: var(--missed); border-color: var(--missed); }
+        .tag-hint { color: var(--grey); border-style: dashed; }
 
         #archive-modal {
             display: none; position: fixed; inset: 0; background: white;
@@ -193,6 +196,7 @@
 
 <div class="btn-row">
     <button class="ctrl-btn" onclick="backspace()">Back</button>
+    <button class="ctrl-btn hint" id="hint-btn" onclick="takeHint()">Letter Hint</button>
     <button class="ctrl-btn submit" onclick="submit()">Submit</button>
     <button class="ctrl-btn give-up" onclick="giveUp()">Give Up</button>
 </div>
@@ -222,12 +226,14 @@
     let found = new Set();
     let score = 0;
     let maxScore = 0;
+    let hintLevel = 0;
     let discoveredGhosts = new Set();
     let gameEnded = false;
     const START_DATE = new Date('2026-01-01T00:00:00');
 
     const inputField = document.getElementById('guess-input');
     const inputMirror = document.getElementById('input-mirror');
+    const hintBtn = document.getElementById('hint-btn');
 
     function seededRandom(seed) {
         let x = Math.sin(seed) * 10000;
@@ -253,10 +259,11 @@
 
     function load(idx) {
         current = shuffledPuzzles[idx % shuffledPuzzles.length];
-        found.clear(); score = 0; discoveredGhosts.clear(); 
+        found.clear(); score = 0; discoveredGhosts.clear(); hintLevel = 0;
         inputField.value = ""; 
         updateMirror();
         gameEnded = false;
+        hintBtn.disabled = false;
         document.getElementById('game-title').innerText = `GHOSTGRAM #${idx + 1}`;
         calculateMaxScore();
         renderTray();
@@ -285,18 +292,30 @@
         });
     }
 
+    function takeHint() {
+        if (gameEnded || hintLevel >= 3) return;
+        hintLevel++;
+        if (hintLevel === 3) hintBtn.disabled = true;
+        refresh();
+        inputField.focus();
+    }
+
     function submit() {
         if (gameEnded) return;
         const w = inputField.value.toUpperCase().trim();
         const sol = current.solutions;
-        const isA = sol.words_a.includes(w), isB = sol.words_b.includes(w), isC = sol.common.includes(w);
+        const allPossible = [...sol.common, ...sol.words_a, ...sol.words_b];
 
-        if (isA || isB || isC) {
-            if (found.has(w)) notify("Already found");
-            else {
+        if (allPossible.includes(w)) {
+            if (found.has(w)) {
+                notify("Already found");
+            } else {
                 found.add(w);
-                if (isA) discoveredGhosts.add(current.wildcards[0]);
-                if (isB) discoveredGhosts.add(current.wildcards[1]);
+                [...w].forEach(char => {
+                    if (current.wildcards.includes(char)) {
+                        discoveredGhosts.add(char);
+                    }
+                });
                 score += (w.length - 4 + (new Set(w).size === 7 ? 7 : 0));
                 inputField.value = "";
                 updateMirror();
@@ -313,8 +332,7 @@
     function giveUp() {
         if (gameEnded) return;
         gameEnded = true;
-        discoveredGhosts.add(current.wildcards[0]);
-        discoveredGhosts.add(current.wildcards[1]);
+        current.wildcards.forEach(char => discoveredGhosts.add(char));
         refresh();
     }
 
@@ -330,29 +348,66 @@
             const col = document.createElement('div');
             col.className = 'column';
             const totalInLen = allPossible.filter(w => w.length === len).length;
-            const foundInLen = Array.from(found).filter(w => w.length === len).sort();
+            const foundInLen = Array.from(found).filter(w => w.length === len);
             
             const header = document.createElement('div');
             header.className = 'column-header';
             header.innerText = `${len}L (${foundInLen.length}/${totalInLen})`;
             col.appendChild(header);
 
-            const displayWords = gameEnded 
-                ? allPossible.filter(w => w.length === len).sort()
-                : foundInLen;
+            let wordsToShow = (gameEnded || hintLevel > 0) ? 
+                allPossible.filter(w => w.length === len) : foundInLen;
 
-            displayWords.forEach(w => {
+            // CUSTOM SORT: Prioritize '?' hints at the top
+            wordsToShow.sort((a, b) => {
+                let getSortStr = (word) => {
+                    if (found.has(word) || gameEnded) return word; 
+                    let s = "";
+                    for(let i=0; i<len; i++) {
+                        if (i < hintLevel) {
+                            const c = word[i];
+                            s += (current.wildcards.includes(c) && !discoveredGhosts.has(c)) ? "0" : c; // "0" sorts before letters
+                        } else {
+                            s += "_";
+                        }
+                    }
+                    return s;
+                };
+                return getSortStr(a).localeCompare(getSortStr(b));
+            });
+
+            wordsToShow.forEach(w => {
                 const tag = document.createElement('div');
-                const isMissed = !found.has(w);
+                const isFound = found.has(w);
+                const isMissed = gameEnded && !isFound;
                 tag.className = `word-tag ${new Set(w).size === 7 ? 'tag-pangram' : ''} ${isMissed ? 'tag-missed' : ''}`;
                 
-                [...w].forEach(char => {
-                    const s = document.createElement('span');
-                    if (char === current.center) s.style.color = isMissed ? 'inherit' : 'var(--mint)';
-                    else if (discoveredGhosts.has(char)) s.style.color = isMissed ? 'inherit' : 'var(--ghost)';
-                    s.innerText = char;
-                    tag.appendChild(s);
-                });
+                if (!isFound && !gameEnded) {
+                    tag.className += ' tag-hint';
+                    let hintStr = "";
+                    for(let i=0; i<len; i++) {
+                        if (i < hintLevel) {
+                            const char = w[i];
+                            if (current.wildcards.includes(char) && !discoveredGhosts.has(char)) {
+                                hintStr += "?";
+                            } else {
+                                hintStr += char;
+                            }
+                        } else {
+                            hintStr += "_";
+                        }
+                        if (i < len - 1) hintStr += " ";
+                    }
+                    tag.innerText = hintStr;
+                } else {
+                    [...w].forEach(char => {
+                        const s = document.createElement('span');
+                        if (char === current.center) s.style.color = isMissed ? 'inherit' : 'var(--mint)';
+                        else if (discoveredGhosts.has(char)) s.style.color = isMissed ? 'inherit' : 'var(--ghost)';
+                        s.innerText = char;
+                        tag.appendChild(s);
+                    });
+                }
                 col.appendChild(tag);
             });
             container.appendChild(col);
@@ -382,18 +437,18 @@
 
     function toggleGhostPopover() {
         const pop = document.getElementById('ghost-popover');
-        if (pop.style.display === 'block') pop.style.display = 'none';
-        else { renderKeyboard(); pop.style.display = 'block'; }
+        pop.style.display = (pop.style.display === 'block') ? 'none' : 'block';
+        if (pop.style.display === 'block') renderKeyboard();
     }
 
     function renderKeyboard() {
         const grid = document.getElementById('kb-grid'); grid.innerHTML = '';
         const discovered = Array.from(discoveredGhosts).sort();
-        if (discoveredGhosts.size === 2) {
-            discovered.forEach(l => createKey(l, true));
-        } else {
-            discovered.forEach(l => createKey(l, true));
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').filter(l => !discovered.includes(l)).forEach(l => createKey(l, false));
+        discovered.forEach(l => createKey(l, true));
+        if (discoveredGhosts.size < 2) {
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(l => {
+                if (!discoveredGhosts.has(l)) createKey(l, false);
+            });
         }
     }
 

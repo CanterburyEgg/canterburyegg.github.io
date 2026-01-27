@@ -14,6 +14,12 @@
             --toast-bg: #333;
         }
 
+        /* Category Backgrounds */
+        .cat-0 { background: #f9f6aa !important; } /* Soft Yellow */
+        .cat-1 { background: #a0e6a0 !important; } /* Soft Green */
+        .cat-2 { background: #b0d4f1 !important; } /* Soft Blue */
+        .cat-3 { background: #d8b2e1 !important; } /* Soft Purple */
+
         body { 
             font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
             display: flex; flex-direction: column; align-items: center; margin: 0; padding-bottom: 40px;
@@ -171,7 +177,7 @@
 
         solvedCategories.forEach(cat => {
             const row = document.createElement('div');
-            row.className = 'solved-row';
+            row.className = `solved-row cat-${index}`;
             row.innerHTML = `<div class="solved-title">${cat.title}</div><div class="solved-actors">${cat.actors.map(a=>a.name).join(', ')}</div>`;
             solvedSection.appendChild(row);
         });
