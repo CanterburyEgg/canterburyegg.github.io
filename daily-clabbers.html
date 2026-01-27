@@ -205,9 +205,7 @@
         .score-box { font-size: 18px; border: 1px solid #555; padding: 4px 12px; border-radius: 4px; }
         
         #archiveModal .modal-dialog {
-            margin-left: calc(50% - 260px);
-            margin-top: 60px;
-            max-width: 300px;
+            max-width: 500px;
         }
 
         .dragging { opacity: 0.5; }
@@ -282,7 +280,7 @@
 
     <!-- Archive Modal -->
     <div class="modal fade" id="archiveModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Puzzle Archive</h5>
@@ -363,7 +361,9 @@
         function setupArchive() {
             const list = document.getElementById('archive-list');
             list.innerHTML = "";
+            const todayIdx = getDailySeed();
             puzzles.forEach((p, i) => {
+                if (i > todayIdx) return;
                 const item = document.createElement('div');
                 item.className = 'archive-item';
                 item.innerText = i + 1;
