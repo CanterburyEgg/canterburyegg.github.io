@@ -198,24 +198,20 @@ def get_puzzle_data(game, rack):
     if not moves: return None
     best_score = moves[0]['score']
     if best_score < 50: return None
-    threshold = best_score * 0.70
     
-    # Filter for strategic diversity
+    # 1. Validation check: Must have at least 4 strategically diverse high-scoring moves
+    threshold = best_score * 0.70
     diverse_moves = []
     for m in moves:
         if m['score'] < threshold: break
-        
         m_coords = set((m['r'] + m['dr']*i, m['c'] + m['dc']*i) for i in range(m['len']))
-        
         is_distinct = True
         for dm in diverse_moves:
             dm_coords = set((dm['r'] + dm['dr']*i, dm['c'] + dm['dc']*i) for i in range(dm['len']))
             overlap = m_coords.intersection(dm_coords)
-            # If they share more than 33% of their tiles, they aren't distinct enough
             if len(overlap) > len(m_coords) * 0.33:
                 is_distinct = False
                 break
-        
         if is_distinct:
             diverse_moves.append(m)
             if len(diverse_moves) >= 4: break
@@ -223,12 +219,26 @@ def get_puzzle_data(game, rack):
     if len(diverse_moves) < 4:
         return None
 
+    # 2. Options list: Top 8 unique plays from all valid moves
+    seen_plays = set()
+    top_options = []
+    for m in moves:
+        play_key = (m['r'], m['c'], m['dr'], m['dc'], m['len'], m['alpha'])
+        if play_key not in seen_plays:
+            seen_plays.add(play_key)
+            top_options.append(m)
+            if len(top_options) >= 8: break
+
+    # Reject only if the board literally doesn't have 8 possible moves
+    if len(top_options) < 8:
+        return None
+
     return {
         'grid': [row[:] for row in game.grid],
         'rack': "".join(rack),
         'best_score': best_score,
-        'num_options': len(diverse_moves),
-        'options': diverse_moves
+        'num_options': 8,
+        'options': top_options
     }
 
 def main():

@@ -619,7 +619,7 @@
                 return;
             }
 
-            puzzles[currentIdx].options.slice(0, 10).sort((a,b)=>b.score-a.score).forEach((opt, i) => {
+            puzzles[currentIdx].options.slice(0, 8).sort((a,b)=>b.score-a.score).forEach((opt, i) => {
                 const item = document.createElement('div');
                 item.className = 'option-item';
                 item.innerHTML = `<span class="score">${opt.score} pts</span>: ${opt.alpha}`;
