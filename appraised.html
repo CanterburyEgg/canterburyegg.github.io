@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appraised</title>
+    <style>
+        :root {
+            --bg-grey: #e0e0e0;
+            --card-bg: #ffffff;
+            --text-main: #2d2d2d;
+            --soft-green: #d1e7d2; /* Card background for correct */
+            --soft-red: #f8d7da;   /* Card background for incorrect */
+            --green-indicator: #81c784;
+            --red-indicator: #ef9a9a;
+            --accent: #bdbdbd;
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-grey);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Keep everything on one screen */
+        }
+
+        #top-bar {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        #calendar-trigger {
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        #calendar-trigger img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        h1 { font-weight: 300; letter-spacing: 6px; text-transform: uppercase; margin: 0; font-size: 1.4rem; }
+
+        #calendar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.98);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .day-btn {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--accent);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        #game-container {
+            max-width: 900px;
+            width: 95%;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #score-tracker {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .step {
+            width: 35px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 1px;
+        }
+
+        .step.correct { background-color: var(--green-indicator); }
+        .step.incorrect { background-color: var(--red-indicator); }
+
+        #board {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .product-card {
+            flex: 1;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 380px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .brand { font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .name { color: #666; font-size: 0.9rem; margin: 10px 0; min-height: 36px; line-height: 1.3; }
+        .price-reveal { font-size: 1.4rem; font-weight: 800; margin-top: 10px; visibility: hidden; }
+
+        #next-btn {
+            padding: 14px 50px;
+            background: var(--text-main);
+            color: white;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            visibility: hidden;
+            font-size: 0.8rem;
+        }
+
+        #final-score-display {
+            display: none;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .score-big { font-size: 5rem; font-weight: 200; }
+    </style>
+</head>
+<body>
+
+<div id="top-bar">
+    <button id="calendar-trigger" onclick="toggleCalendar()">
+        <img src="img/calendar.png" alt="Archive">
+    </button>
+    <h1 id="main-title">APPRAISED #</h1>
+    <div style="width: 32px;"></div>
+</div>
+
+<div id="calendar-overlay">
+    <h2>Archive</h2>
+    <div class="calendar-grid" id="calendar-grid"></div>
+    <button onclick="toggleCalendar()" style="margin-top: 40px; background: none; border: none; text-decoration: underline; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px;">Back to Game</button>
+</div>
+
+<div id="game-container">
+    <div id="score-tracker"></div>
+
+    <div id="board">
+        <div id="card-left" class="product-card" onclick="makeGuess('left')">
+            <img id="left-img" src="">
+            <div id="left-brand" class="brand"></div>
+            <div id="left-name" class="name"></div>
+            <div id="left-price" class="price-reveal"></div>
+        </div>
+
+        <div id="card-right" class="product-card" onclick="makeGuess('right')">
+            <img id="right-img" src="">
+            <div id="right-brand" class="brand"></div>
+            <div id="right-name" class="name"></div>
+            <div id="right-price" class="price-reveal"></div>
+        </div>
+    </div>
+
+    <div id="action-area" style="margin-top: 10px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <button id="next-btn" onclick="nextRound()">Next Matchup</button>
+        
+        <div id="final-score-display" style="display: none; text-align: center;">
+            <div style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; color: #666;">Final Appraisal</div>
+            <div class="score-big" id="final-val" style="font-size: 2.5rem; margin: 5px 0;">0/10</div>
+        </div>
+    </div>
+
+    <div id="final-score-display">
+        <div style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;">Final Appraisal</div>
+        <div class="score-big" id="final-val">0/10</div>
+        <button onclick="location.href='index.html'" style="margin-top: 30px; padding: 10px 20px; cursor: pointer; background: none; border: 1px solid black; text-transform: uppercase; font-size: 0.7rem;">Return to Today</button>
+    </div>
+</div>
+
+<script>
+    let allProducts = [];
+    let gameRounds = [];
+    let currentRoundIndex = 0;
+    let score = 0;
+    const currentDay = getDayNum();
+
+    function getDayNum() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('day')) return parseInt(urlParams.get('day'));
+        const start = new Date("2026-01-01");
+        const today = new Date();
+        return Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
+    }
+
+    const sfc32 = (seed) => {
+        return function() {
+            seed |= 0; seed = seed + 0x9e3779b9 | 0;
+            let t = seed ^ seed >>> 16; t = Math.imul(t, 0x21f0aaad);
+            t = t ^ t >>> 15; t = Math.imul(t, 0x735a2d97);
+            return ((t = t ^ t >>> 15) >>> 0) / 4294967296;
+        };
+    };
+
+    async function initGame() {
+        document.getElementById('main-title').innerText = `APPRAISED #${currentDay}`;
+        const response = await fetch('jsons/luxury_goods.json');
+        allProducts = await response.json();
+        generateCalendar();
+        setupTracker();
+        generateMatchups();
+        renderRound();
+    }
+
+    function generateCalendar() {
+        const grid = document.getElementById('calendar-grid');
+        const start = new Date("2026-01-01");
+        const today = new Date();
+        const maxDays = Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
+        for (let i = 1; i <= maxDays; i++) {
+            const btn = document.createElement('div');
+            btn.className = 'day-btn';
+            btn.innerText = i;
+            btn.onclick = () => window.location.search = `?day=${i}`;
+            grid.appendChild(btn);
+        }
+    }
+
+    function toggleCalendar() {
+        const overlay = document.getElementById('calendar-overlay');
+        overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function setupTracker() {
+        const tracker = document.getElementById('score-tracker');
+        for (let i = 0; i < 10; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'step';
+            dot.id = `step-${i}`;
+            tracker.appendChild(dot);
+        }
+    }
+
+    function generateMatchups() {
+        const random = sfc32(currentDay * 12345); // Static day-based seed
+        let pool = [...allProducts].sort(() => random() - 0.5);
+        const selected = [];
+        const usedBrands = new Set();
+
+        for (let i = 0; i < pool.length && selected.length < 10; i++) {
+            const a = pool[i];
+            if (usedBrands.has(a.brand)) continue;
+
+            for (let j = i + 1; j < pool.length; j++) {
+                const b = pool[j];
+                if (a.brand === b.brand || usedBrands.has(b.brand)) continue;
+
+                const diff = Math.abs(1 - (a.price / b.price));
+                if (diff >= 0.20 && diff <= 0.50) {
+                    selected.push({ a, b });
+                    usedBrands.add(a.brand);
+                    usedBrands.add(b.brand);
+                    pool.splice(j, 1);
+                    break;
+                }
+            }
+        }
+        gameRounds = selected;
+    }
+
+    function renderRound() {
+        const round = gameRounds[currentRoundIndex];
+        document.getElementById('next-btn').style.visibility = "hidden";
+        document.querySelectorAll('.price-reveal').forEach(el => el.style.visibility = 'hidden');
+        document.querySelectorAll('.product-card').forEach(el => el.style.backgroundColor = 'var(--card-bg)');
+
+        document.getElementById('left-img').src = round.a.image;
+        document.getElementById('left-brand').innerText = round.a.brand;
+        document.getElementById('left-name').innerText = round.a.name;
+        document.getElementById('left-price').innerText = `$${round.a.price.toLocaleString()}`;
+
+        document.getElementById('right-img').src = round.b.image;
+        document.getElementById('right-brand').innerText = round.b.brand;
+        document.getElementById('right-name').innerText = round.b.name;
+        document.getElementById('right-price').innerText = `$${round.b.price.toLocaleString()}`;
+    }
+
+    function makeGuess(side) {
+        if (document.getElementById('next-btn').style.visibility === "visible") return;
+
+        const round = gameRounds[currentRoundIndex];
+        const leftIsHigher = round.a.price > round.b.price;
+        const correct = (side === 'left' && leftIsHigher) || (side === 'right' && !leftIsHigher);
+
+        if (correct) score++;
+        
+        // Highlight correct/incorrect backgrounds
+        const selectedCard = document.getElementById(`card-${side}`);
+        selectedCard.style.backgroundColor = correct ? 'var(--soft-green)' : 'var(--soft-red)';
+
+        document.querySelectorAll('.price-reveal').forEach(el => el.style.visibility = 'visible');
+        document.getElementById(`step-${currentRoundIndex}`).classList.add(correct ? 'correct' : 'incorrect');
+
+        if (currentRoundIndex < 9) { // because it starts at 0, so 9 = Round 10
+            document.getElementById('next-btn').style.visibility = "visible";
+        } else {
+            document.getElementById('next-btn').style.display = "none";
+            const finalDisplay = document.getElementById('final-score-display');
+            finalDisplay.style.display = 'block';
+            document.getElementById('final-val').innerText = `${score}/10`;
+        }
+    }
+
+    function nextRound() {
+        currentRoundIndex++;
+        renderRound();
+    }
+
+    initGame();
+</script>
+</body>
+</html>

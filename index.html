@@ -113,6 +113,7 @@
         }
 
         /* Themed accents */
+        .card-appraised::before { background: #bdbdbd; }
         .card-zero::before { background: #2d3436; }
         .card-ghost::before { background: #00cec9; }
         .card-conn::before { background: #5a5a5a; }
@@ -137,6 +138,12 @@
     </div>
 
     <div class="game-grid">
+        <a href="appraised.html" class="game-card card-appraised">
+            <img src="img/appraised.png" alt="Appraised" class="game-img" onerror="this.src='img/qm.png'">
+            <h2 class="game-title">Appraised</h2>
+            <p class="game-desc">The luxury pricing game. Compare high-end items and guess which one carries the steeper price tag.</p>
+        </a>
+
         <a href="daily-clabbers.html" class="game-card card-clabbers">
             <img src="img/clabbers.png" alt="Daily Clabbers" class="game-img" onerror="this.src='img/qm.png'">
             <h2 class="game-title">Daily Clabbers</h2>

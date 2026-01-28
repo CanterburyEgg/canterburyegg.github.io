@@ -374,7 +374,7 @@
             const hintWord = unrevealed[0];
             gameState.revealedWords.add(hintWord);
             gameState.revealedWords.add(getStem(hintWord));
-            updateScore(-5.0);
+            updateScore(-2.5);
             renderScript();
             showToast(`Hint: Revealed "${hintWord}"`);
         }
