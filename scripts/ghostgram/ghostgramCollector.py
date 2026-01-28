@@ -100,4 +100,4 @@ def export_puzzles_fast(input_file, output_json):
     
     print(f"DONE! Exported {len(final_puzzles)} puzzles to {output_json}")
 
-export_puzzles_fast('lists/words_final.txt', 'jsons/ghostgram_puzzles.json')
+export_puzzles_fast('lists/words_final_long.txt', 'jsons/ghostgram_puzzles.json')

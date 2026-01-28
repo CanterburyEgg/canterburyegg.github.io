@@ -21,4 +21,4 @@ def intersect_word_lists(file1, file2, output_file):
         print(f"Error: Could not find file - {e}")
 
 # Run the script
-intersect_word_lists('lists/words.txt', 'lists/xwords_stripped.txt', 'lists/words_final.txt')
+intersect_word_lists('lists/words_final_long.txt', 'lists/crossword_wordlist.txt', 'lists/words_final_long2.txt')

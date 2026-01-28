@@ -72,4 +72,4 @@ if __name__ == "__main__":
     if len(sys.argv) < 4:
         print("Usage: python3 solve.py [6-LETTER-CORE] [W1] [W2]")
     else:
-        generate_report(sys.argv[1], sys.argv[2], sys.argv[3], 'lists/words_final.txt')
+        generate_report(sys.argv[1], sys.argv[2], sys.argv[3], 'lists/words_final_long.txt')

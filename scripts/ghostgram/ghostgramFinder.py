@@ -58,4 +58,4 @@ def run_analysis_with_sanity_check(input_file):
     except FileNotFoundError:
         print("File not found.")
 
-run_analysis_with_sanity_check('lists/words_final.txt')
+run_analysis_with_sanity_check('lists/words_final_long.txt')
