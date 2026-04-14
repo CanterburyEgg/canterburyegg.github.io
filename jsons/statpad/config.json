@@ -1,0 +1,37 @@
+
+{
+  "stats": ["passing yards", "passing TDs", "rushing yards", "rushing TDs", "receiving yards", "receiving TDs", "receptions", "yards from scrimmage", "total TDs", "fantasy points"],
+  "teams": [
+    {"id": "1GP", "name": "1st Gen Pokemon"},
+    {"id": "2GP", "name": "2nd Gen Pokemon"},
+    {"id": "3GP", "name": "3rd Gen Pokemon"},
+    {"id": "4GP", "name": "4th Gen Pokemon"},
+    {"id": "5GP", "name": "5th Gen Pokemon"},
+    {"id": "6GP", "name": "6th Gen Pokemon"},
+    {"id": "7GP", "name": "7th Gen Pokemon"},
+    {"id": "8GP", "name": "8th Gen Pokemon"},
+    {"id": "9GP", "name": "9th Gen Pokemon"},
+    {"id": "APX", "name": "Apex Legends"},
+    {"id": "BEA", "name": "Beanie Babies"},
+    {"id": "BYK", "name": "Backyard Kids"},
+    {"id": "CLO", "name": "Classic OSFL"},
+    {"id": "DCH", "name": "DC Heroes"},
+    {"id": "DCV", "name": "DC Villains"},
+    {"id": "DKS", "name": "Dark Souls"},
+    {"id": "ELD", "name": "Elden Ring"},
+    {"id": "GOT", "name": "Game of Thrones"},
+    {"id": "LOL", "name": "League of Legends"},
+    {"id": "MGW", "name": "Magic Walkers"},
+    {"id": "MVH", "name": "Marvel Heroes"},
+    {"id": "MVV", "name": "Marvel Villains"},
+    {"id": "NUM", "name": "New Mario"},
+    {"id": "ODD", "name": "Odd Ducks"},
+    {"id": "OMG", "name": "Omega"},
+    {"id": "OVW", "name": "Overwatch"},
+    {"id": "SHO", "name": "Shonen Jump"},
+    {"id": "SSB", "name": "Smash Bros."},
+    {"id": "STF", "name": "Stuffed Animals"},
+    {"id": "TNT", "name": "Toon Town"},
+    {"id": "ZOM", "name": "Zombies"}
+  ]
+}

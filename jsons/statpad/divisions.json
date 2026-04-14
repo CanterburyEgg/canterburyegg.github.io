@@ -1,0 +1,828 @@
+{
+  "historical": {
+    "2025": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "LOL",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "ELD",
+          "APX"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "9GP",
+          "SSB",
+          "MVH"
+        ],
+        "AC West": [
+          "OMG",
+          "BEA",
+          "CLO",
+          "TNT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "DCH",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "SHO",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2024": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "LOL",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "ELD",
+          "APX"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "9GP",
+          "SSB",
+          "MVH"
+        ],
+        "AC West": [
+          "OMG",
+          "BEA",
+          "CLO",
+          "TNT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "DCH",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "SHO",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2023": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "LOL",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "ELD",
+          "APX"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "9GP",
+          "SSB",
+          "MVH"
+        ],
+        "AC West": [
+          "OMG",
+          "BEA",
+          "CLO",
+          "TNT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "DCH",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "SHO",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2022": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "HOM"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "SSB",
+          "MVH"
+        ],
+        "AC West": [
+          "OMG",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2021": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "HOM"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "OMG",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2020": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "HOM"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "CL3",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2019": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "NUM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "HOM"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "CL3",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2018": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "EVM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "MAR"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "CL3",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "DKS",
+          "DCV",
+          "BYK",
+          "ODD"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2017": {
+      "divisions": {
+        "NC North": [
+          "GOT",
+          "6GP",
+          "EVM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "MAR"
+        ],
+        "NC South": [
+          "7GP",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "CL3",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "BYC",
+          "DCV",
+          "BYK",
+          "BOY"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2016": {
+      "divisions": {
+        "NC North": [
+          "LGP",
+          "6GP",
+          "EVM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "MAR"
+        ],
+        "NC South": [
+          "GOT",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "CL3",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "BYC",
+          "DCV",
+          "BYK",
+          "BOY"
+        ],
+        "AC East": [
+          "OVW",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2015": {
+      "divisions": {
+        "NC North": [
+          "LGP",
+          "6GP",
+          "EVM",
+          "ZOM"
+        ],
+        "NC Central": [
+          "STF",
+          "1GP",
+          "4GP",
+          "MAR"
+        ],
+        "NC South": [
+          "MGL",
+          "MVV",
+          "SSB",
+          "AVG"
+        ],
+        "AC West": [
+          "CL3",
+          "BEA",
+          "HWT",
+          "2GP"
+        ],
+        "AC Central": [
+          "BYC",
+          "DCV",
+          "BYK",
+          "BOY"
+        ],
+        "AC East": [
+          "BYI",
+          "MGW",
+          "5GP",
+          "3GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC Central",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC Central",
+          "AC East"
+        ]
+      }
+    },
+    "2014": {
+      "divisions": {
+        "NC North": [
+          "LGP",
+          "1GP",
+          "EVM",
+          "LOL",
+          "L4D"
+        ],
+        "NC South": [
+          "SSB",
+          "4GP",
+          "MAR",
+          "AVG",
+          "TF2"
+        ],
+        "AC West": [
+          "CL3",
+          "BYC",
+          "2GP",
+          "KFL",
+          "BOY"
+        ],
+        "AC East": [
+          "3GP",
+          "BYK",
+          "5GP",
+          "Batman Villains",
+          "BEA"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC East"
+        ]
+      }
+    },
+    "2013": {
+      "divisions": {
+        "NC North": [
+          "LGP",
+          "1GP",
+          "EVM",
+          "LOL",
+          "L4D"
+        ],
+        "NC South": [
+          "SSB",
+          "4GP",
+          "MAR",
+          "AVG",
+          "TF2"
+        ],
+        "AC West": [
+          "CL3",
+          "BYC",
+          "2GP",
+          "KFL",
+          "BOY"
+        ],
+        "AC East": [
+          "3GP",
+          "BYK",
+          "5GP",
+          "Batman Villains",
+          "BEA"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC East"
+        ]
+      }
+    },
+    "2012": {
+      "divisions": {
+        "NC North": [
+          "LGP",
+          "1GP",
+          "EVM",
+          "L4D"
+        ],
+        "NC South": [
+          "SSB",
+          "4GP",
+          "MAR",
+          "TF2"
+        ],
+        "AC West": [
+          "CL3",
+          "BYC",
+          "2GP",
+          "BOY"
+        ],
+        "AC East": [
+          "3GP",
+          "BYK",
+          "5GP",
+          "BEA"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "NC North",
+          "NC South"
+        ],
+        "American Conference": [
+          "AC West",
+          "AC East"
+        ]
+      }
+    },
+    "2011": {
+      "divisions": {
+        "North": [
+          "MAR",
+          "3GP",
+          "1GP",
+          "SSB",
+          "LGP",
+          "BYK"
+        ],
+        "South": [
+          "BEA",
+          "BYC",
+          "4GP",
+          "EVM",
+          "BOY",
+          "2GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "North"
+        ],
+        "American Conference": [
+          "South"
+        ]
+      }
+    },
+    "2010": {
+      "divisions": {
+        "North": [
+          "MAR",
+          "3GP",
+          "1GP",
+          "SSB",
+          "BYK"
+        ],
+        "South": [
+          "BEA",
+          "BYC",
+          "EVM",
+          "BOY",
+          "2GP"
+        ]
+      },
+      "conferences": {
+        "National Conference": [
+          "North"
+        ],
+        "American Conference": [
+          "South"
+        ]
+      }
+    }
+  },
+  "current": {
+    "divisions": {
+      "NC North": [
+        "GOT",
+        "6GP",
+        "LOL",
+        "NUM",
+        "ZOM"
+      ],
+      "NC Central": [
+        "STF",
+        "1GP",
+        "4GP",
+        "ELD",
+        "APX"
+      ],
+      "NC South": [
+        "7GP",
+        "MVV",
+        "9GP",
+        "SSB",
+        "MVH"
+      ],
+      "AC West": [
+        "OMG",
+        "BEA",
+        "CLO",
+        "TNT",
+        "2GP"
+      ],
+      "AC Central": [
+        "DKS",
+        "DCV",
+        "DCH",
+        "BYK",
+        "ODD"
+      ],
+      "AC East": [
+        "OVW",
+        "SHO",
+        "MGW",
+        "5GP",
+        "3GP"
+      ]
+    },
+    "conferences": {
+      "National Conference": [
+        "NC North",
+        "NC Central",
+        "NC South"
+      ],
+      "American Conference": [
+        "AC West",
+        "AC Central",
+        "AC East"
+      ]
+    }
+  }
+}

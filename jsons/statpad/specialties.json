@@ -1,0 +1,358 @@
+{
+  "championship": {
+    "2010": [
+      "1GP",
+      "BYC"
+    ],
+    "2011": [
+      "3GP",
+      "BYC"
+    ],
+    "2012": [
+      "BOY",
+      "L4D"
+    ],
+    "2013": [
+      "SSB",
+      "2GP"
+    ],
+    "2014": [
+      "3GP",
+      "SSB"
+    ],
+    "2015": [
+      "1GP",
+      "HWT"
+    ],
+    "2016": [
+      "STF",
+      "BOY"
+    ],
+    "2017": [
+      "6GP",
+      "HWT"
+    ],
+    "2018": [
+      "3GP",
+      "AVG"
+    ],
+    "2019": [
+      "OVW",
+      "STF"
+    ],
+    "2020": [
+      "NUM",
+      "BEA"
+    ],
+    "2021": [
+      "3GP",
+      "ZOM"
+    ],
+    "2022": [
+      "STF",
+      "OVW"
+    ],
+    "2023": [
+      "STF",
+      "DCV"
+    ],
+    "2024": [
+      "7GP",
+      "DCH"
+    ],
+    "2025": [
+      "ODD",
+      "GOT"
+    ]
+  },
+  "playoffs": {
+    "2025": [
+      "GOT",
+      "ZOM",
+      "LOL",
+      "ELD",
+      "STF",
+      "1GP",
+      "7GP",
+      "MVH",
+      "BEA",
+      "CLO",
+      "ODD",
+      "DCH",
+      "BYK",
+      "5GP",
+      "OVW",
+      "MGW"
+    ],
+    "2024": [
+      "GOT",
+      "6GP",
+      "LOL",
+      "STF",
+      "1GP",
+      "7GP",
+      "MVV",
+      "9GP",
+      "OMG",
+      "BEA",
+      "CLO",
+      "DKS",
+      "DCV",
+      "DCH",
+      "OVW",
+      "SHO"
+    ],
+    "2023": [
+      "ZOM",
+      "LOL",
+      "GOT",
+      "STF",
+      "1GP",
+      "7GP",
+      "9GP",
+      "MVH",
+      "CLO",
+      "BEA",
+      "TNT",
+      "DCV",
+      "BYK",
+      "DKS",
+      "SHO",
+      "OVW"
+    ],
+    "2022": [
+      "NUM",
+      "ZOM",
+      "STF",
+      "7GP",
+      "MVH",
+      "SSB",
+      "BEA",
+      "OMG",
+      "ODD",
+      "OVW",
+      "3GP",
+      "5GP"
+    ],
+    "2021": [
+      "ZOM",
+      "6GP",
+      "4GP",
+      "STF",
+      "1GP",
+      "SSB",
+      "BEA",
+      "ODD",
+      "DKS",
+      "BYK",
+      "OVW",
+      "3GP"
+    ],
+    "2020": [
+      "NUM",
+      "GOT",
+      "4GP",
+      "STF",
+      "1GP",
+      "7GP",
+      "BEA",
+      "BYK",
+      "ODD",
+      "DKS",
+      "OVW",
+      "3GP"
+    ],
+    "2019": [
+      "6GP",
+      "NUM",
+      "STF",
+      "4GP",
+      "SSB",
+      "BEA",
+      "HWT",
+      "DKS",
+      "OVW",
+      "3GP"
+    ],
+    "2018": [
+      "6GP",
+      "STF",
+      "1GP",
+      "AVG",
+      "MVV",
+      "HWT",
+      "BYK",
+      "DCV",
+      "3GP",
+      "5GP"
+    ],
+    "2017": [
+      "6GP",
+      "BOY",
+      "OVW",
+      "EVM",
+      "STF",
+      "HWT",
+      "3GP",
+      "SSB",
+      "1GP",
+      "2GP"
+    ],
+    "2016": [
+      "ZOM",
+      "EVM",
+      "STF",
+      "1GP",
+      "SSB",
+      "2GP",
+      "HWT",
+      "BOY",
+      "BYC",
+      "5GP"
+    ],
+    "2015": [
+      "6GP",
+      "1GP",
+      "STF",
+      "4GP",
+      "AVG",
+      "CL3",
+      "HWT",
+      "BEA",
+      "BOY",
+      "3GP"
+    ],
+    "2014": [
+      "LGP",
+      "SSB",
+      "4GP",
+      "MAR",
+      "AVG",
+      "CL3",
+      "BYC",
+      "3GP",
+      "BYK",
+      "5GP"
+    ],
+    "2013": [
+      "LOL",
+      "LGP",
+      "L4D",
+      "SSB",
+      "AVG",
+      "BYC",
+      "2GP",
+      "CL3",
+      "3GP",
+      "5GP"
+    ],
+    "2012": [
+      "1GP",
+      "L4D",
+      "SSB",
+      "4GP",
+      "BOY",
+      "BYC",
+      "2GP",
+      "3GP"
+    ],
+    "2011": [
+      "MAR",
+      "3GP",
+      "1GP",
+      "BEA",
+      "BYC",
+      "4GP"
+    ],
+    "2010": [
+      "1GP",
+      "MAR",
+      "SSB",
+      "BYC",
+      "BEA",
+      "BOY"
+    ]
+  },
+  "opoy_finalists": {
+    "2025": [
+      "Daenerys Targaryen",
+      "Demolisher",
+      "Randy",
+      "Reed",
+      "Bailey Myers-Morgan",
+      "Deonte Westbrook",
+      "Meloetta",
+      "Mooch"
+    ],
+    "2024": [
+      "Black Cat",
+      "Hawlucha",
+      "Randy",
+      "Reed",
+      "Meloetta",
+      "Nightwing",
+      "Sister Friede",
+      "Wonder Woman"
+    ],
+    "2023": [
+      "Demolisher",
+      "Hawlucha",
+      "Randy",
+      "Reed",
+      "Deonte Westbrook",
+      "Jack Skellington",
+      "Meloetta",
+      "Nightwing"
+    ],
+    "2022": [
+      "Hawlucha",
+      "Randy",
+      "Reed",
+      "Smoker",
+      "Meloetta",
+      "Mooch",
+      "Nick Hamburger",
+      "Oko"
+    ],
+    "2021": [
+      "Dragonite",
+      "Hawlucha",
+      "Meloetta",
+      "Randy",
+      "Grimmsnarl",
+      "Mooch",
+      "Nick Hamburger",
+      "Oko"
+    ],
+    "2020": [
+      "Fawful",
+      "Hawlucha",
+      "Meloetta",
+      "Smoker",
+      "Catwoman",
+      "Jack Skellington",
+      "Nick Hamburger",
+      "Sneasel"
+    ],
+    "2019": [
+      "Hawlucha",
+      "Meloetta",
+      "Randy",
+      "Reed",
+      "Nick Hamburger",
+      "Sigma",
+      "Sneasel",
+      "Swampert"
+    ],
+    "2018": [
+      "Dragonite",
+      "Jolteon",
+      "Randy",
+      "Reed",
+      "Catwoman",
+      "Jack Skellington",
+      "Nick Hamburger",
+      "Swampert"
+    ]
+  }
+}
