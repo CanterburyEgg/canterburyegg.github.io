@@ -212,7 +212,12 @@
             } else {
                 const blockSeed = getDailyRandom("block-" + cat + "-" + blockNum);
                 let shuffled = [...fileManifest[cat]].sort(() => blockSeed() - 0.5);
-                files = [shuffled[indexInBlock * 2], shuffled[(indexInBlock * 2) + 1]];
+                
+                // TODO: Add more files to 'places' (currently 29) so we don't need to wrap around
+                files = [
+                    shuffled[(indexInBlock * 2) % shuffled.length],
+                    shuffled[((indexInBlock * 2) + 1) % shuffled.length]
+                ];
             }
 
             for (let f of files) {
