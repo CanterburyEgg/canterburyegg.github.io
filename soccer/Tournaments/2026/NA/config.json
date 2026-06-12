@@ -1,0 +1,22 @@
+{
+  "name": "2026 CONCACAF World Cup Qualifiers",
+  "type": "oceania_qualifiers",
+  "groups": {
+    "A": [
+      "Panama",
+      "Trinidad and Tobago",
+      "United States",
+      "Canada"
+    ],
+    "B": [
+      "Curacao",
+      "Costa Rica",
+      "Mexico",
+      "Honduras"
+    ]
+  },
+  "rules": {
+    "group_repeats": 3,
+    "direct_qualifiers_per_group": 2
+  }
+}

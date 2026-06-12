@@ -1,0 +1,91 @@
+(check=2) Minute 1: no shot.
+(check=6) Minute 2: no shot.
+(check=19) Minute 3: no shot.
+(check=36) Minute 4: no shot.
+(check=40) Minute 5: (t1check=19, t2check=82, check1=20, check2=20) Istvan Kiss missed shot.
+(check=44) Minute 6: (t1check=34, t2check=58, check1=36, check2=36) (goalchk1=28, goalchk2=22) Sandor Toth shot on goal. Pedro Reis SAVE!
+(check=49) Minute 7: (t1check=26, t2check=48, check1=2, check2=2) Jozsef Szabo missed shot.
+(check=4) Minute 8: no shot.
+(check=19) Minute 9: no shot.
+(check=11) Minute 10: no shot.
+(check=42) Minute 11: (t1check=11, t2check=27, check1=40, check2=40) (goalchk1=29, goalchk2=23) Sandor Toth shot on goal. Pedro Reis SAVE!
+(check=27) Minute 12: no shot.
+(check=23) Minute 13: no shot.
+(check=38) Minute 14: no shot.
+(check=13) Minute 15: no shot.
+(check=6) Minute 16: no shot.
+(check=25) Minute 17: no shot.
+(check=6) Minute 18: no shot.
+(check=32) Minute 19: no shot.
+(check=49) Minute 20: (t1check=42, t2check=15, check1=42, check2=43) (goalchk1=25, goalchk2=23) Ricardo Goncalves shot on goal. Janos Meszaros SAVE!
+(check=7) Minute 21: no shot.
+(check=37) Minute 22: no shot.
+(check=26) Minute 23: no shot.
+(check=40) Minute 24: (t1check=82, t2check=66, check1=13, check2=14) Ricardo Goncalves missed shot.
+(check=7) Minute 25: no shot.
+(check=48) Minute 26: (t1check=67, t2check=49, check1=27, check2=28) Sergio Alves missed shot.
+(check=8) Minute 27: no shot.
+(check=48) Minute 28: (t1check=65, t2check=50, check1=39, check2=40) (goalchk1=9, goalchk2=7) Sergio Alves shot on goal. Janos Meszaros SAVE!
+(check=50) Minute 29: (t1check=27, t2check=56, check1=29, check2=29) Sandor Toth missed shot.
+(check=32) Minute 30: no shot.
+(check=13) Minute 31: no shot.
+(check=9) Minute 32: no shot.
+(check=37) Minute 33: no shot.
+(check=34) Minute 34: no shot.
+(check=34) Minute 35: no shot.
+(check=21) Minute 36: no shot.
+(check=33) Minute 37: no shot.
+(check=20) Minute 38: no shot.
+(check=12) Minute 39: no shot.
+(check=44) Minute 40: (t1check=62, t2check=72, check1=50, check2=50) (goalchk1=21, goalchk2=15) Gabor Toth shot on goal. Pedro Reis SAVE!
+(check=43) Minute 41: (t1check=81, t2check=78, check1=26, check2=27) Vitor Correia missed shot.
+(check=34) Minute 42: no shot.
+(check=20) Minute 43: no shot.
+(check=16) Minute 44: no shot.
+(check=5) Minute 45: no shot.
+(check=11) Minute 46: no shot.
+(check=4) Minute 47: no shot.
+(check=1) Minute 48: no shot.
+(check=34) Minute 49: no shot.
+(check=33) Minute 50: no shot.
+(check=18) Minute 51: no shot.
+(check=2) Minute 52: no shot.
+(check=47) Minute 53: (t1check=52, t2check=53, check1=36, check2=36) (goalchk1=50, goalchk2=44) Sandor Toth GOAL!!! Score: 0-1
+(check=20) Minute 54: no shot.
+(check=43) Minute 55: (t1check=40, t2check=42, check1=44, check2=44) (goalchk1=40, goalchk2=34) Gabor Toth GOAL!!! Score: 0-2
+(check=40) Minute 56: (t1check=25, t2check=47, check1=23, check2=23) Sandor Toth missed shot.
+(check=32) Minute 57: no shot.
+(check=40) Minute 58: (t1check=65, t2check=39, check1=30, check2=31) (goalchk1=44, goalchk2=42) Joao Silva GOAL!!! Score: 1-2
+(check=44) Minute 59: (t1check=32, t2check=38, check1=7, check2=7) Gabor Toth missed shot.
+(check=32) Minute 60: no shot.
+(check=8) Minute 61: no shot.
+(check=45) Minute 62: (t1check=62, t2check=64, check1=35, check2=35) (goalchk1=41, goalchk2=35) Gabor Toth GOAL!!! Score: 1-3
+(check=32) Minute 63: no shot.
+(check=39) Minute 64: (t1check=57, t2check=81, check1=32, check2=32) (goalchk1=24, goalchk2=18) Sandor Toth shot on goal. Pedro Reis SAVE!
+(check=21) Minute 65: no shot.
+(check=31) Minute 66: no shot.
+(check=43) Minute 67: (t1check=70, t2check=26, check1=13, check2=14) Sergio Alves missed shot.
+(check=9) Minute 68: no shot.
+(check=42) Minute 69: (t1check=77, t2check=36, check1=32, check2=33) (goalchk1=41, goalchk2=39) Joao Silva GOAL!!! Score: 2-3
+(check=38) Minute 70: no shot.
+(check=18) Minute 71: no shot.
+(check=38) Minute 72: no shot.
+(check=34) Minute 73: no shot.
+(check=32) Minute 74: no shot.
+(check=33) Minute 75: no shot.
+(check=4) Minute 76: no shot.
+(check=11) Minute 77: no shot.
+(check=13) Minute 78: no shot.
+(check=39) Minute 79: (t1check=10, t2check=15, check1=46, check2=46) (goalchk1=16, goalchk2=10) Zoltan Kocsis shot on goal. Pedro Reis SAVE!
+(check=30) Minute 80: no shot.
+(check=18) Minute 81: no shot.
+(check=11) Minute 82: no shot.
+(check=26) Minute 83: no shot.
+(check=36) Minute 84: no shot.
+(check=46) Minute 85: (t1check=43, t2check=80, check1=42, check2=42) (goalchk1=3, goalchk2=-3) Sandor Toth shot on goal. Pedro Reis SAVE!
+(check=18) Minute 86: no shot.
+(check=8) Minute 87: no shot.
+(check=13) Minute 88: no shot.
+(check=46) Minute 89: (t1check=54, t2check=13, check1=21, check2=22) Joao Silva missed shot.
+(check=23) Minute 90: no shot.
+Final score: 2-3

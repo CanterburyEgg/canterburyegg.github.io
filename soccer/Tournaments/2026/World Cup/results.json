@@ -1,0 +1,3623 @@
+{
+  "name": "2026 FIFA World Cup",
+  "path": "2026/World Cup",
+  "config": {
+    "name": "2026 FIFA World Cup",
+    "type": "world_cup",
+    "groups": {
+      "A": [
+        "Russia",
+        "Austria",
+        "United States",
+        "Morocco",
+        "Jordan"
+      ],
+      "B": [
+        "Ukraine",
+        "Italy",
+        "Colombia",
+        "Egypt",
+        "Palestine"
+      ],
+      "C": [
+        "Australia",
+        "Sweden",
+        "Peru",
+        "Cote d'Ivoire",
+        "Saudi Arabia"
+      ],
+      "D": [
+        "Belgium",
+        "New Zealand",
+        "Argentina",
+        "Nigeria",
+        "Iran"
+      ],
+      "E": [
+        "Germany",
+        "England",
+        "Brazil",
+        "Senegal",
+        "Japan"
+      ],
+      "F": [
+        "Croatia",
+        "France",
+        "Ecuador",
+        "Ghana",
+        "Canada"
+      ],
+      "G": [
+        "Netherlands",
+        "Poland",
+        "Costa Rica",
+        "Algeria",
+        "Uzbekistan"
+      ],
+      "H": [
+        "Switzerland",
+        "Wales",
+        "Paraguay",
+        "Mexico",
+        "South Korea"
+      ]
+    },
+    "rules": {
+      "group_repeats": 1,
+      "target_density": 5
+    }
+  },
+  "current_day": 2,
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Austria",
+            "Jordan"
+          ],
+          "played": true,
+          "score": [
+            3,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 46,
+              "team": "Austria",
+              "player": "Karl Mayer"
+            },
+            {
+              "minute": 57,
+              "team": "Jordan",
+              "player": "Omar Al-Zubi"
+            },
+            {
+              "minute": 60,
+              "team": "Austria",
+              "player": "Karl Mayer"
+            },
+            {
+              "minute": 64,
+              "team": "Jordan",
+              "player": "Abdel Allah"
+            },
+            {
+              "minute": 85,
+              "team": "Austria",
+              "player": "Gerhard Bauer"
+            }
+          ],
+          "player_data": {
+            "team1": [
+              {
+                "name": "Karl Mayer",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Franz Leitner",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josef Steiner",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Johann Brunner",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andreas Schwarz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerhard Bauer",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Martin Lang",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Omar Al-Zubi",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Omar Al-Khawaldeh",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bilal El-Qadah",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ibrahim Odeh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zaid Eid",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdel Allah",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raed Khatib",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 3
+              }
+            ]
+          },
+          "stats": {
+            "Austria": {
+              "shots": 13,
+              "sogs": 4,
+              "saves": 2
+            },
+            "Jordan": {
+              "shots": 7,
+              "sogs": 4,
+              "saves": 1
+            }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Austria_vs_Jordan_611191531_211.txt"
+        },
+        {
+          "day": 1,
+          "teams": [
+            "Russia",
+            "Morocco"
+          ],
+          "played": true,
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 11,
+              "team": "Russia",
+              "player": "Sergey Petrov"
+            },
+            {
+              "minute": 30,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            },
+            {
+              "minute": 40,
+              "team": "Russia",
+              "player": "Aleksandr Kuznetsov"
+            },
+            {
+              "minute": 64,
+              "team": "Morocco",
+              "player": "Rachid Tahiri"
+            }
+          ],
+          "player_data": {
+            "team1": [
+              {
+                "name": "Ivan Popova",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maksim Volkova",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergey Petrov",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Kuznetsov",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vladimir Novikov",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrey Ivanova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dmitriy Shevchenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Mohamed Alaoui",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nabil Karim",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mustapha Alaoui",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rachid Tahiri",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hicham El-Mostafa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohammed El-Idrissi",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdel Aziz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 3
+              }
+            ]
+          },
+          "stats": {
+            "Russia": {
+              "shots": 15,
+              "sogs": 5,
+              "saves": 3
+            },
+            "Morocco": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Russia_vs_Morocco_611191531_699.txt"
+        },
+        {
+          "day": 4,
+          "teams": [
+            "United States",
+            "Russia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "United States": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Russia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "United States",
+            "Morocco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "United States": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Morocco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Jordan",
+            "Russia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Jordan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Russia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "United States",
+            "Austria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "United States": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Austria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Morocco",
+            "Jordan"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Morocco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Jordan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Russia",
+            "Austria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Russia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Austria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Jordan",
+            "United States"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Jordan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "United States": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Austria",
+            "Morocco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Austria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Morocco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 1,
+          "w": 1,
+          "d": 0,
+          "l": 0,
+          "gf": 3,
+          "ga": 1,
+          "gd": 2,
+          "pts": 3,
+          "team": "Russia"
+        },
+        {
+          "played": 1,
+          "w": 1,
+          "d": 0,
+          "l": 0,
+          "gf": 3,
+          "ga": 2,
+          "gd": 1,
+          "pts": 3,
+          "team": "Austria"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "United States"
+        },
+        {
+          "played": 1,
+          "w": 0,
+          "d": 0,
+          "l": 1,
+          "gf": 2,
+          "ga": 3,
+          "gd": -1,
+          "pts": 0,
+          "team": "Jordan"
+        },
+        {
+          "played": 1,
+          "w": 0,
+          "d": 0,
+          "l": 1,
+          "gf": 1,
+          "ga": 3,
+          "gd": -2,
+          "pts": 0,
+          "team": "Morocco"
+        }
+      ]
+    },
+    "B": {
+      "matches": [
+        {
+          "day": 2,
+          "teams": [
+            "Italy",
+            "Palestine"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Italy": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Palestine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Ukraine",
+            "Egypt"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Ukraine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Egypt": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Colombia",
+            "Egypt"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Colombia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Egypt": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Ukraine",
+            "Italy"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Ukraine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Italy": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Palestine",
+            "Colombia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Palestine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Colombia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Italy",
+            "Egypt"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Italy": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Egypt": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Colombia",
+            "Ukraine"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Colombia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Ukraine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Egypt",
+            "Palestine"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Egypt": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Palestine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Colombia",
+            "Italy"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Colombia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Italy": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Palestine",
+            "Ukraine"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Palestine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Ukraine": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Ukraine"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Italy"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Colombia"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Egypt"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Palestine"
+        }
+      ]
+    },
+    "C": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Peru",
+            "Australia"
+          ],
+          "played": true,
+          "score": [
+            1,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 41,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 58,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 77,
+              "team": "Australia",
+              "player": "David Kelly"
+            },
+            {
+              "minute": 87,
+              "team": "Peru",
+              "player": "Enrique Aguilar"
+            }
+          ],
+          "player_data": {
+            "team1": [
+              {
+                "name": "Juan Rivera",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Morales",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Rojas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Aguilar",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Quispe",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Huaman",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Andrew Moore",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          },
+          "stats": {
+            "Peru": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 1
+            },
+            "Australia": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 3
+            }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Peru_vs_Australia_611191531_484.txt"
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Cote d'Ivoire",
+            "Saudi Arabia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cote d'Ivoire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Saudi Arabia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Australia",
+            "Sweden"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Australia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sweden": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Sweden",
+            "Saudi Arabia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sweden": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Saudi Arabia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Peru",
+            "Cote d'Ivoire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Peru": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cote d'Ivoire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Sweden",
+            "Cote d'Ivoire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sweden": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cote d'Ivoire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Saudi Arabia",
+            "Peru"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Saudi Arabia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Peru": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Australia",
+            "Cote d'Ivoire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Australia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cote d'Ivoire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Peru",
+            "Sweden"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Peru": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sweden": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Saudi Arabia",
+            "Australia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Saudi Arabia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Australia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 1,
+          "w": 1,
+          "d": 0,
+          "l": 0,
+          "gf": 3,
+          "ga": 1,
+          "gd": 2,
+          "pts": 3,
+          "team": "Australia"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Sweden"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Cote d'Ivoire"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Saudi Arabia"
+        },
+        {
+          "played": 1,
+          "w": 0,
+          "d": 0,
+          "l": 1,
+          "gf": 1,
+          "ga": 3,
+          "gd": -2,
+          "pts": 0,
+          "team": "Peru"
+        }
+      ]
+    },
+    "D": {
+      "matches": [
+        {
+          "day": 2,
+          "teams": [
+            "New Zealand",
+            "Iran"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New Zealand": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Iran": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Argentina",
+            "Belgium"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Argentina": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Belgium": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Nigeria",
+            "Iran"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Nigeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Iran": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Belgium",
+            "New Zealand"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Belgium": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New Zealand": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Argentina",
+            "Nigeria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Argentina": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Nigeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Iran",
+            "Belgium"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Iran": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Belgium": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "New Zealand",
+            "Nigeria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New Zealand": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Nigeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Iran",
+            "Argentina"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Iran": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Argentina": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Belgium",
+            "Nigeria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Belgium": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Nigeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Argentina",
+            "New Zealand"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Argentina": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New Zealand": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Belgium"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "New Zealand"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Argentina"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Nigeria"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Iran"
+        }
+      ]
+    },
+    "E": {
+      "matches": [
+        {
+          "day": 2,
+          "teams": [
+            "Brazil",
+            "England"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Brazil": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "England": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Japan",
+            "Germany"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Japan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Germany": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Brazil",
+            "Senegal"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Brazil": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Senegal": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "England",
+            "Japan"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "England": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Japan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Germany",
+            "Senegal"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Germany": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Senegal": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Japan",
+            "Brazil"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Japan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Brazil": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "England",
+            "Senegal"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "England": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Senegal": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Brazil",
+            "Germany"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Brazil": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Germany": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Senegal",
+            "Japan"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Senegal": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Japan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Germany",
+            "England"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Germany": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "England": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Germany"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "England"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Brazil"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Senegal"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Japan"
+        }
+      ]
+    },
+    "F": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Canada",
+            "Ecuador"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 11,
+              "team": "Ecuador",
+              "player": "Manuel Castillo"
+            },
+            {
+              "minute": 81,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            }
+          ],
+          "player_data": {
+            "team1": [
+              {
+                "name": "Scott Robinson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Cesar Paredes",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castillo",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Jaramillo",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Molina",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Chavez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Mendoza",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Salazar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "stats": {
+            "Canada": {
+              "shots": 11,
+              "sogs": 3,
+              "saves": 3
+            },
+            "Ecuador": {
+              "shots": 14,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Canada_vs_Ecuador_611191531_135.txt"
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Croatia",
+            "France"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Croatia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "France": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Ghana",
+            "Canada"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Ghana": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Ecuador",
+            "France"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Ecuador": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "France": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Croatia",
+            "Ghana"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Croatia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Ghana": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "France",
+            "Ghana"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "France": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Ghana": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Ecuador",
+            "Croatia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Ecuador": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Croatia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "France",
+            "Canada"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "France": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Ecuador",
+            "Ghana"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Ecuador": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Ghana": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Canada",
+            "Croatia"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Canada": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Croatia": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 1,
+          "w": 0,
+          "d": 1,
+          "l": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "pts": 1,
+          "team": "Canada"
+        },
+        {
+          "played": 1,
+          "w": 0,
+          "d": 1,
+          "l": 0,
+          "gf": 1,
+          "ga": 1,
+          "gd": 0,
+          "pts": 1,
+          "team": "Ecuador"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Croatia"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "France"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Ghana"
+        }
+      ]
+    },
+    "G": {
+      "matches": [
+        {
+          "day": 3,
+          "teams": [
+            "Netherlands",
+            "Algeria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Netherlands": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Algeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Poland",
+            "Uzbekistan"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Poland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Uzbekistan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Uzbekistan",
+            "Costa Rica"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Uzbekistan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Costa Rica": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Poland",
+            "Algeria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Poland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Algeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Costa Rica",
+            "Netherlands"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Costa Rica": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Netherlands": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Algeria",
+            "Uzbekistan"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Algeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Uzbekistan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Costa Rica",
+            "Poland"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Costa Rica": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Poland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Uzbekistan",
+            "Netherlands"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Uzbekistan": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Netherlands": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Netherlands",
+            "Poland"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Netherlands": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Poland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Costa Rica",
+            "Algeria"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Costa Rica": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Algeria": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Netherlands"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Poland"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Costa Rica"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Algeria"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Uzbekistan"
+        }
+      ]
+    },
+    "H": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Wales",
+            "Mexico"
+          ],
+          "played": true,
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 23,
+              "team": "Wales",
+              "player": "Adrian Llewellyn"
+            }
+          ],
+          "player_data": {
+            "team1": [
+              {
+                "name": "Colin Pugh",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Craig Young",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Malcolm Hopkins",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Llewellyn",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rhys Howells",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Clive Jones",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Neil Wright",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Hector",
+                "shots": 7,
+                "sogs": 4,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          },
+          "stats": {
+            "Wales": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 7
+            },
+            "Mexico": {
+              "shots": 17,
+              "sogs": 7,
+              "saves": 3
+            }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Wales_vs_Mexico_611191531_401.txt"
+        },
+        {
+          "day": 3,
+          "teams": [
+            "South Korea",
+            "Paraguay"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "South Korea": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Paraguay": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Switzerland",
+            "Mexico"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Switzerland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Paraguay",
+            "Wales"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Paraguay": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Wales": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "South Korea",
+            "Switzerland"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "South Korea": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Switzerland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Paraguay",
+            "Mexico"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Paraguay": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Switzerland",
+            "Wales"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Switzerland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Wales": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Mexico",
+            "South Korea"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "South Korea": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Wales",
+            "South Korea"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Wales": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "South Korea": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Paraguay",
+            "Switzerland"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Paraguay": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Switzerland": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 1,
+          "w": 1,
+          "d": 0,
+          "l": 0,
+          "gf": 1,
+          "ga": 0,
+          "gd": 1,
+          "pts": 3,
+          "team": "Wales"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Switzerland"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Paraguay"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "South Korea"
+        },
+        {
+          "played": 1,
+          "w": 0,
+          "d": 0,
+          "l": 1,
+          "gf": 0,
+          "ga": 1,
+          "gd": -1,
+          "pts": 0,
+          "team": "Mexico"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": []
+}

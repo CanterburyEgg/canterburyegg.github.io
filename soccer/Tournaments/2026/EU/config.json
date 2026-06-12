@@ -1,0 +1,51 @@
+{
+  "name": "2026 UEFA World Cup Qualifiers",
+  "type": "europe_qualifiers",
+  "groups": {
+    "A": [
+      "Sweden",
+      "Czechia",
+      "Albania",
+      "Denmark",
+      "Russia",
+      "Croatia",
+      "Bosnia and Herzegovina",
+      "Turkey"
+    ],
+    "B": [
+      "France",
+      "Greece",
+      "Netherlands",
+      "Norway",
+      "Serbia",
+      "Ireland",
+      "Wales",
+      "England"
+    ],
+    "C": [
+      "Switzerland",
+      "Northern Ireland",
+      "Germany",
+      "Poland",
+      "Spain",
+      "Slovenia",
+      "Israel",
+      "Scotland"
+    ],
+    "D": [
+      "Italy",
+      "Slovakia",
+      "Belgium",
+      "Romania",
+      "Austria",
+      "Ukraine",
+      "Portugal",
+      "Hungary"
+    ]
+  },
+  "rules": {
+    "group_repeats": 2,
+    "direct_qualifiers_per_group": 3,
+    "playoff_spots_per_group": [3, 4]
+  }
+}

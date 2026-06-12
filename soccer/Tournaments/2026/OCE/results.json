@@ -1,0 +1,3031 @@
+{
+  "name": "2026 OFC World Cup Qualifiers",
+  "path": "2026/OCE",
+  "config": {
+    "name": "2026 OFC World Cup Qualifiers",
+    "type": "oceania_qualifiers",
+    "groups": {
+      "A": [
+        "Australia",
+        "New Zealand",
+        "Fiji",
+        "Vanuatu"
+      ]
+    },
+    "rules": {
+      "group_repeats": 3,
+      "direct_qualifiers": 2
+    }
+  },
+  "current_day": 28,
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "New Zealand",
+            "Fiji"
+          ],
+          "played": true,
+          "score": [
+            3,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 23,
+              "team": "New Zealand",
+              "player": "Nick Young"
+            },
+            {
+              "minute": 55,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            },
+            {
+              "minute": 72,
+              "team": "New Zealand",
+              "player": "Nick Young"
+            }
+          ],
+          "stats": {
+            "New Zealand": {
+              "shots": 8,
+              "sogs": 5,
+              "saves": 2
+            },
+            "Fiji": {
+              "shots": 9,
+              "sogs": 2,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/New Zealand_vs_Fiji_611174251_215.txt"
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Australia",
+            "Vanuatu"
+          ],
+          "played": true,
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 27,
+              "team": "Australia",
+              "player": "David Kelly"
+            },
+            {
+              "minute": 57,
+              "team": "Australia",
+              "player": "Greg Cooper"
+            }
+          ],
+          "stats": {
+            "Australia": {
+              "shots": 11,
+              "sogs": 6,
+              "saves": 1
+            },
+            "Vanuatu": {
+              "shots": 1,
+              "sogs": 1,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Brian Soromon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Australia_vs_Vanuatu_61117434_557.txt"
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Vanuatu",
+            "New Zealand"
+          ],
+          "played": true,
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 7,
+              "team": "New Zealand",
+              "player": "William Davies"
+            },
+            {
+              "minute": 61,
+              "team": "Vanuatu",
+              "player": "Godine Alick"
+            },
+            {
+              "minute": 66,
+              "team": "New Zealand",
+              "player": "Nick Young"
+            }
+          ],
+          "stats": {
+            "Vanuatu": {
+              "shots": 16,
+              "sogs": 5,
+              "saves": 5
+            },
+            "New Zealand": {
+              "shots": 10,
+              "sogs": 7,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Brian Soromon",
+                "shots": 8,
+                "sogs": 4,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Vanuatu_vs_New Zealand_61117436_777.txt"
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Australia",
+            "Fiji"
+          ],
+          "played": true,
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 20,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 32,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 58,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            }
+          ],
+          "stats": {
+            "Australia": {
+              "shots": 11,
+              "sogs": 5,
+              "saves": 1
+            },
+            "Fiji": {
+              "shots": 10,
+              "sogs": 2,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Australia_vs_Fiji_61117437_943.txt"
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Vanuatu",
+            "Fiji"
+          ],
+          "played": true,
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Vanuatu",
+              "player": "Brian Kalo"
+            },
+            {
+              "minute": 31,
+              "team": "Vanuatu",
+              "player": "Brian Soromon"
+            },
+            {
+              "minute": 33,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 73,
+              "team": "Vanuatu",
+              "player": "Godine Alick"
+            }
+          ],
+          "stats": {
+            "Vanuatu": {
+              "shots": 14,
+              "sogs": 7,
+              "saves": 2
+            },
+            "Fiji": {
+              "shots": 8,
+              "sogs": 3,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Brian Soromon",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 7,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Vanuatu_vs_Fiji_61117439_995.txt"
+        },
+        {
+          "day": 8,
+          "teams": [
+            "New Zealand",
+            "Australia"
+          ],
+          "played": true,
+          "score": [
+            0,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 43,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            }
+          ],
+          "stats": {
+            "New Zealand": {
+              "shots": 7,
+              "sogs": 1,
+              "saves": 4
+            },
+            "Australia": {
+              "shots": 12,
+              "sogs": 5,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Andrew Moore",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/New Zealand_vs_Australia_611174310_438.txt"
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Australia",
+            "New Zealand"
+          ],
+          "played": true,
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 78,
+              "team": "Australia",
+              "player": "David Kelly"
+            }
+          ],
+          "stats": {
+            "Australia": {
+              "shots": 12,
+              "sogs": 2,
+              "saves": 4
+            },
+            "New Zealand": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Australia_vs_New Zealand_611174424_774.txt"
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Fiji",
+            "Vanuatu"
+          ],
+          "played": true,
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 12,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 59,
+              "team": "Vanuatu",
+              "player": "Godine Alick"
+            },
+            {
+              "minute": 74,
+              "team": "Vanuatu",
+              "player": "Brian Soromon"
+            }
+          ],
+          "stats": {
+            "Fiji": {
+              "shots": 6,
+              "sogs": 3,
+              "saves": 2
+            },
+            "Vanuatu": {
+              "shots": 12,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Brian Soromon",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Fiji_vs_Vanuatu_611174424_723.txt"
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Fiji",
+            "Australia"
+          ],
+          "played": true,
+          "score": [
+            4,
+            6
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 3,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            },
+            {
+              "minute": 17,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            },
+            {
+              "minute": 19,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            },
+            {
+              "minute": 28,
+              "team": "Australia",
+              "player": "David Kelly"
+            },
+            {
+              "minute": 33,
+              "team": "Australia",
+              "player": "Geoff Murphy"
+            },
+            {
+              "minute": 44,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 65,
+              "team": "Australia",
+              "player": "Geoff Murphy"
+            },
+            {
+              "minute": 70,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 79,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            }
+          ],
+          "stats": {
+            "Fiji": {
+              "shots": 13,
+              "sogs": 6,
+              "saves": 2
+            },
+            "Australia": {
+              "shots": 15,
+              "sogs": 8,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 6
+              }
+            ],
+            "team2": [
+              {
+                "name": "Andrew Moore",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 4
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Fiji_vs_Australia_611174424_100.txt"
+        },
+        {
+          "day": 14,
+          "teams": [
+            "New Zealand",
+            "Vanuatu"
+          ],
+          "played": true,
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 10,
+              "team": "New Zealand",
+              "player": "Roger Simpson"
+            },
+            {
+              "minute": 48,
+              "team": "Vanuatu",
+              "player": "Godine Alick"
+            },
+            {
+              "minute": 59,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            }
+          ],
+          "stats": {
+            "New Zealand": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 5
+            },
+            "Vanuatu": {
+              "shots": 15,
+              "sogs": 6,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Brian Soromon",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/New Zealand_vs_Vanuatu_611174424_153.txt"
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Fiji",
+            "Australia"
+          ],
+          "played": true,
+          "score": [
+            2,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 7,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 15,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 34,
+              "team": "Australia",
+              "player": "David Kelly"
+            },
+            {
+              "minute": 50,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            },
+            {
+              "minute": 65,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            },
+            {
+              "minute": 81,
+              "team": "Australia",
+              "player": "Geoff Murphy"
+            }
+          ],
+          "stats": {
+            "Fiji": {
+              "shots": 12,
+              "sogs": 3,
+              "saves": 1
+            },
+            "Australia": {
+              "shots": 13,
+              "sogs": 5,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Andrew Moore",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Fiji_vs_Australia_611174424_290.txt"
+        },
+        {
+          "day": 17,
+          "teams": [
+            "New Zealand",
+            "Vanuatu"
+          ],
+          "played": true,
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 8,
+              "team": "New Zealand",
+              "player": "Murray Campbell"
+            },
+            {
+              "minute": 37,
+              "team": "New Zealand",
+              "player": "Roger Simpson"
+            }
+          ],
+          "stats": {
+            "New Zealand": {
+              "shots": 11,
+              "sogs": 6,
+              "saves": 1
+            },
+            "Vanuatu": {
+              "shots": 11,
+              "sogs": 1,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Brian Soromon",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/New Zealand_vs_Vanuatu_611174424_352.txt"
+        },
+        {
+          "day": 19,
+          "teams": [
+            "New Zealand",
+            "Fiji"
+          ],
+          "played": true,
+          "score": [
+            1,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 5,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 11,
+              "team": "Fiji",
+              "player": "Tomasi Devi"
+            },
+            {
+              "minute": 16,
+              "team": "Fiji",
+              "player": "Jone Khan"
+            },
+            {
+              "minute": 84,
+              "team": "New Zealand",
+              "player": "Roger Simpson"
+            }
+          ],
+          "stats": {
+            "New Zealand": {
+              "shots": 4,
+              "sogs": 3,
+              "saves": 1
+            },
+            "Fiji": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/New Zealand_vs_Fiji_611174435_491.txt"
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Australia",
+            "Vanuatu"
+          ],
+          "played": true,
+          "score": [
+            2,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 25,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 28,
+              "team": "Vanuatu",
+              "player": "Brian Soromon"
+            },
+            {
+              "minute": 68,
+              "team": "Vanuatu",
+              "player": "Brian Soromon"
+            },
+            {
+              "minute": 70,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            }
+          ],
+          "stats": {
+            "Australia": {
+              "shots": 7,
+              "sogs": 4,
+              "saves": 2
+            },
+            "Vanuatu": {
+              "shots": 12,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Brian Soromon",
+                "shots": 8,
+                "sogs": 4,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Australia_vs_Vanuatu_611174435_922.txt"
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Fiji",
+            "New Zealand"
+          ],
+          "played": true,
+          "score": [
+            0,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 5,
+              "team": "New Zealand",
+              "player": "Kevin Singh"
+            },
+            {
+              "minute": 57,
+              "team": "New Zealand",
+              "player": "Nick Young"
+            },
+            {
+              "minute": 58,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            }
+          ],
+          "stats": {
+            "Fiji": {
+              "shots": 8,
+              "sogs": 2,
+              "saves": 4
+            },
+            "New Zealand": {
+              "shots": 16,
+              "sogs": 7,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Fiji_vs_New Zealand_611174435_122.txt"
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Vanuatu",
+            "Australia"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 26,
+              "team": "Australia",
+              "player": "David Kelly"
+            },
+            {
+              "minute": 33,
+              "team": "Vanuatu",
+              "player": "Brian Kalo"
+            }
+          ],
+          "stats": {
+            "Vanuatu": {
+              "shots": 8,
+              "sogs": 1,
+              "saves": 1
+            },
+            "Australia": {
+              "shots": 9,
+              "sogs": 2,
+              "saves": 0
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Brian Soromon",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Andrew Moore",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Vanuatu_vs_Australia_611174435_816.txt"
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Australia",
+            "New Zealand"
+          ],
+          "played": true,
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 24,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            },
+            {
+              "minute": 52,
+              "team": "Australia",
+              "player": "David Kelly"
+            },
+            {
+              "minute": 54,
+              "team": "New Zealand",
+              "player": "William Davies"
+            }
+          ],
+          "stats": {
+            "Australia": {
+              "shots": 9,
+              "sogs": 3,
+              "saves": 4
+            },
+            "New Zealand": {
+              "shots": 15,
+              "sogs": 6,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Australia_vs_New Zealand_611174435_758.txt"
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Fiji",
+            "Vanuatu"
+          ],
+          "played": true,
+          "score": [
+            6,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 17,
+              "team": "Fiji",
+              "player": "Tevita Chand"
+            },
+            {
+              "minute": 22,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 52,
+              "team": "Vanuatu",
+              "player": "Brian Soromon"
+            },
+            {
+              "minute": 61,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 76,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 79,
+              "team": "Vanuatu",
+              "player": "Godine Alick"
+            },
+            {
+              "minute": 84,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 86,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            }
+          ],
+          "stats": {
+            "Fiji": {
+              "shots": 13,
+              "sogs": 7,
+              "saves": 2
+            },
+            "Vanuatu": {
+              "shots": 9,
+              "sogs": 4,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 8,
+                "sogs": 4,
+                "goals": 4,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Brian Soromon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Alick",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Kalo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Thomas",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Godine Nini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitch Alick",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brian Clark",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 6
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/OCE/Games/Fiji_vs_Vanuatu_611174435_292.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 9,
+          "w": 6,
+          "d": 2,
+          "l": 1,
+          "gf": 20,
+          "ga": 12,
+          "gd": 8,
+          "pts": 20,
+          "team": "Australia"
+        },
+        {
+          "played": 9,
+          "w": 6,
+          "d": 0,
+          "l": 3,
+          "gf": 15,
+          "ga": 8,
+          "gd": 7,
+          "pts": 18,
+          "team": "New Zealand"
+        },
+        {
+          "played": 9,
+          "w": 2,
+          "d": 2,
+          "l": 5,
+          "gf": 12,
+          "ga": 19,
+          "gd": -7,
+          "pts": 8,
+          "team": "Vanuatu"
+        },
+        {
+          "played": 9,
+          "w": 2,
+          "d": 0,
+          "l": 7,
+          "gf": 18,
+          "ga": 26,
+          "gd": -8,
+          "pts": 6,
+          "team": "Fiji"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": [
+    "Australia",
+    "New Zealand"
+  ]
+}

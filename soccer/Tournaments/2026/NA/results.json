@@ -1,0 +1,5943 @@
+{
+  "name": "2026 CONCACAF World Cup Qualifiers",
+  "path": "2026/NA",
+  "config": {
+    "name": "2026 CONCACAF World Cup Qualifiers",
+    "type": "oceania_qualifiers",
+    "groups": {
+      "A": [
+        "Panama",
+        "Trinidad and Tobago",
+        "United States",
+        "Canada"
+      ],
+      "B": [
+        "Curacao",
+        "Costa Rica",
+        "Mexico",
+        "Honduras"
+      ]
+    },
+    "rules": {
+      "group_repeats": 3,
+      "direct_qualifiers_per_group": 2
+    }
+  },
+  "current_day": 29,
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Panama",
+            "Trinidad and Tobago"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 16,
+              "team": "Panama",
+              "player": "Francisco Castillo"
+            },
+            {
+              "minute": 59,
+              "team": "Trinidad and Tobago",
+              "player": "Nigel Maharaj"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 9,
+              "sogs": 2,
+              "saves": 4
+            },
+            "Trinidad and Tobago": {
+              "shots": 14,
+              "sogs": 5,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Panama_vs_Trinidad and Tobago_611175117_149.txt"
+        },
+        {
+          "day": 2,
+          "teams": [
+            "United States",
+            "Canada"
+          ],
+          "played": true,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "United States": {
+              "shots": 8,
+              "sogs": 5,
+              "saves": 3
+            },
+            "Canada": {
+              "shots": 10,
+              "sogs": 3,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/United States_vs_Canada_611175120_886.txt"
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Panama",
+            "Canada"
+          ],
+          "played": true,
+          "score": [
+            4,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 34,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 38,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 51,
+              "team": "Panama",
+              "player": "Alberto Diaz"
+            },
+            {
+              "minute": 53,
+              "team": "Canada",
+              "player": "Jacques Lavoie"
+            },
+            {
+              "minute": 54,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            },
+            {
+              "minute": 62,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            },
+            {
+              "minute": 64,
+              "team": "Panama",
+              "player": "Edwin Lopez"
+            },
+            {
+              "minute": 85,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 10,
+              "sogs": 7,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 7,
+              "sogs": 4,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 4
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Panama_vs_Canada_611175123_295.txt"
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Trinidad and Tobago",
+            "United States"
+          ],
+          "played": true,
+          "score": [
+            0,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 27,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            }
+          ],
+          "stats": {
+            "Trinidad and Tobago": {
+              "shots": 7,
+              "sogs": 2,
+              "saves": 6
+            },
+            "United States": {
+              "shots": 14,
+              "sogs": 7,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Joel Hosein",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Trinidad and Tobago_vs_United States_611175346_436.txt"
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Panama",
+            "Trinidad and Tobago"
+          ],
+          "played": true,
+          "score": [
+            1,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 20,
+              "team": "Trinidad and Tobago",
+              "player": "Anthony Gonzales"
+            },
+            {
+              "minute": 21,
+              "team": "Trinidad and Tobago",
+              "player": "Nigel Maharaj"
+            },
+            {
+              "minute": 23,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            },
+            {
+              "minute": 28,
+              "team": "Trinidad and Tobago",
+              "player": "Adrian Johnson"
+            },
+            {
+              "minute": 50,
+              "team": "Panama",
+              "player": "Francisco Castillo"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 12,
+              "sogs": 7,
+              "saves": 4
+            },
+            "Trinidad and Tobago": {
+              "shots": 15,
+              "sogs": 8,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Panama_vs_Trinidad and Tobago_611175347_882.txt"
+        },
+        {
+          "day": 9,
+          "teams": [
+            "United States",
+            "Canada"
+          ],
+          "played": true,
+          "score": [
+            5,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 8,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 17,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 21,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 35,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 58,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 74,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 16,
+              "sogs": 10,
+              "saves": 2
+            },
+            "Canada": {
+              "shots": 13,
+              "sogs": 3,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 8,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 5
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/United States_vs_Canada_611175351_788.txt"
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Panama",
+            "United States"
+          ],
+          "played": true,
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 5,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 45,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 87,
+              "team": "Panama",
+              "player": "Alberto Diaz"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 10,
+              "sogs": 4,
+              "saves": 2
+            },
+            "United States": {
+              "shots": 9,
+              "sogs": 4,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Panama_vs_United States_61117550_676.txt"
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Canada",
+            "Trinidad and Tobago"
+          ],
+          "played": true,
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            },
+            {
+              "minute": 67,
+              "team": "Canada",
+              "player": "Edward Gauthier"
+            },
+            {
+              "minute": 77,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            }
+          ],
+          "stats": {
+            "Canada": {
+              "shots": 6,
+              "sogs": 5,
+              "saves": 3
+            },
+            "Trinidad and Tobago": {
+              "shots": 12,
+              "sogs": 4,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Scott Robinson",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Canada_vs_Trinidad and Tobago_61117550_762.txt"
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Canada",
+            "United States"
+          ],
+          "played": true,
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 19,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 43,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            }
+          ],
+          "stats": {
+            "Canada": {
+              "shots": 13,
+              "sogs": 7,
+              "saves": 7
+            },
+            "United States": {
+              "shots": 10,
+              "sogs": 7,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Scott Robinson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 7,
+                "sogs": 4,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 4,
+                "sogs": 4,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Canada_vs_United States_61117550_423.txt"
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Trinidad and Tobago",
+            "Panama"
+          ],
+          "played": true,
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 19,
+              "team": "Panama",
+              "player": "Angel Cedeno"
+            },
+            {
+              "minute": 39,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            },
+            {
+              "minute": 61,
+              "team": "Panama",
+              "player": "Edwin Lopez"
+            }
+          ],
+          "stats": {
+            "Trinidad and Tobago": {
+              "shots": 7,
+              "sogs": 4,
+              "saves": 5
+            },
+            "Panama": {
+              "shots": 13,
+              "sogs": 7,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Joel Hosein",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jose Abrego",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Trinidad and Tobago_vs_Panama_61117550_445.txt"
+        },
+        {
+          "day": 17,
+          "teams": [
+            "United States",
+            "Panama"
+          ],
+          "played": true,
+          "score": [
+            2,
+            5
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 5,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 15,
+              "team": "Panama",
+              "player": "Francisco Castillo"
+            },
+            {
+              "minute": 28,
+              "team": "Panama",
+              "player": "Alberto Diaz"
+            },
+            {
+              "minute": 53,
+              "team": "Panama",
+              "player": "Francisco Castillo"
+            },
+            {
+              "minute": 61,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            },
+            {
+              "minute": 67,
+              "team": "Panama",
+              "player": "Angel Cedeno"
+            },
+            {
+              "minute": 80,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 13,
+              "sogs": 5,
+              "saves": 1
+            },
+            "Panama": {
+              "shots": 8,
+              "sogs": 6,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 9,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 5
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jose Abrego",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/United States_vs_Panama_61117550_645.txt"
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Trinidad and Tobago",
+            "Canada"
+          ],
+          "played": true,
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 22,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 39,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            }
+          ],
+          "stats": {
+            "Trinidad and Tobago": {
+              "shots": 7,
+              "sogs": 1,
+              "saves": 4
+            },
+            "Canada": {
+              "shots": 12,
+              "sogs": 6,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Joel Hosein",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 7,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Trinidad and Tobago_vs_Canada_61117550_154.txt"
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Canada",
+            "Panama"
+          ],
+          "played": true,
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 23,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            },
+            {
+              "minute": 77,
+              "team": "Panama",
+              "player": "Edwin Lopez"
+            },
+            {
+              "minute": 83,
+              "team": "Canada",
+              "player": "Marc Tremblay"
+            }
+          ],
+          "stats": {
+            "Canada": {
+              "shots": 9,
+              "sogs": 4,
+              "saves": 3
+            },
+            "Panama": {
+              "shots": 5,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Scott Robinson",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jose Abrego",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Canada_vs_Panama_611175517_243.txt"
+        },
+        {
+          "day": 20,
+          "teams": [
+            "United States",
+            "Trinidad and Tobago"
+          ],
+          "played": true,
+          "score": [
+            4,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            },
+            {
+              "minute": 3,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            },
+            {
+              "minute": 7,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 17,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 18,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 79,
+              "team": "United States",
+              "player": "Antonio Chavez"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 18,
+              "sogs": 13,
+              "saves": 2
+            },
+            "Trinidad and Tobago": {
+              "shots": 8,
+              "sogs": 4,
+              "saves": 9
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 6,
+                "sogs": 5,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 9,
+                "goals_against": 4
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/United States_vs_Trinidad and Tobago_611175517_591.txt"
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Trinidad and Tobago",
+            "Canada"
+          ],
+          "played": true,
+          "score": [
+            0,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 18,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 34,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 43,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 49,
+              "team": "Canada",
+              "player": "Pierre Gagnon"
+            }
+          ],
+          "stats": {
+            "Trinidad and Tobago": {
+              "shots": 12,
+              "sogs": 1,
+              "saves": 3
+            },
+            "Canada": {
+              "shots": 11,
+              "sogs": 7,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Joel Hosein",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 6,
+                "sogs": 4,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Trinidad and Tobago_vs_Canada_611175517_952.txt"
+        },
+        {
+          "day": 24,
+          "teams": [
+            "United States",
+            "Panama"
+          ],
+          "played": true,
+          "score": [
+            2,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 3,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            },
+            {
+              "minute": 15,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 58,
+              "team": "Panama",
+              "player": "Francisco Castillo"
+            },
+            {
+              "minute": 80,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 12,
+              "sogs": 5,
+              "saves": 4
+            },
+            "Panama": {
+              "shots": 10,
+              "sogs": 6,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jose Abrego",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/United States_vs_Panama_611175517_421.txt"
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Trinidad and Tobago",
+            "United States"
+          ],
+          "played": true,
+          "score": [
+            4,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 7,
+              "team": "Trinidad and Tobago",
+              "player": "Adrian Johnson"
+            },
+            {
+              "minute": 24,
+              "team": "Trinidad and Tobago",
+              "player": "Anthony Gonzales"
+            },
+            {
+              "minute": 53,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            },
+            {
+              "minute": 54,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 62,
+              "team": "United States",
+              "player": "Bailey Myers-Morgan"
+            },
+            {
+              "minute": 65,
+              "team": "Trinidad and Tobago",
+              "player": "Anthony Gonzales"
+            },
+            {
+              "minute": 74,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            }
+          ],
+          "stats": {
+            "Trinidad and Tobago": {
+              "shots": 15,
+              "sogs": 9,
+              "saves": 3
+            },
+            "United States": {
+              "shots": 9,
+              "sogs": 6,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Joel Hosein",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 4,
+                "sogs": 4,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 4
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Trinidad and Tobago_vs_United States_611175517_761.txt"
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Panama",
+            "Canada"
+          ],
+          "played": true,
+          "score": [
+            3,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Panama",
+              "player": "Miguel Ortega"
+            },
+            {
+              "minute": 53,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            },
+            {
+              "minute": 73,
+              "team": "Panama",
+              "player": "Francisco Castillo"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 12,
+              "sogs": 8,
+              "saves": 2
+            },
+            "Canada": {
+              "shots": 6,
+              "sogs": 2,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Panama_vs_Canada_611175517_484.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 9,
+          "w": 5,
+          "d": 2,
+          "l": 2,
+          "gf": 17,
+          "ga": 14,
+          "gd": 3,
+          "pts": 17,
+          "team": "Canada"
+        },
+        {
+          "played": 9,
+          "w": 4,
+          "d": 2,
+          "l": 3,
+          "gf": 19,
+          "ga": 17,
+          "gd": 2,
+          "pts": 14,
+          "team": "United States"
+        },
+        {
+          "played": 9,
+          "w": 3,
+          "d": 3,
+          "l": 3,
+          "gf": 20,
+          "ga": 18,
+          "gd": 2,
+          "pts": 12,
+          "team": "Panama"
+        },
+        {
+          "played": 9,
+          "w": 2,
+          "d": 1,
+          "l": 6,
+          "gf": 13,
+          "ga": 20,
+          "gd": -7,
+          "pts": 7,
+          "team": "Trinidad and Tobago"
+        }
+      ]
+    },
+    "B": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Mexico",
+            "Honduras"
+          ],
+          "played": true,
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 60,
+              "team": "Mexico",
+              "player": "Guadalupe Moreno"
+            }
+          ],
+          "stats": {
+            "Mexico": {
+              "shots": 13,
+              "sogs": 6,
+              "saves": 3
+            },
+            "Honduras": {
+              "shots": 8,
+              "sogs": 3,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 4,
+                "sogs": 4,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Mexico_vs_Honduras_611175117_629.txt"
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Curacao",
+            "Costa Rica"
+          ],
+          "played": true,
+          "score": [
+            0,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 71,
+              "team": "Costa Rica",
+              "player": "Jorge Quesada"
+            }
+          ],
+          "stats": {
+            "Curacao": {
+              "shots": 9,
+              "sogs": 3,
+              "saves": 3
+            },
+            "Costa Rica": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Kenji Room",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Curacao_vs_Costa Rica_611175121_964.txt"
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Costa Rica",
+            "Honduras"
+          ],
+          "played": true,
+          "score": [
+            0,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 37,
+              "team": "Honduras",
+              "player": "Daniel Ortiz"
+            }
+          ],
+          "stats": {
+            "Costa Rica": {
+              "shots": 9,
+              "sogs": 4,
+              "saves": 3
+            },
+            "Honduras": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Costa Rica_vs_Honduras_611175122_664.txt"
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Mexico",
+            "Curacao"
+          ],
+          "played": true,
+          "score": [
+            3,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 18,
+              "team": "Mexico",
+              "player": "Hector"
+            },
+            {
+              "minute": 80,
+              "team": "Mexico",
+              "player": "Carlos Torres"
+            },
+            {
+              "minute": 88,
+              "team": "Mexico",
+              "player": "Hector"
+            }
+          ],
+          "stats": {
+            "Mexico": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 0
+            },
+            "Curacao": {
+              "shots": 9,
+              "sogs": 0,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kenji Room",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Mexico_vs_Curacao_611175122_637.txt"
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Curacao",
+            "Costa Rica"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 65,
+              "team": "Costa Rica",
+              "player": "Jorge Quesada"
+            },
+            {
+              "minute": 82,
+              "team": "Curacao",
+              "player": "Vurnon Gorr\u00e9"
+            }
+          ],
+          "stats": {
+            "Curacao": {
+              "shots": 9,
+              "sogs": 3,
+              "saves": 5
+            },
+            "Costa Rica": {
+              "shots": 12,
+              "sogs": 6,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Kenji Room",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Curacao_vs_Costa Rica_611175347_745.txt"
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Mexico",
+            "Honduras"
+          ],
+          "played": true,
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 32,
+              "team": "Mexico",
+              "player": "Hector"
+            },
+            {
+              "minute": 58,
+              "team": "Mexico",
+              "player": "Hector"
+            },
+            {
+              "minute": 73,
+              "team": "Honduras",
+              "player": "Jesus Zelaya"
+            },
+            {
+              "minute": 81,
+              "team": "Mexico",
+              "player": "Jaime Hernandez"
+            }
+          ],
+          "stats": {
+            "Mexico": {
+              "shots": 12,
+              "sogs": 6,
+              "saves": 2
+            },
+            "Honduras": {
+              "shots": 10,
+              "sogs": 3,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Mexico_vs_Honduras_611175350_950.txt"
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Curacao",
+            "Mexico"
+          ],
+          "played": true,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "Curacao": {
+              "shots": 8,
+              "sogs": 1,
+              "saves": 3
+            },
+            "Mexico": {
+              "shots": 10,
+              "sogs": 3,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Kenji Room",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Hector",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Curacao_vs_Mexico_61117550_175.txt"
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Honduras",
+            "Costa Rica"
+          ],
+          "played": true,
+          "score": [
+            3,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 28,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 55,
+              "team": "Costa Rica",
+              "player": "Jorge Quesada"
+            },
+            {
+              "minute": 67,
+              "team": "Honduras",
+              "player": "Pedro Banegas"
+            },
+            {
+              "minute": 76,
+              "team": "Honduras",
+              "player": "Daniel Ortiz"
+            },
+            {
+              "minute": 77,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 85,
+              "team": "Costa Rica",
+              "player": "Francisco Solano"
+            },
+            {
+              "minute": 88,
+              "team": "Honduras",
+              "player": "Manuel Amador"
+            }
+          ],
+          "stats": {
+            "Honduras": {
+              "shots": 14,
+              "sogs": 9,
+              "saves": 3
+            },
+            "Costa Rica": {
+              "shots": 13,
+              "sogs": 7,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Honduras_vs_Costa Rica_61117550_428.txt"
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Costa Rica",
+            "Curacao"
+          ],
+          "played": true,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "Costa Rica": {
+              "shots": 9,
+              "sogs": 4,
+              "saves": 3
+            },
+            "Curacao": {
+              "shots": 14,
+              "sogs": 3,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kenji Room",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Costa Rica_vs_Curacao_61117550_311.txt"
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Honduras",
+            "Mexico"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 21,
+              "team": "Mexico",
+              "player": "Carlos Torres"
+            },
+            {
+              "minute": 63,
+              "team": "Honduras",
+              "player": "Jesus Zelaya"
+            }
+          ],
+          "stats": {
+            "Honduras": {
+              "shots": 15,
+              "sogs": 6,
+              "saves": 3
+            },
+            "Mexico": {
+              "shots": 13,
+              "sogs": 4,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 9,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Hector",
+                "shots": 7,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Honduras_vs_Mexico_61117550_996.txt"
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Costa Rica",
+            "Mexico"
+          ],
+          "played": true,
+          "score": [
+            1,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Mexico",
+              "player": "Carlos Torres"
+            },
+            {
+              "minute": 41,
+              "team": "Mexico",
+              "player": "Hector"
+            },
+            {
+              "minute": 47,
+              "team": "Mexico",
+              "player": "Guadalupe Moreno"
+            },
+            {
+              "minute": 58,
+              "team": "Costa Rica",
+              "player": "Francisco Solano"
+            }
+          ],
+          "stats": {
+            "Costa Rica": {
+              "shots": 10,
+              "sogs": 4,
+              "saves": 7
+            },
+            "Mexico": {
+              "shots": 19,
+              "sogs": 10,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Hector",
+                "shots": 12,
+                "sogs": 5,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Costa Rica_vs_Mexico_61117550_700.txt"
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Curacao",
+            "Honduras"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 3,
+              "team": "Curacao",
+              "player": "Eloy Martina"
+            },
+            {
+              "minute": 62,
+              "team": "Honduras",
+              "player": "Jesus Zelaya"
+            }
+          ],
+          "stats": {
+            "Curacao": {
+              "shots": 8,
+              "sogs": 3,
+              "saves": 4
+            },
+            "Honduras": {
+              "shots": 13,
+              "sogs": 5,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Kenji Room",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 6,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Curacao_vs_Honduras_61117550_403.txt"
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Mexico",
+            "Costa Rica"
+          ],
+          "played": true,
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 1,
+              "team": "Mexico",
+              "player": "Raul Ortiz"
+            },
+            {
+              "minute": 4,
+              "team": "Costa Rica",
+              "player": "Francisco Solano"
+            },
+            {
+              "minute": 11,
+              "team": "Mexico",
+              "player": "Hector"
+            },
+            {
+              "minute": 22,
+              "team": "Mexico",
+              "player": "Raul Ortiz"
+            }
+          ],
+          "stats": {
+            "Mexico": {
+              "shots": 17,
+              "sogs": 9,
+              "saves": 0
+            },
+            "Costa Rica": {
+              "shots": 7,
+              "sogs": 1,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 8,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Mexico_vs_Costa Rica_611175517_490.txt"
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Honduras",
+            "Curacao"
+          ],
+          "played": true,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "Honduras": {
+              "shots": 14,
+              "sogs": 5,
+              "saves": 2
+            },
+            "Curacao": {
+              "shots": 6,
+              "sogs": 2,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kenji Room",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Honduras_vs_Curacao_611175517_830.txt"
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Mexico",
+            "Curacao"
+          ],
+          "played": true,
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 47,
+              "team": "Curacao",
+              "player": "Kenji Room"
+            },
+            {
+              "minute": 86,
+              "team": "Mexico",
+              "player": "Carlos Torres"
+            }
+          ],
+          "stats": {
+            "Mexico": {
+              "shots": 10,
+              "sogs": 3,
+              "saves": 0
+            },
+            "Curacao": {
+              "shots": 14,
+              "sogs": 1,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kenji Room",
+                "shots": 7,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Mexico_vs_Curacao_611175517_314.txt"
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Costa Rica",
+            "Honduras"
+          ],
+          "played": true,
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 54,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 63,
+              "team": "Honduras",
+              "player": "Ramon Bonilla"
+            },
+            {
+              "minute": 68,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            }
+          ],
+          "stats": {
+            "Costa Rica": {
+              "shots": 18,
+              "sogs": 7,
+              "saves": 3
+            },
+            "Honduras": {
+              "shots": 9,
+              "sogs": 4,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 10,
+                "sogs": 4,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Costa Rica_vs_Honduras_611175517_885.txt"
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Costa Rica",
+            "Mexico"
+          ],
+          "played": true,
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 6,
+              "team": "Mexico",
+              "player": "Guadalupe Moreno"
+            },
+            {
+              "minute": 34,
+              "team": "Costa Rica",
+              "player": "Gerardo Vargas"
+            },
+            {
+              "minute": 40,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 86,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            }
+          ],
+          "stats": {
+            "Costa Rica": {
+              "shots": 5,
+              "sogs": 4,
+              "saves": 3
+            },
+            "Mexico": {
+              "shots": 13,
+              "sogs": 4,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Hector",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 3
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Costa Rica_vs_Mexico_611175517_238.txt"
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Curacao",
+            "Honduras"
+          ],
+          "played": true,
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 19,
+              "team": "Honduras",
+              "player": "Manuel Amador"
+            },
+            {
+              "minute": 70,
+              "team": "Honduras",
+              "player": "Pedro Banegas"
+            }
+          ],
+          "stats": {
+            "Curacao": {
+              "shots": 4,
+              "sogs": 0,
+              "saves": 1
+            },
+            "Honduras": {
+              "shots": 6,
+              "sogs": 3,
+              "saves": 0
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Kenji Room",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Gorr\u00e9",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eloy Martina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandley Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jearl Room",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juninho Gorr\u00e9",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vurnon Anita",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ]
+          },
+          "log_path": "Tournaments/2026/NA/Games/Curacao_vs_Honduras_611175517_795.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 9,
+          "w": 5,
+          "d": 3,
+          "l": 1,
+          "gf": 16,
+          "ga": 8,
+          "gd": 8,
+          "pts": 18,
+          "team": "Mexico"
+        },
+        {
+          "played": 9,
+          "w": 4,
+          "d": 2,
+          "l": 3,
+          "gf": 13,
+          "ga": 13,
+          "gd": 0,
+          "pts": 14,
+          "team": "Costa Rica"
+        },
+        {
+          "played": 9,
+          "w": 2,
+          "d": 3,
+          "l": 4,
+          "gf": 10,
+          "ga": 12,
+          "gd": -2,
+          "pts": 9,
+          "team": "Honduras"
+        },
+        {
+          "played": 9,
+          "w": 0,
+          "d": 6,
+          "l": 3,
+          "gf": 3,
+          "ga": 9,
+          "gd": -6,
+          "pts": 6,
+          "team": "Curacao"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": [
+    "Canada",
+    "United States",
+    "Mexico",
+    "Costa Rica"
+  ]
+}

@@ -1,0 +1,91 @@
+(check=37) Minute 1: no shot.
+(check=50) Minute 2: (t1check=51, t2check=62, check1=4, check2=-1) Ernest Asllani missed shot.
+(check=19) Minute 3: no shot.
+(check=14) Minute 4: no shot.
+(check=11) Minute 5: no shot.
+(check=11) Minute 6: no shot.
+(check=2) Minute 7: no shot.
+(check=6) Minute 8: no shot.
+(check=44) Minute 9: (t1check=81, t2check=21, check1=1, check2=-1) Morten Rasmussen missed shot.
+(check=16) Minute 10: no shot.
+(check=29) Minute 11: no shot.
+(check=35) Minute 12: no shot.
+(check=37) Minute 13: no shot.
+(check=7) Minute 14: no shot.
+(check=7) Minute 15: no shot.
+(check=26) Minute 16: no shot.
+(check=8) Minute 17: no shot.
+(check=36) Minute 18: no shot.
+(check=34) Minute 19: no shot.
+(check=50) Minute 20: (t1check=53, t2check=56, check1=17, check2=12) Ernest Asllani missed shot.
+(check=30) Minute 21: no shot.
+(check=14) Minute 22: no shot.
+(check=17) Minute 23: no shot.
+(check=14) Minute 24: no shot.
+(check=13) Minute 25: no shot.
+(check=48) Minute 26: (t1check=33, t2check=46, check1=22, check2=17) Taulant Bajrami missed shot.
+(check=46) Minute 27: (t1check=18, t2check=70, check1=50, check2=45) (goalchk1=25, goalchk2=19) Kristjan Uzuni shot on goal. Jens Clausen SAVE!
+(check=4) Minute 28: no shot.
+(check=24) Minute 29: no shot.
+(check=26) Minute 30: no shot.
+(check=21) Minute 31: no shot.
+(check=28) Minute 32: no shot.
+(check=27) Minute 33: no shot.
+(check=2) Minute 34: no shot.
+(check=36) Minute 35: no shot.
+(check=40) Minute 36: (t1check=54, t2check=12, check1=33, check2=31) (goalchk1=47, goalchk2=38) Lars Moller GOAL!!! Score: 1-0
+(check=8) Minute 37: no shot.
+(check=48) Minute 38: (t1check=67, t2check=75, check1=48, check2=43) (goalchk1=32, goalchk2=26) Kristjan Uzuni GOAL!!! Score: 1-1
+(check=46) Minute 39: (t1check=76, t2check=29, check1=44, check2=42) (goalchk1=29, goalchk2=20) Morten Rasmussen shot on goal. Kristjan Muci SAVE!
+(check=25) Minute 40: no shot.
+(check=47) Minute 41: (t1check=66, t2check=35, check1=23, check2=21) Niels Jensen missed shot.
+(check=17) Minute 42: no shot.
+(check=33) Minute 43: no shot.
+(check=43) Minute 44: (t1check=25, t2check=39, check1=37, check2=32) (goalchk1=14, goalchk2=8) Ernest Asllani shot on goal. Jens Clausen SAVE!
+(check=27) Minute 45: no shot.
+(check=16) Minute 46: no shot.
+(check=4) Minute 47: no shot.
+(check=46) Minute 48: (t1check=76, t2check=59, check1=3, check2=1) Soren Holm missed shot.
+(check=32) Minute 49: no shot.
+(check=47) Minute 50: (t1check=32, t2check=59, check1=16, check2=11) Taulant Bajrami missed shot.
+(check=12) Minute 51: no shot.
+(check=9) Minute 52: no shot.
+(check=26) Minute 53: no shot.
+(check=32) Minute 54: no shot.
+(check=37) Minute 55: no shot.
+(check=39) Minute 56: (t1check=78, t2check=9, check1=10, check2=8) Henrik Mikkelsen missed shot.
+(check=41) Minute 57: (t1check=9, t2check=74, check1=15, check2=10) Kristjan Asani missed shot.
+(check=2) Minute 58: no shot.
+(check=1) Minute 59: no shot.
+(check=43) Minute 60: (t1check=46, t2check=51, check1=11, check2=6) Kristjan Asani missed shot.
+(check=16) Minute 61: no shot.
+(check=23) Minute 62: no shot.
+(check=34) Minute 63: no shot.
+(check=18) Minute 64: no shot.
+(check=20) Minute 65: no shot.
+(check=36) Minute 66: no shot.
+(check=17) Minute 67: no shot.
+(check=31) Minute 68: no shot.
+(check=32) Minute 69: no shot.
+(check=7) Minute 70: no shot.
+(check=24) Minute 71: no shot.
+(check=7) Minute 72: no shot.
+(check=3) Minute 73: no shot.
+(check=5) Minute 74: no shot.
+(check=5) Minute 75: no shot.
+(check=30) Minute 76: no shot.
+(check=28) Minute 77: no shot.
+(check=20) Minute 78: no shot.
+(check=30) Minute 79: no shot.
+(check=14) Minute 80: no shot.
+(check=43) Minute 81: (t1check=11, t2check=70, check1=41, check2=36) (goalchk1=17, goalchk2=11) Berat Berisha shot on goal. Jens Clausen SAVE!
+(check=49) Minute 82: (t1check=66, t2check=30, check1=2, check2=0) Henrik Mikkelsen missed shot.
+(check=4) Minute 83: no shot.
+(check=24) Minute 84: no shot.
+(check=43) Minute 85: (t1check=14, t2check=53, check1=5, check2=0) Ernest Asllani missed shot.
+(check=3) Minute 86: no shot.
+(check=23) Minute 87: no shot.
+(check=41) Minute 88: (t1check=8, t2check=24, check1=22, check2=17) Ernest Asllani missed shot.
+(check=43) Minute 89: (t1check=80, t2check=32, check1=47, check2=45) (goalchk1=35, goalchk2=26) Lars Moller GOAL!!! Score: 2-1
+(check=4) Minute 90: no shot.
+Final score: 2-1

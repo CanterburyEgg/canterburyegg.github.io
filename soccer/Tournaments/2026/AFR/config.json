@@ -1,0 +1,31 @@
+{
+  "name": "2026 CAF World Cup Qualifiers",
+  "type": "asia_qualifiers",
+  "groups": {
+    "A": [
+      "Burkina Faso",
+      "Cameroon",
+      "Mali",
+      "Egypt",
+      "Cabo Verde",
+      "Morocco",
+      "Cote d'Ivoire",
+      "Gabon"
+    ],
+    "B": [
+      "South Africa",
+      "Guinea",
+      "Senegal",
+      "Algeria",
+      "Congo DR",
+      "Tunisia",
+      "Nigeria",
+      "Ghana"
+    ]
+  },
+  "rules": {
+    "group_repeats": 2,
+    "direct_qualifiers_per_group": 3,
+    "playoff_spots_per_group": [3, 4]
+  }
+}

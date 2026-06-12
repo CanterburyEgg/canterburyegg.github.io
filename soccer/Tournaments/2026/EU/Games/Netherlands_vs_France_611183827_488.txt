@@ -1,0 +1,91 @@
+(check=1) Minute 1: no shot.
+(check=22) Minute 2: no shot.
+(check=17) Minute 3: no shot.
+(check=30) Minute 4: no shot.
+(check=26) Minute 5: no shot.
+(check=39) Minute 6: (t1check=43, t2check=36, check1=31, check2=31) (goalchk1=16, goalchk2=6) Jan van Dijk shot on goal. Pierre Blanchard SAVE!
+(check=30) Minute 7: no shot.
+(check=36) Minute 8: no shot.
+(check=38) Minute 9: no shot.
+(check=5) Minute 10: no shot.
+(check=28) Minute 11: no shot.
+(check=50) Minute 12: (t1check=11, t2check=26, check1=16, check2=17) Dominique Girard missed shot.
+(check=38) Minute 13: no shot.
+(check=13) Minute 14: no shot.
+(check=31) Minute 15: no shot.
+(check=25) Minute 16: no shot.
+(check=48) Minute 17: (t1check=55, t2check=68, check1=48, check2=49) (goalchk1=10, goalchk2=1) Olivier Rousseau shot on goal. Marcel Kuiper SAVE!
+(check=24) Minute 18: no shot.
+(check=11) Minute 19: no shot.
+(check=50) Minute 20: (t1check=18, t2check=16, check1=19, check2=19) Richard van der Heijden missed shot.
+(check=1) Minute 21: no shot.
+(check=1) Minute 22: no shot.
+(check=46) Minute 23: (t1check=21, t2check=22, check1=18, check2=19) Jacques Lemaire missed shot.
+(check=16) Minute 24: no shot.
+(check=1) Minute 25: no shot.
+(check=33) Minute 26: no shot.
+(check=20) Minute 27: no shot.
+(check=27) Minute 28: no shot.
+(check=11) Minute 29: no shot.
+(check=13) Minute 30: no shot.
+(check=4) Minute 31: no shot.
+(check=50) Minute 32: (t1check=48, t2check=67, check1=6, check2=7) Dominique Girard missed shot.
+(check=18) Minute 33: no shot.
+(check=15) Minute 34: no shot.
+(check=48) Minute 35: (t1check=53, t2check=29, check1=47, check2=47) (goalchk1=16, goalchk2=6) Peter Meijer shot on goal. Pierre Blanchard SAVE!
+(check=40) Minute 36: (t1check=41, t2check=29, check1=8, check2=8) Richard van der Heijden missed shot.
+(check=33) Minute 37: no shot.
+(check=8) Minute 38: no shot.
+(check=1) Minute 39: no shot.
+(check=45) Minute 40: (t1check=82, t2check=70, check1=24, check2=24) Rob Brouwer missed shot.
+(check=22) Minute 41: no shot.
+(check=28) Minute 42: no shot.
+(check=34) Minute 43: no shot.
+(check=24) Minute 44: no shot.
+(check=18) Minute 45: no shot.
+(check=34) Minute 46: no shot.
+(check=23) Minute 47: no shot.
+(check=26) Minute 48: no shot.
+(check=29) Minute 49: no shot.
+(check=48) Minute 50: (t1check=51, t2check=82, check1=10, check2=11) Olivier Rousseau missed shot.
+(check=34) Minute 51: no shot.
+(check=18) Minute 52: no shot.
+(check=25) Minute 53: no shot.
+(check=39) Minute 54: (t1check=26, t2check=40, check1=10, check2=11) Olivier Rousseau missed shot.
+(check=8) Minute 55: no shot.
+(check=6) Minute 56: no shot.
+(check=36) Minute 57: no shot.
+(check=49) Minute 58: (t1check=64, t2check=69, check1=20, check2=21) Bernard Michel missed shot.
+(check=24) Minute 59: no shot.
+(check=14) Minute 60: no shot.
+(check=39) Minute 61: (t1check=68, t2check=18, check1=25, check2=25) Richard van der Heijden missed shot.
+(check=34) Minute 62: no shot.
+(check=36) Minute 63: no shot.
+(check=49) Minute 64: (t1check=73, t2check=53, check1=36, check2=36) (goalchk1=49, goalchk2=39) Richard van der Heijden GOAL!!! Score: 1-0
+(check=35) Minute 65: no shot.
+(check=46) Minute 66: (t1check=31, t2check=69, check1=16, check2=17) Dominique Girard missed shot.
+(check=43) Minute 67: (t1check=83, t2check=76, check1=40, check2=40) (goalchk1=4, goalchk2=-6) Peter Meijer shot on goal. Pierre Blanchard SAVE!
+(check=44) Minute 68: (t1check=47, t2check=24, check1=18, check2=18) Peter Meijer missed shot.
+(check=1) Minute 69: no shot.
+(check=5) Minute 70: no shot.
+(check=26) Minute 71: no shot.
+(check=40) Minute 72: (t1check=25, t2check=42, check1=9, check2=10) Dominique Girard missed shot.
+(check=5) Minute 73: no shot.
+(check=6) Minute 74: no shot.
+(check=21) Minute 75: no shot.
+(check=39) Minute 76: (t1check=43, t2check=44, check1=3, check2=4) Dominique Girard missed shot.
+(check=38) Minute 77: no shot.
+(check=31) Minute 78: no shot.
+(check=49) Minute 79: (t1check=74, t2check=70, check1=7, check2=7) Richard van der Heijden missed shot.
+(check=39) Minute 80: (t1check=80, t2check=82, check1=3, check2=4) Olivier Rousseau missed shot.
+(check=45) Minute 81: (t1check=65, t2check=77, check1=38, check2=39) (goalchk1=10, goalchk2=1) Dominique Girard shot on goal. Marcel Kuiper SAVE!
+(check=27) Minute 82: no shot.
+(check=27) Minute 83: no shot.
+(check=16) Minute 84: no shot.
+(check=17) Minute 85: no shot.
+(check=22) Minute 86: no shot.
+(check=28) Minute 87: no shot.
+(check=27) Minute 88: no shot.
+(check=12) Minute 89: no shot.
+(check=2) Minute 90: no shot.
+Final score: 1-0

@@ -1,0 +1,91 @@
+(check=38) Minute 1: no shot.
+(check=24) Minute 2: no shot.
+(check=50) Minute 3: (t1check=30, t2check=21, check1=28, check2=24) Omar Ajan missed shot.
+(check=27) Minute 4: no shot.
+(check=48) Minute 5: (t1check=29, t2check=7, check1=35, check2=31) (goalchk1=1, goalchk2=-3) Jalil Elias shot on goal. Rajeev Ali SAVE!
+(check=29) Minute 6: no shot.
+(check=43) Minute 7: (t1check=40, t2check=75, check1=9, check2=11) Sunil Sharma missed shot.
+(check=40) Minute 8: (t1check=33, t2check=69, check1=37, check2=39) (goalchk1=4, goalchk2=-1) Fahad Ali shot on goal. Pablo Ajan SAVE!
+(check=48) Minute 9: (t1check=52, t2check=20, check1=2, check2=-2) Ezequiel Alma missed shot.
+(check=9) Minute 10: no shot.
+(check=17) Minute 11: no shot.
+(check=46) Minute 12: (t1check=58, t2check=8, check1=47, check2=43) (goalchk1=17, goalchk2=13) Ezequiel Alma shot on goal. Rajeev Ali SAVE!
+(check=12) Minute 13: no shot.
+(check=24) Minute 14: no shot.
+(check=9) Minute 15: no shot.
+(check=31) Minute 16: no shot.
+(check=30) Minute 17: no shot.
+(check=41) Minute 18: (t1check=61, t2check=9, check1=27, check2=23) Jalil Elias missed shot.
+(check=2) Minute 19: no shot.
+(check=37) Minute 20: no shot.
+(check=40) Minute 21: (t1check=51, t2check=21, check1=25, check2=21) Ammar Krouma missed shot.
+(check=18) Minute 22: no shot.
+(check=42) Minute 23: (t1check=32, t2check=61, check1=32, check2=34) (goalchk1=27, goalchk2=22) Ramesh Shrestha shot on goal. Pablo Ajan SAVE!
+(check=9) Minute 24: no shot.
+(check=26) Minute 25: no shot.
+(check=5) Minute 26: no shot.
+(check=37) Minute 27: no shot.
+(check=28) Minute 28: no shot.
+(check=12) Minute 29: no shot.
+(check=16) Minute 30: no shot.
+(check=11) Minute 31: no shot.
+(check=16) Minute 32: no shot.
+(check=10) Minute 33: no shot.
+(check=50) Minute 34: (t1check=13, t2check=40, check1=28, check2=30) Sunil Sharma missed shot.
+(check=27) Minute 35: no shot.
+(check=49) Minute 36: (t1check=48, t2check=14, check1=46, check2=42) (goalchk1=7, goalchk2=3) Ezequiel Alma shot on goal. Rajeev Ali SAVE!
+(check=10) Minute 37: no shot.
+(check=41) Minute 38: (t1check=27, t2check=29, check1=17, check2=19) Fahad Ali missed shot.
+(check=29) Minute 39: no shot.
+(check=23) Minute 40: no shot.
+(check=19) Minute 41: no shot.
+(check=14) Minute 42: no shot.
+(check=43) Minute 43: (t1check=65, t2check=72, check1=4, check2=6) Arshad Yadav missed shot.
+(check=27) Minute 44: no shot.
+(check=8) Minute 45: no shot.
+(check=49) Minute 46: (t1check=73, t2check=67, check1=16, check2=12) Jalil Elias missed shot.
+(check=29) Minute 47: no shot.
+(check=50) Minute 48: (t1check=41, t2check=29, check1=46, check2=42) (goalchk1=34, goalchk2=30) Jalil Elias GOAL!!! Score: 1-0
+(check=47) Minute 49: (t1check=40, t2check=13, check1=42, check2=38) (goalchk1=41, goalchk2=37) Ezequiel Alma GOAL!!! Score: 2-0
+(check=15) Minute 50: no shot.
+(check=28) Minute 51: no shot.
+(check=6) Minute 52: no shot.
+(check=40) Minute 53: (t1check=80, t2check=69, check1=47, check2=43) (goalchk1=48, goalchk2=44) Ezequiel Alma GOAL!!! Score: 3-0
+(check=43) Minute 54: (t1check=26, t2check=10, check1=45, check2=41) (goalchk1=44, goalchk2=40) Ezequiel Alma GOAL!!! Score: 4-0
+(check=11) Minute 55: no shot.
+(check=46) Minute 56: (t1check=64, t2check=58, check1=23, check2=19) Ezequiel Alma missed shot.
+(check=1) Minute 57: no shot.
+(check=48) Minute 58: (t1check=11, t2check=13, check1=45, check2=47) (goalchk1=43, goalchk2=38) Fahad Ali GOAL!!! Score: 4-1
+(check=3) Minute 59: no shot.
+(check=37) Minute 60: no shot.
+(check=36) Minute 61: no shot.
+(check=37) Minute 62: no shot.
+(check=35) Minute 63: no shot.
+(check=41) Minute 64: (t1check=32, t2check=21, check1=14, check2=10) Jalil Elias missed shot.
+(check=21) Minute 65: no shot.
+(check=7) Minute 66: no shot.
+(check=28) Minute 67: no shot.
+(check=37) Minute 68: no shot.
+(check=26) Minute 69: no shot.
+(check=18) Minute 70: no shot.
+(check=2) Minute 71: no shot.
+(check=29) Minute 72: no shot.
+(check=4) Minute 73: no shot.
+(check=44) Minute 74: (t1check=47, t2check=38, check1=25, check2=21) Ezequiel Alma missed shot.
+(check=31) Minute 75: no shot.
+(check=17) Minute 76: no shot.
+(check=9) Minute 77: no shot.
+(check=27) Minute 78: no shot.
+(check=22) Minute 79: no shot.
+(check=36) Minute 80: no shot.
+(check=40) Minute 81: (t1check=74, t2check=40, check1=47, check2=43) (goalchk1=26, goalchk2=22) Ezequiel Alma shot on goal. Rajeev Ali SAVE!
+(check=28) Minute 82: no shot.
+(check=1) Minute 83: no shot.
+(check=34) Minute 84: no shot.
+(check=26) Minute 85: no shot.
+(check=29) Minute 86: no shot.
+(check=4) Minute 87: no shot.
+(check=34) Minute 88: no shot.
+(check=23) Minute 89: no shot.
+(check=40) Minute 90: (t1check=50, t2check=41, check1=16, check2=12) Ammar Krouma missed shot.
+Final score: 4-1

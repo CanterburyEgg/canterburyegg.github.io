@@ -1,0 +1,31 @@
+{
+  "name": "2026 AFC World Cup Qualifiers",
+  "type": "asia_qualifiers",
+  "groups": {
+    "A": [
+      "Uzbekistan",
+      "China",
+      "Palestine",
+      "Bahrain",
+      "United Arab Emirates",
+      "Oman",
+      "Jordan",
+      "Thailand"
+    ],
+    "B": [
+      "Qatar",
+      "Syria",
+      "Japan",
+      "South Korea",
+      "Iran",
+      "Iraq",
+      "Vietnam",
+      "Saudi Arabia"
+    ]
+  },
+  "rules": {
+    "group_repeats": 2,
+    "direct_qualifiers_per_group": 3,
+    "playoff_spots_per_group": [3, 4]
+  }
+}

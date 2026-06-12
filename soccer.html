@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Sim 2026 - Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --accent: #0f172a;
+            --text: #0f172a;
+            --text-dim: #64748b;
+            --win: #10b981;
+            --loss: #ef4444;
+            --draw: #f59e0b;
+            --border: #e2e8f0;
+            --nav-bg: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+        }
+
+        .nav-bar {
+            width: 100%;
+            background: var(--nav-bg);
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-bar.sub-nav {
+            background: #ffffff;
+        }
+
+        .nav-item {
+            padding: 1.25rem 2rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            background: none;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-weight: 500;
+        }
+
+        .nav-item:hover {
+            color: var(--accent);
+            background: rgba(0,0,0,0.02);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background: #ffffff;
+        }
+
+        .nav-item:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Tables */
+        .standings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .standings-group {
+            width: 100%;
+            max-width: 580px; /* Matching the approximate width in 2-column layout */
+            margin: 0 auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: .5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid var(--border);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Truncate long team names */
+        th:first-child, td:first-child {
+            max-width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        th {
+            background: #f8fafc;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .clickable-row {
+            cursor: pointer;
+        }
+
+        .flag {
+            width: 24px;
+            height: 16px;
+            object-fit: cover;
+            border-radius: 2px;
+            vertical-align: middle;
+            margin-right: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .flag-large {
+            width: 120px;
+            height: auto;
+            max-height: 80px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            flex-shrink: 0;
+            object-fit: contain;
+            background: #f8fafc;
+        }
+
+        /* Bracket */
+        .bracket-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            padding: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .bracket-round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 2rem;
+            width: 320px;
+        }
+
+        .match-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            width: 100%;
+        }
+
+        .match-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .match-team {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .match-team:last-child { border-bottom: none; }
+
+        .match-team.winner { color: var(--accent); }
+        .score { font-family: 'Oswald', sans-serif; }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dim);
+            line-height: 1;
+        }
+
+        .event-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .event-minute { font-weight: 700; color: var(--accent); min-width: 40px; }
+
+        /* Team Page */
+        .team-header {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            gap: 2rem;
+        }
+
+        .team-header-text {
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .team-header h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .team-rank {
+            font-size: 1rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 0.25rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        @media (max-width: 900px) {
+            .team-grid { grid-template-columns: 1fr; }
+        }
+
+        h3 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 0.25rem;
+            margin-top: 0;
+        }
+
+        /* Group Matches List */
+        .matches-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: .5rem;
+        }
+
+        .hidden { display: none; }
+
+        .match-stats-table th, .match-stats-table td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ROAD TO THE WORLD CUP 2026</h1>
+    </header>
+
+    <div id="navigation-root">
+        <div class="nav-bar" id="region-nav">
+            <button class="nav-item" onclick="loadRegion('WC', this)">World Cup</button>
+            <button class="nav-item active" onclick="loadRegion('AS', this)">Asia</button>
+            <button class="nav-item" onclick="loadRegion('AFR', this)">Africa</button>
+            <button class="nav-item" onclick="loadRegion('OCE', this)">Oceania</button>
+            <button class="nav-item" onclick="loadRegion('NA', this)">N. America</button>
+            <button class="nav-item" onclick="loadRegion('SA', this)">S. America</button>
+            <button class="nav-item" onclick="loadRegion('EU', this)">Europe</button>
+        </div>
+
+        <div class="nav-bar sub-nav" id="stage-nav">
+            <button class="nav-item active" id="btn-group" onclick="showStage('group', this)">Group Stage</button>
+            <button class="nav-item" id="btn-knockout" onclick="showStage('knockout', this)">Knockout Stage</button>
+            <button class="nav-item" id="btn-stats" onclick="showStage('stats', this)">Statistics</button>
+        </div>
+    </div>
+
+    <div class="container" id="mainContainer">
+        <div id="content">
+            <div class="loading">Select a region to load data...</div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal" onclick="if(event.target == this) closeModal()">
+        <div class="modal-content" id="modalContent">
+            <!-- Dynamic Match Details -->
+        </div>
+    </div>
+
+    <script>
+        const REGION_DATA = {
+            'AS': 'soccer/Tournaments/2026/AS/results.json',
+            'AFR': 'soccer/Tournaments/2026/AFR/results.json',
+            'OCE': 'soccer/Tournaments/2026/OCE/results.json',
+            'NA': 'soccer/Tournaments/2026/NA/results.json',
+            'SA': 'soccer/Tournaments/2026/SA/results.json',
+            'EU': 'soccer/Tournaments/2026/EU/results.json',
+            'WC': 'soccer/Tournaments/2026/World Cup/results.json'
+        };
+
+        const FLAG_MAP = {
+            "Uzbekistan": "uz", "China": "cn", "Palestine": "ps", "Bahrain": "bh",
+            "United Arab Emirates": "ae", "Oman": "om", "Jordan": "jo", "Thailand": "th",
+            "Qatar": "qa", "Syria": "sy", "Japan": "jp", "South Korea": "kr",
+            "Iran": "ir", "Iraq": "iq", "Vietnam": "vn", "Saudi Arabia": "sa",
+            "Burkina Faso": "bf", "Cameroon": "cm", "Mali": "ml", "Egypt": "eg",
+            "Cabo Verde": "cv", "Morocco": "ma", "Cote d'Ivoire": "ci", "Gabon": "ga",
+            "South Africa": "za", "Guinea": "gn", "Senegal": "sn", "Algeria": "dz",
+            "Congo DR": "cd", "Tunisia": "tn", "Nigeria": "ng", "Ghana": "gh",
+            "Australia": "au", "New Zealand": "nz", "Fiji": "fj", "Vanuatu": "vu",
+            "Panama": "pa", "Trinidad and Tobago": "tt", "United States": "us", "Canada": "ca",
+            "Curacao": "cw", "Costa Rica": "cr", "Mexico": "mx", "Honduras": "hn",
+            "Colombia": "co", "Bolivia": "bo", "Chile": "cl", "Venezuela": "ve",
+            "Ecuador": "ec", "Paraguay": "py", "Brazil": "br", "Guyana": "gy",
+            "Suriname": "sr", "Uruguay": "uy", "Argentina": "ar", "Peru": "pe",
+            "Sweden": "se", "Czechia": "cz", "Albania": "al", "Denmark": "dk",
+            "Russia": "ru", "Croatia": "hr", "Bosnia and Herzegovina": "ba", "Turkey": "tr",
+            "France": "fr", "Greece": "gr", "Netherlands": "nl", "Norway": "no",
+            "Serbia": "rs", "Ireland": "ie", "Wales": "gb-wls", "England": "gb-eng",
+            "Switzerland": "ch", "Northern Ireland": "gb-nir", "Germany": "de", "Poland": "pl",
+            "Spain": "es", "Slovenia": "si", "Israel": "il", "Scotland": "gb-sct",
+            "Italy": "it", "Slovakia": "sk", "Belgium": "be", "Romania": "ro",
+            "Austria": "at", "Ukraine": "ua", "Portugal": "pt", "Hungary": "hu"
+        };
+
+        let currentData = null;
+        let currentStage = 'group';
+        let viewState = 'main'; // 'main' or 'team'
+
+        function getFlagUrl(team) {
+            const code = FLAG_MAP[team] || 'un';
+            if (code === 'un') {
+                return `https://flagcdn.com/w80/un.png`;
+            }
+            // Using high-res webp flags from Flagpedia
+            return `https://flagpedia.net/data/flags/w580/${code}.webp`;
+        }
+
+        function resetView() {
+            viewState = 'main';
+            document.getElementById('navigation-root').style.display = 'block';
+            renderCurrentStage();
+        }
+
+        async function loadRegion(regionCode, el) {
+            viewState = 'main';
+            document.getElementById('navigation-root').style.display = 'block';
+
+            // Update URL without refreshing
+            const url = new URL(window.location);
+            url.searchParams.set('region', regionCode);
+            window.history.pushState({}, '', url);
+
+            if (el) {
+                document.querySelectorAll('#region-nav .nav-item').forEach(btn => btn.classList.remove('active'));
+                el.classList.add('active');
+            } else {
+                // Find and activate the correct button (e.g. on load)
+                document.querySelectorAll('#region-nav .nav-item').forEach(btn => {
+                    const text = btn.innerText.toUpperCase();
+                    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${regionCode}'`)) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+            }
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading">Fetching tournament data...</div>';
+            
+            try {
+                const response = await fetch(REGION_DATA[regionCode]);
+                currentData = await response.json();
+                renderCurrentStage();
+            } catch (err) {
+                content.innerHTML = `<div class="loading">Error loading data: ${err.message}</div>`;
+            }
+        }
+
+        function showStage(stage, el) {
+            currentStage = stage;
+            if (el) {
+                document.querySelectorAll('#stage-nav .nav-item').forEach(btn => btn.classList.remove('active'));
+                el.classList.add('active');
+            }
+            renderCurrentStage();
+        }
+
+        function renderCurrentStage() {
+            if (!currentData) return;
+            const content = document.getElementById('content');
+            content.innerHTML = '';
+
+            // Hide Knockout Stage button if no playoffs exist or are planned
+            const koBtn = document.getElementById('btn-knockout');
+            if (!currentData.playoffs) {
+                koBtn.style.display = 'none';
+                if (currentStage === 'knockout') currentStage = 'group';
+            } else {
+                koBtn.style.display = 'inline-block';
+            }
+
+            if (currentStage === 'group') renderGroupStage(content);
+            else if (currentStage === 'knockout') renderKnockoutStage(content);
+            else if (currentStage === 'stats') renderStats(content);
+        }
+
+        function renderGroupStage(container) {
+            const grid = document.createElement('div');
+            grid.className = 'standings-container';
+
+            Object.entries(currentData.groups).forEach(([groupId, data]) => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'standings-group';
+                groupDiv.innerHTML = `<h3>Group ${groupId} Standings</h3>`;
+                
+                let tableHtml = `<table>
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+                
+                data.standings.forEach((team, index) => {
+                    const escapedName = team.team.replace(/'/g, "\\'");
+                    tableHtml += `
+                        <tr class="clickable-row" onclick="showTeamPage('${escapedName}')">
+                            <td><img src="${getFlagUrl(team.team)}" class="flag" style="width:24px; height:16px;"> ${team.team}</td>
+                            <td>${team.w}</td>
+                            <td>${team.d}</td>
+                            <td>${team.l}</td>
+                            <td>${team.gf}</td>
+                            <td>${team.ga}</td>
+                            <td>${team.gd}</td>
+                            <td><strong>${team.pts}</strong></td>
+                        </tr>`;
+                });
+                
+                tableHtml += `</tbody></table>`;
+                groupDiv.innerHTML += tableHtml;
+                grid.appendChild(groupDiv);
+            });
+
+            container.appendChild(grid);
+        }
+
+        async function showTeamPage(teamName) {
+            viewState = 'team';
+            document.getElementById('navigation-root').style.display = 'block';
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading">Loading team profile...</div>';
+
+            // Find group and rank
+            let teamGroup = '';
+            let teamRank = 0;
+            let groupData = null;
+            Object.entries(currentData.groups).forEach(([gid, data]) => {
+                const idx = data.standings.findIndex(s => s.team === teamName);
+                if (idx !== -1) {
+                    teamGroup = gid;
+                    teamRank = idx + 1;
+                    groupData = data;
+                }
+            });
+
+            // Get team matches
+            const teamMatches = groupData.matches.filter(m => m.teams.includes(teamName));
+            if (currentData.playoffs) {
+                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
+                const playoffMatches = [...currentData.playoffs.semifinals, ...finals];
+                teamMatches.push(...playoffMatches.filter(m => m.teams.includes(teamName)));
+            }
+
+            // Load roster and aggregate stats
+            let rosterHtml = '<p>Loading roster...</p>';
+            try {
+                // Aggregating stats
+                const playerStats = {};
+            const goalkeeperStats = {};
+            const allMatches = [];
+            Object.values(currentData.groups).forEach(g => allMatches.push(...g.matches));
+            if (currentData.playoffs) {
+                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
+                allMatches.push(...currentData.playoffs.semifinals, ...finals);
+            }
+
+            allMatches.forEach(m => {
+                if (m.played && m.teams.includes(teamName)) {
+                    const side = m.teams[0] === teamName ? 'team1' : 'team2';
+                    m.player_data[side].forEach((p, idx) => {
+                        if (idx === 6) { // Goalkeeper is the 7th player
+                            if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
+                            goalkeeperStats[p.name].saves += (p.saves || 0);
+                            goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
+                        } else {
+                            if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0 };
+                            playerStats[p.name].shots += p.shots;
+                            playerStats[p.name].sogs += p.sogs;
+                            playerStats[p.name].goals += p.goals;
+                        }
+                    });
+                }
+            });
+
+            rosterHtml = `
+                <h3>Roster & Statistics</h3>
+                <table>
+                    <thead>
+                        <tr><th>Player Name</th><th>Shots</th><th>SOG</th><th>Goals</th></tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(playerStats)
+                            .sort((a,b) => b[1].goals - a[1].goals || b[1].sogs - a[1].sogs || b[1].shots - a[1].shots)
+                            .map(([name, stats]) => `
+                                <tr>
+                                    <td>${name}</td>
+                                    <td>${stats.shots}</td>
+                                    <td>${stats.sogs}</td>
+                                    <td>${stats.goals}</td>
+                                </tr>
+                            `).join('')}
+                    </tbody>
+                </table>
+
+                <table>
+                    <thead>
+                        <tr><th>Player Name</th><th>Saves</th><th>OPP</th><th>Save %</th></tr>
+                    </thead>
+                    <tbody>
+                        ${Object.entries(goalkeeperStats)
+                            .map(([name, stats]) => {
+                                const opps = stats.saves + stats.goals_against;
+                                const pct = opps > 0 ? ((stats.saves / opps) * 100).toFixed(1) : '0.0';
+                                return `
+                                    <tr>
+                                        <td>${name}</td>
+                                        <td>${stats.saves}</td>
+                                        <td>${opps}</td>
+                                        <td>${pct}%</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                    </tbody>
+                </table>
+            `;
+            } catch (err) {
+                rosterHtml = '<p>Roster data unavailable.</p>';
+            }
+
+            const ordinal = (n) => n + (n > 10 && n < 20 ? 'th' : {1: 'st', 2: 'nd', 3: 'rd'}[n % 10] || 'th');
+
+            content.innerHTML = `
+                <div class="team-header">
+                    <img src="${getFlagUrl(teamName)}" class="flag-large">
+                    <div class="team-header-text">
+                        <h2>${teamName}</h2>
+                        <div class="team-rank">${ordinal(teamRank)} in Group ${teamGroup}</div>
+                    </div>
+                </div>
+
+                <div class="team-grid">
+                    <div>
+                        <h3>Group ${teamGroup} Standings</h3>
+                        <table>
+                            <thead>
+                                <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+                            </thead>
+                            <tbody>
+                                ${groupData.standings.map(s => {
+                                    const escapedName = s.team.replace(/'/g, "\\'");
+                                    return `
+                                    <tr class="clickable-row" onclick="showTeamPage('${escapedName}')" style="${s.team === teamName ? 'background:rgba(56,189,248,0.15)' : ''}">
+                                        <td><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
+                                        <td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.gd}</td><td>${s.pts}</td>
+                                    </tr>
+                                `;}).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        ${rosterHtml}
+                    </div>
+                </div>
+
+                <h3>Matches</h3>
+                <div class="matches-list" style="grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+                    ${teamMatches.map(m => {
+                        const card = createMatchCard(m);
+                        return card.outerHTML;
+                    }).join('')}
+                </div>
+            `;
+            
+            // Re-bind click events to the newly injected HTML cards
+            content.querySelectorAll('.match-card').forEach((card, i) => {
+                if (teamMatches[i].played) {
+                    card.onclick = () => openMatchDetail(teamMatches[i]);
+                }
+            });
+        }
+
+        function renderKnockoutStage(container) {
+            if (!currentData.playoffs) {
+                container.innerHTML = '<div class="loading">Knockout stage not yet started.</div>';
+                return;
+            }
+
+            const bracket = document.createElement('div');
+            bracket.className = 'bracket-container';
+
+            // Semifinals
+            const semiRound = document.createElement('div');
+            semiRound.className = 'bracket-round';
+            semiRound.innerHTML = '<h3>Semifinals</h3>';
+            currentData.playoffs.semifinals.forEach(match => {
+                semiRound.appendChild(createMatchCard(match));
+            });
+
+            // Finals
+            const finalRound = document.createElement('div');
+            finalRound.className = 'bracket-round';
+            finalRound.innerHTML = '<h3>Finals</h3>';
+            const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
+            finals.forEach(match => {
+                finalRound.appendChild(createMatchCard(match));
+            });
+
+            bracket.appendChild(semiRound);
+            bracket.appendChild(finalRound);
+            container.appendChild(bracket);
+        }
+
+        function renderStats(container) {
+            const statsGrid = document.createElement('div');
+            statsGrid.className = 'stats-grid';
+            statsGrid.style.gridTemplateColumns = '1fr 1fr';
+
+            const scorers = {};
+            const goalkeepers = {};
+            const allMatches = [];
+            Object.values(currentData.groups).forEach(g => allMatches.push(...g.matches));
+            if (currentData.playoffs) {
+                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
+                allMatches.push(...currentData.playoffs.semifinals, ...finals);
+            }
+
+            allMatches.forEach(m => {
+                if (m.played) {
+                    m.events.forEach(e => {
+                        if (!scorers[e.player]) scorers[e.player] = { goals: 0, team: e.team };
+                        scorers[e.player].goals++;
+                    });
+                    
+                    // Keepers are always index 6 in player_data
+                    [0, 1].forEach(tIdx => {
+                        const teamName = m.teams[tIdx];
+                        const side = tIdx === 0 ? 'team1' : 'team2';
+                        const gk = m.player_data[side][6];
+                        if (!goalkeepers[gk.name]) goalkeepers[gk.name] = { saves: 0, opps: 0, team: teamName };
+                        goalkeepers[gk.name].saves += (gk.saves || 0);
+                        goalkeepers[gk.name].opps += ((gk.saves || 0) + (gk.goals_against || 0));
+                    });
+                }
+            });
+
+            const sortedScorers = Object.entries(scorers)
+                .map(([name, data]) => ({ name, ...data }))
+                .sort((a, b) => b.goals - a.goals)
+                .slice(0, 15);
+
+            const sortedKeepers = Object.entries(goalkeepers)
+                .map(([name, data]) => ({ name, ...data }))
+                .sort((a, b) => b.saves - a.saves)
+                .slice(0, 15);
+
+            const scorersDiv = document.createElement('div');
+            scorersDiv.innerHTML = '<h3>Top Scorers</h3>';
+            let scorersHtml = `<table><thead><tr><th>Player</th><th>Team</th><th>Goals</th></tr></thead><tbody>`;
+            sortedScorers.forEach(s => {
+                scorersHtml += `<tr>
+                    <td>${s.name}</td>
+                    <td><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
+                    <td>${s.goals}</td>
+                </tr>`;
+            });
+            scorersHtml += `</tbody></table>`;
+            scorersDiv.innerHTML += scorersHtml;
+
+            const keepersDiv = document.createElement('div');
+            keepersDiv.innerHTML = '<h3>Top Goalkeepers</h3>';
+            let keepersHtml = `<table><thead><tr><th>Player</th><th>Team</th><th>Saves</th><th>Save %</th></tr></thead><tbody>`;
+            sortedKeepers.forEach(k => {
+                const pct = k.opps > 0 ? ((k.saves / k.opps) * 100).toFixed(1) : '0.0';
+                keepersHtml += `<tr>
+                    <td>${k.name}</td>
+                    <td><img src="${getFlagUrl(k.team)}" class="flag" style="width:24px; height:16px;"> ${k.team}</td>
+                    <td>${k.saves}</td>
+                    <td>${pct}%</td>
+                </tr>`;
+            });
+            keepersHtml += `</tbody></table>`;
+            keepersDiv.innerHTML += keepersHtml;
+
+            statsGrid.appendChild(scorersDiv);
+            statsGrid.appendChild(keepersDiv);
+            container.appendChild(statsGrid);
+        }
+
+        function createMatchCard(match) {
+            const card = document.createElement('div');
+            card.className = 'match-card';
+            if (!match.played) {
+                card.style.opacity = '0.6';
+                card.style.cursor = 'default';
+            } else {
+                card.onclick = () => openMatchDetail(match);
+            }
+
+            const s1 = match.score ? match.score[0] : 0, s2 = match.score ? match.score[1] : 0;
+            const p1 = match.pk_score ? match.pk_score[0] : null;
+            const p2 = match.pk_score ? match.pk_score[1] : null;
+
+            const isW1 = match.played && (p1 !== null ? p1 > p2 : s1 > s2);
+            const isW2 = match.played && (p2 !== null ? p2 > p1 : s2 > s1);
+
+            const t1 = match.teams[0] || "TBD";
+            const t2 = match.teams[1] || "TBD";
+
+            card.innerHTML = `
+                <div class="match-team ${isW1 ? 'winner' : ''}" style="${isW1 ? 'font-weight:700' : 'font-weight:400'}">
+                    <span><img src="${getFlagUrl(t1)}" class="flag" style="width:24px; height:16px;"> ${t1}</span>
+                    <span class="score">
+                        ${match.played ? `${s1}${match.pk_score ? ` (${p1})` : ''}` : ''}
+                    </span>
+                </div>
+                <div class="match-team ${isW2 ? 'winner' : ''}" style="${isW2 ? 'font-weight:700' : 'font-weight:400'}">
+                    <span><img src="${getFlagUrl(t2)}" class="flag" style="width:24px; height:16px;"> ${t2}</span>
+                    <span class="score">
+                        ${match.played ? `${s2}${match.pk_score ? ` (${p2})` : ''}` : 'VS'}
+                    </span>
+                </div>
+            `;
+            return card;
+        }
+
+        function openMatchDetail(match) {
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modalContent');
+            
+            const s1 = match.score[0], s2 = match.score[1];
+            const p1 = match.pk_score ? match.pk_score[0] : null;
+            const p2 = match.pk_score ? match.pk_score[1] : null;
+
+            const isW1 = p1 !== null ? p1 > p2 : s1 > s2;
+            const isW2 = p2 !== null ? p2 > p1 : s2 > s1;
+
+            let eventsHtml = '';
+            match.events.forEach(e => {
+                eventsHtml += `
+                    <div class="event-item">
+                        <span class="event-minute">${e.minute}'</span>
+                        <span><strong>${e.player}</strong> (${e.team})</span>
+                    </div>`;
+            });
+
+            content.innerHTML = `
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <div style="display:flex; justify-content:center; align-items:center; gap:2rem; margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border);">
+                    <div style="text-align:center; flex:1; ${isW1 ? 'font-weight:700' : ''}">
+                        <img src="${getFlagUrl(match.teams[0])}" class="flag-large" style="margin:0 0 0.5rem 0; width:60px; height:40px;"><br>
+                        <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[0]}</span>
+                    </div>
+                    <div style="font-family:'Oswald'; font-size:3rem; letter-spacing:4px; text-align:center;">
+                        <span style="${isW1 ? 'font-weight:700' : ''}">${s1}</span>
+                        <span style="color:var(--text-dim); margin:0 1rem;">-</span>
+                        <span style="${isW2 ? 'font-weight:700' : ''}">${s2}</span>
+                        ${match.pk_score ? `<div style="font-size:1rem; text-align:center; color:var(--text-dim); letter-spacing:1px;">(${p1} - ${p2} PK)</div>` : ''}
+                    </div>
+                    <div style="text-align:center; flex:1; ${isW2 ? 'font-weight:700' : ''}">
+                        <img src="${getFlagUrl(match.teams[1])}" class="flag-large" style="margin:0 0 0.5rem 0; width:60px; height:40px;"><br>
+                        <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[1]}</span>
+                    </div>
+                </div>
+                
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+                    <div>
+                        <h3>Match Events</h3>
+                        ${eventsHtml || '<p>No goals scored.</p>'}
+                    </div>
+                    <div>
+                        <h3>Match Stats</h3>
+                        <table class="match-stats-table">
+                            <tr><th>${match.teams[0]}</th><th>Stat</th><th>${match.teams[1]}</th></tr>
+                            <tr><td>${match.stats[match.teams[0]].shots}</td><td>Shots</td><td>${match.stats[match.teams[1]].shots}</td></tr>
+                            <tr><td>${match.stats[match.teams[0]].sogs}</td><td>SOG</td><td>${match.stats[match.teams[1]].sogs}</td></tr>
+                            <tr><td>${match.stats[match.teams[0]].saves}</td><td>Saves</td><td>${match.stats[match.teams[1]].saves}</td></tr>
+                        </table>
+                    </div>
+                </div>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Initialize from URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const region = params.get('region') || 'WC';
+            loadRegion(region);
+        });
+    </script>
+</body>
+</html>

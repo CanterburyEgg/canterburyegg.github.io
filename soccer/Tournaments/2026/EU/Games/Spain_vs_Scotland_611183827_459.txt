@@ -1,0 +1,91 @@
+(check=12) Minute 1: no shot.
+(check=25) Minute 2: no shot.
+(check=32) Minute 3: no shot.
+(check=43) Minute 4: (t1check=66, t2check=6, check1=7, check2=11) Diego Castillo missed shot.
+(check=39) Minute 5: (t1check=37, t2check=76, check1=31, check2=34) (goalchk1=23, goalchk2=15) Thomas Anderson shot on goal. Enrique Ortega SAVE!
+(check=12) Minute 6: no shot.
+(check=30) Minute 7: no shot.
+(check=26) Minute 8: no shot.
+(check=39) Minute 9: (t1check=61, t2check=48, check1=8, check2=12) Diego Castillo missed shot.
+(check=18) Minute 10: no shot.
+(check=41) Minute 11: (t1check=49, t2check=34, check1=20, check2=24) Alvaro Vazquez missed shot.
+(check=13) Minute 12: no shot.
+(check=28) Minute 13: no shot.
+(check=43) Minute 14: (t1check=68, t2check=50, check1=12, check2=16) Alvaro Vazquez missed shot.
+(check=1) Minute 15: no shot.
+(check=22) Minute 16: no shot.
+(check=21) Minute 17: no shot.
+(check=38) Minute 18: no shot.
+(check=17) Minute 19: no shot.
+(check=23) Minute 20: no shot.
+(check=48) Minute 21: (t1check=31, t2check=19, check1=14, check2=18) Diego Castillo missed shot.
+(check=11) Minute 22: no shot.
+(check=29) Minute 23: no shot.
+(check=28) Minute 24: no shot.
+(check=4) Minute 25: no shot.
+(check=6) Minute 26: no shot.
+(check=30) Minute 27: no shot.
+(check=21) Minute 28: no shot.
+(check=23) Minute 29: no shot.
+(check=28) Minute 30: no shot.
+(check=15) Minute 31: no shot.
+(check=31) Minute 32: no shot.
+(check=24) Minute 33: no shot.
+(check=49) Minute 34: (t1check=17, t2check=52, check1=3, check2=6) Ian Murray missed shot.
+(check=48) Minute 35: (t1check=11, t2check=72, check1=31, check2=34) (goalchk1=14, goalchk2=6) John Campbell III shot on goal. Enrique Ortega SAVE!
+(check=37) Minute 36: no shot.
+(check=2) Minute 37: no shot.
+(check=37) Minute 38: no shot.
+(check=26) Minute 39: no shot.
+(check=16) Minute 40: no shot.
+(check=5) Minute 41: no shot.
+(check=10) Minute 42: no shot.
+(check=50) Minute 43: (t1check=77, t2check=60, check1=22, check2=26) Diego Castillo missed shot.
+(check=18) Minute 44: no shot.
+(check=23) Minute 45: no shot.
+(check=31) Minute 46: no shot.
+(check=26) Minute 47: no shot.
+(check=47) Minute 48: (t1check=81, t2check=29, check1=29, check2=33) (goalchk1=12, goalchk2=7) Vicente Garcia shot on goal. Kenneth Wright SAVE!
+(check=7) Minute 49: no shot.
+(check=31) Minute 50: no shot.
+(check=38) Minute 51: no shot.
+(check=3) Minute 52: no shot.
+(check=40) Minute 53: (t1check=77, t2check=43, check1=18, check2=22) Diego Castillo missed shot.
+(check=46) Minute 54: (t1check=76, t2check=34, check1=28, check2=32) (goalchk1=12, goalchk2=7) Vicente Garcia shot on goal. Kenneth Wright SAVE!
+(check=1) Minute 55: no shot.
+(check=13) Minute 56: no shot.
+(check=48) Minute 57: (t1check=81, t2check=40, check1=16, check2=20) Diego Castillo missed shot.
+(check=19) Minute 58: no shot.
+(check=16) Minute 59: no shot.
+(check=31) Minute 60: no shot.
+(check=21) Minute 61: no shot.
+(check=27) Minute 62: no shot.
+(check=39) Minute 63: (t1check=45, t2check=73, check1=16, check2=19) John Campbell III missed shot.
+(check=8) Minute 64: no shot.
+(check=28) Minute 65: no shot.
+(check=14) Minute 66: no shot.
+(check=50) Minute 67: (t1check=18, t2check=48, check1=2, check2=5) Ian Murray missed shot.
+(check=41) Minute 68: (t1check=45, t2check=28, check1=29, check2=33) (goalchk1=50, goalchk2=45) Diego Castillo GOAL!!! Score: 1-0
+(check=17) Minute 69: no shot.
+(check=15) Minute 70: no shot.
+(check=13) Minute 71: no shot.
+(check=12) Minute 72: no shot.
+(check=18) Minute 73: no shot.
+(check=41) Minute 74: (t1check=65, t2check=73, check1=34, check2=37) (goalchk1=36, goalchk2=28) Thomas Anderson GOAL!!! Score: 1-1
+(check=47) Minute 75: (t1check=51, t2check=72, check1=35, check2=38) (goalchk1=20, goalchk2=12) John Campbell III shot on goal. Enrique Ortega SAVE!
+(check=12) Minute 76: no shot.
+(check=10) Minute 77: no shot.
+(check=15) Minute 78: no shot.
+(check=26) Minute 79: no shot.
+(check=7) Minute 80: no shot.
+(check=4) Minute 81: no shot.
+(check=19) Minute 82: no shot.
+(check=31) Minute 83: no shot.
+(check=4) Minute 84: no shot.
+(check=36) Minute 85: no shot.
+(check=42) Minute 86: (t1check=29, t2check=11, check1=45, check2=49) (goalchk1=24, goalchk2=19) Diego Castillo shot on goal. Kenneth Wright SAVE!
+(check=42) Minute 87: (t1check=21, t2check=31, check1=3, check2=6) Thomas Anderson missed shot.
+(check=33) Minute 88: no shot.
+(check=43) Minute 89: (t1check=58, t2check=42, check1=38, check2=42) (goalchk1=2, goalchk2=-3) Diego Castillo shot on goal. Kenneth Wright SAVE!
+(check=39) Minute 90: (t1check=14, t2check=70, check1=48, check2=51) (goalchk1=13, goalchk2=5) John Campbell III shot on goal. Enrique Ortega SAVE!
+Final score: 1-1

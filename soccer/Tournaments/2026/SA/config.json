@@ -1,0 +1,26 @@
+{
+  "name": "2026 CONMEBOL World Cup Qualifiers",
+  "type": "oceania_qualifiers",
+  "groups": {
+    "A": [
+      "Colombia",
+      "Bolivia",
+      "Chile",
+      "Venezuela",
+      "Ecuador",
+      "Paraguay"
+    ],
+    "B": [
+      "Brazil",
+      "Guyana",
+      "Suriname",
+      "Uruguay",
+      "Argentina",
+      "Peru"
+    ]
+  },
+  "rules": {
+    "group_repeats": 2,
+    "direct_qualifiers_per_group": 3
+  }
+}

@@ -1,0 +1,91 @@
+(check=10) Minute 1: no shot.
+(check=21) Minute 2: no shot.
+(check=46) Minute 3: (t1check=9, t2check=20, check1=14, check2=17) Mehmet Celik missed shot.
+(check=6) Minute 4: no shot.
+(check=50) Minute 5: (t1check=67, t2check=12, check1=2, check2=-1) Amar Demirovic missed shot.
+(check=25) Minute 6: no shot.
+(check=36) Minute 7: no shot.
+(check=35) Minute 8: no shot.
+(check=44) Minute 9: (t1check=65, t2check=80, check1=36, check2=39) (goalchk1=23, goalchk2=17) Huseyin Sahin shot on goal. Ibrahim Sehic SAVE!
+(check=49) Minute 10: (t1check=20, t2check=28, check1=37, check2=40) (goalchk1=19, goalchk2=13) Mustafa Simsek shot on goal. Ibrahim Sehic SAVE!
+(check=37) Minute 11: no shot.
+(check=21) Minute 12: no shot.
+(check=4) Minute 13: no shot.
+(check=16) Minute 14: no shot.
+(check=44) Minute 15: (t1check=11, t2check=69, check1=41, check2=44) (goalchk1=25, goalchk2=19) Yusuf Guler shot on goal. Ibrahim Sehic SAVE!
+(check=44) Minute 16: (t1check=41, t2check=56, check1=35, check2=38) (goalchk1=2, goalchk2=-4) Huseyin Sahin shot on goal. Ibrahim Sehic SAVE!
+(check=18) Minute 17: no shot.
+(check=5) Minute 18: no shot.
+(check=24) Minute 19: no shot.
+(check=46) Minute 20: (t1check=37, t2check=45, check1=5, check2=8) Huseyin Sahin missed shot.
+(check=45) Minute 21: (t1check=72, t2check=62, check1=41, check2=38) (goalchk1=9, goalchk2=3) Miralem Tahirovic shot on goal. Ahmet Ozcan SAVE!
+(check=43) Minute 22: (t1check=51, t2check=78, check1=10, check2=13) Mustafa Simsek missed shot.
+(check=43) Minute 23: (t1check=77, t2check=54, check1=15, check2=12) Amar Demirovic missed shot.
+(check=50) Minute 24: (t1check=16, t2check=66, check1=27, check2=30) Ramazan Yilmaz missed shot.
+(check=25) Minute 25: no shot.
+(check=32) Minute 26: no shot.
+(check=23) Minute 27: no shot.
+(check=2) Minute 28: no shot.
+(check=12) Minute 29: no shot.
+(check=10) Minute 30: no shot.
+(check=7) Minute 31: no shot.
+(check=40) Minute 32: (t1check=70, t2check=68, check1=37, check2=34) (goalchk1=10, goalchk2=4) Edin Ahmedhodzic shot on goal. Ahmet Ozcan SAVE!
+(check=49) Minute 33: (t1check=26, t2check=10, check1=45, check2=42) (goalchk1=31, goalchk2=25) Miralem Tahirovic shot on goal. Ahmet Ozcan SAVE!
+(check=38) Minute 34: no shot.
+(check=17) Minute 35: no shot.
+(check=46) Minute 36: (t1check=77, t2check=49, check1=41, check2=38) (goalchk1=40, goalchk2=34) Edin Ahmedhodzic GOAL!!! Score: 1-0
+(check=19) Minute 37: no shot.
+(check=46) Minute 38: (t1check=26, t2check=31, check1=24, check2=27) Mustafa Simsek missed shot.
+(check=44) Minute 39: (t1check=14, t2check=46, check1=34, check2=37) (goalchk1=14, goalchk2=8) Yusuf Guler shot on goal. Ibrahim Sehic SAVE!
+(check=48) Minute 40: (t1check=11, t2check=69, check1=11, check2=14) Yusuf Guler missed shot.
+(check=48) Minute 41: (t1check=23, t2check=70, check1=46, check2=49) (goalchk1=24, goalchk2=18) Yusuf Guler shot on goal. Ibrahim Sehic SAVE!
+(check=26) Minute 42: no shot.
+(check=6) Minute 43: no shot.
+(check=6) Minute 44: no shot.
+(check=46) Minute 45: (t1check=66, t2check=57, check1=4, check2=1) Miralem Tahirovic missed shot.
+(check=43) Minute 46: (t1check=48, t2check=46, check1=18, check2=15) Edin Ahmedhodzic missed shot.
+(check=38) Minute 47: no shot.
+(check=25) Minute 48: no shot.
+(check=42) Minute 49: (t1check=29, t2check=40, check1=49, check2=52) (goalchk1=17, goalchk2=11) Mustafa Simsek shot on goal. Ibrahim Sehic SAVE!
+(check=6) Minute 50: no shot.
+(check=9) Minute 51: no shot.
+(check=24) Minute 52: no shot.
+(check=48) Minute 53: (t1check=73, t2check=21, check1=10, check2=7) Edin Hadzikadunic missed shot.
+(check=46) Minute 54: (t1check=49, t2check=13, check1=22, check2=19) Amar Demirovic missed shot.
+(check=49) Minute 55: (t1check=82, t2check=52, check1=15, check2=12) Ermedin Tahirovic missed shot.
+(check=9) Minute 56: no shot.
+(check=21) Minute 57: no shot.
+(check=48) Minute 58: (t1check=22, t2check=48, check1=11, check2=14) Huseyin Sahin missed shot.
+(check=29) Minute 59: no shot.
+(check=6) Minute 60: no shot.
+(check=22) Minute 61: no shot.
+(check=33) Minute 62: no shot.
+(check=47) Minute 63: (t1check=62, t2check=9, check1=34, check2=31) (goalchk1=47, goalchk2=41) Miralem Tahirovic GOAL!!! Score: 2-0
+(check=48) Minute 64: (t1check=63, t2check=46, check1=8, check2=5) Amar Demirovic missed shot.
+(check=40) Minute 65: (t1check=53, t2check=41, check1=9, check2=6) Miralem Tahirovic missed shot.
+(check=23) Minute 66: no shot.
+(check=2) Minute 67: no shot.
+(check=5) Minute 68: no shot.
+(check=50) Minute 69: (t1check=42, t2check=34, check1=20, check2=17) Miralem Tahirovic missed shot.
+(check=50) Minute 70: (t1check=11, t2check=35, check1=6, check2=9) Mustafa Simsek missed shot.
+(check=25) Minute 71: no shot.
+(check=50) Minute 72: (t1check=42, t2check=15, check1=36, check2=33) (goalchk1=37, goalchk2=31) Edin Ahmedhodzic GOAL!!! Score: 3-0
+(check=14) Minute 73: no shot.
+(check=30) Minute 74: no shot.
+(check=33) Minute 75: no shot.
+(check=46) Minute 76: (t1check=46, t2check=70, check1=31, check2=34) (goalchk1=22, goalchk2=16) Mustafa Simsek shot on goal. Ibrahim Sehic SAVE!
+(check=5) Minute 77: no shot.
+(check=30) Minute 78: no shot.
+(check=48) Minute 79: (t1check=10, t2check=51, check1=39, check2=42) (goalchk1=10, goalchk2=4) Mustafa Simsek shot on goal. Ibrahim Sehic SAVE!
+(check=19) Minute 80: no shot.
+(check=46) Minute 81: (t1check=48, t2check=18, check1=22, check2=19) Amar Demirovic missed shot.
+(check=31) Minute 82: no shot.
+(check=3) Minute 83: no shot.
+(check=36) Minute 84: no shot.
+(check=6) Minute 85: no shot.
+(check=3) Minute 86: no shot.
+(check=50) Minute 87: (t1check=50, t2check=78, check1=38, check2=41) (goalchk1=49, goalchk2=43) Omer Koc GOAL!!! Score: 3-1
+(check=32) Minute 88: no shot.
+(check=43) Minute 89: (t1check=80, t2check=21, check1=19, check2=16) Sead Demirovic missed shot.
+(check=18) Minute 90: no shot.
+Final score: 3-1

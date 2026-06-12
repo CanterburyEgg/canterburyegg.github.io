@@ -1,0 +1,16 @@
+{
+  "name": "2026 OFC World Cup Qualifiers",
+  "type": "oceania_qualifiers",
+  "groups": {
+    "A": [
+      "Australia",
+      "New Zealand",
+      "Fiji",
+      "Vanuatu"
+    ]
+  },
+  "rules": {
+    "group_repeats": 3,
+    "direct_qualifiers": 2
+  }
+}

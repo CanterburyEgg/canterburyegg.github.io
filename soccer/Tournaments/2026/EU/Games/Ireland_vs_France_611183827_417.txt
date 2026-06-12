@@ -1,0 +1,91 @@
+(check=28) Minute 1: no shot.
+(check=37) Minute 2: no shot.
+(check=1) Minute 3: no shot.
+(check=9) Minute 4: no shot.
+(check=33) Minute 5: no shot.
+(check=22) Minute 6: no shot.
+(check=28) Minute 7: no shot.
+(check=27) Minute 8: no shot.
+(check=12) Minute 9: no shot.
+(check=46) Minute 10: (t1check=22, t2check=30, check1=38, check2=40) (goalchk1=37, goalchk2=34) Olivier Rousseau GOAL!!! Score: 0-1
+(check=48) Minute 11: (t1check=15, t2check=40, check1=42, check2=44) (goalchk1=9, goalchk2=6) Olivier Rousseau shot on goal. Nathan Kelleher SAVE!
+(check=44) Minute 12: (t1check=36, t2check=35, check1=31, check2=31) (goalchk1=24, goalchk2=14) Caoimhin Doherty shot on goal. Pierre Blanchard SAVE!
+(check=8) Minute 13: no shot.
+(check=19) Minute 14: no shot.
+(check=37) Minute 15: no shot.
+(check=27) Minute 16: no shot.
+(check=24) Minute 17: no shot.
+(check=30) Minute 18: no shot.
+(check=39) Minute 19: (t1check=38, t2check=48, check1=14, check2=16) Dominique Girard missed shot.
+(check=3) Minute 20: no shot.
+(check=12) Minute 21: no shot.
+(check=16) Minute 22: no shot.
+(check=15) Minute 23: no shot.
+(check=7) Minute 24: no shot.
+(check=14) Minute 25: no shot.
+(check=17) Minute 26: no shot.
+(check=18) Minute 27: no shot.
+(check=29) Minute 28: no shot.
+(check=38) Minute 29: no shot.
+(check=15) Minute 30: no shot.
+(check=46) Minute 31: (t1check=42, t2check=46, check1=5, check2=7) Olivier Rousseau missed shot.
+(check=40) Minute 32: (t1check=71, t2check=31, check1=6, check2=6) Evan Doherty missed shot.
+(check=1) Minute 33: no shot.
+(check=9) Minute 34: no shot.
+(check=39) Minute 35: (t1check=62, t2check=50, check1=39, check2=39) (goalchk1=19, goalchk2=9) Chiedozie Ogbene shot on goal. Pierre Blanchard SAVE!
+(check=2) Minute 36: no shot.
+(check=30) Minute 37: no shot.
+(check=19) Minute 38: no shot.
+(check=40) Minute 39: (t1check=14, t2check=28, check1=19, check2=21) Dominique Girard missed shot.
+(check=36) Minute 40: no shot.
+(check=19) Minute 41: no shot.
+(check=10) Minute 42: no shot.
+(check=26) Minute 43: no shot.
+(check=18) Minute 44: no shot.
+(check=27) Minute 45: no shot.
+(check=15) Minute 46: no shot.
+(check=30) Minute 47: no shot.
+(check=18) Minute 48: no shot.
+(check=42) Minute 49: (t1check=33, t2check=26, check1=11, check2=11) Evan Doherty missed shot.
+(check=5) Minute 50: no shot.
+(check=25) Minute 51: no shot.
+(check=9) Minute 52: no shot.
+(check=39) Minute 53: (t1check=13, t2check=60, check1=36, check2=38) (goalchk1=29, goalchk2=26) Dominique Girard GOAL!!! Score: 0-2
+(check=8) Minute 54: no shot.
+(check=26) Minute 55: no shot.
+(check=5) Minute 56: no shot.
+(check=20) Minute 57: no shot.
+(check=41) Minute 58: (t1check=33, t2check=83, check1=8, check2=10) Jacques Lemaire missed shot.
+(check=21) Minute 59: no shot.
+(check=37) Minute 60: no shot.
+(check=32) Minute 61: no shot.
+(check=12) Minute 62: no shot.
+(check=39) Minute 63: (t1check=45, t2check=67, check1=8, check2=10) Rene Chevalier missed shot.
+(check=15) Minute 64: no shot.
+(check=29) Minute 65: no shot.
+(check=12) Minute 66: no shot.
+(check=44) Minute 67: (t1check=20, t2check=77, check1=5, check2=7) Dominique Girard missed shot.
+(check=40) Minute 68: (t1check=37, t2check=68, check1=14, check2=16) Jean Gauthier missed shot.
+(check=29) Minute 69: no shot.
+(check=9) Minute 70: no shot.
+(check=27) Minute 71: no shot.
+(check=20) Minute 72: no shot.
+(check=47) Minute 73: (t1check=75, t2check=11, check1=46, check2=46) (goalchk1=42, goalchk2=32) Evan Doherty GOAL!!! Score: 1-2
+(check=19) Minute 74: no shot.
+(check=4) Minute 75: no shot.
+(check=35) Minute 76: no shot.
+(check=46) Minute 77: (t1check=55, t2check=16, check1=33, check2=33) (goalchk1=28, goalchk2=18) Will Collins shot on goal. Pierre Blanchard SAVE!
+(check=40) Minute 78: (t1check=9, t2check=63, check1=14, check2=16) Dominique Girard missed shot.
+(check=41) Minute 79: (t1check=13, t2check=80, check1=25, check2=27) Olivier Rousseau missed shot.
+(check=32) Minute 80: no shot.
+(check=25) Minute 81: no shot.
+(check=31) Minute 82: no shot.
+(check=45) Minute 83: (t1check=36, t2check=50, check1=29, check2=31) (goalchk1=11, goalchk2=8) Bernard Michel shot on goal. Nathan Kelleher SAVE!
+(check=10) Minute 84: no shot.
+(check=20) Minute 85: no shot.
+(check=3) Minute 86: no shot.
+(check=43) Minute 87: (t1check=14, t2check=68, check1=45, check2=47) (goalchk1=49, goalchk2=46) Dominique Girard GOAL!!! Score: 1-3
+(check=26) Minute 88: no shot.
+(check=32) Minute 89: no shot.
+(check=28) Minute 90: no shot.
+Final score: 1-3
