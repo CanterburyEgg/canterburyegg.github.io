@@ -234,12 +234,16 @@ def main():
         t1, t2 = sys.argv[3], sys.argv[4]
         runs = 10000
         t1w, t2w, d = 0, 0, 0
+        t1_goals, t2_goals = 0, 0
         for _ in range(runs):
             res = play_game(tp, t1, t2, False, False, False)
+            t1_goals += res['score'][0]
+            t2_goals += res['score'][1]
             if res['score'][0] > res['score'][1]: t1w += 1
             elif res['score'][1] > res['score'][0]: t2w += 1
             else: d += 1
         print(f"{t1} wins: {t1w} ({t1w/100}%) | {t2} wins: {t2w} ({t2w/100}%) | Draws: {d} ({d/100}%)")
+        print(f"Avg Goals: {t1} {t1_goals/runs:.2f} | {t2} {t2_goals/runs:.2f}")
 
 if __name__ == "__main__":
     main()
