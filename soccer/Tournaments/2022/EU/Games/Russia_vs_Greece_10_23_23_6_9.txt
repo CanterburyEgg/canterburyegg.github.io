@@ -1,0 +1,91 @@
+(check=20) Minute 1: no shot.
+(check=1) Minute 2: no shot.
+(check=12) Minute 3: no shot.
+(check=1) Minute 4: no shot.
+(check=66) Minute 5: (t1check=78, t2check=51, check1=52, check2=54) Vladimir Novikov missed shot.
+(check=23) Minute 6: no shot.
+(check=76) Minute 7: (t1check=47, t2check=22, check1=72, check2=74) (goalchk1=94, goalchk2=91) Sergey Petrov GOAL!!! Score: 1-0
+(check=51) Minute 8: no shot.
+(check=7) Minute 9: no shot.
+(check=71) Minute 10: (t1check=80, t2check=11, check1=35, check2=37) Maksim Volkova missed shot.
+(check=66) Minute 11: (t1check=25, t2check=7, check1=59, check2=61) (goalchk1=49, goalchk2=46) Ivan Popova shot on goal. Konstantin Anastasiou SAVE!
+(check=33) Minute 12: no shot.
+(check=5) Minute 13: no shot.
+(check=54) Minute 14: no shot.
+(check=83) Minute 15: (t1check=68, t2check=41, check1=47, check2=49) Sergey Petrov missed shot.
+(check=47) Minute 16: no shot.
+(check=42) Minute 17: no shot.
+(check=50) Minute 18: no shot.
+(check=31) Minute 19: no shot.
+(check=24) Minute 20: no shot.
+(check=79) Minute 21: (t1check=69, t2check=38, check1=49, check2=51) Vladimir Novikov missed shot.
+(check=85) Minute 22: (t1check=49, t2check=34, check1=49, check2=51) Andrey Ivanova missed shot.
+(check=28) Minute 23: no shot.
+(check=50) Minute 24: no shot.
+(check=28) Minute 25: no shot.
+(check=12) Minute 26: no shot.
+(check=57) Minute 27: no shot.
+(check=37) Minute 28: no shot.
+(check=39) Minute 29: no shot.
+(check=44) Minute 30: no shot.
+(check=42) Minute 31: no shot.
+(check=42) Minute 32: no shot.
+(check=50) Minute 33: no shot.
+(check=45) Minute 34: no shot.
+(check=19) Minute 35: no shot.
+(check=23) Minute 36: no shot.
+(check=72) Minute 37: (t1check=39, t2check=36, check1=7, check2=9) Andrey Ivanova missed shot.
+(check=5) Minute 38: no shot.
+(check=55) Minute 39: no shot.
+(check=21) Minute 40: no shot.
+(check=1) Minute 41: no shot.
+(check=66) Minute 42: (t1check=74, t2check=70, check1=24, check2=26) Ivan Popova missed shot.
+(check=37) Minute 43: no shot.
+(check=10) Minute 44: no shot.
+(check=1) Minute 45: no shot.
+(check=47) Minute 46: no shot.
+(check=86) Minute 47: (t1check=28, t2check=31, check1=13, check2=14) Spyridon Karagiannis missed shot.
+(check=63) Minute 48: no shot.
+(check=79) Minute 49: (t1check=13, t2check=76, check1=21, check2=22) Spyridon Karagiannis missed shot.
+(check=79) Minute 50: (t1check=34, t2check=25, check1=72, check2=74) (goalchk1=59, goalchk2=56) Aleksandr Kuznetsov shot on goal. Konstantin Anastasiou SAVE!
+(check=70) Minute 51: (t1check=11, t2check=50, check1=52, check2=53) Georgios Nikolaidis missed shot.
+(check=29) Minute 52: no shot.
+(check=7) Minute 53: no shot.
+(check=49) Minute 54: no shot.
+(check=52) Minute 55: no shot.
+(check=81) Minute 56: (t1check=45, t2check=25, check1=73, check2=75) (goalchk1=9, goalchk2=6) Maksim Volkova shot on goal. Konstantin Anastasiou SAVE!
+(check=42) Minute 57: no shot.
+(check=3) Minute 58: no shot.
+(check=50) Minute 59: no shot.
+(check=7) Minute 60: no shot.
+(check=86) Minute 61: (t1check=74, t2check=59, check1=43, check2=45) Sergey Petrov missed shot.
+(check=67) Minute 62: (t1check=54, t2check=15, check1=96, check2=98) (goalchk1=14, goalchk2=11) Ivan Popova shot on goal. Konstantin Anastasiou SAVE!
+(check=78) Minute 63: (t1check=29, t2check=38, check1=62, check2=63) (goalchk1=63, goalchk2=55) Evangelos Mylonas shot on goal. Andrey Ivanova SAVE!
+(check=86) Minute 64: (t1check=51, t2check=65, check1=90, check2=91) (goalchk1=23, goalchk2=15) Dimitrios Papadopoulos shot on goal. Andrey Ivanova SAVE!
+(check=54) Minute 65: no shot.
+(check=73) Minute 66: (t1check=58, t2check=63, check1=15, check2=16) Dimitrios Papadopoulos missed shot.
+(check=66) Minute 67: (t1check=57, t2check=65, check1=42, check2=43) Spyridon Karagiannis missed shot.
+(check=57) Minute 68: no shot.
+(check=22) Minute 69: no shot.
+(check=79) Minute 70: (t1check=44, t2check=69, check1=78, check2=79) (goalchk1=41, goalchk2=33) Stavros Giannopoulos shot on goal. Andrey Ivanova SAVE!
+(check=83) Minute 71: (t1check=48, t2check=6, check1=41, check2=43) Ivan Popova missed shot.
+(check=20) Minute 72: no shot.
+(check=75) Minute 73: (t1check=63, t2check=41, check1=46, check2=48) Ivan Popova missed shot.
+(check=87) Minute 74: (t1check=61, t2check=49, check1=26, check2=28) Maksim Volkova missed shot.
+(check=84) Minute 75: (t1check=11, t2check=15, check1=41, check2=42) Stavros Giannopoulos missed shot.
+(check=39) Minute 76: no shot.
+(check=65) Minute 77: no shot.
+(check=31) Minute 78: no shot.
+(check=4) Minute 79: no shot.
+(check=38) Minute 80: no shot.
+(check=61) Minute 81: no shot.
+(check=21) Minute 82: no shot.
+(check=69) Minute 83: (t1check=40, t2check=5, check1=83, check2=85) (goalchk1=19, goalchk2=16) Ivan Popova shot on goal. Konstantin Anastasiou SAVE!
+(check=28) Minute 84: no shot.
+(check=38) Minute 85: no shot.
+(check=3) Minute 86: no shot.
+(check=70) Minute 87: (t1check=42, t2check=76, check1=4, check2=5) Georgios Nikolaidis missed shot.
+(check=88) Minute 88: (t1check=47, t2check=69, check1=92, check2=93) (goalchk1=95, goalchk2=87) Dimitrios Papadopoulos GOAL!!! Score: 1-1
+(check=58) Minute 89: no shot.
+(check=50) Minute 90: no shot.
+Final score: 1-1

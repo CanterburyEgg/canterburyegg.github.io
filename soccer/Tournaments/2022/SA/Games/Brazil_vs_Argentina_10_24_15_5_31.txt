@@ -1,0 +1,91 @@
+(check=12) Minute 1: no shot.
+(check=30) Minute 2: no shot.
+(check=32) Minute 3: no shot.
+(check=1) Minute 4: no shot.
+(check=19) Minute 5: no shot.
+(check=19) Minute 6: no shot.
+(check=42) Minute 7: no shot.
+(check=4) Minute 8: no shot.
+(check=69) Minute 9: (t1check=72, t2check=53, check1=93, check2=96) (goalchk1=42, goalchk2=33) Luiz Gomes shot on goal. Oscar Gonzalez SAVE!
+(check=86) Minute 10: (t1check=46, t2check=84, check1=12, check2=11) Diego Perez missed shot.
+(check=88) Minute 11: (t1check=80, t2check=55, check1=94, check2=97) (goalchk1=95, goalchk2=86) Marcelo da Silva GOAL!!! Score: 1-0
+(check=88) Minute 12: (t1check=63, t2check=39, check1=54, check2=57) Manoel Ribiero missed shot.
+(check=80) Minute 13: (t1check=80, t2check=50, check1=33, check2=36) Carlos Vieira missed shot.
+(check=2) Minute 14: no shot.
+(check=64) Minute 15: no shot.
+(check=74) Minute 16: (t1check=59, t2check=39, check1=73, check2=76) (goalchk1=86, goalchk2=77) Manoel Ribiero GOAL!!! Score: 2-0
+(check=34) Minute 17: no shot.
+(check=32) Minute 18: no shot.
+(check=78) Minute 19: (t1check=82, t2check=16, check1=10, check2=13) Manoel Ribiero missed shot.
+(check=46) Minute 20: no shot.
+(check=19) Minute 21: no shot.
+(check=19) Minute 22: no shot.
+(check=90) Minute 23: (t1check=24, t2check=66, check1=86, check2=85) (goalchk1=41, goalchk2=33) Diego Perez shot on goal. Carlos Vieira SAVE!
+(check=22) Minute 24: no shot.
+(check=61) Minute 25: no shot.
+(check=68) Minute 26: (t1check=50, t2check=13, check1=67, check2=70) (goalchk1=52, goalchk2=43) Luiz Gomes shot on goal. Oscar Gonzalez SAVE!
+(check=80) Minute 27: (t1check=79, t2check=41, check1=74, check2=77) (goalchk1=68, goalchk2=59) Manoel Ribiero shot on goal. Oscar Gonzalez SAVE!
+(check=34) Minute 28: no shot.
+(check=53) Minute 29: no shot.
+(check=7) Minute 30: no shot.
+(check=79) Minute 31: (t1check=54, t2check=82, check1=22, check2=21) Pedro Flores missed shot.
+(check=53) Minute 32: no shot.
+(check=58) Minute 33: no shot.
+(check=26) Minute 34: no shot.
+(check=65) Minute 35: no shot.
+(check=61) Minute 36: no shot.
+(check=11) Minute 37: no shot.
+(check=86) Minute 38: (t1check=68, t2check=32, check1=68, check2=71) (goalchk1=31, goalchk2=22) Luiz Gomes shot on goal. Oscar Gonzalez SAVE!
+(check=45) Minute 39: no shot.
+(check=90) Minute 40: (t1check=24, t2check=50, check1=64, check2=63) (goalchk1=35, goalchk2=27) Pedro Flores shot on goal. Carlos Vieira SAVE!
+(check=21) Minute 41: no shot.
+(check=20) Minute 42: no shot.
+(check=21) Minute 43: no shot.
+(check=13) Minute 44: no shot.
+(check=62) Minute 45: no shot.
+(check=76) Minute 46: (t1check=72, t2check=41, check1=97, check2=100) (goalchk1=79, goalchk2=70) Manoel Ribiero GOAL!!! Score: 3-0
+(check=48) Minute 47: no shot.
+(check=74) Minute 48: (t1check=36, t2check=17, check1=26, check2=29) Manoel Ribiero missed shot.
+(check=34) Minute 49: no shot.
+(check=75) Minute 50: (t1check=39, t2check=61, check1=36, check2=35) Diego Perez missed shot.
+(check=86) Minute 51: (t1check=17, t2check=14, check1=66, check2=69) (goalchk1=76, goalchk2=67) Joao Pereira GOAL!!! Score: 4-0
+(check=85) Minute 52: (t1check=35, t2check=76, check1=89, check2=88) (goalchk1=77, goalchk2=69) Roberto Sosa GOAL!!! Score: 4-1
+(check=61) Minute 53: no shot.
+(check=32) Minute 54: no shot.
+(check=45) Minute 55: no shot.
+(check=55) Minute 56: no shot.
+(check=79) Minute 57: (t1check=31, t2check=51, check1=72, check2=71) (goalchk1=89, goalchk2=81) Gustavo Suarez GOAL!!! Score: 4-2
+(check=69) Minute 58: (t1check=37, t2check=21, check1=50, check2=53) Rodrigo de Jesus missed shot.
+(check=48) Minute 59: no shot.
+(check=74) Minute 60: (t1check=83, t2check=43, check1=70, check2=73) (goalchk1=56, goalchk2=47) Manoel Ribiero shot on goal. Oscar Gonzalez SAVE!
+(check=25) Minute 61: no shot.
+(check=45) Minute 62: no shot.
+(check=53) Minute 63: no shot.
+(check=71) Minute 64: (t1check=43, t2check=45, check1=22, check2=21) Juan Acosta missed shot.
+(check=89) Minute 65: (t1check=13, t2check=51, check1=65, check2=64) (goalchk1=68, goalchk2=60) Roberto Sosa shot on goal. Carlos Vieira SAVE!
+(check=55) Minute 66: no shot.
+(check=70) Minute 67: (t1check=58, t2check=18, check1=96, check2=99) (goalchk1=15, goalchk2=6) Manoel Ribiero shot on goal. Oscar Gonzalez SAVE!
+(check=45) Minute 68: no shot.
+(check=81) Minute 69: (t1check=61, t2check=56, check1=61, check2=64) (goalchk1=49, goalchk2=40) Joao Pereira shot on goal. Oscar Gonzalez SAVE!
+(check=7) Minute 70: no shot.
+(check=60) Minute 71: no shot.
+(check=81) Minute 72: (t1check=22, t2check=61, check1=33, check2=32) Diego Perez missed shot.
+(check=1) Minute 73: no shot.
+(check=2) Minute 74: no shot.
+(check=8) Minute 75: no shot.
+(check=46) Minute 76: no shot.
+(check=77) Minute 77: (t1check=83, t2check=46, check1=8, check2=11) Manoel Ribiero missed shot.
+(check=40) Minute 78: no shot.
+(check=76) Minute 79: (t1check=22, t2check=79, check1=47, check2=46) Diego Perez missed shot.
+(check=66) Minute 80: (t1check=35, t2check=41, check1=34, check2=33) Roberto Sosa missed shot.
+(check=70) Minute 81: (t1check=83, t2check=18, check1=60, check2=63) (goalchk1=60, goalchk2=51) Carlos Vieira shot on goal. Oscar Gonzalez SAVE!
+(check=5) Minute 82: no shot.
+(check=75) Minute 83: (t1check=66, t2check=65, check1=33, check2=36) Joao Pereira missed shot.
+(check=1) Minute 84: no shot.
+(check=59) Minute 85: no shot.
+(check=55) Minute 86: no shot.
+(check=69) Minute 87: (t1check=20, t2check=29, check1=88, check2=87) (goalchk1=7, goalchk2=-1) Gustavo Suarez shot on goal. Carlos Vieira SAVE!
+(check=2) Minute 88: no shot.
+(check=71) Minute 89: (t1check=73, t2check=22, check1=17, check2=20) Manoel Ribiero missed shot.
+(check=45) Minute 90: no shot.
+Final score: 4-2

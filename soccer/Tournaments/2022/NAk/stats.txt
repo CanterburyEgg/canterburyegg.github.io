@@ -1,0 +1,31 @@
+Team	Player	SH	SG	GL
+USA	Nick Hamburger	12	7	0
+USA	Lawrence Porter	5	1	0
+USA	Bailey Myers-Morgan	5	2	1
+USA	Casey Myers-Morgan	3	2	0
+USA	Brandon Boyd	0	0	0
+USA	Antonio Chavez	1	0	0
+MEX	Hector	13	5	3
+MEX	Guadalupe Moreno	9	4	2
+MEX	Raul Ortiz	1	0	0
+MEX	Carlos Torres	5	3	0
+MEX	Cesar Romero	1	0	0
+MEX	Jaime Hernandez	1	0	0
+CAN	Scott Robinson	9	2	1
+CAN	Joseph Clarke	10	3	0
+CAN	Edward Gauthier	4	2	1
+CAN	Marc Tremblay	5	2	1
+CAN	Pierre Gagnon	1	0	0
+CAN	Jacques Lavoie	0	0	0
+CR	Alvaro Chaves	7	4	1
+CR	Francisco Solano	2	0	0
+CR	Gerardo Vargas	3	1	0
+CR	Jorge Quesada	2	1	1
+CR	Juan Araya	2	1	0
+CR	Manuel Castro	1	1	0
+	
+Team	Player	SV	SO	GA
+USA	Victor Weaver	7	8	1
+MEX	Sergio Gutierrez	5	9	4
+CAN	Tim Moore	8	12	4
+CR	Mario Morales	10	12	2

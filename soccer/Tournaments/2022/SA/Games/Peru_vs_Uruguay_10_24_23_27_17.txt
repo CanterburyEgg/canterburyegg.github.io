@@ -1,0 +1,91 @@
+(check=2) Minute 1: no shot.
+(check=61) Minute 2: no shot.
+(check=80) Minute 3: (t1check=21, t2check=36, check1=23, check2=26) Gustavo Techera missed shot.
+(check=35) Minute 4: no shot.
+(check=19) Minute 5: no shot.
+(check=11) Minute 6: no shot.
+(check=71) Minute 7: (t1check=38, t2check=23, check1=51, check2=46) Jaime Rojas missed shot.
+(check=5) Minute 8: no shot.
+(check=22) Minute 9: no shot.
+(check=22) Minute 10: no shot.
+(check=18) Minute 11: no shot.
+(check=17) Minute 12: no shot.
+(check=78) Minute 13: (t1check=32, t2check=81, check1=29, check2=32) Gustavo Techera missed shot.
+(check=87) Minute 14: (t1check=55, t2check=35, check1=91, check2=86) (goalchk1=47, goalchk2=40) Juan Rivera shot on goal. Gonzalo Machado SAVE!
+(check=50) Minute 15: no shot.
+(check=64) Minute 16: no shot.
+(check=38) Minute 17: no shot.
+(check=39) Minute 18: no shot.
+(check=42) Minute 19: no shot.
+(check=46) Minute 20: no shot.
+(check=48) Minute 21: no shot.
+(check=64) Minute 22: no shot.
+(check=83) Minute 23: (t1check=81, t2check=23, check1=6, check2=1) Juan Rivera missed shot.
+(check=53) Minute 24: no shot.
+(check=46) Minute 25: no shot.
+(check=71) Minute 26: (t1check=14, t2check=30, check1=79, check2=82) (goalchk1=7, goalchk2=2) Gustavo Techera shot on goal. Javier Gonzales SAVE!
+(check=77) Minute 27: (t1check=43, t2check=63, check1=48, check2=51) Carlos Acosta missed shot.
+(check=81) Minute 28: (t1check=24, t2check=43, check1=69, check2=72) (goalchk1=76, goalchk2=71) Carlos Acosta GOAL!!! Score: 0-1
+(check=67) Minute 29: (t1check=25, t2check=68, check1=88, check2=91) (goalchk1=100, goalchk2=95) Ramon Perdomo GOAL!!! Score: 0-2
+(check=14) Minute 30: no shot.
+(check=49) Minute 31: no shot.
+(check=65) Minute 32: no shot.
+(check=48) Minute 33: no shot.
+(check=26) Minute 34: no shot.
+(check=12) Minute 35: no shot.
+(check=80) Minute 36: (t1check=20, t2check=38, check1=8, check2=11) Carlos Acosta missed shot.
+(check=16) Minute 37: no shot.
+(check=12) Minute 38: no shot.
+(check=50) Minute 39: no shot.
+(check=7) Minute 40: no shot.
+(check=36) Minute 41: no shot.
+(check=50) Minute 42: no shot.
+(check=63) Minute 43: no shot.
+(check=21) Minute 44: no shot.
+(check=85) Minute 45: (t1check=16, t2check=53, check1=69, check2=72) (goalchk1=84, goalchk2=79) Gustavo Techera GOAL!!! Score: 0-3
+(check=41) Minute 46: no shot.
+(check=27) Minute 47: no shot.
+(check=87) Minute 48: (t1check=30, t2check=34, check1=47, check2=50) Gerardo Perez missed shot.
+(check=72) Minute 49: (t1check=78, t2check=64, check1=100, check2=95) (goalchk1=36, goalchk2=29) Juan Rivera shot on goal. Gonzalo Machado SAVE!
+(check=52) Minute 50: no shot.
+(check=31) Minute 51: no shot.
+(check=54) Minute 52: no shot.
+(check=60) Minute 53: no shot.
+(check=17) Minute 54: no shot.
+(check=45) Minute 55: no shot.
+(check=60) Minute 56: no shot.
+(check=5) Minute 57: no shot.
+(check=31) Minute 58: no shot.
+(check=19) Minute 59: no shot.
+(check=86) Minute 60: (t1check=32, t2check=48, check1=35, check2=38) Gustavo Techera missed shot.
+(check=5) Minute 61: no shot.
+(check=9) Minute 62: no shot.
+(check=4) Minute 63: no shot.
+(check=85) Minute 64: (t1check=10, t2check=69, check1=88, check2=91) (goalchk1=83, goalchk2=78) Gonzalo Machado GOAL!!! Score: 0-4
+(check=55) Minute 65: no shot.
+(check=78) Minute 66: (t1check=32, t2check=36, check1=6, check2=9) Carlos Acosta missed shot.
+(check=55) Minute 67: no shot.
+(check=28) Minute 68: no shot.
+(check=4) Minute 69: no shot.
+(check=34) Minute 70: no shot.
+(check=11) Minute 71: no shot.
+(check=80) Minute 72: (t1check=9, t2check=78, check1=35, check2=38) Carlos Acosta missed shot.
+(check=17) Minute 73: no shot.
+(check=40) Minute 74: no shot.
+(check=11) Minute 75: no shot.
+(check=9) Minute 76: no shot.
+(check=2) Minute 77: no shot.
+(check=11) Minute 78: no shot.
+(check=88) Minute 79: (t1check=17, t2check=63, check1=82, check2=85) (goalchk1=90, goalchk2=85) Gonzalo Machado GOAL!!! Score: 0-5
+(check=75) Minute 80: (t1check=18, t2check=64, check1=48, check2=51) Gustavo Techera missed shot.
+(check=61) Minute 81: no shot.
+(check=6) Minute 82: no shot.
+(check=29) Minute 83: no shot.
+(check=40) Minute 84: no shot.
+(check=31) Minute 85: no shot.
+(check=61) Minute 86: no shot.
+(check=19) Minute 87: no shot.
+(check=54) Minute 88: no shot.
+(check=58) Minute 89: no shot.
+(check=28) Minute 90: no shot.
+Final score: 0-5

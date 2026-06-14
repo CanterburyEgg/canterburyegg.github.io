@@ -1,0 +1,91 @@
+(check=44) Minute 1: no shot.
+(check=21) Minute 2: no shot.
+(check=28) Minute 3: no shot.
+(check=64) Minute 4: no shot.
+(check=17) Minute 5: no shot.
+(check=22) Minute 6: no shot.
+(check=5) Minute 7: no shot.
+(check=77) Minute 8: (t1check=26, t2check=75, check1=64, check2=60) Anders Lindstrom missed shot.
+(check=21) Minute 9: no shot.
+(check=73) Minute 10: (t1check=77, t2check=22, check1=1, check2=1) Giovanni Ricci missed shot.
+(check=16) Minute 11: no shot.
+(check=49) Minute 12: no shot.
+(check=49) Minute 13: no shot.
+(check=68) Minute 14: (t1check=71, t2check=14, check1=70, check2=70) (goalchk1=22, goalchk2=18) Giovanni Rossi shot on goal. Karl Olsson SAVE!
+(check=75) Minute 15: (t1check=42, t2check=77, check1=65, check2=61) (goalchk1=89, goalchk2=82) Lars Jonsson GOAL!!! Score: 0-1
+(check=70) Minute 16: (t1check=68, t2check=61, check1=5, check2=5) Francesco Caruso missed shot.
+(check=89) Minute 17: (t1check=71, t2check=60, check1=79, check2=79) (goalchk1=21, goalchk2=17) Giovanni Rossi shot on goal. Karl Olsson SAVE!
+(check=67) Minute 18: (t1check=61, t2check=53, check1=69, check2=69) (goalchk1=40, goalchk2=36) Giovanni Rossi shot on goal. Karl Olsson SAVE!
+(check=77) Minute 19: (t1check=71, t2check=74, check1=71, check2=67) (goalchk1=11, goalchk2=4) Fredrik Johansson shot on goal. Francesco Caruso SAVE!
+(check=48) Minute 20: no shot.
+(check=44) Minute 21: no shot.
+(check=51) Minute 22: no shot.
+(check=87) Minute 23: (t1check=26, t2check=19, check1=68, check2=68) (goalchk1=20, goalchk2=16) Giovanni Ricci shot on goal. Karl Olsson SAVE!
+(check=7) Minute 24: no shot.
+(check=57) Minute 25: no shot.
+(check=41) Minute 26: no shot.
+(check=69) Minute 27: (t1check=19, t2check=23, check1=23, check2=19) Nils Pettersson missed shot.
+(check=35) Minute 28: no shot.
+(check=64) Minute 29: no shot.
+(check=71) Minute 30: (t1check=14, t2check=10, check1=55, check2=55) Giovanni Rossi missed shot.
+(check=48) Minute 31: no shot.
+(check=82) Minute 32: (t1check=32, t2check=48, check1=44, check2=40) Nils Pettersson missed shot.
+(check=6) Minute 33: no shot.
+(check=87) Minute 34: (t1check=34, t2check=22, check1=68, check2=68) (goalchk1=29, goalchk2=25) Giovanni Rossi shot on goal. Karl Olsson SAVE!
+(check=2) Minute 35: no shot.
+(check=10) Minute 36: no shot.
+(check=55) Minute 37: no shot.
+(check=50) Minute 38: no shot.
+(check=2) Minute 39: no shot.
+(check=36) Minute 40: no shot.
+(check=61) Minute 41: no shot.
+(check=5) Minute 42: no shot.
+(check=21) Minute 43: no shot.
+(check=82) Minute 44: (t1check=26, t2check=48, check1=17, check2=13) Nils Pettersson missed shot.
+(check=40) Minute 45: no shot.
+(check=22) Minute 46: no shot.
+(check=29) Minute 47: no shot.
+(check=17) Minute 48: no shot.
+(check=43) Minute 49: no shot.
+(check=36) Minute 50: no shot.
+(check=9) Minute 51: no shot.
+(check=39) Minute 52: no shot.
+(check=70) Minute 53: (t1check=78, t2check=49, check1=80, check2=80) (goalchk1=98, goalchk2=94) Giovanni Ricci GOAL!!! Score: 1-1
+(check=61) Minute 54: no shot.
+(check=71) Minute 55: (t1check=82, t2check=67, check1=44, check2=44) Salvatore Moretti missed shot.
+(check=32) Minute 56: no shot.
+(check=25) Minute 57: no shot.
+(check=10) Minute 58: no shot.
+(check=22) Minute 59: no shot.
+(check=48) Minute 60: no shot.
+(check=61) Minute 61: no shot.
+(check=38) Minute 62: no shot.
+(check=37) Minute 63: no shot.
+(check=28) Minute 64: no shot.
+(check=1) Minute 65: no shot.
+(check=24) Minute 66: no shot.
+(check=7) Minute 67: no shot.
+(check=90) Minute 68: (t1check=56, t2check=58, check1=93, check2=89) (goalchk1=36, goalchk2=29) Kjell Carlsson shot on goal. Francesco Caruso SAVE!
+(check=71) Minute 69: (t1check=35, t2check=47, check1=89, check2=85) (goalchk1=34, goalchk2=27) Lars Jonsson shot on goal. Francesco Caruso SAVE!
+(check=59) Minute 70: no shot.
+(check=38) Minute 71: no shot.
+(check=38) Minute 72: no shot.
+(check=61) Minute 73: no shot.
+(check=35) Minute 74: no shot.
+(check=41) Minute 75: no shot.
+(check=43) Minute 76: no shot.
+(check=18) Minute 77: no shot.
+(check=35) Minute 78: no shot.
+(check=69) Minute 79: (t1check=22, t2check=13, check1=100, check2=100) (goalchk1=9, goalchk2=5) Giovanni Rossi shot on goal. Karl Olsson SAVE!
+(check=72) Minute 80: (t1check=61, t2check=13, check1=99, check2=99) (goalchk1=77, goalchk2=73) Giovanni Rossi GOAL!!! Score: 2-1
+(check=76) Minute 81: (t1check=13, t2check=32, check1=61, check2=57) Karl Olsson missed shot.
+(check=39) Minute 82: no shot.
+(check=26) Minute 83: no shot.
+(check=18) Minute 84: no shot.
+(check=87) Minute 85: (t1check=67, t2check=74, check1=49, check2=45) Nils Pettersson missed shot.
+(check=54) Minute 86: no shot.
+(check=11) Minute 87: no shot.
+(check=23) Minute 88: no shot.
+(check=68) Minute 89: (t1check=73, t2check=44, check1=3, check2=3) Giovanni Ricci missed shot.
+(check=63) Minute 90: no shot.
+Final score: 2-1

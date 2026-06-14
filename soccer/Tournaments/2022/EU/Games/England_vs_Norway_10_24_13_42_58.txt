@@ -1,0 +1,91 @@
+(check=2) Minute 1: no shot.
+(check=43) Minute 2: no shot.
+(check=40) Minute 3: no shot.
+(check=7) Minute 4: no shot.
+(check=50) Minute 5: no shot.
+(check=4) Minute 6: no shot.
+(check=38) Minute 7: no shot.
+(check=39) Minute 8: no shot.
+(check=11) Minute 9: no shot.
+(check=87) Minute 10: (t1check=15, t2check=18, check1=16, check2=9) Svein Berg missed shot.
+(check=21) Minute 11: no shot.
+(check=72) Minute 12: (t1check=55, t2check=59, check1=50, check2=43) Kjell Nilsen missed shot.
+(check=45) Minute 13: no shot.
+(check=24) Minute 14: no shot.
+(check=41) Minute 15: no shot.
+(check=69) Minute 16: (t1check=22, t2check=23, check1=47, check2=40) Arne Hagen missed shot.
+(check=90) Minute 17: (t1check=78, t2check=27, check1=99, check2=103) (goalchk1=54, goalchk2=52) Stuart Holmes shot on goal. Erik Olsen SAVE!
+(check=32) Minute 18: no shot.
+(check=77) Minute 19: (t1check=55, t2check=80, check1=42, check2=35) Svein Berg missed shot.
+(check=31) Minute 20: no shot.
+(check=58) Minute 21: no shot.
+(check=29) Minute 22: no shot.
+(check=1) Minute 23: no shot.
+(check=61) Minute 24: no shot.
+(check=79) Minute 25: (t1check=26, t2check=28, check1=32, check2=25) Svein Berg missed shot.
+(check=63) Minute 26: no shot.
+(check=38) Minute 27: no shot.
+(check=2) Minute 28: no shot.
+(check=79) Minute 29: (t1check=66, t2check=8, check1=88, check2=92) (goalchk1=67, goalchk2=65) Simon Knight shot on goal. Erik Olsen SAVE!
+(check=34) Minute 30: no shot.
+(check=74) Minute 31: (t1check=41, t2check=16, check1=55, check2=59) Neil Griffith missed shot.
+(check=80) Minute 32: (t1check=30, t2check=71, check1=56, check2=49) Kjell Nilsen missed shot.
+(check=35) Minute 33: no shot.
+(check=80) Minute 34: (t1check=44, t2check=12, check1=64, check2=68) (goalchk1=87, goalchk2=85) Graham Chapman GOAL!!! Score: 1-0
+(check=40) Minute 35: no shot.
+(check=9) Minute 36: no shot.
+(check=54) Minute 37: no shot.
+(check=78) Minute 38: (t1check=52, t2check=78, check1=98, check2=91) (goalchk1=30, goalchk2=20) Geir Gundersen shot on goal. Nigel Price SAVE!
+(check=24) Minute 39: no shot.
+(check=60) Minute 40: no shot.
+(check=90) Minute 41: (t1check=70, t2check=63, check1=59, check2=63) (goalchk1=2, goalchk2=0) Benjamin Webb shot on goal. Erik Olsen SAVE!
+(check=37) Minute 42: no shot.
+(check=72) Minute 43: (t1check=23, t2check=79, check1=21, check2=14) Jan Johansen missed shot.
+(check=29) Minute 44: no shot.
+(check=3) Minute 45: no shot.
+(check=34) Minute 46: no shot.
+(check=83) Minute 47: (t1check=69, t2check=65, check1=67, check2=71) (goalchk1=55, goalchk2=53) Stuart Holmes shot on goal. Erik Olsen SAVE!
+(check=1) Minute 48: no shot.
+(check=75) Minute 49: (t1check=52, t2check=7, check1=59, check2=63) (goalchk1=51, goalchk2=49) Stuart Holmes shot on goal. Erik Olsen SAVE!
+(check=88) Minute 50: (t1check=71, t2check=46, check1=48, check2=52) Benjamin Webb missed shot.
+(check=81) Minute 51: (t1check=29, t2check=48, check1=30, check2=23) Geir Gundersen missed shot.
+(check=79) Minute 52: (t1check=13, t2check=28, check1=2, check2=-5) Jan Johansen missed shot.
+(check=67) Minute 53: (t1check=31, t2check=27, check1=47, check2=51) Stuart Holmes missed shot.
+(check=55) Minute 54: no shot.
+(check=60) Minute 55: no shot.
+(check=26) Minute 56: no shot.
+(check=44) Minute 57: no shot.
+(check=66) Minute 58: (t1check=74, t2check=80, check1=72, check2=65) (goalchk1=77, goalchk2=67) Svein Berg GOAL!!! Score: 1-1
+(check=16) Minute 59: no shot.
+(check=1) Minute 60: no shot.
+(check=10) Minute 61: no shot.
+(check=52) Minute 62: no shot.
+(check=75) Minute 63: (t1check=36, t2check=40, check1=73, check2=66) (goalchk1=18, goalchk2=8) Kjell Nilsen shot on goal. Nigel Price SAVE!
+(check=66) Minute 64: (t1check=36, t2check=9, check1=10, check2=14) Graham Chapman missed shot.
+(check=69) Minute 65: (t1check=47, t2check=33, check1=48, check2=52) Neil Griffith missed shot.
+(check=11) Minute 66: no shot.
+(check=26) Minute 67: no shot.
+(check=66) Minute 68: (t1check=26, t2check=29, check1=67, check2=60) Svein Berg missed shot.
+(check=32) Minute 69: no shot.
+(check=72) Minute 70: (t1check=10, t2check=30, check1=91, check2=84) (goalchk1=52, goalchk2=42) Kjell Nilsen shot on goal. Nigel Price SAVE!
+(check=43) Minute 71: no shot.
+(check=78) Minute 72: (t1check=45, t2check=41, check1=92, check2=96) (goalchk1=93, goalchk2=91) Simon Knight GOAL!!! Score: 2-1
+(check=2) Minute 73: no shot.
+(check=12) Minute 74: no shot.
+(check=77) Minute 75: (t1check=46, t2check=29, check1=11, check2=15) Neil Griffith missed shot.
+(check=49) Minute 76: no shot.
+(check=87) Minute 77: (t1check=35, t2check=54, check1=25, check2=18) Jan Johansen missed shot.
+(check=12) Minute 78: no shot.
+(check=80) Minute 79: (t1check=41, t2check=32, check1=29, check2=33) Simon Knight missed shot.
+(check=49) Minute 80: no shot.
+(check=2) Minute 81: no shot.
+(check=59) Minute 82: no shot.
+(check=25) Minute 83: no shot.
+(check=36) Minute 84: no shot.
+(check=38) Minute 85: no shot.
+(check=53) Minute 86: no shot.
+(check=6) Minute 87: no shot.
+(check=51) Minute 88: no shot.
+(check=8) Minute 89: no shot.
+(check=77) Minute 90: (t1check=13, t2check=39, check1=99, check2=92) (goalchk1=72, goalchk2=62) Svein Berg shot on goal. Nigel Price SAVE!
+Final score: 2-1

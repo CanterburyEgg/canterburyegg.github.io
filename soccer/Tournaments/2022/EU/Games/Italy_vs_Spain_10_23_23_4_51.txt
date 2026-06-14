@@ -1,0 +1,91 @@
+(check=88) Minute 1: (t1check=42, t2check=57, check1=73, check2=71) (goalchk1=31, goalchk2=24) Alejandro Garcia shot on goal. Francesco Caruso SAVE!
+(check=21) Minute 2: no shot.
+(check=58) Minute 3: no shot.
+(check=38) Minute 4: no shot.
+(check=83) Minute 5: (t1check=79, t2check=76, check1=65, check2=67) (goalchk1=5, goalchk2=-4) Giovanni Ricci shot on goal. Jose Romero SAVE!
+(check=9) Minute 6: no shot.
+(check=21) Minute 7: no shot.
+(check=83) Minute 8: (t1check=82, t2check=29, check1=55, check2=57) Giovanni Rossi missed shot.
+(check=14) Minute 9: no shot.
+(check=89) Minute 10: (t1check=41, t2check=76, check1=86, check2=84) (goalchk1=1, goalchk2=-6) Diego Castillo shot on goal. Francesco Caruso SAVE!
+(check=35) Minute 11: no shot.
+(check=26) Minute 12: no shot.
+(check=4) Minute 13: no shot.
+(check=44) Minute 14: no shot.
+(check=84) Minute 15: (t1check=50, t2check=22, check1=19, check2=21) Giovanni Ricci missed shot.
+(check=15) Minute 16: no shot.
+(check=45) Minute 17: no shot.
+(check=62) Minute 18: no shot.
+(check=89) Minute 19: (t1check=81, t2check=57, check1=46, check2=48) Giovanni Rossi missed shot.
+(check=9) Minute 20: no shot.
+(check=33) Minute 21: no shot.
+(check=19) Minute 22: no shot.
+(check=70) Minute 23: (t1check=12, t2check=54, check1=60, check2=58) Vicente Garcia missed shot.
+(check=28) Minute 24: no shot.
+(check=42) Minute 25: no shot.
+(check=52) Minute 26: no shot.
+(check=41) Minute 27: no shot.
+(check=69) Minute 28: (t1check=11, t2check=27, check1=89, check2=87) (goalchk1=61, goalchk2=54) Diego Castillo shot on goal. Francesco Caruso SAVE!
+(check=58) Minute 29: no shot.
+(check=55) Minute 30: no shot.
+(check=40) Minute 31: no shot.
+(check=85) Minute 32: (t1check=55, t2check=81, check1=87, check2=85) (goalchk1=96, goalchk2=89) Alvaro Vazquez GOAL!!! Score: 0-1
+(check=5) Minute 33: no shot.
+(check=27) Minute 34: no shot.
+(check=25) Minute 35: no shot.
+(check=6) Minute 36: no shot.
+(check=18) Minute 37: no shot.
+(check=32) Minute 38: no shot.
+(check=32) Minute 39: no shot.
+(check=30) Minute 40: no shot.
+(check=46) Minute 41: no shot.
+(check=73) Minute 42: (t1check=69, t2check=29, check1=26, check2=28) Giovanni Rossi missed shot.
+(check=88) Minute 43: (t1check=64, t2check=83, check1=63, check2=61) (goalchk1=71, goalchk2=64) Vicente Garcia shot on goal. Francesco Caruso SAVE!
+(check=25) Minute 44: no shot.
+(check=44) Minute 45: no shot.
+(check=42) Minute 46: no shot.
+(check=34) Minute 47: no shot.
+(check=38) Minute 48: no shot.
+(check=29) Minute 49: no shot.
+(check=2) Minute 50: no shot.
+(check=7) Minute 51: no shot.
+(check=15) Minute 52: no shot.
+(check=45) Minute 53: no shot.
+(check=55) Minute 54: no shot.
+(check=76) Minute 55: (t1check=30, t2check=51, check1=64, check2=62) (goalchk1=23, goalchk2=16) Diego Castillo shot on goal. Francesco Caruso SAVE!
+(check=36) Minute 56: no shot.
+(check=35) Minute 57: no shot.
+(check=9) Minute 58: no shot.
+(check=38) Minute 59: no shot.
+(check=51) Minute 60: no shot.
+(check=46) Minute 61: no shot.
+(check=38) Minute 62: no shot.
+(check=32) Minute 63: no shot.
+(check=23) Minute 64: no shot.
+(check=35) Minute 65: no shot.
+(check=14) Minute 66: no shot.
+(check=43) Minute 67: no shot.
+(check=28) Minute 68: no shot.
+(check=13) Minute 69: no shot.
+(check=58) Minute 70: no shot.
+(check=21) Minute 71: no shot.
+(check=41) Minute 72: no shot.
+(check=44) Minute 73: no shot.
+(check=51) Minute 74: no shot.
+(check=75) Minute 75: (t1check=58, t2check=76, check1=90, check2=88) (goalchk1=34, goalchk2=27) Diego Castillo shot on goal. Francesco Caruso SAVE!
+(check=15) Minute 76: no shot.
+(check=1) Minute 77: no shot.
+(check=19) Minute 78: no shot.
+(check=39) Minute 79: no shot.
+(check=14) Minute 80: no shot.
+(check=88) Minute 81: (t1check=66, t2check=55, check1=92, check2=94) (goalchk1=33, goalchk2=24) Giovanni Rossi shot on goal. Jose Romero SAVE!
+(check=56) Minute 82: no shot.
+(check=9) Minute 83: no shot.
+(check=65) Minute 84: no shot.
+(check=88) Minute 85: (t1check=11, t2check=23, check1=5, check2=3) Rafael Delgado missed shot.
+(check=79) Minute 86: (t1check=73, t2check=37, check1=61, check2=63) (goalchk1=97, goalchk2=88) Giovanni Rossi GOAL!!! Score: 1-1
+(check=17) Minute 87: no shot.
+(check=71) Minute 88: (t1check=39, t2check=21, check1=98, check2=100) (goalchk1=76, goalchk2=67) Giovanni Rossi GOAL!!! Score: 2-1
+(check=69) Minute 89: (t1check=39, t2check=48, check1=14, check2=12) Diego Castillo missed shot.
+(check=84) Minute 90: (t1check=40, t2check=28, check1=10, check2=12) Pietro Greco missed shot.
+Final score: 2-1

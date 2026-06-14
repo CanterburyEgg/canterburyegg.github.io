@@ -1,0 +1,91 @@
+(check=60) Minute 1: no shot.
+(check=83) Minute 2: (t1check=58, t2check=69, check1=58, check2=58) Winston Powell missed shot.
+(check=76) Minute 3: (t1check=31, t2check=46, check1=76, check2=76) (goalchk1=13, goalchk2=7) Winston Powell shot on goal. Manuel Castro SAVE!
+(check=66) Minute 4: (t1check=43, t2check=65, check1=78, check2=78) (goalchk1=59, goalchk2=53) Neville Grant shot on goal. Manuel Castro SAVE!
+(check=50) Minute 5: no shot.
+(check=68) Minute 6: (t1check=47, t2check=65, check1=42, check2=42) Patrick Miller missed shot.
+(check=12) Minute 7: no shot.
+(check=53) Minute 8: no shot.
+(check=31) Minute 9: no shot.
+(check=36) Minute 10: no shot.
+(check=57) Minute 11: no shot.
+(check=6) Minute 12: no shot.
+(check=45) Minute 13: no shot.
+(check=42) Minute 14: no shot.
+(check=9) Minute 15: no shot.
+(check=50) Minute 16: no shot.
+(check=61) Minute 17: no shot.
+(check=88) Minute 18: (t1check=38, t2check=11, check1=75, check2=78) (goalchk1=66, goalchk2=66) Alvaro Chaves GOAL!!! Score: 1-0
+(check=45) Minute 19: no shot.
+(check=55) Minute 20: no shot.
+(check=85) Minute 21: (t1check=77, t2check=61, check1=68, check2=71) (goalchk1=52, goalchk2=52) Juan Araya shot on goal. William Gayle SAVE!
+(check=19) Minute 22: no shot.
+(check=11) Minute 23: no shot.
+(check=80) Minute 24: (t1check=59, t2check=49, check1=71, check2=74) (goalchk1=10, goalchk2=10) Alvaro Chaves shot on goal. William Gayle SAVE!
+(check=74) Minute 25: (t1check=28, t2check=42, check1=59, check2=59) Albert Hall missed shot.
+(check=12) Minute 26: no shot.
+(check=28) Minute 27: no shot.
+(check=9) Minute 28: no shot.
+(check=60) Minute 29: no shot.
+(check=65) Minute 30: no shot.
+(check=16) Minute 31: no shot.
+(check=9) Minute 32: no shot.
+(check=49) Minute 33: no shot.
+(check=10) Minute 34: no shot.
+(check=13) Minute 35: no shot.
+(check=2) Minute 36: no shot.
+(check=81) Minute 37: (t1check=73, t2check=8, check1=62, check2=65) (goalchk1=16, goalchk2=16) Gerardo Vargas shot on goal. William Gayle SAVE!
+(check=75) Minute 38: (t1check=36, t2check=72, check1=47, check2=47) John Edwards missed shot.
+(check=68) Minute 39: (t1check=74, t2check=45, check1=36, check2=39) Juan Araya missed shot.
+(check=84) Minute 40: (t1check=66, t2check=10, check1=86, check2=89) (goalchk1=68, goalchk2=68) Francisco Solano GOAL!!! Score: 2-0
+(check=28) Minute 41: no shot.
+(check=77) Minute 42: (t1check=24, t2check=48, check1=2, check2=2) Albert Hall missed shot.
+(check=35) Minute 43: no shot.
+(check=10) Minute 44: no shot.
+(check=88) Minute 45: (t1check=65, t2check=10, check1=88, check2=91) (goalchk1=71, goalchk2=71) Alvaro Chaves GOAL!!! Score: 3-0
+(check=15) Minute 46: no shot.
+(check=66) Minute 47: (t1check=44, t2check=55, check1=43, check2=43) William Gayle missed shot.
+(check=64) Minute 48: no shot.
+(check=33) Minute 49: no shot.
+(check=44) Minute 50: no shot.
+(check=82) Minute 51: (t1check=23, t2check=41, check1=36, check2=36) John Edwards missed shot.
+(check=16) Minute 52: no shot.
+(check=26) Minute 53: no shot.
+(check=18) Minute 54: no shot.
+(check=71) Minute 55: (t1check=46, t2check=51, check1=94, check2=94) (goalchk1=7, goalchk2=1) Neville Grant shot on goal. Manuel Castro SAVE!
+(check=81) Minute 56: (t1check=36, t2check=7, check1=18, check2=21) Alvaro Chaves missed shot.
+(check=88) Minute 57: (t1check=75, t2check=20, check1=74, check2=77) (goalchk1=22, goalchk2=22) Francisco Solano shot on goal. William Gayle SAVE!
+(check=68) Minute 58: (t1check=37, t2check=23, check1=20, check2=23) Francisco Solano missed shot.
+(check=63) Minute 59: no shot.
+(check=61) Minute 60: no shot.
+(check=86) Minute 61: (t1check=12, t2check=69, check1=37, check2=37) Albert Hall missed shot.
+(check=81) Minute 62: (t1check=74, t2check=53, check1=76, check2=79) (goalchk1=68, goalchk2=68) Alvaro Chaves GOAL!!! Score: 4-0
+(check=16) Minute 63: no shot.
+(check=15) Minute 64: no shot.
+(check=43) Minute 65: no shot.
+(check=9) Minute 66: no shot.
+(check=59) Minute 67: no shot.
+(check=49) Minute 68: no shot.
+(check=32) Minute 69: no shot.
+(check=27) Minute 70: no shot.
+(check=83) Minute 71: (t1check=33, t2check=57, check1=39, check2=39) William Gayle missed shot.
+(check=11) Minute 72: no shot.
+(check=4) Minute 73: no shot.
+(check=7) Minute 74: no shot.
+(check=80) Minute 75: (t1check=69, t2check=70, check1=98, check2=98) (goalchk1=38, goalchk2=32) Neville Grant shot on goal. Manuel Castro SAVE!
+(check=80) Minute 76: (t1check=57, t2check=74, check1=72, check2=72) (goalchk1=100, goalchk2=94) Patrick Miller GOAL!!! Score: 4-1
+(check=48) Minute 77: no shot.
+(check=29) Minute 78: no shot.
+(check=36) Minute 79: no shot.
+(check=27) Minute 80: no shot.
+(check=6) Minute 81: no shot.
+(check=83) Minute 82: (t1check=9, t2check=75, check1=7, check2=7) Patrick Miller missed shot.
+(check=49) Minute 83: no shot.
+(check=81) Minute 84: (t1check=13, t2check=60, check1=94, check2=94) (goalchk1=29, goalchk2=23) John Edwards shot on goal. Manuel Castro SAVE!
+(check=57) Minute 85: no shot.
+(check=12) Minute 86: no shot.
+(check=72) Minute 87: (t1check=66, t2check=67, check1=33, check2=33) William Gayle missed shot.
+(check=75) Minute 88: (t1check=53, t2check=71, check1=77, check2=77) (goalchk1=28, goalchk2=22) Patrick Miller shot on goal. Manuel Castro SAVE!
+(check=36) Minute 89: no shot.
+(check=62) Minute 90: no shot.
+Final score: 4-1

@@ -1,0 +1,91 @@
+(check=1) Minute 1: no shot.
+(check=34) Minute 2: no shot.
+(check=32) Minute 3: no shot.
+(check=84) Minute 4: (t1check=66, t2check=68, check1=50, check2=50) Dragan Petrovic missed shot.
+(check=18) Minute 5: no shot.
+(check=33) Minute 6: no shot.
+(check=67) Minute 7: (t1check=73, t2check=46, check1=93, check2=93) (goalchk1=75, goalchk2=67) Adrian Llewellyn GOAL!!! Score: 1-0
+(check=18) Minute 8: no shot.
+(check=43) Minute 9: no shot.
+(check=23) Minute 10: no shot.
+(check=30) Minute 11: no shot.
+(check=37) Minute 12: no shot.
+(check=29) Minute 13: no shot.
+(check=62) Minute 14: no shot.
+(check=44) Minute 15: no shot.
+(check=45) Minute 16: no shot.
+(check=27) Minute 17: no shot.
+(check=81) Minute 18: (t1check=46, t2check=40, check1=2, check2=2) Malcolm Hopkins missed shot.
+(check=49) Minute 19: no shot.
+(check=29) Minute 20: no shot.
+(check=61) Minute 21: no shot.
+(check=7) Minute 22: no shot.
+(check=14) Minute 23: no shot.
+(check=62) Minute 24: no shot.
+(check=68) Minute 25: (t1check=50, t2check=73, check1=34, check2=34) Zoran Ilic missed shot.
+(check=55) Minute 26: no shot.
+(check=21) Minute 27: no shot.
+(check=61) Minute 28: no shot.
+(check=5) Minute 29: no shot.
+(check=47) Minute 30: no shot.
+(check=33) Minute 31: no shot.
+(check=72) Minute 32: (t1check=22, t2check=70, check1=22, check2=22) Slobodan Krstic missed shot.
+(check=29) Minute 33: no shot.
+(check=81) Minute 34: (t1check=56, t2check=74, check1=68, check2=68) (goalchk1=44, goalchk2=38) Dragan Petrovic shot on goal. Clive Jones SAVE!
+(check=84) Minute 35: (t1check=55, t2check=67, check1=78, check2=78) (goalchk1=68, goalchk2=62) Dragan Petrovic shot on goal. Clive Jones SAVE!
+(check=55) Minute 36: no shot.
+(check=22) Minute 37: no shot.
+(check=39) Minute 38: no shot.
+(check=55) Minute 39: no shot.
+(check=7) Minute 40: no shot.
+(check=41) Minute 41: no shot.
+(check=13) Minute 42: no shot.
+(check=58) Minute 43: no shot.
+(check=43) Minute 44: no shot.
+(check=58) Minute 45: no shot.
+(check=65) Minute 46: no shot.
+(check=42) Minute 47: no shot.
+(check=73) Minute 48: (t1check=63, t2check=48, check1=45, check2=45) Colin Pugh missed shot.
+(check=31) Minute 49: no shot.
+(check=17) Minute 50: no shot.
+(check=78) Minute 51: (t1check=79, t2check=67, check1=56, check2=56) Craig Young missed shot.
+(check=42) Minute 52: no shot.
+(check=73) Minute 53: (t1check=15, t2check=60, check1=32, check2=32) Dragan Petrovic missed shot.
+(check=9) Minute 54: no shot.
+(check=75) Minute 55: (t1check=40, t2check=42, check1=56, check2=56) Dragan Petrovic missed shot.
+(check=85) Minute 56: (t1check=15, t2check=68, check1=19, check2=19) Jovan Trajkovic missed shot.
+(check=32) Minute 57: no shot.
+(check=77) Minute 58: (t1check=76, t2check=26, check1=26, check2=26) Colin Pugh missed shot.
+(check=90) Minute 59: (t1check=34, t2check=50, check1=42, check2=42) Dragan Petrovic missed shot.
+(check=54) Minute 60: no shot.
+(check=73) Minute 61: (t1check=50, t2check=44, check1=64, check2=64) (goalchk1=3, goalchk2=-5) Colin Pugh shot on goal. Slobodan Krstic SAVE!
+(check=25) Minute 62: no shot.
+(check=13) Minute 63: no shot.
+(check=1) Minute 64: no shot.
+(check=86) Minute 65: (t1check=45, t2check=76, check1=39, check2=39) Zoran Ilic missed shot.
+(check=31) Minute 66: no shot.
+(check=90) Minute 67: (t1check=49, t2check=11, check1=50, check2=50) Colin Pugh missed shot.
+(check=36) Minute 68: no shot.
+(check=17) Minute 69: no shot.
+(check=19) Minute 70: no shot.
+(check=14) Minute 71: no shot.
+(check=47) Minute 72: no shot.
+(check=40) Minute 73: no shot.
+(check=22) Minute 74: no shot.
+(check=67) Minute 75: (t1check=58, t2check=31, check1=32, check2=32) Craig Young missed shot.
+(check=68) Minute 76: (t1check=61, t2check=71, check1=24, check2=24) Zoran Ilic missed shot.
+(check=73) Minute 77: (t1check=8, t2check=73, check1=91, check2=91) (goalchk1=66, goalchk2=60) Jovan Trajkovic shot on goal. Clive Jones SAVE!
+(check=36) Minute 78: no shot.
+(check=43) Minute 79: no shot.
+(check=65) Minute 80: no shot.
+(check=6) Minute 81: no shot.
+(check=30) Minute 82: no shot.
+(check=66) Minute 83: (t1check=73, t2check=68, check1=100, check2=100) (goalchk1=52, goalchk2=44) Colin Pugh shot on goal. Slobodan Krstic SAVE!
+(check=19) Minute 84: no shot.
+(check=57) Minute 85: no shot.
+(check=39) Minute 86: no shot.
+(check=42) Minute 87: no shot.
+(check=86) Minute 88: (t1check=72, t2check=48, check1=60, check2=60) Adrian Llewellyn missed shot.
+(check=26) Minute 89: no shot.
+(check=59) Minute 90: no shot.
+Final score: 1-0

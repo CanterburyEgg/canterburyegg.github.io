@@ -1,0 +1,91 @@
+(check=52) Minute 1: no shot.
+(check=8) Minute 2: no shot.
+(check=88) Minute 3: (t1check=11, t2check=7, check1=55, check2=49) Jan Johansen missed shot.
+(check=26) Minute 4: no shot.
+(check=86) Minute 5: (t1check=80, t2check=64, check1=48, check2=42) Kjell Nilsen missed shot.
+(check=21) Minute 6: no shot.
+(check=66) Minute 7: (t1check=44, t2check=60, check1=88, check2=90) (goalchk1=76, goalchk2=74) Stefan Meier GOAL!!! Score: 0-1
+(check=75) Minute 8: (t1check=14, t2check=62, check1=78, check2=80) (goalchk1=7, goalchk2=5) Rolf Bachmann shot on goal. Erik Olsen SAVE!
+(check=72) Minute 9: (t1check=73, t2check=19, check1=81, check2=75) (goalchk1=86, goalchk2=80) Svein Berg GOAL!!! Score: 1-1
+(check=11) Minute 10: no shot.
+(check=59) Minute 11: no shot.
+(check=55) Minute 12: no shot.
+(check=30) Minute 13: no shot.
+(check=1) Minute 14: no shot.
+(check=73) Minute 15: (t1check=32, t2check=35, check1=85, check2=87) (goalchk1=83, goalchk2=81) Marcel Roth GOAL!!! Score: 1-2
+(check=63) Minute 16: no shot.
+(check=75) Minute 17: (t1check=55, t2check=10, check1=11, check2=5) Svein Berg missed shot.
+(check=58) Minute 18: no shot.
+(check=18) Minute 19: no shot.
+(check=29) Minute 20: no shot.
+(check=59) Minute 21: no shot.
+(check=33) Minute 22: no shot.
+(check=25) Minute 23: no shot.
+(check=72) Minute 24: (t1check=24, t2check=42, check1=98, check2=100) (goalchk1=14, goalchk2=12) Peter Buhler shot on goal. Erik Olsen SAVE!
+(check=80) Minute 25: (t1check=65, t2check=53, check1=40, check2=34) Erik Olsen missed shot.
+(check=59) Minute 26: no shot.
+(check=76) Minute 27: (t1check=37, t2check=72, check1=63, check2=65) (goalchk1=69, goalchk2=67) Marcel Roth GOAL!!! Score: 1-3
+(check=37) Minute 28: no shot.
+(check=33) Minute 29: no shot.
+(check=1) Minute 30: no shot.
+(check=85) Minute 31: (t1check=75, t2check=78, check1=42, check2=44) Andreas Wyss missed shot.
+(check=68) Minute 32: (t1check=26, t2check=80, check1=58, check2=60) Werner Frei missed shot.
+(check=38) Minute 33: no shot.
+(check=69) Minute 34: (t1check=67, t2check=33, check1=39, check2=33) Jan Johansen missed shot.
+(check=31) Minute 35: no shot.
+(check=64) Minute 36: no shot.
+(check=13) Minute 37: no shot.
+(check=45) Minute 38: no shot.
+(check=40) Minute 39: no shot.
+(check=5) Minute 40: no shot.
+(check=7) Minute 41: no shot.
+(check=82) Minute 42: (t1check=67, t2check=38, check1=46, check2=40) Arne Hagen missed shot.
+(check=70) Minute 43: (t1check=40, t2check=25, check1=51, check2=45) Svein Berg missed shot.
+(check=24) Minute 44: no shot.
+(check=78) Minute 45: (t1check=31, t2check=45, check1=57, check2=59) Marcel Roth missed shot.
+(check=42) Minute 46: no shot.
+(check=29) Minute 47: no shot.
+(check=13) Minute 48: no shot.
+(check=73) Minute 49: (t1check=45, t2check=73, check1=8, check2=10) Andreas Wyss missed shot.
+(check=74) Minute 50: (t1check=13, t2check=33, check1=5, check2=7) Peter Buhler missed shot.
+(check=25) Minute 51: no shot.
+(check=78) Minute 52: (t1check=73, t2check=32, check1=57, check2=51) Svein Berg missed shot.
+(check=46) Minute 53: no shot.
+(check=44) Minute 54: no shot.
+(check=31) Minute 55: no shot.
+(check=66) Minute 56: (t1check=42, t2check=14, check1=49, check2=43) Svein Berg missed shot.
+(check=69) Minute 57: (t1check=78, t2check=65, check1=12, check2=6) Kjell Nilsen missed shot.
+(check=74) Minute 58: (t1check=57, t2check=20, check1=86, check2=80) (goalchk1=30, goalchk2=24) Svein Berg shot on goal. Rolf Bachmann SAVE!
+(check=90) Minute 59: (t1check=49, t2check=33, check1=40, check2=34) Geir Gundersen missed shot.
+(check=71) Minute 60: (t1check=18, t2check=28, check1=68, check2=70) (goalchk1=98, goalchk2=96) Peter Buhler GOAL!!! Score: 1-4
+(check=63) Minute 61: no shot.
+(check=88) Minute 62: (t1check=31, t2check=8, check1=23, check2=17) Kjell Nilsen missed shot.
+(check=12) Minute 63: no shot.
+(check=53) Minute 64: no shot.
+(check=59) Minute 65: no shot.
+(check=31) Minute 66: no shot.
+(check=89) Minute 67: (t1check=17, t2check=31, check1=35, check2=37) Marcel Roth missed shot.
+(check=24) Minute 68: no shot.
+(check=58) Minute 69: no shot.
+(check=48) Minute 70: no shot.
+(check=28) Minute 71: no shot.
+(check=54) Minute 72: no shot.
+(check=62) Minute 73: no shot.
+(check=25) Minute 74: no shot.
+(check=58) Minute 75: no shot.
+(check=32) Minute 76: no shot.
+(check=55) Minute 77: no shot.
+(check=85) Minute 78: (t1check=61, t2check=77, check1=13, check2=15) Marcel Roth missed shot.
+(check=29) Minute 79: no shot.
+(check=73) Minute 80: (t1check=53, t2check=38, check1=20, check2=14) Erik Olsen missed shot.
+(check=51) Minute 81: no shot.
+(check=12) Minute 82: no shot.
+(check=72) Minute 83: (t1check=48, t2check=51, check1=49, check2=51) Werner Frei missed shot.
+(check=82) Minute 84: (t1check=10, t2check=39, check1=2, check2=4) Peter Buhler missed shot.
+(check=67) Minute 85: (t1check=9, t2check=53, check1=53, check2=55) Rolf Bachmann missed shot.
+(check=34) Minute 86: no shot.
+(check=42) Minute 87: no shot.
+(check=38) Minute 88: no shot.
+(check=30) Minute 89: no shot.
+(check=80) Minute 90: (t1check=13, t2check=25, check1=72, check2=74) (goalchk1=40, goalchk2=38) Werner Frei shot on goal. Erik Olsen SAVE!
+Final score: 1-4

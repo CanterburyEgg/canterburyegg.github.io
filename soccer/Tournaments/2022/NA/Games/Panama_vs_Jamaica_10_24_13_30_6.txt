@@ -1,0 +1,91 @@
+(check=78) Minute 1: (t1check=43, t2check=8, check1=4, check2=8) Jose Abrego missed shot.
+(check=57) Minute 2: no shot.
+(check=80) Minute 3: (t1check=70, t2check=2, check1=18, check2=22) Jose Abrego missed shot.
+(check=16) Minute 4: no shot.
+(check=16) Minute 5: no shot.
+(check=90) Minute 6: (t1check=44, t2check=51, check1=66, check2=67) (goalchk1=5, goalchk2=3) Winston Powell shot on goal. Alberto Diaz SAVE!
+(check=21) Minute 7: no shot.
+(check=16) Minute 8: no shot.
+(check=87) Minute 9: (t1check=54, t2check=50, check1=41, check2=45) Angel Cedeno missed shot.
+(check=23) Minute 10: no shot.
+(check=43) Minute 11: no shot.
+(check=2) Minute 12: no shot.
+(check=54) Minute 13: no shot.
+(check=37) Minute 14: no shot.
+(check=9) Minute 15: no shot.
+(check=43) Minute 16: no shot.
+(check=36) Minute 17: no shot.
+(check=75) Minute 18: (t1check=35, t2check=45, check1=74, check2=75) (goalchk1=18, goalchk2=16) Neville Grant shot on goal. Alberto Diaz SAVE!
+(check=20) Minute 19: no shot.
+(check=10) Minute 20: no shot.
+(check=26) Minute 21: no shot.
+(check=54) Minute 22: no shot.
+(check=90) Minute 23: (t1check=80, t2check=35, check1=97, check2=101) (goalchk1=43, goalchk2=43) Alberto Diaz shot on goal. William Gayle SAVE!
+(check=58) Minute 24: no shot.
+(check=15) Minute 25: no shot.
+(check=8) Minute 26: no shot.
+(check=11) Minute 27: no shot.
+(check=69) Minute 28: (t1check=52, t2check=66, check1=91, check2=92) (goalchk1=45, goalchk2=43) Winston Powell shot on goal. Alberto Diaz SAVE!
+(check=35) Minute 29: no shot.
+(check=38) Minute 30: no shot.
+(check=15) Minute 31: no shot.
+(check=24) Minute 32: no shot.
+(check=54) Minute 33: no shot.
+(check=86) Minute 34: (t1check=64, t2check=14, check1=71, check2=75) (goalchk1=93, goalchk2=93) Jose Abrego GOAL!!! Score: 1-0
+(check=7) Minute 35: no shot.
+(check=79) Minute 36: (t1check=56, t2check=62, check1=63, check2=64) (goalchk1=65, goalchk2=63) Patrick Miller shot on goal. Alberto Diaz SAVE!
+(check=31) Minute 37: no shot.
+(check=72) Minute 38: (t1check=13, t2check=73, check1=5, check2=6) Albert Hall missed shot.
+(check=2) Minute 39: no shot.
+(check=32) Minute 40: no shot.
+(check=58) Minute 41: no shot.
+(check=84) Minute 42: (t1check=46, t2check=12, check1=11, check2=15) Angel Cedeno missed shot.
+(check=74) Minute 43: (t1check=76, t2check=3, check1=80, check2=84) (goalchk1=100, goalchk2=100) Jose Abrego GOAL!!! Score: 2-0
+(check=24) Minute 44: no shot.
+(check=20) Minute 45: no shot.
+(check=26) Minute 46: no shot.
+(check=45) Minute 47: no shot.
+(check=73) Minute 48: (t1check=27, t2check=36, check1=58, check2=59) Neville Grant missed shot.
+(check=62) Minute 49: no shot.
+(check=21) Minute 50: no shot.
+(check=74) Minute 51: (t1check=62, t2check=39, check1=22, check2=26) Francisco Castillo missed shot.
+(check=34) Minute 52: no shot.
+(check=6) Minute 53: no shot.
+(check=29) Minute 54: no shot.
+(check=32) Minute 55: no shot.
+(check=85) Minute 56: (t1check=16, t2check=19, check1=35, check2=36) Winston Powell missed shot.
+(check=52) Minute 57: no shot.
+(check=84) Minute 58: (t1check=67, t2check=18, check1=55, check2=59) Jose Abrego missed shot.
+(check=59) Minute 59: no shot.
+(check=73) Minute 60: (t1check=37, t2check=11, check1=60, check2=64) (goalchk1=52, goalchk2=52) Francisco Castillo shot on goal. William Gayle SAVE!
+(check=27) Minute 61: no shot.
+(check=34) Minute 62: no shot.
+(check=87) Minute 63: (t1check=24, t2check=73, check1=56, check2=57) Patrick Miller missed shot.
+(check=26) Minute 64: no shot.
+(check=30) Minute 65: no shot.
+(check=35) Minute 66: no shot.
+(check=74) Minute 67: (t1check=37, t2check=67, check1=24, check2=25) Patrick Miller missed shot.
+(check=59) Minute 68: no shot.
+(check=11) Minute 69: no shot.
+(check=83) Minute 70: (t1check=9, t2check=52, check1=8, check2=9) Neville Grant missed shot.
+(check=59) Minute 71: no shot.
+(check=67) Minute 72: (t1check=72, t2check=43, check1=65, check2=69) (goalchk1=58, goalchk2=58) Jose Abrego shot on goal. William Gayle SAVE!
+(check=57) Minute 73: no shot.
+(check=31) Minute 74: no shot.
+(check=35) Minute 75: no shot.
+(check=6) Minute 76: no shot.
+(check=75) Minute 77: (t1check=76, t2check=30, check1=77, check2=81) (goalchk1=39, goalchk2=39) Jose Abrego shot on goal. William Gayle SAVE!
+(check=18) Minute 78: no shot.
+(check=49) Minute 79: no shot.
+(check=49) Minute 80: no shot.
+(check=22) Minute 81: no shot.
+(check=49) Minute 82: no shot.
+(check=65) Minute 83: no shot.
+(check=53) Minute 84: no shot.
+(check=72) Minute 85: (t1check=76, t2check=13, check1=26, check2=30) Angel Cedeno missed shot.
+(check=46) Minute 86: no shot.
+(check=5) Minute 87: no shot.
+(check=43) Minute 88: no shot.
+(check=78) Minute 89: (t1check=60, t2check=18, check1=7, check2=11) Alberto Diaz missed shot.
+(check=34) Minute 90: no shot.
+Final score: 2-0

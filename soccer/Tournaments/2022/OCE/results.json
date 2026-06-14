@@ -1,0 +1,3240 @@
+{
+  "name": "2022 Oceania Qualifiers",
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "id": "Australia_New Zealand_Australia_vs_New Zealand_10_24_0_4_25.txt",
+          "teams": [
+            "Australia",
+            "New Zealand"
+          ],
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 9,
+              "sogs": 1,
+              "saves": 3
+            },
+            "New Zealand": {
+              "shots": 17,
+              "sogs": 3,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Fiji_Australia_vs_Fiji_10_24_0_4_30.txt",
+          "teams": [
+            "Australia",
+            "Fiji"
+          ],
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 71,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            },
+            {
+              "minute": 81,
+              "team": "Fiji",
+              "player": "Jone Khan"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 9,
+              "sogs": 3,
+              "saves": 2
+            },
+            "Fiji": {
+              "shots": 5,
+              "sogs": 2,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Papua New Guinea_Australia_vs_Papua New Guinea_10_24_0_4_38.txt",
+          "teams": [
+            "Australia",
+            "Papua New Guinea"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 30,
+              "team": "Papua New Guinea",
+              "player": "Mathew Amos"
+            },
+            {
+              "minute": 43,
+              "team": "Australia",
+              "player": "David Kelly"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 3
+            },
+            "Papua New Guinea": {
+              "shots": 8,
+              "sogs": 3,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "New Zealand_Fiji_New Zealand_vs_Fiji_10_24_0_4_43.txt",
+          "teams": [
+            "New Zealand",
+            "Fiji"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 23,
+              "team": "New Zealand",
+              "player": "Murray Campbell"
+            },
+            {
+              "minute": 35,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 86,
+              "team": "Fiji",
+              "player": "Tevita Chand"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "New Zealand": {
+              "shots": 19,
+              "sogs": 2,
+              "saves": 3
+            },
+            "Fiji": {
+              "shots": 6,
+              "sogs": 3,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "New Zealand_Papua New Guinea_New Zealand_vs_Papua New Guinea_10_24_0_4_51.txt",
+          "teams": [
+            "New Zealand",
+            "Papua New Guinea"
+          ],
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 47,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "New Zealand": {
+              "shots": 15,
+              "sogs": 4,
+              "saves": 1
+            },
+            "Papua New Guinea": {
+              "shots": 5,
+              "sogs": 1,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Fiji_Papua New Guinea_Fiji_vs_Papua New Guinea_10_24_0_4_58.txt",
+          "teams": [
+            "Fiji",
+            "Papua New Guinea"
+          ],
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 28,
+              "team": "Papua New Guinea",
+              "player": "Joseph Wari"
+            },
+            {
+              "minute": 55,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 64,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            },
+            {
+              "minute": 81,
+              "team": "Fiji",
+              "player": "Viliame Naidu"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Fiji": {
+              "shots": 6,
+              "sogs": 0,
+              "saves": 3
+            },
+            "Papua New Guinea": {
+              "shots": 10,
+              "sogs": 3,
+              "saves": 0
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 3
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_New Zealand_Australia_vs_New Zealand_10_24_15_20_51.txt",
+          "teams": [
+            "Australia",
+            "New Zealand"
+          ],
+          "score": [
+            0,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 73,
+              "team": "New Zealand",
+              "player": "Kevin Singh"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 14,
+              "sogs": 4,
+              "saves": 4
+            },
+            "New Zealand": {
+              "shots": 19,
+              "sogs": 4,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 7,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 7,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Fiji_Australia_vs_Fiji_10_24_15_20_54.txt",
+          "teams": [
+            "Australia",
+            "Fiji"
+          ],
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 14,
+              "team": "Australia",
+              "player": "Geoff Murphy"
+            },
+            {
+              "minute": 71,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 10,
+              "sogs": 3,
+              "saves": 5
+            },
+            "Fiji": {
+              "shots": 14,
+              "sogs": 5,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 7,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Papua New Guinea_Australia_vs_Papua New Guinea_10_24_15_20_58.txt",
+          "teams": [
+            "Australia",
+            "Papua New Guinea"
+          ],
+          "score": [
+            3,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 7,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            },
+            {
+              "minute": 43,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 70,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 76,
+              "team": "Papua New Guinea",
+              "player": "Mathew Amos"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 9,
+              "sogs": 2,
+              "saves": 4
+            },
+            "Papua New Guinea": {
+              "shots": 10,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 3
+              }
+            ]
+          }
+        },
+        {
+          "id": "Fiji_Papua New Guinea_Fiji_vs_Papua New Guinea_10_24_15_21_14.txt",
+          "teams": [
+            "Fiji",
+            "Papua New Guinea"
+          ],
+          "score": [
+            1,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 12,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 39,
+              "team": "Papua New Guinea",
+              "player": "Moses Tonny"
+            },
+            {
+              "minute": 52,
+              "team": "Papua New Guinea",
+              "player": "Samson Alu"
+            },
+            {
+              "minute": 65,
+              "team": "Papua New Guinea",
+              "player": "Simon Apa"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Fiji": {
+              "shots": 11,
+              "sogs": 3,
+              "saves": 5
+            },
+            "Papua New Guinea": {
+              "shots": 10,
+              "sogs": 5,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "New Zealand_Fiji_New Zealand_vs_Fiji_10_24_15_21_3.txt",
+          "teams": [
+            "New Zealand",
+            "Fiji"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 30,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            },
+            {
+              "minute": 60,
+              "team": "Fiji",
+              "player": "Tomasi Devi"
+            },
+            {
+              "minute": 71,
+              "team": "New Zealand",
+              "player": "Roger Simpson"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "New Zealand": {
+              "shots": 8,
+              "sogs": 2,
+              "saves": 0
+            },
+            "Fiji": {
+              "shots": 11,
+              "sogs": 0,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "New Zealand_Papua New Guinea_New Zealand_vs_Papua New Guinea_10_24_15_21_9.txt",
+          "teams": [
+            "New Zealand",
+            "Papua New Guinea"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 19,
+              "team": "Papua New Guinea",
+              "player": "Moses Tonny"
+            },
+            {
+              "minute": 50,
+              "team": "New Zealand",
+              "player": "Roger Simpson"
+            },
+            {
+              "minute": 59,
+              "team": "New Zealand",
+              "player": "Roger Simpson"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "New Zealand": {
+              "shots": 6,
+              "sogs": 1,
+              "saves": 2
+            },
+            "Papua New Guinea": {
+              "shots": 11,
+              "sogs": 2,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_New Zealand_Australia_vs_New Zealand_10_24_23_21_41.txt",
+          "teams": [
+            "Australia",
+            "New Zealand"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 32,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            },
+            {
+              "minute": 33,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            },
+            {
+              "minute": 66,
+              "team": "Australia",
+              "player": "David Kelly"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 12,
+              "sogs": 8,
+              "saves": 6
+            },
+            "New Zealand": {
+              "shots": 15,
+              "sogs": 6,
+              "saves": 8
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 4,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Fiji_Australia_vs_Fiji_10_24_23_21_44.txt",
+          "teams": [
+            "Australia",
+            "Fiji"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 33,
+              "team": "Australia",
+              "player": "Greg Cooper"
+            },
+            {
+              "minute": 75,
+              "team": "Fiji",
+              "player": "Jone Khan"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 4,
+              "sogs": 2,
+              "saves": 8
+            },
+            "Fiji": {
+              "shots": 14,
+              "sogs": 8,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Papua New Guinea_Australia_vs_Papua New Guinea_10_24_23_21_48.txt",
+          "teams": [
+            "Australia",
+            "Papua New Guinea"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 46,
+              "team": "Papua New Guinea",
+              "player": "Simon Apa"
+            },
+            {
+              "minute": 69,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            },
+            {
+              "minute": 78,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 10,
+              "sogs": 5,
+              "saves": 3
+            },
+            "Papua New Guinea": {
+              "shots": 12,
+              "sogs": 3,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "New Zealand_Fiji_New Zealand_vs_Fiji_10_24_23_21_51.txt",
+          "teams": [
+            "New Zealand",
+            "Fiji"
+          ],
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "New Zealand",
+              "player": "Murray Campbell"
+            },
+            {
+              "minute": 62,
+              "team": "New Zealand",
+              "player": "Chris Turner"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "New Zealand": {
+              "shots": 9,
+              "sogs": 2,
+              "saves": 1
+            },
+            "Fiji": {
+              "shots": 10,
+              "sogs": 1,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "New Zealand_Papua New Guinea_New Zealand_vs_Papua New Guinea_10_24_23_21_56.txt",
+          "teams": [
+            "New Zealand",
+            "Papua New Guinea"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 8,
+              "team": "Papua New Guinea",
+              "player": "Moses Tonny"
+            },
+            {
+              "minute": 69,
+              "team": "New Zealand",
+              "player": "Nick Young"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "New Zealand": {
+              "shots": 7,
+              "sogs": 1,
+              "saves": 2
+            },
+            "Papua New Guinea": {
+              "shots": 10,
+              "sogs": 2,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Chris Turner",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Fiji_Papua New Guinea_Fiji_vs_Papua New Guinea_10_24_23_22_0.txt",
+          "teams": [
+            "Fiji",
+            "Papua New Guinea"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 27,
+              "team": "Fiji",
+              "player": "Jone Khan"
+            },
+            {
+              "minute": 69,
+              "team": "Papua New Guinea",
+              "player": "Mathew Amos"
+            },
+            {
+              "minute": 70,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Fiji": {
+              "shots": 10,
+              "sogs": 5,
+              "saves": 1
+            },
+            "Papua New Guinea": {
+              "shots": 14,
+              "sogs": 1,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Simon Apa",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Tonny",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mathew Amos",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Wari",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Philip Gibson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samson Alu",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Junior Koi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ]
+          }
+        }
+      ],
+      "standings": [
+        {
+          "team": "Fiji",
+          "played": 9,
+          "w": 5,
+          "d": 1,
+          "l": 3,
+          "gf": 13,
+          "ga": 12,
+          "gd": 1,
+          "pts": 16
+        },
+        {
+          "team": "Australia",
+          "played": 9,
+          "w": 4,
+          "d": 3,
+          "l": 2,
+          "gf": 11,
+          "ga": 8,
+          "gd": 3,
+          "pts": 15
+        },
+        {
+          "team": "New Zealand",
+          "played": 9,
+          "w": 4,
+          "d": 2,
+          "l": 3,
+          "gf": 10,
+          "ga": 8,
+          "gd": 2,
+          "pts": 14
+        },
+        {
+          "team": "Papua New Guinea",
+          "played": 9,
+          "w": 1,
+          "d": 2,
+          "l": 6,
+          "gf": 10,
+          "ga": 16,
+          "gd": -6,
+          "pts": 5
+        }
+      ]
+    }
+  },
+  "playoffs": {
+    "type": "bracket",
+    "rounds": [
+      {
+        "name": "Round 1",
+        "matches": [
+          {
+            "id": "Australia_New Zealand_Australia_vs_New Zealand_10_24_23_24_11.txt",
+            "teams": [
+              "Australia",
+              "New Zealand"
+            ],
+            "score": [
+              6,
+              2
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 8,
+                "team": "Australia",
+                "player": "Darren King"
+              },
+              {
+                "minute": 22,
+                "team": "Australia",
+                "player": "Thomas Martin"
+              },
+              {
+                "minute": 25,
+                "team": "New Zealand",
+                "player": "Chris Turner"
+              },
+              {
+                "minute": 35,
+                "team": "Australia",
+                "player": "Geoff Murphy"
+              },
+              {
+                "minute": 36,
+                "team": "Australia",
+                "player": "Darren King"
+              },
+              {
+                "minute": 41,
+                "team": "Australia",
+                "player": "Darren King"
+              },
+              {
+                "minute": 79,
+                "team": "Australia",
+                "player": "Andrew Moore"
+              },
+              {
+                "minute": 83,
+                "team": "New Zealand",
+                "player": "Chris Turner"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Australia": {
+                "shots": 12,
+                "sogs": 3,
+                "saves": 3
+              },
+              "New Zealand": {
+                "shots": 11,
+                "sogs": 3,
+                "saves": 3
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Andrew Moore",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thomas Martin",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "David Kelly",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Greg Cooper",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Darren King",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geoff Murphy",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Shane Taylor",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Chris Turner",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nick Young",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roger Simpson",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "William Davies",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Kevin Singh",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jason Watson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 6
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Round 2",
+        "matches": [
+          {
+            "id": "Australia_New Zealand_Australia_vs_New Zealand_10_24_23_24_6.txt",
+            "teams": [
+              "Australia",
+              "New Zealand"
+            ],
+            "score": [
+              2,
+              0
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 24,
+                "team": "Australia",
+                "player": "Thomas Martin"
+              },
+              {
+                "minute": 36,
+                "team": "Australia",
+                "player": "Greg Cooper"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Australia": {
+                "shots": 8,
+                "sogs": 6,
+                "saves": 4
+              },
+              "New Zealand": {
+                "shots": 16,
+                "sogs": 4,
+                "saves": 6
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Andrew Moore",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thomas Martin",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "David Kelly",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Greg Cooper",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Darren King",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geoff Murphy",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Shane Taylor",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Chris Turner",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nick Young",
+                  "shots": 6,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roger Simpson",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "William Davies",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Kevin Singh",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jason Watson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 2
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "qualified_teams": []
+}

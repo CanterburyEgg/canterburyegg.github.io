@@ -1,0 +1,91 @@
+(check=28) Minute 1: no shot.
+(check=51) Minute 2: no shot.
+(check=17) Minute 3: no shot.
+(check=35) Minute 4: no shot.
+(check=70) Minute 5: (t1check=60, t2check=53, check1=86, check2=83) (goalchk1=28, goalchk2=22) Arne Hagen shot on goal. Vitor Correia SAVE!
+(check=36) Minute 6: no shot.
+(check=80) Minute 7: (t1check=52, t2check=66, check1=18, check2=21) Vitor Correia missed shot.
+(check=33) Minute 8: no shot.
+(check=8) Minute 9: no shot.
+(check=19) Minute 10: no shot.
+(check=6) Minute 11: no shot.
+(check=75) Minute 12: (t1check=59, t2check=65, check1=86, check2=89) (goalchk1=62, goalchk2=60) Joao Silva shot on goal. Erik Olsen SAVE!
+(check=66) Minute 13: (t1check=76, t2check=48, check1=61, check2=58) Svein Berg missed shot.
+(check=36) Minute 14: no shot.
+(check=40) Minute 15: no shot.
+(check=86) Minute 16: (t1check=54, t2check=71, check1=40, check2=43) Ricardo Goncalves missed shot.
+(check=49) Minute 17: no shot.
+(check=80) Minute 18: (t1check=37, t2check=10, check1=28, check2=25) Kjell Nilsen missed shot.
+(check=51) Minute 19: no shot.
+(check=22) Minute 20: no shot.
+(check=48) Minute 21: no shot.
+(check=70) Minute 22: (t1check=18, t2check=28, check1=92, check2=95) (goalchk1=91, goalchk2=89) Fernando Ribiero GOAL!!! Score: 0-1
+(check=69) Minute 23: (t1check=40, t2check=71, check1=10, check2=13) Joao Silva missed shot.
+(check=69) Minute 24: (t1check=16, t2check=14, check1=19, check2=16) Jan Johansen missed shot.
+(check=66) Minute 25: (t1check=7, t2check=39, check1=63, check2=66) (goalchk1=23, goalchk2=21) Ricardo Goncalves shot on goal. Erik Olsen SAVE!
+(check=15) Minute 26: no shot.
+(check=13) Minute 27: no shot.
+(check=11) Minute 28: no shot.
+(check=49) Minute 29: no shot.
+(check=29) Minute 30: no shot.
+(check=71) Minute 31: (t1check=68, t2check=36, check1=43, check2=40) Svein Berg missed shot.
+(check=34) Minute 32: no shot.
+(check=5) Minute 33: no shot.
+(check=87) Minute 34: (t1check=64, t2check=26, check1=70, check2=67) (goalchk1=31, goalchk2=25) Geir Gundersen shot on goal. Vitor Correia SAVE!
+(check=62) Minute 35: no shot.
+(check=77) Minute 36: (t1check=65, t2check=40, check1=95, check2=92) (goalchk1=48, goalchk2=42) Kjell Nilsen shot on goal. Vitor Correia SAVE!
+(check=69) Minute 37: (t1check=59, t2check=31, check1=18, check2=15) Jan Johansen missed shot.
+(check=51) Minute 38: no shot.
+(check=73) Minute 39: (t1check=49, t2check=63, check1=31, check2=34) Ricardo Goncalves missed shot.
+(check=16) Minute 40: no shot.
+(check=34) Minute 41: no shot.
+(check=47) Minute 42: no shot.
+(check=88) Minute 43: (t1check=54, t2check=42, check1=68, check2=65) (goalchk1=20, goalchk2=14) Kjell Nilsen shot on goal. Vitor Correia SAVE!
+(check=13) Minute 44: no shot.
+(check=15) Minute 45: no shot.
+(check=37) Minute 46: no shot.
+(check=84) Minute 47: (t1check=30, t2check=40, check1=47, check2=50) Sergio Alves missed shot.
+(check=35) Minute 48: no shot.
+(check=24) Minute 49: no shot.
+(check=35) Minute 50: no shot.
+(check=63) Minute 51: no shot.
+(check=59) Minute 52: no shot.
+(check=17) Minute 53: no shot.
+(check=51) Minute 54: no shot.
+(check=55) Minute 55: no shot.
+(check=66) Minute 56: (t1check=59, t2check=56, check1=50, check2=47) Geir Gundersen missed shot.
+(check=68) Minute 57: (t1check=77, t2check=63, check1=39, check2=36) Svein Berg missed shot.
+(check=85) Minute 58: (t1check=60, t2check=20, check1=4, check2=1) Kjell Nilsen missed shot.
+(check=28) Minute 59: no shot.
+(check=23) Minute 60: no shot.
+(check=8) Minute 61: no shot.
+(check=20) Minute 62: no shot.
+(check=54) Minute 63: no shot.
+(check=70) Minute 64: (t1check=71, t2check=34, check1=77, check2=74) (goalchk1=12, goalchk2=6) Svein Berg shot on goal. Vitor Correia SAVE!
+(check=84) Minute 65: (t1check=34, t2check=31, check1=32, check2=29) Geir Gundersen missed shot.
+(check=18) Minute 66: no shot.
+(check=87) Minute 67: (t1check=78, t2check=17, check1=38, check2=35) Jan Johansen missed shot.
+(check=48) Minute 68: no shot.
+(check=74) Minute 69: (t1check=65, t2check=41, check1=40, check2=37) Svein Berg missed shot.
+(check=34) Minute 70: no shot.
+(check=35) Minute 71: no shot.
+(check=37) Minute 72: no shot.
+(check=5) Minute 73: no shot.
+(check=19) Minute 74: no shot.
+(check=85) Minute 75: (t1check=39, t2check=49, check1=8, check2=11) Vitor Correia missed shot.
+(check=87) Minute 76: (t1check=78, t2check=54, check1=84, check2=81) (goalchk1=34, goalchk2=28) Geir Gundersen shot on goal. Vitor Correia SAVE!
+(check=48) Minute 77: no shot.
+(check=75) Minute 78: (t1check=50, t2check=39, check1=7, check2=4) Geir Gundersen missed shot.
+(check=67) Minute 79: (t1check=32, t2check=24, check1=8, check2=5) Svein Berg missed shot.
+(check=50) Minute 80: no shot.
+(check=66) Minute 81: (t1check=30, t2check=51, check1=27, check2=30) Joao Silva missed shot.
+(check=89) Minute 82: (t1check=7, t2check=61, check1=71, check2=74) (goalchk1=38, goalchk2=36) Ricardo Goncalves shot on goal. Erik Olsen SAVE!
+(check=80) Minute 83: (t1check=23, t2check=7, check1=96, check2=93) (goalchk1=54, goalchk2=48) Erik Olsen shot on goal. Vitor Correia SAVE!
+(check=46) Minute 84: no shot.
+(check=39) Minute 85: no shot.
+(check=89) Minute 86: (t1check=49, t2check=60, check1=29, check2=32) Sergio Alves missed shot.
+(check=67) Minute 87: (t1check=54, t2check=31, check1=82, check2=79) (goalchk1=71, goalchk2=65) Erik Olsen shot on goal. Vitor Correia SAVE!
+(check=70) Minute 88: (t1check=60, t2check=29, check1=54, check2=51) Svein Berg missed shot.
+(check=14) Minute 89: no shot.
+(check=48) Minute 90: no shot.
+Final score: 0-1

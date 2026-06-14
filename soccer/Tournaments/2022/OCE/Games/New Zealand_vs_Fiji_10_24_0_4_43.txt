@@ -1,0 +1,91 @@
+(check=10) Minute 1: no shot.
+(check=61) Minute 2: no shot.
+(check=72) Minute 3: (t1check=73, t2check=64, check1=10, check2=9) William Davies missed shot.
+(check=47) Minute 4: no shot.
+(check=65) Minute 5: no shot.
+(check=54) Minute 6: no shot.
+(check=70) Minute 7: (t1check=47, t2check=67, check1=89, check2=87) (goalchk1=54, goalchk2=53) Krishneel Maharaj shot on goal. Murray Campbell SAVE!
+(check=45) Minute 8: no shot.
+(check=14) Minute 9: no shot.
+(check=11) Minute 10: no shot.
+(check=27) Minute 11: no shot.
+(check=11) Minute 12: no shot.
+(check=12) Minute 13: no shot.
+(check=86) Minute 14: (t1check=60, t2check=20, check1=44, check2=43) Chris Turner missed shot.
+(check=23) Minute 15: no shot.
+(check=13) Minute 16: no shot.
+(check=45) Minute 17: no shot.
+(check=53) Minute 18: no shot.
+(check=89) Minute 19: (t1check=44, t2check=16, check1=16, check2=15) Roger Simpson missed shot.
+(check=50) Minute 20: no shot.
+(check=79) Minute 21: (t1check=25, t2check=19, check1=16, check2=15) William Davies missed shot.
+(check=43) Minute 22: no shot.
+(check=80) Minute 23: (t1check=20, t2check=12, check1=66, check2=65) (goalchk1=71, goalchk2=68) Murray Campbell GOAL!!! Score: 1-0
+(check=46) Minute 24: no shot.
+(check=42) Minute 25: no shot.
+(check=47) Minute 26: no shot.
+(check=39) Minute 27: no shot.
+(check=22) Minute 28: no shot.
+(check=17) Minute 29: no shot.
+(check=89) Minute 30: (t1check=32, t2check=28, check1=73, check2=72) (goalchk1=64, goalchk2=61) William Davies shot on goal. Tevita Chand SAVE!
+(check=52) Minute 31: no shot.
+(check=34) Minute 32: no shot.
+(check=21) Minute 33: no shot.
+(check=2) Minute 34: no shot.
+(check=71) Minute 35: (t1check=8, t2check=51, check1=73, check2=71) (goalchk1=91, goalchk2=90) Salote Prakash GOAL!!! Score: 1-1
+(check=57) Minute 36: no shot.
+(check=90) Minute 37: (t1check=9, t2check=18, check1=86, check2=84) (goalchk1=65, goalchk2=64) Viliame Naidu shot on goal. Murray Campbell SAVE!
+(check=70) Minute 38: (t1check=14, t2check=25, check1=54, check2=52) Viliame Naidu missed shot.
+(check=58) Minute 39: no shot.
+(check=4) Minute 40: no shot.
+(check=7) Minute 41: no shot.
+(check=51) Minute 42: no shot.
+(check=84) Minute 43: (t1check=22, t2check=69, check1=34, check2=32) Viliame Naidu missed shot.
+(check=45) Minute 44: no shot.
+(check=47) Minute 45: no shot.
+(check=40) Minute 46: no shot.
+(check=61) Minute 47: no shot.
+(check=47) Minute 48: no shot.
+(check=23) Minute 49: no shot.
+(check=79) Minute 50: (t1check=40, t2check=9, check1=88, check2=87) (goalchk1=3, goalchk2=0) Chris Turner shot on goal. Tevita Chand SAVE!
+(check=60) Minute 51: no shot.
+(check=75) Minute 52: (t1check=48, t2check=14, check1=53, check2=52) Kevin Singh missed shot.
+(check=30) Minute 53: no shot.
+(check=60) Minute 54: no shot.
+(check=52) Minute 55: no shot.
+(check=76) Minute 56: (t1check=43, t2check=24, check1=53, check2=52) Roger Simpson missed shot.
+(check=18) Minute 57: no shot.
+(check=86) Minute 58: (t1check=66, t2check=53, check1=23, check2=22) Nick Young missed shot.
+(check=89) Minute 59: (t1check=16, t2check=36, check1=65, check2=63) (goalchk1=42, goalchk2=41) Krishneel Maharaj shot on goal. Murray Campbell SAVE!
+(check=65) Minute 60: no shot.
+(check=37) Minute 61: no shot.
+(check=18) Minute 62: no shot.
+(check=82) Minute 63: (t1check=80, t2check=23, check1=8, check2=7) Chris Turner missed shot.
+(check=88) Minute 64: (t1check=47, t2check=75, check1=22, check2=20) Tomasi Devi missed shot.
+(check=35) Minute 65: no shot.
+(check=81) Minute 66: (t1check=52, t2check=50, check1=26, check2=25) Murray Campbell missed shot.
+(check=86) Minute 67: (t1check=64, t2check=5, check1=37, check2=36) Kevin Singh missed shot.
+(check=58) Minute 68: no shot.
+(check=60) Minute 69: no shot.
+(check=38) Minute 70: no shot.
+(check=52) Minute 71: no shot.
+(check=11) Minute 72: no shot.
+(check=2) Minute 73: no shot.
+(check=63) Minute 74: no shot.
+(check=5) Minute 75: no shot.
+(check=14) Minute 76: no shot.
+(check=73) Minute 77: (t1check=75, t2check=35, check1=24, check2=23) Roger Simpson missed shot.
+(check=69) Minute 78: (t1check=20, t2check=12, check1=53, check2=52) William Davies missed shot.
+(check=88) Minute 79: (t1check=23, t2check=6, check1=40, check2=39) Nick Young missed shot.
+(check=51) Minute 80: no shot.
+(check=66) Minute 81: (t1check=41, t2check=36, check1=3, check2=2) Nick Young missed shot.
+(check=2) Minute 82: no shot.
+(check=84) Minute 83: (t1check=26, t2check=20, check1=35, check2=34) Nick Young missed shot.
+(check=52) Minute 84: no shot.
+(check=66) Minute 85: (t1check=78, t2check=40, check1=5, check2=4) Nick Young missed shot.
+(check=77) Minute 86: (t1check=17, t2check=73, check1=93, check2=91) (goalchk1=80, goalchk2=79) Tevita Chand GOAL!!! Score: 1-2
+(check=82) Minute 87: (t1check=62, t2check=16, check1=47, check2=46) Chris Turner missed shot.
+(check=8) Minute 88: no shot.
+(check=48) Minute 89: no shot.
+(check=37) Minute 90: no shot.
+Final score: 1-2

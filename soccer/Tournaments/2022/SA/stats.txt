@@ -1,0 +1,59 @@
+Team	Player	SH	SG	GL
+BRA	Manoel Ribiero	45	18	5
+BRA	Joao Pereira	37	17	6
+BRA	Luiz Gomes	25	10	2
+BRA	Marcelo da Silva	17	6	2
+BRA	Rodrigo de Jesus	8	2	0
+BRA	Carlos Vieira	6	2	1
+ARG	Diego Perez	43	16	2
+ARG	Gustavo Suarez	33	16	6
+ARG	Roberto Sosa	23	12	3
+ARG	Pedro Flores	20	11	1
+ARG	Juan Acosta	7	4	0
+ARG	Oscar Gonzalez	3	2	2
+PAR	Francisco Espinola	21	7	1
+PAR	Arnaldo Benitez	31	9	2
+PAR	Sergio Baez	24	3	2
+PAR	Hugo Villalba	8	1	0
+PAR	Ramon Medina	12	4	0
+PAR	Felix Cardozo	11	5	1
+CHI	Felipe Contreras	30	9	6
+CHI	Marco Alvarez	37	13	1
+CHI	Cristian Rivera	17	3	0
+CHI	Patricio Torres	15	6	3
+CHI	Jaime Riquelme	12	3	0
+CHI	Hector Alvarez	10	5	1
+COL	Hernan Torres	41	18	7
+COL	Orlando Cardona	32	13	3
+COL	Edwin Ruiz	18	6	1
+COL	Edgar Jimenez	17	7	3
+COL	Andres Rodriguez	9	2	0
+COL	Javier Giraldo	7	3	1
+PER	Juan Rivera	35	13	4
+PER	Raul Morales	24	7	2
+PER	Jaime Rojas	14	4	4
+PER	Enrique Aguilar	10	2	0
+PER	Jose Quispe	10	2	0
+PER	Javier Gonzales	10	3	0
+ECU	Cesar Paredes	31	13	2
+ECU	Manuel Castillo	37	12	2
+ECU	Ramon Jaramillo	19	7	2
+ECU	Jorge Molina	28	8	3
+ECU	David Chavez	2	0	0
+ECU	Carlos Mendoza	4	3	1
+URU	Carlos Acosta	51	22	4
+URU	Gustavo Techera	48	17	6
+URU	Gerardo Perez	14	7	2
+URU	Ramon Perdomo	15	7	3
+URU	Nestor Moreira	8	5	3
+URU	Gonzalo Machado	10	5	3
+	
+Team	Player	SV	SO	GA
+BRA	Jose Lopes	31	43	12
+ARG	Luis Aguirre	39	51	12
+PAR	Alcides Cabrera	46	58	12
+CHI	Mauricio Fuentes	29	39	10
+COL	German Arias	25	39	14
+PER	Luis Huaman	37	56	19
+ECU	Vicente Salazar	31	44	13
+URU	Ricardo de Los Santos	29	40	11

@@ -1,0 +1,91 @@
+(check=50) Minute 1: no shot.
+(check=31) Minute 2: no shot.
+(check=18) Minute 3: no shot.
+(check=63) Minute 4: no shot.
+(check=1) Minute 5: no shot.
+(check=39) Minute 6: no shot.
+(check=69) Minute 7: (t1check=29, t2check=24, check1=26, check2=26) Andres Rodriguez missed shot.
+(check=3) Minute 8: no shot.
+(check=18) Minute 9: no shot.
+(check=82) Minute 10: (t1check=17, t2check=11, check1=20, check2=20) Orlando Cardona missed shot.
+(check=25) Minute 11: no shot.
+(check=48) Minute 12: no shot.
+(check=65) Minute 13: no shot.
+(check=71) Minute 14: (t1check=53, t2check=25, check1=32, check2=32) Hernan Torres missed shot.
+(check=41) Minute 15: no shot.
+(check=38) Minute 16: no shot.
+(check=55) Minute 17: no shot.
+(check=65) Minute 18: no shot.
+(check=39) Minute 19: no shot.
+(check=21) Minute 20: no shot.
+(check=63) Minute 21: no shot.
+(check=36) Minute 22: no shot.
+(check=85) Minute 23: (t1check=32, t2check=42, check1=63, check2=60) Hans Weber missed shot.
+(check=8) Minute 24: no shot.
+(check=38) Minute 25: no shot.
+(check=22) Minute 26: no shot.
+(check=40) Minute 27: no shot.
+(check=77) Minute 28: (t1check=58, t2check=84, check1=34, check2=31) Gerhard Muller missed shot.
+(check=32) Minute 29: no shot.
+(check=90) Minute 30: (t1check=76, t2check=68, check1=8, check2=8) Javier Giraldo missed shot.
+(check=55) Minute 31: no shot.
+(check=70) Minute 32: (t1check=52, t2check=49, check1=4, check2=4) Edgar Jimenez missed shot.
+(check=89) Minute 33: (t1check=57, t2check=53, check1=36, check2=36) Edgar Jimenez missed shot.
+(check=61) Minute 34: no shot.
+(check=31) Minute 35: no shot.
+(check=72) Minute 36: (t1check=50, t2check=70, check1=97, check2=94) (goalchk1=60, goalchk2=53) Helmut Lange shot on goal. Javier Giraldo SAVE!
+(check=18) Minute 37: no shot.
+(check=11) Minute 38: no shot.
+(check=44) Minute 39: no shot.
+(check=31) Minute 40: no shot.
+(check=42) Minute 41: no shot.
+(check=25) Minute 42: no shot.
+(check=48) Minute 43: no shot.
+(check=20) Minute 44: no shot.
+(check=15) Minute 45: no shot.
+(check=6) Minute 46: no shot.
+(check=55) Minute 47: no shot.
+(check=58) Minute 48: no shot.
+(check=47) Minute 49: no shot.
+(check=43) Minute 50: no shot.
+(check=66) Minute 51: (t1check=20, t2check=55, check1=80, check2=77) (goalchk1=74, goalchk2=67) Hans Weber GOAL!!! Score: 0-1
+(check=12) Minute 52: no shot.
+(check=9) Minute 53: no shot.
+(check=6) Minute 54: no shot.
+(check=53) Minute 55: no shot.
+(check=79) Minute 56: (t1check=57, t2check=35, check1=10, check2=10) Hernan Torres missed shot.
+(check=29) Minute 57: no shot.
+(check=71) Minute 58: (t1check=44, t2check=38, check1=21, check2=21) Orlando Cardona missed shot.
+(check=78) Minute 59: (t1check=40, t2check=53, check1=12, check2=9) Gerhard Muller missed shot.
+(check=89) Minute 60: (t1check=69, t2check=32, check1=59, check2=59) Hernan Torres missed shot.
+(check=84) Minute 61: (t1check=23, t2check=56, check1=25, check2=22) Manfred Fischer missed shot.
+(check=72) Minute 62: (t1check=12, t2check=62, check1=99, check2=96) (goalchk1=42, goalchk2=35) Gerhard Muller shot on goal. Javier Giraldo SAVE!
+(check=5) Minute 63: no shot.
+(check=82) Minute 64: (t1check=35, t2check=56, check1=47, check2=44) Gerhard Muller missed shot.
+(check=3) Minute 65: no shot.
+(check=77) Minute 66: (t1check=37, t2check=22, check1=29, check2=29) Hernan Torres missed shot.
+(check=82) Minute 67: (t1check=58, t2check=66, check1=87, check2=84) (goalchk1=3, goalchk2=-4) Helmut Lange shot on goal. Javier Giraldo SAVE!
+(check=84) Minute 68: (t1check=29, t2check=69, check1=55, check2=52) Helmut Lange missed shot.
+(check=85) Minute 69: (t1check=42, t2check=64, check1=86, check2=83) (goalchk1=20, goalchk2=13) Helmut Lange shot on goal. Javier Giraldo SAVE!
+(check=72) Minute 70: (t1check=67, t2check=83, check1=15, check2=12) Helmut Lange missed shot.
+(check=73) Minute 71: (t1check=80, t2check=26, check1=22, check2=22) Edwin Ruiz missed shot.
+(check=72) Minute 72: (t1check=80, t2check=11, check1=56, check2=56) Edwin Ruiz missed shot.
+(check=71) Minute 73: (t1check=30, t2check=67, check1=10, check2=7) Gerhard Muller missed shot.
+(check=6) Minute 74: no shot.
+(check=87) Minute 75: (t1check=65, t2check=76, check1=64, check2=61) (goalchk1=82, goalchk2=75) Gerhard Muller GOAL!!! Score: 0-2
+(check=34) Minute 76: no shot.
+(check=48) Minute 77: no shot.
+(check=47) Minute 78: no shot.
+(check=14) Minute 79: no shot.
+(check=43) Minute 80: no shot.
+(check=75) Minute 81: (t1check=44, t2check=29, check1=34, check2=34) Orlando Cardona missed shot.
+(check=17) Minute 82: no shot.
+(check=40) Minute 83: no shot.
+(check=6) Minute 84: no shot.
+(check=42) Minute 85: no shot.
+(check=70) Minute 86: (t1check=61, t2check=21, check1=82, check2=82) (goalchk1=99, goalchk2=90) Orlando Cardona GOAL!!! Score: 1-2
+(check=70) Minute 87: (t1check=20, t2check=67, check1=88, check2=85) (goalchk1=16, goalchk2=9) Manfred Fischer shot on goal. Javier Giraldo SAVE!
+(check=80) Minute 88: (t1check=70, t2check=49, check1=46, check2=46) Hernan Torres missed shot.
+(check=9) Minute 89: no shot.
+(check=59) Minute 90: no shot.
+Final score: 1-2

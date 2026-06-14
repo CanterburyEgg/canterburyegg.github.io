@@ -1,0 +1,91 @@
+(check=12) Minute 1: no shot.
+(check=23) Minute 2: no shot.
+(check=28) Minute 3: no shot.
+(check=58) Minute 4: no shot.
+(check=57) Minute 5: no shot.
+(check=36) Minute 6: no shot.
+(check=1) Minute 7: no shot.
+(check=22) Minute 8: no shot.
+(check=66) Minute 9: (t1check=68, t2check=39, check1=8, check2=9) Orlando Cardona missed shot.
+(check=23) Minute 10: no shot.
+(check=39) Minute 11: no shot.
+(check=43) Minute 12: no shot.
+(check=59) Minute 13: no shot.
+(check=53) Minute 14: no shot.
+(check=77) Minute 15: (t1check=70, t2check=34, check1=7, check2=8) Orlando Cardona missed shot.
+(check=80) Minute 16: (t1check=46, t2check=10, check1=24, check2=25) Edwin Ruiz missed shot.
+(check=83) Minute 17: (t1check=32, t2check=59, check1=93, check2=93) (goalchk1=60, goalchk2=53) Gustavo Techera shot on goal. Javier Giraldo SAVE!
+(check=65) Minute 18: no shot.
+(check=60) Minute 19: no shot.
+(check=20) Minute 20: no shot.
+(check=52) Minute 21: no shot.
+(check=86) Minute 22: (t1check=67, t2check=58, check1=55, check2=56) Javier Giraldo missed shot.
+(check=45) Minute 23: no shot.
+(check=28) Minute 24: no shot.
+(check=4) Minute 25: no shot.
+(check=87) Minute 26: (t1check=68, t2check=77, check1=47, check2=47) Carlos Acosta missed shot.
+(check=61) Minute 27: no shot.
+(check=20) Minute 28: no shot.
+(check=26) Minute 29: no shot.
+(check=68) Minute 30: (t1check=79, t2check=38, check1=78, check2=79) (goalchk1=41, goalchk2=34) Hernan Torres shot on goal. Gonzalo Machado SAVE!
+(check=32) Minute 31: no shot.
+(check=30) Minute 32: no shot.
+(check=29) Minute 33: no shot.
+(check=73) Minute 34: (t1check=16, t2check=69, check1=75, check2=75) (goalchk1=79, goalchk2=72) Gustavo Techera GOAL!!! Score: 0-1
+(check=69) Minute 35: (t1check=13, t2check=55, check1=26, check2=26) Carlos Acosta missed shot.
+(check=25) Minute 36: no shot.
+(check=15) Minute 37: no shot.
+(check=33) Minute 38: no shot.
+(check=73) Minute 39: (t1check=22, t2check=49, check1=58, check2=58) Gustavo Techera missed shot.
+(check=79) Minute 40: (t1check=76, t2check=57, check1=100, check2=101) (goalchk1=48, goalchk2=41) Orlando Cardona shot on goal. Gonzalo Machado SAVE!
+(check=83) Minute 41: (t1check=61, t2check=68, check1=94, check2=94) (goalchk1=17, goalchk2=10) Ramon Perdomo shot on goal. Javier Giraldo SAVE!
+(check=18) Minute 42: no shot.
+(check=43) Minute 43: no shot.
+(check=32) Minute 44: no shot.
+(check=16) Minute 45: no shot.
+(check=68) Minute 46: (t1check=24, t2check=21, check1=20, check2=21) Andres Rodriguez missed shot.
+(check=4) Minute 47: no shot.
+(check=61) Minute 48: no shot.
+(check=84) Minute 49: (t1check=75, t2check=9, check1=4, check2=5) Orlando Cardona missed shot.
+(check=38) Minute 50: no shot.
+(check=13) Minute 51: no shot.
+(check=75) Minute 52: (t1check=49, t2check=66, check1=22, check2=22) Gustavo Techera missed shot.
+(check=30) Minute 53: no shot.
+(check=81) Minute 54: (t1check=55, t2check=46, check1=10, check2=11) Edgar Jimenez missed shot.
+(check=54) Minute 55: no shot.
+(check=5) Minute 56: no shot.
+(check=40) Minute 57: no shot.
+(check=82) Minute 58: (t1check=17, t2check=68, check1=79, check2=79) (goalchk1=81, goalchk2=74) Carlos Acosta GOAL!!! Score: 0-2
+(check=6) Minute 59: no shot.
+(check=35) Minute 60: no shot.
+(check=88) Minute 61: (t1check=55, t2check=70, check1=39, check2=39) Carlos Acosta missed shot.
+(check=89) Minute 62: (t1check=51, t2check=30, check1=62, check2=63) (goalchk1=34, goalchk2=27) Orlando Cardona shot on goal. Gonzalo Machado SAVE!
+(check=53) Minute 63: no shot.
+(check=88) Minute 64: (t1check=30, t2check=38, check1=96, check2=96) (goalchk1=2, goalchk2=-5) Carlos Acosta shot on goal. Javier Giraldo SAVE!
+(check=26) Minute 65: no shot.
+(check=59) Minute 66: no shot.
+(check=51) Minute 67: no shot.
+(check=64) Minute 68: no shot.
+(check=29) Minute 69: no shot.
+(check=31) Minute 70: no shot.
+(check=90) Minute 71: (t1check=9, t2check=26, check1=24, check2=24) Gerardo Perez missed shot.
+(check=20) Minute 72: no shot.
+(check=71) Minute 73: (t1check=13, t2check=41, check1=23, check2=23) Carlos Acosta missed shot.
+(check=16) Minute 74: no shot.
+(check=14) Minute 75: no shot.
+(check=56) Minute 76: no shot.
+(check=2) Minute 77: no shot.
+(check=82) Minute 78: (t1check=12, t2check=24, check1=48, check2=48) Gustavo Techera missed shot.
+(check=8) Minute 79: no shot.
+(check=43) Minute 80: no shot.
+(check=43) Minute 81: no shot.
+(check=86) Minute 82: (t1check=61, t2check=66, check1=50, check2=50) Gerardo Perez missed shot.
+(check=82) Minute 83: (t1check=69, t2check=27, check1=41, check2=42) Hernan Torres missed shot.
+(check=27) Minute 84: no shot.
+(check=76) Minute 85: (t1check=80, t2check=35, check1=9, check2=10) Edgar Jimenez missed shot.
+(check=8) Minute 86: no shot.
+(check=49) Minute 87: no shot.
+(check=27) Minute 88: no shot.
+(check=46) Minute 89: no shot.
+(check=48) Minute 90: no shot.
+Final score: 0-2

@@ -1,0 +1,91 @@
+(check=18) Minute 1: no shot.
+(check=87) Minute 2: (t1check=63, t2check=71, check1=38, check2=39) Joao Silva missed shot.
+(check=63) Minute 3: no shot.
+(check=55) Minute 4: no shot.
+(check=59) Minute 5: no shot.
+(check=67) Minute 6: (t1check=67, t2check=75, check1=30, check2=31) Carlos Pereira missed shot.
+(check=86) Minute 7: (t1check=27, t2check=28, check1=39, check2=40) Ricardo Goncalves missed shot.
+(check=69) Minute 8: (t1check=19, t2check=28, check1=71, check2=72) (goalchk1=52, goalchk2=46) Ricardo Goncalves shot on goal. Clive Jones SAVE!
+(check=72) Minute 9: (t1check=25, t2check=50, check1=87, check2=88) (goalchk1=69, goalchk2=63) Joao Silva shot on goal. Clive Jones SAVE!
+(check=13) Minute 10: no shot.
+(check=72) Minute 11: (t1check=73, t2check=24, check1=34, check2=36) Colin Pugh missed shot.
+(check=20) Minute 12: no shot.
+(check=41) Minute 13: no shot.
+(check=63) Minute 14: no shot.
+(check=21) Minute 15: no shot.
+(check=12) Minute 16: no shot.
+(check=55) Minute 17: no shot.
+(check=21) Minute 18: no shot.
+(check=18) Minute 19: no shot.
+(check=78) Minute 20: (t1check=67, t2check=47, check1=34, check2=36) Craig Young missed shot.
+(check=32) Minute 21: no shot.
+(check=78) Minute 22: (t1check=66, t2check=61, check1=45, check2=47) Clive Jones missed shot.
+(check=61) Minute 23: no shot.
+(check=78) Minute 24: (t1check=10, t2check=53, check1=52, check2=53) Joao Silva missed shot.
+(check=2) Minute 25: no shot.
+(check=87) Minute 26: (t1check=16, t2check=10, check1=40, check2=42) Craig Young missed shot.
+(check=66) Minute 27: (t1check=14, t2check=13, check1=72, check2=74) (goalchk1=84, goalchk2=78) Craig Young GOAL!!! Score: 1-0
+(check=48) Minute 28: no shot.
+(check=53) Minute 29: no shot.
+(check=54) Minute 30: no shot.
+(check=6) Minute 31: no shot.
+(check=29) Minute 32: no shot.
+(check=37) Minute 33: no shot.
+(check=41) Minute 34: no shot.
+(check=3) Minute 35: no shot.
+(check=66) Minute 36: (t1check=30, t2check=42, check1=8, check2=9) Carlos Pereira missed shot.
+(check=88) Minute 37: (t1check=73, t2check=48, check1=61, check2=63) (goalchk1=40, goalchk2=34) Malcolm Hopkins shot on goal. Vitor Correia SAVE!
+(check=34) Minute 38: no shot.
+(check=7) Minute 39: no shot.
+(check=73) Minute 40: (t1check=52, t2check=69, check1=11, check2=12) Ricardo Goncalves missed shot.
+(check=74) Minute 41: (t1check=12, t2check=69, check1=76, check2=77) (goalchk1=39, goalchk2=33) Ricardo Goncalves shot on goal. Clive Jones SAVE!
+(check=3) Minute 42: no shot.
+(check=90) Minute 43: (t1check=15, t2check=37, check1=29, check2=30) Carlos Pereira missed shot.
+(check=49) Minute 44: no shot.
+(check=10) Minute 45: no shot.
+(check=56) Minute 46: no shot.
+(check=53) Minute 47: no shot.
+(check=63) Minute 48: no shot.
+(check=85) Minute 49: (t1check=74, t2check=41, check1=63, check2=65) (goalchk1=7, goalchk2=1) Clive Jones shot on goal. Vitor Correia SAVE!
+(check=74) Minute 50: (t1check=59, t2check=35, check1=17, check2=19) Craig Young missed shot.
+(check=34) Minute 51: no shot.
+(check=66) Minute 52: (t1check=76, t2check=24, check1=48, check2=50) Colin Pugh missed shot.
+(check=54) Minute 53: no shot.
+(check=64) Minute 54: no shot.
+(check=84) Minute 55: (t1check=56, t2check=13, check1=90, check2=92) (goalchk1=44, goalchk2=38) Malcolm Hopkins shot on goal. Vitor Correia SAVE!
+(check=63) Minute 56: no shot.
+(check=42) Minute 57: no shot.
+(check=46) Minute 58: no shot.
+(check=85) Minute 59: (t1check=50, t2check=63, check1=86, check2=87) (goalchk1=50, goalchk2=44) Ricardo Goncalves shot on goal. Clive Jones SAVE!
+(check=16) Minute 60: no shot.
+(check=2) Minute 61: no shot.
+(check=81) Minute 62: (t1check=61, t2check=65, check1=58, check2=59) Ricardo Goncalves missed shot.
+(check=61) Minute 63: no shot.
+(check=60) Minute 64: no shot.
+(check=80) Minute 65: (t1check=51, t2check=48, check1=58, check2=60) Malcolm Hopkins missed shot.
+(check=41) Minute 66: no shot.
+(check=35) Minute 67: no shot.
+(check=24) Minute 68: no shot.
+(check=47) Minute 69: no shot.
+(check=83) Minute 70: (t1check=65, t2check=25, check1=66, check2=68) (goalchk1=55, goalchk2=49) Craig Young shot on goal. Vitor Correia SAVE!
+(check=70) Minute 71: (t1check=43, t2check=29, check1=37, check2=39) Colin Pugh missed shot.
+(check=78) Minute 72: (t1check=57, t2check=73, check1=79, check2=80) (goalchk1=63, goalchk2=57) Joao Silva shot on goal. Clive Jones SAVE!
+(check=85) Minute 73: (t1check=57, t2check=69, check1=34, check2=35) Fernando Ribiero missed shot.
+(check=59) Minute 74: no shot.
+(check=21) Minute 75: no shot.
+(check=3) Minute 76: no shot.
+(check=19) Minute 77: no shot.
+(check=79) Minute 78: (t1check=15, t2check=66, check1=8, check2=9) Ricardo Goncalves missed shot.
+(check=51) Minute 79: no shot.
+(check=54) Minute 80: no shot.
+(check=8) Minute 81: no shot.
+(check=76) Minute 82: (t1check=27, t2check=75, check1=84, check2=85) (goalchk1=48, goalchk2=42) Joao Silva shot on goal. Clive Jones SAVE!
+(check=73) Minute 83: (t1check=24, t2check=80, check1=39, check2=40) Joao Silva missed shot.
+(check=72) Minute 84: (t1check=70, t2check=62, check1=10, check2=12) Rhys Howells missed shot.
+(check=34) Minute 85: no shot.
+(check=47) Minute 86: no shot.
+(check=5) Minute 87: no shot.
+(check=51) Minute 88: no shot.
+(check=62) Minute 89: no shot.
+(check=90) Minute 90: (t1check=47, t2check=23, check1=1, check2=3) Colin Pugh missed shot.
+Final score: 1-0

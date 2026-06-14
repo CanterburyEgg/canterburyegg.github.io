@@ -1,0 +1,91 @@
+(check=41) Minute 1: no shot.
+(check=18) Minute 2: no shot.
+(check=42) Minute 3: no shot.
+(check=37) Minute 4: no shot.
+(check=71) Minute 5: (t1check=74, t2check=15, check1=55, check2=52) Koji Suzuki missed shot.
+(check=10) Minute 6: no shot.
+(check=15) Minute 7: no shot.
+(check=73) Minute 8: (t1check=10, t2check=22, check1=34, check2=36) Levan Tsiklauri missed shot.
+(check=26) Minute 9: no shot.
+(check=16) Minute 10: no shot.
+(check=67) Minute 11: (t1check=65, t2check=5, check1=26, check2=23) Akira Maeda missed shot.
+(check=13) Minute 12: no shot.
+(check=84) Minute 13: (t1check=23, t2check=52, check1=43, check2=45) Nikoloz Kapanadze missed shot.
+(check=75) Minute 14: (t1check=33, t2check=41, check1=67, check2=69) (goalchk1=29, goalchk2=23) Levan Tsiklauri shot on goal. Kenji Yamaguchi SAVE!
+(check=83) Minute 15: (t1check=7, t2check=50, check1=13, check2=15) Levan Tsiklauri missed shot.
+(check=82) Minute 16: (t1check=53, t2check=48, check1=77, check2=74) (goalchk1=29, goalchk2=26) Yukio Ono shot on goal. Giorgi Gogoladze SAVE!
+(check=72) Minute 17: (t1check=44, t2check=49, check1=92, check2=94) (goalchk1=50, goalchk2=44) Zaza Gelashvili shot on goal. Kenji Yamaguchi SAVE!
+(check=8) Minute 18: no shot.
+(check=54) Minute 19: no shot.
+(check=22) Minute 20: no shot.
+(check=38) Minute 21: no shot.
+(check=77) Minute 22: (t1check=41, t2check=29, check1=33, check2=30) Akira Maeda missed shot.
+(check=24) Minute 23: no shot.
+(check=49) Minute 24: no shot.
+(check=28) Minute 25: no shot.
+(check=40) Minute 26: no shot.
+(check=72) Minute 27: (t1check=9, t2check=54, check1=30, check2=32) Levan Tsiklauri missed shot.
+(check=27) Minute 28: no shot.
+(check=24) Minute 29: no shot.
+(check=49) Minute 30: no shot.
+(check=23) Minute 31: no shot.
+(check=33) Minute 32: no shot.
+(check=3) Minute 33: no shot.
+(check=36) Minute 34: no shot.
+(check=67) Minute 35: (t1check=22, t2check=50, check1=86, check2=88) (goalchk1=32, goalchk2=26) Zaza Gelashvili shot on goal. Kenji Yamaguchi SAVE!
+(check=1) Minute 36: no shot.
+(check=30) Minute 37: no shot.
+(check=40) Minute 38: no shot.
+(check=26) Minute 39: no shot.
+(check=83) Minute 40: (t1check=77, t2check=8, check1=6, check2=3) Hiroshi Ito missed shot.
+(check=50) Minute 41: no shot.
+(check=25) Minute 42: no shot.
+(check=16) Minute 43: no shot.
+(check=58) Minute 44: no shot.
+(check=21) Minute 45: no shot.
+(check=31) Minute 46: no shot.
+(check=16) Minute 47: no shot.
+(check=44) Minute 48: no shot.
+(check=38) Minute 49: no shot.
+(check=68) Minute 50: (t1check=18, t2check=27, check1=23, check2=25) Zaza Gelashvili missed shot.
+(check=62) Minute 51: no shot.
+(check=75) Minute 52: (t1check=21, t2check=4, check1=24, check2=21) Koji Suzuki missed shot.
+(check=43) Minute 53: no shot.
+(check=24) Minute 54: no shot.
+(check=65) Minute 55: no shot.
+(check=1) Minute 56: no shot.
+(check=11) Minute 57: no shot.
+(check=48) Minute 58: no shot.
+(check=88) Minute 59: (t1check=44, t2check=31, check1=100, check2=97) (goalchk1=100, goalchk2=97) Yukio Ono GOAL!!! Score: 1-0
+(check=24) Minute 60: no shot.
+(check=45) Minute 61: no shot.
+(check=65) Minute 62: no shot.
+(check=25) Minute 63: no shot.
+(check=8) Minute 64: no shot.
+(check=66) Minute 65: (t1check=10, t2check=44, check1=80, check2=82) (goalchk1=37, goalchk2=31) Aleqsandre Beridze shot on goal. Kenji Yamaguchi SAVE!
+(check=80) Minute 66: (t1check=78, t2check=54, check1=9, check2=6) Koji Suzuki missed shot.
+(check=68) Minute 67: (t1check=57, t2check=65, check1=46, check2=48) Davit Mamedova missed shot.
+(check=87) Minute 68: (t1check=27, t2check=44, check1=34, check2=36) Zaza Gelashvili missed shot.
+(check=47) Minute 69: no shot.
+(check=64) Minute 70: no shot.
+(check=33) Minute 71: no shot.
+(check=17) Minute 72: no shot.
+(check=88) Minute 73: (t1check=62, t2check=38, check1=4, check2=1) Kenji Yamaguchi missed shot.
+(check=75) Minute 74: (t1check=37, t2check=59, check1=53, check2=55) Levan Tsiklauri missed shot.
+(check=38) Minute 75: no shot.
+(check=87) Minute 76: (t1check=13, t2check=37, check1=56, check2=58) Aleqsandre Beridze missed shot.
+(check=83) Minute 77: (t1check=24, t2check=7, check1=15, check2=12) Yukio Ono missed shot.
+(check=14) Minute 78: no shot.
+(check=74) Minute 79: (t1check=17, t2check=34, check1=30, check2=32) Nikoloz Kapanadze missed shot.
+(check=83) Minute 80: (t1check=12, t2check=55, check1=21, check2=23) Levan Tsiklauri missed shot.
+(check=36) Minute 81: no shot.
+(check=69) Minute 82: (t1check=51, t2check=7, check1=13, check2=10) Hiroshi Ito missed shot.
+(check=52) Minute 83: no shot.
+(check=30) Minute 84: no shot.
+(check=64) Minute 85: no shot.
+(check=16) Minute 86: no shot.
+(check=38) Minute 87: no shot.
+(check=87) Minute 88: (t1check=23, t2check=65, check1=42, check2=44) Nikoloz Kapanadze missed shot.
+(check=23) Minute 89: no shot.
+(check=34) Minute 90: no shot.
+Final score: 1-0

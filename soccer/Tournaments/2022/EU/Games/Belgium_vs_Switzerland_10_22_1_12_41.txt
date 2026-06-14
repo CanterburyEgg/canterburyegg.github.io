@@ -1,0 +1,91 @@
+(check=3) Minute 1: no shot.
+(check=6) Minute 2: no shot.
+(check=6) Minute 3: no shot.
+(check=3) Minute 4: no shot.
+(check=2) Minute 5: no shot.
+(check=7) Minute 6: no shot.
+(check=2) Minute 7: no shot.
+(check=6) Minute 8: no shot.
+(check=7) Minute 9: no shot.
+(check=8) Minute 10: (t1check=65, t2check=25, check1=22, check2=24) Jean-Pierre de Clercq missed shot.
+(check=3) Minute 11: no shot.
+(check=5) Minute 12: no shot.
+(check=10) Minute 13: (t1check=46, t2check=76, check1=3, check2=-1) Peter Buhler missed shot.
+(check=1) Minute 14: no shot.
+(check=4) Minute 15: no shot.
+(check=6) Minute 16: no shot.
+(check=7) Minute 17: no shot.
+(check=4) Minute 18: no shot.
+(check=5) Minute 19: no shot.
+(check=9) Minute 20: (t1check=67, t2check=13, check1=67, check2=69) (goalchk1=76, goalchk2=70) Jean-Pierre de Clercq shot on goal. Rolf Bachmann SAVE!
+(check=1) Minute 21: no shot.
+(check=8) Minute 22: (t1check=40, t2check=19, check1=78, check2=80) (goalchk1=53, goalchk2=47) Jean-Pierre de Clercq shot on goal. Rolf Bachmann SAVE!
+(check=1) Minute 23: no shot.
+(check=3) Minute 24: no shot.
+(check=2) Minute 25: no shot.
+(check=6) Minute 26: no shot.
+(check=9) Minute 27: (t1check=74, t2check=54, check1=93, check2=95) (goalchk1=45, goalchk2=39) Marc Renard shot on goal. Rolf Bachmann SAVE!
+(check=9) Minute 28: (t1check=27, t2check=69, check1=63, check2=59) (goalchk1=70, goalchk2=63) Andreas Wyss shot on goal. Christian Janssen SAVE!
+(check=2) Minute 29: no shot.
+(check=1) Minute 30: no shot.
+(check=7) Minute 31: no shot.
+(check=9) Minute 32: (t1check=28, t2check=75, check1=19, check2=15) Marcel Roth missed shot.
+(check=7) Minute 33: no shot.
+(check=5) Minute 34: no shot.
+(check=7) Minute 35: no shot.
+(check=2) Minute 36: no shot.
+(check=6) Minute 37: no shot.
+(check=5) Minute 38: no shot.
+(check=1) Minute 39: no shot.
+(check=8) Minute 40: (t1check=36, t2check=71, check1=51, check2=47) (goalchk1=86, goalchk2=79) Marcel Roth shot on goal. Christian Janssen SAVE!
+(check=9) Minute 41: (t1check=62, t2check=42, check1=65, check2=67) (goalchk1=87, goalchk2=81) Alain Goossens shot on goal. Rolf Bachmann SAVE!
+(check=9) Minute 42: (t1check=45, t2check=46, check1=96, check2=92) (goalchk1=26, goalchk2=19) Andreas Wyss shot on goal. Christian Janssen SAVE!
+(check=6) Minute 43: no shot.
+(check=7) Minute 44: no shot.
+(check=4) Minute 45: no shot.
+(check=6) Minute 46: no shot.
+(check=7) Minute 47: no shot.
+(check=10) Minute 48: (t1check=36, t2check=29, check1=83, check2=85) (goalchk1=94, goalchk2=88) Alain Goossens GOAL!!! Score: 1-0
+(check=3) Minute 49: no shot.
+(check=7) Minute 50: no shot.
+(check=1) Minute 51: no shot.
+(check=10) Minute 52: (t1check=16, t2check=15, check1=82, check2=84) (goalchk1=89, goalchk2=83) Christian Janssen GOAL!!! Score: 2-0
+(check=9) Minute 53: (t1check=34, t2check=35, check1=44, check2=40) Rolf Bachmann missed shot.
+(check=4) Minute 54: no shot.
+(check=4) Minute 55: no shot.
+(check=9) Minute 56: (t1check=80, t2check=20, check1=10, check2=12) Geert Verhoeven missed shot.
+(check=5) Minute 57: no shot.
+(check=9) Minute 58: (t1check=74, t2check=55, check1=7, check2=9) Jean-Pierre de Clercq missed shot.
+(check=9) Minute 59: (t1check=13, t2check=45, check1=41, check2=37) Werner Frei missed shot.
+(check=9) Minute 60: (t1check=42, t2check=67, check1=24, check2=20) Stefan Meier missed shot.
+(check=5) Minute 61: no shot.
+(check=1) Minute 62: no shot.
+(check=9) Minute 63: (t1check=58, t2check=28, check1=36, check2=38) Vincent van de Velde missed shot.
+(check=1) Minute 64: no shot.
+(check=4) Minute 65: no shot.
+(check=1) Minute 66: no shot.
+(check=6) Minute 67: no shot.
+(check=4) Minute 68: no shot.
+(check=7) Minute 69: no shot.
+(check=1) Minute 70: no shot.
+(check=3) Minute 71: no shot.
+(check=4) Minute 72: no shot.
+(check=8) Minute 73: (t1check=75, t2check=69, check1=48, check2=50) (goalchk1=100, goalchk2=94) Jean-Pierre de Clercq GOAL!!! Score: 3-0
+(check=2) Minute 74: no shot.
+(check=9) Minute 75: (t1check=46, t2check=76, check1=32, check2=28) Andreas Wyss missed shot.
+(check=10) Minute 76: (t1check=20, t2check=45, check1=46, check2=42) (goalchk1=56, goalchk2=49) Werner Frei shot on goal. Christian Janssen SAVE!
+(check=4) Minute 77: no shot.
+(check=1) Minute 78: no shot.
+(check=1) Minute 79: no shot.
+(check=9) Minute 80: (t1check=19, t2check=30, check1=30, check2=26) Rolf Bachmann missed shot.
+(check=6) Minute 81: no shot.
+(check=7) Minute 82: no shot.
+(check=7) Minute 83: no shot.
+(check=5) Minute 84: no shot.
+(check=8) Minute 85: (t1check=28, t2check=19, check1=4, check2=6) Jean-Pierre de Clercq missed shot.
+(check=8) Minute 86: (t1check=82, t2check=66, check1=56, check2=58) (goalchk1=39, goalchk2=33) Marc Renard shot on goal. Rolf Bachmann SAVE!
+(check=10) Minute 87: (t1check=22, t2check=33, check1=4, check2=0) Peter Buhler missed shot.
+(check=2) Minute 88: no shot.
+(check=9) Minute 89: (t1check=15, t2check=66, check1=87, check2=83) (goalchk1=10, goalchk2=3) Stefan Meier shot on goal. Christian Janssen SAVE!
+(check=2) Minute 90: no shot.
+Final score: 3-0

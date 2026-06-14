@@ -34,6 +34,21 @@
             padding: 2rem;
             text-align: center;
             border-bottom: 2px solid var(--accent);
+            position: relative;
+        }
+
+        #year-select {
+            position: absolute;
+            top: 2.5rem;
+            right: 2rem;
+            padding: 0.5rem 1rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text);
+            cursor: pointer;
         }
 
         h1 {
@@ -92,7 +107,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -107,7 +122,7 @@
 
         .standings-group {
             width: 100%;
-            max-width: 580px; /* Matching the approximate width in 2-column layout */
+            max-width: 580px;
             margin: 0 auto;
         }
 
@@ -157,41 +172,38 @@
             width: 24px;
             height: 16px;
             object-fit: cover;
-            border-radius: 2px;
             vertical-align: middle;
             margin-right: 8px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
             border: 1px solid #e2e8f0;
         }
 
         .flag-large {
-            width: 120px;
+            max-width: 120px;
             height: auto;
             max-height: 80px;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
             flex-shrink: 0;
-            object-fit: contain;
-            background: #f8fafc;
+            border: 1px solid #e2e8f0;
         }
 
         /* Bracket */
         .bracket-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: safe center;
+            align-items: flex-start;
             gap: 4rem;
-            padding: 2rem 0;
+            padding: 2rem;
             overflow-x: auto;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.02);
+            border: 1px solid var(--border);
         }
 
         .bracket-round {
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
             gap: 2rem;
-            width: 320px;
+            width: 300px;
+            flex-shrink: 0;
         }
 
         .match-card {
@@ -328,6 +340,7 @@
             display: inline-block;
             padding-bottom: 0.25rem;
             margin-top: 0;
+            margin-bottom: 0.25rem;
         }
 
         /* Group Matches List */
@@ -335,7 +348,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1rem;
-            margin-bottom: .5rem;
+            margin-top: .5rem;
         }
 
         .hidden { display: none; }
@@ -348,13 +361,18 @@
 <body>
 
     <header>
-        <h1>WORLD CUP 2026</h1>
+        <h1>ROAD TO THE WORLD CUP 2026</h1>
+        <select id="year-select" onchange="loadYear(this.value)">
+            <option value="2026">2026</option>
+            <option value="2022">2022</option>
+        </select>
     </header>
 
     <div id="navigation-root">
-        <div class="nav-bar" id="region-nav">
+        <div class="nav-bar sub-nav" id="region-nav">
             <button class="nav-item" onclick="loadRegion('WC', this)">World Cup</button>
-            <button class="nav-item active" onclick="loadRegion('AS', this)">Asia</button>
+            <button class="nav-item" id="btn-play-in" onclick="loadRegion('PI', this)">Play-In</button>
+            <button class="nav-item" onclick="loadRegion('AS', this)">Asia</button>
             <button class="nav-item" onclick="loadRegion('AFR', this)">Africa</button>
             <button class="nav-item" onclick="loadRegion('OCE', this)">Oceania</button>
             <button class="nav-item" onclick="loadRegion('NA', this)">N. America</button>
@@ -383,13 +401,26 @@
 
     <script>
         const REGION_DATA = {
-            'AS': 'soccer/Tournaments/2026/AS/results.json',
-            'AFR': 'soccer/Tournaments/2026/AFR/results.json',
-            'OCE': 'soccer/Tournaments/2026/OCE/results.json',
-            'NA': 'soccer/Tournaments/2026/NA/results.json',
-            'SA': 'soccer/Tournaments/2026/SA/results.json',
-            'EU': 'soccer/Tournaments/2026/EU/results.json',
-            'WC': 'soccer/Tournaments/2026/World Cup/results.json'
+            '2026': {
+                'WC': 'soccer/Tournaments/2026/World Cup/results.json',
+                'PI': 'soccer/Tournaments/2026/Play-In/results.json',
+                'AS': 'soccer/Tournaments/2026/AS/results.json',
+                'AFR': 'soccer/Tournaments/2026/AFR/results.json',
+                'OCE': 'soccer/Tournaments/2026/OCE/results.json',
+                'NA': 'soccer/Tournaments/2026/NA/results.json',
+                'SA': 'soccer/Tournaments/2026/SA/results.json',
+                'EU': 'soccer/Tournaments/2026/EU/results.json'
+            },
+            '2022': {
+                'WC': 'soccer/Tournaments/2022/World Cup/results.json',
+                'PI': 'soccer/Tournaments/2022/Play-In/results.json',
+                'AS': 'soccer/Tournaments/2022/AS/results.json',
+                'AFR': 'soccer/Tournaments/2022/AFR/results.json',
+                'OCE': 'soccer/Tournaments/2022/OCE/results.json',
+                'NA': 'soccer/Tournaments/2022/NA/results.json',
+                'SA': 'soccer/Tournaments/2022/SA/results.json',
+                'EU': 'soccer/Tournaments/2022/EU/results.json'
+            }
         };
 
         const FLAG_MAP = {
@@ -414,11 +445,14 @@
             "Switzerland": "ch", "Northern Ireland": "gb-nir", "Germany": "de", "Poland": "pl",
             "Spain": "es", "Slovenia": "si", "Israel": "il", "Scotland": "gb-sct",
             "Italy": "it", "Slovakia": "sk", "Belgium": "be", "Romania": "ro",
-            "Austria": "at", "Ukraine": "ua", "Portugal": "pt", "Hungary": "hu"
+            "Austria": "at", "Ukraine": "ua", "Portugal": "pt", "Hungary": "hu",
+            "Georgia": "ge", "Papua New Guinea": "pg", "Jamaica": "jm"
         };
 
         let currentData = null;
         let currentStage = 'group';
+        let currentYear = '2026';
+        let currentRegion = 'WC';
         let viewState = 'main'; // 'main' or 'team'
 
         function getFlagUrl(team) {
@@ -436,12 +470,39 @@
             renderCurrentStage();
         }
 
+        function updateHeader() {
+            const h1 = document.querySelector('header h1');
+            if (currentRegion === 'WC') {
+                h1.innerText = `WORLD CUP ${currentYear}`;
+            } else {
+                h1.innerText = `ROAD TO THE WORLD CUP ${currentYear}`;
+            }
+        }
+
+        async function loadYear(year) {
+            currentYear = year;
+            updateHeader();
+            
+            // Toggle Play-In button visibility
+            const playInBtn = document.getElementById('btn-play-in');
+            if (playInBtn) {
+                playInBtn.style.display = (year === '2026') ? 'none' : 'inline-block';
+            }
+
+            // Always default to World Cup when flipping years
+            loadRegion('WC');
+        }
+
         async function loadRegion(regionCode, el) {
+            currentRegion = regionCode;
             viewState = 'main';
             document.getElementById('navigation-root').style.display = 'block';
+            
+            updateHeader();
 
             // Update URL without refreshing
             const url = new URL(window.location);
+            url.searchParams.set('year', currentYear);
             url.searchParams.set('region', regionCode);
             window.history.pushState({}, '', url);
 
@@ -451,7 +512,6 @@
             } else {
                 // Find and activate the correct button (e.g. on load)
                 document.querySelectorAll('#region-nav .nav-item').forEach(btn => {
-                    const text = btn.innerText.toUpperCase();
                     if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${regionCode}'`)) {
                         btn.classList.add('active');
                     } else {
@@ -459,15 +519,20 @@
                     }
                 });
             }
+
+            const path = REGION_DATA[currentYear][regionCode];
             const content = document.getElementById('content');
             content.innerHTML = '<div class="loading">Fetching tournament data...</div>';
             
+            // Auto-reset to group stage when switching regions
+            showStage('group', document.getElementById('btn-group'));
+            
             try {
-                const response = await fetch(REGION_DATA[regionCode]);
+                const response = await fetch(path);
                 currentData = await response.json();
                 renderCurrentStage();
             } catch (err) {
-                content.innerHTML = `<div class="loading">Error loading data: ${err.message}</div>`;
+                content.innerHTML = `<div class="loading">Error loading data for ${currentYear} ${regionCode}: ${err.message}</div>`;
             }
         }
 
@@ -565,86 +630,96 @@
                 }
             });
 
-            // Get team matches
-            const teamMatches = groupData.matches.filter(m => m.teams.includes(teamName));
-            if (currentData.playoffs) {
-                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
-                const playoffMatches = [...currentData.playoffs.semifinals, ...finals];
-                teamMatches.push(...playoffMatches.filter(m => m.teams.includes(teamName)));
+            if (!groupData) {
+                content.innerHTML = `<div class="loading">Team not found in current data.</div>`;
+                return;
             }
+
+            // Get team matches with robust deduplication
+            const teamMatches = [];
+            const seenMatchKeys = new Set();
+            
+            const addMatchToTeamList = (m) => {
+                if (!m.teams.includes(teamName)) return;
+                // Use match ID or create a stable key without sorting the original array
+                const matchKey = m.id || m.log_path || ([...m.teams].sort().join('|') + (m.day || 'x') + m.score.join('|'));
+                if (seenMatchKeys.has(matchKey)) return;
+                seenMatchKeys.add(matchKey);
+                teamMatches.push(m);
+            };
+
+            // Look through ALL groups because cross-group matches might be in either
+            // Only include GROUP matches for the team page
+            Object.values(currentData.groups).forEach(g => g.matches.forEach(addMatchToTeamList));
+            
+            // Sort team matches chronologically if day exists
+            teamMatches.sort((a, b) => (a.day || 0) - (b.day || 0));
 
             // Load roster and aggregate stats
             let rosterHtml = '<p>Loading roster...</p>';
             try {
-                // Aggregating stats
                 const playerStats = {};
-            const goalkeeperStats = {};
-            const allMatches = [];
-            Object.values(currentData.groups).forEach(g => allMatches.push(...g.matches));
-            if (currentData.playoffs) {
-                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
-                allMatches.push(...currentData.playoffs.semifinals, ...finals);
-            }
+                const goalkeeperStats = {};
 
-            allMatches.forEach(m => {
-                if (m.played && m.teams.includes(teamName)) {
-                    const side = m.teams[0] === teamName ? 'team1' : 'team2';
-                    m.player_data[side].forEach((p, idx) => {
-                        if (idx === 6) { // Goalkeeper is the 7th player
-                            if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
-                            goalkeeperStats[p.name].saves += (p.saves || 0);
-                            goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
-                        } else {
-                            if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0 };
-                            playerStats[p.name].shots += p.shots;
-                            playerStats[p.name].sogs += p.sogs;
-                            playerStats[p.name].goals += p.goals;
-                        }
-                    });
-                }
-            });
+                teamMatches.forEach(m => {
+                    if (m.played) {
+                        const side = m.teams[0] === teamName ? 'team1' : 'team2';
+                        m.player_data[side].forEach((p, idx) => {
+                            if (idx === 6) {
+                                if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
+                                goalkeeperStats[p.name].saves += (p.saves || 0);
+                                goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
+                            } else {
+                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0 };
+                                playerStats[p.name].shots += p.shots;
+                                playerStats[p.name].sogs += p.sogs;
+                                playerStats[p.name].goals += p.goals;
+                            }
+                        });
+                    }
+                });
 
-            rosterHtml = `
-                <h3>Roster & Statistics</h3>
-                <table>
-                    <thead>
-                        <tr><th>Player Name</th><th>Shots</th><th>SOG</th><th>Goals</th></tr>
-                    </thead>
-                    <tbody>
-                        ${Object.entries(playerStats)
-                            .sort((a,b) => b[1].goals - a[1].goals || b[1].sogs - a[1].sogs || b[1].shots - a[1].shots)
-                            .map(([name, stats]) => `
-                                <tr>
-                                    <td>${name}</td>
-                                    <td>${stats.shots}</td>
-                                    <td>${stats.sogs}</td>
-                                    <td>${stats.goals}</td>
-                                </tr>
-                            `).join('')}
-                    </tbody>
-                </table>
-
-                <table>
-                    <thead>
-                        <tr><th>Player Name</th><th>Saves</th><th>OPP</th><th>Save %</th></tr>
-                    </thead>
-                    <tbody>
-                        ${Object.entries(goalkeeperStats)
-                            .map(([name, stats]) => {
-                                const opps = stats.saves + stats.goals_against;
-                                const pct = opps > 0 ? ((stats.saves / opps) * 100).toFixed(1) : '0.0';
-                                return `
+                rosterHtml = `
+                    <h3>Roster & Statistics</h3>
+                    <table>
+                        <thead>
+                            <tr><th>Player Name</th><th>Shots</th><th>SOG</th><th>Goals</th></tr>
+                        </thead>
+                        <tbody>
+                            ${Object.entries(playerStats)
+                                .sort((a,b) => b[1].goals - a[1].goals || b[1].sogs - a[1].sogs || b[1].shots - a[1].shots)
+                                .map(([name, stats]) => `
                                     <tr>
                                         <td>${name}</td>
-                                        <td>${stats.saves}</td>
-                                        <td>${opps}</td>
-                                        <td>${pct}%</td>
+                                        <td>${stats.shots}</td>
+                                        <td>${stats.sogs}</td>
+                                        <td>${stats.goals}</td>
                                     </tr>
-                                `;
-                            }).join('')}
-                    </tbody>
-                </table>
-            `;
+                                `).join('')}
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <thead>
+                            <tr><th>Player Name</th><th>Saves</th><th>OPP</th><th>Save %</th></tr>
+                        </thead>
+                        <tbody>
+                            ${Object.entries(goalkeeperStats)
+                                .map(([name, stats]) => {
+                                    const opps = stats.saves + stats.goals_against;
+                                    const pct = opps > 0 ? ((stats.saves / opps) * 100).toFixed(1) : '0.0';
+                                    return `
+                                        <tr>
+                                            <td>${name}</td>
+                                            <td>${stats.saves}</td>
+                                            <td>${opps}</td>
+                                            <td>${pct}%</td>
+                                        </tr>
+                                    `;
+                                }).join('')}
+                        </tbody>
+                    </table>
+                `;
             } catch (err) {
                 rosterHtml = '<p>Roster data unavailable.</p>';
             }
@@ -685,7 +760,7 @@
                 </div>
 
                 <h3>Matches</h3>
-                <div class="matches-list" style="grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+                <div class="matches-list">
                     ${teamMatches.map(m => {
                         const card = createMatchCard(m);
                         return card.outerHTML;
@@ -707,28 +782,87 @@
                 return;
             }
 
+            const playoffs = currentData.playoffs;
+
+            if (playoffs.type === 'list' || (!playoffs.semifinals && !playoffs.rounds)) {
+                // Render as a simple list/grid of matches
+                const matches = playoffs.matches || [...(playoffs.semifinals || []), ...(playoffs.finals || [])];
+                container.innerHTML = '<h3>Playoff Matches</h3>';
+                const grid = document.createElement('div');
+                grid.className = 'matches-list';
+                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+                matches.forEach(m => grid.appendChild(createMatchCard(m)));
+                container.appendChild(grid);
+                return;
+            }
+
             const bracket = document.createElement('div');
             bracket.className = 'bracket-container';
 
-            // Semifinals
-            const semiRound = document.createElement('div');
-            semiRound.className = 'bracket-round';
-            semiRound.innerHTML = '<h3>Semifinals</h3>';
-            currentData.playoffs.semifinals.forEach(match => {
-                semiRound.appendChild(createMatchCard(match));
-            });
+            if (playoffs.rounds) {
+                // Support multi-round brackets (e.g. World Cup)
+                playoffs.rounds.forEach((round, rIdx) => {
+                    const roundDiv = document.createElement('div');
+                    roundDiv.className = 'bracket-round';
+                    
+                    if (round.name === 'Finals' && round.matches.length > 1) {
+                        // Special handling for Finals + Third Place
+                        roundDiv.innerHTML = `<h3>Finals</h3>`;
+                        
+                        // Heuristic: The match between previous round losers is 3rd place
+                        const prevRound = playoffs.rounds[rIdx-1];
+                        if (prevRound) {
+                            const semiLosers = [];
+                            prevRound.matches.forEach(m => {
+                                const s1 = m.score[0], s2 = m.score[1];
+                                const p1 = m.pk_score ? m.pk_score[0] : null;
+                                const p2 = m.pk_score ? m.pk_score[1] : null;
+                                const winner = (p1 !== null ? p1 > p2 : s1 > s2) ? m.teams[0] : m.teams[1];
+                                semiLosers.push(m.teams.find(t => t !== winner));
+                            });
 
-            // Finals
-            const finalRound = document.createElement('div');
-            finalRound.className = 'bracket-round';
-            finalRound.innerHTML = '<h3>Finals</h3>';
-            const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
-            finals.forEach(match => {
-                finalRound.appendChild(createMatchCard(match));
-            });
+                            const thirdPlaceMatch = round.matches.find(m => 
+                                m.teams.includes(semiLosers[0]) && m.teams.includes(semiLosers[1])
+                            );
+                            const finalMatch = round.matches.find(m => m !== thirdPlaceMatch);
 
-            bracket.appendChild(semiRound);
-            bracket.appendChild(finalRound);
+                            if (finalMatch) roundDiv.appendChild(createMatchCard(finalMatch));
+                            if (thirdPlaceMatch) {
+                                const h3 = document.createElement('h3');
+                                h3.innerText = 'Third-Place Match';
+                                h3.style.marginTop = '4rem';
+                                roundDiv.appendChild(h3);
+                                roundDiv.appendChild(createMatchCard(thirdPlaceMatch));
+                            }
+                        } else {
+                            round.matches.forEach(match => roundDiv.appendChild(createMatchCard(match)));
+                        }
+                    } else {
+                        roundDiv.innerHTML = `<h3>${round.name}</h3>`;
+                        round.matches.forEach(match => roundDiv.appendChild(createMatchCard(match)));
+                    }
+                    bracket.appendChild(roundDiv);
+                });
+            } else {
+                // Legacy Semis/Finals format
+                const semiRound = document.createElement('div');
+                semiRound.className = 'bracket-round';
+                semiRound.innerHTML = '<h3>Semifinals</h3>';
+                currentData.playoffs.semifinals.forEach(match => {
+                    semiRound.appendChild(createMatchCard(match));
+                });
+
+                const finalRound = document.createElement('div');
+                finalRound.className = 'bracket-round';
+                finalRound.innerHTML = '<h3>Finals</h3>';
+                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
+                finals.forEach(match => {
+                    finalRound.appendChild(createMatchCard(match));
+                });
+
+                bracket.appendChild(semiRound);
+                bracket.appendChild(finalRound);
+            }
             container.appendChild(bracket);
         }
 
@@ -739,31 +873,42 @@
 
             const scorers = {};
             const goalkeepers = {};
-            const allMatches = [];
-            Object.values(currentData.groups).forEach(g => allMatches.push(...g.matches));
-            if (currentData.playoffs) {
-                const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
-                allMatches.push(...currentData.playoffs.semifinals, ...finals);
-            }
+            const seenMatches = new Set();
 
-            allMatches.forEach(m => {
+            const processMatchForGlobalStats = (m) => {
+                const matchKey = m.log_path || (m.teams.sort().join('|') + m.day + m.score.join('|'));
+                if (seenMatches.has(matchKey)) return;
+                seenMatches.add(matchKey);
+
                 if (m.played) {
                     m.events.forEach(e => {
                         if (!scorers[e.player]) scorers[e.player] = { goals: 0, team: e.team };
                         scorers[e.player].goals++;
                     });
                     
-                    // Keepers are always index 6 in player_data
                     [0, 1].forEach(tIdx => {
                         const teamName = m.teams[tIdx];
                         const side = tIdx === 0 ? 'team1' : 'team2';
-                        const gk = m.player_data[side][6];
-                        if (!goalkeepers[gk.name]) goalkeepers[gk.name] = { saves: 0, opps: 0, team: teamName };
-                        goalkeepers[gk.name].saves += (gk.saves || 0);
-                        goalkeepers[gk.name].opps += ((gk.saves || 0) + (gk.goals_against || 0));
+                        if (m.player_data[side] && m.player_data[side].length > 6) {
+                            const gk = m.player_data[side][6];
+                            if (!goalkeepers[gk.name]) goalkeepers[gk.name] = { saves: 0, opps: 0, team: teamName };
+                            goalkeepers[gk.name].saves += (gk.saves || 0);
+                            goalkeepers[gk.name].opps += ((gk.saves || 0) + (gk.goals_against || 0));
+                        }
                     });
                 }
-            });
+            };
+
+            Object.values(currentData.groups).forEach(g => g.matches.forEach(processMatchForGlobalStats));
+            if (currentData.playoffs) {
+                if (currentData.playoffs.rounds) {
+                    currentData.playoffs.rounds.forEach(r => r.matches.forEach(processMatchForGlobalStats));
+                } else {
+                    const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
+                    const mainKo = currentData.playoffs.semifinals || currentData.playoffs.matches || [];
+                    [...mainKo, ...finals].forEach(processMatchForGlobalStats);
+                }
+            }
 
             const sortedScorers = Object.entries(scorers)
                 .map(([name, data]) => ({ name, ...data }))
@@ -910,8 +1055,20 @@
         // Initialize from URL
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const region = params.get('region') || 'WC';
-            loadRegion(region);
+            currentYear = params.get('year') || '2026';
+            currentRegion = params.get('region') || 'WC';
+
+            // Set dropdown value
+            const yearSelect = document.getElementById('year-select');
+            if (yearSelect) yearSelect.value = currentYear;
+
+            // Initialize Play-In button visibility
+            const playInBtn = document.getElementById('btn-play-in');
+            if (playInBtn) {
+                playInBtn.style.display = (currentYear === '2026') ? 'none' : 'inline-block';
+            }
+
+            loadRegion(currentRegion);
         });
     </script>
 </body>

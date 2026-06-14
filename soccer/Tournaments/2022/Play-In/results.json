@@ -1,0 +1,5682 @@
+{
+  "name": "2022 Play-In Qualifiers",
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "id": "Fiji_Sweden_Fiji_vs_Sweden_10_30_18_54_25.txt",
+          "teams": [
+            "Fiji",
+            "Sweden"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 12,
+              "team": "Sweden",
+              "player": "Fredrik Johansson"
+            },
+            {
+              "minute": 28,
+              "team": "Sweden",
+              "player": "Anders Lindstrom"
+            },
+            {
+              "minute": 43,
+              "team": "Fiji",
+              "player": "Krishneel Maharaj"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Fiji": {
+              "shots": 9,
+              "sogs": 2,
+              "saves": 7
+            },
+            "Sweden": {
+              "shots": 9,
+              "sogs": 7,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kjell Carlsson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nils Pettersson",
+                "shots": 5,
+                "sogs": 4,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anders Lindstrom",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Fredrik Johansson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lars Jonsson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Karl Olsson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sven Sjoberg",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Austria_Georgia_Austria_vs_Georgia_10_28_16_50_42.txt",
+          "teams": [
+            "Austria",
+            "Georgia"
+          ],
+          "score": [
+            2,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 23,
+              "team": "Austria",
+              "player": "Franz Leitner"
+            },
+            {
+              "minute": 68,
+              "team": "Georgia",
+              "player": "Levan Tsiklauri"
+            },
+            {
+              "minute": 71,
+              "team": "Georgia",
+              "player": "Zaza Gelashvili"
+            },
+            {
+              "minute": 79,
+              "team": "Georgia",
+              "player": "Aleqsandre Beridze"
+            },
+            {
+              "minute": 89,
+              "team": "Austria",
+              "player": "Gerhard Bauer"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Austria": {
+              "shots": 13,
+              "sogs": 3,
+              "saves": 3
+            },
+            "Georgia": {
+              "shots": 9,
+              "sogs": 3,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Karl Mayer",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Franz Leitner",
+                "shots": 8,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josef Steiner",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Johann Brunner",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andreas Schwarz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerhard Bauer",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Martin Lang",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Zaza Gelashvili",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Levan Tsiklauri",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nikoloz Kapanadze",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleqsandre Beridze",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Davit Mamedova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Giorgi Gogoladze",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mikheil Maruashvili",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Georgia_Sweden_Georgia_vs_Sweden_11_6_13_27_45.txt",
+          "teams": [
+            "Georgia",
+            "Sweden"
+          ],
+          "score": [
+            2,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Sweden",
+              "player": "Kjell Carlsson"
+            },
+            {
+              "minute": 15,
+              "team": "Georgia",
+              "player": "Zaza Gelashvili"
+            },
+            {
+              "minute": 62,
+              "team": "Sweden",
+              "player": "Fredrik Johansson"
+            },
+            {
+              "minute": 63,
+              "team": "Georgia",
+              "player": "Nikoloz Kapanadze"
+            },
+            {
+              "minute": 83,
+              "team": "Sweden",
+              "player": "Fredrik Johansson"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Georgia": {
+              "shots": 13,
+              "sogs": 2,
+              "saves": 5
+            },
+            "Sweden": {
+              "shots": 10,
+              "sogs": 5,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Zaza Gelashvili",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Levan Tsiklauri",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nikoloz Kapanadze",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleqsandre Beridze",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Davit Mamedova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Giorgi Gogoladze",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mikheil Maruashvili",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kjell Carlsson",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nils Pettersson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anders Lindstrom",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Fredrik Johansson",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lars Jonsson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Karl Olsson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sven Sjoberg",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Austria_Fiji_Austria_vs_Fiji_11_5_12_0_53.txt",
+          "teams": [
+            "Austria",
+            "Fiji"
+          ],
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "played": true,
+          "stats": {
+            "Austria": {
+              "shots": 11,
+              "sogs": 1,
+              "saves": 3
+            },
+            "Fiji": {
+              "shots": 14,
+              "sogs": 3,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Karl Mayer",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Franz Leitner",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josef Steiner",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Johann Brunner",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andreas Schwarz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerhard Bauer",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Martin Lang",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 7,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Fiji_Georgia_Fiji_vs_Georgia_11_2_16_41_10.txt",
+          "teams": [
+            "Fiji",
+            "Georgia"
+          ],
+          "score": [
+            2,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 8,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 41,
+              "team": "Fiji",
+              "player": "Salote Prakash"
+            },
+            {
+              "minute": 78,
+              "team": "Georgia",
+              "player": "Zaza Gelashvili"
+            },
+            {
+              "minute": 82,
+              "team": "Georgia",
+              "player": "Levan Tsiklauri"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Fiji": {
+              "shots": 7,
+              "sogs": 2,
+              "saves": 6
+            },
+            "Georgia": {
+              "shots": 11,
+              "sogs": 6,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Viliame Naidu",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krishneel Maharaj",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasi Devi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salote Prakash",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jone Khan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tevita Chand",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josefa Prasad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Zaza Gelashvili",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Levan Tsiklauri",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nikoloz Kapanadze",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleqsandre Beridze",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Davit Mamedova",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Giorgi Gogoladze",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mikheil Maruashvili",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Austria_Sweden_Austria_vs_Sweden_11_8_12_16_0.txt",
+          "teams": [
+            "Austria",
+            "Sweden"
+          ],
+          "score": [
+            0,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 27,
+              "team": "Sweden",
+              "player": "Nils Pettersson"
+            },
+            {
+              "minute": 56,
+              "team": "Sweden",
+              "player": "Anders Lindstrom"
+            },
+            {
+              "minute": 64,
+              "team": "Sweden",
+              "player": "Nils Pettersson"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Austria": {
+              "shots": 16,
+              "sogs": 8,
+              "saves": 7
+            },
+            "Sweden": {
+              "shots": 11,
+              "sogs": 7,
+              "saves": 8
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Karl Mayer",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Franz Leitner",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josef Steiner",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Johann Brunner",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andreas Schwarz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerhard Bauer",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Martin Lang",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kjell Carlsson",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nils Pettersson",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anders Lindstrom",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Fredrik Johansson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lars Jonsson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Karl Olsson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sven Sjoberg",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 0
+              }
+            ]
+          }
+        }
+      ],
+      "standings": [
+        {
+          "team": "Sweden",
+          "played": 3,
+          "w": 3,
+          "d": 0,
+          "l": 0,
+          "gf": 8,
+          "ga": 3,
+          "gd": 5,
+          "pts": 9
+        },
+        {
+          "team": "Georgia",
+          "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 7,
+          "ga": 7,
+          "gd": 0,
+          "pts": 4
+        },
+        {
+          "team": "Fiji",
+          "played": 3,
+          "w": 0,
+          "d": 2,
+          "l": 1,
+          "gf": 3,
+          "ga": 4,
+          "gd": -1,
+          "pts": 2
+        },
+        {
+          "team": "Austria",
+          "played": 3,
+          "w": 0,
+          "d": 1,
+          "l": 2,
+          "gf": 2,
+          "ga": 6,
+          "gd": -4,
+          "pts": 1
+        }
+      ]
+    },
+    "B": {
+      "matches": [
+        {
+          "id": "Hungary_Iraq_Hungary_vs_Iraq_11_1_0_45_0.txt",
+          "teams": [
+            "Hungary",
+            "Iraq"
+          ],
+          "score": [
+            4,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Hungary",
+              "player": "Zoltan Kocsis"
+            },
+            {
+              "minute": 31,
+              "team": "Hungary",
+              "player": "Gabor Toth"
+            },
+            {
+              "minute": 70,
+              "team": "Hungary",
+              "player": "Sandor Toth"
+            },
+            {
+              "minute": 81,
+              "team": "Hungary",
+              "player": "Gabor Toth"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Hungary": {
+              "shots": 14,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Iraq": {
+              "shots": 3,
+              "sogs": 0,
+              "saves": 8
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Gabor Toth",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sandor Toth",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Istvan Kiss",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zoltan Kocsis",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Laszlo Kovacs",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jozsef Szabo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Janos Meszaros",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Khaled Obaid",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdullah Kazem",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mahmoud Abdul-Karim",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sajjad Ali",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohamed Khalaf",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Haidar Salman",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Qasim Jawad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 4
+              }
+            ]
+          }
+        },
+        {
+          "id": "Chile_Hungary_Chile_vs_Hungary_10_28_16_50_38.txt",
+          "teams": [
+            "Chile",
+            "Hungary"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Hungary",
+              "player": "Sandor Toth"
+            },
+            {
+              "minute": 19,
+              "team": "Hungary",
+              "player": "Zoltan Kocsis"
+            },
+            {
+              "minute": 31,
+              "team": "Chile",
+              "player": "Felipe Contreras"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Chile": {
+              "shots": 10,
+              "sogs": 1,
+              "saves": 5
+            },
+            "Hungary": {
+              "shots": 16,
+              "sogs": 5,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Felipe Contreras",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marco Alvarez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Rivera",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Patricio Torres",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Riquelme",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hector Alvarez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mauricio Fuentes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Gabor Toth",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sandor Toth",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Istvan Kiss",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zoltan Kocsis",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Laszlo Kovacs",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jozsef Szabo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Janos Meszaros",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Chile_Iraq_Chile_vs_Iraq_11_2_16_41_6.txt",
+          "teams": [
+            "Chile",
+            "Iraq"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 32,
+              "team": "Iraq",
+              "player": "Mahmoud Abdul-Karim"
+            },
+            {
+              "minute": 53,
+              "team": "Chile",
+              "player": "Felipe Contreras"
+            },
+            {
+              "minute": 69,
+              "team": "Chile",
+              "player": "Hector Alvarez"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Chile": {
+              "shots": 9,
+              "sogs": 5,
+              "saves": 1
+            },
+            "Iraq": {
+              "shots": 11,
+              "sogs": 1,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Felipe Contreras",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marco Alvarez",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Rivera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Patricio Torres",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Riquelme",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hector Alvarez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mauricio Fuentes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Khaled Obaid",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdullah Kazem",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mahmoud Abdul-Karim",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sajjad Ali",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohamed Khalaf",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Haidar Salman",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Qasim Jawad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Iraq_Russia_Iraq_vs_Russia_10_29_23_18_19.txt",
+          "teams": [
+            "Iraq",
+            "Russia"
+          ],
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 35,
+              "team": "Russia",
+              "player": "Aleksandr Kuznetsov"
+            },
+            {
+              "minute": 74,
+              "team": "Russia",
+              "player": "Sergey Petrov"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Iraq": {
+              "shots": 8,
+              "sogs": 1,
+              "saves": 2
+            },
+            "Russia": {
+              "shots": 8,
+              "sogs": 2,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Khaled Obaid",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdullah Kazem",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mahmoud Abdul-Karim",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sajjad Ali",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohamed Khalaf",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Haidar Salman",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Qasim Jawad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Ivan Popova",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maksim Volkova",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergey Petrov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Kuznetsov",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vladimir Novikov",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrey Ivanova",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dmitriy Shevchenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Chile_Russia_Chile_vs_Russia_11_4_12_11_49.txt",
+          "teams": [
+            "Chile",
+            "Russia"
+          ],
+          "score": [
+            0,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 8,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            },
+            {
+              "minute": 9,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            },
+            {
+              "minute": 16,
+              "team": "Russia",
+              "player": "Ivan Popova"
+            },
+            {
+              "minute": 19,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Chile": {
+              "shots": 13,
+              "sogs": 1,
+              "saves": 2
+            },
+            "Russia": {
+              "shots": 8,
+              "sogs": 2,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Felipe Contreras",
+                "shots": 6,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marco Alvarez",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Rivera",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Patricio Torres",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Riquelme",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hector Alvarez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mauricio Fuentes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Ivan Popova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maksim Volkova",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergey Petrov",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Kuznetsov",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vladimir Novikov",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrey Ivanova",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dmitriy Shevchenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Hungary_Russia_Hungary_vs_Russia_11_7_13_32_26.txt",
+          "teams": [
+            "Hungary",
+            "Russia"
+          ],
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 11,
+              "team": "Russia",
+              "player": "Ivan Popova"
+            },
+            {
+              "minute": 39,
+              "team": "Russia",
+              "player": "Sergey Petrov"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Hungary": {
+              "shots": 12,
+              "sogs": 2,
+              "saves": 1
+            },
+            "Russia": {
+              "shots": 9,
+              "sogs": 1,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Gabor Toth",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sandor Toth",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Istvan Kiss",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zoltan Kocsis",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Laszlo Kovacs",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jozsef Szabo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Janos Meszaros",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Ivan Popova",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maksim Volkova",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergey Petrov",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Kuznetsov",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vladimir Novikov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrey Ivanova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dmitriy Shevchenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ]
+          }
+        }
+      ],
+      "standings": [
+        {
+          "team": "Russia",
+          "played": 3,
+          "w": 3,
+          "d": 0,
+          "l": 0,
+          "gf": 8,
+          "ga": 0,
+          "gd": 8,
+          "pts": 9
+        },
+        {
+          "team": "Hungary",
+          "played": 3,
+          "w": 2,
+          "d": 0,
+          "l": 1,
+          "gf": 6,
+          "ga": 3,
+          "gd": 3,
+          "pts": 6
+        },
+        {
+          "team": "Chile",
+          "played": 3,
+          "w": 1,
+          "d": 0,
+          "l": 2,
+          "gf": 3,
+          "ga": 7,
+          "gd": -4,
+          "pts": 3
+        },
+        {
+          "team": "Iraq",
+          "played": 3,
+          "w": 0,
+          "d": 0,
+          "l": 3,
+          "gf": 1,
+          "ga": 8,
+          "gd": -7,
+          "pts": 0
+        }
+      ]
+    },
+    "C": {
+      "matches": [
+        {
+          "id": "Argentina_Ukraine_Argentina_vs_Ukraine_11_1_0_44_56.txt",
+          "teams": [
+            "Argentina",
+            "Ukraine"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Ukraine",
+              "player": "Anatolyi Pavlenko"
+            },
+            {
+              "minute": 76,
+              "team": "Ukraine",
+              "player": "Vasylyi Yvanova"
+            },
+            {
+              "minute": 87,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Argentina": {
+              "shots": 16,
+              "sogs": 5,
+              "saves": 5
+            },
+            "Ukraine": {
+              "shots": 15,
+              "sogs": 5,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Yuryi Melnyk",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anatolyi Pavlenko",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vasylyi Yvanova",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vyktor Kovalenko",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nykolai Moroz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Olyinyk",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Serhei Tkachenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Costa Rica_Ukraine_Costa Rica_vs_Ukraine_11_5_12_0_56.txt",
+          "teams": [
+            "Costa Rica",
+            "Ukraine"
+          ],
+          "score": [
+            0,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 85,
+              "team": "Ukraine",
+              "player": "Yuryi Melnyk"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Costa Rica": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 4
+            },
+            "Ukraine": {
+              "shots": 12,
+              "sogs": 4,
+              "saves": 4
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 7,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Yuryi Melnyk",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anatolyi Pavlenko",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vasylyi Yvanova",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vyktor Kovalenko",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nykolai Moroz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Olyinyk",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Serhei Tkachenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Argentina_Costa Rica_Argentina_vs_Costa Rica_11_3_23_7_18.txt",
+          "teams": [
+            "Argentina",
+            "Costa Rica"
+          ],
+          "score": [
+            2,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 10,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 19,
+              "team": "Costa Rica",
+              "player": "Francisco Solano"
+            },
+            {
+              "minute": 45,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            },
+            {
+              "minute": 90,
+              "team": "Argentina",
+              "player": "Diego Perez"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Argentina": {
+              "shots": 13,
+              "sogs": 6,
+              "saves": 3
+            },
+            "Costa Rica": {
+              "shots": 6,
+              "sogs": 3,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 7,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Costa Rica_Senegal_Costa Rica_vs_Senegal_11_1_13_45_29.txt",
+          "teams": [
+            "Costa Rica",
+            "Senegal"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 62,
+              "team": "Costa Rica",
+              "player": "Jorge Quesada"
+            },
+            {
+              "minute": 69,
+              "team": "Senegal",
+              "player": "Ousmane Diop"
+            },
+            {
+              "minute": 81,
+              "team": "Costa Rica",
+              "player": "Gerardo Vargas"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Costa Rica": {
+              "shots": 11,
+              "sogs": 2,
+              "saves": 6
+            },
+            "Senegal": {
+              "shots": 14,
+              "sogs": 6,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Papa",
+                "shots": 8,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ousmane Diop",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samba Sene",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Elhadji Ka",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cheikh Diagne",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mbaye Cisse",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mo Diallo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Argentina_Senegal_Argentina_vs_Senegal_11_7_13_32_29.txt",
+          "teams": [
+            "Argentina",
+            "Senegal"
+          ],
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 19,
+              "team": "Senegal",
+              "player": "Ousmane Diop"
+            },
+            {
+              "minute": 79,
+              "team": "Senegal",
+              "player": "Ousmane Diop"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Argentina": {
+              "shots": 9,
+              "sogs": 6,
+              "saves": 2
+            },
+            "Senegal": {
+              "shots": 11,
+              "sogs": 2,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Papa",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ousmane Diop",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samba Sene",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Elhadji Ka",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cheikh Diagne",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mbaye Cisse",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mo Diallo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Senegal_Ukraine_Senegal_vs_Ukraine_11_3_23_7_22.txt",
+          "teams": [
+            "Senegal",
+            "Ukraine"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Ukraine",
+              "player": "Vyktor Kovalenko"
+            },
+            {
+              "minute": 29,
+              "team": "Senegal",
+              "player": "Papa"
+            },
+            {
+              "minute": 81,
+              "team": "Ukraine",
+              "player": "Anatolyi Pavlenko"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Senegal": {
+              "shots": 4,
+              "sogs": 1,
+              "saves": 4
+            },
+            "Ukraine": {
+              "shots": 10,
+              "sogs": 4,
+              "saves": 1
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Papa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ousmane Diop",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samba Sene",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Elhadji Ka",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cheikh Diagne",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mbaye Cisse",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mo Diallo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Yuryi Melnyk",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anatolyi Pavlenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vasylyi Yvanova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vyktor Kovalenko",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nykolai Moroz",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Olyinyk",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Serhei Tkachenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
+          }
+        }
+      ],
+      "standings": [
+        {
+          "team": "Ukraine",
+          "played": 3,
+          "w": 3,
+          "d": 0,
+          "l": 0,
+          "gf": 5,
+          "ga": 2,
+          "gd": 3,
+          "pts": 9
+        },
+        {
+          "team": "Costa Rica",
+          "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 4,
+          "ga": 4,
+          "gd": 0,
+          "pts": 4
+        },
+        {
+          "team": "Senegal",
+          "played": 3,
+          "w": 1,
+          "d": 0,
+          "l": 2,
+          "gf": 4,
+          "ga": 4,
+          "gd": 0,
+          "pts": 3
+        },
+        {
+          "team": "Argentina",
+          "played": 3,
+          "w": 0,
+          "d": 1,
+          "l": 2,
+          "gf": 3,
+          "ga": 6,
+          "gd": -3,
+          "pts": 1
+        }
+      ]
+    },
+    "D": {
+      "matches": [
+        {
+          "id": "Czechia_United States_Czechia_vs_United States_10_29_23_18_24.txt",
+          "teams": [
+            "Czechia",
+            "United States"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 10,
+              "team": "Czechia",
+              "player": "Jan Prochazka"
+            },
+            {
+              "minute": 16,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Czechia": {
+              "shots": 8,
+              "sogs": 3,
+              "saves": 1
+            },
+            "United States": {
+              "shots": 4,
+              "sogs": 1,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jan Prochazka",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vaclav Dvorak",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Petr Navratil",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Michal Fialova",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miroslav Svoboda",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pavel Vesela",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jiri Novakova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Czechia_Australia_vs_Czechia_11_4_12_11_45.txt",
+          "teams": [
+            "Australia",
+            "Czechia"
+          ],
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 9,
+              "sogs": 3,
+              "saves": 2
+            },
+            "Czechia": {
+              "shots": 6,
+              "sogs": 2,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jan Prochazka",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vaclav Dvorak",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Petr Navratil",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Michal Fialova",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miroslav Svoboda",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pavel Vesela",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jiri Novakova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
+          }
+        },
+        {
+          "id": "Czechia_Nigeria_Czechia_vs_Nigeria_11_8_12_15_56.txt",
+          "teams": [
+            "Czechia",
+            "Nigeria"
+          ],
+          "score": [
+            2,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 8,
+              "team": "Nigeria",
+              "player": "Yusuf Aliyu"
+            },
+            {
+              "minute": 25,
+              "team": "Nigeria",
+              "player": "Yahaya Saidu"
+            },
+            {
+              "minute": 30,
+              "team": "Czechia",
+              "player": "Michal Fialova"
+            },
+            {
+              "minute": 64,
+              "team": "Czechia",
+              "player": "Vaclav Dvorak"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Czechia": {
+              "shots": 7,
+              "sogs": 2,
+              "saves": 4
+            },
+            "Nigeria": {
+              "shots": 11,
+              "sogs": 4,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jan Prochazka",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vaclav Dvorak",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Petr Navratil",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Michal Fialova",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miroslav Svoboda",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pavel Vesela",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jiri Novakova",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Yahaya Saidu",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yusuf Aliyu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sani Hassan",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Musa Musa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Umar Abubakar",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Okeke",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sunday Eze",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_United States_Australia_vs_United States_11_1_13_45_34.txt",
+          "teams": [
+            "Australia",
+            "United States"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 31,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 81,
+              "team": "Australia",
+              "player": "Geoff Murphy"
+            },
+            {
+              "minute": 88,
+              "team": "Australia",
+              "player": "Andrew Moore"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 17,
+              "sogs": 2,
+              "saves": 2
+            },
+            "United States": {
+              "shots": 8,
+              "sogs": 2,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 2
+              }
+            ]
+          }
+        },
+        {
+          "id": "Nigeria_United States_Nigeria_vs_United States_11_6_13_27_48.txt",
+          "teams": [
+            "Nigeria",
+            "United States"
+          ],
+          "score": [
+            0,
+            4
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 21,
+              "team": "United States",
+              "player": "Casey Myers-Morgan"
+            },
+            {
+              "minute": 54,
+              "team": "United States",
+              "player": "Bailey Myers-Morgan"
+            },
+            {
+              "minute": 61,
+              "team": "United States",
+              "player": "Antonio Chavez"
+            },
+            {
+              "minute": 78,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Nigeria": {
+              "shots": 6,
+              "sogs": 2,
+              "saves": 7
+            },
+            "United States": {
+              "shots": 10,
+              "sogs": 7,
+              "saves": 2
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Yahaya Saidu",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yusuf Aliyu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sani Hassan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Musa Musa",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Umar Abubakar",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Okeke",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sunday Eze",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 4
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "Australia_Nigeria_Australia_vs_Nigeria_10_30_18_54_20.txt",
+          "teams": [
+            "Australia",
+            "Nigeria"
+          ],
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 10,
+              "team": "Australia",
+              "player": "Thomas Martin"
+            }
+          ],
+          "played": true,
+          "stats": {
+            "Australia": {
+              "shots": 14,
+              "sogs": 5,
+              "saves": 4
+            },
+            "Nigeria": {
+              "shots": 15,
+              "sogs": 4,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Yahaya Saidu",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yusuf Aliyu",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sani Hassan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Musa Musa",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Umar Abubakar",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Okeke",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sunday Eze",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ]
+          }
+        }
+      ],
+      "standings": [
+        {
+          "team": "Australia",
+          "played": 3,
+          "w": 3,
+          "d": 0,
+          "l": 0,
+          "gf": 4,
+          "ga": 1,
+          "gd": 3,
+          "pts": 9
+        },
+        {
+          "team": "United States",
+          "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 6,
+          "ga": 3,
+          "gd": 3,
+          "pts": 4
+        },
+        {
+          "team": "Czechia",
+          "played": 3,
+          "w": 0,
+          "d": 2,
+          "l": 1,
+          "gf": 3,
+          "ga": 4,
+          "gd": -1,
+          "pts": 2
+        },
+        {
+          "team": "Nigeria",
+          "played": 3,
+          "w": 0,
+          "d": 1,
+          "l": 2,
+          "gf": 2,
+          "ga": 7,
+          "gd": -5,
+          "pts": 1
+        }
+      ]
+    }
+  },
+  "playoffs": {
+    "type": "bracket",
+    "rounds": [
+      {
+        "name": "Round 1",
+        "matches": [
+          {
+            "id": "Georgia_Chile_Georgia_vs_Chile_11_9_16_5_5.txt",
+            "teams": [
+              "Georgia",
+              "Chile"
+            ],
+            "score": [
+              0,
+              1
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 66,
+                "team": "Chile",
+                "player": "Marco Alvarez"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Georgia": {
+                "shots": 13,
+                "sogs": 5,
+                "saves": 1
+              },
+              "Chile": {
+                "shots": 10,
+                "sogs": 1,
+                "saves": 5
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Zaza Gelashvili",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Levan Tsiklauri",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nikoloz Kapanadze",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aleqsandre Beridze",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Davit Mamedova",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Giorgi Gogoladze",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mikheil Maruashvili",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Felipe Contreras",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marco Alvarez",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Rivera",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patricio Torres",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hector Alvarez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mauricio Fuentes",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 5,
+                  "goals_against": 0
+                }
+              ]
+            }
+          },
+          {
+            "id": "Fiji_Hungary_Fiji_vs_Hungary_11_9_16_5_8.txt",
+            "teams": [
+              "Fiji",
+              "Hungary"
+            ],
+            "score": [
+              2,
+              3
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 24,
+                "team": "Hungary",
+                "player": "Sandor Toth"
+              },
+              {
+                "minute": 26,
+                "team": "Fiji",
+                "player": "Viliame Naidu"
+              },
+              {
+                "minute": 54,
+                "team": "Fiji",
+                "player": "Jone Khan"
+              },
+              {
+                "minute": 66,
+                "team": "Hungary",
+                "player": "Gabor Toth"
+              },
+              {
+                "minute": 83,
+                "team": "Hungary",
+                "player": "Gabor Toth"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Fiji": {
+                "shots": 7,
+                "sogs": 1,
+                "saves": 4
+              },
+              "Hungary": {
+                "shots": 9,
+                "sogs": 4,
+                "saves": 1
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Viliame Naidu",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krishneel Maharaj",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tomasi Devi",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salote Prakash",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jone Khan",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tevita Chand",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Josefa Prasad",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 3
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gabor Toth",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sandor Toth",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Istvan Kiss",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zoltan Kocsis",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Laszlo Kovacs",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jozsef Szabo",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Janos Meszaros",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "Costa Rica_Czechia_Costa Rica_vs_Czechia_11_10_21_55_15.txt",
+            "teams": [
+              "Costa Rica",
+              "Czechia"
+            ],
+            "score": [
+              2,
+              5
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 15,
+                "team": "Czechia",
+                "player": "Vaclav Dvorak"
+              },
+              {
+                "minute": 19,
+                "team": "Costa Rica",
+                "player": "Jorge Quesada"
+              },
+              {
+                "minute": 24,
+                "team": "Czechia",
+                "player": "Jan Prochazka"
+              },
+              {
+                "minute": 29,
+                "team": "Costa Rica",
+                "player": "Francisco Solano"
+              },
+              {
+                "minute": 69,
+                "team": "Czechia",
+                "player": "Jan Prochazka"
+              },
+              {
+                "minute": 71,
+                "team": "Czechia",
+                "player": "Michal Fialova"
+              },
+              {
+                "minute": 84,
+                "team": "Czechia",
+                "player": "Jan Prochazka"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Costa Rica": {
+                "shots": 7,
+                "sogs": 1,
+                "saves": 2
+              },
+              "Czechia": {
+                "shots": 12,
+                "sogs": 2,
+                "saves": 1
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Alvaro Chaves",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Solano",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gerardo Vargas",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jorge Quesada",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Araya",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manuel Castro",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mario Morales",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 2,
+                  "goals_against": 5
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jan Prochazka",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vaclav Dvorak",
+                  "shots": 8,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Petr Navratil",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Michal Fialova",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miroslav Svoboda",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pavel Vesela",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jiri Novakova",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "Senegal_United States_Senegal_vs_United States_11_10_21_55_19.txt",
+            "teams": [
+              "Senegal",
+              "United States"
+            ],
+            "score": [
+              0,
+              1
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 28,
+                "team": "United States",
+                "player": "Bailey Myers-Morgan"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Senegal": {
+                "shots": 7,
+                "sogs": 1,
+                "saves": 6
+              },
+              "United States": {
+                "shots": 11,
+                "sogs": 6,
+                "saves": 1
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Papa",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ousmane Diop",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Samba Sene",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Elhadji Ka",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cheikh Diagne",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mbaye Cisse",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mo Diallo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Nick Hamburger",
+                  "shots": 6,
+                  "sogs": 4,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lawrence Porter",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brandon Boyd",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Victor Weaver",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Round 2",
+        "matches": [
+          {
+            "id": "Georgia_Costa Rica_Georgia_vs_Costa Rica_11_11_11_24_58.txt",
+            "teams": [
+              "Georgia",
+              "Costa Rica"
+            ],
+            "score": [
+              1,
+              2
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 20,
+                "team": "Georgia",
+                "player": "Zaza Gelashvili"
+              },
+              {
+                "minute": 52,
+                "team": "Costa Rica",
+                "player": "Juan Araya"
+              },
+              {
+                "minute": 21,
+                "team": "Costa Rica",
+                "player": "Gerardo Vargas"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Georgia": {
+                "shots": 15,
+                "sogs": 6,
+                "saves": 6
+              },
+              "Costa Rica": {
+                "shots": 16,
+                "sogs": 6,
+                "saves": 6
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Zaza Gelashvili",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Levan Tsiklauri",
+                  "shots": 5,
+                  "sogs": 3,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nikoloz Kapanadze",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aleqsandre Beridze",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Davit Mamedova",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Giorgi Gogoladze",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mikheil Maruashvili",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Alvaro Chaves",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Solano",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gerardo Vargas",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jorge Quesada",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Araya",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manuel Castro",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mario Morales",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "Fiji_Senegal_Fiji_vs_Senegal_11_11_11_25_0.txt",
+            "teams": [
+              "Fiji",
+              "Senegal"
+            ],
+            "score": [
+              1,
+              2
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 30,
+                "team": "Senegal",
+                "player": "Papa"
+              },
+              {
+                "minute": 46,
+                "team": "Senegal",
+                "player": "Elhadji Ka"
+              },
+              {
+                "minute": 83,
+                "team": "Fiji",
+                "player": "Tevita Chand"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Fiji": {
+                "shots": 15,
+                "sogs": 7,
+                "saves": 6
+              },
+              "Senegal": {
+                "shots": 14,
+                "sogs": 6,
+                "saves": 7
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Viliame Naidu",
+                  "shots": 7,
+                  "sogs": 3,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krishneel Maharaj",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tomasi Devi",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salote Prakash",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jone Khan",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tevita Chand",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Josefa Prasad",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Papa",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ousmane Diop",
+                  "shots": 6,
+                  "sogs": 3,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Samba Sene",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Elhadji Ka",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cheikh Diagne",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mbaye Cisse",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mo Diallo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 7,
+                  "goals_against": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "Chile_Czechia_Chile_vs_Czechia_11_12_14_41_0.txt",
+            "teams": [
+              "Chile",
+              "Czechia"
+            ],
+            "score": [
+              2,
+              4
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 24,
+                "team": "Czechia",
+                "player": "Petr Navratil"
+              },
+              {
+                "minute": 27,
+                "team": "Czechia",
+                "player": "Jan Prochazka"
+              },
+              {
+                "minute": 62,
+                "team": "Chile",
+                "player": "Marco Alvarez"
+              },
+              {
+                "minute": 73,
+                "team": "Chile",
+                "player": "Patricio Torres"
+              },
+              {
+                "minute": 13,
+                "team": "Czechia",
+                "player": "Petr Navratil"
+              },
+              {
+                "minute": 28,
+                "team": "Czechia",
+                "player": "Pavel Vesela"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Chile": {
+                "shots": 20,
+                "sogs": 3,
+                "saves": 4
+              },
+              "Czechia": {
+                "shots": 11,
+                "sogs": 4,
+                "saves": 3
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Felipe Contreras",
+                  "shots": 6,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marco Alvarez",
+                  "shots": 6,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Rivera",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patricio Torres",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hector Alvarez",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mauricio Fuentes",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 4
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jan Prochazka",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vaclav Dvorak",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Petr Navratil",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Michal Fialova",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miroslav Svoboda",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pavel Vesela",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jiri Novakova",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "Hungary_United States_Hungary_vs_United States_11_12_14_41_6.txt",
+            "teams": [
+              "Hungary",
+              "United States"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "pk_score": [
+              2,
+              3
+            ],
+            "events": [],
+            "played": true,
+            "stats": {
+              "Hungary": {
+                "shots": 14,
+                "sogs": 5,
+                "saves": 6
+              },
+              "United States": {
+                "shots": 17,
+                "sogs": 6,
+                "saves": 5
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gabor Toth",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sandor Toth",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Istvan Kiss",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zoltan Kocsis",
+                  "shots": 6,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Laszlo Kovacs",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jozsef Szabo",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Janos Meszaros",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Nick Hamburger",
+                  "shots": 6,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lawrence Porter",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brandon Boyd",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Victor Weaver",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 5,
+                  "goals_against": 0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "Round 3",
+        "matches": [
+          {
+            "id": "Costa Rica_Chile_Costa Rica_vs_Chile_11_13_22_23_47.txt",
+            "teams": [
+              "Costa Rica",
+              "Chile"
+            ],
+            "score": [
+              2,
+              3
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 39,
+                "team": "Chile",
+                "player": "Felipe Contreras"
+              },
+              {
+                "minute": 51,
+                "team": "Costa Rica",
+                "player": "Francisco Solano"
+              },
+              {
+                "minute": 64,
+                "team": "Chile",
+                "player": "Marco Alvarez"
+              },
+              {
+                "minute": 65,
+                "team": "Chile",
+                "player": "Felipe Contreras"
+              },
+              {
+                "minute": 82,
+                "team": "Costa Rica",
+                "player": "Francisco Solano"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Costa Rica": {
+                "shots": 7,
+                "sogs": 3,
+                "saves": 1
+              },
+              "Chile": {
+                "shots": 9,
+                "sogs": 1,
+                "saves": 3
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Alvaro Chaves",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Solano",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gerardo Vargas",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jorge Quesada",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Araya",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manuel Castro",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mario Morales",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 3
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Felipe Contreras",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marco Alvarez",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Rivera",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patricio Torres",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hector Alvarez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mauricio Fuentes",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "Senegal_Hungary_Senegal_vs_Hungary_11_13_22_23_49.txt",
+            "teams": [
+              "Senegal",
+              "Hungary"
+            ],
+            "score": [
+              2,
+              3
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 11,
+                "team": "Senegal",
+                "player": "Papa"
+              },
+              {
+                "minute": 18,
+                "team": "Hungary",
+                "player": "Istvan Kiss"
+              },
+              {
+                "minute": 26,
+                "team": "Hungary",
+                "player": "Gabor Toth"
+              },
+              {
+                "minute": 43,
+                "team": "Senegal",
+                "player": "Elhadji Ka"
+              },
+              {
+                "minute": 69,
+                "team": "Hungary",
+                "player": "Gabor Toth"
+              }
+            ],
+            "played": true,
+            "stats": {
+              "Senegal": {
+                "shots": 6,
+                "sogs": 4,
+                "saves": 4
+              },
+              "Hungary": {
+                "shots": 12,
+                "sogs": 4,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Papa",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ousmane Diop",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Samba Sene",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Elhadji Ka",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cheikh Diagne",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mbaye Cisse",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mo Diallo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 3
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gabor Toth",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sandor Toth",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Istvan Kiss",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zoltan Kocsis",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Laszlo Kovacs",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jozsef Szabo",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Janos Meszaros",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 2
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "qualified_teams": []
+}

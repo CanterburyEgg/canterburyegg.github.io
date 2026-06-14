@@ -1,0 +1,31 @@
+Team	Player	SH	SG	GL
+ARG	Diego Perez	15	4	0
+ARG	Gustavo Suarez	17	5	3
+ARG	Roberto Sosa	6	2	0
+ARG	Pedro Flores	3	3	1
+ARG	Juan Acosta	1	1	0
+ARG	Oscar Gonzalez	3	1	0
+CHI	Felipe Contreras	3	1	0
+CHI	Marco Alvarez	10	5	1
+CHI	Cristian Rivera	5	2	1
+CHI	Patricio Torres	3	3	0
+CHI	Jaime Riquelme	3	2	1
+CHI	Hector Alvarez	0	0	0
+COL	Hernan Torres	12	6	1
+COL	Orlando Cardona	6	2	0
+COL	Edwin Ruiz	0	0	0
+COL	Edgar Jimenez	8	4	0
+COL	Andres Rodriguez	2	0	0
+COL	Javier Giraldo	2	1	1
+ECU	Cesar Paredes	14	7	1
+ECU	Manuel Castillo	14	2	1
+ECU	Ramon Jaramillo	8	4	2
+ECU	Jorge Molina	8	2	1
+ECU	David Chavez	1	0	0
+ECU	Carlos Mendoza	1	1	1
+	
+Team	Player	SV	SO	GA
+ARG	Luis Aguirre	14	20	6
+CHI	Mauricio Fuentes	6	11	5
+COL	German Arias	9	10	1
+ECU	Vicente Salazar	14	17	3

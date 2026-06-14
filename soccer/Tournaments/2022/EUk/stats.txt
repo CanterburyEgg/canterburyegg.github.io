@@ -1,0 +1,87 @@
+Team	Player	SH	SG	GL
+AUS	Karl Mayer	14	4	3
+AUS	Franz Leitner	14	5	1
+AUS	Josef Steiner	5	2	1
+AUS	Johann Brunner	12	3	2
+AUS	Andreas Schwarz	4	0	0
+AUS	Gerhard Bauer	2	0	0
+SER	Dragan Petrovic	28	9	5
+SER	Aleksandar Milosevic	14	5	2
+SER	Jovan Trajkovic	12	7	2
+SER	Zoran Ilic	8	2	0
+SER	Petar Stojanovic	3	1	0
+SER	Slobodan Krstic	6	2	0
+RUS	Ivan Popova	15	3	1
+RUS	Maksim Volkova	13	4	0
+RUS	Sergey Petrov	12	8	2
+RUS	Aleksandr Kuznetsov	6	3	0
+RUS	Vladimir Novikov	6	3	1
+RUS	Andrey Ivanova	3	3	1
+SWE	Kjell Carlsson	10	5	3
+SWE	Nils Pettersson	14	7	4
+SWE	Anders Lindstrom	14	7	2
+SWE	Fredrik Johansson	6	3	0
+SWE	Lars Jonsson	5	2	1
+SWE	Karl Olsson	5	4	0
+UKR	Yuryi Melnyk	18	8	3
+UKR	Anatolyi Pavlenko	26	11	1
+UKR	Vasylyi Yvanova	15	6	1
+UKR	Vyktor Kovalenko	17	6	3
+UKR	Nykolai Moroz	9	2	0
+UKR	Aleksandr Olyinyk	9	2	0
+CZE	Jan Prochazka	18	10	2
+CZE	Vaclav Dvorak	7	3	1
+CZE	Petr Navratil	13	7	2
+CZE	Michal Fialova	8	4	1
+CZE	Miroslav Svoboda	2	0	0
+CZE	Pavel Vesela	1	1	0
+TUR	Yusuf Guler	2	0	0
+TUR	Mustafa Simsek	8	3	1
+TUR	Huseyin Sahin	5	1	0
+TUR	Omer Koc	1	0	0
+TUR	Mehmet Celik	1	0	0
+TUR	Ramazan Yilmaz	2	0	0
+WAL	Colin Pugh	15	7	3
+WAL	Craig Young	16	8	1
+WAL	Malcolm Hopkins	6	2	2
+WAL	Adrian Llewellyn	2	1	0
+WAL	Rhys Howells	4	2	1
+WAL	Clive Jones	2	1	1
+HUN	Gabor Toth	17	6	2
+HUN	Sandor Toth	20	12	5
+HUN	Istvan Kiss	5	1	1
+HUN	Zoltan Kocsis	6	2	0
+HUN	Laszlo Kovacs	2	1	1
+HUN	Jozsef Szabo	5	2	0
+DEN	Niels Jensen	8	1	0
+DEN	Lars Moller	11	6	1
+DEN	Soren Holm	1	1	0
+DEN	Morten Rasmussen	4	2	0
+DEN	Henrik Mikkelsen	2	0	0
+DEN	Jesper Thomsen	1	1	0
+NED	Richard van der Heijden	10	5	0
+NED	Jan van Dijk	11	3	0
+NED	Rob Brouwer	5	3	1
+NED	Peter Meijer	6	4	0
+NED	Jeroen de Jong	1	0	0
+NED	Martijn van den Berg	2	0	0
+POL	Pawel Lewandowski	10	3	1
+POL	Grzegorz Kowalski	6	1	1
+POL	Jacek Majewski	1	0	0
+POL	Andrzej Nowak	4	2	0
+POL	Krzysztof Sikora	4	1	0
+POL	Tomasz Zajac	2	0	0
+	
+Team	Player	SV	SO	GA
+AUS	Martin Lang	21	29	8
+SER	Tomislav Rakic	9	12	3
+RUS	Dmitriy Shevchenko	20	26	6
+SWE	Sven Sjoberg	16	24	8
+UKR	Serhei Tkachenko	17	26	9
+CZE	Jiri Novakova	9	15	6
+TUR	Ahmet Ozcan	7	12	5
+WAL	Neil Wright	17	22	5
+HUN	Janos Meszaros	15	22	7
+DEN	Jens Clausen	9	12	3
+NED	Marcel Kuiper	10	13	3
+POL	Piotr Nowicki	17	21	4

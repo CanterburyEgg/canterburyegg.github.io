@@ -1,0 +1,91 @@
+(check=61) Minute 1: no shot.
+(check=17) Minute 2: no shot.
+(check=85) Minute 3: (t1check=72, t2check=78, check1=51, check2=50) Patricio Torres missed shot.
+(check=44) Minute 4: no shot.
+(check=26) Minute 5: no shot.
+(check=40) Minute 6: no shot.
+(check=3) Minute 7: no shot.
+(check=44) Minute 8: no shot.
+(check=14) Minute 9: no shot.
+(check=24) Minute 10: no shot.
+(check=43) Minute 11: no shot.
+(check=40) Minute 12: no shot.
+(check=47) Minute 13: no shot.
+(check=87) Minute 14: (t1check=7, t2check=21, check1=3, check2=2) Marco Alvarez missed shot.
+(check=9) Minute 15: no shot.
+(check=80) Minute 16: (t1check=20, t2check=73, check1=92, check2=91) (goalchk1=68, goalchk2=62) Marco Alvarez shot on goal. Manuel Castro SAVE!
+(check=30) Minute 17: no shot.
+(check=20) Minute 18: no shot.
+(check=13) Minute 19: no shot.
+(check=37) Minute 20: no shot.
+(check=32) Minute 21: no shot.
+(check=28) Minute 22: no shot.
+(check=80) Minute 23: (t1check=56, t2check=75, check1=53, check2=52) Felipe Contreras missed shot.
+(check=60) Minute 24: no shot.
+(check=19) Minute 25: no shot.
+(check=64) Minute 26: no shot.
+(check=3) Minute 27: no shot.
+(check=28) Minute 28: no shot.
+(check=30) Minute 29: no shot.
+(check=61) Minute 30: no shot.
+(check=37) Minute 31: no shot.
+(check=80) Minute 32: (t1check=33, t2check=41, check1=52, check2=51) Felipe Contreras missed shot.
+(check=28) Minute 33: no shot.
+(check=77) Minute 34: (t1check=11, t2check=9, check1=19, check2=16) Francisco Solano missed shot.
+(check=63) Minute 35: no shot.
+(check=7) Minute 36: no shot.
+(check=90) Minute 37: (t1check=76, t2check=21, check1=16, check2=13) Jorge Quesada missed shot.
+(check=8) Minute 38: no shot.
+(check=73) Minute 39: (t1check=49, t2check=74, check1=97, check2=96) (goalchk1=83, goalchk2=77) Felipe Contreras GOAL!!! Score: 0-1
+(check=73) Minute 40: (t1check=5, t2check=63, check1=38, check2=37) Felipe Contreras missed shot.
+(check=53) Minute 41: no shot.
+(check=53) Minute 42: no shot.
+(check=49) Minute 43: no shot.
+(check=46) Minute 44: no shot.
+(check=72) Minute 45: (t1check=76, t2check=59, check1=82, check2=79) (goalchk1=9, goalchk2=6) Alvaro Chaves shot on goal. Hector Alvarez SAVE!
+(check=46) Minute 46: no shot.
+(check=11) Minute 47: no shot.
+(check=72) Minute 48: (t1check=11, t2check=23, check1=47, check2=46) Felipe Contreras missed shot.
+(check=61) Minute 49: no shot.
+(check=6) Minute 50: no shot.
+(check=68) Minute 51: (t1check=35, t2check=23, check1=81, check2=78) (goalchk1=87, goalchk2=84) Francisco Solano GOAL!!! Score: 1-1
+(check=27) Minute 52: no shot.
+(check=54) Minute 53: no shot.
+(check=50) Minute 54: no shot.
+(check=43) Minute 55: no shot.
+(check=22) Minute 56: no shot.
+(check=85) Minute 57: (t1check=34, t2check=6, check1=84, check2=81) (goalchk1=48, goalchk2=45) Alvaro Chaves shot on goal. Hector Alvarez SAVE!
+(check=15) Minute 58: no shot.
+(check=51) Minute 59: no shot.
+(check=18) Minute 60: no shot.
+(check=31) Minute 61: no shot.
+(check=1) Minute 62: no shot.
+(check=46) Minute 63: no shot.
+(check=73) Minute 64: (t1check=27, t2check=68, check1=99, check2=98) (goalchk1=80, goalchk2=74) Marco Alvarez GOAL!!! Score: 1-2
+(check=67) Minute 65: (t1check=54, t2check=57, check1=78, check2=77) (goalchk1=96, goalchk2=90) Felipe Contreras GOAL!!! Score: 1-3
+(check=24) Minute 66: no shot.
+(check=16) Minute 67: no shot.
+(check=30) Minute 68: no shot.
+(check=61) Minute 69: no shot.
+(check=6) Minute 70: no shot.
+(check=46) Minute 71: no shot.
+(check=21) Minute 72: no shot.
+(check=37) Minute 73: no shot.
+(check=23) Minute 74: no shot.
+(check=77) Minute 75: (t1check=54, t2check=58, check1=16, check2=15) Patricio Torres missed shot.
+(check=90) Minute 76: (t1check=11, t2check=49, check1=8, check2=7) Marco Alvarez missed shot.
+(check=65) Minute 77: no shot.
+(check=67) Minute 78: (t1check=50, t2check=24, check1=31, check2=28) Francisco Solano missed shot.
+(check=55) Minute 79: no shot.
+(check=45) Minute 80: no shot.
+(check=13) Minute 81: no shot.
+(check=73) Minute 82: (t1check=48, t2check=22, check1=71, check2=68) (goalchk1=89, goalchk2=86) Francisco Solano GOAL!!! Score: 2-3
+(check=69) Minute 83: (t1check=56, t2check=41, check1=31, check2=28) Francisco Solano missed shot.
+(check=63) Minute 84: no shot.
+(check=11) Minute 85: no shot.
+(check=55) Minute 86: no shot.
+(check=23) Minute 87: no shot.
+(check=87) Minute 88: (t1check=52, t2check=14, check1=83, check2=80) (goalchk1=2, goalchk2=-1) Francisco Solano shot on goal. Hector Alvarez SAVE!
+(check=60) Minute 89: no shot.
+(check=63) Minute 90: no shot.
+Final score: 2-3
