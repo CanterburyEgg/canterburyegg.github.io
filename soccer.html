@@ -741,7 +741,7 @@
                         <h3>Group ${teamGroup} Standings</h3>
                         <table>
                             <thead>
-                                <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr>
+                                <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr>
                             </thead>
                             <tbody>
                                 ${groupData.standings.map(s => {
@@ -749,7 +749,7 @@
                                     return `
                                     <tr class="clickable-row" onclick="showTeamPage('${escapedName}')" style="${s.team === teamName ? 'background:rgba(56,189,248,0.15)' : ''}">
                                         <td><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
-                                        <td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.gd}</td><td>${s.pts}</td>
+                                        <td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.gf}</td><td>${s.ga}</td><td>${s.gd}</td><td>${s.pts}</td>
                                     </tr>
                                 `;}).join('')}
                             </tbody>
