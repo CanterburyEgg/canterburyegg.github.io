@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 5,
+  "current_day": 6,
   "groups": {
     "A": {
       "matches": [
@@ -1168,29 +1168,160 @@
             "Colombia",
             "Egypt"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            2
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 27,
+              "team": "Egypt",
+              "player": "Abo Samir"
+            },
+            {
+              "minute": 48,
+              "team": "Egypt",
+              "player": "Rachim Azzizi"
+            },
+            {
+              "minute": 59,
+              "team": "Colombia",
+              "player": "Edgar Jimenez"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Hernan Torres",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Orlando Cardona",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Ruiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edgar Jimenez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andres Rodriguez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Giraldo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "German Arias",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Rachim Azzizi",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Khalif Karam",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abo Samir",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hassan Elsayed",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sherif Farouk",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mostafa Salah",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Omar Mady",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Colombia": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 5,
+              "sogs": 2,
+              "saves": 4
             },
             "Egypt": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 10,
+              "sogs": 6,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Colombia_vs_Egypt_615105837_863.txt"
         },
         {
           "day": 5,
@@ -1198,29 +1329,160 @@
             "Ukraine",
             "Italy"
           ],
-          "played": false,
+          "played": true,
           "score": [
             0,
-            0
+            3
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 22,
+              "team": "Italy",
+              "player": "Francesco Caruso"
+            },
+            {
+              "minute": 24,
+              "team": "Italy",
+              "player": "Giovanni Ricci"
+            },
+            {
+              "minute": 73,
+              "team": "Italy",
+              "player": "Giuseppe Giordano"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Yuryi Melnyk",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anatolyi Pavlenko",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vasylyi Yvanova",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vyktor Kovalenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nykolai Moroz",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Olyinyk",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Serhei Tkachenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Giovanni Ricci",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Giovanni Rossi",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pietro Greco",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Salvatore Moretti",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Giuseppe Giordano",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francesco Caruso",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio de Luca",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ]
           },
           "stats": {
             "Ukraine": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 9,
+              "sogs": 1,
+              "saves": 2
             },
             "Italy": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 12,
+              "sogs": 5,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Ukraine_vs_Italy_615105837_442.txt"
         },
         {
           "day": 8,
@@ -1405,48 +1667,37 @@
       ],
       "standings": [
         {
-          "played": 1,
-          "w": 1,
+          "played": 2,
+          "w": 2,
           "d": 0,
           "l": 0,
-          "gf": 3,
-          "ga": 2,
-          "gd": 1,
-          "pts": 3,
-          "team": "Egypt"
-        },
-        {
-          "played": 1,
-          "w": 1,
-          "d": 0,
-          "l": 0,
-          "gf": 1,
+          "gf": 4,
           "ga": 0,
-          "gd": 1,
-          "pts": 3,
+          "gd": 4,
+          "pts": 6,
           "team": "Italy"
         },
         {
-          "played": 0,
-          "w": 0,
+          "played": 2,
+          "w": 2,
           "d": 0,
           "l": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "pts": 0,
-          "team": "Colombia"
+          "gf": 5,
+          "ga": 3,
+          "gd": 2,
+          "pts": 6,
+          "team": "Egypt"
         },
         {
           "played": 1,
           "w": 0,
           "d": 0,
           "l": 1,
-          "gf": 2,
-          "ga": 3,
+          "gf": 1,
+          "ga": 2,
           "gd": -1,
           "pts": 0,
-          "team": "Ukraine"
+          "team": "Colombia"
         },
         {
           "played": 1,
@@ -1458,6 +1709,17 @@
           "gd": -1,
           "pts": 0,
           "team": "Palestine"
+        },
+        {
+          "played": 2,
+          "w": 0,
+          "d": 0,
+          "l": 2,
+          "gf": 2,
+          "ga": 6,
+          "gd": -4,
+          "pts": 0,
+          "team": "Ukraine"
         }
       ]
     },
@@ -2585,29 +2847,170 @@
             "Nigeria",
             "Iran"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            4,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 13,
+              "team": "Nigeria",
+              "player": "Yahaya Saidu"
+            },
+            {
+              "minute": 37,
+              "team": "Nigeria",
+              "player": "Yusuf Aliyu"
+            },
+            {
+              "minute": 65,
+              "team": "Iran",
+              "player": "Amir Zare"
+            },
+            {
+              "minute": 75,
+              "team": "Nigeria",
+              "player": "Musa Musa"
+            },
+            {
+              "minute": 82,
+              "team": "Nigeria",
+              "player": "Umar Abubakar"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Yahaya Saidu",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yusuf Aliyu",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sani Hassan",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Musa Musa",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Umar Abubakar",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moses Okeke",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sunday Eze",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Ali Mousavi",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hassan Mohammadi",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Amir Zare",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Saeed Sadeghi",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hamid Bagheri",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Seyyed Ghasemi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Reza Jafari",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 4
+              }
+            ]
           },
           "stats": {
             "Nigeria": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 16,
+              "sogs": 10,
+              "saves": 1
             },
             "Iran": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 7,
+              "sogs": 2,
+              "saves": 6
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Nigeria_vs_Iran_615105837_119.txt"
         },
         {
           "day": 6,
@@ -2826,6 +3229,17 @@
           "w": 1,
           "d": 0,
           "l": 0,
+          "gf": 4,
+          "ga": 1,
+          "gd": 3,
+          "pts": 3,
+          "team": "Nigeria"
+        },
+        {
+          "played": 1,
+          "w": 1,
+          "d": 0,
+          "l": 0,
           "gf": 3,
           "ga": 1,
           "gd": 2,
@@ -2844,28 +3258,6 @@
           "team": "New Zealand"
         },
         {
-          "played": 0,
-          "w": 0,
-          "d": 0,
-          "l": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "pts": 0,
-          "team": "Nigeria"
-        },
-        {
-          "played": 1,
-          "w": 0,
-          "d": 0,
-          "l": 1,
-          "gf": 1,
-          "ga": 2,
-          "gd": -1,
-          "pts": 0,
-          "team": "Iran"
-        },
-        {
           "played": 1,
           "w": 0,
           "d": 0,
@@ -2875,6 +3267,17 @@
           "gd": -2,
           "pts": 0,
           "team": "Argentina"
+        },
+        {
+          "played": 2,
+          "w": 0,
+          "d": 0,
+          "l": 2,
+          "gf": 2,
+          "ga": 6,
+          "gd": -4,
+          "pts": 0,
+          "team": "Iran"
         }
       ]
     },
@@ -3233,29 +3636,155 @@
             "Brazil",
             "Senegal"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
+            2,
             0
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 20,
+              "team": "Brazil",
+              "player": "Manoel Ribiero"
+            },
+            {
+              "minute": 54,
+              "team": "Brazil",
+              "player": "Luiz Gomes"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Manoel Ribiero",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joao Pereira",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luiz Gomes",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marcelo da Silva",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rodrigo de Jesus",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Vieira",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Lopes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Papa",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ousmane Diop",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Samba Sene",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Elhadji Ka",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cheikh Diagne",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mbaye Cisse",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mo Diallo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 2
+              }
+            ]
           },
           "stats": {
             "Brazil": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 7,
+              "sogs": 3,
+              "saves": 4
             },
             "Senegal": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 15,
+              "sogs": 4,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Brazil_vs_Senegal_615105837_714.txt"
         },
         {
           "day": 6,
@@ -3470,14 +3999,14 @@
       ],
       "standings": [
         {
-          "played": 1,
-          "w": 1,
+          "played": 2,
+          "w": 2,
           "d": 0,
           "l": 0,
-          "gf": 5,
+          "gf": 7,
           "ga": 0,
-          "gd": 5,
-          "pts": 3,
+          "gd": 7,
+          "pts": 6,
           "team": "Brazil"
         },
         {
@@ -3503,13 +4032,13 @@
           "team": "Germany"
         },
         {
-          "played": 0,
+          "played": 1,
           "w": 0,
           "d": 0,
-          "l": 0,
+          "l": 1,
           "gf": 0,
-          "ga": 0,
-          "gd": 0,
+          "ga": 2,
+          "gd": -2,
           "pts": 0,
           "team": "Senegal"
         },
@@ -3991,29 +4520,180 @@
             "Ecuador",
             "France"
           ],
-          "played": false,
+          "played": true,
           "score": [
             0,
-            0
+            7
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 4,
+              "team": "France",
+              "player": "Olivier Rousseau"
+            },
+            {
+              "minute": 11,
+              "team": "France",
+              "player": "Dominique Girard"
+            },
+            {
+              "minute": 14,
+              "team": "France",
+              "player": "Jacques Lemaire"
+            },
+            {
+              "minute": 17,
+              "team": "France",
+              "player": "Jacques Lemaire"
+            },
+            {
+              "minute": 26,
+              "team": "France",
+              "player": "Olivier Rousseau"
+            },
+            {
+              "minute": 72,
+              "team": "France",
+              "player": "Dominique Girard"
+            },
+            {
+              "minute": 75,
+              "team": "France",
+              "player": "Jean Gauthier"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Cesar Paredes",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castillo",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Jaramillo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Molina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Chavez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Mendoza",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Salazar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 7
+              }
+            ],
+            "team2": [
+              {
+                "name": "Olivier Rousseau",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dominique Girard",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lemaire",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bernard Michel",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rene Chevalier",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jean Gauthier",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Blanchard",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ]
           },
           "stats": {
             "Ecuador": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 8,
+              "sogs": 2,
+              "saves": 1
             },
             "France": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 14,
+              "sogs": 8,
+              "saves": 2
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Ecuador_vs_France_615105837_106.txt"
         },
         {
           "day": 7,
@@ -4198,14 +4878,14 @@
       ],
       "standings": [
         {
-          "played": 1,
-          "w": 1,
+          "played": 2,
+          "w": 2,
           "d": 0,
           "l": 0,
-          "gf": 2,
+          "gf": 9,
           "ga": 0,
-          "gd": 2,
-          "pts": 3,
+          "gd": 9,
+          "pts": 6,
           "team": "France"
         },
         {
@@ -4224,22 +4904,22 @@
           "w": 0,
           "d": 1,
           "l": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "pts": 1,
-          "team": "Ecuador"
-        },
-        {
-          "played": 1,
-          "w": 0,
-          "d": 1,
-          "l": 0,
           "gf": 0,
           "ga": 0,
           "gd": 0,
           "pts": 1,
           "team": "Ghana"
+        },
+        {
+          "played": 2,
+          "w": 0,
+          "d": 1,
+          "l": 1,
+          "gf": 1,
+          "ga": 8,
+          "gd": -7,
+          "pts": 1,
+          "team": "Ecuador"
         },
         {
           "played": 1,
