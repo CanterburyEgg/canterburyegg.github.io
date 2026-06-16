@@ -1,0 +1,91 @@
+(check=25) Minute 1: no shot.
+(check=27) Minute 2: no shot.
+(check=6) Minute 3: no shot.
+(check=43) Minute 4: (t1check=34, t2check=56, check1=7, check2=8) Gerardo Vargas missed shot.
+(check=29) Minute 5: no shot.
+(check=8) Minute 6: no shot.
+(check=5) Minute 7: no shot.
+(check=10) Minute 8: no shot.
+(check=16) Minute 9: no shot.
+(check=46) Minute 10: (t1check=40, t2check=58, check1=30, check2=31) (goalchk1=8, goalchk2=-1) Alvaro Chaves shot on goal. Alisher Abudllayev SAVE!
+(check=24) Minute 11: no shot.
+(check=25) Minute 12: no shot.
+(check=17) Minute 13: no shot.
+(check=41) Minute 14: (t1check=49, t2check=27, check1=28, check2=26) Ravshan Karimov missed shot.
+(check=24) Minute 15: no shot.
+(check=15) Minute 16: no shot.
+(check=40) Minute 17: (t1check=54, t2check=72, check1=8, check2=9) Francisco Solano missed shot.
+(check=35) Minute 18: no shot.
+(check=7) Minute 19: no shot.
+(check=47) Minute 20: (t1check=27, t2check=78, check1=5, check2=6) Alvaro Chaves missed shot.
+(check=27) Minute 21: no shot.
+(check=19) Minute 22: no shot.
+(check=45) Minute 23: (t1check=43, t2check=28, check1=5, check2=3) Sherzod Usmanova missed shot.
+(check=25) Minute 24: no shot.
+(check=27) Minute 25: no shot.
+(check=9) Minute 26: no shot.
+(check=17) Minute 27: no shot.
+(check=38) Minute 28: no shot.
+(check=5) Minute 29: no shot.
+(check=50) Minute 30: (t1check=79, t2check=64, check1=49, check2=47) (goalchk1=24, goalchk2=17) Sherzod Usmanova shot on goal. Mario Morales SAVE!
+(check=42) Minute 31: (t1check=19, t2check=37, check1=12, check2=13) Jorge Quesada missed shot.
+(check=14) Minute 32: no shot.
+(check=33) Minute 33: no shot.
+(check=50) Minute 34: (t1check=45, t2check=70, check1=34, check2=35) (goalchk1=27, goalchk2=18) Juan Araya shot on goal. Alisher Abudllayev SAVE!
+(check=50) Minute 35: (t1check=61, t2check=37, check1=28, check2=26) Sherzod Usmanova missed shot.
+(check=26) Minute 36: no shot.
+(check=6) Minute 37: no shot.
+(check=42) Minute 38: (t1check=38, t2check=52, check1=18, check2=19) Gerardo Vargas missed shot.
+(check=33) Minute 39: no shot.
+(check=14) Minute 40: no shot.
+(check=5) Minute 41: no shot.
+(check=6) Minute 42: no shot.
+(check=1) Minute 43: no shot.
+(check=40) Minute 44: (t1check=53, t2check=62, check1=18, check2=19) Juan Araya missed shot.
+(check=50) Minute 45: (t1check=16, t2check=65, check1=3, check2=4) Gerardo Vargas missed shot.
+(check=32) Minute 46: no shot.
+(check=15) Minute 47: no shot.
+(check=34) Minute 48: no shot.
+(check=25) Minute 49: no shot.
+(check=30) Minute 50: no shot.
+(check=14) Minute 51: no shot.
+(check=40) Minute 52: (t1check=66, t2check=34, check1=4, check2=2) Ravshan Karimov missed shot.
+(check=44) Minute 53: (t1check=16, t2check=51, check1=28, check2=29) Alvaro Chaves missed shot.
+(check=36) Minute 54: no shot.
+(check=25) Minute 55: no shot.
+(check=6) Minute 56: no shot.
+(check=7) Minute 57: no shot.
+(check=43) Minute 58: (t1check=35, t2check=11, check1=1, check2=-1) Sherzod Usmanova missed shot.
+(check=2) Minute 59: no shot.
+(check=38) Minute 60: no shot.
+(check=18) Minute 61: no shot.
+(check=28) Minute 62: no shot.
+(check=14) Minute 63: no shot.
+(check=32) Minute 64: no shot.
+(check=26) Minute 65: no shot.
+(check=46) Minute 66: (t1check=71, t2check=33, check1=41, check2=39) (goalchk1=43, goalchk2=36) Rustam Yuspov GOAL!!! Score: 1-0
+(check=49) Minute 67: (t1check=9, t2check=60, check1=6, check2=7) Manuel Castro missed shot.
+(check=32) Minute 68: no shot.
+(check=25) Minute 69: no shot.
+(check=24) Minute 70: no shot.
+(check=25) Minute 71: no shot.
+(check=8) Minute 72: no shot.
+(check=35) Minute 73: no shot.
+(check=27) Minute 74: no shot.
+(check=38) Minute 75: no shot.
+(check=18) Minute 76: no shot.
+(check=41) Minute 77: (t1check=49, t2check=10, check1=14, check2=12) Sherzod Usmanova missed shot.
+(check=38) Minute 78: no shot.
+(check=14) Minute 79: no shot.
+(check=35) Minute 80: no shot.
+(check=7) Minute 81: no shot.
+(check=18) Minute 82: no shot.
+(check=42) Minute 83: (t1check=43, t2check=68, check1=2, check2=3) Alvaro Chaves missed shot.
+(check=45) Minute 84: (t1check=64, t2check=7, check1=30, check2=28) Sherzod Usmanova missed shot.
+(check=31) Minute 85: no shot.
+(check=28) Minute 86: no shot.
+(check=30) Minute 87: no shot.
+(check=35) Minute 88: no shot.
+(check=45) Minute 89: (t1check=37, t2check=61, check1=35, check2=36) (goalchk1=3, goalchk2=-6) Alvaro Chaves shot on goal. Alisher Abudllayev SAVE!
+(check=15) Minute 90: no shot.
+Final score: 1-0

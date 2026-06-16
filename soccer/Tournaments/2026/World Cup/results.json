@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 6,
+  "current_day": 7,
   "groups": {
     "A": {
       "matches": [
@@ -3018,29 +3018,155 @@
             "Belgium",
             "New Zealand"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
+            2,
             0
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 24,
+              "team": "Belgium",
+              "player": "Alain Goossens"
+            },
+            {
+              "minute": 86,
+              "team": "Belgium",
+              "player": "Jean-Pierre de Clercq"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Jean-Pierre de Clercq",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alain Goossens",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vincent van de Velde",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Renard",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geert Verhoeven",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Christian Janssen",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Eddy van den Broeck",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ]
           },
           "stats": {
             "Belgium": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 11,
+              "sogs": 5,
+              "saves": 2
             },
             "New Zealand": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 9,
+              "sogs": 2,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Belgium_vs_New Zealand_616121514_105.txt"
         },
         {
           "day": 8,
@@ -3225,6 +3351,17 @@
       ],
       "standings": [
         {
+          "played": 2,
+          "w": 2,
+          "d": 0,
+          "l": 0,
+          "gf": 5,
+          "ga": 1,
+          "gd": 4,
+          "pts": 6,
+          "team": "Belgium"
+        },
+        {
           "played": 1,
           "w": 1,
           "d": 0,
@@ -3236,24 +3373,13 @@
           "team": "Nigeria"
         },
         {
-          "played": 1,
+          "played": 2,
           "w": 1,
           "d": 0,
-          "l": 0,
-          "gf": 3,
-          "ga": 1,
-          "gd": 2,
-          "pts": 3,
-          "team": "Belgium"
-        },
-        {
-          "played": 1,
-          "w": 1,
-          "d": 0,
-          "l": 0,
+          "l": 1,
           "gf": 2,
-          "ga": 1,
-          "gd": 1,
+          "ga": 3,
+          "gd": -1,
           "pts": 3,
           "team": "New Zealand"
         },
@@ -3792,29 +3918,170 @@
             "England",
             "Japan"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
+            5,
             0
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 34,
+              "team": "England",
+              "player": "Neil Griffith"
+            },
+            {
+              "minute": 56,
+              "team": "England",
+              "player": "Stuart Holmes"
+            },
+            {
+              "minute": 57,
+              "team": "England",
+              "player": "Stuart Holmes"
+            },
+            {
+              "minute": 73,
+              "team": "England",
+              "player": "Stuart Holmes"
+            },
+            {
+              "minute": 79,
+              "team": "England",
+              "player": "Simon Knight"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Neil Griffith",
+                "shots": 6,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Simon Knight",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Benjamin Webb",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Stuart Holmes",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Graham Chapman",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Price",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Stephen Hunt",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Koji Suzuki",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Akira Maeda",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hideo Ogawa",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yukio Ono",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hiroshi Ito",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kenji Yamaguchi",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tadashi Sato",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 5
+              }
+            ]
           },
           "stats": {
             "England": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 13,
+              "sogs": 9,
+              "saves": 4
             },
             "Japan": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 12,
+              "sogs": 4,
+              "saves": 4
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/England_vs_Japan_616121514_623.txt"
         },
         {
           "day": 8,
@@ -4010,15 +4277,15 @@
           "team": "Brazil"
         },
         {
-          "played": 1,
-          "w": 0,
-          "d": 1,
-          "l": 0,
-          "gf": 3,
-          "ga": 3,
+          "played": 2,
+          "w": 1,
+          "d": 0,
+          "l": 1,
+          "gf": 5,
+          "ga": 5,
           "gd": 0,
-          "pts": 1,
-          "team": "Japan"
+          "pts": 3,
+          "team": "England"
         },
         {
           "played": 1,
@@ -4032,6 +4299,17 @@
           "team": "Germany"
         },
         {
+          "played": 2,
+          "w": 0,
+          "d": 1,
+          "l": 1,
+          "gf": 3,
+          "ga": 8,
+          "gd": -5,
+          "pts": 1,
+          "team": "Japan"
+        },
+        {
           "played": 1,
           "w": 0,
           "d": 0,
@@ -4041,17 +4319,6 @@
           "gd": -2,
           "pts": 0,
           "team": "Senegal"
-        },
-        {
-          "played": 1,
-          "w": 0,
-          "d": 0,
-          "l": 1,
-          "gf": 0,
-          "ga": 5,
-          "gd": -5,
-          "pts": 0,
-          "team": "England"
         }
       ]
     },
@@ -5254,29 +5521,150 @@
             "Uzbekistan",
             "Costa Rica"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
+            1,
             0
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 66,
+              "team": "Uzbekistan",
+              "player": "Rustam Yuspov"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Sherzod Usmanova",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ravshan Karimov",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Akmal Umarov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rustam Yuspov",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anvar Ibragimov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Timur Rakhimov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alisher Abudllayev",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Uzbekistan": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 9,
+              "sogs": 2,
+              "saves": 3
             },
             "Costa Rica": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 13,
+              "sogs": 3,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Uzbekistan_vs_Costa Rica_616121514_477.txt"
         },
         {
           "day": 6,
@@ -5284,29 +5672,155 @@
             "Poland",
             "Algeria"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 18,
+              "team": "Algeria",
+              "player": "Said Taleb"
+            },
+            {
+              "minute": 62,
+              "team": "Poland",
+              "player": "Pawel Lewandowski"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Pawel Lewandowski",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Grzegorz Kowalski",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacek Majewski",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrzej Nowak",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krzysztof Sikora",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasz Zajac",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Piotr Nowicki",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Salah Saidi",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdel Dahmani",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Said Taleb",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ali Brahimi",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohamed Benyahia",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Amar Touati",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ahmed Mansouri",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Poland": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 10,
+              "sogs": 4,
+              "saves": 2
             },
             "Algeria": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 11,
+              "sogs": 3,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Poland_vs_Algeria_616121514_417.txt"
         },
         {
           "day": 9,
@@ -5491,14 +6005,14 @@
       ],
       "standings": [
         {
-          "played": 1,
-          "w": 1,
+          "played": 2,
+          "w": 2,
           "d": 0,
           "l": 0,
-          "gf": 2,
+          "gf": 3,
           "ga": 1,
-          "gd": 1,
-          "pts": 3,
+          "gd": 2,
+          "pts": 6,
           "team": "Uzbekistan"
         },
         {
@@ -5513,26 +6027,26 @@
           "team": "Netherlands"
         },
         {
-          "played": 0,
+          "played": 2,
           "w": 0,
-          "d": 0,
-          "l": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
-          "pts": 0,
-          "team": "Costa Rica"
+          "d": 1,
+          "l": 1,
+          "gf": 2,
+          "ga": 3,
+          "gd": -1,
+          "pts": 1,
+          "team": "Poland"
         },
         {
-          "played": 1,
+          "played": 2,
           "w": 0,
-          "d": 0,
+          "d": 1,
           "l": 1,
           "gf": 1,
           "ga": 2,
           "gd": -1,
-          "pts": 0,
-          "team": "Poland"
+          "pts": 1,
+          "team": "Algeria"
         },
         {
           "played": 1,
@@ -5543,7 +6057,7 @@
           "ga": 1,
           "gd": -1,
           "pts": 0,
-          "team": "Algeria"
+          "team": "Costa Rica"
         }
       ]
     },
@@ -6028,7 +6542,7 @@
             "Paraguay",
             "Wales"
           ],
-          "played": false,
+          "played": true,
           "score": [
             0,
             0
@@ -6036,21 +6550,136 @@
           "pk_score": null,
           "events": [],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Francisco Espinola",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Arnaldo Benitez",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Baez",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Villalba",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Medina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felix Cardozo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alcides Cabrera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Colin Pugh",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Craig Young",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Malcolm Hopkins",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Llewellyn",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rhys Howells",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Clive Jones",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Neil Wright",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              }
+            ]
           },
           "stats": {
             "Paraguay": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 15,
+              "sogs": 3,
+              "saves": 3
             },
             "Wales": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 7,
+              "sogs": 3,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Paraguay_vs_Wales_616121514_494.txt"
         },
         {
           "day": 7,
@@ -6237,6 +6866,17 @@
         {
           "played": 2,
           "w": 1,
+          "d": 1,
+          "l": 0,
+          "gf": 1,
+          "ga": 0,
+          "gd": 1,
+          "pts": 4,
+          "team": "Wales"
+        },
+        {
+          "played": 2,
+          "w": 1,
           "d": 0,
           "l": 1,
           "gf": 3,
@@ -6246,15 +6886,15 @@
           "team": "Mexico"
         },
         {
-          "played": 1,
-          "w": 1,
-          "d": 0,
+          "played": 2,
+          "w": 0,
+          "d": 2,
           "l": 0,
           "gf": 1,
-          "ga": 0,
-          "gd": 1,
-          "pts": 3,
-          "team": "Wales"
+          "ga": 1,
+          "gd": 0,
+          "pts": 2,
+          "team": "Paraguay"
         },
         {
           "played": 1,
@@ -6266,17 +6906,6 @@
           "gd": 0,
           "pts": 1,
           "team": "South Korea"
-        },
-        {
-          "played": 1,
-          "w": 0,
-          "d": 1,
-          "l": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
-          "pts": 1,
-          "team": "Paraguay"
         },
         {
           "played": 1,
