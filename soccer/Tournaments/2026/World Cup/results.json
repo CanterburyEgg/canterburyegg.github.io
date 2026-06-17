@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 7,
+  "current_day": 8,
   "groups": {
     "A": {
       "matches": [
@@ -575,29 +575,160 @@
             "United States",
             "Morocco"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            2,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 3,
+              "team": "Morocco",
+              "player": "Nabil Karim"
+            },
+            {
+              "minute": 28,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            },
+            {
+              "minute": 51,
+              "team": "United States",
+              "player": "Bailey Myers-Morgan"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Victor Weaver",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Mohamed Alaoui",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nabil Karim",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mustapha Alaoui",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rachid Tahiri",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hicham El-Mostafa",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohammed El-Idrissi",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdel Aziz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 2
+              }
+            ]
           },
           "stats": {
             "United States": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 13,
+              "sogs": 8,
+              "saves": 5
             },
             "Morocco": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 10,
+              "sogs": 6,
+              "saves": 6
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/United States_vs_Morocco_617114045_629.txt"
         },
         {
           "day": 8,
@@ -783,6 +914,17 @@
       "standings": [
         {
           "played": 2,
+          "w": 2,
+          "d": 0,
+          "l": 0,
+          "gf": 4,
+          "ga": 2,
+          "gd": 2,
+          "pts": 6,
+          "team": "United States"
+        },
+        {
+          "played": 2,
           "w": 1,
           "d": 0,
           "l": 1,
@@ -805,17 +947,6 @@
         },
         {
           "played": 1,
-          "w": 1,
-          "d": 0,
-          "l": 0,
-          "gf": 2,
-          "ga": 1,
-          "gd": 1,
-          "pts": 3,
-          "team": "United States"
-        },
-        {
-          "played": 1,
           "w": 0,
           "d": 0,
           "l": 1,
@@ -826,13 +957,13 @@
           "team": "Jordan"
         },
         {
-          "played": 1,
+          "played": 2,
           "w": 0,
           "d": 0,
-          "l": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
+          "l": 2,
+          "gf": 2,
+          "ga": 5,
+          "gd": -3,
           "pts": 0,
           "team": "Morocco"
         }
@@ -2249,29 +2380,155 @@
             "Sweden",
             "Saudi Arabia"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 52,
+              "team": "Sweden",
+              "player": "Lars Jonsson"
+            },
+            {
+              "minute": 73,
+              "team": "Saudi Arabia",
+              "player": "Tareq Al-Ghamdi"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Kjell Carlsson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nils Pettersson",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anders Lindstrom",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Fredrik Johansson",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lars Jonsson",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Karl Olsson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sven Sjoberg",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nasir Siddiqui",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nabeel Saad",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tareq Al-Ghamdi",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shahid Khan",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Atif Omar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zuhair Hassan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hany Alzahrani",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Sweden": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 12,
+              "sogs": 5,
+              "saves": 1
             },
             "Saudi Arabia": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 14,
+              "sogs": 2,
+              "saves": 4
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Sweden_vs_Saudi Arabia_617114045_440.txt"
         },
         {
           "day": 7,
@@ -2279,29 +2536,190 @@
             "Peru",
             "Cote d'Ivoire"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            2,
+            7
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 16,
+              "team": "Cote d'Ivoire",
+              "player": "Aka Dah"
+            },
+            {
+              "minute": 30,
+              "team": "Cote d'Ivoire",
+              "player": "Koffi Kouassi"
+            },
+            {
+              "minute": 36,
+              "team": "Cote d'Ivoire",
+              "player": "Kouame Ouattara"
+            },
+            {
+              "minute": 40,
+              "team": "Cote d'Ivoire",
+              "player": "Yao Sanogo"
+            },
+            {
+              "minute": 41,
+              "team": "Peru",
+              "player": "Enrique Aguilar"
+            },
+            {
+              "minute": 52,
+              "team": "Cote d'Ivoire",
+              "player": "Didier Diomande"
+            },
+            {
+              "minute": 53,
+              "team": "Cote d'Ivoire",
+              "player": "Aka Dah"
+            },
+            {
+              "minute": 67,
+              "team": "Peru",
+              "player": "Raul Morales"
+            },
+            {
+              "minute": 83,
+              "team": "Cote d'Ivoire",
+              "player": "Didier Diomande"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Juan Rivera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Morales",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Rojas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Aguilar",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Quispe",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Huaman",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 7
+              }
+            ],
+            "team2": [
+              {
+                "name": "Didier Diomande",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Koffi Kouassi",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aka Dah",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moussa Amani",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yao Sanogo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kouame Ouattara",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brahima Kamagate",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ]
           },
           "stats": {
             "Peru": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 10,
+              "sogs": 6,
+              "saves": 2
             },
             "Cote d'Ivoire": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 13,
+              "sogs": 9,
+              "saves": 4
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Peru_vs_Cote d'Ivoire_617114045_451.txt"
         },
         {
           "day": 10,
@@ -2467,46 +2885,46 @@
           "team": "Australia"
         },
         {
-          "played": 1,
+          "played": 2,
           "w": 1,
-          "d": 0,
+          "d": 1,
           "l": 0,
-          "gf": 4,
-          "ga": 2,
+          "gf": 5,
+          "ga": 3,
           "gd": 2,
-          "pts": 3,
+          "pts": 4,
           "team": "Saudi Arabia"
         },
         {
-          "played": 1,
-          "w": 0,
-          "d": 1,
-          "l": 0,
-          "gf": 3,
-          "ga": 3,
-          "gd": 0,
-          "pts": 1,
-          "team": "Sweden"
-        },
-        {
-          "played": 1,
-          "w": 0,
+          "played": 2,
+          "w": 1,
           "d": 0,
           "l": 1,
-          "gf": 2,
-          "ga": 4,
-          "gd": -2,
-          "pts": 0,
+          "gf": 9,
+          "ga": 6,
+          "gd": 3,
+          "pts": 3,
           "team": "Cote d'Ivoire"
         },
         {
-          "played": 1,
+          "played": 2,
+          "w": 0,
+          "d": 2,
+          "l": 0,
+          "gf": 4,
+          "ga": 4,
+          "gd": 0,
+          "pts": 2,
+          "team": "Sweden"
+        },
+        {
+          "played": 2,
           "w": 0,
           "d": 0,
-          "l": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
+          "l": 2,
+          "gf": 3,
+          "ga": 10,
+          "gd": -7,
           "pts": 0,
           "team": "Peru"
         }
@@ -4968,29 +5386,180 @@
             "Croatia",
             "Ghana"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            6,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 2,
+              "team": "Ghana",
+              "player": "Mohammed Odoi"
+            },
+            {
+              "minute": 5,
+              "team": "Croatia",
+              "player": "Niko Lovric"
+            },
+            {
+              "minute": 34,
+              "team": "Croatia",
+              "player": "Niko Lovric"
+            },
+            {
+              "minute": 36,
+              "team": "Croatia",
+              "player": "Roberjt Grgic"
+            },
+            {
+              "minute": 49,
+              "team": "Croatia",
+              "player": "Niko Lovric"
+            },
+            {
+              "minute": 66,
+              "team": "Croatia",
+              "player": "Franja Blazevic"
+            },
+            {
+              "minute": 89,
+              "team": "Croatia",
+              "player": "Ivica Vidovic"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Niko Lovric",
+                "shots": 6,
+                "sogs": 4,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ivica Vidovic",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Franja Blazevic",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberjt Grgic",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Stjepan Novosel",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zlatko Novak",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miroslav Pavlovic",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Mohammed Odoi",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jordan Amartey",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohammed Abdul Samed",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohammed Semenyo",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ernest Semenyo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andre Kudus",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Inaki Kudus",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 6
+              }
+            ]
           },
           "stats": {
             "Croatia": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 13,
+              "sogs": 7,
+              "saves": 3
             },
             "Ghana": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 10,
+              "sogs": 4,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Croatia_vs_Ghana_617114045_282.txt"
         },
         {
           "day": 10,
@@ -5157,6 +5726,17 @@
         },
         {
           "played": 2,
+          "w": 1,
+          "d": 0,
+          "l": 1,
+          "gf": 6,
+          "ga": 3,
+          "gd": 3,
+          "pts": 3,
+          "team": "Croatia"
+        },
+        {
+          "played": 2,
           "w": 0,
           "d": 2,
           "l": 0,
@@ -5167,13 +5747,13 @@
           "team": "Canada"
         },
         {
-          "played": 1,
+          "played": 2,
           "w": 0,
           "d": 1,
-          "l": 0,
-          "gf": 0,
-          "ga": 0,
-          "gd": 0,
+          "l": 1,
+          "gf": 1,
+          "ga": 6,
+          "gd": -5,
           "pts": 1,
           "team": "Ghana"
         },
@@ -5187,17 +5767,6 @@
           "gd": -7,
           "pts": 1,
           "team": "Ecuador"
-        },
-        {
-          "played": 1,
-          "w": 0,
-          "d": 0,
-          "l": 1,
-          "gf": 0,
-          "ga": 2,
-          "gd": -2,
-          "pts": 0,
-          "team": "Croatia"
         }
       ]
     },
@@ -6687,29 +7256,165 @@
             "South Korea",
             "Switzerland"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            3
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 25,
+              "team": "Switzerland",
+              "player": "Stefan Meier"
+            },
+            {
+              "minute": 44,
+              "team": "Switzerland",
+              "player": "Rolf Bachmann"
+            },
+            {
+              "minute": 60,
+              "team": "South Korea",
+              "player": "Park Hyeon-Bin"
+            },
+            {
+              "minute": 61,
+              "team": "Switzerland",
+              "player": "Andreas Wyss"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Kwon Seung-Hyeok",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Park Hyeon-Bin",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kim Si-Yeon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kim Min-Jun",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Song Do-Hu",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Park Jun-Seo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nam Min-Jae",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Peter Buhler",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andreas Wyss",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Werner Frei",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Stefan Meier",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marcel Roth",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rolf Bachmann",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Markus Schneider",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "South Korea": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 9,
+              "sogs": 4,
+              "saves": 3
             },
             "Switzerland": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 12,
+              "sogs": 6,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/South Korea_vs_Switzerland_617114045_899.txt"
         },
         {
           "day": 9,
@@ -6887,6 +7592,17 @@
         },
         {
           "played": 2,
+          "w": 1,
+          "d": 0,
+          "l": 1,
+          "gf": 4,
+          "ga": 4,
+          "gd": 0,
+          "pts": 3,
+          "team": "Switzerland"
+        },
+        {
+          "played": 2,
           "w": 0,
           "d": 2,
           "l": 0,
@@ -6897,26 +7613,15 @@
           "team": "Paraguay"
         },
         {
-          "played": 1,
+          "played": 2,
           "w": 0,
           "d": 1,
-          "l": 0,
-          "gf": 1,
-          "ga": 1,
-          "gd": 0,
+          "l": 1,
+          "gf": 2,
+          "ga": 4,
+          "gd": -2,
           "pts": 1,
           "team": "South Korea"
-        },
-        {
-          "played": 1,
-          "w": 0,
-          "d": 0,
-          "l": 1,
-          "gf": 1,
-          "ga": 3,
-          "gd": -2,
-          "pts": 0,
-          "team": "Switzerland"
         }
       ]
     }
