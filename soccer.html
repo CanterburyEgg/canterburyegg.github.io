@@ -494,7 +494,7 @@
             loadRegion('WC');
         }
 
-        async function loadRegion(regionCode, el) {
+        async function loadRegion(regionCode, el, skipPush = false) {
             currentRegion = regionCode;
             viewState = 'main';
             document.getElementById('navigation-root').style.display = 'block';
@@ -502,10 +502,13 @@
             updateHeader();
 
             // Update URL without refreshing
-            const url = new URL(window.location);
-            url.searchParams.set('year', currentYear);
-            url.searchParams.set('region', regionCode);
-            window.history.pushState({}, '', url);
+            if (!skipPush) {
+                const url = new URL(window.location);
+                url.searchParams.set('year', currentYear);
+                url.searchParams.set('region', regionCode);
+                url.searchParams.delete('team');
+                window.history.pushState({ view: 'main', year: currentYear, region: regionCode }, '', url);
+            }
 
             if (el) {
                 document.querySelectorAll('#region-nav .nav-item').forEach(btn => btn.classList.remove('active'));
@@ -528,13 +531,15 @@
             // Auto-reset to group stage when switching regions
             showStage('group', document.getElementById('btn-group'));
             
-            try {
-                const response = await fetch(path);
-                currentData = await response.json();
-                renderCurrentStage();
-            } catch (err) {
-                content.innerHTML = `<div class="loading">Error loading data for ${currentYear} ${regionCode}: ${err.message}</div>`;
-            }
+            return fetch(path)
+                .then(response => response.json())
+                .then(data => {
+                    currentData = data;
+                    renderCurrentStage();
+                })
+                .catch(err => {
+                    content.innerHTML = `<div class="loading">Error loading data for ${currentYear} ${regionCode}: ${err.message}</div>`;
+                });
         }
 
         function showStage(stage, el) {
@@ -612,11 +617,18 @@
             container.appendChild(grid);
         }
 
-        async function showTeamPage(teamName) {
+        async function showTeamPage(teamName, skipPush = false) {
             viewState = 'team';
             document.getElementById('navigation-root').style.display = 'block';
             const content = document.getElementById('content');
             content.innerHTML = '<div class="loading">Loading team profile...</div>';
+
+            // Update URL
+            if (!skipPush) {
+                const url = new URL(window.location);
+                url.searchParams.set('team', teamName);
+                window.history.pushState({ view: 'team', team: teamName }, '', url);
+            }
 
             // Find group and rank
             let teamGroup = '';
@@ -1057,11 +1069,38 @@
             document.getElementById('modal').style.display = 'none';
         }
 
+        // Handle back/forward navigation
+        window.addEventListener('popstate', (e) => {
+            const params = new URLSearchParams(window.location.search);
+            currentYear = params.get('year') || '2026';
+            currentRegion = params.get('region') || 'WC';
+            const team = params.get('team');
+
+            // Sync dropdown
+            const yearSelect = document.getElementById('year-select');
+            if (yearSelect) yearSelect.value = currentYear;
+
+            // Sync Play-In visibility
+            const playInBtn = document.getElementById('btn-play-in');
+            if (playInBtn) {
+                playInBtn.style.display = (currentYear === '2026') ? 'none' : 'inline-block';
+            }
+
+            if (team) {
+                loadRegion(currentRegion, null, true).then(() => {
+                    showTeamPage(team, true);
+                });
+            } else {
+                loadRegion(currentRegion, null, true);
+            }
+        });
+
         // Initialize from URL
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             currentYear = params.get('year') || '2026';
             currentRegion = params.get('region') || 'WC';
+            const team = params.get('team');
 
             // Set dropdown value
             const yearSelect = document.getElementById('year-select');
@@ -1073,7 +1112,9 @@
                 playInBtn.style.display = (currentYear === '2026') ? 'none' : 'inline-block';
             }
 
-            loadRegion(currentRegion);
+            loadRegion(currentRegion, null, true).then(() => {
+                if (team) showTeamPage(team, true);
+            });
         });
     </script>
 </body>
