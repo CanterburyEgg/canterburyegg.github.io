@@ -665,8 +665,11 @@
                 teamMatches.forEach(m => {
                     if (m.played) {
                         const side = m.teams[0] === teamName ? 'team1' : 'team2';
-                        m.player_data[side].forEach((p, idx) => {
-                            if (idx === 6) {
+                        const roster = m.player_data[side];
+                        const gkIdx = roster.length - 1;
+                        
+                        roster.forEach((p, idx) => {
+                            if (idx === gkIdx) {
                                 if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
                                 goalkeeperStats[p.name].saves += (p.saves || 0);
                                 goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
@@ -890,8 +893,9 @@
                     [0, 1].forEach(tIdx => {
                         const teamName = m.teams[tIdx];
                         const side = tIdx === 0 ? 'team1' : 'team2';
-                        if (m.player_data[side] && m.player_data[side].length > 6) {
-                            const gk = m.player_data[side][6];
+                        const roster = m.player_data[side];
+                        if (roster && roster.length > 0) {
+                            const gk = roster[roster.length - 1];
                             if (!goalkeepers[gk.name]) goalkeepers[gk.name] = { saves: 0, opps: 0, team: teamName };
                             goalkeepers[gk.name].saves += (gk.saves || 0);
                             goalkeepers[gk.name].opps += ((gk.saves || 0) + (gk.goals_against || 0));

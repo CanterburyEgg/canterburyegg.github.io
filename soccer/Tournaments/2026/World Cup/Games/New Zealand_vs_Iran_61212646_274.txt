@@ -1,91 +1,91 @@
-(check=47) Minute 1: (t1check=34, t2check=22, check1=41, check2=42) (goalchk1=39, goalchk2=32) Nick Young GOAL!!! Score: 1-0
-(check=48) Minute 2: (t1check=7, t2check=33, check1=40, check2=42) (goalchk1=29, goalchk2=20) Hassan Mohammadi shot on goal. Jason Watson SAVE!
-(check=49) Minute 3: (t1check=11, t2check=77, check1=11, check2=13) Ali Mousavi missed shot.
-(check=41) Minute 4: (t1check=30, t2check=12, check1=19, check2=20) Roger Simpson missed shot.
-(check=12) Minute 5: no shot.
-(check=35) Minute 6: no shot.
-(check=43) Minute 7: (t1check=39, t2check=74, check1=37, check2=39) (goalchk1=18, goalchk2=9) Ali Mousavi shot on goal. Jason Watson SAVE!
-(check=39) Minute 8: (t1check=23, t2check=64, check1=8, check2=10) Ali Mousavi missed shot.
-(check=19) Minute 9: no shot.
-(check=45) Minute 10: (t1check=43, t2check=33, check1=13, check2=14) William Davies missed shot.
-(check=4) Minute 11: no shot.
-(check=17) Minute 12: no shot.
-(check=22) Minute 13: no shot.
-(check=26) Minute 14: no shot.
-(check=31) Minute 15: no shot.
-(check=18) Minute 16: no shot.
-(check=14) Minute 17: no shot.
-(check=1) Minute 18: no shot.
-(check=30) Minute 19: no shot.
-(check=16) Minute 20: no shot.
-(check=37) Minute 21: no shot.
-(check=46) Minute 22: (t1check=75, t2check=18, check1=11, check2=12) Nick Young missed shot.
-(check=10) Minute 23: no shot.
-(check=36) Minute 24: no shot.
-(check=24) Minute 25: no shot.
-(check=40) Minute 26: (t1check=47, t2check=10, check1=34, check2=35) (goalchk1=39, goalchk2=32) Chris Turner GOAL!!! Score: 2-0
-(check=15) Minute 27: no shot.
-(check=50) Minute 28: (t1check=39, t2check=69, check1=39, check2=41) (goalchk1=18, goalchk2=9) Ali Mousavi shot on goal. Jason Watson SAVE!
-(check=24) Minute 29: no shot.
-(check=31) Minute 30: no shot.
-(check=6) Minute 31: no shot.
-(check=15) Minute 32: no shot.
-(check=35) Minute 33: no shot.
-(check=5) Minute 34: no shot.
-(check=46) Minute 35: (t1check=26, t2check=75, check1=3, check2=5) Hassan Mohammadi missed shot.
-(check=17) Minute 36: no shot.
-(check=35) Minute 37: no shot.
-(check=38) Minute 38: no shot.
-(check=33) Minute 39: no shot.
-(check=38) Minute 40: no shot.
-(check=43) Minute 41: (t1check=21, t2check=52, check1=26, check2=28) Ali Mousavi missed shot.
-(check=25) Minute 42: no shot.
-(check=8) Minute 43: no shot.
-(check=6) Minute 44: no shot.
-(check=38) Minute 45: no shot.
-(check=38) Minute 46: no shot.
-(check=17) Minute 47: no shot.
-(check=14) Minute 48: no shot.
-(check=33) Minute 49: no shot.
-(check=3) Minute 50: no shot.
-(check=44) Minute 51: (t1check=48, t2check=32, check1=25, check2=26) William Davies missed shot.
-(check=29) Minute 52: no shot.
-(check=44) Minute 53: (t1check=55, t2check=48, check1=45, check2=46) (goalchk1=18, goalchk2=11) Nick Young shot on goal. Reza Jafari SAVE!
-(check=30) Minute 54: no shot.
-(check=30) Minute 55: no shot.
-(check=30) Minute 56: no shot.
-(check=43) Minute 57: (t1check=31, t2check=72, check1=28, check2=30) Amir Zare missed shot.
-(check=38) Minute 58: no shot.
-(check=25) Minute 59: no shot.
-(check=48) Minute 60: (t1check=72, t2check=59, check1=39, check2=40) (goalchk1=19, goalchk2=12) William Davies shot on goal. Reza Jafari SAVE!
-(check=28) Minute 61: no shot.
-(check=26) Minute 62: no shot.
-(check=46) Minute 63: (t1check=57, t2check=37, check1=12, check2=13) Chris Turner missed shot.
-(check=46) Minute 64: (t1check=25, t2check=62, check1=29, check2=31) (goalchk1=36, goalchk2=27) Ali Mousavi GOAL!!! Score: 2-1
-(check=9) Minute 65: no shot.
-(check=17) Minute 66: no shot.
-(check=41) Minute 67: (t1check=76, t2check=30, check1=20, check2=21) Chris Turner missed shot.
-(check=26) Minute 68: no shot.
-(check=1) Minute 69: no shot.
-(check=2) Minute 70: no shot.
-(check=22) Minute 71: no shot.
-(check=20) Minute 72: no shot.
-(check=7) Minute 73: no shot.
-(check=22) Minute 74: no shot.
-(check=40) Minute 75: (t1check=5, t2check=39, check1=2, check2=4) Ali Mousavi missed shot.
-(check=14) Minute 76: no shot.
-(check=12) Minute 77: no shot.
-(check=39) Minute 78: (t1check=55, t2check=22, check1=20, check2=21) Roger Simpson missed shot.
-(check=50) Minute 79: (t1check=8, t2check=48, check1=20, check2=22) Saeed Sadeghi missed shot.
-(check=49) Minute 80: (t1check=18, t2check=29, check1=8, check2=10) Ali Mousavi missed shot.
-(check=35) Minute 81: no shot.
-(check=36) Minute 82: no shot.
-(check=9) Minute 83: no shot.
-(check=49) Minute 84: (t1check=52, t2check=32, check1=13, check2=14) Roger Simpson missed shot.
-(check=25) Minute 85: no shot.
-(check=50) Minute 86: (t1check=50, t2check=43, check1=48, check2=49) (goalchk1=24, goalchk2=17) William Davies shot on goal. Reza Jafari SAVE!
-(check=21) Minute 87: no shot.
-(check=45) Minute 88: (t1check=75, t2check=8, check1=11, check2=12) William Davies missed shot.
-(check=19) Minute 89: no shot.
-(check=35) Minute 90: no shot.
+(check=47) Minute 1: (t1check=42, t2check=29, check1=10, check2=11) Chris Turner missed shot.
+(check=46) Minute 2: (t1check=57, t2check=68, check1=17, check2=19) Ali Mousavi missed shot.
+(check=38) Minute 3: no shot.
+(check=43) Minute 4: (t1check=60, t2check=34, check1=48, check2=49) (goalchk1=31, goalchk2=24) William Davies shot on goal. Reza Jafari SAVE!
+(check=4) Minute 5: no shot.
+(check=11) Minute 6: no shot.
+(check=5) Minute 7: no shot.
+(check=20) Minute 8: no shot.
+(check=40) Minute 9: (t1check=45, t2check=73, check1=44, check2=46) (goalchk1=47, goalchk2=38) Ali Mousavi GOAL!!! Score: 0-1
+(check=20) Minute 10: no shot.
+(check=37) Minute 11: no shot.
+(check=39) Minute 12: (t1check=29, t2check=43, check1=10, check2=12) Seyyed Ghasemi missed shot.
+(check=7) Minute 13: no shot.
+(check=10) Minute 14: no shot.
+(check=30) Minute 15: no shot.
+(check=38) Minute 16: no shot.
+(check=4) Minute 17: no shot.
+(check=36) Minute 18: no shot.
+(check=35) Minute 19: no shot.
+(check=19) Minute 20: no shot.
+(check=18) Minute 21: no shot.
+(check=17) Minute 22: no shot.
+(check=17) Minute 23: no shot.
+(check=4) Minute 24: no shot.
+(check=4) Minute 25: no shot.
+(check=18) Minute 26: no shot.
+(check=30) Minute 27: no shot.
+(check=37) Minute 28: no shot.
+(check=17) Minute 29: no shot.
+(check=9) Minute 30: no shot.
+(check=31) Minute 31: no shot.
+(check=10) Minute 32: no shot.
+(check=28) Minute 33: no shot.
+(check=9) Minute 34: no shot.
+(check=16) Minute 35: no shot.
+(check=33) Minute 36: no shot.
+(check=46) Minute 37: (t1check=51, t2check=60, check1=14, check2=16) Amir Zare missed shot.
+(check=34) Minute 38: no shot.
+(check=48) Minute 39: (t1check=32, t2check=64, check1=20, check2=22) Saeed Sadeghi missed shot.
+(check=44) Minute 40: (t1check=69, t2check=8, check1=37, check2=38) (goalchk1=44, goalchk2=37) Roger Simpson GOAL!!! Score: 1-1
+(check=11) Minute 41: no shot.
+(check=34) Minute 42: no shot.
+(check=30) Minute 43: no shot.
+(check=45) Minute 44: (t1check=12, t2check=50, check1=2, check2=4) Hassan Mohammadi missed shot.
+(check=29) Minute 45: no shot.
+(check=33) Minute 46: no shot.
+(check=12) Minute 47: no shot.
+(check=25) Minute 48: no shot.
+(check=5) Minute 49: no shot.
+(check=46) Minute 50: (t1check=64, t2check=22, check1=10, check2=11) Chris Turner missed shot.
+(check=20) Minute 51: no shot.
+(check=15) Minute 52: no shot.
+(check=28) Minute 53: no shot.
+(check=4) Minute 54: no shot.
+(check=46) Minute 55: (t1check=26, t2check=74, check1=9, check2=11) Amir Zare missed shot.
+(check=7) Minute 56: no shot.
+(check=42) Minute 57: (t1check=70, t2check=72, check1=26, check2=28) Saeed Sadeghi missed shot.
+(check=7) Minute 58: no shot.
+(check=50) Minute 59: (t1check=35, t2check=65, check1=37, check2=39) (goalchk1=27, goalchk2=18) Ali Mousavi shot on goal. Jason Watson SAVE!
+(check=11) Minute 60: no shot.
+(check=19) Minute 61: no shot.
+(check=25) Minute 62: no shot.
+(check=24) Minute 63: no shot.
+(check=31) Minute 64: no shot.
+(check=41) Minute 65: (t1check=50, t2check=40, check1=47, check2=48) (goalchk1=17, goalchk2=10) Roger Simpson shot on goal. Reza Jafari SAVE!
+(check=34) Minute 66: no shot.
+(check=10) Minute 67: no shot.
+(check=38) Minute 68: no shot.
+(check=26) Minute 69: no shot.
+(check=16) Minute 70: no shot.
+(check=39) Minute 71: (t1check=24, t2check=75, check1=8, check2=10) Ali Mousavi missed shot.
+(check=9) Minute 72: no shot.
+(check=27) Minute 73: no shot.
+(check=8) Minute 74: no shot.
+(check=3) Minute 75: no shot.
+(check=48) Minute 76: (t1check=73, t2check=15, check1=24, check2=25) Nick Young missed shot.
+(check=14) Minute 77: no shot.
+(check=22) Minute 78: no shot.
+(check=31) Minute 79: no shot.
+(check=12) Minute 80: no shot.
+(check=39) Minute 81: (t1check=31, t2check=60, check1=11, check2=13) Rouzbeh Ezatolahi missed shot.
+(check=50) Minute 82: (t1check=16, t2check=40, check1=47, check2=49) (goalchk1=33, goalchk2=24) Hassan Mohammadi shot on goal. Jason Watson SAVE!
+(check=5) Minute 83: no shot.
+(check=16) Minute 84: no shot.
+(check=22) Minute 85: no shot.
+(check=37) Minute 86: no shot.
+(check=6) Minute 87: no shot.
+(check=18) Minute 88: no shot.
+(check=48) Minute 89: (t1check=45, t2check=46, check1=4, check2=6) Ali Mousavi missed shot.
+(check=50) Minute 90: (t1check=49, t2check=19, check1=39, check2=40) (goalchk1=48, goalchk2=41) Nick Young GOAL!!! Score: 2-1
 Final score: 2-1

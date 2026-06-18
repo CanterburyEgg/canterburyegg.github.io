@@ -40,19 +40,21 @@ def load_team(tournament_path, team_name):
     with open(path, 'r') as f:
         lines = [line.strip() for line in f.readlines() if line.strip()]
     
+    # Roster is all lines except the last 4 (ratings)
+    player_lines = lines[:-4]
     players = []
     cumulative_prop = 0
-    for i in range(7):
-        parts = lines[i].split('\t')
+    for line in player_lines:
+        parts = line.split('\t')
         name = parts[0]
         prop = int(parts[1])
         cumulative_prop += prop
         players.append(Player(name, cumulative_prop))
     
-    offense = int(lines[7])
-    speed = int(lines[8])
-    defense = int(lines[9])
-    gk = int(lines[10])
+    offense = int(lines[-4])
+    speed = int(lines[-3])
+    defense = int(lines[-2])
+    gk = int(lines[-1])
     
     return Team(team_name, players, offense, speed, defense, gk)
 
@@ -87,7 +89,8 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                 if check <= 30: # Miss
                     p_check = random.randint(0, 99)
                     player_idx = -1
-                    for j in range(6):
+                    # Outfielders are all but the last player (GK)
+                    for j in range(len(team1.players) - 1):
                         if p_check < team1.players[j].shot_prop:
                             player_idx = j
                             break
@@ -104,7 +107,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                     
                     p_check = random.randint(0, 99)
                     player_idx = -1
-                    for j in range(6):
+                    for j in range(len(team1.players) - 1):
                         if p_check < team1.players[j].shot_prop:
                             player_idx = j
                             break
@@ -113,8 +116,9 @@ def play_minutes(minutes, team1, team2, logging, log_file):
 
                     if check <= 25: # Save
                         team2.saves += 1
+                        gk_idx = len(team2.players) - 1
                         if logging:
-                            log_file.write(f"{team1.players[player_idx].name} shot on goal. {team2.players[6].name} SAVE!\n")
+                            log_file.write(f"{team1.players[player_idx].name} shot on goal. {team2.players[gk_idx].name} SAVE!\n")
                     else: # Goal
                         team1.players[player_idx].goals += 1
                         team1.score += 1
@@ -133,7 +137,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                 if check <= 30: # Miss
                     p_check = random.randint(0, 99)
                     player_idx = -1
-                    for j in range(6):
+                    for j in range(len(team2.players) - 1):
                         if p_check < team2.players[j].shot_prop:
                             player_idx = j
                             break
@@ -150,7 +154,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                     
                     p_check = random.randint(0, 99)
                     player_idx = -1
-                    for j in range(6):
+                    for j in range(len(team2.players) - 1):
                         if p_check < team2.players[j].shot_prop:
                             player_idx = j
                             break
@@ -159,8 +163,9 @@ def play_minutes(minutes, team1, team2, logging, log_file):
 
                     if check <= 25: # Save
                         team1.saves += 1
+                        gk_idx = len(team1.players) - 1
                         if logging:
-                            log_file.write(f"{team2.players[player_idx].name} shot on goal. {team1.players[6].name} SAVE!\n")
+                            log_file.write(f"{team2.players[player_idx].name} shot on goal. {team1.players[gk_idx].name} SAVE!\n")
                     else: # Goal
                         team2.players[player_idx].goals += 1
                         team2.score += 1
@@ -169,7 +174,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                             log_file.write(f"{team2.players[player_idx].name} GOAL!!! Score: {team1.score}-{team2.score}\n")
     return match_events
 
-def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=True):
+def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=True, log_path=""):
     team1 = load_team(tournament_path, team1_name)
     team2 = load_team(tournament_path, team2_name)
     
@@ -177,12 +182,13 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
         return None
 
     log_file = None
-    log_path = ""
     if logging:
-        now = datetime.datetime.now()
-        timestamp = f"{now.month}{now.day}{now.hour}{now.minute}{now.second}_{random.randint(100,999)}"
-        os.makedirs(f"Tournaments/{tournament_path}/Games", exist_ok=True)
-        log_path = f"Tournaments/{tournament_path}/Games/{team1_name}_vs_{team2_name}_{timestamp}.txt"
+        if not log_path:
+            now = datetime.datetime.now()
+            timestamp = f"{now.month}{now.day}{now.hour}{now.minute}{now.second}_{random.randint(100,999)}"
+            os.makedirs(f"Tournaments/{tournament_path}/Games", exist_ok=True)
+            log_path = f"Tournaments/{tournament_path}/Games/{team1_name}_vs_{team2_name}_{timestamp}.txt"
+        
         log_file = open(log_path, 'w')
 
     events = play_minutes(90, team1, team2, logging, log_file)
@@ -204,6 +210,9 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
     
     if logging: log_file.close()
 
+    gk_idx1 = len(team1.players) - 1
+    gk_idx2 = len(team2.players) - 1
+
     result = {
         "teams": [team1.name, team2.name],
         "score": [team1.score, team2.score],
@@ -214,8 +223,8 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
             team2.name: {"shots": sum(p.shots for p in team2.players), "sogs": sum(p.sogs for p in team2.players), "saves": team2.saves}
         },
         "player_data": {
-            "team1": [{"name": p.name, "shots": p.shots, "sogs": p.sogs, "goals": p.goals, "saves": team1.saves if i == 6 else 0, "goals_against": team2.score if i == 6 else 0} for i, p in enumerate(team1.players)],
-            "team2": [{"name": p.name, "shots": p.shots, "sogs": p.sogs, "goals": p.goals, "saves": team2.saves if i == 6 else 0, "goals_against": team1.score if i == 6 else 0} for i, p in enumerate(team2.players)]
+            "team1": [{"name": p.name, "shots": p.shots, "sogs": p.sogs, "goals": p.goals, "saves": team1.saves if i == gk_idx1 else 0, "goals_against": team2.score if i == gk_idx1 else 0} for i, p in enumerate(team1.players)],
+            "team2": [{"name": p.name, "shots": p.shots, "sogs": p.sogs, "goals": p.goals, "saves": team2.saves if i == gk_idx2 else 0, "goals_against": team1.score if i == gk_idx2 else 0} for i, p in enumerate(team2.players)]
         },
         "log_path": log_path
     }
