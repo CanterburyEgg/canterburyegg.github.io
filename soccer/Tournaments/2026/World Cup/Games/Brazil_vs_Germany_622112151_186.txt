@@ -1,0 +1,91 @@
+(check=14) Minute 1: no shot.
+(check=1) Minute 2: no shot.
+(check=6) Minute 3: no shot.
+(check=5) Minute 4: no shot.
+(check=23) Minute 5: no shot.
+(check=37) Minute 6: no shot.
+(check=11) Minute 7: no shot.
+(check=27) Minute 8: no shot.
+(check=35) Minute 9: no shot.
+(check=44) Minute 10: (t1check=19, t2check=77, check1=13, check2=12) Wolfgang Koch missed shot.
+(check=45) Minute 11: (t1check=44, t2check=45, check1=11, check2=10) Ilkay Gundogan missed shot.
+(check=40) Minute 12: (t1check=45, t2check=68, check1=3, check2=2) Helmut Lange missed shot.
+(check=1) Minute 13: no shot.
+(check=20) Minute 14: no shot.
+(check=19) Minute 15: no shot.
+(check=46) Minute 16: (t1check=68, t2check=30, check1=44, check2=43) (goalchk1=13, goalchk2=4) Joao Pereira shot on goal. Klaus Bauer SAVE!
+(check=43) Minute 17: (t1check=48, t2check=50, check1=33, check2=32) (goalchk1=42, goalchk2=33) Wolfgang Koch GOAL!!! Score: 0-1
+(check=48) Minute 18: (t1check=61, t2check=56, check1=49, check2=48) (goalchk1=29, goalchk2=20) Joao Pereira shot on goal. Klaus Bauer SAVE!
+(check=21) Minute 19: no shot.
+(check=17) Minute 20: no shot.
+(check=7) Minute 21: no shot.
+(check=41) Minute 22: (t1check=47, t2check=43, check1=16, check2=15) Luiz Gomes missed shot.
+(check=39) Minute 23: (t1check=58, t2check=56, check1=25, check2=24) Manoel Ribiero missed shot.
+(check=50) Minute 24: (t1check=59, t2check=40, check1=34, check2=33) (goalchk1=14, goalchk2=5) Manoel Ribiero shot on goal. Klaus Bauer SAVE!
+(check=30) Minute 25: no shot.
+(check=21) Minute 26: no shot.
+(check=6) Minute 27: no shot.
+(check=27) Minute 28: no shot.
+(check=2) Minute 29: no shot.
+(check=33) Minute 30: no shot.
+(check=40) Minute 31: (t1check=43, t2check=77, check1=3, check2=2) Ilkay Gundogan missed shot.
+(check=22) Minute 32: no shot.
+(check=42) Minute 33: (t1check=13, t2check=21, check1=41, check2=40) (goalchk1=11, goalchk2=2) Gerhard Muller shot on goal. Jose Lopes SAVE!
+(check=42) Minute 34: (t1check=21, t2check=44, check1=35, check2=34) (goalchk1=24, goalchk2=15) Ilkay Gundogan shot on goal. Jose Lopes SAVE!
+(check=50) Minute 35: (t1check=56, t2check=55, check1=13, check2=12) Manoel Ribiero missed shot.
+(check=12) Minute 36: no shot.
+(check=38) Minute 37: no shot.
+(check=38) Minute 38: no shot.
+(check=6) Minute 39: no shot.
+(check=31) Minute 40: no shot.
+(check=16) Minute 41: no shot.
+(check=9) Minute 42: no shot.
+(check=2) Minute 43: no shot.
+(check=25) Minute 44: no shot.
+(check=3) Minute 45: no shot.
+(check=5) Minute 46: no shot.
+(check=24) Minute 47: no shot.
+(check=5) Minute 48: no shot.
+(check=32) Minute 49: no shot.
+(check=45) Minute 50: (t1check=24, t2check=67, check1=46, check2=45) (goalchk1=10, goalchk2=1) Gerhard Muller shot on goal. Jose Lopes SAVE!
+(check=26) Minute 51: no shot.
+(check=8) Minute 52: no shot.
+(check=9) Minute 53: no shot.
+(check=33) Minute 54: no shot.
+(check=49) Minute 55: (t1check=40, t2check=68, check1=20, check2=19) Gerhard Muller missed shot.
+(check=35) Minute 56: no shot.
+(check=47) Minute 57: (t1check=45, t2check=81, check1=8, check2=7) Wolfgang Koch missed shot.
+(check=23) Minute 58: no shot.
+(check=3) Minute 59: no shot.
+(check=37) Minute 60: no shot.
+(check=6) Minute 61: no shot.
+(check=14) Minute 62: no shot.
+(check=46) Minute 63: (t1check=74, t2check=30, check1=30, check2=29) Manoel Ribiero missed shot.
+(check=50) Minute 64: (t1check=79, t2check=82, check1=14, check2=13) Ilkay Gundogan missed shot.
+(check=11) Minute 65: no shot.
+(check=23) Minute 66: no shot.
+(check=42) Minute 67: (t1check=76, t2check=31, check1=16, check2=15) Lucas Luiz missed shot.
+(check=7) Minute 68: no shot.
+(check=44) Minute 69: (t1check=22, t2check=67, check1=6, check2=5) Ilkay Gundogan missed shot.
+(check=32) Minute 70: no shot.
+(check=15) Minute 71: no shot.
+(check=6) Minute 72: no shot.
+(check=48) Minute 73: (t1check=38, t2check=54, check1=48, check2=47) (goalchk1=3, goalchk2=-6) Gerhard Muller shot on goal. Jose Lopes SAVE!
+(check=24) Minute 74: no shot.
+(check=34) Minute 75: no shot.
+(check=9) Minute 76: no shot.
+(check=5) Minute 77: no shot.
+(check=29) Minute 78: no shot.
+(check=12) Minute 79: no shot.
+(check=40) Minute 80: (t1check=54, t2check=45, check1=35, check2=34) (goalchk1=42, goalchk2=33) Marcelo da Silva GOAL!!! Score: 1-1
+(check=13) Minute 81: no shot.
+(check=14) Minute 82: no shot.
+(check=43) Minute 83: (t1check=21, t2check=29, check1=13, check2=12) Ilkay Gundogan missed shot.
+(check=22) Minute 84: no shot.
+(check=41) Minute 85: (t1check=23, t2check=50, check1=43, check2=42) (goalchk1=45, goalchk2=36) Helmut Lange GOAL!!! Score: 1-2
+(check=17) Minute 86: no shot.
+(check=7) Minute 87: no shot.
+(check=19) Minute 88: no shot.
+(check=27) Minute 89: no shot.
+(check=44) Minute 90: (t1check=24, t2check=69, check1=43, check2=42) (goalchk1=43, goalchk2=34) Jurgen Richter GOAL!!! Score: 1-3
+Final score: 1-3
