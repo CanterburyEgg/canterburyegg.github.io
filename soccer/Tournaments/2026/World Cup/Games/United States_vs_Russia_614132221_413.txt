@@ -15,7 +15,7 @@
 (check=2) Minute 15: no shot.
 (check=17) Minute 16: no shot.
 (check=3) Minute 17: no shot.
-(check=46) Minute 18: (t1check=82, t2check=37, check1=43, check2=49) (goalchk1=10, goalchk2=1) Sawyer Carter shot on goal. Dmitriy Shevchenko SAVE!
+(check=46) Minute 18: (t1check=82, t2check=37, check1=43, check2=49) (goalchk1=10, goalchk2=1) Sawyer Marshall shot on goal. Dmitriy Shevchenko SAVE!
 (check=12) Minute 19: no shot.
 (check=11) Minute 20: no shot.
 (check=27) Minute 21: no shot.
@@ -47,7 +47,7 @@
 (check=50) Minute 47: (t1check=73, t2check=79, check1=13, check2=13) Andrey Zaitsev missed shot.
 (check=47) Minute 48: (t1check=74, t2check=22, check1=40, check2=46) (goalchk1=32, goalchk2=23) Lawrence Porter shot on goal. Dmitriy Shevchenko SAVE!
 (check=25) Minute 49: no shot.
-(check=42) Minute 50: (t1check=72, t2check=50, check1=25, check2=31) (goalchk1=34, goalchk2=25) Sawyer Carter shot on goal. Dmitriy Shevchenko SAVE!
+(check=42) Minute 50: (t1check=72, t2check=50, check1=25, check2=31) (goalchk1=34, goalchk2=25) Sawyer Marshall shot on goal. Dmitriy Shevchenko SAVE!
 (check=39) Minute 51: (t1check=36, t2check=40, check1=41, check2=41) (goalchk1=36, goalchk2=29) Maksim Volkova GOAL!!! Score: 1-1
 (check=2) Minute 52: no shot.
 (check=16) Minute 53: no shot.
@@ -56,7 +56,7 @@
 (check=21) Minute 56: no shot.
 (check=44) Minute 57: (t1check=57, t2check=78, check1=21, check2=21) Maksim Volkova missed shot.
 (check=46) Minute 58: (t1check=62, t2check=81, check1=43, check2=43) (goalchk1=10, goalchk2=3) Viktor Morozov shot on goal. Victor Weaver SAVE!
-(check=41) Minute 59: (t1check=52, t2check=8, check1=37, check2=43) (goalchk1=14, goalchk2=5) Sawyer Carter shot on goal. Dmitriy Shevchenko SAVE!
+(check=41) Minute 59: (t1check=52, t2check=8, check1=37, check2=43) (goalchk1=14, goalchk2=5) Sawyer Marshall shot on goal. Dmitriy Shevchenko SAVE!
 (check=31) Minute 60: no shot.
 (check=24) Minute 61: no shot.
 (check=20) Minute 62: no shot.
