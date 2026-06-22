@@ -528,8 +528,10 @@
             const content = document.getElementById('content');
             content.innerHTML = '<div class="loading">Fetching tournament data...</div>';
             
-            // Auto-reset to group stage when switching regions
-            showStage('group', document.getElementById('btn-group'));
+            // Auto-reset to group stage when switching regions manually,
+            // otherwise respect currentStage (e.g. from URL during initialization/history)
+            const targetStage = skipPush ? currentStage : 'group';
+            showStage(targetStage, document.getElementById('btn-' + targetStage), skipPush);
             
             return fetch(path)
                 .then(response => response.json())
@@ -542,12 +544,24 @@
                 });
         }
 
-        function showStage(stage, el) {
+        function showStage(stage, el, skipPush = false) {
             currentStage = stage;
+            viewState = 'main'; // Ensure we exit team view
+            
             if (el) {
                 document.querySelectorAll('#stage-nav .nav-item').forEach(btn => btn.classList.remove('active'));
                 el.classList.add('active');
             }
+
+            if (!skipPush) {
+                const url = new URL(window.location);
+                url.searchParams.set('year', currentYear);
+                url.searchParams.set('region', currentRegion);
+                url.searchParams.set('stage', stage);
+                url.searchParams.delete('team');
+                window.history.pushState({ view: 'main', year: currentYear, region: currentRegion, stage: stage }, '', url);
+            }
+
             renderCurrentStage();
         }
 
@@ -941,9 +955,10 @@
             scorersDiv.innerHTML = '<h3>Top Scorers</h3>';
             let scorersHtml = `<table><thead><tr><th>Player</th><th>Team</th><th>Goals</th></tr></thead><tbody>`;
             sortedScorers.forEach(s => {
+                const escapedName = s.team.replace(/'/g, "\\'");
                 scorersHtml += `<tr>
                     <td>${s.name}</td>
-                    <td><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
+                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')"><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
                     <td>${s.goals}</td>
                 </tr>`;
             });
@@ -954,10 +969,11 @@
             keepersDiv.innerHTML = '<h3>Top Goalkeepers</h3>';
             let keepersHtml = `<table><thead><tr><th>Player</th><th>Team</th><th>Saves</th><th>Save %</th></tr></thead><tbody>`;
             sortedKeepers.forEach(k => {
+                const escapedName = k.team.replace(/'/g, "\\'");
                 const pct = k.opps > 0 ? ((k.saves / k.opps) * 100).toFixed(1) : '0.0';
                 keepersHtml += `<tr>
                     <td>${k.name}</td>
-                    <td><img src="${getFlagUrl(k.team)}" class="flag" style="width:24px; height:16px;"> ${k.team}</td>
+                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')"><img src="${getFlagUrl(k.team)}" class="flag" style="width:24px; height:16px;"> ${k.team}</td>
                     <td>${k.saves}</td>
                     <td>${pct}%</td>
                 </tr>`;
@@ -1030,7 +1046,7 @@
             content.innerHTML = `
                 <span class="close-modal" onclick="closeModal()">&times;</span>
                 <div style="display:flex; justify-content:center; align-items:center; gap:2rem; margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border);">
-                    <div style="text-align:center; flex:1; ${isW1 ? 'font-weight:700' : ''}">
+                    <div class="clickable-row" onclick="closeModal(); showTeamPage('${match.teams[0].replace(/'/g, "\\'")}')" style="text-align:center; flex:1; ${isW1 ? 'font-weight:700' : ''}">
                         <img src="${getFlagUrl(match.teams[0])}" class="flag-large" style="margin:0 0 0.5rem 0; width:60px; height:40px;"><br>
                         <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[0]}</span>
                     </div>
@@ -1040,7 +1056,7 @@
                         <span style="${isW2 ? 'font-weight:700' : ''}">${s2}</span>
                         ${match.pk_score ? `<div style="font-size:1rem; text-align:center; color:var(--text-dim); letter-spacing:1px;">(${p1} - ${p2} PK)</div>` : ''}
                     </div>
-                    <div style="text-align:center; flex:1; ${isW2 ? 'font-weight:700' : ''}">
+                    <div class="clickable-row" onclick="closeModal(); showTeamPage('${match.teams[1].replace(/'/g, "\\'")}')" style="text-align:center; flex:1; ${isW2 ? 'font-weight:700' : ''}">
                         <img src="${getFlagUrl(match.teams[1])}" class="flag-large" style="margin:0 0 0.5rem 0; width:60px; height:40px;"><br>
                         <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[1]}</span>
                     </div>
@@ -1074,6 +1090,7 @@
             const params = new URLSearchParams(window.location.search);
             currentYear = params.get('year') || '2026';
             currentRegion = params.get('region') || 'WC';
+            currentStage = params.get('stage') || 'group';
             const team = params.get('team');
 
             // Sync dropdown
@@ -1085,6 +1102,13 @@
             if (playInBtn) {
                 playInBtn.style.display = (currentYear === '2026') ? 'none' : 'inline-block';
             }
+
+            // Sync stage navigation active state
+            document.querySelectorAll('#stage-nav .nav-item').forEach(btn => {
+                const stage = btn.id.replace('btn-', '');
+                if (stage === currentStage) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
 
             if (team) {
                 loadRegion(currentRegion, null, true).then(() => {
@@ -1100,6 +1124,7 @@
             const params = new URLSearchParams(window.location.search);
             currentYear = params.get('year') || '2026';
             currentRegion = params.get('region') || 'WC';
+            currentStage = params.get('stage') || 'group';
             const team = params.get('team');
 
             // Set dropdown value
@@ -1111,6 +1136,13 @@
             if (playInBtn) {
                 playInBtn.style.display = (currentYear === '2026') ? 'none' : 'inline-block';
             }
+
+            // Set active stage button
+            document.querySelectorAll('#stage-nav .nav-item').forEach(btn => {
+                const stage = btn.id.replace('btn-', '');
+                if (stage === currentStage) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
 
             loadRegion(currentRegion, null, true).then(() => {
                 if (team) showTeamPage(team, true);
