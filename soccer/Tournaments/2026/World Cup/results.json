@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 13,
+  "current_day": 14,
   "groups": {
     "A": {
       "matches": [
@@ -1453,29 +1453,202 @@
             "Russia",
             "Austria"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            3,
+            2
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 19,
+              "team": "Austria",
+              "player": "Franz Leitner"
+            },
+            {
+              "minute": 46,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            },
+            {
+              "minute": 47,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            },
+            {
+              "minute": 87,
+              "team": "Austria",
+              "player": "Johann Brunner"
+            },
+            {
+              "minute": 88,
+              "team": "Russia",
+              "player": "Maksim Volkova"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Ivan Popova",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maksim Volkova",
+                "shots": 4,
+                "sogs": 4,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrey Zaitsev",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergey Petrov",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aleksandr Kuznetsov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Viktor Morozov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vladimir Novikov",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pavel Ivanova",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dmitriy Shevchenko",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Karl Mayer",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Franz Leitner",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Florian Gruber",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Josef Steiner",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Johann Brunner",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marcel Wagner",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andreas Schwarz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerhard Bauer",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Martin Lang",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 3
+              }
+            ]
           },
           "stats": {
             "Russia": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 9,
+              "sogs": 6,
+              "saves": 7
             },
             "Austria": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 20,
+              "sogs": 9,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Russia_vs_Austria_62317264_891.txt"
         },
         {
           "day": 14,
@@ -1540,6 +1713,17 @@
       ],
       "standings": [
         {
+          "played": 4,
+          "w": 3,
+          "d": 0,
+          "l": 1,
+          "gf": 9,
+          "ga": 6,
+          "gd": 3,
+          "pts": 9,
+          "team": "Russia"
+        },
+        {
           "played": 3,
           "w": 3,
           "d": 0,
@@ -1552,23 +1736,12 @@
         },
         {
           "played": 3,
-          "w": 2,
-          "d": 0,
-          "l": 1,
-          "gf": 6,
-          "ga": 4,
-          "gd": 2,
-          "pts": 6,
-          "team": "Russia"
-        },
-        {
-          "played": 2,
           "w": 1,
           "d": 0,
-          "l": 1,
-          "gf": 4,
-          "ga": 4,
-          "gd": 0,
+          "l": 2,
+          "gf": 6,
+          "ga": 7,
+          "gd": -1,
           "pts": 3,
           "team": "Austria"
         },
@@ -2955,7 +3128,7 @@
             "Egypt",
             "Palestine"
           ],
-          "played": false,
+          "played": true,
           "score": [
             0,
             0
@@ -2963,21 +3136,168 @@
           "pk_score": null,
           "events": [],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Rachim Azzizi",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Khalif Karam",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mostafa Hassan",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abo Samir",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hassan Elsayed",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Zizo Fathi",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sherif Farouk",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ahmed Salah",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Omar Mady",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Zaid Seyam",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shehab Dabbagh",
+                "shots": 5,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yaser Wadi",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mahmoud Battat",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Camilo Hamada",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jonathan Qumbor",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Musab Cantillana",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tamer Hamed",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Amr Shehab",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 9,
+                "goals_against": 0
+              }
+            ]
           },
           "stats": {
             "Egypt": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 15,
+              "sogs": 9,
+              "saves": 1
             },
             "Palestine": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 10,
+              "sogs": 1,
+              "saves": 9
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Egypt_vs_Palestine_62317264_823.txt"
         },
         {
           "day": 14,
@@ -3042,14 +3362,14 @@
       ],
       "standings": [
         {
-          "played": 3,
+          "played": 4,
           "w": 3,
-          "d": 0,
+          "d": 1,
           "l": 0,
           "gf": 7,
           "ga": 4,
           "gd": 3,
-          "pts": 9,
+          "pts": 10,
           "team": "Egypt"
         },
         {
@@ -3075,14 +3395,14 @@
           "team": "Italy"
         },
         {
-          "played": 2,
+          "played": 3,
           "w": 0,
-          "d": 0,
+          "d": 1,
           "l": 2,
           "gf": 0,
           "ga": 4,
           "gd": -4,
-          "pts": 0,
+          "pts": 1,
           "team": "Palestine"
         },
         {
@@ -4522,29 +4842,207 @@
             "Australia",
             "Cote d'Ivoire"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            5
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 2,
+              "team": "Cote d'Ivoire",
+              "player": "Koffi Kouassi"
+            },
+            {
+              "minute": 14,
+              "team": "Cote d'Ivoire",
+              "player": "Moussa Amani"
+            },
+            {
+              "minute": 19,
+              "team": "Australia",
+              "player": "Mitchell Duke"
+            },
+            {
+              "minute": 58,
+              "team": "Cote d'Ivoire",
+              "player": "Moussa Amani"
+            },
+            {
+              "minute": 59,
+              "team": "Cote d'Ivoire",
+              "player": "Yao Sanogo"
+            },
+            {
+              "minute": 88,
+              "team": "Cote d'Ivoire",
+              "player": "Koffi Kouassi"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Andrew Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Thomas Martin",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mitchell Duke",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Kelly",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Greg Cooper",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Harry Souttar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Darren King",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Geoff Murphy",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Shane Taylor",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 5
+              }
+            ],
+            "team2": [
+              {
+                "name": "Didier Diomande",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Koffi Kouassi",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Simon Kossounou",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aka Dah",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Moussa Amani",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Odilon Gradel",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Yao Sanogo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kouame Ouattara",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brahima Kamagate",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Australia": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 11,
+              "sogs": 4,
+              "saves": 3
             },
             "Cote d'Ivoire": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 14,
+              "sogs": 8,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Australia_vs_Cote d'Ivoire_62317264_580.txt"
         },
         {
           "day": 13,
@@ -4552,29 +5050,187 @@
             "Peru",
             "Sweden"
           ],
-          "played": false,
+          "played": true,
           "score": [
             0,
-            0
+            2
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 33,
+              "team": "Sweden",
+              "player": "Lars Jonsson"
+            },
+            {
+              "minute": 85,
+              "team": "Sweden",
+              "player": "Nils Pettersson"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Juan Rivera",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Morales",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Gallese",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Rojas",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Aguilar",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilder Yotun",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Quispe",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Gonzales",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Huaman",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kjell Carlsson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nils Pettersson",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dejan Karlstrom",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anders Lindstrom",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Fredrik Johansson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ludwig Augustinsson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lars Jonsson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Karl Olsson",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sven Sjoberg",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ]
           },
           "stats": {
             "Peru": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 11,
+              "sogs": 2,
+              "saves": 3
             },
             "Sweden": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 9,
+              "sogs": 5,
+              "saves": 2
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Peru_vs_Sweden_62317264_117.txt"
         },
         {
           "day": 16,
@@ -4609,6 +5265,17 @@
       ],
       "standings": [
         {
+          "played": 4,
+          "w": 3,
+          "d": 0,
+          "l": 1,
+          "gf": 18,
+          "ga": 7,
+          "gd": 11,
+          "pts": 9,
+          "team": "Cote d'Ivoire"
+        },
+        {
           "played": 3,
           "w": 2,
           "d": 1,
@@ -4620,46 +5287,35 @@
           "team": "Saudi Arabia"
         },
         {
-          "played": 3,
-          "w": 2,
-          "d": 0,
-          "l": 1,
-          "gf": 13,
-          "ga": 6,
-          "gd": 7,
-          "pts": 6,
-          "team": "Cote d'Ivoire"
-        },
-        {
-          "played": 2,
+          "played": 4,
           "w": 1,
-          "d": 1,
-          "l": 0,
-          "gf": 6,
-          "ga": 4,
-          "gd": 2,
-          "pts": 4,
-          "team": "Australia"
-        },
-        {
-          "played": 3,
-          "w": 0,
           "d": 2,
           "l": 1,
-          "gf": 4,
+          "gf": 6,
           "ga": 8,
-          "gd": -4,
-          "pts": 2,
+          "gd": -2,
+          "pts": 5,
           "team": "Sweden"
         },
         {
           "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 7,
+          "ga": 9,
+          "gd": -2,
+          "pts": 4,
+          "team": "Australia"
+        },
+        {
+          "played": 4,
           "w": 0,
           "d": 0,
-          "l": 3,
+          "l": 4,
           "gf": 4,
-          "ga": 12,
-          "gd": -8,
+          "ga": 14,
+          "gd": -10,
           "pts": 0,
           "team": "Peru"
         }
@@ -9371,29 +10027,207 @@
             "France",
             "Canada"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
+            6,
             0
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 21,
+              "team": "France",
+              "player": "Rene Chevalier"
+            },
+            {
+              "minute": 35,
+              "team": "France",
+              "player": "Bernard Michel"
+            },
+            {
+              "minute": 56,
+              "team": "France",
+              "player": "Jacques Lemaire"
+            },
+            {
+              "minute": 71,
+              "team": "France",
+              "player": "Theo Tchouameni"
+            },
+            {
+              "minute": 73,
+              "team": "France",
+              "player": "Jacques Lemaire"
+            },
+            {
+              "minute": 79,
+              "team": "France",
+              "player": "Dominique Girard"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Olivier Rousseau",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dominique Girard",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Dayot Hernandez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lemaire",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bernard Michel",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Theo Tchouameni",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rene Chevalier",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jean Gauthier",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Blanchard",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cole Miller",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kamal Kone",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 6
+              }
+            ]
           },
           "stats": {
             "France": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 18,
+              "sogs": 9,
+              "saves": 2
             },
             "Canada": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 4,
+              "sogs": 2,
+              "saves": 3
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/France_vs_Canada_62317264_112.txt"
         },
         {
           "day": 14,
@@ -9458,14 +10292,14 @@
       ],
       "standings": [
         {
-          "played": 3,
-          "w": 3,
+          "played": 4,
+          "w": 4,
           "d": 0,
           "l": 0,
-          "gf": 11,
+          "gf": 17,
           "ga": 0,
-          "gd": 11,
-          "pts": 9,
+          "gd": 17,
+          "pts": 12,
           "team": "France"
         },
         {
@@ -9480,13 +10314,13 @@
           "team": "Croatia"
         },
         {
-          "played": 2,
+          "played": 3,
           "w": 0,
           "d": 2,
-          "l": 0,
+          "l": 1,
           "gf": 1,
-          "ga": 1,
-          "gd": 0,
+          "ga": 7,
+          "gd": -6,
           "pts": 2,
           "team": "Canada"
         },
