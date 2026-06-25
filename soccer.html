@@ -844,11 +844,15 @@
                         if (prevRound) {
                             const semiLosers = [];
                             prevRound.matches.forEach(m => {
-                                const s1 = m.score[0], s2 = m.score[1];
-                                const p1 = m.pk_score ? m.pk_score[0] : null;
-                                const p2 = m.pk_score ? m.pk_score[1] : null;
-                                const winner = (p1 !== null ? p1 > p2 : s1 > s2) ? m.teams[0] : m.teams[1];
-                                semiLosers.push(m.teams.find(t => t !== winner));
+                                if (m.played && m.score) {
+                                    const s1 = m.score[0], s2 = m.score[1];
+                                    const p1 = m.pk_score ? m.pk_score[0] : null;
+                                    const p2 = m.pk_score ? m.pk_score[1] : null;
+                                    const winner = (p1 !== null ? p1 > p2 : s1 > s2) ? m.teams[0] : m.teams[1];
+                                    semiLosers.push(m.teams.find(t => t !== winner));
+                                } else {
+                                    semiLosers.push("TBD");
+                                }
                             });
 
                             const thirdPlaceMatch = round.matches.find(m => 

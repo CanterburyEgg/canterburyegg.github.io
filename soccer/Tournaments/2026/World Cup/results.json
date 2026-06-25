@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 15,
+  "current_day": 16,
   "groups": {
     "A": {
       "matches": [
@@ -7386,29 +7386,187 @@
             "Argentina",
             "New Zealand"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 22,
+              "team": "Argentina",
+              "player": "Pedro Flores"
+            },
+            {
+              "minute": 90,
+              "team": "New Zealand",
+              "player": "Nick Young"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 7,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lisandro Romero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Molina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Chris Turner",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nick Young",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nando Pijnaker",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roger Simpson",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "William Davies",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joe Waine",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kevin Singh",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Murray Campbell",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jason Watson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Argentina": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 14,
+              "sogs": 2,
+              "saves": 4
             },
             "New Zealand": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 7,
+              "sogs": 5,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Argentina_vs_New Zealand_625131014_842.txt"
         }
       ],
       "standings": [
@@ -7428,33 +7586,33 @@
           "w": 1,
           "d": 2,
           "l": 1,
+          "gf": 3,
+          "ga": 4,
+          "gd": -1,
+          "pts": 5,
+          "team": "Argentina"
+        },
+        {
+          "played": 4,
+          "w": 1,
+          "d": 2,
+          "l": 1,
+          "gf": 4,
+          "ga": 5,
+          "gd": -1,
+          "pts": 5,
+          "team": "New Zealand"
+        },
+        {
+          "played": 4,
+          "w": 1,
+          "d": 2,
+          "l": 1,
           "gf": 8,
           "ga": 6,
           "gd": 2,
           "pts": 5,
           "team": "Nigeria"
-        },
-        {
-          "played": 3,
-          "w": 1,
-          "d": 1,
-          "l": 1,
-          "gf": 3,
-          "ga": 4,
-          "gd": -1,
-          "pts": 4,
-          "team": "New Zealand"
-        },
-        {
-          "played": 3,
-          "w": 1,
-          "d": 1,
-          "l": 1,
-          "gf": 2,
-          "ga": 3,
-          "gd": -1,
-          "pts": 4,
-          "team": "Argentina"
         },
         {
           "played": 4,
@@ -9259,29 +9417,197 @@
             "Germany",
             "England"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            3
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 5,
+              "team": "England",
+              "player": "Neil Griffith"
+            },
+            {
+              "minute": 54,
+              "team": "England",
+              "player": "Simon Knight"
+            },
+            {
+              "minute": 73,
+              "team": "England",
+              "player": "Benjamin Webb"
+            },
+            {
+              "minute": 76,
+              "team": "Germany",
+              "player": "Helmut Lange"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Gerhard Muller",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Helmut Lange",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ilkay Gundogan",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jurgen Richter",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Wolfgang Koch",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Rudiger",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hans Weber",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manfred Fischer",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Klaus Bauer",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Neil Griffith",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Simon Knight",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Watkins",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Benjamin Webb",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Stuart Holmes",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ollie Rice",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Graham Chapman",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Price",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Stephen Hunt",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Germany": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 7,
+              "sogs": 2,
+              "saves": 2
             },
             "England": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 12,
+              "sogs": 5,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Germany_vs_England_625131014_391.txt"
         }
       ],
       "standings": [
@@ -9297,24 +9623,24 @@
           "team": "Brazil"
         },
         {
-          "played": 3,
-          "w": 2,
+          "played": 4,
+          "w": 3,
           "d": 0,
           "l": 1,
-          "gf": 6,
-          "ga": 5,
-          "gd": 1,
-          "pts": 6,
+          "gf": 9,
+          "ga": 6,
+          "gd": 3,
+          "pts": 9,
           "team": "England"
         },
         {
-          "played": 3,
+          "played": 4,
           "w": 1,
           "d": 1,
-          "l": 1,
-          "gf": 8,
-          "ga": 7,
-          "gd": 1,
+          "l": 2,
+          "gf": 9,
+          "ga": 10,
+          "gd": -1,
           "pts": 4,
           "team": "Germany"
         },
@@ -12700,29 +13026,187 @@
             "Netherlands",
             "Poland"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
+            2,
             0
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 52,
+              "team": "Netherlands",
+              "player": "Jeremie Frimpong"
+            },
+            {
+              "minute": 62,
+              "team": "Netherlands",
+              "player": "Jan van Dijk"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Richard van der Heijden",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jan van Dijk",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jeremie Frimpong",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rob Brouwer",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Peter Meijer",
+                "shots": 7,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nathan van de Ven",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jeroen de Jong",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Martijn van den Berg",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marcel Kuiper",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Pawel Lewandowski",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Grzegorz Kowalski",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jan Frankowski",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacek Majewski",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andrzej Nowak",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pawe\u0142 Bednarek",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Krzysztof Sikora",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomasz Zajac",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Piotr Nowicki",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 2
+              }
+            ]
           },
           "stats": {
             "Netherlands": {
-              "shots": 0,
-              "sogs": 0,
+              "shots": 18,
+              "sogs": 7,
               "saves": 0
             },
             "Poland": {
-              "shots": 0,
+              "shots": 4,
               "sogs": 0,
-              "saves": 0
+              "saves": 5
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Netherlands_vs_Poland_625131014_699.txt"
         },
         {
           "day": 15,
@@ -12730,42 +13214,216 @@
             "Costa Rica",
             "Algeria"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            1,
+            2
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 20,
+              "team": "Costa Rica",
+              "player": "Jorge Quesada"
+            },
+            {
+              "minute": 48,
+              "team": "Algeria",
+              "player": "Said Taleb"
+            },
+            {
+              "minute": 66,
+              "team": "Algeria",
+              "player": "Mohamed Benyahia"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Vargas",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Calvo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jeyland Mitchell",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Salah Saidi",
+                "shots": 6,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Abdel Dahmani",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Aissa Bounedjah",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Said Taleb",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ali Brahimi",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Far\u00e8s Bensebaini",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mohamed Benyahia",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Amar Touati",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ahmed Mansouri",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 1
+              }
+            ]
           },
           "stats": {
             "Costa Rica": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 7,
+              "sogs": 2,
+              "saves": 4
             },
             "Algeria": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 13,
+              "sogs": 6,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Costa Rica_vs_Algeria_625131014_622.txt"
         }
       ],
       "standings": [
         {
-          "played": 3,
-          "w": 2,
+          "played": 4,
+          "w": 3,
           "d": 1,
           "l": 0,
-          "gf": 5,
+          "gf": 7,
           "ga": 1,
+          "gd": 6,
+          "pts": 10,
+          "team": "Netherlands"
+        },
+        {
+          "played": 4,
+          "w": 2,
+          "d": 1,
+          "l": 1,
+          "gf": 7,
+          "ga": 3,
           "gd": 4,
           "pts": 7,
-          "team": "Netherlands"
+          "team": "Algeria"
         },
         {
           "played": 4,
@@ -12779,35 +13437,24 @@
           "team": "Uzbekistan"
         },
         {
-          "played": 3,
+          "played": 4,
           "w": 1,
           "d": 1,
-          "l": 1,
-          "gf": 5,
-          "ga": 2,
-          "gd": 3,
-          "pts": 4,
-          "team": "Algeria"
-        },
-        {
-          "played": 3,
-          "w": 1,
-          "d": 1,
-          "l": 1,
+          "l": 2,
           "gf": 3,
-          "ga": 3,
-          "gd": 0,
+          "ga": 5,
+          "gd": -2,
           "pts": 4,
           "team": "Poland"
         },
         {
-          "played": 3,
+          "played": 4,
           "w": 0,
           "d": 0,
-          "l": 3,
-          "gf": 0,
-          "ga": 5,
-          "gd": -5,
+          "l": 4,
+          "gf": 1,
+          "ga": 7,
+          "gd": -6,
           "pts": 0,
           "team": "Costa Rica"
         }
@@ -14339,29 +14986,197 @@
             "Wales",
             "South Korea"
           ],
-          "played": false,
+          "played": true,
           "score": [
-            0,
-            0
+            3,
+            1
           ],
           "pk_score": null,
-          "events": [],
+          "events": [
+            {
+              "minute": 30,
+              "team": "Wales",
+              "player": "Joe Davies"
+            },
+            {
+              "minute": 63,
+              "team": "Wales",
+              "player": "Kieffer Moore"
+            },
+            {
+              "minute": 76,
+              "team": "South Korea",
+              "player": "Park Hyeon-Bin"
+            },
+            {
+              "minute": 88,
+              "team": "Wales",
+              "player": "Colin Pugh"
+            }
+          ],
           "player_data": {
-            "team1": [],
-            "team2": []
+            "team1": [
+              {
+                "name": "Colin Pugh",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Craig Young",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kieffer Moore",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Malcolm Hopkins",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Llewellyn",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joe Davies",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rhys Howells",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Clive Jones",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Neil Wright",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Kwon Seung-Hyeok",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Park Hyeon-Bin",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jae-sung Kim",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kim Si-Yeon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Kim Min-Jun",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Young-gwon Hwang",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Song Do-Hu",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Park Jun-Seo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nam Min-Jae",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 3
+              }
+            ]
           },
           "stats": {
             "Wales": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 11,
+              "sogs": 4,
+              "saves": 2
             },
             "South Korea": {
-              "shots": 0,
-              "sogs": 0,
-              "saves": 0
+              "shots": 8,
+              "sogs": 3,
+              "saves": 1
             }
-          }
+          },
+          "log_path": "Tournaments/2026/World Cup/Games/Wales_vs_South Korea_625131014_765.txt"
         },
         {
           "day": 16,
@@ -14397,6 +15212,17 @@
       "standings": [
         {
           "played": 4,
+          "w": 3,
+          "d": 1,
+          "l": 0,
+          "gf": 6,
+          "ga": 2,
+          "gd": 4,
+          "pts": 10,
+          "team": "Wales"
+        },
+        {
+          "played": 4,
           "w": 2,
           "d": 1,
           "l": 1,
@@ -14405,17 +15231,6 @@
           "gd": 4,
           "pts": 7,
           "team": "Mexico"
-        },
-        {
-          "played": 3,
-          "w": 2,
-          "d": 1,
-          "l": 0,
-          "gf": 3,
-          "ga": 1,
-          "gd": 2,
-          "pts": 7,
-          "team": "Wales"
         },
         {
           "played": 3,
@@ -14433,26 +15248,438 @@
           "w": 0,
           "d": 2,
           "l": 1,
-          "gf": 3,
-          "ga": 5,
-          "gd": -2,
-          "pts": 2,
-          "team": "South Korea"
-        },
-        {
-          "played": 3,
-          "w": 0,
-          "d": 2,
-          "l": 1,
           "gf": 1,
           "ga": 4,
           "gd": -3,
           "pts": 2,
           "team": "Paraguay"
+        },
+        {
+          "played": 4,
+          "w": 0,
+          "d": 2,
+          "l": 2,
+          "gf": 4,
+          "ga": 8,
+          "gd": -4,
+          "pts": 2,
+          "team": "South Korea"
         }
       ]
     }
   },
-  "playoffs": null,
+  "playoffs": {
+    "rounds": [
+      {
+        "name": "Round of 24",
+        "matches": [
+          {
+            "day": 0,
+            "teams": [
+              "Russia",
+              "Italy"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_1",
+            "source": [
+              "A2",
+              "B3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "New Zealand"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_2",
+            "source": [
+              "C2",
+              "D3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "England",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_3",
+            "source": [
+              "E2",
+              "F3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Algeria",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_4",
+            "source": [
+              "G2",
+              "H3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Colombia",
+              "Austria"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_5",
+            "source": [
+              "B2",
+              "A3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Argentina",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_6",
+            "source": [
+              "D2",
+              "C3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "Germany"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_7",
+            "source": [
+              "F2",
+              "E3"
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Mexico",
+              "Uzbekistan"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "R24_8",
+            "source": [
+              "H2",
+              "G3"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Round of 16",
+        "matches": [
+          {
+            "day": 0,
+            "teams": [
+              "Brazil",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_1",
+            "label": "R16_1",
+            "source": [
+              "E1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "France",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_2",
+            "label": "R16_2",
+            "source": [
+              "F1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "United States",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_3",
+            "label": "R16_3",
+            "source": [
+              "A1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Egypt",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_4",
+            "label": "R16_4",
+            "source": [
+              "B1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Netherlands",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_5",
+            "label": "R16_5",
+            "source": [
+              "G1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Wales",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_6",
+            "label": "R16_6",
+            "source": [
+              "H1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_7",
+            "label": "R16_7",
+            "source": [
+              "C1",
+              null
+            ]
+          },
+          {
+            "day": 0,
+            "teams": [
+              "Belgium",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "parent": "R24_8",
+            "label": "R16_8",
+            "source": [
+              "D1",
+              null
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Quarterfinals",
+        "matches": [
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "QF_1"
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "QF_2"
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "QF_3"
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "QF_4"
+          }
+        ]
+      },
+      {
+        "name": "Semifinals",
+        "matches": [
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "SF_1"
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "SF_2"
+          }
+        ]
+      },
+      {
+        "name": "Finals",
+        "matches": [
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "F"
+          },
+          {
+            "day": 0,
+            "teams": [
+              "TBD",
+              "TBD"
+            ],
+            "score": [
+              0,
+              0
+            ],
+            "played": false,
+            "label": "3P"
+          }
+        ]
+      }
+    ]
+  },
   "qualified_teams": []
 }
