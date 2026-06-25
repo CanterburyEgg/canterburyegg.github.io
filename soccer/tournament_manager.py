@@ -324,16 +324,18 @@ def check_mathematical_locks(tournament_data):
                 # Apply simulated matches
                 for m in current_matches:
                     update_standings(sim_results, m)
-                
-                sorted_sim = sort_standings(sim_results, matches) # Matches includes simulated scores now
+
+                # Combine played and simulated matches for tiebreaker calculation
+                all_sim_matches = [m for m in matches if m["played"]] + current_matches
+                sorted_sim = sort_standings(sim_results, all_sim_matches)
                 for rank, s in enumerate(sorted_sim):
                     rank_possibilities[s["team"]].add(rank + 1)
                 return
 
             m = remaining[m_idx]
-            # Try 3 outcomes: Home win (1-0), Away win (0-1), Draw (0-0)
-            # (Scores don't matter for H2H points, and we don't assume GD/GS)
-            for s1, s2 in [(1, 0), (0, 1), (0, 0)]:
+            # Try 5 outcomes to cover GD/GS extremes: 
+            # 1-0 win, 10-0 win, 0-1 loss, 0-10 loss, 0-0 draw
+            for s1, s2 in [(1, 0), (10, 0), (0, 1), (0, 10), (0, 0)]:
                 m_copy = copy.deepcopy(m)
                 m_copy["score"] = [s1, s2]
                 m_copy["played"] = True
@@ -346,25 +348,18 @@ def check_mathematical_locks(tournament_data):
                 locked_rank = list(ranks)[0]
                 locks[f"{g_id}{locked_rank}"] = team
 
-    # 2. Apply locks
+    # 2. Apply locks (and reset if not locked)
     for m in r24:
         source = m.get("source", [])
-        if source[0] in locks: m["teams"][0] = locks[source[0]]
-        if source[1] in locks: m["teams"][1] = locks[source[1]]
+        if source[0] and (source[0][0] in "ABCDEFGH"):
+            m["teams"][0] = locks.get(source[0], "TBD")
+        if source[1] and (source[1][0] in "ABCDEFGH"):
+            m["teams"][1] = locks.get(source[1], "TBD")
     
     for m in r16:
         source = m.get("source", [])
-        if source[0] in locks: m["teams"][0] = locks[source[0]]
-
-    # 2. Apply locks
-    for m in r24:
-        source = m.get("source", [])
-        if source[0] in locks: m["teams"][0] = locks[source[0]]
-        if source[1] in locks: m["teams"][1] = locks[source[1]]
-    
-    for m in r16:
-        source = m.get("source", [])
-        if source[0] in locks: m["teams"][0] = locks[source[0]]
+        if source[0] and (source[0][0] in "ABCDEFGH"):
+            m["teams"][0] = locks.get(source[0], "TBD")
 
 def update_group_standings(tournament_data, g_id):
     results = {}
