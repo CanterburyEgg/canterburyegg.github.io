@@ -1,0 +1,91 @@
+(check=28) Minute 1: no shot.
+(check=39) Minute 2: no shot.
+(check=45) Minute 3: no shot.
+(check=39) Minute 4: no shot.
+(check=49) Minute 5: no shot.
+(check=38) Minute 6: no shot.
+(check=52) Minute 7: no shot.
+(check=66) Minute 8: (t1check=50, t2check=70, check1=26, check2=32) Guadalupe Moreno missed shot.
+(check=63) Minute 9: no shot.
+(check=24) Minute 10: no shot.
+(check=80) Minute 11: (t1check=62, t2check=67, check1=5, check2=11) Hector missed shot.
+(check=6) Minute 12: no shot.
+(check=9) Minute 13: no shot.
+(check=33) Minute 14: no shot.
+(check=19) Minute 15: no shot.
+(check=65) Minute 16: no shot.
+(check=66) Minute 17: (t1check=17, t2check=80, check1=71, check2=77) (goalchk1=76, goalchk2=73) Guadalupe Moreno GOAL!!! Score: 0-1
+(check=69) Minute 18: (t1check=28, t2check=36, check1=11, check2=17) Guadalupe Moreno missed shot.
+(check=41) Minute 19: no shot.
+(check=78) Minute 20: (t1check=72, t2check=56, check1=91, check2=86) (goalchk1=4, goalchk2=-6) Jaime Chavarria shot on goal. Jaime Hernandez SAVE!
+(check=51) Minute 21: no shot.
+(check=63) Minute 22: no shot.
+(check=80) Minute 23: (t1check=49, t2check=38, check1=66, check2=61) (goalchk1=41, goalchk2=31) Orlando Centeno shot on goal. Jaime Hernandez SAVE!
+(check=28) Minute 24: no shot.
+(check=4) Minute 25: no shot.
+(check=51) Minute 26: no shot.
+(check=21) Minute 27: no shot.
+(check=21) Minute 28: no shot.
+(check=86) Minute 29: (t1check=64, t2check=59, check1=22, check2=17) Orlando Centeno missed shot.
+(check=23) Minute 30: no shot.
+(check=53) Minute 31: no shot.
+(check=88) Minute 32: (t1check=68, t2check=62, check1=71, check2=66) (goalchk1=12, goalchk2=2) Eddy Espinoza shot on goal. Jaime Hernandez SAVE!
+(check=74) Minute 33: (t1check=20, t2check=70, check1=43, check2=49) Cesar Romero missed shot.
+(check=45) Minute 34: no shot.
+(check=3) Minute 35: no shot.
+(check=12) Minute 36: no shot.
+(check=72) Minute 37: (t1check=68, t2check=12, check1=52, check2=47) Eddy Espinoza missed shot.
+(check=67) Minute 38: (t1check=71, t2check=25, check1=58, check2=53) Fernando Reyes missed shot.
+(check=49) Minute 39: no shot.
+(check=7) Minute 40: no shot.
+(check=16) Minute 41: no shot.
+(check=45) Minute 42: no shot.
+(check=22) Minute 43: no shot.
+(check=7) Minute 44: no shot.
+(check=19) Minute 45: no shot.
+(check=6) Minute 46: no shot.
+(check=37) Minute 47: no shot.
+(check=41) Minute 48: no shot.
+(check=89) Minute 49: (t1check=69, t2check=17, check1=85, check2=80) (goalchk1=55, goalchk2=45) Eddy Espinoza shot on goal. Jaime Hernandez SAVE!
+(check=55) Minute 50: no shot.
+(check=89) Minute 51: (t1check=40, t2check=16, check1=71, check2=66) (goalchk1=8, goalchk2=-2) Eddy Espinoza shot on goal. Jaime Hernandez SAVE!
+(check=9) Minute 52: no shot.
+(check=14) Minute 53: no shot.
+(check=64) Minute 54: no shot.
+(check=86) Minute 55: (t1check=59, t2check=45, check1=62, check2=57) Eddy Espinoza missed shot.
+(check=10) Minute 56: no shot.
+(check=43) Minute 57: no shot.
+(check=11) Minute 58: no shot.
+(check=19) Minute 59: no shot.
+(check=4) Minute 60: no shot.
+(check=13) Minute 61: no shot.
+(check=29) Minute 62: no shot.
+(check=17) Minute 63: no shot.
+(check=11) Minute 64: no shot.
+(check=58) Minute 65: no shot.
+(check=77) Minute 66: (t1check=48, t2check=17, check1=9, check2=4) Ernesto Jarquin missed shot.
+(check=60) Minute 67: no shot.
+(check=63) Minute 68: no shot.
+(check=49) Minute 69: no shot.
+(check=76) Minute 70: (t1check=50, t2check=19, check1=14, check2=9) Orlando Centeno missed shot.
+(check=54) Minute 71: no shot.
+(check=42) Minute 72: no shot.
+(check=78) Minute 73: (t1check=31, t2check=46, check1=8, check2=14) Hector missed shot.
+(check=54) Minute 74: no shot.
+(check=32) Minute 75: no shot.
+(check=81) Minute 76: (t1check=72, t2check=35, check1=44, check2=39) Fernando Reyes missed shot.
+(check=84) Minute 77: (t1check=16, t2check=28, check1=51, check2=57) Carlos Torres missed shot.
+(check=54) Minute 78: no shot.
+(check=74) Minute 79: (t1check=80, t2check=54, check1=28, check2=23) Ernesto Jarquin missed shot.
+(check=19) Minute 80: no shot.
+(check=4) Minute 81: no shot.
+(check=24) Minute 82: no shot.
+(check=8) Minute 83: no shot.
+(check=79) Minute 84: (t1check=37, t2check=77, check1=39, check2=45) Raul Ortiz missed shot.
+(check=47) Minute 85: no shot.
+(check=67) Minute 86: (t1check=10, t2check=80, check1=18, check2=24) Raul Ortiz missed shot.
+(check=89) Minute 87: (t1check=43, t2check=21, check1=6, check2=1) Eddy Espinoza missed shot.
+(check=24) Minute 88: no shot.
+(check=52) Minute 89: no shot.
+(check=83) Minute 90: (t1check=8, t2check=59, check1=77, check2=83) (goalchk1=85, goalchk2=82) Carlos Torres GOAL!!! Score: 0-2
+Final score: 0-2

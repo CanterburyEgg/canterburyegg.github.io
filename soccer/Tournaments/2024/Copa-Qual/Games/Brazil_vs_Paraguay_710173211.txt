@@ -1,0 +1,91 @@
+(check=83) Minute 1: (t1check=10, t2check=58, check1=8, check2=3) Sergio Baez missed shot.
+(check=9) Minute 2: no shot.
+(check=89) Minute 3: (t1check=66, t2check=51, check1=5, check2=11) Joao Pereira missed shot.
+(check=58) Minute 4: no shot.
+(check=13) Minute 5: no shot.
+(check=20) Minute 6: no shot.
+(check=63) Minute 7: no shot.
+(check=70) Minute 8: (t1check=70, t2check=39, check1=79, check2=85) (goalchk1=89, goalchk2=84) Joao Pereira GOAL!!! Score: 1-0
+(check=21) Minute 9: no shot.
+(check=71) Minute 10: (t1check=52, t2check=60, check1=49, check2=44) Arnaldo Benitez missed shot.
+(check=70) Minute 11: (t1check=38, t2check=31, check1=70, check2=76) (goalchk1=72, goalchk2=67) Luiz Gomes GOAL!!! Score: 2-0
+(check=87) Minute 12: (t1check=55, t2check=12, check1=71, check2=77) (goalchk1=9, goalchk2=4) Joao Pereira shot on goal. Felix Cardozo SAVE!
+(check=66) Minute 13: (t1check=59, t2check=10, check1=17, check2=23) Joao Pereira missed shot.
+(check=13) Minute 14: no shot.
+(check=19) Minute 15: no shot.
+(check=34) Minute 16: no shot.
+(check=32) Minute 17: no shot.
+(check=82) Minute 18: (t1check=45, t2check=46, check1=44, check2=39) Hugo Villalba missed shot.
+(check=26) Minute 19: no shot.
+(check=89) Minute 20: (t1check=30, t2check=48, check1=69, check2=64) (goalchk1=10, goalchk2=0) Ramon Medina shot on goal. Carlos Vieira SAVE!
+(check=56) Minute 21: no shot.
+(check=19) Minute 22: no shot.
+(check=33) Minute 23: no shot.
+(check=35) Minute 24: no shot.
+(check=24) Minute 25: no shot.
+(check=75) Minute 26: (t1check=22, t2check=46, check1=92, check2=87) (goalchk1=8, goalchk2=-2) Hugo Villalba shot on goal. Carlos Vieira SAVE!
+(check=64) Minute 27: no shot.
+(check=21) Minute 28: no shot.
+(check=64) Minute 29: no shot.
+(check=65) Minute 30: no shot.
+(check=74) Minute 31: (t1check=27, t2check=33, check1=20, check2=15) Arnaldo Benitez missed shot.
+(check=30) Minute 32: no shot.
+(check=12) Minute 33: no shot.
+(check=79) Minute 34: (t1check=76, t2check=68, check1=26, check2=32) Manoel Ribiero missed shot.
+(check=41) Minute 35: no shot.
+(check=89) Minute 36: (t1check=33, t2check=46, check1=2, check2=-3) Felix Cardozo missed shot.
+(check=69) Minute 37: (t1check=81, t2check=31, check1=11, check2=17) Luiz Gomes missed shot.
+(check=25) Minute 38: no shot.
+(check=29) Minute 39: no shot.
+(check=27) Minute 40: no shot.
+(check=18) Minute 41: no shot.
+(check=76) Minute 42: (t1check=62, t2check=66, check1=83, check2=78) (goalchk1=28, goalchk2=18) Francisco Espinola shot on goal. Carlos Vieira SAVE!
+(check=52) Minute 43: no shot.
+(check=15) Minute 44: no shot.
+(check=45) Minute 45: no shot.
+(check=4) Minute 46: no shot.
+(check=18) Minute 47: no shot.
+(check=66) Minute 48: (t1check=45, t2check=32, check1=51, check2=57) Manoel Ribiero missed shot.
+(check=43) Minute 49: no shot.
+(check=42) Minute 50: no shot.
+(check=75) Minute 51: (t1check=23, t2check=45, check1=47, check2=42) Hugo Villalba missed shot.
+(check=19) Minute 52: no shot.
+(check=65) Minute 53: no shot.
+(check=43) Minute 54: no shot.
+(check=54) Minute 55: no shot.
+(check=68) Minute 56: (t1check=50, t2check=81, check1=50, check2=45) Francisco Espinola missed shot.
+(check=8) Minute 57: no shot.
+(check=12) Minute 58: no shot.
+(check=26) Minute 59: no shot.
+(check=5) Minute 60: no shot.
+(check=50) Minute 61: no shot.
+(check=12) Minute 62: no shot.
+(check=48) Minute 63: no shot.
+(check=90) Minute 64: (t1check=70, t2check=47, check1=88, check2=94) (goalchk1=30, goalchk2=25) Manoel Ribiero shot on goal. Felix Cardozo SAVE!
+(check=24) Minute 65: no shot.
+(check=23) Minute 66: no shot.
+(check=56) Minute 67: no shot.
+(check=57) Minute 68: no shot.
+(check=20) Minute 69: no shot.
+(check=16) Minute 70: no shot.
+(check=74) Minute 71: (t1check=71, t2check=82, check1=49, check2=44) Arnaldo Benitez missed shot.
+(check=8) Minute 72: no shot.
+(check=46) Minute 73: no shot.
+(check=6) Minute 74: no shot.
+(check=73) Minute 75: (t1check=70, t2check=58, check1=42, check2=48) Rodrigo de Jesus missed shot.
+(check=6) Minute 76: no shot.
+(check=15) Minute 77: no shot.
+(check=58) Minute 78: no shot.
+(check=34) Minute 79: no shot.
+(check=19) Minute 80: no shot.
+(check=26) Minute 81: no shot.
+(check=50) Minute 82: no shot.
+(check=32) Minute 83: no shot.
+(check=84) Minute 84: (t1check=53, t2check=36, check1=84, check2=90) (goalchk1=99, goalchk2=94) Joao Pereira GOAL!!! Score: 3-0
+(check=80) Minute 85: (t1check=25, t2check=81, check1=47, check2=42) Francisco Espinola missed shot.
+(check=26) Minute 86: no shot.
+(check=34) Minute 87: no shot.
+(check=15) Minute 88: no shot.
+(check=50) Minute 89: no shot.
+(check=23) Minute 90: no shot.
+Final score: 3-0

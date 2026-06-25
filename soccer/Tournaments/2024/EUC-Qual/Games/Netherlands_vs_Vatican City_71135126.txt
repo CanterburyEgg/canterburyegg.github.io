@@ -1,0 +1,91 @@
+(check=11) Minute 1: no shot.
+(check=6) Minute 2: no shot.
+(check=16) Minute 3: no shot.
+(check=34) Minute 4: no shot.
+(check=9) Minute 5: no shot.
+(check=37) Minute 6: no shot.
+(check=81) Minute 7: (t1check=33, t2check=65, check1=84, check2=76) (goalchk1=77, goalchk2=71) Friedli Polisca GOAL!!! Score: 0-1
+(check=26) Minute 8: no shot.
+(check=57) Minute 9: no shot.
+(check=66) Minute 10: (t1check=9, t2check=14, check1=26, check2=18) Friedli Polisca missed shot.
+(check=69) Minute 11: (t1check=53, t2check=26, check1=63, check2=69) (goalchk1=11, goalchk2=11) Richard van der Heijden shot on goal. Giampiero Suriani SAVE!
+(check=46) Minute 12: no shot.
+(check=77) Minute 13: (t1check=75, t2check=43, check1=69, check2=75) (goalchk1=68, goalchk2=68) Jan van Dijk GOAL!!! Score: 1-1
+(check=22) Minute 14: no shot.
+(check=67) Minute 15: (t1check=72, t2check=12, check1=47, check2=53) Richard van der Heijden missed shot.
+(check=65) Minute 16: no shot.
+(check=27) Minute 17: no shot.
+(check=50) Minute 18: no shot.
+(check=38) Minute 19: no shot.
+(check=78) Minute 20: (t1check=46, t2check=6, check1=78, check2=84) (goalchk1=31, goalchk2=31) Jan van Dijk shot on goal. Giampiero Suriani SAVE!
+(check=34) Minute 21: no shot.
+(check=11) Minute 22: no shot.
+(check=79) Minute 23: (t1check=81, t2check=37, check1=18, check2=24) Peter Meijer missed shot.
+(check=48) Minute 24: no shot.
+(check=66) Minute 25: (t1check=12, t2check=45, check1=8, check2=0) Paolo Cameroni missed shot.
+(check=20) Minute 26: no shot.
+(check=85) Minute 27: (t1check=22, t2check=31, check1=78, check2=70) (goalchk1=19, goalchk2=13) Paolo Cameroni shot on goal. Martijn van den Berg SAVE!
+(check=16) Minute 28: no shot.
+(check=80) Minute 29: (t1check=75, t2check=36, check1=12, check2=18) Richard van der Heijden missed shot.
+(check=19) Minute 30: no shot.
+(check=19) Minute 31: no shot.
+(check=66) Minute 32: (t1check=54, t2check=22, check1=56, check2=62) (goalchk1=20, goalchk2=20) Jan van Dijk shot on goal. Giampiero Suriani SAVE!
+(check=28) Minute 33: no shot.
+(check=70) Minute 34: (t1check=46, t2check=31, check1=69, check2=75) (goalchk1=77, goalchk2=77) Martijn van den Berg GOAL!!! Score: 2-1
+(check=85) Minute 35: (t1check=14, t2check=7, check1=12, check2=18) Richard van der Heijden missed shot.
+(check=67) Minute 36: (t1check=44, t2check=8, check1=34, check2=40) Jan van Dijk missed shot.
+(check=9) Minute 37: no shot.
+(check=79) Minute 38: (t1check=32, t2check=39, check1=77, check2=69) (goalchk1=1, goalchk2=-5) Giampiero Suriani shot on goal. Martijn van den Berg SAVE!
+(check=65) Minute 39: no shot.
+(check=76) Minute 40: (t1check=52, t2check=62, check1=26, check2=18) Agostino Antonioli missed shot.
+(check=42) Minute 41: no shot.
+(check=70) Minute 42: (t1check=22, t2check=69, check1=39, check2=31) Agostino Antonioli missed shot.
+(check=9) Minute 43: no shot.
+(check=62) Minute 44: no shot.
+(check=1) Minute 45: no shot.
+(check=38) Minute 46: no shot.
+(check=53) Minute 47: no shot.
+(check=21) Minute 48: no shot.
+(check=69) Minute 49: (t1check=69, t2check=26, check1=5, check2=11) Jan van Dijk missed shot.
+(check=80) Minute 50: (t1check=56, t2check=74, check1=74, check2=66) (goalchk1=52, goalchk2=46) Friedli Polisca shot on goal. Martijn van den Berg SAVE!
+(check=39) Minute 51: no shot.
+(check=5) Minute 52: no shot.
+(check=74) Minute 53: (t1check=51, t2check=40, check1=78, check2=84) (goalchk1=39, goalchk2=39) Richard van der Heijden shot on goal. Giampiero Suriani SAVE!
+(check=85) Minute 54: (t1check=31, t2check=57, check1=61, check2=53) Paolo Cameroni missed shot.
+(check=39) Minute 55: no shot.
+(check=28) Minute 56: no shot.
+(check=90) Minute 57: (t1check=15, t2check=36, check1=92, check2=84) (goalchk1=19, goalchk2=13) Agostino Antonioli shot on goal. Martijn van den Berg SAVE!
+(check=66) Minute 58: (t1check=22, t2check=30, check1=96, check2=88) (goalchk1=45, goalchk2=39) Friedli Polisca shot on goal. Martijn van den Berg SAVE!
+(check=77) Minute 59: (t1check=24, t2check=73, check1=17, check2=9) Friedli Polisca missed shot.
+(check=86) Minute 60: (t1check=15, t2check=31, check1=14, check2=6) Friedli Polisca missed shot.
+(check=81) Minute 61: (t1check=76, t2check=17, check1=45, check2=51) Richard van der Heijden missed shot.
+(check=75) Minute 62: (t1check=47, t2check=45, check1=45, check2=51) Peter Meijer missed shot.
+(check=41) Minute 63: no shot.
+(check=39) Minute 64: no shot.
+(check=58) Minute 65: no shot.
+(check=6) Minute 66: no shot.
+(check=38) Minute 67: no shot.
+(check=84) Minute 68: (t1check=81, t2check=7, check1=25, check2=31) Peter Meijer missed shot.
+(check=46) Minute 69: no shot.
+(check=36) Minute 70: no shot.
+(check=11) Minute 71: no shot.
+(check=12) Minute 72: no shot.
+(check=49) Minute 73: no shot.
+(check=87) Minute 74: (t1check=57, t2check=70, check1=74, check2=66) (goalchk1=80, goalchk2=74) Friedli Polisca GOAL!!! Score: 2-2
+(check=31) Minute 75: no shot.
+(check=82) Minute 76: (t1check=9, t2check=50, check1=61, check2=53) Paolo Cameroni missed shot.
+(check=89) Minute 77: (t1check=76, t2check=39, check1=99, check2=105) (goalchk1=68, goalchk2=68) Peter Meijer GOAL!!! Score: 3-2
+(check=56) Minute 78: no shot.
+(check=84) Minute 79: (t1check=48, t2check=13, check1=42, check2=48) Jan van Dijk missed shot.
+(check=41) Minute 80: no shot.
+(check=64) Minute 81: no shot.
+(check=15) Minute 82: no shot.
+(check=2) Minute 83: no shot.
+(check=52) Minute 84: no shot.
+(check=81) Minute 85: (t1check=33, t2check=59, check1=50, check2=42) Enrico Mariotti missed shot.
+(check=12) Minute 86: no shot.
+(check=9) Minute 87: no shot.
+(check=72) Minute 88: (t1check=68, t2check=32, check1=60, check2=66) (goalchk1=12, goalchk2=12) Jan van Dijk shot on goal. Giampiero Suriani SAVE!
+(check=4) Minute 89: no shot.
+(check=4) Minute 90: no shot.
+Final score: 3-2

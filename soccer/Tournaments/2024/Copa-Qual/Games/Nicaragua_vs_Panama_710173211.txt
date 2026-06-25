@@ -1,0 +1,91 @@
+(check=25) Minute 1: no shot.
+(check=31) Minute 2: no shot.
+(check=13) Minute 3: no shot.
+(check=77) Minute 4: (t1check=64, t2check=69, check1=18, check2=21) Angel Cedeno missed shot.
+(check=8) Minute 5: no shot.
+(check=6) Minute 6: no shot.
+(check=42) Minute 7: no shot.
+(check=55) Minute 8: no shot.
+(check=23) Minute 9: no shot.
+(check=7) Minute 10: no shot.
+(check=8) Minute 11: no shot.
+(check=71) Minute 12: (t1check=23, t2check=61, check1=68, check2=71) (goalchk1=74, goalchk2=71) Jose Abrego GOAL!!! Score: 0-1
+(check=41) Minute 13: no shot.
+(check=5) Minute 14: no shot.
+(check=8) Minute 15: no shot.
+(check=1) Minute 16: no shot.
+(check=88) Minute 17: (t1check=34, t2check=22, check1=14, check2=9) Fernando Reyes missed shot.
+(check=19) Minute 18: no shot.
+(check=27) Minute 19: no shot.
+(check=37) Minute 20: no shot.
+(check=81) Minute 21: (t1check=53, t2check=72, check1=93, check2=96) (goalchk1=34, goalchk2=31) Angel Cedeno shot on goal. Jaime Chavarria SAVE!
+(check=57) Minute 22: no shot.
+(check=9) Minute 23: no shot.
+(check=54) Minute 24: no shot.
+(check=59) Minute 25: no shot.
+(check=60) Minute 26: no shot.
+(check=6) Minute 27: no shot.
+(check=49) Minute 28: no shot.
+(check=14) Minute 29: no shot.
+(check=73) Minute 30: (t1check=9, t2check=18, check1=50, check2=53) Angel Cedeno missed shot.
+(check=87) Minute 31: (t1check=21, t2check=71, check1=7, check2=10) Jose Abrego missed shot.
+(check=5) Minute 32: no shot.
+(check=77) Minute 33: (t1check=54, t2check=40, check1=21, check2=16) Reynaldo Herrera missed shot.
+(check=41) Minute 34: no shot.
+(check=77) Minute 35: (t1check=20, t2check=35, check1=17, check2=20) Jose Abrego missed shot.
+(check=40) Minute 36: no shot.
+(check=84) Minute 37: (t1check=57, t2check=14, check1=34, check2=29) Fernando Reyes missed shot.
+(check=53) Minute 38: no shot.
+(check=72) Minute 39: (t1check=8, t2check=43, check1=40, check2=43) Edwin Lopez missed shot.
+(check=30) Minute 40: no shot.
+(check=80) Minute 41: (t1check=43, t2check=67, check1=14, check2=17) Angel Cedeno missed shot.
+(check=31) Minute 42: no shot.
+(check=63) Minute 43: no shot.
+(check=9) Minute 44: no shot.
+(check=32) Minute 45: no shot.
+(check=73) Minute 46: (t1check=31, t2check=82, check1=50, check2=53) Francisco Castillo missed shot.
+(check=16) Minute 47: no shot.
+(check=19) Minute 48: no shot.
+(check=73) Minute 49: (t1check=31, t2check=68, check1=90, check2=93) (goalchk1=67, goalchk2=64) Jose Abrego shot on goal. Jaime Chavarria SAVE!
+(check=11) Minute 50: no shot.
+(check=72) Minute 51: (t1check=73, t2check=40, check1=74, check2=69) (goalchk1=63, goalchk2=55) Eddy Espinoza shot on goal. Alberto Diaz SAVE!
+(check=81) Minute 52: (t1check=34, t2check=37, check1=3, check2=6) Angel Cedeno missed shot.
+(check=49) Minute 53: no shot.
+(check=26) Minute 54: no shot.
+(check=86) Minute 55: (t1check=68, t2check=73, check1=7, check2=10) Francisco Castillo missed shot.
+(check=4) Minute 56: no shot.
+(check=9) Minute 57: no shot.
+(check=12) Minute 58: no shot.
+(check=76) Minute 59: (t1check=12, t2check=82, check1=35, check2=38) Angel Cedeno missed shot.
+(check=54) Minute 60: no shot.
+(check=53) Minute 61: no shot.
+(check=13) Minute 62: no shot.
+(check=11) Minute 63: no shot.
+(check=3) Minute 64: no shot.
+(check=61) Minute 65: no shot.
+(check=75) Minute 66: (t1check=59, t2check=12, check1=2, check2=-3) Reynaldo Herrera missed shot.
+(check=82) Minute 67: (t1check=10, t2check=42, check1=7, check2=10) Edwin Lopez missed shot.
+(check=11) Minute 68: no shot.
+(check=87) Minute 69: (t1check=15, t2check=75, check1=67, check2=70) (goalchk1=25, goalchk2=22) Francisco Castillo shot on goal. Jaime Chavarria SAVE!
+(check=6) Minute 70: no shot.
+(check=44) Minute 71: no shot.
+(check=12) Minute 72: no shot.
+(check=56) Minute 73: no shot.
+(check=87) Minute 74: (t1check=77, t2check=38, check1=99, check2=94) (goalchk1=82, goalchk2=74) Reynaldo Herrera GOAL!!! Score: 1-1
+(check=20) Minute 75: no shot.
+(check=41) Minute 76: no shot.
+(check=29) Minute 77: no shot.
+(check=80) Minute 78: (t1check=32, t2check=57, check1=26, check2=29) Francisco Castillo missed shot.
+(check=25) Minute 79: no shot.
+(check=22) Minute 80: no shot.
+(check=2) Minute 81: no shot.
+(check=36) Minute 82: no shot.
+(check=86) Minute 83: (t1check=79, t2check=57, check1=61, check2=56) Eddy Espinoza missed shot.
+(check=66) Minute 84: (t1check=37, t2check=72, check1=39, check2=42) Angel Cedeno missed shot.
+(check=31) Minute 85: no shot.
+(check=76) Minute 86: (t1check=54, t2check=76, check1=7, check2=10) Jose Abrego missed shot.
+(check=79) Minute 87: (t1check=63, t2check=58, check1=3, check2=-2) Fernando Reyes missed shot.
+(check=42) Minute 88: no shot.
+(check=76) Minute 89: (t1check=16, t2check=76, check1=61, check2=64) (goalchk1=86, goalchk2=83) Francisco Castillo GOAL!!! Score: 1-2
+(check=2) Minute 90: no shot.
+Final score: 1-2

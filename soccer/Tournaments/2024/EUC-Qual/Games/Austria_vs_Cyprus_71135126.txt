@@ -1,0 +1,91 @@
+(check=64) Minute 1: no shot.
+(check=6) Minute 2: no shot.
+(check=18) Minute 3: no shot.
+(check=28) Minute 4: no shot.
+(check=77) Minute 5: (t1check=10, t2check=41, check1=51, check2=48) Kyriacos Panayiotou missed shot.
+(check=1) Minute 6: no shot.
+(check=41) Minute 7: no shot.
+(check=58) Minute 8: no shot.
+(check=11) Minute 9: no shot.
+(check=9) Minute 10: no shot.
+(check=51) Minute 11: no shot.
+(check=28) Minute 12: no shot.
+(check=82) Minute 13: (t1check=46, t2check=47, check1=97, check2=94) (goalchk1=42, goalchk2=34) Kyriacos Panayiotou shot on goal. Gerhard Bauer SAVE!
+(check=25) Minute 14: no shot.
+(check=16) Minute 15: no shot.
+(check=66) Minute 16: (t1check=7, t2check=30, check1=100, check2=97) (goalchk1=56, goalchk2=48) Georgios Christofi shot on goal. Gerhard Bauer SAVE!
+(check=36) Minute 17: no shot.
+(check=79) Minute 18: (t1check=76, t2check=44, check1=21, check2=23) Johann Brunner missed shot.
+(check=19) Minute 19: no shot.
+(check=6) Minute 20: no shot.
+(check=47) Minute 21: no shot.
+(check=11) Minute 22: no shot.
+(check=14) Minute 23: no shot.
+(check=78) Minute 24: (t1check=67, t2check=71, check1=8, check2=5) Demetris Nicolaou missed shot.
+(check=12) Minute 25: no shot.
+(check=30) Minute 26: no shot.
+(check=29) Minute 27: no shot.
+(check=38) Minute 28: no shot.
+(check=71) Minute 29: (t1check=58, t2check=45, check1=61, check2=63) (goalchk1=98, goalchk2=97) Franz Leitner GOAL!!! Score: 1-0
+(check=71) Minute 30: (t1check=50, t2check=66, check1=2, check2=-1) Christos Kyprianou missed shot.
+(check=62) Minute 31: no shot.
+(check=86) Minute 32: (t1check=53, t2check=46, check1=52, check2=54) Franz Leitner missed shot.
+(check=17) Minute 33: no shot.
+(check=50) Minute 34: no shot.
+(check=61) Minute 35: no shot.
+(check=10) Minute 36: no shot.
+(check=76) Minute 37: (t1check=38, t2check=36, check1=45, check2=47) Franz Leitner missed shot.
+(check=18) Minute 38: no shot.
+(check=42) Minute 39: no shot.
+(check=24) Minute 40: no shot.
+(check=86) Minute 41: (t1check=58, t2check=6, check1=87, check2=89) (goalchk1=15, goalchk2=14) Johann Brunner shot on goal. Ioannis Andreou SAVE!
+(check=71) Minute 42: (t1check=55, t2check=74, check1=19, check2=16) Kyriacos Panayiotou missed shot.
+(check=9) Minute 43: no shot.
+(check=18) Minute 44: no shot.
+(check=44) Minute 45: no shot.
+(check=60) Minute 46: no shot.
+(check=56) Minute 47: no shot.
+(check=43) Minute 48: no shot.
+(check=83) Minute 49: (t1check=21, t2check=27, check1=57, check2=54) Kyriacos Panayiotou missed shot.
+(check=85) Minute 50: (t1check=55, t2check=26, check1=78, check2=80) (goalchk1=95, goalchk2=94) Karl Mayer GOAL!!! Score: 2-0
+(check=25) Minute 51: no shot.
+(check=10) Minute 52: no shot.
+(check=38) Minute 53: no shot.
+(check=23) Minute 54: no shot.
+(check=30) Minute 55: no shot.
+(check=68) Minute 56: (t1check=80, t2check=63, check1=63, check2=65) (goalchk1=64, goalchk2=63) Johann Brunner shot on goal. Ioannis Andreou SAVE!
+(check=67) Minute 57: (t1check=37, t2check=61, check1=83, check2=80) (goalchk1=24, goalchk2=16) Christos Kyprianou shot on goal. Gerhard Bauer SAVE!
+(check=52) Minute 58: no shot.
+(check=82) Minute 59: (t1check=65, t2check=62, check1=36, check2=38) Gerhard Bauer missed shot.
+(check=59) Minute 60: no shot.
+(check=57) Minute 61: no shot.
+(check=25) Minute 62: no shot.
+(check=85) Minute 63: (t1check=76, t2check=71, check1=61, check2=63) (goalchk1=41, goalchk2=40) Johann Brunner shot on goal. Ioannis Andreou SAVE!
+(check=75) Minute 64: (t1check=75, t2check=43, check1=63, check2=65) (goalchk1=54, goalchk2=53) Johann Brunner shot on goal. Ioannis Andreou SAVE!
+(check=70) Minute 65: (t1check=71, t2check=54, check1=44, check2=46) Johann Brunner missed shot.
+(check=76) Minute 66: (t1check=68, t2check=30, check1=11, check2=13) Andreas Schwarz missed shot.
+(check=52) Minute 67: no shot.
+(check=64) Minute 68: no shot.
+(check=30) Minute 69: no shot.
+(check=7) Minute 70: no shot.
+(check=37) Minute 71: no shot.
+(check=53) Minute 72: no shot.
+(check=34) Minute 73: no shot.
+(check=43) Minute 74: no shot.
+(check=12) Minute 75: no shot.
+(check=70) Minute 76: (t1check=11, t2check=64, check1=63, check2=60) Kyriacos Panayiotou missed shot.
+(check=5) Minute 77: no shot.
+(check=81) Minute 78: (t1check=80, t2check=70, check1=23, check2=25) Karl Mayer missed shot.
+(check=45) Minute 79: no shot.
+(check=22) Minute 80: no shot.
+(check=63) Minute 81: no shot.
+(check=53) Minute 82: no shot.
+(check=73) Minute 83: (t1check=44, t2check=10, check1=47, check2=49) Gerhard Bauer missed shot.
+(check=14) Minute 84: no shot.
+(check=49) Minute 85: no shot.
+(check=72) Minute 86: (t1check=7, t2check=5, check1=91, check2=93) (goalchk1=23, goalchk2=22) Franz Leitner shot on goal. Ioannis Andreou SAVE!
+(check=31) Minute 87: no shot.
+(check=38) Minute 88: no shot.
+(check=23) Minute 89: no shot.
+(check=23) Minute 90: no shot.
+Final score: 2-0

@@ -1,0 +1,91 @@
+(check=44) Minute 1: no shot.
+(check=54) Minute 2: no shot.
+(check=90) Minute 3: (t1check=26, t2check=12, check1=59, check2=60) Guadalupe Moreno missed shot.
+(check=50) Minute 4: no shot.
+(check=42) Minute 5: no shot.
+(check=49) Minute 6: no shot.
+(check=21) Minute 7: no shot.
+(check=75) Minute 8: (t1check=72, t2check=59, check1=37, check2=38) Jaime Hernandez missed shot.
+(check=47) Minute 9: no shot.
+(check=75) Minute 10: (t1check=63, t2check=79, check1=28, check2=26) Angel Cedeno missed shot.
+(check=32) Minute 11: no shot.
+(check=43) Minute 12: no shot.
+(check=74) Minute 13: (t1check=49, t2check=69, check1=24, check2=22) Francisco Castillo missed shot.
+(check=49) Minute 14: no shot.
+(check=45) Minute 15: no shot.
+(check=8) Minute 16: no shot.
+(check=58) Minute 17: no shot.
+(check=87) Minute 18: (t1check=69, t2check=19, check1=55, check2=56) Hector missed shot.
+(check=13) Minute 19: no shot.
+(check=11) Minute 20: no shot.
+(check=40) Minute 21: no shot.
+(check=51) Minute 22: no shot.
+(check=53) Minute 23: no shot.
+(check=61) Minute 24: no shot.
+(check=31) Minute 25: no shot.
+(check=87) Minute 26: (t1check=63, t2check=15, check1=41, check2=42) Carlos Torres missed shot.
+(check=69) Minute 27: (t1check=79, t2check=29, check1=40, check2=41) Guadalupe Moreno missed shot.
+(check=17) Minute 28: no shot.
+(check=22) Minute 29: no shot.
+(check=48) Minute 30: no shot.
+(check=70) Minute 31: (t1check=43, t2check=61, check1=3, check2=1) Edwin Lopez missed shot.
+(check=83) Minute 32: (t1check=18, t2check=23, check1=6, check2=4) Angel Cedeno missed shot.
+(check=30) Minute 33: no shot.
+(check=75) Minute 34: (t1check=31, t2check=61, check1=83, check2=81) (goalchk1=17, goalchk2=7) Angel Cedeno shot on goal. Jaime Hernandez SAVE!
+(check=35) Minute 35: no shot.
+(check=65) Minute 36: no shot.
+(check=61) Minute 37: no shot.
+(check=12) Minute 38: no shot.
+(check=77) Minute 39: (t1check=67, t2check=63, check1=84, check2=85) (goalchk1=92, goalchk2=84) Carlos Torres GOAL!!! Score: 1-0
+(check=9) Minute 40: no shot.
+(check=11) Minute 41: no shot.
+(check=33) Minute 42: no shot.
+(check=35) Minute 43: no shot.
+(check=34) Minute 44: no shot.
+(check=54) Minute 45: no shot.
+(check=56) Minute 46: no shot.
+(check=38) Minute 47: no shot.
+(check=11) Minute 48: no shot.
+(check=57) Minute 49: no shot.
+(check=67) Minute 50: (t1check=57, t2check=55, check1=75, check2=76) (goalchk1=19, goalchk2=11) Carlos Torres shot on goal. Alberto Diaz SAVE!
+(check=1) Minute 51: no shot.
+(check=40) Minute 52: no shot.
+(check=23) Minute 53: no shot.
+(check=90) Minute 54: (t1check=59, t2check=69, check1=44, check2=42) Alberto Diaz missed shot.
+(check=18) Minute 55: no shot.
+(check=42) Minute 56: no shot.
+(check=52) Minute 57: no shot.
+(check=36) Minute 58: no shot.
+(check=84) Minute 59: (t1check=58, t2check=81, check1=20, check2=18) Edwin Lopez missed shot.
+(check=14) Minute 60: no shot.
+(check=87) Minute 61: (t1check=69, t2check=10, check1=4, check2=5) Jaime Hernandez missed shot.
+(check=22) Minute 62: no shot.
+(check=19) Minute 63: no shot.
+(check=83) Minute 64: (t1check=46, t2check=52, check1=59, check2=57) Francisco Castillo missed shot.
+(check=5) Minute 65: no shot.
+(check=5) Minute 66: no shot.
+(check=85) Minute 67: (t1check=68, t2check=36, check1=9, check2=10) Guadalupe Moreno missed shot.
+(check=83) Minute 68: (t1check=36, t2check=32, check1=34, check2=35) Guadalupe Moreno missed shot.
+(check=17) Minute 69: no shot.
+(check=82) Minute 70: (t1check=23, t2check=45, check1=3, check2=1) Miguel Ortega missed shot.
+(check=85) Minute 71: (t1check=70, t2check=48, check1=77, check2=78) (goalchk1=66, goalchk2=58) Hector shot on goal. Alberto Diaz SAVE!
+(check=85) Minute 72: (t1check=42, t2check=10, check1=100, check2=101) (goalchk1=80, goalchk2=72) Guadalupe Moreno GOAL!!! Score: 2-0
+(check=11) Minute 73: no shot.
+(check=25) Minute 74: no shot.
+(check=35) Minute 75: no shot.
+(check=51) Minute 76: no shot.
+(check=38) Minute 77: no shot.
+(check=47) Minute 78: no shot.
+(check=41) Minute 79: no shot.
+(check=76) Minute 80: (t1check=31, t2check=46, check1=37, check2=35) Alberto Diaz missed shot.
+(check=73) Minute 81: (t1check=60, t2check=40, check1=57, check2=58) Carlos Torres missed shot.
+(check=5) Minute 82: no shot.
+(check=20) Minute 83: no shot.
+(check=89) Minute 84: (t1check=56, t2check=53, check1=43, check2=44) Carlos Torres missed shot.
+(check=71) Minute 85: (t1check=36, t2check=68, check1=53, check2=51) Jose Abrego missed shot.
+(check=76) Minute 86: (t1check=41, t2check=17, check1=89, check2=90) (goalchk1=82, goalchk2=74) Hector GOAL!!! Score: 3-0
+(check=5) Minute 87: no shot.
+(check=2) Minute 88: no shot.
+(check=57) Minute 89: no shot.
+(check=44) Minute 90: no shot.
+Final score: 3-0

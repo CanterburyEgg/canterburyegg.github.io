@@ -1,0 +1,91 @@
+(check=6) Minute 1: no shot.
+(check=47) Minute 2: no shot.
+(check=68) Minute 3: (t1check=28, t2check=71, check1=28, check2=28) Angel de Leon missed shot.
+(check=62) Minute 4: no shot.
+(check=88) Minute 5: (t1check=66, t2check=49, check1=2, check2=2) Joseph Clarke missed shot.
+(check=62) Minute 6: no shot.
+(check=67) Minute 7: (t1check=23, t2check=34, check1=94, check2=94) (goalchk1=67, goalchk2=61) Santiago Barrios shot on goal. Jacques Lavoie SAVE!
+(check=1) Minute 8: no shot.
+(check=5) Minute 9: no shot.
+(check=25) Minute 10: no shot.
+(check=81) Minute 11: (t1check=41, t2check=37, check1=86, check2=86) (goalchk1=8, goalchk2=3) Scott Robinson shot on goal. Felipe Juarez SAVE!
+(check=9) Minute 12: no shot.
+(check=60) Minute 13: no shot.
+(check=44) Minute 14: no shot.
+(check=26) Minute 15: no shot.
+(check=44) Minute 16: no shot.
+(check=71) Minute 17: (t1check=32, t2check=42, check1=79, check2=79) (goalchk1=93, goalchk2=87) Angel de Leon GOAL!!! Score: 0-1
+(check=24) Minute 18: no shot.
+(check=69) Minute 19: (t1check=29, t2check=23, check1=47, check2=47) Joseph Clarke missed shot.
+(check=75) Minute 20: (t1check=30, t2check=62, check1=21, check2=21) Santiago Barrios missed shot.
+(check=74) Minute 21: (t1check=11, t2check=17, check1=43, check2=43) Santiago Barrios missed shot.
+(check=23) Minute 22: no shot.
+(check=77) Minute 23: (t1check=69, t2check=37, check1=42, check2=42) Joseph Clarke missed shot.
+(check=54) Minute 24: no shot.
+(check=79) Minute 25: (t1check=30, t2check=28, check1=36, check2=36) Jacques Lavoie missed shot.
+(check=82) Minute 26: (t1check=52, t2check=55, check1=96, check2=96) (goalchk1=48, goalchk2=42) Santiago Barrios shot on goal. Jacques Lavoie SAVE!
+(check=73) Minute 27: (t1check=51, t2check=77, check1=24, check2=24) Domingo Ordonez missed shot.
+(check=27) Minute 28: no shot.
+(check=55) Minute 29: no shot.
+(check=22) Minute 30: no shot.
+(check=70) Minute 31: (t1check=13, t2check=66, check1=32, check2=32) Santiago Barrios missed shot.
+(check=22) Minute 32: no shot.
+(check=28) Minute 33: no shot.
+(check=69) Minute 34: (t1check=43, t2check=11, check1=53, check2=53) Scott Robinson missed shot.
+(check=13) Minute 35: no shot.
+(check=76) Minute 36: (t1check=52, t2check=73, check1=17, check2=17) Felipe Juarez missed shot.
+(check=22) Minute 37: no shot.
+(check=78) Minute 38: (t1check=33, t2check=17, check1=31, check2=31) Joseph Clarke missed shot.
+(check=32) Minute 39: no shot.
+(check=32) Minute 40: no shot.
+(check=22) Minute 41: no shot.
+(check=85) Minute 42: (t1check=28, t2check=20, check1=44, check2=44) Scott Robinson missed shot.
+(check=20) Minute 43: no shot.
+(check=19) Minute 44: no shot.
+(check=59) Minute 45: no shot.
+(check=26) Minute 46: no shot.
+(check=73) Minute 47: (t1check=26, t2check=9, check1=52, check2=52) Edward Gauthier missed shot.
+(check=13) Minute 48: no shot.
+(check=39) Minute 49: no shot.
+(check=11) Minute 50: no shot.
+(check=54) Minute 51: no shot.
+(check=34) Minute 52: no shot.
+(check=84) Minute 53: (t1check=13, t2check=77, check1=97, check2=97) (goalchk1=5, goalchk2=-1) Domingo Ordonez shot on goal. Jacques Lavoie SAVE!
+(check=6) Minute 54: no shot.
+(check=68) Minute 55: (t1check=40, t2check=14, check1=94, check2=94) (goalchk1=73, goalchk2=68) Joseph Clarke GOAL!!! Score: 1-1
+(check=63) Minute 56: no shot.
+(check=1) Minute 57: no shot.
+(check=33) Minute 58: no shot.
+(check=30) Minute 59: no shot.
+(check=24) Minute 60: no shot.
+(check=24) Minute 61: no shot.
+(check=88) Minute 62: (t1check=78, t2check=18, check1=89, check2=89) (goalchk1=90, goalchk2=85) Marc Tremblay GOAL!!! Score: 2-1
+(check=38) Minute 63: no shot.
+(check=65) Minute 64: no shot.
+(check=15) Minute 65: no shot.
+(check=17) Minute 66: no shot.
+(check=16) Minute 67: no shot.
+(check=83) Minute 68: (t1check=63, t2check=76, check1=6, check2=6) Angel de Leon missed shot.
+(check=25) Minute 69: no shot.
+(check=79) Minute 70: (t1check=24, t2check=45, check1=46, check2=46) Santiago Barrios missed shot.
+(check=42) Minute 71: no shot.
+(check=25) Minute 72: no shot.
+(check=20) Minute 73: no shot.
+(check=13) Minute 74: no shot.
+(check=8) Minute 75: no shot.
+(check=3) Minute 76: no shot.
+(check=50) Minute 77: no shot.
+(check=7) Minute 78: no shot.
+(check=28) Minute 79: no shot.
+(check=73) Minute 80: (t1check=72, t2check=50, check1=18, check2=18) Joseph Clarke missed shot.
+(check=90) Minute 81: (t1check=21, t2check=18, check1=78, check2=78) (goalchk1=64, goalchk2=59) Jacques Lavoie shot on goal. Felipe Juarez SAVE!
+(check=82) Minute 82: (t1check=65, t2check=42, check1=57, check2=57) Scott Robinson missed shot.
+(check=89) Minute 83: (t1check=28, t2check=59, check1=53, check2=53) Angel de Leon missed shot.
+(check=79) Minute 84: (t1check=60, t2check=72, check1=4, check2=4) Angel de Leon missed shot.
+(check=60) Minute 85: no shot.
+(check=88) Minute 86: (t1check=60, t2check=33, check1=75, check2=75) (goalchk1=18, goalchk2=13) Scott Robinson shot on goal. Felipe Juarez SAVE!
+(check=80) Minute 87: (t1check=63, t2check=18, check1=37, check2=37) Scott Robinson missed shot.
+(check=44) Minute 88: no shot.
+(check=39) Minute 89: no shot.
+(check=45) Minute 90: no shot.
+Final score: 2-1

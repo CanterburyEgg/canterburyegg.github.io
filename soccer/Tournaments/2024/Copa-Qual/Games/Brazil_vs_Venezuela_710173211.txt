@@ -1,0 +1,91 @@
+(check=32) Minute 1: no shot.
+(check=70) Minute 2: (t1check=40, t2check=77, check1=50, check2=44) Pablo Rivero missed shot.
+(check=9) Minute 3: no shot.
+(check=86) Minute 4: (t1check=43, t2check=79, check1=32, check2=26) Javier Medina missed shot.
+(check=64) Minute 5: no shot.
+(check=48) Minute 6: no shot.
+(check=74) Minute 7: (t1check=44, t2check=66, check1=5, check2=-1) Freddy Lopez missed shot.
+(check=38) Minute 8: no shot.
+(check=67) Minute 9: (t1check=46, t2check=45, check1=2, check2=6) Marcelo da Silva missed shot.
+(check=75) Minute 10: (t1check=42, t2check=69, check1=72, check2=66) (goalchk1=96, goalchk2=86) Rafael Parra GOAL!!! Score: 0-1
+(check=81) Minute 11: (t1check=46, t2check=21, check1=87, check2=91) (goalchk1=57, goalchk2=52) Manoel Ribiero shot on goal. Felix Rodriguez SAVE!
+(check=76) Minute 12: (t1check=35, t2check=51, check1=70, check2=64) (goalchk1=67, goalchk2=57) Freddy Lopez shot on goal. Carlos Vieira SAVE!
+(check=74) Minute 13: (t1check=15, t2check=67, check1=43, check2=37) Cesar Romero missed shot.
+(check=61) Minute 14: no shot.
+(check=32) Minute 15: no shot.
+(check=30) Minute 16: no shot.
+(check=59) Minute 17: no shot.
+(check=72) Minute 18: (t1check=53, t2check=30, check1=4, check2=8) Manoel Ribiero missed shot.
+(check=87) Minute 19: (t1check=19, t2check=76, check1=58, check2=52) Rafael Parra missed shot.
+(check=9) Minute 20: no shot.
+(check=33) Minute 21: no shot.
+(check=69) Minute 22: (t1check=79, t2check=20, check1=10, check2=14) Manoel Ribiero missed shot.
+(check=23) Minute 23: no shot.
+(check=66) Minute 24: (t1check=18, t2check=6, check1=65, check2=69) (goalchk1=81, goalchk2=76) Manoel Ribiero GOAL!!! Score: 1-1
+(check=51) Minute 25: no shot.
+(check=62) Minute 26: no shot.
+(check=10) Minute 27: no shot.
+(check=69) Minute 28: (t1check=56, t2check=63, check1=100, check2=94) (goalchk1=51, goalchk2=41) Rafael Parra shot on goal. Carlos Vieira SAVE!
+(check=5) Minute 29: no shot.
+(check=10) Minute 30: no shot.
+(check=75) Minute 31: (t1check=75, t2check=26, check1=91, check2=95) (goalchk1=36, goalchk2=31) Manoel Ribiero shot on goal. Felix Rodriguez SAVE!
+(check=51) Minute 32: no shot.
+(check=37) Minute 33: no shot.
+(check=88) Minute 34: (t1check=15, t2check=9, check1=58, check2=62) (goalchk1=34, goalchk2=29) Manoel Ribiero shot on goal. Felix Rodriguez SAVE!
+(check=57) Minute 35: no shot.
+(check=70) Minute 36: (t1check=55, t2check=56, check1=43, check2=37) Rafael Parra missed shot.
+(check=70) Minute 37: (t1check=48, t2check=63, check1=24, check2=18) Rafael Parra missed shot.
+(check=78) Minute 38: (t1check=19, t2check=28, check1=82, check2=76) (goalchk1=87, goalchk2=77) Freddy Lopez GOAL!!! Score: 1-2
+(check=67) Minute 39: (t1check=82, t2check=13, check1=71, check2=75) (goalchk1=31, goalchk2=26) Joao Pereira shot on goal. Felix Rodriguez SAVE!
+(check=86) Minute 40: (t1check=37, t2check=47, check1=39, check2=33) Rafael Parra missed shot.
+(check=75) Minute 41: (t1check=45, t2check=51, check1=50, check2=44) Pablo Rivero missed shot.
+(check=56) Minute 42: no shot.
+(check=34) Minute 43: no shot.
+(check=79) Minute 44: (t1check=75, t2check=76, check1=35, check2=29) Rafael Parra missed shot.
+(check=31) Minute 45: no shot.
+(check=54) Minute 46: no shot.
+(check=35) Minute 47: no shot.
+(check=10) Minute 48: no shot.
+(check=63) Minute 49: no shot.
+(check=45) Minute 50: no shot.
+(check=41) Minute 51: no shot.
+(check=38) Minute 52: no shot.
+(check=9) Minute 53: no shot.
+(check=11) Minute 54: no shot.
+(check=90) Minute 55: (t1check=35, t2check=31, check1=35, check2=39) Manoel Ribiero missed shot.
+(check=30) Minute 56: no shot.
+(check=32) Minute 57: no shot.
+(check=43) Minute 58: no shot.
+(check=22) Minute 59: no shot.
+(check=27) Minute 60: no shot.
+(check=86) Minute 61: (t1check=39, t2check=7, check1=16, check2=20) Manoel Ribiero missed shot.
+(check=89) Minute 62: (t1check=23, t2check=62, check1=9, check2=3) Freddy Lopez missed shot.
+(check=46) Minute 63: no shot.
+(check=63) Minute 64: no shot.
+(check=71) Minute 65: (t1check=57, t2check=44, check1=18, check2=22) Rodrigo de Jesus missed shot.
+(check=29) Minute 66: no shot.
+(check=24) Minute 67: no shot.
+(check=80) Minute 68: (t1check=19, t2check=44, check1=94, check2=88) (goalchk1=72, goalchk2=62) Rafael Parra shot on goal. Carlos Vieira SAVE!
+(check=13) Minute 69: no shot.
+(check=24) Minute 70: no shot.
+(check=38) Minute 71: no shot.
+(check=53) Minute 72: no shot.
+(check=5) Minute 73: no shot.
+(check=47) Minute 74: no shot.
+(check=79) Minute 75: (t1check=57, t2check=48, check1=66, check2=70) (goalchk1=19, goalchk2=14) Manoel Ribiero shot on goal. Felix Rodriguez SAVE!
+(check=32) Minute 76: no shot.
+(check=73) Minute 77: (t1check=39, t2check=23, check1=72, check2=76) (goalchk1=66, goalchk2=61) Luiz Gomes shot on goal. Felix Rodriguez SAVE!
+(check=55) Minute 78: no shot.
+(check=27) Minute 79: no shot.
+(check=51) Minute 80: no shot.
+(check=17) Minute 81: no shot.
+(check=64) Minute 82: no shot.
+(check=46) Minute 83: no shot.
+(check=37) Minute 84: no shot.
+(check=4) Minute 85: no shot.
+(check=20) Minute 86: no shot.
+(check=32) Minute 87: no shot.
+(check=33) Minute 88: no shot.
+(check=73) Minute 89: (t1check=60, t2check=43, check1=63, check2=67) (goalchk1=16, goalchk2=11) Luiz Gomes shot on goal. Felix Rodriguez SAVE!
+(check=60) Minute 90: no shot.
+Final score: 1-2

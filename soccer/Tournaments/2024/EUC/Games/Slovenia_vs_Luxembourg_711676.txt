@@ -1,0 +1,91 @@
+(check=44) Minute 1: no shot.
+(check=71) Minute 2: (t1check=10, t2check=38, check1=8, check2=2) Jean-Paul Martin missed shot.
+(check=12) Minute 3: no shot.
+(check=26) Minute 4: no shot.
+(check=27) Minute 5: no shot.
+(check=56) Minute 6: no shot.
+(check=29) Minute 7: no shot.
+(check=24) Minute 8: no shot.
+(check=88) Minute 9: (t1check=32, t2check=30, check1=34, check2=34) Franc Potocnik missed shot.
+(check=70) Minute 10: (t1check=27, t2check=56, check1=47, check2=41) Jean-Paul Martin missed shot.
+(check=72) Minute 11: (t1check=24, t2check=49, check1=62, check2=56) Marc Nilles missed shot.
+(check=82) Minute 12: (t1check=20, t2check=18, check1=65, check2=65) (goalchk1=57, goalchk2=55) Branko Novac shot on goal. Lucien Grethen SAVE!
+(check=86) Minute 13: (t1check=11, t2check=6, check1=18, check2=18) Franc Potocnik missed shot.
+(check=83) Minute 14: (t1check=35, t2check=28, check1=70, check2=70) (goalchk1=39, goalchk2=37) Tomaz Korosec shot on goal. Lucien Grethen SAVE!
+(check=20) Minute 15: no shot.
+(check=37) Minute 16: no shot.
+(check=20) Minute 17: no shot.
+(check=87) Minute 18: (t1check=42, t2check=64, check1=17, check2=11) Marc Nilles missed shot.
+(check=39) Minute 19: no shot.
+(check=31) Minute 20: no shot.
+(check=48) Minute 21: no shot.
+(check=28) Minute 22: no shot.
+(check=90) Minute 23: (t1check=57, t2check=20, check1=46, check2=46) Marjan Krajnc missed shot.
+(check=11) Minute 24: no shot.
+(check=37) Minute 25: no shot.
+(check=68) Minute 26: (t1check=8, t2check=15, check1=45, check2=39) Jean-Paul Martin missed shot.
+(check=29) Minute 27: no shot.
+(check=88) Minute 28: (t1check=64, t2check=69, check1=86, check2=80) (goalchk1=37, goalchk2=30) Pascal Ferreira shot on goal. Bojan Kavcic SAVE!
+(check=37) Minute 29: no shot.
+(check=36) Minute 30: no shot.
+(check=76) Minute 31: (t1check=37, t2check=58, check1=41, check2=35) Jean-Paul Martin missed shot.
+(check=32) Minute 32: no shot.
+(check=60) Minute 33: no shot.
+(check=12) Minute 34: no shot.
+(check=44) Minute 35: no shot.
+(check=38) Minute 36: no shot.
+(check=79) Minute 37: (t1check=50, t2check=30, check1=8, check2=8) Franc Potocnik missed shot.
+(check=2) Minute 38: no shot.
+(check=14) Minute 39: no shot.
+(check=64) Minute 40: no shot.
+(check=24) Minute 41: no shot.
+(check=89) Minute 42: (t1check=79, t2check=17, check1=47, check2=47) Branko Novac missed shot.
+(check=80) Minute 43: (t1check=70, t2check=55, check1=16, check2=16) Marjan Krajnc missed shot.
+(check=40) Minute 44: no shot.
+(check=16) Minute 45: no shot.
+(check=47) Minute 46: no shot.
+(check=53) Minute 47: no shot.
+(check=7) Minute 48: no shot.
+(check=89) Minute 49: (t1check=27, t2check=40, check1=46, check2=40) Marc Nilles missed shot.
+(check=70) Minute 50: (t1check=53, t2check=75, check1=76, check2=70) (goalchk1=60, goalchk2=53) Jean-Paul Martin shot on goal. Bojan Kavcic SAVE!
+(check=19) Minute 51: no shot.
+(check=67) Minute 52: (t1check=65, t2check=59, check1=61, check2=61) (goalchk1=74, goalchk2=72) Marjan Krajnc GOAL!!! Score: 1-0
+(check=48) Minute 53: no shot.
+(check=38) Minute 54: no shot.
+(check=84) Minute 55: (t1check=22, t2check=49, check1=88, check2=82) (goalchk1=85, goalchk2=78) Jean-Paul Martin GOAL!!! Score: 1-1
+(check=46) Minute 56: no shot.
+(check=87) Minute 57: (t1check=9, t2check=21, check1=48, check2=42) Marc Nilles missed shot.
+(check=44) Minute 58: no shot.
+(check=47) Minute 59: no shot.
+(check=36) Minute 60: no shot.
+(check=56) Minute 61: no shot.
+(check=68) Minute 62: (t1check=24, t2check=40, check1=66, check2=60) Jean-Paul Martin missed shot.
+(check=77) Minute 63: (t1check=52, t2check=39, check1=100, check2=100) (goalchk1=69, goalchk2=67) Tomaz Korosec GOAL!!! Score: 2-1
+(check=22) Minute 64: no shot.
+(check=83) Minute 65: (t1check=59, t2check=41, check1=91, check2=91) (goalchk1=99, goalchk2=97) Franc Potocnik GOAL!!! Score: 3-1
+(check=14) Minute 66: no shot.
+(check=10) Minute 67: no shot.
+(check=23) Minute 68: no shot.
+(check=59) Minute 69: no shot.
+(check=59) Minute 70: no shot.
+(check=42) Minute 71: no shot.
+(check=24) Minute 72: no shot.
+(check=71) Minute 73: (t1check=76, t2check=28, check1=15, check2=15) Anton Zupan missed shot.
+(check=65) Minute 74: no shot.
+(check=20) Minute 75: no shot.
+(check=20) Minute 76: no shot.
+(check=16) Minute 77: no shot.
+(check=1) Minute 78: no shot.
+(check=8) Minute 79: no shot.
+(check=39) Minute 80: no shot.
+(check=4) Minute 81: no shot.
+(check=18) Minute 82: no shot.
+(check=7) Minute 83: no shot.
+(check=79) Minute 84: (t1check=16, t2check=15, check1=61, check2=61) (goalchk1=61, goalchk2=59) Franc Potocnik shot on goal. Lucien Grethen SAVE!
+(check=5) Minute 85: no shot.
+(check=52) Minute 86: no shot.
+(check=30) Minute 87: no shot.
+(check=67) Minute 88: (t1check=31, t2check=30, check1=38, check2=38) Franc Potocnik missed shot.
+(check=34) Minute 89: no shot.
+(check=9) Minute 90: no shot.
+Final score: 3-1

@@ -1,0 +1,91 @@
+(check=61) Minute 1: no shot.
+(check=10) Minute 2: no shot.
+(check=77) Minute 3: (t1check=64, t2check=68, check1=1, check2=3) Aleksandar Milosevic missed shot.
+(check=27) Minute 4: no shot.
+(check=42) Minute 5: no shot.
+(check=39) Minute 6: no shot.
+(check=18) Minute 7: no shot.
+(check=28) Minute 8: no shot.
+(check=11) Minute 9: no shot.
+(check=86) Minute 10: (t1check=74, t2check=72, check1=65, check2=67) (goalchk1=36, goalchk2=29) Giovanni Rossi shot on goal. Slobodan Krstic SAVE!
+(check=57) Minute 11: no shot.
+(check=6) Minute 12: no shot.
+(check=55) Minute 13: no shot.
+(check=70) Minute 14: (t1check=38, t2check=63, check1=49, check2=51) Dragan Petrovic missed shot.
+(check=61) Minute 15: no shot.
+(check=88) Minute 16: (t1check=69, t2check=19, check1=84, check2=86) (goalchk1=3, goalchk2=-4) Giuseppe Giordano shot on goal. Slobodan Krstic SAVE!
+(check=22) Minute 17: no shot.
+(check=84) Minute 18: (t1check=64, t2check=75, check1=25, check2=27) Jovan Trajkovic missed shot.
+(check=40) Minute 19: no shot.
+(check=76) Minute 20: (t1check=52, t2check=40, check1=94, check2=96) (goalchk1=7, goalchk2=0) Giovanni Ricci shot on goal. Slobodan Krstic SAVE!
+(check=52) Minute 21: no shot.
+(check=55) Minute 22: no shot.
+(check=84) Minute 23: (t1check=64, t2check=61, check1=49, check2=51) Giovanni Ricci missed shot.
+(check=16) Minute 24: no shot.
+(check=6) Minute 25: no shot.
+(check=31) Minute 26: no shot.
+(check=33) Minute 27: no shot.
+(check=56) Minute 28: no shot.
+(check=2) Minute 29: no shot.
+(check=58) Minute 30: no shot.
+(check=76) Minute 31: (t1check=12, t2check=30, check1=33, check2=35) Dragan Petrovic missed shot.
+(check=64) Minute 32: no shot.
+(check=65) Minute 33: no shot.
+(check=58) Minute 34: no shot.
+(check=10) Minute 35: no shot.
+(check=43) Minute 36: no shot.
+(check=66) Minute 37: (t1check=25, t2check=59, check1=19, check2=21) Dragan Petrovic missed shot.
+(check=7) Minute 38: no shot.
+(check=30) Minute 39: no shot.
+(check=37) Minute 40: no shot.
+(check=53) Minute 41: no shot.
+(check=7) Minute 42: no shot.
+(check=4) Minute 43: no shot.
+(check=31) Minute 44: no shot.
+(check=7) Minute 45: no shot.
+(check=41) Minute 46: no shot.
+(check=75) Minute 47: (t1check=22, t2check=53, check1=75, check2=77) (goalchk1=88, goalchk2=82) Dragan Petrovic GOAL!!! Score: 0-1
+(check=78) Minute 48: (t1check=53, t2check=47, check1=5, check2=7) Giovanni Ricci missed shot.
+(check=88) Minute 49: (t1check=67, t2check=18, check1=37, check2=39) Salvatore Moretti missed shot.
+(check=80) Minute 50: (t1check=37, t2check=29, check1=30, check2=32) Francesco Caruso missed shot.
+(check=1) Minute 51: no shot.
+(check=86) Minute 52: (t1check=19, t2check=31, check1=39, check2=41) Dragan Petrovic missed shot.
+(check=56) Minute 53: no shot.
+(check=5) Minute 54: no shot.
+(check=70) Minute 55: (t1check=30, t2check=49, check1=29, check2=31) Jovan Trajkovic missed shot.
+(check=41) Minute 56: no shot.
+(check=41) Minute 57: no shot.
+(check=48) Minute 58: no shot.
+(check=11) Minute 59: no shot.
+(check=69) Minute 60: (t1check=54, t2check=60, check1=99, check2=101) (goalchk1=59, goalchk2=53) Jovan Trajkovic shot on goal. Francesco Caruso SAVE!
+(check=33) Minute 61: no shot.
+(check=20) Minute 62: no shot.
+(check=63) Minute 63: no shot.
+(check=50) Minute 64: no shot.
+(check=26) Minute 65: no shot.
+(check=66) Minute 66: (t1check=64, t2check=81, check1=18, check2=20) Zoran Ilic missed shot.
+(check=43) Minute 67: no shot.
+(check=75) Minute 68: (t1check=68, t2check=42, check1=80, check2=82) (goalchk1=59, goalchk2=52) Salvatore Moretti shot on goal. Slobodan Krstic SAVE!
+(check=23) Minute 69: no shot.
+(check=90) Minute 70: (t1check=25, t2check=10, check1=83, check2=85) (goalchk1=43, goalchk2=36) Pietro Greco shot on goal. Slobodan Krstic SAVE!
+(check=29) Minute 71: no shot.
+(check=62) Minute 72: no shot.
+(check=31) Minute 73: no shot.
+(check=70) Minute 74: (t1check=38, t2check=58, check1=54, check2=56) Dragan Petrovic missed shot.
+(check=38) Minute 75: no shot.
+(check=22) Minute 76: no shot.
+(check=3) Minute 77: no shot.
+(check=84) Minute 78: (t1check=64, t2check=34, check1=60, check2=62) (goalchk1=33, goalchk2=26) Giovanni Rossi shot on goal. Slobodan Krstic SAVE!
+(check=49) Minute 79: no shot.
+(check=29) Minute 80: no shot.
+(check=67) Minute 81: (t1check=56, t2check=57, check1=14, check2=16) Jovan Trajkovic missed shot.
+(check=61) Minute 82: no shot.
+(check=16) Minute 83: no shot.
+(check=13) Minute 84: no shot.
+(check=33) Minute 85: no shot.
+(check=62) Minute 86: no shot.
+(check=69) Minute 87: (t1check=34, t2check=68, check1=49, check2=51) Petar Stojanovic missed shot.
+(check=21) Minute 88: no shot.
+(check=54) Minute 89: no shot.
+(check=35) Minute 90: no shot.
+Final score: 0-1

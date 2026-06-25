@@ -1,0 +1,91 @@
+(check=20) Minute 1: no shot.
+(check=23) Minute 2: no shot.
+(check=58) Minute 3: no shot.
+(check=35) Minute 4: no shot.
+(check=86) Minute 5: (t1check=43, t2check=58, check1=55, check2=51) Jovan Stojanovski missed shot.
+(check=24) Minute 6: no shot.
+(check=69) Minute 7: (t1check=43, t2check=37, check1=85, check2=88) (goalchk1=60, goalchk2=55) Andreas Schwarz shot on goal. Boris Ristov SAVE!
+(check=77) Minute 8: (t1check=40, t2check=4, check1=36, check2=39) Gerhard Bauer missed shot.
+(check=67) Minute 9: (t1check=44, t2check=49, check1=39, check2=35) Ilija Trajkovska missed shot.
+(check=40) Minute 10: no shot.
+(check=30) Minute 11: no shot.
+(check=70) Minute 12: (t1check=47, t2check=49, check1=72, check2=68) (goalchk1=74, goalchk2=66) Gjorgji Cvetkovska GOAL!!! Score: 0-1
+(check=74) Minute 13: (t1check=48, t2check=72, check1=71, check2=67) (goalchk1=2, goalchk2=-6) Stojan Petrovska shot on goal. Gerhard Bauer SAVE!
+(check=69) Minute 14: (t1check=51, t2check=31, check1=84, check2=87) (goalchk1=71, goalchk2=66) Johann Brunner GOAL!!! Score: 1-1
+(check=59) Minute 15: no shot.
+(check=24) Minute 16: no shot.
+(check=31) Minute 17: no shot.
+(check=56) Minute 18: no shot.
+(check=86) Minute 19: (t1check=51, t2check=36, check1=77, check2=80) (goalchk1=9, goalchk2=4) Franz Leitner shot on goal. Boris Ristov SAVE!
+(check=78) Minute 20: (t1check=65, t2check=69, check1=15, check2=11) Ilija Trajkovska missed shot.
+(check=15) Minute 21: no shot.
+(check=87) Minute 22: (t1check=60, t2check=16, check1=81, check2=84) (goalchk1=11, goalchk2=6) Karl Mayer shot on goal. Boris Ristov SAVE!
+(check=57) Minute 23: no shot.
+(check=81) Minute 24: (t1check=77, t2check=29, check1=40, check2=43) Franz Leitner missed shot.
+(check=23) Minute 25: no shot.
+(check=13) Minute 26: no shot.
+(check=13) Minute 27: no shot.
+(check=3) Minute 28: no shot.
+(check=71) Minute 29: (t1check=39, t2check=16, check1=78, check2=81) (goalchk1=99, goalchk2=94) Karl Mayer GOAL!!! Score: 2-1
+(check=69) Minute 30: (t1check=7, t2check=26, check1=78, check2=74) (goalchk1=24, goalchk2=16) Ilija Trajkovska shot on goal. Gerhard Bauer SAVE!
+(check=77) Minute 31: (t1check=17, t2check=14, check1=41, check2=44) Johann Brunner missed shot.
+(check=54) Minute 32: no shot.
+(check=80) Minute 33: (t1check=55, t2check=45, check1=79, check2=82) (goalchk1=73, goalchk2=68) Franz Leitner GOAL!!! Score: 3-1
+(check=58) Minute 34: no shot.
+(check=41) Minute 35: no shot.
+(check=21) Minute 36: no shot.
+(check=2) Minute 37: no shot.
+(check=39) Minute 38: no shot.
+(check=4) Minute 39: no shot.
+(check=17) Minute 40: no shot.
+(check=86) Minute 41: (t1check=69, t2check=31, check1=34, check2=37) Karl Mayer missed shot.
+(check=40) Minute 42: no shot.
+(check=85) Minute 43: (t1check=67, t2check=7, check1=19, check2=22) Andreas Schwarz missed shot.
+(check=14) Minute 44: no shot.
+(check=73) Minute 45: (t1check=27, t2check=6, check1=94, check2=97) (goalchk1=100, goalchk2=95) Johann Brunner GOAL!!! Score: 4-1
+(check=18) Minute 46: no shot.
+(check=71) Minute 47: (t1check=26, t2check=30, check1=66, check2=62) (goalchk1=38, goalchk2=30) Ilija Trajkovska shot on goal. Gerhard Bauer SAVE!
+(check=5) Minute 48: no shot.
+(check=86) Minute 49: (t1check=46, t2check=73, check1=53, check2=49) Jovan Stojanovski missed shot.
+(check=32) Minute 50: no shot.
+(check=88) Minute 51: (t1check=28, t2check=5, check1=12, check2=15) Karl Mayer missed shot.
+(check=4) Minute 52: no shot.
+(check=13) Minute 53: no shot.
+(check=64) Minute 54: no shot.
+(check=76) Minute 55: (t1check=12, t2check=59, check1=42, check2=38) Jovan Stojanovski missed shot.
+(check=36) Minute 56: no shot.
+(check=83) Minute 57: (t1check=34, t2check=35, check1=54, check2=50) Ilija Trajkovska missed shot.
+(check=21) Minute 58: no shot.
+(check=21) Minute 59: no shot.
+(check=23) Minute 60: no shot.
+(check=48) Minute 61: no shot.
+(check=63) Minute 62: no shot.
+(check=88) Minute 63: (t1check=16, t2check=75, check1=47, check2=43) Gjorgji Cvetkovska missed shot.
+(check=38) Minute 64: no shot.
+(check=59) Minute 65: no shot.
+(check=79) Minute 66: (t1check=51, t2check=17, check1=31, check2=34) Josef Steiner missed shot.
+(check=59) Minute 67: no shot.
+(check=24) Minute 68: no shot.
+(check=3) Minute 69: no shot.
+(check=86) Minute 70: (t1check=43, t2check=75, check1=66, check2=62) (goalchk1=25, goalchk2=17) Ilija Trajkovska shot on goal. Gerhard Bauer SAVE!
+(check=56) Minute 71: no shot.
+(check=60) Minute 72: no shot.
+(check=76) Minute 73: (t1check=38, t2check=16, check1=13, check2=16) Karl Mayer missed shot.
+(check=63) Minute 74: no shot.
+(check=47) Minute 75: no shot.
+(check=11) Minute 76: no shot.
+(check=65) Minute 77: no shot.
+(check=53) Minute 78: no shot.
+(check=54) Minute 79: no shot.
+(check=4) Minute 80: no shot.
+(check=50) Minute 81: no shot.
+(check=83) Minute 82: (t1check=23, t2check=35, check1=19, check2=15) Stojan Petrovska missed shot.
+(check=19) Minute 83: no shot.
+(check=40) Minute 84: no shot.
+(check=11) Minute 85: no shot.
+(check=19) Minute 86: no shot.
+(check=21) Minute 87: no shot.
+(check=80) Minute 88: (t1check=36, t2check=25, check1=10, check2=13) Franz Leitner missed shot.
+(check=67) Minute 89: (t1check=28, t2check=42, check1=31, check2=27) Gjorgji Cvetkovska missed shot.
+(check=73) Minute 90: (t1check=68, t2check=9, check1=29, check2=32) Karl Mayer missed shot.
+Final score: 4-1

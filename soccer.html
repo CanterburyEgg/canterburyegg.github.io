@@ -365,20 +365,14 @@
         <h1>ROAD TO THE WORLD CUP 2026</h1>
         <select id="year-select" onchange="loadYear(this.value)">
             <option value="2026">2026</option>
+            <option value="2024">2024</option>
             <option value="2022">2022</option>
         </select>
     </header>
 
     <div id="navigation-root">
         <div class="nav-bar sub-nav" id="region-nav">
-            <button class="nav-item" onclick="loadRegion('WC', this)">World Cup</button>
-            <button class="nav-item" id="btn-play-in" onclick="loadRegion('PI', this)">Play-In</button>
-            <button class="nav-item" onclick="loadRegion('AS', this)">Asia</button>
-            <button class="nav-item" onclick="loadRegion('AFR', this)">Africa</button>
-            <button class="nav-item" onclick="loadRegion('OCE', this)">Oceania</button>
-            <button class="nav-item" onclick="loadRegion('NA', this)">N. America</button>
-            <button class="nav-item" onclick="loadRegion('SA', this)">S. America</button>
-            <button class="nav-item" onclick="loadRegion('EU', this)">Europe</button>
+            <!-- Populated Dynamically -->
         </div>
 
         <div class="nav-bar sub-nav" id="stage-nav">
@@ -412,6 +406,12 @@
                 'SA': 'soccer/Tournaments/2026/SA/results.json',
                 'EU': 'soccer/Tournaments/2026/EU/results.json'
             },
+            '2024': {
+                'COPA': 'soccer/Tournaments/2024/Copa/results.json',
+                'COPAQ': 'soccer/Tournaments/2024/Copa-Qual/results.json',
+                'EUC': 'soccer/Tournaments/2024/EUC/results.json',
+                'EUCQ': 'soccer/Tournaments/2024/EUC-Qual/results.json'
+            },
             '2022': {
                 'WC': 'soccer/Tournaments/2022/World Cup/results.json',
                 'PI': 'soccer/Tournaments/2022/Play-In/results.json',
@@ -422,6 +422,35 @@
                 'SA': 'soccer/Tournaments/2022/SA/results.json',
                 'EU': 'soccer/Tournaments/2022/EU/results.json'
             }
+        };
+
+        const NAV_ITEMS = {
+            '2026': [
+                { label: 'World Cup', code: 'WC' },
+                { label: 'Play-In', code: 'PI' },
+                { label: 'Asia', code: 'AS' },
+                { label: 'Africa', code: 'AFR' },
+                { label: 'Oceania', code: 'OCE' },
+                { label: 'N. America', code: 'NA' },
+                { label: 'S. America', code: 'SA' },
+                { label: 'Europe', code: 'EU' }
+            ],
+            '2024': [
+                { label: 'Copa America', code: 'COPA' },
+                { label: 'Copa Qualifiers', code: 'COPAQ' },
+                { label: 'Euro Cup', code: 'EUC' },
+                { label: 'Euro Qualifiers', code: 'EUCQ' }
+            ],
+            '2022': [
+                { label: 'World Cup', code: 'WC' },
+                { label: 'Play-In', code: 'PI' },
+                { label: 'Asia', code: 'AS' },
+                { label: 'Africa', code: 'AFR' },
+                { label: 'Oceania', code: 'OCE' },
+                { label: 'N. America', code: 'NA' },
+                { label: 'S. America', code: 'SA' },
+                { label: 'Europe', code: 'EU' }
+            ]
         };
 
         const FLAG_MAP = {
@@ -447,7 +476,16 @@
             "Spain": "es", "Slovenia": "si", "Israel": "il", "Scotland": "gb-sct",
             "Italy": "it", "Slovakia": "sk", "Belgium": "be", "Romania": "ro",
             "Austria": "at", "Ukraine": "ua", "Portugal": "pt", "Hungary": "hu",
-            "Georgia": "ge", "Papua New Guinea": "pg", "Jamaica": "jm"
+            "Georgia": "ge", "Papua New Guinea": "pg", "Jamaica": "jm",
+            "Haiti": "ht", "Greenland": "gl", "Puerto Rico": "pr", "Bahamas": "bs",
+            "Barbados": "bb", "Belize": "bz", "Saint Lucia": "lc", "Andorra": "ad",
+            "Cyprus": "cy", "Finland": "fi", "Lithuania": "lt", "Iceland": "is",
+            "Estonia": "ee", "Belarus": "by", "Kosovo": "xk", "Macedonia": "mk",
+            "Liechtenstein": "li", "Faroe Islands": "fo", "Gibraltar": "gi",
+            "San Marino": "sm", "Vatican City": "va", "Bosnia": "ba", "Luxembourg": "lu",
+            "Moldova": "md", "Malta": "mt", "Bulgaria": "bg", "Latvia": "lv",
+            "Montenegro": "me", "El Salvador": "sv", "Nicaragua": "ni", "Guatemala": "gt",
+            "Dominican Republic": "do", "Cuba": "cu"
         };
 
         let currentData = null;
@@ -471,27 +509,42 @@
             renderCurrentStage();
         }
 
+        function renderRegionNav() {
+            const nav = document.getElementById('region-nav');
+            nav.innerHTML = '';
+            const items = NAV_ITEMS[currentYear] || [];
+            items.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-item';
+                if (item.code === currentRegion) btn.classList.add('active');
+                btn.innerText = item.label;
+                btn.onclick = (e) => loadRegion(item.code, e.target);
+                nav.appendChild(btn);
+            });
+        }
+
         function updateHeader() {
             const h1 = document.querySelector('header h1');
-            if (currentRegion === 'WC') {
-                h1.innerText = `WORLD CUP ${currentYear}`;
+            const items = NAV_ITEMS[currentYear] || [];
+            const currentItem = items.find(i => i.code === currentRegion);
+            const label = currentItem ? currentItem.label.toUpperCase() : '';
+            
+            if (currentRegion === 'WC' || currentRegion === 'COPA' || currentRegion === 'EUC') {
+                h1.innerText = `${label} ${currentYear}`;
             } else {
-                h1.innerText = `ROAD TO THE WORLD CUP ${currentYear}`;
+                h1.innerText = `ROAD TO THE ${label} ${currentYear}`;
             }
         }
 
         async function loadYear(year) {
             currentYear = year;
-            updateHeader();
+            // Default region for each year
+            if (year === '2024') currentRegion = 'COPA';
+            else currentRegion = 'WC';
             
-            // Toggle Play-In button visibility
-            const playInBtn = document.getElementById('btn-play-in');
-            if (playInBtn) {
-                playInBtn.style.display = (year === '2026') ? 'none' : 'inline-block';
-            }
-
-            // Always default to World Cup when flipping years
-            loadRegion('WC');
+            renderRegionNav();
+            updateHeader();
+            loadRegion(currentRegion);
         }
 
         async function loadRegion(regionCode, el, skipPush = false) {
@@ -499,6 +552,7 @@
             viewState = 'main';
             document.getElementById('navigation-root').style.display = 'block';
             
+            renderRegionNav();
             updateHeader();
 
             // Update URL without refreshing
@@ -508,20 +562,6 @@
                 url.searchParams.set('region', regionCode);
                 url.searchParams.delete('team');
                 window.history.pushState({ view: 'main', year: currentYear, region: regionCode }, '', url);
-            }
-
-            if (el) {
-                document.querySelectorAll('#region-nav .nav-item').forEach(btn => btn.classList.remove('active'));
-                el.classList.add('active');
-            } else {
-                // Find and activate the correct button (e.g. on load)
-                document.querySelectorAll('#region-nav .nav-item').forEach(btn => {
-                    if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(`'${regionCode}'`)) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
             }
 
             const path = REGION_DATA[currentYear][regionCode];
@@ -1127,19 +1167,21 @@
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             currentYear = params.get('year') || '2026';
-            currentRegion = params.get('region') || 'WC';
-            currentStage = params.get('stage') || 'group';
-            const team = params.get('team');
-
+            
             // Set dropdown value
             const yearSelect = document.getElementById('year-select');
             if (yearSelect) yearSelect.value = currentYear;
 
-            // Initialize Play-In button visibility
-            const playInBtn = document.getElementById('btn-play-in');
-            if (playInBtn) {
-                playInBtn.style.display = (currentYear === '2026') ? 'none' : 'inline-block';
+            // Default region for each year if not in URL
+            if (!params.get('region')) {
+                if (currentYear === '2024') currentRegion = 'COPA';
+                else currentRegion = 'WC';
+            } else {
+                currentRegion = params.get('region');
             }
+            
+            currentStage = params.get('stage') || 'group';
+            const team = params.get('team');
 
             // Set active stage button
             document.querySelectorAll('#stage-nav .nav-item').forEach(btn => {
@@ -1148,6 +1190,7 @@
                 else btn.classList.remove('active');
             });
 
+            renderRegionNav();
             loadRegion(currentRegion, null, true).then(() => {
                 if (team) showTeamPage(team, true);
             });

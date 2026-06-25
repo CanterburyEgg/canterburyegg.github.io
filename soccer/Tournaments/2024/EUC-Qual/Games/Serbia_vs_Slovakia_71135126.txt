@@ -1,0 +1,91 @@
+(check=16) Minute 1: no shot.
+(check=47) Minute 2: no shot.
+(check=34) Minute 3: no shot.
+(check=4) Minute 4: no shot.
+(check=63) Minute 5: no shot.
+(check=56) Minute 6: no shot.
+(check=1) Minute 7: no shot.
+(check=59) Minute 8: no shot.
+(check=27) Minute 9: no shot.
+(check=42) Minute 10: no shot.
+(check=39) Minute 11: no shot.
+(check=82) Minute 12: (t1check=39, t2check=41, check1=17, check2=17) Ladislav Kovac missed shot.
+(check=11) Minute 13: no shot.
+(check=88) Minute 14: (t1check=48, t2check=23, check1=57, check2=60) Dragan Petrovic missed shot.
+(check=62) Minute 15: no shot.
+(check=51) Minute 16: no shot.
+(check=5) Minute 17: no shot.
+(check=7) Minute 18: no shot.
+(check=79) Minute 19: (t1check=82, t2check=19, check1=58, check2=61) (goalchk1=31, goalchk2=28) Dragan Petrovic shot on goal. Pavol Toth SAVE!
+(check=20) Minute 20: no shot.
+(check=69) Minute 21: (t1check=76, t2check=72, check1=48, check2=51) Jovan Trajkovic missed shot.
+(check=14) Minute 22: no shot.
+(check=20) Minute 23: no shot.
+(check=29) Minute 24: no shot.
+(check=19) Minute 25: no shot.
+(check=55) Minute 26: no shot.
+(check=28) Minute 27: no shot.
+(check=62) Minute 28: no shot.
+(check=16) Minute 29: no shot.
+(check=31) Minute 30: no shot.
+(check=24) Minute 31: no shot.
+(check=69) Minute 32: (t1check=51, t2check=52, check1=6, check2=6) Stefan Takac missed shot.
+(check=41) Minute 33: no shot.
+(check=75) Minute 34: (t1check=71, t2check=65, check1=6, check2=9) Slobodan Krstic missed shot.
+(check=56) Minute 35: no shot.
+(check=68) Minute 36: (t1check=58, t2check=12, check1=43, check2=46) Dragan Petrovic missed shot.
+(check=22) Minute 37: no shot.
+(check=63) Minute 38: no shot.
+(check=38) Minute 39: no shot.
+(check=84) Minute 40: (t1check=77, t2check=39, check1=59, check2=62) (goalchk1=82, goalchk2=79) Dragan Petrovic GOAL!!! Score: 1-0
+(check=20) Minute 41: no shot.
+(check=4) Minute 42: no shot.
+(check=46) Minute 43: no shot.
+(check=34) Minute 44: no shot.
+(check=80) Minute 45: (t1check=64, t2check=51, check1=88, check2=91) (goalchk1=82, goalchk2=79) Petar Stojanovic GOAL!!! Score: 2-0
+(check=58) Minute 46: no shot.
+(check=61) Minute 47: no shot.
+(check=82) Minute 48: (t1check=78, t2check=36, check1=77, check2=80) (goalchk1=7, goalchk2=4) Dragan Petrovic shot on goal. Pavol Toth SAVE!
+(check=60) Minute 49: no shot.
+(check=49) Minute 50: no shot.
+(check=43) Minute 51: no shot.
+(check=81) Minute 52: (t1check=46, t2check=16, check1=55, check2=58) Aleksandar Milosevic missed shot.
+(check=44) Minute 53: no shot.
+(check=84) Minute 54: (t1check=21, t2check=15, check1=33, check2=36) Dragan Petrovic missed shot.
+(check=74) Minute 55: (t1check=27, t2check=63, check1=94, check2=94) (goalchk1=55, goalchk2=48) Stefan Takac shot on goal. Slobodan Krstic SAVE!
+(check=84) Minute 56: (t1check=74, t2check=14, check1=13, check2=16) Jovan Trajkovic missed shot.
+(check=67) Minute 57: (t1check=45, t2check=30, check1=47, check2=50) Petar Stojanovic missed shot.
+(check=44) Minute 58: no shot.
+(check=47) Minute 59: no shot.
+(check=47) Minute 60: no shot.
+(check=74) Minute 61: (t1check=29, t2check=70, check1=79, check2=79) (goalchk1=32, goalchk2=25) Jan Horvath shot on goal. Slobodan Krstic SAVE!
+(check=1) Minute 62: no shot.
+(check=21) Minute 63: no shot.
+(check=40) Minute 64: no shot.
+(check=36) Minute 65: no shot.
+(check=74) Minute 66: (t1check=57, t2check=63, check1=30, check2=30) Jan Horvath missed shot.
+(check=78) Minute 67: (t1check=47, t2check=15, check1=98, check2=101) (goalchk1=88, goalchk2=85) Jovan Trajkovic GOAL!!! Score: 3-0
+(check=15) Minute 68: no shot.
+(check=49) Minute 69: no shot.
+(check=60) Minute 70: no shot.
+(check=31) Minute 71: no shot.
+(check=26) Minute 72: no shot.
+(check=73) Minute 73: (t1check=58, t2check=12, check1=5, check2=8) Aleksandar Milosevic missed shot.
+(check=40) Minute 74: no shot.
+(check=74) Minute 75: (t1check=33, t2check=28, check1=65, check2=68) (goalchk1=54, goalchk2=51) Dragan Petrovic shot on goal. Pavol Toth SAVE!
+(check=84) Minute 76: (t1check=49, t2check=22, check1=29, check2=32) Aleksandar Milosevic missed shot.
+(check=66) Minute 77: (t1check=72, t2check=76, check1=6, check2=6) Pavol Toth missed shot.
+(check=84) Minute 78: (t1check=36, t2check=35, check1=63, check2=66) (goalchk1=34, goalchk2=31) Jovan Trajkovic shot on goal. Pavol Toth SAVE!
+(check=82) Minute 79: (t1check=27, t2check=51, check1=67, check2=67) (goalchk1=53, goalchk2=46) Frantisek Molnar shot on goal. Slobodan Krstic SAVE!
+(check=63) Minute 80: no shot.
+(check=87) Minute 81: (t1check=34, t2check=67, check1=57, check2=57) Stefan Takac missed shot.
+(check=44) Minute 82: no shot.
+(check=1) Minute 83: no shot.
+(check=42) Minute 84: no shot.
+(check=20) Minute 85: no shot.
+(check=29) Minute 86: no shot.
+(check=82) Minute 87: (t1check=73, t2check=29, check1=60, check2=63) (goalchk1=39, goalchk2=36) Jovan Trajkovic shot on goal. Pavol Toth SAVE!
+(check=74) Minute 88: (t1check=46, t2check=29, check1=61, check2=64) (goalchk1=85, goalchk2=82) Dragan Petrovic GOAL!!! Score: 4-0
+(check=4) Minute 89: no shot.
+(check=67) Minute 90: (t1check=16, t2check=17, check1=15, check2=15) Juraj Szabo missed shot.
+Final score: 4-0

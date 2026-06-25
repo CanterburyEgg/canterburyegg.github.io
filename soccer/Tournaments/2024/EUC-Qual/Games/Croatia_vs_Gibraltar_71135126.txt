@@ -1,0 +1,91 @@
+(check=56) Minute 1: no shot.
+(check=41) Minute 2: no shot.
+(check=57) Minute 3: no shot.
+(check=16) Minute 4: no shot.
+(check=87) Minute 5: (t1check=15, t2check=54, check1=8, check2=-1) Christian Perera missed shot.
+(check=68) Minute 6: (t1check=74, t2check=75, check1=75, check2=66) (goalchk1=99, goalchk2=91) Simon Reyes GOAL!!! Score: 0-1
+(check=12) Minute 7: no shot.
+(check=85) Minute 8: (t1check=71, t2check=23, check1=66, check2=69) (goalchk1=99, goalchk2=96) Ivica Vidovic GOAL!!! Score: 1-1
+(check=83) Minute 9: (t1check=15, t2check=30, check1=83, check2=74) (goalchk1=45, goalchk2=37) Andrew Sene shot on goal. Zlatko Novak SAVE!
+(check=85) Minute 10: (t1check=52, t2check=33, check1=74, check2=77) (goalchk1=10, goalchk2=7) Franja Blazevic shot on goal. Andrew Sene SAVE!
+(check=9) Minute 11: no shot.
+(check=63) Minute 12: no shot.
+(check=56) Minute 13: no shot.
+(check=31) Minute 14: no shot.
+(check=52) Minute 15: no shot.
+(check=54) Minute 16: no shot.
+(check=88) Minute 17: (t1check=38, t2check=16, check1=25, check2=28) Franja Blazevic missed shot.
+(check=82) Minute 18: (t1check=9, t2check=51, check1=73, check2=64) (goalchk1=16, goalchk2=8) David Santos shot on goal. Zlatko Novak SAVE!
+(check=73) Minute 19: (t1check=27, t2check=51, check1=79, check2=70) (goalchk1=3, goalchk2=-5) David Santos shot on goal. Zlatko Novak SAVE!
+(check=72) Minute 20: (t1check=51, t2check=48, check1=9, check2=12) Niko Lovric missed shot.
+(check=70) Minute 21: (t1check=21, t2check=24, check1=65, check2=56) Chris Moreno missed shot.
+(check=23) Minute 22: no shot.
+(check=80) Minute 23: (t1check=47, t2check=46, check1=63, check2=66) (goalchk1=9, goalchk2=6) Niko Lovric shot on goal. Andrew Sene SAVE!
+(check=31) Minute 24: no shot.
+(check=67) Minute 25: (t1check=62, t2check=10, check1=20, check2=23) Niko Lovric missed shot.
+(check=61) Minute 26: no shot.
+(check=40) Minute 27: no shot.
+(check=27) Minute 28: no shot.
+(check=71) Minute 29: (t1check=66, t2check=49, check1=9, check2=12) Roberjt Grgic missed shot.
+(check=7) Minute 30: no shot.
+(check=7) Minute 31: no shot.
+(check=16) Minute 32: no shot.
+(check=74) Minute 33: (t1check=9, t2check=73, check1=26, check2=17) Stephen Cruz missed shot.
+(check=42) Minute 34: no shot.
+(check=68) Minute 35: (t1check=38, t2check=10, check1=5, check2=8) Ivica Vidovic missed shot.
+(check=12) Minute 36: no shot.
+(check=5) Minute 37: no shot.
+(check=58) Minute 38: no shot.
+(check=5) Minute 39: no shot.
+(check=66) Minute 40: (t1check=77, t2check=70, check1=55, check2=58) Roberjt Grgic missed shot.
+(check=74) Minute 41: (t1check=76, t2check=68, check1=68, check2=71) (goalchk1=20, goalchk2=17) Roberjt Grgic shot on goal. Andrew Sene SAVE!
+(check=90) Minute 42: (t1check=38, t2check=50, check1=56, check2=47) Andrew Sene missed shot.
+(check=17) Minute 43: no shot.
+(check=74) Minute 44: (t1check=61, t2check=27, check1=47, check2=50) Niko Lovric missed shot.
+(check=25) Minute 45: no shot.
+(check=44) Minute 46: no shot.
+(check=25) Minute 47: no shot.
+(check=40) Minute 48: no shot.
+(check=61) Minute 49: no shot.
+(check=66) Minute 50: (t1check=23, t2check=24, check1=6, check2=-3) Simon Reyes missed shot.
+(check=13) Minute 51: no shot.
+(check=4) Minute 52: no shot.
+(check=5) Minute 53: no shot.
+(check=10) Minute 54: no shot.
+(check=85) Minute 55: (t1check=26, t2check=27, check1=14, check2=5) Simon Reyes missed shot.
+(check=32) Minute 56: no shot.
+(check=10) Minute 57: no shot.
+(check=70) Minute 58: (t1check=43, t2check=15, check1=3, check2=6) Franja Blazevic missed shot.
+(check=66) Minute 59: (t1check=31, t2check=24, check1=20, check2=23) Ivica Vidovic missed shot.
+(check=86) Minute 60: (t1check=57, t2check=21, check1=70, check2=73) (goalchk1=43, goalchk2=40) Franja Blazevic shot on goal. Andrew Sene SAVE!
+(check=36) Minute 61: no shot.
+(check=13) Minute 62: no shot.
+(check=86) Minute 63: (t1check=61, t2check=66, check1=85, check2=76) (goalchk1=58, goalchk2=50) Stephen Cruz shot on goal. Zlatko Novak SAVE!
+(check=47) Minute 64: no shot.
+(check=32) Minute 65: no shot.
+(check=51) Minute 66: no shot.
+(check=90) Minute 67: (t1check=51, t2check=9, check1=5, check2=8) Ivica Vidovic missed shot.
+(check=90) Minute 68: (t1check=46, t2check=35, check1=97, check2=100) (goalchk1=82, goalchk2=79) Niko Lovric GOAL!!! Score: 2-1
+(check=3) Minute 69: no shot.
+(check=90) Minute 70: (t1check=76, t2check=1, check1=86, check2=89) (goalchk1=67, goalchk2=64) Niko Lovric shot on goal. Andrew Sene SAVE!
+(check=31) Minute 71: no shot.
+(check=37) Minute 72: no shot.
+(check=75) Minute 73: (t1check=44, t2check=64, check1=52, check2=43) Simon Reyes missed shot.
+(check=18) Minute 74: no shot.
+(check=46) Minute 75: no shot.
+(check=37) Minute 76: no shot.
+(check=81) Minute 77: (t1check=53, t2check=51, check1=45, check2=48) Niko Lovric missed shot.
+(check=16) Minute 78: no shot.
+(check=19) Minute 79: no shot.
+(check=23) Minute 80: no shot.
+(check=67) Minute 81: (t1check=38, t2check=53, check1=48, check2=39) Chris Moreno missed shot.
+(check=70) Minute 82: (t1check=72, t2check=11, check1=97, check2=100) (goalchk1=12, goalchk2=9) Zlatko Novak shot on goal. Andrew Sene SAVE!
+(check=90) Minute 83: (t1check=74, t2check=69, check1=82, check2=85) (goalchk1=69, goalchk2=66) Niko Lovric GOAL!!! Score: 3-1
+(check=85) Minute 84: (t1check=44, t2check=43, check1=74, check2=77) (goalchk1=73, goalchk2=70) Stjepan Novosel GOAL!!! Score: 4-1
+(check=33) Minute 85: no shot.
+(check=45) Minute 86: no shot.
+(check=51) Minute 87: no shot.
+(check=55) Minute 88: no shot.
+(check=2) Minute 89: no shot.
+(check=20) Minute 90: no shot.
+Final score: 4-1

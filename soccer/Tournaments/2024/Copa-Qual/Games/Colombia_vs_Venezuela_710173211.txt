@@ -1,0 +1,91 @@
+(check=43) Minute 1: no shot.
+(check=51) Minute 2: no shot.
+(check=77) Minute 3: (t1check=75, t2check=14, check1=9, check2=9) Javier Giraldo missed shot.
+(check=90) Minute 4: (t1check=17, t2check=76, check1=26, check2=20) Freddy Lopez missed shot.
+(check=54) Minute 5: no shot.
+(check=89) Minute 6: (t1check=21, t2check=42, check1=42, check2=36) Felix Rodriguez missed shot.
+(check=27) Minute 7: no shot.
+(check=3) Minute 8: no shot.
+(check=65) Minute 9: no shot.
+(check=58) Minute 10: no shot.
+(check=48) Minute 11: no shot.
+(check=28) Minute 12: no shot.
+(check=26) Minute 13: no shot.
+(check=69) Minute 14: (t1check=22, t2check=53, check1=30, check2=24) Pablo Rivero missed shot.
+(check=75) Minute 15: (t1check=58, t2check=27, check1=52, check2=52) Orlando Cardona missed shot.
+(check=16) Minute 16: no shot.
+(check=77) Minute 17: (t1check=23, t2check=58, check1=19, check2=13) Cesar Romero missed shot.
+(check=47) Minute 18: no shot.
+(check=66) Minute 19: (t1check=29, t2check=7, check1=19, check2=19) Edwin Ruiz missed shot.
+(check=77) Minute 20: (t1check=58, t2check=36, check1=92, check2=92) (goalchk1=18, goalchk2=13) Javier Giraldo shot on goal. Felix Rodriguez SAVE!
+(check=7) Minute 21: no shot.
+(check=88) Minute 22: (t1check=13, t2check=46, check1=84, check2=78) (goalchk1=81, goalchk2=76) Cesar Romero GOAL!!! Score: 0-1
+(check=76) Minute 23: (t1check=37, t2check=48, check1=83, check2=77) (goalchk1=26, goalchk2=21) Freddy Lopez shot on goal. Javier Giraldo SAVE!
+(check=72) Minute 24: (t1check=45, t2check=22, check1=29, check2=29) Hernan Torres missed shot.
+(check=29) Minute 25: no shot.
+(check=68) Minute 26: (t1check=72, t2check=19, check1=58, check2=58) Andres Rodriguez missed shot.
+(check=32) Minute 27: no shot.
+(check=5) Minute 28: no shot.
+(check=23) Minute 29: no shot.
+(check=7) Minute 30: no shot.
+(check=41) Minute 31: no shot.
+(check=22) Minute 32: no shot.
+(check=1) Minute 33: no shot.
+(check=23) Minute 34: no shot.
+(check=59) Minute 35: no shot.
+(check=50) Minute 36: no shot.
+(check=51) Minute 37: no shot.
+(check=30) Minute 38: no shot.
+(check=63) Minute 39: no shot.
+(check=13) Minute 40: no shot.
+(check=28) Minute 41: no shot.
+(check=35) Minute 42: no shot.
+(check=6) Minute 43: no shot.
+(check=80) Minute 44: (t1check=22, t2check=15, check1=39, check2=39) Andres Rodriguez missed shot.
+(check=74) Minute 45: (t1check=40, t2check=33, check1=24, check2=24) Edwin Ruiz missed shot.
+(check=31) Minute 46: no shot.
+(check=10) Minute 47: no shot.
+(check=38) Minute 48: no shot.
+(check=36) Minute 49: no shot.
+(check=24) Minute 50: no shot.
+(check=70) Minute 51: (t1check=62, t2check=42, check1=92, check2=92) (goalchk1=55, goalchk2=50) Hernan Torres shot on goal. Felix Rodriguez SAVE!
+(check=36) Minute 52: no shot.
+(check=53) Minute 53: no shot.
+(check=32) Minute 54: no shot.
+(check=30) Minute 55: no shot.
+(check=54) Minute 56: no shot.
+(check=80) Minute 57: (t1check=83, t2check=62, check1=24, check2=24) Hernan Torres missed shot.
+(check=90) Minute 58: (t1check=62, t2check=56, check1=93, check2=93) (goalchk1=44, goalchk2=39) Hernan Torres shot on goal. Felix Rodriguez SAVE!
+(check=70) Minute 59: (t1check=29, t2check=6, check1=42, check2=42) Edwin Ruiz missed shot.
+(check=6) Minute 60: no shot.
+(check=51) Minute 61: no shot.
+(check=60) Minute 62: no shot.
+(check=13) Minute 63: no shot.
+(check=22) Minute 64: no shot.
+(check=15) Minute 65: no shot.
+(check=28) Minute 66: no shot.
+(check=50) Minute 67: no shot.
+(check=70) Minute 68: (t1check=71, t2check=68, check1=46, check2=46) Hernan Torres missed shot.
+(check=44) Minute 69: no shot.
+(check=73) Minute 70: (t1check=71, t2check=29, check1=82, check2=82) (goalchk1=93, goalchk2=88) Javier Giraldo GOAL!!! Score: 1-1
+(check=40) Minute 71: no shot.
+(check=56) Minute 72: no shot.
+(check=52) Minute 73: no shot.
+(check=32) Minute 74: no shot.
+(check=17) Minute 75: no shot.
+(check=66) Minute 76: (t1check=72, t2check=60, check1=71, check2=71) (goalchk1=15, goalchk2=10) Hernan Torres shot on goal. Felix Rodriguez SAVE!
+(check=24) Minute 77: no shot.
+(check=47) Minute 78: no shot.
+(check=33) Minute 79: no shot.
+(check=30) Minute 80: no shot.
+(check=2) Minute 81: no shot.
+(check=62) Minute 82: no shot.
+(check=18) Minute 83: no shot.
+(check=33) Minute 84: no shot.
+(check=66) Minute 85: (t1check=41, t2check=79, check1=94, check2=88) (goalchk1=65, goalchk2=60) Cesar Romero shot on goal. Javier Giraldo SAVE!
+(check=8) Minute 86: no shot.
+(check=60) Minute 87: no shot.
+(check=19) Minute 88: no shot.
+(check=57) Minute 89: no shot.
+(check=21) Minute 90: no shot.
+Final score: 1-1

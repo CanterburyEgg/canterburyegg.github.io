@@ -1,0 +1,91 @@
+(check=6) Minute 1: no shot.
+(check=46) Minute 2: no shot.
+(check=9) Minute 3: no shot.
+(check=29) Minute 4: no shot.
+(check=54) Minute 5: no shot.
+(check=64) Minute 6: no shot.
+(check=10) Minute 7: no shot.
+(check=83) Minute 8: (t1check=66, t2check=71, check1=86, check2=85) (goalchk1=19, goalchk2=16) Alejandro Medina shot on goal. Arthur Bethel SAVE!
+(check=65) Minute 9: no shot.
+(check=66) Minute 10: (t1check=61, t2check=26, check1=97, check2=94) (goalchk1=54, goalchk2=51) Sidney Knowles shot on goal. Gustavo Vega SAVE!
+(check=66) Minute 11: (t1check=45, t2check=41, check1=97, check2=94) (goalchk1=40, goalchk2=37) Raymond Brown shot on goal. Gustavo Vega SAVE!
+(check=86) Minute 12: (t1check=31, t2check=10, check1=70, check2=67) (goalchk1=85, goalchk2=82) Sidney Knowles GOAL!!! Score: 1-0
+(check=72) Minute 13: (t1check=41, t2check=5, check1=4, check2=1) Raymond Brown missed shot.
+(check=51) Minute 14: no shot.
+(check=7) Minute 15: no shot.
+(check=53) Minute 16: no shot.
+(check=86) Minute 17: (t1check=17, t2check=42, check1=6, check2=5) Ramos Marrero missed shot.
+(check=26) Minute 18: no shot.
+(check=19) Minute 19: no shot.
+(check=74) Minute 20: (t1check=77, t2check=23, check1=93, check2=90) (goalchk1=54, goalchk2=51) Sidney Knowles shot on goal. Gustavo Vega SAVE!
+(check=56) Minute 21: no shot.
+(check=28) Minute 22: no shot.
+(check=9) Minute 23: no shot.
+(check=85) Minute 24: (t1check=72, t2check=27, check1=61, check2=58) Jean Roberts missed shot.
+(check=38) Minute 25: no shot.
+(check=49) Minute 26: no shot.
+(check=70) Minute 27: (t1check=31, t2check=33, check1=1, check2=0) Alejandro Medina missed shot.
+(check=19) Minute 28: no shot.
+(check=66) Minute 29: (t1check=19, t2check=20, check1=78, check2=77) (goalchk1=96, goalchk2=93) Alejandro Medina GOAL!!! Score: 1-1
+(check=61) Minute 30: no shot.
+(check=70) Minute 31: (t1check=47, t2check=13, check1=7, check2=4) Raymond Brown missed shot.
+(check=13) Minute 32: no shot.
+(check=70) Minute 33: (t1check=64, t2check=27, check1=39, check2=36) Arthur Bethel missed shot.
+(check=16) Minute 34: no shot.
+(check=66) Minute 35: (t1check=7, t2check=49, check1=43, check2=42) Enrique Blanco missed shot.
+(check=70) Minute 36: (t1check=34, t2check=42, check1=83, check2=82) (goalchk1=52, goalchk2=49) Ramos Marrero shot on goal. Arthur Bethel SAVE!
+(check=78) Minute 37: (t1check=18, t2check=21, check1=62, check2=61) (goalchk1=4, goalchk2=1) Alejandro Medina shot on goal. Arthur Bethel SAVE!
+(check=51) Minute 38: no shot.
+(check=15) Minute 39: no shot.
+(check=57) Minute 40: no shot.
+(check=30) Minute 41: no shot.
+(check=79) Minute 42: (t1check=63, t2check=21, check1=2, check2=-1) Chris Rolle missed shot.
+(check=59) Minute 43: no shot.
+(check=15) Minute 44: no shot.
+(check=86) Minute 45: (t1check=32, t2check=20, check1=71, check2=68) (goalchk1=62, goalchk2=59) Jean Roberts shot on goal. Gustavo Vega SAVE!
+(check=60) Minute 46: no shot.
+(check=16) Minute 47: no shot.
+(check=52) Minute 48: no shot.
+(check=40) Minute 49: no shot.
+(check=12) Minute 50: no shot.
+(check=84) Minute 51: (t1check=29, t2check=47, check1=16, check2=15) Manuel Valdes missed shot.
+(check=20) Minute 52: no shot.
+(check=20) Minute 53: no shot.
+(check=48) Minute 54: no shot.
+(check=51) Minute 55: no shot.
+(check=15) Minute 56: no shot.
+(check=72) Minute 57: (t1check=34, t2check=5, check1=98, check2=95) (goalchk1=11, goalchk2=8) Raymond Brown shot on goal. Gustavo Vega SAVE!
+(check=18) Minute 58: no shot.
+(check=53) Minute 59: no shot.
+(check=75) Minute 60: (t1check=18, t2check=71, check1=55, check2=54) Alejandro Medina missed shot.
+(check=43) Minute 61: no shot.
+(check=72) Minute 62: (t1check=54, t2check=23, check1=13, check2=10) Jean Roberts missed shot.
+(check=49) Minute 63: no shot.
+(check=4) Minute 64: no shot.
+(check=42) Minute 65: no shot.
+(check=81) Minute 66: (t1check=20, t2check=40, check1=45, check2=44) Gustavo Vega missed shot.
+(check=28) Minute 67: no shot.
+(check=84) Minute 68: (t1check=3, t2check=12, check1=60, check2=59) Manuel Valdes missed shot.
+(check=90) Minute 69: (t1check=57, t2check=77, check1=16, check2=15) Manuel Valdes missed shot.
+(check=47) Minute 70: no shot.
+(check=62) Minute 71: no shot.
+(check=43) Minute 72: no shot.
+(check=54) Minute 73: no shot.
+(check=68) Minute 74: (t1check=71, t2check=7, check1=90, check2=87) (goalchk1=80, goalchk2=77) Jean Roberts GOAL!!! Score: 2-1
+(check=71) Minute 75: (t1check=43, t2check=77, check1=96, check2=95) (goalchk1=70, goalchk2=67) Manuel Valdes GOAL!!! Score: 2-2
+(check=11) Minute 76: no shot.
+(check=31) Minute 77: no shot.
+(check=8) Minute 78: no shot.
+(check=89) Minute 79: (t1check=50, t2check=14, check1=78, check2=75) (goalchk1=89, goalchk2=86) Chris Rolle GOAL!!! Score: 3-2
+(check=22) Minute 80: no shot.
+(check=49) Minute 81: no shot.
+(check=11) Minute 82: no shot.
+(check=73) Minute 83: (t1check=26, t2check=9, check1=37, check2=34) Raymond Brown missed shot.
+(check=44) Minute 84: no shot.
+(check=67) Minute 85: (t1check=8, t2check=38, check1=15, check2=14) Enrique Blanco missed shot.
+(check=90) Minute 86: (t1check=18, t2check=56, check1=54, check2=53) Manuel Valdes missed shot.
+(check=48) Minute 87: no shot.
+(check=88) Minute 88: (t1check=5, t2check=34, check1=6, check2=5) Manuel Valdes missed shot.
+(check=79) Minute 89: (t1check=51, t2check=79, check1=83, check2=82) (goalchk1=44, goalchk2=41) Ramos Marrero shot on goal. Arthur Bethel SAVE!
+(check=51) Minute 90: no shot.
+Final score: 3-2

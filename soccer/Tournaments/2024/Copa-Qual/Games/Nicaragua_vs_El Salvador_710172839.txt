@@ -1,0 +1,91 @@
+(check=37) Minute 1: no shot.
+(check=81) Minute 2: (t1check=50, t2check=19, check1=41, check2=40) Orlando Centeno missed shot.
+(check=81) Minute 3: (t1check=65, t2check=53, check1=1, check2=0) Eddy Espinoza missed shot.
+(check=2) Minute 4: no shot.
+(check=85) Minute 5: (t1check=79, t2check=45, check1=56, check2=55) Eddy Espinoza missed shot.
+(check=69) Minute 6: (t1check=79, t2check=8, check1=20, check2=19) Fernando Reyes missed shot.
+(check=27) Minute 7: no shot.
+(check=43) Minute 8: no shot.
+(check=16) Minute 9: no shot.
+(check=85) Minute 10: (t1check=32, t2check=7, check1=41, check2=40) Eddy Espinoza missed shot.
+(check=77) Minute 11: (t1check=35, t2check=10, check1=8, check2=7) Orlando Centeno missed shot.
+(check=37) Minute 12: no shot.
+(check=61) Minute 13: no shot.
+(check=21) Minute 14: no shot.
+(check=30) Minute 15: no shot.
+(check=25) Minute 16: no shot.
+(check=8) Minute 17: no shot.
+(check=66) Minute 18: (t1check=13, t2check=76, check1=11, check2=14) Mauricio Argueta missed shot.
+(check=47) Minute 19: no shot.
+(check=22) Minute 20: no shot.
+(check=76) Minute 21: (t1check=73, t2check=31, check1=17, check2=16) Reynaldo Herrera missed shot.
+(check=41) Minute 22: no shot.
+(check=12) Minute 23: no shot.
+(check=68) Minute 24: (t1check=75, t2check=34, check1=60, check2=59) Eddy Espinoza missed shot.
+(check=40) Minute 25: no shot.
+(check=49) Minute 26: no shot.
+(check=85) Minute 27: (t1check=67, t2check=8, check1=46, check2=45) Fernando Reyes missed shot.
+(check=76) Minute 28: (t1check=49, t2check=69, check1=75, check2=78) (goalchk1=94, goalchk2=91) Marcos Aguilar GOAL!!! Score: 0-1
+(check=83) Minute 29: (t1check=31, t2check=44, check1=90, check2=93) (goalchk1=21, goalchk2=18) Marcos Aguilar shot on goal. Jaime Chavarria SAVE!
+(check=24) Minute 30: no shot.
+(check=38) Minute 31: no shot.
+(check=15) Minute 32: no shot.
+(check=47) Minute 33: no shot.
+(check=82) Minute 34: (t1check=40, t2check=44, check1=43, check2=46) Mauricio Argueta missed shot.
+(check=88) Minute 35: (t1check=67, t2check=59, check1=7, check2=6) Orlando Centeno missed shot.
+(check=4) Minute 36: no shot.
+(check=76) Minute 37: (t1check=65, t2check=51, check1=55, check2=54) Eddy Espinoza missed shot.
+(check=82) Minute 38: (t1check=56, t2check=40, check1=29, check2=28) Eddy Espinoza missed shot.
+(check=25) Minute 39: no shot.
+(check=88) Minute 40: (t1check=51, t2check=45, check1=95, check2=94) (goalchk1=78, goalchk2=76) Eddy Espinoza GOAL!!! Score: 1-1
+(check=36) Minute 41: no shot.
+(check=39) Minute 42: no shot.
+(check=15) Minute 43: no shot.
+(check=79) Minute 44: (t1check=7, t2check=5, check1=28, check2=27) Eddy Espinoza missed shot.
+(check=33) Minute 45: no shot.
+(check=48) Minute 46: no shot.
+(check=62) Minute 47: no shot.
+(check=79) Minute 48: (t1check=62, t2check=13, check1=68, check2=67) (goalchk1=14, goalchk2=12) Reynaldo Herrera shot on goal. Raul Orellana SAVE!
+(check=8) Minute 49: no shot.
+(check=32) Minute 50: no shot.
+(check=51) Minute 51: no shot.
+(check=82) Minute 52: (t1check=51, t2check=76, check1=93, check2=96) (goalchk1=74, goalchk2=71) Ricardo Mejia GOAL!!! Score: 1-2
+(check=23) Minute 53: no shot.
+(check=58) Minute 54: no shot.
+(check=42) Minute 55: no shot.
+(check=47) Minute 56: no shot.
+(check=86) Minute 57: (t1check=20, t2check=68, check1=39, check2=42) Marcos Aguilar missed shot.
+(check=30) Minute 58: no shot.
+(check=59) Minute 59: no shot.
+(check=16) Minute 60: no shot.
+(check=51) Minute 61: no shot.
+(check=48) Minute 62: no shot.
+(check=68) Minute 63: (t1check=74, t2check=31, check1=62, check2=61) (goalchk1=61, goalchk2=59) Orlando Centeno shot on goal. Raul Orellana SAVE!
+(check=74) Minute 64: (t1check=15, t2check=66, check1=51, check2=54) Marcos Aguilar missed shot.
+(check=47) Minute 65: no shot.
+(check=20) Minute 66: no shot.
+(check=20) Minute 67: no shot.
+(check=27) Minute 68: no shot.
+(check=43) Minute 69: no shot.
+(check=75) Minute 70: (t1check=16, t2check=48, check1=19, check2=22) Elmer Campos missed shot.
+(check=37) Minute 71: no shot.
+(check=52) Minute 72: no shot.
+(check=76) Minute 73: (t1check=28, t2check=53, check1=58, check2=61) (goalchk1=81, goalchk2=78) Rafael Guevara GOAL!!! Score: 1-3
+(check=74) Minute 74: (t1check=22, t2check=42, check1=49, check2=52) Elmer Campos missed shot.
+(check=73) Minute 75: (t1check=7, t2check=19, check1=29, check2=32) Marcos Aguilar missed shot.
+(check=84) Minute 76: (t1check=61, t2check=40, check1=85, check2=84) (goalchk1=62, goalchk2=60) Jaime Chavarria shot on goal. Raul Orellana SAVE!
+(check=39) Minute 77: no shot.
+(check=16) Minute 78: no shot.
+(check=88) Minute 79: (t1check=77, t2check=40, check1=58, check2=57) Reynaldo Herrera missed shot.
+(check=3) Minute 80: no shot.
+(check=87) Minute 81: (t1check=32, t2check=6, check1=75, check2=74) (goalchk1=7, goalchk2=5) Orlando Centeno shot on goal. Raul Orellana SAVE!
+(check=28) Minute 82: no shot.
+(check=13) Minute 83: no shot.
+(check=2) Minute 84: no shot.
+(check=16) Minute 85: no shot.
+(check=29) Minute 86: no shot.
+(check=33) Minute 87: no shot.
+(check=30) Minute 88: no shot.
+(check=90) Minute 89: (t1check=37, t2check=3, check1=40, check2=39) Reynaldo Herrera missed shot.
+(check=55) Minute 90: no shot.
+Final score: 1-3

@@ -1,0 +1,5553 @@
+{
+  "name": "2024 Copa America",
+  "path": "2024/Copa",
+  "config": {
+    "name": "2024 Copa America",
+    "type": "copa",
+    "groups": {
+      "A": [
+        "United States",
+        "Chile",
+        "Ecuador",
+        "Honduras"
+      ],
+      "B": [
+        "Argentina",
+        "Dominican Republic",
+        "Peru",
+        "Canada"
+      ],
+      "C": [
+        "Panama",
+        "Guatemala",
+        "Paraguay",
+        "Trinidad and Tobago"
+      ],
+      "D": [
+        "Colombia",
+        "Mexico",
+        "Cuba",
+        "Costa Rica"
+      ]
+    },
+    "rules": {
+      "group_repeats": 1
+    }
+  },
+  "current_day": 1,
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "teams": [
+            "Chile",
+            "Honduras"
+          ],
+          "score": [
+            3,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 3,
+              "team": "Honduras",
+              "player": "Manuel Amador"
+            },
+            {
+              "minute": 5,
+              "team": "Chile",
+              "player": "Hector Alvarez"
+            },
+            {
+              "minute": 12,
+              "team": "Chile",
+              "player": "Cristian Rivera"
+            },
+            {
+              "minute": 75,
+              "team": "Honduras",
+              "player": "Manuel Amador"
+            },
+            {
+              "minute": 87,
+              "team": "Chile",
+              "player": "Marco Alvarez"
+            }
+          ],
+          "stats": {
+            "Chile": {
+              "shots": 26,
+              "sogs": 11,
+              "saves": 0
+            },
+            "Honduras": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 8
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Felipe Contreras",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marco Alvarez",
+                "shots": 4,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Rivera",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Patricio Torres",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Riquelme",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hector Alvarez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mauricio Fuentes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 3
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Chile_vs_Honduras_71018728.txt"
+        },
+        {
+          "teams": [
+            "Ecuador",
+            "Honduras"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 20,
+              "team": "Ecuador",
+              "player": "Cesar Paredes"
+            },
+            {
+              "minute": 45,
+              "team": "Honduras",
+              "player": "Manuel Amador"
+            },
+            {
+              "minute": 72,
+              "team": "Honduras",
+              "player": "Jesus Zelaya"
+            }
+          ],
+          "stats": {
+            "Ecuador": {
+              "shots": 19,
+              "sogs": 9,
+              "saves": 0
+            },
+            "Honduras": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 8
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Cesar Paredes",
+                "shots": 6,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castillo",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Jaramillo",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Molina",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Mendoza",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Salazar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Ecuador_vs_Honduras_71018728.txt"
+        },
+        {
+          "teams": [
+            "United States",
+            "Ecuador"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 63,
+              "team": "Ecuador",
+              "player": "Cesar Paredes"
+            },
+            {
+              "minute": 85,
+              "team": "United States",
+              "player": "Antonio Chavez"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 27,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Ecuador": {
+              "shots": 1,
+              "sogs": 1,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Chris Barber",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Cesar Paredes",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castillo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Jaramillo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Molina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Mendoza",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Salazar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/United States_vs_Ecuador_71018728.txt"
+        },
+        {
+          "teams": [
+            "United States",
+            "Chile"
+          ],
+          "score": [
+            4,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "United States",
+              "player": "Chris Barber"
+            },
+            {
+              "minute": 45,
+              "team": "Chile",
+              "player": "Felipe Contreras"
+            },
+            {
+              "minute": 53,
+              "team": "United States",
+              "player": "Lawrence Porter"
+            },
+            {
+              "minute": 62,
+              "team": "Chile",
+              "player": "Cristian Rivera"
+            },
+            {
+              "minute": 73,
+              "team": "United States",
+              "player": "Chris Barber"
+            },
+            {
+              "minute": 74,
+              "team": "United States",
+              "player": "Chris Barber"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 25,
+              "sogs": 13,
+              "saves": 0
+            },
+            "Chile": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 9
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Chris Barber",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Felipe Contreras",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marco Alvarez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Rivera",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Patricio Torres",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Riquelme",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hector Alvarez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Mauricio Fuentes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 4
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/United States_vs_Chile_71018728.txt"
+        },
+        {
+          "teams": [
+            "United States",
+            "Honduras"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 3,
+              "team": "Honduras",
+              "player": "Manuel Amador"
+            },
+            {
+              "minute": 37,
+              "team": "United States",
+              "player": "Nick Hamburger"
+            }
+          ],
+          "stats": {
+            "United States": {
+              "shots": 33,
+              "sogs": 13,
+              "saves": 0
+            },
+            "Honduras": {
+              "shots": 1,
+              "sogs": 1,
+              "saves": 12
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nick Hamburger",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lawrence Porter",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Chris Barber",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Casey Myers-Morgan",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Brandon Boyd",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Antonio Chavez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Bailey Myers-Morgan",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Jesus Zelaya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Banegas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Daniel Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Amador",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marlon Padilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Bonilla",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 0
+              },
+              {
+                "name": "Wilmer Paz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/United States_vs_Honduras_71018728.txt"
+        },
+        {
+          "teams": [
+            "Chile",
+            "Ecuador"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 49,
+              "team": "Ecuador",
+              "player": "Ramon Jaramillo"
+            },
+            {
+              "minute": 84,
+              "team": "Chile",
+              "player": "Marco Alvarez"
+            }
+          ],
+          "stats": {
+            "Chile": {
+              "shots": 23,
+              "sogs": 4,
+              "saves": 0
+            },
+            "Ecuador": {
+              "shots": 1,
+              "sogs": 1,
+              "saves": 3
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Felipe Contreras",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marco Alvarez",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cristian Rivera",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Patricio Torres",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Riquelme",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hector Alvarez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Mauricio Fuentes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Cesar Paredes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castillo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Jaramillo",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Molina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "David Chavez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Mendoza",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Salazar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Chile_vs_Ecuador_71018728.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 3,
+          "w": 1,
+          "d": 2,
+          "l": 0,
+          "gf": 6,
+          "ga": 4,
+          "gd": 2,
+          "pts": 5,
+          "team": "United States"
+        },
+        {
+          "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 6,
+          "ga": 7,
+          "gd": -1,
+          "pts": 4,
+          "team": "Chile"
+        },
+        {
+          "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 5,
+          "ga": 5,
+          "gd": 0,
+          "pts": 4,
+          "team": "Honduras"
+        },
+        {
+          "played": 3,
+          "w": 0,
+          "d": 2,
+          "l": 1,
+          "gf": 3,
+          "ga": 4,
+          "gd": -1,
+          "pts": 2,
+          "team": "Ecuador"
+        }
+      ]
+    },
+    "B": {
+      "matches": [
+        {
+          "teams": [
+            "Peru",
+            "Canada"
+          ],
+          "score": [
+            1,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 23,
+              "team": "Peru",
+              "player": "Juan Rivera"
+            },
+            {
+              "minute": 52,
+              "team": "Canada",
+              "player": "Marc Tremblay"
+            }
+          ],
+          "stats": {
+            "Peru": {
+              "shots": 22,
+              "sogs": 12,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 1,
+              "sogs": 1,
+              "saves": 11
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Juan Rivera",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Morales",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Rojas",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Aguilar",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Quispe",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Huaman",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Peru_vs_Canada_71018728.txt"
+        },
+        {
+          "teams": [
+            "Argentina",
+            "Canada"
+          ],
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 32,
+              "team": "Argentina",
+              "player": "Pedro Flores"
+            },
+            {
+              "minute": 82,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            }
+          ],
+          "stats": {
+            "Argentina": {
+              "shots": 30,
+              "sogs": 11,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 9
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 6,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Argentina_vs_Canada_71018728.txt"
+        },
+        {
+          "teams": [
+            "Dominican Republic",
+            "Peru"
+          ],
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "Dominican Republic": {
+              "shots": 21,
+              "sogs": 10,
+              "saves": 0
+            },
+            "Peru": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 10
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nicolas Montero",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis de la Rosa",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Tavarez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rafael Tejeda",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomas Batista",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lorenzo Marte",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maximo Ventura",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Juan Rivera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Rojas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Aguilar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Quispe",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 5,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Huaman",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Dominican Republic_vs_Peru_71018728.txt"
+        },
+        {
+          "teams": [
+            "Dominican Republic",
+            "Canada"
+          ],
+          "score": [
+            1,
+            5
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 2,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            },
+            {
+              "minute": 6,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            },
+            {
+              "minute": 43,
+              "team": "Dominican Republic",
+              "player": "Vicente Tavarez"
+            },
+            {
+              "minute": 46,
+              "team": "Canada",
+              "player": "Marc Tremblay"
+            },
+            {
+              "minute": 47,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            },
+            {
+              "minute": 55,
+              "team": "Canada",
+              "player": "Joseph Clarke"
+            }
+          ],
+          "stats": {
+            "Dominican Republic": {
+              "shots": 23,
+              "sogs": 14,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 5,
+              "sogs": 5,
+              "saves": 13
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Nicolas Montero",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis de la Rosa",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Tavarez",
+                "shots": 6,
+                "sogs": 5,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rafael Tejeda",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomas Batista",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lorenzo Marte",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Maximo Ventura",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 5
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Dominican Republic_vs_Canada_71018728.txt"
+        },
+        {
+          "teams": [
+            "Argentina",
+            "Dominican Republic"
+          ],
+          "score": [
+            7,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 4,
+              "team": "Argentina",
+              "player": "Diego Perez"
+            },
+            {
+              "minute": 9,
+              "team": "Argentina",
+              "player": "Oscar Gonzalez"
+            },
+            {
+              "minute": 16,
+              "team": "Argentina",
+              "player": "Pedro Flores"
+            },
+            {
+              "minute": 33,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            },
+            {
+              "minute": 38,
+              "team": "Dominican Republic",
+              "player": "Lorenzo Marte"
+            },
+            {
+              "minute": 39,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            },
+            {
+              "minute": 50,
+              "team": "Dominican Republic",
+              "player": "Rafael Tejeda"
+            },
+            {
+              "minute": 55,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            },
+            {
+              "minute": 57,
+              "team": "Argentina",
+              "player": "Pedro Flores"
+            }
+          ],
+          "stats": {
+            "Argentina": {
+              "shots": 32,
+              "sogs": 16,
+              "saves": 0
+            },
+            "Dominican Republic": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 9
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 8,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 7,
+                "sogs": 5,
+                "goals": 3,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Nicolas Montero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis de la Rosa",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Tavarez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Rafael Tejeda",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomas Batista",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Lorenzo Marte",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 6,
+                "goals_against": 0
+              },
+              {
+                "name": "Maximo Ventura",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 7
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Argentina_vs_Dominican Republic_71018728.txt"
+        },
+        {
+          "teams": [
+            "Argentina",
+            "Peru"
+          ],
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 78,
+              "team": "Argentina",
+              "player": "Gustavo Suarez"
+            }
+          ],
+          "stats": {
+            "Argentina": {
+              "shots": 26,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Peru": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 5,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 5,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Juan Rivera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Rojas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Aguilar",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jose Quispe",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Huaman",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Argentina_vs_Peru_71018728.txt"
+        },
+        {
+          "teams": [
+            "Argentina",
+            "Canada"
+          ],
+          "score": [
+            3,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 24,
+              "team": "Canada",
+              "player": "Scott Robinson"
+            },
+            {
+              "minute": 35,
+              "team": "Argentina",
+              "player": "Pedro Flores"
+            },
+            {
+              "minute": 41,
+              "team": "Argentina",
+              "player": "Juan Acosta"
+            },
+            {
+              "minute": 44,
+              "team": "Argentina",
+              "player": "Juan Acosta"
+            },
+            {
+              "minute": 58,
+              "team": "Canada",
+              "player": "Edward Gauthier"
+            },
+            {
+              "minute": 61,
+              "team": "Canada",
+              "player": "Marc Tremblay"
+            }
+          ],
+          "stats": {
+            "Argentina": {
+              "shots": 28,
+              "sogs": 12,
+              "saves": 0
+            },
+            "Canada": {
+              "shots": 3,
+              "sogs": 3,
+              "saves": 9
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Diego Perez",
+                "shots": 8,
+                "sogs": 5,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Suarez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Roberto Sosa",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pedro Flores",
+                "shots": 6,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Acosta",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Oscar Gonzalez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Luis Aguirre",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Scott Robinson",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Joseph Clarke",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edward Gauthier",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Marc Tremblay",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Pierre Gagnon",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jacques Lavoie",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tim Moore",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 8,
+                "goals_against": 3
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Argentina_vs_Canada_61113137.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 4,
+          "w": 3,
+          "d": 1,
+          "l": 0,
+          "gf": 13,
+          "ga": 5,
+          "gd": 8,
+          "pts": 10,
+          "team": "Argentina"
+        },
+        {
+          "played": 4,
+          "w": 1,
+          "d": 2,
+          "l": 1,
+          "gf": 9,
+          "ga": 7,
+          "gd": 2,
+          "pts": 5,
+          "team": "Canada"
+        },
+        {
+          "played": 3,
+          "w": 0,
+          "d": 2,
+          "l": 1,
+          "gf": 1,
+          "ga": 2,
+          "gd": -1,
+          "pts": 2,
+          "team": "Peru"
+        },
+        {
+          "played": 3,
+          "w": 0,
+          "d": 1,
+          "l": 2,
+          "gf": 3,
+          "ga": 12,
+          "gd": -9,
+          "pts": 1,
+          "team": "Dominican Republic"
+        }
+      ]
+    },
+    "C": {
+      "matches": [
+        {
+          "teams": [
+            "Guatemala",
+            "Trinidad and Tobago"
+          ],
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "Guatemala": {
+              "shots": 19,
+              "sogs": 7,
+              "saves": 0
+            },
+            "Trinidad and Tobago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Santiago Barrios",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel de Leon",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Domingo Ordonez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Mendez",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomas Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felipe Juarez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Pop",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Guatemala_vs_Trinidad and Tobago_71018728.txt"
+        },
+        {
+          "teams": [
+            "Panama",
+            "Trinidad and Tobago"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 5,
+              "team": "Panama",
+              "player": "Angel Cedeno"
+            },
+            {
+              "minute": 29,
+              "team": "Trinidad and Tobago",
+              "player": "Nigel Maharaj"
+            },
+            {
+              "minute": 65,
+              "team": "Trinidad and Tobago",
+              "player": "Joel Hosein"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 27,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Trinidad and Tobago": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 7,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Panama_vs_Trinidad and Tobago_71018728.txt"
+        },
+        {
+          "teams": [
+            "Guatemala",
+            "Paraguay"
+          ],
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Guatemala",
+              "player": "Angel de Leon"
+            },
+            {
+              "minute": 65,
+              "team": "Guatemala",
+              "player": "Tomas Morales"
+            }
+          ],
+          "stats": {
+            "Guatemala": {
+              "shots": 21,
+              "sogs": 9,
+              "saves": 0
+            },
+            "Paraguay": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Santiago Barrios",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel de Leon",
+                "shots": 4,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Domingo Ordonez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Mendez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomas Morales",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felipe Juarez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Pop",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Francisco Espinola",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Arnaldo Benitez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Baez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Villalba",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Medina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felix Cardozo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              },
+              {
+                "name": "Alcides Cabrera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Guatemala_vs_Paraguay_71018728.txt"
+        },
+        {
+          "teams": [
+            "Paraguay",
+            "Trinidad and Tobago"
+          ],
+          "score": [
+            0,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 4,
+              "team": "Trinidad and Tobago",
+              "player": "Nicholas Persad"
+            },
+            {
+              "minute": 80,
+              "team": "Trinidad and Tobago",
+              "player": "Nigel Maharaj"
+            }
+          ],
+          "stats": {
+            "Paraguay": {
+              "shots": 16,
+              "sogs": 6,
+              "saves": 0
+            },
+            "Trinidad and Tobago": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Francisco Espinola",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Arnaldo Benitez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Baez",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Villalba",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Medina",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felix Cardozo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alcides Cabrera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Joel Hosein",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Anthony Gonzales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nigel Maharaj",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Adrian Johnson",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Nicholas Persad",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francis Baptiste",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Dexter Edwards",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Paraguay_vs_Trinidad and Tobago_71018728.txt"
+        },
+        {
+          "teams": [
+            "Panama",
+            "Guatemala"
+          ],
+          "score": [
+            2,
+            1
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 22,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            },
+            {
+              "minute": 43,
+              "team": "Guatemala",
+              "player": "Angel de Leon"
+            },
+            {
+              "minute": 54,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 24,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Guatemala": {
+              "shots": 1,
+              "sogs": 1,
+              "saves": 6
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 10,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ],
+            "team2": [
+              {
+                "name": "Santiago Barrios",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel de Leon",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Domingo Ordonez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Vicente Mendez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Tomas Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felipe Juarez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 1,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Pop",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Panama_vs_Guatemala_71018728.txt"
+        },
+        {
+          "teams": [
+            "Panama",
+            "Paraguay"
+          ],
+          "score": [
+            1,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 81,
+              "team": "Panama",
+              "player": "Jose Abrego"
+            }
+          ],
+          "stats": {
+            "Panama": {
+              "shots": 28,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Paraguay": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Jose Abrego",
+                "shots": 6,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Angel Cedeno",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Castillo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Lopez",
+                "shots": 2,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Miguel Ortega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alberto Diaz",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Guerra",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Francisco Espinola",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Arnaldo Benitez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Baez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Hugo Villalba",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramon Medina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Felix Cardozo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Alcides Cabrera",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Panama_vs_Paraguay_71018728.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 3,
+          "w": 2,
+          "d": 1,
+          "l": 0,
+          "gf": 4,
+          "ga": 1,
+          "gd": 3,
+          "pts": 7,
+          "team": "Trinidad and Tobago"
+        },
+        {
+          "played": 3,
+          "w": 2,
+          "d": 0,
+          "l": 1,
+          "gf": 4,
+          "ga": 3,
+          "gd": 1,
+          "pts": 6,
+          "team": "Panama"
+        },
+        {
+          "played": 3,
+          "w": 1,
+          "d": 1,
+          "l": 1,
+          "gf": 3,
+          "ga": 2,
+          "gd": 1,
+          "pts": 4,
+          "team": "Guatemala"
+        },
+        {
+          "played": 3,
+          "w": 0,
+          "d": 0,
+          "l": 3,
+          "gf": 0,
+          "ga": 5,
+          "gd": -5,
+          "pts": 0,
+          "team": "Paraguay"
+        }
+      ]
+    },
+    "D": {
+      "matches": [
+        {
+          "teams": [
+            "Cuba",
+            "Costa Rica"
+          ],
+          "score": [
+            3,
+            3
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 9,
+              "team": "Cuba",
+              "player": "Ramos Marrero"
+            },
+            {
+              "minute": 17,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 40,
+              "team": "Costa Rica",
+              "player": "Alvaro Chaves"
+            },
+            {
+              "minute": 51,
+              "team": "Costa Rica",
+              "player": "Francisco Solano"
+            },
+            {
+              "minute": 54,
+              "team": "Cuba",
+              "player": "Alejandro Medina"
+            },
+            {
+              "minute": 88,
+              "team": "Cuba",
+              "player": "Gustavo Vega"
+            }
+          ],
+          "stats": {
+            "Cuba": {
+              "shots": 27,
+              "sogs": 8,
+              "saves": 0
+            },
+            "Costa Rica": {
+              "shots": 3,
+              "sogs": 3,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Manuel Valdes",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alejandro Medina",
+                "shots": 8,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Blanco",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramos Marrero",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Armando Dominguez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Vega",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ruben Levya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 3
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 3
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Cuba_vs_Costa Rica_71018728.txt"
+        },
+        {
+          "teams": [
+            "Colombia",
+            "Mexico"
+          ],
+          "score": [
+            1,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 3,
+              "team": "Colombia",
+              "player": "Andres Rodriguez"
+            },
+            {
+              "minute": 10,
+              "team": "Mexico",
+              "player": "Guadalupe Moreno"
+            },
+            {
+              "minute": 44,
+              "team": "Mexico",
+              "player": "Hector"
+            }
+          ],
+          "stats": {
+            "Colombia": {
+              "shots": 29,
+              "sogs": 10,
+              "saves": 0
+            },
+            "Mexico": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 9
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hernan Torres",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Orlando Cardona",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Ruiz",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edgar Jimenez",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andres Rodriguez",
+                "shots": 2,
+                "sogs": 2,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Giraldo",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "German Arias",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Hector",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 1
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Colombia_vs_Mexico_71018728.txt"
+        },
+        {
+          "teams": [
+            "Mexico",
+            "Costa Rica"
+          ],
+          "score": [
+            4,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 6,
+              "team": "Mexico",
+              "player": "Cesar Romero"
+            },
+            {
+              "minute": 39,
+              "team": "Mexico",
+              "player": "Hector"
+            },
+            {
+              "minute": 73,
+              "team": "Mexico",
+              "player": "Raul Ortiz"
+            },
+            {
+              "minute": 83,
+              "team": "Mexico",
+              "player": "Raul Ortiz"
+            }
+          ],
+          "stats": {
+            "Mexico": {
+              "shots": 30,
+              "sogs": 16,
+              "saves": 0
+            },
+            "Costa Rica": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 12
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 6,
+                "sogs": 4,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 3,
+                "sogs": 3,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 3,
+                "sogs": 2,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 7,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 4
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Mexico_vs_Costa Rica_71018728.txt"
+        },
+        {
+          "teams": [
+            "Mexico",
+            "Cuba"
+          ],
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "stats": {
+            "Mexico": {
+              "shots": 23,
+              "sogs": 5,
+              "saves": 0
+            },
+            "Cuba": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 5
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hector",
+                "shots": 7,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Guadalupe Moreno",
+                "shots": 4,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Raul Ortiz",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Carlos Torres",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Cesar Romero",
+                "shots": 1,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jaime Hernandez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Sergio Gutierrez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Manuel Valdes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alejandro Medina",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Blanco",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramos Marrero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Armando Dominguez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Vega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 2,
+                "goals_against": 0
+              },
+              {
+                "name": "Ruben Levya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Mexico_vs_Cuba_71018728.txt"
+        },
+        {
+          "teams": [
+            "Colombia",
+            "Cuba"
+          ],
+          "score": [
+            3,
+            2
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 10,
+              "team": "Colombia",
+              "player": "Hernan Torres"
+            },
+            {
+              "minute": 13,
+              "team": "Colombia",
+              "player": "Hernan Torres"
+            },
+            {
+              "minute": 42,
+              "team": "Colombia",
+              "player": "Orlando Cardona"
+            },
+            {
+              "minute": 48,
+              "team": "Cuba",
+              "player": "Alejandro Medina"
+            },
+            {
+              "minute": 77,
+              "team": "Cuba",
+              "player": "Enrique Blanco"
+            }
+          ],
+          "stats": {
+            "Colombia": {
+              "shots": 32,
+              "sogs": 10,
+              "saves": 0
+            },
+            "Cuba": {
+              "shots": 2,
+              "sogs": 2,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hernan Torres",
+                "shots": 5,
+                "sogs": 2,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Orlando Cardona",
+                "shots": 8,
+                "sogs": 3,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Ruiz",
+                "shots": 3,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edgar Jimenez",
+                "shots": 3,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andres Rodriguez",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Giraldo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "German Arias",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ],
+            "team2": [
+              {
+                "name": "Manuel Valdes",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Alejandro Medina",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Enrique Blanco",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 1,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Ramos Marrero",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Armando Dominguez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gustavo Vega",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 4,
+                "goals_against": 0
+              },
+              {
+                "name": "Ruben Levya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 3
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Colombia_vs_Cuba_71018728.txt"
+        },
+        {
+          "teams": [
+            "Colombia",
+            "Costa Rica"
+          ],
+          "score": [
+            2,
+            0
+          ],
+          "pk_score": null,
+          "events": [
+            {
+              "minute": 27,
+              "team": "Colombia",
+              "player": "Hernan Torres"
+            },
+            {
+              "minute": 46,
+              "team": "Colombia",
+              "player": "Hernan Torres"
+            }
+          ],
+          "stats": {
+            "Colombia": {
+              "shots": 31,
+              "sogs": 9,
+              "saves": 0
+            },
+            "Costa Rica": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 7
+            }
+          },
+          "player_data": {
+            "team1": [
+              {
+                "name": "Hernan Torres",
+                "shots": 7,
+                "sogs": 4,
+                "goals": 2,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Orlando Cardona",
+                "shots": 4,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edwin Ruiz",
+                "shots": 1,
+                "sogs": 1,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Edgar Jimenez",
+                "shots": 2,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Andres Rodriguez",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Javier Giraldo",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "German Arias",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              }
+            ],
+            "team2": [
+              {
+                "name": "Alvaro Chaves",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Francisco Solano",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Gerardo Vargas",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Jorge Quesada",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Juan Araya",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 0
+              },
+              {
+                "name": "Manuel Castro",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 3,
+                "goals_against": 0
+              },
+              {
+                "name": "Mario Morales",
+                "shots": 0,
+                "sogs": 0,
+                "goals": 0,
+                "saves": 0,
+                "goals_against": 2
+              }
+            ]
+          },
+          "played": true,
+          "log_path": "soccer/Tournaments/2024/Copa/Games/Colombia_vs_Costa Rica_71018728.txt"
+        }
+      ],
+      "standings": [
+        {
+          "played": 3,
+          "w": 2,
+          "d": 1,
+          "l": 0,
+          "gf": 6,
+          "ga": 1,
+          "gd": 5,
+          "pts": 7,
+          "team": "Mexico"
+        },
+        {
+          "played": 3,
+          "w": 2,
+          "d": 0,
+          "l": 1,
+          "gf": 6,
+          "ga": 4,
+          "gd": 2,
+          "pts": 6,
+          "team": "Colombia"
+        },
+        {
+          "played": 3,
+          "w": 0,
+          "d": 2,
+          "l": 1,
+          "gf": 5,
+          "ga": 6,
+          "gd": -1,
+          "pts": 2,
+          "team": "Cuba"
+        },
+        {
+          "played": 3,
+          "w": 0,
+          "d": 1,
+          "l": 2,
+          "gf": 3,
+          "ga": 9,
+          "gd": -6,
+          "pts": 1,
+          "team": "Costa Rica"
+        }
+      ]
+    }
+  },
+  "playoffs": {
+    "rounds": [
+      {
+        "name": "Quarterfinals",
+        "matches": [
+          {
+            "teams": [
+              "United States",
+              "Canada"
+            ],
+            "score": [
+              1,
+              2
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 11,
+                "team": "Canada",
+                "player": "Jacques Lavoie"
+              },
+              {
+                "minute": 67,
+                "team": "United States",
+                "player": "Chris Barber"
+              },
+              {
+                "minute": 70,
+                "team": "Canada",
+                "player": "Marc Tremblay"
+              }
+            ],
+            "stats": {
+              "United States": {
+                "shots": 18,
+                "sogs": 5,
+                "saves": 0
+              },
+              "Canada": {
+                "shots": 2,
+                "sogs": 2,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Nick Hamburger",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lawrence Porter",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Chris Barber",
+                  "shots": 5,
+                  "sogs": 3,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brandon Boyd",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Scott Robinson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Joseph Clarke",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edward Gauthier",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Tremblay",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Gagnon",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jacques Lavoie",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/United States_vs_Canada_711135342.txt"
+          },
+          {
+            "teams": [
+              "Trinidad and Tobago",
+              "Colombia"
+            ],
+            "score": [
+              1,
+              1
+            ],
+            "pk_score": [
+              4,
+              3
+            ],
+            "events": [
+              {
+                "minute": 24,
+                "team": "Colombia",
+                "player": "Hernan Torres"
+              },
+              {
+                "minute": 28,
+                "team": "Trinidad and Tobago",
+                "player": "Joel Hosein"
+              }
+            ],
+            "stats": {
+              "Trinidad and Tobago": {
+                "shots": 32,
+                "sogs": 15,
+                "saves": 0
+              },
+              "Colombia": {
+                "shots": 1,
+                "sogs": 1,
+                "saves": 14
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Joel Hosein",
+                  "shots": 7,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anthony Gonzales",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Maharaj",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Johnson",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nicholas Persad",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francis Baptiste",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dexter Edwards",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Hernan Torres",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Cardona",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Ruiz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andres Rodriguez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Giraldo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                },
+                {
+                  "name": "German Arias",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Trinidad and Tobago_vs_Colombia_711135347.txt"
+          },
+          {
+            "teams": [
+              "Argentina",
+              "Honduras"
+            ],
+            "score": [
+              3,
+              0
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 6,
+                "team": "Argentina",
+                "player": "Juan Acosta"
+              },
+              {
+                "minute": 63,
+                "team": "Argentina",
+                "player": "Gustavo Suarez"
+              },
+              {
+                "minute": 67,
+                "team": "Argentina",
+                "player": "Diego Perez"
+              }
+            ],
+            "stats": {
+              "Argentina": {
+                "shots": 23,
+                "sogs": 8,
+                "saves": 0
+              },
+              "Honduras": {
+                "shots": 0,
+                "sogs": 0,
+                "saves": 5
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Diego Perez",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jesus Zelaya",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Banegas",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Daniel Ortiz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manuel Amador",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marlon Padilla",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Bonilla",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wilmer Paz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 3
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Argentina_vs_Honduras_711135351.txt"
+          },
+          {
+            "teams": [
+              "Mexico",
+              "Panama"
+            ],
+            "score": [
+              1,
+              2
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 4,
+                "team": "Mexico",
+                "player": "Guadalupe Moreno"
+              },
+              {
+                "minute": 48,
+                "team": "Panama",
+                "player": "Angel Cedeno"
+              },
+              {
+                "minute": 83,
+                "team": "Panama",
+                "player": "Alberto Diaz"
+              }
+            ],
+            "stats": {
+              "Mexico": {
+                "shots": 22,
+                "sogs": 7,
+                "saves": 0
+              },
+              "Panama": {
+                "shots": 2,
+                "sogs": 2,
+                "saves": 6
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Hector",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Guadalupe Moreno",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Ortiz",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Carlos Torres",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cesar Romero",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Hernandez",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergio Gutierrez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jose Abrego",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Angel Cedeno",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Castillo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Lopez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alberto Diaz",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Guerra",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Mexico_vs_Panama_711135354.txt"
+          }
+        ]
+      },
+      {
+        "name": "Semifinals",
+        "matches": [
+          {
+            "teams": [
+              "Canada",
+              "Trinidad and Tobago"
+            ],
+            "score": [
+              0,
+              4
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 41,
+                "team": "Trinidad and Tobago",
+                "player": "Anthony Gonzales"
+              },
+              {
+                "minute": 65,
+                "team": "Trinidad and Tobago",
+                "player": "Anthony Gonzales"
+              },
+              {
+                "minute": 68,
+                "team": "Trinidad and Tobago",
+                "player": "Joel Hosein"
+              },
+              {
+                "minute": 73,
+                "team": "Trinidad and Tobago",
+                "player": "Anthony Gonzales"
+              }
+            ],
+            "stats": {
+              "Canada": {
+                "shots": 22,
+                "sogs": 8,
+                "saves": 0
+              },
+              "Trinidad and Tobago": {
+                "shots": 4,
+                "sogs": 4,
+                "saves": 8
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Scott Robinson",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Joseph Clarke",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edward Gauthier",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Tremblay",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Gagnon",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jacques Lavoie",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 4
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Joel Hosein",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anthony Gonzales",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Maharaj",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Johnson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nicholas Persad",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francis Baptiste",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dexter Edwards",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Canada_vs_Trinidad and Tobago_711135655.txt"
+          },
+          {
+            "teams": [
+              "Argentina",
+              "Panama"
+            ],
+            "score": [
+              3,
+              1
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 2,
+                "team": "Argentina",
+                "player": "Oscar Gonzalez"
+              },
+              {
+                "minute": 17,
+                "team": "Panama",
+                "player": "Angel Cedeno"
+              },
+              {
+                "minute": 29,
+                "team": "Argentina",
+                "player": "Diego Perez"
+              },
+              {
+                "minute": 72,
+                "team": "Argentina",
+                "player": "Diego Perez"
+              }
+            ],
+            "stats": {
+              "Argentina": {
+                "shots": 21,
+                "sogs": 9,
+                "saves": 0
+              },
+              "Panama": {
+                "shots": 1,
+                "sogs": 1,
+                "saves": 6
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Diego Perez",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "shots": 6,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jose Abrego",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Angel Cedeno",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Castillo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Lopez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alberto Diaz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Guerra",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 3
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Argentina_vs_Panama_71113570.txt"
+          }
+        ]
+      },
+      {
+        "name": "Finals",
+        "matches": [
+          {
+            "teams": [
+              "Trinidad and Tobago",
+              "Argentina"
+            ],
+            "score": [
+              0,
+              1
+            ],
+            "pk_score": null,
+            "events": [
+              {
+                "minute": 85,
+                "team": "Argentina",
+                "player": "Pedro Flores"
+              }
+            ],
+            "stats": {
+              "Trinidad and Tobago": {
+                "shots": 23,
+                "sogs": 11,
+                "saves": 0
+              },
+              "Argentina": {
+                "shots": 1,
+                "sogs": 1,
+                "saves": 11
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Joel Hosein",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anthony Gonzales",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Maharaj",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Johnson",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nicholas Persad",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francis Baptiste",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dexter Edwards",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Diego Perez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 5,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Trinidad and Tobago_vs_Argentina_715133516.txt"
+          },
+          {
+            "teams": [
+              "Canada",
+              "Panama"
+            ],
+            "score": [
+              2,
+              2
+            ],
+            "pk_score": [
+              5,
+              4
+            ],
+            "events": [
+              {
+                "minute": 13,
+                "team": "Panama",
+                "player": "Miguel Ortega"
+              },
+              {
+                "minute": 82,
+                "team": "Canada",
+                "player": "Joseph Clarke"
+              },
+              {
+                "minute": 15,
+                "team": "Panama",
+                "player": "Francisco Castillo"
+              },
+              {
+                "minute": 28,
+                "team": "Canada",
+                "player": "Joseph Clarke"
+              }
+            ],
+            "stats": {
+              "Canada": {
+                "shots": 41,
+                "sogs": 8,
+                "saves": 0
+              },
+              "Panama": {
+                "shots": 2,
+                "sogs": 2,
+                "saves": 6
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Scott Robinson",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Joseph Clarke",
+                  "shots": 8,
+                  "sogs": 2,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edward Gauthier",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Tremblay",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Gagnon",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jacques Lavoie",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jose Abrego",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Angel Cedeno",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Castillo",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Lopez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alberto Diaz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Guerra",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 2
+                }
+              ]
+            },
+            "played": true,
+            "log_path": "soccer/Tournaments/2024/Copa/Games/Canada_vs_Panama_715133510.txt"
+          }
+        ]
+      }
+    ]
+  },
+  "qualified_teams": []
+}

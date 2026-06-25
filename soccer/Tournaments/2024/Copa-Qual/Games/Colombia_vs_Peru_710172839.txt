@@ -1,0 +1,91 @@
+(check=26) Minute 1: no shot.
+(check=20) Minute 2: no shot.
+(check=41) Minute 3: no shot.
+(check=40) Minute 4: no shot.
+(check=73) Minute 5: (t1check=22, t2check=19, check1=55, check2=54) Orlando Cardona missed shot.
+(check=60) Minute 6: no shot.
+(check=58) Minute 7: no shot.
+(check=8) Minute 8: no shot.
+(check=51) Minute 9: no shot.
+(check=17) Minute 10: no shot.
+(check=8) Minute 11: no shot.
+(check=16) Minute 12: no shot.
+(check=85) Minute 13: (t1check=40, t2check=52, check1=58, check2=54) Jose Quispe missed shot.
+(check=31) Minute 14: no shot.
+(check=81) Minute 15: (t1check=76, t2check=32, check1=51, check2=50) Hernan Torres missed shot.
+(check=19) Minute 16: no shot.
+(check=26) Minute 17: no shot.
+(check=8) Minute 18: no shot.
+(check=78) Minute 19: (t1check=54, t2check=51, check1=26, check2=25) Hernan Torres missed shot.
+(check=22) Minute 20: no shot.
+(check=12) Minute 21: no shot.
+(check=48) Minute 22: no shot.
+(check=47) Minute 23: no shot.
+(check=6) Minute 24: no shot.
+(check=66) Minute 25: (t1check=63, t2check=78, check1=98, check2=94) (goalchk1=60, goalchk2=55) Juan Rivera shot on goal. Javier Giraldo SAVE!
+(check=14) Minute 26: no shot.
+(check=51) Minute 27: no shot.
+(check=11) Minute 28: no shot.
+(check=50) Minute 29: no shot.
+(check=52) Minute 30: no shot.
+(check=34) Minute 31: no shot.
+(check=58) Minute 32: no shot.
+(check=6) Minute 33: no shot.
+(check=72) Minute 34: (t1check=35, t2check=74, check1=94, check2=90) (goalchk1=58, goalchk2=53) Raul Morales shot on goal. Javier Giraldo SAVE!
+(check=48) Minute 35: no shot.
+(check=86) Minute 36: (t1check=42, t2check=63, check1=93, check2=89) (goalchk1=39, goalchk2=34) Jaime Rojas shot on goal. Javier Giraldo SAVE!
+(check=84) Minute 37: (t1check=73, t2check=7, check1=3, check2=2) Orlando Cardona missed shot.
+(check=6) Minute 38: no shot.
+(check=31) Minute 39: no shot.
+(check=83) Minute 40: (t1check=58, t2check=71, check1=91, check2=87) (goalchk1=92, goalchk2=87) Jaime Rojas GOAL!!! Score: 0-1
+(check=21) Minute 41: no shot.
+(check=42) Minute 42: no shot.
+(check=9) Minute 43: no shot.
+(check=66) Minute 44: (t1check=47, t2check=50, check1=52, check2=48) Jaime Rojas missed shot.
+(check=76) Minute 45: (t1check=79, t2check=17, check1=22, check2=21) Javier Giraldo missed shot.
+(check=9) Minute 46: no shot.
+(check=48) Minute 47: no shot.
+(check=71) Minute 48: (t1check=31, t2check=18, check1=5, check2=4) Hernan Torres missed shot.
+(check=66) Minute 49: (t1check=51, t2check=24, check1=23, check2=22) Orlando Cardona missed shot.
+(check=14) Minute 50: no shot.
+(check=29) Minute 51: no shot.
+(check=27) Minute 52: no shot.
+(check=13) Minute 53: no shot.
+(check=81) Minute 54: (t1check=43, t2check=6, check1=31, check2=30) Andres Rodriguez missed shot.
+(check=19) Minute 55: no shot.
+(check=7) Minute 56: no shot.
+(check=77) Minute 57: (t1check=79, t2check=27, check1=20, check2=19) Edgar Jimenez missed shot.
+(check=88) Minute 58: (t1check=71, t2check=73, check1=9, check2=5) Jose Quispe missed shot.
+(check=42) Minute 59: no shot.
+(check=88) Minute 60: (t1check=20, t2check=68, check1=82, check2=78) (goalchk1=36, goalchk2=31) Enrique Aguilar shot on goal. Javier Giraldo SAVE!
+(check=64) Minute 61: no shot.
+(check=83) Minute 62: (t1check=80, t2check=65, check1=100, check2=99) (goalchk1=23, goalchk2=17) Orlando Cardona shot on goal. Javier Gonzales SAVE!
+(check=16) Minute 63: no shot.
+(check=29) Minute 64: no shot.
+(check=35) Minute 65: no shot.
+(check=86) Minute 66: (t1check=46, t2check=15, check1=92, check2=91) (goalchk1=3, goalchk2=-3) Edgar Jimenez shot on goal. Javier Gonzales SAVE!
+(check=42) Minute 67: no shot.
+(check=85) Minute 68: (t1check=38, t2check=70, check1=85, check2=81) (goalchk1=44, goalchk2=39) Enrique Aguilar shot on goal. Javier Giraldo SAVE!
+(check=13) Minute 69: no shot.
+(check=66) Minute 70: (t1check=59, t2check=56, check1=35, check2=34) Orlando Cardona missed shot.
+(check=44) Minute 71: no shot.
+(check=2) Minute 72: no shot.
+(check=3) Minute 73: no shot.
+(check=85) Minute 74: (t1check=35, t2check=4, check1=74, check2=73) (goalchk1=21, goalchk2=15) Hernan Torres shot on goal. Javier Gonzales SAVE!
+(check=3) Minute 75: no shot.
+(check=89) Minute 76: (t1check=20, t2check=38, check1=55, check2=51) Jaime Rojas missed shot.
+(check=13) Minute 77: no shot.
+(check=81) Minute 78: (t1check=63, t2check=36, check1=45, check2=44) Hernan Torres missed shot.
+(check=33) Minute 79: no shot.
+(check=18) Minute 80: no shot.
+(check=2) Minute 81: no shot.
+(check=89) Minute 82: (t1check=31, t2check=16, check1=81, check2=80) (goalchk1=86, goalchk2=80) Hernan Torres GOAL!!! Score: 1-1
+(check=43) Minute 83: no shot.
+(check=52) Minute 84: no shot.
+(check=60) Minute 85: no shot.
+(check=75) Minute 86: (t1check=38, t2check=72, check1=84, check2=80) (goalchk1=98, goalchk2=93) Jaime Rojas GOAL!!! Score: 1-2
+(check=75) Minute 87: (t1check=61, t2check=27, check1=2, check2=1) Andres Rodriguez missed shot.
+(check=79) Minute 88: (t1check=68, t2check=77, check1=83, check2=79) (goalchk1=16, goalchk2=11) Javier Gonzales shot on goal. Javier Giraldo SAVE!
+(check=76) Minute 89: (t1check=81, t2check=23, check1=91, check2=90) (goalchk1=27, goalchk2=21) Hernan Torres shot on goal. Javier Gonzales SAVE!
+(check=75) Minute 90: (t1check=82, t2check=73, check1=2, check2=1) Hernan Torres missed shot.
+Final score: 1-2

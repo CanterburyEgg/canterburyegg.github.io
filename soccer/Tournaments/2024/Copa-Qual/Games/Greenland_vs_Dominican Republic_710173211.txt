@@ -1,0 +1,91 @@
+(check=80) Minute 1: (t1check=76, t2check=24, check1=13, check2=13) Niels Moller missed shot.
+(check=87) Minute 2: (t1check=25, t2check=16, check1=31, check2=31) Lars Heilmann missed shot.
+(check=57) Minute 3: no shot.
+(check=90) Minute 4: (t1check=19, t2check=21, check1=72, check2=78) (goalchk1=2, goalchk2=1) Lorenzo Marte shot on goal. Jorgen Egede SAVE!
+(check=28) Minute 5: no shot.
+(check=61) Minute 6: no shot.
+(check=68) Minute 7: (t1check=43, t2check=78, check1=92, check2=98) (goalchk1=52, goalchk2=51) Rafael Tejeda shot on goal. Jorgen Egede SAVE!
+(check=81) Minute 8: (t1check=53, t2check=43, check1=4, check2=4) Jorgen Egede missed shot.
+(check=15) Minute 9: no shot.
+(check=66) Minute 10: (t1check=10, t2check=38, check1=82, check2=88) (goalchk1=13, goalchk2=12) Vicente Tavarez shot on goal. Jorgen Egede SAVE!
+(check=74) Minute 11: (t1check=3, t2check=10, check1=24, check2=30) Vicente Tavarez missed shot.
+(check=82) Minute 12: (t1check=60, t2check=41, check1=75, check2=75) (goalchk1=45, goalchk2=43) Niels Moller shot on goal. Lorenzo Marte SAVE!
+(check=78) Minute 13: (t1check=17, t2check=49, check1=98, check2=104) (goalchk1=50, goalchk2=49) Nicolas Montero shot on goal. Jorgen Egede SAVE!
+(check=35) Minute 14: no shot.
+(check=31) Minute 15: no shot.
+(check=15) Minute 16: no shot.
+(check=43) Minute 17: no shot.
+(check=41) Minute 18: no shot.
+(check=33) Minute 19: no shot.
+(check=84) Minute 20: (t1check=62, t2check=16, check1=63, check2=63) (goalchk1=58, goalchk2=56) Isak Kristiansen shot on goal. Lorenzo Marte SAVE!
+(check=17) Minute 21: no shot.
+(check=56) Minute 22: no shot.
+(check=71) Minute 23: (t1check=27, t2check=16, check1=9, check2=9) Niels Moller missed shot.
+(check=60) Minute 24: no shot.
+(check=64) Minute 25: no shot.
+(check=32) Minute 26: no shot.
+(check=58) Minute 27: no shot.
+(check=20) Minute 28: no shot.
+(check=68) Minute 29: (t1check=37, t2check=64, check1=31, check2=37) Rafael Tejeda missed shot.
+(check=48) Minute 30: no shot.
+(check=73) Minute 31: (t1check=20, t2check=50, check1=59, check2=65) (goalchk1=72, goalchk2=71) Nicolas Montero GOAL!!! Score: 0-1
+(check=88) Minute 32: (t1check=30, t2check=71, check1=22, check2=28) Nicolas Montero missed shot.
+(check=39) Minute 33: no shot.
+(check=71) Minute 34: (t1check=15, t2check=71, check1=77, check2=83) (goalchk1=30, goalchk2=29) Rafael Tejeda shot on goal. Jorgen Egede SAVE!
+(check=43) Minute 35: no shot.
+(check=70) Minute 36: (t1check=6, t2check=43, check1=65, check2=71) (goalchk1=84, goalchk2=83) Francis de la Rosa GOAL!!! Score: 0-2
+(check=4) Minute 37: no shot.
+(check=64) Minute 38: no shot.
+(check=85) Minute 39: (t1check=13, t2check=73, check1=72, check2=78) (goalchk1=15, goalchk2=14) Rafael Tejeda shot on goal. Jorgen Egede SAVE!
+(check=24) Minute 40: no shot.
+(check=30) Minute 41: no shot.
+(check=90) Minute 42: (t1check=47, t2check=73, check1=66, check2=72) (goalchk1=69, goalchk2=68) Nicolas Montero GOAL!!! Score: 0-3
+(check=11) Minute 43: no shot.
+(check=71) Minute 44: (t1check=46, t2check=26, check1=20, check2=20) Jesper Kleist missed shot.
+(check=79) Minute 45: (t1check=68, t2check=6, check1=5, check2=5) Lars Heilmann missed shot.
+(check=28) Minute 46: no shot.
+(check=4) Minute 47: no shot.
+(check=80) Minute 48: (t1check=8, t2check=36, check1=77, check2=83) (goalchk1=8, goalchk2=7) Vicente Tavarez shot on goal. Jorgen Egede SAVE!
+(check=35) Minute 49: no shot.
+(check=3) Minute 50: no shot.
+(check=45) Minute 51: no shot.
+(check=20) Minute 52: no shot.
+(check=89) Minute 53: (t1check=48, t2check=44, check1=95, check2=95) (goalchk1=44, goalchk2=42) Niels Moller shot on goal. Lorenzo Marte SAVE!
+(check=21) Minute 54: no shot.
+(check=64) Minute 55: no shot.
+(check=83) Minute 56: (t1check=52, t2check=45, check1=79, check2=79) (goalchk1=27, goalchk2=25) Jesper Kleist shot on goal. Lorenzo Marte SAVE!
+(check=23) Minute 57: no shot.
+(check=22) Minute 58: no shot.
+(check=43) Minute 59: no shot.
+(check=75) Minute 60: (t1check=66, t2check=15, check1=90, check2=90) (goalchk1=27, goalchk2=25) Isak Kristiansen shot on goal. Lorenzo Marte SAVE!
+(check=70) Minute 61: (t1check=45, t2check=74, check1=39, check2=45) Nicolas Montero missed shot.
+(check=47) Minute 62: no shot.
+(check=21) Minute 63: no shot.
+(check=28) Minute 64: no shot.
+(check=9) Minute 65: no shot.
+(check=56) Minute 66: no shot.
+(check=51) Minute 67: no shot.
+(check=20) Minute 68: no shot.
+(check=58) Minute 69: no shot.
+(check=61) Minute 70: no shot.
+(check=5) Minute 71: no shot.
+(check=40) Minute 72: no shot.
+(check=79) Minute 73: (t1check=26, t2check=59, check1=65, check2=71) (goalchk1=53, goalchk2=52) Francis de la Rosa shot on goal. Jorgen Egede SAVE!
+(check=32) Minute 74: no shot.
+(check=45) Minute 75: no shot.
+(check=69) Minute 76: (t1check=65, t2check=21, check1=16, check2=16) Jesper Kleist missed shot.
+(check=13) Minute 77: no shot.
+(check=59) Minute 78: no shot.
+(check=8) Minute 79: no shot.
+(check=65) Minute 80: no shot.
+(check=10) Minute 81: no shot.
+(check=75) Minute 82: (t1check=67, t2check=25, check1=13, check2=13) Jorgen Egede missed shot.
+(check=18) Minute 83: no shot.
+(check=63) Minute 84: no shot.
+(check=44) Minute 85: no shot.
+(check=51) Minute 86: no shot.
+(check=83) Minute 87: (t1check=10, t2check=51, check1=71, check2=77) (goalchk1=58, goalchk2=57) Francis de la Rosa shot on goal. Jorgen Egede SAVE!
+(check=35) Minute 88: no shot.
+(check=2) Minute 89: no shot.
+(check=19) Minute 90: no shot.
+Final score: 0-3

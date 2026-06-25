@@ -1,0 +1,91 @@
+(check=1) Minute 1: no shot.
+(check=51) Minute 2: no shot.
+(check=3) Minute 3: no shot.
+(check=40) Minute 4: no shot.
+(check=6) Minute 5: no shot.
+(check=32) Minute 6: no shot.
+(check=27) Minute 7: no shot.
+(check=47) Minute 8: no shot.
+(check=11) Minute 9: no shot.
+(check=83) Minute 10: (t1check=63, t2check=79, check1=15, check2=16) Gunnar Bjornsson missed shot.
+(check=59) Minute 11: no shot.
+(check=83) Minute 12: (t1check=71, t2check=77, check1=43, check2=44) Gunnar Bjornsson missed shot.
+(check=42) Minute 13: no shot.
+(check=53) Minute 14: no shot.
+(check=27) Minute 15: no shot.
+(check=19) Minute 16: no shot.
+(check=86) Minute 17: (t1check=15, t2check=12, check1=17, check2=18) Svein Berg missed shot.
+(check=45) Minute 18: no shot.
+(check=67) Minute 19: (t1check=67, t2check=33, check1=78, check2=79) (goalchk1=48, goalchk2=44) Svein Berg shot on goal. Arni Olafsson SAVE!
+(check=4) Minute 20: no shot.
+(check=88) Minute 21: (t1check=46, t2check=79, check1=48, check2=49) Gunnar Bjornsson missed shot.
+(check=5) Minute 22: no shot.
+(check=74) Minute 23: (t1check=15, t2check=34, check1=52, check2=53) Gunnar Bjornsson missed shot.
+(check=41) Minute 24: no shot.
+(check=67) Minute 25: (t1check=47, t2check=12, check1=36, check2=37) Jan Johansen missed shot.
+(check=52) Minute 26: no shot.
+(check=39) Minute 27: no shot.
+(check=24) Minute 28: no shot.
+(check=75) Minute 29: (t1check=74, t2check=25, check1=49, check2=50) Svein Berg missed shot.
+(check=47) Minute 30: no shot.
+(check=56) Minute 31: no shot.
+(check=16) Minute 32: no shot.
+(check=33) Minute 33: no shot.
+(check=86) Minute 34: (t1check=51, t2check=50, check1=61, check2=62) (goalchk1=88, goalchk2=84) Kjell Nilsen GOAL!!! Score: 1-0
+(check=35) Minute 35: no shot.
+(check=36) Minute 36: no shot.
+(check=19) Minute 37: no shot.
+(check=39) Minute 38: no shot.
+(check=49) Minute 39: no shot.
+(check=44) Minute 40: no shot.
+(check=63) Minute 41: no shot.
+(check=76) Minute 42: (t1check=72, t2check=54, check1=81, check2=82) (goalchk1=27, goalchk2=23) Svein Berg shot on goal. Arni Olafsson SAVE!
+(check=19) Minute 43: no shot.
+(check=66) Minute 44: (t1check=64, t2check=11, check1=9, check2=10) Arne Hagen missed shot.
+(check=20) Minute 45: no shot.
+(check=44) Minute 46: no shot.
+(check=53) Minute 47: no shot.
+(check=27) Minute 48: no shot.
+(check=65) Minute 49: no shot.
+(check=48) Minute 50: no shot.
+(check=39) Minute 51: no shot.
+(check=58) Minute 52: no shot.
+(check=14) Minute 53: no shot.
+(check=15) Minute 54: no shot.
+(check=68) Minute 55: (t1check=73, t2check=72, check1=65, check2=66) (goalchk1=90, goalchk2=86) Svein Berg GOAL!!! Score: 2-0
+(check=60) Minute 56: no shot.
+(check=47) Minute 57: no shot.
+(check=14) Minute 58: no shot.
+(check=80) Minute 59: (t1check=17, t2check=56, check1=79, check2=80) (goalchk1=10, goalchk2=5) Einar Bjornsson shot on goal. Erik Olsen SAVE!
+(check=56) Minute 60: no shot.
+(check=23) Minute 61: no shot.
+(check=42) Minute 62: no shot.
+(check=88) Minute 63: (t1check=48, t2check=63, check1=64, check2=65) (goalchk1=67, goalchk2=62) Arni Olafsson shot on goal. Erik Olsen SAVE!
+(check=73) Minute 64: (t1check=43, t2check=75, check1=11, check2=12) Gunnar Bjornsson missed shot.
+(check=76) Minute 65: (t1check=57, t2check=12, check1=55, check2=56) Svein Berg missed shot.
+(check=66) Minute 66: (t1check=25, t2check=11, check1=40, check2=41) Svein Berg missed shot.
+(check=52) Minute 67: no shot.
+(check=56) Minute 68: no shot.
+(check=15) Minute 69: no shot.
+(check=4) Minute 70: no shot.
+(check=7) Minute 71: no shot.
+(check=75) Minute 72: (t1check=76, t2check=15, check1=49, check2=50) Kjell Nilsen missed shot.
+(check=88) Minute 73: (t1check=45, t2check=30, check1=67, check2=68) (goalchk1=91, goalchk2=87) Svein Berg GOAL!!! Score: 3-0
+(check=14) Minute 74: no shot.
+(check=18) Minute 75: no shot.
+(check=84) Minute 76: (t1check=48, t2check=10, check1=35, check2=36) Kjell Nilsen missed shot.
+(check=71) Minute 77: (t1check=51, t2check=81, check1=94, check2=95) (goalchk1=3, goalchk2=-2) Gunnar Bjornsson shot on goal. Erik Olsen SAVE!
+(check=80) Minute 78: (t1check=22, t2check=77, check1=86, check2=87) (goalchk1=58, goalchk2=53) Gunnar Bjornsson shot on goal. Erik Olsen SAVE!
+(check=21) Minute 79: no shot.
+(check=35) Minute 80: no shot.
+(check=63) Minute 81: no shot.
+(check=53) Minute 82: no shot.
+(check=13) Minute 83: no shot.
+(check=29) Minute 84: no shot.
+(check=17) Minute 85: no shot.
+(check=35) Minute 86: no shot.
+(check=57) Minute 87: no shot.
+(check=13) Minute 88: no shot.
+(check=17) Minute 89: no shot.
+(check=3) Minute 90: no shot.
+Final score: 3-0

@@ -1,0 +1,91 @@
+(check=12) Minute 1: no shot.
+(check=63) Minute 2: no shot.
+(check=6) Minute 3: no shot.
+(check=42) Minute 4: no shot.
+(check=50) Minute 5: no shot.
+(check=87) Minute 6: (t1check=57, t2check=78, check1=56, check2=57) Aleksandr Olyinyk missed shot.
+(check=64) Minute 7: no shot.
+(check=81) Minute 8: (t1check=22, t2check=7, check1=65, check2=66) (goalchk1=81, goalchk2=73) Vasylyi Yvanova GOAL!!! Score: 1-0
+(check=2) Minute 9: no shot.
+(check=56) Minute 10: no shot.
+(check=6) Minute 11: no shot.
+(check=49) Minute 12: no shot.
+(check=12) Minute 13: no shot.
+(check=70) Minute 14: (t1check=24, t2check=14, check1=2, check2=3) Yuryi Melnyk missed shot.
+(check=57) Minute 15: no shot.
+(check=16) Minute 16: no shot.
+(check=57) Minute 17: no shot.
+(check=53) Minute 18: no shot.
+(check=2) Minute 19: no shot.
+(check=12) Minute 20: no shot.
+(check=35) Minute 21: no shot.
+(check=38) Minute 22: no shot.
+(check=31) Minute 23: no shot.
+(check=8) Minute 24: no shot.
+(check=73) Minute 25: (t1check=69, t2check=71, check1=35, check2=36) Yuryi Melnyk missed shot.
+(check=27) Minute 26: no shot.
+(check=88) Minute 27: (t1check=78, t2check=51, check1=18, check2=19) Aleksandr Olyinyk missed shot.
+(check=29) Minute 28: no shot.
+(check=24) Minute 29: no shot.
+(check=42) Minute 30: no shot.
+(check=39) Minute 31: no shot.
+(check=26) Minute 32: no shot.
+(check=55) Minute 33: no shot.
+(check=33) Minute 34: no shot.
+(check=90) Minute 35: (t1check=10, t2check=23, check1=93, check2=94) (goalchk1=45, goalchk2=37) Vyktor Kovalenko shot on goal. Aleksandr Olyinyk SAVE!
+(check=84) Minute 36: (t1check=31, t2check=36, check1=51, check2=52) Vyktor Kovalenko missed shot.
+(check=70) Minute 37: (t1check=65, t2check=56, check1=26, check2=27) Vyktor Kovalenko missed shot.
+(check=66) Minute 38: (t1check=66, t2check=22, check1=67, check2=68) (goalchk1=41, goalchk2=33) Nykolai Moroz shot on goal. Aleksandr Olyinyk SAVE!
+(check=72) Minute 39: (t1check=28, t2check=44, check1=84, check2=85) (goalchk1=25, goalchk2=17) Anatolyi Pavlenko shot on goal. Aleksandr Olyinyk SAVE!
+(check=83) Minute 40: (t1check=18, t2check=62, check1=17, check2=18) Vasylyi Yvanova missed shot.
+(check=3) Minute 41: no shot.
+(check=39) Minute 42: no shot.
+(check=38) Minute 43: no shot.
+(check=3) Minute 44: no shot.
+(check=53) Minute 45: no shot.
+(check=81) Minute 46: (t1check=76, t2check=54, check1=6, check2=7) Aleksandr Olyinyk missed shot.
+(check=53) Minute 47: no shot.
+(check=45) Minute 48: no shot.
+(check=17) Minute 49: no shot.
+(check=31) Minute 50: no shot.
+(check=15) Minute 51: no shot.
+(check=59) Minute 52: no shot.
+(check=49) Minute 53: no shot.
+(check=67) Minute 54: (t1check=43, t2check=36, check1=77, check2=78) (goalchk1=96, goalchk2=88) Yuryi Melnyk GOAL!!! Score: 2-0
+(check=12) Minute 55: no shot.
+(check=19) Minute 56: no shot.
+(check=85) Minute 57: (t1check=46, t2check=53, check1=95, check2=96) (goalchk1=60, goalchk2=52) Yuryi Melnyk shot on goal. Aleksandr Olyinyk SAVE!
+(check=22) Minute 58: no shot.
+(check=85) Minute 59: (t1check=24, t2check=33, check1=25, check2=26) Yuryi Melnyk missed shot.
+(check=63) Minute 60: no shot.
+(check=14) Minute 61: no shot.
+(check=70) Minute 62: (t1check=27, t2check=64, check1=75, check2=76) (goalchk1=88, goalchk2=80) Yuryi Melnyk GOAL!!! Score: 2-1
+(check=32) Minute 63: no shot.
+(check=10) Minute 64: no shot.
+(check=15) Minute 65: no shot.
+(check=9) Minute 66: no shot.
+(check=59) Minute 67: no shot.
+(check=34) Minute 68: no shot.
+(check=39) Minute 69: no shot.
+(check=36) Minute 70: no shot.
+(check=23) Minute 71: no shot.
+(check=12) Minute 72: no shot.
+(check=7) Minute 73: no shot.
+(check=24) Minute 74: no shot.
+(check=27) Minute 75: no shot.
+(check=75) Minute 76: (t1check=78, t2check=46, check1=65, check2=66) (goalchk1=31, goalchk2=23) Yuryi Melnyk shot on goal. Aleksandr Olyinyk SAVE!
+(check=73) Minute 77: (t1check=48, t2check=76, check1=35, check2=36) Yuryi Melnyk missed shot.
+(check=72) Minute 78: (t1check=70, t2check=51, check1=41, check2=42) Aleksandr Olyinyk missed shot.
+(check=68) Minute 79: (t1check=20, t2check=28, check1=12, check2=13) Aleksandr Olyinyk missed shot.
+(check=78) Minute 80: (t1check=65, t2check=39, check1=84, check2=85) (goalchk1=97, goalchk2=89) Yuryi Melnyk GOAL!!! Score: 3-1
+(check=66) Minute 81: (t1check=58, t2check=16, check1=86, check2=87) (goalchk1=17, goalchk2=9) Yuryi Melnyk shot on goal. Aleksandr Olyinyk SAVE!
+(check=86) Minute 82: (t1check=44, t2check=68, check1=87, check2=88) (goalchk1=22, goalchk2=14) Aleksandr Olyinyk shot on goal. Aleksandr Olyinyk SAVE!
+(check=66) Minute 83: (t1check=72, t2check=67, check1=7, check2=8) Yuryi Melnyk missed shot.
+(check=5) Minute 84: no shot.
+(check=27) Minute 85: no shot.
+(check=23) Minute 86: no shot.
+(check=48) Minute 87: no shot.
+(check=76) Minute 88: (t1check=45, t2check=7, check1=40, check2=41) Nykolai Moroz missed shot.
+(check=89) Minute 89: (t1check=79, t2check=67, check1=39, check2=40) Yuryi Melnyk missed shot.
+(check=8) Minute 90: no shot.
+Final score: 3-1

@@ -1,0 +1,91 @@
+(check=26) Minute 1: no shot.
+(check=47) Minute 2: no shot.
+(check=73) Minute 3: (t1check=10, t2check=31, check1=23, check2=19) Andrejs Jansone missed shot.
+(check=10) Minute 4: no shot.
+(check=15) Minute 5: no shot.
+(check=66) Minute 6: (t1check=65, t2check=43, check1=21, check2=26) Jan van Dijk missed shot.
+(check=79) Minute 7: (t1check=51, t2check=45, check1=30, check2=35) Richard van der Heijden missed shot.
+(check=48) Minute 8: no shot.
+(check=79) Minute 9: (t1check=58, t2check=54, check1=33, check2=38) Rob Brouwer missed shot.
+(check=28) Minute 10: no shot.
+(check=49) Minute 11: no shot.
+(check=88) Minute 12: (t1check=54, t2check=70, check1=38, check2=34) Janis Berzins missed shot.
+(check=11) Minute 13: no shot.
+(check=84) Minute 14: (t1check=60, t2check=7, check1=72, check2=77) (goalchk1=4, goalchk2=1) Rob Brouwer shot on goal. Gunars Smirnovs SAVE!
+(check=62) Minute 15: no shot.
+(check=21) Minute 16: no shot.
+(check=16) Minute 17: no shot.
+(check=72) Minute 18: (t1check=61, t2check=69, check1=85, check2=81) (goalchk1=29, goalchk2=23) Janis Berzins shot on goal. Martijn van den Berg SAVE!
+(check=13) Minute 19: no shot.
+(check=77) Minute 20: (t1check=63, t2check=37, check1=89, check2=94) (goalchk1=28, goalchk2=25) Jan van Dijk shot on goal. Gunars Smirnovs SAVE!
+(check=63) Minute 21: no shot.
+(check=65) Minute 22: no shot.
+(check=22) Minute 23: no shot.
+(check=35) Minute 24: no shot.
+(check=77) Minute 25: (t1check=26, t2check=31, check1=20, check2=16) Andrejs Jansone missed shot.
+(check=60) Minute 26: no shot.
+(check=17) Minute 27: no shot.
+(check=17) Minute 28: no shot.
+(check=79) Minute 29: (t1check=39, t2check=11, check1=16, check2=21) Jan van Dijk missed shot.
+(check=82) Minute 30: (t1check=31, t2check=55, check1=38, check2=34) Janis Berzins missed shot.
+(check=74) Minute 31: (t1check=70, t2check=4, check1=99, check2=104) (goalchk1=18, goalchk2=15) Peter Meijer shot on goal. Gunars Smirnovs SAVE!
+(check=47) Minute 32: no shot.
+(check=65) Minute 33: no shot.
+(check=16) Minute 34: no shot.
+(check=22) Minute 35: no shot.
+(check=76) Minute 36: (t1check=10, t2check=75, check1=57, check2=53) Valerijs Priede missed shot.
+(check=59) Minute 37: no shot.
+(check=72) Minute 38: (t1check=83, t2check=62, check1=50, check2=55) Peter Meijer missed shot.
+(check=17) Minute 39: no shot.
+(check=47) Minute 40: no shot.
+(check=65) Minute 41: no shot.
+(check=38) Minute 42: no shot.
+(check=19) Minute 43: no shot.
+(check=66) Minute 44: (t1check=35, t2check=63, check1=75, check2=71) (goalchk1=9, goalchk2=3) Gunars Smirnovs shot on goal. Martijn van den Berg SAVE!
+(check=60) Minute 45: no shot.
+(check=14) Minute 46: no shot.
+(check=81) Minute 47: (t1check=51, t2check=65, check1=26, check2=22) Juris Zvirbulis missed shot.
+(check=37) Minute 48: no shot.
+(check=78) Minute 49: (t1check=45, t2check=73, check1=22, check2=18) Juris Zvirbulis missed shot.
+(check=27) Minute 50: no shot.
+(check=12) Minute 51: no shot.
+(check=40) Minute 52: no shot.
+(check=27) Minute 53: no shot.
+(check=79) Minute 54: (t1check=74, t2check=26, check1=11, check2=16) Jeroen de Jong missed shot.
+(check=62) Minute 55: no shot.
+(check=58) Minute 56: no shot.
+(check=42) Minute 57: no shot.
+(check=10) Minute 58: no shot.
+(check=56) Minute 59: no shot.
+(check=88) Minute 60: (t1check=67, t2check=30, check1=10, check2=15) Jan van Dijk missed shot.
+(check=14) Minute 61: no shot.
+(check=78) Minute 62: (t1check=74, t2check=8, check1=92, check2=97) (goalchk1=57, goalchk2=54) Richard van der Heijden shot on goal. Gunars Smirnovs SAVE!
+(check=88) Minute 63: (t1check=53, t2check=72, check1=48, check2=44) Janis Berzins missed shot.
+(check=63) Minute 64: no shot.
+(check=52) Minute 65: no shot.
+(check=34) Minute 66: no shot.
+(check=11) Minute 67: no shot.
+(check=7) Minute 68: no shot.
+(check=27) Minute 69: no shot.
+(check=41) Minute 70: no shot.
+(check=44) Minute 71: no shot.
+(check=64) Minute 72: no shot.
+(check=19) Minute 73: no shot.
+(check=61) Minute 74: no shot.
+(check=69) Minute 75: (t1check=28, t2check=62, check1=48, check2=44) Janis Berzins missed shot.
+(check=20) Minute 76: no shot.
+(check=4) Minute 77: no shot.
+(check=28) Minute 78: no shot.
+(check=8) Minute 79: no shot.
+(check=77) Minute 80: (t1check=68, t2check=39, check1=13, check2=18) Jan van Dijk missed shot.
+(check=24) Minute 81: no shot.
+(check=33) Minute 82: no shot.
+(check=66) Minute 83: (t1check=19, t2check=32, check1=79, check2=75) (goalchk1=72, goalchk2=66) Gunars Smirnovs GOAL!!! Score: 0-1
+(check=4) Minute 84: no shot.
+(check=86) Minute 85: (t1check=64, t2check=40, check1=89, check2=94) (goalchk1=91, goalchk2=88) Peter Meijer GOAL!!! Score: 1-1
+(check=30) Minute 86: no shot.
+(check=80) Minute 87: (t1check=80, t2check=17, check1=66, check2=71) (goalchk1=16, goalchk2=13) Jan van Dijk shot on goal. Gunars Smirnovs SAVE!
+(check=74) Minute 88: (t1check=56, t2check=59, check1=78, check2=74) (goalchk1=45, goalchk2=39) Juris Zvirbulis shot on goal. Martijn van den Berg SAVE!
+(check=76) Minute 89: (t1check=51, t2check=62, check1=80, check2=76) (goalchk1=89, goalchk2=83) Sergejs Vasiljevs GOAL!!! Score: 1-2
+(check=74) Minute 90: (t1check=63, t2check=55, check1=93, check2=98) (goalchk1=57, goalchk2=54) Peter Meijer shot on goal. Gunars Smirnovs SAVE!
+Final score: 1-2

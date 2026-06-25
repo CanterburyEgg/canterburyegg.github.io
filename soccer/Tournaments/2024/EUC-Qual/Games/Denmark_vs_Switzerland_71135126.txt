@@ -1,0 +1,91 @@
+(check=33) Minute 1: no shot.
+(check=4) Minute 2: no shot.
+(check=3) Minute 3: no shot.
+(check=56) Minute 4: no shot.
+(check=23) Minute 5: no shot.
+(check=75) Minute 6: (t1check=36, t2check=49, check1=40, check2=37) Stefan Meier missed shot.
+(check=56) Minute 7: no shot.
+(check=7) Minute 8: no shot.
+(check=72) Minute 9: (t1check=24, t2check=44, check1=6, check2=3) Peter Buhler missed shot.
+(check=63) Minute 10: no shot.
+(check=45) Minute 11: no shot.
+(check=69) Minute 12: (t1check=47, t2check=22, check1=18, check2=19) Henrik Mikkelsen missed shot.
+(check=69) Minute 13: (t1check=20, t2check=38, check1=63, check2=60) Werner Frei missed shot.
+(check=25) Minute 14: no shot.
+(check=84) Minute 15: (t1check=57, t2check=16, check1=88, check2=89) (goalchk1=2, goalchk2=-5) Niels Jensen shot on goal. Rolf Bachmann SAVE!
+(check=84) Minute 16: (t1check=62, t2check=9, check1=51, check2=52) Soren Holm missed shot.
+(check=49) Minute 17: no shot.
+(check=90) Minute 18: (t1check=25, t2check=73, check1=50, check2=47) Werner Frei missed shot.
+(check=51) Minute 19: no shot.
+(check=8) Minute 20: no shot.
+(check=62) Minute 21: no shot.
+(check=62) Minute 22: no shot.
+(check=46) Minute 23: no shot.
+(check=24) Minute 24: no shot.
+(check=3) Minute 25: no shot.
+(check=69) Minute 26: (t1check=69, t2check=14, check1=82, check2=83) (goalchk1=86, goalchk2=79) Soren Holm GOAL!!! Score: 1-0
+(check=59) Minute 27: no shot.
+(check=89) Minute 28: (t1check=27, t2check=67, check1=88, check2=85) (goalchk1=74, goalchk2=65) Andreas Wyss shot on goal. Jesper Thomsen SAVE!
+(check=63) Minute 29: no shot.
+(check=4) Minute 30: no shot.
+(check=81) Minute 31: (t1check=53, t2check=79, check1=57, check2=54) Andreas Wyss missed shot.
+(check=5) Minute 32: no shot.
+(check=57) Minute 33: no shot.
+(check=49) Minute 34: no shot.
+(check=64) Minute 35: no shot.
+(check=63) Minute 36: no shot.
+(check=80) Minute 37: (t1check=53, t2check=32, check1=6, check2=7) Morten Rasmussen missed shot.
+(check=54) Minute 38: no shot.
+(check=39) Minute 39: no shot.
+(check=56) Minute 40: no shot.
+(check=59) Minute 41: no shot.
+(check=32) Minute 42: no shot.
+(check=18) Minute 43: no shot.
+(check=46) Minute 44: no shot.
+(check=77) Minute 45: (t1check=15, t2check=35, check1=65, check2=62) (goalchk1=73, goalchk2=64) Stefan Meier shot on goal. Jesper Thomsen SAVE!
+(check=65) Minute 46: no shot.
+(check=64) Minute 47: no shot.
+(check=46) Minute 48: no shot.
+(check=44) Minute 49: no shot.
+(check=79) Minute 50: (t1check=20, t2check=16, check1=52, check2=53) Niels Jensen missed shot.
+(check=50) Minute 51: no shot.
+(check=71) Minute 52: (t1check=16, t2check=28, check1=98, check2=95) (goalchk1=14, goalchk2=5) Andreas Wyss shot on goal. Jesper Thomsen SAVE!
+(check=89) Minute 53: (t1check=10, t2check=56, check1=58, check2=55) Peter Buhler missed shot.
+(check=62) Minute 54: no shot.
+(check=34) Minute 55: no shot.
+(check=11) Minute 56: no shot.
+(check=68) Minute 57: (t1check=70, t2check=37, check1=35, check2=36) Soren Holm missed shot.
+(check=88) Minute 58: (t1check=15, t2check=32, check1=85, check2=82) (goalchk1=97, goalchk2=88) Stefan Meier GOAL!!! Score: 1-1
+(check=1) Minute 59: no shot.
+(check=18) Minute 60: no shot.
+(check=37) Minute 61: no shot.
+(check=16) Minute 62: no shot.
+(check=9) Minute 63: no shot.
+(check=14) Minute 64: no shot.
+(check=66) Minute 65: (t1check=72, t2check=71, check1=53, check2=54) Soren Holm missed shot.
+(check=21) Minute 66: no shot.
+(check=83) Minute 67: (t1check=41, t2check=57, check1=37, check2=34) Werner Frei missed shot.
+(check=30) Minute 68: no shot.
+(check=7) Minute 69: no shot.
+(check=58) Minute 70: no shot.
+(check=4) Minute 71: no shot.
+(check=30) Minute 72: no shot.
+(check=36) Minute 73: no shot.
+(check=66) Minute 74: (t1check=57, t2check=67, check1=54, check2=51) Andreas Wyss missed shot.
+(check=8) Minute 75: no shot.
+(check=64) Minute 76: no shot.
+(check=60) Minute 77: no shot.
+(check=58) Minute 78: no shot.
+(check=15) Minute 79: no shot.
+(check=42) Minute 80: no shot.
+(check=13) Minute 81: no shot.
+(check=18) Minute 82: no shot.
+(check=52) Minute 83: no shot.
+(check=36) Minute 84: no shot.
+(check=85) Minute 85: (t1check=29, t2check=19, check1=51, check2=52) Lars Moller missed shot.
+(check=25) Minute 86: no shot.
+(check=7) Minute 87: no shot.
+(check=11) Minute 88: no shot.
+(check=84) Minute 89: (t1check=26, t2check=31, check1=3, check2=0) Andreas Wyss missed shot.
+(check=71) Minute 90: (t1check=31, t2check=66, check1=27, check2=24) Stefan Meier missed shot.
+Final score: 1-1
