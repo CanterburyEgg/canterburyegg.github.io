@@ -3,6 +3,7 @@ import json
 import sys
 import re
 import copy
+import math
 
 # Add current directory to path to import driver
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -181,77 +182,117 @@ def recalculate_all():
     # 3. Process Timeline
     print(f"Processing {len(all_matches)} matches across all tournaments...")
     
-    verbose_team = "Morocco"
+    verbose_team = "Belgium" # Set to a team name (e.g. "Morocco") for match-by-match Elo logs
     last_tourney_path = sorted_tourneys[-1]["path"] if sorted_tourneys else None
     rankings_before_last = {}
+    processed_tourney_indices = set()
+    processed_decay_batches = set() # set of (year, importance)
 
     for m in all_matches:
+        t_idx = m["tourney_idx"]
+        # Apply decay at the start of a new tournament in the timeline
+        if t_idx not in processed_tourney_indices:
+            t_conf = sorted_tourneys[t_idx]
+            imp = t_conf["importance"]
+            year = t_conf["path"].split('/')[0]
+            
+            if imp in [25.0, 40.0] and (year, imp) not in processed_decay_batches:
+                decay_pct = 0.20 if imp == 40.0 else 0.10
+                
+                # Identify ALL participants in ALL tournaments of this importance in this year
+                participants = set()
+                batch_paths = [tc["path"] for tc in sorted_tourneys if tc["path"].startswith(year) and tc["importance"] == imp]
+                
+                for b_path in batch_paths:
+                    res_path = os.path.join(BASE_DIR, "Tournaments", b_path, "results.json")
+                    if not os.path.exists(res_path): continue
+                    with open(res_path, 'r') as f:
+                        t_data = json.load(f)
+                    
+                    if "config" in t_data and "groups" in t_data["config"]:
+                        for teams in t_data["config"]["groups"].values():
+                            participants.update(teams)
+                    for g_data in t_data.get("groups", {}).values():
+                        for match in g_data.get("matches", []):
+                            participants.update(match["teams"])
+                    po = t_data.get("playoffs")
+                    if po:
+                        p_matches = []
+                        if "rounds" in po:
+                            for r in po["rounds"]: p_matches.extend(r.get("matches", []))
+                        elif "matches" in po: p_matches.extend(po["matches"])
+                        else: p_matches.extend(po.get("semifinals", []) + po.get("finals", []))
+                        for pm in p_matches:
+                            participants.update([t for t in pm["teams"] if t and t != "TBD"])
+                
+                # Apply decay to non-participants once for this batch
+                # Formula: decay_pct * (ranking - 1000), minimum 1 point if ranking > 1000
+                for team in list(rankings.keys()):
+                    if team not in participants and rankings[team] > 1000:
+                        old_val = rankings[team]
+                        surplus = old_val - 1000
+                        loss = math.floor(surplus * decay_pct)
+                        if loss < 1: loss = 1
+                        rankings[team] = old_val - loss
+                        if team == verbose_team:
+                            print(f"[{verbose_team}] DECAY | Missed {year} K={imp} Cycle | Pts: {-loss:+.1f} | New: {rankings[team]:.1f}")
+                
+                processed_decay_batches.add((year, imp))
+            
+            processed_tourney_indices.add(t_idx)
         t1, t2 = m["teams"]
         # Stat-based initialization for new teams
         if t1 not in rankings: 
-            rankings[t1] = get_team_stats_sum(m["tournament_path"], t1) * 50
+            rankings[t1] = 1000 + ((get_team_stats_sum(m["tournament_path"], t1) - 20) * 25)
         if t2 not in rankings: 
-            rankings[t2] = get_team_stats_sum(m["tournament_path"], t2) * 50
+            rankings[t2] = 1000 + ((get_team_stats_sum(m["tournament_path"], t2) - 20) * 25)
         
         # Capture state before last tourney matches start
         if last_tourney_path and m["tournament_path"] == last_tourney_path and not rankings_before_last:
             items = sorted(rankings.items(), key=lambda x: x[1], reverse=True)
             for rank, (team, pts) in enumerate(items):
                 rankings_before_last[team] = rank + 1
-            print(f"Snapshot taken before {last_tourney_path}. Teams in snapshot: {len(rankings_before_last)}")
-            if "Ghana" in rankings_before_last:
-                print(f"Ghana is in snapshot at rank {rankings_before_last['Ghana']}")
-            else:
-                print("Ghana is NOT in snapshot!")
 
-        we1 = m["matrix"].get(t1, {}).get(t2, 0.5)
+        # Use FIFA Standard Elo Point-based Win Probability: 1 / (1 + 10^((-dr) / 600))
+        # where dr = rankings[t1] - rankings[t2]
+        dr = rankings[t1] - rankings[t2]
+        we1 = 1.0 / (pow(10, (-dr) / 600.0) + 1.0)
         we2 = 1.0 - we1
         
         s1, s2 = m["score"]
         w1, w2 = 0.5, 0.5
-        if s1 > s2: w1, w2 = 1.0, 0.0
-        elif s2 > s1: w1, w2 = 0.0, 1.0
+        if s1 > s2: 
+            w1, w2 = 1.0, 0.0
+        elif s2 > s1: 
+            w1, w2 = 0.0, 1.0
+        elif m.get("pk_score"):
+            pk1, pk2 = m["pk_score"]
+            if pk1 > pk2: w1, w2 = 0.75, 0.5
+            else: w1, w2 = 0.5, 0.75
         
         # ELO Rules
         importance = m["importance"]
         
         # Team 1 Change
-        if m["is_knockout"] and m["importance"] >= 40:
-            if w1 == 1.0:
-                multiplier = 1.0
-                if m.get("pk_score"): multiplier = 0.5
-                else:
-                    is_ot = m.get("is_ot", False)
-                    if not is_ot:
-                        log_path = find_log_file(m["tournament_path"], m)
-                        if log_path:
-                            with open(log_path, 'r') as f:
-                                if "--- EXTRA TIME ---" in f.read(): is_ot = True
-                        if not is_ot and any(e["minute"] > 90 for e in m.get("events", [])): is_ot = True
-                    if is_ot: multiplier = 0.75
-                diff1 = importance * (1.0 - we1) * multiplier
+        # Use >= 20 for "Major" tournaments (Cup/World Cup) to apply knockout protection
+        if m["is_knockout"] and importance >= 20:
+            if w1 > 0.5: # Any form of win (1.0 or 0.75)
+                # If we won in PKs, we use the 0.75 value directly with importance
+                # Standard FIFA: Points = K * (W - We)
+                diff1 = importance * (w1 - we1)
             else:
-                diff1 = 0 
+                # Knockout protection: No points lost for losing in major tournament knockouts
+                # but we still check if the "draw" (Loss in PKs) gave us points
+                diff1 = max(0, importance * (w1 - we1))
         else:
             diff1 = importance * (w1 - we1)
             
         # Team 2 Change
-        if m["is_knockout"] and m["importance"] >= 40:
-            if w2 == 1.0:
-                multiplier = 1.0
-                if m.get("pk_score"): multiplier = 0.5
-                else:
-                    is_ot = m.get("is_ot", False)
-                    if not is_ot:
-                        log_path = find_log_file(m["tournament_path"], m)
-                        if log_path:
-                            with open(log_path, 'r') as f:
-                                if "--- EXTRA TIME ---" in f.read(): is_ot = True
-                        if not is_ot and any(e["minute"] > 90 for e in m.get("events", [])): is_ot = True
-                    if is_ot: multiplier = 0.75
-                diff2 = importance * (1.0 - we2) * multiplier
+        if m["is_knockout"] and importance >= 20:
+            if w2 > 0.5:
+                diff2 = importance * (w2 - we2)
             else:
-                diff2 = 0
+                diff2 = max(0, importance * (w2 - we2))
         else:
             diff2 = importance * (w2 - we2)
 

@@ -432,7 +432,6 @@
         const NAV_ITEMS = {
             '2026': [
                 { label: 'World Cup', code: 'WC' },
-                { label: 'Play-In', code: 'PI' },
                 { label: 'Asia', code: 'AS' },
                 { label: 'Africa', code: 'AFR' },
                 { label: 'Oceania', code: 'OCE' },
@@ -552,6 +551,10 @@
 
         function updateHeader() {
             const h1 = document.querySelector('header h1');
+            if (currentStage === 'rankings') {
+                h1.innerText = 'OFFICIAL WORLD RANKINGS';
+                return;
+            }
             if (currentYear === '2024') {
                 if (currentRegion === 'COPA') h1.innerText = 'COPA AMERICA 2024';
                 else if (currentRegion === 'COPAQ') h1.innerText = 'ROAD TO COPA AMERICA 2024';
@@ -582,7 +585,7 @@
 
         async function loadRegion(regionCode, el, skipPush = false) {
             currentRegion = regionCode;
-            currentStage = 'group'; // Reset stage when switching regions
+            if (!skipPush) currentStage = 'group'; // Reset stage when switching regions manually
             viewState = 'main';
             document.getElementById('navigation-root').style.display = 'block';
             
@@ -594,8 +597,9 @@
                 const url = new URL(window.location);
                 url.searchParams.set('year', currentYear);
                 url.searchParams.set('region', regionCode);
+                url.searchParams.set('stage', 'group');
                 url.searchParams.delete('team');
-                window.history.pushState({ view: 'main', year: currentYear, region: regionCode }, '', url);
+                window.history.pushState({ view: 'main', year: currentYear, region: regionCode, stage: 'group' }, '', url);
             }
 
             const path = REGION_DATA[currentYear][regionCode];
@@ -625,13 +629,18 @@
             if (!skipPush) {
                 const url = new URL(window.location);
                 url.searchParams.set('year', currentYear);
-                url.searchParams.set('region', currentRegion);
                 url.searchParams.set('stage', stage);
+                if (stage === 'rankings') {
+                    url.searchParams.delete('region');
+                } else {
+                    url.searchParams.set('region', currentRegion);
+                }
                 url.searchParams.delete('team');
                 window.history.pushState({ view: 'main', year: currentYear, region: currentRegion, stage: stage }, '', url);
             }
 
             renderCurrentStage();
+            updateHeader();
         }
 
         function renderCurrentStage() {
@@ -1301,13 +1310,6 @@
             
             currentStage = params.get('stage') || 'group';
             const team = params.get('team');
-
-            // Set active stage button
-            document.querySelectorAll('#stage-nav .nav-item').forEach(btn => {
-                const stage = btn.id.replace('btn-', '');
-                if (stage === currentStage) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
 
             renderRegionNav();
             loadRegion(currentRegion, null, true).then(() => {

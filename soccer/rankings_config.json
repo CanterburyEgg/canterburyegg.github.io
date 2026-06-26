@@ -1,64 +1,26 @@
 {
   "tournaments": [
-    {
-      "path": "2022/AS",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/AFR",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/NA",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/OCE",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/SA",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/EU",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/Play-In",
-      "importance": 20.0
-    },
-    {
-      "path": "2022/World Cup",
-      "importance": 60.0
-    },
-    {
-      "path": "2024/Copa-Qual",
-      "importance": 20.0
-    },
-    {
-      "path": "2024/EUC-Qual",
-      "importance": 20.0
-    },
-    {
-      "path": "2024/Copa",
-      "importance": 40.0
-    },
-    {
-      "path": "2024/EUC",
-      "importance": 40.0
-    },
-    {
-      "path": "2024/Africa-Qual",
-      "importance": 20.0
-    },
-    {
-      "path": "2024/Asia-Qual",
-      "importance": 20.0
-    },
-    {
-      "path": "2024/Afro-Asia-Cup",
-      "importance": 40.0
-    }
+    { "path": "2022/AS", "importance": 10.0 },
+    { "path": "2022/AFR", "importance": 10.0 },
+    { "path": "2022/NA", "importance": 10.0 },
+    { "path": "2022/OCE", "importance": 10.0 },
+    { "path": "2022/SA", "importance": 10.0 },
+    { "path": "2022/EU", "importance": 10.0 },
+    { "path": "2022/Play-In", "importance": 10.0 },
+    { "path": "2022/World Cup", "importance": 40.0 },
+    { "path": "2024/Copa-Qual", "importance": 10.0 },
+    { "path": "2024/EUC-Qual", "importance": 10.0 },
+    { "path": "2024/Copa", "importance": 25.0 },
+    { "path": "2024/EUC", "importance": 25.0 },
+    { "path": "2024/Africa-Qual", "importance": 10.0 },
+    { "path": "2024/Asia-Qual", "importance": 10.0 },
+    { "path": "2024/Afro-Asia-Cup", "importance": 25.0 },
+    { "path": "2026/AFR", "importance": 10.0 },
+    { "path": "2026/AS", "importance": 10.0 },
+    { "path": "2026/OCE", "importance": 10.0 },
+    { "path": "2026/NA", "importance": 10.0 },
+    { "path": "2026/SA", "importance": 10.0 },
+    { "path": "2026/EU", "importance": 10.0 },
+    { "path": "2026/World Cup", "importance": 40.0 }
   ]
 }
