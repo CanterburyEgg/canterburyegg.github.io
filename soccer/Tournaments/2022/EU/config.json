@@ -1,0 +1,13 @@
+{
+  "name": "2022 Europe Qualifiers",
+  "type": "europe_qualifiers",
+  "groups": {
+    "A": ["Italy", "Germany", "Russia", "Austria", "Serbia", "Scotland"],
+    "B": ["Spain", "Croatia", "Czechia", "Sweden", "Ukraine", "Greece"],
+    "C": ["England", "France", "Wales", "Turkey", "Hungary", "Norway"],
+    "D": ["Belgium", "Portugal", "Denmark", "Poland", "Netherlands", "Switzerland"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

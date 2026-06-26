@@ -1,0 +1,10 @@
+{
+  "name": "2022 North America Qualifiers",
+  "type": "na_qualifiers",
+  "groups": {
+    "A": ["Panama", "United States", "Canada", "Mexico", "Costa Rica", "Jamaica"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

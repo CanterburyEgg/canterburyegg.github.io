@@ -1,0 +1,19 @@
+{
+  "name": "2024 Euro Qualifiers",
+  "type": "euro_qual",
+  "groups": {
+    "A": ["England", "Austria", "Cyprus", "Malta", "Moldova"],
+    "B": ["Belgium", "France", "Andorra", "Romania", "Finland"],
+    "C": ["Spain", "Poland", "Slovenia", "Northern Ireland", "Bulgaria"],
+    "D": ["Czechia", "Netherlands", "Latvia", "Albania", "Vatican City"],
+    "E": ["Italy", "Serbia", "Montenegro", "Lithuania", "Slovakia"],
+    "F": ["Ukraine", "Germany", "Iceland", "Norway", "Estonia"],
+    "G": ["Sweden", "Denmark", "Belarus", "Switzerland", "Bosnia"],
+    "H": ["Hungary", "Scotland", "Ireland", "Kosovo", "Greece"],
+    "I": ["Wales", "Turkey", "Macedonia", "Liechtenstein", "Faroe Islands"],
+    "J": ["Croatia", "Portugal", "Gibraltar", "Luxembourg", "San Marino"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

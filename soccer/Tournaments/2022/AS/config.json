@@ -1,0 +1,11 @@
+{
+  "name": "2022 Asia Qualifiers",
+  "type": "asia_qualifiers",
+  "groups": {
+    "A": ["Japan", "Iraq", "South Korea", "Georgia", "Uzbekistan"],
+    "B": ["Iran", "Qatar", "Israel", "Jordan", "Saudi Arabia"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

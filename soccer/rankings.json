@@ -1,0 +1,1031 @@
+[
+  {
+    "rank": 1,
+    "team": "Belgium",
+    "points": 1813.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 2,
+    "team": "Italy",
+    "points": 1725.9,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 3,
+    "team": "England",
+    "points": 1666.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 4,
+    "team": "Croatia",
+    "points": 1664.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 5,
+    "team": "Brazil",
+    "points": 1653.5,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 6,
+    "team": "Colombia",
+    "points": 1591.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 7,
+    "team": "Germany",
+    "points": 1590.8,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 8,
+    "team": "Spain",
+    "points": 1576.1,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 9,
+    "team": "Argentina",
+    "points": 1558.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 10,
+    "team": "Uruguay",
+    "points": 1526.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 11,
+    "team": "Netherlands",
+    "points": 1516.1,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 12,
+    "team": "Ecuador",
+    "points": 1442.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 13,
+    "team": "France",
+    "points": 1395.8,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 14,
+    "team": "South Korea",
+    "points": 1386.3,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 15,
+    "team": "Ukraine",
+    "points": 1380.3,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 16,
+    "team": "Russia",
+    "points": 1368.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 17,
+    "team": "United States",
+    "points": 1357.5,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 18,
+    "team": "Switzerland",
+    "points": 1343.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 19,
+    "team": "Trinidad and Tobago",
+    "points": 1290.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 20,
+    "team": "Serbia",
+    "points": 1245.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 21,
+    "team": "Wales",
+    "points": 1238.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 22,
+    "team": "Denmark",
+    "points": 1234.8,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 23,
+    "team": "Czechia",
+    "points": 1201.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 24,
+    "team": "Bosnia",
+    "points": 1169.8,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 25,
+    "team": "Ireland",
+    "points": 1150.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 26,
+    "team": "Peru",
+    "points": 1149.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 27,
+    "team": "Poland",
+    "points": 1138.9,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 28,
+    "team": "Morocco",
+    "points": 1135.6,
+    "movement": 3,
+    "is_new": false
+  },
+  {
+    "rank": 29,
+    "team": "Slovenia",
+    "points": 1131.1,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 30,
+    "team": "Romania",
+    "points": 1113.4,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 31,
+    "team": "Albania",
+    "points": 1089.8,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 32,
+    "team": "Cote d'Ivoire",
+    "points": 1087.0,
+    "movement": 3,
+    "is_new": false
+  },
+  {
+    "rank": 33,
+    "team": "Portugal",
+    "points": 1074.7,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 34,
+    "team": "Ghana",
+    "points": 1067.2,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 35,
+    "team": "South Africa",
+    "points": 1065.4,
+    "movement": 7,
+    "is_new": false
+  },
+  {
+    "rank": 36,
+    "team": "Canada",
+    "points": 1060.6,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 37,
+    "team": "Finland",
+    "points": 1054.1,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 38,
+    "team": "Algeria",
+    "points": 1040.5,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 39,
+    "team": "Sweden",
+    "points": 1011.3,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 40,
+    "team": "Honduras",
+    "points": 1007.7,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 41,
+    "team": "Hungary",
+    "points": 1001.6,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 42,
+    "team": "Mexico",
+    "points": 996.2,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 43,
+    "team": "Iceland",
+    "points": 981.5,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 44,
+    "team": "Paraguay",
+    "points": 958.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 45,
+    "team": "Venezuela",
+    "points": 951.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 46,
+    "team": "Chile",
+    "points": 946.5,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 47,
+    "team": "Turkey",
+    "points": 927.6,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 48,
+    "team": "Puerto Rico",
+    "points": 923.3,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 49,
+    "team": "Iran",
+    "points": 922.7,
+    "movement": -3,
+    "is_new": false
+  },
+  {
+    "rank": 50,
+    "team": "Australia",
+    "points": 920.6,
+    "movement": -3,
+    "is_new": false
+  },
+  {
+    "rank": 51,
+    "team": "Bolivia",
+    "points": 917.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 52,
+    "team": "United Arab Emirates",
+    "points": 880.2,
+    "movement": 10,
+    "is_new": false
+  },
+  {
+    "rank": 53,
+    "team": "Lithuania",
+    "points": 879.5,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 54,
+    "team": "Congo DR",
+    "points": 871.0,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 55,
+    "team": "Slovakia",
+    "points": 864.9,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 56,
+    "team": "Egypt",
+    "points": 861.0,
+    "movement": 3,
+    "is_new": false
+  },
+  {
+    "rank": 57,
+    "team": "Guatemala",
+    "points": 859.2,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 58,
+    "team": "Bulgaria",
+    "points": 858.9,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 59,
+    "team": "Panama",
+    "points": 844.8,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 60,
+    "team": "Japan",
+    "points": 827.2,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 61,
+    "team": "Haiti",
+    "points": 805.5,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 62,
+    "team": "Dominican Republic",
+    "points": 795.2,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 63,
+    "team": "Lebanon",
+    "points": 794.5,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 64,
+    "team": "Cuba",
+    "points": 760.1,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 65,
+    "team": "Moldova",
+    "points": 758.3,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 66,
+    "team": "Montenegro",
+    "points": 756.7,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 67,
+    "team": "Greece",
+    "points": 750.9,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 68,
+    "team": "Estonia",
+    "points": 736.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 69,
+    "team": "Georgia",
+    "points": 733.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 70,
+    "team": "Austria",
+    "points": 727.7,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 71,
+    "team": "Scotland",
+    "points": 727.5,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 72,
+    "team": "Comoros",
+    "points": 726.3,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 73,
+    "team": "Macedonia",
+    "points": 725.6,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 74,
+    "team": "Costa Rica",
+    "points": 716.1,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 75,
+    "team": "Senegal",
+    "points": 714.6,
+    "movement": -5,
+    "is_new": false
+  },
+  {
+    "rank": 76,
+    "team": "Thailand",
+    "points": 713.6,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 77,
+    "team": "Tunisia",
+    "points": 706.4,
+    "movement": 10,
+    "is_new": false
+  },
+  {
+    "rank": 78,
+    "team": "Norway",
+    "points": 681.4,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 79,
+    "team": "Qatar",
+    "points": 673.0,
+    "movement": -8,
+    "is_new": false
+  },
+  {
+    "rank": 80,
+    "team": "Angola",
+    "points": 672.9,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 81,
+    "team": "El Salvador",
+    "points": 666.5,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 82,
+    "team": "Oman",
+    "points": 661.3,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 83,
+    "team": "Syria",
+    "points": 659.1,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 84,
+    "team": "Belize",
+    "points": 656.1,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 85,
+    "team": "Mozambique",
+    "points": 655.3,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 86,
+    "team": "Nicaragua",
+    "points": 651.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 87,
+    "team": "Belarus",
+    "points": 631.7,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 88,
+    "team": "Gabon",
+    "points": 631.4,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 89,
+    "team": "Latvia",
+    "points": 631.0,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 90,
+    "team": "Indonesia",
+    "points": 626.2,
+    "movement": -8,
+    "is_new": false
+  },
+  {
+    "rank": 91,
+    "team": "Kenya",
+    "points": 614.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 92,
+    "team": "New Caledonia",
+    "points": 609.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 93,
+    "team": "Palestine",
+    "points": 603.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 94,
+    "team": "Nigeria",
+    "points": 597.8,
+    "movement": 3,
+    "is_new": false
+  },
+  {
+    "rank": 95,
+    "team": "Northern Ireland",
+    "points": 594.8,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 96,
+    "team": "Kosovo",
+    "points": 579.1,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 97,
+    "team": "Cyprus",
+    "points": 559.6,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 98,
+    "team": "Sudan",
+    "points": 548.7,
+    "movement": -3,
+    "is_new": false
+  },
+  {
+    "rank": 99,
+    "team": "Philippines",
+    "points": 547.6,
+    "movement": 8,
+    "is_new": false
+  },
+  {
+    "rank": 100,
+    "team": "Mauritania",
+    "points": 535.5,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 101,
+    "team": "Kuwait",
+    "points": 528.9,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 102,
+    "team": "Uganda",
+    "points": 525.5,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 103,
+    "team": "Liechtenstein",
+    "points": 521.8,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 104,
+    "team": "Cabo Verde",
+    "points": 521.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 105,
+    "team": "Togo",
+    "points": 518.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 106,
+    "team": "Bahamas",
+    "points": 516.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 107,
+    "team": "Tahiti",
+    "points": 502.8,
+    "movement": -5,
+    "is_new": false
+  },
+  {
+    "rank": 108,
+    "team": "San Marino",
+    "points": 502.2,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 109,
+    "team": "Vanuatu",
+    "points": 502.0,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 110,
+    "team": "India",
+    "points": 493.2,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 111,
+    "team": "Jordan",
+    "points": 472.8,
+    "movement": -3,
+    "is_new": false
+  },
+  {
+    "rank": 112,
+    "team": "New Zealand",
+    "points": 461.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 113,
+    "team": "Madagascar",
+    "points": 451.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 114,
+    "team": "Malta",
+    "points": 446.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 115,
+    "team": "Zambia",
+    "points": 446.3,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 116,
+    "team": "Luxembourg",
+    "points": 443.0,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 117,
+    "team": "Malaysia",
+    "points": 442.8,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 118,
+    "team": "Cameroon",
+    "points": 442.4,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 119,
+    "team": "Bahrain",
+    "points": 436.9,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 120,
+    "team": "Vietnam",
+    "points": 436.7,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 121,
+    "team": "Iraq",
+    "points": 431.7,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 122,
+    "team": "China",
+    "points": 429.7,
+    "movement": -6,
+    "is_new": false
+  },
+  {
+    "rank": 123,
+    "team": "Tajikistan",
+    "points": 423.5,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 124,
+    "team": "Solomon Islands",
+    "points": 416.0,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 125,
+    "team": "Niger",
+    "points": 395.5,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 126,
+    "team": "Equatorial Guinea",
+    "points": 393.2,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 127,
+    "team": "Burkina Faso",
+    "points": 391.0,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 128,
+    "team": "Faroe Islands",
+    "points": 388.1,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 129,
+    "team": "Barbados",
+    "points": 384.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 130,
+    "team": "Israel",
+    "points": 372.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 131,
+    "team": "Kyrgyzstan",
+    "points": 364.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 132,
+    "team": "Tanzania",
+    "points": 361.3,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 133,
+    "team": "Saudi Arabia",
+    "points": 356.8,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 134,
+    "team": "Jamaica",
+    "points": 353.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 135,
+    "team": "Guinea",
+    "points": 349.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 136,
+    "team": "Andorra",
+    "points": 328.9,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 137,
+    "team": "Greenland",
+    "points": 316.3,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 138,
+    "team": "Mali",
+    "points": 314.0,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 139,
+    "team": "Fiji",
+    "points": 294.9,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 140,
+    "team": "Gibraltar",
+    "points": 291.6,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 141,
+    "team": "Saint Lucia",
+    "points": 269.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 142,
+    "team": "Uzbekistan",
+    "points": 269.3,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 143,
+    "team": "Papua New Guinea",
+    "points": 224.5,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 144,
+    "team": "Vatican City",
+    "points": 197.4,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 145,
+    "team": "Benin",
+    "points": 164.2,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 146,
+    "team": "Libya",
+    "points": 156.8,
+    "movement": 0,
+    "is_new": false
+  },
+  {
+    "rank": 147,
+    "team": "The Gambia",
+    "points": 10.5,
+    "movement": 0,
+    "is_new": false
+  }
+]

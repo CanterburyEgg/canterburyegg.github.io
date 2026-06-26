@@ -1,0 +1,22 @@
+{
+  "Australia": {
+    "Fiji": 0.78239608801956,
+    "New Zealand": 0.6977611940298507,
+    "Papua New Guinea": 0.7889800703399765
+  },
+  "Fiji": {
+    "Australia": 0.2457627118644068,
+    "New Zealand": 0.385297845373891,
+    "Papua New Guinea": 0.5066137566137566
+  },
+  "New Zealand": {
+    "Australia": 0.3072139303482587,
+    "Fiji": 0.6096938775510204,
+    "Papua New Guinea": 0.6040353089533418
+  },
+  "Papua New Guinea": {
+    "Australia": 0.24817518248175183,
+    "Fiji": 0.4929936305732484,
+    "New Zealand": 0.37326607818411095
+  }
+}

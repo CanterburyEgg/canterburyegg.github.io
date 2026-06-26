@@ -1,0 +1,13 @@
+{
+  "name": "2022 Play-In",
+  "type": "play_in",
+  "groups": {
+    "A": ["Sweden", "Georgia", "Fiji", "Austria"],
+    "B": ["Russia", "Hungary", "Chile", "Iraq"],
+    "C": ["Ukraine", "Costa Rica", "Senegal", "Argentina"],
+    "D": ["Australia", "United States", "Czechia", "Nigeria"]
+  },
+  "rules": {
+    "group_repeats": 1
+  }
+}

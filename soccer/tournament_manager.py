@@ -157,6 +157,42 @@ def initialize_tournament(base_path, tournament_path, config):
             "qualified_teams": []
         }
 
+        # Pre-initialize Afro-Asia Cup bracket
+        if config["type"] == "afro_asia_cup":
+            data["playoffs"] = {
+                "rounds": [
+                    {
+                        "name": "Round of 12",
+                        "matches": [
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R12_1", "source": ["A2", "B3"]},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R12_2", "source": ["C2", "D3"]},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R12_3", "source": ["B2", "A3"]},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R12_4", "source": ["D2", "C3"]}
+                        ]
+                    },
+                    {
+                        "name": "Quarterfinals",
+                        "matches": [
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R12_1", "label": "QF_1", "source": ["D1", None]},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R12_2", "label": "QF_2", "source": ["B1", None]},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R12_3", "label": "QF_3", "source": ["C1", None]},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R12_4", "label": "QF_4", "source": ["A1", None]}
+                        ]
+                    },
+                    {
+                        "name": "Semifinals",
+                        "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"SF_{i+1}"} for i in range(2)]
+                    },
+                    {
+                        "name": "Finals",
+                        "matches": [
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "F"},
+                            {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}
+                        ]
+                    }
+                ]
+            }
+
         # Pre-initialize World Cup bracket for visibility
         if config["type"] == "world_cup":
             data["playoffs"] = {
@@ -423,7 +459,59 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
 
         # 2. Check for Playoff Transition or Direct Qualification
         if group_stage_complete:
-            if config["type"] == "asia_qualifiers" and tournament_data["playoffs"] is None:
+            if config["type"] == "aa_qualifiers" and tournament_data["playoffs"] is None:
+                print("Group stage complete. Scheduling Afro-Asia Qualifiers playoffs...")
+                last_day = 0
+                for g in tournament_data["groups"].values():
+                    for m in g["matches"]: last_day = max(last_day, m["day"])
+                
+                # Direct Qualifiers (1st place)
+                for g_id in ["A", "B", "C", "D", "E", "F", "G", "H"]:
+                    table = tournament_data["groups"][g_id]["standings"]
+                    tournament_data["qualified_teams"].append(table[0]["team"])
+                
+                # Playoff teams (2nd place)
+                p_teams = {g_id: tournament_data["groups"][g_id]["standings"][1]["team"] for g_id in ["A", "B", "C", "D", "E", "F", "G", "H"]}
+
+                d1 = last_day + 2
+                d2 = last_day + 4
+                d3 = last_day + 6
+                
+                tournament_data["playoffs"] = {
+                    "rounds": [
+                        {
+                            "name": "Playoff Round 1",
+                            "matches": [
+                                {"day": d1, "teams": [p_teams["A"], p_teams["B"]], "played": False, "label": "R1_1"},
+                                {"day": d1, "teams": [p_teams["C"], p_teams["D"]], "played": False, "label": "R1_2"},
+                                {"day": d1, "teams": [p_teams["E"], p_teams["F"]], "played": False, "label": "R1_3"},
+                                {"day": d1, "teams": [p_teams["G"], p_teams["H"]], "played": False, "label": "R1_4"}
+                            ]
+                        },
+                        {
+                            "name": "Playoff Round 2",
+                            "matches": [
+                                # Upper (Winners of R1) - Winners Qualify (2-0)
+                                {"day": d2, "teams": ["TBD", "TBD"], "played": False, "label": "R2_W1", "parent_win": ["R1_1", "R1_2"]},
+                                {"day": d2, "teams": ["TBD", "TBD"], "played": False, "label": "R2_W2", "parent_win": ["R1_3", "R1_4"]},
+                                # Lower (Losers of R1) - Losers Out (0-2)
+                                {"day": d2, "teams": ["TBD", "TBD"], "played": False, "label": "R2_L1", "parent_loss": ["R1_1", "R1_2"]},
+                                {"day": d2, "teams": ["TBD", "TBD"], "played": False, "label": "R2_L2", "parent_loss": ["R1_3", "R1_4"]}
+                            ]
+                        },
+                        {
+                            "name": "Playoff Round 3",
+                            "matches": [
+                                # Losers of Upper vs Winners of Lower - Winners Qualify (2-1)
+                                {"day": d3, "teams": ["TBD", "TBD"], "played": False, "label": "R3_1", "parent_win": ["R2_L1"], "parent_loss": ["R2_W2"]},
+                                {"day": d3, "teams": ["TBD", "TBD"], "played": False, "label": "R3_2", "parent_win": ["R2_L2"], "parent_loss": ["R2_W1"]}
+                            ]
+                        }
+                    ]
+                }
+                print(f"Playoffs scheduled for days {d1}, {d2}, {d3}.")
+
+            elif config["type"] == "asia_qualifiers" and tournament_data["playoffs"] is None:
                 print("Group stage complete. Scheduling playoffs...")
                 last_day = 0
                 for g in tournament_data["groups"].values():
@@ -538,6 +626,53 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                 
                 print(f"World Cup knockout stage finalized.")
 
+            elif config["type"] == "afro_asia_cup" and (tournament_data["playoffs"] is None or tournament_data["playoffs"]["rounds"][0]["matches"][0]["day"] == 0):
+                print("Group stage complete. Scheduling Afro-Asia Cup playoffs...")
+                
+                if tournament_data["playoffs"] is None:
+                    tournament_data["playoffs"] = {
+                        "rounds": [
+                            {"name": "Round of 12", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"R12_{i+1}", "source": s} for i, s in enumerate([["A2", "B3"], ["C2", "D3"], ["B2", "A3"], ["D2", "C3"]])] },
+                            {"name": "Quarterfinals", "matches": [{"day": 0, "teams": [s, "TBD"], "score": [0, 0], "played": False, "parent": p, "label": f"QF_{i+1}"} for i, (s, p) in enumerate([["D1", "R12_1"], ["B1", "R12_2"], ["C1", "R12_3"], ["A1", "R12_4"]])] },
+                            {"name": "Semifinals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"SF_{i+1}"} for i in range(2)] },
+                            {"name": "Finals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "F"}, {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}] }
+                        ]
+                    }
+
+                seeds = {}
+                for g_id in ["A", "B", "C", "D"]:
+                    table = tournament_data["groups"][g_id]["standings"]
+                    seeds[f"{g_id}1"] = table[0]["team"]
+                    seeds[f"{g_id}2"] = table[1]["team"]
+                    seeds[f"{g_id}3"] = table[2]["team"]
+
+                po = tournament_data["playoffs"]
+                d_base = current_day + 1
+                
+                # Round of 12
+                r12 = po["rounds"][0]["matches"]
+                r12[0]["teams"] = [seeds["A2"], seeds["B3"]]; r12[0]["day"] = d_base
+                r12[1]["teams"] = [seeds["C2"], seeds["D3"]]; r12[1]["day"] = d_base
+                r12[2]["teams"] = [seeds["B2"], seeds["A3"]]; r12[2]["day"] = d_base
+                r12[3]["teams"] = [seeds["D2"], seeds["C3"]]; r12[3]["day"] = d_base
+
+                # Quarterfinals
+                qf = po["rounds"][1]["matches"]
+                qf[0]["teams"] = [seeds["D1"], "TBD"]; qf[0]["day"] = d_base + 2
+                qf[1]["teams"] = [seeds["B1"], "TBD"]; qf[1]["day"] = d_base + 2
+                qf[2]["teams"] = [seeds["C1"], "TBD"]; qf[2]["day"] = d_base + 2
+                qf[3]["teams"] = [seeds["A1"], "TBD"]; qf[3]["day"] = d_base + 2
+
+                # Semifinals
+                for i, m in enumerate(po["rounds"][2]["matches"]):
+                    m["day"] = d_base + 4
+                
+                # Finals
+                for m in po["rounds"][3]["matches"]:
+                    m["day"] = d_base + 6
+
+                print("Afro-Asia Cup knockout stage scheduled.")
+
             elif config["type"] == "oceania_qualifiers" and not tournament_data["qualified_teams"]:
                 print("Group stage complete. Determining qualifiers...")
                 group_limit = config["rules"].get("direct_qualifiers_per_group")
@@ -609,6 +744,53 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
                     if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
                     if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+            
+            elif config["type"] == "afro_asia_cup" and "rounds" in po:
+                r12, qf, sf, f = [r["matches"] for r in po["rounds"]]
+                # R12 -> QF
+                for i in range(4):
+                    if qf[i]["teams"][1] in ["TBD", None]:
+                        parent = next((m for m in r12 if m["label"] == qf[i]["parent"]), None)
+                        if parent and parent["played"]: qf[i]["teams"][1] = get_winner(parent)
+                # QF -> SF
+                for i in range(2):
+                    if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
+                    if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
+                # SF -> Finals
+                if sf[0]["played"] and sf[1]["played"]:
+                    if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
+                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
+                    if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
+                    if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+
+            elif config["type"] == "aa_qualifiers" and "rounds" in po:
+                all_p_matches = [m for r in po["rounds"] for m in r["matches"]]
+                for round in po["rounds"]:
+                    for match in round["matches"]:
+                        if "parent_win" in match:
+                            for i, p_label in enumerate(match["parent_win"]):
+                                if i < len(match["teams"]) and match["teams"][i] in ["TBD", None]:
+                                    parent = next((m for m in all_p_matches if m["label"] == p_label), None)
+                                    if parent and parent["played"]: match["teams"][i] = get_winner(parent)
+                        if "parent_loss" in match:
+                            offset = len(match.get("parent_win", []))
+                            for i, p_label in enumerate(match["parent_loss"]):
+                                idx = i + offset
+                                if idx < len(match["teams"]) and match["teams"][idx] in ["TBD", None]:
+                                    parent = next((m for m in all_p_matches if m["label"] == p_label), None)
+                                    if parent and parent["played"]: match["teams"][idx] = get_loser(parent)
+                
+                # Update qualified_teams from Winners of R2 Upper and R3
+                r2 = po["rounds"][1]["matches"]
+                r3 = po["rounds"][2]["matches"]
+                for m in r2[:2]: # R2_W1, R2_W2
+                    if m["played"]:
+                        w = get_winner(m)
+                        if w not in tournament_data["qualified_teams"]: tournament_data["qualified_teams"].append(w)
+                for m in r3:
+                    if m["played"]:
+                        w = get_winner(m)
+                        if w not in tournament_data["qualified_teams"]: tournament_data["qualified_teams"].append(w)
 
             # Legacy Semifinals -> Finals (Asia/Europe)
             elif "semifinals" in po and any(f["teams"][0] is None for f in po["finals"]):
@@ -620,9 +802,14 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         po["finals"][i]["teams"] = [w1, w2]
 
             # Qualifier update
-            final_match = po["rounds"][4]["matches"][0] if "rounds" in po else po["finals"][0]
-            if final_match["played"] and not tournament_data["qualified_teams"]:
-                tournament_data["qualified_teams"].append(get_winner(final_match))
+            if config["type"] == "world_cup":
+                final_match = po["rounds"][4]["matches"][0]
+                if final_match["played"] and not tournament_data["qualified_teams"]:
+                    tournament_data["qualified_teams"].append(get_winner(final_match))
+            elif "finals" in po:
+                final_match = po["finals"][0]
+                if final_match["played"] and not tournament_data["qualified_teams"]:
+                    tournament_data["qualified_teams"].append(get_winner(final_match))
 
 
         if matches_simulated == 0:
@@ -651,8 +838,30 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
             update_group_standings(tournament_data, g_id)
         
         # Scheduling playoffs if not already done
-        if tournament_data["playoffs"] is None:
-             pass # Assumes pre-init or handled in loop
+        if tournament_data["playoffs"]:
+            po = tournament_data["playoffs"]
+            if config["type"] == "afro_asia_cup" and "rounds" in po and po["rounds"][0]["matches"][0]["day"] == 0:
+                seeds = {}
+                for g_id in ["A", "B", "C", "D"]:
+                    table = tournament_data["groups"][g_id]["standings"]
+                    seeds[f"{g_id}1"] = table[0]["team"]
+                    seeds[f"{g_id}2"] = table[1]["team"]
+                    seeds[f"{g_id}3"] = table[2]["team"]
+                
+                # Round of 12
+                r12 = po["rounds"][0]["matches"]
+                r12[0]["teams"] = [seeds["A2"], seeds["B3"]]
+                r12[1]["teams"] = [seeds["C2"], seeds["D3"]]
+                r12[2]["teams"] = [seeds["B2"], seeds["A3"]]
+                r12[3]["teams"] = [seeds["D2"], seeds["C3"]]
+
+                # Quarterfinals (static seeds)
+                qf = po["rounds"][1]["matches"]
+                qf[0]["teams"][0] = seeds["D1"]
+                qf[1]["teams"][0] = seeds["B1"]
+                qf[2]["teams"][0] = seeds["C1"]
+                qf[3]["teams"][0] = seeds["A1"]
+                print("Afro-Asia Cup knockout stage scheduled in simulate_all.")
 
         # Sim Playoff Matches
         if tournament_data["playoffs"]:
@@ -682,12 +891,58 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                 if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
                                 if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
 
+                    elif config["type"] == "afro_asia_cup" and "rounds" in po:
+                        r12, qf, sf, f = [r["matches"] for r in po["rounds"]]
+                        if r_idx == 1: # QF
+                            for i in range(4):
+                                if qf[i]["teams"][1] in ["TBD", None]:
+                                    parent = next((m for m in r12 if m["label"] == qf[i]["parent"]), None)
+                                    if parent and parent["played"]: qf[i]["teams"][1] = get_winner(parent)
+                        elif r_idx == 2: # SF
+                            for i in range(2):
+                                if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
+                                if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
+                        elif r_idx == 3: # F
+                            if sf[0]["played"] and sf[1]["played"]:
+                                if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
+                                if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
+                                if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
+                                if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+
+                    elif config["type"] == "aa_qualifiers" and "rounds" in po:
+                        all_p_matches = [m for r in po["rounds"] for m in r["matches"]]
+                        for match in round["matches"]:
+                            if "parent_win" in match:
+                                for i, p_label in enumerate(match["parent_win"]):
+                                    if i < len(match["teams"]) and match["teams"][i] in ["TBD", None]:
+                                        parent = next((m for m in all_p_matches if m["label"] == p_label), None)
+                                        if parent and parent["played"]: match["teams"][i] = get_winner(parent)
+                            if "parent_loss" in match:
+                                offset = len(match.get("parent_win", []))
+                                for i, p_label in enumerate(match["parent_loss"]):
+                                    idx = i + offset
+                                    if idx < len(match["teams"]) and match["teams"][idx] in ["TBD", None]:
+                                        parent = next((m for m in all_p_matches if m["label"] == p_label), None)
+                                        if parent and parent["played"]: match["teams"][idx] = get_loser(parent)
+
                     for match in round["matches"]:
                         if not match["played"] and "TBD" not in match["teams"] and None not in match["teams"]:
                             print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]}")
                             res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False)
                             match.update(res)
                             match["played"] = True
+
+                if config["type"] == "aa_qualifiers" and "rounds" in po:
+                    r2 = po["rounds"][1]["matches"]
+                    r3 = po["rounds"][2]["matches"]
+                    for m in r2[:2]: # R2_W1, R2_W2
+                        if m["played"]:
+                            w = get_winner(m)
+                            if w not in tournament_data["qualified_teams"]: tournament_data["qualified_teams"].append(w)
+                    for m in r3:
+                        if m["played"]:
+                            w = get_winner(m)
+                            if w not in tournament_data["qualified_teams"]: tournament_data["qualified_teams"].append(w)
             else:
                 stages = ["semifinals", "finals"]
                 for stage_key in stages:
@@ -708,9 +963,15 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                 match.update(res)
                                 match["played"] = True
             
-            final_match = po["rounds"][4]["matches"][0] if "rounds" in po else po["finals"][0]
-            if final_match["played"] and not tournament_data["qualified_teams"]:
-                tournament_data["qualified_teams"].append(get_winner(final_match))
+            # Qualifier update
+            if config["type"] == "world_cup":
+                final_match = po["rounds"][4]["matches"][0]
+                if final_match["played"] and not tournament_data["qualified_teams"]:
+                    tournament_data["qualified_teams"].append(get_winner(final_match))
+            elif "finals" in po:
+                final_match = po["finals"][0]
+                if final_match["played"] and not tournament_data["qualified_teams"]:
+                    tournament_data["qualified_teams"].append(get_winner(final_match))
 
     # Save Output
     with open(results_path, "w") as f:
@@ -725,19 +986,69 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
             all_playoff_played = all(m["played"] for m in tournament_data["playoffs"].get("semifinals", []) + tournament_data["playoffs"].get("finals", []))
     
     if all_playoff_played:
-         print(f"\nTournament Complete! Qualified: {', '.join(tournament_data['qualified_teams'])}")
+        if tournament_data.get("qualified_teams"):
+            print(f"\nTournament Complete! Qualified: {', '.join(tournament_data['qualified_teams'])}")
+        else:
+            # Cup-style completion
+            po = tournament_data["playoffs"]
+            winner = "Unknown"
+            if config.get("type") == "afro_asia_cup":
+                winner = get_winner(po["rounds"][3]["matches"][0])
+            elif config.get("type") == "world_cup":
+                winner = get_winner(po["rounds"][4]["matches"][0])
+            print(f"\nTournament Complete! Winner: {winner}")
     else:
         print(f"Progress saved. Next day: {tournament_data['current_day']}")
 
+def rewind_tournament(tournament_path, target_day):
+    results_path = f"Tournaments/{tournament_path}/results.json"
+    if not os.path.exists(results_path):
+        print("Results file not found.")
+        return
+
+    with open(results_path, 'r') as f:
+        tournament_data = json.load(f)
+
+    tournament_data["current_day"] = target_day
+    tournament_data["qualified_teams"] = []
+    
+    # Reset group stage matches played on or after target_day
+    for g_id, g_data in tournament_data["groups"].items():
+        for m in g_data["matches"]:
+            if m["day"] >= target_day:
+                m["played"] = False
+                if "score" in m: m["score"] = [0, 0]
+                if "pk_score" in m: m["pk_score"] = None
+                if "events" in m: m["events"] = []
+                if "player_data" in m: m["player_data"] = {}
+                if "id" in m:
+                    log_path = f"Tournaments/{tournament_path}/Games/{m['id']}"
+                    if os.path.exists(log_path): os.remove(log_path)
+
+    # Clear playoffs to allow re-initialization
+    tournament_data["playoffs"] = None
+
+    with open(results_path, "w") as f:
+        json.dump(tournament_data, f, indent=2)
+    print(f"Rewound {tournament_path} to day {target_day}")
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 tournament_manager.py [PATH_TO_TOURNAMENT] [--all] [--reset] [--days N]")
+        print("Usage: python3 tournament_manager.py [PATH_TO_TOURNAMENT] [--all] [--reset] [--days N] [--rewind N]")
     else:
-        simulate_all = "--all" in sys.argv
-        days_to_sim = 1
-        if "--days" in sys.argv:
-            idx = sys.argv.index("--days")
-            if idx + 1 < len(sys.argv):
-                days_to_sim = int(sys.argv[idx + 1])
+        path_arg = sys.argv[1]
         
-        run_tournament_step(sys.argv[1], simulate_all, days_to_sim)
+        if "--rewind" in sys.argv:
+            idx = sys.argv.index("--rewind")
+            if idx + 1 < len(sys.argv):
+                target = int(sys.argv[idx + 1])
+                rewind_tournament(path_arg.strip('/'), target)
+        else:
+            simulate_all = "--all" in sys.argv
+            days_to_sim = 1
+            if "--days" in sys.argv:
+                idx = sys.argv.index("--days")
+                if idx + 1 < len(sys.argv):
+                    days_to_sim = int(sys.argv[idx + 1])
+            
+            run_tournament_step(path_arg, simulate_all, days_to_sim)

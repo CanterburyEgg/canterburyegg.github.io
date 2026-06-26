@@ -1,0 +1,17 @@
+{
+  "name": "2024 Africa Qualifiers",
+  "type": "aa_qualifiers",
+  "groups": {
+    "A": ["Zambia", "Burkina Faso", "Guinea", "Comoros"],
+    "B": ["Niger", "Senegal", "Algeria", "Uganda"],
+    "C": ["Cabo Verde", "Morocco", "Ghana", "Equatorial Guinea"],
+    "D": ["South Africa", "Benin", "Cote d'Ivoire", "Togo"],
+    "E": ["The Gambia", "Congo DR", "Mali", "Tanzania"],
+    "F": ["Nigeria", "Sudan", "Madagascar", "Gabon"],
+    "G": ["Mozambique", "Mauritania", "Angola", "Cameroon"],
+    "H": ["Egypt", "Tunisia", "Kenya", "Libya"]
+  },
+  "rules": {
+    "group_repeats": 3
+  }
+}

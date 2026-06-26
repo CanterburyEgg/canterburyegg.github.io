@@ -1,0 +1,11 @@
+{
+  "name": "2022 Africa Qualifiers",
+  "type": "africa_qualifiers",
+  "groups": {
+    "A": ["Cote d'Ivoire", "Senegal", "Nigeria", "Cameroon", "Mali"],
+    "B": ["Egypt", "Burkina Faso", "Algeria", "Morocco", "Tunisia"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

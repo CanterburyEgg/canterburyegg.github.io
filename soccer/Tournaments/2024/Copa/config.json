@@ -1,0 +1,13 @@
+{
+  "name": "2024 Copa America",
+  "type": "copa",
+  "groups": {
+    "A": ["United States", "Chile", "Ecuador", "Honduras"],
+    "B": ["Argentina", "Dominican Republic", "Peru", "Canada"],
+    "C": ["Panama", "Guatemala", "Paraguay", "Trinidad and Tobago"],
+    "D": ["Colombia", "Mexico", "Cuba", "Costa Rica"]
+  },
+  "rules": {
+    "group_repeats": 1
+  }
+}

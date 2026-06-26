@@ -1,0 +1,17 @@
+{
+  "name": "2024 Asia Qualifiers",
+  "type": "aa_qualifiers",
+  "groups": {
+    "A": ["Kuwait", "Syria", "Lebanon", "Fiji"],
+    "B": ["Indonesia", "Kyrgyzstan", "Uzbekistan", "Tahiti"],
+    "C": ["Tajikistan", "Iran", "Thailand", "Solomon Islands"],
+    "D": ["India", "Japan", "Palestine", "Australia"],
+    "E": ["China", "Oman", "Qatar", "New Zealand"],
+    "F": ["Saudi Arabia", "Jordan", "Philippines", "New Caledonia"],
+    "G": ["United Arab Emirates", "Malaysia", "Iraq", "Vanuatu"],
+    "H": ["South Korea", "Vietnam", "Bahrain", "Papua New Guinea"]
+  },
+  "rules": {
+    "group_repeats": 3
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "2024 Euro Cup",
+  "type": "euro",
+  "groups": {
+    "A": ["France", "Czechia", "Italy", "Faroe Islands", "Bosnia"],
+    "B": ["Austria", "Serbia", "Albania", "Ireland", "Macedonia"],
+    "C": ["Croatia", "Switzerland", "England", "Slovenia", "Luxembourg"],
+    "D": ["Turkey", "Germany", "Norway", "Belgium", "Ukraine"],
+    "E": ["Bulgaria", "Hungary", "Denmark", "Portugal", "Greece"]
+  },
+  "rules": {
+    "group_repeats": 1
+  }
+}

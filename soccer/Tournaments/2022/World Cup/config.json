@@ -1,0 +1,17 @@
+{
+  "name": "2022 FIFA World Cup",
+  "type": "world_cup",
+  "groups": {
+    "A": ["United States", "Jordan", "Uruguay", "Iran"],
+    "B": ["England", "Czechia", "Mexico", "Qatar"],
+    "C": ["Wales", "Chile", "Japan", "Serbia"],
+    "D": ["Morocco", "Brazil", "Ukraine", "Portugal"],
+    "E": ["Italy", "Colombia", "Hungary", "Germany"],
+    "F": ["Belgium", "Cote d'Ivoire", "Sweden", "Panama"],
+    "G": ["Spain", "Croatia", "Australia", "Cameroon"],
+    "H": ["Russia", "Egypt", "Ecuador", "France"]
+  },
+  "rules": {
+    "group_repeats": 1
+  }
+}

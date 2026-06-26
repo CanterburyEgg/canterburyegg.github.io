@@ -1,0 +1,11 @@
+{
+  "name": "2022 South America Qualifiers",
+  "type": "sa_qualifiers",
+  "groups": {
+    "A": ["Brazil", "Chile", "Argentina", "Paraguay"],
+    "B": ["Uruguay", "Colombia", "Ecuador", "Peru"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

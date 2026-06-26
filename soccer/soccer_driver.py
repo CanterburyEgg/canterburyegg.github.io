@@ -32,8 +32,10 @@ class Team:
             p.goals = 0
 
 def load_team(tournament_path, team_name):
-    # tournament_path should be like "2026/AS"
-    path = f"Tournaments/{tournament_path}/Teams/{team_name}.txt"
+    # Get the directory where soccer_driver.py is located
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(base_dir, "Tournaments", tournament_path, "Teams", f"{team_name}.txt")
+    
     if not os.path.exists(path):
         return None
     
@@ -193,7 +195,9 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
 
     events = play_minutes(90, team1, team2, logging, log_file)
 
+    is_ot = False
     if team1.score == team2.score and elim:
+        is_ot = True
         if logging: log_file.write("\n--- EXTRA TIME ---\n\n")
         events.extend(play_minutes(30, team1, team2, logging, log_file))
 
@@ -217,6 +221,7 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
         "teams": [team1.name, team2.name],
         "score": [team1.score, team2.score],
         "pk_score": pk_score,
+        "is_ot": is_ot,
         "events": events,
         "stats": {
             team1.name: {"shots": sum(p.shots for p in team1.players), "sogs": sum(p.sogs for p in team1.players), "saves": team1.saves},

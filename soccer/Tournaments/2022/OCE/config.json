@@ -1,0 +1,10 @@
+{
+  "name": "2022 Oceania Qualifiers",
+  "type": "oceania_qualifiers",
+  "groups": {
+    "A": ["Fiji", "Australia", "New Zealand", "Papua New Guinea"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}

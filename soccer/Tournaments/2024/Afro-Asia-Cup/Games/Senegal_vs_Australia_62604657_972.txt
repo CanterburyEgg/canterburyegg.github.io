@@ -1,0 +1,91 @@
+(check=12) Minute 1: no shot.
+(check=29) Minute 2: no shot.
+(check=40) Minute 3: (t1check=44, t2check=12, check1=23, check2=25) Papa missed shot.
+(check=9) Minute 4: no shot.
+(check=8) Minute 5: no shot.
+(check=39) Minute 6: (t1check=69, t2check=40, check1=17, check2=19) Ousmane Diop missed shot.
+(check=9) Minute 7: no shot.
+(check=18) Minute 8: no shot.
+(check=13) Minute 9: no shot.
+(check=35) Minute 10: no shot.
+(check=44) Minute 11: (t1check=7, t2check=16, check1=50, check2=52) (goalchk1=48, goalchk2=44) Geoff Murphy GOAL!!! Score: 0-1
+(check=8) Minute 12: no shot.
+(check=26) Minute 13: no shot.
+(check=28) Minute 14: no shot.
+(check=5) Minute 15: no shot.
+(check=45) Minute 16: (t1check=54, t2check=59, check1=33, check2=35) (goalchk1=16, goalchk2=12) Darren King shot on goal. Mo Diallo SAVE!
+(check=15) Minute 17: no shot.
+(check=21) Minute 18: no shot.
+(check=47) Minute 19: (t1check=72, t2check=45, check1=46, check2=48) (goalchk1=20, goalchk2=15) Elhadji Ka shot on goal. Shane Taylor SAVE!
+(check=11) Minute 20: no shot.
+(check=26) Minute 21: no shot.
+(check=10) Minute 22: no shot.
+(check=30) Minute 23: no shot.
+(check=22) Minute 24: no shot.
+(check=44) Minute 25: (t1check=38, t2check=66, check1=1, check2=3) Darren King missed shot.
+(check=32) Minute 26: no shot.
+(check=27) Minute 27: no shot.
+(check=44) Minute 28: (t1check=17, t2check=71, check1=32, check2=34) (goalchk1=50, goalchk2=46) Thomas Martin GOAL!!! Score: 0-2
+(check=47) Minute 29: (t1check=47, t2check=11, check1=19, check2=21) Papa missed shot.
+(check=31) Minute 30: no shot.
+(check=41) Minute 31: (t1check=8, t2check=55, check1=48, check2=50) (goalchk1=33, goalchk2=29) Thomas Martin GOAL!!! Score: 0-3
+(check=38) Minute 32: no shot.
+(check=32) Minute 33: no shot.
+(check=27) Minute 34: no shot.
+(check=17) Minute 35: no shot.
+(check=48) Minute 36: (t1check=75, t2check=27, check1=4, check2=6) Papa missed shot.
+(check=3) Minute 37: no shot.
+(check=18) Minute 38: no shot.
+(check=43) Minute 39: (t1check=64, t2check=79, check1=14, check2=16) Andrew Moore missed shot.
+(check=35) Minute 40: no shot.
+(check=19) Minute 41: no shot.
+(check=50) Minute 42: (t1check=43, t2check=58, check1=35, check2=37) (goalchk1=18, goalchk2=14) Thomas Martin shot on goal. Mo Diallo SAVE!
+(check=40) Minute 43: (t1check=12, t2check=50, check1=46, check2=48) (goalchk1=4, goalchk2=0) Andrew Moore shot on goal. Mo Diallo SAVE!
+(check=24) Minute 44: no shot.
+(check=20) Minute 45: no shot.
+(check=3) Minute 46: no shot.
+(check=49) Minute 47: (t1check=78, t2check=47, check1=2, check2=4) Papa missed shot.
+(check=6) Minute 48: no shot.
+(check=12) Minute 49: no shot.
+(check=4) Minute 50: no shot.
+(check=26) Minute 51: no shot.
+(check=12) Minute 52: no shot.
+(check=1) Minute 53: no shot.
+(check=4) Minute 54: no shot.
+(check=29) Minute 55: no shot.
+(check=13) Minute 56: no shot.
+(check=10) Minute 57: no shot.
+(check=7) Minute 58: no shot.
+(check=13) Minute 59: no shot.
+(check=6) Minute 60: no shot.
+(check=36) Minute 61: no shot.
+(check=7) Minute 62: no shot.
+(check=1) Minute 63: no shot.
+(check=15) Minute 64: no shot.
+(check=6) Minute 65: no shot.
+(check=28) Minute 66: no shot.
+(check=1) Minute 67: no shot.
+(check=39) Minute 68: (t1check=26, t2check=55, check1=18, check2=20) Thomas Martin missed shot.
+(check=25) Minute 69: no shot.
+(check=5) Minute 70: no shot.
+(check=50) Minute 71: (t1check=9, t2check=69, check1=43, check2=45) (goalchk1=31, goalchk2=27) David Kelly GOAL!!! Score: 0-4
+(check=27) Minute 72: no shot.
+(check=13) Minute 73: no shot.
+(check=8) Minute 74: no shot.
+(check=31) Minute 75: no shot.
+(check=24) Minute 76: no shot.
+(check=2) Minute 77: no shot.
+(check=20) Minute 78: no shot.
+(check=37) Minute 79: no shot.
+(check=27) Minute 80: no shot.
+(check=26) Minute 81: no shot.
+(check=25) Minute 82: no shot.
+(check=44) Minute 83: (t1check=21, t2check=42, check1=18, check2=20) Andrew Moore missed shot.
+(check=44) Minute 84: (t1check=17, t2check=33, check1=41, check2=43) (goalchk1=10, goalchk2=6) Andrew Moore shot on goal. Mo Diallo SAVE!
+(check=49) Minute 85: (t1check=68, t2check=23, check1=2, check2=4) Papa missed shot.
+(check=11) Minute 86: no shot.
+(check=3) Minute 87: no shot.
+(check=1) Minute 88: no shot.
+(check=36) Minute 89: no shot.
+(check=25) Minute 90: no shot.
+Final score: 0-4

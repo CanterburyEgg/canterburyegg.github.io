@@ -410,7 +410,10 @@
                 'COPA': 'soccer/Tournaments/2024/Copa/results.json',
                 'COPAQ': 'soccer/Tournaments/2024/Copa-Qual/results.json',
                 'EUC': 'soccer/Tournaments/2024/EUC/results.json',
-                'EUCQ': 'soccer/Tournaments/2024/EUC-Qual/results.json'
+                'EUCQ': 'soccer/Tournaments/2024/EUC-Qual/results.json',
+                'AFRQ': 'soccer/Tournaments/2024/Africa-Qual/results.json',
+                'ASIAQ': 'soccer/Tournaments/2024/Asia-Qual/results.json',
+                'AAC': 'soccer/Tournaments/2024/Afro-Asia-Cup/results.json'
             },
             '2022': {
                 'WC': 'soccer/Tournaments/2022/World Cup/results.json',
@@ -423,6 +426,8 @@
                 'EU': 'soccer/Tournaments/2022/EU/results.json'
             }
         };
+
+        const RANKINGS_DATA = 'soccer/rankings.json';
 
         const NAV_ITEMS = {
             '2026': [
@@ -437,9 +442,12 @@
             ],
             '2024': [
                 { label: 'Copa America', code: 'COPA' },
-                { label: 'Copa Qualifiers', code: 'COPAQ' },
+                { label: 'Copa Qual', code: 'COPAQ' },
                 { label: 'Euro Cup', code: 'EUC' },
-                { label: 'Euro Qualifiers', code: 'EUCQ' }
+                { label: 'Euro Qual', code: 'EUCQ' },
+                { label: 'Afro-Asia Cup', code: 'AAC' },
+                { label: 'Africa Qual', code: 'AFRQ' },
+                { label: 'Asia Qual', code: 'ASIAQ' }
             ],
             '2022': [
                 { label: 'World Cup', code: 'WC' },
@@ -485,7 +493,14 @@
             "San Marino": "sm", "Vatican City": "va", "Bosnia": "ba", "Luxembourg": "lu",
             "Moldova": "md", "Malta": "mt", "Bulgaria": "bg", "Latvia": "lv",
             "Montenegro": "me", "El Salvador": "sv", "Nicaragua": "ni", "Guatemala": "gt",
-            "Dominican Republic": "do", "Cuba": "cu"
+            "Dominican Republic": "do", "Cuba": "cu",
+            "Comoros": "km", "Zambia": "zm", "Equatorial Guinea": "gq", "Tanzania": "tz",
+            "The Gambia": "gm", "Mozambique": "mz", "Angola": "ao", "Mauritania": "mr",
+            "Uganda": "ug", "Niger": "ne", "Benin": "bj", "Togo": "tg",
+            "Sudan": "sd", "Madagascar": "mg", "Kenya": "ke", "Libya": "ly",
+            "Lebanon": "lb", "Kuwait": "kw", "Tajikistan": "tj", "Solomon Islands": "sb",
+            "Malaysia": "my", "Tahiti": "pf", "Indonesia": "id", "Kyrgyzstan": "kg",
+            "India": "in", "Philippines": "ph", "New Caledonia": "nc"
         };
 
         let currentData = null;
@@ -516,23 +531,41 @@
             items.forEach(item => {
                 const btn = document.createElement('button');
                 btn.className = 'nav-item';
-                if (item.code === currentRegion) btn.classList.add('active');
+                // ONLY active if stage is NOT rankings AND code matches
+                if (currentStage !== 'rankings' && item.code === currentRegion) {
+                    btn.classList.add('active');
+                }
                 btn.innerText = item.label;
                 btn.onclick = (e) => loadRegion(item.code, e.target);
                 nav.appendChild(btn);
             });
+
+            // Add World Rankings button to the end
+            const rankingsBtn = document.createElement('button');
+            rankingsBtn.className = 'nav-item';
+            rankingsBtn.id = 'btn-rankings-nav';
+            rankingsBtn.innerText = 'World Rankings';
+            rankingsBtn.onclick = () => showStage('rankings', rankingsBtn);
+            if (currentStage === 'rankings') rankingsBtn.classList.add('active');
+            nav.appendChild(rankingsBtn);
         }
 
         function updateHeader() {
             const h1 = document.querySelector('header h1');
-            const items = NAV_ITEMS[currentYear] || [];
-            const currentItem = items.find(i => i.code === currentRegion);
-            const label = currentItem ? currentItem.label.toUpperCase() : '';
-            
-            if (currentRegion === 'WC' || currentRegion === 'COPA' || currentRegion === 'EUC') {
-                h1.innerText = `${label} ${currentYear}`;
-            } else {
-                h1.innerText = `ROAD TO THE ${label} ${currentYear}`;
+            if (currentYear === '2024') {
+                if (currentRegion === 'COPA') h1.innerText = 'COPA AMERICA 2024';
+                else if (currentRegion === 'COPAQ') h1.innerText = 'ROAD TO COPA AMERICA 2024';
+                else if (currentRegion === 'EUC') h1.innerText = 'EURO CUP 2024';
+                else if (currentRegion === 'EUCQ') h1.innerText = 'ROAD TO THE EURO CUP 2024';
+                else if (currentRegion === 'AFRQ') h1.innerText = 'ROAD TO THE AFRO-ASIA CUP 2024';
+                else if (currentRegion === 'ASIAQ') h1.innerText = 'ROAD TO THE AFRO-ASIA CUP 2024';
+                else if (currentRegion === 'AAC') h1.innerText = 'AFRO-ASIA CUP 2024';
+            } else if (currentYear === '2022') {
+                if (currentRegion === 'WC') h1.innerText = 'WORLD CUP 2022';
+                else h1.innerText = `ROAD TO THE WORLD CUP 2022`;
+            } else if (currentYear === '2026') {
+                if (currentRegion === 'WC') h1.innerText = 'WORLD CUP 2026';
+                else h1.innerText = `ROAD TO THE WORLD CUP 2026`;
             }
         }
 
@@ -549,6 +582,7 @@
 
         async function loadRegion(regionCode, el, skipPush = false) {
             currentRegion = regionCode;
+            currentStage = 'group'; // Reset stage when switching regions
             viewState = 'main';
             document.getElementById('navigation-root').style.display = 'block';
             
@@ -588,11 +622,6 @@
             currentStage = stage;
             viewState = 'main'; // Ensure we exit team view
             
-            if (el) {
-                document.querySelectorAll('#stage-nav .nav-item').forEach(btn => btn.classList.remove('active'));
-                el.classList.add('active');
-            }
-
             if (!skipPush) {
                 const url = new URL(window.location);
                 url.searchParams.set('year', currentYear);
@@ -606,22 +635,48 @@
         }
 
         function renderCurrentStage() {
-            if (!currentData) return;
+            if (!currentData && currentStage !== 'rankings') return;
             const content = document.getElementById('content');
             content.innerHTML = '';
 
+            renderRegionNav();
+
+            const stageNav = document.getElementById('stage-nav');
+            if (currentStage === 'rankings') {
+                stageNav.style.display = 'none';
+            } else {
+                stageNav.style.display = 'flex';
+            }
+
+            // Update sub-nav active state
+            document.querySelectorAll('#stage-nav .nav-item').forEach(btn => btn.classList.remove('active'));
+            if (currentStage === 'group') document.getElementById('btn-group').classList.add('active');
+            else if (currentStage === 'knockout') document.getElementById('btn-knockout').classList.add('active');
+            else if (currentStage === 'stats') document.getElementById('btn-stats').classList.add('active');
+
             // Hide Knockout Stage button if no playoffs exist or are planned
             const koBtn = document.getElementById('btn-knockout');
-            if (!currentData.playoffs) {
+            if (!currentData || !currentData.playoffs) {
                 koBtn.style.display = 'none';
                 if (currentStage === 'knockout') currentStage = 'group';
             } else {
                 koBtn.style.display = 'inline-block';
             }
 
+            // Always show Rankings and Stats
+            document.getElementById('btn-stats').style.display = 'inline-block';
+            
+            // Highlight World Rankings button if active
+            const rankingsNavBtn = document.getElementById('btn-rankings-nav');
+            if (rankingsNavBtn) {
+                if (currentStage === 'rankings') rankingsNavBtn.classList.add('active');
+                else rankingsNavBtn.classList.remove('active');
+            }
+
             if (currentStage === 'group') renderGroupStage(content);
             else if (currentStage === 'knockout') renderKnockoutStage(content);
             else if (currentStage === 'stats') renderStats(content);
+            else if (currentStage === 'rankings') renderRankings(content);
         }
 
         function renderGroupStage(container) {
@@ -1028,6 +1083,70 @@
             statsGrid.appendChild(scorersDiv);
             statsGrid.appendChild(keepersDiv);
             container.appendChild(statsGrid);
+        }
+
+        function renderRankings(container) {
+            container.innerHTML = '<div class="loading">Loading World Rankings...</div>';
+            
+            fetch(RANKINGS_DATA)
+                .then(res => res.json())
+                .then(data => {
+                    container.innerHTML = '';
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'standings-container';
+                    wrapper.style.display = 'block';
+                    wrapper.style.maxWidth = '800px';
+                    wrapper.style.margin = '0 auto';
+
+                    let html = `
+                        <div class="standings-group">
+                            <h3>Official World Rankings</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;">Rank</th>
+                                        <th>Team</th>
+                                        <th style="text-align: right; width: 120px;">Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+
+                    data.forEach(item => {
+                        const escapedName = item.team.replace(/'/g, "\\'");
+                        let movementHtml = '';
+                        if (item.is_new) {
+                            movementHtml = '<span style="color: #666; font-size: 0.85em;">(New)</span>';
+                        } else if (item.movement > 0) {
+                            movementHtml = `<span style="color: #28a745;"><span style="font-size: 0.7em;">▲</span><span style="font-size: 0.95em;">${item.movement}</span></span>`;
+                        } else if (item.movement < 0) {
+                            movementHtml = `<span style="color: #dc3545;"><span style="font-size: 0.7em;">▼</span><span style="font-size: 0.95em;">${Math.abs(item.movement)}</span></span>`;
+                        }
+
+                        html += `
+                            <tr>
+                                <td>#${item.rank}</td>
+                                <td class="clickable-row" onclick="showTeamPage('${escapedName}')">
+                                    <img src="${getFlagUrl(item.team)}" class="flag" style="width:24px; height:16px;">
+                                    ${item.team}
+                                </td>
+                                <td colspan="2" style="text-align: right;">
+                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 8px;">
+                                        <div style="min-width: 40px;">${movementHtml}</div>
+                                        <div style="font-weight: 700; min-width: 70px;">${item.points.toFixed(1)}</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    html += '</tbody></table></div>';
+                    wrapper.innerHTML = html;
+                    container.appendChild(wrapper);
+                })
+                .catch(err => {
+                    container.innerHTML = '<div class="loading">Rankings data not initialized yet. Process your first tournament to see rankings!</div>';
+                });
         }
 
         function createMatchCard(match) {

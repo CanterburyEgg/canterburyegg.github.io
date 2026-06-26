@@ -1,0 +1,13 @@
+{
+  "name": "2024 Afro-Asia Cup",
+  "type": "afro_asia_cup",
+  "groups": {
+    "A": ["Cote d'Ivoire", "Angola", "South Africa", "Jordan", "Indonesia", "Syria"],
+    "B": ["Morocco", "Senegal", "Algeria", "Australia", "China", "Lebanon"],
+    "C": ["Nigeria", "Burkina Faso", "Tunisia", "Iran", "Tahiti", "South Korea"],
+    "D": ["Egypt", "Mali", "Sudan", "Qatar", "Philippines", "United Arab Emirates"]
+  },
+  "rules": {
+    "group_repeats": 1
+  }
+}

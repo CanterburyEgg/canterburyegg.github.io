@@ -1,0 +1,15 @@
+{
+  "name": "2024 Copa Qualifiers",
+  "type": "copa_qual",
+  "groups": {
+    "SA A": ["Argentina", "Uruguay", "Ecuador", "Bolivia", "Chile"],
+    "SA B": ["Brazil", "Colombia", "Paraguay", "Peru", "Venezuela"],
+    "NA A": ["Mexico", "Nicaragua", "Honduras", "El Salvador", "Panama"],
+    "NA B": ["United States", "Canada", "Costa Rica", "Guatemala", "Belize"],
+    "ISL A": ["Haiti", "Greenland", "Dominican Republic", "Puerto Rico", "Jamaica"],
+    "ISL B": ["Saint Lucia", "Barbados", "Bahamas", "Trinidad and Tobago", "Cuba"]
+  },
+  "rules": {
+    "group_repeats": 2
+  }
+}
