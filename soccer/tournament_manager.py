@@ -387,14 +387,14 @@ def check_mathematical_locks(tournament_data):
     # 2. Apply locks (and reset if not locked)
     for m in r24:
         source = m.get("source", [])
-        if source[0] and (source[0][0] in "ABCDEFGH"):
+        if len(source) > 0 and source[0] and (source[0][0] in "ABCDEFGH"):
             m["teams"][0] = locks.get(source[0], "TBD")
-        if source[1] and (source[1][0] in "ABCDEFGH"):
+        if len(source) > 1 and source[1] and (source[1][0] in "ABCDEFGH"):
             m["teams"][1] = locks.get(source[1], "TBD")
     
     for m in r16:
         source = m.get("source", [])
-        if source[0] and (source[0][0] in "ABCDEFGH"):
+        if len(source) > 0 and source[0] and (source[0][0] in "ABCDEFGH"):
             m["teams"][0] = locks.get(source[0], "TBD")
 
 def update_group_standings(tournament_data, g_id):
@@ -434,6 +434,18 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
     else:
         with open(results_path, 'r') as f:
             tournament_data = json.load(f)
+        
+        # Ensure playoffs are initialized if missing (e.g. after rewind)
+        if config["type"] == "world_cup" and not tournament_data.get("playoffs"):
+            tournament_data["playoffs"] = {
+                "rounds": [
+                    {"name": "Round of 24", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"R24_{i+1}", "source": s} for i, s in enumerate([["A2", "B3"], ["C2", "D3"], ["E2", "F3"], ["G2", "H3"], ["B2", "A3"], ["D2", "C3"], ["F2", "E3"], ["H2", "G3"]])] },
+                    {"name": "Round of 16", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"R16_{i+1}", "parent": f"R24_{i+1}", "source": s} for i, s in enumerate([["E1", None], ["F1", None], ["A1", None], ["B1", None], ["G1", None], ["H1", None], ["C1", None], ["D1", None]])] },
+                    {"name": "Quarterfinals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"QF_{i+1}"} for i in range(4)] },
+                    {"name": "Semifinals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"SF_{i+1}"} for i in range(2)] },
+                    {"name": "Finals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "F"}, {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}] }
+                ]
+            }
 
     for _ in range(days_to_sim if not simulate_all else 1):
         if simulate_all: break
@@ -585,7 +597,19 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     seeds[f"{g_id}2"] = table[1]["team"]
                     seeds[f"{g_id}3"] = table[2]["team"]
 
-                d_r24, d_r16, d_qf, d_sf, d_f = [last_day + i for i in [2, 5, 8, 11, 14]]
+                # Schedule - 16 days total
+                # R24: 4 days (2/2/2/2)
+                # R16: 4 days (2/2/2/2)
+                # QF: 4 days (1/1/1/1)
+                # SF: 2 days (1/1)
+                # 3P: 1 day
+                # F: 1 day
+                d_r24 = [last_day + 1, last_day + 2, last_day + 3, last_day + 4]
+                d_r16 = [last_day + 6, last_day + 7, last_day + 8, last_day + 9]
+                d_qf =  [last_day + 11, last_day + 12, last_day + 13, last_day + 14]
+                d_sf =  [last_day + 16, last_day + 17]
+                d_3p =  last_day + 19
+                d_f =   last_day + 21
 
                 po = tournament_data["playoffs"]
                 if not po or "rounds" not in po:
@@ -594,34 +618,36 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     tournament_data["playoffs"] = po
 
                 # Round of 24
+                r24_sources = [["A2", "B3"], ["C2", "D3"], ["E2", "F3"], ["G2", "H3"], ["B2", "A3"], ["D2", "C3"], ["F2", "E3"], ["H2", "G3"]]
                 po["rounds"][0]["matches"] = [
-                    {"day": d_r24, "teams": [seeds["A2"], seeds["B3"]], "score": [0, 0], "played": False, "label": "R24_1"},
-                    {"day": d_r24, "teams": [seeds["C2"], seeds["D3"]], "score": [0, 0], "played": False, "label": "R24_2"},
-                    {"day": d_r24, "teams": [seeds["E2"], seeds["F3"]], "score": [0, 0], "played": False, "label": "R24_3"},
-                    {"day": d_r24, "teams": [seeds["G2"], seeds["H3"]], "score": [0, 0], "played": False, "label": "R24_4"},
-                    {"day": d_r24, "teams": [seeds["B2"], seeds["A3"]], "score": [0, 0], "played": False, "label": "R24_5"},
-                    {"day": d_r24, "teams": [seeds["D2"], seeds["C3"]], "score": [0, 0], "played": False, "label": "R24_6"},
-                    {"day": d_r24, "teams": [seeds["F2"], seeds["E3"]], "score": [0, 0], "played": False, "label": "R24_7"},
-                    {"day": d_r24, "teams": [seeds["H2"], seeds["G3"]], "score": [0, 0], "played": False, "label": "R24_8"}
+                    {"day": d_r24[0], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_1", "source": r24_sources[0]},
+                    {"day": d_r24[0], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_2", "source": r24_sources[1]},
+                    {"day": d_r24[1], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_3", "source": r24_sources[2]},
+                    {"day": d_r24[1], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_4", "source": r24_sources[3]},
+                    {"day": d_r24[2], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_5", "source": r24_sources[4]},
+                    {"day": d_r24[2], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_6", "source": r24_sources[5]},
+                    {"day": d_r24[3], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_7", "source": r24_sources[6]},
+                    {"day": d_r24[3], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "R24_8", "source": r24_sources[7]}
                 ]
 
                 # Round of 16
+                r16_sources = [["E1", None], ["F1", None], ["A1", None], ["B1", None], ["G1", None], ["H1", None], ["C1", None], ["D1", None]]
                 po["rounds"][1]["matches"] = [
-                    {"day": d_r16, "teams": [seeds["E1"], None], "score": [0, 0], "played": False, "parent": "R24_1", "label": "R16_1"},
-                    {"day": d_r16, "teams": [seeds["F1"], None], "score": [0, 0], "played": False, "parent": "R24_2", "label": "R16_2"},
-                    {"day": d_r16, "teams": [seeds["A1"], None], "score": [0, 0], "played": False, "parent": "R24_3", "label": "R16_3"},
-                    {"day": d_r16, "teams": [seeds["B1"], None], "score": [0, 0], "played": False, "parent": "R24_4", "label": "R16_4"},
-                    {"day": d_r16, "teams": [seeds["G1"], None], "score": [0, 0], "played": False, "parent": "R24_5", "label": "R16_5"},
-                    {"day": d_r16, "teams": [seeds["H1"], None], "score": [0, 0], "played": False, "parent": "R24_6", "label": "R16_6"},
-                    {"day": d_r16, "teams": [seeds["C1"], None], "score": [0, 0], "played": False, "parent": "R24_7", "label": "R16_7"},
-                    {"day": d_r16, "teams": [seeds["D1"], None], "score": [0, 0], "played": False, "parent": "R24_8", "label": "R16_8"}
+                    {"day": d_r16[0], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_1", "label": "R16_1", "source": r16_sources[0]},
+                    {"day": d_r16[0], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_2", "label": "R16_2", "source": r16_sources[1]},
+                    {"day": d_r16[1], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_3", "label": "R16_3", "source": r16_sources[2]},
+                    {"day": d_r16[1], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_4", "label": "R16_4", "source": r16_sources[3]},
+                    {"day": d_r16[2], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_5", "label": "R16_5", "source": r16_sources[4]},
+                    {"day": d_r16[2], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_6", "label": "R16_6", "source": r16_sources[5]},
+                    {"day": d_r16[3], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_7", "label": "R16_7", "source": r16_sources[6]},
+                    {"day": d_r16[3], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "parent": "R24_8", "label": "R16_8", "source": r16_sources[7]}
                 ]
 
-                po["rounds"][2]["matches"] = [{"day": d_qf, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"QF_{i+1}"} for i in range(4)]
-                po["rounds"][3]["matches"] = [{"day": d_sf, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"SF_{i+1}"} for i in range(2)]
+                po["rounds"][2]["matches"] = [{"day": d_qf[i], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"QF_{i+1}"} for i in range(4)]
+                po["rounds"][3]["matches"] = [{"day": d_sf[i], "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"SF_{i+1}"} for i in range(2)]
                 po["rounds"][4]["matches"] = [
                     {"day": d_f, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "F"},
-                    {"day": d_f, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}
+                    {"day": d_3p, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}
                 ]
                 
                 print(f"World Cup knockout stage finalized.")
@@ -837,6 +863,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     match["played"] = True
             update_group_standings(tournament_data, g_id)
         
+        if config["type"] == "world_cup":
+            check_mathematical_locks(tournament_data)
+
         # Scheduling playoffs if not already done
         if tournament_data["playoffs"]:
             po = tournament_data["playoffs"]
@@ -974,6 +1003,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     tournament_data["qualified_teams"].append(get_winner(final_match))
 
     # Save Output
+    if config["type"] == "world_cup":
+        check_mathematical_locks(tournament_data)
+
     with open(results_path, "w") as f:
         json.dump(tournament_data, f, indent=2)
     
@@ -1025,8 +1057,21 @@ def rewind_tournament(tournament_path, target_day):
                     log_path = f"Tournaments/{tournament_path}/Games/{m['id']}"
                     if os.path.exists(log_path): os.remove(log_path)
 
-    # Clear playoffs to allow re-initialization
-    tournament_data["playoffs"] = None
+    # Clear playoffs entirely if they haven't finished, forcing re-initialization with correct tags/days
+    if tournament_data.get("playoffs"):
+        po = tournament_data["playoffs"]
+        finished = False
+        if "rounds" in po:
+            finished = po["rounds"][-1]["matches"][0]["played"]
+        else:
+            finished = po.get("finals", [{}])[0].get("played", False)
+        
+        if not finished:
+            tournament_data["playoffs"] = None
+            print(f"Playoffs cleared for re-initialization.")
+
+    if tournament_data["config"]["type"] == "world_cup":
+        check_mathematical_locks(tournament_data)
 
     with open(results_path, "w") as f:
         json.dump(tournament_data, f, indent=2)

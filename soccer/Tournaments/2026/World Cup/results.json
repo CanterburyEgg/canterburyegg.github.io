@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 18,
+  "current_day": 17,
   "groups": {
     "A": {
       "matches": [
@@ -16119,7 +16119,7 @@
         "name": "Round of 24",
         "matches": [
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Russia",
               "Italy"
@@ -16129,10 +16129,14 @@
               0
             ],
             "played": false,
-            "label": "R24_1"
+            "label": "R24_1",
+            "source": [
+              "A2",
+              "B3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Cote d'Ivoire",
               "New Zealand"
@@ -16142,10 +16146,14 @@
               0
             ],
             "played": false,
-            "label": "R24_2"
+            "label": "R24_2",
+            "source": [
+              "C2",
+              "D3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "England",
               "Canada"
@@ -16155,10 +16163,14 @@
               0
             ],
             "played": false,
-            "label": "R24_3"
+            "label": "R24_3",
+            "source": [
+              "E2",
+              "F3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Algeria",
               "Switzerland"
@@ -16168,10 +16180,14 @@
               0
             ],
             "played": false,
-            "label": "R24_4"
+            "label": "R24_4",
+            "source": [
+              "G2",
+              "H3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Colombia",
               "Morocco"
@@ -16181,10 +16197,14 @@
               0
             ],
             "played": false,
-            "label": "R24_5"
+            "label": "R24_5",
+            "source": [
+              "B2",
+              "A3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Argentina",
               "Sweden"
@@ -16194,10 +16214,14 @@
               0
             ],
             "played": false,
-            "label": "R24_6"
+            "label": "R24_6",
+            "source": [
+              "D2",
+              "C3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Ecuador",
               "Germany"
@@ -16207,10 +16231,14 @@
               0
             ],
             "played": false,
-            "label": "R24_7"
+            "label": "R24_7",
+            "source": [
+              "F2",
+              "E3"
+            ]
           },
           {
-            "day": 18,
+            "day": 0,
             "teams": [
               "Mexico",
               "Uzbekistan"
@@ -16220,7 +16248,11 @@
               0
             ],
             "played": false,
-            "label": "R24_8"
+            "label": "R24_8",
+            "source": [
+              "H2",
+              "G3"
+            ]
           }
         ]
       },
@@ -16228,116 +16260,148 @@
         "name": "Round of 16",
         "matches": [
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "Brazil",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_1",
             "parent": "R24_1",
-            "label": "R16_1"
+            "source": [
+              "E1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "France",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_2",
             "parent": "R24_2",
-            "label": "R16_2"
+            "source": [
+              "F1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "United States",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_3",
             "parent": "R24_3",
-            "label": "R16_3"
+            "source": [
+              "A1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "Egypt",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_4",
             "parent": "R24_4",
-            "label": "R16_4"
+            "source": [
+              "B1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "Netherlands",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_5",
             "parent": "R24_5",
-            "label": "R16_5"
+            "source": [
+              "G1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "Wales",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_6",
             "parent": "R24_6",
-            "label": "R16_6"
+            "source": [
+              "H1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "Saudi Arabia",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_7",
             "parent": "R24_7",
-            "label": "R16_7"
+            "source": [
+              "C1",
+              null
+            ]
           },
           {
-            "day": 21,
+            "day": 0,
             "teams": [
               "Belgium",
-              null
+              "TBD"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
+            "label": "R16_8",
             "parent": "R24_8",
-            "label": "R16_8"
+            "source": [
+              "D1",
+              null
+            ]
           }
         ]
       },
@@ -16345,7 +16409,7 @@
         "name": "Quarterfinals",
         "matches": [
           {
-            "day": 24,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16358,7 +16422,7 @@
             "label": "QF_1"
           },
           {
-            "day": 24,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16371,7 +16435,7 @@
             "label": "QF_2"
           },
           {
-            "day": 24,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16384,7 +16448,7 @@
             "label": "QF_3"
           },
           {
-            "day": 24,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16402,7 +16466,7 @@
         "name": "Semifinals",
         "matches": [
           {
-            "day": 27,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16415,7 +16479,7 @@
             "label": "SF_1"
           },
           {
-            "day": 27,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16433,7 +16497,7 @@
         "name": "Finals",
         "matches": [
           {
-            "day": 30,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
@@ -16446,7 +16510,7 @@
             "label": "F"
           },
           {
-            "day": 30,
+            "day": 0,
             "teams": [
               "TBD",
               "TBD"
