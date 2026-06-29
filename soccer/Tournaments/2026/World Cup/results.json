@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 17,
+  "current_day": 18,
   "groups": {
     "A": {
       "matches": [
@@ -16119,41 +16119,408 @@
         "name": "Round of 24",
         "matches": [
           {
-            "day": 0,
+            "day": 17,
             "teams": [
               "Russia",
               "Italy"
             ],
             "score": [
-              0,
-              0
+              3,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "R24_1",
             "source": [
               "A2",
               "B3"
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 18,
+                "team": "Russia",
+                "player": "Pavel Ivanova"
+              },
+              {
+                "minute": 37,
+                "team": "Russia",
+                "player": "Sergey Petrov"
+              },
+              {
+                "minute": 41,
+                "team": "Italy",
+                "player": "Salvatore Moretti"
+              },
+              {
+                "minute": 73,
+                "team": "Russia",
+                "player": "Maksim Volkova"
+              }
+            ],
+            "stats": {
+              "Russia": {
+                "shots": 14,
+                "sogs": 4,
+                "saves": 3
+              },
+              "Italy": {
+                "shots": 8,
+                "sogs": 4,
+                "saves": 1
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Ivan Popova",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Maksim Volkova",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrey Zaitsev",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergey Petrov",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aleksandr Kuznetsov",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Viktor Morozov",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vladimir Novikov",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pavel Ivanova",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dmitriy Shevchenko",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Giovanni Ricci",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Giovanni Rossi",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Federico Barella",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pietro Greco",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salvatore Moretti",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Giorgio Chellini",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Giuseppe Giordano",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francesco Caruso",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio de Luca",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 3
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Russia_vs_Italy_629115114_774.txt"
           },
           {
-            "day": 0,
+            "day": 17,
             "teams": [
               "Cote d'Ivoire",
               "New Zealand"
             ],
             "score": [
-              0,
-              0
+              1,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "R24_2",
             "source": [
               "C2",
               "D3"
-            ]
+            ],
+            "pk_score": [
+              2,
+              3
+            ],
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 39,
+                "team": "Cote d'Ivoire",
+                "player": "Koffi Kouassi"
+              },
+              {
+                "minute": 46,
+                "team": "New Zealand",
+                "player": "William Davies"
+              }
+            ],
+            "stats": {
+              "Cote d'Ivoire": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 3
+              },
+              "New Zealand": {
+                "shots": 17,
+                "sogs": 4,
+                "saves": 2
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Didier Diomande",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Koffi Kouassi",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Simon Kossounou",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aka Dah",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Moussa Amani",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Odilon Gradel",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Yao Sanogo",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Kouame Ouattara",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brahima Kamagate",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Chris Turner",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nick Young",
+                  "shots": 5,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nando Pijnaker",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roger Simpson",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "William Davies",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Joe Waine",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Kevin Singh",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jason Watson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 2,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Cote d'Ivoire_vs_New Zealand_629115114_612.txt"
           },
           {
-            "day": 0,
+            "day": 18,
             "teams": [
               "England",
               "Canada"
@@ -16170,7 +16537,7 @@
             ]
           },
           {
-            "day": 0,
+            "day": 18,
             "teams": [
               "Algeria",
               "Switzerland"
@@ -16187,7 +16554,7 @@
             ]
           },
           {
-            "day": 0,
+            "day": 19,
             "teams": [
               "Colombia",
               "Morocco"
@@ -16204,7 +16571,7 @@
             ]
           },
           {
-            "day": 0,
+            "day": 19,
             "teams": [
               "Argentina",
               "Sweden"
@@ -16221,7 +16588,7 @@
             ]
           },
           {
-            "day": 0,
+            "day": 20,
             "teams": [
               "Ecuador",
               "Germany"
@@ -16238,7 +16605,7 @@
             ]
           },
           {
-            "day": 0,
+            "day": 20,
             "teams": [
               "Mexico",
               "Uzbekistan"
@@ -16260,43 +16627,43 @@
         "name": "Round of 16",
         "matches": [
           {
-            "day": 0,
+            "day": 22,
             "teams": [
               "Brazil",
-              "TBD"
+              "Russia"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
-            "label": "R16_1",
             "parent": "R24_1",
+            "label": "R16_1",
             "source": [
               "E1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 22,
             "teams": [
               "France",
-              "TBD"
+              "New Zealand"
             ],
             "score": [
               0,
               0
             ],
             "played": false,
-            "label": "R16_2",
             "parent": "R24_2",
+            "label": "R16_2",
             "source": [
               "F1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 23,
             "teams": [
               "United States",
               "TBD"
@@ -16306,15 +16673,15 @@
               0
             ],
             "played": false,
-            "label": "R16_3",
             "parent": "R24_3",
+            "label": "R16_3",
             "source": [
               "A1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 23,
             "teams": [
               "Egypt",
               "TBD"
@@ -16324,15 +16691,15 @@
               0
             ],
             "played": false,
-            "label": "R16_4",
             "parent": "R24_4",
+            "label": "R16_4",
             "source": [
               "B1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 24,
             "teams": [
               "Netherlands",
               "TBD"
@@ -16342,15 +16709,15 @@
               0
             ],
             "played": false,
-            "label": "R16_5",
             "parent": "R24_5",
+            "label": "R16_5",
             "source": [
               "G1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 24,
             "teams": [
               "Wales",
               "TBD"
@@ -16360,15 +16727,15 @@
               0
             ],
             "played": false,
-            "label": "R16_6",
             "parent": "R24_6",
+            "label": "R16_6",
             "source": [
               "H1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 25,
             "teams": [
               "Saudi Arabia",
               "TBD"
@@ -16378,15 +16745,15 @@
               0
             ],
             "played": false,
-            "label": "R16_7",
             "parent": "R24_7",
+            "label": "R16_7",
             "source": [
               "C1",
               null
             ]
           },
           {
-            "day": 0,
+            "day": 25,
             "teams": [
               "Belgium",
               "TBD"
@@ -16396,8 +16763,8 @@
               0
             ],
             "played": false,
-            "label": "R16_8",
             "parent": "R24_8",
+            "label": "R16_8",
             "source": [
               "D1",
               null
@@ -16409,7 +16776,7 @@
         "name": "Quarterfinals",
         "matches": [
           {
-            "day": 0,
+            "day": 27,
             "teams": [
               "TBD",
               "TBD"
@@ -16422,7 +16789,7 @@
             "label": "QF_1"
           },
           {
-            "day": 0,
+            "day": 28,
             "teams": [
               "TBD",
               "TBD"
@@ -16435,7 +16802,7 @@
             "label": "QF_2"
           },
           {
-            "day": 0,
+            "day": 29,
             "teams": [
               "TBD",
               "TBD"
@@ -16448,7 +16815,7 @@
             "label": "QF_3"
           },
           {
-            "day": 0,
+            "day": 30,
             "teams": [
               "TBD",
               "TBD"
@@ -16466,7 +16833,7 @@
         "name": "Semifinals",
         "matches": [
           {
-            "day": 0,
+            "day": 32,
             "teams": [
               "TBD",
               "TBD"
@@ -16479,7 +16846,7 @@
             "label": "SF_1"
           },
           {
-            "day": 0,
+            "day": 33,
             "teams": [
               "TBD",
               "TBD"
@@ -16497,7 +16864,7 @@
         "name": "Finals",
         "matches": [
           {
-            "day": 0,
+            "day": 37,
             "teams": [
               "TBD",
               "TBD"
@@ -16510,7 +16877,7 @@
             "label": "F"
           },
           {
-            "day": 0,
+            "day": 35,
             "teams": [
               "TBD",
               "TBD"

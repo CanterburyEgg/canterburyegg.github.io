@@ -650,6 +650,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     {"day": d_3p, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}
                 ]
                 
+                check_mathematical_locks(tournament_data)
                 print(f"World Cup knockout stage finalized.")
 
             elif config["type"] == "afro_asia_cup" and (tournament_data["playoffs"] is None or tournament_data["playoffs"]["rounds"][0]["matches"][0]["day"] == 0):
