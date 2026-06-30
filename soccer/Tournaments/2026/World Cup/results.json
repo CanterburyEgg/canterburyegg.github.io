@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 18,
+  "current_day": 19,
   "groups": {
     "A": {
       "matches": [
@@ -16526,15 +16526,202 @@
               "Canada"
             ],
             "score": [
-              0,
-              0
+              3,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "R24_3",
             "source": [
               "E2",
               "F3"
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 24,
+                "team": "England",
+                "player": "Neil Griffith"
+              },
+              {
+                "minute": 55,
+                "team": "England",
+                "player": "Neil Griffith"
+              },
+              {
+                "minute": 56,
+                "team": "England",
+                "player": "Marc Watkins"
+              },
+              {
+                "minute": 79,
+                "team": "Canada",
+                "player": "Jacques Lavoie"
+              }
+            ],
+            "stats": {
+              "England": {
+                "shots": 14,
+                "sogs": 7,
+                "saves": 1
+              },
+              "Canada": {
+                "shots": 11,
+                "sogs": 2,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Neil Griffith",
+                  "shots": 5,
+                  "sogs": 4,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Simon Knight",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Watkins",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benjamin Webb",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ollie Rice",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Graham Chapman",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Price",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Scott Robinson",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Joseph Clarke",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cole Miller",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edward Gauthier",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Tremblay",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Kamal Kone",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Gagnon",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jacques Lavoie",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 3
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/England_vs_Canada_630112437_252.txt"
           },
           {
             "day": 18,
@@ -16543,15 +16730,205 @@
               "Switzerland"
             ],
             "score": [
-              0,
-              0
+              2,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "R24_4",
             "source": [
               "G2",
               "H3"
-            ]
+            ],
+            "pk_score": [
+              3,
+              4
+            ],
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 15,
+                "team": "Switzerland",
+                "player": "Werner Frei"
+              },
+              {
+                "minute": 18,
+                "team": "Switzerland",
+                "player": "Peter Buhler"
+              },
+              {
+                "minute": 46,
+                "team": "Algeria",
+                "player": "Ali Brahimi"
+              },
+              {
+                "minute": 74,
+                "team": "Algeria",
+                "player": "Salah Saidi"
+              }
+            ],
+            "stats": {
+              "Algeria": {
+                "shots": 18,
+                "sogs": 4,
+                "saves": 1
+              },
+              "Switzerland": {
+                "shots": 12,
+                "sogs": 3,
+                "saves": 2
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Salah Saidi",
+                  "shots": 6,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdel Dahmani",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aissa Bounedjah",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Said Taleb",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ali Brahimi",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Far\u00e8s Bensebaini",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohamed Benyahia",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amar Touati",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ahmed Mansouri",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Peter Buhler",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andreas Wyss",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ruben Schar",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Werner Frei",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stefan Meier",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silvan Widmer",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Roth",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rolf Bachmann",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Markus Schneider",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Algeria_vs_Switzerland_630112437_773.txt"
           },
           {
             "day": 19,
@@ -16666,7 +17043,7 @@
             "day": 23,
             "teams": [
               "United States",
-              "TBD"
+              "England"
             ],
             "score": [
               0,
@@ -16684,7 +17061,7 @@
             "day": 23,
             "teams": [
               "Egypt",
-              "TBD"
+              "Switzerland"
             ],
             "score": [
               0,
