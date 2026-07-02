@@ -1,5 +1,6 @@
 import os
 import random
+import math
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -7,6 +8,7 @@ def get_stats(path):
     if not os.path.exists(path): return None
     with open(path, 'r') as f:
         lines = [l.strip() for l in f.readlines() if l.strip()]
+        if len(lines) < 4: return None
         return [int(l) for l in lines[-4:]]
 
 def update_stats(path, new_stats):
@@ -20,23 +22,27 @@ def update_stats(path, new_stats):
         for s in new_stats:
             f.write(str(s) + "\n")
 
-def generate_valid_set(baseline):
+def generate_valid_random_set(baseline):
     while True:
         candidate = []
         for val in baseline:
-            if val == 10: res = random.choice([8, 9, 10])
-            elif val == 9: res = random.choice([8, 9])
-            elif val == 1: res = random.choice([1, 2])
-            elif val == 0: res = random.choice([0, 1, 2])
-            else:
-                low = max(0, val - 2)
-                high = min(10, val + 2)
-                res = random.randint(low, high)
-            candidate.append(res)
-        
-        total_drift = sum(abs(candidate[i] - baseline[i]) for i in range(4))
-        if total_drift <= 4:
+            candidate.append(random.randint(max(0, val - 2), min(10, val + 2)))
+        net_drift = sum(candidate[i] - baseline[i] for i in range(4))
+        if -4 <= net_drift <= 4:
             return candidate
+
+def generate_brand_new_set():
+    while True:
+        candidate = [random.randint(0, 6) for _ in range(4)]
+        if sum(candidate) <= 18:
+            return candidate
+
+def apply_extremity_rule(val):
+    if val == 10: return random.choice([8, 9, 10])
+    if val == 9:  return random.choice([8, 9])
+    if val == 1:  return random.choice([1, 2])
+    if val == 0:  return random.choice([0, 1, 2])
+    return val
 
 def find_all_files(year):
     registry = {}
@@ -51,38 +57,94 @@ def find_all_files(year):
                     registry[name].append(os.path.join(root, f))
     return registry
 
-# --- 1. Global Baseline (2022) ---
-t22_files = find_all_files('2022')
-baselines = {name: get_stats(paths[0]) for name, paths in t22_files.items()}
+def is_eus_na(path):
+    p = path.upper()
+    return any(x in p for x in ["/EU", "/SA", "/NA", "EUC", "COPA"])
 
-# --- 2. Update 2024 and 2026 ---
+# --- Setup Baselines ---
+t22_files = find_all_files('2022')
+baselines_2022 = {name: get_stats(paths[0]) for name, paths in t22_files.items()}
+
+t24_files = find_all_files('2024')
+baselines_2024_qual = {}
+for name, paths in t24_files.items():
+    # Capture stats from any 2024 Qualifier folder
+    qual_path = next((p for p in paths if "-Qual" in p or "EUC-Qual" in p or "Copa-Qual" in p), None)
+    if qual_path:
+        baselines_2024_qual[name] = get_stats(qual_path)
+
+# --- Processing Loop ---
 for year in ['2024', '2026']:
     year_files = find_all_files(year)
-    print(f"Checking and repairing {year} stats...")
+    team_data = {}
     for name, paths in sorted(year_files.items()):
-        current_baseline = baselines.get(name) or get_stats(paths[0])
-        current_actual = get_stats(paths[0])
+        stats = get_stats(paths[0])
+        if not stats: continue
         
-        if current_baseline and current_actual:
-            # Check if current is already valid
-            individual_valid = all(abs(current_actual[i] - current_baseline[i]) <= 2 for i in range(4))
-            total_drift = sum(abs(current_actual[i] - current_baseline[i]) for i in range(4))
-            total_valid = total_drift <= 4
-            
-            # Additional Check: If baseline is 10, 9, 1, or 0, it ALWAYS triggers a re-roll?
-            # User said "rerolling new numbers IF the drift is too high."
-            # So I will prioritize the drift check.
-            
-            if individual_valid and total_valid:
-                new_stats = current_actual
+        eus_na_status = any(is_eus_na(p) for p in paths)
+        
+        # Determine baseline type
+        baseline = None
+        is_brand_new = False
+        
+        # A team is ONLY brand new if it is not in 2022 AND not in any 2024 Quals
+        if name not in baselines_2022 and name not in baselines_2024_qual:
+            is_brand_new = True
+            baseline = stats 
+        else:
+            # Region-based priority
+            if eus_na_status:
+                baseline = baselines_2024_qual.get(name) or baselines_2022.get(name)
             else:
-                new_stats = generate_valid_set(current_baseline)
-                print(f"  [REPAIRED] {name}: {current_actual} -> {new_stats} (Baseline: {current_baseline})")
+                baseline = baselines_2022.get(name) or baselines_2024_qual.get(name)
             
-            for p in paths:
-                update_stats(p, new_stats)
-            
-            if name not in baselines:
-                baselines[name] = current_baseline
+        team_data[name] = {"actual": stats, "paths": paths, "baseline": baseline, "is_eus_na": eus_na_status, "is_brand_new": is_brand_new}
 
-print("Update complete. All teams within limits.")
+    print(f"\n--- {year} STAGE 0: BRAND NEW TEAMS ---")
+    for name, data in team_data.items():
+        if data["is_brand_new"]:
+            new_stats = generate_brand_new_set()
+            print(f"  [NEW] {name:<20}: {data['actual']} -> {new_stats}")
+            data["actual"] = new_stats
+            data["baseline"] = new_stats 
+
+    print(f"\n--- {year} STAGE 1: REPAIRS ---")
+    for name, data in team_data.items():
+        # Skip 2024 stable regions
+        if year == '2024' and data["is_eus_na"]: continue
+        if data["is_brand_new"]: continue
+        
+        base = data["baseline"]
+        act = data["actual"]
+        individual_valid = all(abs(act[i] - base[i]) <= 2 for i in range(4))
+        net_drift = sum(act[i] - base[i] for i in range(4))
+        
+        if not (individual_valid and (-4 <= net_drift <= 4)):
+            new_stats = generate_valid_random_set(base)
+            print(f"  [REPAIRED] {name:<20}: {act} -> {new_stats} (Baseline: {base})")
+            data["actual"] = new_stats
+
+    print(f"\n--- {year} STAGE 2: EXTREME REROLLS ---")
+    for name, data in team_data.items():
+        if year == '2024' and data["is_eus_na"]: continue
+        
+        act = data["actual"]
+        if any(s in [0, 1, 9, 10] for s in act):
+            new_stats = [apply_extremity_rule(s) for s in act]
+            if new_stats != act:
+                print(f"  [EXTREME] {name:<20}: {act} -> {new_stats}")
+                data["actual"] = new_stats
+
+    print(f"\n--- {year} STAGE 3: VALIDATION ---")
+    for name, data in team_data.items():
+        base = data["baseline"]
+        act = data["actual"]
+        net_drift = sum(act[i] - base[i] for i in range(4))
+        
+        if not (-4 <= net_drift <= 4):
+            print(f"  [MANUAL CHECK] {name:<20}: {act} (Baseline: {base}, Net Drift: {net_drift})")
+        
+        for p in data["paths"]:
+            update_stats(p, act)
+
+print("\nUpdate process complete.")
