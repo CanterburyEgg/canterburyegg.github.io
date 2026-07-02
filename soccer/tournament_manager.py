@@ -54,52 +54,103 @@ def get_h2h_stats(teams, matches):
                 h2h[t2]["pts"] += 1
     return h2h
 
+def get_h2h_stats(cluster, matches):
+    h2h = {}
+    for t in cluster:
+        h2h[t] = {"pts": 0, "gd": 0, "gf": 0}
+    
+    for m in matches:
+        if not m["played"]: continue
+        t1, t2 = m["teams"]
+        if t1 in cluster and t2 in cluster:
+            s1, s2 = m["score"]
+            h2h[t1]["gf"] += s1
+            h2h[t2]["gf"] += s2
+            h2h[t1]["gd"] += (s1 - s2)
+            h2h[t2]["gd"] += (s2 - s1)
+            if s1 > s2:
+                h2h[t1]["pts"] += 3
+            elif s2 > s1:
+                h2h[t2]["pts"] += 3
+            else:
+                h2h[t1]["pts"] += 1
+                h2h[t2]["pts"] += 1
+    return h2h
+
 def sort_standings(standings, matches):
     teams = list(standings.keys())
-    # Initial sort by points
-    teams.sort(key=lambda t: standings[t]["pts"], reverse=True)
     
-    final_sorted = []
-    i = 0
-    while i < len(teams):
-        j = i + 1
-        while j < len(teams) and standings[teams[j]]["pts"] == standings[teams[i]]["pts"]:
-            j += 1
+    def resolve_tie(cluster, level=0):
+        # Tie-break levels:
+        # 0: Overall Points
+        # 1: H2H Points among tied teams
+        # 2: H2H GD among tied teams
+        # 3: H2H GS among tied teams
+        # 4: Overall GD
+        # 5: Overall GS
         
-        cluster = teams[i:j]
-        if len(cluster) > 1:
-            # Step one: H2H among tied teams
-            h2h_stats = get_h2h_stats(cluster, matches)
-            # Sort cluster by H2H stats
-            cluster.sort(key=lambda t: (h2h_stats[t]["pts"], h2h_stats[t]["gd"], h2h_stats[t]["gf"]), reverse=True)
-            
-            # Identify sub-clusters that are still tied after H2H
-            k = 0
-            while k < len(cluster):
-                l = k + 1
-                while l < len(cluster) and \
-                      h2h_stats[cluster[l]]["pts"] == h2h_stats[cluster[k]]["pts"] and \
-                      h2h_stats[cluster[l]]["gd"] == h2h_stats[cluster[k]]["gd"] and \
-                      h2h_stats[cluster[l]]["gf"] == h2h_stats[cluster[k]]["gf"]:
-                    l += 1
-                
-                sub_cluster = cluster[k:l]
-                if len(sub_cluster) > 1:
-                    # Step two: Overall GD and GS
-                    sub_cluster.sort(key=lambda t: (standings[t]["gd"], standings[t]["gf"]), reverse=True)
-                
-                for team in sub_cluster:
-                    stats = standings[team]
-                    stats["team"] = team
-                    final_sorted.append(stats)
-                k = l
+        if len(cluster) <= 1: return cluster
+        
+        # Sort current cluster based on the current tie-break level
+        if level == 0:
+            cluster.sort(key=lambda t: standings[t]["pts"], reverse=True)
+        elif level == 1: # H2H Pts
+            h2h = get_h2h_stats(cluster, matches)
+            cluster.sort(key=lambda t: h2h[t]["pts"], reverse=True)
+        elif level == 2: # H2H GD
+            h2h = get_h2h_stats(cluster, matches)
+            cluster.sort(key=lambda t: h2h[t]["gd"], reverse=True)
+        elif level == 3: # H2H GS
+            h2h = get_h2h_stats(cluster, matches)
+            cluster.sort(key=lambda t: h2h[t]["gf"], reverse=True)
+        elif level == 4: # Overall GD
+            cluster.sort(key=lambda t: standings[t]["gd"], reverse=True)
+        elif level == 5: # Overall GS
+            cluster.sort(key=lambda t: standings[t]["gf"], reverse=True)
         else:
-            team = cluster[0]
-            stats = standings[team]
-            stats["team"] = team
-            final_sorted.append(stats)
-        i = j
-    
+            return cluster # End of the line
+
+        # Group teams that are STILL tied at this level
+        resolved = []
+        i = 0
+        while i < len(cluster):
+            j = i + 1
+            while j < len(cluster):
+                is_tied = False
+                if level == 0: is_tied = standings[cluster[j]]["pts"] == standings[cluster[i]]["pts"]
+                elif level == 1: 
+                    h2h = get_h2h_stats(cluster, matches)
+                    is_tied = h2h[cluster[j]]["pts"] == h2h[cluster[i]]["pts"]
+                elif level == 2:
+                    h2h = get_h2h_stats(cluster, matches)
+                    is_tied = h2h[cluster[j]]["gd"] == h2h[cluster[i]]["gd"]
+                elif level == 3:
+                    h2h = get_h2h_stats(cluster, matches)
+                    is_tied = h2h[cluster[j]]["gf"] == h2h[cluster[i]]["gf"]
+                elif level == 4: is_tied = standings[cluster[j]]["gd"] == standings[cluster[i]]["gd"]
+                elif level == 5: is_tied = standings[cluster[j]]["gf"] == standings[cluster[i]]["gf"]
+                
+                if is_tied: j += 1
+                else: break
+            
+            sub = cluster[i:j]
+            if len(sub) > 1:
+                # RESTART LOGIC: If we split the cluster (e.g. 1 team moved, 2 stayed tied), 
+                # we restart the tied sub-group back at Level 1 (H2H Points).
+                # Otherwise, we just move to the next level of tie-breaking.
+                new_level = 1 if len(sub) < len(cluster) and level > 0 else level + 1
+                resolved.extend(resolve_tie(sub, new_level))
+            else:
+                resolved.extend(sub)
+            i = j
+        return resolved
+
+    sorted_names = resolve_tie(teams, 0)
+    final_sorted = []
+    for name in sorted_names:
+        s = standings[name]
+        s["team"] = name
+        final_sorted.append(s)
     return final_sorted
 
 def generate_round_robin_schedule(teams):
@@ -410,7 +461,6 @@ def update_group_standings(tournament_data, g_id):
             results[team] = {"played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0}
     
     tournament_data["groups"][g_id]["standings"] = sort_standings(results, matches)
-    check_mathematical_locks(tournament_data)
 
 def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
     tournament_path = path_arg.strip('/')
@@ -426,11 +476,13 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
         config = json.load(f)
 
     if "--reset" in sys.argv or not os.path.exists(results_path):
-        tournament_data = initialize_tournament(base_path, tournament_path, config)
+        # Delete existing logs before re-initializing
         games_dir = f"{base_path}/Games"
         if os.path.exists(games_dir):
             shutil.rmtree(games_dir)
         os.makedirs(games_dir, exist_ok=True)
+        
+        tournament_data = initialize_tournament(base_path, tournament_path, config)
     else:
         with open(results_path, 'r') as f:
             tournament_data = json.load(f)
@@ -468,6 +520,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         match["played"] = True
                         matches_simulated += 1
             update_group_standings(tournament_data, g_id)
+        
+        if config["type"] == "world_cup":
+            check_mathematical_locks(tournament_data)
 
         # 2. Check for Playoff Transition or Direct Qualification
         if group_stage_complete:
