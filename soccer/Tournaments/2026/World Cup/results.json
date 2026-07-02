@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 19,
+  "current_day": 20,
   "groups": {
     "A": {
       "matches": [
@@ -16938,14 +16938,186 @@
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "R24_5",
             "source": [
               "B2",
               "A3"
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 68,
+                "team": "Morocco",
+                "player": "Mohamed Alaoui"
+              }
+            ],
+            "stats": {
+              "Colombia": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 6
+              },
+              "Morocco": {
+                "shots": 13,
+                "sogs": 7,
+                "saves": 3
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Hernan Torres",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Cardona",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Borr\u00e9",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Ruiz",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jefferson Uribe",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andres Rodriguez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Giraldo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "German Arias",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 6,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Mohamed Alaoui",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nabil Karim",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Walid Harit",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mustapha Hakimi",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rachid Tahiri",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amine Ounahi",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hicham El-Mostafa",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohammed El-Idrissi",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdel Aziz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Colombia_vs_Morocco_71184944_303.txt"
           },
           {
             "day": 19,
@@ -16954,15 +17126,187 @@
               "Sweden"
             ],
             "score": [
-              0,
+              1,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "R24_6",
             "source": [
               "D2",
               "C3"
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 8,
+                "team": "Argentina",
+                "player": "Gustavo Suarez"
+              }
+            ],
+            "stats": {
+              "Argentina": {
+                "shots": 6,
+                "sogs": 2,
+                "saves": 2
+              },
+              "Sweden": {
+                "shots": 6,
+                "sogs": 2,
+                "saves": 1
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Diego Perez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Molina",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Kjell Carlsson",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nils Pettersson",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dejan Karlstrom",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anders Lindstrom",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fredrik Johansson",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ludwig Augustinsson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lars Jonsson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Karl Olsson",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sven Sjoberg",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Argentina_vs_Sweden_71184944_165.txt"
           },
           {
             "day": 20,
@@ -17079,7 +17423,7 @@
             "day": 24,
             "teams": [
               "Netherlands",
-              "TBD"
+              "Morocco"
             ],
             "score": [
               0,
@@ -17097,7 +17441,7 @@
             "day": 24,
             "teams": [
               "Wales",
-              "TBD"
+              "Argentina"
             ],
             "score": [
               0,
