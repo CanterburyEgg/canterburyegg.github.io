@@ -2,8 +2,11 @@ import json
 import os
 import random
 import math
+from collections import Counter
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+class RetryTeam(Exception): pass
 
 def get_team_data(year, tournament, name):
     file_path = os.path.join(BASE_DIR, "Tournaments", year, tournament, "Teams", f"{name}.txt")
@@ -21,7 +24,6 @@ def get_team_data(year, tournament, name):
     return {"name": name, "roster": roster, "stats": stats}
 
 def get_bucket_range(rank):
-    # 10: 91+, 9: 87-91, 8: 83-87, ... 1: 55-59, 0: <55
     if rank == 0: return 40.0, 55.0
     right = 91.0 - (9 - rank) * 4.0
     left = right - 4.0
@@ -55,12 +57,16 @@ for q_dir in target_quals:
 all_teams = list(team_registry.values())
 output_rows = [["Position", "Name", "Country", "SH", "SP", "DF", "GK"]]
 
+# WORLD-WIDE UNIQUENESS TRACKER
+world_used_stats = set()
+
 for team in all_teams:
-    o_bucket = get_bucket_range(team["stats"][0])
-    s_bucket = get_bucket_range(team["stats"][1])
-    d_bucket = get_bucket_range(team["stats"][2])
-    g_bucket = get_bucket_range(team["stats"][3])
-    
+    t_stats = team["stats"]
+    o_bucket = get_bucket_range(t_stats[0])
+    s_bucket = get_bucket_range(t_stats[1])
+    d_bucket = get_bucket_range(t_stats[2])
+    g_bucket = get_bucket_range(t_stats[3])
+    caps_base = [33 + (2 * s) for s in t_stats]
     size = team["size"]
     roster = team["roster"]
     props = [p["prop"] for p in roster]
@@ -71,116 +77,133 @@ for team in all_teams:
     else:
         f_s, m_s, d_s = slice(0, 2), slice(2, 4), slice(4, 6)
 
-    def validate_constraints(r, indices):
-        # Higher shot prop = Higher rating
-        sorted_idx = sorted(range(len(indices)), key=lambda i: props[indices[i]], reverse=True)
+    def validate_shooting(r, indices):
+        sorted_idx = sorted(indices, key=lambda idx: props[idx], reverse=True)
         for i in range(len(sorted_idx) - 1):
-            idx_a, idx_b = indices[sorted_idx[i]], indices[sorted_idx[i+1]]
-            if r[idx_a] < r[idx_b]: return False
-            # Tie breaker: same prop -> within 5
-            if props[idx_a] == props[idx_b]:
-                if abs(r[idx_a] - r[idx_b]) > 5: return False
+            idx_a, idx_b = sorted_idx[i], sorted_idx[i+1]
+            p_a, p_b = props[idx_a], props[idx_b]
+            r_a, r_b = r[idx_a], r[idx_b]
+            if p_a > p_b:
+                if r_a <= r_b: return False
+            elif p_a == p_b:
+                if abs(r_a - r_b) > 5: return False
         return True
 
-    def roll_stat(bucket, score_func, player_indices, group_indices_list, caps=None):
-        while True:
-            r = []
-            used = set()
-            success = True
-            for i in range(size):
-                val_found = False
-                for _ in range(200): # Internal attempts for uniqueness
-                    val = random.randint(20, 50)
-                    if val == 50:
-                        val = random.choice([50, 49, 48, 47])
-                    elif val == 49:
-                        val = random.choice([49, 48, 47])
+    def attempt_team():
+        team_value_counts = Counter()
+        
+        def roll_stat(bucket, score_func, specific_caps=None, team_stat_cap=50, is_shooting=False):
+            for attempt in range(5000):
+                r = []
+                col_counts = Counter()
+                unit_counts = {"F": Counter(), "M": Counter(), "D": Counter(), "G": Counter()}
+                success = True
+                
+                def get_unit(idx):
+                    if idx in range(f_s.start, f_s.stop): return "F"
+                    if idx in range(m_s.start, m_s.stop): return "M"
+                    if idx in range(d_s.start, d_s.stop): return "D"
+                    return "G"
+
+                for i in range(size):
+                    u = get_unit(i)
+                    val_found = False
+                    p_cap = team_stat_cap
+                    if specific_caps and i < len(specific_caps): p_cap = min(p_cap, specific_caps[i])
                     
-                    if caps and i < len(caps):
-                        val = min(val, caps[i])
-                    
-                    if val not in used:
-                        r.append(val)
-                        used.add(val)
-                        val_found = True
+                    for _ in range(100):
+                        val = random.randint(20, min(50, p_cap))
+                        if val == 50: val = random.choice([50, 49, 48, 47])
+                        elif val == 49: val = random.choice([49, 48, 47])
+                        val = min(val, p_cap)
+                        
+                        if unit_counts[u][val] < 1 and col_counts[val] < 2 and (team_value_counts[val] + col_counts[val]) < 4:
+                            r.append(val)
+                            unit_counts[u][val] += 1
+                            col_counts[val] += 1
+                            val_found = True
+                            break
+                    if not val_found:
+                        success = False
                         break
                 
-                if not val_found:
-                    success = False
+                if not success: continue
+                if is_shooting and not validate_shooting(r, range(actual_outfield)): continue
+                
+                if bucket[0] <= score_func(r) < bucket[1]:
+                    for val in r: team_value_counts[val] += 1
+                    return r
+            raise RetryTeam()
+
+        sh_caps = [30 + p for p in props]
+        sh = roll_stat(o_bucket, lambda r: (sum(r[i]*props[i] for i in range(actual_outfield))/100.0) + max(r[f_s]), specific_caps=sh_caps, team_stat_cap=caps_base[0], is_shooting=True)
+        sp = roll_stat(s_bucket, lambda r: (sum(r[f_s])/2.0 * 0.25) + (sum(r[m_s])/(m_s.stop-m_s.start) * 0.5) + (sum(r[d_s])/(d_s.stop-d_s.start) * 0.25) + max(r[m_s]), team_stat_cap=caps_base[1])
+
+        def df_score(r):
+            m_idx, d_idx = range(m_s.start, m_s.stop), range(d_s.start, d_s.stop)
+            m_avg, d_avg = sum(r[i] for i in m_idx)/len(m_idx), sum(r[i] for i in d_idx)/len(d_idx)
+            return (d_avg * 0.6) + (m_avg * 0.3) + (r[-1] * 0.1) + max(r[i] for i in d_idx)
+        df = roll_stat(d_bucket, df_score, team_stat_cap=caps_base[2])
+
+        gk_min, gk_max = max(20, math.ceil(g_bucket[0]/2.0)), min(50, math.floor(g_bucket[1]/2.0), caps_base[3])
+        gk_rating = None
+        for _ in range(500):
+            val = random.randint(max(20, gk_min), min(50, gk_max))
+            if team_value_counts[val] < 4:
+                gk_rating = val; break
+        if gk_rating is None: raise RetryTeam()
+        return sh, sp, df, gk_rating
+
+    # OUTER LOOP: WORLD-WIDE UNIQUE CHECK
+    while True:
+        try:
+            sh, sp, df, gk = attempt_team()
+            
+            # Map the actual final stat lines
+            temp_lines = []
+            collision = False
+            for i in range(size):
+                # 0, 1 = FWD; 2... = MID/DEF; last = GK
+                is_fwd = (i in [0, 1])
+                is_gk = (i == size - 1)
+                
+                # FWD: SH, SP, 0, 0
+                # MID/DEF: SH, SP, DF, 0
+                # GK: 0, 0, DF, GK
+                
+                final_sh = sh[i] if not is_gk else 0
+                final_sp = sp[i] if not is_gk else 0
+                final_df = df[i] if not is_fwd else 0
+                final_gk = gk if is_gk else 0
+                
+                line = (final_sh, final_sp, final_df, final_gk)
+                if line in world_used_stats:
+                    collision = True
                     break
+                temp_lines.append(line)
             
-            if not success: continue
+            if collision:
+                continue # Retry this country
             
-            valid = True
-            for g in group_indices_list:
-                if not validate_constraints(r, g):
-                    valid = False
-                    break
-            if not valid: continue
+            # SUCCESS: Add to world and break
+            for line in temp_lines:
+                world_used_stats.add(line)
             
-            score = score_func(r)
-            if bucket[0] <= score < bucket[1]:
-                return r
-
-    # 1. SH (FWD max is star)
-    def sh_score(r):
-        avg = sum(r[i] * props[i] for i in range(actual_outfield)) / 100.0
-        return avg + max(r[f_s])
-    
-    sh_caps = [30 + p for p in props] # Caps for SH
-    sh = roll_stat(o_bucket, sh_score, range(actual_outfield), [list(range(f_s.start, f_s.stop)), list(range(m_s.start, m_s.stop)), list(range(d_s.start, d_s.stop))], caps=sh_caps)
-
-    # 2. SP (MID max is star)
-    def sp_score(r):
-        f = sum(r[f_s])/2.0; m = sum(r[m_s])/(m_s.stop-m_s.start); d = sum(r[d_s])/(d_s.stop-d_s.start)
-        avg = (f * 0.25) + (m * 0.5) + (d * 0.25)
-        return avg + max(r[m_s])
-    sp = roll_stat(s_bucket, sp_score, range(actual_outfield), [])
-
-    # 3. DF (DEF max is star)
-    def df_score(r):
-        m_indices = list(range(m_s.start, m_s.stop))
-        d_indices = list(range(d_s.start, d_s.stop))
-        m_avg = sum(r[i] for i in m_indices) / len(m_indices)
-        d_avg = sum(r[i] for i in d_indices) / len(d_indices)
-        gk_df = r[-1]
-        avg = (d_avg * 0.6) + (m_avg * 0.3) + (gk_df * 0.1)
-        return avg + max(r[i] for i in d_indices)
-    
-    # We include GK in the roll for DF
-    df = roll_stat(d_bucket, df_score, list(range(m_s.start, m_s.stop)) + list(range(d_s.start, d_s.stop)) + [size-1], [])
-
-    # 4. GK (GK Score = Rating + Rating)
-    gk_rating = random.randint(max(20, math.ceil(g_bucket[0]/2.0)), min(50, math.floor(g_bucket[1]/2.0)))
-
-    # Matrix Compilation
-    p_matrix = [[0,0,0,0] for _ in range(size)]
-    
-    # FWD, MID, DEF all have SH and SP
-    for i in range(actual_outfield):
-        p_matrix[i][0] = sh[i]
-        p_matrix[i][1] = sp[i]
-    
-    # MID, DEF, and GK have Defense (DF)
-    m_indices = range(m_s.start, m_s.stop)
-    d_indices = range(d_s.start, d_s.stop)
-    for i in m_indices: p_matrix[i][2] = df[i]
-    for i in d_indices: p_matrix[i][2] = df[i]
-    p_matrix[-1][2] = df[-1] # GK DF
-    
-    # Only GK has Goalkeeping (GK)
-    p_matrix[-1][3] = gk_rating
+            # Final matrix for TSV matches the line logic
+            p_matrix = []
+            for i in range(size):
+                p_matrix.append(list(temp_lines[i]))
+            break
+            
+        except RetryTeam: continue
 
     print(f"Validated {team['name']}")
-
     pos_labels = ["FWD"]*2 + ["MID"]*(m_s.stop-m_s.start) + ["DEF"]*(d_s.stop-d_s.start) + ["GK"]
     for i, p in enumerate(roster):
-        row = [pos_labels[i], p["name"], team["name"]] + p_matrix[i]
-        output_rows.append(row)
+        output_rows.append([pos_labels[i], p["name"], team["name"]] + p_matrix[i])
 
 out_path = os.path.join(BASE_DIR, "player_export.tsv")
 with open(out_path, "w") as f:
     for row in output_rows:
         f.write("\t".join([str(x) for x in row]) + "\n")
-
 print(f"Exported {len(output_rows)-1} players to {out_path}")
