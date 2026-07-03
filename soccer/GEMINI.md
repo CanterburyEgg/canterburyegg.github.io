@@ -23,7 +23,12 @@ The engine has been converted from C# to Python and tuned for a specific "World 
     - **Tier F:** Vietnam, Suriname, Guyana, Bahrain, Guinea, China (Rank < 2.5).
 - **Progress:** Asia (AS) Qualifiers have been successfully simulated. The next regions to configure are AFR, SA, EU, NA, and OCE.
 
-## 4. Instructions for Next Session
-- Continue running regional qualifiers using `tournament_manager.py`.
-- All new `config.json` files should follow the schema established in `Tournaments/2026/AS/config.json`.
-- Maintain the JSON-first data philosophy for eventual web-viewer integration.
+## 4. League Ecosystem (48-64 Teams)
+The simulation is expanding into a club-based league structure.
+- **Roster Construction:** 9 players per team (2 FWD, 3 MID, 3 DEF, 1 GK).
+- **Leagues (16 teams each):**
+    1. **Backyard League:** US-based (MLS-style pedigree).
+    2. **Prime League:** UK-based (Elite pedigree).
+    3. **Euro League:** Northern Continental Europe.
+    4. **Liga Mediterranea:** Mediterranean-based.
+- **Player Pool:** Hybrid of World Cup/Qualifier stars and newly generated "Domestic Reserve" players for powerhouse nations.
