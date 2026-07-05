@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 23,
+  "current_day": 24,
   "groups": {
     "A": {
       "matches": [
@@ -18280,16 +18280,198 @@
               "Croatia"
             ],
             "score": [
-              0,
-              0
+              2,
+              1
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_3",
             "label": "R16_3",
             "source": [
               "A1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 48,
+                "team": "Croatia",
+                "player": "Ivica Vidovic"
+              },
+              {
+                "minute": 52,
+                "team": "United States",
+                "player": "Casey Myers-Morgan"
+              },
+              {
+                "minute": 66,
+                "team": "United States",
+                "player": "Sawyer Marshall"
+              }
+            ],
+            "stats": {
+              "United States": {
+                "shots": 16,
+                "sogs": 6,
+                "saves": 3
+              },
+              "Croatia": {
+                "shots": 7,
+                "sogs": 4,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Nick Hamburger",
+                  "shots": 8,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lawrence Porter",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sawyer Marshall",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silas McBride",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brandon Boyd",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Victor Weaver",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Niko Lovric",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ivica Vidovic",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mario Sosa",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Franja Blazevic",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberjt Grgic",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcelo Majer",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stjepan Novosel",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zlatko Novak",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miroslav Pavlovic",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 2
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/United States_vs_Croatia_75123835_413.txt"
           },
           {
             "day": 23,
@@ -18299,15 +18481,187 @@
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_4",
             "label": "R16_4",
             "source": [
               "B1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 11,
+                "team": "Netherlands",
+                "player": "Rob Brouwer"
+              }
+            ],
+            "stats": {
+              "Colombia": {
+                "shots": 9,
+                "sogs": 3,
+                "saves": 5
+              },
+              "Netherlands": {
+                "shots": 14,
+                "sogs": 6,
+                "saves": 3
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Hernan Torres",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Cardona",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Borr\u00e9",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Ruiz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jefferson Uribe",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andres Rodriguez",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Giraldo",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "German Arias",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Richard van der Heijden",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan van Dijk",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeremie Frimpong",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rob Brouwer",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Peter Meijer",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nathan van de Ven",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Kuiper",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Colombia_vs_Netherlands_75123835_497.txt"
           },
           {
             "day": 24,
@@ -18402,8 +18756,8 @@
           {
             "day": 28,
             "teams": [
-              "TBD",
-              "TBD"
+              "United States",
+              "Netherlands"
             ],
             "score": [
               0,
