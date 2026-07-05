@@ -1,0 +1,4610 @@
+[
+    {
+        "team": "Stratton United",
+        "league": "Prime",
+        "identity": "Balanced",
+        "budget": 222.0,
+        "spent": 222.0,
+        "roster": [
+            {
+                "name": "Wolfgang Koch",
+                "pos": "MID",
+                "country": "Germany",
+                "rating": 46.7541,
+                "cost": 39.47
+            },
+            {
+                "name": "Antoine Gauthier",
+                "pos": "FWD",
+                "country": "France",
+                "rating": 44.1846,
+                "cost": 34.22
+            },
+            {
+                "name": "Gustavo Techera",
+                "pos": "FWD",
+                "country": "Uruguay",
+                "rating": 43.4149,
+                "cost": 31.78
+            },
+            {
+                "name": "Christian Janssen",
+                "pos": "DEF",
+                "country": "Belgium",
+                "rating": 44.8081,
+                "cost": 26.23
+            },
+            {
+                "name": "Edgar Jimenez",
+                "pos": "MID",
+                "country": "Colombia",
+                "rating": 42.2138,
+                "cost": 26.64
+            },
+            {
+                "name": "Dayot Hernandez",
+                "pos": "MID",
+                "country": "France",
+                "rating": 41.2332,
+                "cost": 22.75
+            },
+            {
+                "name": "Gonzalo Machado",
+                "pos": "DEF",
+                "country": "Uruguay",
+                "rating": 41.454,
+                "cost": 18.41
+            },
+            {
+                "name": "Trevor Shaw",
+                "pos": "DEF",
+                "country": "England",
+                "rating": 33.5399,
+                "cost": 8.0
+            },
+            {
+                "name": "Sa\u00efd Djaloud",
+                "pos": "GK",
+                "country": "Comoros",
+                "rating": 33.34,
+                "cost": 8.5
+            }
+        ]
+    },
+    {
+        "team": "Haverford Black",
+        "league": "Prime",
+        "identity": "Balanced",
+        "budget": 214.0,
+        "spent": 214.0,
+        "roster": [
+            {
+                "name": "Dragan Petrovic",
+                "pos": "FWD",
+                "country": "Serbia",
+                "rating": 44.2234,
+                "cost": 37.8
+            },
+            {
+                "name": "Andrew Moore",
+                "pos": "FWD",
+                "country": "Australia",
+                "rating": 42.9438,
+                "cost": 32.48
+            },
+            {
+                "name": "Jurgen Richter",
+                "pos": "MID",
+                "country": "Germany",
+                "rating": 43.4838,
+                "cost": 29.83
+            },
+            {
+                "name": "Jaime Riquelme",
+                "pos": "DEF",
+                "country": "Chile",
+                "rating": 43.651,
+                "cost": 26.41
+            },
+            {
+                "name": "Jose Lopes",
+                "pos": "GK",
+                "country": "Brazil",
+                "rating": 42.63,
+                "cost": 24.44
+            },
+            {
+                "name": "Theo Tchouameni",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 41.7777,
+                "cost": 20.83
+            },
+            {
+                "name": "Ko Kamada",
+                "pos": "MID",
+                "country": "Japan",
+                "rating": 38.6832,
+                "cost": 17.21
+            },
+            {
+                "name": "Charles Stewart",
+                "pos": "MID",
+                "country": "Scotland",
+                "rating": 31.8525,
+                "cost": 8.0
+            },
+            {
+                "name": "Murray Campbell",
+                "pos": "DEF",
+                "country": "New Zealand",
+                "rating": 32.363,
+                "cost": 6.5
+            }
+        ]
+    },
+    {
+        "team": "Stella Grey",
+        "league": "Prime",
+        "identity": "Offense",
+        "budget": 210.0,
+        "spent": 210.0,
+        "roster": [
+            {
+                "name": "Kwon Seung-Hyeok",
+                "pos": "FWD",
+                "country": "South Korea",
+                "rating": 46.4646,
+                "cost": 46.91
+            },
+            {
+                "name": "Park Hyeon-Bin",
+                "pos": "FWD",
+                "country": "South Korea",
+                "rating": 46.2242,
+                "cost": 43.73
+            },
+            {
+                "name": "Stephen Hunt",
+                "pos": "GK",
+                "country": "England",
+                "rating": 42.44,
+                "cost": 23.27
+            },
+            {
+                "name": "Wilhelm Schafer",
+                "pos": "DEF",
+                "country": "Germany",
+                "rating": 41.9645,
+                "cost": 20.41
+            },
+            {
+                "name": "Clive Jones",
+                "pos": "DEF",
+                "country": "Wales",
+                "rating": 41.2576,
+                "cost": 18.45
+            },
+            {
+                "name": "Gilberto Delgado",
+                "pos": "MID",
+                "country": "Puerto Rico",
+                "rating": 38.9532,
+                "cost": 18.98
+            },
+            {
+                "name": "Salisu Abdul Samed",
+                "pos": "MID",
+                "country": "Ghana",
+                "rating": 37.2035,
+                "cost": 14.75
+            },
+            {
+                "name": "Gideon Seidu",
+                "pos": "DEF",
+                "country": "Ghana",
+                "rating": 32.294,
+                "cost": 6.5
+            },
+            {
+                "name": "Juan Apaza",
+                "pos": "MID",
+                "country": "Bolivia",
+                "rating": 30.8728,
+                "cost": 6.5
+            }
+        ]
+    },
+    {
+        "team": "Chateau Roux",
+        "league": "Prime",
+        "identity": "Balanced",
+        "budget": 209.0,
+        "spent": 209.0,
+        "roster": [
+            {
+                "name": "Gustavo Suarez",
+                "pos": "FWD",
+                "country": "Argentina",
+                "rating": 46.484,
+                "cost": 46.27
+            },
+            {
+                "name": "Diego Castillo",
+                "pos": "FWD",
+                "country": "Spain",
+                "rating": 41.9434,
+                "cost": 30.23
+            },
+            {
+                "name": "Lisandro Romero",
+                "pos": "MID",
+                "country": "Argentina",
+                "rating": 42.5031,
+                "cost": 27.43
+            },
+            {
+                "name": "Pierre Blanchard",
+                "pos": "GK",
+                "country": "France",
+                "rating": 42.43,
+                "cost": 24.77
+            },
+            {
+                "name": "Bailey Myers-Morgan",
+                "pos": "MID",
+                "country": "United States",
+                "rating": 40.4534,
+                "cost": 22.29
+            },
+            {
+                "name": "Casey Myers-Morgan",
+                "pos": "MID",
+                "country": "United States",
+                "rating": 38.133,
+                "cost": 16.18
+            },
+            {
+                "name": "Jeroen de Jong",
+                "pos": "DEF",
+                "country": "Netherlands",
+                "rating": 37.2864,
+                "cost": 13.83
+            },
+            {
+                "name": "Marcel Verhoeven",
+                "pos": "DEF",
+                "country": "Belgium",
+                "rating": 32.7839,
+                "cost": 8.0
+            },
+            {
+                "name": "Claude Timmermans",
+                "pos": "DEF",
+                "country": "Belgium",
+                "rating": 32.3532,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Glass Castle FC",
+        "league": "Prime",
+        "identity": "Offense",
+        "budget": 197.0,
+        "spent": 197.0,
+        "roster": [
+            {
+                "name": "Richard van der Heijden",
+                "pos": "FWD",
+                "country": "Netherlands",
+                "rating": 46.7244,
+                "cost": 49.21
+            },
+            {
+                "name": "Marco Alvarez",
+                "pos": "FWD",
+                "country": "Chile",
+                "rating": 43.4246,
+                "cost": 38.16
+            },
+            {
+                "name": "Ekanit Yooyen",
+                "pos": "GK",
+                "country": "Thailand",
+                "rating": 40.64,
+                "cost": 21.4
+            },
+            {
+                "name": "Marc Watkins",
+                "pos": "MID",
+                "country": "England",
+                "rating": 39.6237,
+                "cost": 19.89
+            },
+            {
+                "name": "Zeljko Vukevic",
+                "pos": "MID",
+                "country": "Bosnia and Herzegovina",
+                "rating": 38.1426,
+                "cost": 18.3
+            },
+            {
+                "name": "Manfred Fischer",
+                "pos": "DEF",
+                "country": "Germany",
+                "rating": 37.8257,
+                "cost": 14.58
+            },
+            {
+                "name": "Nigel Price",
+                "pos": "DEF",
+                "country": "England",
+                "rating": 36.9925,
+                "cost": 12.09
+            },
+            {
+                "name": "Hans Weber",
+                "pos": "DEF",
+                "country": "Germany",
+                "rating": 34.2458,
+                "cost": 8.7
+            },
+            {
+                "name": "Francisco Rodrigues",
+                "pos": "MID",
+                "country": "Angola",
+                "rating": 31.6323,
+                "cost": 7.18
+            }
+        ]
+    },
+    {
+        "team": "Thurston FC East",
+        "league": "Prime",
+        "identity": "Control",
+        "budget": 193.0,
+        "spent": 192.05,
+        "roster": [
+            {
+                "name": "Bernard Michel",
+                "pos": "MID",
+                "country": "France",
+                "rating": 42.7536,
+                "cost": 30.32
+            },
+            {
+                "name": "Nigel Maharaj",
+                "pos": "MID",
+                "country": "Trinidad and Tobago",
+                "rating": 42.7238,
+                "cost": 32.8
+            },
+            {
+                "name": "Adrian Llewellyn",
+                "pos": "MID",
+                "country": "Wales",
+                "rating": 42.7039,
+                "cost": 27.82
+            },
+            {
+                "name": "Vitor Correia",
+                "pos": "DEF",
+                "country": "Portugal",
+                "rating": 42.1608,
+                "cost": 22.59
+            },
+            {
+                "name": "Hernan Torres",
+                "pos": "FWD",
+                "country": "Colombia",
+                "rating": 39.1244,
+                "cost": 20.57
+            },
+            {
+                "name": "Mbaye Cisse",
+                "pos": "DEF",
+                "country": "Senegal",
+                "rating": 39.9539,
+                "cost": 17.99
+            },
+            {
+                "name": "Theo de Boer",
+                "pos": "FWD",
+                "country": "Netherlands",
+                "rating": 35.8343,
+                "cost": 13.91
+            },
+            {
+                "name": "Brahima Kamagate",
+                "pos": "GK",
+                "country": "Cote d'Ivoire",
+                "rating": 33.3,
+                "cost": 8.5
+            },
+            {
+                "name": "Terence Kane",
+                "pos": "DEF",
+                "country": "Northern Ireland",
+                "rating": 32.1569,
+                "cost": 7.05
+            }
+        ]
+    },
+    {
+        "team": "Thurston FC West",
+        "league": "Prime",
+        "identity": "Control",
+        "budget": 193.0,
+        "spent": 192.46,
+        "roster": [
+            {
+                "name": "Vincent van de Velde",
+                "pos": "MID",
+                "country": "Belgium",
+                "rating": 43.5046,
+                "cost": 34.82
+            },
+            {
+                "name": "Antonio Rudiger",
+                "pos": "DEF",
+                "country": "Germany",
+                "rating": 44.2979,
+                "cost": 27.62
+            },
+            {
+                "name": "Ramon Perdomo",
+                "pos": "MID",
+                "country": "Uruguay",
+                "rating": 42.4435,
+                "cost": 29.07
+            },
+            {
+                "name": "Thierry Payet",
+                "pos": "MID",
+                "country": "France",
+                "rating": 41.733,
+                "cost": 25.33
+            },
+            {
+                "name": "Conor O'Sullivan",
+                "pos": "FWD",
+                "country": "Ireland",
+                "rating": 39.4133,
+                "cost": 20.9
+            },
+            {
+                "name": "Patrick Murray",
+                "pos": "FWD",
+                "country": "England",
+                "rating": 37.9321,
+                "cost": 18.81
+            },
+            {
+                "name": "Vicente Salazar",
+                "pos": "GK",
+                "country": "Ecuador",
+                "rating": 38.99,
+                "cost": 16.31
+            },
+            {
+                "name": "Martijn van den Berg",
+                "pos": "DEF",
+                "country": "Netherlands",
+                "rating": 34.4908,
+                "cost": 9.13
+            },
+            {
+                "name": "Benoit Rousseau",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 32.2841,
+                "cost": 7.46
+            }
+        ]
+    },
+    {
+        "team": "Eisenwald 1900",
+        "league": "Prime",
+        "identity": "Defense",
+        "budget": 184.0,
+        "spent": 184.0,
+        "roster": [
+            {
+                "name": "Sergio Baez",
+                "pos": "MID",
+                "country": "Paraguay",
+                "rating": 41.4928,
+                "cost": 28.12
+            },
+            {
+                "name": "Valeriu Florea",
+                "pos": "FWD",
+                "country": "Moldova",
+                "rating": 39.9426,
+                "cost": 24.39
+            },
+            {
+                "name": "Stuart Holmes",
+                "pos": "MID",
+                "country": "England",
+                "rating": 40.7439,
+                "cost": 24.0
+            },
+            {
+                "name": "Carlos Acosta",
+                "pos": "FWD",
+                "country": "Uruguay",
+                "rating": 39.1438,
+                "cost": 20.09
+            },
+            {
+                "name": "Radu Dragomir",
+                "pos": "GK",
+                "country": "Romania",
+                "rating": 41.01,
+                "cost": 24.01
+            },
+            {
+                "name": "Rene Chevalier",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 40.748,
+                "cost": 19.03
+            },
+            {
+                "name": "Fabian Gomez",
+                "pos": "MID",
+                "country": "Paraguay",
+                "rating": 37.6626,
+                "cost": 16.5
+            },
+            {
+                "name": "Gavin Powell",
+                "pos": "DEF",
+                "country": "England",
+                "rating": 34.1574,
+                "cost": 9.36
+            },
+            {
+                "name": "Karl Meier",
+                "pos": "DEF",
+                "country": "Germany",
+                "rating": 32.794,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Askhatansa",
+        "league": "Prime",
+        "identity": "Offense",
+        "budget": 179.0,
+        "spent": 178.88,
+        "roster": [
+            {
+                "name": "Jean-Pierre de Clercq",
+                "pos": "FWD",
+                "country": "Belgium",
+                "rating": 50.0048,
+                "cost": 62.69
+            },
+            {
+                "name": "Neil Griffith",
+                "pos": "FWD",
+                "country": "England",
+                "rating": 44.1943,
+                "cost": 40.17
+            },
+            {
+                "name": "Vicente Acuna",
+                "pos": "GK",
+                "country": "Argentina",
+                "rating": 38.22,
+                "cost": 15.08
+            },
+            {
+                "name": "Peter Meijer",
+                "pos": "MID",
+                "country": "Netherlands",
+                "rating": 36.6638,
+                "cost": 13.9
+            },
+            {
+                "name": "Desmond Bonnet",
+                "pos": "MID",
+                "country": "France",
+                "rating": 35.9229,
+                "cost": 12.79
+            },
+            {
+                "name": "Roy Foster",
+                "pos": "MID",
+                "country": "England",
+                "rating": 32.8723,
+                "cost": 8.88
+            },
+            {
+                "name": "Vu Hung Dung",
+                "pos": "DEF",
+                "country": "Vietnam",
+                "rating": 32.2454,
+                "cost": 6.5
+            },
+            {
+                "name": "Hiroshi Itakura",
+                "pos": "DEF",
+                "country": "Japan",
+                "rating": 32.2245,
+                "cost": 6.5
+            },
+            {
+                "name": "Young-gwon Hwang",
+                "pos": "DEF",
+                "country": "South Korea",
+                "rating": 31.9115,
+                "cost": 6.38
+            }
+        ]
+    },
+    {
+        "team": "Cheicester City",
+        "league": "Prime",
+        "identity": "Balanced",
+        "budget": 176.0,
+        "spent": 176.0,
+        "roster": [
+            {
+                "name": "Olivier Rousseau",
+                "pos": "FWD",
+                "country": "France",
+                "rating": 46.2048,
+                "cost": 46.26
+            },
+            {
+                "name": "Dominique Girard",
+                "pos": "FWD",
+                "country": "France",
+                "rating": 39.4424,
+                "cost": 23.72
+            },
+            {
+                "name": "Jean Gauthier",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 40.6504,
+                "cost": 21.32
+            },
+            {
+                "name": "Marcel Kuiper",
+                "pos": "GK",
+                "country": "Netherlands",
+                "rating": 40.0,
+                "cost": 21.18
+            },
+            {
+                "name": "Jeremie Frimpong",
+                "pos": "MID",
+                "country": "Netherlands",
+                "rating": 37.9429,
+                "cost": 19.06
+            },
+            {
+                "name": "Elias Matsimbe",
+                "pos": "MID",
+                "country": "Mozambique",
+                "rating": 36.9129,
+                "cost": 16.68
+            },
+            {
+                "name": "Clive Moore",
+                "pos": "DEF",
+                "country": "England",
+                "rating": 35.9133,
+                "cost": 10.29
+            },
+            {
+                "name": "Declan Burke",
+                "pos": "DEF",
+                "country": "Ireland",
+                "rating": 32.2553,
+                "cost": 8.0
+            },
+            {
+                "name": "Floyd Adebayor",
+                "pos": "MID",
+                "country": "Togo",
+                "rating": 30.6021,
+                "cost": 6.5
+            }
+        ]
+    },
+    {
+        "team": "Barroclaugh Athletic",
+        "league": "Prime",
+        "identity": "Defense",
+        "budget": 168.0,
+        "spent": 168.0,
+        "roster": [
+            {
+                "name": "Jiri Novakova",
+                "pos": "GK",
+                "country": "Czechia",
+                "rating": 47.7,
+                "cost": 43.56
+            },
+            {
+                "name": "Manuel Castillo",
+                "pos": "FWD",
+                "country": "Ecuador",
+                "rating": 37.1527,
+                "cost": 18.16
+            },
+            {
+                "name": "Marcos Aguilar",
+                "pos": "FWD",
+                "country": "El Salvador",
+                "rating": 36.922,
+                "cost": 17.77
+            },
+            {
+                "name": "Amadou Onana",
+                "pos": "MID",
+                "country": "Belgium",
+                "rating": 37.8239,
+                "cost": 17.65
+            },
+            {
+                "name": "Krzysztof Sikora",
+                "pos": "DEF",
+                "country": "Poland",
+                "rating": 38.2469,
+                "cost": 16.16
+            },
+            {
+                "name": "Denis Chevalier",
+                "pos": "MID",
+                "country": "France",
+                "rating": 36.1428,
+                "cost": 14.72
+            },
+            {
+                "name": "Timothy Theate",
+                "pos": "DEF",
+                "country": "Belgium",
+                "rating": 36.4713,
+                "cost": 13.46
+            },
+            {
+                "name": "Manaraii Wagemann",
+                "pos": "DEF",
+                "country": "Tahiti",
+                "rating": 31.9409,
+                "cost": 6.5
+            },
+            {
+                "name": "Jamie Price",
+                "pos": "MID",
+                "country": "England",
+                "rating": 30.7637,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Havenpoort FC",
+        "league": "Prime",
+        "identity": "Control",
+        "budget": 164.0,
+        "spent": 164.0,
+        "roster": [
+            {
+                "name": "Jacques Lemaire",
+                "pos": "MID",
+                "country": "France",
+                "rating": 43.4731,
+                "cost": 34.03
+            },
+            {
+                "name": "Ruben Schar",
+                "pos": "MID",
+                "country": "Switzerland",
+                "rating": 40.2228,
+                "cost": 24.24
+            },
+            {
+                "name": "Kalidou Koulibaly",
+                "pos": "MID",
+                "country": "Senegal",
+                "rating": 39.9327,
+                "cost": 25.41
+            },
+            {
+                "name": "Alain Goossens",
+                "pos": "FWD",
+                "country": "Belgium",
+                "rating": 37.4028,
+                "cost": 17.69
+            },
+            {
+                "name": "Mickael Caron",
+                "pos": "FWD",
+                "country": "France",
+                "rating": 36.8541,
+                "cost": 16.28
+            },
+            {
+                "name": "Mario Morales",
+                "pos": "GK",
+                "country": "Costa Rica",
+                "rating": 37.61,
+                "cost": 14.65
+            },
+            {
+                "name": "Esteban Maidana",
+                "pos": "DEF",
+                "country": "Argentina",
+                "rating": 32.7258,
+                "cost": 6.7
+            },
+            {
+                "name": "Denis Kizito",
+                "pos": "DEF",
+                "country": "Uganda",
+                "rating": 31.8037,
+                "cost": 6.5
+            },
+            {
+                "name": "Andritany Dimas",
+                "pos": "DEF",
+                "country": "Indonesia",
+                "rating": 31.5492,
+                "cost": 6.5
+            }
+        ]
+    },
+    {
+        "team": "Les Brasseurs",
+        "league": "Prime",
+        "identity": "Defense",
+        "budget": 162.0,
+        "spent": 162.0,
+        "roster": [
+            {
+                "name": "Craig Young",
+                "pos": "FWD",
+                "country": "Wales",
+                "rating": 38.9034,
+                "cost": 21.53
+            },
+            {
+                "name": "Sven Sjoberg",
+                "pos": "GK",
+                "country": "Sweden",
+                "rating": 40.24,
+                "cost": 24.03
+            },
+            {
+                "name": "Edmond Toska",
+                "pos": "FWD",
+                "country": "Albania",
+                "rating": 37.1624,
+                "cost": 17.82
+            },
+            {
+                "name": "Mitchell Duke",
+                "pos": "MID",
+                "country": "Australia",
+                "rating": 37.9031,
+                "cost": 18.85
+            },
+            {
+                "name": "Yannick Barbier",
+                "pos": "MID",
+                "country": "France",
+                "rating": 37.8732,
+                "cost": 19.31
+            },
+            {
+                "name": "Edwin Ruiz",
+                "pos": "MID",
+                "country": "Colombia",
+                "rating": 37.4732,
+                "cost": 18.54
+            },
+            {
+                "name": "Hernando Orozco",
+                "pos": "DEF",
+                "country": "Colombia",
+                "rating": 37.0706,
+                "cost": 15.29
+            },
+            {
+                "name": "Ramon Medina",
+                "pos": "DEF",
+                "country": "Paraguay",
+                "rating": 31.9405,
+                "cost": 6.64
+            },
+            {
+                "name": "Marcos Paz",
+                "pos": "DEF",
+                "country": "Argentina",
+                "rating": 31.5296,
+                "cost": 6.5
+            }
+        ]
+    },
+    {
+        "team": "Corsaires de Calais",
+        "league": "Prime",
+        "identity": "Offense",
+        "budget": 154.0,
+        "spent": 153.79,
+        "roster": [
+            {
+                "name": "Gerhard Muller",
+                "pos": "FWD",
+                "country": "Germany",
+                "rating": 42.4436,
+                "cost": 34.91
+            },
+            {
+                "name": "Jan van Dijk",
+                "pos": "FWD",
+                "country": "Netherlands",
+                "rating": 41.1931,
+                "cost": 30.89
+            },
+            {
+                "name": "Eddy van den Broeck",
+                "pos": "GK",
+                "country": "Belgium",
+                "rating": 38.82,
+                "cost": 17.64
+            },
+            {
+                "name": "Ramos Marrero",
+                "pos": "MID",
+                "country": "Cuba",
+                "rating": 36.1033,
+                "cost": 16.33
+            },
+            {
+                "name": "Richard Lemaire",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 36.5508,
+                "cost": 12.8
+            },
+            {
+                "name": "Ollie Rice",
+                "pos": "DEF",
+                "country": "England",
+                "rating": 36.1481,
+                "cost": 12.18
+            },
+            {
+                "name": "Adrian Walsh",
+                "pos": "DEF",
+                "country": "Ireland",
+                "rating": 35.5702,
+                "cost": 10.25
+            },
+            {
+                "name": "Johan Post",
+                "pos": "MID",
+                "country": "Netherlands",
+                "rating": 30.3423,
+                "cost": 7.26
+            },
+            {
+                "name": "Luis Gallese",
+                "pos": "MID",
+                "country": "Peru",
+                "rating": 30.3135,
+                "cost": 7.02
+            }
+        ]
+    },
+    {
+        "team": "Stedham Journeymen",
+        "league": "Prime",
+        "identity": "Control",
+        "budget": 151.0,
+        "spent": 150.43,
+        "roster": [
+            {
+                "name": "Joao Pereira",
+                "pos": "FWD",
+                "country": "Brazil",
+                "rating": 39.8747,
+                "cost": 26.58
+            },
+            {
+                "name": "Eamon Murphy",
+                "pos": "MID",
+                "country": "Ireland",
+                "rating": 38.9424,
+                "cost": 23.03
+            },
+            {
+                "name": "Stefan Winter",
+                "pos": "MID",
+                "country": "Germany",
+                "rating": 38.1934,
+                "cost": 20.29
+            },
+            {
+                "name": "Mohamed Alaoui",
+                "pos": "FWD",
+                "country": "Morocco",
+                "rating": 36.9026,
+                "cost": 17.24
+            },
+            {
+                "name": "Wilmer Paz",
+                "pos": "GK",
+                "country": "Honduras",
+                "rating": 37.37,
+                "cost": 14.45
+            },
+            {
+                "name": "Pieter van Vliet",
+                "pos": "MID",
+                "country": "Netherlands",
+                "rating": 35.4031,
+                "cost": 14.63
+            },
+            {
+                "name": "Craig Henderson",
+                "pos": "DEF",
+                "country": "Scotland",
+                "rating": 36.3056,
+                "cost": 11.28
+            },
+            {
+                "name": "Moses Okeke",
+                "pos": "DEF",
+                "country": "Nigeria",
+                "rating": 30.9109,
+                "cost": 6.04
+            },
+            {
+                "name": "Harry Souttar",
+                "pos": "DEF",
+                "country": "Australia",
+                "rating": 30.8522,
+                "cost": 6.39
+            }
+        ]
+    },
+    {
+        "team": "Celtic Cross FC",
+        "league": "Prime",
+        "identity": "Balanced",
+        "budget": 151.0,
+        "spent": 151.0,
+        "roster": [
+            {
+                "name": "Colin Pugh",
+                "pos": "FWD",
+                "country": "Wales",
+                "rating": 40.4525,
+                "cost": 28.76
+            },
+            {
+                "name": "Marc Renard",
+                "pos": "MID",
+                "country": "Belgium",
+                "rating": 39.5945,
+                "cost": 22.74
+            },
+            {
+                "name": "Kenneth Wright",
+                "pos": "GK",
+                "country": "Scotland",
+                "rating": 39.8,
+                "cost": 21.32
+            },
+            {
+                "name": "Leslie Knight",
+                "pos": "FWD",
+                "country": "England",
+                "rating": 37.364,
+                "cost": 19.55
+            },
+            {
+                "name": "Darren King",
+                "pos": "DEF",
+                "country": "Australia",
+                "rating": 36.6576,
+                "cost": 13.77
+            },
+            {
+                "name": "Federico Barella",
+                "pos": "MID",
+                "country": "Italy",
+                "rating": 35.3524,
+                "cost": 15.5
+            },
+            {
+                "name": "Rob Brouwer",
+                "pos": "MID",
+                "country": "Netherlands",
+                "rating": 33.0231,
+                "cost": 8.87
+            },
+            {
+                "name": "Geert Verhoeven",
+                "pos": "DEF",
+                "country": "Belgium",
+                "rating": 31.6858,
+                "cost": 7.96
+            },
+            {
+                "name": "Philip Gibson",
+                "pos": "DEF",
+                "country": "Papua New Guinea",
+                "rating": 31.3727,
+                "cost": 6.54
+            }
+        ]
+    },
+    {
+        "team": "Imperiale Roma",
+        "league": "Med",
+        "identity": "Balanced",
+        "budget": 202.0,
+        "spent": 202.0,
+        "roster": [
+            {
+                "name": "Rodrigo de Jesus",
+                "pos": "DEF",
+                "country": "Brazil",
+                "rating": 44.9947,
+                "cost": 30.39
+            },
+            {
+                "name": "Ricardo de Los Santos",
+                "pos": "GK",
+                "country": "Uruguay",
+                "rating": 44.7,
+                "cost": 30.75
+            },
+            {
+                "name": "Felipe Contreras",
+                "pos": "FWD",
+                "country": "Chile",
+                "rating": 41.9531,
+                "cost": 29.54
+            },
+            {
+                "name": "Yuryi Melnyk",
+                "pos": "FWD",
+                "country": "Ukraine",
+                "rating": 40.3846,
+                "cost": 26.42
+            },
+            {
+                "name": "Kim Si-Yeon",
+                "pos": "MID",
+                "country": "South Korea",
+                "rating": 41.2321,
+                "cost": 23.22
+            },
+            {
+                "name": "Cristian Molina",
+                "pos": "DEF",
+                "country": "Argentina",
+                "rating": 40.9344,
+                "cost": 19.35
+            },
+            {
+                "name": "Shojae Cheshmi",
+                "pos": "DEF",
+                "country": "Iran",
+                "rating": 38.62,
+                "cost": 15.82
+            },
+            {
+                "name": "John Bugeja",
+                "pos": "MID",
+                "country": "Malta",
+                "rating": 31.6322,
+                "cost": 8.0
+            },
+            {
+                "name": "Evangelos Mylonas",
+                "pos": "MID",
+                "country": "Greece",
+                "rating": 31.3435,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Castellano Madrid",
+        "league": "Med",
+        "identity": "Balanced",
+        "budget": 195.0,
+        "spent": 195.0,
+        "roster": [
+            {
+                "name": "Carlos Pereira",
+                "pos": "MID",
+                "country": "Portugal",
+                "rating": 44.7343,
+                "cost": 33.82
+            },
+            {
+                "name": "Pavel Vesela",
+                "pos": "DEF",
+                "country": "Czechia",
+                "rating": 44.3376,
+                "cost": 29.58
+            },
+            {
+                "name": "Fatmir Dervishi",
+                "pos": "FWD",
+                "country": "Albania",
+                "rating": 41.1834,
+                "cost": 27.56
+            },
+            {
+                "name": "Ahmed Mansouri",
+                "pos": "GK",
+                "country": "Algeria",
+                "rating": 43.02,
+                "cost": 25.26
+            },
+            {
+                "name": "Francois Toussaint",
+                "pos": "FWD",
+                "country": "Haiti",
+                "rating": 39.8941,
+                "cost": 22.73
+            },
+            {
+                "name": "Henrik Mikkelsen",
+                "pos": "DEF",
+                "country": "Denmark",
+                "rating": 40.3071,
+                "cost": 18.29
+            },
+            {
+                "name": "Luan Murati",
+                "pos": "DEF",
+                "country": "Albania",
+                "rating": 36.5997,
+                "cost": 12.48
+            },
+            {
+                "name": "Pere Munoz",
+                "pos": "MID",
+                "country": "Andorra",
+                "rating": 32.3526,
+                "cost": 8.28
+            },
+            {
+                "name": "Felix Jradi",
+                "pos": "MID",
+                "country": "Lebanon",
+                "rating": 32.0924,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Al-Qahira FC",
+        "league": "Med",
+        "identity": "Offense",
+        "budget": 192.0,
+        "spent": 192.0,
+        "roster": [
+            {
+                "name": "Alvaro Chaves",
+                "pos": "FWD",
+                "country": "Costa Rica",
+                "rating": 44.9834,
+                "cost": 43.22
+            },
+            {
+                "name": "Ricardo Goncalves",
+                "pos": "FWD",
+                "country": "Portugal",
+                "rating": 43.2133,
+                "cost": 38.57
+            },
+            {
+                "name": "Josef Steiner",
+                "pos": "MID",
+                "country": "Austria",
+                "rating": 39.4029,
+                "cost": 21.44
+            },
+            {
+                "name": "Andres Rodriguez",
+                "pos": "DEF",
+                "country": "Colombia",
+                "rating": 39.8168,
+                "cost": 16.81
+            },
+            {
+                "name": "Neil Wright",
+                "pos": "GK",
+                "country": "Wales",
+                "rating": 39.22,
+                "cost": 18.05
+            },
+            {
+                "name": "Jose Quispe",
+                "pos": "DEF",
+                "country": "Peru",
+                "rating": 38.4727,
+                "cost": 15.2
+            },
+            {
+                "name": "Sherif Farouk",
+                "pos": "DEF",
+                "country": "Egypt",
+                "rating": 36.3741,
+                "cost": 10.72
+            },
+            {
+                "name": "Dejan Popovic",
+                "pos": "MID",
+                "country": "Montenegro",
+                "rating": 32.0635,
+                "cost": 8.0
+            },
+            {
+                "name": "Abdel Aziz Abid",
+                "pos": "MID",
+                "country": "Morocco",
+                "rating": 31.8621,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Fursan al-Arab",
+        "league": "Med",
+        "identity": "Balanced",
+        "budget": 191.0,
+        "spent": 191.0,
+        "roster": [
+            {
+                "name": "Joao Silva",
+                "pos": "FWD",
+                "country": "Portugal",
+                "rating": 46.2339,
+                "cost": 46.67
+            },
+            {
+                "name": "Rafael Delgado",
+                "pos": "DEF",
+                "country": "Spain",
+                "rating": 43.4847,
+                "cost": 27.06
+            },
+            {
+                "name": "Cesar Aguero",
+                "pos": "FWD",
+                "country": "Argentina",
+                "rating": 40.2024,
+                "cost": 24.85
+            },
+            {
+                "name": "Sergio Gutierrez",
+                "pos": "GK",
+                "country": "Mexico",
+                "rating": 41.23,
+                "cost": 22.42
+            },
+            {
+                "name": "Jose Romero",
+                "pos": "DEF",
+                "country": "Spain",
+                "rating": 40.1405,
+                "cost": 18.71
+            },
+            {
+                "name": "Eduardo Vaca",
+                "pos": "DEF",
+                "country": "Bolivia",
+                "rating": 39.3067,
+                "cost": 17.55
+            },
+            {
+                "name": "Amir Zare",
+                "pos": "MID",
+                "country": "Iran",
+                "rating": 34.6237,
+                "cost": 11.74
+            },
+            {
+                "name": "Abdalla Eisa",
+                "pos": "MID",
+                "country": "United Arab Emirates",
+                "rating": 32.0925,
+                "cost": 8.0
+            },
+            {
+                "name": "Rachid Tahiri",
+                "pos": "MID",
+                "country": "Morocco",
+                "rating": 31.7926,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Catalonia Gothic",
+        "league": "Med",
+        "identity": "Control",
+        "budget": 180.0,
+        "spent": 180.0,
+        "roster": [
+            {
+                "name": "Mario Sosa",
+                "pos": "MID",
+                "country": "Croatia",
+                "rating": 41.9629,
+                "cost": 30.26
+            },
+            {
+                "name": "Albert Hall",
+                "pos": "FWD",
+                "country": "Jamaica",
+                "rating": 40.9333,
+                "cost": 26.21
+            },
+            {
+                "name": "Arthur Kakuta",
+                "pos": "MID",
+                "country": "Congo DR",
+                "rating": 40.733,
+                "cost": 26.38
+            },
+            {
+                "name": "Kyriacos Panayiotou",
+                "pos": "FWD",
+                "country": "Cyprus",
+                "rating": 39.1632,
+                "cost": 21.62
+            },
+            {
+                "name": "Roberto Sosa",
+                "pos": "MID",
+                "country": "Argentina",
+                "rating": 39.9835,
+                "cost": 23.75
+            },
+            {
+                "name": "Michele di Stefano",
+                "pos": "DEF",
+                "country": "Italy",
+                "rating": 38.1201,
+                "cost": 15.23
+            },
+            {
+                "name": "Ljubomir Jovanovic",
+                "pos": "GK",
+                "country": "Montenegro",
+                "rating": 37.77,
+                "cost": 14.26
+            },
+            {
+                "name": "Zuhair Hassan",
+                "pos": "DEF",
+                "country": "Saudi Arabia",
+                "rating": 34.1869,
+                "cost": 8.3
+            },
+            {
+                "name": "Karim Mohamed",
+                "pos": "DEF",
+                "country": "Tunisia",
+                "rating": 33.6473,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Le Rocher Monaco",
+        "league": "Med",
+        "identity": "Offense",
+        "budget": 176.0,
+        "spent": 175.6,
+        "roster": [
+            {
+                "name": "Didier Diomande",
+                "pos": "FWD",
+                "country": "Cote d'Ivoire",
+                "rating": 45.4933,
+                "cost": 44.82
+            },
+            {
+                "name": "Leandro Cordeiro",
+                "pos": "FWD",
+                "country": "Brazil",
+                "rating": 45.2141,
+                "cost": 43.12
+            },
+            {
+                "name": "Alvaro Vazquez",
+                "pos": "MID",
+                "country": "Spain",
+                "rating": 37.434,
+                "cost": 16.95
+            },
+            {
+                "name": "Salvatore Moretti",
+                "pos": "MID",
+                "country": "Italy",
+                "rating": 37.2328,
+                "cost": 15.89
+            },
+            {
+                "name": "Enrique Ortega",
+                "pos": "GK",
+                "country": "Spain",
+                "rating": 37.98,
+                "cost": 14.62
+            },
+            {
+                "name": "Alejandro Garcia",
+                "pos": "MID",
+                "country": "Spain",
+                "rating": 36.0635,
+                "cost": 13.16
+            },
+            {
+                "name": "Mohamed Benyahia",
+                "pos": "DEF",
+                "country": "Algeria",
+                "rating": 33.8632,
+                "cost": 8.44
+            },
+            {
+                "name": "Ilir Hoxha",
+                "pos": "DEF",
+                "country": "Albania",
+                "rating": 33.3925,
+                "cost": 8.0
+            },
+            {
+                "name": "Bassel Haidar",
+                "pos": "DEF",
+                "country": "Lebanon",
+                "rating": 33.2943,
+                "cost": 7.6
+            }
+        ]
+    },
+    {
+        "team": "Barbary Apes",
+        "league": "Med",
+        "identity": "Defense",
+        "budget": 176.0,
+        "spent": 176.0,
+        "roster": [
+            {
+                "name": "Klaus Bauer",
+                "pos": "GK",
+                "country": "Germany",
+                "rating": 45.25,
+                "cost": 37.65
+            },
+            {
+                "name": "Mustapha Hakimi",
+                "pos": "MID",
+                "country": "Morocco",
+                "rating": 40.4334,
+                "cost": 23.69
+            },
+            {
+                "name": "Svein Berg",
+                "pos": "FWD",
+                "country": "Norway",
+                "rating": 38.4032,
+                "cost": 21.59
+            },
+            {
+                "name": "Tahnoon Ramadan",
+                "pos": "FWD",
+                "country": "United Arab Emirates",
+                "rating": 37.8836,
+                "cost": 19.75
+            },
+            {
+                "name": "Ramazan Yilmaz",
+                "pos": "DEF",
+                "country": "Turkey",
+                "rating": 39.4634,
+                "cost": 19.01
+            },
+            {
+                "name": "Jovan Trajkovic",
+                "pos": "MID",
+                "country": "Serbia",
+                "rating": 37.9132,
+                "cost": 16.91
+            },
+            {
+                "name": "Med Mansour",
+                "pos": "MID",
+                "country": "Tunisia",
+                "rating": 35.1228,
+                "cost": 12.41
+            },
+            {
+                "name": "Abdel Allah",
+                "pos": "DEF",
+                "country": "Jordan",
+                "rating": 33.6964,
+                "cost": 8.0
+            },
+            {
+                "name": "Amar Touati",
+                "pos": "DEF",
+                "country": "Algeria",
+                "rating": 33.4124,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Olympias Athena",
+        "league": "Med",
+        "identity": "Defense",
+        "budget": 168.0,
+        "spent": 168.0,
+        "roster": [
+            {
+                "name": "Luis Aguirre",
+                "pos": "GK",
+                "country": "Argentina",
+                "rating": 43.07,
+                "cost": 30.03
+            },
+            {
+                "name": "Thomas Martin",
+                "pos": "FWD",
+                "country": "Australia",
+                "rating": 39.6343,
+                "cost": 23.88
+            },
+            {
+                "name": "Slobodan Kovacevic",
+                "pos": "FWD",
+                "country": "Bosnia and Herzegovina",
+                "rating": 38.3644,
+                "cost": 21.57
+            },
+            {
+                "name": "Aissa Bounedjah",
+                "pos": "MID",
+                "country": "Algeria",
+                "rating": 37.3934,
+                "cost": 17.37
+            },
+            {
+                "name": "Huseyin Sahin",
+                "pos": "MID",
+                "country": "Turkey",
+                "rating": 37.3826,
+                "cost": 18.4
+            },
+            {
+                "name": "Alidu Mensah",
+                "pos": "MID",
+                "country": "Ghana",
+                "rating": 35.903,
+                "cost": 14.87
+            },
+            {
+                "name": "Arthur Coelho",
+                "pos": "DEF",
+                "country": "Brazil",
+                "rating": 36.737,
+                "cost": 14.54
+            },
+            {
+                "name": "Ali Al-Ahbabi",
+                "pos": "DEF",
+                "country": "United Arab Emirates",
+                "rating": 35.7465,
+                "cost": 10.34
+            },
+            {
+                "name": "Savvas Constantinou",
+                "pos": "DEF",
+                "country": "Cyprus",
+                "rating": 33.03,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Bosphorus Blue",
+        "league": "Med",
+        "identity": "Control",
+        "budget": 164.0,
+        "spent": 162.62,
+        "roster": [
+            {
+                "name": "Giovanni Rossi",
+                "pos": "FWD",
+                "country": "Italy",
+                "rating": 42.6646,
+                "cost": 34.06
+            },
+            {
+                "name": "Roberjt Grgic",
+                "pos": "MID",
+                "country": "Croatia",
+                "rating": 42.9042,
+                "cost": 30.61
+            },
+            {
+                "name": "Petr Navratil",
+                "pos": "MID",
+                "country": "Czechia",
+                "rating": 39.6435,
+                "cost": 24.73
+            },
+            {
+                "name": "Hilal Maatouk",
+                "pos": "FWD",
+                "country": "Lebanon",
+                "rating": 37.3543,
+                "cost": 16.71
+            },
+            {
+                "name": "Gabriel Magalhaes",
+                "pos": "MID",
+                "country": "Brazil",
+                "rating": 37.6533,
+                "cost": 19.39
+            },
+            {
+                "name": "Rabih El Zein",
+                "pos": "GK",
+                "country": "Lebanon",
+                "rating": 34.56,
+                "cost": 10.0
+            },
+            {
+                "name": "Salaah Al-Yahyaei",
+                "pos": "DEF",
+                "country": "Oman",
+                "rating": 32.7063,
+                "cost": 8.0
+            },
+            {
+                "name": "Faisal Almarri",
+                "pos": "DEF",
+                "country": "Qatar",
+                "rating": 32.0788,
+                "cost": 7.75
+            },
+            {
+                "name": "Ebrahim Al-Aswad",
+                "pos": "DEF",
+                "country": "Bahrain",
+                "rating": 32.0,
+                "cost": 6.87
+            }
+        ]
+    },
+    {
+        "team": "Visconti Serpents",
+        "league": "Med",
+        "identity": "Offense",
+        "budget": 161.0,
+        "spent": 160.09,
+        "roster": [
+            {
+                "name": "Sergio Alves",
+                "pos": "MID",
+                "country": "Portugal",
+                "rating": 45.9938,
+                "cost": 39.96
+            },
+            {
+                "name": "Manoel Ribiero",
+                "pos": "FWD",
+                "country": "Brazil",
+                "rating": 44.4832,
+                "cost": 43.19
+            },
+            {
+                "name": "Mehdi Khalil",
+                "pos": "FWD",
+                "country": "Lebanon",
+                "rating": 39.1341,
+                "cost": 25.4
+            },
+            {
+                "name": "Reza Jafari",
+                "pos": "GK",
+                "country": "Iran",
+                "rating": 35.34,
+                "cost": 10.95
+            },
+            {
+                "name": "Marcelo Majer",
+                "pos": "DEF",
+                "country": "Croatia",
+                "rating": 32.9026,
+                "cost": 8.0
+            },
+            {
+                "name": "Shahid Khan",
+                "pos": "MID",
+                "country": "Saudi Arabia",
+                "rating": 31.3034,
+                "cost": 7.85
+            },
+            {
+                "name": "Georges B\u00e9arun\u00e9",
+                "pos": "MID",
+                "country": "New Caledonia",
+                "rating": 31.1222,
+                "cost": 6.65
+            },
+            {
+                "name": "Ammar Sabbag",
+                "pos": "DEF",
+                "country": "Syria",
+                "rating": 32.0097,
+                "cost": 6.5
+            },
+            {
+                "name": "Joe Waine",
+                "pos": "DEF",
+                "country": "New Zealand",
+                "rating": 31.8433,
+                "cost": 7.09
+            }
+        ]
+    },
+    {
+        "team": "Lisbon United",
+        "league": "Med",
+        "identity": "Control",
+        "budget": 154.0,
+        "spent": 154.0,
+        "roster": [
+            {
+                "name": "Giovanni Ricci",
+                "pos": "FWD",
+                "country": "Italy",
+                "rating": 39.4327,
+                "cost": 24.45
+            },
+            {
+                "name": "Marcelo da Silva",
+                "pos": "MID",
+                "country": "Brazil",
+                "rating": 40.2536,
+                "cost": 26.3
+            },
+            {
+                "name": "Sergio Martino",
+                "pos": "FWD",
+                "country": "Italy",
+                "rating": 37.9224,
+                "cost": 19.31
+            },
+            {
+                "name": "Francesco Caruso",
+                "pos": "DEF",
+                "country": "Italy",
+                "rating": 39.4831,
+                "cost": 19.03
+            },
+            {
+                "name": "Gerardo Perez",
+                "pos": "MID",
+                "country": "Uruguay",
+                "rating": 38.3632,
+                "cost": 20.91
+            },
+            {
+                "name": "Pedro Huaman",
+                "pos": "GK",
+                "country": "Peru",
+                "rating": 37.21,
+                "cost": 14.35
+            },
+            {
+                "name": "Stjepan Novosel",
+                "pos": "DEF",
+                "country": "Croatia",
+                "rating": 34.8055,
+                "cost": 9.15
+            },
+            {
+                "name": "Dimitrios Papadopoulos",
+                "pos": "DEF",
+                "country": "Greece",
+                "rating": 32.5492,
+                "cost": 7.71
+            },
+            {
+                "name": "German Salazar",
+                "pos": "MID",
+                "country": "Colombia",
+                "rating": 31.2836,
+                "cost": 6.79
+            }
+        ]
+    },
+    {
+        "team": "Lions of Carthage",
+        "league": "Med",
+        "identity": "Offense",
+        "budget": 150.0,
+        "spent": 149.38,
+        "roster": [
+            {
+                "name": "Niko Lovric",
+                "pos": "FWD",
+                "country": "Croatia",
+                "rating": 45.724,
+                "cost": 47.3
+            },
+            {
+                "name": "Ivica Vidovic",
+                "pos": "FWD",
+                "country": "Croatia",
+                "rating": 43.6844,
+                "cost": 38.89
+            },
+            {
+                "name": "Amr Shehab",
+                "pos": "GK",
+                "country": "Palestine",
+                "rating": 36.6,
+                "cost": 12.76
+            },
+            {
+                "name": "Giuseppe Giordano",
+                "pos": "DEF",
+                "country": "Italy",
+                "rating": 36.0997,
+                "cost": 11.05
+            },
+            {
+                "name": "Shabaib Al-Dhefiri",
+                "pos": "DEF",
+                "country": "Kuwait",
+                "rating": 32.157,
+                "cost": 7.12
+            },
+            {
+                "name": "Moulaye Guidileye",
+                "pos": "MID",
+                "country": "Mauritania",
+                "rating": 31.1027,
+                "cost": 7.38
+            },
+            {
+                "name": "Ahmed Salah",
+                "pos": "DEF",
+                "country": "Egypt",
+                "rating": 31.9122,
+                "cost": 7.07
+            },
+            {
+                "name": "Arshad Yadav",
+                "pos": "MID",
+                "country": "Qatar",
+                "rating": 30.8527,
+                "cost": 8.22
+            },
+            {
+                "name": "Komail Al-Aswad",
+                "pos": "MID",
+                "country": "Bahrain",
+                "rating": 30.8227,
+                "cost": 8.09
+            }
+        ]
+    },
+    {
+        "team": "Najm al-Bayda",
+        "league": "Med",
+        "identity": "Balanced",
+        "budget": 148.0,
+        "spent": 146.92,
+        "roster": [
+            {
+                "name": "Dario Blanco",
+                "pos": "FWD",
+                "country": "Argentina",
+                "rating": 40.7123,
+                "cost": 29.65
+            },
+            {
+                "name": "Vicente Garcia",
+                "pos": "FWD",
+                "country": "Spain",
+                "rating": 38.4323,
+                "cost": 21.27
+            },
+            {
+                "name": "Mario Appindangoy\u00e9",
+                "pos": "GK",
+                "country": "Gabon",
+                "rating": 38.01,
+                "cost": 18.14
+            },
+            {
+                "name": "Teboho Tau",
+                "pos": "MID",
+                "country": "South Africa",
+                "rating": 36.2327,
+                "cost": 16.0
+            },
+            {
+                "name": "Walid Harit",
+                "pos": "MID",
+                "country": "Morocco",
+                "rating": 35.8525,
+                "cost": 14.33
+            },
+            {
+                "name": "Jefferson Uribe",
+                "pos": "DEF",
+                "country": "Colombia",
+                "rating": 36.7073,
+                "cost": 14.65
+            },
+            {
+                "name": "Mehmet Celik",
+                "pos": "DEF",
+                "country": "Turkey",
+                "rating": 35.6776,
+                "cost": 11.97
+            },
+            {
+                "name": "Hassan Ataya",
+                "pos": "MID",
+                "country": "Lebanon",
+                "rating": 31.0627,
+                "cost": 8.0
+            },
+            {
+                "name": "Victor-Manuel Aguilar",
+                "pos": "DEF",
+                "country": "Spain",
+                "rating": 31.6193,
+                "cost": 6.92
+            }
+        ]
+    },
+    {
+        "team": "Alexandria Faros",
+        "league": "Med",
+        "identity": "Control",
+        "budget": 141.0,
+        "spent": 141.0,
+        "roster": [
+            {
+                "name": "Patricio Torres",
+                "pos": "MID",
+                "country": "Chile",
+                "rating": 41.4632,
+                "cost": 28.87
+            },
+            {
+                "name": "Ali Mousavi",
+                "pos": "FWD",
+                "country": "Iran",
+                "rating": 37.4125,
+                "cost": 19.36
+            },
+            {
+                "name": "Alvaro Viera",
+                "pos": "MID",
+                "country": "Uruguay",
+                "rating": 38.4028,
+                "cost": 21.55
+            },
+            {
+                "name": "Freddy Lopez",
+                "pos": "FWD",
+                "country": "Venezuela",
+                "rating": 36.3733,
+                "cost": 15.92
+            },
+            {
+                "name": "German Arias",
+                "pos": "GK",
+                "country": "Colombia",
+                "rating": 36.94,
+                "cost": 14.22
+            },
+            {
+                "name": "Amine Ounahi",
+                "pos": "DEF",
+                "country": "Morocco",
+                "rating": 35.1094,
+                "cost": 10.5
+            },
+            {
+                "name": "Gian Selva",
+                "pos": "DEF",
+                "country": "San Marino",
+                "rating": 34.5694,
+                "cost": 8.58
+            },
+            {
+                "name": "Zlatko Novak",
+                "pos": "DEF",
+                "country": "Croatia",
+                "rating": 32.579,
+                "cost": 8.0
+            },
+            {
+                "name": "Agustin Lara",
+                "pos": "MID",
+                "country": "Spain",
+                "rating": 30.6021,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Damascus Steel",
+        "league": "Med",
+        "identity": "Defense",
+        "budget": 138.0,
+        "spent": 138.0,
+        "roster": [
+            {
+                "name": "Ahmed Saleh",
+                "pos": "GK",
+                "country": "Oman",
+                "rating": 40.43,
+                "cost": 23.53
+            },
+            {
+                "name": "Yusuf Guler",
+                "pos": "FWD",
+                "country": "Turkey",
+                "rating": 36.6428,
+                "cost": 18.1
+            },
+            {
+                "name": "Salah Saidi",
+                "pos": "FWD",
+                "country": "Algeria",
+                "rating": 36.3927,
+                "cost": 16.17
+            },
+            {
+                "name": "Fabrice Blanchard",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 35.6678,
+                "cost": 13.07
+            },
+            {
+                "name": "Nestor Moreira",
+                "pos": "DEF",
+                "country": "Uruguay",
+                "rating": 35.638,
+                "cost": 13.15
+            },
+            {
+                "name": "Andres Molina",
+                "pos": "DEF",
+                "country": "Colombia",
+                "rating": 35.3936,
+                "cost": 12.59
+            },
+            {
+                "name": "Malcolm Hopkins",
+                "pos": "MID",
+                "country": "Wales",
+                "rating": 33.8729,
+                "cost": 11.18
+            },
+            {
+                "name": "Didier Bouanga",
+                "pos": "MID",
+                "country": "Gabon",
+                "rating": 33.8237,
+                "cost": 10.86
+            },
+            {
+                "name": "Ramesh Shrestha",
+                "pos": "MID",
+                "country": "Qatar",
+                "rating": 33.1122,
+                "cost": 8.84
+            }
+        ]
+    },
+    {
+        "team": "Tripoli Sporting",
+        "league": "Med",
+        "identity": "Balanced",
+        "budget": 138.0,
+        "spent": 136.23,
+        "roster": [
+            {
+                "name": "Juan Rivera",
+                "pos": "FWD",
+                "country": "Peru",
+                "rating": 39.6828,
+                "cost": 26.41
+            },
+            {
+                "name": "Fahad Ali",
+                "pos": "FWD",
+                "country": "Qatar",
+                "rating": 38.3741,
+                "cost": 20.64
+            },
+            {
+                "name": "Andrej Kos",
+                "pos": "GK",
+                "country": "Slovenia",
+                "rating": 38.4,
+                "cost": 19.16
+            },
+            {
+                "name": "Said Taleb",
+                "pos": "MID",
+                "country": "Algeria",
+                "rating": 36.4038,
+                "cost": 16.82
+            },
+            {
+                "name": "Stavros Giannopoulos",
+                "pos": "MID",
+                "country": "Greece",
+                "rating": 35.4233,
+                "cost": 15.14
+            },
+            {
+                "name": "Abo Samir",
+                "pos": "MID",
+                "country": "Egypt",
+                "rating": 34.1425,
+                "cost": 11.33
+            },
+            {
+                "name": "Milan Mitrovic",
+                "pos": "DEF",
+                "country": "Montenegro",
+                "rating": 31.5395,
+                "cost": 7.64
+            },
+            {
+                "name": "Amer Zaid",
+                "pos": "DEF",
+                "country": "Kuwait",
+                "rating": 31.5,
+                "cost": 7.23
+            },
+            {
+                "name": "Giampiero Suriani",
+                "pos": "DEF",
+                "country": "Vatican City",
+                "rating": 31.4702,
+                "cost": 7.36
+            }
+        ]
+    },
+    {
+        "team": "Moscow Krepost",
+        "league": "Euro",
+        "identity": "Control",
+        "budget": 163.0,
+        "spent": 163.0,
+        "roster": [
+            {
+                "name": "Soren Holm",
+                "pos": "MID",
+                "country": "Denmark",
+                "rating": 43.2033,
+                "cost": 31.29
+            },
+            {
+                "name": "Zoran Ilic",
+                "pos": "MID",
+                "country": "Serbia",
+                "rating": 40.7337,
+                "cost": 26.49
+            },
+            {
+                "name": "Kristjan Jonsson",
+                "pos": "MID",
+                "country": "Iceland",
+                "rating": 40.7031,
+                "cost": 25.98
+            },
+            {
+                "name": "Ilija Hodzic",
+                "pos": "DEF",
+                "country": "Bosnia and Herzegovina",
+                "rating": 40.2676,
+                "cost": 18.49
+            },
+            {
+                "name": "Niels Jensen",
+                "pos": "FWD",
+                "country": "Denmark",
+                "rating": 36.8929,
+                "cost": 17.01
+            },
+            {
+                "name": "Arnaldo Benitez",
+                "pos": "FWD",
+                "country": "Paraguay",
+                "rating": 36.6234,
+                "cost": 15.31
+            },
+            {
+                "name": "Zoran Atanasov",
+                "pos": "GK",
+                "country": "Macedonia",
+                "rating": 35.36,
+                "cost": 10.93
+            },
+            {
+                "name": "Laszlo Kovacs",
+                "pos": "DEF",
+                "country": "Hungary",
+                "rating": 33.9025,
+                "cost": 8.0
+            },
+            {
+                "name": "Lars Jonsson",
+                "pos": "DEF",
+                "country": "Sweden",
+                "rating": 33.6769,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Slavutych Kyiv",
+        "league": "Euro",
+        "identity": "Offense",
+        "budget": 157.0,
+        "spent": 157.0,
+        "roster": [
+            {
+                "name": "Pawel Lewandowski",
+                "pos": "FWD",
+                "country": "Poland",
+                "rating": 41.9725,
+                "cost": 34.66
+            },
+            {
+                "name": "Maksim Volkova",
+                "pos": "FWD",
+                "country": "Russia",
+                "rating": 41.9337,
+                "cost": 31.99
+            },
+            {
+                "name": "Tomislav Rakic",
+                "pos": "GK",
+                "country": "Serbia",
+                "rating": 38.6,
+                "cost": 17.47
+            },
+            {
+                "name": "Zoltan Kocsis",
+                "pos": "MID",
+                "country": "Hungary",
+                "rating": 37.1836,
+                "cost": 17.0
+            },
+            {
+                "name": "Nykolai Moroz",
+                "pos": "DEF",
+                "country": "Ukraine",
+                "rating": 38.1195,
+                "cost": 15.64
+            },
+            {
+                "name": "Franz Ospelt",
+                "pos": "MID",
+                "country": "Liechtenstein",
+                "rating": 35.4225,
+                "cost": 14.08
+            },
+            {
+                "name": "Jesper Thomsen",
+                "pos": "DEF",
+                "country": "Denmark",
+                "rating": 35.5899,
+                "cost": 10.15
+            },
+            {
+                "name": "Heikki Laine",
+                "pos": "DEF",
+                "country": "Finland",
+                "rating": 33.4123,
+                "cost": 8.0
+            },
+            {
+                "name": "Algimantas Zilinskas",
+                "pos": "MID",
+                "country": "Lithuania",
+                "rating": 31.8629,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Edelweiss Zurich",
+        "league": "Euro",
+        "identity": "Balanced",
+        "budget": 155.0,
+        "spent": 155.0,
+        "roster": [
+            {
+                "name": "Simon Knight",
+                "pos": "FWD",
+                "country": "England",
+                "rating": 42.7228,
+                "cost": 35.21
+            },
+            {
+                "name": "Marcos Ospina",
+                "pos": "FWD",
+                "country": "Colombia",
+                "rating": 38.3838,
+                "cost": 21.9
+            },
+            {
+                "name": "Miroslav Pavlovic",
+                "pos": "GK",
+                "country": "Croatia",
+                "rating": 39.03,
+                "cost": 20.01
+            },
+            {
+                "name": "Pavel Ivanova",
+                "pos": "DEF",
+                "country": "Russia",
+                "rating": 37.7172,
+                "cost": 15.77
+            },
+            {
+                "name": "Aka Dah",
+                "pos": "MID",
+                "country": "Cote d'Ivoire",
+                "rating": 35.8834,
+                "cost": 15.99
+            },
+            {
+                "name": "Erik Olsen",
+                "pos": "DEF",
+                "country": "Norway",
+                "rating": 36.3643,
+                "cost": 12.84
+            },
+            {
+                "name": "Anders Lindstrom",
+                "pos": "MID",
+                "country": "Sweden",
+                "rating": 32.613,
+                "cost": 8.28
+            },
+            {
+                "name": "Fredrik Johansson",
+                "pos": "MID",
+                "country": "Sweden",
+                "rating": 32.3428,
+                "cost": 8.0
+            },
+            {
+                "name": "Slobodan Krstic",
+                "pos": "DEF",
+                "country": "Serbia",
+                "rating": 33.0889,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Stockholm United",
+        "league": "Euro",
+        "identity": "Balanced",
+        "budget": 154.0,
+        "spent": 154.0,
+        "roster": [
+            {
+                "name": "Florin Stan",
+                "pos": "FWD",
+                "country": "Romania",
+                "rating": 43.7038,
+                "cost": 38.46
+            },
+            {
+                "name": "Jan Prochazka",
+                "pos": "FWD",
+                "country": "Czechia",
+                "rating": 38.9131,
+                "cost": 21.66
+            },
+            {
+                "name": "Vyktor Kovalenko",
+                "pos": "MID",
+                "country": "Ukraine",
+                "rating": 38.6535,
+                "cost": 19.69
+            },
+            {
+                "name": "Rolf Schulze",
+                "pos": "GK",
+                "country": "Germany",
+                "rating": 38.98,
+                "cost": 18.55
+            },
+            {
+                "name": "Andrzej Nowak",
+                "pos": "MID",
+                "country": "Poland",
+                "rating": 35.5929,
+                "cost": 14.83
+            },
+            {
+                "name": "Lucas Luiz",
+                "pos": "DEF",
+                "country": "Brazil",
+                "rating": 36.3935,
+                "cost": 12.32
+            },
+            {
+                "name": "Darius Balciunas",
+                "pos": "DEF",
+                "country": "Lithuania",
+                "rating": 33.2654,
+                "cost": 8.0
+            },
+            {
+                "name": "Viktor Morozov",
+                "pos": "DEF",
+                "country": "Russia",
+                "rating": 32.7059,
+                "cost": 8.0
+            },
+            {
+                "name": "Jovan Stojanovski",
+                "pos": "MID",
+                "country": "Macedonia",
+                "rating": 31.0734,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Oslo Vikinger",
+        "league": "Euro",
+        "identity": "Offense",
+        "budget": 145.0,
+        "spent": 145.0,
+        "roster": [
+            {
+                "name": "Andreas Wyss",
+                "pos": "FWD",
+                "country": "Switzerland",
+                "rating": 42.9535,
+                "cost": 37.18
+            },
+            {
+                "name": "Orlando Cardona",
+                "pos": "FWD",
+                "country": "Colombia",
+                "rating": 41.6448,
+                "cost": 34.16
+            },
+            {
+                "name": "Serhei Tkachenko",
+                "pos": "GK",
+                "country": "Ukraine",
+                "rating": 37.2,
+                "cost": 13.77
+            },
+            {
+                "name": "Park Jun-Seo",
+                "pos": "DEF",
+                "country": "South Korea",
+                "rating": 35.9625,
+                "cost": 10.89
+            },
+            {
+                "name": "Odilon Gradel",
+                "pos": "DEF",
+                "country": "Cote d'Ivoire",
+                "rating": 35.776,
+                "cost": 12.15
+            },
+            {
+                "name": "Petar Stojanovic",
+                "pos": "DEF",
+                "country": "Serbia",
+                "rating": 34.1571,
+                "cost": 8.35
+            },
+            {
+                "name": "Aleksandr Kuznetsov",
+                "pos": "MID",
+                "country": "Russia",
+                "rating": 32.1329,
+                "cost": 8.0
+            },
+            {
+                "name": "Gheorghe Cristea",
+                "pos": "MID",
+                "country": "Romania",
+                "rating": 31.8428,
+                "cost": 8.0
+            },
+            {
+                "name": "Constantin Prodan",
+                "pos": "MID",
+                "country": "Moldova",
+                "rating": 31.3425,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Donau Wien",
+        "league": "Euro",
+        "identity": "Control",
+        "budget": 143.0,
+        "spent": 141.45,
+        "roster": [
+            {
+                "name": "Stefan Takac",
+                "pos": "FWD",
+                "country": "Slovakia",
+                "rating": 39.7022,
+                "cost": 25.77
+            },
+            {
+                "name": "Franc Potocnik",
+                "pos": "FWD",
+                "country": "Slovenia",
+                "rating": 38.1143,
+                "cost": 20.52
+            },
+            {
+                "name": "Jan Johansen",
+                "pos": "MID",
+                "country": "Norway",
+                "rating": 38.923,
+                "cost": 22.82
+            },
+            {
+                "name": "Rafael Parra",
+                "pos": "MID",
+                "country": "Venezuela",
+                "rating": 37.8733,
+                "cost": 20.76
+            },
+            {
+                "name": "Cieran McCormick",
+                "pos": "GK",
+                "country": "Northern Ireland",
+                "rating": 37.17,
+                "cost": 14.36
+            },
+            {
+                "name": "Werner Frei",
+                "pos": "MID",
+                "country": "Switzerland",
+                "rating": 34.1131,
+                "cost": 10.27
+            },
+            {
+                "name": "Vasile Cazacu",
+                "pos": "DEF",
+                "country": "Moldova",
+                "rating": 32.0395,
+                "cost": 7.68
+            },
+            {
+                "name": "Arni Olafsson",
+                "pos": "DEF",
+                "country": "Iceland",
+                "rating": 31.5394,
+                "cost": 6.76
+            },
+            {
+                "name": "Pedro Dos Santos",
+                "pos": "DEF",
+                "country": "Angola",
+                "rating": 31.2354,
+                "cost": 6.51
+            }
+        ]
+    },
+    {
+        "team": "Dunav Belgrade",
+        "league": "Euro",
+        "identity": "Control",
+        "budget": 143.0,
+        "spent": 142.1,
+        "roster": [
+            {
+                "name": "Kjell Nilsen",
+                "pos": "FWD",
+                "country": "Norway",
+                "rating": 42.1838,
+                "cost": 29.82
+            },
+            {
+                "name": "Vitaliy Zabarnyi",
+                "pos": "MID",
+                "country": "Ukraine",
+                "rating": 38.9529,
+                "cost": 23.13
+            },
+            {
+                "name": "Vasylyi Yvanova",
+                "pos": "MID",
+                "country": "Ukraine",
+                "rating": 37.9932,
+                "cost": 20.75
+            },
+            {
+                "name": "Raul Morales",
+                "pos": "FWD",
+                "country": "Peru",
+                "rating": 36.162,
+                "cost": 15.46
+            },
+            {
+                "name": "Ari Korhonen",
+                "pos": "MID",
+                "country": "Finland",
+                "rating": 36.5939,
+                "cost": 16.1
+            },
+            {
+                "name": "Piotr Nowicki",
+                "pos": "GK",
+                "country": "Poland",
+                "rating": 36.19,
+                "cost": 12.26
+            },
+            {
+                "name": "Gerhard Bauer",
+                "pos": "DEF",
+                "country": "Austria",
+                "rating": 33.0497,
+                "cost": 7.8
+            },
+            {
+                "name": "Ernest Nuamah",
+                "pos": "DEF",
+                "country": "Ghana",
+                "rating": 32.6765,
+                "cost": 6.7
+            },
+            {
+                "name": "Marko Bosnjak",
+                "pos": "DEF",
+                "country": "Bosnia and Herzegovina",
+                "rating": 32.1866,
+                "cost": 7.1
+            }
+        ]
+    },
+    {
+        "team": "Sisu Helsinki",
+        "league": "Euro",
+        "identity": "Control",
+        "budget": 136.0,
+        "spent": 134.88,
+        "roster": [
+            {
+                "name": "Ivan Popova",
+                "pos": "FWD",
+                "country": "Russia",
+                "rating": 40.9236,
+                "cost": 28.68
+            },
+            {
+                "name": "Mathieu Lefevre",
+                "pos": "FWD",
+                "country": "France",
+                "rating": 36.4121,
+                "cost": 17.66
+            },
+            {
+                "name": "Aleksandr Olyinyk",
+                "pos": "DEF",
+                "country": "Ukraine",
+                "rating": 37.9624,
+                "cost": 15.6
+            },
+            {
+                "name": "Bojan Kavcic",
+                "pos": "DEF",
+                "country": "Slovenia",
+                "rating": 37.7863,
+                "cost": 15.25
+            },
+            {
+                "name": "Krasimi Georgiev",
+                "pos": "GK",
+                "country": "Bulgaria",
+                "rating": 37.38,
+                "cost": 15.52
+            },
+            {
+                "name": "Andrey Zaitsev",
+                "pos": "MID",
+                "country": "Russia",
+                "rating": 35.222,
+                "cost": 14.46
+            },
+            {
+                "name": "Emilio Segundo",
+                "pos": "DEF",
+                "country": "Argentina",
+                "rating": 34.0892,
+                "cost": 8.33
+            },
+            {
+                "name": "Pascal Ferreira",
+                "pos": "MID",
+                "country": "Luxembourg",
+                "rating": 30.7925,
+                "cost": 7.99
+            },
+            {
+                "name": "Stefan Meier",
+                "pos": "MID",
+                "country": "Switzerland",
+                "rating": 30.294,
+                "cost": 6.9
+            }
+        ]
+    },
+    {
+        "team": "Kongens FC",
+        "league": "Euro",
+        "identity": "Balanced",
+        "budget": 133.0,
+        "spent": 133.0,
+        "roster": [
+            {
+                "name": "Jens Clausen",
+                "pos": "GK",
+                "country": "Denmark",
+                "rating": 43.04,
+                "cost": 29.52
+            },
+            {
+                "name": "Arvydas Vasiliauskas",
+                "pos": "FWD",
+                "country": "Lithuania",
+                "rating": 36.8735,
+                "cost": 19.4
+            },
+            {
+                "name": "Mauricio Rios",
+                "pos": "FWD",
+                "country": "Colombia",
+                "rating": 36.8347,
+                "cost": 17.87
+            },
+            {
+                "name": "Istvan Kiss",
+                "pos": "MID",
+                "country": "Hungary",
+                "rating": 35.1332,
+                "cost": 15.12
+            },
+            {
+                "name": "Jani Rasanen",
+                "pos": "MID",
+                "country": "Finland",
+                "rating": 34.8841,
+                "cost": 13.46
+            },
+            {
+                "name": "Valentin Ionescu",
+                "pos": "MID",
+                "country": "Romania",
+                "rating": 33.8731,
+                "cost": 12.12
+            },
+            {
+                "name": "Ladislav Kovac",
+                "pos": "DEF",
+                "country": "Slovakia",
+                "rating": 32.5692,
+                "cost": 7.91
+            },
+            {
+                "name": "Daniel Wohlwend",
+                "pos": "DEF",
+                "country": "Liechtenstein",
+                "rating": 31.1465,
+                "cost": 7.14
+            },
+            {
+                "name": "Fernando Ribiero",
+                "pos": "DEF",
+                "country": "Portugal",
+                "rating": 30.9603,
+                "cost": 5.94
+            }
+        ]
+    },
+    {
+        "team": "Bohemian Gryphons",
+        "league": "Euro",
+        "identity": "Offense",
+        "budget": 131.0,
+        "spent": 131.0,
+        "roster": [
+            {
+                "name": "Georgios Nikolaidis",
+                "pos": "FWD",
+                "country": "Greece",
+                "rating": 40.1345,
+                "cost": 28.34
+            },
+            {
+                "name": "Sandor Toth",
+                "pos": "FWD",
+                "country": "Hungary",
+                "rating": 39.644,
+                "cost": 25.48
+            },
+            {
+                "name": "Eero Salo",
+                "pos": "GK",
+                "country": "Finland",
+                "rating": 36.8,
+                "cost": 13.68
+            },
+            {
+                "name": "Thomas Anderson",
+                "pos": "MID",
+                "country": "Scotland",
+                "rating": 35.1129,
+                "cost": 13.96
+            },
+            {
+                "name": "Rolf Bachmann",
+                "pos": "DEF",
+                "country": "Switzerland",
+                "rating": 35.5107,
+                "cost": 10.4
+            },
+            {
+                "name": "Stojan Petrovska",
+                "pos": "MID",
+                "country": "Macedonia",
+                "rating": 33.1126,
+                "cost": 9.14
+            },
+            {
+                "name": "Kairat Kichin",
+                "pos": "DEF",
+                "country": "Kyrgyzstan",
+                "rating": 31.8431,
+                "cost": 7.43
+            },
+            {
+                "name": "Valerijs Priede",
+                "pos": "MID",
+                "country": "Latvia",
+                "rating": 30.8235,
+                "cost": 7.87
+            },
+            {
+                "name": "Giorgio Chellini",
+                "pos": "DEF",
+                "country": "Italy",
+                "rating": 31.2542,
+                "cost": 5.69
+            }
+        ]
+    },
+    {
+        "team": "Korona Warsaw",
+        "league": "Euro",
+        "identity": "Defense",
+        "budget": 125.0,
+        "spent": 123.45,
+        "roster": [
+            {
+                "name": "Janos Meszaros",
+                "pos": "GK",
+                "country": "Hungary",
+                "rating": 40.22,
+                "cost": 23.66
+            },
+            {
+                "name": "Slobodan Radic",
+                "pos": "FWD",
+                "country": "Croatia",
+                "rating": 36.1426,
+                "cost": 16.37
+            },
+            {
+                "name": "Vaclav Dvorak",
+                "pos": "FWD",
+                "country": "Czechia",
+                "rating": 35.8925,
+                "cost": 15.33
+            },
+            {
+                "name": "Tomasz Zajac",
+                "pos": "DEF",
+                "country": "Poland",
+                "rating": 35.9721,
+                "cost": 12.17
+            },
+            {
+                "name": "Karl Olsson",
+                "pos": "DEF",
+                "country": "Sweden",
+                "rating": 35.5993,
+                "cost": 11.91
+            },
+            {
+                "name": "Branko Novac",
+                "pos": "MID",
+                "country": "Slovenia",
+                "rating": 34.1728,
+                "cost": 12.99
+            },
+            {
+                "name": "Bajram Sylejmani",
+                "pos": "MID",
+                "country": "Kosovo",
+                "rating": 34.1724,
+                "cost": 12.48
+            },
+            {
+                "name": "Aleksandr Kallas",
+                "pos": "MID",
+                "country": "Estonia",
+                "rating": 32.9028,
+                "cost": 9.1
+            },
+            {
+                "name": "Marcel Roth",
+                "pos": "DEF",
+                "country": "Switzerland",
+                "rating": 31.107,
+                "cost": 6.45
+            }
+        ]
+    },
+    {
+        "team": "Magyar Huszar",
+        "league": "Euro",
+        "identity": "Defense",
+        "budget": 122.0,
+        "spent": 121.68,
+        "roster": [
+            {
+                "name": "Fa\u00efz Bachirou",
+                "pos": "FWD",
+                "country": "Comoros",
+                "rating": 35.8634,
+                "cost": 16.22
+            },
+            {
+                "name": "Stoyan Nikolov",
+                "pos": "FWD",
+                "country": "Bulgaria",
+                "rating": 35.8537,
+                "cost": 15.89
+            },
+            {
+                "name": "Robson Medeiros",
+                "pos": "GK",
+                "country": "Brazil",
+                "rating": 37.4,
+                "cost": 18.87
+            },
+            {
+                "name": "Hector Alvarez",
+                "pos": "DEF",
+                "country": "Chile",
+                "rating": 35.0005,
+                "cost": 11.67
+            },
+            {
+                "name": "Moussa Amani",
+                "pos": "MID",
+                "country": "Cote d'Ivoire",
+                "rating": 33.5831,
+                "cost": 12.02
+            },
+            {
+                "name": "Ammar Krouma",
+                "pos": "MID",
+                "country": "Syria",
+                "rating": 33.4324,
+                "cost": 10.57
+            },
+            {
+                "name": "Jiang Linpeng",
+                "pos": "MID",
+                "country": "China",
+                "rating": 33.3029,
+                "cost": 9.83
+            },
+            {
+                "name": "Edwin Torrez",
+                "pos": "DEF",
+                "country": "Bolivia",
+                "rating": 32.932,
+                "cost": 6.94
+            },
+            {
+                "name": "Veselin Ivanov",
+                "pos": "DEF",
+                "country": "Bulgaria",
+                "rating": 32.1767,
+                "cost": 7.68
+            }
+        ]
+    },
+    {
+        "team": "Bucharest International",
+        "league": "Euro",
+        "identity": "Balanced",
+        "budget": 121.0,
+        "spent": 120.0,
+        "roster": [
+            {
+                "name": "Frantisek Molnar",
+                "pos": "FWD",
+                "country": "Slovakia",
+                "rating": 39.9232,
+                "cost": 27.45
+            },
+            {
+                "name": "Karl Mayer",
+                "pos": "FWD",
+                "country": "Austria",
+                "rating": 36.1232,
+                "cost": 16.91
+            },
+            {
+                "name": "Hadisi Aengari",
+                "pos": "GK",
+                "country": "Solomon Islands",
+                "rating": 36.76,
+                "cost": 15.08
+            },
+            {
+                "name": "Marcel Wagner",
+                "pos": "DEF",
+                "country": "Austria",
+                "rating": 36.3257,
+                "cost": 13.55
+            },
+            {
+                "name": "Pansa Kaman",
+                "pos": "MID",
+                "country": "Thailand",
+                "rating": 34.1229,
+                "cost": 13.01
+            },
+            {
+                "name": "Jacek Majewski",
+                "pos": "MID",
+                "country": "Poland",
+                "rating": 30.4926,
+                "cost": 7.26
+            },
+            {
+                "name": "Rafael Jimenez",
+                "pos": "DEF",
+                "country": "Andorra",
+                "rating": 31.1368,
+                "cost": 5.74
+            },
+            {
+                "name": "Lalaina Amada",
+                "pos": "MID",
+                "country": "Madagascar",
+                "rating": 30.0826,
+                "cost": 6.5
+            },
+            {
+                "name": "Peeter Ots",
+                "pos": "DEF",
+                "country": "Estonia",
+                "rating": 30.8726,
+                "cost": 7.0
+            }
+        ]
+    },
+    {
+        "team": "Sarajevo Grad",
+        "league": "Euro",
+        "identity": "Balanced",
+        "budget": 115.0,
+        "spent": 115.0,
+        "roster": [
+            {
+                "name": "Caio Sultan",
+                "pos": "FWD",
+                "country": "United Arab Emirates",
+                "rating": 36.1523,
+                "cost": 18.46
+            },
+            {
+                "name": "Antanas Zukauskas",
+                "pos": "FWD",
+                "country": "Lithuania",
+                "rating": 35.6424,
+                "cost": 16.44
+            },
+            {
+                "name": "Markus Schneider",
+                "pos": "GK",
+                "country": "Switzerland",
+                "rating": 37.0,
+                "cost": 15.41
+            },
+            {
+                "name": "Azamat Zemlianukhin",
+                "pos": "MID",
+                "country": "Kyrgyzstan",
+                "rating": 34.6231,
+                "cost": 12.56
+            },
+            {
+                "name": "Johann Gunnarsson",
+                "pos": "DEF",
+                "country": "Iceland",
+                "rating": 34.8638,
+                "cost": 11.55
+            },
+            {
+                "name": "Hamid Bagheri",
+                "pos": "DEF",
+                "country": "Iran",
+                "rating": 34.6671,
+                "cost": 10.59
+            },
+            {
+                "name": "Pawe\u0142 Bednarek",
+                "pos": "DEF",
+                "country": "Poland",
+                "rating": 31.6268,
+                "cost": 7.77
+            },
+            {
+                "name": "Juraj Szabo",
+                "pos": "MID",
+                "country": "Slovakia",
+                "rating": 30.6226,
+                "cost": 7.36
+            },
+            {
+                "name": "Georgios Christofi",
+                "pos": "MID",
+                "country": "Cyprus",
+                "rating": 30.2537,
+                "cost": 5.87
+            }
+        ]
+    },
+    {
+        "team": "Reykjavik Isbjorn",
+        "league": "Euro",
+        "identity": "Offense",
+        "budget": 113.0,
+        "spent": 107.99,
+        "roster": [
+            {
+                "name": "Akhtam Jalilov",
+                "pos": "FWD",
+                "country": "Tajikistan",
+                "rating": 37.6238,
+                "cost": 23.65
+            },
+            {
+                "name": "Gunnar Bjornsson",
+                "pos": "FWD",
+                "country": "Iceland",
+                "rating": 37.6044,
+                "cost": 20.11
+            },
+            {
+                "name": "Mo Diallo",
+                "pos": "GK",
+                "country": "Senegal",
+                "rating": 36.38,
+                "cost": 12.86
+            },
+            {
+                "name": "Marjan Krajnc",
+                "pos": "MID",
+                "country": "Slovenia",
+                "rating": 33.5923,
+                "cost": 11.52
+            },
+            {
+                "name": "Mitch Alick",
+                "pos": "DEF",
+                "country": "Vanuatu",
+                "rating": 34.1769,
+                "cost": 8.35
+            },
+            {
+                "name": "Joseph Wari",
+                "pos": "MID",
+                "country": "Papua New Guinea",
+                "rating": 30.0528,
+                "cost": 6.07
+            },
+            {
+                "name": "Nigel Clarke",
+                "pos": "MID",
+                "country": "Barbados",
+                "rating": 29.8428,
+                "cost": 5.43
+            },
+            {
+                "name": "Liviu Ciobanu",
+                "pos": "DEF",
+                "country": "Romania",
+                "rating": 30.7153,
+                "cost": 5.32
+            },
+            {
+                "name": "Andreas Schwarz",
+                "pos": "DEF",
+                "country": "Austria",
+                "rating": 30.6269,
+                "cost": 5.67
+            }
+        ]
+    },
+    {
+        "team": "Slavia Tatry",
+        "league": "Euro",
+        "identity": "Defense",
+        "budget": 113.0,
+        "spent": 113.0,
+        "roster": [
+            {
+                "name": "Martin Lang",
+                "pos": "GK",
+                "country": "Austria",
+                "rating": 39.99,
+                "cost": 23.49
+            },
+            {
+                "name": "Felix Gallego",
+                "pos": "FWD",
+                "country": "Spain",
+                "rating": 35.6133,
+                "cost": 15.66
+            },
+            {
+                "name": "Janis Berzins",
+                "pos": "FWD",
+                "country": "Latvia",
+                "rating": 35.6036,
+                "cost": 14.17
+            },
+            {
+                "name": "Michal Fialova",
+                "pos": "MID",
+                "country": "Czechia",
+                "rating": 33.8137,
+                "cost": 12.36
+            },
+            {
+                "name": "Fouad Selemani",
+                "pos": "DEF",
+                "country": "Comoros",
+                "rating": 34.403,
+                "cost": 10.82
+            },
+            {
+                "name": "Anton Zupan",
+                "pos": "DEF",
+                "country": "Slovenia",
+                "rating": 31.2445,
+                "cost": 7.12
+            },
+            {
+                "name": "Carlo D'Amico",
+                "pos": "MID",
+                "country": "Italy",
+                "rating": 30.0523,
+                "cost": 5.88
+            },
+            {
+                "name": "Tomas Arias",
+                "pos": "MID",
+                "country": "Argentina",
+                "rating": 29.9938,
+                "cost": 6.06
+            },
+            {
+                "name": "Alberto Diaz",
+                "pos": "DEF",
+                "country": "Panama",
+                "rating": 30.5971,
+                "cost": 5.44
+            }
+        ]
+    },
+    {
+        "team": "New York Empire",
+        "league": "Backyard",
+        "identity": "Control",
+        "budget": 183.0,
+        "spent": 183.0,
+        "roster": [
+            {
+                "name": "Nick Hamburger",
+                "pos": "FWD",
+                "country": "United States",
+                "rating": 46.9745,
+                "cost": 47.67
+            },
+            {
+                "name": "Raul Ortiz",
+                "pos": "MID",
+                "country": "Mexico",
+                "rating": 41.2032,
+                "cost": 25.63
+            },
+            {
+                "name": "Helmut Lange",
+                "pos": "FWD",
+                "country": "Germany",
+                "rating": 39.1535,
+                "cost": 21.94
+            },
+            {
+                "name": "Silas McBride",
+                "pos": "DEF",
+                "country": "United States",
+                "rating": 40.8069,
+                "cost": 19.78
+            },
+            {
+                "name": "Helgi Magnusson",
+                "pos": "MID",
+                "country": "Iceland",
+                "rating": 38.1626,
+                "cost": 21.45
+            },
+            {
+                "name": "Miguel Ortega",
+                "pos": "DEF",
+                "country": "Panama",
+                "rating": 38.1099,
+                "cost": 14.08
+            },
+            {
+                "name": "Tim Moore",
+                "pos": "GK",
+                "country": "Canada",
+                "rating": 34.95,
+                "cost": 10.46
+            },
+            {
+                "name": "Lorenzo Marte",
+                "pos": "DEF",
+                "country": "Dominican Republic",
+                "rating": 33.1376,
+                "cost": 8.0
+            },
+            {
+                "name": "Orlando Centeno",
+                "pos": "MID",
+                "country": "Nicaragua",
+                "rating": 32.0533,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Los Angeles Syndicate",
+        "league": "Backyard",
+        "identity": "Control",
+        "budget": 176.0,
+        "spent": 175.79,
+        "roster": [
+            {
+                "name": "Nicolae Popescu",
+                "pos": "FWD",
+                "country": "Romania",
+                "rating": 40.6735,
+                "cost": 26.68
+            },
+            {
+                "name": "Nicolas Montero",
+                "pos": "FWD",
+                "country": "Dominican Republic",
+                "rating": 39.9135,
+                "cost": 24.73
+            },
+            {
+                "name": "Pedro Flores",
+                "pos": "MID",
+                "country": "Argentina",
+                "rating": 39.934,
+                "cost": 22.75
+            },
+            {
+                "name": "Milan Marjanovic",
+                "pos": "MID",
+                "country": "Bosnia and Herzegovina",
+                "rating": 39.1629,
+                "cost": 22.86
+            },
+            {
+                "name": "Dmitriy Shevchenko",
+                "pos": "GK",
+                "country": "Russia",
+                "rating": 40.03,
+                "cost": 20.02
+            },
+            {
+                "name": "Sawyer Marshall",
+                "pos": "MID",
+                "country": "United States",
+                "rating": 38.6533,
+                "cost": 19.57
+            },
+            {
+                "name": "Nicholas Persad",
+                "pos": "DEF",
+                "country": "Trinidad and Tobago",
+                "rating": 36.8934,
+                "cost": 12.9
+            },
+            {
+                "name": "Frantz Germaine",
+                "pos": "DEF",
+                "country": "Haiti",
+                "rating": 34.0107,
+                "cost": 8.0
+            },
+            {
+                "name": "Brandon Boyd",
+                "pos": "DEF",
+                "country": "United States",
+                "rating": 32.6766,
+                "cost": 7.79
+            }
+        ]
+    },
+    {
+        "team": "Las Vegas Mirage",
+        "league": "Backyard",
+        "identity": "Balanced",
+        "budget": 173.0,
+        "spent": 173.0,
+        "roster": [
+            {
+                "name": "Mohammed Odoi",
+                "pos": "FWD",
+                "country": "Ghana",
+                "rating": 44.7236,
+                "cost": 42.2
+            },
+            {
+                "name": "Nam Min-Jae",
+                "pos": "GK",
+                "country": "South Korea",
+                "rating": 41.82,
+                "cost": 24.24
+            },
+            {
+                "name": "William Davies",
+                "pos": "MID",
+                "country": "New Zealand",
+                "rating": 39.4432,
+                "cost": 22.19
+            },
+            {
+                "name": "Anthony Gonzales",
+                "pos": "FWD",
+                "country": "Trinidad and Tobago",
+                "rating": 38.1531,
+                "cost": 19.97
+            },
+            {
+                "name": "Knox Fletcher",
+                "pos": "MID",
+                "country": "United States",
+                "rating": 38.1929,
+                "cost": 17.97
+            },
+            {
+                "name": "Antonio Chavez",
+                "pos": "DEF",
+                "country": "United States",
+                "rating": 37.8158,
+                "cost": 15.02
+            },
+            {
+                "name": "Fernando Reyes",
+                "pos": "MID",
+                "country": "Nicaragua",
+                "rating": 34.6429,
+                "cost": 10.91
+            },
+            {
+                "name": "Johan Vasquez",
+                "pos": "DEF",
+                "country": "Mexico",
+                "rating": 33.5496,
+                "cost": 8.0
+            },
+            {
+                "name": "Junya Ito",
+                "pos": "DEF",
+                "country": "Japan",
+                "rating": 32.0394,
+                "cost": 6.5
+            }
+        ]
+    },
+    {
+        "team": "Chicago Surge",
+        "league": "Backyard",
+        "identity": "Balanced",
+        "budget": 172.0,
+        "spent": 172.0,
+        "roster": [
+            {
+                "name": "Adriano Campos",
+                "pos": "FWD",
+                "country": "Brazil",
+                "rating": 41.703,
+                "cost": 31.09
+            },
+            {
+                "name": "Juan Narvaez",
+                "pos": "DEF",
+                "country": "Puerto Rico",
+                "rating": 42.4739,
+                "cost": 24.75
+            },
+            {
+                "name": "Joseph Clarke",
+                "pos": "FWD",
+                "country": "Canada",
+                "rating": 40.2024,
+                "cost": 24.57
+            },
+            {
+                "name": "Jozsef Szabo",
+                "pos": "DEF",
+                "country": "Hungary",
+                "rating": 41.6013,
+                "cost": 22.52
+            },
+            {
+                "name": "Pedro Reis",
+                "pos": "GK",
+                "country": "Portugal",
+                "rating": 39.17,
+                "cost": 19.01
+            },
+            {
+                "name": "Terezinha Rocha",
+                "pos": "DEF",
+                "country": "Brazil",
+                "rating": 37.4631,
+                "cost": 13.81
+            },
+            {
+                "name": "James Delva",
+                "pos": "MID",
+                "country": "Haiti",
+                "rating": 34.6323,
+                "cost": 11.24
+            },
+            {
+                "name": "Peter Ramirez",
+                "pos": "MID",
+                "country": "Belize",
+                "rating": 31.8821,
+                "cost": 8.0
+            },
+            {
+                "name": "Domingo Ordonez",
+                "pos": "MID",
+                "country": "Guatemala",
+                "rating": 31.5633,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Boston Rebellion",
+        "league": "Backyard",
+        "identity": "Balanced",
+        "budget": 163.0,
+        "spent": 161.43,
+        "roster": [
+            {
+                "name": "Francisco Castillo",
+                "pos": "MID",
+                "country": "Panama",
+                "rating": 43.7332,
+                "cost": 33.91
+            },
+            {
+                "name": "Javier Guerra",
+                "pos": "GK",
+                "country": "Panama",
+                "rating": 41.42,
+                "cost": 23.79
+            },
+            {
+                "name": "Sergio Almeida",
+                "pos": "MID",
+                "country": "Brazil",
+                "rating": 38.9728,
+                "cost": 22.56
+            },
+            {
+                "name": "Edward Gauthier",
+                "pos": "MID",
+                "country": "Canada",
+                "rating": 38.7227,
+                "cost": 20.31
+            },
+            {
+                "name": "Sharaf El Hadi",
+                "pos": "FWD",
+                "country": "Sudan",
+                "rating": 37.3737,
+                "cost": 18.28
+            },
+            {
+                "name": "Ben Ben Nabouhane",
+                "pos": "FWD",
+                "country": "Comoros",
+                "rating": 35.623,
+                "cost": 14.14
+            },
+            {
+                "name": "Jean-Philippe Sa\u00efko",
+                "pos": "DEF",
+                "country": "New Caledonia",
+                "rating": 32.0593,
+                "cost": 6.5
+            },
+            {
+                "name": "Ernesto Cordoba",
+                "pos": "DEF",
+                "country": "Argentina",
+                "rating": 31.5097,
+                "cost": 6.5
+            },
+            {
+                "name": "Brooks Hollister",
+                "pos": "DEF",
+                "country": "United States",
+                "rating": 31.3134,
+                "cost": 6.43
+            }
+        ]
+    },
+    {
+        "team": "Toronto Blizzard",
+        "league": "Backyard",
+        "identity": "Defense",
+        "budget": 159.0,
+        "spent": 159.0,
+        "roster": [
+            {
+                "name": "Adrian Johnson",
+                "pos": "MID",
+                "country": "Trinidad and Tobago",
+                "rating": 38.9039,
+                "cost": 21.62
+            },
+            {
+                "name": "Brandon Vargas",
+                "pos": "MID",
+                "country": "Costa Rica",
+                "rating": 38.6532,
+                "cost": 21.49
+            },
+            {
+                "name": "Tadashi Sato",
+                "pos": "GK",
+                "country": "Japan",
+                "rating": 39.6,
+                "cost": 21.93
+            },
+            {
+                "name": "Jorge Quesada",
+                "pos": "MID",
+                "country": "Costa Rica",
+                "rating": 37.7026,
+                "cost": 18.46
+            },
+            {
+                "name": "Jeyland Mitchell",
+                "pos": "DEF",
+                "country": "Costa Rica",
+                "rating": 38.6399,
+                "cost": 16.98
+            },
+            {
+                "name": "Juan-Carlos Novelo",
+                "pos": "FWD",
+                "country": "Belize",
+                "rating": 36.6331,
+                "cost": 17.49
+            },
+            {
+                "name": "Mustafa Simsek",
+                "pos": "FWD",
+                "country": "Turkey",
+                "rating": 36.6137,
+                "cost": 18.0
+            },
+            {
+                "name": "Jacques Lavoie",
+                "pos": "DEF",
+                "country": "Canada",
+                "rating": 35.5012,
+                "cost": 10.52
+            },
+            {
+                "name": "Ramon Bonilla",
+                "pos": "DEF",
+                "country": "Honduras",
+                "rating": 32.6571,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Mexico City Sol",
+        "league": "Backyard",
+        "identity": "Offense",
+        "budget": 159.0,
+        "spent": 159.0,
+        "roster": [
+            {
+                "name": "Cesar Paredes",
+                "pos": "FWD",
+                "country": "Ecuador",
+                "rating": 41.4626,
+                "cost": 33.63
+            },
+            {
+                "name": "Peter Buhler",
+                "pos": "FWD",
+                "country": "Switzerland",
+                "rating": 41.1543,
+                "cost": 30.94
+            },
+            {
+                "name": "Dexter Edwards",
+                "pos": "GK",
+                "country": "Trinidad and Tobago",
+                "rating": 38.57,
+                "cost": 15.71
+            },
+            {
+                "name": "Evidence Tau",
+                "pos": "MID",
+                "country": "South Africa",
+                "rating": 36.203,
+                "cost": 16.48
+            },
+            {
+                "name": "Zizo Fathi",
+                "pos": "DEF",
+                "country": "Egypt",
+                "rating": 36.453,
+                "cost": 12.79
+            },
+            {
+                "name": "Rowllin Singh",
+                "pos": "DEF",
+                "country": "India",
+                "rating": 36.1875,
+                "cost": 12.07
+            },
+            {
+                "name": "Marc Tremblay",
+                "pos": "MID",
+                "country": "Canada",
+                "rating": 34.2123,
+                "cost": 10.89
+            },
+            {
+                "name": "Jean Roberts",
+                "pos": "MID",
+                "country": "Bahamas",
+                "rating": 31.0831,
+                "cost": 7.45
+            },
+            {
+                "name": "Muaid Musrati",
+                "pos": "DEF",
+                "country": "Libya",
+                "rating": 31.3234,
+                "cost": 5.55
+            }
+        ]
+    },
+    {
+        "team": "Seattle Echo",
+        "league": "Backyard",
+        "identity": "Balanced",
+        "budget": 152.0,
+        "spent": 152.0,
+        "roster": [
+            {
+                "name": "Pedro Banegas",
+                "pos": "FWD",
+                "country": "Honduras",
+                "rating": 41.6642,
+                "cost": 28.98
+            },
+            {
+                "name": "Serghei Cojocari",
+                "pos": "FWD",
+                "country": "Moldova",
+                "rating": 38.6436,
+                "cost": 22.59
+            },
+            {
+                "name": "Alcides Cabrera",
+                "pos": "GK",
+                "country": "Paraguay",
+                "rating": 38.98,
+                "cost": 18.88
+            },
+            {
+                "name": "Jaxson Wilder",
+                "pos": "MID",
+                "country": "United States",
+                "rating": 37.6529,
+                "cost": 19.25
+            },
+            {
+                "name": "Juan Araya",
+                "pos": "DEF",
+                "country": "Costa Rica",
+                "rating": 37.2962,
+                "cost": 15.09
+            },
+            {
+                "name": "Enrique de Leon",
+                "pos": "DEF",
+                "country": "Uruguay",
+                "rating": 36.9136,
+                "cost": 13.93
+            },
+            {
+                "name": "Enrique Blanco",
+                "pos": "MID",
+                "country": "Cuba",
+                "rating": 34.5828,
+                "cost": 11.27
+            },
+            {
+                "name": "Tomasi Devi",
+                "pos": "MID",
+                "country": "Fiji",
+                "rating": 31.3027,
+                "cost": 8.0
+            },
+            {
+                "name": "Gustavo Vega",
+                "pos": "DEF",
+                "country": "Cuba",
+                "rating": 32.0393,
+                "cost": 8.0
+            }
+        ]
+    },
+    {
+        "team": "Philadelphia Spirit",
+        "league": "Backyard",
+        "identity": "Defense",
+        "budget": 148.0,
+        "spent": 147.7,
+        "roster": [
+            {
+                "name": "Angel Cedeno",
+                "pos": "FWD",
+                "country": "Panama",
+                "rating": 40.6444,
+                "cost": 25.89
+            },
+            {
+                "name": "Victor Weaver",
+                "pos": "GK",
+                "country": "United States",
+                "rating": 42.23,
+                "cost": 29.21
+            },
+            {
+                "name": "Walker Hayes",
+                "pos": "FWD",
+                "country": "United States",
+                "rating": 36.8541,
+                "cost": 16.46
+            },
+            {
+                "name": "Manuel Gon\u00e7alves",
+                "pos": "MID",
+                "country": "Angola",
+                "rating": 35.3335,
+                "cost": 14.88
+            },
+            {
+                "name": "Marlon Padilla",
+                "pos": "DEF",
+                "country": "Honduras",
+                "rating": 36.031,
+                "cost": 12.68
+            },
+            {
+                "name": "Musa Musa",
+                "pos": "MID",
+                "country": "Nigeria",
+                "rating": 34.6828,
+                "cost": 12.95
+            },
+            {
+                "name": "Jorge Molina",
+                "pos": "MID",
+                "country": "Ecuador",
+                "rating": 34.6733,
+                "cost": 11.91
+            },
+            {
+                "name": "Felix Rodriguez",
+                "pos": "DEF",
+                "country": "Venezuela",
+                "rating": 35.0599,
+                "cost": 10.03
+            },
+            {
+                "name": "Pedro Nsue",
+                "pos": "DEF",
+                "country": "Equatorial Guinea",
+                "rating": 31.1567,
+                "cost": 6.2
+            }
+        ]
+    },
+    {
+        "team": "Dallas Flare",
+        "league": "Backyard",
+        "identity": "Offense",
+        "budget": 146.0,
+        "spent": 142.01,
+        "roster": [
+            {
+                "name": "Hector",
+                "pos": "FWD",
+                "country": "Mexico",
+                "rating": 45.7337,
+                "cost": 46.72
+            },
+            {
+                "name": "Diego Perez",
+                "pos": "FWD",
+                "country": "Argentina",
+                "rating": 41.7224,
+                "cost": 34.1
+            },
+            {
+                "name": "C\u00e9sar Nyikeine",
+                "pos": "GK",
+                "country": "New Caledonia",
+                "rating": 36.56,
+                "cost": 12.74
+            },
+            {
+                "name": "Felipe Juarez",
+                "pos": "DEF",
+                "country": "Guatemala",
+                "rating": 34.0498,
+                "cost": 8.42
+            },
+            {
+                "name": "Gabriel Juarez",
+                "pos": "MID",
+                "country": "Mexico",
+                "rating": 32.8731,
+                "cost": 9.02
+            },
+            {
+                "name": "Manuel Amador",
+                "pos": "MID",
+                "country": "Honduras",
+                "rating": 31.1323,
+                "cost": 7.87
+            },
+            {
+                "name": "Antoine Semenyo",
+                "pos": "MID",
+                "country": "Ghana",
+                "rating": 30.2439,
+                "cost": 6.63
+            },
+            {
+                "name": "Hugo Rosas",
+                "pos": "DEF",
+                "country": "Mexico",
+                "rating": 30.8625,
+                "cost": 6.26
+            },
+            {
+                "name": "Tomas Morales",
+                "pos": "DEF",
+                "country": "Guatemala",
+                "rating": 30.8232,
+                "cost": 5.75
+            }
+        ]
+    },
+    {
+        "team": "San Jose Relampago",
+        "league": "Backyard",
+        "identity": "Offense",
+        "budget": 139.0,
+        "spent": 136.98,
+        "roster": [
+            {
+                "name": "Jordan Amartey",
+                "pos": "FWD",
+                "country": "Ghana",
+                "rating": 41.4335,
+                "cost": 32.12
+            },
+            {
+                "name": "Domingo Roldan",
+                "pos": "FWD",
+                "country": "Argentina",
+                "rating": 41.1737,
+                "cost": 32.88
+            },
+            {
+                "name": "Inaki Kudus",
+                "pos": "GK",
+                "country": "Ghana",
+                "rating": 35.98,
+                "cost": 12.37
+            },
+            {
+                "name": "Rafael Borr\u00e9",
+                "pos": "MID",
+                "country": "Colombia",
+                "rating": 34.7933,
+                "cost": 13.33
+            },
+            {
+                "name": "Reinildo Dove",
+                "pos": "DEF",
+                "country": "Mozambique",
+                "rating": 34.5598,
+                "cost": 8.8
+            },
+            {
+                "name": "Jorge Sanchez",
+                "pos": "MID",
+                "country": "Mexico",
+                "rating": 30.8433,
+                "cost": 7.84
+            },
+            {
+                "name": "Edwin Lopez",
+                "pos": "MID",
+                "country": "Panama",
+                "rating": 30.7933,
+                "cost": 7.79
+            },
+            {
+                "name": "Francis Baptiste",
+                "pos": "DEF",
+                "country": "Trinidad and Tobago",
+                "rating": 30.8032,
+                "cost": 5.48
+            },
+            {
+                "name": "Hamza El Mehdi",
+                "pos": "DEF",
+                "country": "Morocco",
+                "rating": 30.7155,
+                "cost": 5.86
+            }
+        ]
+    },
+    {
+        "team": "Montreal Coureurs",
+        "league": "Backyard",
+        "identity": "Control",
+        "budget": 136.0,
+        "spent": 136.0,
+        "roster": [
+            {
+                "name": "Matti Jokinen",
+                "pos": "FWD",
+                "country": "Finland",
+                "rating": 37.6529,
+                "cost": 21.29
+            },
+            {
+                "name": "Santiago Barrios",
+                "pos": "FWD",
+                "country": "Guatemala",
+                "rating": 36.8638,
+                "cost": 18.61
+            },
+            {
+                "name": "Cassius Reed",
+                "pos": "GK",
+                "country": "United States",
+                "rating": 37.2,
+                "cost": 14.31
+            },
+            {
+                "name": "Rafael Tejeda",
+                "pos": "MID",
+                "country": "Dominican Republic",
+                "rating": 35.9034,
+                "cost": 15.54
+            },
+            {
+                "name": "Vicente Mendez",
+                "pos": "MID",
+                "country": "Guatemala",
+                "rating": 35.3332,
+                "cost": 14.4
+            },
+            {
+                "name": "Wayne Harrison",
+                "pos": "MID",
+                "country": "England",
+                "rating": 34.9131,
+                "cost": 14.92
+            },
+            {
+                "name": "Arthur Kayembe",
+                "pos": "DEF",
+                "country": "Congo DR",
+                "rating": 34.7167,
+                "cost": 10.12
+            },
+            {
+                "name": "Armando Dominguez",
+                "pos": "DEF",
+                "country": "Cuba",
+                "rating": 34.6971,
+                "cost": 11.17
+            },
+            {
+                "name": "Youssouf M'Changama",
+                "pos": "DEF",
+                "country": "Comoros",
+                "rating": 31.1566,
+                "cost": 6.63
+            }
+        ]
+    },
+    {
+        "team": "Tijuana Vaqueros",
+        "league": "Backyard",
+        "identity": "Balanced",
+        "budget": 135.0,
+        "spent": 134.3,
+        "roster": [
+            {
+                "name": "Guadalupe Moreno",
+                "pos": "FWD",
+                "country": "Mexico",
+                "rating": 40.6541,
+                "cost": 29.06
+            },
+            {
+                "name": "Scott Robinson",
+                "pos": "FWD",
+                "country": "Canada",
+                "rating": 37.1721,
+                "cost": 18.85
+            },
+            {
+                "name": "Ahmet Ozcan",
+                "pos": "GK",
+                "country": "Turkey",
+                "rating": 37.19,
+                "cost": 16.85
+            },
+            {
+                "name": "Rogelio Valencia",
+                "pos": "MID",
+                "country": "Mexico",
+                "rating": 35.4422,
+                "cost": 16.03
+            },
+            {
+                "name": "Phil Schr\u00f6ck",
+                "pos": "MID",
+                "country": "Philippines",
+                "rating": 35.1626,
+                "cost": 14.36
+            },
+            {
+                "name": "Liu Lei",
+                "pos": "DEF",
+                "country": "China",
+                "rating": 34.4129,
+                "cost": 9.84
+            },
+            {
+                "name": "Kassaly Hainikoye",
+                "pos": "MID",
+                "country": "Niger",
+                "rating": 30.5927,
+                "cost": 6.5
+            },
+            {
+                "name": "Jaime Chavarria",
+                "pos": "DEF",
+                "country": "Nicaragua",
+                "rating": 30.8227,
+                "cost": 6.81
+            },
+            {
+                "name": "Carlos Vieira",
+                "pos": "DEF",
+                "country": "Brazil",
+                "rating": 30.8133,
+                "cost": 6.99
+            }
+        ]
+    },
+    {
+        "team": "Washington Justice",
+        "league": "Backyard",
+        "identity": "Control",
+        "budget": 128.0,
+        "spent": 127.56,
+        "roster": [
+            {
+                "name": "Marc Sanon",
+                "pos": "GK",
+                "country": "Haiti",
+                "rating": 38.39,
+                "cost": 17.54
+            },
+            {
+                "name": "Vojislav Milic",
+                "pos": "FWD",
+                "country": "Montenegro",
+                "rating": 36.1426,
+                "cost": 17.75
+            },
+            {
+                "name": "Spyridon Karagiannis",
+                "pos": "FWD",
+                "country": "Greece",
+                "rating": 36.0941,
+                "cost": 16.48
+            },
+            {
+                "name": "Guillaume Deschamps",
+                "pos": "DEF",
+                "country": "France",
+                "rating": 35.4329,
+                "cost": 12.11
+            },
+            {
+                "name": "Siyanda Zwane",
+                "pos": "DEF",
+                "country": "South Africa",
+                "rating": 35.3639,
+                "cost": 12.25
+            },
+            {
+                "name": "Johan Charlier",
+                "pos": "MID",
+                "country": "Belgium",
+                "rating": 33.9944,
+                "cost": 11.88
+            },
+            {
+                "name": "Martin Pati\u00f1o",
+                "pos": "DEF",
+                "country": "Philippines",
+                "rating": 34.3538,
+                "cost": 9.0
+            },
+            {
+                "name": "Yukio Ono",
+                "pos": "MID",
+                "country": "Japan",
+                "rating": 30.2933,
+                "cost": 6.5
+            },
+            {
+                "name": "Jonathan Carmichael",
+                "pos": "MID",
+                "country": "United States",
+                "rating": 30.2429,
+                "cost": 7.56
+            }
+        ]
+    },
+    {
+        "team": "Detroit Firebirds",
+        "league": "Backyard",
+        "identity": "Offense",
+        "budget": 126.0,
+        "spent": 126.0,
+        "roster": [
+            {
+                "name": "Joel Hosein",
+                "pos": "FWD",
+                "country": "Trinidad and Tobago",
+                "rating": 38.442,
+                "cost": 25.62
+            },
+            {
+                "name": "Neville Grant",
+                "pos": "FWD",
+                "country": "Jamaica",
+                "rating": 37.143,
+                "cost": 20.74
+            },
+            {
+                "name": "Mauricio Fuentes",
+                "pos": "GK",
+                "country": "Chile",
+                "rating": 36.79,
+                "cost": 14.66
+            },
+            {
+                "name": "Felipe Pinheiro",
+                "pos": "MID",
+                "country": "Brazil",
+                "rating": 33.873,
+                "cost": 11.62
+            },
+            {
+                "name": "Felix Cardozo",
+                "pos": "DEF",
+                "country": "Paraguay",
+                "rating": 34.6866,
+                "cost": 10.61
+            },
+            {
+                "name": "Cesar Romero",
+                "pos": "DEF",
+                "country": "Mexico",
+                "rating": 34.4621,
+                "cost": 9.99
+            },
+            {
+                "name": "Nico Soria",
+                "pos": "MID",
+                "country": "Argentina",
+                "rating": 33.4022,
+                "cost": 10.77
+            },
+            {
+                "name": "Clyde Gittens",
+                "pos": "MID",
+                "country": "Barbados",
+                "rating": 31.0333,
+                "cost": 7.76
+            },
+            {
+                "name": "Graham Chapman",
+                "pos": "DEF",
+                "country": "England",
+                "rating": 30.6073,
+                "cost": 5.24
+            }
+        ]
+    },
+    {
+        "team": "Denver Torrent",
+        "league": "Backyard",
+        "identity": "Defense",
+        "budget": 126.0,
+        "spent": 126.0,
+        "roster": [
+            {
+                "name": "Edgar Rojas",
+                "pos": "GK",
+                "country": "Venezuela",
+                "rating": 38.37,
+                "cost": 20.11
+            },
+            {
+                "name": "Geraldo Faife",
+                "pos": "FWD",
+                "country": "Mozambique",
+                "rating": 36.3442,
+                "cost": 17.21
+            },
+            {
+                "name": "Hassan Mohammadi",
+                "pos": "FWD",
+                "country": "Iran",
+                "rating": 35.5939,
+                "cost": 14.24
+            },
+            {
+                "name": "Javier Giraldo",
+                "pos": "DEF",
+                "country": "Colombia",
+                "rating": 35.7861,
+                "cost": 13.32
+            },
+            {
+                "name": "Abdoul Oumarou",
+                "pos": "DEF",
+                "country": "Niger",
+                "rating": 35.0006,
+                "cost": 11.54
+            },
+            {
+                "name": "Kim Min-Jun",
+                "pos": "MID",
+                "country": "South Korea",
+                "rating": 33.8931,
+                "cost": 11.94
+            },
+            {
+                "name": "Diego Correia",
+                "pos": "DEF",
+                "country": "Brazil",
+                "rating": 34.4326,
+                "cost": 9.65
+            },
+            {
+                "name": "Ricardo Mejia",
+                "pos": "MID",
+                "country": "El Salvador",
+                "rating": 30.1223,
+                "cost": 6.87
+            },
+            {
+                "name": "Hugh McAuley",
+                "pos": "MID",
+                "country": "Northern Ireland",
+                "rating": 30.0829,
+                "cost": 6.13
+            }
+        ]
+    }
+]

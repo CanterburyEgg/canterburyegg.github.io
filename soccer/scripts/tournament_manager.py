@@ -464,7 +464,9 @@ def update_group_standings(tournament_data, g_id):
 
 def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
     tournament_path = path_arg.strip('/')
-    base_path = f"Tournaments/{tournament_path}"
+    scripts_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(scripts_dir)
+    base_path = os.path.join(base_dir, "Tournaments", tournament_path)
     config_path = f"{base_path}/config.json"
     results_path = f"{base_path}/results.json"
 
@@ -515,7 +517,8 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     group_stage_complete = False
                     if match["day"] == current_day:
                         print(f"Playing: {match['teams'][0]} vs {match['teams'][1]}")
-                        res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=False, logging=True, persist=False)
+                        is_league = config.get("type") == "league"
+                        res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=False, logging=True, persist=False, hfa=is_league)
                         match.update(res)
                         match["played"] = True
                         matches_simulated += 1
@@ -788,7 +791,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     for match in round["matches"]:
                         if not match["played"] and "TBD" not in match["teams"] and None not in match["teams"] and match["day"] == current_day:
                             print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]}")
-                            res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False)
+                            res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=False)
                             match.update(res)
                             match["played"] = True
                             matches_simulated += 1
@@ -799,7 +802,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         for match in po[stage_key]:
                             if not match["played"] and match["teams"][0] is not None and match["teams"][1] is not None and match["day"] == current_day:
                                 print(f"Playing {stage_key.upper()}: {match['teams'][0]} vs {match['teams'][1]}")
-                                res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False)
+                                res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=False)
                                 match.update(res)
                                 match["played"] = True
                                 matches_simulated += 1
@@ -914,7 +917,8 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
             for match in g_data["matches"]:
                 if not match["played"]:
                     print(f"Playing: {match['teams'][0]} vs {match['teams'][1]}")
-                    res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=False, logging=True, persist=False)
+                    is_league = config.get("type") == "league"
+                    res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=False, logging=True, persist=False, hfa=is_league)
                     match.update(res)
                     match["played"] = True
             update_group_standings(tournament_data, g_id)
@@ -1013,7 +1017,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     for match in round["matches"]:
                         if not match["played"] and "TBD" not in match["teams"] and None not in match["teams"]:
                             print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]}")
-                            res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False)
+                            res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=False)
                             match.update(res)
                             match["played"] = True
 
@@ -1044,7 +1048,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         for match in po[stage_key]:
                             if not match["played"] and match["teams"][0] is not None and match["teams"][1] is not None:
                                 print(f"Playing {stage_key.upper()}: {match['teams'][0]} vs {match['teams'][1]}")
-                                res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False)
+                                res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=False)
                                 match.update(res)
                                 match["played"] = True
             
@@ -1089,7 +1093,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
         print(f"Progress saved. Next day: {tournament_data['current_day']}")
 
 def rewind_tournament(tournament_path, target_day):
-    results_path = f"Tournaments/{tournament_path}/results.json"
+    scripts_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(scripts_dir)
+    results_path = os.path.join(base_dir, f"Tournaments/{tournament_path}/results.json")
     if not os.path.exists(results_path):
         print("Results file not found.")
         return
@@ -1110,7 +1116,7 @@ def rewind_tournament(tournament_path, target_day):
                 if "events" in m: m["events"] = []
                 if "player_data" in m: m["player_data"] = {}
                 if "id" in m:
-                    log_path = f"Tournaments/{tournament_path}/Games/{m['id']}"
+                    log_path = os.path.join(base_dir, f"Tournaments/{tournament_path}/Games/{m['id']}")
                     if os.path.exists(log_path): os.remove(log_path)
 
     # Clear playoffs entirely if they haven't finished, forcing re-initialization with correct tags/days

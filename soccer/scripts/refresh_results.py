@@ -4,9 +4,10 @@ import tournament_manager
 
 def refresh(tournament_path):
     # Match the logic in tournament_manager.py
-    base_path = f"Tournaments/{tournament_path}"
-    results_path = f"{base_path}/results.json"
-    config_path = f"{base_path}/config.json"
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    base_path = os.path.join(base_dir, "Tournaments", tournament_path)
+    results_path = os.path.join(base_path, "results.json")
+    config_path = os.path.join(base_path, "config.json")
     
     if not os.path.exists(results_path):
         print(f"Results file not found at {results_path}")

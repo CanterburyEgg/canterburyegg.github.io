@@ -1,0 +1,29 @@
+{
+    "name": "2025 Euro League",
+    "type": "league",
+    "groups": {
+        "Euro-North Division": [
+            "Reykjavik Isbjorn",
+            "Oslo Vikinger",
+            "Sisu Helsinki",
+            "Stockholm United",
+            "Kongens FC",
+            "Moscow Krepost",
+            "Slavutych Kyiv",
+            "Korona Warsaw"
+        ],
+        "Euro-Central Division": [
+            "Edelweiss Zurich",
+            "Donau Wien",
+            "Dunav Belgrade",
+            "Sarajevo Grad",
+            "Magyar Huszar",
+            "Bucharest International",
+            "Bohemian Gryphons",
+            "Slavia Tatry"
+        ]
+    },
+    "rules": {
+        "rounds": 2
+    }
+}

@@ -1,0 +1,577 @@
+Team	League	Player Name	Position	Shot Prop
+Stratton United	Prime	Wolfgang Koch	MID	14
+Stratton United	Prime	Antoine Gauthier	FWD	25
+Stratton United	Prime	Gustavo Techera	FWD	24
+Stratton United	Prime	Christian Janssen	DEF	5
+Stratton United	Prime	Edgar Jimenez	MID	13
+Stratton United	Prime	Dayot Hernandez	MID	9
+Stratton United	Prime	Gonzalo Machado	DEF	5
+Stratton United	Prime	Trevor Shaw	DEF	5
+Stratton United	Prime	Saïd Djaloud	GK	0
+Haverford Black	Prime	Dragan Petrovic	FWD	28
+Haverford Black	Prime	Andrew Moore	FWD	26
+Haverford Black	Prime	Jurgen Richter	MID	13
+Haverford Black	Prime	Jaime Riquelme	DEF	5
+Haverford Black	Prime	Jose Lopes	GK	0
+Haverford Black	Prime	Theo Tchouameni	DEF	5
+Haverford Black	Prime	Ko Kamada	MID	11
+Haverford Black	Prime	Charles Stewart	MID	7
+Haverford Black	Prime	Murray Campbell	DEF	5
+Stella Grey	Prime	Kwon Seung-Hyeok	FWD	27
+Stella Grey	Prime	Park Hyeon-Bin	FWD	27
+Stella Grey	Prime	Stephen Hunt	GK	0
+Stella Grey	Prime	Wilhelm Schafer	DEF	5
+Stella Grey	Prime	Clive Jones	DEF	5
+Stella Grey	Prime	Gilberto Delgado	MID	10
+Stella Grey	Prime	Salisu Abdul Samed	MID	12
+Stella Grey	Prime	Gideon Seidu	DEF	5
+Stella Grey	Prime	Juan Apaza	MID	9
+Chateau Roux	Prime	Gustavo Suarez	FWD	28
+Chateau Roux	Prime	Diego Castillo	FWD	26
+Chateau Roux	Prime	Lisandro Romero	MID	10
+Chateau Roux	Prime	Pierre Blanchard	GK	0
+Chateau Roux	Prime	Bailey Myers-Morgan	MID	11
+Chateau Roux	Prime	Casey Myers-Morgan	MID	10
+Chateau Roux	Prime	Jeroen de Jong	DEF	5
+Chateau Roux	Prime	Marcel Verhoeven	DEF	5
+Chateau Roux	Prime	Claude Timmermans	DEF	5
+Glass Castle FC	Prime	Richard van der Heijden	FWD	29
+Glass Castle FC	Prime	Marco Alvarez	FWD	26
+Glass Castle FC	Prime	Ekanit Yooyen	GK	0
+Glass Castle FC	Prime	Marc Watkins	MID	14
+Glass Castle FC	Prime	Zeljko Vukevic	MID	9
+Glass Castle FC	Prime	Manfred Fischer	DEF	5
+Glass Castle FC	Prime	Nigel Price	DEF	5
+Glass Castle FC	Prime	Hans Weber	DEF	5
+Glass Castle FC	Prime	Francisco Rodrigues	MID	7
+Thurston FC East	Prime	Bernard Michel	MID	13
+Thurston FC East	Prime	Nigel Maharaj	MID	14
+Thurston FC East	Prime	Adrian Llewellyn	MID	14
+Thurston FC East	Prime	Vitor Correia	DEF	5
+Thurston FC East	Prime	Hernan Torres	FWD	23
+Thurston FC East	Prime	Mbaye Cisse	DEF	5
+Thurston FC East	Prime	Theo de Boer	FWD	21
+Thurston FC East	Prime	Brahima Kamagate	GK	0
+Thurston FC East	Prime	Terence Kane	DEF	5
+Thurston FC West	Prime	Vincent van de Velde	MID	16
+Thurston FC West	Prime	Antonio Rudiger	DEF	5
+Thurston FC West	Prime	Ramon Perdomo	MID	11
+Thurston FC West	Prime	Thierry Payet	MID	9
+Thurston FC West	Prime	Conor O'Sullivan	FWD	24
+Thurston FC West	Prime	Patrick Murray	FWD	25
+Thurston FC West	Prime	Vicente Salazar	GK	0
+Thurston FC West	Prime	Martijn van den Berg	DEF	5
+Thurston FC West	Prime	Benoit Rousseau	DEF	5
+Eisenwald 1900	Prime	Sergio Baez	MID	10
+Eisenwald 1900	Prime	Valeriu Florea	FWD	27
+Eisenwald 1900	Prime	Stuart Holmes	MID	15
+Eisenwald 1900	Prime	Carlos Acosta	FWD	25
+Eisenwald 1900	Prime	Radu Dragomir	GK	0
+Eisenwald 1900	Prime	Rene Chevalier	DEF	5
+Eisenwald 1900	Prime	Fabian Gomez	MID	8
+Eisenwald 1900	Prime	Gavin Powell	DEF	5
+Eisenwald 1900	Prime	Karl Meier	DEF	5
+Askhatansa	Prime	Jean-Pierre de Clercq	FWD	29
+Askhatansa	Prime	Neil Griffith	FWD	26
+Askhatansa	Prime	Vicente Acuna	GK	0
+Askhatansa	Prime	Peter Meijer	MID	14
+Askhatansa	Prime	Desmond Bonnet	MID	9
+Askhatansa	Prime	Roy Foster	MID	7
+Askhatansa	Prime	Vu Hung Dung	DEF	5
+Askhatansa	Prime	Hiroshi Itakura	DEF	5
+Askhatansa	Prime	Young-gwon Hwang	DEF	5
+Cheicester City	Prime	Olivier Rousseau	FWD	29
+Cheicester City	Prime	Dominique Girard	FWD	28
+Cheicester City	Prime	Jean Gauthier	DEF	5
+Cheicester City	Prime	Marcel Kuiper	GK	0
+Cheicester City	Prime	Jeremie Frimpong	MID	11
+Cheicester City	Prime	Elias Matsimbe	MID	11
+Cheicester City	Prime	Clive Moore	DEF	5
+Cheicester City	Prime	Declan Burke	DEF	5
+Cheicester City	Prime	Floyd Adebayor	MID	6
+Barroclaugh Athletic	Prime	Jiri Novakova	GK	0
+Barroclaugh Athletic	Prime	Manuel Castillo	FWD	24
+Barroclaugh Athletic	Prime	Marcos Aguilar	FWD	25
+Barroclaugh Athletic	Prime	Amadou Onana	MID	14
+Barroclaugh Athletic	Prime	Krzysztof Sikora	DEF	5
+Barroclaugh Athletic	Prime	Denis Chevalier	MID	9
+Barroclaugh Athletic	Prime	Timothy Theate	DEF	5
+Barroclaugh Athletic	Prime	Manaraii Wagemann	DEF	5
+Barroclaugh Athletic	Prime	Jamie Price	MID	13
+Havenpoort FC	Prime	Jacques Lemaire	MID	12
+Havenpoort FC	Prime	Ruben Schar	MID	11
+Havenpoort FC	Prime	Kalidou Koulibaly	MID	10
+Havenpoort FC	Prime	Alain Goossens	FWD	28
+Havenpoort FC	Prime	Mickael Caron	FWD	24
+Havenpoort FC	Prime	Mario Morales	GK	0
+Havenpoort FC	Prime	Esteban Maidana	DEF	5
+Havenpoort FC	Prime	Denis Kizito	DEF	5
+Havenpoort FC	Prime	Andritany Dimas	DEF	5
+Les Brasseurs	Prime	Craig Young	FWD	25
+Les Brasseurs	Prime	Sven Sjoberg	GK	0
+Les Brasseurs	Prime	Edmond Toska	FWD	27
+Les Brasseurs	Prime	Mitchell Duke	MID	11
+Les Brasseurs	Prime	Yannick Barbier	MID	11
+Les Brasseurs	Prime	Edwin Ruiz	MID	11
+Les Brasseurs	Prime	Hernando Orozco	DEF	5
+Les Brasseurs	Prime	Ramon Medina	DEF	5
+Les Brasseurs	Prime	Marcos Paz	DEF	5
+Corsaires de Calais	Prime	Gerhard Muller	FWD	27
+Corsaires de Calais	Prime	Jan van Dijk	FWD	27
+Corsaires de Calais	Prime	Eddy van den Broeck	GK	0
+Corsaires de Calais	Prime	Ramos Marrero	MID	12
+Corsaires de Calais	Prime	Richard Lemaire	DEF	5
+Corsaires de Calais	Prime	Ollie Rice	DEF	5
+Corsaires de Calais	Prime	Adrian Walsh	DEF	5
+Corsaires de Calais	Prime	Johan Post	MID	6
+Corsaires de Calais	Prime	Luis Gallese	MID	13
+Stedham Journeymen	Prime	Joao Pereira	FWD	25
+Stedham Journeymen	Prime	Eamon Murphy	MID	8
+Stedham Journeymen	Prime	Stefan Winter	MID	13
+Stedham Journeymen	Prime	Mohamed Alaoui	FWD	27
+Stedham Journeymen	Prime	Wilmer Paz	GK	0
+Stedham Journeymen	Prime	Pieter van Vliet	MID	12
+Stedham Journeymen	Prime	Craig Henderson	DEF	5
+Stedham Journeymen	Prime	Moses Okeke	DEF	5
+Stedham Journeymen	Prime	Harry Souttar	DEF	5
+Celtic Cross FC	Prime	Colin Pugh	FWD	27
+Celtic Cross FC	Prime	Marc Renard	MID	17
+Celtic Cross FC	Prime	Kenneth Wright	GK	0
+Celtic Cross FC	Prime	Leslie Knight	FWD	23
+Celtic Cross FC	Prime	Darren King	DEF	5
+Celtic Cross FC	Prime	Federico Barella	MID	7
+Celtic Cross FC	Prime	Rob Brouwer	MID	11
+Celtic Cross FC	Prime	Geert Verhoeven	DEF	5
+Celtic Cross FC	Prime	Philip Gibson	DEF	5
+Imperiale Roma	Med	Rodrigo de Jesus	DEF	5
+Imperiale Roma	Med	Ricardo de Los Santos	GK	0
+Imperiale Roma	Med	Felipe Contreras	FWD	30
+Imperiale Roma	Med	Yuryi Melnyk	FWD	26
+Imperiale Roma	Med	Kim Si-Yeon	MID	7
+Imperiale Roma	Med	Cristian Molina	DEF	5
+Imperiale Roma	Med	Shojae Cheshmi	DEF	5
+Imperiale Roma	Med	John Bugeja	MID	8
+Imperiale Roma	Med	Evangelos Mylonas	MID	14
+Castellano Madrid	Med	Carlos Pereira	MID	17
+Castellano Madrid	Med	Pavel Vesela	DEF	5
+Castellano Madrid	Med	Fatmir Dervishi	FWD	27
+Castellano Madrid	Med	Ahmed Mansouri	GK	0
+Castellano Madrid	Med	Francois Toussaint	FWD	25
+Castellano Madrid	Med	Henrik Mikkelsen	DEF	5
+Castellano Madrid	Med	Luan Murati	DEF	5
+Castellano Madrid	Med	Pere Munoz	MID	9
+Castellano Madrid	Med	Felix Jradi	MID	7
+Al-Qahira FC	Med	Alvaro Chaves	FWD	29
+Al-Qahira FC	Med	Ricardo Goncalves	FWD	28
+Al-Qahira FC	Med	Josef Steiner	MID	10
+Al-Qahira FC	Med	Andres Rodriguez	DEF	5
+Al-Qahira FC	Med	Neil Wright	GK	0
+Al-Qahira FC	Med	Jose Quispe	DEF	5
+Al-Qahira FC	Med	Sherif Farouk	DEF	5
+Al-Qahira FC	Med	Dejan Popovic	MID	13
+Al-Qahira FC	Med	Abdel Aziz Abid	MID	5
+Fursan al-Arab	Med	Joao Silva	FWD	29
+Fursan al-Arab	Med	Rafael Delgado	DEF	5
+Fursan al-Arab	Med	Cesar Aguero	FWD	27
+Fursan al-Arab	Med	Sergio Gutierrez	GK	0
+Fursan al-Arab	Med	Jose Romero	DEF	5
+Fursan al-Arab	Med	Eduardo Vaca	DEF	5
+Fursan al-Arab	Med	Amir Zare	MID	13
+Fursan al-Arab	Med	Abdalla Eisa	MID	8
+Fursan al-Arab	Med	Rachid Tahiri	MID	8
+Catalonia Gothic	Med	Mario Sosa	MID	9
+Catalonia Gothic	Med	Albert Hall	FWD	27
+Catalonia Gothic	Med	Arthur Kakuta	MID	10
+Catalonia Gothic	Med	Kyriacos Panayiotou	FWD	26
+Catalonia Gothic	Med	Roberto Sosa	MID	13
+Catalonia Gothic	Med	Michele di Stefano	DEF	5
+Catalonia Gothic	Med	Ljubomir Jovanovic	GK	0
+Catalonia Gothic	Med	Zuhair Hassan	DEF	5
+Catalonia Gothic	Med	Karim Mohamed	DEF	5
+Le Rocher Monaco	Med	Didier Diomande	FWD	27
+Le Rocher Monaco	Med	Leandro Cordeiro	FWD	26
+Le Rocher Monaco	Med	Alvaro Vazquez	MID	13
+Le Rocher Monaco	Med	Salvatore Moretti	MID	8
+Le Rocher Monaco	Med	Enrique Ortega	GK	0
+Le Rocher Monaco	Med	Alejandro Garcia	MID	11
+Le Rocher Monaco	Med	Mohamed Benyahia	DEF	5
+Le Rocher Monaco	Med	Ilir Hoxha	DEF	5
+Le Rocher Monaco	Med	Bassel Haidar	DEF	5
+Barbary Apes	Med	Klaus Bauer	GK	0
+Barbary Apes	Med	Mustapha Hakimi	MID	13
+Barbary Apes	Med	Svein Berg	FWD	26
+Barbary Apes	Med	Tahnoon Ramadan	FWD	25
+Barbary Apes	Med	Ramazan Yilmaz	DEF	5
+Barbary Apes	Med	Jovan Trajkovic	MID	12
+Barbary Apes	Med	Med Mansour	MID	9
+Barbary Apes	Med	Abdel Allah	DEF	5
+Barbary Apes	Med	Amar Touati	DEF	5
+Olympias Athena	Med	Luis Aguirre	GK	0
+Olympias Athena	Med	Thomas Martin	FWD	26
+Olympias Athena	Med	Slobodan Kovacevic	FWD	25
+Olympias Athena	Med	Aissa Bounedjah	MID	14
+Olympias Athena	Med	Huseyin Sahin	MID	8
+Olympias Athena	Med	Alidu Mensah	MID	12
+Olympias Athena	Med	Arthur Coelho	DEF	5
+Olympias Athena	Med	Ali Al-Ahbabi	DEF	5
+Olympias Athena	Med	Savvas Constantinou	DEF	5
+Bosphorus Blue	Med	Giovanni Rossi	FWD	25
+Bosphorus Blue	Med	Roberjt Grgic	MID	15
+Bosphorus Blue	Med	Petr Navratil	MID	12
+Bosphorus Blue	Med	Hilal Maatouk	FWD	22
+Bosphorus Blue	Med	Gabriel Magalhaes	MID	11
+Bosphorus Blue	Med	Rabih El Zein	GK	0
+Bosphorus Blue	Med	Salaah Al-Yahyaei	DEF	5
+Bosphorus Blue	Med	Faisal Almarri	DEF	5
+Bosphorus Blue	Med	Ebrahim Al-Aswad	DEF	5
+Visconti Serpents	Med	Sergio Alves	MID	14
+Visconti Serpents	Med	Manoel Ribiero	FWD	29
+Visconti Serpents	Med	Mehdi Khalil	FWD	24
+Visconti Serpents	Med	Reza Jafari	GK	0
+Visconti Serpents	Med	Marcelo Majer	DEF	5
+Visconti Serpents	Med	Shahid Khan	MID	12
+Visconti Serpents	Med	Georges Béaruné	MID	6
+Visconti Serpents	Med	Ammar Sabbag	DEF	5
+Visconti Serpents	Med	Joe Waine	DEF	5
+Lisbon United	Med	Giovanni Ricci	FWD	26
+Lisbon United	Med	Marcelo da Silva	MID	12
+Lisbon United	Med	Sergio Martino	FWD	25
+Lisbon United	Med	Francesco Caruso	DEF	5
+Lisbon United	Med	Gerardo Perez	MID	10
+Lisbon United	Med	Pedro Huaman	GK	0
+Lisbon United	Med	Stjepan Novosel	DEF	5
+Lisbon United	Med	Dimitrios Papadopoulos	DEF	5
+Lisbon United	Med	German Salazar	MID	12
+Lions of Carthage	Med	Niko Lovric	FWD	31
+Lions of Carthage	Med	Ivica Vidovic	FWD	27
+Lions of Carthage	Med	Amr Shehab	GK	0
+Lions of Carthage	Med	Giuseppe Giordano	DEF	5
+Lions of Carthage	Med	Shabaib Al-Dhefiri	DEF	5
+Lions of Carthage	Med	Moulaye Guidileye	MID	9
+Lions of Carthage	Med	Ahmed Salah	DEF	5
+Lions of Carthage	Med	Arshad Yadav	MID	9
+Lions of Carthage	Med	Komail Al-Aswad	MID	9
+Najm al-Bayda	Med	Dario Blanco	FWD	29
+Najm al-Bayda	Med	Vicente Garcia	FWD	28
+Najm al-Bayda	Med	Mario Appindangoyé	GK	0
+Najm al-Bayda	Med	Teboho Tau	MID	10
+Najm al-Bayda	Med	Walid Harit	MID	8
+Najm al-Bayda	Med	Jefferson Uribe	DEF	5
+Najm al-Bayda	Med	Mehmet Celik	DEF	5
+Najm al-Bayda	Med	Hassan Ataya	MID	10
+Najm al-Bayda	Med	Victor-Manuel Aguilar	DEF	5
+Alexandria Faros	Med	Patricio Torres	MID	13
+Alexandria Faros	Med	Ali Mousavi	FWD	28
+Alexandria Faros	Med	Alvaro Viera	MID	11
+Alexandria Faros	Med	Freddy Lopez	FWD	26
+Alexandria Faros	Med	German Arias	GK	0
+Alexandria Faros	Med	Amine Ounahi	DEF	5
+Alexandria Faros	Med	Gian Selva	DEF	5
+Alexandria Faros	Med	Zlatko Novak	DEF	5
+Alexandria Faros	Med	Agustin Lara	MID	7
+Damascus Steel	Med	Ahmed Saleh	GK	0
+Damascus Steel	Med	Yusuf Guler	FWD	26
+Damascus Steel	Med	Salah Saidi	FWD	26
+Damascus Steel	Med	Fabrice Blanchard	DEF	5
+Damascus Steel	Med	Nestor Moreira	DEF	5
+Damascus Steel	Med	Andres Molina	DEF	5
+Damascus Steel	Med	Malcolm Hopkins	MID	11
+Damascus Steel	Med	Didier Bouanga	MID	15
+Damascus Steel	Med	Ramesh Shrestha	MID	7
+Tripoli Sporting	Med	Juan Rivera	FWD	27
+Tripoli Sporting	Med	Fahad Ali	FWD	24
+Tripoli Sporting	Med	Andrej Kos	GK	0
+Tripoli Sporting	Med	Said Taleb	MID	14
+Tripoli Sporting	Med	Stavros Giannopoulos	MID	12
+Tripoli Sporting	Med	Abo Samir	MID	8
+Tripoli Sporting	Med	Milan Mitrovic	DEF	5
+Tripoli Sporting	Med	Amer Zaid	DEF	5
+Tripoli Sporting	Med	Giampiero Suriani	DEF	5
+Moscow Krepost	Euro	Soren Holm	MID	12
+Moscow Krepost	Euro	Zoran Ilic	MID	14
+Moscow Krepost	Euro	Kristjan Jonsson	MID	10
+Moscow Krepost	Euro	Ilija Hodzic	DEF	5
+Moscow Krepost	Euro	Niels Jensen	FWD	25
+Moscow Krepost	Euro	Arnaldo Benitez	FWD	24
+Moscow Krepost	Euro	Zoran Atanasov	GK	0
+Moscow Krepost	Euro	Laszlo Kovacs	DEF	5
+Moscow Krepost	Euro	Lars Jonsson	DEF	5
+Slavutych Kyiv	Euro	Pawel Lewandowski	FWD	28
+Slavutych Kyiv	Euro	Maksim Volkova	FWD	26
+Slavutych Kyiv	Euro	Tomislav Rakic	GK	0
+Slavutych Kyiv	Euro	Zoltan Kocsis	MID	13
+Slavutych Kyiv	Euro	Nykolai Moroz	DEF	5
+Slavutych Kyiv	Euro	Franz Ospelt	MID	8
+Slavutych Kyiv	Euro	Jesper Thomsen	DEF	5
+Slavutych Kyiv	Euro	Heikki Laine	DEF	5
+Slavutych Kyiv	Euro	Algimantas Zilinskas	MID	10
+Edelweiss Zurich	Euro	Simon Knight	FWD	30
+Edelweiss Zurich	Euro	Marcos Ospina	FWD	24
+Edelweiss Zurich	Euro	Miroslav Pavlovic	GK	0
+Edelweiss Zurich	Euro	Pavel Ivanova	DEF	5
+Edelweiss Zurich	Euro	Aka Dah	MID	12
+Edelweiss Zurich	Euro	Erik Olsen	DEF	5
+Edelweiss Zurich	Euro	Anders Lindstrom	MID	10
+Edelweiss Zurich	Euro	Fredrik Johansson	MID	9
+Edelweiss Zurich	Euro	Slobodan Krstic	DEF	5
+Stockholm United	Euro	Florin Stan	FWD	27
+Stockholm United	Euro	Jan Prochazka	FWD	25
+Stockholm United	Euro	Vyktor Kovalenko	MID	12
+Stockholm United	Euro	Rolf Schulze	GK	0
+Stockholm United	Euro	Andrzej Nowak	MID	9
+Stockholm United	Euro	Lucas Luiz	DEF	5
+Stockholm United	Euro	Darius Balciunas	DEF	5
+Stockholm United	Euro	Viktor Morozov	DEF	5
+Stockholm United	Euro	Jovan Stojanovski	MID	12
+Oslo Vikinger	Euro	Andreas Wyss	FWD	29
+Oslo Vikinger	Euro	Orlando Cardona	FWD	26
+Oslo Vikinger	Euro	Serhei Tkachenko	GK	0
+Oslo Vikinger	Euro	Park Jun-Seo	DEF	5
+Oslo Vikinger	Euro	Odilon Gradel	DEF	5
+Oslo Vikinger	Euro	Petar Stojanovic	DEF	5
+Oslo Vikinger	Euro	Aleksandr Kuznetsov	MID	11
+Oslo Vikinger	Euro	Gheorghe Cristea	MID	10
+Oslo Vikinger	Euro	Constantin Prodan	MID	9
+Donau Wien	Euro	Stefan Takac	FWD	28
+Donau Wien	Euro	Franc Potocnik	FWD	23
+Donau Wien	Euro	Jan Johansen	MID	11
+Donau Wien	Euro	Rafael Parra	MID	12
+Donau Wien	Euro	Cieran McCormick	GK	0
+Donau Wien	Euro	Werner Frei	MID	11
+Donau Wien	Euro	Vasile Cazacu	DEF	5
+Donau Wien	Euro	Arni Olafsson	DEF	5
+Donau Wien	Euro	Pedro Dos Santos	DEF	5
+Dunav Belgrade	Euro	Kjell Nilsen	FWD	26
+Dunav Belgrade	Euro	Vitaliy Zabarnyi	MID	9
+Dunav Belgrade	Euro	Vasylyi Yvanova	MID	11
+Dunav Belgrade	Euro	Raul Morales	FWD	25
+Dunav Belgrade	Euro	Ari Korhonen	MID	14
+Dunav Belgrade	Euro	Piotr Nowicki	GK	0
+Dunav Belgrade	Euro	Gerhard Bauer	DEF	5
+Dunav Belgrade	Euro	Ernest Nuamah	DEF	5
+Dunav Belgrade	Euro	Marko Bosnjak	DEF	5
+Sisu Helsinki	Euro	Ivan Popova	FWD	27
+Sisu Helsinki	Euro	Mathieu Lefevre	FWD	27
+Sisu Helsinki	Euro	Aleksandr Olyinyk	DEF	5
+Sisu Helsinki	Euro	Bojan Kavcic	DEF	5
+Sisu Helsinki	Euro	Krasimi Georgiev	GK	0
+Sisu Helsinki	Euro	Andrey Zaitsev	MID	6
+Sisu Helsinki	Euro	Emilio Segundo	DEF	5
+Sisu Helsinki	Euro	Pascal Ferreira	MID	9
+Sisu Helsinki	Euro	Stefan Meier	MID	16
+Kongens FC	Euro	Jens Clausen	GK	0
+Kongens FC	Euro	Arvydas Vasiliauskas	FWD	24
+Kongens FC	Euro	Mauricio Rios	FWD	22
+Kongens FC	Euro	Istvan Kiss	MID	12
+Kongens FC	Euro	Jani Rasanen	MID	16
+Kongens FC	Euro	Valentin Ionescu	MID	11
+Kongens FC	Euro	Ladislav Kovac	DEF	5
+Kongens FC	Euro	Daniel Wohlwend	DEF	5
+Kongens FC	Euro	Fernando Ribiero	DEF	5
+Bohemian Gryphons	Euro	Georgios Nikolaidis	FWD	25
+Bohemian Gryphons	Euro	Sandor Toth	FWD	26
+Bohemian Gryphons	Euro	Eero Salo	GK	0
+Bohemian Gryphons	Euro	Thomas Anderson	MID	11
+Bohemian Gryphons	Euro	Rolf Bachmann	DEF	5
+Bohemian Gryphons	Euro	Stojan Petrovska	MID	9
+Bohemian Gryphons	Euro	Kairat Kichin	DEF	5
+Bohemian Gryphons	Euro	Valerijs Priede	MID	14
+Bohemian Gryphons	Euro	Giorgio Chellini	DEF	5
+Korona Warsaw	Euro	Janos Meszaros	GK	0
+Korona Warsaw	Euro	Slobodan Radic	FWD	27
+Korona Warsaw	Euro	Vaclav Dvorak	FWD	27
+Korona Warsaw	Euro	Tomasz Zajac	DEF	5
+Korona Warsaw	Euro	Karl Olsson	DEF	5
+Korona Warsaw	Euro	Branko Novac	MID	11
+Korona Warsaw	Euro	Bajram Sylejmani	MID	9
+Korona Warsaw	Euro	Aleksandr Kallas	MID	11
+Korona Warsaw	Euro	Marcel Roth	DEF	5
+Magyar Huszar	Euro	Faïz Bachirou	FWD	26
+Magyar Huszar	Euro	Stoyan Nikolov	FWD	25
+Magyar Huszar	Euro	Robson Medeiros	GK	0
+Magyar Huszar	Euro	Hector Alvarez	DEF	5
+Magyar Huszar	Euro	Moussa Amani	MID	13
+Magyar Huszar	Euro	Ammar Krouma	MID	9
+Magyar Huszar	Euro	Jiang Linpeng	MID	12
+Magyar Huszar	Euro	Edwin Torrez	DEF	5
+Magyar Huszar	Euro	Veselin Ivanov	DEF	5
+Bucharest International	Euro	Frantisek Molnar	FWD	28
+Bucharest International	Euro	Karl Mayer	FWD	26
+Bucharest International	Euro	Hadisi Aengari	GK	0
+Bucharest International	Euro	Marcel Wagner	DEF	5
+Bucharest International	Euro	Pansa Kaman	MID	11
+Bucharest International	Euro	Jacek Majewski	MID	10
+Bucharest International	Euro	Rafael Jimenez	DEF	5
+Bucharest International	Euro	Lalaina Amada	MID	10
+Bucharest International	Euro	Peeter Ots	DEF	5
+Sarajevo Grad	Euro	Caio Sultan	FWD	26
+Sarajevo Grad	Euro	Antanas Zukauskas	FWD	25
+Sarajevo Grad	Euro	Markus Schneider	GK	0
+Sarajevo Grad	Euro	Azamat Zemlianukhin	MID	11
+Sarajevo Grad	Euro	Johann Gunnarsson	DEF	5
+Sarajevo Grad	Euro	Hamid Bagheri	DEF	5
+Sarajevo Grad	Euro	Paweł Bednarek	DEF	5
+Sarajevo Grad	Euro	Juraj Szabo	MID	9
+Sarajevo Grad	Euro	Georgios Christofi	MID	14
+Reykjavik Isbjorn	Euro	Akhtam Jalilov	FWD	27
+Reykjavik Isbjorn	Euro	Gunnar Bjornsson	FWD	26
+Reykjavik Isbjorn	Euro	Mo Diallo	GK	0
+Reykjavik Isbjorn	Euro	Marjan Krajnc	MID	8
+Reykjavik Isbjorn	Euro	Mitch Alick	DEF	5
+Reykjavik Isbjorn	Euro	Joseph Wari	MID	12
+Reykjavik Isbjorn	Euro	Nigel Clarke	MID	12
+Reykjavik Isbjorn	Euro	Liviu Ciobanu	DEF	5
+Reykjavik Isbjorn	Euro	Andreas Schwarz	DEF	5
+Slavia Tatry	Euro	Martin Lang	GK	0
+Slavia Tatry	Euro	Felix Gallego	FWD	24
+Slavia Tatry	Euro	Janis Berzins	FWD	24
+Slavia Tatry	Euro	Michal Fialova	MID	15
+Slavia Tatry	Euro	Fouad Selemani	DEF	5
+Slavia Tatry	Euro	Anton Zupan	DEF	5
+Slavia Tatry	Euro	Carlo D'Amico	MID	7
+Slavia Tatry	Euro	Tomas Arias	MID	15
+Slavia Tatry	Euro	Alberto Diaz	DEF	5
+New York Empire	Backyard	Nick Hamburger	FWD	29
+New York Empire	Backyard	Raul Ortiz	MID	11
+New York Empire	Backyard	Helmut Lange	FWD	25
+New York Empire	Backyard	Silas McBride	DEF	5
+New York Empire	Backyard	Helgi Magnusson	MID	8
+New York Empire	Backyard	Miguel Ortega	DEF	5
+New York Empire	Backyard	Tim Moore	GK	0
+New York Empire	Backyard	Lorenzo Marte	DEF	5
+New York Empire	Backyard	Orlando Centeno	MID	12
+Los Angeles Syndicate	Backyard	Nicolae Popescu	FWD	26
+Los Angeles Syndicate	Backyard	Nicolas Montero	FWD	25
+Los Angeles Syndicate	Backyard	Pedro Flores	MID	14
+Los Angeles Syndicate	Backyard	Milan Marjanovic	MID	9
+Los Angeles Syndicate	Backyard	Dmitriy Shevchenko	GK	0
+Los Angeles Syndicate	Backyard	Sawyer Marshall	MID	11
+Los Angeles Syndicate	Backyard	Nicholas Persad	DEF	5
+Los Angeles Syndicate	Backyard	Frantz Germaine	DEF	5
+Los Angeles Syndicate	Backyard	Brandon Boyd	DEF	5
+Las Vegas Mirage	Backyard	Mohammed Odoi	FWD	29
+Las Vegas Mirage	Backyard	Nam Min-Jae	GK	0
+Las Vegas Mirage	Backyard	William Davies	MID	11
+Las Vegas Mirage	Backyard	Anthony Gonzales	FWD	25
+Las Vegas Mirage	Backyard	Knox Fletcher	MID	10
+Las Vegas Mirage	Backyard	Antonio Chavez	DEF	5
+Las Vegas Mirage	Backyard	Fernando Reyes	MID	10
+Las Vegas Mirage	Backyard	Johan Vasquez	DEF	5
+Las Vegas Mirage	Backyard	Junya Ito	DEF	5
+Chicago Surge	Backyard	Adriano Campos	FWD	29
+Chicago Surge	Backyard	Juan Narvaez	DEF	5
+Chicago Surge	Backyard	Joseph Clarke	FWD	29
+Chicago Surge	Backyard	Jozsef Szabo	DEF	5
+Chicago Surge	Backyard	Pedro Reis	GK	0
+Chicago Surge	Backyard	Terezinha Rocha	DEF	5
+Chicago Surge	Backyard	James Delva	MID	8
+Chicago Surge	Backyard	Peter Ramirez	MID	6
+Chicago Surge	Backyard	Domingo Ordonez	MID	13
+Boston Rebellion	Backyard	Francisco Castillo	MID	13
+Boston Rebellion	Backyard	Javier Guerra	GK	0
+Boston Rebellion	Backyard	Sergio Almeida	MID	11
+Boston Rebellion	Backyard	Edward Gauthier	MID	9
+Boston Rebellion	Backyard	Sharaf El Hadi	FWD	26
+Boston Rebellion	Backyard	Ben Ben Nabouhane	FWD	26
+Boston Rebellion	Backyard	Jean-Philippe Saïko	DEF	5
+Boston Rebellion	Backyard	Ernesto Cordoba	DEF	5
+Boston Rebellion	Backyard	Brooks Hollister	DEF	5
+Toronto Blizzard	Backyard	Adrian Johnson	MID	15
+Toronto Blizzard	Backyard	Brandon Vargas	MID	12
+Toronto Blizzard	Backyard	Tadashi Sato	GK	0
+Toronto Blizzard	Backyard	Jorge Quesada	MID	9
+Toronto Blizzard	Backyard	Jeyland Mitchell	DEF	5
+Toronto Blizzard	Backyard	Juan-Carlos Novelo	FWD	25
+Toronto Blizzard	Backyard	Mustafa Simsek	FWD	24
+Toronto Blizzard	Backyard	Jacques Lavoie	DEF	5
+Toronto Blizzard	Backyard	Ramon Bonilla	DEF	5
+Mexico City Sol	Backyard	Cesar Paredes	FWD	29
+Mexico City Sol	Backyard	Peter Buhler	FWD	26
+Mexico City Sol	Backyard	Dexter Edwards	GK	0
+Mexico City Sol	Backyard	Evidence Tau	MID	11
+Mexico City Sol	Backyard	Zizo Fathi	DEF	5
+Mexico City Sol	Backyard	Rowllin Singh	DEF	5
+Mexico City Sol	Backyard	Marc Tremblay	MID	7
+Mexico City Sol	Backyard	Jean Roberts	MID	12
+Mexico City Sol	Backyard	Muaid Musrati	DEF	5
+Seattle Echo	Backyard	Pedro Banegas	FWD	27
+Seattle Echo	Backyard	Serghei Cojocari	FWD	26
+Seattle Echo	Backyard	Alcides Cabrera	GK	0
+Seattle Echo	Backyard	Jaxson Wilder	MID	11
+Seattle Echo	Backyard	Juan Araya	DEF	5
+Seattle Echo	Backyard	Enrique de Leon	DEF	5
+Seattle Echo	Backyard	Enrique Blanco	MID	11
+Seattle Echo	Backyard	Tomasi Devi	MID	10
+Seattle Echo	Backyard	Gustavo Vega	DEF	5
+Philadelphia Spirit	Backyard	Angel Cedeno	FWD	26
+Philadelphia Spirit	Backyard	Victor Weaver	GK	0
+Philadelphia Spirit	Backyard	Walker Hayes	FWD	24
+Philadelphia Spirit	Backyard	Manuel Gonçalves	MID	14
+Philadelphia Spirit	Backyard	Marlon Padilla	DEF	5
+Philadelphia Spirit	Backyard	Musa Musa	MID	8
+Philadelphia Spirit	Backyard	Jorge Molina	MID	13
+Philadelphia Spirit	Backyard	Felix Rodriguez	DEF	5
+Philadelphia Spirit	Backyard	Pedro Nsue	DEF	5
+Dallas Flare	Backyard	Hector	FWD	28
+Dallas Flare	Backyard	Diego Perez	FWD	27
+Dallas Flare	Backyard	César Nyikeine	GK	0
+Dallas Flare	Backyard	Felipe Juarez	DEF	5
+Dallas Flare	Backyard	Gabriel Juarez	MID	10
+Dallas Flare	Backyard	Manuel Amador	MID	6
+Dallas Flare	Backyard	Antoine Semenyo	MID	14
+Dallas Flare	Backyard	Hugo Rosas	DEF	5
+Dallas Flare	Backyard	Tomas Morales	DEF	5
+San Jose Relampago	Backyard	Jordan Amartey	FWD	27
+San Jose Relampago	Backyard	Domingo Roldan	FWD	25
+San Jose Relampago	Backyard	Inaki Kudus	GK	0
+San Jose Relampago	Backyard	Rafael Borré	MID	11
+San Jose Relampago	Backyard	Reinildo Dove	DEF	5
+San Jose Relampago	Backyard	Jorge Sanchez	MID	11
+San Jose Relampago	Backyard	Edwin Lopez	MID	11
+San Jose Relampago	Backyard	Francis Baptiste	DEF	5
+San Jose Relampago	Backyard	Hamza El Mehdi	DEF	5
+Montreal Coureurs	Backyard	Matti Jokinen	FWD	26
+Montreal Coureurs	Backyard	Santiago Barrios	FWD	24
+Montreal Coureurs	Backyard	Cassius Reed	GK	0
+Montreal Coureurs	Backyard	Rafael Tejeda	MID	13
+Montreal Coureurs	Backyard	Vicente Mendez	MID	12
+Montreal Coureurs	Backyard	Wayne Harrison	MID	10
+Montreal Coureurs	Backyard	Arthur Kayembe	DEF	5
+Montreal Coureurs	Backyard	Armando Dominguez	DEF	5
+Montreal Coureurs	Backyard	Youssouf M'Changama	DEF	5
+Tijuana Vaqueros	Backyard	Guadalupe Moreno	FWD	28
+Tijuana Vaqueros	Backyard	Scott Robinson	FWD	29
+Tijuana Vaqueros	Backyard	Ahmet Ozcan	GK	0
+Tijuana Vaqueros	Backyard	Rogelio Valencia	MID	7
+Tijuana Vaqueros	Backyard	Phil Schröck	MID	10
+Tijuana Vaqueros	Backyard	Liu Lei	DEF	5
+Tijuana Vaqueros	Backyard	Kassaly Hainikoye	MID	11
+Tijuana Vaqueros	Backyard	Jaime Chavarria	DEF	5
+Tijuana Vaqueros	Backyard	Carlos Vieira	DEF	5
+Washington Justice	Backyard	Marc Sanon	GK	0
+Washington Justice	Backyard	Vojislav Milic	FWD	25
+Washington Justice	Backyard	Spyridon Karagiannis	FWD	22
+Washington Justice	Backyard	Guillaume Deschamps	DEF	5
+Washington Justice	Backyard	Siyanda Zwane	DEF	5
+Washington Justice	Backyard	Johan Charlier	MID	17
+Washington Justice	Backyard	Martin Patiño	DEF	5
+Washington Justice	Backyard	Yukio Ono	MID	12
+Washington Justice	Backyard	Jonathan Carmichael	MID	9
+Detroit Firebirds	Backyard	Joel Hosein	FWD	28
+Detroit Firebirds	Backyard	Neville Grant	FWD	26
+Detroit Firebirds	Backyard	Mauricio Fuentes	GK	0
+Detroit Firebirds	Backyard	Felipe Pinheiro	MID	11
+Detroit Firebirds	Backyard	Felix Cardozo	DEF	5
+Detroit Firebirds	Backyard	Cesar Romero	DEF	5
+Detroit Firebirds	Backyard	Nico Soria	MID	7
+Detroit Firebirds	Backyard	Clyde Gittens	MID	13
+Detroit Firebirds	Backyard	Graham Chapman	DEF	5
+Denver Torrent	Backyard	Edgar Rojas	GK	0
+Denver Torrent	Backyard	Geraldo Faife	FWD	26
+Denver Torrent	Backyard	Hassan Mohammadi	FWD	25
+Denver Torrent	Backyard	Javier Giraldo	DEF	5
+Denver Torrent	Backyard	Abdoul Oumarou	DEF	5
+Denver Torrent	Backyard	Kim Min-Jun	MID	13
+Denver Torrent	Backyard	Diego Correia	DEF	5
+Denver Torrent	Backyard	Ricardo Mejia	MID	9
+Denver Torrent	Backyard	Hugh McAuley	MID	12

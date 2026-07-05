@@ -1,0 +1,29 @@
+{
+    "name": "2025 Backyard League",
+    "type": "league",
+    "groups": {
+        "BSL Atlantic": [
+            "New York Empire",
+            "Chicago Surge",
+            "Boston Rebellion",
+            "Philadelphia Spirit",
+            "Washington Justice",
+            "Toronto Blizzard",
+            "Montreal Coureurs",
+            "Detroit Firebirds"
+        ],
+        "BSL Pacific": [
+            "Los Angeles Syndicate",
+            "Las Vegas Mirage",
+            "Seattle Echo",
+            "Dallas Flare",
+            "San Jose Relampago",
+            "Mexico City Sol",
+            "Tijuana Vaqueros",
+            "Denver Torrent"
+        ]
+    },
+    "rules": {
+        "rounds": 2
+    }
+}

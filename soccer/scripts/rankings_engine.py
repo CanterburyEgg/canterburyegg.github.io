@@ -6,12 +6,13 @@ import copy
 import math
 
 # Add current directory to path to import driver
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(BASE_DIR)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(SCRIPTS_DIR)
 import soccer_driver
 
-CONFIG_FILE = os.path.join(BASE_DIR, "rankings_config.json")
-RANKINGS_FILE = os.path.join(BASE_DIR, "rankings.json")
+CONFIG_FILE = os.path.join(BASE_DIR, "lists", "rankings_config.json")
+RANKINGS_FILE = os.path.join(BASE_DIR, "lists", "rankings.json")
 
 def get_config():
     if os.path.exists(CONFIG_FILE):

@@ -22,23 +22,23 @@
   },
   {
     "rank": 4,
-    "team": "Croatia",
-    "points": 1318.3,
-    "movement": -2,
+    "team": "Germany",
+    "points": 1320.9,
+    "movement": 2,
     "is_new": false
   },
   {
     "rank": 5,
-    "team": "Argentina",
-    "points": 1309.2,
-    "movement": 3,
+    "team": "Croatia",
+    "points": 1318.3,
+    "movement": -3,
     "is_new": false
   },
   {
     "rank": 6,
-    "team": "Germany",
-    "points": 1307.0,
-    "movement": 0,
+    "team": "Argentina",
+    "points": 1309.2,
+    "movement": 2,
     "is_new": false
   },
   {
@@ -51,7 +51,7 @@
   {
     "rank": 8,
     "team": "France",
-    "points": 1266.2,
+    "points": 1278.4,
     "movement": 3,
     "is_new": false
   },

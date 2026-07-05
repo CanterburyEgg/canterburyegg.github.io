@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 21,
+  "current_day": 23,
   "groups": {
     "A": {
       "matches": [
@@ -17850,16 +17850,213 @@
               "Morocco"
             ],
             "score": [
-              0,
-              0
+              5,
+              1
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_1",
             "label": "R16_1",
             "source": [
               "E1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 1,
+                "team": "Germany",
+                "player": "Hans Weber"
+              },
+              {
+                "minute": 9,
+                "team": "Morocco",
+                "player": "Nabil Karim"
+              },
+              {
+                "minute": 51,
+                "team": "Germany",
+                "player": "Ilkay Gundogan"
+              },
+              {
+                "minute": 66,
+                "team": "Germany",
+                "player": "Antonio Rudiger"
+              },
+              {
+                "minute": 71,
+                "team": "Germany",
+                "player": "Ilkay Gundogan"
+              },
+              {
+                "minute": 85,
+                "team": "Germany",
+                "player": "Wolfgang Koch"
+              }
+            ],
+            "stats": {
+              "Germany": {
+                "shots": 17,
+                "sogs": 7,
+                "saves": 1
+              },
+              "Morocco": {
+                "shots": 7,
+                "sogs": 2,
+                "saves": 2
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gerhard Muller",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilkay Gundogan",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wolfgang Koch",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hans Weber",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manfred Fischer",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Klaus Bauer",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Mohamed Alaoui",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nabil Karim",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Walid Harit",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mustapha Hakimi",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rachid Tahiri",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amine Ounahi",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hicham El-Mostafa",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohammed El-Idrissi",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdel Aziz",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 2,
+                  "goals_against": 5
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Germany_vs_Morocco_74154036_894.txt"
           },
           {
             "day": 22,
@@ -17868,16 +18065,213 @@
               "Peru"
             ],
             "score": [
-              0,
-              0
+              5,
+              1
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_2",
             "label": "R16_2",
             "source": [
               "F1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 28,
+                "team": "France",
+                "player": "Dominique Girard"
+              },
+              {
+                "minute": 42,
+                "team": "France",
+                "player": "Dominique Girard"
+              },
+              {
+                "minute": 49,
+                "team": "Peru",
+                "player": "Wilder Yotun"
+              },
+              {
+                "minute": 53,
+                "team": "France",
+                "player": "Dayot Hernandez"
+              },
+              {
+                "minute": 63,
+                "team": "France",
+                "player": "Olivier Rousseau"
+              },
+              {
+                "minute": 87,
+                "team": "France",
+                "player": "Olivier Rousseau"
+              }
+            ],
+            "stats": {
+              "France": {
+                "shots": 21,
+                "sogs": 9,
+                "saves": 1
+              },
+              "Peru": {
+                "shots": 7,
+                "sogs": 2,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Olivier Rousseau",
+                  "shots": 9,
+                  "sogs": 5,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dominique Girard",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dayot Hernandez",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jacques Lemaire",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bernard Michel",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rene Chevalier",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jean Gauthier",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Juan Rivera",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Morales",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Gallese",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Rojas",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Enrique Aguilar",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wilder Yotun",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Quispe",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Gonzales",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Huaman",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 5
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/France_vs_Peru_74154036_834.txt"
           },
           {
             "day": 23,
@@ -17995,8 +18389,8 @@
           {
             "day": 27,
             "teams": [
-              "TBD",
-              "TBD"
+              "Germany",
+              "France"
             ],
             "score": [
               0,

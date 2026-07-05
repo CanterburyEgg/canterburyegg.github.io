@@ -1,0 +1,30 @@
+{
+    "name": "2025 Prime League",
+    "type": "league",
+    "groups": {
+        "Division Monarch": [
+            "Stratton United",
+            "Haverford Black",
+            "Cheicester City",
+            "Thurston FC East",
+            "Thurston FC West",
+            "Stedham Journeymen",
+            "Barroclaugh Athletic",
+            "Celtic Cross FC"
+        ],
+        "Division Empire": [
+            "Chateau Roux",
+            "Glass Castle FC",
+            "Eisenwald 1900",
+            "Askhatansa",
+            "Les Brasseurs",
+            "Havenpoort FC",
+            "Corsaires de Calais",
+            "Stella Grey"
+        ]
+    },
+
+    "rules": {
+        "rounds": 2
+    }
+}

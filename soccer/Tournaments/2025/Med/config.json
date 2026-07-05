@@ -1,0 +1,29 @@
+{
+    "name": "2025 Med League",
+    "type": "league",
+    "groups": {
+        "Costa Republic": [
+            "Imperiale Roma",
+            "Olympias Athena",
+            "Castellano Madrid",
+            "Catalonia Gothic",
+            "Lisbon United",
+            "Visconti Serpents",
+            "Le Rocher Monaco",
+            "Barbary Apes"
+        ],
+        "Costa Emirate": [
+            "Al-Qahira FC",
+            "Fursan al-Arab",
+            "Najm al-Bayda",
+            "Lions of Carthage",
+            "Tripoli Sporting",
+            "Alexandria Faros",
+            "Bosphorus Blue",
+            "Damascus Steel"
+        ]
+    },
+    "rules": {
+        "rounds": 2
+    }
+}

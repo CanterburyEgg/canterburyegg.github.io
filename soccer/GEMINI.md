@@ -12,7 +12,7 @@ The engine has been converted from C# to Python and tuned for a specific "World 
 - **Target Logic:** Designed to yield a **3.5 - 0.5** scoreline for a "Perfect" (10s) vs "Awful" (0s) matchup.
 
 ## 2. Architecture
-- **tournament_manager.py:** A path-agnostic script that runs tournaments based on a `config.json` file found in the target directory.
+- **scripts/tournament_manager.py:** A path-agnostic script that runs tournaments based on a `config.json` file found in the target directory.
 - **Data-Driven:** It clears existing `Games/` logs, runs a double-round robin group stage, and executes custom knockout logic (currently `asia_qualifiers` type).
 - **Output:** Generates a comprehensive `results.json` containing match events, scorers, and stats, alongside individual `.txt` logs.
 

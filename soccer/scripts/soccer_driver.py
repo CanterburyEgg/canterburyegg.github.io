@@ -33,7 +33,7 @@ class Team:
 
 def load_team(tournament_path, team_name):
     # Get the directory where soccer_driver.py is located
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     path = os.path.join(base_dir, "Tournaments", tournament_path, "Teams", f"{team_name}.txt")
     
     if not os.path.exists(path):
@@ -60,8 +60,13 @@ def load_team(tournament_path, team_name):
     
     return Team(team_name, players, offense, speed, defense, gk)
 
-def play_minutes(minutes, team1, team2, logging, log_file):
+def play_minutes(minutes, team1, team2, logging, log_file, hfa=False):
     match_events = []
+    
+    # Apply HFA if requested
+    t1_off = team1.offense + (1 if hfa else 0)
+    t1_spd = team1.speed + (1 if hfa else 0)
+    
     for i in range(1, minutes + 1):
         check = random.randint(1, 50)
         if logging:
@@ -72,7 +77,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                 log_file.write("no shot.\n")
         else:
             while True:
-                t1check = random.randint(1, 75) + team1.speed
+                t1check = random.randint(1, 75) + t1_spd
                 t2check = random.randint(1, 75) + team2.speed
                 if t1check != t2check:
                     break
@@ -84,7 +89,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                 check = random.randint(1, 50)
                 if logging:
                     log_file.write(f"check1={check}, ")
-                check = check + team1.offense - team2.defense
+                check = check + t1_off - team2.defense
                 if logging:
                     log_file.write(f"check2={check}) ")
                 
@@ -176,7 +181,7 @@ def play_minutes(minutes, team1, team2, logging, log_file):
                             log_file.write(f"{team2.players[player_idx].name} GOAL!!! Score: {team1.score}-{team2.score}\n")
     return match_events
 
-def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=True, log_path=""):
+def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=True, log_path="", hfa=False):
     team1 = load_team(tournament_path, team1_name)
     team2 = load_team(tournament_path, team2_name)
     
@@ -192,14 +197,16 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
             log_path = f"Tournaments/{tournament_path}/Games/{team1_name}_vs_{team2_name}_{timestamp}.txt"
         
         log_file = open(log_path, 'w')
+        log_file.write(f"Match: {team1_name} vs {team2_name}\n")
+        log_file.write(f"HFA: {hfa}\n")
 
-    events = play_minutes(90, team1, team2, logging, log_file)
+    events = play_minutes(90, team1, team2, logging, log_file, hfa=hfa)
 
     is_ot = False
     if team1.score == team2.score and elim:
         is_ot = True
         if logging: log_file.write("\n--- EXTRA TIME ---\n\n")
-        events.extend(play_minutes(30, team1, team2, logging, log_file))
+        events.extend(play_minutes(30, team1, team2, logging, log_file, hfa=hfa))
 
     pk_score = None
     if team1.score == team2.score and elim:

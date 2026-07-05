@@ -2,7 +2,7 @@ import os
 import random
 import math
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def get_stats(path):
     if not os.path.exists(path): return None

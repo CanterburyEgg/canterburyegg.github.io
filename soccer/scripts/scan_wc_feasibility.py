@@ -2,7 +2,7 @@ import json
 import os
 import random
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def get_bucket_range(rank):
     l = 22.5 + (rank * 2.5)
