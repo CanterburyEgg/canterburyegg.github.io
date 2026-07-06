@@ -449,7 +449,7 @@
             }
         };
 
-        const RANKINGS_DATA = 'soccer/rankings.json';
+        const RANKINGS_DATA = 'soccer/lists/rankings.json';
 
         const NAV_ITEMS = {
             '2026': [
@@ -538,7 +538,7 @@
         let viewState = 'main'; // 'main' or 'team'
 
         function getFlagUrl(team) {
-            if (currentYear === '2025') {
+            if (currentYear === '2025' && currentStage !== 'rankings') {
                 const league = currentRegion.toLowerCase();
                 const filename = team.toLowerCase()
                     .replace(/ /g, '_')
@@ -788,7 +788,10 @@
             Object.entries(currentData.groups).forEach(([groupId, data]) => {
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'standings-group';
-                groupDiv.innerHTML = `<h3>Group ${groupId} Standings</h3>`;
+                
+                const isLeague = currentData.config && currentData.config.type === 'league';
+                const headerText = isLeague ? groupId : `Group ${groupId} Standings`;
+                groupDiv.innerHTML = `<h3>${headerText}</h3>`;
                 
                 let tableHtml = `<table>
                     <thead>
@@ -984,19 +987,22 @@
             }
 
             const ordinal = (n) => n + (n > 10 && n < 20 ? 'th' : {1: 'st', 2: 'nd', 3: 'rd'}[n % 10] || 'th');
+            const isLeague = currentData.config && currentData.config.type === 'league';
+            const groupHeader = isLeague ? teamGroup : `Group ${teamGroup} Standings`;
+            const rankText = isLeague ? `${ordinal(teamRank)} in ${teamGroup}` : `${ordinal(teamRank)} in Group ${teamGroup}`;
 
             content.innerHTML = `
                 <div class="team-header">
                     ${renderTeamIcon(teamName, true)}
                     <div class="team-header-text">
                         <h2>${teamName}</h2>
-                        <div class="team-rank">${ordinal(teamRank)} in Group ${teamGroup}</div>
+                        <div class="team-rank">${rankText}</div>
                     </div>
                 </div>
 
                 <div class="team-grid">
                     <div>
-                        <h3>Group ${teamGroup} Standings</h3>
+                        <h3>${groupHeader}</h3>
                         <table>
                             <thead>
                                 <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr>

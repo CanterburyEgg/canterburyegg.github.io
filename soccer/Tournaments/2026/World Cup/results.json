@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 24,
+  "current_day": 25,
   "groups": {
     "A": {
       "matches": [
@@ -18670,16 +18670,198 @@
               "Egypt"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_5",
             "label": "R16_5",
             "source": [
               "G1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 38,
+                "team": "Costa Rica",
+                "player": "Jeyland Mitchell"
+              },
+              {
+                "minute": 88,
+                "team": "Egypt",
+                "player": "Ahmed Salah"
+              },
+              {
+                "minute": 89,
+                "team": "Egypt",
+                "player": "Abo Samir"
+              }
+            ],
+            "stats": {
+              "Costa Rica": {
+                "shots": 12,
+                "sogs": 5,
+                "saves": 1
+              },
+              "Egypt": {
+                "shots": 9,
+                "sogs": 3,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Alvaro Chaves",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Francisco Solano",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brandon Vargas",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gerardo Calvo",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jorge Quesada",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeyland Mitchell",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Araya",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manuel Castro",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mario Morales",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Rachim Azzizi",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Khalif Karam",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mostafa Hassan",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abo Samir",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hassan Elsayed",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zizo Fathi",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sherif Farouk",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ahmed Salah",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Omar Mady",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Costa Rica_vs_Egypt_76123840_732.txt"
           },
           {
             "day": 24,
@@ -18688,16 +18870,198 @@
               "Argentina"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_6",
             "label": "R16_6",
             "source": [
               "H1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 12,
+                "team": "Mexico",
+                "player": "Hector"
+              },
+              {
+                "minute": 31,
+                "team": "Argentina",
+                "player": "Gustavo Suarez"
+              },
+              {
+                "minute": 81,
+                "team": "Argentina",
+                "player": "Lisandro Romero"
+              }
+            ],
+            "stats": {
+              "Mexico": {
+                "shots": 11,
+                "sogs": 5,
+                "saves": 1
+              },
+              "Argentina": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 4
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Hector",
+                  "shots": 8,
+                  "sogs": 4,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Guadalupe Moreno",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jorge Sanchez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Ortiz",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Carlos Torres",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johan Vasquez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cesar Romero",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Hernandez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergio Gutierrez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Diego Perez",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Molina",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "Tournaments/2026/World Cup/Games/Mexico_vs_Argentina_76123840_439.txt"
           },
           {
             "day": 25,
@@ -18769,8 +19133,8 @@
           {
             "day": 29,
             "teams": [
-              "TBD",
-              "TBD"
+              "Egypt",
+              "Argentina"
             ],
             "score": [
               0,
