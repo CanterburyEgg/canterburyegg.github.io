@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soccer Sim 2026 - Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/soccer/img/soccer-favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -186,6 +186,21 @@
             border: 1px solid #e2e8f0;
         }
 
+        .team-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .team-logo-large {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
         /* Bracket */
         .bracket-container {
             display: flex;
@@ -365,6 +380,7 @@
         <h1>ROAD TO THE WORLD CUP 2026</h1>
         <select id="year-select" onchange="loadYear(this.value)">
             <option value="2026">2026</option>
+            <option value="2025">2025</option>
             <option value="2024">2024</option>
             <option value="2022">2022</option>
         </select>
@@ -406,6 +422,12 @@
                 'SA': 'soccer/Tournaments/2026/SA/results.json',
                 'EU': 'soccer/Tournaments/2026/EU/results.json'
             },
+            '2025': {
+                'BSL': 'soccer/Tournaments/2025/Backyard/results.json',
+                'EURO': 'soccer/Tournaments/2025/Euro/results.json',
+                'MED': 'soccer/Tournaments/2025/Med/results.json',
+                'PRIME': 'soccer/Tournaments/2025/Prime/results.json'
+            },
             '2024': {
                 'COPA': 'soccer/Tournaments/2024/Copa/results.json',
                 'COPAQ': 'soccer/Tournaments/2024/Copa-Qual/results.json',
@@ -438,6 +460,12 @@
                 { label: 'N. America', code: 'NA' },
                 { label: 'S. America', code: 'SA' },
                 { label: 'Europe', code: 'EU' }
+            ],
+            '2025': [
+                { label: 'Backyard', code: 'BSL' },
+                { label: 'Euro', code: 'EURO' },
+                { label: 'Mediterranean', code: 'MED' },
+                { label: 'Prime', code: 'PRIME' }
             ],
             '2024': [
                 { label: 'Copa America', code: 'COPA' },
@@ -503,18 +531,70 @@
         };
 
         let currentData = null;
+        let globalRosters = null;
         let currentStage = 'group';
         let currentYear = '2026';
         let currentRegion = 'WC';
         let viewState = 'main'; // 'main' or 'team'
 
         function getFlagUrl(team) {
+            if (currentYear === '2025') {
+                const league = currentRegion.toLowerCase();
+                const filename = team.toLowerCase()
+                    .replace(/ /g, '_')
+                    // BSL City-only mapping
+                    .replace('new_york_empire', 'new_york')
+                    .replace('chicago_surge', 'chicago')
+                    .replace('boston_rebellion', 'boston')
+                    .replace('philadelphia_spirit', 'philadelphia')
+                    .replace('washington_justice', 'washington')
+                    .replace('toronto_blizzard', 'toronto')
+                    .replace('montreal_coureurs', 'montreal')
+                    .replace('detroit_firebirds', 'detroit')
+                    .replace('los_angeles_syndicate', 'los_angeles')
+                    .replace('las_vegas_mirage', 'las_vegas')
+                    .replace('seattle_echo', 'seattle')
+                    .replace('dallas_flare', 'dallas')
+                    .replace('san_jose_relampago', 'san_jose')
+                    .replace('mexico_city_sol', 'mexico_city')
+                    .replace('tijuana_vaqueros', 'tijuana')
+                    .replace('denver_torrent', 'denver')
+                    // Outliers in other leagues
+                    .replace('al-qahira_fc', 'al-qahira')
+                    .replace('barroclaugh_athletic', 'barroclaugh_fc')
+                    .replace('thurston_fc_east', 'thurston_east')
+                    .replace('thurston_fc_west', 'thurston_west')
+                    .replace('celtic_cross_fc', 'celtic_cross')
+                    .replace('glass_castle_fc', 'glass_castle')
+                    .replace('havenpoort_fc', 'havenpoort');
+                
+                return `soccer/img/logos/${league}/${filename}.png`;
+            }
+
             const code = FLAG_MAP[team] || 'un';
             if (code === 'un') {
                 return `https://flagcdn.com/w80/un.png`;
             }
             // Using high-res webp flags from Flagpedia
             return `https://flagpedia.net/data/flags/w580/${code}.webp`;
+        }
+
+        function getCountryFlagUrl(country) {
+            const code = FLAG_MAP[country] || 'un';
+            if (code === 'un') return `https://flagcdn.com/w80/un.png`;
+            return `https://flagpedia.net/data/flags/w580/${code}.webp`;
+        }
+
+        function renderTeamIcon(team, isLarge = false, extraStyle = '') {
+            const url = getFlagUrl(team);
+            if (currentYear === '2025') {
+                const cls = isLarge ? 'team-logo-large' : 'team-logo';
+                return `<img src="${url}" class="${cls}" style="${extraStyle}">`;
+            } else {
+                const cls = isLarge ? 'flag-large' : 'flag';
+                const style = isLarge ? extraStyle : `width:24px; height:16px; ${extraStyle}`;
+                return `<img src="${url}" class="${cls}" style="${style}">`;
+            }
         }
 
         function resetView() {
@@ -555,7 +635,12 @@
                 h1.innerText = 'OFFICIAL WORLD RANKINGS';
                 return;
             }
-            if (currentYear === '2024') {
+            if (currentYear === '2025') {
+                if (currentRegion === 'BSL') h1.innerText = 'BACKYARD SOCCER LEAGUE 2025';
+                else if (currentRegion === 'EURO') h1.innerText = 'EURO LEAGUE 2025';
+                else if (currentRegion === 'MED') h1.innerText = 'LIGA MEDITERRANEA 2025';
+                else if (currentRegion === 'PRIME') h1.innerText = 'PRIME LEAGUE 2025';
+            } else if (currentYear === '2024') {
                 if (currentRegion === 'COPA') h1.innerText = 'COPA AMERICA 2024';
                 else if (currentRegion === 'COPAQ') h1.innerText = 'ROAD TO COPA AMERICA 2024';
                 else if (currentRegion === 'EUC') h1.innerText = 'EURO CUP 2024';
@@ -575,8 +660,16 @@
         async function loadYear(year) {
             currentYear = year;
             // Default region for each year
-            if (year === '2024') currentRegion = 'COPA';
+            if (year === '2025') currentRegion = 'BSL';
+            else if (year === '2024') currentRegion = 'COPA';
             else currentRegion = 'WC';
+
+            // Preload 2025 rosters if needed
+            if (year === '2025' && !globalRosters) {
+                fetch('soccer/lists/league_rosters.json')
+                    .then(res => res.json())
+                    .then(data => { globalRosters = data; });
+            }
             
             renderRegionNav();
             updateHeader();
@@ -716,7 +809,7 @@
                     const escapedName = team.team.replace(/'/g, "\\'");
                     tableHtml += `
                         <tr class="clickable-row" onclick="showTeamPage('${escapedName}')">
-                            <td><img src="${getFlagUrl(team.team)}" class="flag" style="width:24px; height:16px;"> ${team.team}</td>
+                            <td>${renderTeamIcon(team.team)} ${team.team}</td>
                             <td>${team.w}</td>
                             <td>${team.d}</td>
                             <td>${team.l}</td>
@@ -791,6 +884,17 @@
             try {
                 const playerStats = {};
                 const goalkeeperStats = {};
+                const playerCountries = {};
+
+                // Map players to countries from globalRosters if available (2025 season)
+                if (globalRosters) {
+                    const entry = globalRosters.find(r => r.team === teamName);
+                    if (entry) {
+                        entry.roster.forEach(p => {
+                            playerCountries[p.name] = p.country;
+                        });
+                    }
+                }
 
                 teamMatches.forEach(m => {
                     if (m.played) {
@@ -799,6 +903,9 @@
                         const gkIdx = roster.length - 1;
                         
                         roster.forEach((p, idx) => {
+                            // If no country mapped (e.g. World Cup years), use team name as country
+                            if (!playerCountries[p.name]) playerCountries[p.name] = teamName;
+
                             if (idx === gkIdx) {
                                 if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
                                 goalkeeperStats[p.name].saves += (p.saves || 0);
@@ -813,17 +920,34 @@
                     }
                 });
 
+                // Fallback to globalRosters if no matches played
+                if (Object.keys(playerStats).length === 0 && Object.keys(goalkeeperStats).length === 0 && globalRosters) {
+                    const entry = globalRosters.find(r => r.team === teamName);
+                    if (entry) {
+                        entry.roster.forEach(p => {
+                            if (p.pos === 'GK') {
+                                if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
+                            } else {
+                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0 };
+                            }
+                        });
+                    }
+                }
+
+                const showPlayerFlags = currentData && currentData.config && currentData.config.type === 'league';
+
                 rosterHtml = `
                     <h3>Roster & Statistics</h3>
                     <table>
                         <thead>
-                            <tr><th>Player Name</th><th>Shots</th><th>SOG</th><th>Goals</th></tr>
+                            <tr>${showPlayerFlags ? '<th style="width:25px"></th>' : ''}<th>Player Name</th><th>Shots</th><th>SOG</th><th>Goals</th></tr>
                         </thead>
                         <tbody>
                             ${Object.entries(playerStats)
                                 .sort((a,b) => b[1].goals - a[1].goals || b[1].sogs - a[1].sogs || b[1].shots - a[1].shots)
                                 .map(([name, stats]) => `
                                     <tr>
+                                        ${showPlayerFlags ? `<td><img src="${getCountryFlagUrl(playerCountries[name])}" class="flag" style="margin:0; width:18px; height:11px;"></td>` : ''}
                                         <td>${name}</td>
                                         <td>${stats.shots}</td>
                                         <td>${stats.sogs}</td>
@@ -835,7 +959,7 @@
 
                     <table>
                         <thead>
-                            <tr><th>Player Name</th><th>Saves</th><th>OPP</th><th>Save %</th></tr>
+                            <tr>${showPlayerFlags ? '<th style="width:25px"></th>' : ''}<th>Player Name</th><th>Saves</th><th>OPP</th><th>Save %</th></tr>
                         </thead>
                         <tbody>
                             ${Object.entries(goalkeeperStats)
@@ -844,6 +968,7 @@
                                     const pct = opps > 0 ? ((stats.saves / opps) * 100).toFixed(1) : '0.0';
                                     return `
                                         <tr>
+                                            ${showPlayerFlags ? `<td><img src="${getCountryFlagUrl(playerCountries[name])}" class="flag" style="margin:0; width:18px; height:11px;"></td>` : ''}
                                             <td>${name}</td>
                                             <td>${stats.saves}</td>
                                             <td>${opps}</td>
@@ -862,7 +987,7 @@
 
             content.innerHTML = `
                 <div class="team-header">
-                    <img src="${getFlagUrl(teamName)}" class="flag-large">
+                    ${renderTeamIcon(teamName, true)}
                     <div class="team-header-text">
                         <h2>${teamName}</h2>
                         <div class="team-rank">${ordinal(teamRank)} in Group ${teamGroup}</div>
@@ -881,7 +1006,7 @@
                                     const escapedName = s.team.replace(/'/g, "\\'");
                                     return `
                                     <tr class="clickable-row" onclick="showTeamPage('${escapedName}')" style="${s.team === teamName ? 'background:rgba(56,189,248,0.15)' : ''}">
-                                        <td><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
+                                        <td>${renderTeamIcon(s.team)} ${s.team}</td>
                                         <td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.gf}</td><td>${s.ga}</td><td>${s.gd}</td><td>${s.pts}</td>
                                     </tr>
                                 `;}).join('')}
@@ -1066,7 +1191,7 @@
                 const escapedName = s.team.replace(/'/g, "\\'");
                 scorersHtml += `<tr>
                     <td>${s.name}</td>
-                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')"><img src="${getFlagUrl(s.team)}" class="flag" style="width:24px; height:16px;"> ${s.team}</td>
+                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')">${renderTeamIcon(s.team)} ${s.team}</td>
                     <td>${s.goals}</td>
                 </tr>`;
             });
@@ -1081,7 +1206,7 @@
                 const pct = k.opps > 0 ? ((k.saves / k.opps) * 100).toFixed(1) : '0.0';
                 keepersHtml += `<tr>
                     <td>${k.name}</td>
-                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')"><img src="${getFlagUrl(k.team)}" class="flag" style="width:24px; height:16px;"> ${k.team}</td>
+                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')">${renderTeamIcon(k.team)} ${k.team}</td>
                     <td>${k.saves}</td>
                     <td>${pct}%</td>
                 </tr>`;
@@ -1136,7 +1261,7 @@
                             <tr>
                                 <td>#${item.rank}</td>
                                 <td class="clickable-row" onclick="showTeamPage('${escapedName}')">
-                                    <img src="${getFlagUrl(item.team)}" class="flag" style="width:24px; height:16px;">
+                                    ${renderTeamIcon(item.team)}
                                     ${item.team}
                                 </td>
                                 <td colspan="2" style="text-align: right;">
@@ -1180,13 +1305,13 @@
 
             card.innerHTML = `
                 <div class="match-team ${isW1 ? 'winner' : ''}" style="${isW1 ? 'font-weight:700' : 'font-weight:400'}">
-                    <span><img src="${getFlagUrl(t1)}" class="flag" style="width:24px; height:16px;"> ${t1}</span>
+                    <span>${renderTeamIcon(t1)} ${t1}</span>
                     <span class="score">
                         ${match.played ? `${s1}${match.pk_score ? ` (${p1})` : ''}` : ''}
                     </span>
                 </div>
                 <div class="match-team ${isW2 ? 'winner' : ''}" style="${isW2 ? 'font-weight:700' : 'font-weight:400'}">
-                    <span><img src="${getFlagUrl(t2)}" class="flag" style="width:24px; height:16px;"> ${t2}</span>
+                    <span>${renderTeamIcon(t2)} ${t2}</span>
                     <span class="score">
                         ${match.played ? `${s2}${match.pk_score ? ` (${p2})` : ''}` : 'VS'}
                     </span>
@@ -1219,7 +1344,7 @@
                 <span class="close-modal" onclick="closeModal()">&times;</span>
                 <div style="display:flex; justify-content:center; align-items:center; gap:2rem; margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border);">
                     <div class="clickable-row" onclick="closeModal(); showTeamPage('${match.teams[0].replace(/'/g, "\\'")}')" style="text-align:center; flex:1; ${isW1 ? 'font-weight:700' : ''}">
-                        <img src="${getFlagUrl(match.teams[0])}" class="flag-large" style="margin:0 0 0.5rem 0; width:60px; height:40px;"><br>
+                        ${renderTeamIcon(match.teams[0], true, 'margin:0 0 0.5rem 0;')}<br>
                         <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[0]}</span>
                     </div>
                     <div style="font-family:'Oswald'; font-size:3rem; letter-spacing:4px; text-align:center;">
@@ -1229,7 +1354,7 @@
                         ${match.pk_score ? `<div style="font-size:1rem; text-align:center; color:var(--text-dim); letter-spacing:1px;">(${p1} - ${p2} PK)</div>` : ''}
                     </div>
                     <div class="clickable-row" onclick="closeModal(); showTeamPage('${match.teams[1].replace(/'/g, "\\'")}')" style="text-align:center; flex:1; ${isW2 ? 'font-weight:700' : ''}">
-                        <img src="${getFlagUrl(match.teams[1])}" class="flag-large" style="margin:0 0 0.5rem 0; width:60px; height:40px;"><br>
+                        ${renderTeamIcon(match.teams[1], true, 'margin:0 0 0.5rem 0;')}<br>
                         <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[1]}</span>
                     </div>
                 </div>
@@ -1302,10 +1427,18 @@
 
             // Default region for each year if not in URL
             if (!params.get('region')) {
-                if (currentYear === '2024') currentRegion = 'COPA';
+                if (currentYear === '2025') currentRegion = 'BSL';
+                else if (currentYear === '2024') currentRegion = 'COPA';
                 else currentRegion = 'WC';
             } else {
                 currentRegion = params.get('region');
+            }
+            
+            // Preload 2025 rosters if needed
+            if (currentYear === '2025' && !globalRosters) {
+                fetch('soccer/lists/league_rosters.json')
+                    .then(res => res.json())
+                    .then(data => { globalRosters = data; });
             }
             
             currentStage = params.get('stage') || 'group';

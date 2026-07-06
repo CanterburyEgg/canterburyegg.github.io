@@ -1,0 +1,7426 @@
+{
+  "name": "2025 Med League",
+  "path": "2025/Med",
+  "config": {
+    "name": "2025 Med League",
+    "type": "league",
+    "groups": {
+      "Costa Republic": [
+        "Imperiale Roma",
+        "Olympias Athena",
+        "Castellano Madrid",
+        "Catalonia Gothic",
+        "Lisbon United",
+        "Visconti Serpents",
+        "Le Rocher Monaco",
+        "Barbary Apes"
+      ],
+      "Costa Emirate": [
+        "Al-Qahira FC",
+        "Fursan al-Arab",
+        "Najm al-Bayda",
+        "Lions of Carthage",
+        "Tripoli Sporting",
+        "Alexandria Faros",
+        "Bosphorus Blue",
+        "Damascus Steel"
+      ]
+    },
+    "rules": {
+      "group_repeats": 2
+    }
+  },
+  "current_day": 1,
+  "groups": {
+    "Costa Republic": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Visconti Serpents",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 1,
+          "teams": [
+            "Catalonia Gothic",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 1,
+          "teams": [
+            "Olympias Athena",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Imperiale Roma",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Le Rocher Monaco",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Lisbon United",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Olympias Athena",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Visconti Serpents",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Barbary Apes",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Imperiale Roma",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Lisbon United",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Castellano Madrid",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Catalonia Gothic",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Le Rocher Monaco",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Barbary Apes",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Visconti Serpents",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Barbary Apes",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Imperiale Roma",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Le Rocher Monaco",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Lisbon United",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Le Rocher Monaco",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Castellano Madrid",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Visconti Serpents",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Lisbon United",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Visconti Serpents",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Catalonia Gothic",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Imperiale Roma",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Castellano Madrid",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Visconti Serpents",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Catalonia Gothic",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Olympias Athena",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Le Rocher Monaco",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Castellano Madrid",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Barbary Apes",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Lisbon United",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Visconti Serpents",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Castellano Madrid",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Imperiale Roma",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Barbary Apes",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Le Rocher Monaco",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Catalonia Gothic",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Olympias Athena",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Barbary Apes",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Le Rocher Monaco",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Lisbon United",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Barbary Apes",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Olympias Athena",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Catalonia Gothic",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Castellano Madrid",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Lisbon United",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Catalonia Gothic",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Barbary Apes",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Olympias Athena",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 42,
+          "teams": [
+            "Imperiale Roma",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Lisbon United",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Visconti Serpents",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Olympias Athena",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 45,
+          "teams": [
+            "Catalonia Gothic",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 45,
+          "teams": [
+            "Imperiale Roma",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 48,
+          "teams": [
+            "Castellano Madrid",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 48,
+          "teams": [
+            "Le Rocher Monaco",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Imperiale Roma",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Olympias Athena",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Castellano Madrid",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Le Rocher Monaco",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Visconti Serpents",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Lisbon United",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Olympias Athena",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Visconti Serpents",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Lisbon United",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Catalonia Gothic",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Le Rocher Monaco",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Lisbon United",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Imperiale Roma",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Catalonia Gothic",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Visconti Serpents",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Olympias Athena",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Le Rocher Monaco",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Castellano Madrid",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Barbary Apes",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Imperiale Roma",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Visconti Serpents",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Le Rocher Monaco",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Barbary Apes",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Olympias Athena",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Lisbon United",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Castellano Madrid",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Barbary Apes",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Imperiale Roma",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Olympias Athena",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Castellano Madrid",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Barbary Apes",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Olympias Athena",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Lisbon United",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Le Rocher Monaco",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Visconti Serpents",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Imperiale Roma",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Barbary Apes",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Imperiale Roma",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Barbary Apes",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Olympias Athena",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Catalonia Gothic",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 87,
+          "teams": [
+            "Barbary Apes",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Le Rocher Monaco",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Lisbon United",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Catalonia Gothic",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 90,
+          "teams": [
+            "Castellano Madrid",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Imperiale Roma",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Lisbon United",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 93,
+          "teams": [
+            "Castellano Madrid",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 93,
+          "teams": [
+            "Olympias Athena",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Visconti Serpents",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 96,
+          "teams": [
+            "Castellano Madrid",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 96,
+          "teams": [
+            "Catalonia Gothic",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 99,
+          "teams": [
+            "Le Rocher Monaco",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 99,
+          "teams": [
+            "Catalonia Gothic",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Imperiale Roma",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 102,
+          "teams": [
+            "Catalonia Gothic",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Castellano Madrid",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Visconti Serpents",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Imperiale Roma"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Olympias Athena"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Castellano Madrid"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Catalonia Gothic"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Lisbon United"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Visconti Serpents"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Le Rocher Monaco"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Barbary Apes"
+        }
+      ]
+    },
+    "Costa Emirate": {
+      "matches": [
+        {
+          "day": 2,
+          "teams": [
+            "Alexandria Faros",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Damascus Steel",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Najm al-Bayda",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Bosphorus Blue",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Najm al-Bayda",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Al-Qahira FC",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Bosphorus Blue",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Tripoli Sporting",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Damascus Steel",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Lions of Carthage",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Bosphorus Blue",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Al-Qahira FC",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Damascus Steel",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Alexandria Faros",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Fursan al-Arab",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Al-Qahira FC",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Damascus Steel",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Alexandria Faros",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Najm al-Bayda",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Fursan al-Arab",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Bosphorus Blue",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Lions of Carthage",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Najm al-Bayda",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Lions of Carthage",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Damascus Steel",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Tripoli Sporting",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Bosphorus Blue",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Alexandria Faros",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Bosphorus Blue",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Alexandria Faros",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Tripoli Sporting",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Damascus Steel",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Al-Qahira FC",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Tripoli Sporting",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Fursan al-Arab",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Najm al-Bayda",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Al-Qahira FC",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Tripoli Sporting",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Bosphorus Blue",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Najm al-Bayda",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Lions of Carthage",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Al-Qahira FC",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Tripoli Sporting",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Fursan al-Arab",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Lions of Carthage",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Al-Qahira FC",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Najm al-Bayda",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Fursan al-Arab",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Lions of Carthage",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Najm al-Bayda",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Bosphorus Blue",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Al-Qahira FC",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Tripoli Sporting",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Fursan al-Arab",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Alexandria Faros",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Tripoli Sporting",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Al-Qahira FC",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Alexandria Faros",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Damascus Steel",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Tripoli Sporting",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Lions of Carthage",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Al-Qahira FC",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Najm al-Bayda",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Damascus Steel",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Lions of Carthage",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Fursan al-Arab",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Najm al-Bayda",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Damascus Steel",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Lions of Carthage",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Fursan al-Arab",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Bosphorus Blue",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Alexandria Faros",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Lions of Carthage",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Najm al-Bayda",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Al-Qahira FC",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Fursan al-Arab",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Alexandria Faros",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Lions of Carthage",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Damascus Steel",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Fursan al-Arab",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Najm al-Bayda",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Damascus Steel",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Bosphorus Blue",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Fursan al-Arab",
+            "Alexandria Faros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Lions of Carthage",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Al-Qahira FC",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Alexandria Faros",
+            "Catalonia Gothic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Catalonia Gothic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Tripoli Sporting",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Damascus Steel",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Al-Qahira FC",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Alexandria Faros",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Al-Qahira FC",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Damascus Steel",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Fursan al-Arab",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Alexandria Faros",
+            "Tripoli Sporting"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Bosphorus Blue",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Najm al-Bayda",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Damascus Steel",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Tripoli Sporting",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Alexandria Faros",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 87,
+          "teams": [
+            "Bosphorus Blue",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Tripoli Sporting",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 90,
+          "teams": [
+            "Bosphorus Blue",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Fursan al-Arab",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Damascus Steel",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Lions of Carthage",
+            "Fursan al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Bosphorus Blue",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Tripoli Sporting",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Alexandria Faros",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Najm al-Bayda",
+            "Visconti Serpents"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Visconti Serpents": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Fursan al-Arab",
+            "Imperiale Roma"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Imperiale Roma": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Lions of Carthage",
+            "Lisbon United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lisbon United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Tripoli Sporting",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Alexandria Faros",
+            "Al-Qahira FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Alexandria Faros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Fursan al-Arab",
+            "Barbary Apes"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barbary Apes": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Lions of Carthage",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Bosphorus Blue",
+            "Najm al-Bayda"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Al-Qahira FC",
+            "Lions of Carthage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Al-Qahira FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Lions of Carthage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Najm al-Bayda",
+            "Olympias Athena"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Najm al-Bayda": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Olympias Athena": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Tripoli Sporting",
+            "Damascus Steel"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tripoli Sporting": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Damascus Steel": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Al-Qahira FC"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Fursan al-Arab"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Najm al-Bayda"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Lions of Carthage"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Tripoli Sporting"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Alexandria Faros"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Bosphorus Blue"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Damascus Steel"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": []
+}

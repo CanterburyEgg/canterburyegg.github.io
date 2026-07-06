@@ -187,16 +187,34 @@ def initialize_tournament(base_path, tournament_path, config):
 
         repeats = config["rules"].get("group_repeats", 1)
         match_pool = []
-        for r_idx in range(repeats):
-            repeat_pool = []
+        
+        # If league type, pool all teams for a single schedule (Cross-Division)
+        if config.get("type") == "league":
+            all_teams_list = []
+            team_to_group = {}
             for g_id, teams in config["groups"].items():
-                base_r1 = generate_round_robin_schedule(teams[:])
+                all_teams_list.extend(teams)
+                for t in teams: team_to_group[t] = g_id
+            
+            for r_idx in range(repeats):
+                base_r1 = generate_round_robin_schedule(all_teams_list[:])
                 rnd_set = base_r1 if r_idx % 2 == 0 else [[(m[1], m[0]) for m in rnd] for rnd in base_r1]
                 for rnd in rnd_set:
                     for t1, t2 in rnd:
-                        repeat_pool.append({"group": g_id, "teams": [t1, t2], "leg": r_idx + 1})
-            random.shuffle(repeat_pool)
-            match_pool.extend(repeat_pool)
+                        # Find which group the home team belongs to for match storage
+                        # (Matches are stored in the home team's group for bookkeeping)
+                        match_pool.append({"group": team_to_group[t1], "teams": [t1, t2], "leg": r_idx + 1})
+        else:
+            for r_idx in range(repeats):
+                repeat_pool = []
+                for g_id, teams in config["groups"].items():
+                    base_r1 = generate_round_robin_schedule(teams[:])
+                    rnd_set = base_r1 if r_idx % 2 == 0 else [[(m[1], m[0]) for m in rnd] for rnd in base_r1]
+                    for rnd in rnd_set:
+                        for t1, t2 in rnd:
+                            repeat_pool.append({"group": g_id, "teams": [t1, t2], "leg": r_idx + 1})
+                random.shuffle(repeat_pool)
+                match_pool.extend(repeat_pool)
 
         data = {
             "name": config["name"],
@@ -299,11 +317,19 @@ def initialize_tournament(base_path, tournament_path, config):
         team_last_opponent = {t: None for t in all_teams}
         
         # Determine games per leg for gating
-        first_group = next(iter(config["groups"]))
-        games_per_leg = len(config["groups"][first_group]) - 1
+        if config.get("type") == "league":
+            all_teams_pooled = []
+            for g in config["groups"].values(): all_teams_pooled.extend(g)
+            games_per_leg = len(all_teams_pooled) - 1
+        else:
+            first_group = next(iter(config["groups"]))
+            games_per_leg = len(config["groups"][first_group]) - 1
 
         local_pool = list(match_pool)
-        while local_pool:
+        random.shuffle(local_pool) # ALWAYS shuffle to avoid constraint traps
+        
+        days_without_matches = 0
+        while local_pool and days_without_matches < 100:
             local_pool.sort(key=lambda m: (team_game_counts[m["teams"][0]] + team_game_counts[m["teams"][1]]))
             
             if target_density:

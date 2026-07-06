@@ -1,0 +1,7426 @@
+{
+  "name": "2025 Prime League",
+  "path": "2025/Prime",
+  "config": {
+    "name": "2025 Prime League",
+    "type": "league",
+    "groups": {
+      "Division Monarch": [
+        "Stratton United",
+        "Haverford Black",
+        "Cheicester City",
+        "Thurston FC East",
+        "Thurston FC West",
+        "Stedham Journeymen",
+        "Barroclaugh Athletic",
+        "Celtic Cross FC"
+      ],
+      "Division Empire": [
+        "Chateau Roux",
+        "Glass Castle FC",
+        "Eisenwald 1900",
+        "Askhatansa",
+        "Les Brasseurs",
+        "Havenpoort FC",
+        "Corsaires de Calais",
+        "Stella Grey"
+      ]
+    },
+    "rules": {
+      "group_repeats": 2
+    }
+  },
+  "current_day": 1,
+  "groups": {
+    "Division Monarch": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Thurston FC East",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Stedham Journeymen",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Haverford Black",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Thurston FC West",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Cheicester City",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Thurston FC East",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Stratton United",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Celtic Cross FC",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Haverford Black",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Stedham Journeymen",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Thurston FC West",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Stratton United",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Cheicester City",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Stratton United",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Haverford Black",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Thurston FC East",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Stratton United",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Cheicester City",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Haverford Black",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Thurston FC East",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Stedham Journeymen",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Thurston FC West",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Celtic Cross FC",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Stedham Journeymen",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Thurston FC East",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Thurston FC West",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Cheicester City",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Haverford Black",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Celtic Cross FC",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Haverford Black",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Cheicester City",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Stedham Journeymen",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Thurston FC East",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Thurston FC West",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Stedham Journeymen",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Stratton United",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Thurston FC East",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Thurston FC West",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Stedham Journeymen",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Celtic Cross FC",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Thurston FC West",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Haverford Black",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Cheicester City",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Celtic Cross FC",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Stratton United",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Haverford Black",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Celtic Cross FC",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Cheicester City",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Thurston FC East",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Stedham Journeymen",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Cheicester City",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Celtic Cross FC",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 48,
+          "teams": [
+            "Stratton United",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 49,
+          "teams": [
+            "Thurston FC West",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Celtic Cross FC",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Stratton United",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Celtic Cross FC",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Cheicester City",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Stedham Journeymen",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Stratton United",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Stedham Journeymen",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Thurston FC West",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Haverford Black",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Cheicester City",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Stratton United",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Haverford Black",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Thurston FC East",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Stratton United",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Stedham Journeymen",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Stedham Journeymen",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Cheicester City",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Haverford Black",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Stratton United",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Thurston FC East",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Celtic Cross FC",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Cheicester City",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Stedham Journeymen",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Thurston FC West",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Stratton United",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Celtic Cross FC",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Cheicester City",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Thurston FC West",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Stedham Journeymen",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Haverford Black",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Celtic Cross FC",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Thurston FC East",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Cheicester City",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Thurston FC West",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Celtic Cross FC",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 87,
+          "teams": [
+            "Stedham Journeymen",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Thurston FC West",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Haverford Black",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Celtic Cross FC",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Thurston FC East",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 93,
+          "teams": [
+            "Cheicester City",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Stratton United",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Thurston FC East",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Celtic Cross FC",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Haverford Black",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Thurston FC East",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Thurston FC West",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Barroclaugh Athletic",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Haverford Black",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Thurston FC East",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 102,
+          "teams": [
+            "Thurston FC West",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Stratton United",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Stratton United"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Haverford Black"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Cheicester City"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Thurston FC East"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Thurston FC West"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Stedham Journeymen"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Barroclaugh Athletic"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Celtic Cross FC"
+        }
+      ]
+    },
+    "Division Empire": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Glass Castle FC",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 1,
+          "teams": [
+            "Stella Grey",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Les Brasseurs",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Corsaires de Calais",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Stella Grey",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Havenpoort FC",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Les Brasseurs",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Chateau Roux",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Eisenwald 1900",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Havenpoort FC",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Les Brasseurs",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Chateau Roux",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Eisenwald 1900",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Askhatansa",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Les Brasseurs",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Chateau Roux",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Eisenwald 1900",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Stella Grey",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Glass Castle FC",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Les Brasseurs",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Eisenwald 1900",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Corsaires de Calais",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Askhatansa",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Chateau Roux",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Stella Grey",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Glass Castle FC",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Les Brasseurs",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Corsaires de Calais",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Glass Castle FC",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Les Brasseurs",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Chateau Roux",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Askhatansa",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Eisenwald 1900",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Havenpoort FC",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Chateau Roux",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Corsaires de Calais",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Eisenwald 1900",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Chateau Roux",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Eisenwald 1900",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Chateau Roux",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Corsaires de Calais",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Corsaires de Calais",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Glass Castle FC",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Havenpoort FC",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Stella Grey",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Havenpoort FC",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Les Brasseurs",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Askhatansa",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 45,
+          "teams": [
+            "Eisenwald 1900",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Corsaires de Calais",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Stella Grey",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Askhatansa",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 49,
+          "teams": [
+            "Havenpoort FC",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Glass Castle FC",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Corsaires de Calais",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Askhatansa",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Havenpoort FC",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Chateau Roux",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Les Brasseurs",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Askhatansa",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Eisenwald 1900",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Chateau Roux",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Glass Castle FC",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Stella Grey",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Askhatansa",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Les Brasseurs",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Glass Castle FC",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Havenpoort FC",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Chateau Roux",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Corsaires de Calais",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Les Brasseurs",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Stella Grey",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Havenpoort FC",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Askhatansa",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Corsaires de Calais",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Les Brasseurs",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Stella Grey",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Askhatansa",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Corsaires de Calais",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Chateau Roux",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Glass Castle FC",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Stella Grey",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Havenpoort FC",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Corsaires de Calais",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Eisenwald 1900",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Chateau Roux",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Stella Grey",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Glass Castle FC",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Les Brasseurs",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Havenpoort FC",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Stella Grey",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Eisenwald 1900",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Glass Castle FC",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Askhatansa",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Havenpoort FC",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Stella Grey",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Askhatansa",
+            "Glass Castle FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Eisenwald 1900",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Glass Castle FC",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Havenpoort FC",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Stella Grey",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Chateau Roux",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 87,
+          "teams": [
+            "Eisenwald 1900",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Chateau Roux",
+            "Thurston FC East"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC East": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 90,
+          "teams": [
+            "Glass Castle FC",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 90,
+          "teams": [
+            "Eisenwald 1900",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Havenpoort FC",
+            "Stratton United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stratton United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Corsaires de Calais",
+            "Barroclaugh Athletic"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Barroclaugh Athletic": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Les Brasseurs",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 93,
+          "teams": [
+            "Askhatansa",
+            "Stedham Journeymen"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stedham Journeymen": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Glass Castle FC",
+            "Havenpoort FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Corsaires de Calais",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Corsaires de Calais",
+            "Askhatansa"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Havenpoort FC",
+            "Cheicester City"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Havenpoort FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Cheicester City": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Stella Grey",
+            "Eisenwald 1900"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 99,
+          "teams": [
+            "Les Brasseurs",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Askhatansa",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Eisenwald 1900",
+            "Celtic Cross FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Eisenwald 1900": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Celtic Cross FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 102,
+          "teams": [
+            "Glass Castle FC",
+            "Corsaires de Calais"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Glass Castle FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Corsaires de Calais": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Askhatansa",
+            "Les Brasseurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Askhatansa": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Les Brasseurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Chateau Roux"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Glass Castle FC"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Eisenwald 1900"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Askhatansa"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Les Brasseurs"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Havenpoort FC"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Corsaires de Calais"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Stella Grey"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": []
+}

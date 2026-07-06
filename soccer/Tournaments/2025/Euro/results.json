@@ -1,0 +1,7426 @@
+{
+  "name": "2025 Euro League",
+  "path": "2025/Euro",
+  "config": {
+    "name": "2025 Euro League",
+    "type": "league",
+    "groups": {
+      "Euro-North Division": [
+        "Reykjavik Isbjorn",
+        "Oslo Vikinger",
+        "Sisu Helsinki",
+        "Stockholm United",
+        "Kongens FC",
+        "Moscow Krepost",
+        "Slavutych Kyiv",
+        "Korona Warsaw"
+      ],
+      "Euro-Central Division": [
+        "Edelweiss Zurich",
+        "Donau Wien",
+        "Dunav Belgrade",
+        "Sarajevo Grad",
+        "Magyar Huszar",
+        "Bucharest International",
+        "Bohemian Gryphons",
+        "Slavia Tatry"
+      ]
+    },
+    "rules": {
+      "group_repeats": 2
+    }
+  },
+  "current_day": 1,
+  "groups": {
+    "Euro-North Division": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Slavutych Kyiv",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 1,
+          "teams": [
+            "Stockholm United",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Sisu Helsinki",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Kongens FC",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Oslo Vikinger",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Slavutych Kyiv",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Moscow Krepost",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Sisu Helsinki",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Kongens FC",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Korona Warsaw",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Slavutych Kyiv",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Kongens FC",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Slavutych Kyiv",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Moscow Krepost",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Stockholm United",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Oslo Vikinger",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Kongens FC",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Sisu Helsinki",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Korona Warsaw",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Oslo Vikinger",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Moscow Krepost",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Stockholm United",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Slavutych Kyiv",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Korona Warsaw",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Stockholm United",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Korona Warsaw",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Moscow Krepost",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Kongens FC",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Korona Warsaw",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Sisu Helsinki",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Kongens FC",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Oslo Vikinger",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Korona Warsaw",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Sisu Helsinki",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Stockholm United",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Oslo Vikinger",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Stockholm United",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Oslo Vikinger",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Moscow Krepost",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Slavutych Kyiv",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Sisu Helsinki",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Stockholm United",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Moscow Krepost",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Kongens FC",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Korona Warsaw",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 42,
+          "teams": [
+            "Slavutych Kyiv",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Moscow Krepost",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Kongens FC",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 45,
+          "teams": [
+            "Sisu Helsinki",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 45,
+          "teams": [
+            "Korona Warsaw",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Moscow Krepost",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Oslo Vikinger",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 48,
+          "teams": [
+            "Sisu Helsinki",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 49,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Slavutych Kyiv",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Stockholm United",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Oslo Vikinger",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Stockholm United",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Oslo Vikinger",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Kongens FC",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Slavutych Kyiv",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Kongens FC",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Moscow Krepost",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Sisu Helsinki",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Oslo Vikinger",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Korona Warsaw",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Kongens FC",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Moscow Krepost",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Korona Warsaw",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Oslo Vikinger",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Sisu Helsinki",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Stockholm United",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Slavutych Kyiv",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Korona Warsaw",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Sisu Helsinki",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Korona Warsaw",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Slavutych Kyiv",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Stockholm United",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Sisu Helsinki",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Oslo Vikinger",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Oslo Vikinger",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Kongens FC",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Slavutych Kyiv",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Korona Warsaw",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Sisu Helsinki",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Kongens FC",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Oslo Vikinger",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Moscow Krepost",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Korona Warsaw",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Sisu Helsinki",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Kongens FC",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Stockholm United",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Moscow Krepost",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Slavutych Kyiv",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Reykjavik Isbjorn",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Stockholm United",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Moscow Krepost",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Oslo Vikinger",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Korona Warsaw",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Moscow Krepost",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Stockholm United",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Slavutych Kyiv",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Kongens FC",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Moscow Krepost",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Stockholm United",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Slavutych Kyiv",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Sisu Helsinki",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Reykjavik Isbjorn"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Oslo Vikinger"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Sisu Helsinki"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Stockholm United"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Kongens FC"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Moscow Krepost"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Slavutych Kyiv"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Korona Warsaw"
+        }
+      ]
+    },
+    "Euro-Central Division": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Dunav Belgrade",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Magyar Huszar",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Bucharest International",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Dunav Belgrade",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Donau Wien",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Bohemian Gryphons",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Dunav Belgrade",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Magyar Huszar",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Edelweiss Zurich",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Slavia Tatry",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Bucharest International",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Bohemian Gryphons",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Sarajevo Grad",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Magyar Huszar",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Edelweiss Zurich",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Edelweiss Zurich",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Sarajevo Grad",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Bohemian Gryphons",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Bucharest International",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Slavia Tatry",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Donau Wien",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Dunav Belgrade",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Edelweiss Zurich",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Donau Wien",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Sarajevo Grad",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Dunav Belgrade",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Bucharest International",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Bohemian Gryphons",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Edelweiss Zurich",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Magyar Huszar",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Bohemian Gryphons",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Bucharest International",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Slavia Tatry",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Edelweiss Zurich",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Donau Wien",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Bucharest International",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Magyar Huszar",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Slavia Tatry",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Sarajevo Grad",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Magyar Huszar",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Donau Wien",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Bohemian Gryphons",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Sarajevo Grad",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Dunav Belgrade",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Magyar Huszar",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Donau Wien",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 42,
+          "teams": [
+            "Dunav Belgrade",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Bohemian Gryphons",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Sarajevo Grad",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Slavia Tatry",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Edelweiss Zurich",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 48,
+          "teams": [
+            "Dunav Belgrade",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Bohemian Gryphons",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Magyar Huszar",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Slavia Tatry",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Edelweiss Zurich",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Dunav Belgrade",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Bucharest International",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Magyar Huszar",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Slavia Tatry",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Donau Wien",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Edelweiss Zurich",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Bucharest International",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Magyar Huszar",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Donau Wien",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Sarajevo Grad",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Bucharest International",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Donau Wien",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Sarajevo Grad",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Slavia Tatry",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Bucharest International",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Edelweiss Zurich",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Dunav Belgrade",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Donau Wien",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Dunav Belgrade",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Slavia Tatry",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Sarajevo Grad",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Donau Wien",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Bucharest International",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Dunav Belgrade",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Slavia Tatry",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Bohemian Gryphons",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Magyar Huszar",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Donau Wien",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Bucharest International",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Slavia Tatry",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Dunav Belgrade",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Magyar Huszar",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Edelweiss Zurich",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Dunav Belgrade",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Slavia Tatry",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Sarajevo Grad",
+            "Moscow Krepost"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Moscow Krepost": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Bohemian Gryphons",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Dunav Belgrade",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Slavia Tatry",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Donau Wien",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Sarajevo Grad",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Edelweiss Zurich",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Slavia Tatry",
+            "Bucharest International"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Donau Wien",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Magyar Huszar",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Bohemian Gryphons",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Bucharest International",
+            "Stockholm United"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stockholm United": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 87,
+          "teams": [
+            "Sarajevo Grad",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Magyar Huszar",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Bohemian Gryphons",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 90,
+          "teams": [
+            "Sarajevo Grad",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Bohemian Gryphons",
+            "Slavutych Kyiv"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavutych Kyiv": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Edelweiss Zurich",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 93,
+          "teams": [
+            "Sarajevo Grad",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Donau Wien",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 96,
+          "teams": [
+            "Bucharest International",
+            "Sarajevo Grad"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Bohemian Gryphons",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Slavia Tatry",
+            "Reykjavik Isbjorn"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Reykjavik Isbjorn": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 99,
+          "teams": [
+            "Bucharest International",
+            "Magyar Huszar"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bucharest International": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Edelweiss Zurich",
+            "Slavia Tatry"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Slavia Tatry": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Bohemian Gryphons",
+            "Korona Warsaw"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Korona Warsaw": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Edelweiss Zurich",
+            "Dunav Belgrade"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dunav Belgrade": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Magyar Huszar",
+            "Donau Wien"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Magyar Huszar": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Donau Wien": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Sarajevo Grad",
+            "Kongens FC"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sarajevo Grad": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Kongens FC": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Edelweiss Zurich"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Donau Wien"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Dunav Belgrade"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Sarajevo Grad"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Magyar Huszar"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Bucharest International"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Bohemian Gryphons"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Slavia Tatry"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": []
+}

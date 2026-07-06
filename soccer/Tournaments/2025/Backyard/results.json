@@ -1,0 +1,7426 @@
+{
+  "name": "2025 Backyard League",
+  "path": "2025/Backyard",
+  "config": {
+    "name": "2025 Backyard League",
+    "type": "league",
+    "groups": {
+      "BSL Atlantic": [
+        "New York Empire",
+        "Chicago Surge",
+        "Boston Rebellion",
+        "Philadelphia Spirit",
+        "Washington Justice",
+        "Toronto Blizzard",
+        "Montreal Coureurs",
+        "Detroit Firebirds"
+      ],
+      "BSL Pacific": [
+        "Los Angeles Syndicate",
+        "Las Vegas Mirage",
+        "Seattle Echo",
+        "Dallas Flare",
+        "San Jose Relampago",
+        "Mexico City Sol",
+        "Tijuana Vaqueros",
+        "Denver Torrent"
+      ]
+    },
+    "rules": {
+      "group_repeats": 2
+    }
+  },
+  "current_day": 1,
+  "groups": {
+    "BSL Atlantic": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Philadelphia Spirit",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 1,
+          "teams": [
+            "Detroit Firebirds",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Washington Justice",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Boston Rebellion",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Detroit Firebirds",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Toronto Blizzard",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Chicago Surge",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Toronto Blizzard",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Philadelphia Spirit",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Chicago Surge",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Boston Rebellion",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Montreal Coureurs",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Chicago Surge",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "New York Empire",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Boston Rebellion",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Washington Justice",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 15,
+          "teams": [
+            "Toronto Blizzard",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Montreal Coureurs",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Detroit Firebirds",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "Chicago Surge",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Toronto Blizzard",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "New York Empire",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Montreal Coureurs",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 19,
+          "teams": [
+            "Detroit Firebirds",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Boston Rebellion",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 20,
+          "teams": [
+            "Washington Justice",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Toronto Blizzard",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Detroit Firebirds",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Washington Justice",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "New York Empire",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Montreal Coureurs",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Detroit Firebirds",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 26,
+          "teams": [
+            "Philadelphia Spirit",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Chicago Surge",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Washington Justice",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 29,
+          "teams": [
+            "Philadelphia Spirit",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "New York Empire",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Toronto Blizzard",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Washington Justice",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Chicago Surge",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "Philadelphia Spirit",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 33,
+          "teams": [
+            "New York Empire",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Chicago Surge",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Montreal Coureurs",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Philadelphia Spirit",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Boston Rebellion",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 38,
+          "teams": [
+            "Detroit Firebirds",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "New York Empire",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Boston Rebellion",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "New York Empire",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Montreal Coureurs",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Philadelphia Spirit",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 44,
+          "teams": [
+            "Boston Rebellion",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 45,
+          "teams": [
+            "Toronto Blizzard",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Washington Justice",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Montreal Coureurs",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Philadelphia Spirit",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 47,
+          "teams": [
+            "Boston Rebellion",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 49,
+          "teams": [
+            "New York Empire",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Washington Justice",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Montreal Coureurs",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Detroit Firebirds",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "Chicago Surge",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 52,
+          "teams": [
+            "New York Empire",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Toronto Blizzard",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Montreal Coureurs",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 53,
+          "teams": [
+            "Philadelphia Spirit",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Detroit Firebirds",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Montreal Coureurs",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Boston Rebellion",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Washington Justice",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Montreal Coureurs",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Boston Rebellion",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Washington Justice",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Toronto Blizzard",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 62,
+          "teams": [
+            "Philadelphia Spirit",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Boston Rebellion",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "New York Empire",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Detroit Firebirds",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 67,
+          "teams": [
+            "Boston Rebellion",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Washington Justice",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "Philadelphia Spirit",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Montreal Coureurs",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Chicago Surge",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Chicago Surge",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "New York Empire",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Toronto Blizzard",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Philadelphia Spirit",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 76,
+          "teams": [
+            "Montreal Coureurs",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Boston Rebellion",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 79,
+          "teams": [
+            "Montreal Coureurs",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Toronto Blizzard",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "New York Empire",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 80,
+          "teams": [
+            "Washington Justice",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Montreal Coureurs",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Philadelphia Spirit",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Toronto Blizzard",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Washington Justice",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Philadelphia Spirit",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Chicago Surge",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 87,
+          "teams": [
+            "New York Empire",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Detroit Firebirds",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Boston Rebellion",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Chicago Surge",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Philadelphia Spirit",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "New York Empire",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Detroit Firebirds",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 93,
+          "teams": [
+            "Toronto Blizzard",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Chicago Surge",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Boston Rebellion",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 95,
+          "teams": [
+            "Detroit Firebirds",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Toronto Blizzard",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Chicago Surge",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "Washington Justice",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Toronto Blizzard",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Detroit Firebirds",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Washington Justice",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Chicago Surge",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Detroit Firebirds",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "New York Empire",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "New York Empire"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Chicago Surge"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Boston Rebellion"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Philadelphia Spirit"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Washington Justice"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Toronto Blizzard"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Montreal Coureurs"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Detroit Firebirds"
+        }
+      ]
+    },
+    "BSL Pacific": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "San Jose Relampago",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Seattle Echo",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Denver Torrent",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Los Angeles Syndicate",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Mexico City Sol",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Las Vegas Mirage",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Denver Torrent",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Tijuana Vaqueros",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Seattle Echo",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Las Vegas Mirage",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Mexico City Sol",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "San Jose Relampago",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Las Vegas Mirage",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Seattle Echo",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 13,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 14,
+          "teams": [
+            "Las Vegas Mirage",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 16,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 17,
+          "teams": [
+            "San Jose Relampago",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 18,
+          "teams": [
+            "Seattle Echo",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 21,
+          "teams": [
+            "Seattle Echo",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Dallas Flare",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 22,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 23,
+          "teams": [
+            "Las Vegas Mirage",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 24,
+          "teams": [
+            "Seattle Echo",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Mexico City Sol",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 25,
+          "teams": [
+            "Denver Torrent",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "San Jose Relampago",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 27,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Dallas Flare",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 28,
+          "teams": [
+            "Mexico City Sol",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 30,
+          "teams": [
+            "Tijuana Vaqueros",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 31,
+          "teams": [
+            "Mexico City Sol",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 32,
+          "teams": [
+            "Dallas Flare",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "San Jose Relampago",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 34,
+          "teams": [
+            "Las Vegas Mirage",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 35,
+          "teams": [
+            "Dallas Flare",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 36,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "Seattle Echo",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 37,
+          "teams": [
+            "San Jose Relampago",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Denver Torrent",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 39,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "Seattle Echo",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 40,
+          "teams": [
+            "San Jose Relampago",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 41,
+          "teams": [
+            "Mexico City Sol",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 42,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 42,
+          "teams": [
+            "Denver Torrent",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 43,
+          "teams": [
+            "Los Angeles Syndicate",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Denver Torrent",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 46,
+          "teams": [
+            "Dallas Flare",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 48,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 49,
+          "teams": [
+            "San Jose Relampago",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 50,
+          "teams": [
+            "Dallas Flare",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 51,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 54,
+          "teams": [
+            "Las Vegas Mirage",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 55,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "Mexico City Sol",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 56,
+          "teams": [
+            "San Jose Relampago",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 57,
+          "teams": [
+            "Las Vegas Mirage",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Seattle Echo",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 58,
+          "teams": [
+            "Denver Torrent",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 59,
+          "teams": [
+            "Mexico City Sol",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 60,
+          "teams": [
+            "Dallas Flare",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Seattle Echo",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 61,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "Mexico City Sol",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 63,
+          "teams": [
+            "San Jose Relampago",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 64,
+          "teams": [
+            "Dallas Flare",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Denver Torrent",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 65,
+          "teams": [
+            "Seattle Echo",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 66,
+          "teams": [
+            "Las Vegas Mirage",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 68,
+          "teams": [
+            "San Jose Relampago",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 69,
+          "teams": [
+            "Denver Torrent",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 70,
+          "teams": [
+            "Mexico City Sol",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Seattle Echo",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "San Jose Relampago",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 71,
+          "teams": [
+            "Dallas Flare",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 72,
+          "teams": [
+            "Denver Torrent",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 73,
+          "teams": [
+            "Las Vegas Mirage",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 74,
+          "teams": [
+            "Dallas Flare",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 75,
+          "teams": [
+            "San Jose Relampago",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Dallas Flare",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Washington Justice"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Washington Justice": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 77,
+          "teams": [
+            "Las Vegas Mirage",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "San Jose Relampago",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 78,
+          "teams": [
+            "Denver Torrent",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Seattle Echo",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 81,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 82,
+          "teams": [
+            "Denver Torrent",
+            "Chicago Surge"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chicago Surge": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 83,
+          "teams": [
+            "Mexico City Sol",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 84,
+          "teams": [
+            "Dallas Flare",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Denver Torrent",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 85,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Detroit Firebirds"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Detroit Firebirds": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 86,
+          "teams": [
+            "Mexico City Sol",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 88,
+          "teams": [
+            "Dallas Flare",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 89,
+          "teams": [
+            "Seattle Echo",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 90,
+          "teams": [
+            "Las Vegas Mirage",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 91,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Seattle Echo",
+            "Boston Rebellion"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Boston Rebellion": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 92,
+          "teams": [
+            "Mexico City Sol",
+            "San Jose Relampago"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Las Vegas Mirage",
+            "Philadelphia Spirit"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Philadelphia Spirit": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 94,
+          "teams": [
+            "Dallas Flare",
+            "Denver Torrent"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 96,
+          "teams": [
+            "Mexico City Sol",
+            "Tijuana Vaqueros"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 97,
+          "teams": [
+            "Las Vegas Mirage",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 98,
+          "teams": [
+            "San Jose Relampago",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "San Jose Relampago": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 99,
+          "teams": [
+            "Denver Torrent",
+            "Mexico City Sol"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 100,
+          "teams": [
+            "Dallas Flare",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 101,
+          "teams": [
+            "Las Vegas Mirage",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 103,
+          "teams": [
+            "Mexico City Sol",
+            "Dallas Flare"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Mexico City Sol": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Dallas Flare": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Denver Torrent",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Denver Torrent": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Tijuana Vaqueros",
+            "Montreal Coureurs"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Tijuana Vaqueros": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Montreal Coureurs": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 104,
+          "teams": [
+            "Los Angeles Syndicate",
+            "Seattle Echo"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Seattle Echo": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Los Angeles Syndicate"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Las Vegas Mirage"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Seattle Echo"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Dallas Flare"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "San Jose Relampago"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Mexico City Sol"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Tijuana Vaqueros"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Denver Torrent"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": []
+}
