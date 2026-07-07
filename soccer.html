@@ -318,6 +318,13 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
+        .series-card:hover {
+            transform: none;
+            border-color: var(--border);
+            border-bottom-color: var(--accent);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
         .match-team {
             display: flex;
             justify-content: space-between;
@@ -1732,8 +1739,11 @@
         function createSeriesCard(matches) {
             const seriesId = matches[0].series_id;
             const activeMatches = matches.filter(m => !m.canceled);
-            const t1 = matches[0].teams[0] || "TBD";
-            const t2 = matches[0].teams[1] || "TBD";
+            
+            // Determine canonical team names (t1 and t2) from the first non-TBD game
+            const firstWithTeams = activeMatches.find(m => m.teams[0] !== "TBD" && m.teams[1] !== "TBD");
+            const t1 = firstWithTeams ? firstWithTeams.teams[0] : (matches[0].teams[0] || "TBD");
+            const t2 = firstWithTeams ? firstWithTeams.teams[1] : (matches[0].teams[1] || "TBD");
             
             let w1 = 0, w2 = 0;
             activeMatches.forEach(m => {
@@ -1741,7 +1751,12 @@
                     const s1 = m.score[0], s2 = m.score[1];
                     const p1 = m.pk_score ? m.pk_score[0] : null;
                     const p2 = m.pk_score ? m.pk_score[1] : null;
-                    if (p1 !== null ? p1 > p2 : s1 > s2) w1++; else w2++;
+                    
+                    const homeWinner = p1 !== null ? p1 > p2 : s1 > s2;
+                    const winnerName = homeWinner ? m.teams[0] : m.teams[1];
+                    
+                    if (winnerName === t1) w1++;
+                    else if (winnerName === t2) w2++;
                 }
             });
 
@@ -1755,13 +1770,22 @@
             
             const bestOf = matches.length;
             const needed = Math.ceil(bestOf / 2);
-            if (w1 >= needed) status = `${t1} wins ${w1}-${w2}`;
-            else if (w2 >= needed) status = `${t2} wins ${w2}-${w1}`;
+            let winnerDeclared = false;
+            if (w1 >= needed) {
+                status = `${t1} wins ${w1}-${w2}`;
+                winnerDeclared = true;
+            } else if (w2 >= needed) {
+                status = `${t2} wins ${w2}-${w1}`;
+                winnerDeclared = true;
+            }
 
             let headerHtml = `<div class="series-header"><span>${status}</span><span>BO${bestOf}</span></div>`;
             
             let gamesHtml = '<div class="series-games-grid">';
-            activeMatches.forEach(m => {
+            // If winner is declared, only show played games. Otherwise show all non-canceled.
+            const gamesToShow = winnerDeclared ? activeMatches.filter(m => m.played) : activeMatches;
+            
+            gamesToShow.forEach(m => {
                 const isPlayed = m.played;
                 const scoreStr = isPlayed ? `${m.score[0]}-${m.score[1]}` : 'VS';
                 // Escape string for JSON inclusion in HTML attribute
@@ -1773,7 +1797,16 @@
                             ${renderTeamIcon(m.teams[1])}
                             ${renderTeamIcon(m.teams[0])}
                         </div>
-                        <div class="mini-score">${isPlayed ? `${m.score[1]}-${m.score[0]}` : 'VS'}</div>
+                        <div class="mini-score">
+                            ${(() => {
+                                if (!isPlayed) return 'VS';
+                                const s1 = m.score[0], s2 = m.score[1];
+                                if (m.pk_score) {
+                                    return `${s2}(${m.pk_score[1]})-${s1}(${m.pk_score[0]})`;
+                                }
+                                return `${s2}-${s1}`;
+                            })()}
+                        </div>
                     </div>
                 `;
             });

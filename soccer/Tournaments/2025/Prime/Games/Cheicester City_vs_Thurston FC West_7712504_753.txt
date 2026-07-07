@@ -1,0 +1,92 @@
+Match: Cheicester City vs Thurston FC West
+(check=48) Minute 1: (t1check=40, t2check=37, check1=9, check2=10) Elias Matsimbe missed shot. (Stop: Ramon Perdomo)
+(check=37) Minute 2: no shot.
+(check=4) Minute 3: no shot.
+(check=28) Minute 4: no shot.
+(check=9) Minute 5: no shot.
+(check=43) Minute 6: (t1check=24, t2check=53, check1=19, check2=17) Ramon Perdomo missed shot. (Stop: Jean Gauthier)
+(check=13) Minute 7: no shot. (Stop: Clive Moore)
+(check=14) Minute 8: no shot. (Stop: Clive Moore)
+(check=13) Minute 9: no shot.
+(check=24) Minute 10: no shot. (Stop: Declan Burke)
+(check=23) Minute 11: no shot.
+(check=35) Minute 12: no shot.
+(check=41) Minute 13: (t1check=24, t2check=57, check1=18, check2=16) Vincent van de Velde missed shot. (Stop: Floyd Adebayor)
+(check=25) Minute 14: no shot. (Stop: Clive Moore)
+(check=45) Minute 15: (t1check=72, t2check=83, check1=1, check2=-1) Patrick Murray missed shot. (Stop: Declan Burke)
+(check=50) Minute 16: (t1check=20, t2check=26, check1=50, check2=48) (goalchk1=42, goalchk2=35) Conor O'Sullivan GOAL!!! Score: 0-1
+(check=17) Minute 17: no shot.
+(check=18) Minute 18: no shot. (Stop: Thierry Payet)
+(check=41) Minute 19: (t1check=52, t2check=22, check1=44, check2=45) (goalchk1=12, goalchk2=6) Floyd Adebayor shot on goal. Benoit Rousseau SAVE!
+(check=12) Minute 20: no shot.
+(check=50) Minute 21: (t1check=82, t2check=43, check1=23, check2=24) Clive Moore missed shot. (Stop: Antonio Rudiger)
+(check=16) Minute 22: no shot.
+(check=34) Minute 23: no shot. (Stop: Antonio Rudiger)
+(check=36) Minute 24: no shot. (Stop: Vincent van de Velde)
+(check=20) Minute 25: no shot. (Stop: Jean Gauthier)
+(check=35) Minute 26: no shot.
+(check=15) Minute 27: no shot. (Stop: Elias Matsimbe)
+(check=11) Minute 28: no shot.
+(check=13) Minute 29: no shot.
+(check=36) Minute 30: no shot. (Stop: Elias Matsimbe)
+(check=48) Minute 31: (t1check=49, t2check=39, check1=26, check2=27) Jean Gauthier missed shot. (Stop: Benoit Rousseau)
+(check=6) Minute 32: no shot.
+(check=22) Minute 33: no shot. (Stop: Antonio Rudiger)
+(check=40) Minute 34: (t1check=82, t2check=34, check1=28, check2=29) Jean Gauthier missed shot. (Stop: Ramon Perdomo)
+(check=46) Minute 35: (t1check=29, t2check=71, check1=45, check2=43) (goalchk1=31, goalchk2=24) Martijn van den Berg shot on goal. Floyd Adebayor SAVE!
+(check=22) Minute 36: no shot.
+(check=8) Minute 37: no shot.
+(check=20) Minute 38: no shot.
+(check=47) Minute 39: (t1check=26, t2check=35, check1=6, check2=4) Conor O'Sullivan missed shot. (Stop: Clive Moore)
+(check=26) Minute 40: no shot.
+(check=2) Minute 41: no shot. (Stop: Ramon Perdomo)
+(check=38) Minute 42: no shot.
+(check=25) Minute 43: no shot.
+(check=21) Minute 44: no shot.
+(check=48) Minute 45: (t1check=14, t2check=41, check1=20, check2=18) Vincent van de Velde missed shot. (Stop: Clive Moore)
+(check=28) Minute 46: no shot. (Stop: Antonio Rudiger)
+(check=43) Minute 47: (t1check=72, t2check=61, check1=23, check2=24) Olivier Rousseau missed shot. (Stop: Ramon Perdomo)
+(check=17) Minute 48: no shot. (Stop: Benoit Rousseau)
+(check=17) Minute 49: no shot. (Stop: Jean Gauthier)
+(check=40) Minute 50: (t1check=26, t2check=24, check1=11, check2=12) Dominique Girard missed shot. (Stop: Benoit Rousseau)
+(check=8) Minute 51: no shot.
+(check=48) Minute 52: (t1check=21, t2check=65, check1=8, check2=6) Patrick Murray missed shot. (Stop: Declan Burke)
+(check=32) Minute 53: no shot.
+(check=13) Minute 54: no shot.
+(check=4) Minute 55: no shot. (Stop: Elias Matsimbe)
+(check=5) Minute 56: no shot.
+(check=8) Minute 57: no shot.
+(check=28) Minute 58: no shot.
+(check=23) Minute 59: no shot.
+(check=47) Minute 60: (t1check=59, t2check=28, check1=39, check2=40) (goalchk1=41, goalchk2=35) Jeremie Frimpong GOAL!!! (Ast: Clive Moore) Score: 1-1
+(check=21) Minute 61: no shot. (Stop: Jean Gauthier)
+(check=42) Minute 62: (t1check=64, t2check=71, check1=1, check2=-1) Thierry Payet missed shot. (Stop: Clive Moore)
+(check=35) Minute 63: no shot.
+(check=16) Minute 64: no shot. (Stop: Clive Moore)
+(check=43) Minute 65: (t1check=52, t2check=59, check1=48, check2=46) (goalchk1=42, goalchk2=35) Patrick Murray GOAL!!! Score: 1-2
+(check=15) Minute 66: no shot.
+(check=39) Minute 67: (t1check=10, t2check=37, check1=6, check2=4) Patrick Murray missed shot. (Stop: Elias Matsimbe)
+(check=36) Minute 68: no shot. (Stop: Thierry Payet)
+(check=31) Minute 69: no shot.
+(check=50) Minute 70: (t1check=66, t2check=44, check1=3, check2=4) Olivier Rousseau missed shot. (Stop: Ramon Perdomo)
+(check=49) Minute 71: (t1check=45, t2check=18, check1=9, check2=10) Floyd Adebayor missed shot. (Stop: Antonio Rudiger)
+(check=10) Minute 72: no shot. (Stop: Benoit Rousseau)
+(check=16) Minute 73: no shot. (Stop: Declan Burke)
+(check=19) Minute 74: no shot.
+(check=12) Minute 75: no shot. (Stop: Clive Moore)
+(check=31) Minute 76: no shot.
+(check=32) Minute 77: no shot. (Stop: Declan Burke)
+(check=22) Minute 78: no shot. (Stop: Antonio Rudiger)
+(check=20) Minute 79: no shot.
+(check=14) Minute 80: no shot.
+(check=34) Minute 81: no shot.
+(check=1) Minute 82: no shot.
+(check=38) Minute 83: no shot.
+(check=2) Minute 84: no shot.
+(check=1) Minute 85: no shot.
+(check=1) Minute 86: no shot. (Stop: Benoit Rousseau)
+(check=6) Minute 87: no shot.
+(check=20) Minute 88: no shot.
+(check=50) Minute 89: (t1check=57, t2check=30, check1=10, check2=11) Elias Matsimbe missed shot. (Stop: Ramon Perdomo)
+(check=29) Minute 90: no shot. (Stop: Ramon Perdomo)
+Final score: 1-2

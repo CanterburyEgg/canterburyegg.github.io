@@ -1,0 +1,92 @@
+Match: Le Rocher Monaco vs Castellano Madrid
+(check=2) Minute 1: no shot.
+(check=6) Minute 2: no shot.
+(check=35) Minute 3: no shot.
+(check=12) Minute 4: no shot.
+(check=35) Minute 5: no shot.
+(check=30) Minute 6: no shot. (Stop: Henrik Mikkelsen)
+(check=8) Minute 7: no shot. (Stop: Alvaro Vazquez)
+(check=4) Minute 8: no shot.
+(check=10) Minute 9: no shot. (Stop: Salvatore Moretti)
+(check=32) Minute 10: no shot.
+(check=1) Minute 11: no shot.
+(check=32) Minute 12: no shot.
+(check=21) Minute 13: no shot.
+(check=28) Minute 14: no shot.
+(check=45) Minute 15: (t1check=43, t2check=67, check1=28, check2=30) Luan Murati missed shot. (Stop: Mohamed Benyahia)
+(check=23) Minute 16: no shot.
+(check=29) Minute 17: no shot. (Stop: Pavel Vesela)
+(check=24) Minute 18: no shot.
+(check=40) Minute 19: (t1check=67, t2check=23, check1=43, check2=43) (goalchk1=38, goalchk2=30) Leandro Cordeiro GOAL!!! Score: 1-0
+(check=16) Minute 20: no shot.
+(check=49) Minute 21: (t1check=73, t2check=78, check1=40, check2=42) (goalchk1=6, goalchk2=0) Felix Jradi shot on goal. Bassel Haidar SAVE!
+(check=1) Minute 22: no shot.
+(check=47) Minute 23: (t1check=18, t2check=74, check1=32, check2=34) (goalchk1=26, goalchk2=20) Carlos Pereira shot on goal. Bassel Haidar SAVE!
+(check=37) Minute 24: no shot. (Stop: Henrik Mikkelsen)
+(check=25) Minute 25: no shot.
+(check=7) Minute 26: no shot.
+(check=12) Minute 27: no shot.
+(check=9) Minute 28: no shot.
+(check=38) Minute 29: no shot.
+(check=4) Minute 30: no shot.
+(check=16) Minute 31: no shot. (Stop: Carlos Pereira)
+(check=10) Minute 32: no shot.
+(check=49) Minute 33: (t1check=54, t2check=56, check1=8, check2=10) Henrik Mikkelsen missed shot. (Stop: Mohamed Benyahia)
+(check=20) Minute 34: no shot. (Stop: Carlos Pereira)
+(check=11) Minute 35: no shot.
+(check=23) Minute 36: no shot.
+(check=47) Minute 37: (t1check=29, t2check=43, check1=50, check2=52) (goalchk1=28, goalchk2=22) Francois Toussaint shot on goal. Bassel Haidar SAVE!
+(check=5) Minute 38: no shot.
+(check=10) Minute 39: no shot.
+(check=17) Minute 40: no shot. (Stop: Pere Munoz)
+(check=25) Minute 41: no shot.
+(check=50) Minute 42: (t1check=66, t2check=23, check1=33, check2=33) (goalchk1=46, goalchk2=38) Leandro Cordeiro GOAL!!! (Ast: Alejandro Garcia) Score: 2-0
+(check=34) Minute 43: no shot.
+(check=2) Minute 44: no shot.
+(check=20) Minute 45: no shot.
+(check=7) Minute 46: no shot.
+(check=4) Minute 47: no shot.
+(check=30) Minute 48: no shot.
+(check=28) Minute 49: no shot.
+(check=7) Minute 50: no shot.
+(check=28) Minute 51: no shot. (Stop: Ilir Hoxha)
+(check=23) Minute 52: no shot.
+(check=49) Minute 53: (t1check=49, t2check=73, check1=46, check2=48) (goalchk1=18, goalchk2=12) Francois Toussaint shot on goal. Bassel Haidar SAVE!
+(check=18) Minute 54: no shot.
+(check=11) Minute 55: no shot.
+(check=10) Minute 56: no shot. (Stop: Felix Jradi)
+(check=18) Minute 57: no shot.
+(check=44) Minute 58: (t1check=47, t2check=35, check1=22, check2=22) Salvatore Moretti missed shot. (Stop: Pere Munoz)
+(check=48) Minute 59: (t1check=33, t2check=14, check1=33, check2=33) (goalchk1=40, goalchk2=32) Salvatore Moretti GOAL!!! Score: 3-0
+(check=12) Minute 60: no shot.
+(check=38) Minute 61: no shot. (Stop: Luan Murati)
+(check=11) Minute 62: no shot.
+(check=3) Minute 63: no shot.
+(check=6) Minute 64: no shot.
+(check=3) Minute 65: no shot.
+(check=11) Minute 66: no shot.
+(check=43) Minute 67: (t1check=67, t2check=39, check1=22, check2=22) Leandro Cordeiro missed shot. (Stop: Luan Murati)
+(check=43) Minute 68: (t1check=68, t2check=31, check1=28, check2=28) Bassel Haidar missed shot. (Stop: Carlos Pereira)
+(check=42) Minute 69: (t1check=76, t2check=17, check1=2, check2=2) Leandro Cordeiro missed shot. (Stop: Carlos Pereira)
+(check=48) Minute 70: (t1check=23, t2check=22, check1=8, check2=8) Alejandro Garcia missed shot. (Stop: Carlos Pereira)
+(check=2) Minute 71: no shot.
+(check=14) Minute 72: no shot.
+(check=39) Minute 73: (t1check=65, t2check=46, check1=17, check2=17) Leandro Cordeiro missed shot. (Stop: Carlos Pereira)
+(check=48) Minute 74: (t1check=28, t2check=24, check1=29, check2=29) Didier Diomande missed shot. (Stop: Luan Murati)
+(check=23) Minute 75: no shot.
+(check=17) Minute 76: no shot.
+(check=38) Minute 77: no shot.
+(check=44) Minute 78: (t1check=13, t2check=69, check1=38, check2=40) (goalchk1=37, goalchk2=31) Carlos Pereira GOAL!!! (Ast: Felix Jradi) Score: 3-1
+(check=48) Minute 79: (t1check=26, t2check=50, check1=22, check2=24) Fatmir Dervishi missed shot. (Stop: Bassel Haidar)
+(check=21) Minute 80: no shot. (Stop: Pavel Vesela)
+(check=31) Minute 81: no shot. (Stop: Luan Murati)
+(check=40) Minute 82: (t1check=71, t2check=57, check1=40, check2=40) (goalchk1=47, goalchk2=39) Didier Diomande GOAL!!! Score: 4-1
+(check=20) Minute 83: no shot.
+(check=35) Minute 84: no shot. (Stop: Carlos Pereira)
+(check=12) Minute 85: no shot.
+(check=24) Minute 86: no shot. (Stop: Ilir Hoxha)
+(check=31) Minute 87: no shot.
+(check=35) Minute 88: no shot.
+(check=7) Minute 89: no shot.
+(check=40) Minute 90: (t1check=10, t2check=15, check1=19, check2=21) Carlos Pereira missed shot. (Stop: Bassel Haidar)
+Final score: 4-1

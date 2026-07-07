@@ -54,27 +54,49 @@ def recalculate():
         if os.path.exists(res_path):
             with open(res_path, 'r') as f:
                 data = json.load(f)
+                
+                # Group matches
                 for g_data in data.get("groups", {}).values():
                     for m in g_data.get("matches", []):
-                        if m.get("played"):
+                        if m.get("played") and not m.get("canceled"):
                             m_copy = copy.deepcopy(m)
+                            m_copy["is_playoff"] = False
                             all_matches.append(m_copy)
+                
+                # Playoff matches
+                if data.get("playoffs"):
+                    po = data["playoffs"]
+                    po_matches = []
+                    if "rounds" in po:
+                        for rd in po["rounds"]:
+                            po_matches.extend(rd.get("matches", []))
+                    else:
+                        for key in ["semifinals", "finals", "matches"]:
+                            if key in po:
+                                po_matches.extend(po[key])
+                                
+                    for m in po_matches:
+                        if m.get("played") and not m.get("canceled"):
+                            m_copy = copy.deepcopy(m)
+                            m_copy["is_playoff"] = True
+                            all_matches.append(m_copy)
+
+    if not all_matches:
+        print("No matches played found.")
+        return
 
     all_matches.sort(key=lambda x: x["day"])
     
     # Determine the "current month" of the simulation
-    latest_day = all_matches[-1]["day"] if all_matches else 0
-    current_date = get_match_date(latest_day) if latest_day > 0 else datetime(2025, 2, 3)
+    latest_day = all_matches[-1]["day"]
+    current_date = get_match_date(latest_day)
     current_month = current_date.month
     current_year = current_date.year
 
     # Snapshots for movement: Compare current rank vs end of previous month
-    # Find the last day of the previous month
     first_day_this_month = datetime(current_year, current_month, 1)
     last_day_prev_month_dt = first_day_this_month - timedelta(days=1)
     
-    # Convert that date back to simulation "day"
-    # day = (date - base_date).days + 1
     base_date = datetime(2025, 2, 3)
     last_day_prev_month_sim = (last_day_prev_month_dt - base_date).days + 1
     
@@ -91,17 +113,36 @@ def recalculate():
                 rankings_at_prev_month[team] = i + 1
 
         t1, t2 = m["teams"]
+        if t1 not in rankings or t2 not in rankings:
+            continue
+
         dr = rankings[t1] - rankings[t2]
         we1 = 1.0 / (pow(10, (-dr) / 600.0) + 1.0)
         we2 = 1.0 - we1
         
+        # Determine match weight/score based on regulation or PKs
         s1, s2 = m["score"]
-        w1, w2 = 0.5, 0.5
-        if s1 > s2: w1, w2 = 1.0, 0.0
-        elif s2 > s1: w1, w2 = 0.0, 1.0
+        p1, p2 = m.get("pk_score") if m.get("pk_score") else (None, None)
         
-        rankings[t1] += K * (w1 - we1)
-        rankings[t2] += K * (w2 - we2)
+        w1, w2 = 0.5, 0.5
+        if p1 is not None:
+            if p1 > p2: w1, w2 = 0.75, 0.25 # Lower weight for PK win
+            else: w1, w2 = 0.25, 0.75
+        else:
+            if s1 > s2: w1, w2 = 1.0, 0.0
+            elif s2 > s1: w1, w2 = 0.0, 1.0
+        
+        # Calculate point changes
+        change1 = K * (w1 - we1)
+        change2 = K * (w2 - we2)
+        
+        # If it's a playoff match, team points cannot decrease (only 0 or positive)
+        if m.get("is_playoff"):
+            change1 = max(0, change1)
+            change2 = max(0, change2)
+            
+        rankings[t1] += change1
+        rankings[t2] += change2
 
     # 4. Generate Output
     final_list = []

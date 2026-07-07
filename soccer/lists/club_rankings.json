@@ -1,394 +1,394 @@
 [
   {
     "rank": 1,
-    "team": "Imperiale Roma",
-    "points": 1200.9,
-    "movement": 0,
+    "team": "Castellano Madrid",
+    "points": 1211.3,
+    "movement": 1,
     "is_new": false
   },
   {
     "rank": 2,
-    "team": "Castellano Madrid",
-    "points": 1186.1,
+    "team": "Haverford Black",
+    "points": 1209.2,
     "movement": 1,
     "is_new": false
   },
   {
     "rank": 3,
-    "team": "Haverford Black",
-    "points": 1178.7,
-    "movement": -1,
-    "is_new": false
-  },
-  {
-    "rank": 4,
-    "team": "Stella Grey",
-    "points": 1166.5,
-    "movement": 0,
-    "is_new": false
-  },
-  {
-    "rank": 5,
-    "team": "Las Vegas Mirage",
-    "points": 1139.2,
-    "movement": 0,
-    "is_new": false
-  },
-  {
-    "rank": 6,
-    "team": "Fursan al-Arab",
-    "points": 1126.8,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 7,
-    "team": "Chateau Roux",
-    "points": 1122.6,
-    "movement": -1,
-    "is_new": false
-  },
-  {
-    "rank": 8,
-    "team": "Thurston FC West",
-    "points": 1107.8,
-    "movement": 3,
-    "is_new": false
-  },
-  {
-    "rank": 9,
-    "team": "Barroclaugh Athletic",
-    "points": 1096.8,
+    "team": "Imperiale Roma",
+    "points": 1204.0,
     "movement": -2,
     "is_new": false
   },
   {
+    "rank": 4,
+    "team": "Chateau Roux",
+    "points": 1185.7,
+    "movement": 3,
+    "is_new": false
+  },
+  {
+    "rank": 5,
+    "team": "Stella Grey",
+    "points": 1183.9,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 6,
+    "team": "Las Vegas Mirage",
+    "points": 1177.2,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 7,
+    "team": "Thurston FC West",
+    "points": 1157.0,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 8,
+    "team": "Fursan al-Arab",
+    "points": 1156.0,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 9,
+    "team": "Le Rocher Monaco",
+    "points": 1138.8,
+    "movement": 8,
+    "is_new": false
+  },
+  {
     "rank": 10,
-    "team": "Cheicester City",
-    "points": 1093.4,
-    "movement": 0,
+    "team": "Toronto Blizzard",
+    "points": 1108.3,
+    "movement": 3,
     "is_new": false
   },
   {
     "rank": 11,
-    "team": "Eisenwald 1900",
-    "points": 1083.1,
-    "movement": 5,
+    "team": "Barroclaugh Athletic",
+    "points": 1107.6,
+    "movement": -2,
     "is_new": false
   },
   {
     "rank": 12,
     "team": "Stratton United",
-    "points": 1081.0,
-    "movement": 9,
-    "is_new": false
-  },
-  {
-    "rank": 13,
-    "team": "Toronto Blizzard",
-    "points": 1080.2,
-    "movement": 4,
-    "is_new": false
-  },
-  {
-    "rank": 14,
-    "team": "Catalonia Gothic",
-    "points": 1077.9,
+    "points": 1106.9,
     "movement": 0,
     "is_new": false
   },
   {
+    "rank": 13,
+    "team": "Catalonia Gothic",
+    "points": 1104.2,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 14,
+    "team": "Eisenwald 1900",
+    "points": 1101.8,
+    "movement": -3,
+    "is_new": false
+  },
+  {
     "rank": 15,
-    "team": "Al-Qahira FC",
-    "points": 1077.8,
-    "movement": -6,
+    "team": "Cheicester City",
+    "points": 1093.4,
+    "movement": -5,
     "is_new": false
   },
   {
     "rank": 16,
-    "team": "Glass Castle FC",
-    "points": 1076.4,
-    "movement": -4,
-    "is_new": false
-  },
-  {
-    "rank": 17,
-    "team": "Le Rocher Monaco",
-    "points": 1072.0,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 18,
-    "team": "Thurston FC East",
-    "points": 1064.5,
-    "movement": 5,
-    "is_new": false
-  },
-  {
-    "rank": 19,
-    "team": "Les Brasseurs",
-    "points": 1062.1,
+    "team": "Al-Qahira FC",
+    "points": 1085.7,
     "movement": -1,
     "is_new": false
   },
   {
-    "rank": 20,
+    "rank": 17,
+    "team": "Glass Castle FC",
+    "points": 1076.4,
+    "movement": -1,
+    "is_new": false
+  },
+  {
+    "rank": 18,
+    "team": "New York Empire",
+    "points": 1072.1,
+    "movement": 11,
+    "is_new": false
+  },
+  {
+    "rank": 19,
     "team": "Lisbon United",
-    "points": 1060.1,
+    "points": 1070.5,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 20,
+    "team": "Visconti Serpents",
+    "points": 1068.6,
     "movement": 2,
     "is_new": false
   },
   {
     "rank": 21,
-    "team": "Chicago Surge",
-    "points": 1059.8,
-    "movement": -8,
+    "team": "Thurston FC East",
+    "points": 1064.5,
+    "movement": -3,
     "is_new": false
   },
   {
     "rank": 22,
-    "team": "Visconti Serpents",
-    "points": 1058.2,
-    "movement": 6,
+    "team": "Les Brasseurs",
+    "points": 1062.1,
+    "movement": -3,
     "is_new": false
   },
   {
     "rank": 23,
-    "team": "Askhatansa",
-    "points": 1053.0,
-    "movement": -8,
-    "is_new": false
-  },
-  {
-    "rank": 24,
-    "team": "Barbary Apes",
-    "points": 1045.8,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 25,
-    "team": "Najm al-Bayda",
-    "points": 1043.5,
-    "movement": -5,
-    "is_new": false
-  },
-  {
-    "rank": 26,
     "team": "Los Angeles Syndicate",
-    "points": 1043.5,
-    "movement": -2,
-    "is_new": false
-  },
-  {
-    "rank": 27,
-    "team": "Slavutych Kyiv",
-    "points": 1031.2,
-    "movement": 0,
-    "is_new": false
-  },
-  {
-    "rank": 28,
-    "team": "Boston Rebellion",
-    "points": 1024.4,
+    "points": 1061.6,
     "movement": 3,
     "is_new": false
   },
   {
+    "rank": 24,
+    "team": "Chicago Surge",
+    "points": 1059.8,
+    "movement": -3,
+    "is_new": false
+  },
+  {
+    "rank": 25,
+    "team": "Slavutych Kyiv",
+    "points": 1058.7,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 26,
+    "team": "Boston Rebellion",
+    "points": 1053.8,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 27,
+    "team": "Askhatansa",
+    "points": 1053.0,
+    "movement": -4,
+    "is_new": false
+  },
+  {
+    "rank": 28,
+    "team": "Barbary Apes",
+    "points": 1045.8,
+    "movement": -4,
+    "is_new": false
+  },
+  {
     "rank": 29,
-    "team": "New York Empire",
-    "points": 1011.5,
+    "team": "Najm al-Bayda",
+    "points": 1043.5,
     "movement": -4,
     "is_new": false
   },
   {
     "rank": 30,
     "team": "Edelweiss Zurich",
-    "points": 1008.4,
-    "movement": 3,
+    "points": 1033.6,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 31,
-    "team": "Oslo Vikinger",
-    "points": 998.3,
-    "movement": -1,
-    "is_new": false
-  },
-  {
-    "rank": 32,
-    "team": "Corsaires de Calais",
-    "points": 996.5,
-    "movement": 7,
-    "is_new": false
-  },
-  {
-    "rank": 33,
-    "team": "Moscow Krepost",
-    "points": 995.5,
-    "movement": 4,
-    "is_new": false
-  },
-  {
-    "rank": 34,
-    "team": "Dunav Belgrade",
-    "points": 995.0,
-    "movement": -2,
-    "is_new": false
-  },
-  {
-    "rank": 35,
-    "team": "Korona Warsaw",
-    "points": 994.6,
-    "movement": -1,
-    "is_new": false
-  },
-  {
-    "rank": 36,
-    "team": "Mexico City Sol",
-    "points": 991.2,
+    "team": "Sisu Helsinki",
+    "points": 1033.3,
     "movement": 6,
     "is_new": false
   },
   {
-    "rank": 37,
-    "team": "Sisu Helsinki",
-    "points": 988.6,
-    "movement": -2,
+    "rank": 32,
+    "team": "Oslo Vikinger",
+    "points": 1030.4,
+    "movement": -1,
     "is_new": false
   },
   {
-    "rank": 38,
-    "team": "Olympias Athena",
-    "points": 986.3,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 39,
-    "team": "Kongens FC",
-    "points": 981.6,
-    "movement": -10,
-    "is_new": false
-  },
-  {
-    "rank": 40,
-    "team": "Philadelphia Spirit",
-    "points": 980.2,
+    "rank": 33,
+    "team": "Dunav Belgrade",
+    "points": 1011.4,
     "movement": 1,
     "is_new": false
   },
   {
+    "rank": 34,
+    "team": "Bosphorus Blue",
+    "points": 1006.8,
+    "movement": 15,
+    "is_new": false
+  },
+  {
+    "rank": 35,
+    "team": "Mexico City Sol",
+    "points": 1000.6,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 36,
+    "team": "Seattle Echo",
+    "points": 999.0,
+    "movement": 7,
+    "is_new": false
+  },
+  {
+    "rank": 37,
+    "team": "Corsaires de Calais",
+    "points": 996.5,
+    "movement": -5,
+    "is_new": false
+  },
+  {
+    "rank": 38,
+    "team": "Moscow Krepost",
+    "points": 995.5,
+    "movement": -5,
+    "is_new": false
+  },
+  {
+    "rank": 39,
+    "team": "Korona Warsaw",
+    "points": 994.6,
+    "movement": -4,
+    "is_new": false
+  },
+  {
+    "rank": 40,
+    "team": "Lions of Carthage",
+    "points": 992.9,
+    "movement": 2,
+    "is_new": false
+  },
+  {
     "rank": 41,
-    "team": "Stedham Journeymen",
-    "points": 973.5,
-    "movement": 4,
+    "team": "Philadelphia Spirit",
+    "points": 991.0,
+    "movement": -1,
     "is_new": false
   },
   {
     "rank": 42,
-    "team": "Lions of Carthage",
-    "points": 970.3,
-    "movement": 5,
+    "team": "Olympias Athena",
+    "points": 986.3,
+    "movement": -4,
     "is_new": false
   },
   {
     "rank": 43,
-    "team": "Seattle Echo",
-    "points": 969.1,
-    "movement": -7,
+    "team": "Kongens FC",
+    "points": 981.6,
+    "movement": -4,
     "is_new": false
   },
   {
     "rank": 44,
     "team": "Alexandria Faros",
-    "points": 968.3,
-    "movement": -1,
+    "points": 977.9,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 45,
-    "team": "Havenpoort FC",
-    "points": 965.5,
-    "movement": 3,
+    "team": "Stedham Journeymen",
+    "points": 973.5,
+    "movement": -4,
     "is_new": false
   },
   {
     "rank": 46,
-    "team": "Montreal Coureurs",
-    "points": 964.6,
-    "movement": -8,
-    "is_new": false
-  },
-  {
-    "rank": 47,
-    "team": "Celtic Cross FC",
-    "points": 953.4,
-    "movement": -1,
-    "is_new": false
-  },
-  {
-    "rank": 48,
     "team": "Dallas Flare",
-    "points": 949.5,
+    "points": 971.1,
     "movement": 2,
     "is_new": false
   },
   {
+    "rank": 47,
+    "team": "Havenpoort FC",
+    "points": 965.5,
+    "movement": -2,
+    "is_new": false
+  },
+  {
+    "rank": 48,
+    "team": "Montreal Coureurs",
+    "points": 964.6,
+    "movement": -2,
+    "is_new": false
+  },
+  {
     "rank": 49,
-    "team": "Bosphorus Blue",
-    "points": 948.7,
-    "movement": -5,
+    "team": "Celtic Cross FC",
+    "points": 953.4,
+    "movement": -2,
     "is_new": false
   },
   {
     "rank": 50,
     "team": "Tijuana Vaqueros",
-    "points": 936.9,
-    "movement": -1,
+    "points": 947.7,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 51,
-    "team": "Bucharest International",
-    "points": 919.4,
-    "movement": 2,
+    "team": "Bohemian Gryphons",
+    "points": 944.4,
+    "movement": 5,
     "is_new": false
   },
   {
     "rank": 52,
-    "team": "Damascus Steel",
-    "points": 912.8,
+    "team": "Bucharest International",
+    "points": 939.1,
     "movement": -1,
     "is_new": false
   },
   {
     "rank": 53,
-    "team": "Stockholm United",
-    "points": 909.1,
-    "movement": 2,
+    "team": "Sarajevo Grad",
+    "points": 918.9,
+    "movement": 1,
     "is_new": false
   },
   {
     "rank": 54,
-    "team": "Sarajevo Grad",
-    "points": 908.7,
-    "movement": 2,
+    "team": "Damascus Steel",
+    "points": 912.8,
+    "movement": -2,
     "is_new": false
   },
   {
     "rank": 55,
-    "team": "Donau Wien",
-    "points": 903.8,
-    "movement": -3,
+    "team": "Stockholm United",
+    "points": 909.1,
+    "movement": -2,
     "is_new": false
   },
   {
     "rank": 56,
-    "team": "Bohemian Gryphons",
-    "points": 896.2,
-    "movement": 4,
+    "team": "Donau Wien",
+    "points": 903.8,
+    "movement": -1,
     "is_new": false
   },
   {
@@ -402,28 +402,28 @@
     "rank": 58,
     "team": "Tripoli Sporting",
     "points": 889.5,
-    "movement": -4,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 59,
     "team": "Denver Torrent",
     "points": 873.4,
-    "movement": 2,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 60,
     "team": "Detroit Firebirds",
     "points": 862.1,
-    "movement": -2,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 61,
     "team": "Reykjavik Isbjorn",
     "points": 833.7,
-    "movement": -2,
+    "movement": 0,
     "is_new": false
   },
   {

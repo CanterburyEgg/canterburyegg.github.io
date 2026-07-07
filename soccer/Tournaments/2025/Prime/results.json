@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 212,
+  "current_day": 234,
   "groups": {
     "Division Monarch": {
       "matches": [
@@ -62202,13 +62202,263 @@
               "Corsaires de Calais"
             ],
             "score": [
-              0,
+              4,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R1_1_G2",
             "series_id": "Division Empire_R1_1",
-            "game_num": 2
+            "game_num": 2,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 1,
+                "team": "Chateau Roux",
+                "player": "Casey Myers-Morgan",
+                "assist": null
+              },
+              {
+                "minute": 8,
+                "team": "Chateau Roux",
+                "player": "Casey Myers-Morgan",
+                "assist": "Marcel Verhoeven"
+              },
+              {
+                "minute": 26,
+                "team": "Chateau Roux",
+                "player": "Jeroen de Jong",
+                "assist": "Marcel Verhoeven"
+              },
+              {
+                "minute": 44,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "Chateau Roux": {
+                "shots": 15,
+                "sogs": 11,
+                "saves": 3,
+                "possession": 53,
+                "stops": 18
+              },
+              "Corsaires de Calais": {
+                "shots": 12,
+                "sogs": 3,
+                "saves": 7,
+                "possession": 39,
+                "stops": 19
+              },
+              "neutral_possession": 8
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gerhard Muller",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan van Dijk",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eddy van den Broeck",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 7,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Ramos Marrero",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Richard Lemaire",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ollie Rice",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Walsh",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johan Post",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Gallese",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Corsaires de Calais_77125135_400.txt"
           },
           {
             "day": 215,
@@ -62220,10 +62470,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R1_1_G3",
             "series_id": "Division Empire_R1_1",
-            "game_num": 3
+            "game_num": 3,
+            "canceled": true
           },
           {
             "day": 211,
@@ -62497,13 +62748,269 @@
               "Eisenwald 1900"
             ],
             "score": [
-              0,
-              0
+              1,
+              4
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R1_2_G2",
             "series_id": "Division Empire_R1_2",
-            "game_num": 2
+            "game_num": 2,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 4,
+                "team": "Eisenwald 1900",
+                "player": "Valeriu Florea",
+                "assist": "Rene Chevalier"
+              },
+              {
+                "minute": 17,
+                "team": "Eisenwald 1900",
+                "player": "Stuart Holmes",
+                "assist": "Gavin Powell"
+              },
+              {
+                "minute": 21,
+                "team": "Askhatansa",
+                "player": "Neil Griffith",
+                "assist": "Hiroshi Itakura"
+              },
+              {
+                "minute": 33,
+                "team": "Eisenwald 1900",
+                "player": "Fabian Gomez",
+                "assist": null
+              },
+              {
+                "minute": 46,
+                "team": "Eisenwald 1900",
+                "player": "Rene Chevalier",
+                "assist": "Sergio Baez"
+              }
+            ],
+            "stats": {
+              "Askhatansa": {
+                "shots": 10,
+                "sogs": 4,
+                "saves": 2,
+                "possession": 39,
+                "stops": 15
+              },
+              "Eisenwald 1900": {
+                "shots": 11,
+                "sogs": 6,
+                "saves": 3,
+                "possession": 51,
+                "stops": 14
+              },
+              "neutral_possession": 10
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Jean-Pierre de Clercq",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Neil Griffith",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Acuna",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Peter Meijer",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Desmond Bonnet",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roy Foster",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vu Hung Dung",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hiroshi Itakura",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Young-gwon Hwang",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Sergio Baez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Valeriu Florea",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Carlos Acosta",
+                  "pos": "FWD",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Radu Dragomir",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Rene Chevalier",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fabian Gomez",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gavin Powell",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Karl Meier",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Askhatansa_vs_Eisenwald 1900_77125135_132.txt"
           },
           {
             "day": 215,
@@ -62515,10 +63022,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R1_2_G3",
             "series_id": "Division Empire_R1_2",
-            "game_num": 3
+            "game_num": 3,
+            "canceled": true
           },
           {
             "day": 212,
@@ -62527,13 +63035,254 @@
               "Stratton United"
             ],
             "score": [
-              0,
-              0
+              1,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R1_1_G1",
             "series_id": "Division Monarch_R1_1",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": [
+              1,
+              3
+            ],
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 64,
+                "team": "Thurston FC East",
+                "player": "Theo de Boer",
+                "assist": "Hernan Torres"
+              },
+              {
+                "minute": 79,
+                "team": "Stratton United",
+                "player": "Antoine Gauthier",
+                "assist": "Gonzalo Machado"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 15,
+              "Thurston FC East": {
+                "shots": 19,
+                "sogs": 3,
+                "saves": 4,
+                "possession": 47,
+                "stops": 24
+              },
+              "Stratton United": {
+                "shots": 14,
+                "sogs": 5,
+                "saves": 2,
+                "possession": 38,
+                "stops": 27
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Bernard Michel",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Maharaj",
+                  "pos": "MID",
+                  "shots": 6,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Llewellyn",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vitor Correia",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 12,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hernan Torres",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mbaye Cisse",
+                  "pos": "DEF",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Theo de Boer",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brahima Kamagate",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Terence Kane",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antoine Gauthier",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Techera",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dayot Hernandez",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gonzalo Machado",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Trevor Shaw",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sa\u00efd Djaloud",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Thurston FC East_vs_Stratton United_7712504_187.txt"
           },
           {
             "day": 214,
@@ -62542,13 +63291,269 @@
               "Stratton United"
             ],
             "score": [
-              0,
-              0
+              2,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R1_1_G2",
             "series_id": "Division Monarch_R1_1",
-            "game_num": 2
+            "game_num": 2,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 11,
+                "team": "Stratton United",
+                "player": "Antoine Gauthier",
+                "assist": null
+              },
+              {
+                "minute": 16,
+                "team": "Thurston FC East",
+                "player": "Vitor Correia",
+                "assist": null
+              },
+              {
+                "minute": 34,
+                "team": "Stratton United",
+                "player": "Edgar Jimenez",
+                "assist": "Wolfgang Koch"
+              },
+              {
+                "minute": 51,
+                "team": "Thurston FC East",
+                "player": "Theo de Boer",
+                "assist": "Vitor Correia"
+              },
+              {
+                "minute": 52,
+                "team": "Stratton United",
+                "player": "Antoine Gauthier",
+                "assist": "Edgar Jimenez"
+              }
+            ],
+            "stats": {
+              "Thurston FC East": {
+                "shots": 15,
+                "sogs": 4,
+                "saves": 3,
+                "possession": 48,
+                "stops": 18
+              },
+              "Stratton United": {
+                "shots": 15,
+                "sogs": 6,
+                "saves": 2,
+                "possession": 40,
+                "stops": 18
+              },
+              "neutral_possession": 12
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Bernard Michel",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Maharaj",
+                  "pos": "MID",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Llewellyn",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vitor Correia",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hernan Torres",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mbaye Cisse",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Theo de Boer",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brahima Kamagate",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Terence Kane",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antoine Gauthier",
+                  "pos": "FWD",
+                  "shots": 8,
+                  "sogs": 4,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Techera",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dayot Hernandez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gonzalo Machado",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Trevor Shaw",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sa\u00efd Djaloud",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Thurston FC East_vs_Stratton United_77125422_939.txt"
           },
           {
             "day": 216,
@@ -62560,10 +63565,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R1_1_G3",
             "series_id": "Division Monarch_R1_1",
-            "game_num": 3
+            "game_num": 3,
+            "canceled": true
           },
           {
             "day": 212,
@@ -62572,13 +63578,257 @@
               "Thurston FC West"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R1_2_G1",
             "series_id": "Division Monarch_R1_2",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 16,
+                "team": "Thurston FC West",
+                "player": "Conor O'Sullivan",
+                "assist": null
+              },
+              {
+                "minute": 60,
+                "team": "Cheicester City",
+                "player": "Jeremie Frimpong",
+                "assist": "Clive Moore"
+              },
+              {
+                "minute": 65,
+                "team": "Thurston FC West",
+                "player": "Patrick Murray",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 13,
+              "Cheicester City": {
+                "shots": 11,
+                "sogs": 2,
+                "saves": 1,
+                "possession": 40,
+                "stops": 22
+              },
+              "Thurston FC West": {
+                "shots": 11,
+                "sogs": 3,
+                "saves": 1,
+                "possession": 47,
+                "stops": 21
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Olivier Rousseau",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dominique Girard",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jean Gauthier",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Kuiper",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Jeremie Frimpong",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Elias Matsimbe",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Moore",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Declan Burke",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Floyd Adebayor",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Cheicester City_vs_Thurston FC West_7712504_753.txt"
           },
           {
             "day": 214,
@@ -62588,12 +63838,256 @@
             ],
             "score": [
               0,
-              0
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R1_2_G2",
             "series_id": "Division Monarch_R1_2",
-            "game_num": 2
+            "game_num": 2,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 43,
+                "team": "Thurston FC West",
+                "player": "Vincent van de Velde",
+                "assist": "Thierry Payet"
+              },
+              {
+                "minute": 47,
+                "team": "Thurston FC West",
+                "player": "Patrick Murray",
+                "assist": "Ramon Perdomo"
+              },
+              {
+                "minute": 68,
+                "team": "Thurston FC West",
+                "player": "Patrick Murray",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "Cheicester City": {
+                "shots": 6,
+                "sogs": 1,
+                "saves": 3,
+                "possession": 38,
+                "stops": 22
+              },
+              "Thurston FC West": {
+                "shots": 16,
+                "sogs": 6,
+                "saves": 1,
+                "possession": 56,
+                "stops": 17
+              },
+              "neutral_possession": 6
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Olivier Rousseau",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dominique Girard",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jean Gauthier",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Kuiper",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Jeremie Frimpong",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Elias Matsimbe",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Moore",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Declan Burke",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Floyd Adebayor",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Cheicester City_vs_Thurston FC West_77125422_649.txt"
           },
           {
             "day": 216,
@@ -62605,10 +64099,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R1_2_G3",
             "series_id": "Division Monarch_R1_2",
-            "game_num": 3
+            "game_num": 3,
+            "canceled": true
           }
         ]
       },
@@ -62619,193 +64114,2668 @@
             "day": 218,
             "teams": [
               "Stella Grey",
-              "TBD"
+              "Eisenwald 1900"
             ],
             "score": [
-              0,
-              0
+              4,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R2_1_G1",
             "series_id": "Division Empire_R2_1",
             "game_num": 1,
-            "home_seed": "Stella Grey"
+            "home_seed": "Stella Grey",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 6,
+                "team": "Stella Grey",
+                "player": "Park Hyeon-Bin",
+                "assist": "Salisu Abdul Samed"
+              },
+              {
+                "minute": 33,
+                "team": "Stella Grey",
+                "player": "Park Hyeon-Bin",
+                "assist": "Juan Apaza"
+              },
+              {
+                "minute": 39,
+                "team": "Stella Grey",
+                "player": "Kwon Seung-Hyeok",
+                "assist": "Wilhelm Schafer"
+              },
+              {
+                "minute": 40,
+                "team": "Stella Grey",
+                "player": "Gilberto Delgado",
+                "assist": "Gideon Seidu"
+              },
+              {
+                "minute": 59,
+                "team": "Eisenwald 1900",
+                "player": "Gavin Powell",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 8,
+              "Stella Grey": {
+                "shots": 15,
+                "sogs": 8,
+                "saves": 5,
+                "possession": 42,
+                "stops": 13
+              },
+              "Eisenwald 1900": {
+                "shots": 10,
+                "sogs": 6,
+                "saves": 4,
+                "possession": 50,
+                "stops": 17
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Kwon Seung-Hyeok",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Park Hyeon-Bin",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Wilhelm Schafer",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Jones",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gilberto Delgado",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salisu Abdul Samed",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gideon Seidu",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Apaza",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Sergio Baez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Valeriu Florea",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Carlos Acosta",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Radu Dragomir",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Rene Chevalier",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fabian Gomez",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gavin Powell",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Karl Meier",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Stella Grey_vs_Eisenwald 1900_7713562_693.txt"
           },
           {
             "day": 220,
             "teams": [
               "Stella Grey",
-              "TBD"
+              "Eisenwald 1900"
             ],
             "score": [
-              0,
+              1,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R2_1_G2",
             "series_id": "Division Empire_R2_1",
             "game_num": 2,
-            "home_seed": "Stella Grey"
+            "home_seed": "Stella Grey",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 36,
+                "team": "Stella Grey",
+                "player": "Gilberto Delgado",
+                "assist": "Wilhelm Schafer"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 6,
+              "Stella Grey": {
+                "shots": 13,
+                "sogs": 6,
+                "saves": 2,
+                "possession": 44,
+                "stops": 25
+              },
+              "Eisenwald 1900": {
+                "shots": 11,
+                "sogs": 2,
+                "saves": 5,
+                "possession": 50,
+                "stops": 12
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Kwon Seung-Hyeok",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Park Hyeon-Bin",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wilhelm Schafer",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Jones",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gilberto Delgado",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salisu Abdul Samed",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gideon Seidu",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Apaza",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Sergio Baez",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Valeriu Florea",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Carlos Acosta",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Radu Dragomir",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Rene Chevalier",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fabian Gomez",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gavin Powell",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Karl Meier",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Stella Grey_vs_Eisenwald 1900_77135712_863.txt"
           },
           {
             "day": 222,
             "teams": [
               "Stella Grey",
-              "TBD"
+              "Eisenwald 1900"
             ],
             "score": [
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R2_1_G3",
             "series_id": "Division Empire_R2_1",
             "game_num": 3,
-            "home_seed": "Stella Grey"
+            "home_seed": "Stella Grey",
+            "canceled": true
           },
           {
             "day": 218,
             "teams": [
               "Les Brasseurs",
-              "TBD"
+              "Chateau Roux"
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R2_2_G1",
             "series_id": "Division Empire_R2_2",
             "game_num": 1,
-            "home_seed": "Les Brasseurs"
+            "home_seed": "Les Brasseurs",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 50,
+                "team": "Chateau Roux",
+                "player": "Gustavo Suarez",
+                "assist": "Bailey Myers-Morgan"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 9,
+              "Les Brasseurs": {
+                "shots": 11,
+                "sogs": 1,
+                "saves": 4,
+                "possession": 43,
+                "stops": 11
+              },
+              "Chateau Roux": {
+                "shots": 8,
+                "sogs": 5,
+                "saves": 1,
+                "possession": 48,
+                "stops": 21
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Craig Young",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sven Sjoberg",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Edmond Toska",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mitchell Duke",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Yannick Barbier",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Ruiz",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hernando Orozco",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Medina",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Paz",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Les Brasseurs_vs_Chateau Roux_7713562_233.txt"
           },
           {
             "day": 220,
             "teams": [
               "Les Brasseurs",
-              "TBD"
+              "Chateau Roux"
             ],
             "score": [
               0,
-              0
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R2_2_G2",
             "series_id": "Division Empire_R2_2",
             "game_num": 2,
-            "home_seed": "Les Brasseurs"
+            "home_seed": "Les Brasseurs",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 29,
+                "team": "Chateau Roux",
+                "player": "Casey Myers-Morgan",
+                "assist": "Bailey Myers-Morgan"
+              },
+              {
+                "minute": 35,
+                "team": "Chateau Roux",
+                "player": "Gustavo Suarez",
+                "assist": "Bailey Myers-Morgan"
+              },
+              {
+                "minute": 77,
+                "team": "Chateau Roux",
+                "player": "Lisandro Romero",
+                "assist": "Casey Myers-Morgan"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 14,
+              "Les Brasseurs": {
+                "shots": 11,
+                "sogs": 2,
+                "saves": 7,
+                "possession": 33,
+                "stops": 10
+              },
+              "Chateau Roux": {
+                "shots": 13,
+                "sogs": 10,
+                "saves": 2,
+                "possession": 53,
+                "stops": 21
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Craig Young",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sven Sjoberg",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 7,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Edmond Toska",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mitchell Duke",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Yannick Barbier",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edwin Ruiz",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hernando Orozco",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Medina",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Paz",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Les Brasseurs_vs_Chateau Roux_77135712_996.txt"
           },
           {
             "day": 222,
             "teams": [
               "Les Brasseurs",
-              "TBD"
+              "Chateau Roux"
             ],
             "score": [
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R2_2_G3",
             "series_id": "Division Empire_R2_2",
             "game_num": 3,
-            "home_seed": "Les Brasseurs"
+            "home_seed": "Les Brasseurs",
+            "canceled": true
           },
           {
             "day": 219,
             "teams": [
               "Haverford Black",
-              "TBD"
+              "Stratton United"
             ],
             "score": [
               0,
-              0
+              5
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R2_1_G1",
             "series_id": "Division Monarch_R2_1",
             "game_num": 1,
-            "home_seed": "Haverford Black"
+            "home_seed": "Haverford Black",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 10,
+                "team": "Stratton United",
+                "player": "Gonzalo Machado",
+                "assist": "Dayot Hernandez"
+              },
+              {
+                "minute": 47,
+                "team": "Stratton United",
+                "player": "Antoine Gauthier",
+                "assist": "Wolfgang Koch"
+              },
+              {
+                "minute": 76,
+                "team": "Stratton United",
+                "player": "Dayot Hernandez",
+                "assist": "Wolfgang Koch"
+              },
+              {
+                "minute": 84,
+                "team": "Stratton United",
+                "player": "Antoine Gauthier",
+                "assist": "Gonzalo Machado"
+              },
+              {
+                "minute": 85,
+                "team": "Stratton United",
+                "player": "Christian Janssen",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 9,
+              "Haverford Black": {
+                "shots": 7,
+                "sogs": 2,
+                "saves": 2,
+                "possession": 42,
+                "stops": 19
+              },
+              "Stratton United": {
+                "shots": 12,
+                "sogs": 7,
+                "saves": 2,
+                "possession": 49,
+                "stops": 14
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 5
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antoine Gauthier",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Techera",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dayot Hernandez",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gonzalo Machado",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Trevor Shaw",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sa\u00efd Djaloud",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Haverford Black_vs_Stratton United_77135648_615.txt"
           },
           {
             "day": 221,
             "teams": [
               "Haverford Black",
-              "TBD"
+              "Stratton United"
             ],
             "score": [
-              0,
-              0
+              1,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R2_1_G2",
             "series_id": "Division Monarch_R2_1",
             "game_num": 2,
-            "home_seed": "Haverford Black"
+            "home_seed": "Haverford Black",
+            "pk_score": [
+              3,
+              2
+            ],
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 52,
+                "team": "Stratton United",
+                "player": "Gustavo Techera",
+                "assist": "Wolfgang Koch"
+              },
+              {
+                "minute": 60,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Dragan Petrovic"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 12,
+              "Haverford Black": {
+                "shots": 12,
+                "sogs": 4,
+                "saves": 2,
+                "possession": 51,
+                "stops": 19
+              },
+              "Stratton United": {
+                "shots": 15,
+                "sogs": 3,
+                "saves": 3,
+                "possession": 37,
+                "stops": 24
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antoine Gauthier",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Techera",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 9,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dayot Hernandez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gonzalo Machado",
+                  "pos": "DEF",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Trevor Shaw",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sa\u00efd Djaloud",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Haverford Black_vs_Stratton United_77135731_774.txt"
           },
           {
             "day": 223,
             "teams": [
               "Haverford Black",
-              "TBD"
+              "Stratton United"
             ],
             "score": [
-              0,
-              0
+              5,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R2_1_G3",
             "series_id": "Division Monarch_R2_1",
             "game_num": 3,
-            "home_seed": "Haverford Black"
+            "home_seed": "Haverford Black",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 1,
+                "team": "Haverford Black",
+                "player": "Dragan Petrovic",
+                "assist": null
+              },
+              {
+                "minute": 10,
+                "team": "Haverford Black",
+                "player": "Dragan Petrovic",
+                "assist": null
+              },
+              {
+                "minute": 19,
+                "team": "Haverford Black",
+                "player": "Theo Tchouameni",
+                "assist": "Charles Stewart"
+              },
+              {
+                "minute": 20,
+                "team": "Haverford Black",
+                "player": "Ko Kamada",
+                "assist": "Jurgen Richter"
+              },
+              {
+                "minute": 53,
+                "team": "Stratton United",
+                "player": "Edgar Jimenez",
+                "assist": "Gustavo Techera"
+              },
+              {
+                "minute": 72,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Jurgen Richter"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 7,
+              "Haverford Black": {
+                "shots": 12,
+                "sogs": 8,
+                "saves": 4,
+                "possession": 52,
+                "stops": 11
+              },
+              "Stratton United": {
+                "shots": 9,
+                "sogs": 5,
+                "saves": 3,
+                "possession": 41,
+                "stops": 18
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 4,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antoine Gauthier",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Techera",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edgar Jimenez",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Dayot Hernandez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gonzalo Machado",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Trevor Shaw",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sa\u00efd Djaloud",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 5
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Haverford Black_vs_Stratton United_77135751_244.txt"
           },
           {
             "day": 219,
             "teams": [
               "Barroclaugh Athletic",
-              "TBD"
+              "Thurston FC West"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R2_2_G1",
             "series_id": "Division Monarch_R2_2",
             "game_num": 1,
-            "home_seed": "Barroclaugh Athletic"
+            "home_seed": "Barroclaugh Athletic",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 24,
+                "team": "Thurston FC West",
+                "player": "Conor O'Sullivan",
+                "assist": "Thierry Payet"
+              },
+              {
+                "minute": 60,
+                "team": "Barroclaugh Athletic",
+                "player": "Manaraii Wagemann",
+                "assist": null
+              },
+              {
+                "minute": 85,
+                "team": "Thurston FC West",
+                "player": "Antonio Rudiger",
+                "assist": "Conor O'Sullivan"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 13,
+              "Barroclaugh Athletic": {
+                "shots": 12,
+                "sogs": 5,
+                "saves": 3,
+                "possession": 39,
+                "stops": 24
+              },
+              "Thurston FC West": {
+                "shots": 10,
+                "sogs": 5,
+                "saves": 4,
+                "possession": 48,
+                "stops": 15
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Jiri Novakova",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Manuel Castillo",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Aguilar",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krzysztof Sikora",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 9,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Denis Chevalier",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manaraii Wagemann",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jamie Price",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Barroclaugh Athletic_vs_Thurston FC West_77135648_394.txt"
           },
           {
             "day": 221,
             "teams": [
               "Barroclaugh Athletic",
-              "TBD"
+              "Thurston FC West"
             ],
             "score": [
-              0,
-              0
+              3,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R2_2_G2",
             "series_id": "Division Monarch_R2_2",
             "game_num": 2,
-            "home_seed": "Barroclaugh Athletic"
+            "home_seed": "Barroclaugh Athletic",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 19,
+                "team": "Thurston FC West",
+                "player": "Conor O'Sullivan",
+                "assist": null
+              },
+              {
+                "minute": 33,
+                "team": "Barroclaugh Athletic",
+                "player": "Denis Chevalier",
+                "assist": "Manuel Castillo"
+              },
+              {
+                "minute": 54,
+                "team": "Barroclaugh Athletic",
+                "player": "Marcos Aguilar",
+                "assist": "Timothy Theate"
+              },
+              {
+                "minute": 77,
+                "team": "Barroclaugh Athletic",
+                "player": "Manuel Castillo",
+                "assist": "Amadou Onana"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 6,
+              "Barroclaugh Athletic": {
+                "shots": 9,
+                "sogs": 4,
+                "saves": 3,
+                "possession": 43,
+                "stops": 23
+              },
+              "Thurston FC West": {
+                "shots": 12,
+                "sogs": 4,
+                "saves": 1,
+                "possession": 51,
+                "stops": 15
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Jiri Novakova",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Manuel Castillo",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Aguilar",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krzysztof Sikora",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Denis Chevalier",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manaraii Wagemann",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jamie Price",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Barroclaugh Athletic_vs_Thurston FC West_77135731_578.txt"
           },
           {
             "day": 223,
             "teams": [
               "Barroclaugh Athletic",
-              "TBD"
+              "Thurston FC West"
             ],
             "score": [
-              0,
-              0
+              2,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R2_2_G3",
             "series_id": "Division Monarch_R2_2",
             "game_num": 3,
-            "home_seed": "Barroclaugh Athletic"
+            "home_seed": "Barroclaugh Athletic",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 54,
+                "team": "Barroclaugh Athletic",
+                "player": "Manuel Castillo",
+                "assist": "Denis Chevalier"
+              },
+              {
+                "minute": 61,
+                "team": "Thurston FC West",
+                "player": "Thierry Payet",
+                "assist": "Antonio Rudiger"
+              },
+              {
+                "minute": 74,
+                "team": "Barroclaugh Athletic",
+                "player": "Amadou Onana",
+                "assist": "Jamie Price"
+              },
+              {
+                "minute": 82,
+                "team": "Thurston FC West",
+                "player": "Conor O'Sullivan",
+                "assist": "Ramon Perdomo"
+              },
+              {
+                "minute": 85,
+                "team": "Thurston FC West",
+                "player": "Antonio Rudiger",
+                "assist": "Benoit Rousseau"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 12,
+              "Barroclaugh Athletic": {
+                "shots": 9,
+                "sogs": 6,
+                "saves": 4,
+                "possession": 46,
+                "stops": 14
+              },
+              "Thurston FC West": {
+                "shots": 13,
+                "sogs": 7,
+                "saves": 4,
+                "possession": 42,
+                "stops": 8
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Jiri Novakova",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Manuel Castillo",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Aguilar",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krzysztof Sikora",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Denis Chevalier",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manaraii Wagemann",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jamie Price",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Barroclaugh Athletic_vs_Thurston FC West_77135751_874.txt"
           }
         ]
       },
@@ -62815,143 +66785,1889 @@
           {
             "day": 225,
             "teams": [
-              "TBD",
-              "TBD"
+              "Stella Grey",
+              "Chateau Roux"
             ],
             "score": [
               0,
-              0
+              4
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R3_G1",
             "series_id": "Division Empire_R3",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 32,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": null
+              },
+              {
+                "minute": 33,
+                "team": "Chateau Roux",
+                "player": "Gustavo Suarez",
+                "assist": "Diego Castillo"
+              },
+              {
+                "minute": 74,
+                "team": "Chateau Roux",
+                "player": "Marcel Verhoeven",
+                "assist": "Jeroen de Jong"
+              },
+              {
+                "minute": 78,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": "Jeroen de Jong"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 13,
+              "Stella Grey": {
+                "shots": 8,
+                "sogs": 2,
+                "saves": 2,
+                "possession": 46,
+                "stops": 15
+              },
+              "Chateau Roux": {
+                "shots": 12,
+                "sogs": 6,
+                "saves": 2,
+                "possession": 41,
+                "stops": 22
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Kwon Seung-Hyeok",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Park Hyeon-Bin",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Wilhelm Schafer",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Jones",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gilberto Delgado",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salisu Abdul Samed",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gideon Seidu",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Apaza",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Stella Grey_vs_Chateau Roux_7714022_683.txt"
           },
           {
             "day": 227,
             "teams": [
-              "TBD",
-              "TBD"
+              "Stella Grey",
+              "Chateau Roux"
             ],
             "score": [
               0,
-              0
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R3_G2",
             "series_id": "Division Empire_R3",
-            "game_num": 2
+            "game_num": 2,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 112,
+                "team": "Chateau Roux",
+                "player": "Gustavo Suarez",
+                "assist": null
+              },
+              {
+                "minute": 116,
+                "team": "Chateau Roux",
+                "player": "Gustavo Suarez",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 12,
+              "Stella Grey": {
+                "shots": 13,
+                "sogs": 1,
+                "saves": 6,
+                "possession": 41,
+                "stops": 18
+              },
+              "Chateau Roux": {
+                "shots": 12,
+                "sogs": 8,
+                "saves": 1,
+                "possession": 47,
+                "stops": 25
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Kwon Seung-Hyeok",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Park Hyeon-Bin",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 6,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Wilhelm Schafer",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Jones",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gilberto Delgado",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salisu Abdul Samed",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gideon Seidu",
+                  "pos": "DEF",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Apaza",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 4,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 9,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Stella Grey_vs_Chateau Roux_7714028_394.txt"
           },
           {
             "day": 229,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Stella Grey"
             ],
             "score": [
-              0,
-              0
+              4,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R3_G3",
             "series_id": "Division Empire_R3",
-            "game_num": 3
+            "game_num": 3,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 1,
+                "team": "Stella Grey",
+                "player": "Park Hyeon-Bin",
+                "assist": "Clive Jones"
+              },
+              {
+                "minute": 33,
+                "team": "Chateau Roux",
+                "player": "Gustavo Suarez",
+                "assist": "Jeroen de Jong"
+              },
+              {
+                "minute": 41,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": null
+              },
+              {
+                "minute": 76,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": "Claude Timmermans"
+              },
+              {
+                "minute": 80,
+                "team": "Chateau Roux",
+                "player": "Lisandro Romero",
+                "assist": "Marcel Verhoeven"
+              },
+              {
+                "minute": 88,
+                "team": "Stella Grey",
+                "player": "Park Hyeon-Bin",
+                "assist": "Salisu Abdul Samed"
+              }
+            ],
+            "stats": {
+              "Stella Grey": {
+                "shots": 11,
+                "sogs": 5,
+                "saves": 7,
+                "possession": 48,
+                "stops": 13
+              },
+              "Chateau Roux": {
+                "shots": 18,
+                "sogs": 11,
+                "saves": 3,
+                "possession": 46,
+                "stops": 19
+              },
+              "neutral_possession": 6
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 7,
+                  "sogs": 4,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 5,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Kwon Seung-Hyeok",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Park Hyeon-Bin",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 7,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Wilhelm Schafer",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Clive Jones",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gilberto Delgado",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salisu Abdul Samed",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gideon Seidu",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Apaza",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Stella Grey_7714058_998.txt"
           },
           {
             "day": 231,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Stella Grey"
             ],
             "score": [
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R3_G4",
             "series_id": "Division Empire_R3",
-            "game_num": 4
+            "game_num": 4,
+            "canceled": true
           },
           {
             "day": 233,
             "teams": [
-              "TBD",
-              "TBD"
+              "Stella Grey",
+              "Chateau Roux"
             ],
             "score": [
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R3_G5",
             "series_id": "Division Empire_R3",
-            "game_num": 5
+            "game_num": 5,
+            "canceled": true
           },
           {
             "day": 226,
             "teams": [
-              "TBD",
-              "TBD"
+              "Haverford Black",
+              "Thurston FC West"
             ],
             "score": [
-              0,
+              2,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R3_G1",
             "series_id": "Division Monarch_R3",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 33,
+                "team": "Haverford Black",
+                "player": "Dragan Petrovic",
+                "assist": "Jurgen Richter"
+              },
+              {
+                "minute": 81,
+                "team": "Haverford Black",
+                "player": "Murray Campbell",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 10,
+              "Haverford Black": {
+                "shots": 15,
+                "sogs": 4,
+                "saves": 5,
+                "possession": 43,
+                "stops": 20
+              },
+              "Thurston FC West": {
+                "shots": 13,
+                "sogs": 5,
+                "saves": 2,
+                "possession": 47,
+                "stops": 21
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Haverford Black_vs_Thurston FC West_7714026_750.txt"
           },
           {
             "day": 228,
             "teams": [
-              "TBD",
-              "TBD"
+              "Haverford Black",
+              "Thurston FC West"
             ],
             "score": [
-              0,
-              0
+              1,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R3_G2",
             "series_id": "Division Monarch_R3",
-            "game_num": 2
+            "game_num": 2,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 49,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Charles Stewart"
+              },
+              {
+                "minute": 74,
+                "team": "Thurston FC West",
+                "player": "Antonio Rudiger",
+                "assist": "Ramon Perdomo"
+              },
+              {
+                "minute": 77,
+                "team": "Thurston FC West",
+                "player": "Vincent van de Velde",
+                "assist": "Benoit Rousseau"
+              },
+              {
+                "minute": 83,
+                "team": "Thurston FC West",
+                "player": "Thierry Payet",
+                "assist": "Ramon Perdomo"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 6,
+              "Haverford Black": {
+                "shots": 6,
+                "sogs": 1,
+                "saves": 3,
+                "possession": 48,
+                "stops": 20
+              },
+              "Thurston FC West": {
+                "shots": 13,
+                "sogs": 6,
+                "saves": 0,
+                "possession": 46,
+                "stops": 17
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Haverford Black_vs_Thurston FC West_7714030_443.txt"
           },
           {
             "day": 230,
             "teams": [
-              "TBD",
-              "TBD"
+              "Thurston FC West",
+              "Haverford Black"
             ],
             "score": [
               0,
-              0
+              4
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R3_G3",
             "series_id": "Division Monarch_R3",
-            "game_num": 3
+            "game_num": 3,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 29,
+                "team": "Haverford Black",
+                "player": "Jurgen Richter",
+                "assist": "Ko Kamada"
+              },
+              {
+                "minute": 65,
+                "team": "Haverford Black",
+                "player": "Jaime Riquelme",
+                "assist": null
+              },
+              {
+                "minute": 74,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Jurgen Richter"
+              },
+              {
+                "minute": 78,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "Haverford Black": {
+                "shots": 16,
+                "sogs": 6,
+                "saves": 2,
+                "possession": 40,
+                "stops": 21
+              },
+              "Thurston FC West": {
+                "shots": 14,
+                "sogs": 2,
+                "saves": 2,
+                "possession": 51,
+                "stops": 17
+              },
+              "neutral_possession": 9
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Thurston FC West_vs_Haverford Black_771410_360.txt"
           },
           {
             "day": 232,
             "teams": [
-              "TBD",
-              "TBD"
+              "Thurston FC West",
+              "Haverford Black"
             ],
             "score": [
-              0,
-              0
+              2,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R3_G4",
             "series_id": "Division Monarch_R3",
-            "game_num": 4
+            "game_num": 4,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 29,
+                "team": "Haverford Black",
+                "player": "Jurgen Richter",
+                "assist": null
+              },
+              {
+                "minute": 53,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Theo Tchouameni"
+              },
+              {
+                "minute": 58,
+                "team": "Thurston FC West",
+                "player": "Patrick Murray",
+                "assist": "Martijn van den Berg"
+              },
+              {
+                "minute": 69,
+                "team": "Haverford Black",
+                "player": "Dragan Petrovic",
+                "assist": "Ko Kamada"
+              },
+              {
+                "minute": 87,
+                "team": "Thurston FC West",
+                "player": "Vincent van de Velde",
+                "assist": "Benoit Rousseau"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 9,
+              "Thurston FC West": {
+                "shots": 11,
+                "sogs": 3,
+                "saves": 2,
+                "possession": 49,
+                "stops": 18
+              },
+              "Haverford Black": {
+                "shots": 9,
+                "sogs": 5,
+                "saves": 1,
+                "possession": 42,
+                "stops": 20
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ramon Perdomo",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thierry Payet",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Conor O'Sullivan",
+                  "pos": "FWD",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Patrick Murray",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Salazar",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benoit Rousseau",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 12,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Thurston FC West_vs_Haverford Black_77143346_613.txt"
           },
           {
             "day": 234,
             "teams": [
-              "TBD",
-              "TBD"
+              "Haverford Black",
+              "Thurston FC West"
             ],
             "score": [
               0,
@@ -62970,8 +68686,8 @@
           {
             "day": 236,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Haverford Black"
             ],
             "score": [
               0,
@@ -62986,8 +68702,8 @@
           {
             "day": 237,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Haverford Black"
             ],
             "score": [
               0,
@@ -63002,8 +68718,8 @@
           {
             "day": 238,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Haverford Black"
             ],
             "score": [
               0,
@@ -63018,8 +68734,8 @@
           {
             "day": 239,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Haverford Black"
             ],
             "score": [
               0,
@@ -63034,8 +68750,8 @@
           {
             "day": 240,
             "teams": [
-              "TBD",
-              "TBD"
+              "Chateau Roux",
+              "Haverford Black"
             ],
             "score": [
               0,

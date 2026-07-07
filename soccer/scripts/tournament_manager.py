@@ -661,25 +661,62 @@ def check_mathematical_locks(tournament_data):
     elif conf_type == "league":
         r1 = po["rounds"][0]["matches"]
         r2 = po["rounds"][1]["matches"]
+        
         # League logic: Round 1 (3v6, 4v5), Round 2 (1 vs TBD, 2 vs TBD)
         for g_id in sorted(tournament_data["groups"].keys()):
+            # Round 1: High seed ALWAYS home (slot 0)
             g_r1 = [m for m in r1 if m["label"].startswith(f"{g_id}_R1")]
             for m in g_r1:
-                if "R1_1" in m["label"]: # 3v6
-                    m["teams"][0] = locks.get(f"{g_id}3", "TBD")
-                    m["teams"][1] = locks.get(f"{g_id}6", "TBD")
-                elif "R1_2" in m["label"]: # 4v5
-                    m["teams"][0] = locks.get(f"{g_id}4", "TBD")
-                    m["teams"][1] = locks.get(f"{g_id}5", "TBD")
-            
+                if not m.get("played"):
+                    tA = locks.get(f"{g_id}3", "TBD") if "R1_1" in m["label"] else locks.get(f"{g_id}4", "TBD")
+                    tB = locks.get(f"{g_id}6", "TBD") if "R1_1" in m["label"] else locks.get(f"{g_id}5", "TBD")
+                    m["teams"] = [tA, tB]
+
+            # Round 2: High seed (bye_seed) ALWAYS home (slot 0)
             g_r2 = [m for m in r2 if m["label"].startswith(f"{g_id}_R2")]
+            w1 = get_series_winner(r1, f"{g_id}_R1_1", 3)
+            w2 = get_series_winner(r1, f"{g_id}_R1_2", 3)
+            opponents = None
+            if w1 and w2:
+                table = tournament_data["groups"][g_id]["standings"]
+                team_seeds = {t["team"]: i+1 for i, t in enumerate(table)}
+                opponents = sorted([w1, w2], key=lambda x: team_seeds[x], reverse=True) # [Lowest, Highest]
+
             for m in g_r2:
-                if "R2_1" in m["label"]:
-                    m["teams"][0] = locks.get(f"{g_id}1", "TBD")
-                    m["home_seed"] = m["teams"][0]
-                elif "R2_2" in m["label"]:
-                    m["teams"][0] = locks.get(f"{g_id}2", "TBD")
-                    m["home_seed"] = m["teams"][0]
+                bye_seed = locks.get(f"{g_id}1", "TBD") if "R2_1" in m["label"] else locks.get(f"{g_id}2", "TBD")
+                m["home_seed"] = bye_seed
+                if not m.get("played"):
+                    opp = "TBD"
+                    if opponents: opp = opponents[0] if "R2_1" in m["label"] else opponents[1]
+                    m["teams"] = [bye_seed, opp]
+
+            # Round 3: 2/2/1 Split
+            r3 = po["rounds"][2]["matches"]
+            g_r3 = [m for m in r3 if m["label"].startswith(f"{g_id}_R3")]
+            wR2_1 = get_series_winner(r2, f"{g_id}_R2_1", 3)
+            wR2_2 = get_series_winner(r2, f"{g_id}_R2_2", 3)
+            if wR2_1 and wR2_2:
+                table = tournament_data["groups"][g_id]["standings"]
+                team_seeds = {t["team"]: i+1 for i, t in enumerate(table)}
+                r3_teams = sorted([wR2_1, wR2_2], key=lambda x: team_seeds[x]) # [High Seed, Low Seed]
+                tH, tL = r3_teams
+                for m in g_r3:
+                    if not m.get("played"):
+                        # 2/2/1: High Seed home G1, G2, G5; Low Seed home G3, G4
+                        if m.get("game_num") in [1, 2, 5]: m["teams"] = [tH, tL]
+                        else: m["teams"] = [tL, tH]
+        
+        # League Finals
+        lf = po["rounds"][3]["matches"]
+        all_po_matches = [m for r in po["rounds"] for m in r["matches"]]
+        r3_winners = []
+        for g_id in sorted(tournament_data["groups"].keys()):
+            win = get_series_winner(all_po_matches, f"{g_id}_R3", 5)
+            if win: r3_winners.append(win)
+        if len(r3_winners) == 2:
+            t1, t2 = r3_winners
+            for m in lf:
+                if not m.get("played"): m["teams"] = [t1, t2]
 
 def update_group_standings(tournament_data, g_id):
     results = {}
@@ -728,6 +765,59 @@ def update_group_standings(tournament_data, g_id):
                         results[t2]["pts"] += 1
     
     tournament_data["groups"][g_id]["standings"] = sort_standings(results, all_relevant_matches)
+
+def setup_league_playoffs(tournament_data):
+    config = tournament_data["config"]
+    last_day = 0
+    for g in tournament_data["groups"].values():
+        for m in g["matches"]: last_day = max(last_day, m["day"])
+    
+    po = {
+        "rounds": [
+            {"name": "Group First Round", "matches": []},
+            {"name": "Group Semifinals", "matches": []},
+            {"name": "Group Finals", "matches": []},
+            {"name": "League Finals", "matches": []}
+        ]
+    }
+    tournament_data["playoffs"] = po
+
+    # Timeline: 1 day gap after season end (last_day + 2 is first match day)
+    d_r1 = [last_day + 2, last_day + 3, last_day + 4, last_day + 5, last_day + 6, last_day + 7]
+    d_r2 = [d_r1[-1] + 2, d_r1[-1] + 3, d_r1[-1] + 4, d_r1[-1] + 5, d_r1[-1] + 6, d_r1[-1] + 7]
+    d_r3 = [d_r2[-1] + 2 + i for i in range(10)]
+    d_f  = [d_r3[-1] + 2 + i for i in range(5)]
+
+    g_ids = sorted(tournament_data["groups"].keys())
+    for g_idx, g_id in enumerate(g_ids):
+        # Round 1: High Seed home for ALL games
+        for label in ["R1_1", "R1_2"]:
+            for i in range(3):
+                day_idx = (i * 2) + g_idx
+                po["rounds"][0]["matches"].append({
+                    "day": d_r1[day_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                    "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
+                })
+        # Round 2: Rotation (G1/G3 bye seed home, G2 bye seed away)
+        for label in ["R2_1", "R2_2"]:
+            for i in range(3):
+                day_idx = (i * 2) + g_idx
+                po["rounds"][1]["matches"].append({
+                    "day": d_r2[day_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                    "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
+                })
+        # Round 3: Interlaced 1 match/day
+        for i in range(5):
+            po["rounds"][2]["matches"].append({
+                "day": d_r3[i * 2 + g_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                "label": f"{g_id}_R3_G{i+1}", "series_id": f"{g_id}_R3", "game_num": i+1
+            })
+    # Finals: 1 match/day
+    for i, day in enumerate(d_f):
+        po["rounds"][3]["matches"].append({
+            "day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+            "label": f"F_G{i+1}", "series_id": "F", "game_num": i+1, "neutral": True
+        })
 
 def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
     tournament_path = path_arg.strip('/')
@@ -1226,15 +1316,11 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         # Apply to R2 matches
                         for m in r2:
                             if m["series_id"] == f"{g_id}_R2_1": # 1 vs Lowest
-                                if m["teams"][1] == "TBD":
-                                    m["teams"][1] = winners[0]
-                                    # Set home/away rotation for Bo3
-                                    if m["game_num"] == 2: m["teams"] = [winners[0], m["home_seed"]]
+                                m["teams"][1] = winners[0]
+                                m["teams"][0] = m["home_seed"]
                             elif m["series_id"] == f"{g_id}_R2_2": # 2 vs Highest
-                                if m["teams"][1] == "TBD":
-                                    m["teams"][1] = winners[1]
-                                    # Set home/away rotation for Bo3
-                                    if m["game_num"] == 2: m["teams"] = [winners[1], m["home_seed"]]
+                                m["teams"][1] = winners[1]
+                                m["teams"][0] = m["home_seed"]
 
                     # R2 -> R3 (Group Finals)
                     wR2_1 = get_series_winner(r2, f"{g_id}_R2_1", 3)
@@ -1245,10 +1331,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         r3_teams = sorted([wR2_1, wR2_2], key=lambda x: team_seeds[x]) # [High Seed, Low Seed]
                         for m in r3:
                             if m["series_id"] == f"{g_id}_R3":
-                                if m["teams"][0] == "TBD":
-                                    # Bo5: 2 home, 2 away, 1 home (G1, G2, G5 host is High Seed)
-                                    if m["game_num"] in [1, 2, 5]: m["teams"] = [r3_teams[0], r3_teams[1]]
-                                    else: m["teams"] = [r3_teams[1], r3_teams[0]]
+                                # 2/2/1 split: G1, G2, G5 High Seed home; G3, G4 Low Seed home.
+                                if m.get("game_num") in [1, 2, 5]: m["teams"] = [r3_teams[0], r3_teams[1]]
+                                else: m["teams"] = [r3_teams[1], r3_teams[0]]
 
                 # R3 -> League Finals (Neutral Bo5)
                 r3_winners = []
@@ -1258,8 +1343,8 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                 
                 if len(r3_winners) == 2:
                     for m in lf:
-                        if m["teams"][0] == "TBD":
-                            m["teams"] = r3_winners
+                        # For League Finals, just use fixed order from winners list
+                        m["teams"] = [r3_winners[0], r3_winners[1]]
 
             elif config["type"] == "world_cup" and "rounds" in po:
                 r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]
@@ -1480,12 +1565,8 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                     team_seeds = {t["team"]: i+1 for i, t in enumerate(table)}
                                     winners = sorted([w1, w2], key=lambda x: team_seeds[x], reverse=True)
                                     for m in r2:
-                                        if m["series_id"] == f"{g_id}_R2_1" and m["teams"][1] == "TBD":
-                                            m["teams"][1] = winners[0]
-                                            if m["game_num"] == 2: m["teams"] = [winners[0], m["home_seed"]]
-                                        elif m["series_id"] == f"{g_id}_R2_2" and m["teams"][1] == "TBD":
-                                            m["teams"][1] = winners[1]
-                                            if m["game_num"] == 2: m["teams"] = [winners[1], m["home_seed"]]
+                                        opp = winners[0] if f"{g_id}_R2_1" == m["series_id"] else winners[1]
+                                        m["teams"] = [m["home_seed"], opp]
                             elif r_idx == 2: # R3 (Group Finals)
                                 wR2_1 = get_series_winner(r2, f"{g_id}_R2_1", 3)
                                 wR2_2 = get_series_winner(r2, f"{g_id}_R2_2", 3)
@@ -1494,8 +1575,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                     team_seeds = {t["team"]: i+1 for i, t in enumerate(table)}
                                     r3_teams = sorted([wR2_1, wR2_2], key=lambda x: team_seeds[x])
                                     for m in r3:
-                                        if m["series_id"] == f"{g_id}_R3" and m["teams"][0] == "TBD":
-                                            if m["game_num"] in [1, 2, 5]: m["teams"] = [r3_teams[0], r3_teams[1]]
+                                        if m["series_id"] == f"{g_id}_R3":
+                                            # 2/2/1 split: G1, G2, G5 High Seed home; G3, G4 Low Seed home.
+                                            if m.get("game_num") in [1, 2, 5]: m["teams"] = [r3_teams[0], r3_teams[1]]
                                             else: m["teams"] = [r3_teams[1], r3_teams[0]]
                         if r_idx == 3: # League Finals
                             r3_winners = []
@@ -1504,7 +1586,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                 if win: r3_winners.append(win)
                             if len(r3_winners) == 2:
                                 for m in lf:
-                                    if m["teams"][0] == "TBD": m["teams"] = r3_winners
+                                    m["teams"] = [r3_winners[0], r3_winners[1]]
 
                     elif config["type"] == "world_cup":
                         r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]
