@@ -736,7 +736,8 @@
                 'BSL': 'soccer/Tournaments/2025/Backyard/results.json',
                 'EURO': 'soccer/Tournaments/2025/Euro/results.json',
                 'MED': 'soccer/Tournaments/2025/Med/results.json',
-                'PRIME': 'soccer/Tournaments/2025/Prime/results.json'
+                'PRIME': 'soccer/Tournaments/2025/Prime/results.json',
+                'CLUB': 'soccer/Tournaments/2025/Club Cup/results.json'
             },
             '2024': {
                 'COPA': 'soccer/Tournaments/2024/Copa/results.json',
@@ -775,7 +776,8 @@
                 { label: 'Backyard', code: 'BSL' },
                 { label: 'Euro', code: 'EURO' },
                 { label: 'Mediterranean', code: 'MED' },
-                { label: 'Prime', code: 'PRIME' }
+                { label: 'Prime', code: 'PRIME' },
+                { label: 'Club Cup', code: 'CLUB' }
             ],
             '2024': [
                 { label: 'Copa America', code: 'COPA' },
@@ -1299,7 +1301,7 @@
                     }
                 }
 
-                const showPlayerFlags = currentData && currentData.config && currentData.config.type === 'league';
+                const showPlayerFlags = currentData && currentData.config && ['league', 'club_cup'].includes(currentData.config.type);
                 const isPro = currentData && currentData.config && currentData.config.pro_stats;
 
                 rosterHtml = `

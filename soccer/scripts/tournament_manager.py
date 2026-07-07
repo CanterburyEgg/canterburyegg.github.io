@@ -856,7 +856,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
         with open(results_path, 'r') as f:
             tournament_data = json.load(f)
         
-        # Calculate current day based on most recent played match
+        # Calculate current day based on most recent played match as a safety floor
         max_day = 0
         for gid, g_data in tournament_data.get("groups", {}).items():
             for m in g_data.get("matches", []):
@@ -869,7 +869,9 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
             else: all_po.extend(po.get("semifinals", []) + po.get("finals", []))
             for m in all_po:
                 if m.get("played"): max_day = max(max_day, m["day"])
-        tournament_data["current_day"] = max_day + 1
+        
+        # Use stored day, but ensure it is at least max_day + 1
+        tournament_data["current_day"] = max(tournament_data.get("current_day", 1), max_day + 1)
 
         # Ensure playoffs are initialized if missing (e.g. after rewind)
         if config["type"] == "world_cup" and not tournament_data.get("playoffs"):
@@ -1435,11 +1437,14 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
                 # SF -> F & 3P
                 if sf[0]["played"] and sf[1]["played"]:
-                    if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
-                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
-                    if len(f) > 1:
-                        if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
-                        if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+                    final_m = next((m for m in f if m["label"] == "F"), None)
+                    third_m = next((m for m in f if m["label"] == "3P"), None)
+                    if final_m:
+                        if final_m["teams"][0] in ["TBD", None]: final_m["teams"][0] = get_winner(sf[0])
+                        if final_m["teams"][1] in ["TBD", None]: final_m["teams"][1] = get_winner(sf[1])
+                    if third_m:
+                        if third_m["teams"][0] in ["TBD", None]: third_m["teams"][0] = get_loser(sf[0])
+                        if third_m["teams"][1] in ["TBD", None]: third_m["teams"][1] = get_loser(sf[1])
 
             elif config["type"] == "world_cup" and "rounds" in po:
                 r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]
@@ -1684,11 +1689,14 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                 if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
                         elif r_idx == 2: # F & 3P
                             if sf[0]["played"] and sf[1]["played"]:
-                                if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
-                                if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
-                                if len(f) > 1:
-                                    if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
-                                    if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+                                final_m = next((m for m in f if m["label"] == "F"), None)
+                                third_m = next((m for m in f if m["label"] == "3P"), None)
+                                if final_m:
+                                    if final_m["teams"][0] in ["TBD", None]: final_m["teams"][0] = get_winner(sf[0])
+                                    if final_m["teams"][1] in ["TBD", None]: final_m["teams"][1] = get_winner(sf[1])
+                                if third_m:
+                                    if third_m["teams"][0] in ["TBD", None]: third_m["teams"][0] = get_loser(sf[0])
+                                    if third_m["teams"][1] in ["TBD", None]: third_m["teams"][1] = get_loser(sf[1])
 
                     elif config["type"] == "world_cup":
                         r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]

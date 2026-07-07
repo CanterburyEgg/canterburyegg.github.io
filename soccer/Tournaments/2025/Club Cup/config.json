@@ -1,6 +1,7 @@
 {
   "name": "2025 Club Cup",
   "type": "club_cup",
+  "pro_stats": true,
   "rules": {
     "target_density": 2.0
   },
@@ -8,7 +9,7 @@
     "A": ["Haverford Black", "New York Empire", "Oslo Vikinger", "Bosphorus Blue"],
     "B": ["Las Vegas Mirage", "Edelweiss Zurich", "Castellano Madrid", "Thurston FC West"],
     "C": ["Sisu Helsinki", "Le Rocher Monaco", "Stella Grey", "Los Angeles Syndicate"],
-    "D": ["Fursan Al-Arab", "Chateau Roux", "Toronto Blizzard", "Bohemian Gryphons"]
+    "D": ["Fursan al-Arab", "Chateau Roux", "Toronto Blizzard", "Bohemian Gryphons"]
   },
   "playoffs": {
     "rounds": [
