@@ -1,0 +1,74 @@
+{
+  "name": "Denver Torrent",
+  "ratings": {
+    "offense": 3,
+    "speed": 6,
+    "defense": 7,
+    "gk": 5
+  },
+  "players": [
+    {
+      "name": "Edgar Rojas",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Geraldo Faife",
+      "shot_prop": 26,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Hassan Mohammadi",
+      "shot_prop": 25,
+      "assist_prop": 11,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Javier Giraldo",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 29,
+      "pos": "DEF"
+    },
+    {
+      "name": "Abdoul Oumarou",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Kim Min-Jun",
+      "shot_prop": 13,
+      "assist_prop": 18,
+      "stop_prop": 8,
+      "pos": "MID"
+    },
+    {
+      "name": "Diego Correia",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 27,
+      "pos": "DEF"
+    },
+    {
+      "name": "Ricardo Mejia",
+      "shot_prop": 9,
+      "assist_prop": 17,
+      "stop_prop": 6,
+      "pos": "MID"
+    },
+    {
+      "name": "Hugh McAuley",
+      "shot_prop": 12,
+      "assist_prop": 16,
+      "stop_prop": 8,
+      "pos": "MID"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+Match: Montreal Coureurs vs San Jose Relampago
+(check=1) Minute 1: no shot.
+(check=27) Minute 2: no shot. (Stop: Vicente Mendez)
+(check=13) Minute 3: no shot.
+(check=38) Minute 4: no shot.
+(check=2) Minute 5: no shot. (Stop: Youssouf M'Changama)
+(check=33) Minute 6: no shot.
+(check=26) Minute 7: no shot.
+(check=2) Minute 8: no shot.
+(check=15) Minute 9: no shot. (Stop: Hamza El Mehdi)
+(check=37) Minute 10: no shot. (Stop: Hamza El Mehdi)
+(check=20) Minute 11: no shot. (Stop: Hamza El Mehdi)
+(check=4) Minute 12: no shot. (Stop: Arthur Kayembe)
+(check=5) Minute 13: no shot. (Stop: Wayne Harrison)
+(check=9) Minute 14: no shot.
+(check=2) Minute 15: no shot.
+(check=2) Minute 16: no shot.
+(check=10) Minute 17: no shot. (Stop: Rafael Borré)
+(check=11) Minute 18: no shot.
+(check=21) Minute 19: no shot.
+(check=30) Minute 20: no shot.
+(check=47) Minute 21: (t1check=38, t2check=12, check1=8, check2=9) Arthur Kayembe missed shot. (Stop: Hamza El Mehdi)
+(check=11) Minute 22: no shot.
+(check=37) Minute 23: no shot. (Stop: Rafael Borré)
+(check=2) Minute 24: no shot.
+(check=33) Minute 25: no shot.
+(check=17) Minute 26: no shot.
+(check=36) Minute 27: no shot. (Stop: Reinildo Dove)
+(check=11) Minute 28: no shot.
+(check=26) Minute 29: no shot.
+(check=5) Minute 30: no shot.
+(check=24) Minute 31: no shot.
+(check=19) Minute 32: no shot. (Stop: Arthur Kayembe)
+(check=1) Minute 33: no shot. (Stop: Youssouf M'Changama)
+(check=20) Minute 34: no shot.
+(check=28) Minute 35: no shot.
+(check=11) Minute 36: no shot.
+(check=24) Minute 37: no shot. (Stop: Hamza El Mehdi)
+(check=25) Minute 38: no shot. (Stop: Arthur Kayembe)
+(check=25) Minute 39: no shot.
+(check=13) Minute 40: no shot.
+(check=13) Minute 41: no shot.
+(check=43) Minute 42: (t1check=44, t2check=64, check1=41, check2=43) (goalchk1=23, goalchk2=16) Domingo Roldan shot on goal. Youssouf M'Changama SAVE!
+(check=26) Minute 43: no shot. (Stop: Arthur Kayembe)
+(check=50) Minute 44: (t1check=79, t2check=42, check1=33, check2=34) (goalchk1=30, goalchk2=24) Matti Jokinen shot on goal. Hamza El Mehdi SAVE!
+(check=35) Minute 45: no shot.
+(check=44) Minute 46: (t1check=81, t2check=50, check1=47, check2=48) (goalchk1=9, goalchk2=3) Santiago Barrios shot on goal. Hamza El Mehdi SAVE!
+(check=26) Minute 47: no shot.
+(check=40) Minute 48: (t1check=75, t2check=73, check1=44, check2=45) (goalchk1=49, goalchk2=43) Youssouf M'Changama GOAL!!! (Ast: Arthur Kayembe) Score: 1-0
+(check=16) Minute 49: no shot. (Stop: Armando Dominguez)
+(check=8) Minute 50: no shot. (Stop: Hamza El Mehdi)
+(check=23) Minute 51: no shot. (Stop: Francis Baptiste)
+(check=42) Minute 52: (t1check=37, t2check=66, check1=46, check2=48) (goalchk1=40, goalchk2=33) Jorge Sanchez GOAL!!! Score: 1-1
+(check=2) Minute 53: no shot.
+(check=2) Minute 54: no shot.
+(check=29) Minute 55: no shot.
+(check=45) Minute 56: (t1check=42, t2check=37, check1=3, check2=4) Rafael Tejeda missed shot. (Stop: Reinildo Dove)
+(check=50) Minute 57: (t1check=24, t2check=35, check1=21, check2=23) Hamza El Mehdi missed shot. (Stop: Vicente Mendez)
+(check=17) Minute 58: no shot.
+(check=8) Minute 59: no shot.
+(check=31) Minute 60: no shot.
+(check=5) Minute 61: no shot.
+(check=18) Minute 62: no shot. (Stop: Rafael Tejeda)
+(check=30) Minute 63: no shot.
+(check=46) Minute 64: (t1check=10, t2check=22, check1=6, check2=8) Domingo Roldan missed shot. (Stop: Armando Dominguez)
+(check=12) Minute 65: no shot.
+(check=45) Minute 66: (t1check=57, t2check=65, check1=29, check2=31) (goalchk1=1, goalchk2=-6) Hamza El Mehdi shot on goal. Youssouf M'Changama SAVE!
+(check=28) Minute 67: no shot. (Stop: Francis Baptiste)
+(check=46) Minute 68: (t1check=80, t2check=11, check1=6, check2=7) Matti Jokinen missed shot. (Stop: Reinildo Dove)
+(check=35) Minute 69: no shot. (Stop: Youssouf M'Changama)
+(check=25) Minute 70: no shot. (Stop: Armando Dominguez)
+(check=42) Minute 71: (t1check=79, t2check=33, check1=8, check2=9) Matti Jokinen missed shot. (Stop: Rafael Borré)
+(check=16) Minute 72: no shot.
+(check=39) Minute 73: (t1check=46, t2check=63, check1=31, check2=33) (goalchk1=9, goalchk2=2) Edwin Lopez shot on goal. Youssouf M'Changama SAVE!
+(check=8) Minute 74: no shot. (Stop: Edwin Lopez)
+(check=40) Minute 75: (t1check=57, t2check=43, check1=6, check2=7) Wayne Harrison missed shot. (Stop: Hamza El Mehdi)
+(check=47) Minute 76: (t1check=15, t2check=46, check1=11, check2=13) Domingo Roldan missed shot. (Stop: Armando Dominguez)
+(check=4) Minute 77: no shot.
+(check=22) Minute 78: no shot. (Stop: Reinildo Dove)
+(check=12) Minute 79: no shot. (Stop: Rafael Borré)
+(check=36) Minute 80: no shot.
+(check=43) Minute 81: (t1check=37, t2check=9, check1=36, check2=37) (goalchk1=49, goalchk2=43) Vicente Mendez GOAL!!! (Ast: Rafael Tejeda) Score: 2-1
+(check=34) Minute 82: no shot.
+(check=39) Minute 83: (t1check=47, t2check=50, check1=19, check2=21) Reinildo Dove missed shot. (Stop: Vicente Mendez)
+(check=48) Minute 84: (t1check=70, t2check=51, check1=46, check2=47) (goalchk1=47, goalchk2=41) Wayne Harrison GOAL!!! (Ast: Santiago Barrios) Score: 3-1
+(check=7) Minute 85: no shot.
+(check=21) Minute 86: no shot.
+(check=18) Minute 87: no shot. (Stop: Francis Baptiste)
+(check=7) Minute 88: no shot.
+(check=33) Minute 89: no shot.
+(check=25) Minute 90: no shot.
+Final score: 3-1

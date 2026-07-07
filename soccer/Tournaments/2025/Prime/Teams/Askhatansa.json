@@ -1,0 +1,74 @@
+{
+  "name": "Askhatansa",
+  "ratings": {
+    "offense": 9,
+    "speed": 7,
+    "defense": 4,
+    "gk": 8
+  },
+  "players": [
+    {
+      "name": "Jean-Pierre de Clercq",
+      "shot_prop": 29,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Neil Griffith",
+      "shot_prop": 26,
+      "assist_prop": 10,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Vicente Acuna",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Peter Meijer",
+      "shot_prop": 14,
+      "assist_prop": 17,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Desmond Bonnet",
+      "shot_prop": 9,
+      "assist_prop": 17,
+      "stop_prop": 12,
+      "pos": "MID"
+    },
+    {
+      "name": "Roy Foster",
+      "shot_prop": 7,
+      "assist_prop": 15,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Vu Hung Dung",
+      "shot_prop": 5,
+      "assist_prop": 4,
+      "stop_prop": 29,
+      "pos": "DEF"
+    },
+    {
+      "name": "Hiroshi Itakura",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 18,
+      "pos": "DEF"
+    },
+    {
+      "name": "Young-gwon Hwang",
+      "shot_prop": 5,
+      "assist_prop": 13,
+      "stop_prop": 19,
+      "pos": "DEF"
+    }
+  ]
+}

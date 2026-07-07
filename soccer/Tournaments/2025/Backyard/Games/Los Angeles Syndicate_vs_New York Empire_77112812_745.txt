@@ -1,0 +1,92 @@
+Match: Los Angeles Syndicate vs New York Empire
+(check=28) Minute 1: no shot.
+(check=25) Minute 2: no shot. (Stop: Helgi Magnusson)
+(check=25) Minute 3: no shot.
+(check=30) Minute 4: no shot. (Stop: Nicholas Persad)
+(check=15) Minute 5: no shot.
+(check=24) Minute 6: no shot.
+(check=28) Minute 7: no shot.
+(check=46) Minute 8: (t1check=47, t2check=26, check1=24, check2=24) Nicolas Montero missed shot. (Stop: Miguel Ortega)
+(check=32) Minute 9: no shot.
+(check=41) Minute 10: (t1check=54, t2check=16, check1=34, check2=34) (goalchk1=11, goalchk2=7) Nicolas Montero shot on goal. Orlando Centeno SAVE!
+(check=33) Minute 11: no shot. (Stop: Frantz Germaine)
+(check=42) Minute 12: (t1check=32, t2check=81, check1=3, check2=6) Raul Ortiz missed shot. (Stop: Brandon Boyd)
+(check=8) Minute 13: no shot.
+(check=38) Minute 14: no shot.
+(check=9) Minute 15: no shot. (Stop: Lorenzo Marte)
+(check=2) Minute 16: no shot.
+(check=41) Minute 17: (t1check=62, t2check=65, check1=15, check2=18) Helmut Lange missed shot. (Stop: Nicholas Persad)
+(check=21) Minute 18: no shot.
+(check=37) Minute 19: no shot.
+(check=22) Minute 20: no shot.
+(check=23) Minute 21: no shot. (Stop: Pedro Flores)
+(check=41) Minute 22: (t1check=23, t2check=75, check1=33, check2=36) (goalchk1=19, goalchk2=11) Miguel Ortega shot on goal. Brandon Boyd SAVE!
+(check=6) Minute 23: no shot. (Stop: Nicholas Persad)
+(check=3) Minute 24: no shot.
+(check=34) Minute 25: no shot.
+(check=27) Minute 26: no shot.
+(check=38) Minute 27: no shot.
+(check=21) Minute 28: no shot.
+(check=12) Minute 29: no shot.
+(check=17) Minute 30: no shot.
+(check=43) Minute 31: (t1check=28, t2check=59, check1=16, check2=19) Helmut Lange missed shot. (Stop: Milan Marjanovic)
+(check=45) Minute 32: (t1check=45, t2check=25, check1=27, check2=27) Nicolae Popescu missed shot. (Stop: Miguel Ortega)
+(check=26) Minute 33: no shot.
+(check=1) Minute 34: no shot.
+(check=22) Minute 35: no shot.
+(check=9) Minute 36: no shot.
+(check=15) Minute 37: no shot.
+(check=35) Minute 38: no shot. (Stop: Lorenzo Marte)
+(check=43) Minute 39: (t1check=26, t2check=42, check1=47, check2=50) (goalchk1=9, goalchk2=1) Orlando Centeno shot on goal. Brandon Boyd SAVE!
+(check=26) Minute 40: no shot.
+(check=13) Minute 41: no shot.
+(check=1) Minute 42: no shot.
+(check=14) Minute 43: no shot. (Stop: Silas McBride)
+(check=37) Minute 44: no shot.
+(check=36) Minute 45: no shot. (Stop: Frantz Germaine)
+(check=6) Minute 46: no shot.
+(check=42) Minute 47: (t1check=36, t2check=77, check1=35, check2=38) (goalchk1=15, goalchk2=7) Raul Ortiz shot on goal. Brandon Boyd SAVE!
+(check=38) Minute 48: no shot.
+(check=46) Minute 49: (t1check=72, t2check=30, check1=48, check2=48) (goalchk1=41, goalchk2=37) Milan Marjanovic GOAL!!! Score: 1-0
+(check=48) Minute 50: (t1check=33, t2check=76, check1=26, check2=29) Silas McBride missed shot. (Stop: Brandon Boyd)
+(check=18) Minute 51: no shot. (Stop: Lorenzo Marte)
+(check=41) Minute 52: (t1check=22, t2check=20, check1=33, check2=33) (goalchk1=50, goalchk2=46) Milan Marjanovic GOAL!!! (Ast: Pedro Flores) Score: 2-0
+(check=33) Minute 53: no shot.
+(check=44) Minute 54: (t1check=29, t2check=47, check1=13, check2=16) Helgi Magnusson missed shot. (Stop: Nicholas Persad)
+(check=14) Minute 55: no shot.
+(check=40) Minute 56: (t1check=24, t2check=15, check1=39, check2=39) (goalchk1=26, goalchk2=22) Brandon Boyd shot on goal. Orlando Centeno SAVE!
+(check=24) Minute 57: no shot.
+(check=11) Minute 58: no shot.
+(check=1) Minute 59: no shot.
+(check=15) Minute 60: no shot.
+(check=50) Minute 61: (t1check=51, t2check=67, check1=41, check2=44) (goalchk1=44, goalchk2=36) Nick Hamburger GOAL!!! (Ast: Silas McBride) Score: 2-1
+(check=6) Minute 62: no shot.
+(check=37) Minute 63: no shot.
+(check=18) Minute 64: no shot.
+(check=40) Minute 65: (t1check=52, t2check=9, check1=8, check2=8) Brandon Boyd missed shot. (Stop: Miguel Ortega)
+(check=14) Minute 66: no shot.
+(check=16) Minute 67: no shot.
+(check=22) Minute 68: no shot. (Stop: Brandon Boyd)
+(check=38) Minute 69: no shot. (Stop: Frantz Germaine)
+(check=24) Minute 70: no shot.
+(check=48) Minute 71: (t1check=58, t2check=81, check1=37, check2=40) (goalchk1=12, goalchk2=4) Helmut Lange shot on goal. Brandon Boyd SAVE!
+(check=25) Minute 72: no shot.
+(check=20) Minute 73: no shot. (Stop: Sawyer Marshall)
+(check=40) Minute 74: (t1check=17, t2check=65, check1=6, check2=9) Miguel Ortega missed shot. (Stop: Sawyer Marshall)
+(check=20) Minute 75: no shot. (Stop: Silas McBride)
+(check=33) Minute 76: no shot.
+(check=36) Minute 77: no shot.
+(check=48) Minute 78: (t1check=45, t2check=57, check1=10, check2=13) Nick Hamburger missed shot. (Stop: Nicholas Persad)
+(check=11) Minute 79: no shot.
+(check=11) Minute 80: no shot.
+(check=43) Minute 81: (t1check=38, t2check=59, check1=13, check2=16) Raul Ortiz missed shot. (Stop: Brandon Boyd)
+(check=20) Minute 82: no shot.
+(check=16) Minute 83: no shot. (Stop: Miguel Ortega)
+(check=12) Minute 84: no shot.
+(check=17) Minute 85: no shot.
+(check=47) Minute 86: (t1check=14, t2check=57, check1=21, check2=24) Helgi Magnusson missed shot. (Stop: Nicholas Persad)
+(check=49) Minute 87: (t1check=13, t2check=72, check1=9, check2=12) Helgi Magnusson missed shot. (Stop: Nicholas Persad)
+(check=37) Minute 88: no shot.
+(check=9) Minute 89: no shot.
+(check=43) Minute 90: (t1check=72, t2check=54, check1=37, check2=37) (goalchk1=12, goalchk2=8) Nicolas Montero shot on goal. Orlando Centeno SAVE!
+Final score: 2-1

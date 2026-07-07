@@ -1,0 +1,74 @@
+{
+  "name": "Korona Warsaw",
+  "ratings": {
+    "offense": 5,
+    "speed": 6,
+    "defense": 7,
+    "gk": 8
+  },
+  "players": [
+    {
+      "name": "Janos Meszaros",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Slobodan Radic",
+      "shot_prop": 27,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Vaclav Dvorak",
+      "shot_prop": 27,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Tomasz Zajac",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 30,
+      "pos": "DEF"
+    },
+    {
+      "name": "Karl Olsson",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 28,
+      "pos": "DEF"
+    },
+    {
+      "name": "Branko Novac",
+      "shot_prop": 11,
+      "assist_prop": 21,
+      "stop_prop": 7,
+      "pos": "MID"
+    },
+    {
+      "name": "Bajram Sylejmani",
+      "shot_prop": 9,
+      "assist_prop": 20,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Aleksandr Kallas",
+      "shot_prop": 11,
+      "assist_prop": 19,
+      "stop_prop": 7,
+      "pos": "MID"
+    },
+    {
+      "name": "Marcel Roth",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 19,
+      "pos": "DEF"
+    }
+  ]
+}

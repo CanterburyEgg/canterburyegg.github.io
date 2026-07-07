@@ -1,0 +1,74 @@
+{
+  "name": "Los Angeles Syndicate",
+  "ratings": {
+    "offense": 7,
+    "speed": 7,
+    "defense": 5,
+    "gk": 8
+  },
+  "players": [
+    {
+      "name": "Nicolae Popescu",
+      "shot_prop": 26,
+      "assist_prop": 9,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Nicolas Montero",
+      "shot_prop": 25,
+      "assist_prop": 9,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Pedro Flores",
+      "shot_prop": 14,
+      "assist_prop": 18,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Milan Marjanovic",
+      "shot_prop": 9,
+      "assist_prop": 18,
+      "stop_prop": 15,
+      "pos": "MID"
+    },
+    {
+      "name": "Dmitriy Shevchenko",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Sawyer Marshall",
+      "shot_prop": 11,
+      "assist_prop": 17,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Nicholas Persad",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Frantz Germaine",
+      "shot_prop": 5,
+      "assist_prop": 11,
+      "stop_prop": 20,
+      "pos": "DEF"
+    },
+    {
+      "name": "Brandon Boyd",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 20,
+      "pos": "DEF"
+    }
+  ]
+}

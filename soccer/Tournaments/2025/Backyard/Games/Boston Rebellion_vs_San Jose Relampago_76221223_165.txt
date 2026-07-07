@@ -1,0 +1,92 @@
+Match: Boston Rebellion vs San Jose Relampago
+(check=10) Minute 1: no shot. (Stop: Edwin Lopez)
+(check=24) Minute 2: no shot.
+(check=30) Minute 3: no shot.
+(check=24) Minute 4: no shot.
+(check=17) Minute 5: no shot.
+(check=46) Minute 6: (t1check=25, t2check=41, check1=17, check2=19) Edwin Lopez missed shot. (Stop: Edward Gauthier)
+(check=24) Minute 7: no shot.
+(check=47) Minute 8: (t1check=37, t2check=60, check1=21, check2=23) Reinildo Dove missed shot. (Stop: Ernesto Cordoba)
+(check=24) Minute 9: no shot. (Stop: Edward Gauthier)
+(check=43) Minute 10: (t1check=22, t2check=6, check1=3, check2=3) Francisco Castillo missed shot. (Stop: Hamza El Mehdi)
+(check=14) Minute 11: no shot.
+(check=16) Minute 12: no shot.
+(check=34) Minute 13: no shot. (Stop: Francis Baptiste)
+(check=49) Minute 14: (t1check=52, t2check=18, check1=11, check2=11) Sharaf El Hadi missed shot. (Stop: Rafael Borré)
+(check=26) Minute 15: no shot.
+(check=43) Minute 16: (t1check=56, t2check=78, check1=47, check2=49) (goalchk1=5, goalchk2=-3) Jordan Amartey shot on goal. Brooks Hollister SAVE!
+(check=4) Minute 17: no shot.
+(check=1) Minute 18: no shot. (Stop: Francis Baptiste)
+(check=35) Minute 19: no shot.
+(check=29) Minute 20: no shot.
+(check=43) Minute 21: (t1check=75, t2check=9, check1=32, check2=32) (goalchk1=28, goalchk2=22) Sharaf El Hadi shot on goal. Hamza El Mehdi SAVE!
+(check=4) Minute 22: no shot.
+(check=41) Minute 23: (t1check=43, t2check=34, check1=23, check2=23) Edward Gauthier missed shot. (Stop: Francis Baptiste)
+(check=23) Minute 24: no shot.
+(check=36) Minute 25: no shot. (Stop: Francis Baptiste)
+(check=39) Minute 26: (t1check=65, t2check=33, check1=22, check2=22) Ben Ben Nabouhane missed shot. (Stop: Edwin Lopez)
+(check=24) Minute 27: no shot. (Stop: Reinildo Dove)
+(check=35) Minute 28: no shot.
+(check=17) Minute 29: no shot.
+(check=46) Minute 30: (t1check=31, t2check=19, check1=23, check2=23) Ben Ben Nabouhane missed shot. (Stop: Rafael Borré)
+(check=1) Minute 31: no shot. (Stop: Reinildo Dove)
+(check=35) Minute 32: no shot.
+(check=40) Minute 33: (t1check=84, t2check=27, check1=25, check2=25) Sharaf El Hadi missed shot. (Stop: Hamza El Mehdi)
+(check=39) Minute 34: (t1check=27, t2check=51, check1=29, check2=31) (goalchk1=32, goalchk2=24) Rafael Borré shot on goal. Brooks Hollister SAVE!
+(check=41) Minute 35: (t1check=12, t2check=20, check1=14, check2=16) Jorge Sanchez missed shot. (Stop: Francisco Castillo)
+(check=13) Minute 36: no shot.
+(check=43) Minute 37: (t1check=44, t2check=28, check1=6, check2=6) Sergio Almeida missed shot. (Stop: Reinildo Dove)
+(check=22) Minute 38: no shot. (Stop: Reinildo Dove)
+(check=7) Minute 39: no shot.
+(check=8) Minute 40: no shot.
+(check=48) Minute 41: (t1check=58, t2check=32, check1=24, check2=24) Sharaf El Hadi missed shot. (Stop: Rafael Borré)
+(check=50) Minute 42: (t1check=31, t2check=75, check1=3, check2=5) Domingo Roldan missed shot. (Stop: Jean-Philippe Saïko)
+(check=4) Minute 43: no shot.
+(check=49) Minute 44: (t1check=57, t2check=75, check1=12, check2=14) Jordan Amartey missed shot. (Stop: Ernesto Cordoba)
+(check=29) Minute 45: no shot.
+(check=9) Minute 46: no shot.
+(check=32) Minute 47: no shot. (Stop: Hamza El Mehdi)
+(check=23) Minute 48: no shot.
+(check=22) Minute 49: no shot.
+(check=29) Minute 50: no shot.
+(check=21) Minute 51: no shot.
+(check=7) Minute 52: no shot.
+(check=44) Minute 53: (t1check=40, t2check=64, check1=9, check2=11) Jorge Sanchez missed shot. (Stop: Brooks Hollister)
+(check=40) Minute 54: (t1check=36, t2check=47, check1=39, check2=41) (goalchk1=36, goalchk2=28) Domingo Roldan GOAL!!! Score: 0-1
+(check=21) Minute 55: no shot.
+(check=13) Minute 56: no shot.
+(check=26) Minute 57: no shot. (Stop: Brooks Hollister)
+(check=19) Minute 58: no shot.
+(check=37) Minute 59: no shot.
+(check=48) Minute 60: (t1check=40, t2check=15, check1=17, check2=17) Sharaf El Hadi missed shot. (Stop: Francis Baptiste)
+(check=13) Minute 61: no shot. (Stop: Edward Gauthier)
+(check=16) Minute 62: no shot. (Stop: Reinildo Dove)
+(check=32) Minute 63: no shot.
+(check=19) Minute 64: no shot.
+(check=32) Minute 65: no shot.
+(check=26) Minute 66: no shot.
+(check=12) Minute 67: no shot. (Stop: Jorge Sanchez)
+(check=5) Minute 68: no shot. (Stop: Reinildo Dove)
+(check=11) Minute 69: no shot. (Stop: Reinildo Dove)
+(check=26) Minute 70: no shot.
+(check=10) Minute 71: no shot.
+(check=37) Minute 72: no shot.
+(check=20) Minute 73: no shot.
+(check=39) Minute 74: (t1check=66, t2check=5, check1=5, check2=5) Sharaf El Hadi missed shot. (Stop: Reinildo Dove)
+(check=13) Minute 75: no shot.
+(check=16) Minute 76: no shot.
+(check=37) Minute 77: no shot.
+(check=2) Minute 78: no shot. (Stop: Francisco Castillo)
+(check=42) Minute 79: (t1check=38, t2check=15, check1=29, check2=29) Ben Ben Nabouhane missed shot. (Stop: Reinildo Dove)
+(check=3) Minute 80: no shot. (Stop: Ernesto Cordoba)
+(check=41) Minute 81: (t1check=49, t2check=36, check1=16, check2=16) Ben Ben Nabouhane missed shot. (Stop: Rafael Borré)
+(check=5) Minute 82: no shot.
+(check=12) Minute 83: no shot. (Stop: Francisco Castillo)
+(check=40) Minute 84: (t1check=70, t2check=29, check1=43, check2=43) (goalchk1=30, goalchk2=24) Edward Gauthier shot on goal. Hamza El Mehdi SAVE!
+(check=8) Minute 85: no shot.
+(check=39) Minute 86: (t1check=81, t2check=44, check1=47, check2=47) (goalchk1=43, goalchk2=37) Francisco Castillo GOAL!!! (Ast: Sharaf El Hadi) Score: 1-1
+(check=30) Minute 87: no shot.
+(check=38) Minute 88: no shot.
+(check=6) Minute 89: no shot.
+(check=43) Minute 90: (t1check=26, t2check=50, check1=46, check2=48) (goalchk1=33, goalchk2=25) Jordan Amartey shot on goal. Brooks Hollister SAVE!
+Final score: 1-1

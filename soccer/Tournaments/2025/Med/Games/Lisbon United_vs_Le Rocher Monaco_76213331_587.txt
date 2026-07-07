@@ -1,0 +1,92 @@
+Match: Lisbon United vs Le Rocher Monaco
+(check=42) Minute 1: (t1check=68, t2check=29, check1=18, check2=21) Sergio Martino missed shot. (Stop: Alejandro Garcia)
+(check=35) Minute 2: no shot. (Stop: Mohamed Benyahia)
+(check=34) Minute 3: no shot.
+(check=15) Minute 4: no shot.
+(check=40) Minute 5: (t1check=17, t2check=60, check1=3, check2=4) Alejandro Garcia missed shot. (Stop: Stjepan Novosel)
+(check=16) Minute 6: no shot.
+(check=14) Minute 7: no shot.
+(check=43) Minute 8: (t1check=34, t2check=81, check1=13, check2=14) Alejandro Garcia missed shot. (Stop: Gerardo Perez)
+(check=16) Minute 9: no shot. (Stop: Stjepan Novosel)
+(check=39) Minute 10: (t1check=80, t2check=35, check1=29, check2=32) (goalchk1=39, goalchk2=33) Giovanni Ricci GOAL!!! Score: 1-0
+(check=20) Minute 11: no shot. (Stop: Francesco Caruso)
+(check=26) Minute 12: no shot.
+(check=41) Minute 13: (t1check=65, t2check=72, check1=7, check2=8) Alejandro Garcia missed shot. (Stop: Marcelo da Silva)
+(check=8) Minute 14: no shot. (Stop: Mohamed Benyahia)
+(check=18) Minute 15: no shot.
+(check=15) Minute 16: no shot.
+(check=37) Minute 17: no shot.
+(check=16) Minute 18: no shot. (Stop: Stjepan Novosel)
+(check=37) Minute 19: no shot.
+(check=48) Minute 20: (t1check=75, t2check=27, check1=50, check2=53) (goalchk1=49, goalchk2=43) Giovanni Ricci GOAL!!! (Ast: Dimitrios Papadopoulos) Score: 2-0
+(check=18) Minute 21: no shot. (Stop: Stjepan Novosel)
+(check=46) Minute 22: (t1check=70, t2check=74, check1=47, check2=48) (goalchk1=7, goalchk2=0) Didier Diomande shot on goal. German Salazar SAVE!
+(check=16) Minute 23: no shot. (Stop: Bassel Haidar)
+(check=17) Minute 24: no shot.
+(check=27) Minute 25: no shot.
+(check=37) Minute 26: no shot.
+(check=41) Minute 27: (t1check=77, t2check=32, check1=20, check2=23) Giovanni Ricci missed shot. (Stop: Alejandro Garcia)
+(check=23) Minute 28: no shot.
+(check=43) Minute 29: (t1check=43, t2check=9, check1=20, check2=23) Marcelo da Silva missed shot. (Stop: Mohamed Benyahia)
+(check=13) Minute 30: no shot.
+(check=10) Minute 31: no shot.
+(check=2) Minute 32: no shot.
+(check=21) Minute 33: no shot. (Stop: Dimitrios Papadopoulos)
+(check=5) Minute 34: no shot.
+(check=41) Minute 35: (t1check=17, t2check=41, check1=46, check2=47) (goalchk1=39, goalchk2=32) Alejandro Garcia GOAL!!! Score: 2-1
+(check=35) Minute 36: no shot.
+(check=36) Minute 37: no shot. (Stop: Stjepan Novosel)
+(check=3) Minute 38: no shot. (Stop: Ilir Hoxha)
+(check=14) Minute 39: no shot. (Stop: Gerardo Perez)
+(check=33) Minute 40: no shot. (Stop: Bassel Haidar)
+(check=22) Minute 41: no shot. (Stop: Mohamed Benyahia)
+(check=40) Minute 42: (t1check=64, t2check=60, check1=23, check2=26) German Salazar missed shot. (Stop: Ilir Hoxha)
+(check=23) Minute 43: no shot. (Stop: Dimitrios Papadopoulos)
+(check=20) Minute 44: no shot.
+(check=41) Minute 45: (t1check=43, t2check=21, check1=37, check2=40) (goalchk1=26, goalchk2=20) German Salazar shot on goal. Bassel Haidar SAVE!
+(check=45) Minute 46: (t1check=39, t2check=70, check1=38, check2=39) (goalchk1=50, goalchk2=43) Alvaro Vazquez GOAL!!! Score: 2-2
+(check=5) Minute 47: no shot.
+(check=46) Minute 48: (t1check=21, t2check=35, check1=23, check2=24) Leandro Cordeiro missed shot. (Stop: Gerardo Perez)
+(check=2) Minute 49: no shot. (Stop: Stjepan Novosel)
+(check=34) Minute 50: no shot.
+(check=33) Minute 51: no shot. (Stop: Francesco Caruso)
+(check=38) Minute 52: no shot.
+(check=29) Minute 53: no shot. (Stop: Mohamed Benyahia)
+(check=4) Minute 54: no shot. (Stop: Ilir Hoxha)
+(check=50) Minute 55: (t1check=31, t2check=78, check1=45, check2=46) (goalchk1=14, goalchk2=7) Leandro Cordeiro shot on goal. German Salazar SAVE!
+(check=12) Minute 56: no shot.
+(check=49) Minute 57: (t1check=66, t2check=31, check1=16, check2=19) Stjepan Novosel missed shot. (Stop: Mohamed Benyahia)
+(check=40) Minute 58: (t1check=17, t2check=82, check1=17, check2=18) Leandro Cordeiro missed shot. (Stop: Francesco Caruso)
+(check=47) Minute 59: (t1check=13, t2check=79, check1=42, check2=43) (goalchk1=29, goalchk2=22) Ilir Hoxha shot on goal. German Salazar SAVE!
+(check=36) Minute 60: no shot. (Stop: Dimitrios Papadopoulos)
+(check=45) Minute 61: (t1check=42, t2check=63, check1=46, check2=47) (goalchk1=37, goalchk2=30) Alvaro Vazquez GOAL!!! (Ast: Leandro Cordeiro) Score: 2-3
+(check=39) Minute 62: (t1check=18, t2check=80, check1=34, check2=35) (goalchk1=49, goalchk2=42) Didier Diomande GOAL!!! (Ast: Alejandro Garcia) Score: 2-4
+(check=29) Minute 63: no shot.
+(check=49) Minute 64: (t1check=76, t2check=38, check1=18, check2=21) Giovanni Ricci missed shot. (Stop: Ilir Hoxha)
+(check=41) Minute 65: (t1check=81, t2check=14, check1=36, check2=39) (goalchk1=26, goalchk2=20) Sergio Martino shot on goal. Bassel Haidar SAVE!
+(check=30) Minute 66: no shot. (Stop: Salvatore Moretti)
+(check=4) Minute 67: no shot.
+(check=37) Minute 68: no shot.
+(check=30) Minute 69: no shot.
+(check=35) Minute 70: no shot. (Stop: Alejandro Garcia)
+(check=28) Minute 71: no shot.
+(check=33) Minute 72: no shot.
+(check=13) Minute 73: no shot.
+(check=21) Minute 74: no shot.
+(check=1) Minute 75: no shot.
+(check=1) Minute 76: no shot.
+(check=48) Minute 77: (t1check=69, t2check=34, check1=12, check2=15) Marcelo da Silva missed shot. (Stop: Bassel Haidar)
+(check=1) Minute 78: no shot.
+(check=27) Minute 79: no shot. (Stop: Francesco Caruso)
+(check=49) Minute 80: (t1check=78, t2check=59, check1=23, check2=26) Marcelo da Silva missed shot. (Stop: Alvaro Vazquez)
+(check=36) Minute 81: no shot. (Stop: Bassel Haidar)
+(check=31) Minute 82: no shot. (Stop: Gerardo Perez)
+(check=9) Minute 83: no shot.
+(check=12) Minute 84: no shot.
+(check=24) Minute 85: no shot.
+(check=48) Minute 86: (t1check=52, t2check=31, check1=21, check2=24) Sergio Martino missed shot. (Stop: Alvaro Vazquez)
+(check=36) Minute 87: no shot.
+(check=19) Minute 88: no shot.
+(check=21) Minute 89: no shot.
+(check=14) Minute 90: no shot.
+Final score: 2-4

@@ -1,0 +1,74 @@
+{
+  "name": "Stedham Journeymen",
+  "ratings": {
+    "offense": 5,
+    "speed": 7,
+    "defense": 7,
+    "gk": 5
+  },
+  "players": [
+    {
+      "name": "Joao Pereira",
+      "shot_prop": 25,
+      "assist_prop": 13,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Eamon Murphy",
+      "shot_prop": 8,
+      "assist_prop": 19,
+      "stop_prop": 15,
+      "pos": "MID"
+    },
+    {
+      "name": "Stefan Winter",
+      "shot_prop": 13,
+      "assist_prop": 19,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Mohamed Alaoui",
+      "shot_prop": 27,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Wilmer Paz",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Pieter van Vliet",
+      "shot_prop": 12,
+      "assist_prop": 18,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Craig Henderson",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 28,
+      "pos": "DEF"
+    },
+    {
+      "name": "Moses Okeke",
+      "shot_prop": 5,
+      "assist_prop": 13,
+      "stop_prop": 17,
+      "pos": "DEF"
+    },
+    {
+      "name": "Harry Souttar",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 22,
+      "pos": "DEF"
+    }
+  ]
+}

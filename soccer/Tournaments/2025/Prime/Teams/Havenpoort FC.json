@@ -1,0 +1,74 @@
+{
+  "name": "Havenpoort FC",
+  "ratings": {
+    "offense": 5,
+    "speed": 8,
+    "defense": 6,
+    "gk": 7
+  },
+  "players": [
+    {
+      "name": "Jacques Lemaire",
+      "shot_prop": 12,
+      "assist_prop": 25,
+      "stop_prop": 15,
+      "pos": "MID"
+    },
+    {
+      "name": "Ruben Schar",
+      "shot_prop": 11,
+      "assist_prop": 20,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Kalidou Koulibaly",
+      "shot_prop": 10,
+      "assist_prop": 19,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Alain Goossens",
+      "shot_prop": 28,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Mickael Caron",
+      "shot_prop": 24,
+      "assist_prop": 10,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Mario Morales",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Esteban Maidana",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Denis Kizito",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 18,
+      "pos": "DEF"
+    },
+    {
+      "name": "Andritany Dimas",
+      "shot_prop": 5,
+      "assist_prop": 4,
+      "stop_prop": 21,
+      "pos": "DEF"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "Celtic Cross FC",
+  "ratings": {
+    "offense": 7,
+    "speed": 4,
+    "defense": 6,
+    "gk": 7
+  },
+  "players": [
+    {
+      "name": "Colin Pugh",
+      "shot_prop": 27,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Marc Renard",
+      "shot_prop": 17,
+      "assist_prop": 17,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Kenneth Wright",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Leslie Knight",
+      "shot_prop": 23,
+      "assist_prop": 13,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Darren King",
+      "shot_prop": 5,
+      "assist_prop": 15,
+      "stop_prop": 19,
+      "pos": "DEF"
+    },
+    {
+      "name": "Federico Barella",
+      "shot_prop": 7,
+      "assist_prop": 18,
+      "stop_prop": 14,
+      "pos": "MID"
+    },
+    {
+      "name": "Rob Brouwer",
+      "shot_prop": 11,
+      "assist_prop": 15,
+      "stop_prop": 14,
+      "pos": "MID"
+    },
+    {
+      "name": "Geert Verhoeven",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 20,
+      "pos": "DEF"
+    },
+    {
+      "name": "Philip Gibson",
+      "shot_prop": 5,
+      "assist_prop": 7,
+      "stop_prop": 20,
+      "pos": "DEF"
+    }
+  ]
+}

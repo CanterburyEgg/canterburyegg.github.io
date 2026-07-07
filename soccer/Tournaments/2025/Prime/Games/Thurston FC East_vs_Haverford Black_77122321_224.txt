@@ -1,0 +1,92 @@
+Match: Thurston FC East vs Haverford Black
+(check=12) Minute 1: no shot.
+(check=14) Minute 2: no shot.
+(check=28) Minute 3: no shot.
+(check=47) Minute 4: (t1check=69, t2check=23, check1=22, check2=19) Hernan Torres missed shot. (Stop: Theo Tchouameni)
+(check=41) Minute 5: (t1check=34, t2check=37, check1=38, check2=37) (goalchk1=40, goalchk2=38) Charles Stewart GOAL!!! Score: 0-1
+(check=44) Minute 6: (t1check=84, t2check=24, check1=10, check2=7) Adrian Llewellyn missed shot. (Stop: Murray Campbell)
+(check=31) Minute 7: no shot. (Stop: Vitor Correia)
+(check=12) Minute 8: no shot.
+(check=11) Minute 9: no shot.
+(check=36) Minute 10: no shot.
+(check=48) Minute 11: (t1check=80, t2check=37, check1=16, check2=13) Hernan Torres missed shot. (Stop: Theo Tchouameni)
+(check=23) Minute 12: no shot.
+(check=10) Minute 13: no shot.
+(check=47) Minute 14: (t1check=17, t2check=54, check1=27, check2=26) Dragan Petrovic missed shot. (Stop: Mbaye Cisse)
+(check=22) Minute 15: no shot.
+(check=48) Minute 16: (t1check=74, t2check=67, check1=15, check2=12) Bernard Michel missed shot. (Stop: Murray Campbell)
+(check=48) Minute 17: (t1check=13, t2check=59, check1=30, check2=29) Jaime Riquelme missed shot. (Stop: Vitor Correia)
+(check=24) Minute 18: no shot.
+(check=28) Minute 19: no shot.
+(check=36) Minute 20: no shot. (Stop: Jaime Riquelme)
+(check=38) Minute 21: no shot.
+(check=12) Minute 22: no shot. (Stop: Theo Tchouameni)
+(check=40) Minute 23: (t1check=66, t2check=11, check1=7, check2=4) Theo de Boer missed shot. (Stop: Murray Campbell)
+(check=35) Minute 24: no shot.
+(check=7) Minute 25: no shot.
+(check=18) Minute 26: no shot.
+(check=38) Minute 27: no shot. (Stop: Vitor Correia)
+(check=21) Minute 28: no shot.
+(check=18) Minute 29: no shot. (Stop: Terence Kane)
+(check=28) Minute 30: no shot. (Stop: Mbaye Cisse)
+(check=37) Minute 31: no shot.
+(check=23) Minute 32: no shot.
+(check=17) Minute 33: no shot. (Stop: Terence Kane)
+(check=4) Minute 34: no shot.
+(check=20) Minute 35: no shot. (Stop: Murray Campbell)
+(check=48) Minute 36: (t1check=59, t2check=52, check1=45, check2=42) (goalchk1=45, goalchk2=37) Adrian Llewellyn GOAL!!! (Ast: Bernard Michel) Score: 1-1
+(check=41) Minute 37: (t1check=55, t2check=30, check1=37, check2=34) (goalchk1=11, goalchk2=3) Hernan Torres shot on goal. Murray Campbell SAVE!
+(check=10) Minute 38: no shot.
+(check=9) Minute 39: no shot.
+(check=19) Minute 40: no shot.
+(check=41) Minute 41: (t1check=35, t2check=30, check1=28, check2=25) Adrian Llewellyn missed shot. (Stop: Jurgen Richter)
+(check=18) Minute 42: no shot.
+(check=1) Minute 43: no shot.
+(check=9) Minute 44: no shot. (Stop: Vitor Correia)
+(check=11) Minute 45: no shot.
+(check=48) Minute 46: (t1check=37, t2check=40, check1=12, check2=11) Dragan Petrovic missed shot. (Stop: Mbaye Cisse)
+(check=45) Minute 47: (t1check=32, t2check=19, check1=38, check2=35) (goalchk1=15, goalchk2=7) Bernard Michel shot on goal. Murray Campbell SAVE!
+(check=32) Minute 48: no shot. (Stop: Mbaye Cisse)
+(check=17) Minute 49: no shot. (Stop: Murray Campbell)
+(check=23) Minute 50: no shot.
+(check=38) Minute 51: no shot.
+(check=47) Minute 52: (t1check=71, t2check=84, check1=23, check2=22) Jurgen Richter missed shot. (Stop: Mbaye Cisse)
+(check=30) Minute 53: no shot.
+(check=9) Minute 54: no shot.
+(check=46) Minute 55: (t1check=42, t2check=31, check1=37, check2=34) (goalchk1=8, goalchk2=0) Bernard Michel shot on goal. Murray Campbell SAVE!
+(check=31) Minute 56: no shot. (Stop: Adrian Llewellyn)
+(check=1) Minute 57: no shot.
+(check=33) Minute 58: no shot.
+(check=41) Minute 59: (t1check=19, t2check=59, check1=1, check2=0) Andrew Moore missed shot. (Stop: Nigel Maharaj)
+(check=15) Minute 60: no shot.
+(check=9) Minute 61: no shot.
+(check=18) Minute 62: no shot.
+(check=48) Minute 63: (t1check=72, t2check=68, check1=30, check2=27) Hernan Torres missed shot. (Stop: Jurgen Richter)
+(check=9) Minute 64: no shot. (Stop: Jaime Riquelme)
+(check=15) Minute 65: no shot.
+(check=48) Minute 66: (t1check=64, t2check=13, check1=31, check2=28) Bernard Michel missed shot. (Stop: Murray Campbell)
+(check=3) Minute 67: no shot.
+(check=12) Minute 68: no shot.
+(check=33) Minute 69: no shot.
+(check=43) Minute 70: (t1check=31, t2check=27, check1=39, check2=36) (goalchk1=18, goalchk2=10) Vitor Correia shot on goal. Murray Campbell SAVE!
+(check=46) Minute 71: (t1check=25, t2check=19, check1=1, check2=-2) Hernan Torres missed shot. (Stop: Murray Campbell)
+(check=21) Minute 72: no shot.
+(check=46) Minute 73: (t1check=78, t2check=46, check1=48, check2=45) (goalchk1=49, goalchk2=41) Nigel Maharaj GOAL!!! Score: 2-1
+(check=26) Minute 74: no shot.
+(check=19) Minute 75: no shot.
+(check=27) Minute 76: no shot.
+(check=20) Minute 77: no shot.
+(check=18) Minute 78: no shot. (Stop: Terence Kane)
+(check=28) Minute 79: no shot. (Stop: Theo Tchouameni)
+(check=43) Minute 80: (t1check=61, t2check=59, check1=49, check2=46) (goalchk1=7, goalchk2=-1) Theo de Boer shot on goal. Murray Campbell SAVE!
+(check=23) Minute 81: no shot. (Stop: Ko Kamada)
+(check=24) Minute 82: no shot.
+(check=49) Minute 83: (t1check=73, t2check=71, check1=7, check2=4) Hernan Torres missed shot. (Stop: Jurgen Richter)
+(check=39) Minute 84: (t1check=71, t2check=43, check1=7, check2=4) Vitor Correia missed shot. (Stop: Jaime Riquelme)
+(check=34) Minute 85: no shot. (Stop: Mbaye Cisse)
+(check=33) Minute 86: no shot.
+(check=21) Minute 87: no shot.
+(check=5) Minute 88: no shot. (Stop: Adrian Llewellyn)
+(check=9) Minute 89: no shot.
+(check=19) Minute 90: no shot.
+Final score: 2-1

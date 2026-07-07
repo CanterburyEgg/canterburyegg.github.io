@@ -1,0 +1,74 @@
+{
+  "name": "Chicago Surge",
+  "ratings": {
+    "offense": 7,
+    "speed": 5,
+    "defense": 9,
+    "gk": 5
+  },
+  "players": [
+    {
+      "name": "Adriano Campos",
+      "shot_prop": 29,
+      "assist_prop": 8,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Juan Narvaez",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Joseph Clarke",
+      "shot_prop": 29,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Jozsef Szabo",
+      "shot_prop": 5,
+      "assist_prop": 15,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Pedro Reis",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Terezinha Rocha",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 25,
+      "pos": "DEF"
+    },
+    {
+      "name": "James Delva",
+      "shot_prop": 8,
+      "assist_prop": 18,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Peter Ramirez",
+      "shot_prop": 6,
+      "assist_prop": 18,
+      "stop_prop": 7,
+      "pos": "MID"
+    },
+    {
+      "name": "Domingo Ordonez",
+      "shot_prop": 13,
+      "assist_prop": 15,
+      "stop_prop": 8,
+      "pos": "MID"
+    }
+  ]
+}

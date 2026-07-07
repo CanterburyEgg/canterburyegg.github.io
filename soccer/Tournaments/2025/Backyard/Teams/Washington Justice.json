@@ -1,0 +1,74 @@
+{
+  "name": "Washington Justice",
+  "ratings": {
+    "offense": 5,
+    "speed": 2,
+    "defense": 7,
+    "gk": 6
+  },
+  "players": [
+    {
+      "name": "Marc Sanon",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Vojislav Milic",
+      "shot_prop": 25,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Spyridon Karagiannis",
+      "shot_prop": 22,
+      "assist_prop": 13,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Guillaume Deschamps",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 24,
+      "pos": "DEF"
+    },
+    {
+      "name": "Siyanda Zwane",
+      "shot_prop": 5,
+      "assist_prop": 14,
+      "stop_prop": 21,
+      "pos": "DEF"
+    },
+    {
+      "name": "Johan Charlier",
+      "shot_prop": 17,
+      "assist_prop": 14,
+      "stop_prop": 14,
+      "pos": "MID"
+    },
+    {
+      "name": "Martin Pati\u00f1o",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 20,
+      "pos": "DEF"
+    },
+    {
+      "name": "Yukio Ono",
+      "shot_prop": 12,
+      "assist_prop": 16,
+      "stop_prop": 8,
+      "pos": "MID"
+    },
+    {
+      "name": "Jonathan Carmichael",
+      "shot_prop": 9,
+      "assist_prop": 14,
+      "stop_prop": 13,
+      "pos": "MID"
+    }
+  ]
+}

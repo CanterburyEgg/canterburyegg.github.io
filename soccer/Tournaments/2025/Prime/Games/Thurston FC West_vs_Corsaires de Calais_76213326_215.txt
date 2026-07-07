@@ -1,0 +1,92 @@
+Match: Thurston FC West vs Corsaires de Calais
+(check=20) Minute 1: no shot.
+(check=2) Minute 2: no shot. (Stop: Johan Post)
+(check=11) Minute 3: no shot.
+(check=30) Minute 4: no shot.
+(check=32) Minute 5: no shot.
+(check=48) Minute 6: (t1check=30, t2check=9, check1=5, check2=8) Thierry Payet missed shot. (Stop: Adrian Walsh)
+(check=15) Minute 7: no shot.
+(check=17) Minute 8: no shot.
+(check=12) Minute 9: no shot.
+(check=24) Minute 10: no shot.
+(check=21) Minute 11: no shot. (Stop: Antonio Rudiger)
+(check=24) Minute 12: no shot.
+(check=15) Minute 13: no shot.
+(check=39) Minute 14: (t1check=45, t2check=49, check1=14, check2=14) Ollie Rice missed shot. (Stop: Benoit Rousseau)
+(check=4) Minute 15: no shot.
+(check=15) Minute 16: no shot. (Stop: Martijn van den Berg)
+(check=34) Minute 17: no shot. (Stop: Adrian Walsh)
+(check=10) Minute 18: no shot.
+(check=17) Minute 19: no shot.
+(check=19) Minute 20: no shot. (Stop: Antonio Rudiger)
+(check=13) Minute 21: no shot.
+(check=21) Minute 22: no shot. (Stop: Richard Lemaire)
+(check=22) Minute 23: no shot. (Stop: Ramos Marrero)
+(check=40) Minute 24: (t1check=71, t2check=75, check1=47, check2=47) (goalchk1=48, goalchk2=42) Gerhard Muller GOAL!!! (Ast: Johan Post) Score: 0-1
+(check=6) Minute 25: no shot. (Stop: Martijn van den Berg)
+(check=11) Minute 26: no shot.
+(check=36) Minute 27: no shot.
+(check=8) Minute 28: no shot.
+(check=46) Minute 29: (t1check=12, t2check=15, check1=28, check2=28) Jan van Dijk missed shot. (Stop: Martijn van den Berg)
+(check=20) Minute 30: no shot.
+(check=50) Minute 31: (t1check=54, t2check=45, check1=47, check2=50) (goalchk1=21, goalchk2=13) Thierry Payet shot on goal. Luis Gallese SAVE!
+(check=26) Minute 32: no shot.
+(check=50) Minute 33: (t1check=57, t2check=65, check1=6, check2=6) Gerhard Muller missed shot. (Stop: Ramon Perdomo)
+(check=41) Minute 34: (t1check=56, t2check=43, check1=16, check2=19) Conor O'Sullivan missed shot. (Stop: Richard Lemaire)
+(check=28) Minute 35: no shot.
+(check=43) Minute 36: (t1check=81, t2check=46, check1=37, check2=40) (goalchk1=38, goalchk2=30) Patrick Murray GOAL!!! (Ast: Conor O'Sullivan) Score: 1-1
+(check=26) Minute 37: no shot.
+(check=11) Minute 38: no shot. (Stop: Luis Gallese)
+(check=26) Minute 39: no shot. (Stop: Martijn van den Berg)
+(check=15) Minute 40: no shot.
+(check=7) Minute 41: no shot.
+(check=43) Minute 42: (t1check=63, t2check=20, check1=36, check2=39) (goalchk1=33, goalchk2=25) Ramon Perdomo shot on goal. Luis Gallese SAVE!
+(check=46) Minute 43: (t1check=60, t2check=47, check1=24, check2=27) Vincent van de Velde missed shot. (Stop: Ramos Marrero)
+(check=27) Minute 44: no shot.
+(check=50) Minute 45: (t1check=69, t2check=35, check1=40, check2=43) (goalchk1=5, goalchk2=-3) Patrick Murray shot on goal. Luis Gallese SAVE!
+(check=6) Minute 46: no shot.
+(check=50) Minute 47: (t1check=34, t2check=21, check1=26, check2=29) Conor O'Sullivan missed shot. (Stop: Ollie Rice)
+(check=46) Minute 48: (t1check=57, t2check=79, check1=8, check2=8) Jan van Dijk missed shot. (Stop: Martijn van den Berg)
+(check=28) Minute 49: no shot. (Stop: Adrian Walsh)
+(check=16) Minute 50: no shot.
+(check=8) Minute 51: no shot.
+(check=16) Minute 52: no shot.
+(check=37) Minute 53: no shot.
+(check=28) Minute 54: no shot.
+(check=17) Minute 55: no shot. (Stop: Ollie Rice)
+(check=18) Minute 56: no shot.
+(check=31) Minute 57: no shot.
+(check=2) Minute 58: no shot. (Stop: Benoit Rousseau)
+(check=44) Minute 59: (t1check=27, t2check=22, check1=35, check2=38) (goalchk1=40, goalchk2=32) Thierry Payet GOAL!!! (Ast: Martijn van den Berg) Score: 2-1
+(check=6) Minute 60: no shot.
+(check=24) Minute 61: no shot. (Stop: Martijn van den Berg)
+(check=46) Minute 62: (t1check=68, t2check=79, check1=13, check2=13) Jan van Dijk missed shot. (Stop: Antonio Rudiger)
+(check=18) Minute 63: no shot.
+(check=47) Minute 64: (t1check=37, t2check=10, check1=14, check2=17) Antonio Rudiger missed shot. (Stop: Adrian Walsh)
+(check=48) Minute 65: (t1check=30, t2check=44, check1=19, check2=19) Ramos Marrero missed shot. (Stop: Antonio Rudiger)
+(check=16) Minute 66: no shot.
+(check=21) Minute 67: no shot.
+(check=36) Minute 68: no shot.
+(check=22) Minute 69: no shot.
+(check=38) Minute 70: no shot.
+(check=42) Minute 71: (t1check=47, t2check=52, check1=11, check2=11) Luis Gallese missed shot. (Stop: Benoit Rousseau)
+(check=22) Minute 72: no shot.
+(check=4) Minute 73: no shot.
+(check=8) Minute 74: no shot.
+(check=43) Minute 75: (t1check=14, t2check=5, check1=15, check2=18) Antonio Rudiger missed shot. (Stop: Adrian Walsh)
+(check=34) Minute 76: no shot.
+(check=12) Minute 77: no shot.
+(check=22) Minute 78: no shot.
+(check=11) Minute 79: no shot.
+(check=44) Minute 80: (t1check=33, t2check=24, check1=2, check2=5) Conor O'Sullivan missed shot. (Stop: Adrian Walsh)
+(check=25) Minute 81: no shot.
+(check=39) Minute 82: (t1check=24, t2check=71, check1=2, check2=2) Gerhard Muller missed shot. (Stop: Benoit Rousseau)
+(check=36) Minute 83: no shot.
+(check=45) Minute 84: (t1check=57, t2check=40, check1=25, check2=28) Conor O'Sullivan missed shot. (Stop: Ollie Rice)
+(check=45) Minute 85: (t1check=59, t2check=27, check1=18, check2=21) Conor O'Sullivan missed shot. (Stop: Johan Post)
+(check=19) Minute 86: no shot. (Stop: Ollie Rice)
+(check=22) Minute 87: no shot.
+(check=4) Minute 88: no shot. (Stop: Johan Post)
+(check=10) Minute 89: no shot. (Stop: Johan Post)
+(check=38) Minute 90: no shot.
+Final score: 2-1

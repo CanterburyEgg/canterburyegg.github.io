@@ -1,0 +1,92 @@
+Match: Thurston FC East vs Les Brasseurs
+(check=23) Minute 1: no shot.
+(check=9) Minute 2: no shot.
+(check=21) Minute 3: no shot.
+(check=12) Minute 4: no shot.
+(check=9) Minute 5: no shot. (Stop: Nigel Maharaj)
+(check=44) Minute 6: (t1check=21, t2check=16, check1=41, check2=42) (goalchk1=20, goalchk2=11) Theo de Boer shot on goal. Marcos Paz SAVE!
+(check=48) Minute 7: (t1check=19, t2check=35, check1=35, check2=32) (goalchk1=2, goalchk2=0) Mitchell Duke shot on goal. Terence Kane SAVE!
+(check=25) Minute 8: no shot.
+(check=40) Minute 9: (t1check=45, t2check=49, check1=41, check2=38) (goalchk1=33, goalchk2=31) Yannick Barbier GOAL!!! Score: 0-1
+(check=11) Minute 10: no shot.
+(check=35) Minute 11: no shot.
+(check=5) Minute 12: no shot.
+(check=47) Minute 13: (t1check=64, t2check=32, check1=41, check2=42) (goalchk1=29, goalchk2=20) Bernard Michel shot on goal. Marcos Paz SAVE!
+(check=17) Minute 14: no shot. (Stop: Hernando Orozco)
+(check=24) Minute 15: no shot.
+(check=1) Minute 16: no shot. (Stop: Adrian Llewellyn)
+(check=3) Minute 17: no shot.
+(check=22) Minute 18: no shot.
+(check=18) Minute 19: no shot.
+(check=40) Minute 20: (t1check=70, t2check=18, check1=20, check2=21) Nigel Maharaj missed shot. (Stop: Ramon Medina)
+(check=41) Minute 21: (t1check=68, t2check=18, check1=43, check2=44) (goalchk1=26, goalchk2=17) Hernan Torres shot on goal. Marcos Paz SAVE!
+(check=5) Minute 22: no shot.
+(check=6) Minute 23: no shot.
+(check=26) Minute 24: no shot.
+(check=10) Minute 25: no shot. (Stop: Terence Kane)
+(check=27) Minute 26: no shot. (Stop: Ramon Medina)
+(check=4) Minute 27: no shot.
+(check=34) Minute 28: no shot.
+(check=38) Minute 29: no shot.
+(check=49) Minute 30: (t1check=13, t2check=27, check1=46, check2=43) (goalchk1=44, goalchk2=42) Ramon Medina GOAL!!! Score: 0-2
+(check=42) Minute 31: (t1check=54, t2check=26, check1=6, check2=7) Nigel Maharaj missed shot. (Stop: Marcos Paz)
+(check=16) Minute 32: no shot.
+(check=30) Minute 33: no shot.
+(check=18) Minute 34: no shot.
+(check=38) Minute 35: no shot.
+(check=32) Minute 36: no shot.
+(check=21) Minute 37: no shot. (Stop: Mitchell Duke)
+(check=28) Minute 38: no shot. (Stop: Mitchell Duke)
+(check=24) Minute 39: no shot.
+(check=43) Minute 40: (t1check=77, t2check=10, check1=25, check2=26) Bernard Michel missed shot. (Stop: Ramon Medina)
+(check=41) Minute 41: (t1check=64, t2check=63, check1=16, check2=17) Theo de Boer missed shot. (Stop: Hernando Orozco)
+(check=18) Minute 42: no shot.
+(check=17) Minute 43: no shot. (Stop: Bernard Michel)
+(check=12) Minute 44: no shot. (Stop: Nigel Maharaj)
+(check=5) Minute 45: no shot.
+(check=4) Minute 46: no shot.
+(check=20) Minute 47: no shot.
+(check=1) Minute 48: no shot.
+(check=28) Minute 49: no shot.
+(check=22) Minute 50: no shot.
+(check=45) Minute 51: (t1check=58, t2check=19, check1=16, check2=17) Hernan Torres missed shot. (Stop: Hernando Orozco)
+(check=6) Minute 52: no shot. (Stop: Edwin Ruiz)
+(check=42) Minute 53: (t1check=34, t2check=31, check1=2, check2=3) Mbaye Cisse missed shot. (Stop: Mitchell Duke)
+(check=15) Minute 54: no shot.
+(check=41) Minute 55: (t1check=16, t2check=63, check1=43, check2=40) (goalchk1=27, goalchk2=25) Craig Young shot on goal. Terence Kane SAVE!
+(check=16) Minute 56: no shot. (Stop: Adrian Llewellyn)
+(check=11) Minute 57: no shot. (Stop: Bernard Michel)
+(check=18) Minute 58: no shot.
+(check=1) Minute 59: no shot.
+(check=30) Minute 60: no shot.
+(check=5) Minute 61: no shot. (Stop: Vitor Correia)
+(check=17) Minute 62: no shot.
+(check=45) Minute 63: (t1check=35, t2check=15, check1=35, check2=36) (goalchk1=5, goalchk2=-4) Bernard Michel shot on goal. Marcos Paz SAVE!
+(check=19) Minute 64: no shot.
+(check=43) Minute 65: (t1check=59, t2check=42, check1=30, check2=31) (goalchk1=1, goalchk2=-8) Theo de Boer shot on goal. Marcos Paz SAVE!
+(check=41) Minute 66: (t1check=30, t2check=67, check1=36, check2=33) (goalchk1=11, goalchk2=9) Edwin Ruiz shot on goal. Terence Kane SAVE!
+(check=49) Minute 67: (t1check=31, t2check=51, check1=47, check2=44) (goalchk1=7, goalchk2=5) Edmond Toska shot on goal. Terence Kane SAVE!
+(check=39) Minute 68: (t1check=51, t2check=33, check1=36, check2=37) (goalchk1=2, goalchk2=-7) Bernard Michel shot on goal. Marcos Paz SAVE!
+(check=24) Minute 69: no shot.
+(check=10) Minute 70: no shot. (Stop: Terence Kane)
+(check=43) Minute 71: (t1check=70, t2check=73, check1=32, check2=29) Ramon Medina missed shot. (Stop: Mbaye Cisse)
+(check=21) Minute 72: no shot. (Stop: Ramon Medina)
+(check=34) Minute 73: no shot. (Stop: Mitchell Duke)
+(check=48) Minute 74: (t1check=27, t2check=54, check1=1, check2=-2) Edmond Toska missed shot. (Stop: Adrian Llewellyn)
+(check=1) Minute 75: no shot.
+(check=5) Minute 76: no shot. (Stop: Nigel Maharaj)
+(check=40) Minute 77: (t1check=52, t2check=69, check1=46, check2=43) (goalchk1=7, goalchk2=5) Edmond Toska shot on goal. Terence Kane SAVE!
+(check=43) Minute 78: (t1check=76, t2check=38, check1=19, check2=20) Bernard Michel missed shot. (Stop: Ramon Medina)
+(check=27) Minute 79: no shot.
+(check=13) Minute 80: no shot.
+(check=22) Minute 81: no shot.
+(check=10) Minute 82: no shot.
+(check=50) Minute 83: (t1check=59, t2check=45, check1=3, check2=4) Hernan Torres missed shot. (Stop: Marcos Paz)
+(check=11) Minute 84: no shot.
+(check=45) Minute 85: (t1check=33, t2check=83, check1=47, check2=44) (goalchk1=30, goalchk2=28) Edmond Toska GOAL!!! (Ast: Edwin Ruiz) Score: 0-3
+(check=48) Minute 86: (t1check=49, t2check=57, check1=3, check2=0) Mitchell Duke missed shot. (Stop: Vitor Correia)
+(check=48) Minute 87: (t1check=34, t2check=19, check1=3, check2=4) Hernan Torres missed shot. (Stop: Yannick Barbier)
+(check=12) Minute 88: no shot. (Stop: Hernando Orozco)
+(check=13) Minute 89: no shot. (Stop: Vitor Correia)
+(check=35) Minute 90: no shot. (Stop: Mbaye Cisse)
+Final score: 0-3

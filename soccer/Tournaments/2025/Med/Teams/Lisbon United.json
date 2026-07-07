@@ -1,0 +1,74 @@
+{
+  "name": "Lisbon United",
+  "ratings": {
+    "offense": 7,
+    "speed": 7,
+    "defense": 8,
+    "gk": 7
+  },
+  "players": [
+    {
+      "name": "Giovanni Ricci",
+      "shot_prop": 26,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Marcelo da Silva",
+      "shot_prop": 12,
+      "assist_prop": 30,
+      "stop_prop": 5,
+      "pos": "MID"
+    },
+    {
+      "name": "Sergio Martino",
+      "shot_prop": 25,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Francesco Caruso",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 25,
+      "pos": "DEF"
+    },
+    {
+      "name": "Gerardo Perez",
+      "shot_prop": 10,
+      "assist_prop": 19,
+      "stop_prop": 15,
+      "pos": "MID"
+    },
+    {
+      "name": "Pedro Huaman",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Stjepan Novosel",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 25,
+      "pos": "DEF"
+    },
+    {
+      "name": "Dimitrios Papadopoulos",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 21,
+      "pos": "DEF"
+    },
+    {
+      "name": "German Salazar",
+      "shot_prop": 12,
+      "assist_prop": 16,
+      "stop_prop": 9,
+      "pos": "MID"
+    }
+  ]
+}

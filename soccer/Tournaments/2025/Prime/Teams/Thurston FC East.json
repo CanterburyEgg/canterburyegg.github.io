@@ -1,0 +1,74 @@
+{
+  "name": "Thurston FC East",
+  "ratings": {
+    "offense": 5,
+    "speed": 10,
+    "defense": 9,
+    "gk": 2
+  },
+  "players": [
+    {
+      "name": "Bernard Michel",
+      "shot_prop": 13,
+      "assist_prop": 24,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Nigel Maharaj",
+      "shot_prop": 14,
+      "assist_prop": 18,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Adrian Llewellyn",
+      "shot_prop": 14,
+      "assist_prop": 17,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Vitor Correia",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Hernan Torres",
+      "shot_prop": 23,
+      "assist_prop": 9,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Mbaye Cisse",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 24,
+      "pos": "DEF"
+    },
+    {
+      "name": "Theo de Boer",
+      "shot_prop": 21,
+      "assist_prop": 8,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Brahima Kamagate",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Terence Kane",
+      "shot_prop": 5,
+      "assist_prop": 7,
+      "stop_prop": 19,
+      "pos": "DEF"
+    }
+  ]
+}

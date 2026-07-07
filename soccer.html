@@ -174,7 +174,7 @@
             height: 16px;
             object-fit: cover;
             vertical-align: middle;
-            margin-right: 8px;
+            display: inline-block;
             border: 1px solid #e2e8f0;
         }
 
@@ -183,6 +183,8 @@
             height: auto;
             max-height: 80px;
             flex-shrink: 0;
+            display: block;
+            margin: 0 auto;
             border: 1px solid #e2e8f0;
         }
 
@@ -191,7 +193,7 @@
             height: 24px;
             object-fit: contain;
             vertical-align: middle;
-            margin-right: 8px;
+            display: inline-block;
         }
 
         .team-logo-large {
@@ -199,6 +201,8 @@
             height: 80px;
             object-fit: contain;
             flex-shrink: 0;
+            display: block;
+            margin: 0 auto;
         }
 
         /* Bracket */
@@ -230,6 +234,82 @@
             transition: all 0.2s;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             width: 100%;
+            overflow: hidden;
+        }
+
+        .series-card {
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .series-header {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(56, 189, 248, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .series-games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 8px;
+            padding: 10px;
+            background: rgba(0,0,0,0.02);
+        }
+
+        .game-bubble-large {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 90px;
+        }
+
+        .game-bubble-large:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .game-bubble-large .mini-flags {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-bubble-large .mini-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .game-bubble-large .game-num {
+            font-size: 0.65rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .game-bubble-large.not-played {
+            opacity: 0.5;
+            background: #f8fafc;
         }
 
         .match-card:hover {
@@ -241,9 +321,26 @@
         .match-team {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 0.75rem 1rem;
             border-bottom: 1px solid var(--border);
             font-size: 0.95rem;
+        }
+
+        .match-team-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .team-name-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
         }
 
         .match-team:last-child { border-bottom: none; }
@@ -272,8 +369,12 @@
         /* Stats */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: 1fr; }
         }
 
         /* Modal */
@@ -300,6 +401,93 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
+        .modal-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-team-link {
+            text-align: center;
+            flex: 1;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-team-link.winner { font-weight: 700; }
+
+        .modal-team-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .modal-score-container {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            text-align: center;
+        }
+
+        .modal-score-dash {
+            color: var(--text-dim);
+            margin: 0 1rem;
+        }
+
+        .modal-pk-score {
+            font-size: 1rem;
+            text-align: center;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .modal-event-column {
+            display: flex;
+            flex-direction: column;
+            max-height: 100%;
+        }
+
+        .modal-event-column h3 {
+            align-self: flex-start;
+        }
+
+        .modal-scroll-area {
+            overflow-y: auto;
+            padding-right: 1rem;
+            width: 100%;
+        }
+
+        .modal-scroll-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-scroll-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .modal-scroll-area::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
         .close-modal {
             position: absolute;
             top: 1.5rem; right: 1.5rem;
@@ -311,12 +499,54 @@
 
         .event-item {
             display: flex;
-            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--border);
         }
 
+        .event-info {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .event-player-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-assister {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .event-running-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        .running-score-text {
+            min-width: 30px;
+            text-align: center;
+        }
+
         .event-minute { font-weight: 700; color: var(--accent); min-width: 40px; }
+
+        .rankings-wrapper {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .third-place-header {
+            margin-top: 4rem !important;
+        }
 
         /* Team Page */
         .team-header {
@@ -329,6 +559,20 @@
             border: 1px solid var(--border);
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             gap: 2rem;
+        }
+
+        .flag-mini {
+            width: 18px;
+            height: 11px;
+            margin: 0;
+            object-fit: cover;
+            vertical-align: middle;
+            border: 1px solid #e2e8f0;
+        }
+
+        .roster-pos {
+            font-size: 0.8rem;
+            color: var(--text-dim);
         }
 
         .team-header-text {
@@ -356,13 +600,23 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 3fr 4fr;
             gap: 3rem;
+        }
+
+        .team-grid table th, .team-grid table td {
+            text-align: center;
+        }
+
+        .team-grid table td:first-child {
+            text-align: left;
+            padding-left: 1rem;
         }
 
         @media (max-width: 900px) {
             .team-grid { grid-template-columns: 1fr; }
         }
+
 
         h3 {
             font-family: 'Oswald', sans-serif;
@@ -389,6 +643,18 @@
 
         .match-stats-table th, .match-stats-table td {
             text-align: center;
+        }
+
+        .match-stats-neutral {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        .possession_cell {
+            line-height: 1.1;
         }
     </style>
 </head>
@@ -556,21 +822,29 @@
         let viewState = 'main'; // 'main' or 'team'
 
         function getFlagUrl(team) {
+            if (!team || team === "TBD" || team === "None") return "img/qm.png";
             if (currentYear == '2025') {
-                let league = currentRegion.toLowerCase();
+                let league = '';
                 
-                // If in rankings view or currentRegion is wrong, find the correct league from globalRosters
-                if (currentStage === 'rankings' || !REGION_DATA['2025'][currentRegion]) {
-                    if (globalRosters && Array.isArray(globalRosters)) {
-                        const rosterEntry = globalRosters.find(r => r.team === team);
-                        if (rosterEntry) {
-                            league = rosterEntry.league.toLowerCase();
-                            if (league === 'backyard') league = 'bsl';
-                        }
+                // 1. Try to get league from globalRosters (most reliable for cross-region/rankings)
+                if (globalRosters && Array.isArray(globalRosters)) {
+                    const rosterEntry = globalRosters.find(r => r.team === team);
+                    if (rosterEntry) {
+                        league = rosterEntry.league.toLowerCase();
                     }
-                } else if (league === 'backyard') {
-                    league = 'bsl';
                 }
+
+                // 2. Fallback to currentData config if roster lookup fails
+                if (!league && currentData && currentData.config && currentData.config.league) {
+                    league = currentData.config.league.toLowerCase();
+                }
+
+                // 3. Last resort fallback
+                if (!league) league = currentRegion.toLowerCase();
+
+                // Normalize Backyard -> bsl
+                if (league === 'backyard' || league === 'bsl') league = 'bsl';
+                else if (league === 'med' || league === 'mediterranea') league = 'med';
 
                 const filename = team.toLowerCase()
                     .replace(/ /g, '_')
@@ -619,13 +893,14 @@
 
         function renderTeamIcon(team, isLarge = false, extraStyle = '') {
             const url = getFlagUrl(team);
+            const teamTitle = team || "TBD";
             if (currentYear === '2025') {
                 const cls = isLarge ? 'team-logo-large' : 'team-logo';
-                return `<img src="${url}" class="${cls}" style="${extraStyle}">`;
+                return `<img src="${url}" class="${cls}" style="${extraStyle}" title="${teamTitle}">`;
             } else {
                 const cls = isLarge ? 'flag-large' : 'flag';
                 const style = isLarge ? extraStyle : `width:24px; height:16px; ${extraStyle}`;
-                return `<img src="${url}" class="${cls}" style="${style}">`;
+                return `<img src="${url}" class="${cls}" style="${style}" title="${teamTitle}">`;
             }
         }
 
@@ -850,7 +1125,7 @@
                     const escapedName = team.team.replace(/'/g, "\\'");
                     tableHtml += `
                         <tr class="clickable-row" onclick="showTeamPage('${escapedName}')">
-                            <td>${renderTeamIcon(team.team)} ${team.team}</td>
+                            <td><span class="match-team-info">${renderTeamIcon(team.team)} <span class="team-name-text">${team.team}</span></span></td>
                             <td>${team.w}</td>
                             <td>${team.d}</td>
                             <td>${team.l}</td>
@@ -879,6 +1154,8 @@
             if (!skipPush) {
                 const url = new URL(window.location);
                 url.searchParams.set('team', teamName);
+                url.searchParams.set('region', currentRegion);
+                url.searchParams.delete('stage');
                 window.history.pushState({ view: 'team', team: teamName }, '', url);
             }
 
@@ -958,19 +1235,23 @@
                     if (m.played) {
                         const side = m.teams[0] === teamName ? 'team1' : 'team2';
                         const roster = m.player_data[side];
-                        const gkIdx = roster.length - 1;
                         
                         roster.forEach((p, idx) => {
                             if (!playerCountries[p.name]) playerCountries[p.name] = teamName;
-                            if (idx === gkIdx) {
+                            
+                            const isGK = p.pos === 'GK' || ((!p.pos || p.pos === 'N/A') && idx === roster.length - 1);
+                            
+                            if (isGK) {
                                 if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
                                 goalkeeperStats[p.name].saves += (p.saves || 0);
                                 goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
                             } else {
-                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0 };
+                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0, assists: 0, stops: 0 };
                                 playerStats[p.name].shots += p.shots;
                                 playerStats[p.name].sogs += p.sogs;
                                 playerStats[p.name].goals += p.goals;
+                                playerStats[p.name].assists += (p.assists || 0);
+                                playerStats[p.name].stops += (p.stops || 0);
                             }
                         });
                     }
@@ -983,32 +1264,54 @@
                             if (p.pos === 'GK') {
                                 if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
                             } else {
-                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0 };
+                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0, assists: 0, stops: 0 };
                             }
                         });
                     }
                 }
 
                 const showPlayerFlags = currentData && currentData.config && currentData.config.type === 'league';
+                const isPro = currentData && currentData.config && currentData.config.pro_stats;
 
                 rosterHtml = `
                     <h3>Roster & Statistics</h3>
                     <table>
                         <thead>
-                            <tr>${showPlayerFlags ? '<th style="width:25px"></th>' : ''}<th>Player Name</th><th>Shots</th><th>SOG</th><th>Goals</th></tr>
+                            <tr>
+                                ${showPlayerFlags ? '<th style="width:25px"></th>' : ''}
+                                <th>Player Name</th>
+                                ${isPro ? '<th>Pos</th>' : ''}
+                                <th>Shots</th>
+                                <th>On Goal</th>
+                                <th>Goals</th>
+                                ${isPro ? '<th>Ast</th><th>Stp</th>' : ''}
+                            </tr>
                         </thead>
                         <tbody>
                             ${Object.entries(playerStats)
-                                .sort((a,b) => b[1].goals - a[1].goals || b[1].sogs - a[1].sogs || b[1].shots - a[1].shots)
-                                .map(([name, stats]) => `
-                                    <tr>
-                                        ${showPlayerFlags ? `<td><img src="${getCountryFlagUrl(playerCountries[name])}" class="flag" style="margin:0; width:18px; height:11px;"></td>` : ''}
-                                        <td>${name}</td>
-                                        <td>${stats.shots}</td>
-                                        <td>${stats.sogs}</td>
-                                        <td>${stats.goals}</td>
-                                    </tr>
-                                `).join('')}
+                                .sort((a,b) => b[1].goals - a[1].goals || b[1].assists - a[1].assists || b[1].stops - a[1].stops)
+                                .map(([name, stats]) => {
+                                    // Find pos from globalRosters if possible
+                                    let pos = 'N/A';
+                                    if (globalRosters) {
+                                        const entry = globalRosters.find(r => r.team === teamName);
+                                        if (entry) {
+                                            const pEntry = entry.roster.find(pr => pr.name === name);
+                                            if (pEntry) pos = pEntry.pos;
+                                        }
+                                    }
+                                    return `
+                                        <tr>
+                                            ${showPlayerFlags ? `<td><img src="${getCountryFlagUrl(playerCountries[name])}" class="flag-mini" title="${playerCountries[name]}"></td>` : ''}
+                                            <td>${name}</td>
+                                            ${isPro ? `<td class="roster-pos">${pos}</td>` : ''}
+                                            <td>${stats.shots}</td>
+                                            <td>${stats.sogs}</td>
+                                            <td>${stats.goals}</td>
+                                            ${isPro ? `<td>${stats.assists}</td><td>${stats.stops}</td>` : ''}
+                                        </tr>
+                                    `;
+                                }).join('')}
                         </tbody>
                     </table>
 
@@ -1023,7 +1326,7 @@
                                     const pct = opps > 0 ? ((stats.saves / opps) * 100).toFixed(1) : '0.0';
                                     return `
                                         <tr>
-                                            ${showPlayerFlags ? `<td><img src="${getCountryFlagUrl(playerCountries[name])}" class="flag" style="margin:0; width:18px; height:11px;"></td>` : ''}
+                                            ${showPlayerFlags ? `<td><img src="${getCountryFlagUrl(playerCountries[name])}" class="flag-mini" title="${playerCountries[name]}"></td>` : ''}
                                             <td>${name}</td>
                                             <td>${stats.saves}</td>
                                             <td>${opps}</td>
@@ -1075,15 +1378,15 @@
                         <h3>${groupHeader}</h3>
                         <table>
                             <thead>
-                                <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr>
+                                <tr><th>Team</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr>
                             </thead>
                             <tbody>
                                 ${groupData.standings.map(s => {
                                     const escapedName = s.team.replace(/'/g, "\\'");
                                     return `
                                     <tr class="clickable-row" onclick="showTeamPage('${escapedName}')" style="${s.team === teamName ? 'background:rgba(56,189,248,0.15)' : ''}">
-                                        <td>${renderTeamIcon(s.team)} ${s.team}</td>
-                                        <td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.gf}</td><td>${s.ga}</td><td>${s.gd}</td><td>${s.pts}</td>
+                                        <td><span class="match-team-info">${renderTeamIcon(s.team)} <span class="team-name-text">${s.team}</span></span></td>
+                                        <td>${s.w}</td><td>${s.d}</td><td>${s.l}</td><td>${s.pts}</td>
                                     </tr>
                                 `;}).join('')}
                             </tbody>
@@ -1115,12 +1418,14 @@
 
             if (playoffs.type === 'list' || (!playoffs.semifinals && !playoffs.rounds)) {
                 // Render as a simple list/grid of matches
-                const matches = playoffs.matches || [...(playoffs.semifinals || []), ...(playoffs.finals || [])];
+                const matches = (playoffs.matches || [...(playoffs.semifinals || []), ...(playoffs.finals || [])]).filter(m => !m.canceled);
                 container.innerHTML = '<h3>Playoff Matches</h3>';
                 const grid = document.createElement('div');
                 grid.className = 'matches-list';
-                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
-                matches.forEach(m => grid.appendChild(createMatchCard(m)));
+                matches.forEach(m => {
+                    const card = createMatchCard(m);
+                    if (card) grid.appendChild(card);
+                });
                 container.appendChild(grid);
                 return;
             }
@@ -1133,47 +1438,33 @@
                 playoffs.rounds.forEach((round, rIdx) => {
                     const roundDiv = document.createElement('div');
                     roundDiv.className = 'bracket-round';
-                    
-                    if (round.name === 'Finals' && round.matches.length > 1) {
-                        // Special handling for Finals + Third Place
-                        roundDiv.innerHTML = `<h3>Finals</h3>`;
-                        
-                        // Heuristic: The match between previous round losers is 3rd place
-                        const prevRound = playoffs.rounds[rIdx-1];
-                        if (prevRound) {
-                            const semiLosers = [];
-                            prevRound.matches.forEach(m => {
-                                if (m.played && m.score) {
-                                    const s1 = m.score[0], s2 = m.score[1];
-                                    const p1 = m.pk_score ? m.pk_score[0] : null;
-                                    const p2 = m.pk_score ? m.pk_score[1] : null;
-                                    const winner = (p1 !== null ? p1 > p2 : s1 > s2) ? m.teams[0] : m.teams[1];
-                                    semiLosers.push(m.teams.find(t => t !== winner));
-                                } else {
-                                    semiLosers.push("TBD");
-                                }
-                            });
+                    roundDiv.innerHTML = `<h3>${round.name}</h3>`;
 
-                            const thirdPlaceMatch = round.matches.find(m => 
-                                m.teams.includes(semiLosers[0]) && m.teams.includes(semiLosers[1])
-                            );
-                            const finalMatch = round.matches.find(m => m !== thirdPlaceMatch);
+                    // Group by series_id if present
+                    const seriesGroups = {};
+                    const standaloneMatches = [];
 
-                            if (finalMatch) roundDiv.appendChild(createMatchCard(finalMatch));
-                            if (thirdPlaceMatch) {
-                                const h3 = document.createElement('h3');
-                                h3.innerText = 'Third-Place Match';
-                                h3.style.marginTop = '4rem';
-                                roundDiv.appendChild(h3);
-                                roundDiv.appendChild(createMatchCard(thirdPlaceMatch));
-                            }
+                    round.matches.forEach(m => {
+                        if (m.canceled) return;
+                        if (m.series_id) {
+                            if (!seriesGroups[m.series_id]) seriesGroups[m.series_id] = [];
+                            seriesGroups[m.series_id].push(m);
                         } else {
-                            round.matches.forEach(match => roundDiv.appendChild(createMatchCard(match)));
+                            standaloneMatches.push(m);
                         }
-                    } else {
-                        roundDiv.innerHTML = `<h3>${round.name}</h3>`;
-                        round.matches.forEach(match => roundDiv.appendChild(createMatchCard(match)));
-                    }
+                    });
+
+                    // Render series
+                    Object.values(seriesGroups).forEach(group => {
+                        roundDiv.appendChild(createSeriesCard(group));
+                    });
+
+                    // Render standalone
+                    standaloneMatches.forEach(m => {
+                        const card = createMatchCard(m);
+                        if (card) roundDiv.appendChild(card);
+                    });
+
                     bracket.appendChild(roundDiv);
                 });
             } else {
@@ -1182,7 +1473,8 @@
                 semiRound.className = 'bracket-round';
                 semiRound.innerHTML = '<h3>Semifinals</h3>';
                 currentData.playoffs.semifinals.forEach(match => {
-                    semiRound.appendChild(createMatchCard(match));
+                    const card = createMatchCard(match);
+                    if (card) semiRound.appendChild(card);
                 });
 
                 const finalRound = document.createElement('div');
@@ -1190,7 +1482,8 @@
                 finalRound.innerHTML = '<h3>Finals</h3>';
                 const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
                 finals.forEach(match => {
-                    finalRound.appendChild(createMatchCard(match));
+                    const card = createMatchCard(match);
+                    if (card) finalRound.appendChild(card);
                 });
 
                 bracket.appendChild(semiRound);
@@ -1202,9 +1495,10 @@
         function renderStats(container) {
             const statsGrid = document.createElement('div');
             statsGrid.className = 'stats-grid';
-            statsGrid.style.gridTemplateColumns = '1fr 1fr';
 
             const scorers = {};
+            const assisters = {};
+            const stoppers = {};
             const goalkeepers = {};
             const seenMatches = new Set();
 
@@ -1217,6 +1511,10 @@
                     m.events.forEach(e => {
                         if (!scorers[e.player]) scorers[e.player] = { goals: 0, team: e.team };
                         scorers[e.player].goals++;
+                        if (e.assist) {
+                            if (!assisters[e.assist]) assisters[e.assist] = { assists: 0, team: e.team };
+                            assisters[e.assist].assists++;
+                        }
                     });
                     
                     [0, 1].forEach(tIdx => {
@@ -1224,10 +1522,17 @@
                         const side = tIdx === 0 ? 'team1' : 'team2';
                         const roster = m.player_data[side];
                         if (roster && roster.length > 0) {
-                            const gk = roster[roster.length - 1];
-                            if (!goalkeepers[gk.name]) goalkeepers[gk.name] = { saves: 0, opps: 0, team: teamName };
-                            goalkeepers[gk.name].saves += (gk.saves || 0);
-                            goalkeepers[gk.name].opps += ((gk.saves || 0) + (gk.goals_against || 0));
+                            roster.forEach((p, idx) => {
+                                const isGK = p.pos === 'GK' || ((!p.pos || p.pos === 'N/A') && idx === roster.length - 1);
+                                if (isGK) {
+                                    if (!goalkeepers[p.name]) goalkeepers[p.name] = { saves: 0, opps: 0, team: teamName };
+                                    goalkeepers[p.name].saves += (p.saves || 0);
+                                    goalkeepers[p.name].opps += ((p.saves || 0) + (p.goals_against || 0));
+                                } else if (p.stops > 0) {
+                                    if (!stoppers[p.name]) stoppers[p.name] = { stops: 0, team: teamName };
+                                    stoppers[p.name].stops += p.stops;
+                                }
+                            });
                         }
                     });
                 }
@@ -1244,29 +1549,32 @@
                 }
             }
 
-            const sortedScorers = Object.entries(scorers)
-                .map(([name, data]) => ({ name, ...data }))
-                .sort((a, b) => b.goals - a.goals)
-                .slice(0, 15);
+            const sortedScorers = Object.entries(scorers).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.goals - a.goals).slice(0, 15);
+            const sortedAssisters = Object.entries(assisters).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.assists - a.assists).slice(0, 15);
+            const sortedStoppers = Object.entries(stoppers).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.stops - a.stops).slice(0, 15);
+            const sortedKeepers = Object.entries(goalkeepers).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.saves - a.saves).slice(0, 15);
 
-            const sortedKeepers = Object.entries(goalkeepers)
-                .map(([name, data]) => ({ name, ...data }))
-                .sort((a, b) => b.saves - a.saves)
-                .slice(0, 15);
+            const createStatTable = (title, data, statKey, statLabel) => {
+                const div = document.createElement('div');
+                div.innerHTML = `<h3>${title}</h3>`;
+                let html = `<table><thead><tr><th>Player</th><th>Team</th><th>${statLabel}</th></tr></thead><tbody>`;
+                data.forEach(s => {
+                    const escapedTeam = s.team.replace(/'/g, "\\'");
+                    html += `<tr>
+                        <td>${s.name}</td>
+                        <td class="clickable-row" onclick="showTeamPage('${escapedTeam}')"><span class="match-team-info">${renderTeamIcon(s.team)} <span class="team-name-text">${s.team}</span></span></td>
+                        <td>${s[statKey]}</td>
+                    </tr>`;
+                });
+                html += `</tbody></table>`;
+                div.innerHTML += html;
+                return div;
+            };
 
-            const scorersDiv = document.createElement('div');
-            scorersDiv.innerHTML = '<h3>Top Scorers</h3>';
-            let scorersHtml = `<table><thead><tr><th>Player</th><th>Team</th><th>Goals</th></tr></thead><tbody>`;
-            sortedScorers.forEach(s => {
-                const escapedName = s.team.replace(/'/g, "\\'");
-                scorersHtml += `<tr>
-                    <td>${s.name}</td>
-                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')">${renderTeamIcon(s.team)} ${s.team}</td>
-                    <td>${s.goals}</td>
-                </tr>`;
-            });
-            scorersHtml += `</tbody></table>`;
-            scorersDiv.innerHTML += scorersHtml;
+            statsGrid.appendChild(createStatTable('Top Scorers', sortedScorers, 'goals', 'Goals'));
+            if (sortedAssisters.length > 0) statsGrid.appendChild(createStatTable('Top Assisters', sortedAssisters, 'assists', 'Assists'));
+            if (sortedStoppers.length > 0) statsGrid.appendChild(createStatTable('Top Defenders', sortedStoppers, 'stops', 'Stops'));
+
 
             const keepersDiv = document.createElement('div');
             keepersDiv.innerHTML = '<h3>Top Goalkeepers</h3>';
@@ -1276,16 +1584,15 @@
                 const pct = k.opps > 0 ? ((k.saves / k.opps) * 100).toFixed(1) : '0.0';
                 keepersHtml += `<tr>
                     <td>${k.name}</td>
-                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')">${renderTeamIcon(k.team)} ${k.team}</td>
+                    <td class="clickable-row" onclick="showTeamPage('${escapedName}')"><span class="match-team-info">${renderTeamIcon(k.team)} <span class="team-name-text">${k.team}</span></span></td>
                     <td>${k.saves}</td>
                     <td>${pct}%</td>
                 </tr>`;
             });
             keepersHtml += `</tbody></table>`;
             keepersDiv.innerHTML += keepersHtml;
-
-            statsGrid.appendChild(scorersDiv);
             statsGrid.appendChild(keepersDiv);
+
             container.appendChild(statsGrid);
         }
 
@@ -1301,10 +1608,7 @@
                 .then(data => {
                     container.innerHTML = '';
                     const wrapper = document.createElement('div');
-                    wrapper.className = 'standings-container';
-                    wrapper.style.display = 'block';
-                    wrapper.style.maxWidth = '800px';
-                    wrapper.style.margin = '0 auto';
+                    wrapper.className = 'standings-container rankings-wrapper';
 
                     let html = `
                         <div class="standings-group">
@@ -1335,8 +1639,10 @@
                             <tr>
                                 <td>#${item.rank}</td>
                                 <td class="clickable-row" onclick="showTeamPage('${escapedName}')">
-                                    ${renderTeamIcon(item.team)}
-                                    ${item.team}
+                                    <span class="match-team-info">
+                                        ${renderTeamIcon(item.team)}
+                                        <span class="team-name-text">${item.team}</span>
+                                    </span>
                                 </td>
                                 <td colspan="2" style="text-align: right;">
                                     <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 8px;">
@@ -1365,6 +1671,7 @@
         }
 
         function createMatchCard(match) {
+            if (match.canceled) return null;
             const card = document.createElement('div');
             card.className = 'match-card';
             if (!match.played) {
@@ -1384,35 +1691,88 @@
             const t1 = match.teams[0] || "TBD";
             const t2 = match.teams[1] || "TBD";
 
-            let dayLabel = `Day ${match.day}`;
-            if (currentYear === '2025') {
+            let dayLabel = '';
+            if (currentYear === '2025' && !match.series_id) {
                 const dt = getMatchDate(match.day);
                 dayLabel = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             }
 
             card.innerHTML = `
-                <div class="match-day-label">
-                    ${dayLabel}
-                </div>
-                <div class="match-team ${isW1 ? 'winner' : ''}" style="${isW1 ? 'font-weight:700' : 'font-weight:400'}">
-                    <span>${renderTeamIcon(t1)} ${t1}</span>
+                ${dayLabel ? `<div class="match-day-label">${dayLabel}</div>` : ''}
+                <div class="match-team ${isW2 ? 'winner' : ''}" style="${isW2 ? 'font-weight:700' : 'font-weight:400'}">
+                    <span class="match-team-info">${renderTeamIcon(t2)} <span class="team-name-text">${t2}</span></span>
                     <span class="score">
-                        ${match.played ? `${s1}${match.pk_score ? ` (${p1})` : ''}` : ''}
+                        ${match.played ? `${s2}${match.pk_score ? ` (${p2})` : ''}` : ''}
                     </span>
                 </div>
-                <div class="match-team ${isW2 ? 'winner' : ''}" style="${isW2 ? 'font-weight:700' : 'font-weight:400'}">
-                    <span>${renderTeamIcon(t2)} ${t2}</span>
+                <div class="match-team ${isW1 ? 'winner' : ''}" style="${isW1 ? 'font-weight:700' : 'font-weight:400'}">
+                    <span class="match-team-info">${renderTeamIcon(t1)} <span class="team-name-text">${t1}</span></span>
                     <span class="score">
-                        ${match.played ? `${s2}${match.pk_score ? ` (${p2})` : ''}` : 'VS'}
+                        ${match.played ? `${s1}${match.pk_score ? ` (${p1})` : ''}` : 'VS'}
                     </span>
                 </div>
             `;
             return card;
         }
 
+        function createSeriesCard(matches) {
+            const seriesId = matches[0].series_id;
+            const activeMatches = matches.filter(m => !m.canceled);
+            const t1 = matches[0].teams[0] || "TBD";
+            const t2 = matches[0].teams[1] || "TBD";
+            
+            let w1 = 0, w2 = 0;
+            activeMatches.forEach(m => {
+                if (m.played) {
+                    const s1 = m.score[0], s2 = m.score[1];
+                    const p1 = m.pk_score ? m.pk_score[0] : null;
+                    const p2 = m.pk_score ? m.pk_score[1] : null;
+                    if (p1 !== null ? p1 > p2 : s1 > s2) w1++; else w2++;
+                }
+            });
+
+            const card = document.createElement('div');
+            card.className = 'match-card series-card';
+            
+            let status = "Series Tied 0-0";
+            if (w1 > w2) status = `${t1} leads ${w1}-${w2}`;
+            else if (w2 > w1) status = `${t2} leads ${w2}-${w1}`;
+            if (w1 + w2 > 0 && w1 === w2) status = `Series Tied ${w1}-${w2}`;
+            
+            const bestOf = matches.length;
+            const needed = Math.ceil(bestOf / 2);
+            if (w1 >= needed) status = `${t1} wins ${w1}-${w2}`;
+            else if (w2 >= needed) status = `${t2} wins ${w2}-${w1}`;
+
+            let headerHtml = `<div class="series-header"><span>${status}</span><span>BO${bestOf}</span></div>`;
+            
+            let gamesHtml = '<div class="series-games-grid">';
+            activeMatches.forEach(m => {
+                const isPlayed = m.played;
+                const scoreStr = isPlayed ? `${m.score[0]}-${m.score[1]}` : 'VS';
+                // Escape string for JSON inclusion in HTML attribute
+                const mJson = JSON.stringify(m).replace(/"/g, '&quot;');
+                gamesHtml += `
+                    <div class="game-bubble-large ${!isPlayed ? 'not-played' : ''}" onclick="if(${isPlayed}) openMatchDetail(${mJson})">
+                        <div class="game-num">Game ${m.game_num}</div>
+                        <div class="mini-flags">
+                            ${renderTeamIcon(m.teams[1])}
+                            ${renderTeamIcon(m.teams[0])}
+                        </div>
+                        <div class="mini-score">${isPlayed ? `${m.score[1]}-${m.score[0]}` : 'VS'}</div>
+                    </div>
+                `;
+            });
+            gamesHtml += '</div>';
+
+            card.innerHTML = headerHtml + gamesHtml;
+            return card;
+        }
+
         function openMatchDetail(match) {
             const modal = document.getElementById('modal');
             const content = document.getElementById('modalContent');
+            const isPro = currentData && currentData.config && currentData.config.pro_stats;
             
             const s1 = match.score[0], s2 = match.score[1];
             const p1 = match.pk_score ? match.pk_score[0] : null;
@@ -1421,51 +1781,83 @@
             const isW1 = p1 !== null ? p1 > p2 : s1 > s2;
             const isW2 = p2 !== null ? p2 > p1 : s2 > s1;
 
-            let eventsHtml = '';
-            match.events.forEach(e => {
-                eventsHtml += `
-                    <div class="event-item">
-                        <span class="event-minute">${e.minute}'</span>
-                        <span><strong>${e.player}</strong> (${e.team})</span>
-                    </div>`;
-            });
-
             content.innerHTML = `
                 <span class="close-modal" onclick="closeModal()">&times;</span>
-                <div style="display:flex; justify-content:center; align-items:center; gap:2rem; margin-bottom:3rem; padding-bottom:2rem; border-bottom:1px solid var(--border);">
-                    <div class="clickable-row" onclick="closeModal(); showTeamPage('${match.teams[0].replace(/'/g, "\\'")}')" style="text-align:center; flex:1; ${isW1 ? 'font-weight:700' : ''}">
-                        ${renderTeamIcon(match.teams[0], true, 'margin:0 0 0.5rem 0;')}<br>
-                        <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[0]}</span>
+                <div class="modal-header">
+                    <div class="modal-team-link ${isW2 ? 'winner' : ''}" onclick="closeModal(); showTeamPage('${match.teams[1].replace(/'/g, "\\'")}')">
+                        ${renderTeamIcon(match.teams[1], true, 'margin-bottom:0.5rem;')}<br>
+                        <span class="modal-team-name">${match.teams[1]}</span>
                     </div>
-                    <div style="font-family:'Oswald'; font-size:3rem; letter-spacing:4px; text-align:center;">
-                        <span style="${isW1 ? 'font-weight:700' : ''}">${s1}</span>
-                        <span style="color:var(--text-dim); margin:0 1rem;">-</span>
+                    <div class="modal-score-container">
                         <span style="${isW2 ? 'font-weight:700' : ''}">${s2}</span>
-                        ${match.pk_score ? `<div style="font-size:1rem; text-align:center; color:var(--text-dim); letter-spacing:1px;">(${p1} - ${p2} PK)</div>` : ''}
+                        <span class="modal-score-dash">-</span>
+                        <span style="${isW1 ? 'font-weight:700' : ''}">${s1}</span>
+                        ${match.pk_score ? `<div class="modal-pk-score">(${p2} - ${p1} PK)</div>` : ''}
                     </div>
-                    <div class="clickable-row" onclick="closeModal(); showTeamPage('${match.teams[1].replace(/'/g, "\\'")}')" style="text-align:center; flex:1; ${isW2 ? 'font-weight:700' : ''}">
-                        ${renderTeamIcon(match.teams[1], true, 'margin:0 0 0.5rem 0;')}<br>
-                        <span style="font-family:'Oswald'; font-size:1.5rem; text-transform:uppercase;">${match.teams[1]}</span>
+                    <div class="modal-team-link ${isW1 ? 'winner' : ''}" onclick="closeModal(); showTeamPage('${match.teams[0].replace(/'/g, "\\'")}')">
+                        ${renderTeamIcon(match.teams[0], true, 'margin-bottom:0.5rem;')}<br>
+                        <span class="modal-team-name">${match.teams[0]}</span>
                     </div>
                 </div>
                 
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
-                    <div>
+                <div class="modal-grid">
+                    <div class="modal-event-column">
                         <h3>Match Events</h3>
-                        ${eventsHtml || '<p>No goals scored.</p>'}
+                        <div class="modal-scroll-area" id="eventScrollArea">
+                            ${(() => {
+                                let rs1 = 0, rs2 = 0;
+                                return match.events.map(e => {
+                                    if (e.team === match.teams[0]) rs1++;
+                                    else rs2++;
+                                    return `
+                                        <div class="event-item">
+                                            <div class="event-info">
+                                                <span class="event-minute">${e.minute}'</span>
+                                                <div class="event-player-container">
+                                                    <strong>${e.player}</strong>
+                                                    ${e.assist ? `<span class="event-assister">${e.assist}</span>` : ''}
+                                                </div>
+                                            </div>
+                                            <div class="event-running-score">
+                                                ${renderTeamIcon(match.teams[1], false, 'margin:0; width:20px; height:auto;')}
+                                                <span class="running-score-text">${rs2} - ${rs1}</span>
+                                                ${renderTeamIcon(match.teams[0], false, 'margin:0; width:20px; height:auto;')}
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('') || '<p>No goals scored.</p>';
+                            })()}
+                        </div>
                     </div>
-                    <div>
+                    <div id="statsColumn">
                         <h3>Match Stats</h3>
                         <table class="match-stats-table">
-                            <tr><th>${match.teams[0]}</th><th>Stat</th><th>${match.teams[1]}</th></tr>
-                            <tr><td>${match.stats[match.teams[0]].shots}</td><td>Shots</td><td>${match.stats[match.teams[1]].shots}</td></tr>
-                            <tr><td>${match.stats[match.teams[0]].sogs}</td><td>SOG</td><td>${match.stats[match.teams[1]].sogs}</td></tr>
-                            <tr><td>${match.stats[match.teams[0]].saves}</td><td>Saves</td><td>${match.stats[match.teams[1]].saves}</td></tr>
+                            <tr><th>${match.teams[1]}</th><th>Stat</th><th>${match.teams[0]}</th></tr>
+                            ${isPro ? `
+                            <tr>
+                                <td>${match.stats[match.teams[1]].possession || 50}%</td>
+                                <td class="possession_cell">
+                                    Possession
+                                    ${match.stats.neutral_possession ? `<br><span class="match-stats-neutral">${match.stats.neutral_possession}% IN CONTEST</span>` : ''}
+                                </td>
+                                <td>${match.stats[match.teams[0]].possession || 50}%</td>
+                            </tr>
+                            ` : ''}
+                            <tr><td>${match.stats[match.teams[1]].shots}</td><td>Shots</td><td>${match.stats[match.teams[0]].shots}</td></tr>
+                            <tr><td>${match.stats[match.teams[1]].sogs}</td><td>On Goal</td><td>${match.stats[match.teams[0]].sogs}</td></tr>
+                            <tr><td>${match.stats[match.teams[1]].saves}</td><td>Saves</td><td>${match.stats[match.teams[0]].saves}</td></tr>
+                            ${isPro ? `
+                            <tr><td>${match.stats[match.teams[1]].stops || 0}</td><td>Blocks</td><td>${match.stats[match.teams[0]].stops || 0}</td></tr>
+                            ` : ''}
                         </table>
                     </div>
                 </div>
             `;
             modal.style.display = 'flex';
+
+            // Set max-height of events to match stats height
+            const statsHeight = document.getElementById('statsColumn').offsetHeight;
+            document.getElementById('eventScrollArea').style.maxHeight = (statsHeight - 50) + 'px';
         }
 
         function closeModal() {
@@ -1476,7 +1868,12 @@
         window.addEventListener('popstate', (e) => {
             const params = new URLSearchParams(window.location.search);
             currentYear = params.get('year') || '2026';
-            currentRegion = params.get('region') || 'WC';
+            
+            let defaultRegion = 'WC';
+            if (currentYear === '2025') defaultRegion = 'BSL';
+            else if (currentYear === '2024') defaultRegion = 'COPA';
+            
+            currentRegion = params.get('region') || defaultRegion;
             currentStage = params.get('stage') || 'group';
             const team = params.get('team');
 
@@ -1501,6 +1898,8 @@
                 loadRegion(currentRegion, null, true).then(() => {
                     showTeamPage(team, true);
                 });
+            } else if (currentStage === 'rankings') {
+                showStage('rankings', null, true);
             } else {
                 loadRegion(currentRegion, null, true);
             }

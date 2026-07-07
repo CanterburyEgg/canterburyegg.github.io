@@ -1,0 +1,92 @@
+Match: New York Empire vs Detroit Firebirds
+(check=29) Minute 1: no shot.
+(check=34) Minute 2: no shot. (Stop: Miguel Ortega)
+(check=15) Minute 3: no shot.
+(check=10) Minute 4: no shot. (Stop: Silas McBride)
+(check=35) Minute 5: no shot.
+(check=40) Minute 6: (t1check=45, t2check=23, check1=6, check2=8) Silas McBride missed shot. (Stop: Cesar Romero)
+(check=33) Minute 7: no shot. (Stop: Felix Cardozo)
+(check=6) Minute 8: no shot.
+(check=50) Minute 9: (t1check=75, t2check=59, check1=35, check2=37) (goalchk1=42, goalchk2=36) Helmut Lange GOAL!!! (Ast: Miguel Ortega) Score: 1-0
+(check=45) Minute 10: (t1check=57, t2check=6, check1=35, check2=37) (goalchk1=25, goalchk2=19) Nick Hamburger shot on goal. Graham Chapman SAVE!
+(check=30) Minute 11: no shot.
+(check=12) Minute 12: no shot.
+(check=41) Minute 13: (t1check=76, t2check=69, check1=41, check2=43) (goalchk1=25, goalchk2=19) Nick Hamburger shot on goal. Graham Chapman SAVE!
+(check=20) Minute 14: no shot. (Stop: Helgi Magnusson)
+(check=34) Minute 15: no shot.
+(check=41) Minute 16: (t1check=75, t2check=34, check1=5, check2=7) Raul Ortiz missed shot. (Stop: Felix Cardozo)
+(check=38) Minute 17: no shot.
+(check=45) Minute 18: (t1check=61, t2check=45, check1=47, check2=49) (goalchk1=33, goalchk2=27) Nick Hamburger GOAL!!! (Ast: Raul Ortiz) Score: 2-0
+(check=10) Minute 19: no shot.
+(check=50) Minute 20: (t1check=74, t2check=12, check1=21, check2=23) Raul Ortiz missed shot. (Stop: Graham Chapman)
+(check=37) Minute 21: no shot.
+(check=32) Minute 22: no shot.
+(check=11) Minute 23: no shot.
+(check=50) Minute 24: (t1check=63, t2check=24, check1=19, check2=21) Raul Ortiz missed shot. (Stop: Graham Chapman)
+(check=30) Minute 25: no shot.
+(check=2) Minute 26: no shot.
+(check=12) Minute 27: no shot.
+(check=37) Minute 28: no shot. (Stop: Orlando Centeno)
+(check=45) Minute 29: (t1check=27, t2check=23, check1=4, check2=6) Nick Hamburger missed shot. (Stop: Felix Cardozo)
+(check=38) Minute 30: no shot.
+(check=43) Minute 31: (t1check=41, t2check=38, check1=9, check2=11) Nick Hamburger missed shot. (Stop: Clyde Gittens)
+(check=29) Minute 32: no shot. (Stop: Raul Ortiz)
+(check=2) Minute 33: no shot.
+(check=9) Minute 34: no shot.
+(check=29) Minute 35: no shot.
+(check=10) Minute 36: no shot.
+(check=42) Minute 37: (t1check=57, t2check=13, check1=29, check2=31) (goalchk1=38, goalchk2=32) Helmut Lange GOAL!!! (Ast: Helgi Magnusson) Score: 3-0
+(check=18) Minute 38: no shot. (Stop: Nico Soria)
+(check=25) Minute 39: no shot.
+(check=14) Minute 40: no shot.
+(check=5) Minute 41: no shot.
+(check=46) Minute 42: (t1check=50, t2check=27, check1=44, check2=46) (goalchk1=13, goalchk2=7) Nick Hamburger shot on goal. Graham Chapman SAVE!
+(check=19) Minute 43: no shot. (Stop: Felix Cardozo)
+(check=18) Minute 44: no shot.
+(check=15) Minute 45: no shot. (Stop: Lorenzo Marte)
+(check=27) Minute 46: no shot.
+(check=19) Minute 47: no shot.
+(check=37) Minute 48: no shot.
+(check=46) Minute 49: (t1check=59, t2check=62, check1=31, check2=30) Joel Hosein missed shot. (Stop: Silas McBride)
+(check=43) Minute 50: (t1check=20, t2check=19, check1=27, check2=29) Nick Hamburger missed shot. (Stop: Clyde Gittens)
+(check=25) Minute 51: no shot. (Stop: Silas McBride)
+(check=39) Minute 52: (t1check=84, t2check=53, check1=5, check2=7) Nick Hamburger missed shot. (Stop: Graham Chapman)
+(check=48) Minute 53: (t1check=48, t2check=69, check1=5, check2=4) Nico Soria missed shot. (Stop: Helgi Magnusson)
+(check=17) Minute 54: no shot.
+(check=42) Minute 55: (t1check=34, t2check=46, check1=30, check2=29) Felipe Pinheiro missed shot. (Stop: Miguel Ortega)
+(check=33) Minute 56: no shot. (Stop: Miguel Ortega)
+(check=26) Minute 57: no shot.
+(check=1) Minute 58: no shot.
+(check=28) Minute 59: no shot. (Stop: Lorenzo Marte)
+(check=7) Minute 60: no shot.
+(check=18) Minute 61: no shot. (Stop: Lorenzo Marte)
+(check=40) Minute 62: (t1check=54, t2check=9, check1=5, check2=7) Helmut Lange missed shot. (Stop: Felix Cardozo)
+(check=43) Minute 63: (t1check=44, t2check=31, check1=38, check2=40) (goalchk1=23, goalchk2=17) Helmut Lange shot on goal. Graham Chapman SAVE!
+(check=28) Minute 64: no shot.
+(check=33) Minute 65: no shot.
+(check=27) Minute 66: no shot. (Stop: Graham Chapman)
+(check=44) Minute 67: (t1check=72, t2check=62, check1=18, check2=20) Silas McBride missed shot. (Stop: Cesar Romero)
+(check=16) Minute 68: no shot. (Stop: Graham Chapman)
+(check=8) Minute 69: no shot.
+(check=45) Minute 70: (t1check=73, t2check=22, check1=21, check2=23) Nick Hamburger missed shot. (Stop: Clyde Gittens)
+(check=40) Minute 71: (t1check=50, t2check=55, check1=35, check2=34) (goalchk1=10, goalchk2=6) Neville Grant shot on goal. Orlando Centeno SAVE!
+(check=12) Minute 72: no shot.
+(check=46) Minute 73: (t1check=83, t2check=70, check1=34, check2=36) (goalchk1=44, goalchk2=38) Nick Hamburger GOAL!!! (Ast: Lorenzo Marte) Score: 4-0
+(check=8) Minute 74: no shot. (Stop: Cesar Romero)
+(check=35) Minute 75: no shot.
+(check=17) Minute 76: no shot.
+(check=27) Minute 77: no shot.
+(check=11) Minute 78: no shot. (Stop: Helgi Magnusson)
+(check=42) Minute 79: (t1check=71, t2check=25, check1=8, check2=10) Nick Hamburger missed shot. (Stop: Nico Soria)
+(check=12) Minute 80: no shot. (Stop: Felix Cardozo)
+(check=21) Minute 81: no shot.
+(check=50) Minute 82: (t1check=30, t2check=31, check1=34, check2=33) (goalchk1=38, goalchk2=34) Felipe Pinheiro GOAL!!! (Ast: Neville Grant) Score: 4-1
+(check=12) Minute 83: no shot. (Stop: Graham Chapman)
+(check=42) Minute 84: (t1check=16, t2check=56, check1=21, check2=20) Clyde Gittens missed shot. (Stop: Lorenzo Marte)
+(check=16) Minute 85: no shot.
+(check=14) Minute 86: no shot.
+(check=11) Minute 87: no shot. (Stop: Silas McBride)
+(check=2) Minute 88: no shot.
+(check=7) Minute 89: no shot.
+(check=4) Minute 90: no shot.
+Final score: 4-1

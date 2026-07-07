@@ -1,0 +1,92 @@
+Match: Montreal Coureurs vs Las Vegas Mirage
+(check=17) Minute 1: no shot.
+(check=22) Minute 2: no shot.
+(check=33) Minute 3: no shot.
+(check=11) Minute 4: no shot.
+(check=44) Minute 5: (t1check=36, t2check=45, check1=20, check2=23) Mohammed Odoi missed shot. (Stop: Youssouf M'Changama)
+(check=43) Minute 6: (t1check=50, t2check=72, check1=15, check2=18) Knox Fletcher missed shot. (Stop: Armando Dominguez)
+(check=33) Minute 7: no shot. (Stop: Fernando Reyes)
+(check=13) Minute 8: no shot.
+(check=10) Minute 9: no shot.
+(check=30) Minute 10: no shot.
+(check=49) Minute 11: (t1check=77, t2check=67, check1=15, check2=13) Matti Jokinen missed shot. (Stop: Junya Ito)
+(check=45) Minute 12: (t1check=60, t2check=69, check1=28, check2=31) (goalchk1=48, goalchk2=41) Johan Vasquez GOAL!!! (Ast: William Davies) Score: 0-1
+(check=12) Minute 13: no shot.
+(check=38) Minute 14: no shot.
+(check=33) Minute 15: no shot.
+(check=45) Minute 16: (t1check=33, t2check=78, check1=27, check2=30) Anthony Gonzales missed shot. (Stop: Youssouf M'Changama)
+(check=47) Minute 17: (t1check=68, t2check=59, check1=26, check2=24) Matti Jokinen missed shot. (Stop: Antonio Chavez)
+(check=47) Minute 18: (t1check=20, t2check=14, check1=40, check2=38) (goalchk1=31, goalchk2=23) Santiago Barrios shot on goal. Junya Ito SAVE!
+(check=19) Minute 19: no shot.
+(check=9) Minute 20: no shot.
+(check=42) Minute 21: (t1check=50, t2check=42, check1=16, check2=14) Santiago Barrios missed shot. (Stop: Fernando Reyes)
+(check=34) Minute 22: no shot. (Stop: Johan Vasquez)
+(check=28) Minute 23: no shot.
+(check=40) Minute 24: (t1check=27, t2check=81, check1=34, check2=37) (goalchk1=6, goalchk2=-1) Johan Vasquez shot on goal. Youssouf M'Changama SAVE!
+(check=7) Minute 25: no shot.
+(check=27) Minute 26: no shot.
+(check=45) Minute 27: (t1check=31, t2check=65, check1=6, check2=9) Mohammed Odoi missed shot. (Stop: Youssouf M'Changama)
+(check=31) Minute 28: no shot. (Stop: Armando Dominguez)
+(check=15) Minute 29: no shot.
+(check=31) Minute 30: no shot. (Stop: Rafael Tejeda)
+(check=32) Minute 31: no shot. (Stop: Arthur Kayembe)
+(check=41) Minute 32: (t1check=44, t2check=58, check1=47, check2=50) (goalchk1=35, goalchk2=28) Mohammed Odoi GOAL!!! (Ast: Knox Fletcher) Score: 0-2
+(check=1) Minute 33: no shot. (Stop: Vicente Mendez)
+(check=31) Minute 34: no shot.
+(check=23) Minute 35: no shot.
+(check=10) Minute 36: no shot.
+(check=46) Minute 37: (t1check=10, t2check=14, check1=2, check2=5) Mohammed Odoi missed shot. (Stop: Arthur Kayembe)
+(check=48) Minute 38: (t1check=60, t2check=32, check1=30, check2=28) Matti Jokinen missed shot. (Stop: Antonio Chavez)
+(check=44) Minute 39: (t1check=79, t2check=60, check1=18, check2=16) Rafael Tejeda missed shot. (Stop: Johan Vasquez)
+(check=13) Minute 40: no shot. (Stop: Youssouf M'Changama)
+(check=25) Minute 41: no shot.
+(check=42) Minute 42: (t1check=79, t2check=39, check1=24, check2=22) Santiago Barrios missed shot. (Stop: Johan Vasquez)
+(check=4) Minute 43: no shot. (Stop: Armando Dominguez)
+(check=43) Minute 44: (t1check=18, t2check=12, check1=47, check2=45) (goalchk1=38, goalchk2=30) Santiago Barrios GOAL!!! Score: 1-2
+(check=9) Minute 45: no shot.
+(check=23) Minute 46: no shot.
+(check=30) Minute 47: no shot.
+(check=16) Minute 48: no shot. (Stop: Antonio Chavez)
+(check=46) Minute 49: (t1check=23, t2check=8, check1=21, check2=19) Rafael Tejeda missed shot. (Stop: Junya Ito)
+(check=28) Minute 50: no shot.
+(check=1) Minute 51: no shot.
+(check=40) Minute 52: (t1check=20, t2check=65, check1=44, check2=47) (goalchk1=19, goalchk2=12) William Davies shot on goal. Youssouf M'Changama SAVE!
+(check=26) Minute 53: no shot.
+(check=23) Minute 54: no shot.
+(check=41) Minute 55: (t1check=27, t2check=22, check1=28, check2=26) Youssouf M'Changama missed shot. (Stop: Junya Ito)
+(check=46) Minute 56: (t1check=52, t2check=10, check1=18, check2=16) Wayne Harrison missed shot. (Stop: Johan Vasquez)
+(check=34) Minute 57: no shot.
+(check=16) Minute 58: no shot.
+(check=5) Minute 59: no shot. (Stop: Arthur Kayembe)
+(check=16) Minute 60: no shot. (Stop: Vicente Mendez)
+(check=23) Minute 61: no shot.
+(check=14) Minute 62: no shot.
+(check=38) Minute 63: no shot.
+(check=1) Minute 64: no shot.
+(check=35) Minute 65: no shot. (Stop: Johan Vasquez)
+(check=4) Minute 66: no shot. (Stop: Antonio Chavez)
+(check=23) Minute 67: no shot. (Stop: Junya Ito)
+(check=9) Minute 68: no shot. (Stop: Arthur Kayembe)
+(check=8) Minute 69: no shot. (Stop: Antonio Chavez)
+(check=49) Minute 70: (t1check=56, t2check=38, check1=15, check2=13) Matti Jokinen missed shot. (Stop: Antonio Chavez)
+(check=39) Minute 71: (t1check=37, t2check=67, check1=39, check2=42) (goalchk1=20, goalchk2=13) Junya Ito shot on goal. Youssouf M'Changama SAVE!
+(check=2) Minute 72: no shot.
+(check=20) Minute 73: no shot.
+(check=2) Minute 74: no shot. (Stop: Junya Ito)
+(check=35) Minute 75: no shot. (Stop: Arthur Kayembe)
+(check=41) Minute 76: (t1check=59, t2check=74, check1=40, check2=43) (goalchk1=33, goalchk2=26) Anthony Gonzales GOAL!!! (Ast: Fernando Reyes) Score: 1-3
+(check=50) Minute 77: (t1check=60, t2check=9, check1=20, check2=18) Rafael Tejeda missed shot. (Stop: Johan Vasquez)
+(check=31) Minute 78: no shot. (Stop: Fernando Reyes)
+(check=16) Minute 79: no shot.
+(check=8) Minute 80: no shot.
+(check=23) Minute 81: no shot.
+(check=13) Minute 82: no shot. (Stop: Junya Ito)
+(check=23) Minute 83: no shot.
+(check=3) Minute 84: no shot.
+(check=31) Minute 85: no shot. (Stop: Arthur Kayembe)
+(check=7) Minute 86: no shot.
+(check=7) Minute 87: no shot. (Stop: Youssouf M'Changama)
+(check=3) Minute 88: no shot. (Stop: Youssouf M'Changama)
+(check=48) Minute 89: (t1check=74, t2check=15, check1=17, check2=15) Matti Jokinen missed shot. (Stop: Junya Ito)
+(check=32) Minute 90: no shot.
+Final score: 1-3

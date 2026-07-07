@@ -1,0 +1,92 @@
+Match: Edelweiss Zurich vs Donau Wien
+(check=34) Minute 1: no shot.
+(check=5) Minute 2: no shot.
+(check=28) Minute 3: no shot.
+(check=50) Minute 4: (t1check=15, t2check=39, check1=23, check2=24) Stefan Takac missed shot. (Stop: Pavel Ivanova)
+(check=37) Minute 5: no shot.
+(check=18) Minute 6: no shot.
+(check=8) Minute 7: no shot. (Stop: Werner Frei)
+(check=35) Minute 8: no shot.
+(check=48) Minute 9: (t1check=81, t2check=57, check1=43, check2=46) (goalchk1=27, goalchk2=22) Marcos Ospina shot on goal. Pedro Dos Santos SAVE!
+(check=50) Minute 10: (t1check=15, t2check=68, check1=25, check2=26) Vasile Cazacu missed shot. (Stop: Slobodan Krstic)
+(check=25) Minute 11: no shot.
+(check=4) Minute 12: no shot.
+(check=21) Minute 13: no shot.
+(check=22) Minute 14: no shot.
+(check=31) Minute 15: no shot.
+(check=11) Minute 16: no shot.
+(check=27) Minute 17: no shot.
+(check=24) Minute 18: no shot.
+(check=13) Minute 19: no shot.
+(check=47) Minute 20: (t1check=22, t2check=19, check1=19, check2=22) Marcos Ospina missed shot. (Stop: Jan Johansen)
+(check=26) Minute 21: no shot.
+(check=11) Minute 22: no shot.
+(check=20) Minute 23: no shot.
+(check=11) Minute 24: no shot.
+(check=26) Minute 25: no shot. (Stop: Slobodan Krstic)
+(check=9) Minute 26: no shot.
+(check=9) Minute 27: no shot.
+(check=5) Minute 28: no shot.
+(check=32) Minute 29: no shot.
+(check=7) Minute 30: no shot.
+(check=27) Minute 31: no shot.
+(check=38) Minute 32: no shot. (Stop: Fredrik Johansson)
+(check=8) Minute 33: no shot. (Stop: Arni Olafsson)
+(check=43) Minute 34: (t1check=18, t2check=41, check1=24, check2=25) Rafael Parra missed shot. (Stop: Fredrik Johansson)
+(check=34) Minute 35: no shot.
+(check=3) Minute 36: no shot. (Stop: Pavel Ivanova)
+(check=46) Minute 37: (t1check=50, t2check=13, check1=24, check2=27) Simon Knight missed shot. (Stop: Vasile Cazacu)
+(check=13) Minute 38: no shot.
+(check=9) Minute 39: no shot.
+(check=6) Minute 40: no shot.
+(check=27) Minute 41: no shot.
+(check=30) Minute 42: no shot. (Stop: Rafael Parra)
+(check=27) Minute 43: no shot.
+(check=35) Minute 44: no shot. (Stop: Arni Olafsson)
+(check=30) Minute 45: no shot.
+(check=10) Minute 46: no shot. (Stop: Vasile Cazacu)
+(check=28) Minute 47: no shot.
+(check=38) Minute 48: no shot.
+(check=12) Minute 49: no shot.
+(check=28) Minute 50: no shot.
+(check=27) Minute 51: no shot. (Stop: Pedro Dos Santos)
+(check=2) Minute 52: no shot.
+(check=10) Minute 53: no shot.
+(check=41) Minute 54: (t1check=66, t2check=81, check1=4, check2=5) Rafael Parra missed shot. (Stop: Anders Lindstrom)
+(check=27) Minute 55: no shot.
+(check=4) Minute 56: no shot.
+(check=44) Minute 57: (t1check=13, t2check=31, check1=46, check2=47) (goalchk1=37, goalchk2=29) Stefan Takac GOAL!!! Score: 0-1
+(check=40) Minute 58: (t1check=52, t2check=75, check1=1, check2=2) Werner Frei missed shot. (Stop: Fredrik Johansson)
+(check=32) Minute 59: no shot.
+(check=1) Minute 60: no shot.
+(check=31) Minute 61: no shot. (Stop: Erik Olsen)
+(check=19) Minute 62: no shot.
+(check=41) Minute 63: (t1check=14, t2check=32, check1=44, check2=45) (goalchk1=50, goalchk2=42) Stefan Takac GOAL!!! (Ast: Jan Johansen) Score: 0-2
+(check=1) Minute 64: no shot.
+(check=25) Minute 65: no shot. (Stop: Pavel Ivanova)
+(check=50) Minute 66: (t1check=58, t2check=48, check1=43, check2=46) (goalchk1=11, goalchk2=6) Marcos Ospina shot on goal. Pedro Dos Santos SAVE!
+(check=34) Minute 67: no shot.
+(check=39) Minute 68: (t1check=10, t2check=79, check1=12, check2=13) Stefan Takac missed shot. (Stop: Pavel Ivanova)
+(check=28) Minute 69: no shot.
+(check=48) Minute 70: (t1check=64, t2check=70, check1=1, check2=2) Stefan Takac missed shot. (Stop: Anders Lindstrom)
+(check=35) Minute 71: no shot.
+(check=43) Minute 72: (t1check=51, t2check=77, check1=1, check2=2) Jan Johansen missed shot. (Stop: Slobodan Krstic)
+(check=2) Minute 73: no shot. (Stop: Pedro Dos Santos)
+(check=20) Minute 74: no shot.
+(check=21) Minute 75: no shot.
+(check=35) Minute 76: no shot. (Stop: Arni Olafsson)
+(check=48) Minute 77: (t1check=67, t2check=64, check1=32, check2=35) (goalchk1=41, goalchk2=36) Simon Knight GOAL!!! (Ast: Aka Dah) Score: 1-2
+(check=26) Minute 78: no shot.
+(check=42) Minute 79: (t1check=23, t2check=71, check1=5, check2=6) Jan Johansen missed shot. (Stop: Erik Olsen)
+(check=30) Minute 80: no shot. (Stop: Pavel Ivanova)
+(check=33) Minute 81: no shot.
+(check=38) Minute 82: no shot.
+(check=39) Minute 83: (t1check=8, t2check=41, check1=46, check2=47) (goalchk1=41, goalchk2=33) Stefan Takac GOAL!!! (Ast: Rafael Parra) Score: 1-3
+(check=36) Minute 84: no shot.
+(check=22) Minute 85: no shot.
+(check=20) Minute 86: no shot. (Stop: Erik Olsen)
+(check=48) Minute 87: (t1check=27, t2check=39, check1=11, check2=12) Franc Potocnik missed shot. (Stop: Aka Dah)
+(check=24) Minute 88: no shot. (Stop: Vasile Cazacu)
+(check=7) Minute 89: no shot. (Stop: Werner Frei)
+(check=16) Minute 90: no shot. (Stop: Pavel Ivanova)
+Final score: 1-3

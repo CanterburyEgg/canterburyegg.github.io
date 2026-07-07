@@ -1,0 +1,74 @@
+{
+  "name": "Damascus Steel",
+  "ratings": {
+    "offense": 5,
+    "speed": 5,
+    "defense": 5,
+    "gk": 8
+  },
+  "players": [
+    {
+      "name": "Ahmed Saleh",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Yusuf Guler",
+      "shot_prop": 26,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Salah Saidi",
+      "shot_prop": 26,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Fabrice Blanchard",
+      "shot_prop": 5,
+      "assist_prop": 14,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Nestor Moreira",
+      "shot_prop": 5,
+      "assist_prop": 14,
+      "stop_prop": 20,
+      "pos": "DEF"
+    },
+    {
+      "name": "Andres Molina",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 24,
+      "pos": "DEF"
+    },
+    {
+      "name": "Malcolm Hopkins",
+      "shot_prop": 11,
+      "assist_prop": 17,
+      "stop_prop": 10,
+      "pos": "MID"
+    },
+    {
+      "name": "Didier Bouanga",
+      "shot_prop": 15,
+      "assist_prop": 15,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Ramesh Shrestha",
+      "shot_prop": 7,
+      "assist_prop": 17,
+      "stop_prop": 13,
+      "pos": "MID"
+    }
+  ]
+}

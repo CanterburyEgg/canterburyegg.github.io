@@ -1,0 +1,92 @@
+Match: Seattle Echo vs Las Vegas Mirage
+(check=1) Minute 1: no shot.
+(check=9) Minute 2: no shot.
+(check=9) Minute 3: no shot. (Stop: Junya Ito)
+(check=42) Minute 4: (t1check=13, t2check=48, check1=22, check2=22) Anthony Gonzales missed shot. (Stop: Juan Araya)
+(check=7) Minute 5: no shot.
+(check=38) Minute 6: no shot.
+(check=5) Minute 7: no shot.
+(check=12) Minute 8: no shot.
+(check=17) Minute 9: no shot. (Stop: Johan Vasquez)
+(check=38) Minute 10: no shot. (Stop: Antonio Chavez)
+(check=24) Minute 11: no shot. (Stop: Johan Vasquez)
+(check=35) Minute 12: no shot.
+(check=5) Minute 13: no shot.
+(check=25) Minute 14: no shot.
+(check=30) Minute 15: no shot.
+(check=1) Minute 16: no shot.
+(check=44) Minute 17: (t1check=17, t2check=10, check1=32, check2=30) Pedro Banegas missed shot. (Stop: Johan Vasquez)
+(check=23) Minute 18: no shot. (Stop: Enrique de Leon)
+(check=4) Minute 19: no shot. (Stop: Antonio Chavez)
+(check=26) Minute 20: no shot. (Stop: Juan Araya)
+(check=30) Minute 21: no shot.
+(check=42) Minute 22: (t1check=57, t2check=67, check1=14, check2=14) Fernando Reyes missed shot. (Stop: Gustavo Vega)
+(check=10) Minute 23: no shot.
+(check=22) Minute 24: no shot.
+(check=28) Minute 25: no shot.
+(check=11) Minute 26: no shot. (Stop: Tomasi Devi)
+(check=50) Minute 27: (t1check=9, t2check=10, check1=16, check2=16) Mohammed Odoi missed shot. (Stop: Enrique de Leon)
+(check=49) Minute 28: (t1check=67, t2check=60, check1=15, check2=13) Pedro Banegas missed shot. (Stop: Johan Vasquez)
+(check=8) Minute 29: no shot.
+(check=27) Minute 30: no shot.
+(check=23) Minute 31: no shot.
+(check=9) Minute 32: no shot.
+(check=12) Minute 33: no shot.
+(check=48) Minute 34: (t1check=40, t2check=21, check1=3, check2=1) Serghei Cojocari missed shot. (Stop: Johan Vasquez)
+(check=7) Minute 35: no shot. (Stop: Juan Araya)
+(check=49) Minute 36: (t1check=74, t2check=35, check1=40, check2=38) (goalchk1=13, goalchk2=5) Gustavo Vega shot on goal. Junya Ito SAVE!
+(check=26) Minute 37: no shot.
+(check=6) Minute 38: no shot. (Stop: Enrique de Leon)
+(check=25) Minute 39: no shot. (Stop: Juan Araya)
+(check=42) Minute 40: (t1check=67, t2check=69, check1=39, check2=39) (goalchk1=25, goalchk2=19) Knox Fletcher shot on goal. Gustavo Vega SAVE!
+(check=28) Minute 41: no shot.
+(check=14) Minute 42: no shot.
+(check=16) Minute 43: no shot.
+(check=15) Minute 44: no shot.
+(check=46) Minute 45: (t1check=67, t2check=23, check1=19, check2=17) Gustavo Vega missed shot. (Stop: Junya Ito)
+(check=14) Minute 46: no shot.
+(check=8) Minute 47: no shot.
+(check=32) Minute 48: no shot.
+(check=24) Minute 49: no shot.
+(check=15) Minute 50: no shot.
+(check=31) Minute 51: no shot.
+(check=32) Minute 52: no shot.
+(check=15) Minute 53: no shot.
+(check=22) Minute 54: no shot.
+(check=11) Minute 55: no shot.
+(check=28) Minute 56: no shot.
+(check=16) Minute 57: no shot.
+(check=29) Minute 58: no shot.
+(check=35) Minute 59: no shot.
+(check=22) Minute 60: no shot. (Stop: Gustavo Vega)
+(check=44) Minute 61: (t1check=13, t2check=74, check1=24, check2=24) Anthony Gonzales missed shot. (Stop: Enrique de Leon)
+(check=46) Minute 62: (t1check=71, t2check=59, check1=17, check2=15) Pedro Banegas missed shot. (Stop: Johan Vasquez)
+(check=41) Minute 63: (t1check=36, t2check=73, check1=38, check2=38) (goalchk1=5, goalchk2=-1) William Davies shot on goal. Gustavo Vega SAVE!
+(check=41) Minute 64: (t1check=43, t2check=49, check1=36, check2=36) (goalchk1=17, goalchk2=11) William Davies shot on goal. Gustavo Vega SAVE!
+(check=46) Minute 65: (t1check=16, t2check=73, check1=22, check2=22) Johan Vasquez missed shot. (Stop: Gustavo Vega)
+(check=6) Minute 66: no shot.
+(check=40) Minute 67: (t1check=47, t2check=15, check1=47, check2=45) (goalchk1=3, goalchk2=-5) Serghei Cojocari shot on goal. Junya Ito SAVE!
+(check=29) Minute 68: no shot. (Stop: Juan Araya)
+(check=4) Minute 69: no shot.
+(check=4) Minute 70: no shot.
+(check=16) Minute 71: no shot.
+(check=2) Minute 72: no shot.
+(check=48) Minute 73: (t1check=41, t2check=52, check1=43, check2=43) (goalchk1=18, goalchk2=12) Anthony Gonzales shot on goal. Gustavo Vega SAVE!
+(check=25) Minute 74: no shot. (Stop: Enrique de Leon)
+(check=9) Minute 75: no shot.
+(check=37) Minute 76: no shot.
+(check=8) Minute 77: no shot. (Stop: Enrique Blanco)
+(check=35) Minute 78: no shot. (Stop: Tomasi Devi)
+(check=23) Minute 79: no shot.
+(check=45) Minute 80: (t1check=75, t2check=50, check1=42, check2=40) (goalchk1=46, goalchk2=38) Pedro Banegas GOAL!!! (Ast: Serghei Cojocari) Score: 1-0
+(check=28) Minute 81: no shot.
+(check=48) Minute 82: (t1check=44, t2check=16, check1=48, check2=46) (goalchk1=47, goalchk2=39) Pedro Banegas GOAL!!! (Ast: Enrique de Leon) Score: 2-0
+(check=24) Minute 83: no shot.
+(check=31) Minute 84: no shot.
+(check=41) Minute 85: (t1check=69, t2check=8, check1=22, check2=20) Serghei Cojocari missed shot. (Stop: Junya Ito)
+(check=34) Minute 86: no shot.
+(check=9) Minute 87: no shot.
+(check=15) Minute 88: no shot.
+(check=8) Minute 89: no shot.
+(check=35) Minute 90: no shot. (Stop: Junya Ito)
+Final score: 2-0

@@ -1,0 +1,92 @@
+Match: Montreal Coureurs vs Seattle Echo
+(check=14) Minute 1: no shot. (Stop: Enrique de Leon)
+(check=5) Minute 2: no shot.
+(check=39) Minute 3: (t1check=8, t2check=40, check1=18, check2=18) Enrique Blanco missed shot. (Stop: Armando Dominguez)
+(check=38) Minute 4: no shot.
+(check=49) Minute 5: (t1check=80, t2check=70, check1=23, check2=21) Armando Dominguez missed shot. (Stop: Juan Araya)
+(check=21) Minute 6: no shot.
+(check=43) Minute 7: (t1check=65, t2check=22, check1=41, check2=39) (goalchk1=47, goalchk2=41) Rafael Tejeda GOAL!!! (Ast: Youssouf M'Changama) Score: 1-0
+(check=17) Minute 8: no shot.
+(check=36) Minute 9: no shot.
+(check=43) Minute 10: (t1check=46, t2check=47, check1=9, check2=9) Tomasi Devi missed shot. (Stop: Youssouf M'Changama)
+(check=10) Minute 11: no shot.
+(check=3) Minute 12: no shot.
+(check=34) Minute 13: no shot.
+(check=25) Minute 14: no shot. (Stop: Vicente Mendez)
+(check=43) Minute 15: (t1check=30, t2check=70, check1=27, check2=27) Serghei Cojocari missed shot. (Stop: Arthur Kayembe)
+(check=3) Minute 16: no shot. (Stop: Jaxson Wilder)
+(check=5) Minute 17: no shot.
+(check=48) Minute 18: (t1check=71, t2check=79, check1=10, check2=10) Serghei Cojocari missed shot. (Stop: Armando Dominguez)
+(check=46) Minute 19: (t1check=44, t2check=74, check1=4, check2=4) Gustavo Vega missed shot. (Stop: Youssouf M'Changama)
+(check=6) Minute 20: no shot.
+(check=41) Minute 21: (t1check=39, t2check=43, check1=16, check2=16) Pedro Banegas missed shot. (Stop: Armando Dominguez)
+(check=7) Minute 22: no shot. (Stop: Youssouf M'Changama)
+(check=48) Minute 23: (t1check=79, t2check=51, check1=18, check2=16) Arthur Kayembe missed shot. (Stop: Jaxson Wilder)
+(check=2) Minute 24: no shot.
+(check=10) Minute 25: no shot. (Stop: Arthur Kayembe)
+(check=41) Minute 26: (t1check=66, t2check=48, check1=7, check2=5) Matti Jokinen missed shot. (Stop: Enrique Blanco)
+(check=38) Minute 27: no shot.
+(check=50) Minute 28: (t1check=9, t2check=50, check1=4, check2=4) Pedro Banegas missed shot. (Stop: Arthur Kayembe)
+(check=28) Minute 29: no shot.
+(check=24) Minute 30: no shot. (Stop: Enrique de Leon)
+(check=42) Minute 31: (t1check=51, t2check=74, check1=4, check2=4) Enrique de Leon missed shot. (Stop: Youssouf M'Changama)
+(check=45) Minute 32: (t1check=65, t2check=77, check1=48, check2=48) (goalchk1=7, goalchk2=0) Enrique de Leon shot on goal. Youssouf M'Changama SAVE!
+(check=10) Minute 33: no shot.
+(check=27) Minute 34: no shot.
+(check=32) Minute 35: no shot.
+(check=9) Minute 36: no shot. (Stop: Armando Dominguez)
+(check=24) Minute 37: no shot.
+(check=1) Minute 38: no shot.
+(check=49) Minute 39: (t1check=44, t2check=34, check1=3, check2=1) Matti Jokinen missed shot. (Stop: Juan Araya)
+(check=21) Minute 40: no shot.
+(check=3) Minute 41: no shot.
+(check=49) Minute 42: (t1check=67, t2check=39, check1=22, check2=20) Matti Jokinen missed shot. (Stop: Gustavo Vega)
+(check=10) Minute 43: no shot. (Stop: Vicente Mendez)
+(check=39) Minute 44: (t1check=34, t2check=8, check1=8, check2=6) Rafael Tejeda missed shot. (Stop: Gustavo Vega)
+(check=5) Minute 45: no shot. (Stop: Juan Araya)
+(check=5) Minute 46: no shot.
+(check=1) Minute 47: no shot.
+(check=19) Minute 48: no shot.
+(check=19) Minute 49: no shot.
+(check=23) Minute 50: no shot.
+(check=41) Minute 51: (t1check=14, t2check=24, check1=20, check2=20) Enrique Blanco missed shot. (Stop: Vicente Mendez)
+(check=7) Minute 52: no shot. (Stop: Youssouf M'Changama)
+(check=23) Minute 53: no shot.
+(check=9) Minute 54: no shot.
+(check=1) Minute 55: no shot.
+(check=14) Minute 56: no shot.
+(check=13) Minute 57: no shot. (Stop: Gustavo Vega)
+(check=49) Minute 58: (t1check=29, t2check=79, check1=5, check2=5) Tomasi Devi missed shot. (Stop: Vicente Mendez)
+(check=36) Minute 59: no shot.
+(check=33) Minute 60: no shot.
+(check=31) Minute 61: no shot. (Stop: Juan Araya)
+(check=32) Minute 62: no shot. (Stop: Jaxson Wilder)
+(check=31) Minute 63: no shot.
+(check=39) Minute 64: (t1check=43, t2check=67, check1=29, check2=29) Juan Araya missed shot. (Stop: Rafael Tejeda)
+(check=14) Minute 65: no shot.
+(check=28) Minute 66: no shot.
+(check=1) Minute 67: no shot.
+(check=18) Minute 68: no shot.
+(check=46) Minute 69: (t1check=23, t2check=13, check1=27, check2=25) Santiago Barrios missed shot. (Stop: Juan Araya)
+(check=31) Minute 70: no shot.
+(check=44) Minute 71: (t1check=16, t2check=8, check1=12, check2=10) Matti Jokinen missed shot. (Stop: Enrique de Leon)
+(check=27) Minute 72: no shot. (Stop: Arthur Kayembe)
+(check=8) Minute 73: no shot.
+(check=28) Minute 74: no shot.
+(check=5) Minute 75: no shot.
+(check=41) Minute 76: (t1check=45, t2check=57, check1=17, check2=17) Gustavo Vega missed shot. (Stop: Vicente Mendez)
+(check=25) Minute 77: no shot. (Stop: Armando Dominguez)
+(check=6) Minute 78: no shot. (Stop: Armando Dominguez)
+(check=28) Minute 79: no shot.
+(check=42) Minute 80: (t1check=73, t2check=39, check1=7, check2=5) Santiago Barrios missed shot. (Stop: Gustavo Vega)
+(check=23) Minute 81: no shot.
+(check=11) Minute 82: no shot.
+(check=6) Minute 83: no shot.
+(check=5) Minute 84: no shot.
+(check=7) Minute 85: no shot.
+(check=21) Minute 86: no shot. (Stop: Enrique Blanco)
+(check=28) Minute 87: no shot.
+(check=8) Minute 88: no shot. (Stop: Vicente Mendez)
+(check=25) Minute 89: no shot.
+(check=4) Minute 90: no shot. (Stop: Juan Araya)
+Final score: 1-0

@@ -1,0 +1,92 @@
+Match: Chicago Surge vs Los Angeles Syndicate
+(check=15) Minute 1: no shot.
+(check=27) Minute 2: no shot.
+(check=37) Minute 3: no shot.
+(check=48) Minute 4: (t1check=12, t2check=77, check1=13, check2=11) Frantz Germaine missed shot. (Stop: Domingo Ordonez)
+(check=12) Minute 5: no shot. (Stop: Juan Narvaez)
+(check=49) Minute 6: (t1check=9, t2check=75, check1=40, check2=38) (goalchk1=32, goalchk2=27) Nicolas Montero GOAL!!! Score: 0-1
+(check=50) Minute 7: (t1check=79, t2check=68, check1=35, check2=38) (goalchk1=38, goalchk2=30) Adriano Campos GOAL!!! (Ast: Domingo Ordonez) Score: 1-1
+(check=36) Minute 8: no shot.
+(check=19) Minute 9: no shot.
+(check=31) Minute 10: no shot. (Stop: Juan Narvaez)
+(check=13) Minute 11: no shot. (Stop: James Delva)
+(check=21) Minute 12: no shot.
+(check=5) Minute 13: no shot.
+(check=47) Minute 14: (t1check=9, t2check=14, check1=25, check2=23) Nicolae Popescu missed shot. (Stop: Domingo Ordonez)
+(check=22) Minute 15: no shot.
+(check=28) Minute 16: no shot.
+(check=36) Minute 17: no shot.
+(check=4) Minute 18: no shot. (Stop: Nicholas Persad)
+(check=13) Minute 19: no shot. (Stop: Juan Narvaez)
+(check=3) Minute 20: no shot.
+(check=33) Minute 21: no shot.
+(check=35) Minute 22: no shot.
+(check=36) Minute 23: no shot.
+(check=29) Minute 24: no shot.
+(check=42) Minute 25: (t1check=78, t2check=54, check1=43, check2=46) (goalchk1=17, goalchk2=9) Joseph Clarke shot on goal. Brandon Boyd SAVE!
+(check=12) Minute 26: no shot. (Stop: Juan Narvaez)
+(check=28) Minute 27: no shot.
+(check=23) Minute 28: no shot.
+(check=1) Minute 29: no shot. (Stop: Terezinha Rocha)
+(check=19) Minute 30: no shot.
+(check=37) Minute 31: no shot. (Stop: Nicholas Persad)
+(check=20) Minute 32: no shot.
+(check=27) Minute 33: no shot.
+(check=3) Minute 34: no shot. (Stop: Brandon Boyd)
+(check=7) Minute 35: no shot.
+(check=12) Minute 36: no shot.
+(check=5) Minute 37: no shot. (Stop: Frantz Germaine)
+(check=44) Minute 38: (t1check=18, t2check=16, check1=13, check2=16) Adriano Campos missed shot. (Stop: Frantz Germaine)
+(check=24) Minute 39: no shot.
+(check=46) Minute 40: (t1check=50, t2check=24, check1=3, check2=6) Peter Ramirez missed shot. (Stop: Milan Marjanovic)
+(check=14) Minute 41: no shot. (Stop: Jozsef Szabo)
+(check=31) Minute 42: no shot.
+(check=38) Minute 43: no shot. (Stop: Jozsef Szabo)
+(check=40) Minute 44: (t1check=59, t2check=81, check1=11, check2=9) Nicolae Popescu missed shot. (Stop: Jozsef Szabo)
+(check=18) Minute 45: no shot.
+(check=36) Minute 46: no shot.
+(check=16) Minute 47: no shot.
+(check=4) Minute 48: no shot.
+(check=24) Minute 49: no shot. (Stop: Juan Narvaez)
+(check=38) Minute 50: no shot.
+(check=47) Minute 51: (t1check=23, t2check=28, check1=47, check2=45) (goalchk1=10, goalchk2=5) Nicolae Popescu shot on goal. Domingo Ordonez SAVE!
+(check=2) Minute 52: no shot.
+(check=18) Minute 53: no shot.
+(check=46) Minute 54: (t1check=31, t2check=73, check1=15, check2=13) Pedro Flores missed shot. (Stop: Terezinha Rocha)
+(check=8) Minute 55: no shot. (Stop: Sawyer Marshall)
+(check=27) Minute 56: no shot.
+(check=20) Minute 57: no shot.
+(check=32) Minute 58: no shot.
+(check=46) Minute 59: (t1check=51, t2check=54, check1=40, check2=38) (goalchk1=12, goalchk2=7) Sawyer Marshall shot on goal. Domingo Ordonez SAVE!
+(check=25) Minute 60: no shot.
+(check=34) Minute 61: no shot. (Stop: Brandon Boyd)
+(check=15) Minute 62: no shot.
+(check=47) Minute 63: (t1check=56, t2check=72, check1=38, check2=36) (goalchk1=25, goalchk2=20) Nicolas Montero shot on goal. Domingo Ordonez SAVE!
+(check=36) Minute 64: no shot.
+(check=11) Minute 65: no shot.
+(check=4) Minute 66: no shot.
+(check=14) Minute 67: no shot. (Stop: Nicholas Persad)
+(check=29) Minute 68: no shot.
+(check=36) Minute 69: no shot.
+(check=12) Minute 70: no shot. (Stop: Juan Narvaez)
+(check=8) Minute 71: no shot. (Stop: Brandon Boyd)
+(check=21) Minute 72: no shot. (Stop: Juan Narvaez)
+(check=10) Minute 73: no shot.
+(check=15) Minute 74: no shot.
+(check=17) Minute 75: no shot.
+(check=34) Minute 76: no shot.
+(check=22) Minute 77: no shot.
+(check=8) Minute 78: no shot. (Stop: Domingo Ordonez)
+(check=28) Minute 79: no shot.
+(check=49) Minute 80: (t1check=42, t2check=18, check1=37, check2=40) (goalchk1=16, goalchk2=8) Terezinha Rocha shot on goal. Brandon Boyd SAVE!
+(check=36) Minute 81: no shot.
+(check=37) Minute 82: no shot.
+(check=5) Minute 83: no shot.
+(check=36) Minute 84: no shot.
+(check=12) Minute 85: no shot.
+(check=48) Minute 86: (t1check=72, t2check=45, check1=10, check2=13) Adriano Campos missed shot. (Stop: Nicholas Persad)
+(check=37) Minute 87: no shot.
+(check=11) Minute 88: no shot. (Stop: Juan Narvaez)
+(check=39) Minute 89: (t1check=24, t2check=57, check1=17, check2=15) Milan Marjanovic missed shot. (Stop: Juan Narvaez)
+(check=45) Minute 90: (t1check=21, t2check=28, check1=36, check2=34) (goalchk1=50, goalchk2=45) Sawyer Marshall GOAL!!! (Ast: Nicholas Persad) Score: 1-2
+Final score: 1-2

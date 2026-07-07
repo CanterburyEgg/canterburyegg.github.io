@@ -1,0 +1,92 @@
+Match: Barroclaugh Athletic vs Stella Grey
+(check=38) Minute 1: no shot.
+(check=26) Minute 2: no shot.
+(check=5) Minute 3: no shot. (Stop: Krzysztof Sikora)
+(check=26) Minute 4: no shot.
+(check=24) Minute 5: no shot.
+(check=29) Minute 6: no shot.
+(check=15) Minute 7: no shot.
+(check=39) Minute 8: (t1check=60, t2check=69, check1=17, check2=19) Kwon Seung-Hyeok missed shot. (Stop: Manaraii Wagemann)
+(check=24) Minute 9: no shot. (Stop: Timothy Theate)
+(check=29) Minute 10: no shot. (Stop: Salisu Abdul Samed)
+(check=11) Minute 11: no shot. (Stop: Salisu Abdul Samed)
+(check=8) Minute 12: no shot.
+(check=12) Minute 13: no shot.
+(check=36) Minute 14: no shot. (Stop: Salisu Abdul Samed)
+(check=13) Minute 15: no shot.
+(check=31) Minute 16: no shot.
+(check=27) Minute 17: no shot.
+(check=10) Minute 18: no shot.
+(check=44) Minute 19: (t1check=21, t2check=34, check1=24, check2=26) Salisu Abdul Samed missed shot. (Stop: Krzysztof Sikora)
+(check=40) Minute 20: (t1check=42, t2check=40, check1=15, check2=16) Amadou Onana missed shot. (Stop: Salisu Abdul Samed)
+(check=48) Minute 21: (t1check=10, t2check=36, check1=48, check2=50) (goalchk1=18, goalchk2=8) Kwon Seung-Hyeok shot on goal. Jamie Price SAVE!
+(check=21) Minute 22: no shot.
+(check=38) Minute 23: no shot. (Stop: Timothy Theate)
+(check=45) Minute 24: (t1check=26, t2check=61, check1=38, check2=40) (goalchk1=13, goalchk2=3) Kwon Seung-Hyeok shot on goal. Jamie Price SAVE!
+(check=7) Minute 25: no shot.
+(check=13) Minute 26: no shot.
+(check=4) Minute 27: no shot.
+(check=40) Minute 28: (t1check=66, t2check=74, check1=31, check2=33) (goalchk1=25, goalchk2=15) Park Hyeon-Bin shot on goal. Jamie Price SAVE!
+(check=40) Minute 29: (t1check=14, t2check=40, check1=42, check2=44) (goalchk1=23, goalchk2=13) Park Hyeon-Bin shot on goal. Jamie Price SAVE!
+(check=14) Minute 30: no shot. (Stop: Manaraii Wagemann)
+(check=16) Minute 31: no shot. (Stop: Manaraii Wagemann)
+(check=23) Minute 32: no shot.
+(check=41) Minute 33: (t1check=44, t2check=66, check1=20, check2=22) Juan Apaza missed shot. (Stop: Manaraii Wagemann)
+(check=30) Minute 34: no shot.
+(check=8) Minute 35: no shot. (Stop: Manaraii Wagemann)
+(check=42) Minute 36: (t1check=67, t2check=63, check1=48, check2=49) (goalchk1=31, goalchk2=22) Denis Chevalier shot on goal. Juan Apaza SAVE!
+(check=41) Minute 37: (t1check=56, t2check=75, check1=11, check2=13) Kwon Seung-Hyeok missed shot. (Stop: Manaraii Wagemann)
+(check=16) Minute 38: no shot. (Stop: Krzysztof Sikora)
+(check=25) Minute 39: no shot. (Stop: Wilhelm Schafer)
+(check=5) Minute 40: no shot.
+(check=40) Minute 41: (t1check=73, t2check=39, check1=44, check2=45) (goalchk1=50, goalchk2=41) Marcos Aguilar GOAL!!! (Ast: Jamie Price) Score: 1-0
+(check=33) Minute 42: no shot.
+(check=23) Minute 43: no shot. (Stop: Manaraii Wagemann)
+(check=8) Minute 44: no shot.
+(check=40) Minute 45: (t1check=61, t2check=40, check1=35, check2=36) (goalchk1=44, goalchk2=35) Marcos Aguilar GOAL!!! (Ast: Timothy Theate) Score: 2-0
+(check=31) Minute 46: no shot.
+(check=28) Minute 47: no shot.
+(check=36) Minute 48: no shot.
+(check=6) Minute 49: no shot.
+(check=6) Minute 50: no shot. (Stop: Gideon Seidu)
+(check=20) Minute 51: no shot.
+(check=7) Minute 52: no shot.
+(check=28) Minute 53: no shot.
+(check=47) Minute 54: (t1check=12, t2check=25, check1=50, check2=52) (goalchk1=37, goalchk2=27) Park Hyeon-Bin GOAL!!! (Ast: Kwon Seung-Hyeok) Score: 2-1
+(check=27) Minute 55: no shot.
+(check=42) Minute 56: (t1check=62, t2check=18, check1=21, check2=22) Marcos Aguilar missed shot. (Stop: Gideon Seidu)
+(check=32) Minute 57: no shot.
+(check=31) Minute 58: no shot. (Stop: Manaraii Wagemann)
+(check=21) Minute 59: no shot.
+(check=38) Minute 60: no shot.
+(check=1) Minute 61: no shot.
+(check=44) Minute 62: (t1check=59, t2check=27, check1=46, check2=47) (goalchk1=48, goalchk2=39) Marcos Aguilar GOAL!!! Score: 3-1
+(check=44) Minute 63: (t1check=62, t2check=26, check1=40, check2=41) (goalchk1=3, goalchk2=-6) Amadou Onana shot on goal. Juan Apaza SAVE!
+(check=11) Minute 64: no shot.
+(check=25) Minute 65: no shot.
+(check=39) Minute 66: (t1check=47, t2check=28, check1=49, check2=50) (goalchk1=48, goalchk2=39) Manuel Castillo GOAL!!! (Ast: Jamie Price) Score: 4-1
+(check=2) Minute 67: no shot. (Stop: Krzysztof Sikora)
+(check=9) Minute 68: no shot.
+(check=44) Minute 69: (t1check=31, t2check=65, check1=5, check2=7) Wilhelm Schafer missed shot. (Stop: Denis Chevalier)
+(check=50) Minute 70: (t1check=41, t2check=84, check1=3, check2=5) Wilhelm Schafer missed shot. (Stop: Manaraii Wagemann)
+(check=6) Minute 71: no shot.
+(check=47) Minute 72: (t1check=61, t2check=63, check1=19, check2=21) Kwon Seung-Hyeok missed shot. (Stop: Amadou Onana)
+(check=15) Minute 73: no shot.
+(check=50) Minute 74: (t1check=7, t2check=77, check1=21, check2=23) Kwon Seung-Hyeok missed shot. (Stop: Amadou Onana)
+(check=46) Minute 75: (t1check=20, t2check=25, check1=39, check2=41) (goalchk1=17, goalchk2=7) Clive Jones shot on goal. Jamie Price SAVE!
+(check=50) Minute 76: (t1check=60, t2check=50, check1=40, check2=41) (goalchk1=46, goalchk2=37) Manuel Castillo GOAL!!! Score: 5-1
+(check=47) Minute 77: (t1check=36, t2check=59, check1=50, check2=52) (goalchk1=35, goalchk2=25) Kwon Seung-Hyeok shot on goal. Jamie Price SAVE!
+(check=22) Minute 78: no shot.
+(check=23) Minute 79: no shot.
+(check=33) Minute 80: no shot.
+(check=32) Minute 81: no shot.
+(check=41) Minute 82: (t1check=34, t2check=39, check1=21, check2=23) Kwon Seung-Hyeok missed shot. (Stop: Jamie Price)
+(check=17) Minute 83: no shot.
+(check=20) Minute 84: no shot.
+(check=30) Minute 85: no shot. (Stop: Krzysztof Sikora)
+(check=34) Minute 86: no shot.
+(check=27) Minute 87: no shot.
+(check=34) Minute 88: no shot. (Stop: Amadou Onana)
+(check=39) Minute 89: (t1check=8, t2check=49, check1=28, check2=30) Salisu Abdul Samed missed shot. (Stop: Manaraii Wagemann)
+(check=33) Minute 90: no shot.
+Final score: 5-1

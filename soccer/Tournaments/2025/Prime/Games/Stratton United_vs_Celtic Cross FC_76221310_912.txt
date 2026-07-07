@@ -1,0 +1,92 @@
+Match: Stratton United vs Celtic Cross FC
+(check=19) Minute 1: no shot.
+(check=28) Minute 2: no shot.
+(check=16) Minute 3: no shot.
+(check=26) Minute 4: no shot.
+(check=18) Minute 5: no shot.
+(check=26) Minute 6: no shot. (Stop: Christian Janssen)
+(check=39) Minute 7: (t1check=17, t2check=35, check1=32, check2=30) Federico Barella missed shot. (Stop: Trevor Shaw)
+(check=37) Minute 8: no shot.
+(check=24) Minute 9: no shot. (Stop: Trevor Shaw)
+(check=3) Minute 10: no shot.
+(check=35) Minute 11: no shot. (Stop: Philip Gibson)
+(check=9) Minute 12: no shot.
+(check=39) Minute 13: (t1check=65, t2check=28, check1=50, check2=52) (goalchk1=12, goalchk2=5) Dayot Hernandez shot on goal. Philip Gibson SAVE!
+(check=39) Minute 14: (t1check=43, t2check=11, check1=27, check2=29) Christian Janssen missed shot. (Stop: Philip Gibson)
+(check=21) Minute 15: no shot.
+(check=11) Minute 16: no shot.
+(check=34) Minute 17: no shot.
+(check=49) Minute 18: (t1check=15, t2check=38, check1=36, check2=34) (goalchk1=48, goalchk2=44) Marc Renard GOAL!!! (Ast: Colin Pugh) Score: 0-1
+(check=47) Minute 19: (t1check=37, t2check=19, check1=48, check2=50) (goalchk1=44, goalchk2=37) Dayot Hernandez GOAL!!! (Ast: Edgar Jimenez) Score: 1-1
+(check=27) Minute 20: no shot.
+(check=39) Minute 21: (t1check=72, t2check=34, check1=8, check2=10) Edgar Jimenez missed shot. (Stop: Rob Brouwer)
+(check=20) Minute 22: no shot.
+(check=9) Minute 23: no shot.
+(check=6) Minute 24: no shot.
+(check=13) Minute 25: no shot.
+(check=15) Minute 26: no shot.
+(check=9) Minute 27: no shot. (Stop: Federico Barella)
+(check=30) Minute 28: no shot.
+(check=4) Minute 29: no shot.
+(check=29) Minute 30: no shot. (Stop: Darren King)
+(check=42) Minute 31: (t1check=53, t2check=68, check1=50, check2=48) (goalchk1=36, goalchk2=32) Geert Verhoeven GOAL!!! (Ast: Rob Brouwer) Score: 1-2
+(check=35) Minute 32: no shot.
+(check=35) Minute 33: no shot. (Stop: Gonzalo Machado)
+(check=44) Minute 34: (t1check=34, t2check=40, check1=1, check2=-1) Colin Pugh missed shot. (Stop: Trevor Shaw)
+(check=35) Minute 35: no shot.
+(check=34) Minute 36: no shot.
+(check=40) Minute 37: (t1check=63, t2check=8, check1=14, check2=16) Antoine Gauthier missed shot. (Stop: Marc Renard)
+(check=17) Minute 38: no shot.
+(check=39) Minute 39: (t1check=22, t2check=38, check1=16, check2=14) Colin Pugh missed shot. (Stop: Trevor Shaw)
+(check=18) Minute 40: no shot.
+(check=35) Minute 41: no shot.
+(check=28) Minute 42: no shot.
+(check=48) Minute 43: (t1check=75, t2check=69, check1=31, check2=33) (goalchk1=8, goalchk2=1) Gustavo Techera shot on goal. Philip Gibson SAVE!
+(check=46) Minute 44: (t1check=15, t2check=20, check1=31, check2=29) Colin Pugh missed shot. (Stop: Gonzalo Machado)
+(check=17) Minute 45: no shot.
+(check=41) Minute 46: (t1check=86, t2check=63, check1=38, check2=40) (goalchk1=24, goalchk2=17) Gustavo Techera shot on goal. Philip Gibson SAVE!
+(check=4) Minute 47: no shot.
+(check=26) Minute 48: no shot.
+(check=8) Minute 49: no shot.
+(check=45) Minute 50: (t1check=61, t2check=52, check1=41, check2=43) (goalchk1=50, goalchk2=43) Edgar Jimenez GOAL!!! (Ast: Trevor Shaw) Score: 2-2
+(check=37) Minute 51: no shot.
+(check=40) Minute 52: (t1check=49, t2check=24, check1=41, check2=43) (goalchk1=47, goalchk2=40) Gonzalo Machado GOAL!!! (Ast: Wolfgang Koch) Score: 3-2
+(check=36) Minute 53: no shot.
+(check=48) Minute 54: (t1check=51, t2check=50, check1=25, check2=27) Edgar Jimenez missed shot. (Stop: Geert Verhoeven)
+(check=1) Minute 55: no shot. (Stop: Geert Verhoeven)
+(check=12) Minute 56: no shot.
+(check=26) Minute 57: no shot. (Stop: Christian Janssen)
+(check=40) Minute 58: (t1check=38, t2check=24, check1=10, check2=12) Antoine Gauthier missed shot. (Stop: Rob Brouwer)
+(check=15) Minute 59: no shot. (Stop: Wolfgang Koch)
+(check=2) Minute 60: no shot.
+(check=41) Minute 61: (t1check=31, t2check=45, check1=25, check2=23) Colin Pugh missed shot. (Stop: Wolfgang Koch)
+(check=31) Minute 62: no shot.
+(check=10) Minute 63: no shot. (Stop: Rob Brouwer)
+(check=30) Minute 64: no shot. (Stop: Trevor Shaw)
+(check=33) Minute 65: no shot.
+(check=43) Minute 66: (t1check=26, t2check=60, check1=5, check2=3) Leslie Knight missed shot. (Stop: Trevor Shaw)
+(check=49) Minute 67: (t1check=63, t2check=51, check1=48, check2=50) (goalchk1=6, goalchk2=-1) Wolfgang Koch shot on goal. Philip Gibson SAVE!
+(check=11) Minute 68: no shot.
+(check=38) Minute 69: no shot. (Stop: Geert Verhoeven)
+(check=12) Minute 70: no shot. (Stop: Gonzalo Machado)
+(check=48) Minute 71: (t1check=86, t2check=68, check1=30, check2=32) (goalchk1=2, goalchk2=-5) Antoine Gauthier shot on goal. Philip Gibson SAVE!
+(check=7) Minute 72: no shot.
+(check=13) Minute 73: no shot.
+(check=29) Minute 74: no shot.
+(check=29) Minute 75: no shot.
+(check=37) Minute 76: no shot.
+(check=46) Minute 77: (t1check=63, t2check=64, check1=14, check2=12) Rob Brouwer missed shot. (Stop: Christian Janssen)
+(check=6) Minute 78: no shot.
+(check=44) Minute 79: (t1check=12, t2check=16, check1=19, check2=17) Darren King missed shot. (Stop: Trevor Shaw)
+(check=11) Minute 80: no shot.
+(check=27) Minute 81: no shot. (Stop: Philip Gibson)
+(check=35) Minute 82: no shot. (Stop: Dayot Hernandez)
+(check=10) Minute 83: no shot.
+(check=47) Minute 84: (t1check=78, t2check=43, check1=34, check2=36) (goalchk1=43, goalchk2=36) Antoine Gauthier GOAL!!! Score: 4-2
+(check=28) Minute 85: no shot.
+(check=33) Minute 86: no shot.
+(check=32) Minute 87: no shot.
+(check=47) Minute 88: (t1check=14, t2check=51, check1=5, check2=3) Marc Renard missed shot. (Stop: Wolfgang Koch)
+(check=43) Minute 89: (t1check=26, t2check=56, check1=42, check2=40) (goalchk1=8, goalchk2=4) Marc Renard shot on goal. Saïd Djaloud SAVE!
+(check=3) Minute 90: no shot.
+Final score: 4-2

@@ -13,6 +13,14 @@ def get_match_date(day):
     return base_date + timedelta(days=day - 1)
 
 def get_team_stats_sum(league, team_name):
+    json_path = os.path.join(BASE_DIR, "Tournaments", "2025", league, "Teams", f"{team_name}.json")
+    if os.path.exists(json_path):
+        with open(json_path, 'r') as f:
+            data = json.load(f)
+            r = data.get("ratings", {})
+            return r.get("offense", 5) + r.get("speed", 5) + r.get("defense", 5) + r.get("gk", 5)
+    
+    # Fallback to legacy TXT
     path = os.path.join(BASE_DIR, "Tournaments", "2025", league, "Teams", f"{team_name}.txt")
     if not os.path.exists(path):
         return 20

@@ -1,0 +1,74 @@
+{
+  "name": "Cheicester City",
+  "ratings": {
+    "offense": 7,
+    "speed": 7,
+    "defense": 9,
+    "gk": 7
+  },
+  "players": [
+    {
+      "name": "Olivier Rousseau",
+      "shot_prop": 29,
+      "assist_prop": 14,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Dominique Girard",
+      "shot_prop": 28,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Jean Gauthier",
+      "shot_prop": 5,
+      "assist_prop": 11,
+      "stop_prop": 27,
+      "pos": "DEF"
+    },
+    {
+      "name": "Marcel Kuiper",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Jeremie Frimpong",
+      "shot_prop": 11,
+      "assist_prop": 20,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Elias Matsimbe",
+      "shot_prop": 11,
+      "assist_prop": 19,
+      "stop_prop": 10,
+      "pos": "MID"
+    },
+    {
+      "name": "Clive Moore",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Declan Burke",
+      "shot_prop": 5,
+      "assist_prop": 4,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Floyd Adebayor",
+      "shot_prop": 6,
+      "assist_prop": 16,
+      "stop_prop": 8,
+      "pos": "MID"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "Slavia Tatry",
+  "ratings": {
+    "offense": 4,
+    "speed": 3,
+    "defense": 5,
+    "gk": 6
+  },
+  "players": [
+    {
+      "name": "Martin Lang",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Felix Gallego",
+      "shot_prop": 24,
+      "assist_prop": 9,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Janis Berzins",
+      "shot_prop": 24,
+      "assist_prop": 10,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Michal Fialova",
+      "shot_prop": 15,
+      "assist_prop": 17,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Fouad Selemani",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Anton Zupan",
+      "shot_prop": 5,
+      "assist_prop": 15,
+      "stop_prop": 17,
+      "pos": "DEF"
+    },
+    {
+      "name": "Carlo D'Amico",
+      "shot_prop": 7,
+      "assist_prop": 15,
+      "stop_prop": 14,
+      "pos": "MID"
+    },
+    {
+      "name": "Tomas Arias",
+      "shot_prop": 15,
+      "assist_prop": 13,
+      "stop_prop": 12,
+      "pos": "MID"
+    },
+    {
+      "name": "Alberto Diaz",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 18,
+      "pos": "DEF"
+    }
+  ]
+}

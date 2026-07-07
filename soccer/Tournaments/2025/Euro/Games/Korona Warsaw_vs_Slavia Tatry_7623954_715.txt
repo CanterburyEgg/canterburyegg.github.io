@@ -1,0 +1,92 @@
+Match: Korona Warsaw vs Slavia Tatry
+(check=18) Minute 1: no shot.
+(check=20) Minute 2: no shot.
+(check=49) Minute 3: (t1check=73, t2check=37, check1=16, check2=17) Slobodan Radic missed shot. (Stop: Fouad Selemani)
+(check=22) Minute 4: no shot.
+(check=33) Minute 5: no shot.
+(check=49) Minute 6: (t1check=32, t2check=18, check1=22, check2=23) Slobodan Radic missed shot. (Stop: Tomas Arias)
+(check=50) Minute 7: (t1check=16, t2check=76, check1=48, check2=45) (goalchk1=3, goalchk2=-5) Felix Gallego shot on goal. Marcel Roth SAVE!
+(check=44) Minute 8: (t1check=24, t2check=51, check1=47, check2=44) (goalchk1=48, goalchk2=40) Tomas Arias GOAL!!! (Ast: Michal Fialova) Score: 0-1
+(check=21) Minute 9: no shot.
+(check=3) Minute 10: no shot. (Stop: Anton Zupan)
+(check=20) Minute 11: no shot.
+(check=23) Minute 12: no shot.
+(check=8) Minute 13: no shot.
+(check=18) Minute 14: no shot.
+(check=50) Minute 15: (t1check=79, t2check=72, check1=11, check2=12) Tomasz Zajac missed shot. (Stop: Fouad Selemani)
+(check=27) Minute 16: no shot.
+(check=28) Minute 17: no shot.
+(check=30) Minute 18: no shot.
+(check=13) Minute 19: no shot. (Stop: Marcel Roth)
+(check=16) Minute 20: no shot.
+(check=11) Minute 21: no shot.
+(check=9) Minute 22: no shot.
+(check=39) Minute 23: (t1check=67, t2check=6, check1=48, check2=49) (goalchk1=28, goalchk2=22) Slobodan Radic shot on goal. Alberto Diaz SAVE!
+(check=17) Minute 24: no shot.
+(check=37) Minute 25: no shot. (Stop: Tomasz Zajac)
+(check=19) Minute 26: no shot. (Stop: Tomasz Zajac)
+(check=26) Minute 27: no shot. (Stop: Fouad Selemani)
+(check=39) Minute 28: (t1check=21, t2check=46, check1=30, check2=27) Janis Berzins missed shot. (Stop: Karl Olsson)
+(check=39) Minute 29: (t1check=79, t2check=19, check1=46, check2=47) (goalchk1=11, goalchk2=5) Branko Novac shot on goal. Alberto Diaz SAVE!
+(check=21) Minute 30: no shot.
+(check=18) Minute 31: no shot.
+(check=42) Minute 32: (t1check=61, t2check=15, check1=43, check2=44) (goalchk1=22, goalchk2=16) Vaclav Dvorak shot on goal. Alberto Diaz SAVE!
+(check=10) Minute 33: no shot.
+(check=43) Minute 34: (t1check=81, t2check=62, check1=19, check2=20) Vaclav Dvorak missed shot. (Stop: Michal Fialova)
+(check=28) Minute 35: no shot. (Stop: Tomas Arias)
+(check=39) Minute 36: (t1check=50, t2check=36, check1=35, check2=36) (goalchk1=47, goalchk2=41) Aleksandr Kallas GOAL!!! Score: 1-1
+(check=25) Minute 37: no shot.
+(check=3) Minute 38: no shot.
+(check=42) Minute 39: (t1check=65, t2check=75, check1=15, check2=12) Alberto Diaz missed shot. (Stop: Tomasz Zajac)
+(check=46) Minute 40: (t1check=43, t2check=46, check1=50, check2=47) (goalchk1=2, goalchk2=-6) Janis Berzins shot on goal. Marcel Roth SAVE!
+(check=33) Minute 41: no shot.
+(check=13) Minute 42: no shot.
+(check=21) Minute 43: no shot.
+(check=14) Minute 44: no shot.
+(check=27) Minute 45: no shot.
+(check=16) Minute 46: no shot.
+(check=22) Minute 47: no shot.
+(check=22) Minute 48: no shot.
+(check=2) Minute 49: no shot.
+(check=40) Minute 50: (t1check=43, t2check=75, check1=26, check2=23) Fouad Selemani missed shot. (Stop: Tomasz Zajac)
+(check=14) Minute 51: no shot.
+(check=38) Minute 52: no shot.
+(check=17) Minute 53: no shot.
+(check=5) Minute 54: no shot.
+(check=43) Minute 55: (t1check=70, t2check=13, check1=24, check2=25) Slobodan Radic missed shot. (Stop: Fouad Selemani)
+(check=6) Minute 56: no shot.
+(check=37) Minute 57: no shot.
+(check=31) Minute 58: no shot.
+(check=5) Minute 59: no shot. (Stop: Karl Olsson)
+(check=38) Minute 60: no shot. (Stop: Anton Zupan)
+(check=32) Minute 61: no shot. (Stop: Karl Olsson)
+(check=36) Minute 62: no shot. (Stop: Karl Olsson)
+(check=8) Minute 63: no shot.
+(check=19) Minute 64: no shot.
+(check=6) Minute 65: no shot.
+(check=49) Minute 66: (t1check=36, t2check=30, check1=10, check2=11) Vaclav Dvorak missed shot. (Stop: Alberto Diaz)
+(check=33) Minute 67: no shot.
+(check=20) Minute 68: no shot.
+(check=25) Minute 69: no shot.
+(check=45) Minute 70: (t1check=61, t2check=53, check1=19, check2=20) Vaclav Dvorak missed shot. (Stop: Anton Zupan)
+(check=18) Minute 71: no shot.
+(check=36) Minute 72: no shot. (Stop: Tomas Arias)
+(check=10) Minute 73: no shot.
+(check=41) Minute 74: (t1check=35, t2check=70, check1=8, check2=5) Janis Berzins missed shot. (Stop: Tomasz Zajac)
+(check=13) Minute 75: no shot.
+(check=43) Minute 76: (t1check=58, t2check=77, check1=28, check2=25) Anton Zupan missed shot. (Stop: Tomasz Zajac)
+(check=44) Minute 77: (t1check=71, t2check=42, check1=4, check2=5) Slobodan Radic missed shot. (Stop: Anton Zupan)
+(check=13) Minute 78: no shot. (Stop: Marcel Roth)
+(check=33) Minute 79: no shot.
+(check=10) Minute 80: no shot.
+(check=30) Minute 81: no shot. (Stop: Tomasz Zajac)
+(check=9) Minute 82: no shot. (Stop: Anton Zupan)
+(check=26) Minute 83: no shot. (Stop: Anton Zupan)
+(check=41) Minute 84: (t1check=28, t2check=27, check1=29, check2=30) Aleksandr Kallas missed shot. (Stop: Fouad Selemani)
+(check=34) Minute 85: no shot. (Stop: Alberto Diaz)
+(check=40) Minute 86: (t1check=13, t2check=5, check1=19, check2=20) Slobodan Radic missed shot. (Stop: Michal Fialova)
+(check=45) Minute 87: (t1check=12, t2check=23, check1=43, check2=40) (goalchk1=15, goalchk2=7) Michal Fialova shot on goal. Marcel Roth SAVE!
+(check=23) Minute 88: no shot.
+(check=18) Minute 89: no shot.
+(check=13) Minute 90: no shot.
+Final score: 1-1

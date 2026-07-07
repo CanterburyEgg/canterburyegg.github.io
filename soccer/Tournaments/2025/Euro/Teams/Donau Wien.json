@@ -1,0 +1,74 @@
+{
+  "name": "Donau Wien",
+  "ratings": {
+    "offense": 7,
+    "speed": 6,
+    "defense": 6,
+    "gk": 5
+  },
+  "players": [
+    {
+      "name": "Stefan Takac",
+      "shot_prop": 28,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Franc Potocnik",
+      "shot_prop": 23,
+      "assist_prop": 14,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Jan Johansen",
+      "shot_prop": 11,
+      "assist_prop": 20,
+      "stop_prop": 12,
+      "pos": "MID"
+    },
+    {
+      "name": "Rafael Parra",
+      "shot_prop": 12,
+      "assist_prop": 18,
+      "stop_prop": 14,
+      "pos": "MID"
+    },
+    {
+      "name": "Cieran McCormick",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Werner Frei",
+      "shot_prop": 11,
+      "assist_prop": 18,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Vasile Cazacu",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Arni Olafsson",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 21,
+      "pos": "DEF"
+    },
+    {
+      "name": "Pedro Dos Santos",
+      "shot_prop": 5,
+      "assist_prop": 6,
+      "stop_prop": 22,
+      "pos": "DEF"
+    }
+  ]
+}

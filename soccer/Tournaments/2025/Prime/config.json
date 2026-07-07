@@ -23,8 +23,8 @@
             "Stella Grey"
         ]
     },
-
     "rules": {
         "group_repeats": 2
-    }
+    },
+    "pro_stats": true
 }

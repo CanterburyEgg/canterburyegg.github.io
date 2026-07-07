@@ -1,0 +1,74 @@
+{
+  "name": "Tijuana Vaqueros",
+  "ratings": {
+    "offense": 6,
+    "speed": 7,
+    "defense": 5,
+    "gk": 6
+  },
+  "players": [
+    {
+      "name": "Guadalupe Moreno",
+      "shot_prop": 28,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Scott Robinson",
+      "shot_prop": 29,
+      "assist_prop": 5,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Ahmet Ozcan",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Rogelio Valencia",
+      "shot_prop": 7,
+      "assist_prop": 20,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Phil Schr\u00f6ck",
+      "shot_prop": 10,
+      "assist_prop": 19,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Liu Lei",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Kassaly Hainikoye",
+      "shot_prop": 11,
+      "assist_prop": 17,
+      "stop_prop": 9,
+      "pos": "MID"
+    },
+    {
+      "name": "Jaime Chavarria",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Carlos Vieira",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 21,
+      "pos": "DEF"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+Match: Lisbon United vs Fursan al-Arab
+(check=13) Minute 1: no shot.
+(check=16) Minute 2: no shot.
+(check=8) Minute 3: no shot.
+(check=47) Minute 4: (t1check=48, t2check=59, check1=2, check2=2) Amir Zare missed shot. (Stop: Gerardo Perez)
+(check=1) Minute 5: no shot.
+(check=6) Minute 6: no shot.
+(check=40) Minute 7: (t1check=64, t2check=18, check1=25, check2=24) Sergio Martino missed shot. (Stop: Rafael Delgado)
+(check=13) Minute 8: no shot.
+(check=32) Minute 9: no shot. (Stop: German Salazar)
+(check=17) Minute 10: no shot.
+(check=19) Minute 11: no shot.
+(check=38) Minute 12: no shot. (Stop: Francesco Caruso)
+(check=16) Minute 13: no shot.
+(check=19) Minute 14: no shot. (Stop: Eduardo Vaca)
+(check=31) Minute 15: no shot.
+(check=10) Minute 16: no shot.
+(check=19) Minute 17: no shot.
+(check=1) Minute 18: no shot. (Stop: Francesco Caruso)
+(check=40) Minute 19: (t1check=19, t2check=58, check1=24, check2=24) Cesar Aguero missed shot. (Stop: Dimitrios Papadopoulos)
+(check=9) Minute 20: no shot. (Stop: Francesco Caruso)
+(check=38) Minute 21: no shot.
+(check=39) Minute 22: (t1check=61, t2check=70, check1=3, check2=3) Cesar Aguero missed shot. (Stop: Gerardo Perez)
+(check=28) Minute 23: no shot.
+(check=33) Minute 24: no shot. (Stop: Jose Romero)
+(check=12) Minute 25: no shot.
+(check=9) Minute 26: no shot.
+(check=48) Minute 27: (t1check=42, t2check=54, check1=21, check2=21) Cesar Aguero missed shot. (Stop: Dimitrios Papadopoulos)
+(check=21) Minute 28: no shot.
+(check=13) Minute 29: no shot.
+(check=43) Minute 30: (t1check=79, t2check=29, check1=45, check2=44) (goalchk1=15, goalchk2=7) Sergio Martino shot on goal. Rachid Tahiri SAVE!
+(check=30) Minute 31: no shot. (Stop: Stjepan Novosel)
+(check=35) Minute 32: no shot.
+(check=2) Minute 33: no shot.
+(check=31) Minute 34: no shot. (Stop: Dimitrios Papadopoulos)
+(check=15) Minute 35: no shot.
+(check=11) Minute 36: no shot. (Stop: Francesco Caruso)
+(check=24) Minute 37: no shot.
+(check=39) Minute 38: (t1check=23, t2check=42, check1=4, check2=4) Joao Silva missed shot. (Stop: Francesco Caruso)
+(check=42) Minute 39: (t1check=57, t2check=30, check1=8, check2=7) Marcelo da Silva missed shot. (Stop: Jose Romero)
+(check=28) Minute 40: no shot. (Stop: Francesco Caruso)
+(check=17) Minute 41: no shot.
+(check=13) Minute 42: no shot. (Stop: German Salazar)
+(check=9) Minute 43: no shot. (Stop: Stjepan Novosel)
+(check=38) Minute 44: no shot.
+(check=1) Minute 45: no shot.
+(check=38) Minute 46: no shot. (Stop: Jose Romero)
+(check=45) Minute 47: (t1check=10, t2check=9, check1=44, check2=43) (goalchk1=36, goalchk2=28) Dimitrios Papadopoulos GOAL!!! (Ast: Sergio Martino) Score: 1-0
+(check=48) Minute 48: (t1check=53, t2check=42, check1=45, check2=44) (goalchk1=37, goalchk2=29) Sergio Martino GOAL!!! (Ast: Francesco Caruso) Score: 2-0
+(check=5) Minute 49: no shot.
+(check=21) Minute 50: no shot.
+(check=4) Minute 51: no shot.
+(check=20) Minute 52: no shot. (Stop: Dimitrios Papadopoulos)
+(check=26) Minute 53: no shot. (Stop: Rachid Tahiri)
+(check=40) Minute 54: (t1check=50, t2check=39, check1=17, check2=16) Marcelo da Silva missed shot. (Stop: Eduardo Vaca)
+(check=29) Minute 55: no shot.
+(check=22) Minute 56: no shot.
+(check=49) Minute 57: (t1check=16, t2check=45, check1=21, check2=21) Cesar Aguero missed shot. (Stop: German Salazar)
+(check=50) Minute 58: (t1check=83, t2check=31, check1=23, check2=22) Gerardo Perez missed shot. (Stop: Rachid Tahiri)
+(check=38) Minute 59: no shot.
+(check=48) Minute 60: (t1check=21, t2check=6, check1=19, check2=18) Sergio Martino missed shot. (Stop: Rachid Tahiri)
+(check=47) Minute 61: (t1check=68, t2check=76, check1=19, check2=19) Rafael Delgado missed shot. (Stop: German Salazar)
+(check=5) Minute 62: no shot.
+(check=29) Minute 63: no shot. (Stop: Eduardo Vaca)
+(check=26) Minute 64: no shot. (Stop: Jose Romero)
+(check=10) Minute 65: no shot.
+(check=5) Minute 66: no shot.
+(check=2) Minute 67: no shot.
+(check=19) Minute 68: no shot. (Stop: Dimitrios Papadopoulos)
+(check=23) Minute 69: no shot.
+(check=1) Minute 70: no shot.
+(check=21) Minute 71: no shot. (Stop: Jose Romero)
+(check=48) Minute 72: (t1check=16, t2check=11, check1=41, check2=40) (goalchk1=36, goalchk2=28) Gerardo Perez GOAL!!! Score: 3-0
+(check=17) Minute 73: no shot. (Stop: Eduardo Vaca)
+(check=27) Minute 74: no shot.
+(check=16) Minute 75: no shot.
+(check=33) Minute 76: no shot.
+(check=44) Minute 77: (t1check=45, t2check=64, check1=12, check2=12) Joao Silva missed shot. (Stop: Francesco Caruso)
+(check=49) Minute 78: (t1check=76, t2check=35, check1=29, check2=28) Sergio Martino missed shot. (Stop: Amir Zare)
+(check=2) Minute 79: no shot.
+(check=30) Minute 80: no shot.
+(check=13) Minute 81: no shot. (Stop: Francesco Caruso)
+(check=38) Minute 82: no shot.
+(check=6) Minute 83: no shot.
+(check=13) Minute 84: no shot.
+(check=44) Minute 85: (t1check=61, t2check=71, check1=44, check2=44) (goalchk1=37, goalchk2=30) Amir Zare GOAL!!! Score: 3-1
+(check=33) Minute 86: no shot.
+(check=32) Minute 87: no shot. (Stop: German Salazar)
+(check=11) Minute 88: no shot.
+(check=30) Minute 89: no shot. (Stop: Amir Zare)
+(check=42) Minute 90: (t1check=53, t2check=37, check1=21, check2=20) German Salazar missed shot. (Stop: Abdalla Eisa)
+Final score: 3-1

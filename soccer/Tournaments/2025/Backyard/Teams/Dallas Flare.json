@@ -1,0 +1,74 @@
+{
+  "name": "Dallas Flare",
+  "ratings": {
+    "offense": 9,
+    "speed": 4,
+    "defense": 5,
+    "gk": 5
+  },
+  "players": [
+    {
+      "name": "Hector",
+      "shot_prop": 28,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Diego Perez",
+      "shot_prop": 27,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "C\u00e9sar Nyikeine",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Felipe Juarez",
+      "shot_prop": 5,
+      "assist_prop": 11,
+      "stop_prop": 25,
+      "pos": "DEF"
+    },
+    {
+      "name": "Gabriel Juarez",
+      "shot_prop": 10,
+      "assist_prop": 19,
+      "stop_prop": 8,
+      "pos": "MID"
+    },
+    {
+      "name": "Manuel Amador",
+      "shot_prop": 6,
+      "assist_prop": 19,
+      "stop_prop": 8,
+      "pos": "MID"
+    },
+    {
+      "name": "Antoine Semenyo",
+      "shot_prop": 14,
+      "assist_prop": 14,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Hugo Rosas",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 24,
+      "pos": "DEF"
+    },
+    {
+      "name": "Tomas Morales",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 22,
+      "pos": "DEF"
+    }
+  ]
+}

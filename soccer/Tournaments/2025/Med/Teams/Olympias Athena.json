@@ -1,0 +1,74 @@
+{
+  "name": "Olympias Athena",
+  "ratings": {
+    "offense": 4,
+    "speed": 6,
+    "defense": 6,
+    "gk": 10
+  },
+  "players": [
+    {
+      "name": "Luis Aguirre",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Thomas Martin",
+      "shot_prop": 26,
+      "assist_prop": 11,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Slobodan Kovacevic",
+      "shot_prop": 25,
+      "assist_prop": 11,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Aissa Bounedjah",
+      "shot_prop": 14,
+      "assist_prop": 18,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Huseyin Sahin",
+      "shot_prop": 8,
+      "assist_prop": 16,
+      "stop_prop": 15,
+      "pos": "MID"
+    },
+    {
+      "name": "Alidu Mensah",
+      "shot_prop": 12,
+      "assist_prop": 17,
+      "stop_prop": 8,
+      "pos": "MID"
+    },
+    {
+      "name": "Arthur Coelho",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Ali Al-Ahbabi",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Savvas Constantinou",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 21,
+      "pos": "DEF"
+    }
+  ]
+}

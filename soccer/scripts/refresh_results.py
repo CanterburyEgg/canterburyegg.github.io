@@ -26,8 +26,8 @@ def refresh(tournament_path):
         tournament_manager.update_group_standings(data, g_id)
         print(f"  Group {g_id} updated.")
 
-    # Re-check mathematical locks/bracket if it's a World Cup
-    if config.get("type") == "world_cup":
+    # Re-check mathematical locks/bracket if it's a World Cup or League
+    if config.get("type") in ["world_cup", "league"]:
         tournament_manager.check_mathematical_locks(data)
         print("  Bracket locks updated.")
 

@@ -1,0 +1,74 @@
+{
+  "name": "Barbary Apes",
+  "ratings": {
+    "offense": 5,
+    "speed": 7,
+    "defense": 8,
+    "gk": 9
+  },
+  "players": [
+    {
+      "name": "Klaus Bauer",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Mustapha Hakimi",
+      "shot_prop": 13,
+      "assist_prop": 19,
+      "stop_prop": 12,
+      "pos": "MID"
+    },
+    {
+      "name": "Svein Berg",
+      "shot_prop": 26,
+      "assist_prop": 9,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Tahnoon Ramadan",
+      "shot_prop": 25,
+      "assist_prop": 10,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Ramazan Yilmaz",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 25,
+      "pos": "DEF"
+    },
+    {
+      "name": "Jovan Trajkovic",
+      "shot_prop": 12,
+      "assist_prop": 19,
+      "stop_prop": 10,
+      "pos": "MID"
+    },
+    {
+      "name": "Med Mansour",
+      "shot_prop": 9,
+      "assist_prop": 17,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Abdel Allah",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 20,
+      "pos": "DEF"
+    },
+    {
+      "name": "Amar Touati",
+      "shot_prop": 5,
+      "assist_prop": 7,
+      "stop_prop": 22,
+      "pos": "DEF"
+    }
+  ]
+}

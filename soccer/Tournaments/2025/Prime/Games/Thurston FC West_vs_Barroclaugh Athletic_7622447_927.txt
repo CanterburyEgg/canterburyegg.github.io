@@ -1,0 +1,92 @@
+Match: Thurston FC West vs Barroclaugh Athletic
+(check=29) Minute 1: no shot.
+(check=31) Minute 2: no shot. (Stop: Jamie Price)
+(check=17) Minute 3: no shot. (Stop: Denis Chevalier)
+(check=4) Minute 4: no shot.
+(check=20) Minute 5: no shot. (Stop: Amadou Onana)
+(check=6) Minute 6: no shot.
+(check=3) Minute 7: no shot.
+(check=11) Minute 8: no shot.
+(check=18) Minute 9: no shot.
+(check=13) Minute 10: no shot.
+(check=44) Minute 11: (t1check=33, t2check=43, check1=48, check2=48) (goalchk1=4, goalchk2=-2) Timothy Theate shot on goal. Benoit Rousseau SAVE!
+(check=16) Minute 12: no shot.
+(check=36) Minute 13: no shot.
+(check=16) Minute 14: no shot.
+(check=19) Minute 15: no shot. (Stop: Denis Chevalier)
+(check=6) Minute 16: no shot. (Stop: Krzysztof Sikora)
+(check=9) Minute 17: no shot. (Stop: Ramon Perdomo)
+(check=44) Minute 18: (t1check=42, t2check=21, check1=49, check2=51) (goalchk1=25, goalchk2=15) Conor O'Sullivan shot on goal. Jamie Price SAVE!
+(check=8) Minute 19: no shot. (Stop: Vincent van de Velde)
+(check=34) Minute 20: no shot. (Stop: Krzysztof Sikora)
+(check=41) Minute 21: (t1check=64, t2check=17, check1=37, check2=39) (goalchk1=11, goalchk2=1) Patrick Murray shot on goal. Jamie Price SAVE!
+(check=16) Minute 22: no shot.
+(check=39) Minute 23: (t1check=29, t2check=79, check1=23, check2=23) Jamie Price missed shot. (Stop: Benoit Rousseau)
+(check=37) Minute 24: no shot.
+(check=47) Minute 25: (t1check=20, t2check=77, check1=13, check2=13) Marcos Aguilar missed shot. (Stop: Ramon Perdomo)
+(check=37) Minute 26: no shot. (Stop: Denis Chevalier)
+(check=19) Minute 27: no shot.
+(check=9) Minute 28: no shot.
+(check=21) Minute 29: no shot. (Stop: Krzysztof Sikora)
+(check=3) Minute 30: no shot.
+(check=5) Minute 31: no shot. (Stop: Thierry Payet)
+(check=40) Minute 32: (t1check=21, t2check=46, check1=50, check2=50) (goalchk1=32, goalchk2=26) Marcos Aguilar GOAL!!! Score: 0-1
+(check=47) Minute 33: (t1check=39, t2check=17, check1=22, check2=24) Conor O'Sullivan missed shot. (Stop: Amadou Onana)
+(check=31) Minute 34: no shot. (Stop: Manaraii Wagemann)
+(check=11) Minute 35: no shot.
+(check=7) Minute 36: no shot. (Stop: Denis Chevalier)
+(check=26) Minute 37: no shot.
+(check=32) Minute 38: no shot.
+(check=16) Minute 39: no shot. (Stop: Manaraii Wagemann)
+(check=30) Minute 40: no shot.
+(check=10) Minute 41: no shot.
+(check=38) Minute 42: no shot. (Stop: Ramon Perdomo)
+(check=3) Minute 43: no shot.
+(check=4) Minute 44: no shot.
+(check=37) Minute 45: no shot. (Stop: Manaraii Wagemann)
+(check=18) Minute 46: no shot. (Stop: Manaraii Wagemann)
+(check=46) Minute 47: (t1check=81, t2check=60, check1=12, check2=14) Benoit Rousseau missed shot. (Stop: Amadou Onana)
+(check=25) Minute 48: no shot.
+(check=1) Minute 49: no shot. (Stop: Manaraii Wagemann)
+(check=45) Minute 50: (t1check=61, t2check=67, check1=46, check2=46) (goalchk1=39, goalchk2=33) Amadou Onana GOAL!!! (Ast: Manuel Castillo) Score: 0-2
+(check=40) Minute 51: (t1check=23, t2check=75, check1=15, check2=15) Timothy Theate missed shot. (Stop: Antonio Rudiger)
+(check=39) Minute 52: (t1check=74, t2check=9, check1=37, check2=39) (goalchk1=9, goalchk2=-1) Ramon Perdomo shot on goal. Jamie Price SAVE!
+(check=34) Minute 53: no shot.
+(check=2) Minute 54: no shot.
+(check=50) Minute 55: (t1check=12, t2check=19, check1=46, check2=46) (goalchk1=1, goalchk2=-5) Manuel Castillo shot on goal. Benoit Rousseau SAVE!
+(check=11) Minute 56: no shot.
+(check=49) Minute 57: (t1check=54, t2check=62, check1=13, check2=13) Timothy Theate missed shot. (Stop: Thierry Payet)
+(check=6) Minute 58: no shot.
+(check=11) Minute 59: no shot.
+(check=11) Minute 60: no shot.
+(check=25) Minute 61: no shot.
+(check=10) Minute 62: no shot.
+(check=35) Minute 63: no shot.
+(check=34) Minute 64: no shot. (Stop: Ramon Perdomo)
+(check=3) Minute 65: no shot. (Stop: Martijn van den Berg)
+(check=40) Minute 66: (t1check=15, t2check=53, check1=44, check2=44) (goalchk1=36, goalchk2=30) Manaraii Wagemann GOAL!!! Score: 0-3
+(check=31) Minute 67: no shot. (Stop: Thierry Payet)
+(check=8) Minute 68: no shot.
+(check=39) Minute 69: (t1check=77, t2check=35, check1=45, check2=47) (goalchk1=13, goalchk2=3) Antonio Rudiger shot on goal. Jamie Price SAVE!
+(check=32) Minute 70: no shot.
+(check=45) Minute 71: (t1check=73, t2check=22, check1=33, check2=35) (goalchk1=43, goalchk2=33) Thierry Payet GOAL!!! Score: 1-3
+(check=43) Minute 72: (t1check=63, t2check=53, check1=2, check2=4) Thierry Payet missed shot. (Stop: Krzysztof Sikora)
+(check=44) Minute 73: (t1check=16, t2check=26, check1=2, check2=2) Marcos Aguilar missed shot. (Stop: Antonio Rudiger)
+(check=33) Minute 74: no shot.
+(check=10) Minute 75: no shot. (Stop: Amadou Onana)
+(check=29) Minute 76: no shot. (Stop: Antonio Rudiger)
+(check=32) Minute 77: no shot. (Stop: Thierry Payet)
+(check=8) Minute 78: no shot. (Stop: Jamie Price)
+(check=1) Minute 79: no shot. (Stop: Denis Chevalier)
+(check=14) Minute 80: no shot.
+(check=8) Minute 81: no shot.
+(check=12) Minute 82: no shot. (Stop: Timothy Theate)
+(check=33) Minute 83: no shot.
+(check=46) Minute 84: (t1check=13, t2check=55, check1=4, check2=4) Amadou Onana missed shot. (Stop: Antonio Rudiger)
+(check=23) Minute 85: no shot.
+(check=34) Minute 86: no shot. (Stop: Antonio Rudiger)
+(check=22) Minute 87: no shot.
+(check=26) Minute 88: no shot.
+(check=6) Minute 89: no shot.
+(check=37) Minute 90: no shot. (Stop: Jamie Price)
+Final score: 1-3
