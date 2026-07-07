@@ -1766,31 +1766,48 @@ def rewind_tournament(tournament_path, target_day):
                 if "player_data" in m: m["player_data"] = {}
                 if "log_path" in m: m["log_path"] = ""
 
-    # Clear playoffs entirely if they haven't finished, forcing re-initialization with correct tags/days
+    # Reset playoff matches
     if tournament_data.get("playoffs"):
         po = tournament_data["playoffs"]
-        finished = False
+        all_po_matches = []
+        first_po_day = 9999
         if "rounds" in po:
-            finished = po["rounds"][-1]["matches"][0]["played"]
-        else:
-            finished = po.get("finals", [{}])[0].get("played", False)
-        
-        if not finished:
-            # Delete logs for all playoff matches before clearing
-            if "rounds" in po:
-                for r in po["rounds"]:
-                    for m in r.get("matches", []):
-                        delete_match_log(m)
-            elif "semifinals" in po:
-                for m in po["semifinals"]: delete_match_log(m)
-                for m in po.get("finals", []): delete_match_log(m)
-            elif "matches" in po:
-                for m in po["matches"]: delete_match_log(m)
+            for r in po["rounds"]:
+                for m in r.get("matches", []):
+                    all_po_matches.append(m)
+                    first_po_day = min(first_po_day, m["day"])
+        elif "semifinals" in po:
+            for m in po["semifinals"]: 
+                all_po_matches.append(m)
+                first_po_day = min(first_po_day, m["day"])
+            for m in po.get("finals", []): 
+                all_po_matches.append(m)
+                first_po_day = min(first_po_day, m["day"])
+        elif "matches" in po:
+            for m in po["matches"]: 
+                all_po_matches.append(m)
+                first_po_day = min(first_po_day, m["day"])
 
+        if target_day <= first_po_day:
+            # Rewinding to before playoffs started - clear entirely to allow re-init with correct seeds
+            for m in all_po_matches: delete_match_log(m)
             tournament_data["playoffs"] = None
-            print(f"Playoffs cleared and logs removed for re-initialization.")
+            print(f"Rewound before playoffs: cleared playoff structure.")
+        else:
+            # Rewinding to a day DURING playoffs - only reset matches on/after target_day
+            for m in all_po_matches:
+                if m["day"] >= target_day:
+                    if m.get("played"): delete_match_log(m)
+                    m["played"] = False
+                    if "score" in m: m["score"] = [0, 0]
+                    if "pk_score" in m: m["pk_score"] = None
+                    if "events" in m: m["events"] = []
+                    if "player_data" in m: m["player_data"] = {}
+                    if "log_path" in m: m["log_path"] = ""
+                    m["teams"] = ["TBD", "TBD"]
+            print(f"Rewound during playoffs: reset matches on/after day {target_day}.")
 
-    if tournament_data["config"]["type"] == "world_cup":
+    if tournament_data["config"]["type"] in ["world_cup", "league"]:
         check_mathematical_locks(tournament_data)
 
     with open(results_path, "w") as f:
