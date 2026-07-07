@@ -1,65 +1,65 @@
 [
   {
     "rank": 1,
-    "team": "Castellano Madrid",
-    "points": 1211.3,
-    "movement": 1,
+    "team": "Haverford Black",
+    "points": 1241.5,
+    "movement": 2,
     "is_new": false
   },
   {
     "rank": 2,
-    "team": "Haverford Black",
-    "points": 1209.2,
-    "movement": 1,
+    "team": "Castellano Madrid",
+    "points": 1211.3,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 3,
-    "team": "Imperiale Roma",
-    "points": 1204.0,
-    "movement": -2,
+    "team": "Chateau Roux",
+    "points": 1207.2,
+    "movement": 4,
     "is_new": false
   },
   {
     "rank": 4,
-    "team": "Chateau Roux",
-    "points": 1185.7,
-    "movement": 3,
+    "team": "Imperiale Roma",
+    "points": 1204.0,
+    "movement": -3,
     "is_new": false
   },
   {
     "rank": 5,
-    "team": "Stella Grey",
-    "points": 1183.9,
-    "movement": -1,
+    "team": "Las Vegas Mirage",
+    "points": 1201.1,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 6,
-    "team": "Las Vegas Mirage",
-    "points": 1177.2,
-    "movement": -1,
+    "team": "Fursan al-Arab",
+    "points": 1192.1,
+    "movement": 0,
     "is_new": false
   },
   {
     "rank": 7,
-    "team": "Thurston FC West",
-    "points": 1157.0,
-    "movement": 1,
+    "team": "Stella Grey",
+    "points": 1183.9,
+    "movement": -3,
     "is_new": false
   },
   {
     "rank": 8,
-    "team": "Fursan al-Arab",
-    "points": 1156.0,
-    "movement": -2,
+    "team": "Le Rocher Monaco",
+    "points": 1160.8,
+    "movement": 9,
     "is_new": false
   },
   {
     "rank": 9,
-    "team": "Le Rocher Monaco",
-    "points": 1138.8,
-    "movement": 8,
+    "team": "Thurston FC West",
+    "points": 1157.0,
+    "movement": -1,
     "is_new": false
   },
   {
@@ -113,107 +113,107 @@
   },
   {
     "rank": 17,
-    "team": "Glass Castle FC",
-    "points": 1076.4,
-    "movement": -1,
+    "team": "New York Empire",
+    "points": 1077.8,
+    "movement": 12,
     "is_new": false
   },
   {
     "rank": 18,
-    "team": "New York Empire",
-    "points": 1072.1,
-    "movement": 11,
+    "team": "Glass Castle FC",
+    "points": 1076.4,
+    "movement": -2,
     "is_new": false
   },
   {
     "rank": 19,
-    "team": "Lisbon United",
-    "points": 1070.5,
-    "movement": 1,
+    "team": "Sisu Helsinki",
+    "points": 1073.1,
+    "movement": 18,
     "is_new": false
   },
   {
     "rank": 20,
-    "team": "Visconti Serpents",
-    "points": 1068.6,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 21,
-    "team": "Thurston FC East",
-    "points": 1064.5,
-    "movement": -3,
-    "is_new": false
-  },
-  {
-    "rank": 22,
-    "team": "Les Brasseurs",
-    "points": 1062.1,
-    "movement": -3,
-    "is_new": false
-  },
-  {
-    "rank": 23,
-    "team": "Los Angeles Syndicate",
-    "points": 1061.6,
-    "movement": 3,
-    "is_new": false
-  },
-  {
-    "rank": 24,
-    "team": "Chicago Surge",
-    "points": 1059.8,
-    "movement": -3,
-    "is_new": false
-  },
-  {
-    "rank": 25,
-    "team": "Slavutych Kyiv",
-    "points": 1058.7,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 26,
-    "team": "Boston Rebellion",
-    "points": 1053.8,
-    "movement": 2,
-    "is_new": false
-  },
-  {
-    "rank": 27,
-    "team": "Askhatansa",
-    "points": 1053.0,
-    "movement": -4,
-    "is_new": false
-  },
-  {
-    "rank": 28,
-    "team": "Barbary Apes",
-    "points": 1045.8,
-    "movement": -4,
-    "is_new": false
-  },
-  {
-    "rank": 29,
-    "team": "Najm al-Bayda",
-    "points": 1043.5,
-    "movement": -4,
-    "is_new": false
-  },
-  {
-    "rank": 30,
-    "team": "Edelweiss Zurich",
-    "points": 1033.6,
+    "team": "Lisbon United",
+    "points": 1070.5,
     "movement": 0,
     "is_new": false
   },
   {
+    "rank": 21,
+    "team": "Visconti Serpents",
+    "points": 1068.6,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 22,
+    "team": "Thurston FC East",
+    "points": 1064.5,
+    "movement": -4,
+    "is_new": false
+  },
+  {
+    "rank": 23,
+    "team": "Les Brasseurs",
+    "points": 1062.1,
+    "movement": -4,
+    "is_new": false
+  },
+  {
+    "rank": 24,
+    "team": "Los Angeles Syndicate",
+    "points": 1061.6,
+    "movement": 2,
+    "is_new": false
+  },
+  {
+    "rank": 25,
+    "team": "Chicago Surge",
+    "points": 1059.8,
+    "movement": -4,
+    "is_new": false
+  },
+  {
+    "rank": 26,
+    "team": "Slavutych Kyiv",
+    "points": 1058.7,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 27,
+    "team": "Boston Rebellion",
+    "points": 1053.8,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 28,
+    "team": "Askhatansa",
+    "points": 1053.0,
+    "movement": -5,
+    "is_new": false
+  },
+  {
+    "rank": 29,
+    "team": "Edelweiss Zurich",
+    "points": 1050.1,
+    "movement": 1,
+    "is_new": false
+  },
+  {
+    "rank": 30,
+    "team": "Barbary Apes",
+    "points": 1045.8,
+    "movement": -6,
+    "is_new": false
+  },
+  {
     "rank": 31,
-    "team": "Sisu Helsinki",
-    "points": 1033.3,
-    "movement": 6,
+    "team": "Najm al-Bayda",
+    "points": 1043.5,
+    "movement": -6,
     "is_new": false
   },
   {

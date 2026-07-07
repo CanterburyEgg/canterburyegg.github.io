@@ -312,6 +312,11 @@
             background: #f8fafc;
         }
 
+        .loser-logo {
+            opacity: 0.4;
+            filter: grayscale(0.8);
+        }
+
         .match-card:hover {
             transform: translateY(-2px);
             border-color: var(--accent);
@@ -843,7 +848,10 @@
         let viewState = 'main'; // 'main' or 'team'
 
         function getFlagUrl(team) {
-            if (!team || team === "TBD" || team === "None") return "img/qm.png";
+            if (!team || team === "TBD" || team === "None") {
+                if (currentYear === '2025') return "img/qm.png";
+                return `https://flagcdn.com/w80/un.png`;
+            }
             if (currentYear == '2025') {
                 let league = '';
                 
@@ -1560,15 +1568,6 @@
             };
 
             Object.values(currentData.groups).forEach(g => g.matches.forEach(processMatchForGlobalStats));
-            if (currentData.playoffs) {
-                if (currentData.playoffs.rounds) {
-                    currentData.playoffs.rounds.forEach(r => r.matches.forEach(processMatchForGlobalStats));
-                } else {
-                    const finals = currentData.playoffs.finals || (currentData.playoffs.final ? [currentData.playoffs.final] : []);
-                    const mainKo = currentData.playoffs.semifinals || currentData.playoffs.matches || [];
-                    [...mainKo, ...finals].forEach(processMatchForGlobalStats);
-                }
-            }
 
             const sortedScorers = Object.entries(scorers).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.goals - a.goals).slice(0, 15);
             const sortedAssisters = Object.entries(assisters).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.assists - a.assists).slice(0, 15);
@@ -1790,12 +1789,22 @@
                 const scoreStr = isPlayed ? `${m.score[0]}-${m.score[1]}` : 'VS';
                 // Escape string for JSON inclusion in HTML attribute
                 const mJson = JSON.stringify(m).replace(/"/g, '&quot;');
+
+                let loserIdx = -1;
+                if (isPlayed) {
+                    const s1 = m.score[0], s2 = m.score[1];
+                    const p1 = m.pk_score ? m.pk_score[0] : null;
+                    const p2 = m.pk_score ? m.pk_score[1] : null;
+                    const homeWinner = p1 !== null ? p1 > p2 : s1 > s2;
+                    loserIdx = homeWinner ? 1 : 0;
+                }
+
                 gamesHtml += `
                     <div class="game-bubble-large ${!isPlayed ? 'not-played' : ''}" onclick="if(${isPlayed}) openMatchDetail(${mJson})">
                         <div class="game-num">Game ${m.game_num}</div>
                         <div class="mini-flags">
-                            ${renderTeamIcon(m.teams[1])}
-                            ${renderTeamIcon(m.teams[0])}
+                            <span class="${loserIdx === 1 ? 'loser-logo' : ''}">${renderTeamIcon(m.teams[1])}</span>
+                            <span class="${loserIdx === 0 ? 'loser-logo' : ''}">${renderTeamIcon(m.teams[0])}</span>
                         </div>
                         <div class="mini-score">
                             ${(() => {

@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 234,
+  "current_day": 241,
   "groups": {
     "BSL Atlantic": {
       "matches": [
@@ -69432,10 +69432,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "BSL Pacific_R3_G5",
             "series_id": "BSL Pacific_R3",
-            "game_num": 5
+            "game_num": 5,
+            "canceled": true
           }
         ]
       },
@@ -69449,14 +69450,270 @@
               "Las Vegas Mirage"
             ],
             "score": [
-              0,
-              0
+              2,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "F_G1",
             "series_id": "F",
             "game_num": 1,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 5,
+                "team": "New York Empire",
+                "player": "Silas McBride",
+                "assist": "Lorenzo Marte"
+              },
+              {
+                "minute": 6,
+                "team": "Las Vegas Mirage",
+                "player": "Anthony Gonzales",
+                "assist": "Knox Fletcher"
+              },
+              {
+                "minute": 31,
+                "team": "New York Empire",
+                "player": "Helmut Lange",
+                "assist": "Miguel Ortega"
+              },
+              {
+                "minute": 56,
+                "team": "Las Vegas Mirage",
+                "player": "William Davies",
+                "assist": "Fernando Reyes"
+              },
+              {
+                "minute": 116,
+                "team": "Las Vegas Mirage",
+                "player": "Anthony Gonzales",
+                "assist": "Junya Ito"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 11,
+              "New York Empire": {
+                "shots": 18,
+                "sogs": 4,
+                "saves": 0,
+                "possession": 48,
+                "stops": 25
+              },
+              "Las Vegas Mirage": {
+                "shots": 15,
+                "sogs": 3,
+                "saves": 2,
+                "possession": 41,
+                "stops": 26
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Nick Hamburger",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Ortiz",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silas McBride",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 10,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helgi Magnusson",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Lorenzo Marte",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Centeno",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Mohammed Odoi",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nam Min-Jae",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                },
+                {
+                  "name": "William Davies",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anthony Gonzales",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Knox Fletcher",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 12,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fernando Reyes",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johan Vasquez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Junya Ito",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Backyard/Games/New York Empire_vs_Las Vegas Mirage_77143622_212.txt"
           },
           {
             "day": 237,
@@ -69466,13 +69723,251 @@
             ],
             "score": [
               0,
-              0
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "F_G2",
             "series_id": "F",
             "game_num": 2,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 2,
+                "team": "Las Vegas Mirage",
+                "player": "Johan Vasquez",
+                "assist": "Anthony Gonzales"
+              },
+              {
+                "minute": 46,
+                "team": "Las Vegas Mirage",
+                "player": "Mohammed Odoi",
+                "assist": "William Davies"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 10,
+              "New York Empire": {
+                "shots": 7,
+                "sogs": 1,
+                "saves": 1,
+                "possession": 50,
+                "stops": 23
+              },
+              "Las Vegas Mirage": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 1,
+                "possession": 40,
+                "stops": 19
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Nick Hamburger",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Ortiz",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silas McBride",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helgi Magnusson",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Lorenzo Marte",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Centeno",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Mohammed Odoi",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nam Min-Jae",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 0
+                },
+                {
+                  "name": "William Davies",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anthony Gonzales",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Knox Fletcher",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fernando Reyes",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johan Vasquez",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Junya Ito",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Backyard/Games/New York Empire_vs_Las Vegas Mirage_77143630_919.txt"
           },
           {
             "day": 238,
@@ -69481,14 +69976,270 @@
               "Las Vegas Mirage"
             ],
             "score": [
-              0,
-              0
+              1,
+              4
             ],
-            "played": false,
+            "played": true,
             "label": "F_G3",
             "series_id": "F",
             "game_num": 3,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 22,
+                "team": "Las Vegas Mirage",
+                "player": "Fernando Reyes",
+                "assist": "Johan Vasquez"
+              },
+              {
+                "minute": 35,
+                "team": "Las Vegas Mirage",
+                "player": "Mohammed Odoi",
+                "assist": "Junya Ito"
+              },
+              {
+                "minute": 61,
+                "team": "Las Vegas Mirage",
+                "player": "Anthony Gonzales",
+                "assist": "Fernando Reyes"
+              },
+              {
+                "minute": 74,
+                "team": "New York Empire",
+                "player": "Helmut Lange",
+                "assist": "Lorenzo Marte"
+              },
+              {
+                "minute": 83,
+                "team": "Las Vegas Mirage",
+                "player": "Junya Ito",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 9,
+              "New York Empire": {
+                "shots": 13,
+                "sogs": 4,
+                "saves": 4,
+                "possession": 52,
+                "stops": 18
+              },
+              "Las Vegas Mirage": {
+                "shots": 14,
+                "sogs": 8,
+                "saves": 3,
+                "possession": 39,
+                "stops": 17
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Nick Hamburger",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Ortiz",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silas McBride",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helgi Magnusson",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Lorenzo Marte",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Centeno",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Mohammed Odoi",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nam Min-Jae",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                },
+                {
+                  "name": "William Davies",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anthony Gonzales",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Knox Fletcher",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fernando Reyes",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johan Vasquez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Junya Ito",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Backyard/Games/New York Empire_vs_Las Vegas Mirage_77143631_155.txt"
           },
           {
             "day": 239,
@@ -69500,11 +70251,12 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G4",
             "series_id": "F",
             "game_num": 4,
-            "neutral": true
+            "neutral": true,
+            "canceled": true
           },
           {
             "day": 240,
@@ -69516,11 +70268,12 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G5",
             "series_id": "F",
             "game_num": 5,
-            "neutral": true
+            "neutral": true,
+            "canceled": true
           }
         ]
       }

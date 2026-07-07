@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 234,
+  "current_day": 241,
   "groups": {
     "Division Monarch": {
       "matches": [
@@ -68673,10 +68673,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Monarch_R3_G5",
             "series_id": "Division Monarch_R3",
-            "game_num": 5
+            "game_num": 5,
+            "canceled": true
           }
         ]
       },
@@ -68690,14 +68691,258 @@
               "Haverford Black"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "F_G1",
             "series_id": "F",
             "game_num": 1,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 48,
+                "team": "Chateau Roux",
+                "player": "Claude Timmermans",
+                "assist": "Bailey Myers-Morgan"
+              },
+              {
+                "minute": 55,
+                "team": "Haverford Black",
+                "player": "Jurgen Richter",
+                "assist": "Jaime Riquelme"
+              },
+              {
+                "minute": 109,
+                "team": "Haverford Black",
+                "player": "Jurgen Richter",
+                "assist": "Theo Tchouameni"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 14,
+              "Chateau Roux": {
+                "shots": 16,
+                "sogs": 3,
+                "saves": 2,
+                "possession": 39,
+                "stops": 26
+              },
+              "Haverford Black": {
+                "shots": 14,
+                "sogs": 4,
+                "saves": 2,
+                "possession": 47,
+                "stops": 23
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 10,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Haverford Black_77143622_957.txt"
           },
           {
             "day": 237,
@@ -68706,14 +68951,246 @@
               "Haverford Black"
             ],
             "score": [
-              0,
+              1,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G2",
             "series_id": "F",
             "game_num": 2,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 67,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": "Gustavo Suarez"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 8,
+              "Chateau Roux": {
+                "shots": 13,
+                "sogs": 7,
+                "saves": 3,
+                "possession": 52,
+                "stops": 18
+              },
+              "Haverford Black": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 6,
+                "possession": 40,
+                "stops": 15
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 6,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Haverford Black_77143630_196.txt"
           },
           {
             "day": 238,
@@ -68722,14 +69199,267 @@
               "Haverford Black"
             ],
             "score": [
-              0,
-              0
+              2,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "F_G3",
             "series_id": "F",
             "game_num": 3,
-            "neutral": true
+            "neutral": true,
+            "pk_score": [
+              4,
+              5
+            ],
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 30,
+                "team": "Chateau Roux",
+                "player": "Bailey Myers-Morgan",
+                "assist": null
+              },
+              {
+                "minute": 32,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": "Lisandro Romero"
+              },
+              {
+                "minute": 53,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Dragan Petrovic"
+              },
+              {
+                "minute": 80,
+                "team": "Haverford Black",
+                "player": "Dragan Petrovic",
+                "assist": "Jaime Riquelme"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 11,
+              "Chateau Roux": {
+                "shots": 14,
+                "sogs": 7,
+                "saves": 2,
+                "possession": 48,
+                "stops": 21
+              },
+              "Haverford Black": {
+                "shots": 12,
+                "sogs": 4,
+                "saves": 5,
+                "possession": 41,
+                "stops": 23
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Haverford Black_77143631_456.txt"
           },
           {
             "day": 239,
@@ -68738,14 +69468,246 @@
               "Haverford Black"
             ],
             "score": [
-              0,
+              1,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G4",
             "series_id": "F",
             "game_num": 4,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 31,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 9,
+              "Chateau Roux": {
+                "shots": 11,
+                "sogs": 2,
+                "saves": 2,
+                "possession": 48,
+                "stops": 18
+              },
+              "Haverford Black": {
+                "shots": 9,
+                "sogs": 2,
+                "saves": 1,
+                "possession": 43,
+                "stops": 18
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 8,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Haverford Black_77143717_300.txt"
           },
           {
             "day": 240,
@@ -68755,13 +69717,275 @@
             ],
             "score": [
               0,
-              0
+              6
             ],
-            "played": false,
+            "played": true,
             "label": "F_G5",
             "series_id": "F",
             "game_num": 5,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 7,
+                "team": "Haverford Black",
+                "player": "Ko Kamada",
+                "assist": "Dragan Petrovic"
+              },
+              {
+                "minute": 24,
+                "team": "Haverford Black",
+                "player": "Jaime Riquelme",
+                "assist": "Jurgen Richter"
+              },
+              {
+                "minute": 29,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": null
+              },
+              {
+                "minute": 38,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Ko Kamada"
+              },
+              {
+                "minute": 43,
+                "team": "Haverford Black",
+                "player": "Andrew Moore",
+                "assist": "Jurgen Richter"
+              },
+              {
+                "minute": 56,
+                "team": "Haverford Black",
+                "player": "Jaime Riquelme",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 8,
+              "Chateau Roux": {
+                "shots": 8,
+                "sogs": 3,
+                "saves": 0,
+                "possession": 58,
+                "stops": 16
+              },
+              "Haverford Black": {
+                "shots": 9,
+                "sogs": 6,
+                "saves": 3,
+                "possession": 34,
+                "stops": 14
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 6
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Dragan Petrovic",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrew Moore",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 3,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jaime Riquelme",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jose Lopes",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Theo Tchouameni",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ko Kamada",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Charles Stewart",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Murray Campbell",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Haverford Black_77143815_628.txt"
           }
         ]
       }

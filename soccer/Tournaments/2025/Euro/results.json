@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 234,
+  "current_day": 241,
   "groups": {
     "Euro-North Division": {
       "matches": [
@@ -69198,10 +69198,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Euro-North Division_R3_G5",
             "series_id": "Euro-North Division_R3",
-            "game_num": 5
+            "game_num": 5,
+            "canceled": true
           }
         ]
       },
@@ -69215,14 +69216,294 @@
               "Sisu Helsinki"
             ],
             "score": [
-              0,
-              0
+              4,
+              5
             ],
-            "played": false,
+            "played": true,
             "label": "F_G1",
             "series_id": "F",
             "game_num": 1,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 3,
+                "team": "Sisu Helsinki",
+                "player": "Bojan Kavcic",
+                "assist": null
+              },
+              {
+                "minute": 14,
+                "team": "Edelweiss Zurich",
+                "player": "Marcos Ospina",
+                "assist": "Slobodan Krstic"
+              },
+              {
+                "minute": 19,
+                "team": "Sisu Helsinki",
+                "player": "Pascal Ferreira",
+                "assist": null
+              },
+              {
+                "minute": 27,
+                "team": "Edelweiss Zurich",
+                "player": "Simon Knight",
+                "assist": "Anders Lindstrom"
+              },
+              {
+                "minute": 28,
+                "team": "Edelweiss Zurich",
+                "player": "Simon Knight",
+                "assist": null
+              },
+              {
+                "minute": 29,
+                "team": "Sisu Helsinki",
+                "player": "Ivan Popova",
+                "assist": "Bojan Kavcic"
+              },
+              {
+                "minute": 51,
+                "team": "Edelweiss Zurich",
+                "player": "Fredrik Johansson",
+                "assist": "Erik Olsen"
+              },
+              {
+                "minute": 54,
+                "team": "Sisu Helsinki",
+                "player": "Mathieu Lefevre",
+                "assist": null
+              },
+              {
+                "minute": 111,
+                "team": "Sisu Helsinki",
+                "player": "Ivan Popova",
+                "assist": "Andrey Zaitsev"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 11,
+              "Edelweiss Zurich": {
+                "shots": 9,
+                "sogs": 6,
+                "saves": 3,
+                "possession": 50,
+                "stops": 20
+              },
+              "Sisu Helsinki": {
+                "shots": 16,
+                "sogs": 8,
+                "saves": 2,
+                "possession": 39,
+                "stops": 9
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Simon Knight",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Ospina",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miroslav Pavlovic",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 5
+                },
+                {
+                  "name": "Pavel Ivanova",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aka Dah",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Erik Olsen",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anders Lindstrom",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fredrik Johansson",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Slobodan Krstic",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Ivan Popova",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mathieu Lefevre",
+                  "pos": "FWD",
+                  "shots": 7,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aleksandr Olyinyk",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bojan Kavcic",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krasimi Georgiev",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Andrey Zaitsev",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Emilio Segundo",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pascal Ferreira",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stefan Meier",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Euro/Games/Edelweiss Zurich_vs_Sisu Helsinki_77143622_732.txt"
           },
           {
             "day": 237,
@@ -69231,14 +69512,264 @@
               "Sisu Helsinki"
             ],
             "score": [
-              0,
-              0
+              1,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "F_G2",
             "series_id": "F",
             "game_num": 2,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 7,
+                "team": "Edelweiss Zurich",
+                "player": "Aka Dah",
+                "assist": "Anders Lindstrom"
+              },
+              {
+                "minute": 28,
+                "team": "Sisu Helsinki",
+                "player": "Pascal Ferreira",
+                "assist": null
+              },
+              {
+                "minute": 39,
+                "team": "Sisu Helsinki",
+                "player": "Andrey Zaitsev",
+                "assist": "Mathieu Lefevre"
+              },
+              {
+                "minute": 73,
+                "team": "Sisu Helsinki",
+                "player": "Mathieu Lefevre",
+                "assist": "Andrey Zaitsev"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 13,
+              "Edelweiss Zurich": {
+                "shots": 9,
+                "sogs": 5,
+                "saves": 3,
+                "possession": 48,
+                "stops": 18
+              },
+              "Sisu Helsinki": {
+                "shots": 18,
+                "sogs": 6,
+                "saves": 4,
+                "possession": 39,
+                "stops": 12
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Simon Knight",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Ospina",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miroslav Pavlovic",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Pavel Ivanova",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aka Dah",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Erik Olsen",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anders Lindstrom",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fredrik Johansson",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Slobodan Krstic",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Ivan Popova",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mathieu Lefevre",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aleksandr Olyinyk",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bojan Kavcic",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krasimi Georgiev",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Andrey Zaitsev",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Emilio Segundo",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pascal Ferreira",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stefan Meier",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Euro/Games/Edelweiss Zurich_vs_Sisu Helsinki_77143630_370.txt"
           },
           {
             "day": 238,
@@ -69248,13 +69779,275 @@
             ],
             "score": [
               0,
-              0
+              6
             ],
-            "played": false,
+            "played": true,
             "label": "F_G3",
             "series_id": "F",
             "game_num": 3,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 2,
+                "team": "Sisu Helsinki",
+                "player": "Aleksandr Olyinyk",
+                "assist": "Bojan Kavcic"
+              },
+              {
+                "minute": 24,
+                "team": "Sisu Helsinki",
+                "player": "Ivan Popova",
+                "assist": "Andrey Zaitsev"
+              },
+              {
+                "minute": 28,
+                "team": "Sisu Helsinki",
+                "player": "Mathieu Lefevre",
+                "assist": "Pascal Ferreira"
+              },
+              {
+                "minute": 39,
+                "team": "Sisu Helsinki",
+                "player": "Pascal Ferreira",
+                "assist": "Stefan Meier"
+              },
+              {
+                "minute": 47,
+                "team": "Sisu Helsinki",
+                "player": "Mathieu Lefevre",
+                "assist": "Bojan Kavcic"
+              },
+              {
+                "minute": 62,
+                "team": "Sisu Helsinki",
+                "player": "Stefan Meier",
+                "assist": "Andrey Zaitsev"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 11,
+              "Edelweiss Zurich": {
+                "shots": 12,
+                "sogs": 2,
+                "saves": 4,
+                "possession": 47,
+                "stops": 15
+              },
+              "Sisu Helsinki": {
+                "shots": 16,
+                "sogs": 10,
+                "saves": 2,
+                "possession": 42,
+                "stops": 16
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Simon Knight",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcos Ospina",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miroslav Pavlovic",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 6
+                },
+                {
+                  "name": "Pavel Ivanova",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aka Dah",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Erik Olsen",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Anders Lindstrom",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fredrik Johansson",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Slobodan Krstic",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Ivan Popova",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mathieu Lefevre",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aleksandr Olyinyk",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bojan Kavcic",
+                  "pos": "DEF",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Krasimi Georgiev",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Andrey Zaitsev",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Emilio Segundo",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pascal Ferreira",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stefan Meier",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Euro/Games/Edelweiss Zurich_vs_Sisu Helsinki_77143631_790.txt"
           },
           {
             "day": 239,
@@ -69266,11 +70059,12 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G4",
             "series_id": "F",
             "game_num": 4,
-            "neutral": true
+            "neutral": true,
+            "canceled": true
           },
           {
             "day": 240,
@@ -69282,11 +70076,12 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G5",
             "series_id": "F",
             "game_num": 5,
-            "neutral": true
+            "neutral": true,
+            "canceled": true
           }
         ]
       }

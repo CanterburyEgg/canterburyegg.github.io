@@ -1442,13 +1442,6 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
 
     # Hande --all separately for simplicity
     if simulate_all:
-        def get_winner(res):
-            if res.get("pk_score"): return res["teams"][0] if res["pk_score"][0] > res["pk_score"][1] else res["teams"][1]
-            return res["teams"][0] if res["score"][0] > res["score"][1] else res["teams"][1]
-        def get_loser(res):
-            winner = get_winner(res)
-            return res["teams"][0] if res["teams"][1] == winner else res["teams"][1]
-
         print("\n--- SIMULATING ALL REMAINING MATCHES ---")
         # Logic for Group Stage
         for g_id, g_data in tournament_data["groups"].items():

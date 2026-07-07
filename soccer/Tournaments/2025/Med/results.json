@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 234,
+  "current_day": 241,
   "groups": {
     "Costa Republic": {
       "matches": [
@@ -69857,10 +69857,11 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Costa Republic_R3_G5",
             "series_id": "Costa Republic_R3",
-            "game_num": 5
+            "game_num": 5,
+            "canceled": true
           }
         ]
       },
@@ -69874,14 +69875,282 @@
               "Le Rocher Monaco"
             ],
             "score": [
-              0,
-              0
+              4,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "F_G1",
             "series_id": "F",
             "game_num": 1,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 10,
+                "team": "Fursan al-Arab",
+                "player": "Cesar Aguero",
+                "assist": "Eduardo Vaca"
+              },
+              {
+                "minute": 11,
+                "team": "Fursan al-Arab",
+                "player": "Joao Silva",
+                "assist": "Abdalla Eisa"
+              },
+              {
+                "minute": 25,
+                "team": "Le Rocher Monaco",
+                "player": "Didier Diomande",
+                "assist": "Alvaro Vazquez"
+              },
+              {
+                "minute": 55,
+                "team": "Le Rocher Monaco",
+                "player": "Ilir Hoxha",
+                "assist": null
+              },
+              {
+                "minute": 91,
+                "team": "Le Rocher Monaco",
+                "player": "Alvaro Vazquez",
+                "assist": null
+              },
+              {
+                "minute": 110,
+                "team": "Fursan al-Arab",
+                "player": "Joao Silva",
+                "assist": null
+              },
+              {
+                "minute": 111,
+                "team": "Fursan al-Arab",
+                "player": "Abdalla Eisa",
+                "assist": "Cesar Aguero"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 7,
+              "Fursan al-Arab": {
+                "shots": 13,
+                "sogs": 7,
+                "saves": 6,
+                "possession": 42,
+                "stops": 23
+              },
+              "Le Rocher Monaco": {
+                "shots": 18,
+                "sogs": 9,
+                "saves": 3,
+                "possession": 51,
+                "stops": 20
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Joao Silva",
+                  "pos": "FWD",
+                  "shots": 7,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Delgado",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cesar Aguero",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergio Gutierrez",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 6,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Jose Romero",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eduardo Vaca",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amir Zare",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdalla Eisa",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rachid Tahiri",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Didier Diomande",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Leandro Cordeiro",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alvaro Vazquez",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salvatore Moretti",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Enrique Ortega",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Alejandro Garcia",
+                  "pos": "MID",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohamed Benyahia",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilir Hoxha",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bassel Haidar",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Med/Games/Fursan al-Arab_vs_Le Rocher Monaco_77143622_479.txt"
           },
           {
             "day": 237,
@@ -69890,14 +70159,282 @@
               "Le Rocher Monaco"
             ],
             "score": [
-              0,
-              0
+              4,
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "F_G2",
             "series_id": "F",
             "game_num": 2,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 5,
+                "team": "Le Rocher Monaco",
+                "player": "Salvatore Moretti",
+                "assist": "Leandro Cordeiro"
+              },
+              {
+                "minute": 49,
+                "team": "Fursan al-Arab",
+                "player": "Abdalla Eisa",
+                "assist": "Rachid Tahiri"
+              },
+              {
+                "minute": 70,
+                "team": "Le Rocher Monaco",
+                "player": "Leandro Cordeiro",
+                "assist": "Salvatore Moretti"
+              },
+              {
+                "minute": 86,
+                "team": "Fursan al-Arab",
+                "player": "Cesar Aguero",
+                "assist": "Rachid Tahiri"
+              },
+              {
+                "minute": 95,
+                "team": "Fursan al-Arab",
+                "player": "Joao Silva",
+                "assist": "Jose Romero"
+              },
+              {
+                "minute": 113,
+                "team": "Le Rocher Monaco",
+                "player": "Alvaro Vazquez",
+                "assist": "Alejandro Garcia"
+              },
+              {
+                "minute": 120,
+                "team": "Fursan al-Arab",
+                "player": "Cesar Aguero",
+                "assist": "Rafael Delgado"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 12,
+              "Fursan al-Arab": {
+                "shots": 14,
+                "sogs": 7,
+                "saves": 7,
+                "possession": 39,
+                "stops": 20
+              },
+              "Le Rocher Monaco": {
+                "shots": 17,
+                "sogs": 10,
+                "saves": 3,
+                "possession": 49,
+                "stops": 18
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Joao Silva",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Delgado",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cesar Aguero",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergio Gutierrez",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 7,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Jose Romero",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eduardo Vaca",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amir Zare",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdalla Eisa",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rachid Tahiri",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Didier Diomande",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Leandro Cordeiro",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alvaro Vazquez",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salvatore Moretti",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Enrique Ortega",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Alejandro Garcia",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohamed Benyahia",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilir Hoxha",
+                  "pos": "DEF",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bassel Haidar",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Med/Games/Fursan al-Arab_vs_Le Rocher Monaco_77143630_992.txt"
           },
           {
             "day": 238,
@@ -69906,14 +70443,282 @@
               "Le Rocher Monaco"
             ],
             "score": [
-              0,
-              0
+              1,
+              6
             ],
-            "played": false,
+            "played": true,
             "label": "F_G3",
             "series_id": "F",
             "game_num": 3,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 2,
+                "team": "Fursan al-Arab",
+                "player": "Cesar Aguero",
+                "assist": "Eduardo Vaca"
+              },
+              {
+                "minute": 10,
+                "team": "Le Rocher Monaco",
+                "player": "Mohamed Benyahia",
+                "assist": "Salvatore Moretti"
+              },
+              {
+                "minute": 20,
+                "team": "Le Rocher Monaco",
+                "player": "Salvatore Moretti",
+                "assist": "Alejandro Garcia"
+              },
+              {
+                "minute": 28,
+                "team": "Le Rocher Monaco",
+                "player": "Leandro Cordeiro",
+                "assist": "Didier Diomande"
+              },
+              {
+                "minute": 65,
+                "team": "Le Rocher Monaco",
+                "player": "Leandro Cordeiro",
+                "assist": "Salvatore Moretti"
+              },
+              {
+                "minute": 78,
+                "team": "Le Rocher Monaco",
+                "player": "Leandro Cordeiro",
+                "assist": "Alvaro Vazquez"
+              },
+              {
+                "minute": 85,
+                "team": "Le Rocher Monaco",
+                "player": "Alvaro Vazquez",
+                "assist": "Bassel Haidar"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 9,
+              "Fursan al-Arab": {
+                "shots": 13,
+                "sogs": 5,
+                "saves": 0,
+                "possession": 48,
+                "stops": 14
+              },
+              "Le Rocher Monaco": {
+                "shots": 10,
+                "sogs": 6,
+                "saves": 4,
+                "possession": 43,
+                "stops": 18
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Joao Silva",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Delgado",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cesar Aguero",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergio Gutierrez",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 6
+                },
+                {
+                  "name": "Jose Romero",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eduardo Vaca",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amir Zare",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdalla Eisa",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rachid Tahiri",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Didier Diomande",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Leandro Cordeiro",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 3,
+                  "goals": 3,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alvaro Vazquez",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salvatore Moretti",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 2,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Enrique Ortega",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Alejandro Garcia",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohamed Benyahia",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilir Hoxha",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bassel Haidar",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Med/Games/Fursan al-Arab_vs_Le Rocher Monaco_77143631_546.txt"
           },
           {
             "day": 239,
@@ -69922,14 +70727,264 @@
               "Le Rocher Monaco"
             ],
             "score": [
-              0,
-              0
+              3,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "F_G4",
             "series_id": "F",
             "game_num": 4,
-            "neutral": true
+            "neutral": true,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 29,
+                "team": "Le Rocher Monaco",
+                "player": "Salvatore Moretti",
+                "assist": "Alvaro Vazquez"
+              },
+              {
+                "minute": 71,
+                "team": "Fursan al-Arab",
+                "player": "Joao Silva",
+                "assist": "Rachid Tahiri"
+              },
+              {
+                "minute": 72,
+                "team": "Fursan al-Arab",
+                "player": "Amir Zare",
+                "assist": "Rachid Tahiri"
+              },
+              {
+                "minute": 90,
+                "team": "Fursan al-Arab",
+                "player": "Cesar Aguero",
+                "assist": "Rafael Delgado"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 10,
+              "Fursan al-Arab": {
+                "shots": 12,
+                "sogs": 5,
+                "saves": 0,
+                "possession": 40,
+                "stops": 16
+              },
+              "Le Rocher Monaco": {
+                "shots": 7,
+                "sogs": 1,
+                "saves": 2,
+                "possession": 50,
+                "stops": 16
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Joao Silva",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Delgado",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cesar Aguero",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sergio Gutierrez",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Jose Romero",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eduardo Vaca",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amir Zare",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdalla Eisa",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rachid Tahiri",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Didier Diomande",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Leandro Cordeiro",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alvaro Vazquez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salvatore Moretti",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Enrique Ortega",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Alejandro Garcia",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohamed Benyahia",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilir Hoxha",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bassel Haidar",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Med/Games/Fursan al-Arab_vs_Le Rocher Monaco_77143717_804.txt"
           },
           {
             "day": 240,
@@ -69941,11 +70996,12 @@
               0,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "F_G5",
             "series_id": "F",
             "game_num": 5,
-            "neutral": true
+            "neutral": true,
+            "canceled": true
           }
         ]
       }
