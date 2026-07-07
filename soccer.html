@@ -1489,10 +1489,36 @@
                     });
 
                     // Render standalone
-                    standaloneMatches.forEach(m => {
-                        const card = createMatchCard(m);
-                        if (card) roundDiv.appendChild(card);
-                    });
+                    const finalMatch = standaloneMatches.find(m => m.label === 'F' || m.label === 'World Cup Final' || m.label === 'League Final');
+                    const thirdPlaceMatch = standaloneMatches.find(m => m.label === '3P' || m.label === '3rd Place Match');
+
+                    if (finalMatch || thirdPlaceMatch) {
+                        // Special handling for Final + 3rd Place
+                        if (finalMatch) {
+                            const card = createMatchCard(finalMatch);
+                            if (card) roundDiv.appendChild(card);
+                        }
+                        if (thirdPlaceMatch) {
+                            const h3 = document.createElement('h3');
+                            h3.innerText = 'Consolation Match';
+                            h3.className = 'third-place-header';
+                            roundDiv.appendChild(h3);
+                            const card = createMatchCard(thirdPlaceMatch);
+                            if (card) roundDiv.appendChild(card);
+                        }
+                        // Render any other standalone matches that aren't the primary two
+                        standaloneMatches.forEach(m => {
+                            if (m !== finalMatch && m !== thirdPlaceMatch) {
+                                const card = createMatchCard(m);
+                                if (card) roundDiv.appendChild(card);
+                            }
+                        });
+                    } else {
+                        standaloneMatches.forEach(m => {
+                            const card = createMatchCard(m);
+                            if (card) roundDiv.appendChild(card);
+                        });
+                    }
 
                     bracket.appendChild(roundDiv);
                 });
