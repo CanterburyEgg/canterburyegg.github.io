@@ -2,3 +2,4 @@ ai-playground.html
 .DS_Store
 .DS_Store
 /soccer/__pycache__
+soccer/scripts/__pycache__
