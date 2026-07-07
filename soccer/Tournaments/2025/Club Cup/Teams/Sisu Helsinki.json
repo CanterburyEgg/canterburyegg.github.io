@@ -1,0 +1,74 @@
+{
+  "name": "Sisu Helsinki",
+  "ratings": {
+    "offense": 6,
+    "speed": 6,
+    "defense": 8,
+    "gk": 6
+  },
+  "players": [
+    {
+      "name": "Ivan Popova",
+      "shot_prop": 27,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Mathieu Lefevre",
+      "shot_prop": 27,
+      "assist_prop": 6,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Aleksandr Olyinyk",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Bojan Kavcic",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Krasimi Georgiev",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Andrey Zaitsev",
+      "shot_prop": 6,
+      "assist_prop": 24,
+      "stop_prop": 6,
+      "pos": "MID"
+    },
+    {
+      "name": "Emilio Segundo",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 24,
+      "pos": "DEF"
+    },
+    {
+      "name": "Pascal Ferreira",
+      "shot_prop": 9,
+      "assist_prop": 16,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Stefan Meier",
+      "shot_prop": 16,
+      "assist_prop": 16,
+      "stop_prop": 5,
+      "pos": "MID"
+    }
+  ]
+}

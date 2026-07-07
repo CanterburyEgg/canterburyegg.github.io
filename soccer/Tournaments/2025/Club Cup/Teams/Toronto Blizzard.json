@@ -1,0 +1,74 @@
+{
+  "name": "Toronto Blizzard",
+  "ratings": {
+    "offense": 5,
+    "speed": 8,
+    "defense": 8,
+    "gk": 7
+  },
+  "players": [
+    {
+      "name": "Adrian Johnson",
+      "shot_prop": 15,
+      "assist_prop": 17,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Brandon Vargas",
+      "shot_prop": 12,
+      "assist_prop": 17,
+      "stop_prop": 14,
+      "pos": "MID"
+    },
+    {
+      "name": "Tadashi Sato",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Jorge Quesada",
+      "shot_prop": 9,
+      "assist_prop": 19,
+      "stop_prop": 10,
+      "pos": "MID"
+    },
+    {
+      "name": "Jeyland Mitchell",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 26,
+      "pos": "DEF"
+    },
+    {
+      "name": "Juan-Carlos Novelo",
+      "shot_prop": 25,
+      "assist_prop": 7,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Mustafa Simsek",
+      "shot_prop": 24,
+      "assist_prop": 9,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Jacques Lavoie",
+      "shot_prop": 5,
+      "assist_prop": 13,
+      "stop_prop": 20,
+      "pos": "DEF"
+    },
+    {
+      "name": "Ramon Bonilla",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 19,
+      "pos": "DEF"
+    }
+  ]
+}

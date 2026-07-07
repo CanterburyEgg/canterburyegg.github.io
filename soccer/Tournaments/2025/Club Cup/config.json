@@ -1,0 +1,20 @@
+{
+  "name": "2025 Club Cup",
+  "type": "club_cup",
+  "rules": {
+    "target_density": 2.0
+  },
+  "groups": {
+    "A": ["Haverford Black", "New York Empire", "Oslo Vikinger", "Bosphorus Blue"],
+    "B": ["Las Vegas Mirage", "Edelweiss Zurich", "Castellano Madrid", "Thurston FC West"],
+    "C": ["Sisu Helsinki", "Le Rocher Monaco", "Stella Grey", "Los Angeles Syndicate"],
+    "D": ["Fursan Al-Arab", "Chateau Roux", "Toronto Blizzard", "Bohemian Gryphons"]
+  },
+  "playoffs": {
+    "rounds": [
+      {"name": "Quarterfinals", "matches": []},
+      {"name": "Semifinals", "matches": []},
+      {"name": "Finals", "matches": []}
+    ]
+  }
+}

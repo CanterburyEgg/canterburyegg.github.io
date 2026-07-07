@@ -1,0 +1,74 @@
+{
+  "name": "New York Empire",
+  "ratings": {
+    "offense": 8,
+    "speed": 8,
+    "defense": 8,
+    "gk": 4
+  },
+  "players": [
+    {
+      "name": "Nick Hamburger",
+      "shot_prop": 29,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Raul Ortiz",
+      "shot_prop": 11,
+      "assist_prop": 19,
+      "stop_prop": 12,
+      "pos": "MID"
+    },
+    {
+      "name": "Helmut Lange",
+      "shot_prop": 25,
+      "assist_prop": 8,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Silas McBride",
+      "shot_prop": 5,
+      "assist_prop": 10,
+      "stop_prop": 25,
+      "pos": "DEF"
+    },
+    {
+      "name": "Helgi Magnusson",
+      "shot_prop": 8,
+      "assist_prop": 17,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Miguel Ortega",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Tim Moore",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Lorenzo Marte",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 18,
+      "pos": "DEF"
+    },
+    {
+      "name": "Orlando Centeno",
+      "shot_prop": 12,
+      "assist_prop": 14,
+      "stop_prop": 9,
+      "pos": "MID"
+    }
+  ]
+}

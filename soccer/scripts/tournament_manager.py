@@ -579,13 +579,13 @@ def initialize_tournament(base_path, tournament_path, config):
     for g_id in best_data["groups"]:
         update_group_standings(best_data, g_id)
     return best_data
-
 def check_mathematical_locks(tournament_data):
     conf_type = tournament_data["config"]["type"]
-    if conf_type not in ["world_cup", "league"]: return
+    if conf_type not in ["world_cup", "league", "club_cup"]: return
     if not tournament_data.get("playoffs") or "rounds" not in tournament_data["playoffs"]: return
 
     import copy
+    import re
     po = tournament_data["playoffs"]
     
     # 1. Determine locks for each group
@@ -657,6 +657,16 @@ def check_mathematical_locks(tournament_data):
         for m in r16:
             source = m.get("source", [])
             if len(source) > 0 and source[0] and source[0][0] in "ABCDEFGH": m["teams"][0] = locks.get(source[0], "TBD")
+            
+    elif conf_type == "club_cup":
+        # Quarterfinals: A1vB2, C1vD2, B1vA2, D1vC2
+        qf = po["rounds"][0]["matches"]
+        mapping = [("A1", "B2"), ("C1", "D2"), ("B1", "A2"), ("D1", "C2")]
+        for i, (tA, tB) in enumerate(mapping):
+            if not qf[i].get("played"):
+                teamA = locks.get(tA, "TBD")
+                teamB = locks.get(tB, "TBD")
+                qf[i]["teams"] = [teamA, teamB]
             
     elif conf_type == "league":
         r1 = po["rounds"][0]["matches"]
@@ -846,8 +856,79 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
         with open(results_path, 'r') as f:
             tournament_data = json.load(f)
         
+        # Calculate current day based on most recent played match
+        max_day = 0
+        for gid, g_data in tournament_data.get("groups", {}).items():
+            for m in g_data.get("matches", []):
+                if m.get("played"): max_day = max(max_day, m["day"])
+        if tournament_data.get("playoffs"):
+            po = tournament_data["playoffs"]
+            all_po = []
+            if "rounds" in po:
+                for r in po["rounds"]: all_po.extend(r.get("matches", []))
+            else: all_po.extend(po.get("semifinals", []) + po.get("finals", []))
+            for m in all_po:
+                if m.get("played"): max_day = max(max_day, m["day"])
+        tournament_data["current_day"] = max_day + 1
+
         # Ensure playoffs are initialized if missing (e.g. after rewind)
         if config["type"] == "world_cup" and not tournament_data.get("playoffs"):
+            tournament_data["playoffs"] = {
+                "rounds": [
+                    {"name": "Round of 24", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"R24_{i+1}", "source": s} for i, s in enumerate([["A2", "B3"], ["C2", "D3"], ["E2", "F3"], ["G2", "H3"], ["B2", "A3"], ["D2", "C3"], ["F2", "E3"], ["G2", "H3"]])] },
+                    {"name": "Round of 16", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"R16_{i+1}", "parent": f"R24_{i+1}", "source": s} for i, s in enumerate([["E1", None], ["F1", None], ["A1", None], ["B1", None], ["G1", None], ["H1", None], ["C1", None], ["D1", None]])] },
+                    {"name": "Quarterfinals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"QF_{i+1}"} for i in range(4)] },
+                    {"name": "Semifinals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"SF_{i+1}"} for i in range(2)] },
+                    {"name": "Finals", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "F"}, {"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": "3P"}] }
+                ]
+            }
+
+        elif config["type"] == "club_cup" and (not tournament_data.get("playoffs") or not tournament_data["playoffs"].get("rounds")):
+            if not tournament_data.get("groups") or "matches" not in list(tournament_data["groups"].values())[0]:
+                print(f"Initializing {config['name']} group stage and bracket...")
+                tournament_data["groups"] = {gid: {"standings": [], "matches": []} for gid in config["groups"]}
+                # Group stage matches (Day 1-6)
+                d_start = 1
+                for gid, teams in config["groups"].items():
+                    g_matches = []
+                    matchups = [[(teams[0], teams[1]), (teams[2], teams[3])], [(teams[0], teams[2]), (teams[1], teams[3])], [(teams[0], teams[3]), (teams[1], teams[2])]]
+                    for r_idx, r_matchups in enumerate(matchups):
+                        day = d_start + (r_idx * 2)
+                        for t1, t2 in r_matchups: g_matches.append({"day": day, "teams": [t1, t2], "score": [0,0], "played": False})
+                    tournament_data["groups"][gid]["matches"] = g_matches
+                    update_group_standings(tournament_data, gid)
+            
+            # Initialize Playoffs structure (QF: 2/day, SF: 1/day, F: 1/day)
+            last_g_day = 0
+            for g in tournament_data["groups"].values():
+                for m in g["matches"]: last_g_day = max(last_g_day, m["day"])
+            
+            d_qf = last_g_day + 2
+            d_sf = last_g_day + 5
+            d_f  = last_g_day + 8
+
+            po = {
+                "rounds": [
+                    {"name": "Quarterfinals", "matches": [
+                        {"day": d_qf, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "QF_1"},
+                        {"day": d_qf, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "QF_2"},
+                        {"day": d_qf + 1, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "QF_3"},
+                        {"day": d_qf + 1, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "QF_4"}
+                    ]},
+                    {"name": "Semifinals", "matches": [
+                        {"day": d_sf, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "SF_1"},
+                        {"day": d_sf + 1, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "SF_2"}
+                    ]},
+                    {"name": "Finals", "matches": [
+                        {"day": d_f, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "3P"},
+                        {"day": d_f + 1, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": "F"}
+                    ]}
+                ]
+            }
+            tournament_data["playoffs"] = po
+            print(f"Initialized {config['name']} playoffs.")
+
+        elif config["type"] == "world_cup" and not tournament_data.get("playoffs"):
             tournament_data["playoffs"] = {
                 "rounds": [
                     {"name": "Round of 24", "matches": [{"day": 0, "teams": ["TBD", "TBD"], "score": [0, 0], "played": False, "label": f"R24_{i+1}", "source": s} for i, s in enumerate([["A2", "B3"], ["C2", "D3"], ["E2", "F3"], ["G2", "H3"], ["B2", "A3"], ["D2", "C3"], ["F2", "E3"], ["H2", "G3"]])] },
@@ -1346,6 +1427,20 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                         # For League Finals, just use fixed order from winners list
                         m["teams"] = [r3_winners[0], r3_winners[1]]
 
+            elif config["type"] == "club_cup" and "rounds" in po:
+                qf, sf, f = [r["matches"] for r in po["rounds"]]
+                # QF -> SF
+                for i in range(2):
+                    if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
+                    if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
+                # SF -> F & 3P
+                if sf[0]["played"] and sf[1]["played"]:
+                    if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
+                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
+                    if len(f) > 1:
+                        if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
+                        if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+
             elif config["type"] == "world_cup" and "rounds" in po:
                 r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]
                 # R24 -> R16
@@ -1581,6 +1676,20 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                 for m in lf:
                                     m["teams"] = [r3_winners[0], r3_winners[1]]
 
+                    elif config["type"] == "club_cup":
+                        qf, sf, f = [r["matches"] for r in po["rounds"]]
+                        if r_idx == 1: # SF
+                            for i in range(2):
+                                if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
+                                if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
+                        elif r_idx == 2: # F & 3P
+                            if sf[0]["played"] and sf[1]["played"]:
+                                if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
+                                if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
+                                if len(f) > 1:
+                                    if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
+                                    if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
+
                     elif config["type"] == "world_cup":
                         r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]
                         if r_idx == 1: # R16
@@ -1697,7 +1806,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
         update_group_standings(tournament_data, g_id)
 
     # Save Output
-    if config["type"] in ["world_cup", "league"]:
+    if config["type"] in ["world_cup", "league", "club_cup"]:
         check_mathematical_locks(tournament_data)
 
     with open(results_path, "w") as f:

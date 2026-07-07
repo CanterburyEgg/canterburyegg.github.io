@@ -1,0 +1,74 @@
+{
+  "name": "Bohemian Gryphons",
+  "ratings": {
+    "offense": 5,
+    "speed": 5,
+    "defense": 3,
+    "gk": 7
+  },
+  "players": [
+    {
+      "name": "Georgios Nikolaidis",
+      "shot_prop": 25,
+      "assist_prop": 12,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Sandor Toth",
+      "shot_prop": 26,
+      "assist_prop": 10,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Eero Salo",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "Thomas Anderson",
+      "shot_prop": 11,
+      "assist_prop": 16,
+      "stop_prop": 15,
+      "pos": "MID"
+    },
+    {
+      "name": "Rolf Bachmann",
+      "shot_prop": 5,
+      "assist_prop": 11,
+      "stop_prop": 24,
+      "pos": "DEF"
+    },
+    {
+      "name": "Stojan Petrovska",
+      "shot_prop": 9,
+      "assist_prop": 16,
+      "stop_prop": 13,
+      "pos": "MID"
+    },
+    {
+      "name": "Kairat Kichin",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 23,
+      "pos": "DEF"
+    },
+    {
+      "name": "Valerijs Priede",
+      "shot_prop": 14,
+      "assist_prop": 15,
+      "stop_prop": 7,
+      "pos": "MID"
+    },
+    {
+      "name": "Giorgio Chellini",
+      "shot_prop": 5,
+      "assist_prop": 12,
+      "stop_prop": 18,
+      "pos": "DEF"
+    }
+  ]
+}

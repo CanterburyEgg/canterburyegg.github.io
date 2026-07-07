@@ -1,0 +1,978 @@
+{
+  "name": "2025 Club Cup",
+  "path": "2025/Club Cup",
+  "config": {
+    "name": "2025 Club Cup",
+    "type": "club_cup",
+    "rules": {
+      "target_density": 2.0
+    },
+    "groups": {
+      "A": [
+        "Haverford Black",
+        "New York Empire",
+        "Oslo Vikinger",
+        "Bosphorus Blue"
+      ],
+      "B": [
+        "Las Vegas Mirage",
+        "Edelweiss Zurich",
+        "Castellano Madrid",
+        "Thurston FC West"
+      ],
+      "C": [
+        "Sisu Helsinki",
+        "Le Rocher Monaco",
+        "Stella Grey",
+        "Los Angeles Syndicate"
+      ],
+      "D": [
+        "Fursan Al-Arab",
+        "Chateau Roux",
+        "Toronto Blizzard",
+        "Bohemian Gryphons"
+      ]
+    },
+    "playoffs": {
+      "rounds": [
+        {
+          "name": "Quarterfinals",
+          "matches": []
+        },
+        {
+          "name": "Semifinals",
+          "matches": []
+        },
+        {
+          "name": "Finals",
+          "matches": []
+        }
+      ]
+    }
+  },
+  "current_day": 1,
+  "groups": {
+    "A": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "New York Empire",
+            "Oslo Vikinger"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 2,
+          "teams": [
+            "Haverford Black",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "New York Empire",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 5,
+          "teams": [
+            "Oslo Vikinger",
+            "Haverford Black"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Haverford Black",
+            "New York Empire"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Haverford Black": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "New York Empire": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 12,
+          "teams": [
+            "Oslo Vikinger",
+            "Bosphorus Blue"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Oslo Vikinger": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bosphorus Blue": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "New York Empire"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Haverford Black"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Bosphorus Blue"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Oslo Vikinger"
+        }
+      ]
+    },
+    "B": {
+      "matches": [
+        {
+          "day": 3,
+          "teams": [
+            "Castellano Madrid",
+            "Las Vegas Mirage"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Edelweiss Zurich",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Castellano Madrid",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 7,
+          "teams": [
+            "Las Vegas Mirage",
+            "Edelweiss Zurich"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Las Vegas Mirage",
+            "Thurston FC West"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Las Vegas Mirage": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Thurston FC West": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 10,
+          "teams": [
+            "Edelweiss Zurich",
+            "Castellano Madrid"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Edelweiss Zurich": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Castellano Madrid": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Edelweiss Zurich"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Castellano Madrid"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Las Vegas Mirage"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Thurston FC West"
+        }
+      ]
+    },
+    "C": {
+      "matches": [
+        {
+          "day": 1,
+          "teams": [
+            "Stella Grey",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 3,
+          "teams": [
+            "Sisu Helsinki",
+            "Le Rocher Monaco"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Stella Grey",
+            "Sisu Helsinki"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 6,
+          "teams": [
+            "Le Rocher Monaco",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Le Rocher Monaco",
+            "Stella Grey"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Le Rocher Monaco": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Stella Grey": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 9,
+          "teams": [
+            "Sisu Helsinki",
+            "Los Angeles Syndicate"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Sisu Helsinki": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Los Angeles Syndicate": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Sisu Helsinki"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Le Rocher Monaco"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Los Angeles Syndicate"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Stella Grey"
+        }
+      ]
+    },
+    "D": {
+      "matches": [
+        {
+          "day": 2,
+          "teams": [
+            "Fursan Al-Arab",
+            "Chateau Roux"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan Al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 4,
+          "teams": [
+            "Toronto Blizzard",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Toronto Blizzard",
+            "Fursan Al-Arab"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Fursan Al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 8,
+          "teams": [
+            "Chateau Roux",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Chateau Roux",
+            "Toronto Blizzard"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Chateau Roux": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Toronto Blizzard": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        },
+        {
+          "day": 11,
+          "teams": [
+            "Fursan Al-Arab",
+            "Bohemian Gryphons"
+          ],
+          "played": false,
+          "score": [
+            0,
+            0
+          ],
+          "pk_score": null,
+          "events": [],
+          "player_data": {
+            "team1": [],
+            "team2": []
+          },
+          "stats": {
+            "Fursan Al-Arab": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            },
+            "Bohemian Gryphons": {
+              "shots": 0,
+              "sogs": 0,
+              "saves": 0
+            }
+          }
+        }
+      ],
+      "standings": [
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Chateau Roux"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Toronto Blizzard"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Bohemian Gryphons"
+        },
+        {
+          "played": 0,
+          "w": 0,
+          "d": 0,
+          "l": 0,
+          "gf": 0,
+          "ga": 0,
+          "gd": 0,
+          "pts": 0,
+          "team": "Fursan Al-Arab"
+        }
+      ]
+    }
+  },
+  "playoffs": null,
+  "qualified_teams": []
+}

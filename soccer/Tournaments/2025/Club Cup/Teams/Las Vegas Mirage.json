@@ -1,0 +1,74 @@
+{
+  "name": "Las Vegas Mirage",
+  "ratings": {
+    "offense": 8,
+    "speed": 7,
+    "defense": 8,
+    "gk": 8
+  },
+  "players": [
+    {
+      "name": "Mohammed Odoi",
+      "shot_prop": 29,
+      "assist_prop": 10,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Nam Min-Jae",
+      "shot_prop": 0,
+      "assist_prop": 0,
+      "stop_prop": 0,
+      "pos": "GK"
+    },
+    {
+      "name": "William Davies",
+      "shot_prop": 11,
+      "assist_prop": 20,
+      "stop_prop": 11,
+      "pos": "MID"
+    },
+    {
+      "name": "Anthony Gonzales",
+      "shot_prop": 25,
+      "assist_prop": 8,
+      "stop_prop": 0,
+      "pos": "FWD"
+    },
+    {
+      "name": "Knox Fletcher",
+      "shot_prop": 10,
+      "assist_prop": 20,
+      "stop_prop": 10,
+      "pos": "MID"
+    },
+    {
+      "name": "Antonio Chavez",
+      "shot_prop": 5,
+      "assist_prop": 7,
+      "stop_prop": 27,
+      "pos": "DEF"
+    },
+    {
+      "name": "Fernando Reyes",
+      "shot_prop": 10,
+      "assist_prop": 18,
+      "stop_prop": 8,
+      "pos": "MID"
+    },
+    {
+      "name": "Johan Vasquez",
+      "shot_prop": 5,
+      "assist_prop": 9,
+      "stop_prop": 22,
+      "pos": "DEF"
+    },
+    {
+      "name": "Junya Ito",
+      "shot_prop": 5,
+      "assist_prop": 8,
+      "stop_prop": 22,
+      "pos": "DEF"
+    }
+  ]
+}
