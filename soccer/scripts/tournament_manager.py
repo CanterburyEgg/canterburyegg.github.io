@@ -801,23 +801,21 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
 
             g_ids = sorted(tournament_data["groups"].keys()) # Usually 2 groups
             for g_idx, g_id in enumerate(g_ids):
-                # Round 1 (Bo3)
-                for s_idx, label in enumerate(["R1_1", "R1_2"]):
-                    # 4 series total (g_idx * 2 + s_idx)
-                    # We want 2 series to play on the same days.
-                    # Pair (G1_R1_1, G1_R1_2) and (G2_R1_1, G2_R1_2)
-                    offset = 0 if g_idx == 0 else 3
+                # Round 1 (Bo3): 2 matches per day (both from same group), then switch group
+                for label in ["R1_1", "R1_2"]:
                     for i in range(3):
+                        # Interlaced: G1(Group1), G1(Group2), G2(Group1), G2(Group2)...
+                        day_idx = (i * 2) + g_idx
                         po["rounds"][0]["matches"].append({
-                            "day": d_r1[i + offset], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                            "day": d_r1[day_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
                             "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
                         })
-                # Round 2 (Bo3)
-                for s_idx, label in enumerate(["R2_1", "R2_2"]):
-                    offset = 0 if g_idx == 0 else 3
+                # Round 2 (Bo3): Same interlacing
+                for label in ["R2_1", "R2_2"]:
                     for i in range(3):
+                        day_idx = (i * 2) + g_idx
                         po["rounds"][1]["matches"].append({
-                            "day": d_r2[i + offset], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                            "day": d_r2[day_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
                             "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
                         })
                 # Round 3 (Bo5): Interlaced 1 match/day
@@ -1427,25 +1425,26 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     table = tournament_data["groups"][g_id]["standings"]
                     seeds = [t["team"] for t in table[:6]]
                     
-                    # Round 1 (Bo3): 2 matches per day
+                    # Round 1 (Bo3): 2 matches per day (both from same group), then switch group
                     matchups = [(seeds[2], seeds[5], "R1_1"), (seeds[3], seeds[4], "R1_2")]
-                    offset = 0 if g_idx == 0 else 3
                     for tA, tB, label in matchups:
                         for i in range(3):
                             h, a = (tA, tB) if i % 2 == 0 else (tB, tA)
+                            day_idx = (i * 2) + g_idx
                             po["rounds"][0]["matches"].append({
-                                "day": d_r1[i + offset], "teams": [h, a], "score": [0,0], "played": False, 
+                                "day": d_r1[day_idx], "teams": [h, a], "score": [0,0], "played": False, 
                                 "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
                             })
                     
-                    # Round 2 (Bo3): 2 matches per day
+                    # Round 2 (Bo3): 2 matches per day, same interlacing
                     for i in range(3):
+                        day_idx = (i * 2) + g_idx
                         po["rounds"][1]["matches"].append({
-                            "day": d_r2[i + offset], "teams": [seeds[0], "TBD"], "score": [0,0], "played": False, 
+                            "day": d_r2[day_idx], "teams": [seeds[0], "TBD"], "score": [0,0], "played": False, 
                             "label": f"{g_id}_R2_1_G{i+1}", "series_id": f"{g_id}_R2_1", "game_num": i+1, "home_seed": seeds[0]
                         })
                         po["rounds"][1]["matches"].append({
-                            "day": d_r2[i + offset], "teams": [seeds[1], "TBD"], "score": [0,0], "played": False, 
+                            "day": d_r2[day_idx], "teams": [seeds[1], "TBD"], "score": [0,0], "played": False, 
                             "label": f"{g_id}_R2_2_G{i+1}", "series_id": f"{g_id}_R2_2", "game_num": i+1, "home_seed": seeds[1]
                         })
                     
@@ -1666,18 +1665,31 @@ def rewind_tournament(tournament_path, target_day):
     tournament_data["current_day"] = target_day
     tournament_data["qualified_teams"] = []
     
+    def delete_match_log(m):
+        # 1. Try explicit log_path
+        lp = m.get("log_path")
+        if lp and os.path.exists(lp):
+            os.remove(lp)
+            return
+        
+        # 2. Try legacy id-based path
+        if "id" in m:
+            legacy_path = os.path.join(base_dir, f"Tournaments/{tournament_path}/Games/{m['id']}")
+            if os.path.exists(legacy_path):
+                os.remove(legacy_path)
+
     # Reset group stage matches played on or after target_day
     for g_id, g_data in tournament_data["groups"].items():
         for m in g_data["matches"]:
             if m["day"] >= target_day:
+                if m.get("played"):
+                    delete_match_log(m)
                 m["played"] = False
                 if "score" in m: m["score"] = [0, 0]
                 if "pk_score" in m: m["pk_score"] = None
                 if "events" in m: m["events"] = []
                 if "player_data" in m: m["player_data"] = {}
-                if "id" in m:
-                    log_path = os.path.join(base_dir, f"Tournaments/{tournament_path}/Games/{m['id']}")
-                    if os.path.exists(log_path): os.remove(log_path)
+                if "log_path" in m: m["log_path"] = ""
 
     # Clear playoffs entirely if they haven't finished, forcing re-initialization with correct tags/days
     if tournament_data.get("playoffs"):
@@ -1689,8 +1701,19 @@ def rewind_tournament(tournament_path, target_day):
             finished = po.get("finals", [{}])[0].get("played", False)
         
         if not finished:
+            # Delete logs for all playoff matches before clearing
+            if "rounds" in po:
+                for r in po["rounds"]:
+                    for m in r.get("matches", []):
+                        delete_match_log(m)
+            elif "semifinals" in po:
+                for m in po["semifinals"]: delete_match_log(m)
+                for m in po.get("finals", []): delete_match_log(m)
+            elif "matches" in po:
+                for m in po["matches"]: delete_match_log(m)
+
             tournament_data["playoffs"] = None
-            print(f"Playoffs cleared for re-initialization.")
+            print(f"Playoffs cleared and logs removed for re-initialization.")
 
     if tournament_data["config"]["type"] == "world_cup":
         check_mathematical_locks(tournament_data)
