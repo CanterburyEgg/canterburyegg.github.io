@@ -1287,8 +1287,8 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                 match["canceled"] = True
                                 continue
 
-                        print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]} (HFA: {'No' if match.get('neutral') else 'Yes'})")
-                        res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=not match.get('neutral'))
+                        print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]} (HFA: {'Yes' if (config.get('type') == 'league' and not match.get('neutral')) else 'No'})")
+                        res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=(config.get("type") == "league" and not match.get('neutral')))
                         match.update(res)
                         match["played"] = True
                         matches_simulated += 1
@@ -1646,8 +1646,8 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                                     match["canceled"] = True
                                     continue
 
-                            print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]} (HFA: {'No' if match.get('neutral') else 'Yes'})")
-                            res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=not match.get('neutral'))
+                            print(f"Playing {round['name']}: {match['teams'][0]} vs {match['teams'][1]} (HFA: {'Yes' if (config.get('type') == 'league' and not match.get('neutral')) else 'No'})")
+                            res = soccer_driver.play_game(tournament_path, match['teams'][0], match['teams'][1], elim=True, logging=True, persist=False, hfa=(config.get("type") == "league" and not match.get('neutral')))
                             match.update(res)
                             match["played"] = True
 

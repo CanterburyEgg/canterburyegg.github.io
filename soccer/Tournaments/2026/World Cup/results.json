@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 25,
+  "current_day": 26,
   "groups": {
     "A": {
       "matches": [
@@ -19071,15 +19071,247 @@
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_7",
             "label": "R16_7",
             "source": [
               "C1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 61,
+                "team": "England",
+                "player": "Neil Griffith",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Australia": {
+                "shots": 10,
+                "sogs": 4,
+                "saves": 3,
+                "possession": 50,
+                "stops": 0
+              },
+              "England": {
+                "shots": 9,
+                "sogs": 4,
+                "saves": 4,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Andrew Moore",
+                  "pos": "N/A",
+                  "shots": 10,
+                  "sogs": 4,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Thomas Martin",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mitchell Duke",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "David Kelly",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Greg Cooper",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Harry Souttar",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Darren King",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geoff Murphy",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Shane Taylor",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Neil Griffith",
+                  "pos": "N/A",
+                  "shots": 9,
+                  "sogs": 4,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Simon Knight",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Watkins",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benjamin Webb",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ollie Rice",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Graham Chapman",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Price",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Australia_vs_England_77144957_877.txt"
           },
           {
             "day": 25,
@@ -19088,16 +19320,260 @@
               "Algeria"
             ],
             "score": [
-              0,
-              0
+              2,
+              1
             ],
-            "played": false,
+            "played": true,
             "parent": "R24_8",
             "label": "R16_8",
             "source": [
               "D1",
               null
-            ]
+            ],
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 38,
+                "team": "Algeria",
+                "player": "Salah Saidi",
+                "assist": null
+              },
+              {
+                "minute": 45,
+                "team": "Belgium",
+                "player": "Jean-Pierre de Clercq",
+                "assist": null
+              },
+              {
+                "minute": 65,
+                "team": "Belgium",
+                "player": "Jean-Pierre de Clercq",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Belgium": {
+                "shots": 9,
+                "sogs": 3,
+                "saves": 5,
+                "possession": 50,
+                "stops": 0
+              },
+              "Algeria": {
+                "shots": 12,
+                "sogs": 6,
+                "saves": 1,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Jean-Pierre de Clercq",
+                  "pos": "N/A",
+                  "shots": 9,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alain Goossens",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Renard",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geert Verhoeven",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eddy van den Broeck",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Salah Saidi",
+                  "pos": "N/A",
+                  "shots": 12,
+                  "sogs": 6,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abdel Dahmani",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Aissa Bounedjah",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Said Taleb",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ali Brahimi",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Far\u00e8s Bensebaini",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mohamed Benyahia",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amar Touati",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ahmed Mansouri",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Belgium_vs_Algeria_77144957_582.txt"
           }
         ]
       },
@@ -19146,8 +19622,8 @@
           {
             "day": 30,
             "teams": [
-              "TBD",
-              "TBD"
+              "England",
+              "Belgium"
             ],
             "score": [
               0,
