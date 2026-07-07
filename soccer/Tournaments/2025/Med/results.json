@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 210,
+  "current_day": 212,
   "groups": {
     "Costa Republic": {
       "matches": [
@@ -61834,22 +61834,266 @@
         "name": "Group First Round",
         "matches": [
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Najm al-Bayda",
               "Lions of Carthage"
             ],
             "score": [
               0,
-              0
+              3
             ],
-            "played": false,
+            "played": true,
             "label": "Costa Emirate_R1_1_G1",
             "series_id": "Costa Emirate_R1_1",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 4,
+                "team": "Lions of Carthage",
+                "player": "Arshad Yadav",
+                "assist": "Moulaye Guidileye"
+              },
+              {
+                "minute": 70,
+                "team": "Lions of Carthage",
+                "player": "Niko Lovric",
+                "assist": "Arshad Yadav"
+              },
+              {
+                "minute": 86,
+                "team": "Lions of Carthage",
+                "player": "Ivica Vidovic",
+                "assist": "Komail Al-Aswad"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 17,
+              "Najm al-Bayda": {
+                "shots": 12,
+                "sogs": 4,
+                "saves": 2,
+                "possession": 56,
+                "stops": 19
+              },
+              "Lions of Carthage": {
+                "shots": 17,
+                "sogs": 5,
+                "saves": 4,
+                "possession": 27,
+                "stops": 20
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Dario Blanco",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Garcia",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mario Appindangoy\u00e9",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Teboho Tau",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Walid Harit",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jefferson Uribe",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mehmet Celik",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hassan Ataya",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Victor-Manuel Aguilar",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Niko Lovric",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ivica Vidovic",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amr Shehab",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Giuseppe Giordano",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Shabaib Al-Dhefiri",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Moulaye Guidileye",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ahmed Salah",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Arshad Yadav",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Komail Al-Aswad",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Med/Games/Najm al-Bayda_vs_Lions of Carthage_7712343_944.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Najm al-Bayda",
               "Lions of Carthage"
@@ -61864,7 +62108,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Najm al-Bayda",
               "Lions of Carthage"
@@ -61879,22 +62123,254 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Alexandria Faros",
               "Bosphorus Blue"
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "Costa Emirate_R1_2_G1",
             "series_id": "Costa Emirate_R1_2",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 70,
+                "team": "Bosphorus Blue",
+                "player": "Hilal Maatouk",
+                "assist": "Roberjt Grgic"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 15,
+              "Alexandria Faros": {
+                "shots": 6,
+                "sogs": 4,
+                "saves": 3,
+                "possession": 48,
+                "stops": 15
+              },
+              "Bosphorus Blue": {
+                "shots": 8,
+                "sogs": 4,
+                "saves": 4,
+                "possession": 37,
+                "stops": 15
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Patricio Torres",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ali Mousavi",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alvaro Viera",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Freddy Lopez",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "German Arias",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Amine Ounahi",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gian Selva",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zlatko Novak",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Agustin Lara",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Giovanni Rossi",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberjt Grgic",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Petr Navratil",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hilal Maatouk",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gabriel Magalhaes",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rabih El Zein",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Salaah Al-Yahyaei",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Faisal Almarri",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ebrahim Al-Aswad",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Med/Games/Alexandria Faros_vs_Bosphorus Blue_7712343_448.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Alexandria Faros",
               "Bosphorus Blue"
@@ -61909,7 +62385,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Alexandria Faros",
               "Bosphorus Blue"
@@ -61924,7 +62400,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Le Rocher Monaco",
               "Lisbon United"
@@ -61939,7 +62415,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Le Rocher Monaco",
               "Lisbon United"
@@ -61954,7 +62430,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Le Rocher Monaco",
               "Lisbon United"
@@ -61969,7 +62445,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Visconti Serpents",
               "Catalonia Gothic"
@@ -61984,7 +62460,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Visconti Serpents",
               "Catalonia Gothic"
@@ -61999,7 +62475,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Visconti Serpents",
               "Catalonia Gothic"
@@ -62019,7 +62495,7 @@
         "name": "Group Semifinals",
         "matches": [
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Fursan al-Arab",
               "TBD"
@@ -62035,7 +62511,7 @@
             "home_seed": "Fursan al-Arab"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Fursan al-Arab",
               "TBD"
@@ -62051,7 +62527,7 @@
             "home_seed": "Fursan al-Arab"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Fursan al-Arab",
               "TBD"
@@ -62067,7 +62543,7 @@
             "home_seed": "Fursan al-Arab"
           },
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Al-Qahira FC",
               "TBD"
@@ -62083,7 +62559,7 @@
             "home_seed": "Al-Qahira FC"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Al-Qahira FC",
               "TBD"
@@ -62099,7 +62575,7 @@
             "home_seed": "Al-Qahira FC"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Al-Qahira FC",
               "TBD"
@@ -62115,7 +62591,7 @@
             "home_seed": "Al-Qahira FC"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Castellano Madrid",
               "TBD"
@@ -62131,7 +62607,7 @@
             "home_seed": "Castellano Madrid"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Castellano Madrid",
               "TBD"
@@ -62147,7 +62623,7 @@
             "home_seed": "Castellano Madrid"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Castellano Madrid",
               "TBD"
@@ -62163,7 +62639,7 @@
             "home_seed": "Castellano Madrid"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Imperiale Roma",
               "TBD"
@@ -62179,7 +62655,7 @@
             "home_seed": "Imperiale Roma"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Imperiale Roma",
               "TBD"
@@ -62195,7 +62671,7 @@
             "home_seed": "Imperiale Roma"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Imperiale Roma",
               "TBD"
@@ -62216,7 +62692,7 @@
         "name": "Group Finals",
         "matches": [
           {
-            "day": 218,
+            "day": 225,
             "teams": [
               "TBD",
               "TBD"
@@ -62231,7 +62707,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 227,
             "teams": [
               "TBD",
               "TBD"
@@ -62246,7 +62722,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 229,
             "teams": [
               "TBD",
               "TBD"
@@ -62261,7 +62737,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 231,
             "teams": [
               "TBD",
               "TBD"
@@ -62276,7 +62752,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 233,
             "teams": [
               "TBD",
               "TBD"
@@ -62291,7 +62767,7 @@
             "game_num": 5
           },
           {
-            "day": 218,
+            "day": 226,
             "teams": [
               "TBD",
               "TBD"
@@ -62306,7 +62782,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 228,
             "teams": [
               "TBD",
               "TBD"
@@ -62321,7 +62797,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 230,
             "teams": [
               "TBD",
               "TBD"
@@ -62336,7 +62812,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 232,
             "teams": [
               "TBD",
               "TBD"
@@ -62351,7 +62827,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 234,
             "teams": [
               "TBD",
               "TBD"
@@ -62371,7 +62847,7 @@
         "name": "League Finals",
         "matches": [
           {
-            "day": 224,
+            "day": 236,
             "teams": [
               "TBD",
               "TBD"
@@ -62387,7 +62863,7 @@
             "neutral": true
           },
           {
-            "day": 225,
+            "day": 237,
             "teams": [
               "TBD",
               "TBD"
@@ -62403,7 +62879,7 @@
             "neutral": true
           },
           {
-            "day": 226,
+            "day": 238,
             "teams": [
               "TBD",
               "TBD"
@@ -62419,7 +62895,7 @@
             "neutral": true
           },
           {
-            "day": 227,
+            "day": 239,
             "teams": [
               "TBD",
               "TBD"
@@ -62435,7 +62911,7 @@
             "neutral": true
           },
           {
-            "day": 228,
+            "day": 240,
             "teams": [
               "TBD",
               "TBD"

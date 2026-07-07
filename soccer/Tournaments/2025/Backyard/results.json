@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 210,
+  "current_day": 212,
   "groups": {
     "BSL Atlantic": {
       "matches": [
@@ -62048,22 +62048,266 @@
         "name": "Group First Round",
         "matches": [
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Boston Rebellion",
               "Philadelphia Spirit"
             ],
             "score": [
-              0,
-              0
+              2,
+              1
             ],
-            "played": false,
+            "played": true,
             "label": "BSL Atlantic_R1_1_G1",
             "series_id": "BSL Atlantic_R1_1",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 53,
+                "team": "Philadelphia Spirit",
+                "player": "Musa Musa",
+                "assist": "Walker Hayes"
+              },
+              {
+                "minute": 73,
+                "team": "Boston Rebellion",
+                "player": "Ben Ben Nabouhane",
+                "assist": null
+              },
+              {
+                "minute": 28,
+                "team": "Boston Rebellion",
+                "player": "Sharaf El Hadi",
+                "assist": "Francisco Castillo"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 10,
+              "Boston Rebellion": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 5,
+                "possession": 50,
+                "stops": 26
+              },
+              "Philadelphia Spirit": {
+                "shots": 13,
+                "sogs": 6,
+                "saves": 1,
+                "possession": 40,
+                "stops": 21
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Francisco Castillo",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Javier Guerra",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Sergio Almeida",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Edward Gauthier",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sharaf El Hadi",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ben Ben Nabouhane",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jean-Philippe Sa\u00efko",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ernesto Cordoba",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brooks Hollister",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Angel Cedeno",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Victor Weaver",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Walker Hayes",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manuel Gon\u00e7alves",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marlon Padilla",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Musa Musa",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jorge Molina",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Felix Rodriguez",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 9,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Nsue",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 7,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Backyard/Games/Boston Rebellion_vs_Philadelphia Spirit_7712342_595.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Boston Rebellion",
               "Philadelphia Spirit"
@@ -62078,7 +62322,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Boston Rebellion",
               "Philadelphia Spirit"
@@ -62093,22 +62337,290 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Montreal Coureurs",
               "New York Empire"
             ],
             "score": [
-              0,
-              0
+              3,
+              4
             ],
-            "played": false,
+            "played": true,
             "label": "BSL Atlantic_R1_2_G1",
             "series_id": "BSL Atlantic_R1_2",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 8,
+                "team": "New York Empire",
+                "player": "Orlando Centeno",
+                "assist": "Raul Ortiz"
+              },
+              {
+                "minute": 36,
+                "team": "Montreal Coureurs",
+                "player": "Santiago Barrios",
+                "assist": "Rafael Tejeda"
+              },
+              {
+                "minute": 62,
+                "team": "New York Empire",
+                "player": "Helmut Lange",
+                "assist": null
+              },
+              {
+                "minute": 71,
+                "team": "Montreal Coureurs",
+                "player": "Santiago Barrios",
+                "assist": "Vicente Mendez"
+              },
+              {
+                "minute": 80,
+                "team": "Montreal Coureurs",
+                "player": "Matti Jokinen",
+                "assist": "Vicente Mendez"
+              },
+              {
+                "minute": 82,
+                "team": "New York Empire",
+                "player": "Nick Hamburger",
+                "assist": "Raul Ortiz"
+              },
+              {
+                "minute": 21,
+                "team": "New York Empire",
+                "player": "Nick Hamburger",
+                "assist": "Raul Ortiz"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 8,
+              "Montreal Coureurs": {
+                "shots": 11,
+                "sogs": 5,
+                "saves": 4,
+                "possession": 42,
+                "stops": 23
+              },
+              "New York Empire": {
+                "shots": 21,
+                "sogs": 8,
+                "saves": 2,
+                "possession": 50,
+                "stops": 20
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Matti Jokinen",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Santiago Barrios",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cassius Reed",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 4
+                },
+                {
+                  "name": "Rafael Tejeda",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Mendez",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 2,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wayne Harrison",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Arthur Kayembe",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Armando Dominguez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 9,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Youssouf M'Changama",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Nick Hamburger",
+                  "pos": "FWD",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Ortiz",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 3,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "pos": "FWD",
+                  "shots": 7,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silas McBride",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helgi Magnusson",
+                  "pos": "MID",
+                  "shots": 4,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Miguel Ortega",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 6,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Tim Moore",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 3
+                },
+                {
+                  "name": "Lorenzo Marte",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Orlando Centeno",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Backyard/Games/Montreal Coureurs_vs_New York Empire_7712342_713.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Montreal Coureurs",
               "New York Empire"
@@ -62123,7 +62635,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Montreal Coureurs",
               "New York Empire"
@@ -62138,7 +62650,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Seattle Echo",
               "Tijuana Vaqueros"
@@ -62153,7 +62665,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Seattle Echo",
               "Tijuana Vaqueros"
@@ -62168,7 +62680,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Seattle Echo",
               "Tijuana Vaqueros"
@@ -62183,7 +62695,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Dallas Flare",
               "Mexico City Sol"
@@ -62198,7 +62710,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Dallas Flare",
               "Mexico City Sol"
@@ -62213,7 +62725,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Dallas Flare",
               "Mexico City Sol"
@@ -62233,7 +62745,7 @@
         "name": "Group Semifinals",
         "matches": [
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Chicago Surge",
               "TBD"
@@ -62249,7 +62761,7 @@
             "home_seed": "Chicago Surge"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Chicago Surge",
               "TBD"
@@ -62265,7 +62777,7 @@
             "home_seed": "Chicago Surge"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Chicago Surge",
               "TBD"
@@ -62281,7 +62793,7 @@
             "home_seed": "Chicago Surge"
           },
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Toronto Blizzard",
               "TBD"
@@ -62297,7 +62809,7 @@
             "home_seed": "Toronto Blizzard"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Toronto Blizzard",
               "TBD"
@@ -62313,7 +62825,7 @@
             "home_seed": "Toronto Blizzard"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Toronto Blizzard",
               "TBD"
@@ -62329,7 +62841,7 @@
             "home_seed": "Toronto Blizzard"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Las Vegas Mirage",
               "TBD"
@@ -62345,7 +62857,7 @@
             "home_seed": "Las Vegas Mirage"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Las Vegas Mirage",
               "TBD"
@@ -62361,7 +62873,7 @@
             "home_seed": "Las Vegas Mirage"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Las Vegas Mirage",
               "TBD"
@@ -62377,7 +62889,7 @@
             "home_seed": "Las Vegas Mirage"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Los Angeles Syndicate",
               "TBD"
@@ -62393,7 +62905,7 @@
             "home_seed": "Los Angeles Syndicate"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Los Angeles Syndicate",
               "TBD"
@@ -62409,7 +62921,7 @@
             "home_seed": "Los Angeles Syndicate"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Los Angeles Syndicate",
               "TBD"
@@ -62430,7 +62942,7 @@
         "name": "Group Finals",
         "matches": [
           {
-            "day": 218,
+            "day": 225,
             "teams": [
               "TBD",
               "TBD"
@@ -62445,7 +62957,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 227,
             "teams": [
               "TBD",
               "TBD"
@@ -62460,7 +62972,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 229,
             "teams": [
               "TBD",
               "TBD"
@@ -62475,7 +62987,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 231,
             "teams": [
               "TBD",
               "TBD"
@@ -62490,7 +63002,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 233,
             "teams": [
               "TBD",
               "TBD"
@@ -62505,7 +63017,7 @@
             "game_num": 5
           },
           {
-            "day": 218,
+            "day": 226,
             "teams": [
               "TBD",
               "TBD"
@@ -62520,7 +63032,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 228,
             "teams": [
               "TBD",
               "TBD"
@@ -62535,7 +63047,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 230,
             "teams": [
               "TBD",
               "TBD"
@@ -62550,7 +63062,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 232,
             "teams": [
               "TBD",
               "TBD"
@@ -62565,7 +63077,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 234,
             "teams": [
               "TBD",
               "TBD"
@@ -62585,7 +63097,7 @@
         "name": "League Finals",
         "matches": [
           {
-            "day": 224,
+            "day": 236,
             "teams": [
               "TBD",
               "TBD"
@@ -62601,7 +63113,7 @@
             "neutral": true
           },
           {
-            "day": 225,
+            "day": 237,
             "teams": [
               "TBD",
               "TBD"
@@ -62617,7 +63129,7 @@
             "neutral": true
           },
           {
-            "day": 226,
+            "day": 238,
             "teams": [
               "TBD",
               "TBD"
@@ -62633,7 +63145,7 @@
             "neutral": true
           },
           {
-            "day": 227,
+            "day": 239,
             "teams": [
               "TBD",
               "TBD"
@@ -62649,7 +63161,7 @@
             "neutral": true
           },
           {
-            "day": 228,
+            "day": 240,
             "teams": [
               "TBD",
               "TBD"

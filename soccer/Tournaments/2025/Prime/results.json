@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 210,
+  "current_day": 212,
   "groups": {
     "Division Monarch": {
       "matches": [
@@ -61937,22 +61937,254 @@
         "name": "Group First Round",
         "matches": [
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Chateau Roux",
               "Corsaires de Calais"
             ],
             "score": [
-              0,
+              1,
               0
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R1_1_G1",
             "series_id": "Division Empire_R1_1",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 18,
+                "team": "Chateau Roux",
+                "player": "Diego Castillo",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 7,
+              "Chateau Roux": {
+                "shots": 14,
+                "sogs": 6,
+                "saves": 3,
+                "possession": 60,
+                "stops": 10
+              },
+              "Corsaires de Calais": {
+                "shots": 10,
+                "sogs": 3,
+                "saves": 5,
+                "possession": 33,
+                "stops": 27
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Diego Castillo",
+                  "pos": "FWD",
+                  "shots": 7,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pierre Blanchard",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Verhoeven",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Claude Timmermans",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Gerhard Muller",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan van Dijk",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eddy van den Broeck",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Ramos Marrero",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Richard Lemaire",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ollie Rice",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Adrian Walsh",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 9,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johan Post",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Gallese",
+                  "pos": "MID",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Chateau Roux_vs_Corsaires de Calais_7712343_702.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Chateau Roux",
               "Corsaires de Calais"
@@ -61967,7 +62199,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Chateau Roux",
               "Corsaires de Calais"
@@ -61982,22 +62214,266 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Askhatansa",
               "Eisenwald 1900"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Division Empire_R1_2_G1",
             "series_id": "Division Empire_R1_2",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 6,
+                "team": "Eisenwald 1900",
+                "player": "Stuart Holmes",
+                "assist": "Rene Chevalier"
+              },
+              {
+                "minute": 34,
+                "team": "Askhatansa",
+                "player": "Neil Griffith",
+                "assist": null
+              },
+              {
+                "minute": 83,
+                "team": "Eisenwald 1900",
+                "player": "Valeriu Florea",
+                "assist": "Fabian Gomez"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 5,
+              "Askhatansa": {
+                "shots": 8,
+                "sogs": 4,
+                "saves": 10,
+                "possession": 48,
+                "stops": 12
+              },
+              "Eisenwald 1900": {
+                "shots": 13,
+                "sogs": 12,
+                "saves": 3,
+                "possession": 47,
+                "stops": 15
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Jean-Pierre de Clercq",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Neil Griffith",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vicente Acuna",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 10,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Peter Meijer",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Desmond Bonnet",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roy Foster",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vu Hung Dung",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hiroshi Itakura",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Young-gwon Hwang",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Sergio Baez",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Valeriu Florea",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Carlos Acosta",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Radu Dragomir",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Rene Chevalier",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Fabian Gomez",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gavin Powell",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Karl Meier",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Prime/Games/Askhatansa_vs_Eisenwald 1900_7712343_168.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Askhatansa",
               "Eisenwald 1900"
@@ -62012,7 +62488,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Askhatansa",
               "Eisenwald 1900"
@@ -62027,7 +62503,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Thurston FC East",
               "Stratton United"
@@ -62042,7 +62518,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Thurston FC East",
               "Stratton United"
@@ -62057,7 +62533,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Thurston FC East",
               "Stratton United"
@@ -62072,7 +62548,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Cheicester City",
               "Thurston FC West"
@@ -62087,7 +62563,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Cheicester City",
               "Thurston FC West"
@@ -62102,7 +62578,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Cheicester City",
               "Thurston FC West"
@@ -62122,7 +62598,7 @@
         "name": "Group Semifinals",
         "matches": [
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Stella Grey",
               "TBD"
@@ -62138,7 +62614,7 @@
             "home_seed": "Stella Grey"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Stella Grey",
               "TBD"
@@ -62154,7 +62630,7 @@
             "home_seed": "Stella Grey"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Stella Grey",
               "TBD"
@@ -62170,7 +62646,7 @@
             "home_seed": "Stella Grey"
           },
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Les Brasseurs",
               "TBD"
@@ -62186,7 +62662,7 @@
             "home_seed": "Les Brasseurs"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Les Brasseurs",
               "TBD"
@@ -62202,7 +62678,7 @@
             "home_seed": "Les Brasseurs"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Les Brasseurs",
               "TBD"
@@ -62218,7 +62694,7 @@
             "home_seed": "Les Brasseurs"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Haverford Black",
               "TBD"
@@ -62234,7 +62710,7 @@
             "home_seed": "Haverford Black"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Haverford Black",
               "TBD"
@@ -62250,7 +62726,7 @@
             "home_seed": "Haverford Black"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Haverford Black",
               "TBD"
@@ -62266,7 +62742,7 @@
             "home_seed": "Haverford Black"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Barroclaugh Athletic",
               "TBD"
@@ -62282,7 +62758,7 @@
             "home_seed": "Barroclaugh Athletic"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Barroclaugh Athletic",
               "TBD"
@@ -62298,7 +62774,7 @@
             "home_seed": "Barroclaugh Athletic"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Barroclaugh Athletic",
               "TBD"
@@ -62319,7 +62795,7 @@
         "name": "Group Finals",
         "matches": [
           {
-            "day": 218,
+            "day": 225,
             "teams": [
               "TBD",
               "TBD"
@@ -62334,7 +62810,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 227,
             "teams": [
               "TBD",
               "TBD"
@@ -62349,7 +62825,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 229,
             "teams": [
               "TBD",
               "TBD"
@@ -62364,7 +62840,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 231,
             "teams": [
               "TBD",
               "TBD"
@@ -62379,7 +62855,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 233,
             "teams": [
               "TBD",
               "TBD"
@@ -62394,7 +62870,7 @@
             "game_num": 5
           },
           {
-            "day": 218,
+            "day": 226,
             "teams": [
               "TBD",
               "TBD"
@@ -62409,7 +62885,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 228,
             "teams": [
               "TBD",
               "TBD"
@@ -62424,7 +62900,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 230,
             "teams": [
               "TBD",
               "TBD"
@@ -62439,7 +62915,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 232,
             "teams": [
               "TBD",
               "TBD"
@@ -62454,7 +62930,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 234,
             "teams": [
               "TBD",
               "TBD"
@@ -62474,7 +62950,7 @@
         "name": "League Finals",
         "matches": [
           {
-            "day": 224,
+            "day": 236,
             "teams": [
               "TBD",
               "TBD"
@@ -62490,7 +62966,7 @@
             "neutral": true
           },
           {
-            "day": 225,
+            "day": 237,
             "teams": [
               "TBD",
               "TBD"
@@ -62506,7 +62982,7 @@
             "neutral": true
           },
           {
-            "day": 226,
+            "day": 238,
             "teams": [
               "TBD",
               "TBD"
@@ -62522,7 +62998,7 @@
             "neutral": true
           },
           {
-            "day": 227,
+            "day": 239,
             "teams": [
               "TBD",
               "TBD"
@@ -62538,7 +63014,7 @@
             "neutral": true
           },
           {
-            "day": 228,
+            "day": 240,
             "teams": [
               "TBD",
               "TBD"

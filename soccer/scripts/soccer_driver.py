@@ -85,12 +85,13 @@ def select_player(players, prop_type, exclude_name=None):
         if roll < current: return p
     return valid_players[-1]
 
-def play_minutes(minutes, team1, team2, logging, log_file, hfa=False, pro_mode=False):
+def play_minutes(minutes, team1, team2, logging, log_file, hfa=False, pro_mode=False, minute_offset=0):
     match_events = []
     t1_off = team1.offense + (1 if hfa else 0)
     t1_spd = team1.speed + (1 if hfa else 0)
     
     for i in range(1, minutes + 1):
+        display_min = i + minute_offset
         # 1. Box Score Possession Check
         if pro_mode and random.random() < 0.10:
             pass # Neutral tick
@@ -104,7 +105,7 @@ def play_minutes(minutes, team1, team2, logging, log_file, hfa=False, pro_mode=F
 
         # 2. Match Action Logic
         check = random.randint(1, 50)
-        if logging: log_file.write(f"(check={check}) Minute {i}: ")
+        if logging: log_file.write(f"(check={check}) Minute {display_min}: ")
 
         if check <= 38: # No action
             stop_name = None
@@ -179,7 +180,7 @@ def play_minutes(minutes, team1, team2, logging, log_file, hfa=False, pro_mode=F
                         assister.assists += 1
                         assist_name = assister.name
                 
-                match_events.append({"minute": i, "team": attacker.name, "player": shooter.name if shooter else "Unknown", "assist": assist_name})
+                match_events.append({"minute": display_min, "team": attacker.name, "player": shooter.name if shooter else "Unknown", "assist": assist_name})
                 if logging: log_file.write(f"{shooter.name if shooter else attacker.name} GOAL!!!{f' (Ast: {assist_name})' if assist_name else ''} Score: {team1.score}-{team2.score}\n")
                 
     return match_events
@@ -213,7 +214,7 @@ def play_game(tournament_path, team1_name, team2_name, elim, logging, persist=Tr
     if team1.score == team2.score and elim:
         is_ot = True
         if logging: log_file.write("\n--- EXTRA TIME ---\n\n")
-        events.extend(play_minutes(30, team1, team2, logging, log_file, hfa=hfa, pro_mode=pro_mode))
+        events.extend(play_minutes(30, team1, team2, logging, log_file, hfa=hfa, pro_mode=pro_mode, minute_offset=90))
 
     pk_score = None
     if team1.score == team2.score and elim:

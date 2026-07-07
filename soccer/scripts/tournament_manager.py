@@ -784,30 +784,46 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
             }
             tournament_data["playoffs"] = po
 
-            d_r1 = [last_day + 1, last_day + 2, last_day + 3]
-            d_r2 = [last_day + 5, last_day + 6, last_day + 7]
-            d_r3 = [last_day + 9, last_day + 10, last_day + 11, last_day + 12, last_day + 13]
-            d_f  = [last_day + 15, last_day + 16, last_day + 17, last_day + 18, last_day + 19]
+            # Timeline: 1 day gap after season end (last_day + 2 is first match day)
+            # R1 (Bo3): 2 matches per day. Each group has 2 series (R1_1, R1_2).
+            # So 4 series total. 2 matches/day means we finish G1 in 2 days.
+            d_r1 = [last_day + 2, last_day + 3, last_day + 4, last_day + 5, last_day + 6, last_day + 7]
+            
+            # R2 (Bo3): 2 matches/day. 2 series per group = 4 series total.
+            d_r2 = [d_r1[-1] + 2, d_r1[-1] + 3, d_r1[-1] + 4, d_r1[-1] + 5, d_r1[-1] + 6, d_r1[-1] + 7]
+            
+            # R3 (Bo5): 1 match/day, interlaced. 2 series total (one per group).
+            # G1_A, G1_B, G2_A, G2_B, etc.
+            d_r3 = [d_r2[-1] + 2 + i for i in range(10)]
+            
+            # Finals (Bo5): 1 match/day.
+            d_f = [d_r3[-1] + 2 + i for i in range(5)]
 
-            for g_id in sorted(tournament_data["groups"].keys()):
+            g_ids = sorted(tournament_data["groups"].keys()) # Usually 2 groups
+            for g_idx, g_id in enumerate(g_ids):
                 # Round 1 (Bo3)
-                for label in ["R1_1", "R1_2"]:
-                    for i, day in enumerate(d_r1):
+                for s_idx, label in enumerate(["R1_1", "R1_2"]):
+                    # 4 series total (g_idx * 2 + s_idx)
+                    # We want 2 series to play on the same days.
+                    # Pair (G1_R1_1, G1_R1_2) and (G2_R1_1, G2_R1_2)
+                    offset = 0 if g_idx == 0 else 3
+                    for i in range(3):
                         po["rounds"][0]["matches"].append({
-                            "day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                            "day": d_r1[i + offset], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
                             "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
                         })
                 # Round 2 (Bo3)
-                for label in ["R2_1", "R2_2"]:
-                    for i, day in enumerate(d_r2):
+                for s_idx, label in enumerate(["R2_1", "R2_2"]):
+                    offset = 0 if g_idx == 0 else 3
+                    for i in range(3):
                         po["rounds"][1]["matches"].append({
-                            "day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                            "day": d_r2[i + offset], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
                             "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
                         })
-                # Round 3 (Bo5)
-                for i, day in enumerate(d_r3):
+                # Round 3 (Bo5): Interlaced 1 match/day
+                for i in range(5):
                     po["rounds"][2]["matches"].append({
-                        "day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
+                        "day": d_r3[i * 2 + g_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False,
                         "label": f"{g_id}_R3_G{i+1}", "series_id": f"{g_id}_R3", "game_num": i+1
                     })
             # Finals (Bo5)
@@ -1400,26 +1416,52 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                 po = {"rounds": [{"name": n, "matches": []} for n in ["Group First Round", "Group Semifinals", "Group Finals", "League Finals"]]}
                 tournament_data["playoffs"] = po
 
-                d_r1 = [last_day + 1, last_day + 2, last_day + 3]
-                d_r2 = [last_day + 5, last_day + 6, last_day + 7]
-                d_r3 = [last_day + 9, last_day + 10, last_day + 11, last_day + 12, last_day + 13]
-                d_f  = [last_day + 15, last_day + 16, last_day + 17, last_day + 18, last_day + 19]
+                # Timeline: 1 day gap after season end (last_day + 2 is first match day)
+                d_r1 = [last_day + 2, last_day + 3, last_day + 4, last_day + 5, last_day + 6, last_day + 7]
+                d_r2 = [d_r1[-1] + 2, d_r1[-1] + 3, d_r1[-1] + 4, d_r1[-1] + 5, d_r1[-1] + 6, d_r1[-1] + 7]
+                d_r3 = [d_r2[-1] + 2 + i for i in range(10)]
+                d_f  = [d_r3[-1] + 2 + i for i in range(5)]
 
-                for g_id in sorted(tournament_data["groups"].keys()):
+                g_ids = sorted(tournament_data["groups"].keys())
+                for g_idx, g_id in enumerate(g_ids):
                     table = tournament_data["groups"][g_id]["standings"]
                     seeds = [t["team"] for t in table[:6]]
+                    
+                    # Round 1 (Bo3): 2 matches per day
                     matchups = [(seeds[2], seeds[5], "R1_1"), (seeds[3], seeds[4], "R1_2")]
+                    offset = 0 if g_idx == 0 else 3
                     for tA, tB, label in matchups:
-                        for i, day in enumerate(d_r1):
+                        for i in range(3):
                             h, a = (tA, tB) if i % 2 == 0 else (tB, tA)
-                            po["rounds"][0]["matches"].append({"day": day, "teams": [h, a], "score": [0,0], "played": False, "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1})
-                    for i, day in enumerate(d_r2):
-                        po["rounds"][1]["matches"].append({"day": day, "teams": [seeds[0], "TBD"], "score": [0,0], "played": False, "label": f"{g_id}_R2_1_G{i+1}", "series_id": f"{g_id}_R2_1", "game_num": i+1, "home_seed": seeds[0]})
-                        po["rounds"][1]["matches"].append({"day": day, "teams": [seeds[1], "TBD"], "score": [0,0], "played": False, "label": f"{g_id}_R2_2_G{i+1}", "series_id": f"{g_id}_R2_2", "game_num": i+1, "home_seed": seeds[1]})
-                    for i, day in enumerate(d_r3):
-                        po["rounds"][2]["matches"].append({"day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": f"{g_id}_R3_G{i+1}", "series_id": f"{g_id}_R3", "game_num": i+1})
+                            po["rounds"][0]["matches"].append({
+                                "day": d_r1[i + offset], "teams": [h, a], "score": [0,0], "played": False, 
+                                "label": f"{g_id}_{label}_G{i+1}", "series_id": f"{g_id}_{label}", "game_num": i+1
+                            })
+                    
+                    # Round 2 (Bo3): 2 matches per day
+                    for i in range(3):
+                        po["rounds"][1]["matches"].append({
+                            "day": d_r2[i + offset], "teams": [seeds[0], "TBD"], "score": [0,0], "played": False, 
+                            "label": f"{g_id}_R2_1_G{i+1}", "series_id": f"{g_id}_R2_1", "game_num": i+1, "home_seed": seeds[0]
+                        })
+                        po["rounds"][1]["matches"].append({
+                            "day": d_r2[i + offset], "teams": [seeds[1], "TBD"], "score": [0,0], "played": False, 
+                            "label": f"{g_id}_R2_2_G{i+1}", "series_id": f"{g_id}_R2_2", "game_num": i+1, "home_seed": seeds[1]
+                        })
+                    
+                    # Round 3 (Bo5): 1 match/day, interlaced
+                    for i in range(5):
+                        po["rounds"][2]["matches"].append({
+                            "day": d_r3[i * 2 + g_idx], "teams": ["TBD", "TBD"], "score": [0,0], "played": False, 
+                            "label": f"{g_id}_R3_G{i+1}", "series_id": f"{g_id}_R3", "game_num": i+1
+                        })
+                
+                # Finals (Bo5)
                 for i, day in enumerate(d_f):
-                    po["rounds"][3]["matches"].append({"day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, "label": f"F_G{i+1}", "series_id": "F", "game_num": i+1, "neutral": True})
+                    po["rounds"][3]["matches"].append({
+                        "day": day, "teams": ["TBD", "TBD"], "score": [0,0], "played": False, 
+                        "label": f"F_G{i+1}", "series_id": "F", "game_num": i+1, "neutral": True
+                    })
 
         # Sim Playoff Matches
         if tournament_data["playoffs"]:
@@ -1659,21 +1701,44 @@ def rewind_tournament(tournament_path, target_day):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 tournament_manager.py [PATH_TO_TOURNAMENT] [--all] [--reset] [--days N] [--rewind N]")
+        print("Usage: python3 tournament_manager.py [PATH_TO_TOURNAMENT_OR_YEAR] [--all] [--reset] [--days N] [--rewind N]")
     else:
-        path_arg = sys.argv[1]
+        path_arg = sys.argv[1].strip('/')
         
-        if "--rewind" in sys.argv:
-            idx = sys.argv.index("--rewind")
-            if idx + 1 < len(sys.argv):
-                target = int(sys.argv[idx + 1])
-                rewind_tournament(path_arg.strip('/'), target)
-        else:
-            simulate_all = "--all" in sys.argv
-            days_to_sim = 1
-            if "--days" in sys.argv:
-                idx = sys.argv.index("--days")
+        # Determine if we are running for a single tournament or a whole year/directory
+        scripts_dir = os.path.dirname(os.path.abspath(__file__))
+        base_dir = os.path.dirname(scripts_dir)
+        target_abs_path = os.path.join(base_dir, "Tournaments", path_arg)
+        
+        paths_to_run = []
+        if os.path.isdir(target_abs_path):
+            # Check if this is a tournament directory itself
+            if os.path.exists(os.path.join(target_abs_path, "config.json")):
+                paths_to_run.append(path_arg)
+            else:
+                # Look for subdirectories that are tournaments
+                for sub in sorted(os.listdir(target_abs_path)):
+                    sub_path = os.path.join(path_arg, sub)
+                    if os.path.exists(os.path.join(base_dir, "Tournaments", sub_path, "config.json")):
+                        paths_to_run.append(sub_path)
+        
+        if not paths_to_run:
+            print(f"Error: No valid tournaments found at {path_arg}")
+            sys.exit(1)
+
+        for current_path in paths_to_run:
+            print(f"\n{'='*20}\nRUNNING: {current_path}\n{'='*20}")
+            if "--rewind" in sys.argv:
+                idx = sys.argv.index("--rewind")
                 if idx + 1 < len(sys.argv):
-                    days_to_sim = int(sys.argv[idx + 1])
-            
-            run_tournament_step(path_arg, simulate_all, days_to_sim)
+                    target = int(sys.argv[idx + 1])
+                    rewind_tournament(current_path, target)
+            else:
+                simulate_all = "--all" in sys.argv
+                days_to_sim = 1
+                if "--days" in sys.argv:
+                    idx = sys.argv.index("--days")
+                    if idx + 1 < len(sys.argv):
+                        days_to_sim = int(sys.argv[idx + 1])
+                
+                run_tournament_step(current_path, simulate_all, days_to_sim)

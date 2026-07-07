@@ -427,6 +427,12 @@
             font-family: 'Oswald', sans-serif;
             font-size: 1.2rem;
             text-transform: uppercase;
+            line-height: 1.2;
+            margin-top: 0.5rem;
+            max-width: 200px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
         }
 
         .modal-score-container {
@@ -643,6 +649,14 @@
 
         .match-stats-table th, .match-stats-table td {
             text-align: center;
+        }
+
+        .match-stats-table th {
+            white-space: normal;
+            max-width: 120px;
+            vertical-align: middle;
+            line-height: 1.2;
+            padding: 0.75rem 0.5rem;
         }
 
         .match-stats-neutral {
@@ -1863,6 +1877,15 @@
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
         }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('modal');
+                if (modal.style.display === 'flex') {
+                    closeModal();
+                }
+            }
+        });
 
         // Handle back/forward navigation
         window.addEventListener('popstate', (e) => {

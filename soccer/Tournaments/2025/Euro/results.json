@@ -31,7 +31,7 @@
     },
     "pro_stats": true
   },
-  "current_day": 210,
+  "current_day": 212,
   "groups": {
     "Euro-North Division": {
       "matches": [
@@ -62034,22 +62034,260 @@
         "name": "Group First Round",
         "matches": [
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Dunav Belgrade",
               "Donau Wien"
             ],
             "score": [
               0,
-              0
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Euro-Central Division_R1_1_G1",
             "series_id": "Euro-Central Division_R1_1",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 19,
+                "team": "Donau Wien",
+                "player": "Stefan Takac",
+                "assist": "Arni Olafsson"
+              },
+              {
+                "minute": 90,
+                "team": "Donau Wien",
+                "player": "Stefan Takac",
+                "assist": "Rafael Parra"
+              }
+            ],
+            "stats": {
+              "neutral_possession": 14,
+              "Dunav Belgrade": {
+                "shots": 12,
+                "sogs": 3,
+                "saves": 4,
+                "possession": 52,
+                "stops": 12
+              },
+              "Donau Wien": {
+                "shots": 11,
+                "sogs": 6,
+                "saves": 3,
+                "possession": 34,
+                "stops": 18
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Kjell Nilsen",
+                  "pos": "FWD",
+                  "shots": 4,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vitaliy Zabarnyi",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vasylyi Yvanova",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Raul Morales",
+                  "pos": "FWD",
+                  "shots": 6,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ari Korhonen",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Piotr Nowicki",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Gerhard Bauer",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ernest Nuamah",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marko Bosnjak",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Stefan Takac",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 3,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Franc Potocnik",
+                  "pos": "FWD",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan Johansen",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 3,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Parra",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cieran McCormick",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Werner Frei",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vasile Cazacu",
+                  "pos": "DEF",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Arni Olafsson",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 1,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Dos Santos",
+                  "pos": "DEF",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Euro/Games/Dunav Belgrade_vs_Donau Wien_7712343_839.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Dunav Belgrade",
               "Donau Wien"
@@ -62064,7 +62302,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Dunav Belgrade",
               "Donau Wien"
@@ -62079,22 +62317,266 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 211,
             "teams": [
               "Sarajevo Grad",
               "Bucharest International"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
+            "played": true,
             "label": "Euro-Central Division_R1_2_G1",
             "series_id": "Euro-Central Division_R1_2",
-            "game_num": 1
+            "game_num": 1,
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 46,
+                "team": "Bucharest International",
+                "player": "Karl Mayer",
+                "assist": null
+              },
+              {
+                "minute": 59,
+                "team": "Sarajevo Grad",
+                "player": "Antanas Zukauskas",
+                "assist": null
+              },
+              {
+                "minute": 67,
+                "team": "Bucharest International",
+                "player": "Pansa Kaman",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 7,
+              "Sarajevo Grad": {
+                "shots": 13,
+                "sogs": 3,
+                "saves": 3,
+                "possession": 54,
+                "stops": 13
+              },
+              "Bucharest International": {
+                "shots": 9,
+                "sogs": 5,
+                "saves": 2,
+                "possession": 39,
+                "stops": 23
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Caio Sultan",
+                  "pos": "FWD",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antanas Zukauskas",
+                  "pos": "FWD",
+                  "shots": 7,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Markus Schneider",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 2
+                },
+                {
+                  "name": "Azamat Zemlianukhin",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Johann Gunnarsson",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hamid Bagheri",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pawe\u0142 Bednarek",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juraj Szabo",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 1,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Georgios Christofi",
+                  "pos": "MID",
+                  "shots": 5,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 2,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Frantisek Molnar",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Karl Mayer",
+                  "pos": "FWD",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hadisi Aengari",
+                  "pos": "GK",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 1
+                },
+                {
+                  "name": "Marcel Wagner",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 10,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pansa Kaman",
+                  "pos": "MID",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jacek Majewski",
+                  "pos": "MID",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 5,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rafael Jimenez",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lalaina Amada",
+                  "pos": "MID",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Peeter Ots",
+                  "pos": "DEF",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 4,
+                  "saves": 0,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2025/Euro/Games/Sarajevo Grad_vs_Bucharest International_7712343_345.txt"
           },
           {
-            "day": 211,
+            "day": 212,
             "teams": [
               "Sarajevo Grad",
               "Bucharest International"
@@ -62109,7 +62591,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 213,
             "teams": [
               "Sarajevo Grad",
               "Bucharest International"
@@ -62124,7 +62606,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Moscow Krepost",
               "Sisu Helsinki"
@@ -62139,7 +62621,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Moscow Krepost",
               "Sisu Helsinki"
@@ -62154,7 +62636,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Moscow Krepost",
               "Sisu Helsinki"
@@ -62169,7 +62651,7 @@
             "game_num": 3
           },
           {
-            "day": 210,
+            "day": 214,
             "teams": [
               "Slavutych Kyiv",
               "Korona Warsaw"
@@ -62184,7 +62666,7 @@
             "game_num": 1
           },
           {
-            "day": 211,
+            "day": 215,
             "teams": [
               "Slavutych Kyiv",
               "Korona Warsaw"
@@ -62199,7 +62681,7 @@
             "game_num": 2
           },
           {
-            "day": 212,
+            "day": 216,
             "teams": [
               "Slavutych Kyiv",
               "Korona Warsaw"
@@ -62219,7 +62701,7 @@
         "name": "Group Semifinals",
         "matches": [
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Edelweiss Zurich",
               "TBD"
@@ -62235,7 +62717,7 @@
             "home_seed": "Edelweiss Zurich"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Edelweiss Zurich",
               "TBD"
@@ -62251,7 +62733,7 @@
             "home_seed": "Edelweiss Zurich"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Edelweiss Zurich",
               "TBD"
@@ -62267,7 +62749,7 @@
             "home_seed": "Edelweiss Zurich"
           },
           {
-            "day": 214,
+            "day": 218,
             "teams": [
               "Bohemian Gryphons",
               "TBD"
@@ -62283,7 +62765,7 @@
             "home_seed": "Bohemian Gryphons"
           },
           {
-            "day": 215,
+            "day": 219,
             "teams": [
               "Bohemian Gryphons",
               "TBD"
@@ -62299,7 +62781,7 @@
             "home_seed": "Bohemian Gryphons"
           },
           {
-            "day": 216,
+            "day": 220,
             "teams": [
               "Bohemian Gryphons",
               "TBD"
@@ -62315,7 +62797,7 @@
             "home_seed": "Bohemian Gryphons"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Kongens FC",
               "TBD"
@@ -62331,7 +62813,7 @@
             "home_seed": "Kongens FC"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Kongens FC",
               "TBD"
@@ -62347,7 +62829,7 @@
             "home_seed": "Kongens FC"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Kongens FC",
               "TBD"
@@ -62363,7 +62845,7 @@
             "home_seed": "Kongens FC"
           },
           {
-            "day": 214,
+            "day": 221,
             "teams": [
               "Oslo Vikinger",
               "TBD"
@@ -62379,7 +62861,7 @@
             "home_seed": "Oslo Vikinger"
           },
           {
-            "day": 215,
+            "day": 222,
             "teams": [
               "Oslo Vikinger",
               "TBD"
@@ -62395,7 +62877,7 @@
             "home_seed": "Oslo Vikinger"
           },
           {
-            "day": 216,
+            "day": 223,
             "teams": [
               "Oslo Vikinger",
               "TBD"
@@ -62416,7 +62898,7 @@
         "name": "Group Finals",
         "matches": [
           {
-            "day": 218,
+            "day": 225,
             "teams": [
               "TBD",
               "TBD"
@@ -62431,7 +62913,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 227,
             "teams": [
               "TBD",
               "TBD"
@@ -62446,7 +62928,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 229,
             "teams": [
               "TBD",
               "TBD"
@@ -62461,7 +62943,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 231,
             "teams": [
               "TBD",
               "TBD"
@@ -62476,7 +62958,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 233,
             "teams": [
               "TBD",
               "TBD"
@@ -62491,7 +62973,7 @@
             "game_num": 5
           },
           {
-            "day": 218,
+            "day": 226,
             "teams": [
               "TBD",
               "TBD"
@@ -62506,7 +62988,7 @@
             "game_num": 1
           },
           {
-            "day": 219,
+            "day": 228,
             "teams": [
               "TBD",
               "TBD"
@@ -62521,7 +63003,7 @@
             "game_num": 2
           },
           {
-            "day": 220,
+            "day": 230,
             "teams": [
               "TBD",
               "TBD"
@@ -62536,7 +63018,7 @@
             "game_num": 3
           },
           {
-            "day": 221,
+            "day": 232,
             "teams": [
               "TBD",
               "TBD"
@@ -62551,7 +63033,7 @@
             "game_num": 4
           },
           {
-            "day": 222,
+            "day": 234,
             "teams": [
               "TBD",
               "TBD"
@@ -62571,7 +63053,7 @@
         "name": "League Finals",
         "matches": [
           {
-            "day": 224,
+            "day": 236,
             "teams": [
               "TBD",
               "TBD"
@@ -62587,7 +63069,7 @@
             "neutral": true
           },
           {
-            "day": 225,
+            "day": 237,
             "teams": [
               "TBD",
               "TBD"
@@ -62603,7 +63085,7 @@
             "neutral": true
           },
           {
-            "day": 226,
+            "day": 238,
             "teams": [
               "TBD",
               "TBD"
@@ -62619,7 +63101,7 @@
             "neutral": true
           },
           {
-            "day": 227,
+            "day": 239,
             "teams": [
               "TBD",
               "TBD"
@@ -62635,7 +63117,7 @@
             "neutral": true
           },
           {
-            "day": 228,
+            "day": 240,
             "teams": [
               "TBD",
               "TBD"
