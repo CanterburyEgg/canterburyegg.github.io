@@ -4,3 +4,4 @@ ai-playground.html
 /soccer/__pycache__
 soccer/scripts/__pycache__
 /soccer/scripts/__pycache__
+*.pyc
