@@ -174,8 +174,155 @@ def generate_round_robin_schedule(teams):
         teams.insert(1, teams.pop())
     return rounds
 
+def initialize_professional_league(base_path, tournament_path, config):
+    # Assumes exactly 2 groups of 8
+    groups_items = list(config["groups"].items())
+    g1_name, g1_teams = groups_items[0]
+    g2_name, g2_teams = groups_items[1]
+    
+    # 1. Generate Intra-division matches (14 rounds total)
+    def get_intra_rounds(teams, leg):
+        r_set = generate_round_robin_schedule(teams[:])
+        if leg == 2:
+            r_set = [[(m[1], m[0]) for m in rnd] for rnd in r_set]
+        return r_set
+
+    g1_intra = get_intra_rounds(g1_teams, 1) + get_intra_rounds(g1_teams, 2)
+    g2_intra = get_intra_rounds(g2_teams, 1) + get_intra_rounds(g2_teams, 2)
+    
+    intra_rounds = []
+    for i in range(14):
+        rnd_matches = []
+        for m in g1_intra[i]:
+            rnd_matches.append({"group": g1_name, "teams": list(m)})
+        for m in g2_intra[i]:
+            rnd_matches.append({"group": g2_name, "teams": list(m)})
+        intra_rounds.append(rnd_matches)
+
+    # 2. Generate Cross-division matches (16 rounds)
+    cross_rounds = []
+    for leg in [1, 2]:
+        for j in range(8):
+            rnd_matches = []
+            for i in range(8):
+                t1 = g1_teams[i]
+                t2 = g2_teams[(i + j) % 8]
+                if leg == 1:
+                    rnd_matches.append({"group": g1_name, "teams": [t1, t2]})
+                else:
+                    rnd_matches.append({"group": g2_name, "teams": [t2, t1]})
+            cross_rounds.append(rnd_matches)
+
+    # 30 rounds total. Round 29 and 30 must be intra.
+    r29 = intra_rounds.pop()
+    r30 = intra_rounds.pop()
+    
+    def validate_opponent_gap(rounds_pool, r29, r30):
+        all_r = rounds_pool + [r29, r30]
+        pair_last_seen = {} # (t1, t2) -> round_num
+        for r_idx, rnd in enumerate(all_r):
+            r_num = r_idx + 1
+            for m in rnd:
+                t1, t2 = sorted(m["teams"])
+                pair = (t1, t2)
+                if pair in pair_last_seen:
+                    if r_num - pair_last_seen[pair] < 5:
+                        return False
+                pair_last_seen[pair] = r_num
+        return True
+
+    remaining_rounds = intra_rounds + cross_rounds
+    
+    # Shuffle and validate gap constraint
+    for _ in range(500):
+        random.shuffle(remaining_rounds)
+        if validate_opponent_gap(remaining_rounds, r29, r30):
+            break
+            
+    all_rounds = remaining_rounds + [r29, r30]
+
+    data = {
+        "name": config["name"],
+        "path": tournament_path,
+        "config": config,
+        "current_day": 1,
+        "groups": {g: {"matches": [], "standings": []} for g in config["groups"]},
+        "playoffs": None,
+        "qualified_teams": []
+    }
+
+    team_last_played = {t: -10 for t in (g1_teams + g2_teams)}
+
+    for r_idx, rnd in enumerate(all_rounds):
+        round_num = r_idx + 1
+        day_start = (round_num - 1) * 7 + 1
+        
+        if round_num <= 28:
+            success = False
+            for _ in range(100):
+                random.shuffle(rnd)
+                candidate_days = [1, 2, 3, 4, 5, 5, 6, 6]
+                possible = True
+                for m_idx, m in enumerate(rnd):
+                    d = day_start + candidate_days[m_idx] - 1
+                    t1, t2 = m["teams"]
+                    if team_last_played[t1] > d - 4 or team_last_played[t2] > d - 4:
+                        possible = False
+                        break
+                if possible:
+                    for m_idx, m in enumerate(rnd):
+                        d = day_start + candidate_days[m_idx] - 1
+                        t1, t2 = m["teams"]
+                        m["day"] = d
+                        team_last_played[t1] = d
+                        team_last_played[t2] = d
+                    success = True
+                    break
+            if not success:
+                days = [1, 2, 3, 4, 5, 5, 6, 6]
+                for m_idx, m in enumerate(rnd):
+                    d = day_start + days[m_idx] - 1
+                    t1, t2 = m["teams"]
+                    m["day"] = d
+                    team_last_played[t1] = d
+                    team_last_played[t2] = d
+
+        elif round_num == 29:
+            days = [197, 198, 199, 200, 201, 202, 204, 205]
+            random.shuffle(rnd)
+            for m_idx, m in enumerate(rnd):
+                d = days[m_idx]
+                t1, t2 = m["teams"]
+                m["day"] = d
+                team_last_played[t1] = d
+                team_last_played[t2] = d
+        
+        elif round_num == 30:
+            g1_m = [m for m in rnd if m["group"] == g1_name]
+            g2_m = [m for m in rnd if m["group"] == g2_name]
+            for m in g1_m:
+                m["day"] = 208
+            for m in g2_m:
+                m["day"] = 209
+        
+        for m in rnd:
+            t1, t2 = m["teams"]
+            match = {
+                "day": m["day"], "teams": [t1, t2], "played": False, "score": [0, 0],
+                "pk_score": None, "events": [], "player_data": {"team1": [], "team2": []},
+                "stats": {t1: {"shots": 0, "sogs": 0, "saves": 0}, t2: {"shots": 0, "sogs": 0, "saves": 0}}
+            }
+            data["groups"][m["group"]]["matches"].append(match)
+
+    for g_id in data["groups"]:
+        update_group_standings(data, g_id)
+    return data
+
 def initialize_tournament(base_path, tournament_path, config):
     print(f"Generating optimized schedule for {config['name']}...")
+    
+    if config.get("type") == "league":
+        return initialize_professional_league(base_path, tournament_path, config)
     
     target_density = config["rules"].get("target_density")
     
@@ -476,17 +623,51 @@ def check_mathematical_locks(tournament_data):
 
 def update_group_standings(tournament_data, g_id):
     results = {}
-    matches = tournament_data["groups"][g_id]["matches"]
-    for match in matches:
-        if match["played"]:
-            update_standings(results, match)
+    group_teams = set(tournament_data["config"]["groups"][g_id])
     
-    # Ensure all teams are in standings even if they haven't played
-    for team in tournament_data["config"]["groups"][g_id]:
-        if team not in results:
-            results[team] = {"played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0}
+    # Initialize all teams from the config for this group
+    for t in group_teams:
+        results[t] = {"played": 0, "w": 0, "d": 0, "l": 0, "gf": 0, "ga": 0, "gd": 0, "pts": 0}
+
+    # Iterate through ALL groups to find ALL matches involving teams in this group
+    all_relevant_matches = []
+    for gid in tournament_data["groups"]:
+        for match in tournament_data["groups"][gid]["matches"]:
+            if not match["played"]: continue
+            t1, t2 = match["teams"]
+            if t1 in group_teams or t2 in group_teams:
+                all_relevant_matches.append(match)
+                s1, s2 = match["score"]
+                
+                if t1 in group_teams:
+                    results[t1]["played"] += 1
+                    results[t1]["gf"] += s1
+                    results[t1]["ga"] += s2
+                    results[t1]["gd"] = results[t1]["gf"] - results[t1]["ga"]
+                    if s1 > s2:
+                        results[t1]["w"] += 1
+                        results[t1]["pts"] += 3
+                    elif s2 > s1:
+                        results[t1]["l"] += 1
+                    else:
+                        results[t1]["d"] += 1
+                        results[t1]["pts"] += 1
+                
+                if t2 in group_teams:
+                    results[t2]["played"] += 1
+                    results[t2]["gf"] += s2
+                    results[t2]["ga"] += s1
+                    results[t2]["gd"] = results[t2]["gf"] - results[t2]["ga"]
+                    if s2 > s1:
+                        results[t2]["w"] += 1
+                        results[t2]["pts"] += 3
+                    elif s1 > s2:
+                        results[t2]["l"] += 1
+                    else:
+                        results[t2]["d"] += 1
+                        results[t2]["pts"] += 1
     
-    tournament_data["groups"][g_id]["standings"] = sort_standings(results, matches)
+    tournament_data["groups"][g_id]["standings"] = sort_standings(results, all_relevant_matches)
 
 def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
     tournament_path = path_arg.strip('/')
@@ -1087,6 +1268,10 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                 final_match = po["finals"][0]
                 if final_match["played"] and not tournament_data["qualified_teams"]:
                     tournament_data["qualified_teams"].append(get_winner(final_match))
+
+    # Final update of standings for ALL groups before saving
+    for g_id in tournament_data["groups"]:
+        update_group_standings(tournament_data, g_id)
 
     # Save Output
     if config["type"] == "world_cup":
