@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_FILE = os.path.join(BASE_DIR, "lists", "club_rankings.json")
-LEAGUES = ["Backyard", "Euro", "Med", "Prime"]
+LEAGUES = ["Backyard", "Euro", "Med", "Prime", "Club Cup"]
 
 def get_match_date(day):
     # Day 1 = Feb 3, 2025
@@ -60,6 +60,7 @@ def recalculate():
                     for m in g_data.get("matches", []):
                         if m.get("played") and not m.get("canceled"):
                             m_copy = copy.deepcopy(m)
+                            m_copy["league"] = league
                             m_copy["is_playoff"] = False
                             all_matches.append(m_copy)
                 
@@ -78,6 +79,7 @@ def recalculate():
                     for m in po_matches:
                         if m.get("played") and not m.get("canceled"):
                             m_copy = copy.deepcopy(m)
+                            m_copy["league"] = league
                             m_copy["is_playoff"] = True
                             all_matches.append(m_copy)
 
@@ -85,32 +87,45 @@ def recalculate():
         print("No matches played found.")
         return
 
-    all_matches.sort(key=lambda x: x["day"])
+    # Sort: All regular leagues by day first, then Club Cup matches at the very end
+    all_matches.sort(key=lambda x: (1 if x["league"] == "Club Cup" else 0, x["day"]))
     
-    # Determine the "current month" of the simulation
-    latest_day = all_matches[-1]["day"]
-    current_date = get_match_date(latest_day)
+    # Determine if Club Cup is the active tournament (the last one calculated)
+    is_cup_active = (all_matches[-1]["league"] == "Club Cup")
+    
+    # Determine the "current month/stage" for the output message
+    latest_match = all_matches[-1]
+    current_date = get_match_date(latest_match["day"])
     current_month = current_date.month
-    current_year = current_date.year
-
-    # Snapshots for movement: Compare current rank vs end of previous month
-    first_day_this_month = datetime(current_year, current_month, 1)
-    last_day_prev_month_dt = first_day_this_month - timedelta(days=1)
     
-    base_date = datetime(2025, 2, 3)
-    last_day_prev_month_sim = (last_day_prev_month_dt - base_date).days + 1
-    
+    # Snapshots for movement:
     rankings_at_prev_month = {}
     
+    if not is_cup_active:
+        # Standard calendar month boundary
+        first_day_this_month = datetime(current_date.year, current_month, 1)
+        last_day_prev_month_dt = first_day_this_month - timedelta(days=1)
+        base_date = datetime(2025, 2, 3)
+        calendar_snapshot_day = (last_day_prev_month_dt - base_date).days + 1
+    else:
+        calendar_snapshot_day = -1 # Not used in Cup mode
+
     # 3. Process Elo
     K = 20.0
     for m in all_matches:
-        # If this match is the FIRST one past the previous month's boundary, 
-        # capture the state before it.
-        if m["day"] > last_day_prev_month_sim and not rankings_at_prev_month and last_day_prev_month_sim > 0:
-            items = sorted(rankings.items(), key=lambda x: x[1], reverse=True)
-            for i, (team, pts) in enumerate(items):
-                rankings_at_prev_month[team] = i + 1
+        # Capture snapshot for movement
+        if is_cup_active:
+            # If Cup is active, snapshot is the moment we transition to the first Cup match
+            if m["league"] == "Club Cup" and not rankings_at_prev_month:
+                items = sorted(rankings.items(), key=lambda x: x[1], reverse=True)
+                for i, (team, pts) in enumerate(items):
+                    rankings_at_prev_month[team] = i + 1
+        else:
+            # Standard calendar logic
+            if m["day"] > calendar_snapshot_day and not rankings_at_prev_month and calendar_snapshot_day > 0:
+                items = sorted(rankings.items(), key=lambda x: x[1], reverse=True)
+                for i, (team, pts) in enumerate(items):
+                    rankings_at_prev_month[team] = i + 1
 
         t1, t2 = m["teams"]
         if t1 not in rankings or t2 not in rankings:
@@ -158,13 +173,14 @@ def recalculate():
             "team": team,
             "points": round(pts, 1),
             "movement": movement,
-            "is_new": False # We don't really have "new" teams in the league mid-season
+            "is_new": False
         })
 
     with open(OUTPUT_FILE, 'w') as f:
         json.dump(final_list, f, indent=2)
     
-    print(f"Club Rankings updated! Snapshot month: {current_month}. Output: {OUTPUT_FILE}")
+    status_label = "Club Cup" if is_cup_active else f"Month {current_month}"
+    print(f"Club Rankings updated! Snapshot mode: {status_label}. Output: {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     recalculate()
