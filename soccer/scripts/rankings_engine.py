@@ -183,7 +183,7 @@ def recalculate_all():
     # 3. Process Timeline
     print(f"Processing {len(all_matches)} matches across all tournaments...")
     
-    verbose_team = "Belgium" # Set to a team name (e.g. "Morocco") for match-by-match Elo logs
+    verbose_team = "Netherlands" # Set to a team name (e.g. "Morocco") for match-by-match Elo logs
     last_tourney_path = sorted_tourneys[-1]["path"] if sorted_tourneys else None
     rankings_before_last = {}
     processed_tourney_indices = set()

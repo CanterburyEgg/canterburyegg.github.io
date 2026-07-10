@@ -2,49 +2,49 @@
   {
     "rank": 1,
     "team": "Belgium",
-    "points": 1403.4,
+    "points": 1411.7,
     "movement": 0,
     "is_new": false
   },
   {
     "rank": 2,
-    "team": "Colombia",
-    "points": 1327.5,
-    "movement": 5,
+    "team": "Germany",
+    "points": 1339.2,
+    "movement": 4,
     "is_new": false
   },
   {
     "rank": 3,
-    "team": "Brazil",
-    "points": 1324.3,
-    "movement": 0,
+    "team": "Colombia",
+    "points": 1327.5,
+    "movement": 4,
     "is_new": false
   },
   {
     "rank": 4,
-    "team": "Germany",
-    "points": 1320.9,
-    "movement": 2,
+    "team": "Brazil",
+    "points": 1324.3,
+    "movement": -1,
     "is_new": false
   },
   {
     "rank": 5,
-    "team": "Croatia",
-    "points": 1318.3,
-    "movement": -3,
+    "team": "Argentina",
+    "points": 1320.6,
+    "movement": 3,
     "is_new": false
   },
   {
     "rank": 6,
-    "team": "Argentina",
-    "points": 1309.2,
-    "movement": 2,
+    "team": "Croatia",
+    "points": 1318.3,
+    "movement": -4,
     "is_new": false
   },
   {
     "rank": 7,
     "team": "England",
-    "points": 1295.9,
+    "points": 1306.1,
     "movement": -2,
     "is_new": false
   },
@@ -57,23 +57,23 @@
   },
   {
     "rank": 9,
-    "team": "Italy",
-    "points": 1253.7,
-    "movement": -5,
+    "team": "Netherlands",
+    "points": 1263.0,
+    "movement": 3,
     "is_new": false
   },
   {
     "rank": 10,
-    "team": "United States",
-    "points": 1246.1,
-    "movement": 4,
+    "team": "Italy",
+    "points": 1253.7,
+    "movement": -6,
     "is_new": false
   },
   {
     "rank": 11,
-    "team": "Netherlands",
-    "points": 1242.8,
-    "movement": 1,
+    "team": "United States",
+    "points": 1246.1,
+    "movement": 3,
     "is_new": false
   },
   {
@@ -232,23 +232,23 @@
   },
   {
     "rank": 34,
-    "team": "Romania",
-    "points": 1034.6,
-    "movement": 0,
+    "team": "Egypt",
+    "points": 1037.6,
+    "movement": 17,
     "is_new": false
   },
   {
     "rank": 35,
-    "team": "Albania",
-    "points": 1026.5,
-    "movement": 0,
+    "team": "Romania",
+    "points": 1034.6,
+    "movement": -1,
     "is_new": false
   },
   {
     "rank": 36,
-    "team": "Egypt",
-    "points": 1018.8,
-    "movement": 15,
+    "team": "Albania",
+    "points": 1026.5,
+    "movement": -1,
     "is_new": false
   },
   {
