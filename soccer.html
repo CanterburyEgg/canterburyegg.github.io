@@ -1410,54 +1410,6 @@
             const eloText = eloRank ? (currentYear == '2025' ? ` | Club Ranking: #${eloRank}` : ` | World Ranking: #${eloRank}`) : '';
             const rankText = (isLeague ? `${ordinal(teamRank)} in ${teamGroup}` : `${ordinal(teamRank)} in Group ${teamGroup}`) + eloText;
 
-            let matchesHtml = '';
-            
-            // 1. Group Stage / League Season Section
-            if (groupMatches.length > 0) {
-                if (currentYear === '2025' && isLeague) {
-                    const matchesByMonth = {};
-                    groupMatches.forEach(m => {
-                        const month = getMatchDate(m.day).toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
-                        if (!matchesByMonth[month]) matchesByMonth[month] = [];
-                        matchesByMonth[month].push(m);
-                    });
-
-                    Object.entries(matchesByMonth).forEach(([month, matches]) => {
-                        const cards = matches.map(m => createMatchCard(m)).filter(Boolean);
-                        if (cards.length > 0) {
-                            matchesHtml += `<h4 class="month-header">${month}</h4>`;
-                            matchesHtml += `<div class="matches-list">${cards.map(c => c.outerHTML).join('')}</div>`;
-                        }
-                    });
-                } else {
-                    const cards = groupMatches.sort((a,b) => (a.day||0)-(b.day||0)).map(m => createMatchCard(m)).filter(Boolean);
-                    if (cards.length > 0) {
-                        matchesHtml += `<h3>Matches</h3>`;
-                        matchesHtml += `<div class="matches-list">${cards.map(c => c.outerHTML).join('')}</div>`;
-                    }
-                }
-            }
-
-            // 2. Knockout Stage Section (Grouped by Round)
-            if (knockoutMatches.length > 0) {
-                const rounds = {};
-                knockoutMatches.forEach(m => {
-                    let rName = m._roundName || "Knockout";
-                    if (rName === "Group First Round") rName = "Wild-Card Round";
-                    rName = rName.toUpperCase();
-                    if (!rounds[rName]) rounds[rName] = [];
-                    rounds[rName].push(m);
-                });
-
-                Object.entries(rounds).forEach(([rName, matches]) => {
-                    const cards = matches.sort((a,b) => (a.day||0)-(b.day||0)).map(m => createMatchCard(m)).filter(Boolean);
-                    if (cards.length > 0) {
-                        matchesHtml += `<h4 class="month-header">${rName}</h4>`;
-                        matchesHtml += `<div class="matches-list">${cards.map(c => c.outerHTML).join('')}</div>`;
-                    }
-                });
-            }
-
             content.innerHTML = `
                 <div class="team-header">
                     ${renderTeamIcon(teamName, true)}
@@ -1490,15 +1442,73 @@
                         ${rosterHtml}
                     </div>
                 </div>
+            `;
 
-                ${matchesHtml}
-            `;            
-            // Re-bind click events to the newly injected HTML cards
-            content.querySelectorAll('.match-card').forEach((card, i) => {
-                if (teamMatches[i].played) {
-                    card.onclick = () => openMatchDetail(teamMatches[i]);
+            // 1. Group Stage / League Season Section
+            if (groupMatches.length > 0) {
+                if (currentYear === '2025' && isLeague) {
+                    const matchesByMonth = {};
+                    groupMatches.forEach(m => {
+                        const month = getMatchDate(m.day).toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+                        if (!matchesByMonth[month]) matchesByMonth[month] = [];
+                        matchesByMonth[month].push(m);
+                    });
+
+                    Object.entries(matchesByMonth).forEach(([month, matches]) => {
+                        const cards = matches.map(m => createMatchCard(m)).filter(Boolean);
+                        if (cards.length > 0) {
+                            const monthH4 = document.createElement('h4');
+                            monthH4.className = 'month-header';
+                            monthH4.innerText = month;
+                            content.appendChild(monthH4);
+
+                            const listDiv = document.createElement('div');
+                            listDiv.className = 'matches-list';
+                            cards.forEach(c => listDiv.appendChild(c));
+                            content.appendChild(listDiv);
+                        }
+                    });
+                } else {
+                    const cards = groupMatches.sort((a,b) => (a.day||0)-(b.day||0)).map(m => createMatchCard(m)).filter(Boolean);
+                    if (cards.length > 0) {
+                        const matchesH3 = document.createElement('h3');
+                        matchesH3.innerText = 'Matches';
+                        content.appendChild(matchesH3);
+
+                        const listDiv = document.createElement('div');
+                        listDiv.className = 'matches-list';
+                        cards.forEach(c => listDiv.appendChild(c));
+                        content.appendChild(listDiv);
+                    }
                 }
-            });
+            }
+
+            // 2. Knockout Stage Section (Grouped by Round)
+            if (knockoutMatches.length > 0) {
+                const rounds = {};
+                knockoutMatches.forEach(m => {
+                    let rName = m._roundName || "Knockout";
+                    if (rName === "Group First Round") rName = "Wild-Card Round";
+                    rName = rName.toUpperCase();
+                    if (!rounds[rName]) rounds[rName] = [];
+                    rounds[rName].push(m);
+                });
+
+                Object.entries(rounds).forEach(([rName, matches]) => {
+                    const cards = matches.sort((a,b) => (a.day||0)-(b.day||0)).map(m => createMatchCard(m)).filter(Boolean);
+                    if (cards.length > 0) {
+                        const roundH4 = document.createElement('h4');
+                        roundH4.className = 'month-header';
+                        roundH4.innerText = rName;
+                        content.appendChild(roundH4);
+
+                        const listDiv = document.createElement('div');
+                        listDiv.className = 'matches-list';
+                        cards.forEach(c => listDiv.appendChild(c));
+                        content.appendChild(listDiv);
+                    }
+                });
+            }
         }
 
         function renderKnockoutStage(container) {
@@ -1975,6 +1985,7 @@
                         <div class="modal-scroll-area" id="eventScrollArea">
                             ${(() => {
                                 let rs1 = 0, rs2 = 0;
+                                if (!match.events) return '<p>No event data available.</p>';
                                 return match.events.map(e => {
                                     if (e.team === match.teams[0]) rs1++;
                                     else rs2++;
@@ -2002,21 +2013,21 @@
                         <h3>Match Stats</h3>
                         <table class="match-stats-table">
                             <tr><th>${match.teams[1]}</th><th>Stat</th><th>${match.teams[0]}</th></tr>
-                            ${isPro ? `
+                            ${isPro && match.stats ? `
                             <tr>
-                                <td>${match.stats[match.teams[1]].possession || 50}%</td>
+                                <td>${(match.stats[match.teams[1]] && match.stats[match.teams[1]].possession) || 50}%</td>
                                 <td class="possession_cell">
                                     Possession
                                     ${match.stats.neutral_possession ? `<br><span class="match-stats-neutral">${match.stats.neutral_possession}% IN CONTEST</span>` : ''}
                                 </td>
-                                <td>${match.stats[match.teams[0]].possession || 50}%</td>
+                                <td>${(match.stats[match.teams[0]] && match.stats[match.teams[0]].possession) || 50}%</td>
                             </tr>
                             ` : ''}
-                            <tr><td>${match.stats[match.teams[1]].shots}</td><td>Shots</td><td>${match.stats[match.teams[0]].shots}</td></tr>
-                            <tr><td>${match.stats[match.teams[1]].sogs}</td><td>On Goal</td><td>${match.stats[match.teams[0]].sogs}</td></tr>
-                            <tr><td>${match.stats[match.teams[1]].saves}</td><td>Saves</td><td>${match.stats[match.teams[0]].saves}</td></tr>
-                            ${isPro ? `
-                            <tr><td>${match.stats[match.teams[1]].stops || 0}</td><td>Blocks</td><td>${match.stats[match.teams[0]].stops || 0}</td></tr>
+                            <tr><td>${(match.stats && match.stats[match.teams[1]] && match.stats[match.teams[1]].shots) || 0}</td><td>Shots</td><td>${(match.stats && match.stats[match.teams[0]] && match.stats[match.teams[0]].shots) || 0}</td></tr>
+                            <tr><td>${(match.stats && match.stats[match.teams[1]] && match.stats[match.teams[1]].sogs) || 0}</td><td>On Goal</td><td>${(match.stats && match.stats[match.teams[0]] && match.stats[match.teams[0]].sogs) || 0}</td></tr>
+                            <tr><td>${(match.stats && match.stats[match.teams[1]] && match.stats[match.teams[1]].saves) || 0}</td><td>Saves</td><td>${(match.stats && match.stats[match.teams[0]] && match.stats[match.teams[0]].saves) || 0}</td></tr>
+                            ${isPro && match.stats ? `
+                            <tr><td>${(match.stats[match.teams[1]] && match.stats[match.teams[1]].stops) || 0}</td><td>Blocks</td><td>${(match.stats[match.teams[0]] && match.stats[match.teams[0]].stops) || 0}</td></tr>
                             ` : ''}
                         </table>
                     </div>
