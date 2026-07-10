@@ -1233,22 +1233,52 @@
             } catch(e) {}
 
             // Get team matches with robust deduplication
-            const teamMatches = [];
+            const groupMatches = [];
+            const knockoutMatches = [];
             const seenMatchKeys = new Set();
             
-            const addMatchToTeamList = (m) => {
+            const addMatchToList = (m, list) => {
                 if (!m.teams.includes(teamName)) return;
                 const matchKey = m.id || m.log_path || ([...m.teams].sort().join('|') + (m.day || 'x') + m.score.join('|'));
                 if (seenMatchKeys.has(matchKey)) return;
                 seenMatchKeys.add(matchKey);
-                teamMatches.push(m);
+                list.push(m);
             };
 
-            Object.values(currentData.groups).forEach(g => g.matches.forEach(addMatchToTeamList));
-            teamMatches.sort((a, b) => (a.day || 0) - (b.day || 0));
+            Object.values(currentData.groups).forEach(g => g.matches.forEach(m => addMatchToList(m, groupMatches)));
+            
+            // Include Playoff Matches
+            if (currentData.playoffs) {
+                const addKO = (m, roundName = "Knockout") => {
+                    m._roundName = roundName;
+                    addMatchToList(m, knockoutMatches);
+                };
+
+                if (currentData.playoffs.rounds) {
+                    currentData.playoffs.rounds.forEach(r => {
+                        if (r.matches) r.matches.forEach(m => addKO(m, r.name));
+                    });
+                }
+                if (currentData.playoffs.semifinals) {
+                    currentData.playoffs.semifinals.forEach(m => addKO(m, "Semifinals"));
+                }
+                if (currentData.playoffs.finals) {
+                    currentData.playoffs.finals.forEach(m => addKO(m, "Finals"));
+                }
+                if (currentData.playoffs.final) {
+                    addKO(currentData.playoffs.final, "Final");
+                }
+                if (currentData.playoffs.matches) {
+                    currentData.playoffs.matches.forEach(m => addKO(m, "Playoffs"));
+                }
+            }
+
+            const teamMatches = [...groupMatches, ...knockoutMatches].sort((a, b) => (a.day || 0) - (b.day || 0));
 
             // Load roster and aggregate stats
             let rosterHtml = '<p>Loading roster...</p>';
+            const isLeague = currentData.config && currentData.config.type === 'league';
+            
             try {
                 const playerStats = {};
                 const goalkeeperStats = {};
@@ -1264,28 +1294,30 @@
                 }
 
                 teamMatches.forEach(m => {
-                    if (m.played) {
+                    if (m.played && m.player_data) {
                         const side = m.teams[0] === teamName ? 'team1' : 'team2';
                         const roster = m.player_data[side];
                         
-                        roster.forEach((p, idx) => {
-                            if (!playerCountries[p.name]) playerCountries[p.name] = teamName;
-                            
-                            const isGK = p.pos === 'GK' || ((!p.pos || p.pos === 'N/A') && idx === roster.length - 1);
-                            
-                            if (isGK) {
-                                if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
-                                goalkeeperStats[p.name].saves += (p.saves || 0);
-                                goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
-                            } else {
-                                if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0, assists: 0, stops: 0 };
-                                playerStats[p.name].shots += p.shots;
-                                playerStats[p.name].sogs += p.sogs;
-                                playerStats[p.name].goals += p.goals;
-                                playerStats[p.name].assists += (p.assists || 0);
-                                playerStats[p.name].stops += (p.stops || 0);
-                            }
-                        });
+                        if (roster) {
+                            roster.forEach((p, idx) => {
+                                if (!playerCountries[p.name]) playerCountries[p.name] = teamName;
+                                
+                                const isGK = p.pos === 'GK' || ((!p.pos || p.pos === 'N/A') && idx === roster.length - 1);
+                                
+                                if (isGK) {
+                                    if (!goalkeeperStats[p.name]) goalkeeperStats[p.name] = { saves: 0, goals_against: 0 };
+                                    goalkeeperStats[p.name].saves += (p.saves || 0);
+                                    goalkeeperStats[p.name].goals_against += (p.goals_against || 0);
+                                } else {
+                                    if (!playerStats[p.name]) playerStats[p.name] = { shots: 0, sogs: 0, goals: 0, assists: 0, stops: 0 };
+                                    playerStats[p.name].shots += (p.shots || 0);
+                                    playerStats[p.name].sogs += (p.sogs || 0);
+                                    playerStats[p.name].goals += (p.goals || 0);
+                                    playerStats[p.name].assists += (p.assists || 0);
+                                    playerStats[p.name].stops += (p.stops || 0);
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -1374,26 +1406,56 @@
             }
 
             const ordinal = (n) => n + (n > 10 && n < 20 ? 'th' : {1: 'st', 2: 'nd', 3: 'rd'}[n % 10] || 'th');
-            const isLeague = currentData.config && currentData.config.type === 'league';
             const groupHeader = isLeague ? teamGroup : `Group ${teamGroup} Standings`;
             const eloText = eloRank ? (currentYear == '2025' ? ` | Club Ranking: #${eloRank}` : ` | World Ranking: #${eloRank}`) : '';
             const rankText = (isLeague ? `${ordinal(teamRank)} in ${teamGroup}` : `${ordinal(teamRank)} in Group ${teamGroup}`) + eloText;
 
             let matchesHtml = '';
-            if (currentYear === '2025') {
-                const matchesByMonth = {};
-                teamMatches.forEach(m => {
-                    const month = getMatchDate(m.day).toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
-                    if (!matchesByMonth[month]) matchesByMonth[month] = [];
-                    matchesByMonth[month].push(m);
+            
+            // 1. Group Stage / League Season Section
+            if (groupMatches.length > 0) {
+                if (currentYear === '2025' && isLeague) {
+                    const matchesByMonth = {};
+                    groupMatches.forEach(m => {
+                        const month = getMatchDate(m.day).toLocaleDateString('en-US', { month: 'long' }).toUpperCase();
+                        if (!matchesByMonth[month]) matchesByMonth[month] = [];
+                        matchesByMonth[month].push(m);
+                    });
+
+                    Object.entries(matchesByMonth).forEach(([month, matches]) => {
+                        const cards = matches.map(m => createMatchCard(m)).filter(Boolean);
+                        if (cards.length > 0) {
+                            matchesHtml += `<h4 class="month-header">${month}</h4>`;
+                            matchesHtml += `<div class="matches-list">${cards.map(c => c.outerHTML).join('')}</div>`;
+                        }
+                    });
+                } else {
+                    const cards = groupMatches.sort((a,b) => (a.day||0)-(b.day||0)).map(m => createMatchCard(m)).filter(Boolean);
+                    if (cards.length > 0) {
+                        matchesHtml += `<h3>Matches</h3>`;
+                        matchesHtml += `<div class="matches-list">${cards.map(c => c.outerHTML).join('')}</div>`;
+                    }
+                }
+            }
+
+            // 2. Knockout Stage Section (Grouped by Round)
+            if (knockoutMatches.length > 0) {
+                const rounds = {};
+                knockoutMatches.forEach(m => {
+                    let rName = m._roundName || "Knockout";
+                    if (rName === "Group First Round") rName = "Wild-Card Round";
+                    rName = rName.toUpperCase();
+                    if (!rounds[rName]) rounds[rName] = [];
+                    rounds[rName].push(m);
                 });
 
-                Object.entries(matchesByMonth).forEach(([month, matches]) => {
-                    matchesHtml += `<h4 class="month-header">${month}</h4>`;
-                    matchesHtml += `<div class="matches-list">${matches.map(m => createMatchCard(m).outerHTML).join('')}</div>`;
+                Object.entries(rounds).forEach(([rName, matches]) => {
+                    const cards = matches.sort((a,b) => (a.day||0)-(b.day||0)).map(m => createMatchCard(m)).filter(Boolean);
+                    if (cards.length > 0) {
+                        matchesHtml += `<h4 class="month-header">${rName}</h4>`;
+                        matchesHtml += `<div class="matches-list">${cards.map(c => c.outerHTML).join('')}</div>`;
+                    }
                 });
-            } else {
-                matchesHtml = `<div class="matches-list">${teamMatches.map(m => createMatchCard(m).outerHTML).join('')}</div>`;
             }
 
             content.innerHTML = `
@@ -1429,7 +1491,6 @@
                     </div>
                 </div>
 
-                <h3>Matches</h3>
                 ${matchesHtml}
             `;            
             // Re-bind click events to the newly injected HTML cards
@@ -1470,7 +1531,9 @@
                 playoffs.rounds.forEach((round, rIdx) => {
                     const roundDiv = document.createElement('div');
                     roundDiv.className = 'bracket-round';
-                    roundDiv.innerHTML = `<h3>${round.name}</h3>`;
+                    let roundName = round.name;
+                    if (roundName === "Group First Round") roundName = "Wild-Card Round";
+                    roundDiv.innerHTML = `<h3>${roundName}</h3>`;
 
                     // Group by series_id if present
                     const seriesGroups = {};
@@ -1565,7 +1628,7 @@
                 if (seenMatches.has(matchKey)) return;
                 seenMatches.add(matchKey);
 
-                if (m.played) {
+                if (m.played && m.events && m.player_data) {
                     m.events.forEach(e => {
                         if (!scorers[e.player]) scorers[e.player] = { goals: 0, team: e.team };
                         scorers[e.player].goals++;
@@ -1597,6 +1660,27 @@
             };
 
             Object.values(currentData.groups).forEach(g => g.matches.forEach(processMatchForGlobalStats));
+            
+            // Include Playoff Matches
+            if (currentData.playoffs) {
+                if (currentData.playoffs.rounds) {
+                    currentData.playoffs.rounds.forEach(r => {
+                        if (r.matches) r.matches.forEach(processMatchForGlobalStats);
+                    });
+                }
+                if (currentData.playoffs.semifinals) {
+                    currentData.playoffs.semifinals.forEach(processMatchForGlobalStats);
+                }
+                if (currentData.playoffs.finals) {
+                    currentData.playoffs.finals.forEach(processMatchForGlobalStats);
+                }
+                if (currentData.playoffs.final) {
+                    processMatchForGlobalStats(currentData.playoffs.final);
+                }
+                if (currentData.playoffs.matches) {
+                    currentData.playoffs.matches.forEach(processMatchForGlobalStats);
+                }
+            }
 
             const sortedScorers = Object.entries(scorers).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.goals - a.goals).slice(0, 15);
             const sortedAssisters = Object.entries(assisters).map(([n, d]) => ({ name: n, ...d })).sort((a,b) => b.assists - a.assists).slice(0, 15);
