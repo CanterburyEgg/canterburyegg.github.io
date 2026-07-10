@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 28,
+  "current_day": 29,
   "groups": {
     "A": {
       "matches": [
@@ -19851,10 +19851,242 @@
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
-            "label": "QF_2"
+            "played": true,
+            "label": "QF_2",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 51,
+                "team": "Netherlands",
+                "player": "Richard van der Heijden",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "United States": {
+                "shots": 10,
+                "sogs": 4,
+                "saves": 1,
+                "possession": 50,
+                "stops": 0
+              },
+              "Netherlands": {
+                "shots": 12,
+                "sogs": 2,
+                "saves": 4,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Nick Hamburger",
+                  "pos": "N/A",
+                  "shots": 10,
+                  "sogs": 4,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lawrence Porter",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sawyer Marshall",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Bailey Myers-Morgan",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Casey Myers-Morgan",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Silas McBride",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Brandon Boyd",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Chavez",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Victor Weaver",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 1,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Richard van der Heijden",
+                  "pos": "N/A",
+                  "shots": 12,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan van Dijk",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeremie Frimpong",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rob Brouwer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Peter Meijer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nathan van de Ven",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Kuiper",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/United States_vs_Netherlands_710122957_938.txt"
           },
           {
             "day": 29,
@@ -19891,7 +20123,7 @@
             "day": 32,
             "teams": [
               "Germany",
-              "TBD"
+              "Netherlands"
             ],
             "score": [
               0,
