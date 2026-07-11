@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 29,
+  "current_day": 30,
   "groups": {
     "A": {
       "matches": [
@@ -20096,10 +20096,260 @@
             ],
             "score": [
               0,
-              0
+              4
             ],
-            "played": false,
-            "label": "QF_3"
+            "played": true,
+            "label": "QF_3",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 25,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              },
+              {
+                "minute": 57,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              },
+              {
+                "minute": 61,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              },
+              {
+                "minute": 86,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Egypt": {
+                "shots": 5,
+                "sogs": 4,
+                "saves": 3,
+                "possession": 50,
+                "stops": 0
+              },
+              "Argentina": {
+                "shots": 17,
+                "sogs": 7,
+                "saves": 4,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Rachim Azzizi",
+                  "pos": "N/A",
+                  "shots": 5,
+                  "sogs": 4,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Khalif Karam",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Mostafa Hassan",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Abo Samir",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hassan Elsayed",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Zizo Fathi",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Sherif Farouk",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ahmed Salah",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Omar Mady",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 4
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Diego Perez",
+                  "pos": "N/A",
+                  "shots": 17,
+                  "sogs": 7,
+                  "goals": 4,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Molina",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 4,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Egypt_vs_Argentina_711145544_638.txt"
           },
           {
             "day": 30,
@@ -20135,7 +20385,7 @@
           {
             "day": 33,
             "teams": [
-              "TBD",
+              "Argentina",
               "TBD"
             ],
             "score": [
