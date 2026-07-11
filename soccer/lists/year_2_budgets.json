@@ -1,0 +1,386 @@
+{
+    "New York Empire": {
+        "year_2_budget": 218,
+        "year_1_budget": 183.0,
+        "revenue_raw": 218.12,
+        "league": "Backyard"
+    },
+    "Las Vegas Mirage": {
+        "year_2_budget": 207,
+        "year_1_budget": 173.0,
+        "revenue_raw": 206.93,
+        "league": "Backyard"
+    },
+    "Los Angeles Syndicate": {
+        "year_2_budget": 184,
+        "year_1_budget": 176.0,
+        "revenue_raw": 183.58,
+        "league": "Backyard"
+    },
+    "Chicago Surge": {
+        "year_2_budget": 172,
+        "year_1_budget": 172.0,
+        "revenue_raw": 153.85,
+        "league": "Backyard"
+    },
+    "Boston Rebellion": {
+        "year_2_budget": 163,
+        "year_1_budget": 163.0,
+        "revenue_raw": 150.83,
+        "league": "Backyard"
+    },
+    "Toronto Blizzard": {
+        "year_2_budget": 159,
+        "year_1_budget": 159.0,
+        "revenue_raw": 156.18,
+        "league": "Backyard"
+    },
+    "Mexico City Sol": {
+        "year_2_budget": 159,
+        "year_1_budget": 159.0,
+        "revenue_raw": 147.95,
+        "league": "Backyard"
+    },
+    "Seattle Echo": {
+        "year_2_budget": 152,
+        "year_1_budget": 152.0,
+        "revenue_raw": 149.31,
+        "league": "Backyard"
+    },
+    "Philadelphia Spirit": {
+        "year_2_budget": 148,
+        "year_1_budget": 148.0,
+        "revenue_raw": 141.62,
+        "league": "Backyard"
+    },
+    "Dallas Flare": {
+        "year_2_budget": 146,
+        "year_1_budget": 146.0,
+        "revenue_raw": 140.99,
+        "league": "Backyard"
+    },
+    "San Jose Relampago": {
+        "year_2_budget": 139,
+        "year_1_budget": 139.0,
+        "revenue_raw": 122.34,
+        "league": "Backyard"
+    },
+    "Montreal Coureurs": {
+        "year_2_budget": 136,
+        "year_1_budget": 136.0,
+        "revenue_raw": 124.4,
+        "league": "Backyard"
+    },
+    "Tijuana Vaqueros": {
+        "year_2_budget": 135,
+        "year_1_budget": 135.0,
+        "revenue_raw": 134.86,
+        "league": "Backyard"
+    },
+    "Washington Justice": {
+        "year_2_budget": 128,
+        "year_1_budget": 128.0,
+        "revenue_raw": 122.26,
+        "league": "Backyard"
+    },
+    "Detroit Firebirds": {
+        "year_2_budget": 126,
+        "year_1_budget": 126.0,
+        "revenue_raw": 118.47,
+        "league": "Backyard"
+    },
+    "Denver Torrent": {
+        "year_2_budget": 126,
+        "year_1_budget": 126.0,
+        "revenue_raw": 118.47,
+        "league": "Backyard"
+    },
+    "Haverford Black": {
+        "year_2_budget": 253,
+        "year_1_budget": 214.0,
+        "revenue_raw": 253.27,
+        "league": "Prime"
+    },
+    "Stella Grey": {
+        "year_2_budget": 232,
+        "year_1_budget": 210.0,
+        "revenue_raw": 231.81,
+        "league": "Prime"
+    },
+    "Chateau Roux": {
+        "year_2_budget": 224,
+        "year_1_budget": 209.0,
+        "revenue_raw": 224.48,
+        "league": "Prime"
+    },
+    "Stratton United": {
+        "year_2_budget": 217,
+        "year_1_budget": 222.0,
+        "revenue_raw": 196.96,
+        "league": "Prime"
+    },
+    "Thurston FC West": {
+        "year_2_budget": 208,
+        "year_1_budget": 193.0,
+        "revenue_raw": 208.03,
+        "league": "Prime"
+    },
+    "Eisenwald 1900": {
+        "year_2_budget": 199,
+        "year_1_budget": 184.0,
+        "revenue_raw": 199.46,
+        "league": "Prime"
+    },
+    "Thurston FC East": {
+        "year_2_budget": 193,
+        "year_1_budget": 193.0,
+        "revenue_raw": 175.54,
+        "league": "Prime"
+    },
+    "Glass Castle FC": {
+        "year_2_budget": 189,
+        "year_1_budget": 197.0,
+        "revenue_raw": 169.1,
+        "league": "Prime"
+    },
+    "Askhatansa": {
+        "year_2_budget": 179,
+        "year_1_budget": 179.0,
+        "revenue_raw": 164.05,
+        "league": "Prime"
+    },
+    "Cheicester City": {
+        "year_2_budget": 176,
+        "year_1_budget": 176.0,
+        "revenue_raw": 156.43,
+        "league": "Prime"
+    },
+    "Barroclaugh Athletic": {
+        "year_2_budget": 171,
+        "year_1_budget": 168.0,
+        "revenue_raw": 170.9,
+        "league": "Prime"
+    },
+    "Havenpoort FC": {
+        "year_2_budget": 163,
+        "year_1_budget": 164.0,
+        "revenue_raw": 142.91,
+        "league": "Prime"
+    },
+    "Les Brasseurs": {
+        "year_2_budget": 163,
+        "year_1_budget": 162.0,
+        "revenue_raw": 162.65,
+        "league": "Prime"
+    },
+    "Corsaires de Calais": {
+        "year_2_budget": 154,
+        "year_1_budget": 154.0,
+        "revenue_raw": 150.06,
+        "league": "Prime"
+    },
+    "Celtic Cross FC": {
+        "year_2_budget": 153,
+        "year_1_budget": 151.0,
+        "revenue_raw": 153.01,
+        "league": "Prime"
+    },
+    "Stedham Journeymen": {
+        "year_2_budget": 151,
+        "year_1_budget": 151.0,
+        "revenue_raw": 142.91,
+        "league": "Prime"
+    },
+    "Edelweiss Zurich": {
+        "year_2_budget": 205,
+        "year_1_budget": 155.0,
+        "revenue_raw": 205.42,
+        "league": "Euro"
+    },
+    "Sisu Helsinki": {
+        "year_2_budget": 174,
+        "year_1_budget": 136.0,
+        "revenue_raw": 174.19,
+        "league": "Euro"
+    },
+    "Moscow Krepost": {
+        "year_2_budget": 161,
+        "year_1_budget": 163.0,
+        "revenue_raw": 141.35,
+        "league": "Euro"
+    },
+    "Slavutych Kyiv": {
+        "year_2_budget": 157,
+        "year_1_budget": 157.0,
+        "revenue_raw": 145.97,
+        "league": "Euro"
+    },
+    "Oslo Vikinger": {
+        "year_2_budget": 152,
+        "year_1_budget": 145.0,
+        "revenue_raw": 152.03,
+        "league": "Euro"
+    },
+    "Stockholm United": {
+        "year_2_budget": 148,
+        "year_1_budget": 154.0,
+        "revenue_raw": 128.12,
+        "league": "Euro"
+    },
+    "Donau Wien": {
+        "year_2_budget": 143,
+        "year_1_budget": 143.0,
+        "revenue_raw": 129.63,
+        "league": "Euro"
+    },
+    "Dunav Belgrade": {
+        "year_2_budget": 143,
+        "year_1_budget": 143.0,
+        "revenue_raw": 133.65,
+        "league": "Euro"
+    },
+    "Bohemian Gryphons": {
+        "year_2_budget": 139,
+        "year_1_budget": 131.0,
+        "revenue_raw": 139.43,
+        "league": "Euro"
+    },
+    "Kongens FC": {
+        "year_2_budget": 133,
+        "year_1_budget": 133.0,
+        "revenue_raw": 125.95,
+        "league": "Euro"
+    },
+    "Korona Warsaw": {
+        "year_2_budget": 125,
+        "year_1_budget": 125.0,
+        "revenue_raw": 116.98,
+        "league": "Euro"
+    },
+    "Magyar Huszar": {
+        "year_2_budget": 122,
+        "year_1_budget": 122.0,
+        "revenue_raw": 106.23,
+        "league": "Euro"
+    },
+    "Bucharest International": {
+        "year_2_budget": 121,
+        "year_1_budget": 121.0,
+        "revenue_raw": 120.51,
+        "league": "Euro"
+    },
+    "Sarajevo Grad": {
+        "year_2_budget": 115,
+        "year_1_budget": 115.0,
+        "revenue_raw": 111.55,
+        "league": "Euro"
+    },
+    "Reykjavik Isbjorn": {
+        "year_2_budget": 113,
+        "year_1_budget": 113.0,
+        "revenue_raw": 111.84,
+        "league": "Euro"
+    },
+    "Slavia Tatry": {
+        "year_2_budget": 113,
+        "year_1_budget": 113.0,
+        "revenue_raw": 106.23,
+        "league": "Euro"
+    },
+    "Le Rocher Monaco": {
+        "year_2_budget": 230,
+        "year_1_budget": 176.0,
+        "revenue_raw": 229.57,
+        "league": "Med"
+    },
+    "Fursan al-Arab": {
+        "year_2_budget": 218,
+        "year_1_budget": 191.0,
+        "revenue_raw": 218.45,
+        "league": "Med"
+    },
+    "Imperiale Roma": {
+        "year_2_budget": 200,
+        "year_1_budget": 202.0,
+        "revenue_raw": 180.35,
+        "league": "Med"
+    },
+    "Castellano Madrid": {
+        "year_2_budget": 195,
+        "year_1_budget": 195.0,
+        "revenue_raw": 195.0,
+        "league": "Med"
+    },
+    "Al-Qahira FC": {
+        "year_2_budget": 180,
+        "year_1_budget": 192.0,
+        "revenue_raw": 160.11,
+        "league": "Med"
+    },
+    "Catalonia Gothic": {
+        "year_2_budget": 180,
+        "year_1_budget": 180.0,
+        "revenue_raw": 162.22,
+        "league": "Med"
+    },
+    "Barbary Apes": {
+        "year_2_budget": 166,
+        "year_1_budget": 176.0,
+        "revenue_raw": 146.22,
+        "league": "Med"
+    },
+    "Bosphorus Blue": {
+        "year_2_budget": 164,
+        "year_1_budget": 164.0,
+        "revenue_raw": 162.98,
+        "league": "Med"
+    },
+    "Visconti Serpents": {
+        "year_2_budget": 161,
+        "year_1_budget": 161.0,
+        "revenue_raw": 143.34,
+        "league": "Med"
+    },
+    "Olympias Athena": {
+        "year_2_budget": 157,
+        "year_1_budget": 168.0,
+        "revenue_raw": 136.97,
+        "league": "Med"
+    },
+    "Lisbon United": {
+        "year_2_budget": 156,
+        "year_1_budget": 154.0,
+        "revenue_raw": 156.08,
+        "league": "Med"
+    },
+    "Lions of Carthage": {
+        "year_2_budget": 150,
+        "year_1_budget": 150.0,
+        "revenue_raw": 143.63,
+        "league": "Med"
+    },
+    "Najm al-Bayda": {
+        "year_2_budget": 148,
+        "year_1_budget": 148.0,
+        "revenue_raw": 143.74,
+        "league": "Med"
+    },
+    "Alexandria Faros": {
+        "year_2_budget": 141,
+        "year_1_budget": 141.0,
+        "revenue_raw": 133.56,
+        "league": "Med"
+    },
+    "Damascus Steel": {
+        "year_2_budget": 138,
+        "year_1_budget": 138.0,
+        "revenue_raw": 127.19,
+        "league": "Med"
+    },
+    "Tripoli Sporting": {
+        "year_2_budget": 138,
+        "year_1_budget": 138.0,
+        "revenue_raw": 127.19,
+        "league": "Med"
+    }
+}
