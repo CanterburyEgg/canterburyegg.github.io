@@ -1,0 +1,162 @@
+
+============================== PRIME LEAGUE AUDIT ==============================
+
+--- FWD RANKINGS (Efficiency + G/100) ---
+Name                   | Rating | RRnk | Metric | MRnk | Net | Data
+-----------------------------------------------------------------------------------------------
+Park Hyeon-Bin         |  46.22 |    5 | 0.751 |    1 | +4  | G:24 SOG:47
+Valeriu Florea         |  39.94 |   17 | 0.718 |    2 | +15 | G:19 SOG:36
+Andrew Moore           |  42.94 |   12 | 0.693 |    3 | +9  | G:26 SOG:60
+Antoine Gauthier       |  44.18 |    9 | 0.651 |    4 | +5  | G:22 SOG:51
+Craig Young            |  38.90 |   23 | 0.630 |    5 | +18 | G:13 SOG:26
+Diego Castillo         |  41.94 |   14 | 0.607 |    6 | +8  | G:23 SOG:61
+Mohamed Alaoui         |  36.90 |   30 | 0.604 |    7 | +23 | G:16 SOG:36
+Gustavo Suarez         |  46.48 |    3 | 0.578 |    8 | -5  | G:23 SOG:66
+Olivier Rousseau       |  46.20 |    6 | 0.570 |    9 | -3  | G:16 SOG:39
+Hernan Torres          |  39.12 |   22 | 0.552 |   10 | +12 | G:14 SOG:34
+Leslie Knight          |  37.36 |   26 | 0.552 |   11 | +15 | G:14 SOG:34
+Conor O'Sullivan       |  39.41 |   20 | 0.550 |   12 | +8  | G:16 SOG:41
+Joao Pereira           |  39.87 |   18 | 0.549 |   13 | +5  | G:12 SOG:28
+Gerhard Muller         |  42.44 |   13 | 0.541 |   14 | -1  | G:16 SOG:42
+Marco Alvarez          |  43.42 |   10 | 0.524 |   15 | -5  | G:16 SOG:44
+Dragan Petrovic        |  44.22 |    7 | 0.490 |   16 | -9  | G:18 SOG:58
+Patrick Murray         |  37.93 |   24 | 0.487 |   17 | +7  | G:16 SOG:49
+Manuel Castillo        |  37.15 |   28 | 0.485 |   18 | +10 | G:10 SOG:26
+Jean-Pierre de Clercq  |  50.00 |    1 | 0.469 |   19 | -18 | G:15 SOG:47
+Gustavo Techera        |  43.41 |   11 | 0.453 |   20 | -9  | G:12 SOG:36
+Kwon Seung-Hyeok       |  46.46 |    4 | 0.447 |   21 | -17 | G:13 SOG:41
+Marcos Aguilar         |  36.92 |   29 | 0.424 |   22 | +7  | G:11 SOG:35
+Theo de Boer           |  35.83 |   32 | 0.424 |   23 | +9  | G:11 SOG:35
+Dominique Girard       |  39.44 |   19 | 0.400 |   24 | -5  | G:8 SOG:25
+Neil Griffith          |  44.19 |    8 | 0.399 |   25 | -17 | G:11 SOG:38
+Carlos Acosta          |  39.14 |   21 | 0.399 |   26 | -5  | G:11 SOG:38
+Jan van Dijk           |  41.19 |   15 | 0.376 |   27 | -12 | G:8 SOG:27
+Mickael Caron          |  36.85 |   31 | 0.376 |   28 | +3  | G:6 SOG:19
+Edmond Toska           |  37.16 |   27 | 0.350 |   29 | -2  | G:10 SOG:40
+Colin Pugh             |  40.45 |   16 | 0.347 |   30 | -14 | G:9 SOG:35
+Alain Goossens         |  37.40 |   25 | 0.338 |   31 | -6  | G:8 SOG:31
+Richard van der Heijden |  46.72 |    2 | 0.282 |   32 | -30 | G:6 SOG:27
+
+--- MID RANKINGS (Rel Production (G/avg + A/avg + S/avg)) ---
+Name                   | Rating | RRnk | Metric | MRnk | Net | Data
+-----------------------------------------------------------------------------------------------
+Thierry Payet          |  41.73 |   11 | 4.723 |    1 | +10 | G:11 A:9 S:94
+Bailey Myers-Morgan    |  40.45 |   15 | 4.555 |    2 | +13 | G:9 A:11 S:85
+Edgar Jimenez          |  42.21 |   10 | 4.448 |    3 | +7  | G:10 A:11 S:68
+Jurgen Richter         |  43.48 |    3 | 4.345 |    4 | -1  | G:8 A:13 S:63
+Ramon Perdomo          |  42.44 |    9 | 4.239 |    5 | +4  | G:6 A:10 S:106
+Casey Myers-Morgan     |  38.13 |   25 | 4.212 |    6 | +19 | G:9 A:4 S:131
+Wolfgang Koch          |  46.75 |    1 | 4.087 |    7 | -6  | G:6 A:14 S:58
+Ko Kamada              |  38.68 |   22 | 3.920 |    8 | +14 | G:9 A:10 S:55
+Lisandro Romero        |  42.50 |    8 | 3.652 |    9 | -1  | G:7 A:10 S:59
+Nigel Maharaj          |  42.72 |    6 | 3.588 |   10 | -4  | G:7 A:10 S:55
+Eamon Murphy           |  38.94 |   21 | 3.579 |   11 | +10 | G:8 A:7 S:73
+Dayot Hernandez        |  41.23 |   13 | 3.559 |   12 | +1  | G:10 A:7 S:51
+Salisu Abdul Samed     |  37.20 |   32 | 3.462 |   13 | +19 | G:10 A:7 S:45
+Sergio Baez            |  41.49 |   12 | 3.343 |   14 | -2  | G:7 A:8 S:59
+Denis Chevalier        |  36.14 |   35 | 3.331 |   15 | +20 | G:5 A:8 S:79
+Marc Watkins           |  39.62 |   18 | 3.203 |   16 | +2  | G:5 A:8 S:71
+Jacques Lemaire        |  43.47 |    4 | 3.184 |   17 | -13 | G:7 A:5 S:78
+Amadou Onana           |  37.82 |   29 | 3.094 |   18 | +11 | G:6 A:3 S:102
+Ramos Marrero          |  36.10 |   36 | 3.061 |   19 | +17 | G:5 A:5 S:91
+Rob Brouwer            |  33.02 |   40 | 3.036 |   20 | +20 | G:7 A:3 S:88
+Elias Matsimbe         |  36.91 |   33 | 3.025 |   21 | +12 | G:3 A:9 S:71
+Peter Meijer           |  36.66 |   34 | 3.015 |   22 | +12 | G:5 A:10 S:40
+Adrian Llewellyn       |  42.70 |    7 | 2.990 |   23 | -16 | G:6 A:7 S:57
+Stefan Winter          |  38.19 |   23 | 2.899 |   24 | -1  | G:5 A:8 S:52
+Marc Renard            |  39.59 |   19 | 2.872 |   25 | -6  | G:5 A:7 S:60
+Charles Stewart        |  31.85 |   42 | 2.797 |   26 | +16 | G:4 A:8 S:56
+Stuart Holmes          |  40.74 |   14 | 2.775 |   27 | -13 | G:9 A:3 S:51
+Fabian Gomez           |  37.66 |   30 | 2.774 |   28 | +2  | G:7 A:4 S:62
+Jamie Price            |  30.76 |   45 | 2.760 |   29 | +16 | G:5 A:7 S:53
+Mitchell Duke          |  37.90 |   27 | 2.642 |   30 | -3  | G:3 A:6 S:76
+Gilberto Delgado       |  38.95 |   20 | 2.615 |   31 | -11 | G:2 A:7 S:75
+Francisco Rodrigues    |  31.63 |   43 | 2.522 |   32 | +11 | G:3 A:10 S:30
+Roy Foster             |  32.87 |   41 | 2.519 |   33 | +8  | G:8 A:2 S:55
+Bernard Michel         |  42.75 |    5 | 2.489 |   34 | -29 | G:6 A:5 S:45
+Edwin Ruiz             |  37.47 |   31 | 2.467 |   35 | -4  | G:6 A:6 S:34
+Jeremie Frimpong       |  37.94 |   26 | 2.439 |   36 | -10 | G:8 A:2 S:50
+Pieter van Vliet       |  35.40 |   38 | 2.398 |   37 | +1  | G:5 A:6 S:40
+Juan Apaza             |  30.87 |   44 | 2.380 |   38 | +6  | G:4 A:8 S:30
+Yannick Barbier        |  37.87 |   28 | 2.369 |   39 | -11 | G:6 A:1 S:76
+Johan Post             |  30.34 |   47 | 2.336 |   40 | +7  | G:2 A:8 S:48
+Desmond Bonnet         |  35.92 |   37 | 2.331 |   41 | -4  | G:7 A:3 S:44
+Zeljko Vukevic         |  38.14 |   24 | 2.281 |   42 | -18 | G:4 A:3 S:72
+Federico Barella       |  35.35 |   39 | 2.264 |   43 | -4  | G:2 A:4 S:82
+Vincent van de Velde   |  43.50 |    2 | 2.144 |   44 | -42 | G:7 A:2 S:42
+Kalidou Koulibaly      |  39.93 |   17 | 2.139 |   45 | -28 | G:6 A:2 S:52
+Luis Gallese           |  30.31 |   48 | 1.806 |   46 | +2  | G:5 A:3 S:32
+Floyd Adebayor         |  30.60 |   46 | 1.793 |   47 | -1  | G:2 A:5 S:43
+Ruben Schar            |  40.22 |   16 | 1.538 |   48 | -32 | G:2 A:2 S:56
+
+--- DEF RANKINGS (Stops per 100% OppPoss) ---
+Name                   | Rating | RRnk | Metric | MRnk | Net | Data
+-----------------------------------------------------------------------------------------------
+Craig Henderson        |  36.31 |   20 | 11.867 |    1 | +19 | S:157 OppPossUnits:13.23
+Jeroen de Jong         |  37.29 |   14 | 11.346 |    2 | +12 | S:209 OppPossUnits:18.42
+Clive Jones            |  41.26 |    8 | 11.251 |    3 | +5  | S:170 OppPossUnits:15.11
+Jaime Riquelme         |  43.65 |    3 | 11.015 |    4 | -1  | S:204 OppPossUnits:18.52
+Antonio Rudiger        |  44.30 |    2 | 10.582 |    5 | -3  | S:171 OppPossUnits:16.16
+Gonzalo Machado        |  41.45 |    7 | 10.315 |    6 | +1  | S:157 OppPossUnits:15.22
+Murray Campbell        |  32.36 |   31 | 10.151 |    7 | +24 | S:188 OppPossUnits:18.52
+Krzysztof Sikora       |  38.25 |   12 | 10.120 |    8 | +4  | S:160 OppPossUnits:15.81
+Vitor Correia          |  42.16 |    4 | 9.951 |    9 | -5  | S:141 OppPossUnits:14.17
+Vu Hung Dung           |  32.25 |   36 | 9.933 |   10 | +26 | S:148 OppPossUnits:14.90
+Wilhelm Schafer        |  41.96 |    5 | 9.530 |   11 | -6  | S:144 OppPossUnits:15.11
+Clive Moore            |  35.91 |   22 | 9.466 |   12 | +10 | S:140 OppPossUnits:14.79
+Jean Gauthier          |  40.65 |   10 | 9.263 |   13 | -3  | S:137 OppPossUnits:14.79
+Adrian Walsh           |  35.57 |   23 | 9.114 |   14 | +9  | S:142 OppPossUnits:15.58
+Manfred Fischer        |  37.83 |   13 | 8.995 |   15 | -2  | S:128 OppPossUnits:14.23
+Christian Janssen      |  44.81 |    1 | 8.870 |   16 | -15 | S:135 OppPossUnits:15.22
+Geert Verhoeven        |  31.69 |   43 | 8.805 |   17 | +26 | S:129 OppPossUnits:14.65
+Theo Tchouameni        |  41.78 |    6 | 8.801 |   18 | -12 | S:163 OppPossUnits:18.52
+Declan Burke           |  32.26 |   35 | 8.587 |   19 | +16 | S:127 OppPossUnits:14.79
+Esteban Maidana        |  32.73 |   30 | 8.454 |   20 | +10 | S:117 OppPossUnits:13.84
+Mbaye Cisse            |  39.95 |   11 | 8.398 |   21 | -10 | S:119 OppPossUnits:14.17
+Richard Lemaire        |  36.55 |   18 | 8.344 |   22 | -4  | S:130 OppPossUnits:15.58
+Andritany Dimas        |  31.55 |   44 | 8.165 |   23 | +21 | S:113 OppPossUnits:13.84
+Nigel Price            |  36.99 |   16 | 7.800 |   24 | -8  | S:111 OppPossUnits:14.23
+Rene Chevalier         |  40.75 |    9 | 7.749 |   25 | -16 | S:116 OppPossUnits:14.97
+Gavin Powell           |  34.16 |   26 | 7.749 |   26 | 0   | S:116 OppPossUnits:14.97
+Gideon Seidu           |  32.29 |   33 | 7.677 |   27 | +6  | S:116 OppPossUnits:15.11
+Hernando Orozco        |  37.07 |   15 | 7.627 |   28 | -13 | S:107 OppPossUnits:14.03
+Hans Weber             |  34.25 |   25 | 7.590 |   29 | -4  | S:108 OppPossUnits:14.23
+Claude Timmermans      |  32.35 |   32 | 7.492 |   30 | +2  | S:138 OppPossUnits:18.42
+Karl Meier             |  32.79 |   28 | 7.348 |   31 | -3  | S:110 OppPossUnits:14.97
+Ollie Rice             |  36.15 |   21 | 7.253 |   32 | -11 | S:113 OppPossUnits:15.58
+Harry Souttar          |  30.85 |   48 | 7.181 |   33 | +15 | S:95 OppPossUnits:13.23
+Benoit Rousseau        |  32.28 |   34 | 7.178 |   34 | 0   | S:116 OppPossUnits:16.16
+Marcos Paz             |  31.53 |   45 | 7.128 |   35 | +10 | S:100 OppPossUnits:14.03
+Ramon Medina           |  31.94 |   40 | 7.056 |   36 | +4  | S:99 OppPossUnits:14.03
+Terence Kane           |  32.16 |   38 | 6.987 |   37 | +1  | S:99 OppPossUnits:14.17
+Timothy Theate         |  36.47 |   19 | 6.958 |   38 | -19 | S:110 OppPossUnits:15.81
+Manaraii Wagemann      |  31.94 |   39 | 6.958 |   39 | 0   | S:110 OppPossUnits:15.81
+Martijn van den Berg   |  34.49 |   24 | 6.931 |   40 | -16 | S:112 OppPossUnits:16.16
+Hiroshi Itakura        |  32.22 |   37 | 6.846 |   41 | -4  | S:102 OppPossUnits:14.90
+Marcel Verhoeven       |  32.78 |   29 | 6.840 |   42 | -13 | S:126 OppPossUnits:18.42
+Philip Gibson          |  31.37 |   46 | 6.689 |   43 | +3  | S:98 OppPossUnits:14.65
+Trevor Shaw            |  33.54 |   27 | 6.505 |   44 | -17 | S:99 OppPossUnits:15.22
+Darren King            |  36.66 |   17 | 6.280 |   45 | -28 | S:92 OppPossUnits:14.65
+Young-gwon Hwang       |  31.91 |   41 | 6.242 |   46 | -5  | S:93 OppPossUnits:14.90
+Moses Okeke            |  30.91 |   47 | 5.593 |   47 | 0   | S:74 OppPossUnits:13.23
+Denis Kizito           |  31.80 |   42 | 5.347 |   48 | -6  | S:74 OppPossUnits:13.84
+
+--- GK RANKINGS (Save %) ---
+Name                   | Rating | RRnk | Metric | MRnk | Net | Data
+-----------------------------------------------------------------------------------------------
+Stephen Hunt           |  42.44 |    3 | 0.710 |    1 | +2  | Svs:125 GA:51
+Jiri Novakova          |  47.70 |    1 | 0.707 |    2 | -1  | Svs:106 GA:44
+Sven Sjoberg           |  40.24 |    7 | 0.697 |    3 | +4  | Svs:124 GA:54
+Eddy van den Broeck    |  38.82 |   11 | 0.678 |    4 | +7  | Svs:116 GA:55
+Radu Dragomir          |  41.01 |    5 | 0.667 |    5 | 0   | Svs:102 GA:51
+Vicente Acuna          |  38.22 |   12 | 0.661 |    6 | +6  | Svs:117 GA:60
+Jose Lopes             |  42.63 |    2 | 0.661 |    7 | -5  | Svs:109 GA:56
+Mario Morales          |  37.61 |   13 | 0.642 |    8 | +5  | Svs:86 GA:48
+Pierre Blanchard       |  42.43 |    4 | 0.635 |    9 | -5  | Svs:108 GA:62
+Marcel Kuiper          |  40.00 |    8 | 0.622 |   10 | -2  | Svs:74 GA:45
+Wilmer Paz             |  37.37 |   14 | 0.601 |   11 | +3  | Svs:86 GA:57
+Ekanit Yooyen          |  40.64 |    6 | 0.594 |   12 | -6  | Svs:76 GA:52
+Saïd Djaloud           |  33.34 |   15 | 0.589 |   13 | +2  | Svs:86 GA:60
+Vicente Salazar        |  38.99 |   10 | 0.574 |   14 | -4  | Svs:78 GA:58
+Kenneth Wright         |  39.80 |    9 | 0.555 |   15 | -6  | Svs:86 GA:69
+Brahima Kamagate       |  33.30 |   16 | 0.554 |   16 | 0   | Svs:62 GA:50
