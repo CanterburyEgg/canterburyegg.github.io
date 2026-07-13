@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 30,
+  "current_day": 31,
   "groups": {
     "A": {
       "matches": [
@@ -20359,10 +20359,242 @@
             ],
             "score": [
               0,
-              0
+              1
             ],
-            "played": false,
-            "label": "QF_4"
+            "played": true,
+            "label": "QF_4",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 20,
+                "team": "Belgium",
+                "player": "Jean-Pierre de Clercq",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "England": {
+                "shots": 11,
+                "sogs": 3,
+                "saves": 2,
+                "possession": 50,
+                "stops": 0
+              },
+              "Belgium": {
+                "shots": 8,
+                "sogs": 3,
+                "saves": 3,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Neil Griffith",
+                  "pos": "N/A",
+                  "shots": 11,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Simon Knight",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Watkins",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Benjamin Webb",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stuart Holmes",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ollie Rice",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Graham Chapman",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nigel Price",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Stephen Hunt",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 1
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jean-Pierre de Clercq",
+                  "pos": "N/A",
+                  "shots": 8,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alain Goossens",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Renard",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geert Verhoeven",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eddy van den Broeck",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/England_vs_Belgium_712204633_497.txt"
           }
         ]
       },
@@ -20386,7 +20618,7 @@
             "day": 33,
             "teams": [
               "Argentina",
-              "TBD"
+              "Belgium"
             ],
             "score": [
               0,
