@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 31,
+  "current_day": 33,
   "groups": {
     "A": {
       "matches": [
@@ -20608,11 +20608,249 @@
               "Netherlands"
             ],
             "score": [
-              0,
+              2,
               0
             ],
-            "played": false,
-            "label": "SF_1"
+            "played": true,
+            "label": "SF_1",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 51,
+                "team": "Germany",
+                "player": "Gerhard Muller",
+                "assist": null
+              },
+              {
+                "minute": 75,
+                "team": "Germany",
+                "player": "Gerhard Muller",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Germany": {
+                "shots": 13,
+                "sogs": 7,
+                "saves": 3,
+                "possession": 50,
+                "stops": 0
+              },
+              "Netherlands": {
+                "shots": 11,
+                "sogs": 3,
+                "saves": 5,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gerhard Muller",
+                  "pos": "N/A",
+                  "shots": 13,
+                  "sogs": 7,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilkay Gundogan",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hans Weber",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manfred Fischer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Klaus Bauer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 0
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Richard van der Heijden",
+                  "pos": "N/A",
+                  "shots": 11,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan van Dijk",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeremie Frimpong",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rob Brouwer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Peter Meijer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nathan van de Ven",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Kuiper",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 2
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Germany_vs_Netherlands_714113734_511.txt"
           },
           {
             "day": 33,

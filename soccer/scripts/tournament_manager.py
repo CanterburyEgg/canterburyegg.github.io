@@ -1436,15 +1436,16 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
                     if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
                 # SF -> F & 3P
-                if sf[0]["played"] and sf[1]["played"]:
+                if sf[0]["played"]:
                     final_m = next((m for m in f if m["label"] == "F"), None)
                     third_m = next((m for m in f if m["label"] == "3P"), None)
-                    if final_m:
-                        if final_m["teams"][0] in ["TBD", None]: final_m["teams"][0] = get_winner(sf[0])
-                        if final_m["teams"][1] in ["TBD", None]: final_m["teams"][1] = get_winner(sf[1])
-                    if third_m:
-                        if third_m["teams"][0] in ["TBD", None]: third_m["teams"][0] = get_loser(sf[0])
-                        if third_m["teams"][1] in ["TBD", None]: third_m["teams"][1] = get_loser(sf[1])
+                    if final_m and final_m["teams"][0] in ["TBD", None]: final_m["teams"][0] = get_winner(sf[0])
+                    if third_m and third_m["teams"][0] in ["TBD", None]: third_m["teams"][0] = get_loser(sf[0])
+                if sf[1]["played"]:
+                    final_m = next((m for m in f if m["label"] == "F"), None)
+                    third_m = next((m for m in f if m["label"] == "3P"), None)
+                    if final_m and final_m["teams"][1] in ["TBD", None]: final_m["teams"][1] = get_winner(sf[1])
+                    if third_m and third_m["teams"][1] in ["TBD", None]: third_m["teams"][1] = get_loser(sf[1])
 
             elif config["type"] == "world_cup" and "rounds" in po:
                 r24, r16, qf, sf, f = [r["matches"] for r in po["rounds"]]
@@ -1462,10 +1463,11 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
                     if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
                 # SF -> Finals & 3rd Place
-                if sf[0]["played"] and sf[1]["played"]:
+                if sf[0]["played"]:
                     if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
-                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
                     if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
+                if sf[1]["played"]:
+                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
                     if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
             
             elif config["type"] == "afro_asia_cup" and "rounds" in po:
@@ -1480,10 +1482,11 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
                     if sf[i]["teams"][0] in ["TBD", None] and qf[i*2]["played"]: sf[i]["teams"][0] = get_winner(qf[i*2])
                     if sf[i]["teams"][1] in ["TBD", None] and qf[i*2+1]["played"]: sf[i]["teams"][1] = get_winner(qf[i*2+1])
                 # SF -> Finals
-                if sf[0]["played"] and sf[1]["played"]:
+                if sf[0]["played"]:
                     if f[0]["teams"][0] in ["TBD", None]: f[0]["teams"][0] = get_winner(sf[0])
-                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
                     if f[1]["teams"][0] in ["TBD", None]: f[1]["teams"][0] = get_loser(sf[0])
+                if sf[1]["played"]:
+                    if f[0]["teams"][1] in ["TBD", None]: f[0]["teams"][1] = get_winner(sf[1])
                     if f[1]["teams"][1] in ["TBD", None]: f[1]["teams"][1] = get_loser(sf[1])
 
             elif config["type"] == "aa_qualifiers" and "rounds" in po:
