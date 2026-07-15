@@ -60,13 +60,10 @@ def load_team(tournament_path, team_name):
     
     player_lines = lines[:-4]
     players = []
-    cumulative_prop = 0
     for line in player_lines:
         parts = line.split('\t')
         name = parts[0]
-        prop = int(parts[1])
-        weight = prop - cumulative_prop
-        cumulative_prop = prop
+        weight = int(parts[1])
         players.append(Player(name, weight))
     
     return Team(team_name, players, int(lines[-4]), int(lines[-3]), int(lines[-2]), int(lines[-1]))

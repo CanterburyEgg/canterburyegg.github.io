@@ -1150,6 +1150,7 @@ def run_tournament_step(path_arg, simulate_all=False, days_to_sim=1):
     for _ in range(days_to_sim if not simulate_all else 1):
         if simulate_all: break
         
+        update_playoff_progression(tournament_data, config)
         current_day = tournament_data["current_day"]
         print(f"\n--- TOURNAMENT DAY {current_day} ---")
 
