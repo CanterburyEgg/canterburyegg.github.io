@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 33,
+  "current_day": 34,
   "groups": {
     "A": {
       "matches": [
@@ -20859,11 +20859,255 @@
               "Belgium"
             ],
             "score": [
-              0,
-              0
+              1,
+              2
             ],
-            "played": false,
-            "label": "SF_2"
+            "played": true,
+            "label": "SF_2",
+            "pk_score": null,
+            "is_ot": false,
+            "events": [
+              {
+                "minute": 18,
+                "team": "Belgium",
+                "player": "Jean-Pierre de Clercq",
+                "assist": null
+              },
+              {
+                "minute": 57,
+                "team": "Belgium",
+                "player": "Jean-Pierre de Clercq",
+                "assist": null
+              },
+              {
+                "minute": 72,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Argentina": {
+                "shots": 13,
+                "sogs": 6,
+                "saves": 2,
+                "possession": 50,
+                "stops": 0
+              },
+              "Belgium": {
+                "shots": 11,
+                "sogs": 4,
+                "saves": 5,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Diego Perez",
+                  "pos": "N/A",
+                  "shots": 13,
+                  "sogs": 6,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Molina",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 2
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jean-Pierre de Clercq",
+                  "pos": "N/A",
+                  "shots": 11,
+                  "sogs": 4,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alain Goossens",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Renard",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geert Verhoeven",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eddy van den Broeck",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 5,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Argentina_vs_Belgium_71512152_884.txt"
           }
         ]
       },
@@ -20874,7 +21118,7 @@
             "day": 37,
             "teams": [
               "Germany",
-              "TBD"
+              "Belgium"
             ],
             "score": [
               0,
@@ -20887,7 +21131,7 @@
             "day": 35,
             "teams": [
               "Netherlands",
-              "TBD"
+              "Argentina"
             ],
             "score": [
               0,
