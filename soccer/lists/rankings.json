@@ -2,36 +2,36 @@
   {
     "rank": 1,
     "team": "Belgium",
-    "points": 1411.7,
+    "points": 1444.0,
     "movement": 0,
     "is_new": false
   },
   {
     "rank": 2,
     "team": "Germany",
-    "points": 1339.2,
+    "points": 1356.3,
     "movement": 4,
     "is_new": false
   },
   {
     "rank": 3,
-    "team": "Colombia",
-    "points": 1327.5,
-    "movement": 4,
+    "team": "Argentina",
+    "points": 1330.7,
+    "movement": 5,
     "is_new": false
   },
   {
     "rank": 4,
-    "team": "Brazil",
-    "points": 1324.3,
-    "movement": -1,
+    "team": "Colombia",
+    "points": 1327.5,
+    "movement": 3,
     "is_new": false
   },
   {
     "rank": 5,
-    "team": "Argentina",
-    "points": 1320.6,
-    "movement": 3,
+    "team": "Brazil",
+    "points": 1324.3,
+    "movement": -2,
     "is_new": false
   },
   {
