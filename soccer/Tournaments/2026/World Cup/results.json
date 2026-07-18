@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 34,
+  "current_day": 36,
   "groups": {
     "A": {
       "matches": [
@@ -21152,11 +21152,261 @@
               "Argentina"
             ],
             "score": [
-              0,
-              0
+              1,
+              3
             ],
-            "played": false,
-            "label": "3P"
+            "played": true,
+            "label": "3P",
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 28,
+                "team": "Netherlands",
+                "player": "Rob Brouwer",
+                "assist": null
+              },
+              {
+                "minute": 81,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              },
+              {
+                "minute": 108,
+                "team": "Argentina",
+                "player": "Diego Perez",
+                "assist": null
+              },
+              {
+                "minute": 116,
+                "team": "Argentina",
+                "player": "Gustavo Suarez",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Netherlands": {
+                "shots": 21,
+                "sogs": 7,
+                "saves": 2,
+                "possession": 50,
+                "stops": 0
+              },
+              "Argentina": {
+                "shots": 11,
+                "sogs": 5,
+                "saves": 6,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Richard van der Heijden",
+                  "pos": "N/A",
+                  "shots": 10,
+                  "sogs": 2,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jan van Dijk",
+                  "pos": "N/A",
+                  "shots": 6,
+                  "sogs": 3,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeremie Frimpong",
+                  "pos": "N/A",
+                  "shots": 2,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Rob Brouwer",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Peter Meijer",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Nathan van de Ven",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jeroen de Jong",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Martijn van den Berg",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marcel Kuiper",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 2,
+                  "goals_against": 3
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Diego Perez",
+                  "pos": "N/A",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Gustavo Suarez",
+                  "pos": "N/A",
+                  "shots": 5,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Lisandro Romero",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Roberto Sosa",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Pedro Flores",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Cristian Molina",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Juan Acosta",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Oscar Gonzalez",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Luis Aguirre",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 6,
+                  "goals_against": 1
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Netherlands_vs_Argentina_71812711_101.txt"
           }
         ]
       }
