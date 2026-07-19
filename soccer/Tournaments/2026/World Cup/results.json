@@ -67,7 +67,7 @@
       "target_density": 5
     }
   },
-  "current_day": 36,
+  "current_day": 38,
   "groups": {
     "A": {
       "matches": [
@@ -21139,11 +21139,291 @@
               "Belgium"
             ],
             "score": [
-              0,
-              0
+              5,
+              4
             ],
-            "played": false,
-            "label": "F"
+            "played": true,
+            "label": "F",
+            "pk_score": null,
+            "is_ot": true,
+            "events": [
+              {
+                "minute": 9,
+                "team": "Belgium",
+                "player": "Jean-Pierre de Clercq",
+                "assist": null
+              },
+              {
+                "minute": 15,
+                "team": "Belgium",
+                "player": "Amadou Onana",
+                "assist": null
+              },
+              {
+                "minute": 50,
+                "team": "Germany",
+                "player": "Hans Weber",
+                "assist": null
+              },
+              {
+                "minute": 51,
+                "team": "Germany",
+                "player": "Ilkay Gundogan",
+                "assist": null
+              },
+              {
+                "minute": 54,
+                "team": "Belgium",
+                "player": "Alain Goossens",
+                "assist": null
+              },
+              {
+                "minute": 66,
+                "team": "Germany",
+                "player": "Manfred Fischer",
+                "assist": null
+              },
+              {
+                "minute": 72,
+                "team": "Germany",
+                "player": "Gerhard Muller",
+                "assist": null
+              },
+              {
+                "minute": 85,
+                "team": "Belgium",
+                "player": "Vincent van de Velde",
+                "assist": null
+              },
+              {
+                "minute": 113,
+                "team": "Germany",
+                "player": "Manfred Fischer",
+                "assist": null
+              }
+            ],
+            "stats": {
+              "neutral_possession": 0,
+              "Germany": {
+                "shots": 15,
+                "sogs": 8,
+                "saves": 9,
+                "possession": 50,
+                "stops": 0
+              },
+              "Belgium": {
+                "shots": 19,
+                "sogs": 13,
+                "saves": 3,
+                "possession": 50,
+                "stops": 0
+              }
+            },
+            "player_data": {
+              "team1": [
+                {
+                  "name": "Gerhard Muller",
+                  "pos": "N/A",
+                  "shots": 6,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Helmut Lange",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Ilkay Gundogan",
+                  "pos": "N/A",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Jurgen Richter",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Wolfgang Koch",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Antonio Rudiger",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Hans Weber",
+                  "pos": "N/A",
+                  "shots": 1,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Manfred Fischer",
+                  "pos": "N/A",
+                  "shots": 3,
+                  "sogs": 2,
+                  "goals": 2,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Klaus Bauer",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 9,
+                  "goals_against": 4
+                }
+              ],
+              "team2": [
+                {
+                  "name": "Jean-Pierre de Clercq",
+                  "pos": "N/A",
+                  "shots": 6,
+                  "sogs": 3,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Alain Goossens",
+                  "pos": "N/A",
+                  "shots": 2,
+                  "sogs": 2,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Amadou Onana",
+                  "pos": "N/A",
+                  "shots": 5,
+                  "sogs": 5,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Vincent van de Velde",
+                  "pos": "N/A",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 1,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Marc Renard",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Timothy Theate",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Geert Verhoeven",
+                  "pos": "N/A",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Christian Janssen",
+                  "pos": "N/A",
+                  "shots": 2,
+                  "sogs": 1,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 0,
+                  "goals_against": 0
+                },
+                {
+                  "name": "Eddy van den Broeck",
+                  "pos": "N/A",
+                  "shots": 0,
+                  "sogs": 0,
+                  "goals": 0,
+                  "assists": 0,
+                  "stops": 0,
+                  "saves": 3,
+                  "goals_against": 5
+                }
+              ]
+            },
+            "log_path": "/Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/soccer/Tournaments/2026/World Cup/Games/Germany_vs_Belgium_719135559_376.txt"
           },
           {
             "day": 35,
@@ -21412,5 +21692,7 @@
       }
     ]
   },
-  "qualified_teams": []
+  "qualified_teams": [
+    "Germany"
+  ]
 }
