@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Hoops Weekly Projections</title>
+    <meta name="description" content="Weekly Monday-through-Sunday fantasy basketball schedule grid and custom Yahoo points calculator.">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root,
+        [data-theme="light"] {
+            --bg-base: #f4f6f9;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f8fafc;
+            --bg-hover: #f1f5f9;
+            --bg-cell-empty: #fafbfc;
+            --bg-cell-game: #f8fafc;
+            --border-subtle: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent-primary: #ea580c;
+            --accent-primary-soft: rgba(234, 88, 12, 0.1);
+            --accent-good: #059669;
+            --accent-good-soft: rgba(5, 150, 105, 0.1);
+            --accent-warn: #d97706;
+            --accent-warn-soft: rgba(217, 119, 6, 0.12);
+            --accent-danger: #e11d48;
+            --accent-danger-soft: rgba(225, 29, 72, 0.1);
+            --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+            --shadow-dropdown: 0 12px 32px -4px rgba(15, 23, 42, 0.15);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #0f1216;
+            --bg-surface: #171b21;
+            --bg-subtle: #1e232b;
+            --bg-hover: #252b35;
+            --bg-cell-empty: #13171c;
+            --bg-cell-game: #1b212a;
+            --border-subtle: #262d38;
+            --border-strong: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #64748b;
+            --accent-primary: #f59e0b;
+            --accent-primary-soft: rgba(245, 158, 11, 0.14);
+            --accent-good: #10b981;
+            --accent-good-soft: rgba(16, 185, 129, 0.14);
+            --accent-warn: #f59e0b;
+            --accent-warn-soft: rgba(245, 158, 11, 0.14);
+            --accent-danger: #f43f5e;
+            --accent-danger-soft: rgba(244, 63, 94, 0.15);
+            --shadow-card: 0 12px 28px -6px rgba(0, 0, 0, 0.45);
+            --shadow-dropdown: 0 16px 36px -4px rgba(0, 0, 0, 0.65);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .app-header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .brand-title h1 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            background: var(--bg-subtle);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            padding: 8px 13px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: var(--bg-hover);
+            border-color: var(--border-strong);
+        }
+
+        .btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: #ffffff;
+            border-color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            opacity: 0.92;
+            background: var(--accent-primary);
+        }
+
+        .btn-blue {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+            font-weight: 700;
+        }
+
+        .btn-blue:hover:not(:disabled) {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .btn-red {
+            background: #e11d48;
+            color: #ffffff;
+            border-color: #e11d48;
+            font-weight: 700;
+        }
+
+        .btn-red:hover:not(:disabled) {
+            background: #be123c;
+            border-color: #be123c;
+        }
+
+        .theme-toggle-btn {
+            width: 38px;
+            height: 36px;
+            padding: 0;
+            justify-content: center;
+            font-size: 1.05rem;
+            border-radius: var(--radius-sm);
+            filter: grayscale(1);
+            color: var(--text-secondary);
+        }
+
+        /* Main Layout */
+        .main-container {
+            max-width: 1320px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 28px 64px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* Control Bar */
+        .control-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 14px 18px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .week-navigator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .week-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: var(--bg-subtle);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 8px 36px 8px 14px;
+            font-family: var(--font-sans);
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Search Box with Player Photos */
+        .search-wrapper {
+            position: relative;
+            flex: 1 1 320px;
+            max-width: 440px;
+        }
+
+        .search-input-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            padding: 0 12px;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .search-input-box:focus-within {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--accent-primary-soft);
+            background: var(--bg-surface);
+        }
+
+        .search-icon {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-right: 8px;
+            user-select: none;
+        }
+
+        .search-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            padding: 9px 0;
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-dropdown);
+            max-height: 360px;
+            overflow-y: auto;
+            z-index: 60;
+            display: none;
+        }
+
+        .search-dropdown.open {
+            display: block;
+        }
+
+        .search-item {
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: background 0.12s ease;
+        }
+
+        .search-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .search-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .player-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            object-fit: cover;
+            object-position: center top;
+            flex-shrink: 0;
+        }
+
+        .search-player-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .search-player-name {
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-player-sub {
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+        }
+
+        .search-item-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+        }
+
+        /* Stat Basis Segmented Toggle */
+        .mode-group {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--bg-subtle);
+            padding: 3px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .mode-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .mode-btn.active {
+            background: var(--bg-surface);
+            color: var(--accent-primary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Schedule Table */
+        .table-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table.slate-grid {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 960px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .slate-grid th {
+            background: var(--bg-subtle);
+            color: var(--text-secondary);
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-strong);
+            text-align: center;
+            user-select: none;
+        }
+
+        .slate-grid th.sortable {
+            cursor: pointer;
+        }
+
+        .slate-grid th.sortable:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+
+        .slate-grid th.sorted {
+            color: var(--accent-primary);
+        }
+
+        .slate-grid th.col-slot {
+            width: 76px;
+            padding-left: 14px;
+        }
+
+        .slate-grid th.col-player {
+            text-align: left;
+            padding-left: 12px;
+            width: 245px;
+        }
+
+        .slate-grid th.col-day {
+            width: 98px;
+            border-left: 1px solid var(--border-subtle);
+        }
+
+        .day-header-top {
+            display: block;
+            font-size: 0.77rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .day-header-date {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.69rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .slate-grid th.col-games {
+            width: 66px;
+            border-left: 1px solid var(--border-strong);
+        }
+
+        .slate-grid th.col-total {
+            width: 120px;
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .slate-grid tbody tr {
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.12s ease;
+        }
+
+        .slate-grid tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .slate-grid tbody tr:hover {
+            background: var(--bg-hover);
+        }
+
+        .slate-grid tbody tr.row-bench {
+            opacity: 0.62;
+        }
+
+        .slot-pill {
+            font-family: var(--font-mono);
+            font-size: 0.69rem;
+            font-weight: 700;
+            padding: 5px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            display: inline-block;
+            width: 58px;
+            text-align: center;
+            user-select: none;
+            background: transparent;
+        }
+
+        .slot-START {
+            background: var(--accent-good-soft);
+            color: var(--accent-good);
+            border-color: rgba(5, 150, 105, 0.3);
+        }
+
+        .slot-BENCH {
+            background: var(--bg-subtle);
+            color: var(--text-secondary);
+            border-color: var(--border-strong);
+        }
+
+        .slate-grid td {
+            padding: 10px 8px;
+            vertical-align: middle;
+        }
+
+        /* Player Cell */
+        .player-cell-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding-left: 12px;
+        }
+
+        .player-identity {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .player-main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .player-name-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .player-name {
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .inj-badge {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 1px 5px;
+            border-radius: 4px;
+            background: var(--accent-danger-soft);
+            color: var(--accent-danger);
+            flex-shrink: 0;
+        }
+
+        .inj-badge.inj-dtd {
+            background: var(--accent-warn-soft);
+            color: var(--accent-warn);
+        }
+
+        .player-meta-row {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .remove-player-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding: 4px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+        }
+
+        .slate-grid tbody tr:hover .remove-player-btn {
+            opacity: 1;
+        }
+
+        .remove-player-btn:hover {
+            color: var(--accent-danger);
+            background: var(--accent-danger-soft);
+        }
+
+        /* Daily Game Cell */
+        .cell-day {
+            border-left: 1px solid var(--border-subtle);
+            padding: 8px 6px !important;
+            text-align: center;
+            background: var(--bg-cell-empty);
+        }
+
+        .cell-day.has-game {
+            background: var(--bg-cell-game);
+            cursor: pointer;
+            transition: background 0.12s ease;
+        }
+
+        .cell-day.has-game:hover {
+            background: var(--bg-hover);
+        }
+
+        .cell-day.game-played {
+            background: var(--accent-good-soft);
+        }
+
+        .cell-day.game-skipped {
+            opacity: 0.35;
+            text-decoration: line-through;
+        }
+
+        .matchup-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        .matchup-opp {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .game-played .matchup-opp {
+            color: var(--accent-good);
+            font-weight: 700;
+        }
+
+        .matchup-pts {
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+
+        .pts-unit {
+            font-size: 0.68rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .game-played .pts-unit {
+            color: var(--accent-good);
+            font-weight: 700;
+        }
+
+        /* Games Count Cell */
+        .cell-games {
+            border-left: 1px solid var(--border-strong);
+            text-align: center;
+        }
+
+        .games-badge {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 26px;
+            border-radius: 6px;
+        }
+
+        .games-high {
+            background: var(--accent-good-soft);
+            color: var(--accent-good);
+        }
+
+        .games-mid {
+            background: var(--bg-subtle);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .games-low {
+            background: var(--accent-warn-soft);
+            color: var(--accent-warn);
+        }
+
+        /* Weekly Total Cell */
+        .cell-total {
+            text-align: right;
+            padding-right: 20px !important;
+            font-family: var(--font-mono);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Table Footer Totals Row */
+        .slate-grid tfoot td {
+            background: var(--bg-subtle);
+            border-top: 2px solid var(--border-strong);
+            padding: 13px 10px;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        /* Empty State */
+        .empty-roster {
+            padding: 52px 24px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-roster h3 {
+            margin: 0 0 8px 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .empty-roster p {
+            margin: 0 auto 18px;
+            max-width: 420px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        /* Modals */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-lg);
+            max-width: 540px;
+            width: 100%;
+            box-shadow: var(--shadow-dropdown);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.02rem;
+            font-weight: 800;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .modal-body {
+            padding: 20px;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        .scoring-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .scoring-field {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 9px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .scoring-field label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .scoring-field label strong {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            display: block;
+            font-size: 0.82rem;
+        }
+
+        .scoring-input {
+            width: 74px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            color: var(--accent-primary);
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 5px 8px;
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        .modal-footer {
+            padding: 14px 20px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-subtle);
+        }
+
+        .bulk-textarea {
+            width: 100%;
+            min-height: 140px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            padding: 12px;
+            resize: vertical;
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+        }
+
+        .breakdown-table th,
+        .breakdown-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--border-subtle);
+            text-align: right;
+        }
+
+        .breakdown-table th:first-child,
+        .breakdown-table td:first-child {
+            text-align: left;
+            font-family: var(--font-sans);
+            font-weight: 600;
+        }
+
+        .val-pos { color: var(--accent-good); }
+        .val-neg { color: var(--accent-danger); }
+
+        .status-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 24px;
+            background: var(--text-primary);
+            color: var(--bg-surface);
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-dropdown);
+            z-index: 120;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="brand-group">
+            <div class="brand-title">
+                <h1>Fantasy Hoops Weekly Projections</h1>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button id="btn-open-bulk" class="btn">
+                <span>＋</span> Paste Roster
+            </button>
+            <button id="btn-theme-toggle" class="btn theme-toggle-btn" title="Toggle Light / Dark Mode" aria-label="Toggle Light / Dark Mode">
+                🌙
+            </button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="control-bar" aria-label="Planner Controls">
+            <div class="week-navigator">
+                <button id="btn-prev-week" class="btn" title="Previous Week">◀</button>
+                <select id="week-select" class="week-select" aria-label="Select Fantasy Week"></select>
+                <button id="btn-next-week" class="btn" title="Next Week">▶</button>
+            </div>
+
+            <div class="search-wrapper">
+                <div class="search-input-box">
+                    <span class="search-icon">⌕</span>
+                    <input
+                        type="text"
+                        id="player-search-input"
+                        class="search-input"
+                        placeholder="Search and add player..."
+                        autocomplete="off"
+                    >
+                </div>
+                <div id="search-dropdown" class="search-dropdown" role="listbox"></div>
+            </div>
+        </section>
+
+        <section class="table-card">
+            <div class="table-scroll">
+                <table class="slate-grid" id="slate-table">
+                    <thead>
+                        <tr id="table-head-row"></tr>
+                    </thead>
+                    <tbody id="slate-tbody"></tbody>
+                    <tfoot id="slate-tfoot"></tfoot>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Custom Scoring Modal -->
+    <div class="modal-backdrop" id="modal-scoring">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Yahoo League Scoring</h2>
+                <button class="modal-close" data-close="modal-scoring">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="scoring-grid" id="scoring-inputs-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-reset-scoring" class="btn">Reset Default</button>
+                <button id="btn-save-scoring" class="btn btn-primary">Save Scoring</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Paste Roster Modal -->
+    <div class="modal-backdrop" id="modal-bulk">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Paste Roster</h2>
+                <button class="modal-close" data-close="modal-bulk">✕</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="bulk-input" class="bulk-textarea" placeholder="Add players here ..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-clear-roster" class="btn btn-red">Clear</button>
+                <button id="btn-run-bulk" class="btn btn-blue">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="status-toast" class="status-toast"></div>
+
+    <script src="jsons/nba_fantasy_data.js"></script>
+    <script>
+        const DEFAULT_WEIGHTS = {
+            pts:  { label: "Points Scored (PTS)", val: 1.0 },
+            fgm:  { label: "Field Goals Made (FGM)", val: 1.0 },
+            fga:  { label: "Field Goals Attempted (FGA)", val: -0.45 },
+            oreb: { label: "Offensive Rebounds (OREB)", val: 1.4 },
+            dreb: { label: "Defensive Rebounds (DREB)", val: 1.0 },
+            ast:  { label: "Assists (AST)", val: 1.5 },
+            stl:  { label: "Steals (ST)", val: 3.0 },
+            blk:  { label: "Blocked Shots (BLK)", val: 3.0 },
+            to:   { label: "Turnovers (TO)", val: -2.0 }
+        };
+
+        // Opponent Pace & Defensive Allowance Profiles (scales per-game stat projections by matchup)
+        const TEAM_MATCHUP_PROFILES = {
+            WSH:  { pace: 1.042, perim: 1.052, interior: 1.058 },
+            UTAH: { pace: 1.028, perim: 1.046, interior: 1.036 },
+            ATL:  { pace: 1.038, perim: 1.034, interior: 1.024 },
+            IND:  { pace: 1.040, perim: 1.022, interior: 1.034 },
+            CHA:  { pace: 1.016, perim: 1.038, interior: 1.042 },
+            BKN:  { pace: 1.008, perim: 1.042, interior: 1.038 },
+            CHI:  { pace: 1.022, perim: 1.028, interior: 1.032 },
+            POR:  { pace: 1.014, perim: 1.032, interior: 1.028 },
+            TOR:  { pace: 1.014, perim: 1.022, interior: 1.018 },
+            NO:   { pace: 1.008, perim: 1.018, interior: 1.024 },
+            SAC:  { pace: 1.018, perim: 1.018, interior: 1.014 },
+            LAL:  { pace: 1.014, perim: 1.012, interior: 1.008 },
+            DET:  { pace: 1.004, perim: 1.008, interior: 1.004 },
+            PHX:  { pace: 1.004, perim: 1.008, interior: 1.014 },
+            MIL:  { pace: 1.010, perim: 1.014, interior: 0.990 },
+            DAL:  { pace: 1.000, perim: 1.004, interior: 1.000 },
+            DEN:  { pace: 0.996, perim: 1.004, interior: 0.994 },
+            GS:   { pace: 1.010, perim: 0.992, interior: 1.006 },
+            LAC:  { pace: 0.986, perim: 0.994, interior: 0.994 },
+            MEM:  { pace: 1.018, perim: 0.990, interior: 0.976 },
+            SA:   { pace: 1.014, perim: 0.996, interior: 0.946 },
+            PHI:  { pace: 0.990, perim: 0.986, interior: 0.982 },
+            MIA:  { pace: 0.976, perim: 0.976, interior: 0.972 },
+            CLE:  { pace: 0.986, perim: 0.974, interior: 0.962 },
+            NY:   { pace: 0.972, perim: 0.972, interior: 0.966 },
+            HOU:  { pace: 0.996, perim: 0.966, interior: 0.966 },
+            MIN:  { pace: 0.980, perim: 0.964, interior: 0.952 },
+            BOS:  { pace: 0.986, perim: 0.956, interior: 0.962 },
+            ORL:  { pace: 0.972, perim: 0.952, interior: 0.956 },
+            OKC:  { pace: 1.004, perim: 0.942, interior: 0.948 }
+        };
+
+        const STORAGE_KEYS = {
+            THEME: "hoops_slate_theme_v2",
+            ROSTER: "hoops_slate_roster_v3",
+            WEIGHTS: "hoops_slate_weights_v2",
+            SKIPPED: "hoops_slate_skipped_games_v3",
+            MODE: "hoops_slate_stat_mode_v2"
+        };
+
+        // Multi-layered storage helper (localStorage + window.name + IndexedDB) so file:// and http(s):// always persist
+        function readStore(key) {
+            try {
+                const v = localStorage.getItem(key);
+                if (v !== null) return v;
+            } catch (e) {}
+            try {
+                if (window.name && window.name.startsWith("{")) {
+                    const wn = JSON.parse(window.name);
+                    if (wn[key] !== undefined) return wn[key];
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        function writeStore(key, valStr) {
+            try {
+                localStorage.setItem(key, valStr);
+            } catch (e) {}
+            try {
+                const wn = (window.name && window.name.startsWith("{")) ? JSON.parse(window.name) : {};
+                wn[key] = valStr;
+                window.name = JSON.stringify(wn);
+            } catch (e) {}
+            saveToIndexedDB(key, valStr);
+        }
+
+        function openHoopsIDB() {
+            return new Promise((resolve) => {
+                try {
+                    if (!window.indexedDB) return resolve(null);
+                    const req = indexedDB.open("hoops_slate_db", 1);
+                    req.onupgradeneeded = () => {
+                        req.result.createObjectStore("kv");
+                    };
+                    req.onsuccess = () => resolve(req.result);
+                    req.onerror = () => resolve(null);
+                } catch (e) {
+                    resolve(null);
+                }
+            });
+        }
+
+        async function saveToIndexedDB(key, valStr) {
+            const idb = await openHoopsIDB();
+            if (!idb) return;
+            try {
+                const tx = idb.transaction("kv", "readwrite");
+                tx.objectStore("kv").put(valStr, key);
+            } catch (e) {}
+        }
+
+        async function restoreFromIndexedDB() {
+            const idb = await openHoopsIDB();
+            if (!idb) return false;
+            return new Promise((resolve) => {
+                try {
+                    const tx = idb.transaction("kv", "readonly");
+                    const store = tx.objectStore("kv");
+                    const req = store.get(STORAGE_KEYS.ROSTER);
+                    req.onsuccess = () => {
+                        if (req.result && state.roster.length === 0) {
+                            try {
+                                const parsed = JSON.parse(req.result);
+                                if (Array.isArray(parsed) && parsed.length > 0) {
+                                    state.roster = normalizeRosterArray(parsed);
+                                    resolve(true);
+                                    return;
+                                }
+                            } catch (e) {}
+                        }
+                        resolve(false);
+                    };
+                    req.onerror = () => resolve(false);
+                } catch (e) {
+                    resolve(false);
+                }
+            });
+        }
+
+        let db = {
+            teams: {},
+            schedule: {},
+            players: [],
+            playersById: {}
+        };
+
+        let state = {
+            theme: readStore(STORAGE_KEYS.THEME) || "light",
+            weekIndex: 0,
+            weeks: [],
+            statMode: "proj",
+            sortBy: "total",
+            sortDir: "desc",
+            weights: loadWeights(),
+            roster: loadRoster(),
+            skippedGames: loadSkipped()
+        };
+
+        function getHeadshotUrl(playerId) {
+            return `https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/${playerId}.png&w=96&h=70&cb=1`;
+        }
+
+        function getFallbackAvatarSvg(name) {
+            const initials = (name || "P").split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" fill="#cbd5e1"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#334155" font-family="sans-serif" font-size="14" font-weight="bold">${initials}</text></svg>`;
+            return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+        }
+
+        function loadWeights() {
+            try {
+                const saved = JSON.parse(readStore(STORAGE_KEYS.WEIGHTS));
+                if (saved && typeof saved === "object") {
+                    const merged = {};
+                    for (const k of Object.keys(DEFAULT_WEIGHTS)) {
+                        merged[k] = typeof saved[k] === "number" ? saved[k] : DEFAULT_WEIGHTS[k].val;
+                    }
+                    return merged;
+                }
+            } catch (e) {}
+            const init = {};
+            for (const [k, v] of Object.entries(DEFAULT_WEIGHTS)) init[k] = v.val;
+            return init;
+        }
+
+        function normalizeRosterArray(saved) {
+            if (!Array.isArray(saved)) return [];
+            return saved
+                .map(x => {
+                    if (typeof x === "object" && x !== null) {
+                        return { id: Number(x.id), role: x.role === "BENCH" ? "BENCH" : "START" };
+                    }
+                    return { id: Number(x), role: "START" };
+                })
+                .filter(x => Boolean(x.id));
+        }
+
+        function loadRoster() {
+            try {
+                const raw = readStore(STORAGE_KEYS.ROSTER);
+                if (!raw) return [];
+                return normalizeRosterArray(JSON.parse(raw));
+            } catch (e) {}
+            return [];
+        }
+
+        function loadSkipped() {
+            try {
+                const saved = JSON.parse(readStore(STORAGE_KEYS.SKIPPED));
+                if (saved && typeof saved === "object") return saved;
+            } catch (e) {}
+            return {};
+        }
+
+        function saveState() {
+            writeStore(STORAGE_KEYS.THEME, state.theme);
+            writeStore(STORAGE_KEYS.ROSTER, JSON.stringify(state.roster));
+            writeStore(STORAGE_KEYS.WEIGHTS, JSON.stringify(state.weights));
+            writeStore(STORAGE_KEYS.SKIPPED, JSON.stringify(state.skippedGames));
+            writeStore(STORAGE_KEYS.MODE, state.statMode);
+        }
+
+        function applyTheme() {
+            document.documentElement.setAttribute("data-theme", state.theme);
+            const btn = document.getElementById("btn-theme-toggle");
+            if (btn) {
+                btn.textContent = state.theme === "light" ? "🌙" : "☀️";
+            }
+        }
+
+        function showToast(msg) {
+            const el = document.getElementById("status-toast");
+            el.textContent = msg;
+            el.style.display = "block";
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => { el.style.display = "none"; }, 2600);
+        }
+
+        // Generate Monday-through-Sunday NBA Fantasy weeks
+        function generateSeasonWeeks() {
+            const weeks = [];
+            const startMonday = new Date("2026-10-19T12:00:00");
+            const numWeeks = 25;
+            const dayNames = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+
+            for (let w = 0; w < numWeeks; w++) {
+                const days = [];
+                for (let d = 0; d < 7; d++) {
+                    const dt = new Date(startMonday);
+                    dt.setDate(startMonday.getDate() + w * 7 + d);
+                    const yyyy = dt.getFullYear();
+                    const mm = String(dt.getMonth() + 1).padStart(2, "0");
+                    const dd = String(dt.getDate()).padStart(2, "0");
+                    const iso = `${yyyy}-${mm}-${dd}`;
+                    const shortLabel = `${dt.toLocaleString("en-US", { month: "short" })} ${dt.getDate()}`;
+                    days.push({
+                        iso,
+                        dayName: dayNames[d],
+                        shortDate: `${dt.getMonth() + 1}/${dt.getDate()}`,
+                        prettyDate: shortLabel
+                    });
+                }
+                const wNum = w + 1;
+                const label = `Week ${wNum}: ${days[0].prettyDate} – ${days[6].prettyDate}`;
+                weeks.push({ weekNum: wNum, label, days });
+            }
+            return weeks;
+        }
+
+        function getPlayerStatLine(player, mode = state.statMode) {
+            if (!player || !player.stats) return { line: null, sourceLabel: "None" };
+            const st = player.stats;
+
+            if (mode === "proj") {
+                if (st.proj) return { line: st.proj, sourceLabel: "26–27 Projected" };
+                if (st.s26) return { line: st.s26, sourceLabel: "25–26 Avg" };
+            }
+            if (mode === "blend") {
+                const a = st.proj || st.s26;
+                const b = st.s27 || st.s26 || st.proj;
+                if (a && b) {
+                    const blended = {};
+                    for (const k of ["pts", "oreb", "dreb", "reb", "ast", "stl", "blk", "to", "fgm", "fga"]) {
+                        blended[k] = Number((((a[k] || 0) + (b[k] || 0)) / 2).toFixed(2));
+                    }
+                    blended.gp = b.gp || a.gp || 0;
+                    blended.min = Number((((a.min || 0) + (b.min || 0)) / 2).toFixed(1));
+                    return { line: blended, sourceLabel: "50/50 Blend" };
+                }
+            }
+            if (mode === "s27") {
+                if (st.s27 && st.s27.gp > 0) return { line: st.s27, sourceLabel: "26–27 Season Avg" };
+                return { line: st.proj || st.s26, sourceLabel: "Projected (0 GP so far)" };
+            }
+            if (mode === "l15") {
+                if (st.l15 && st.l15.gp > 0) return { line: st.l15, sourceLabel: "Last 15 Days" };
+                return { line: st.s27 || st.proj || st.s26, sourceLabel: "Projected (No L15 yet)" };
+            }
+            if (mode === "s26") {
+                if (st.s26) return { line: st.s26, sourceLabel: "25–26 Season Avg" };
+                return { line: st.proj, sourceLabel: "26–27 Projected (Rookie)" };
+            }
+            return { line: st.proj || st.s26, sourceLabel: "Default" };
+        }
+
+        function computeBaseFantasyPoints(statLine, weights = state.weights) {
+            if (!statLine) return 0;
+            let total = 0;
+            for (const k of Object.keys(DEFAULT_WEIGHTS)) {
+                total += Number(statLine[k] || 0) * Number(weights[k] || 0);
+            }
+            return total;
+        }
+
+        // Compute single-game projection adjusted for Opponent Defense, Pace, Home/Road, and Rest
+        function computeGameMatchupPoints(baseLine, game, isB2B, isRested, weights = state.weights) {
+            if (!baseLine || !game) return 0;
+            const oppProfile = TEAM_MATCHUP_PROFILES[game.opp] || { pace: 1.0, perim: 1.0, interior: 1.0 };
+
+            // Home court (+2.3%) vs Road (-2.3%)
+            const locMod = game.home ? 1.023 : 0.977;
+            // Back-to-back fatigue (-3.4%) vs 2+ days rest (+1.2%)
+            const restMod = isB2B ? 0.966 : (isRested ? 1.012 : 1.0);
+
+            const perimScale = oppProfile.pace * oppProfile.perim * locMod * restMod;
+            const intScale = oppProfile.pace * oppProfile.interior * locMod * restMod;
+            // Tough perimeter defenses force more turnovers
+            const toScale = oppProfile.pace * (2.0 - oppProfile.perim) * (game.home ? 0.985 : 1.015) * (isB2B ? 1.025 : 1.0);
+
+            const adjStats = {
+                pts:  (baseLine.pts || 0) * perimScale,
+                fgm:  (baseLine.fgm || 0) * perimScale,
+                fga:  (baseLine.fga || 0) * oppProfile.pace * (game.home ? 1.01 : 0.995) * restMod,
+                oreb: (baseLine.oreb || 0) * intScale,
+                dreb: (baseLine.dreb || 0) * intScale,
+                ast:  (baseLine.ast || 0) * perimScale,
+                stl:  (baseLine.stl || 0) * oppProfile.pace * locMod,
+                blk:  (baseLine.blk || 0) * intScale,
+                to:   (baseLine.to || 0) * toScale
+            };
+
+            return computeBaseFantasyPoints(adjStats, weights);
+        }
+
+        function getPlayerWeekData(player, weekObj) {
+            const { line, sourceLabel } = getPlayerStatLine(player);
+            const baseFpg = computeBaseFantasyPoints(line);
+            const dayCells = [];
+            let activeGames = 0;
+            let weekPoints = 0;
+
+            for (let i = 0; i < weekObj.days.length; i++) {
+                const d = weekObj.days[i];
+                const daySched = db.schedule[d.iso] || {};
+                const game = daySched[player.team] || null;
+
+                let isB2B = false;
+                let isRested = false;
+                if (game && i > 0) {
+                    const prevIso = weekObj.days[i - 1].iso;
+                    if (db.schedule[prevIso] && db.schedule[prevIso][player.team]) {
+                        isB2B = true;
+                    } else if (i >= 2) {
+                        const prev2Iso = weekObj.days[i - 2].iso;
+                        if (!db.schedule[prev2Iso] || !db.schedule[prev2Iso][player.team]) {
+                            isRested = true;
+                        }
+                    }
+                }
+
+                const skipKey = `${player.id}_${d.iso}`;
+                const manualState = state.skippedGames[skipKey]; // "sit" | "play" | true | undefined
+                const isAutoOut = Boolean(player.status === "OUT" && player.returnDate && d.iso < player.returnDate);
+
+                let isSkipped = false;
+                if (manualState === "sit" || manualState === true) {
+                    isSkipped = true;
+                } else if (manualState === "play") {
+                    isSkipped = false;
+                } else {
+                    isSkipped = isAutoOut;
+                }
+
+                const gamePts = game ? computeGameMatchupPoints(line, game, isB2B, isRested) : 0;
+                const gidStr = game && game.gid ? String(game.gid) : null;
+                const hasActual = Boolean(gidStr && player.gameLogs && player.gameLogs[gidStr] !== undefined);
+                const actualPts = hasActual ? computeBaseFantasyPoints(player.gameLogs[gidStr]) : null;
+                const effectivePts = hasActual ? actualPts : gamePts;
+
+                if (game && !isSkipped) {
+                    activeGames++;
+                    weekPoints += effectivePts;
+                }
+
+                dayCells.push({
+                    day: d,
+                    game,
+                    isB2B,
+                    isAutoOut,
+                    isSkipped,
+                    isPlayed: hasActual,
+                    projPts: game && !isSkipped ? effectivePts : 0,
+                    rawGamePts: effectivePts
+                });
+            }
+
+            return {
+                player,
+                line,
+                sourceLabel,
+                baseFpg,
+                dayCells,
+                activeGames,
+                weekPoints
+            };
+        }
+
+        function initWeekSelector() {
+            state.weeks = generateSeasonWeeks();
+            const todayIso = new Date().toISOString().slice(0, 10);
+            let foundIdx = 0;
+            for (let i = 0; i < state.weeks.length; i++) {
+                const w = state.weeks[i];
+                if (todayIso >= w.days[0].iso && todayIso <= w.days[6].iso) {
+                    foundIdx = i;
+                    break;
+                }
+            }
+            state.weekIndex = foundIdx;
+
+            const sel = document.getElementById("week-select");
+            sel.innerHTML = state.weeks.map((w, idx) =>
+                `<option value="${idx}">${w.label}</option>`
+            ).join("");
+            sel.value = String(state.weekIndex);
+
+            sel.addEventListener("change", (e) => {
+                state.weekIndex = Number(e.target.value);
+                renderAll();
+            });
+
+            document.getElementById("btn-prev-week").addEventListener("click", () => {
+                if (state.weekIndex > 0) {
+                    state.weekIndex--;
+                    sel.value = String(state.weekIndex);
+                    renderAll();
+                }
+            });
+
+            document.getElementById("btn-next-week").addEventListener("click", () => {
+                if (state.weekIndex < state.weeks.length - 1) {
+                    state.weekIndex++;
+                    sel.value = String(state.weekIndex);
+                    renderAll();
+                }
+            });
+        }
+
+        function renderAll() {
+            const week = state.weeks[state.weekIndex];
+            if (!week) return;
+            const prevBtn = document.getElementById("btn-prev-week");
+            const nextBtn = document.getElementById("btn-next-week");
+            if (prevBtn) prevBtn.disabled = state.weekIndex <= 0;
+            if (nextBtn) nextBtn.disabled = state.weekIndex >= state.weeks.length - 1;
+            renderTableHeader(week);
+            renderTableBodyAndFooter(week);
+        }
+
+        function renderTableHeader(week) {
+            const tr = document.getElementById("table-head-row");
+
+            const sortArrow = (col) => {
+                if (state.sortBy !== col) return "";
+                return state.sortDir === "desc" ? " ▼" : " ▲";
+            };
+
+            const dayHeadersHtml = week.days.map((d, idx) => `
+                <th class="col-day sortable ${state.sortBy === "day_" + idx ? "sorted" : ""}" data-sort="day_${idx}">
+                    <span class="day-header-top">${d.dayName}${sortArrow("day_" + idx)}</span>
+                    <span class="day-header-date">${d.shortDate}</span>
+                </th>
+            `).join("");
+
+            tr.innerHTML = `
+                <th class="col-slot">Slot</th>
+                <th class="col-player sortable ${state.sortBy === "name" ? "sorted" : ""}" data-sort="name">Player${sortArrow("name")}</th>
+                ${dayHeadersHtml}
+                <th class="col-games sortable ${state.sortBy === "games" ? "sorted" : ""}" data-sort="games">G${sortArrow("games")}</th>
+                <th class="col-total sortable ${state.sortBy === "total" ? "sorted" : ""}" data-sort="total">Week Total${sortArrow("total")}</th>
+            `;
+
+            tr.querySelectorAll("th.sortable").forEach(th => {
+                th.addEventListener("click", () => {
+                    const col = th.dataset.sort;
+                    if (state.sortBy === col) {
+                        state.sortDir = state.sortDir === "desc" ? "asc" : "desc";
+                    } else {
+                        state.sortBy = col;
+                        state.sortDir = col === "name" ? "asc" : "desc";
+                    }
+                    renderAll();
+                });
+            });
+        }
+
+        function renderTableBodyAndFooter(week) {
+            const tbody = document.getElementById("slate-tbody");
+            const tfoot = document.getElementById("slate-tfoot");
+
+            const rows = [];
+            for (const entry of state.roster) {
+                const player = db.playersById[entry.id];
+                if (!player) continue;
+                rows.push({ role: entry.role || "START", ...getPlayerWeekData(player, week) });
+            }
+
+            if (rows.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="11">
+                            <div class="empty-roster">
+                                <h3>No players added yet</h3>
+                                <p>Search for players above or click Paste Roster to build your weekly grid.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                tfoot.innerHTML = "";
+                return;
+            }
+
+            rows.sort((a, b) => {
+                let cmp = 0;
+                if (state.sortBy === "name") {
+                    cmp = a.player.name.localeCompare(b.player.name);
+                } else if (state.sortBy === "games") {
+                    cmp = a.activeGames - b.activeGames || a.weekPoints - b.weekPoints;
+                } else if (state.sortBy.startsWith("day_")) {
+                    const dIdx = Number(state.sortBy.split("_")[1]);
+                    cmp = (a.dayCells[dIdx]?.projPts || 0) - (b.dayCells[dIdx]?.projPts || 0);
+                } else {
+                    cmp = a.weekPoints - b.weekPoints;
+                }
+                return state.sortDir === "desc" ? -cmp : cmp;
+            });
+
+            tbody.innerHTML = rows.map(r => {
+                const p = r.player;
+                const rowClass = r.role === "BENCH" ? "row-bench" : "";
+                const isDtd = p.status === "DAY_TO_DAY" || p.status === "DTD";
+                const injTooltip = [
+                    p.injuryType ? `${p.injuryType}` : "",
+                    p.returnDate ? `Est. Return: ${p.returnDate}` : "",
+                    p.injuryNote || ""
+                ].filter(Boolean).join(" — ");
+
+                const injBadge = (p.status && p.status !== "ACTIVE")
+                    ? `<span class="inj-badge ${isDtd ? "inj-dtd" : ""}" title="${injTooltip.replace(/"/g, '&quot;')}">${isDtd ? "DTD" : "OUT"}</span>`
+                    : "";
+
+                const gamesClass = r.activeGames >= 4
+                    ? "games-high"
+                    : (r.activeGames === 3 ? "games-mid" : "games-low");
+
+                const fallbackImg = getFallbackAvatarSvg(p.name);
+
+                const dayTds = r.dayCells.map(dc => {
+                    if (!dc.game) {
+                        return `<td class="cell-day"></td>`;
+                    }
+                    const locPrefix = dc.game.home ? "vs" : "@";
+                    const skipClass = dc.isSkipped ? "game-skipped" : "";
+                    const playedClass = dc.isPlayed ? "game-played" : "";
+                    const playedCheck = dc.isPlayed ? " ✓" : "";
+                    const unitLabel = dc.isPlayed ? "pts" : "proj";
+                    const cellTitle = dc.isPlayed
+                        ? `Final: ${dc.rawGamePts.toFixed(1)} actual fantasy pts (${locPrefix} ${dc.game.opp})`
+                        : (dc.isAutoOut && dc.isSkipped
+                            ? `Auto-sat (Out until ${p.returnDate}). Click to override.`
+                            : "Click to sit/include this game");
+
+                    return `
+                        <td class="cell-day has-game ${playedClass} ${skipClass}"
+                            data-pid="${p.id}"
+                            data-date="${dc.day.iso}"
+                            data-auto="${dc.isAutoOut ? "1" : "0"}"
+                            title="${cellTitle}">
+                            <div class="matchup-box">
+                                <span class="matchup-opp">${locPrefix} ${dc.game.opp}${playedCheck}</span>
+                                <span class="matchup-pts">${dc.rawGamePts.toFixed(1)} <span class="pts-unit">${unitLabel}</span></span>
+                            </div>
+                        </td>
+                    `;
+                }).join("");
+
+                return `
+                    <tr class="${rowClass}">
+                        <td style="padding-left:14px;">
+                            <button class="slot-pill slot-${r.role}" data-slot="${p.id}" title="Click to toggle START / BENCH">${r.role}</button>
+                        </td>
+                        <td>
+                            <div class="player-cell-wrap">
+                                <div class="player-identity">
+                                    <img
+                                        src="${getHeadshotUrl(p.id)}"
+                                        alt="${p.name}"
+                                        class="player-avatar"
+                                        loading="lazy"
+                                        onerror="this.onerror=null;this.src='${fallbackImg}';"
+                                    >
+                                    <div class="player-main">
+                                        <div class="player-name-row">
+                                            <span class="player-name">${p.name}</span>
+                                            ${injBadge}
+                                        </div>
+                                        <div class="player-meta-row">
+                                            ${p.team} · ${p.pos}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="remove-player-btn" data-remove="${p.id}" title="Remove player">✕</button>
+                            </div>
+                        </td>
+                        ${dayTds}
+                        <td class="cell-games">
+                            <span class="games-badge ${gamesClass}">${r.activeGames}</span>
+                        </td>
+                        <td class="cell-total">${r.weekPoints.toFixed(1)}</td>
+                    </tr>
+                `;
+            }).join("");
+
+            tbody.querySelectorAll("[data-slot]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const pid = Number(btn.dataset.slot);
+                    const item = state.roster.find(x => x.id === pid);
+                    if (!item) return;
+                    item.role = item.role === "BENCH" ? "START" : "BENCH";
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            tbody.querySelectorAll(".remove-player-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const pid = Number(btn.dataset.remove);
+                    state.roster = state.roster.filter(x => x.id !== pid);
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            tbody.querySelectorAll(".cell-day.has-game").forEach(td => {
+                td.addEventListener("click", () => {
+                    const key = `${td.dataset.pid}_${td.dataset.date}`;
+                    const isCurrentlySkipped = td.classList.contains("game-skipped");
+                    state.skippedGames[key] = isCurrentlySkipped ? "play" : "sit";
+                    saveState();
+                    renderAll();
+                });
+            });
+
+            // Footer Daily & Weekly Totals (START players only)
+            const starters = rows.filter(r => r.role === "START");
+            const dayTotals = week.days.map((_, idx) => {
+                let pts = 0;
+                for (const r of starters) {
+                    if (r.dayCells[idx].game && !r.dayCells[idx].isSkipped) {
+                        pts += r.dayCells[idx].projPts;
+                    }
+                }
+                return pts;
+            });
+
+            const grandGames = starters.reduce((acc, r) => acc + r.activeGames, 0);
+            const grandPts = starters.reduce((acc, r) => acc + r.weekPoints, 0);
+
+            tfoot.innerHTML = `
+                <tr>
+                    <td colspan="2" style="text-align:left; padding-left:16px; font-family:var(--font-sans);">
+                        Starters Total (${starters.length} starting)
+                    </td>
+                    ${dayTotals.map(pts => `<td>${pts > 0 ? pts.toFixed(1) : ""}</td>`).join("")}
+                    <td>${grandGames}</td>
+                    <td style="text-align:right; padding-right:20px; font-size:1.05rem; color:var(--accent-primary);">
+                        ${grandPts.toFixed(1)}
+                    </td>
+                </tr>
+            `;
+        }
+
+        // Player Search with Headshots
+        function initSearch() {
+            const input = document.getElementById("player-search-input");
+            const dropdown = document.getElementById("search-dropdown");
+
+            input.addEventListener("input", () => {
+                renderSearchDropdown(input.value);
+            });
+
+            input.addEventListener("focus", () => {
+                if (input.value.trim().length > 0) {
+                    renderSearchDropdown(input.value);
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!e.target.closest(".search-wrapper")) {
+                    dropdown.classList.remove("open");
+                }
+            });
+        }
+
+        function normalizeStr(s) {
+            return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9 ]/g, "");
+        }
+
+        function renderSearchDropdown(query) {
+            const dropdown = document.getElementById("search-dropdown");
+            const q = normalizeStr(query).trim();
+            if (!q) {
+                dropdown.classList.remove("open");
+                return;
+            }
+
+            const week = state.weeks[state.weekIndex];
+            const rosteredIds = new Set(state.roster.map(r => r.id));
+
+            const matches = db.players.filter(p => {
+                const nameNorm = normalizeStr(p.name);
+                const teamNorm = (p.team || "").toLowerCase();
+                return nameNorm.includes(q) || teamNorm === q;
+            }).slice(0, 12);
+
+            if (matches.length === 0) {
+                dropdown.innerHTML = `<div style="padding:14px; color:var(--text-secondary); font-size:0.84rem;">No matching NBA players found.</div>`;
+                dropdown.classList.add("open");
+                return;
+            }
+
+            dropdown.innerHTML = matches.map(p => {
+                const wk = getPlayerWeekData(p, week);
+                const already = rosteredIds.has(p.id);
+                const fallbackImg = getFallbackAvatarSvg(p.name);
+                return `
+                    <div class="search-item" data-pid="${p.id}">
+                        <div class="search-item-left">
+                            <img
+                                src="${getHeadshotUrl(p.id)}"
+                                alt="${p.name}"
+                                class="player-avatar"
+                                loading="lazy"
+                                onerror="this.onerror=null;this.src='${fallbackImg}';"
+                            >
+                            <div class="search-player-info">
+                                <span class="search-player-name">${p.name}</span>
+                                <span class="search-player-sub">${p.team} · ${p.pos}</span>
+                            </div>
+                        </div>
+                        <div class="search-item-right">
+                            <span style="color:var(--text-secondary);">${wk.activeGames}G · ${wk.weekPoints.toFixed(1)} pts</span>
+                            <span style="color:${already ? "var(--text-muted)" : "var(--accent-primary)"}; font-weight:700;">
+                                ${already ? "Added" : "＋ Add"}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+
+            dropdown.classList.add("open");
+
+            dropdown.querySelectorAll(".search-item").forEach(item => {
+                item.addEventListener("click", () => {
+                    const pid = Number(item.dataset.pid);
+                    if (!state.roster.some(r => r.id === pid)) {
+                        state.roster.push({ id: pid, role: "START" });
+                        saveState();
+                        renderAll();
+                        showToast(`Added ${db.playersById[pid].name}`);
+                    }
+                    const input = document.getElementById("player-search-input");
+                    input.value = "";
+                    dropdown.classList.remove("open");
+                });
+            });
+        }
+
+        function initControls() {
+            // Theme toggle
+            applyTheme();
+            document.getElementById("btn-theme-toggle").addEventListener("click", () => {
+                state.theme = state.theme === "light" ? "dark" : "light";
+                applyTheme();
+                saveState();
+            });
+
+            // Modal close handlers
+            document.querySelectorAll("[data-close]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.getElementById(btn.dataset.close).classList.remove("open");
+                });
+            });
+
+            document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+                let mouseDownOnBackdrop = false;
+                backdrop.addEventListener("mousedown", (e) => {
+                    mouseDownOnBackdrop = (e.target === backdrop);
+                });
+                backdrop.addEventListener("click", (e) => {
+                    if (mouseDownOnBackdrop && e.target === backdrop) {
+                        backdrop.classList.remove("open");
+                    }
+                    mouseDownOnBackdrop = false;
+                });
+            });
+
+            // Bulk paste modal
+            document.getElementById("btn-open-bulk").addEventListener("click", () => {
+                document.getElementById("modal-bulk").classList.add("open");
+            });
+
+            document.getElementById("btn-clear-roster").addEventListener("click", () => {
+                state.roster = [];
+                state.skippedGames = {};
+                saveState();
+                document.getElementById("modal-bulk").classList.remove("open");
+                renderAll();
+                showToast("Cleared all players");
+            });
+
+            document.getElementById("btn-run-bulk").addEventListener("click", () => {
+                const rawText = document.getElementById("bulk-input").value;
+                const normText = normalizeStr(rawText);
+                if (!normText.trim()) return;
+
+                let added = 0;
+                const sortedPlayers = [...db.players].sort((a, b) => b.name.length - a.name.length);
+                for (const p of sortedPlayers) {
+                    const pNorm = normalizeStr(p.name);
+                    if (pNorm.length >= 5 && normText.includes(pNorm)) {
+                        if (!state.roster.some(r => r.id === p.id)) {
+                            state.roster.push({ id: p.id, role: "START" });
+                            added++;
+                        }
+                    }
+                }
+                saveState();
+                document.getElementById("modal-bulk").classList.remove("open");
+                renderAll();
+                showToast(added > 0 ? `Added ${added} player${added === 1 ? "" : "s"}` : "No new players matched");
+            });
+        }
+
+        async function syncLiveInjuries() {
+            try {
+                const res = await fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries");
+                if (!res.ok) return;
+                const data = await res.json();
+                const seenInjured = new Set();
+
+                for (const teamBlock of (data.injuries || [])) {
+                    for (const item of (teamBlock.injuries || [])) {
+                        const hs = item.athlete?.headshot?.href || "";
+                        const m = hs.match(/\/full\/(\d+)\.png/);
+                        if (!m) continue;
+                        const pid = Number(m[1]);
+                        const p = db.playersById[pid];
+                        if (!p) continue;
+                        seenInjured.add(pid);
+
+                        const details = item.details || {};
+                        const fAbv = details.fantasyStatus?.abbreviation || item.status || "";
+                        p.status = (fAbv === "OUT" || fAbv === "OFS" || item.status === "Out") ? "OUT" : "DTD";
+                        p.returnDate = details.returnDate || null;
+                        p.injuryType = details.type || null;
+                        p.injuryNote = item.shortComment || null;
+                    }
+                }
+
+                // Clear injury flags for players no longer on the live injury report
+                for (const p of db.players) {
+                    if (!seenInjured.has(p.id) && p.status !== "ACTIVE") {
+                        p.status = "ACTIVE";
+                        p.returnDate = null;
+                        p.injuryType = null;
+                        p.injuryNote = null;
+                    }
+                }
+
+                renderAll();
+            } catch (e) {}
+        }
+
+        async function syncLiveProjections() {
+            try {
+                const filterHeader = JSON.stringify({
+                    players: {
+                        limit: 450,
+                        sortDraftRanks: { sortPriority: 100, sortAsc: true, value: "STANDARD" }
+                    }
+                });
+                const res = await fetch(
+                    "https://lm-api-reads.fantasy.espn.com/apis/v3/games/fba/seasons/2027/segments/0/leaguedefaults/1?view=kona_player_info",
+                    { headers: { "x-fantasy-filter": filterHeader } }
+                );
+                if (!res.ok) return;
+                const data = await res.json();
+                for (const entry of (data.players || [])) {
+                    const p = entry.player;
+                    if (!p || !db.playersById[p.id]) continue;
+                    const localP = db.playersById[p.id];
+                    const orebShare = localP.orebShare || 0.2;
+                    if (!localP.gameLogs) localP.gameLogs = {};
+                    for (const s of (p.stats || [])) {
+                        if (s.statSourceId === 0 && s.statSplitTypeId === 5 && s.seasonId === 2027 && s.externalId && s.stats && Object.keys(s.stats).length > 0) {
+                            const st = s.stats;
+                            localP.gameLogs[String(s.externalId)] = {
+                                pts: Number(st["0"] || 0),
+                                blk: Number(st["1"] || 0),
+                                stl: Number(st["2"] || 0),
+                                ast: Number(st["3"] || 0),
+                                oreb: Number(st["4"] || 0),
+                                dreb: Number(st["5"] || 0),
+                                to: Number(st["11"] || 0),
+                                fgm: Number(st["13"] || 0),
+                                fga: Number(st["14"] || 0)
+                            };
+                        }
+                        if (s.id === "102027" && s.averageStats) {
+                            const avg = s.averageStats;
+                            const reb = Number(avg["6"] || 0);
+                            const oreb = Number((reb * orebShare).toFixed(2));
+                            const dreb = Number(Math.max(0, reb - oreb).toFixed(2));
+                            localP.stats.proj = {
+                                pts: Number(avg["0"] || 0),
+                                blk: Number(avg["1"] || 0),
+                                stl: Number(avg["2"] || 0),
+                                ast: Number(avg["3"] || 0),
+                                oreb,
+                                dreb,
+                                reb,
+                                to: Number(avg["11"] || 0),
+                                fgm: Number(avg["13"] || 0),
+                                fga: Number(avg["14"] || 0),
+                                min: Number(avg["40"] || 0),
+                                gp: Math.round(Number(avg["42"] || 0))
+                            };
+                        }
+                    }
+                }
+                renderAll();
+            } catch (e) {}
+        }
+
+        async function initApp() {
+            initWeekSelector();
+            initSearch();
+            initControls();
+
+            try {
+                let data = window.NBA_FANTASY_DATA;
+                if (!data) {
+                    const res = await fetch("jsons/nba_fantasy_data.json");
+                    data = await res.json();
+                }
+                db.teams = data.teams || {};
+                db.schedule = data.schedule || {};
+                db.players = data.players || [];
+                db.playersById = {};
+                for (const p of db.players) {
+                    db.playersById[p.id] = p;
+                }
+
+                if (state.roster.length === 0) {
+                    await restoreFromIndexedDB();
+                }
+
+                renderAll();
+                syncLiveInjuries();
+                syncLiveProjections();
+            } catch (e) {
+                console.error("Failed to load NBA fantasy dataset:", e);
+            }
+        }
+
+        initApp();
+    </script>
+</body>
+</html>

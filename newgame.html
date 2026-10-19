@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Asymmetry - Comprehensive Engine & Rules Matrix</title>
+  <style>
+    :root {
+      --bg-dark: #0b0d10;
+      --panel-bg: #14171f;
+      --panel-border: #232834;
+      --text-main: #e2e8f0;
+      --text-muted: #8e9aaf;
+      --accent-org: #3a86ff;
+      --accent-ind: #ff0055;
+      
+      /* Faction Colors */
+      --faction-corp: #00d2ff;
+      --faction-church: #ffb703;
+      --faction-pharm: #00f5d4;
+      --faction-media: #7000ff;
+
+      --faction-syndicate: #f72585;
+      --faction-populists: #ff5722;
+      --faction-artificers: #ffb703;
+      --faction-pirates: #4cc9f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar Navigation */
+    aside {
+      width: 290px;
+      background-color: #060709;
+      border-right: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+    }
+    .brand {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--panel-border);
+    }
+    .brand h1 { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
+    .brand span { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    nav { flex: 1; padding: 16px 0; overflow-y: auto; }
+    nav ul { list-style: none; }
+    nav li a {
+      display: block;
+      padding: 10px 20px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+    nav li a:hover, nav li a.active {
+      color: #fff;
+      background-color: var(--panel-bg);
+      border-left: 4px solid var(--accent-org);
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    h2 { font-size: 1.7rem; margin-bottom: 12px; color: #fff; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; }
+    h3 { font-size: 1.2rem; margin: 24px 0 12px 0; color: #fff; }
+    p { line-height: 1.6; color: var(--text-muted); margin-bottom: 16px; font-size: 0.95rem; }
+
+    /* Grids & Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-top: 16px; }
+    .card-panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 20px;
+    }
+    .card-panel h4 { font-size: 1rem; color: #fff; margin-bottom: 8px; }
+
+    /* Subtype Lists */
+    .subtype-tag {
+      display: inline-block;
+      background: #1c2230;
+      border: 1px solid var(--panel-border);
+      color: #a0aec0;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin: 2px 4px 6px 0;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      background: var(--panel-bg);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--panel-border); font-size: 0.88rem; }
+    th { background: #0e1015; color: #fff; font-weight: 600; }
+    td { color: var(--text-muted); }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+    .badge-org { background: rgba(58, 134, 255, 0.2); color: var(--accent-org); border: 1px solid var(--accent-org); }
+    .badge-ind { background: rgba(255, 0, 85, 0.2); color: var(--accent-ind); border: 1px solid var(--accent-ind); }
+
+    /* Card Frame Visualizers */
+    .card-mockup {
+      width: 260px;
+      height: 380px;
+      background: #0f1117;
+      border: 2px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card-mockup .header { display: flex; justify-content: space-between; font-weight: bold; font-size: 0.88rem; color: #fff; }
+    .card-mockup .type-line { font-size: 0.72rem; color: var(--text-muted); margin: 6px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-mockup .art-placeholder {
+      flex: 1;
+      background: #181c26;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4a5568;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .card-mockup .text-box {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 0.73rem;
+      line-height: 1.35;
+      color: var(--text-main);
+      height: 105px;
+    }
+    .card-mockup .stat-box {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+    }
+
+    ul, ol { margin-left: 20px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }
+    li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <aside>
+    <div class="brand">
+      <h1>PROJECT ASYMMETRY</h1>
+      <span>Rules & Engine Matrix</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#overview" class="active">Overview & Win Conditions</a></li>
+        <li><a href="#macro">Board Architecture & Zones</a></li>
+        <li><a href="#turn-structure">Turn Structure & Actions</a></li>
+        <li><a href="#operations">Operations Engine</a></li>
+        <li><a href="#raids">Raid & Combat Loop</a></li>
+        <li><a href="#card-types">Card Types & Subtypes</a></li>
+        <li><a href="#keywords">Keywords & Mechanics</a></li>
+        <li><a href="#factions">Factions & Identities</a></li>
+        <li><a href="#deckbuilding">Deckbuilding Constraints</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <!-- OVERVIEW -->
+    <section id="overview" class="section active">
+      <h2>Overview & Win Conditions</h2>
+      <p>A 2-player asymmetric street-warfare card game pitting a sprawling, resource-heavy <strong>Organization</strong> against a clandestine, agile <strong>Individual</strong> cell.</p>
+      
+      <div class="grid">
+        <div class="card-panel">
+          <span class="badge badge-org">Organization</span>
+          <h4>The Established Power</h4>
+          <p>Controls institutional channels, deploys public defenses, and executes multi-stage Operations to achieve total domain dominance.</p>
+          <hr style="border-color: var(--panel-border); margin: 12px 0;" />
+          <strong>Win Condition:</strong> Complete <strong>Operations</strong> worth a total of <strong>5 Victory Points</strong>.
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Individual</span>
+          <h4>The Resistance Cell</h4>
+          <p>Operates from a street hideout, recruiting Operatives and executing precision Raids to dismantle corporate infrastructure.</p>
+          <hr style="border-color: var(--panel-border); margin: 12px 0;" />
+          <strong>Win Condition:</strong> Reach <strong>5 Reputation</strong> (via successful Raids or the 10-Cash Free Action buy).
+        </div>
+      </div>
+    </section>
+
+    <!-- BOARD ARCHITECTURE -->
+    <section id="macro" class="section">
+      <h2>Board Architecture & Zones</h2>
+      <p>The playing field is strictly partitioned into public institutional channels and street hideouts.</p>
+
+      <h3>Organization Board State</h3>
+      <table>
+        <thead>
+          <tr><th>Zone</th><th>Visibility</th><th>Purpose & Contents</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Command Zone</td><td>Public</td><td>Houses active Operations advancing through Stage 1 &rarr; 2 &rarr; 3.</td></tr>
+          <tr><td>Financial Channel</td><td>Public Lane</td><td>Houses Financial Infrastructure, protects sector Enforcers & attached Directives.</td></tr>
+          <tr><td>Security Channel</td><td>Public Lane</td><td>Houses Security Infrastructure, protects sector Enforcers & attached Directives.</td></tr>
+          <tr><td>Executive Channel</td><td>Public Lane</td><td>Houses Executive Infrastructure, protects sector Enforcers & attached Directives.</td></tr>
+          <tr><td>Central Treasury (HQ)</td><td>Public Core</td><td>The primary vault/core server. Houses HQ Enforcers, Directives, and core reserves.</td></tr>
+          <tr><td>Org Discard Pile</td><td>Public</td><td>Face-up heap of destroyed Enforcers, completed/breached Ops, and spent Edicts.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: 24px;">Individual Board State</h3>
+      <table>
+        <thead>
+          <tr><th>Zone</th><th>Visibility</th><th>Purpose & Contents</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Street Zone (Hideout)</td><td>Public / Active</td><td>Houses deployed Operatives, active Contacts, and attached Contraband/Tools.</td></tr>
+          <tr><td>Hand</td><td>Hidden</td><td>Holds fast-play Tactics, un-recruited Operatives, Tools, and Contacts.</td></tr>
+          <tr><td>Individual Discard</td><td>Public</td><td>Face-up heap of defeated Operatives, spent Tactics, and discarded gear.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TURN STRUCTURE -->
+    <section id="turn-structure" class="section">
+      <h2>Turn Structure & Action Budgets</h2>
+      <p>Players take alternating turns spending discrete action budgets on their main turn phase.</p>
+
+      <div class="grid">
+        <div class="card-panel">
+          <span class="badge badge-org">Organization</span>
+          <h4>3 Actions Per Turn</h4>
+          <ul>
+            <li><strong>Starting Cash:</strong> $5</li>
+            <li><strong>Turn Order:</strong> Acts First</li>
+            <li><strong>Turn 1 Restrictions:</strong> Cannot advance Operations to Stage 3 or play Edicts on Turn 1.</li>
+          </ul>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Individual</span>
+          <h4>4 Actions Per Turn</h4>
+          <ul>
+            <li><strong>Starting Cash:</strong> $3</li>
+            <li><strong>Turn Order:</strong> Acts Second</li>
+            <li><strong>Free Action:</strong> Spend 10 Cash &rarr; Gain 1 Reputation (Costs 0 actions).</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Standard Turn Sequence</h3>
+      <ol>
+        <li><strong>Phase 1: Refresh / Upkeep</strong> &mdash; Reset active units/cards. Collect passive yields from active Infrastructure / Contacts. Trigger "Start of Turn" effects.</li>
+        <li><strong>Phase 2: Mandatory Draw</strong> &mdash; Draw 1 card from deck.</li>
+        <li><strong>Phase 3: Action Phase (Main)</strong> &mdash; Spend action budget (3 for Org, 4 for Individual) in any order on basic actions or card abilities:
+          <table style="margin-top: 8px;">
+            <thead>
+              <tr><th>Action</th><th>Organization (3 Actions)</th><th>Individual (4 Actions)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Economy</td><td>Gain 1 Cash.</td><td>Gain 1 Cash.</td></tr>
+              <tr><td>Draw</td><td>Draw 1 Card.</td><td>Draw 1 Card.</td></tr>
+              <tr><td>Deploy</td><td>Play Enforcer, Infra, Operation, Directive.</td><td>Play Operative, Contact, Tool.</td></tr>
+              <tr><td>Advance / Execute</td><td>Advance Op ($Lv Cash + 1 Action) or play Edict.</td><td>Play Tactic from hand.</td></tr>
+              <tr><td>Special</td><td>Use card ability.</td><td>Launch Raid (Limit 1/turn) / Buy Rep (Free).</td></tr>
+            </tbody>
+          </table>
+        </li>
+        <li><strong>Phase 4: Cleanup Phase</strong> &mdash; Discard down to max hand size limit (Standard: 5 cards). Pass turn.</li>
+      </ol>
+    </section>
+
+    <!-- OPERATIONS ENGINE -->
+    <section id="operations" class="section">
+      <h2>The Operation & Advance Engine</h2>
+      <p>Operations sit face-up in the Command Zone and act as ticking corporate threats driving the Org's victory path.</p>
+
+      <div class="card-panel" style="margin-bottom: 20px;">
+        <h4>Lifecycle & Rules of Operations</h4>
+        <ul>
+          <li><strong>Deployment Window:</strong> An Operation costs its printed base cost to play into the Command Zone. Operations <strong>cannot</strong> be advanced on the exact turn they are deployed.</li>
+          <li><strong>Stage Progression (Stage 1 &rarr; Stage 2 &rarr; Stage 3):</strong>
+            <br />&bull; <strong>Advance to Stage 2:</strong> Costs 1 Action + <strong>$2 Cash</strong>. Activates Stage 2 passive rules/hazards.
+            <br />&bull; <strong>Advance to Stage 3 (Completion):</strong> Costs 1 Action + <strong>$3 Cash</strong>. Triggers Stage 3 Completion Effect.
+          </li>
+          <li><strong>Scoring Completion:</strong> Upon paying to complete Stage 3, the Operation triggers its completion rule, moves to the Org's Scored Zone, and awards its printed VP value (1, 2, or 3 VP). Average win requires ~3 completed Operations (e.g., 2+2+1 VP).</li>
+          <li><strong>Raid Breach Loss:</strong> If an Individual successfully breaches an Operation at <em>any</em> stage, the Operation is destroyed, sent to the Org discard pile, and awards the Individual <strong>1 Reputation</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RAIDS -->
+    <section id="raids" class="section">
+      <h2>The Raid & Combat Resolution Loop</h2>
+      <p>Raids are direct, single-number comparison engagements launched by the Individual against Org channels, Operations, or HQ.</p>
+
+      <div class="card-panel">
+        <h4>Step-by-Step Raid Execution</h4>
+        <ol>
+          <li><strong>Declaration:</strong> Individual spends 1 Action (Limit 1 Raid/turn) to select a target (Operation in Command Zone, Channel Infrastructure, or Central Treasury HQ) and commits active field Operatives from the Street Zone.</li>
+          <li><strong>Sequential Alignment:</strong> Committed Operatives line up against face-up Enforcers guarding that lane/target. Engagements are resolved strictly 1-on-1 in defender sequence.</li>
+          <li><strong>Hidden Information Window:</strong>
+            <br />&bull; <em>Organization:</em> May pay cash cost to flip face-down Directives attached to the active Enforcer.
+            <br />&bull; <em>Individual:</em> May play instant Tactics from hand or trigger active Tool abilities.
+          </li>
+          <li><strong>Single-Number Comparison:</strong> Compare total modified <strong>Operative Attack Rating</strong> vs. <strong>Enforcer Defense Rating</strong>:
+            <br />&bull; <strong>Operative Victory (Attack &ge; Defense):</strong> Enforcer is defeated and sent to Org discard pile. Operative proceeds.
+            <br />&bull; <strong>Enforcer Victory (Defense > Attack):</strong> Operative is defeated and sent directly to the <strong>Individual Discard Pile (NO WOUND TRACKERS / PERMADEATH)</strong>.
+          </li>
+          <li><strong>Bail Window:</strong> Between defender line engagements, the Individual may choose to retreat (bail out) with surviving Operatives. Once an engagement begins, it is a point-of-no-return.</li>
+          <li><strong>Breach Payout:</strong> If Operatives pass all defenders and breach the target:
+            <br />&bull; <em>Targeting Operation:</em> Operation is destroyed &rarr; Individual gains 1 Reputation.
+            <br />&bull; <em>Targeting HQ:</em> Individual accesses central reserves (steals cash / views hand).
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CARD TYPES & SUBTYPES -->
+    <section id="card-types" class="section">
+      <h2>Exhaustive Card Types & Subtypes</h2>
+      <p>Detailed breakdown of every card category and subtype across both decks.</p>
+
+      <h3>Organization Card Types</h3>
+      <div class="grid">
+        <div class="card-panel">
+          <span class="badge badge-org">Identity</span>
+          <h4>Organization Identity</h4>
+          <p>Defines starting Cash ($5), deckbuilding parameters, and passive organizational authority.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Operation</span>
+          <h4>Operation</h4>
+          <p>Public threat deployed to Command Zone. Advances Stage 1 &rarr; 2 ($2) &rarr; 3 ($3) to score 1-3 VP.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Enforcer</span>
+          <h4>Enforcer</h4>
+          <p>Public defensive units assigned to Channels or HQ. Features Base Defense Rating.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Heavy</span><span class="subtype-tag">Patrol</span><span class="subtype-tag">Automated</span><span class="subtype-tag">Specialist</span>
+          </div>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Infrastructure</span>
+          <h4>Infrastructure</h4>
+          <p>Permanent buildings placed in Channels. Grants passive cash income or structural bonuses.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Financial</span><span class="subtype-tag">Security</span><span class="subtype-tag">Executive</span><span class="subtype-tag">Media</span>
+          </div>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Directive</span>
+          <h4>Directive</h4>
+          <p>Hidden trap cards attached face-down to Enforcers/Channels. Flipped during Raid windows.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Ambush</span><span class="subtype-tag">Protocol</span><span class="subtype-tag">Lockout</span><span class="subtype-tag">Surveillance</span>
+          </div>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Edict</span>
+          <h4>Edict</h4>
+          <p>High-impact, one-time corporate spells played from hand during the Action Phase.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Decree</span><span class="subtype-tag">Raid</span><span class="subtype-tag">Policy</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 28px;">Individual Card Types</h3>
+      <div class="grid">
+        <div class="card-panel">
+          <span class="badge badge-ind">Identity</span>
+          <h4>Individual Identity</h4>
+          <p>Defines starting Cash ($3), starting hideout ability, and faction synergy.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Operative</span>
+          <h4>Operative</h4>
+          <p>Field agents deployed to the Street Zone. Features Base Attack Rating used during Raids.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Infiltrator</span><span class="subtype-tag">Heavy</span><span class="subtype-tag">Hacker</span><span class="subtype-tag">Specialist</span>
+          </div>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Contact</span>
+          <h4>Contact</h4>
+          <p>Underground informants living in the Street Zone. Generates passive income or action discounts.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Informant</span><span class="subtype-tag">Fixer</span><span class="subtype-tag">Smuggler</span><span class="subtype-tag">Dealer</span>
+          </div>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Tool / Contraband</span>
+          <h4>Tool / Contraband</h4>
+          <p>Gear and software attached to Operatives to grant +X Attack or keywords.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Weapon</span><span class="subtype-tag">Cyberware</span><span class="subtype-tag">Software</span><span class="subtype-tag">Vehicle</span>
+          </div>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Tactic</span>
+          <h4>Tactic</h4>
+          <p>Fast-play instant tricks played directly from hand during Raids or main turn.</p>
+          <div style="margin-top: 8px;">
+            <span class="subtype-tag">Trick</span><span class="subtype-tag">Hack</span><span class="subtype-tag">Sabotage</span><span class="subtype-tag">Escape</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 30px;">Visual Frame Specifications</h3>
+      <div class="grid">
+        <div>
+          <h4>Organization Card Frame</h4>
+          <div class="card-mockup" style="border-color: var(--accent-org); margin-top: 10px;">
+            <div class="header"><span>SECURITY ENFORCER</span><span>$3</span></div>
+            <div class="type-line">Enforcer &mdash; Patrol</div>
+            <div class="art-placeholder">[ Card Art Placeholder ]</div>
+            <div class="text-box">
+              <strong>Alert. Tax $1.</strong><br />
+              When this Enforcer wins an engagement, force the Individual to discard 1 Tactic from hand.
+            </div>
+            <div class="stat-box" style="background: var(--accent-org); color: #fff;">4</div>
+          </div>
+        </div>
+        <div>
+          <h4>Individual Card Frame</h4>
+          <div class="card-mockup" style="border-color: var(--accent-ind); margin-top: 10px;">
+            <div class="header"><span>SHADOW OPERATIVE</span><span>$2</span></div>
+            <div class="type-line">Operative &mdash; Infiltrator</div>
+            <div class="art-placeholder">[ Card Art Placeholder ]</div>
+            <div class="text-box">
+              <strong>Stealth.</strong><br />
+              +2 Attack during Raids against Financial Channel Operations.
+            </div>
+            <div class="stat-box" style="background: var(--accent-ind); color: #fff;">3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEYWORDS & MECHANICS -->
+    <section id="keywords" class="section">
+      <h2>Core Keywords & Ability Rules</h2>
+      <p>Standardized keyword vocabulary used across both card decks.</p>
+
+      <div class="grid">
+        <div class="card-panel">
+          <span class="badge badge-org">Org Keyword</span>
+          <h4>Alert</h4>
+          <p>When an engagement begins with this Enforcer, flip a face-down Directive attached to it for 0 Cash.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Org Keyword</span>
+          <h4>Tax $[X]</h4>
+          <p>When an Operative engages this unit, the Individual must pay $[X] Cash or automatically fail the engagement.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-org">Org Keyword</span>
+          <h4>Lethal</h4>
+          <p>When this Enforcer wins an engagement, the defeated Operative cannot be reclaimed from the discard pile for the rest of the game.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Rebel Keyword</span>
+          <h4>Stealth</h4>
+          <p>Ignore the first Enforcer in a target line. That Enforcer does not participate in combat during this Raid.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Rebel Keyword</span>
+          <h4>Piercing</h4>
+          <p>Attacks ignore extra Defense bonuses granted to Enforcers by Infrastructure or Directives.</p>
+        </div>
+        <div class="card-panel">
+          <span class="badge badge-ind">Rebel Keyword</span>
+          <h4>Infiltrate</h4>
+          <p>Bypasses outer defenders, but Operatives cannot retreat (bail out) from any remaining engagements during this Raid.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FACTIONS -->
+    <section id="factions" class="section">
+      <h2>Factions & World Identities</h2>
+      <p>A completely privatized world featuring 4 Corporate Organizations and 4 Underground Rebel Movements.</p>
+
+      <h3>Organization Factions</h3>
+      <div class="grid">
+        <div class="card-panel" style="border-top: 4px solid var(--faction-corp);">
+          <span class="badge" style="background: var(--faction-corp); color: #000;">Finance Conglomerate</span>
+          <p style="margin-top: 10px;">Market dominance, liquidity, high cash generation, and massive financial leverage.</p>
+        </div>
+        <div class="card-panel" style="border-top: 4px solid var(--faction-church);">
+          <span class="badge" style="background: var(--faction-church); color: #000;">Religious Cult / Church</span>
+          <p style="margin-top: 10px;">Zealotry, tithes, attrition, and devastating martyrdom effects when defenders fall.</p>
+        </div>
+        <div class="card-panel" style="border-top: 4px solid var(--faction-pharm);">
+          <span class="badge" style="background: var(--faction-pharm); color: #000;">Bio-Tech Lab / Pharm Giant</span>
+          <p style="margin-top: 10px;">Mutagenic evolution, asset recycling from discard, and adaptive biological defenses.</p>
+        </div>
+        <div class="card-panel" style="border-top: 4px solid var(--faction-media);">
+          <span class="badge" style="background: var(--faction-media); color: #fff;">Propaganda Machine</span>
+          <p style="margin-top: 10px;">Public smearing, hidden directives, psychological warfare, and narrative manipulation.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 30px;">Individual Factions</h3>
+      <div class="grid">
+        <div class="card-panel" style="border-top: 4px solid var(--faction-syndicate);">
+          <span class="badge" style="background: var(--faction-syndicate); color: #fff;">Syndicate / Ghost Cell</span>
+          <p style="margin-top: 10px;">Black-market brokers and shadow intelligence. High cash, deep espionage, stealth.</p>
+        </div>
+        <div class="card-panel" style="border-top: 4px solid var(--faction-populists);">
+          <span class="badge" style="background: var(--faction-populists); color: #fff;">Populists</span>
+          <p style="margin-top: 10px;">Mass movement & labor union. Swarming cheap operatives, choking corporate actions.</p>
+        </div>
+        <div class="card-panel" style="border-top: 4px solid var(--faction-artificers);">
+          <span class="badge" style="background: var(--faction-artificers); color: #000;">Street Artificers</span>
+          <p style="margin-top: 10px;">Junkyard survivalists. Scavenging discard pile, improvising combat gear, hardware mods.</p>
+        </div>
+        <div class="card-panel" style="border-top: 4px solid var(--faction-pirates);">
+          <span class="badge" style="background: var(--faction-pirates); color: #000;">Media Pirates</span>
+          <p style="margin-top: 10px;">Truth broadcasters & whistleblowers. Exposing corporate crime, stripping VP, broadcast Raids.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DECKBUILDING -->
+    <section id="deckbuilding" class="section">
+      <h2>Deckbuilding Constraints & Setup</h2>
+      <p>Standardized parameters for tournament and constructed play.</p>
+
+      <div class="card-panel">
+        <ul>
+          <li><strong>Main Deck Minimum:</strong> Exactly <strong>45 Cards</strong> minimum.</li>
+          <li><strong>Card Copy Limit:</strong> Maximum <strong>3 Copies</strong> of any unique card per deck.</li>
+          <li><strong>Identity Card:</strong> Exactly <strong>1 Identity Card</strong> (does not count toward 45-card main deck).</li>
+          <li><strong>Faction Composition:</strong> Decks may include neutral cards and cards matching the selected Identity's Faction tag.</li>
+          <li><strong>First Matchup Composition (15 x 3):</strong> A complete main deck is made of <strong>15 unique card designs</strong> running 3 copies each.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Tab Navigation Logic
+    const links = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('.section');
+
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = link.getAttribute('href').substring(1);
+
+        links.forEach(l => l.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+
+        link.classList.add('active');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
