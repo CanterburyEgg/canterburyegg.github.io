@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storybook Card Studio — Card Designer &amp; Set Builder</title>
+  <meta name="description" content="Interactive wireframe card designer and set management studio for the Storybook digital card game.">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600;1,9..144,700;1,9..144,800&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./card-builder.css?v=24">
+</head>
+<body>
+
+  <!-- Top Navigation & Global Actions -->
+  <header class="studio-header">
+    <div class="brand-cluster">
+      <h1>Storybook Card Studio</h1>
+      <span id="set-card-counter" class="set-counter">0 Cards</span>
+      <button type="button" id="sync-status-btn" class="sync-status-pill" title="Direct sync status with /storybook/cards.json">Syncing…</button>
+    </div>
+
+    <nav class="mode-tabs" aria-label="Workspace View">
+      <button type="button" id="tab-studio-btn" class="mode-tab active">Card Designer</button>
+      <button type="button" id="tab-sheet-btn" class="mode-tab">Set Sheet &amp; Matrix</button>
+    </nav>
+
+    <div class="header-actions">
+      <a href="./factions.html" target="_blank" rel="noopener" class="btn" style="text-decoration:none;" title="Open Faction Worldbook &amp; Flavor Reference">Faction Guide ↗</a>
+      <button type="button" id="open-frames-modal-btn" class="btn" title="Configure background frame assets per faction">Frame Assets</button>
+      <button type="button" id="import-json-btn" class="btn" title="Load a cards.json file">Import JSON</button>
+      <input type="file" id="import-json-input" accept=".json,application/json" hidden>
+      <button type="button" id="export-json-btn" class="btn btn-primary" title="Download cards.json">Export JSON</button>
+    </div>
+  </header>
+
+  <!-- View 1: Main 3-Column Card Designer Studio -->
+  <main id="studio-workspace" class="studio-workspace">
+
+    <!-- Left Column: Card Authoring Form -->
+    <section class="panel editor-panel" aria-labelledby="editor-heading">
+      <div class="panel-header">
+        <h2 id="editor-heading" class="panel-title">Card Inspector</h2>
+        <div style="display:flex; gap:6px;">
+          <button type="button" id="new-card-btn" class="btn btn-sm">+ New Blank</button>
+          <button type="button" id="duplicate-card-btn" class="btn btn-sm" title="Clone current card into a new entry">Duplicate</button>
+        </div>
+      </div>
+
+      <form id="card-editor-form" class="editor-body" autocomplete="off">
+        <!-- 1. Card Type -->
+        <div class="field-group">
+          <span class="field-label">Card Type</span>
+          <div id="type-selector" class="segmented-grid" role="radiogroup" aria-label="Card Type">
+            <button type="button" class="seg-btn active" data-type="character">Character</button>
+            <button type="button" class="seg-btn" data-type="building">Building</button>
+            <button type="button" class="seg-btn" data-type="spell">Spell</button>
+            <button type="button" class="seg-btn" data-type="hero_active">Active</button>
+            <button type="button" class="seg-btn" data-type="hero_passive">Passive</button>
+          </div>
+        </div>
+
+        <!-- 2. Faction Swatches -->
+        <div class="field-group">
+          <div class="field-label">
+            <span>Faction</span>
+            <span id="faction-name-hint" class="field-hint">Red Velvet Court</span>
+          </div>
+          <div id="faction-selector" class="faction-picker" role="radiogroup" aria-label="Faction">
+            <button type="button" class="faction-btn active" data-faction="R" title="Red Velvet Court">
+              <span class="faction-swatch swatch-R">R</span>
+              <span class="faction-code">Court</span>
+            </button>
+            <button type="button" class="faction-btn" data-faction="H" title="Havenhearth">
+              <span class="faction-swatch swatch-H">H</span>
+              <span class="faction-code">Hearth</span>
+            </button>
+            <button type="button" class="faction-btn" data-faction="D" title="Deepbriar">
+              <span class="faction-swatch swatch-D">D</span>
+              <span class="faction-code">Briar</span>
+            </button>
+            <button type="button" class="faction-btn" data-faction="T" title="Twilight Glade">
+              <span class="faction-swatch swatch-T">T</span>
+              <span class="faction-code">Glade</span>
+            </button>
+            <button type="button" class="faction-btn" data-faction="W" title="Whimsy's Workshop">
+              <span class="faction-swatch swatch-W">W</span>
+              <span class="faction-code">Workshop</span>
+            </button>
+            <button type="button" class="faction-btn" data-faction="N" id="faction-btn-neutral" title="Neutral">
+              <span class="faction-swatch swatch-N">N</span>
+              <span class="faction-code">Neutral</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. Loyalty Pips & Functional Copy Tier -->
+        <div id="loyalty-tier-row" class="field-row">
+          <div class="field-group" id="pips-field-group">
+            <span class="field-label">Faction Pips</span>
+            <div id="pips-selector" class="segmented-3">
+              <button type="button" class="seg-btn active" data-pips="1">1 Pip</button>
+              <button type="button" class="seg-btn" data-pips="2">2 Pips (XX)</button>
+              <button type="button" class="seg-btn" data-pips="0" id="pips-zero-btn" disabled>0 (Neutral)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group" id="tier-field-group">
+          <span class="field-label">Copy Limit / Pool</span>
+          <div id="tier-selector" class="segmented-3">
+            <button type="button" class="seg-btn active" data-tier="standard">Standard (2×)</button>
+            <button type="button" class="seg-btn" data-tier="elite">Elite (1×)</button>
+            <button type="button" class="seg-btn" data-tier="token">Token (0×)</button>
+          </div>
+        </div>
+
+        <!-- 4. Costs & Contextual Stats -->
+        <div id="costs-stats-row" class="field-row">
+          <div class="field-group" id="energy-req-group">
+            <label class="field-label" for="input-energy-req">Energy Req</label>
+            <input type="number" id="input-energy-req" min="0" max="12" step="1" value="1">
+          </div>
+
+          <div class="field-group" id="ap-cost-group">
+            <label class="field-label" for="input-ap-cost">AP Cost</label>
+            <input type="number" id="input-ap-cost" min="0" max="4" step="1" value="1">
+          </div>
+
+          <!-- Character Stats -->
+          <div class="field-group" id="char-attack-group">
+            <label class="field-label" for="input-attack">Attack</label>
+            <input type="number" id="input-attack" min="0" max="30" step="1" value="2">
+          </div>
+
+          <div class="field-group" id="char-health-group">
+            <label class="field-label" for="input-health">Health</label>
+            <input type="number" id="input-health" min="1" max="30" step="1" value="2">
+          </div>
+
+          <!-- Building Stats -->
+          <div class="field-group" id="bldg-energy-group" hidden>
+            <label class="field-label" for="input-energy-out">+Energy Out</label>
+            <input type="number" id="input-energy-out" min="0" max="6" step="1" value="1">
+          </div>
+
+          <div class="field-group" id="bldg-counter-group" hidden>
+            <label class="field-label" for="input-durability">
+              <span>Counter / HP</span>
+              <span class="field-hint">opt</span>
+            </label>
+            <input type="number" id="input-durability" min="1" max="30" step="1" placeholder="None">
+          </div>
+        </div>
+
+        <!-- 5. Name & Subtype -->
+        <div class="field-row">
+          <div class="field-group" style="grid-column: span 2;">
+            <label class="field-label" for="input-card-name">Card Title</label>
+            <input type="text" id="input-card-name" placeholder="Enter card title..." maxlength="44">
+          </div>
+          <div class="field-group" id="subtype-group">
+            <label class="field-label" for="input-subtype">
+              <span>Subtype</span>
+              <span class="field-hint">opt</span>
+            </label>
+            <input type="text" id="input-subtype" placeholder="Tag..." maxlength="32">
+          </div>
+        </div>
+
+        <!-- 6. Rules Text + Inline Symbol Toolbar -->
+        <div class="field-group">
+          <div class="field-label">
+            <label for="input-rules-text">Rules Text</label>
+            <span class="field-hint">**bold** &amp; {tokens}</span>
+          </div>
+          <div class="markup-bar" aria-label="Insert formatting token">
+            <button type="button" class="chip-btn chip-kw-debut" data-insert="{Debut} ">{Debut}</button>
+            <button type="button" class="chip-btn chip-kw-farewell" data-insert="{Farewell} ">{Farewell}</button>
+            <button type="button" class="chip-btn chip-kw-start-turn" data-insert="{Start of Turn} ">{Start of Turn}</button>
+            <button type="button" class="chip-btn chip-kw-end-turn" data-insert="{End of Turn} ">{End of Turn}</button>
+            <button type="button" class="chip-btn chip-kw-siege" data-insert="{Siege} ">{Siege}</button>
+            <button type="button" class="chip-btn chip-kw-poisoned" data-insert="{Poisoned} " title="Also supports {Poison} for verb form">{Poisoned}</button>
+            <button type="button" class="chip-btn chip-kw-safeguard" data-insert="{Safeguard} ">{Safeguard}</button>
+            <button type="button" class="chip-btn chip-kw-provoke" data-insert="{Provoke} ">{Provoke}</button>
+            <button type="button" class="chip-btn chip-kw-ward" data-insert="{Ward} ">{Ward}</button>
+            <button type="button" class="chip-btn chip-kw-devotee" data-insert="{Devotee} ">{Devotee}</button>
+            <button type="button" class="chip-btn chip-kw-fate" data-insert="{Fate} ">{Fate}</button>
+            <button type="button" class="chip-btn" data-insert-wrap="**">Bold</button>
+            <button type="button" class="chip-btn chip-ap-sym" data-insert="{0AP}" title="Insert 0 AP symbol">● {0AP}</button>
+            <button type="button" class="chip-btn chip-ap-sym" data-insert="{1AP}" title="Insert 1 AP diamond">◆ {1AP}</button>
+            <button type="button" class="chip-btn chip-ap-sym" data-insert="{2AP}" title="Insert 2 AP diamonds">◆◆ {2AP}</button>
+            <button type="button" class="chip-btn chip-energy-sym" data-insert="{1E}" data-select-offset="1,2" title="Insert numbered Energy gem (type to replace number)">⬡ {#E}</button>
+            <button type="button" class="chip-btn chip-energy-sym" data-insert="{+1E}" title="Insert +Energy gem">⬡ {+1E}</button>
+            <button type="button" class="chip-btn chip-energy-sym" data-insert="{E}" title="Insert unnumbered Energy gem">⬡ {E}</button>
+            <button type="button" class="chip-btn" data-insert="{R}">{R}</button>
+            <button type="button" class="chip-btn" data-insert="{H}">{H}</button>
+            <button type="button" class="chip-btn" data-insert="{D}">{D}</button>
+            <button type="button" class="chip-btn" data-insert="{T}">{T}</button>
+            <button type="button" class="chip-btn" data-insert="{W}">{W}</button>
+          </div>
+          <textarea id="input-rules-text" rows="4" placeholder="Write rules text..."></textarea>
+        </div>
+
+        <!-- 7. Flavor Text -->
+        <div class="field-group">
+          <label class="field-label" for="input-flavor-text">
+            <span>Flavor Text</span>
+            <span class="field-hint">optional</span>
+          </label>
+          <input type="text" id="input-flavor-text" placeholder="Optional storybook flavor line...">
+        </div>
+
+        <!-- 8. Art Wireframe, Gemini Prompt & Linked Tokens -->
+        <details class="meta-drawer">
+          <summary>Artwork, Gemini Prompt &amp; Linked Tokens</summary>
+          <div class="drawer-fields">
+            <div class="field-group">
+              <div class="field-label">
+                <label for="input-art-url">Illustration Path / URL</label>
+                <button type="button" id="upload-local-art-btn" class="chip-btn">Load Local Image</button>
+                <input type="file" id="upload-local-art-input" accept="image/*" hidden>
+              </div>
+              <input type="text" id="input-art-url" placeholder="e.g. ./assets/my-card-art.png">
+            </div>
+
+            <div class="field-group" id="art-crop-group">
+              <div class="field-label">
+                <label for="input-art-posy">Vertical Crop Focus</label>
+                <span id="art-posy-val" class="field-hint">50%</span>
+              </div>
+              <input type="range" id="input-art-posy" min="0" max="100" value="50">
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">
+                <label for="input-art-prompt">Gemini Art Prompt</label>
+                <button type="button" id="copy-prompt-btn" class="chip-btn">Copy Prompt</button>
+              </div>
+              <textarea id="input-art-prompt" rows="2" placeholder="Store your illustration prompt here..."></textarea>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="input-related-cards">
+                <span>Linked Tokens / Parts</span>
+                <span class="field-hint">comma-separated</span>
+              </label>
+              <input type="text" id="input-related-cards" placeholder="Associated token or component IDs/notes...">
+            </div>
+          </div>
+        </details>
+
+        <!-- Save & Delete Footer -->
+        <div class="editor-footer">
+          <button type="button" id="delete-card-btn" class="btn btn-danger" hidden>Delete</button>
+          <div style="margin-left:auto; display:flex; gap:8px;">
+            <button type="submit" id="save-card-btn" class="btn btn-primary">Save to Set (⌘S)</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Center Stage: Live Wireframe Preview -->
+    <section class="preview-stage" aria-label="Live Card Wireframe Preview">
+      <div class="stage-toolbar">
+        <span id="stage-faction-label" class="faction-readout">Red Velvet Court • 1 Pip</span>
+        <div class="mode-tabs">
+          <button type="button" id="preview-mode-card-btn" class="mode-tab active">Full Card</button>
+          <button type="button" id="preview-mode-board-btn" class="mode-tab">Board Slot</button>
+        </div>
+      </div>
+
+      <!-- Full Card Sculpted / Wireframe -->
+      <div id="live-tcg-card" class="tcg-card" data-faction="R" data-card-type="character">
+        <div class="tcg-card-body">
+          <div id="live-card-bg-asset" class="tcg-card-bg-asset"></div>
+          <div class="tcg-card-vignette"></div>
+
+          <div class="tcg-card-content">
+            <div class="card-art-bezel-wrap" id="live-art-bezel">
+              <div class="card-art-frame" id="live-art-frame"></div>
+            </div>
+
+            <div class="card-ribbon-slot" id="live-ribbon-slot"></div>
+
+            <div class="card-parchment-well" id="live-parchment-well">
+              <div class="parchment-watermark" id="live-watermark"></div>
+              <div id="live-hero-plaque-head" class="hero-plaque-head" hidden></div>
+              <div id="live-rules-text" class="card-rules-content"></div>
+              <div id="live-flavor-text" class="card-flavor-content" hidden></div>
+            </div>
+
+            <div id="live-subtype-plaque" class="card-bottom-plaque" hidden>
+              <span id="live-type-line" class="type-line-text"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Elite Frame Crown Topper (Visible on 1x Elite Tier) -->
+        <div id="live-elite-crest" class="elite-crest-slot" hidden></div>
+
+        <!-- Protruding 3D Sculpted Hardware -->
+        <div class="card-top-hardware">
+          <div class="cost-cluster" id="live-cost-cluster"></div>
+          <div class="loyalty-cluster" id="live-loyalty-cluster"></div>
+        </div>
+
+        <div id="live-stat-left" class="stat-medallion-slot stat-slot-left"></div>
+        <div id="live-stat-right" class="stat-medallion-slot stat-slot-right"></div>
+      </div>
+
+      <!-- Compact Board Footprint Preview -->
+      <div id="live-board-preview" class="board-preview-wrap hidden" data-faction="R">
+        <div id="board-slot-caption" class="board-slot-caption">Central Combat Row (1 of 6 Character Slots — Non-Overwritable)</div>
+        <div id="live-board-token" class="board-token"></div>
+        <div id="live-board-context" class="board-context-strip"></div>
+      </div>
+
+      <div class="stage-actions">
+        <button type="button" id="copy-card-json-btn" class="btn btn-sm">Copy Card JSON</button>
+      </div>
+    </section>
+
+    <!-- Right Column: Set Library & Quick Filters -->
+    <aside class="panel library-panel" aria-labelledby="library-heading">
+      <div class="panel-header">
+        <h2 id="library-heading" class="panel-title">Set Library</h2>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span id="filtered-count-label" class="field-hint">0 shown</span>
+          <button type="button" id="clear-library-btn" class="chip-btn chip-danger" hidden title="Remove all saved cards from Set Library">Clear All</button>
+        </div>
+      </div>
+
+      <div class="library-controls">
+        <input type="text" id="library-search-input" placeholder="Search name, subtype, or text...">
+
+        <div id="library-faction-filters" class="filter-pills" aria-label="Filter by Faction">
+          <button type="button" class="filter-pill active" data-filter-faction="ALL">All</button>
+          <button type="button" class="filter-pill" data-filter-faction="R">R</button>
+          <button type="button" class="filter-pill" data-filter-faction="H">H</button>
+          <button type="button" class="filter-pill" data-filter-faction="D">D</button>
+          <button type="button" class="filter-pill" data-filter-faction="T">T</button>
+          <button type="button" class="filter-pill" data-filter-faction="W">W</button>
+          <button type="button" class="filter-pill" data-filter-faction="N">N</button>
+        </div>
+
+        <div id="library-type-filters" class="filter-pills" aria-label="Filter by Card Type">
+          <button type="button" class="filter-pill active" data-filter-type="ALL">All Types</button>
+          <button type="button" class="filter-pill" data-filter-type="character">Char</button>
+          <button type="button" class="filter-pill" data-filter-type="building">Bldg</button>
+          <button type="button" class="filter-pill" data-filter-type="spell">Spell</button>
+          <button type="button" class="filter-pill" data-filter-type="hero">Hero</button>
+          <button type="button" class="filter-pill" data-filter-type="token">Tokens</button>
+        </div>
+      </div>
+
+      <div id="library-bulk-bar" class="library-bulk-bar" hidden>
+        <label class="bulk-select-label">
+          <input type="checkbox" id="bulk-select-all-cb">
+          <span id="bulk-selected-count">Select shown</span>
+        </label>
+        <button type="button" id="bulk-delete-btn" class="btn btn-danger btn-sm" hidden>Delete Selected</button>
+      </div>
+
+      <div id="library-list" class="library-list"></div>
+    </aside>
+  </main>
+
+  <!-- View 2: Full Set Sheet & Faction/Curve Matrix -->
+  <section id="sheet-workspace" class="sheet-workspace hidden" aria-label="Set Sheet and Analytics">
+    <div class="matrix-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Set 1 Skeleton — Faction × Type Breakdown</h2>
+          <span class="field-hint">Collectible deck cards + Hero abilities + Tokens</span>
+        </div>
+        <div style="padding: 10px 16px 16px; overflow-x:auto;">
+          <table class="matrix-table" id="faction-matrix-table"></table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Energy Requirement Curve</h2>
+          <span class="field-hint">Collectible Cards</span>
+        </div>
+        <div id="energy-curve-bars" class="curve-bars"></div>
+      </div>
+    </div>
+
+    <div class="sheet-toolbar">
+      <div id="sheet-faction-filters" class="filter-pills">
+        <button type="button" class="filter-pill active" data-sheet-faction="ALL">All Factions</button>
+        <button type="button" class="filter-pill" data-sheet-faction="R">Red Velvet Court</button>
+        <button type="button" class="filter-pill" data-sheet-faction="H">Havenhearth</button>
+        <button type="button" class="filter-pill" data-sheet-faction="D">Deepbriar</button>
+        <button type="button" class="filter-pill" data-sheet-faction="T">Twilight Glade</button>
+        <button type="button" class="filter-pill" data-sheet-faction="W">Whimsy's Workshop</button>
+        <button type="button" class="filter-pill" data-sheet-faction="N">Neutral</button>
+      </div>
+      <span class="field-hint">Click any card to edit in Designer</span>
+    </div>
+
+    <div id="card-sheet-grid" class="card-sheet-grid"></div>
+  </section>
+
+  <!-- Modal: Custom Frame Background Assets (for Gemini-generated frame textures) -->
+  <div id="frames-modal-backdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="frames-modal-title">
+    <div class="modal-card">
+      <div class="panel-header">
+        <h2 id="frames-modal-title" class="panel-title">Faction Frame Background Assets</h2>
+        <button type="button" id="close-frames-modal-btn" class="btn btn-sm">Close</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin:0; font-size:0.8rem; color:var(--ink-secondary);">
+          Optional image URLs or relative paths (e.g. <code>./assets/bg-court.png</code>) rendered behind the card wireframe per faction. Saved inside your exported <code>cards.json</code>.
+        </p>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-global">Global Fallback Texture</label>
+          <input type="text" id="frame-asset-global" placeholder="Optional shared parchment/frame background URL...">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-R">Red Velvet Court (R)</label>
+          <input type="text" id="frame-asset-R" placeholder="./assets/frame-R.png">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-H">Havenhearth (H)</label>
+          <input type="text" id="frame-asset-H" placeholder="./assets/frame-H.png">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-D">Deepbriar (D)</label>
+          <input type="text" id="frame-asset-D" placeholder="./assets/frame-D.png">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-T">Twilight Glade (T)</label>
+          <input type="text" id="frame-asset-T" placeholder="./assets/frame-T.png">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-W">Whimsy's Workshop (W)</label>
+          <input type="text" id="frame-asset-W" placeholder="./assets/frame-W.png">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="frame-asset-N">Neutral (N)</label>
+          <input type="text" id="frame-asset-N" placeholder="./assets/frame-N.png">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px; padding-top:8px;">
+          <button type="button" id="save-frames-btn" class="btn btn-primary">Apply Frame Assets</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="studio-toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="./card-svg-parts.js?v=24"></script>
+  <script src="./card-builder.js?v=24"></script>
+</body>
+</html>

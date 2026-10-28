@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storybook Faction Worldbook — Flavor &amp; Identity Reference</title>
+  <meta name="description" content="Worldbuilding, aesthetic palette, fairy-tale tropes, and character/building reference for the five Storybook factions.">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-canvas: hsl(37, 33%, 93%);
+      --bg-panel: hsl(40, 60%, 99%);
+      --bg-subtle: hsl(36, 26%, 90%);
+      --ink-primary: hsl(28, 18%, 13%);
+      --ink-secondary: hsl(28, 12%, 32%);
+      --ink-muted: hsl(28, 10%, 48%);
+      --border-hairline: hsl(34, 20%, 81%);
+      --border-strong: hsl(32, 18%, 68%);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-book: 'Crimson Pro', Georgia, serif;
+      --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --col-R: hsl(347, 68%, 30%);
+      --col-R-soft: hsl(347, 50%, 96%);
+      --col-H: hsl(35, 76%, 35%);
+      --col-H-soft: hsl(38, 68%, 95%);
+      --col-D: hsl(148, 48%, 24%);
+      --col-D-soft: hsl(146, 34%, 94%);
+      --col-T: hsl(246, 44%, 38%);
+      --col-T-soft: hsl(246, 45%, 96%);
+      --col-W: hsl(332, 66%, 48%);
+      --col-W-soft: hsl(332, 65%, 96%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-canvas);
+      background-image: radial-gradient(ellipse at 50% 0%, hsla(40, 55%, 99%, 0.85), transparent 72%);
+      color: var(--ink-primary);
+      font-family: var(--font-ui);
+      font-size: 15px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sticky Studio Header */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 26px;
+      background: hsla(40, 55%, 98%, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand span {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+
+    .jump-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .jump-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border-hairline);
+      background: var(--bg-panel);
+      color: var(--ink-primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .jump-pill:hover {
+      transform: translateY(-1px);
+      border-color: var(--border-strong);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    .jump-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .studio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 7px;
+      background: var(--ink-primary);
+      color: #fffdf9;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .studio-link:hover {
+      background: hsl(28, 20%, 22%);
+    }
+
+    .page-wrap {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Intro Banner */
+    .hero-banner {
+      background-color: #f6eedc;
+      background-image: url('./assets/parchment-box.jpg');
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 26px 32px;
+      box-shadow: 0 6px 20px rgba(34, 24, 12, 0.07);
+    }
+
+    .hero-banner h2 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-banner p {
+      margin: 0;
+      max-width: 880px;
+      font-family: var(--font-book);
+      font-size: 1.16rem;
+      line-height: 1.48;
+      color: #362617;
+    }
+
+    /* 5-Column Side-by-Side Quick Cheat Sheet */
+    .glance-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .glance-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-top: 4px solid var(--f-accent);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(34, 26, 18, 0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .glance-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(34, 26, 18, 0.09);
+    }
+
+    .glance-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .coin-holder {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+
+    .coin-holder svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+    }
+
+    .glance-title {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      line-height: 1.18;
+    }
+
+    .glance-code {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--f-accent);
+    }
+
+    .glance-pitch {
+      margin: 0;
+      font-family: var(--font-book);
+      font-size: 0.98rem;
+      line-height: 1.35;
+      color: var(--ink-secondary);
+    }
+
+    .glance-tags {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .mini-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--f-soft);
+      color: var(--f-accent);
+    }
+
+    /* Deep-Dive Faction Folios */
+    .folio-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .folio {
+      scroll-margin-top: 74px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(34, 26, 18, 0.06);
+    }
+
+    .folio-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 26px;
+      background: var(--f-soft);
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .folio-id {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .folio-coin {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    .folio-coin svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+    }
+
+    .folio-headings h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+      color: var(--ink-primary);
+    }
+
+    .folio-sub {
+      margin: 3px 0 0;
+      font-family: var(--font-book);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--f-accent);
+      font-weight: 600;
+    }
+
+    .palette-pill {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--f-accent);
+      color: #fffdf9;
+      white-space: nowrap;
+    }
+
+    .folio-body {
+      padding: 24px 26px 26px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .folio-lead {
+      font-family: var(--font-book);
+      font-size: 1.12rem;
+      line-height: 1.52;
+      color: var(--ink-primary);
+      margin: 0 0 14px;
+    }
+
+    .beat-box {
+      background: hsl(39, 38%, 96%);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .beat-box h4,
+    .col-block h4 {
+      margin: 0 0 8px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--f-accent);
+    }
+
+    .beat-box p,
+    .col-block p {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+    }
+
+    .trope-list {
+      margin: 0;
+      padding-left: 17px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+    }
+
+    .trope-list strong {
+      color: var(--ink-primary);
+    }
+
+    .col-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Mechanical Pie Strip inside each Faction Folio */
+    .pie-strip {
+      padding: 18px 26px 22px;
+      background: hsl(38, 35%, 97%);
+      border-top: 1px dashed var(--border-hairline);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .pie-tier h4 {
+      margin: 0 0 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--f-accent);
+    }
+
+    .pie-tier.blind h4 {
+      color: var(--ink-muted);
+    }
+
+    .pie-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .pie-chip {
+      font-size: 0.76rem;
+      font-weight: 600;
+      line-height: 1.3;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      color: var(--ink-primary);
+    }
+
+    .pie-chip.primary {
+      background: var(--f-soft);
+      border-color: color-mix(in srgb, var(--f-accent) 32%, transparent);
+      color: var(--f-accent);
+      font-weight: 700;
+    }
+
+    .pie-chip.blind {
+      background: transparent;
+      border-style: dashed;
+      color: var(--ink-muted);
+    }
+
+    /* Master Mechanical Pie Matrix */
+    .matrix-section {
+      scroll-margin-top: 74px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 16px;
+      padding: 24px 26px 28px;
+      box-shadow: 0 4px 16px rgba(34, 26, 18, 0.06);
+    }
+
+    .matrix-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .matrix-head h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.48rem;
+      letter-spacing: -0.02em;
+    }
+
+    .guardrail-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .guardrail-box {
+      background: hsl(39, 38%, 96%);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 0.85rem;
+      color: var(--ink-secondary);
+    }
+
+    .guardrail-box strong {
+      color: var(--ink-primary);
+    }
+
+    .pie-table-wrap {
+      overflow-x: auto;
+    }
+
+    .pie-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    .pie-table th,
+    .pie-table td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-hairline);
+      vertical-align: middle;
+    }
+
+    .pie-table thead th {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      background: hsl(38, 30%, 95%);
+    }
+
+    .pie-table .cat-row td {
+      background: hsl(37, 28%, 92%);
+      font-size: 0.73rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-secondary);
+      padding: 6px 12px;
+    }
+
+    .f-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .f-badge.f-R { background: var(--col-R-soft); color: var(--col-R); }
+    .f-badge.f-H { background: var(--col-H-soft); color: var(--col-H); }
+    .f-badge.f-D { background: var(--col-D-soft); color: var(--col-D); }
+    .f-badge.f-T { background: var(--col-T-soft); color: var(--col-T); }
+    .f-badge.f-W { background: var(--col-W-soft); color: var(--col-W); }
+    .f-badge.f-all { background: var(--bg-subtle); color: var(--ink-secondary); font-weight: 700; }
+
+    /* Neutral Footer Strip */
+    .neutral-card {
+      background: var(--bg-panel);
+      border: 1px dashed var(--border-strong);
+      border-radius: 14px;
+      padding: 20px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .neutral-card h3 {
+      margin: 0 0 4px;
+      font-family: var(--font-display);
+      font-size: 1.18rem;
+    }
+
+    .neutral-card p {
+      margin: 0;
+      max-width: 860px;
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+    }
+
+    @media (max-width: 1120px) {
+      .glance-grid { grid-template-columns: repeat(2, 1fr); }
+      .folio-body { grid-template-columns: 1fr; }
+      .pie-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .glance-grid { grid-template-columns: 1fr; }
+      .folio-banner { flex-direction: column; align-items: flex-start; }
+      .pie-strip { grid-template-columns: 1fr; }
+      .guardrail-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <div class="brand">
+      <h1>Storybook Faction Worldbook</h1>
+      <span>Set 1 Flavor &amp; Mechanical Pie Reference</span>
+    </div>
+
+    <nav class="jump-nav" aria-label="Jump to Faction">
+      <a class="jump-pill" href="#faction-R"><span class="jump-dot" style="background:var(--col-R)"></span>Court (R)</a>
+      <a class="jump-pill" href="#faction-H"><span class="jump-dot" style="background:var(--col-H)"></span>Hearth (H)</a>
+      <a class="jump-pill" href="#faction-D"><span class="jump-dot" style="background:var(--col-D)"></span>Deepbriar (D)</a>
+      <a class="jump-pill" href="#faction-T"><span class="jump-dot" style="background:var(--col-T)"></span>Glade (T)</a>
+      <a class="jump-pill" href="#faction-W"><span class="jump-dot" style="background:var(--col-W)"></span>Workshop (W)</a>
+      <a class="jump-pill" href="#mechanical-pie">Mechanical Pie ✦</a>
+    </nav>
+
+    <a class="studio-link" href="./card-builder.html">← Back to Card Studio</a>
+  </header>
+
+  <main class="page-wrap">
+
+    <section class="hero-banner">
+      <h2>Five Realms of the Open Book</h2>
+      <p>
+        Every match stitches together two halves of a fairy-tale protagonist—or doubles down into pure mono-faction obsession.
+        Use this worldbook to gut-check what feels at home in each realm: its materials, who walks its roads, what landmarks stand behind its Hero, and how its stories turn.
+      </p>
+    </section>
+
+    <!-- 5-Column Quick Side-by-Side Comparison -->
+    <section class="glance-grid" aria-label="At-a-Glance Faction Comparison">
+      <a class="glance-card" href="#faction-R" style="--f-accent:var(--col-R); --f-soft:var(--col-R-soft);">
+        <div class="glance-top">
+          <div class="coin-holder" data-coin="R"></div>
+          <div>
+            <div class="glance-code">R • Palace &amp; Crown</div>
+            <h3 class="glance-title">Red Velvet Court</h3>
+          </div>
+        </div>
+        <p class="glance-pitch">Gilded tyranny, vanity, royal decrees, expendable guards, and poisoned hospitality behind velvet curtains.</p>
+        <div class="glance-tags">
+          <span class="mini-tag">Regal Authority</span>
+          <span class="mini-tag">Intrigue</span>
+          <span class="mini-tag">Ruthless Order</span>
+        </div>
+      </a>
+
+      <a class="glance-card" href="#faction-H" style="--f-accent:var(--col-H); --f-soft:var(--col-H-soft);">
+        <div class="glance-top">
+          <div class="coin-holder" data-coin="H"></div>
+          <div>
+            <div class="glance-code">H • Village &amp; Road</div>
+            <h3 class="glance-title">Havenhearth</h3>
+          </div>
+        </div>
+        <p class="glance-pitch">Plucky folk, talking waistcoat critters, warm cottages, shared bread, and humble underdogs standing tall together.</p>
+        <div class="glance-tags">
+          <span class="mini-tag">Fellowship</span>
+          <span class="mini-tag">Grit &amp; Heart</span>
+          <span class="mini-tag">Homestead</span>
+        </div>
+      </a>
+
+      <a class="glance-card" href="#faction-D" style="--f-accent:var(--col-D); --f-soft:var(--col-D-soft);">
+        <div class="glance-top">
+          <div class="coin-holder" data-coin="D"></div>
+          <div>
+            <div class="glance-code">D • Off the Path</div>
+            <h3 class="glance-title">Deepbriar</h3>
+          </div>
+        </div>
+        <p class="glance-pitch">Hungry wolves, bridge trolls, beanstalk giants, swamp witches, bubbling cauldrons, and ancient forest rot.</p>
+        <div class="glance-tags">
+          <span class="mini-tag">Predation</span>
+          <span class="mini-tag">Overgrowth</span>
+          <span class="mini-tag">Hexes &amp; Hunger</span>
+        </div>
+      </a>
+
+      <a class="glance-card" href="#faction-T" style="--f-accent:var(--col-T); --f-soft:var(--col-T-soft);">
+        <div class="glance-top">
+          <div class="coin-holder" data-coin="T"></div>
+          <div>
+            <div class="glance-code">T • Moon &amp; Lore</div>
+            <h3 class="glance-title">Twilight Glade</h3>
+          </div>
+        </div>
+        <p class="glance-pitch">Fairy godmothers, changelings, wandering pipers, starlight wishes, riddles, and magic that rewrites fate itself.</p>
+        <div class="glance-tags">
+          <span class="mini-tag">Wishes &amp; Glamour</span>
+          <span class="mini-tag">Trickery</span>
+          <span class="mini-tag">Living Ink</span>
+        </div>
+      </a>
+
+      <a class="glance-card" href="#faction-W" style="--f-accent:var(--col-W); --f-soft:var(--col-W-soft);">
+        <div class="glance-top">
+          <div class="coin-holder" data-coin="W"></div>
+          <div>
+            <div class="glance-code">W • Craft &amp; Curios</div>
+            <h3 class="glance-title">Whimsy's Workshop</h3>
+          </div>
+        </div>
+        <p class="glance-pitch">Wooden puppets, tin soldiers, gingerbread folk, straw-to-gold looms, clockwork songbirds, and bustling invention.</p>
+        <div class="glance-tags">
+          <span class="mini-tag">Tinkering</span>
+          <span class="mini-tag">Animated Toys</span>
+          <span class="mini-tag">Enchanted Craft</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- Full Faction Folios -->
+    <div class="folio-stack">
+
+      <!-- 1. RED VELVET COURT -->
+      <article id="faction-R" class="folio" style="--f-accent:var(--col-R); --f-soft:var(--col-R-soft);">
+        <header class="folio-banner">
+          <div class="folio-id">
+            <div class="folio-coin" data-coin="R"></div>
+            <div class="folio-headings">
+              <h3>Red Velvet Court (R)</h3>
+              <p class="folio-sub">“Kneel nicely, darling—the mirror hates a messy execution.”</p>
+            </div>
+          </div>
+          <span class="palette-pill">Deep Crimson • Tufted Velvet • Baroque Gold</span>
+        </header>
+
+        <div class="folio-body">
+          <div>
+            <p class="folio-lead">
+              High above the cobblestones sit marble ballrooms draped in heavy burgundy velvet, where vain monarchs, scheming stepmothers, and velvet-gloved chancellors rule by decree. Everything in the Court is immaculate on the surface and lethal underneath: loyalty is demanded, pawns exist to spend on the crown's behalf, and anyone who outshines the throne disappears into the tower before midnight.
+            </p>
+            <div class="beat-box">
+              <h4>Emotional &amp; Play Vibe</h4>
+              <p>Imperious, theatrical, and ruthless. Playing Court feels like sitting on a throne issuing non-negotiable commands—taxing trespassers, sacrificing disposable footmen without blinking, and making examples of anyone too proud.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Signature Characters</h4>
+              <ul class="trope-list">
+                <li><strong>Sovereigns &amp; Schemers:</strong> jealous queens, vain emperors, wicked stepmothers, whispering courtiers, spoiled heirs.</li>
+                <li><strong>Enforcers of the Crown:</strong> halberdier palace guards, hooded executioners, royal tax-collectors, relentless huntsmen-for-hire, bloodhound packs.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Classic Tale Touchstones</h4>
+              <p><em>Snow White</em>’s mirror-obsessed throne room, <em>Cinderella</em>’s cruel manor &amp; midnight ball, the Queen of Hearts’ summary trials, <em>Bluebeard</em>’s locked chambers, <em>The Emperor’s New Clothes</em>.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Places of Power (Buildings)</h4>
+              <ul class="trope-list">
+                <li>Truth-telling magic mirrors, gilded throne daises, dungeon oubliettes, royal treasuries, grand ballrooms, execution blocks.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Plots, Magic &amp; Story Beats</h4>
+              <ul class="trope-list">
+                <li><strong>Royal Decrees &amp; Edicts:</strong> changing the rules of engagement, taxing actions, demanding tribute.</li>
+                <li><strong>Palace Intrigue:</strong> poisoned apples and goblets, framing rivals, trading away underlings for personal power, dramatic public executions.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="pie-strip">
+          <div class="pie-tier">
+            <h4>Primary Pillars (1st)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip primary">Sacrifice &amp; Farewell Aristocrats</span>
+              <span class="pie-chip primary">Hard Single-Target Execution</span>
+              <span class="pie-chip primary">Board Sweepers / AoE</span>
+              <span class="pie-chip primary">Taxing, Edicts &amp; Rule-Setting</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Secondary Support (2nd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Tall Juggernauts</span>
+              <span class="pie-chip">Face Drain &amp; Reach</span>
+              <span class="pie-chip">Energy Ramp (=W)</span>
+              <span class="pie-chip">Building Engines &amp; Overwrite</span>
+              <span class="pie-chip">Card Draw (=W)</span>
+              <span class="pie-chip">Edict-Typal Cast Triggers (=W)</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Tertiary Splash (3rd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Hero Loadout &amp; Sustain</span>
+              <span class="pie-chip">Modular Assembly</span>
+              <span class="pie-chip">Perpetual Mutation</span>
+              <span class="pie-chip">1-of-3 Discovery</span>
+            </div>
+          </div>
+          <div class="pie-tier blind">
+            <h4>Intentional Blind Spots</h4>
+            <div class="pie-chips">
+              <span class="pie-chip blind">No Wide Team Buffs</span>
+              <span class="pie-chip blind">No Unit Healing</span>
+              <span class="pie-chip blind">No Bounce / Stun Stalls</span>
+              <span class="pie-chip blind">No Anti-Building Tech</span>
+              <span class="pie-chip blind">No Graveyard Recursion</span>
+              <span class="pie-chip blind">No Polymorph</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. HAVENHEARTH -->
+      <article id="faction-H" class="folio" style="--f-accent:var(--col-H); --f-soft:var(--col-H-soft);">
+        <header class="folio-banner">
+          <div class="folio-id">
+            <div class="folio-coin" data-coin="H"></div>
+            <div class="folio-headings">
+              <h3>Havenhearth (H)</h3>
+              <p class="folio-sub">“Put the kettle on, bar the shutters, and pass me the wood-axe.”</p>
+            </div>
+          </div>
+          <span class="palette-pill">Warm Amber • Honey-Oak • Copper &amp; Wheat</span>
+        </header>
+
+        <div class="folio-body">
+          <div>
+            <p class="folio-lead">
+              Where the lantern-lit lane winds past thatched cottages, watermills, and bustling market squares, ordinary folk and clever waistcoat-wearing woodland critters look out for their neighbors. Havenhearth has no tolerance for bullies—whether royal tyrants or forest monsters. Its heroes win through pluck, elbow grease, warm meals, stubborn courage, and standing shoulder-to-shoulder when the night grows cold.
+            </p>
+            <div class="beat-box">
+              <h4>Emotional &amp; Play Vibe</h4>
+              <p>Sturdy, earnest, and big-hearted. Playing Havenhearth feels like rallying a whole village where neighbors bolster neighbors, humble third sons grow into giant-slayers, and battered defenders dust themselves off around the fire.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Signature Characters</h4>
+              <ul class="trope-list">
+                <li><strong>Village Folk &amp; Underdogs:</strong> valiant tailors, bakers, woodcutters, millers’ sons, lantern-watchmen, kindly grandmothers, knights-errant.</li>
+                <li><strong>Storybook Critter Companions:</strong> booted fencing cats, traveling donkey-dog-cat-rooster bands, loyal hearth-hounds, clever country mice.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Classic Tale Touchstones</h4>
+              <p><em>Puss in Boots</em>, <em>The Town Musicians of Bremen</em>, <em>The Brave Little Tailor</em>, <em>Jack</em> before and after the climb, <em>Red Riding Hood</em>’s woodcutter rescue, cozy cottage fables.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Places of Power (Buildings)</h4>
+              <ul class="trope-list">
+                <li>Stone-arch cottage hearths, roaring village bakeries, wayside inns, grain windmills, blacksmith anvils, town bell-towers, wishing wells.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Plots, Magic &amp; Story Beats</h4>
+              <ul class="trope-list">
+                <li><strong>Hospitality &amp; Restoration:</strong> hot soup, bandages, shelter from the storm, sharing provisions.</li>
+                <li><strong>Shoulder-to-Shoulder Courage:</strong> rallying militias, clever underdog tricks that topple giants, righteous retaliation when a friend takes a hit.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="pie-strip">
+          <div class="pie-tier">
+            <h4>Primary Pillars (1st)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip primary">Go-Wide Swarm &amp; Team Buffs</span>
+              <span class="pie-chip primary">Wounded-Unit Synergy &amp; Healing</span>
+              <span class="pie-chip primary">Perpetual Card Mutation</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Secondary Support (2nd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Tempo Stalls &amp; Shrinks</span>
+              <span class="pie-chip">AP Flurry &amp; Hustle (=W)</span>
+              <span class="pie-chip">Hero Combat &amp; Valor</span>
+              <span class="pie-chip">Debut Reuse &amp; Self-Bounce</span>
+              <span class="pie-chip">Small-Unit Recursion (=W)</span>
+              <span class="pie-chip">1-of-3 Discovery</span>
+              <span class="pie-chip">Heroic Self-Transformation (=D)</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Tertiary Splash (3rd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Village Building Engines</span>
+              <span class="pie-chip">Modular Assembly</span>
+            </div>
+          </div>
+          <div class="pie-tier blind">
+            <h4>Intentional Blind Spots</h4>
+            <div class="pie-chips">
+              <span class="pie-chip blind">No Hard Execution</span>
+              <span class="pie-chip blind">No Board Sweepers</span>
+              <span class="pie-chip blind">No Direct Face Burn</span>
+              <span class="pie-chip blind">No Raw Draw 2+ Spells</span>
+              <span class="pie-chip blind">No Aristocrat Sacrifice</span>
+              <span class="pie-chip blind">No Energy Ramp</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. DEEPBRIAR -->
+      <article id="faction-D" class="folio" style="--f-accent:var(--col-D); --f-soft:var(--col-D-soft);">
+        <header class="folio-banner">
+          <div class="folio-id">
+            <div class="folio-coin" data-coin="D"></div>
+            <div class="folio-headings">
+              <h3>Deepbriar (D)</h3>
+              <p class="folio-sub">“Step off the gravel path, little morsel—the woods remember their hunger.”</p>
+            </div>
+          </div>
+          <span class="palette-pill">Dark Forest • Moss Emerald • Gnarled Ironwood</span>
+        </header>
+
+        <div class="folio-body">
+          <div>
+            <p class="folio-lead">
+              Ten paces beyond the village fence, the canopy chokes out the sun. Deepbriar is the primeval fairy-tale wilderness—the tangled thorn-wall, the misty bog, the cloud-piercing beanstalk, and the crooked hut on chicken legs. Out here, nature is ancient, towering, and unapologetically hungry: things eat to grow larger, curses fester in iron cauldrons, and nothing buried in the moss stays quiet for long.
+            </p>
+            <div class="beat-box">
+              <h4>Emotional &amp; Play Vibe</h4>
+              <p>Visceral, towering, and ominous. Playing Deepbriar feels like unleashing the cautionary half of every bedtime story—rampant wild growth, apex predators stalking the wounded, and dark cauldron bargains.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Signature Characters</h4>
+              <ul class="trope-list">
+                <li><strong>Beasts &amp; Colossi:</strong> big bad wolves, stone-hide bridge trolls, cloud-striding beanstalk giants, enchanted bears, ravenous boars, raven flocks.</li>
+                <li><strong>Coven &amp; Bog Dwellers:</strong> swamp hags, candy-house witches, feral thorn-druids, mossy treants, lurkers beneath the lily-pads.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Classic Tale Touchstones</h4>
+              <p><em>Hansel and Gretel</em>, <em>Little Red Riding Hood</em>’s wolf, <em>Three Billy Goats Gruff</em>, <em>Jack and the Beanstalk</em>, <em>Baba Yaga</em>, <em>Sleeping Beauty</em>’s hundred-year wall of thorns.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Places of Power (Buildings)</h4>
+              <ul class="trope-list">
+                <li>Sky-splitting beanstalks, bubbling iron cauldrons, impenetrable briar thickets, toll bridges, gingerbread-baited witch huts, ancient hollow oaks.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Plots, Magic &amp; Story Beats</h4>
+              <ul class="trope-list">
+                <li><strong>The Food Chain:</strong> devouring smaller creatures to grow monstrous, swallowing prey whole, scenting blood on damaged foes.</li>
+                <li><strong>Old-Woods Witchcraft:</strong> creeping thorn-walls, hexes, venomous brews, regrowing from rot and composted bones.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="pie-strip">
+          <div class="pie-tier">
+            <h4>Primary Pillars (1st)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip primary">Tall “Juggernaut” Threats</span>
+              <span class="pie-chip primary">Energy Ramp &amp; Big Landmarks</span>
+              <span class="pie-chip primary">Sabotage / Anti-Building Tech</span>
+              <span class="pie-chip primary">Graveyard Recursion &amp; Reanimation</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Secondary Support (2nd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Food-Chain Farewell (=W)</span>
+              <span class="pie-chip">Wounded Enrage &amp; Regen</span>
+              <span class="pie-chip">Hard Single-Target Execution</span>
+              <span class="pie-chip">Tolls &amp; Witch Bargains (=T)</span>
+              <span class="pie-chip">Cauldron Ingredient Assembly</span>
+              <span class="pie-chip">Witch Hex Polymorph (=H)</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Tertiary Splash (3rd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Perpetual Mutation</span>
+              <span class="pie-chip">1-of-3 Discovery</span>
+            </div>
+          </div>
+          <div class="pie-tier blind">
+            <h4>Intentional Blind Spots</h4>
+            <div class="pie-chips">
+              <span class="pie-chip blind">No Board Sweepers / AoE</span>
+              <span class="pie-chip blind">No Wide Token Swarms</span>
+              <span class="pie-chip blind">No Direct Face Burn</span>
+              <span class="pie-chip blind">No Bounce / Stun Stalls</span>
+              <span class="pie-chip blind">No Pure Card Draw</span>
+              <span class="pie-chip blind">No AP Flurry</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. TWILIGHT GLADE -->
+      <article id="faction-T" class="folio" style="--f-accent:var(--col-T); --f-soft:var(--col-T-soft);">
+        <header class="folio-banner">
+          <div class="folio-id">
+            <div class="folio-coin" data-coin="T"></div>
+            <div class="folio-headings">
+              <h3>Twilight Glade (T)</h3>
+              <p class="folio-sub">“Careful how you phrase your wish—the ink dries faster than you think.”</p>
+            </div>
+          </div>
+          <span class="palette-pill">Moonlit Violet • Starlight Indigo • Silver Ink</span>
+        </header>
+
+        <div class="folio-body">
+          <div>
+            <p class="folio-lead">
+              Where silver moonlight pools on still water, the boundary between the fairy realm and the written page dissolves. Twilight Glade is home to fairy godmothers, mercurial sprites, silver-tongued bards, and mysterious pipers who know they are characters inside a living story. They rarely win through brute muscle; instead, they bend timing, grant dangerous wishes, swap shapes, and edit fate mid-sentence.
+            </p>
+            <div class="beat-box">
+              <h4>Emotional &amp; Play Vibe</h4>
+              <p>Luminous, elusive, and wondrously clever. Playing Twilight Glade feels like always having one more trick up your star-spangled sleeve—turning pumpkins into carriages, baffling charging brutes with illusions, and plucking the exact spell you need out of thin air.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Signature Characters</h4>
+              <ul class="trope-list">
+                <li><strong>Fae &amp; Guides:</strong> fairy godmothers, starlight pixies, mischievous changelings, swan-maidens, will-o’-the-wisps, riddle-sphinxes.</li>
+                <li><strong>Story-Weavers:</strong> hypnotic pied pipers, wandering minstrels, chroniclers with self-writing quills, dream-spinners, oracle owls.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Classic Tale Touchstones</h4>
+              <p><em>Cinderella</em>’s midnight godmother magic, <em>The Pied Piper</em>, <em>The Frog Prince</em>, <em>The Six Swans</em>, Celtic &amp; Shakespearean twilight fae rings, <em>One Thousand and One Nights</em> frame-storytelling.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Places of Power (Buildings)</h4>
+              <ul class="trope-list">
+                <li>Mushroom fae rings, starlit scrying pools, scriptoriums of living ink, moon-dials, glass-slipper shrines, whispering willow groves.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Plots, Magic &amp; Story Beats</h4>
+              <ul class="trope-list">
+                <li><strong>Glamour &amp; Metamorphosis:</strong> turning threats into frogs, disguising allies, vanishing into mist and reappearing elsewhere.</li>
+                <li><strong>Wishes, Riddles &amp; Lore:</strong> conjuring new possibilities, foreseeing the next chapter, lullabies that lull an army to sleep, rewriting a card’s destiny.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="pie-strip">
+          <div class="pie-tier">
+            <h4>Primary Pillars (1st)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip primary">Tempo Stalls (Stun/Bounce/Shrink)</span>
+              <span class="pie-chip primary">AP Flurry &amp; 0-AP Turns</span>
+              <span class="pie-chip primary">Pure Card Draw &amp; Hand Size</span>
+              <span class="pie-chip primary">Spell-Slinger / Cast Triggers</span>
+              <span class="pie-chip primary">Debut Reuse &amp; Self-Bounce</span>
+              <span class="pie-chip primary">1-of-3 Discovery (“Wishing”)</span>
+              <span class="pie-chip primary">Transformation &amp; Polymorph</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Secondary Support (2nd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Board Sweepers / AoE</span>
+              <span class="pie-chip">Fae Taboos &amp; Rule-Setting (=D)</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Tertiary Splash (3rd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Sprite / Critter Swarms</span>
+              <span class="pie-chip">Single-Target Banishment</span>
+              <span class="pie-chip">Starlight Face Reach</span>
+              <span class="pie-chip">Modular Assembly</span>
+              <span class="pie-chip">Perpetual Mutation</span>
+            </div>
+          </div>
+          <div class="pie-tier blind">
+            <h4>Intentional Blind Spots</h4>
+            <div class="pie-chips">
+              <span class="pie-chip blind">No Unit Healing</span>
+              <span class="pie-chip blind">No Hero Armor / Sustain</span>
+              <span class="pie-chip blind">No Tall Juggernauts</span>
+              <span class="pie-chip blind">No Energy Ramp</span>
+              <span class="pie-chip blind">No Building Engines</span>
+              <span class="pie-chip blind">No Anti-Building Tech</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. WHIMSY'S WORKSHOP -->
+      <article id="faction-W" class="folio" style="--f-accent:var(--col-W); --f-soft:var(--col-W-soft);">
+        <header class="folio-banner">
+          <div class="folio-id">
+            <div class="folio-coin" data-coin="W"></div>
+            <div class="folio-headings">
+              <h3>Whimsy's Workshop (W)</h3>
+              <p class="folio-sub">“Two turns of the brass key, a pinch of sugar-glass, and—oh! Mind your fingers, it’s dancing!”</p>
+            </div>
+          </div>
+          <span class="palette-pill">Confectioner Pink • Brass Clockwork • Painted Wood</span>
+        </header>
+
+        <div class="folio-body">
+          <div>
+            <p class="folio-lead">
+              Down crooked cobblestone alleys glow frosted-glass shopfronts packed to the rafters with ticking gears, spun sugar, carved pine, and bottled sparks. Whimsy's Workshop is where eccentric toymakers, midnight cobblers, confectioners, and alchemists breathe real heartbeats into handmade creations. Even when a tin regiment or porcelain teacup cracks apart, every spare spring, button, and ribbon gets swept right back onto the workbench to build something twice as marvelous.
+            </p>
+            <div class="beat-box">
+              <h4>Emotional &amp; Play Vibe</h4>
+              <p>Kinetic, inventive, and delightfully tactile. Playing Workshop feels like running a joyful Rube Goldberg contraption—snapping parts together, winding up combos, upgrading humble wooden puppets, and turning scrap into sparkling spectacles.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Signature Characters</h4>
+              <ul class="trope-list">
+                <li><strong>Living Creations:</strong> stringless wooden puppets, steadfast one-legged tin soldiers, sprinting gingerbread folk, mechanical brass nightingales, porcelain ballerinas, animated candlesticks &amp; teapots.</li>
+                <li><strong>Master Makers:</strong> kindly woodcarvers, midnight workshop elves, eccentric clockmakers, sugar-glass confectioners, straw-spinning imps.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Classic Tale Touchstones</h4>
+              <p><em>Pinocchio</em>, <em>The Steadfast Tin Soldier</em>, <em>The Nutcracker</em>, <em>The Elves and the Shoemaker</em>, <em>The Emperor and the Nightingale</em>, <em>The Gingerbread Man</em>, <em>Rumpelstiltskin</em>’s golden wheel.</p>
+            </div>
+          </div>
+
+          <div class="col-stack">
+            <div class="col-block">
+              <h4>Places of Power (Buildings)</h4>
+              <ul class="trope-list">
+                <li>Straw-to-gold spinning looms, clockwork assembly benches, enchanted candy ovens, music-box stages, brass oil-lamps, toyshop display windows.</li>
+              </ul>
+            </div>
+            <div class="col-block">
+              <h4>Plots, Magic &amp; Story Beats</h4>
+              <ul class="trope-list">
+                <li><strong>Assembly &amp; Upgrades:</strong> grafting gears, icing, wings, or keys onto creations; stitching spare parts into custom contraptions.</li>
+                <li><strong>Wind-Up Momentum &amp; Recycling:</strong> ticking counters, rapid chain-reactions, salvaging broken toys into fresh inventions, wishing a puppet into something real.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="pie-strip">
+          <div class="pie-tier">
+            <h4>Primary Pillars (1st)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip primary">Direct Face Burn &amp; Reach</span>
+              <span class="pie-chip primary">Building Engines &amp; Scrap/Rebuild</span>
+              <span class="pie-chip primary">Hero Combat &amp; Loadout Mastery</span>
+              <span class="pie-chip primary">Modular “Build-a-Card” Assembly</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Secondary Support (2nd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Animated Toy Swarm</span>
+              <span class="pie-chip">Scrap &amp; Farewell Salvage (=D)</span>
+              <span class="pie-chip">Energy Ramp (=R)</span>
+              <span class="pie-chip">Wind-Up AP Flurry (=H)</span>
+              <span class="pie-chip">Anti-Building Sabotage</span>
+              <span class="pie-chip">Blueprint Card Draw (=R)</span>
+              <span class="pie-chip">Gadget Cast Triggers (=R)</span>
+              <span class="pie-chip">Construct/Building Recursion (=H)</span>
+              <span class="pie-chip">Perpetual Tinkering Mutation</span>
+            </div>
+          </div>
+          <div class="pie-tier">
+            <h4>Tertiary Splash (3rd)</h4>
+            <div class="pie-chips">
+              <span class="pie-chip">Pyrotechnic AoE Clears</span>
+              <span class="pie-chip">Spring-Trap Stalls</span>
+              <span class="pie-chip">Debut Self-Bounce</span>
+              <span class="pie-chip">1-of-3 Discovery</span>
+            </div>
+          </div>
+          <div class="pie-tier blind">
+            <h4>Intentional Blind Spots</h4>
+            <div class="pie-chips">
+              <span class="pie-chip blind">No Hard Single-Target Kill</span>
+              <span class="pie-chip blind">No Tall Raw-Stat Fatties</span>
+              <span class="pie-chip blind">No Unit Healing</span>
+              <span class="pie-chip blind">No Polymorph</span>
+              <span class="pie-chip blind">No Taxing / Edicts</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Master Mechanical Pie Reference Matrix -->
+    <section id="mechanical-pie" class="matrix-section" aria-label="Master Mechanical Pie Matrix">
+      <div class="matrix-head">
+        <h2>Master Mechanical Pie Reference</h2>
+        <span style="font-size:0.8rem; color:var(--ink-muted); font-weight:600;">22 Active Mechanical Slices • Primary / Secondary / Tertiary</span>
+      </div>
+
+      <div class="guardrail-row">
+        <div class="guardrail-box">
+          <strong>Universal Board Layer — Formation &amp; Adjacency:</strong> Left-to-right ordering across the <code>6</code> Character slots belongs to <strong>all five factions</strong> equally, expressed through each realm’s own flavor.
+        </div>
+        <div class="guardrail-box">
+          <strong>Hard System Guardrail — Zero Deck Tutoring:</strong> Deterministic deck-searching is excluded so compact <code>25</code>-card decks stay varied and never overshadow digital discovery, assembly, and mutation.
+        </div>
+      </div>
+
+      <div class="pie-table-wrap">
+        <table class="pie-table">
+          <thead>
+            <tr>
+              <th>Mechanical Slice</th>
+              <th>Primary (1st)</th>
+              <th>Secondary (2nd)</th>
+              <th>Tertiary (3rd)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cat-row"><td colspan="4">I. Board Presence &amp; Combat</td></tr>
+            <tr>
+              <td><strong>Go-Wide Swarm &amp; Team Buffs</strong></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tall “Juggernaut” Threats</strong></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Sacrifice &amp; Farewell Aristocrats</strong></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span> = <span class="f-badge f-D">D • Deepbriar</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Wounded-Unit Synergy &amp; Healing Midrange</strong></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td>—</td>
+            </tr>
+
+            <tr class="cat-row"><td colspan="4">II. Interaction, Control &amp; Disruption</td></tr>
+            <tr>
+              <td><strong>Hard Single-Target Execution</strong></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+            </tr>
+            <tr>
+              <td><strong>Board Sweepers / AoE Clears</strong></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+            </tr>
+            <tr>
+              <td><strong>Direct Face Burn &amp; Reach</strong></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tempo Stalls (Stun / Bounce / Shrink)</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+            </tr>
+            <tr>
+              <td><strong>Taxing, Edicts &amp; Rule-Setting</strong></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span> = <span class="f-badge f-T">T • Glade</span></td>
+              <td>—</td>
+            </tr>
+
+            <tr class="cat-row"><td colspan="4">III. Economy, AP &amp; Buildings</td></tr>
+            <tr>
+              <td><strong>Energy Ramp &amp; Big Landmarks</strong></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td><span class="f-badge f-R">R • Court</span> = <span class="f-badge f-W">W • Workshop</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>AP Flurry &amp; 0-AP Combo Turns</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span> = <span class="f-badge f-W">W • Workshop</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Building Engines &amp; “Scrap/Rebuild” Loops</strong></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+            </tr>
+            <tr>
+              <td><strong>Sabotage / Anti-Building Tech</strong></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Hero Combat &amp; Loadout Mastery</strong></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-R">R • Court</span></td>
+            </tr>
+
+            <tr class="cat-row"><td colspan="4">IV. Card Flow, Triggers &amp; Zones</td></tr>
+            <tr>
+              <td><strong>Pure Card Draw &amp; Hand-Size Payoffs</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span> = <span class="f-badge f-R">R • Court</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Spell-Slinger / Cast Triggers</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span> = <span class="f-badge f-R">R • Court (Edict typal)</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><strong>Debut Reuse &amp; Self-Bounce</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+            </tr>
+            <tr>
+              <td><strong>Graveyard Recursion &amp; Reanimation</strong></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth (small)</span> = <span class="f-badge f-W">W • Workshop</span></td>
+              <td>—</td>
+            </tr>
+
+            <tr class="cat-row"><td colspan="4">V. Digital-Native Mechanics</td></tr>
+            <tr>
+              <td><strong>Modular “Build-a-Card” Assembly</strong></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td><span class="f-badge f-D">D • Deepbriar</span></td>
+              <td><span class="f-badge f-all">All other factions</span></td>
+            </tr>
+            <tr>
+              <td><strong>Perpetual Card Mutation</strong></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-W">W • Workshop</span></td>
+              <td><span class="f-badge f-all">All other factions</span></td>
+            </tr>
+            <tr>
+              <td><strong>Curated 1-of-3 Discovery (“Wishing”)</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span></td>
+              <td><span class="f-badge f-all">All other factions</span></td>
+            </tr>
+            <tr>
+              <td><strong>Transformation &amp; Polymorph</strong></td>
+              <td><span class="f-badge f-T">T • Glade</span></td>
+              <td><span class="f-badge f-H">H • Havenhearth</span> = <span class="f-badge f-D">D • Deepbriar</span></td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Neutral Reference -->
+    <section class="neutral-card">
+      <div>
+        <h3>Neutral (N) — The Open Road &amp; Shared Pages</h3>
+        <p>
+          Zero-pip cards available to every Hero combination: wandering peddlers, crossroads signposts, humble travelers, weather, everyday tools, and universal storybook tropes that bridge any two realms without overshadowing faction specialists.
+        </p>
+      </div>
+      <a class="studio-link" href="./card-builder.html">Open Card Studio →</a>
+    </section>
+
+  </main>
+
+  <script src="./card-svg-parts.js?v=7"></script>
+  <script>
+    (() => {
+      const SVGs = window.StorybookCardSVGs;
+      if (!SVGs) return;
+      let idx = 0;
+      document.querySelectorAll('[data-coin]').forEach(el => {
+        idx += 1;
+        el.innerHTML = SVGs.factionPip(el.dataset.coin, 'wb_' + idx);
+      });
+    })();
+  </script>
+</body>
+</html>
