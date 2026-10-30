@@ -659,7 +659,28 @@
     }
 
     cardEl.dataset.hasStats = (!leftBadge.hidden || !rightBadge.hidden) ? 'true' : 'false';
+    fitCardRibbonTitle(cardEl);
     fitCardRulesText(cardEl, c);
+  }
+
+  function fitCardRibbonTitle(cardEl) {
+    if (!cardEl) return;
+    const textEl = cardEl.querySelector('.svg-ribbon-title');
+    if (!textEl) return;
+
+    const baseSize = 16.5;
+    const maxArcPx = 256; // Usable inner width of the 324-unit SVG ribbon (x=29..295)
+    textEl.setAttribute('font-size', String(baseSize));
+
+    try {
+      const measuredPx = textEl.getComputedTextLength();
+      if (measuredPx > maxArcPx) {
+        const scaled = Math.max(11.5, +(baseSize * (maxArcPx / measuredPx)).toFixed(2));
+        textEl.setAttribute('font-size', String(scaled));
+      }
+    } catch (_) {
+      // Element not yet in live SVG layout
+    }
   }
 
   function fitCardRulesText(cardEl, c) {
@@ -1061,6 +1082,7 @@
         renderLibrary();
       });
       dom.cardSheetGrid.appendChild(slot);
+      fitCardRibbonTitle(cardNode);
       fitCardRulesText(cardNode, c);
     });
   }
@@ -1185,17 +1207,26 @@
     const diskCards = (diskData && Array.isArray(diskData.cards)) ? diskData.cards : [];
     const diskUpdatedAt = (diskData && diskData.updatedAt) ? diskData.updatedAt : '';
 
-    if ((!loadedLocal || state.cards.length === 0) && diskCards.length > 0) {
-      // Populate empty browser storage from /storybook/cards.json
+    if (diskCards.length > 0 && (!loadedLocal || state.cards.length === 0 || (diskUpdatedAt && diskUpdatedAt > localUpdatedAt))) {
+      // Populate or refresh browser storage when /storybook/cards.json has newer updates
       state.cards = diskCards;
       if (diskData.frameAssets) state.frameAssets = { ...state.frameAssets, ...diskData.frameAssets };
       if (diskData.eliteAssets) state.eliteAssets = { ...state.eliteAssets, ...diskData.eliteAssets };
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(buildSavePayload()));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          ...buildSavePayload(),
+          updatedAt: diskUpdatedAt || new Date().toISOString()
+        }));
       } catch (_) {}
     } else if (bridgeConnected && state.cards.length > 0 && (diskCards.length === 0 || localUpdatedAt >= diskUpdatedAt)) {
       // Browser has newer/existing cards that aren't in cards.json yet -> flush straight to /storybook/cards.json!
       await syncPayloadToDisk(buildSavePayload());
+    }
+
+    // Load the most recently updated card into the stage on boot
+    if (state.cards.length > 0 && !state.currentCard.id) {
+      const sortedByRecent = [...state.cards].sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
+      state.currentCard = structuredClone(sortedByRecent[0]);
     }
 
     updateSyncPill(bridgeConnected ? 'synced' : 'local');

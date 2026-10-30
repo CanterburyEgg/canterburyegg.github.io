@@ -1,7 +1,7 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-10-28T07:03:20.133Z",
+  "updatedAt": "2026-10-30T00:27:03.642Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
@@ -30,7 +30,7 @@
   "cards": [
     {
       "id": "card_mvrdweu3_tffta",
-      "name": "",
+      "name": "King Valyn",
       "type": "hero_active",
       "faction": "R",
       "pips": 1,
@@ -44,15 +44,15 @@
       "subtype": "",
       "rulesText": "{1AP}: Add a random **Edict** to your hand. You take 3 damage unless you control a **Queen**.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-king-valyn.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T02:21:45.109Z"
+      "updatedAt": "2026-10-28T22:55:10.000Z"
     },
     {
       "id": "card_mvrecr9y_ejwp5",
-      "name": "",
+      "name": "Belladonna",
       "type": "hero_active",
       "faction": "R",
       "pips": 1,
@@ -66,11 +66,11 @@
       "subtype": "",
       "rulesText": "{0AP}: {Poison} the left-most **Food** card in your hand.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-belladonna.jpg?v=21",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T01:13:46.575Z"
+      "updatedAt": "2026-10-30T00:20:24.000Z"
     },
     {
       "id": "card_mvree65s_0b7nf",
@@ -86,13 +86,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{1AP}: Give a friendly Character +1/+1. If it's an **Animalfolk**, it gets an additional +1/+0.",
+      "rulesText": "{1AP}: Give a friendly Character +2/+1 this turn. (If it's an **Animalfolk**, it keeps it!)",
       "flavorText": "",
       "artUrl": "",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T01:05:59.879Z"
+      "updatedAt": "2026-10-30T00:27:03.641Z"
     },
     {
       "id": "card_mvrehrld_xsd6w",
@@ -140,7 +140,7 @@
     },
     {
       "id": "card_mvrhepzb_uh9ml",
-      "name": "",
+      "name": "Crown's Tithe",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -158,11 +158,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T02:22:12.870Z"
+      "updatedAt": "2026-10-28T20:49:45.925Z"
     },
     {
       "id": "card_mvrhmr5k_zdo17",
-      "name": "",
+      "name": "Royal Favour",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -180,11 +180,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T02:21:04.376Z"
+      "updatedAt": "2026-10-28T20:47:53.019Z"
     },
     {
       "id": "card_mvrhqoq9_hevyn",
-      "name": "\"Eat the Cake\"",
+      "name": "Eat Up, My Darling",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -202,11 +202,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:12:07.200Z"
+      "updatedAt": "2026-10-28T21:26:15.791Z"
     },
     {
       "id": "card_mvridm7s_tq9zo",
-      "name": "",
+      "name": "Dub Thee Champion",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -224,11 +224,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T02:59:41.768Z"
+      "updatedAt": "2026-10-28T21:18:07.066Z"
     },
     {
       "id": "card_mvrjdrhq_s3zpe",
-      "name": "\"Royal Feast\"",
+      "name": "Supper for Two",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -246,11 +246,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:10:04.142Z"
+      "updatedAt": "2026-10-28T21:26:39.078Z"
     },
     {
       "id": "card_mvrjkp2l_fldzs",
-      "name": "",
+      "name": "Showstopper Gateau",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -268,7 +268,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:15:27.597Z"
+      "updatedAt": "2026-10-28T21:18:32.997Z"
     },
     {
       "id": "card_mvrjlj56_hloy2",
@@ -294,7 +294,7 @@
     },
     {
       "id": "card_mvrjs6yo_7ityt",
-      "name": "",
+      "name": "Sixpence Tartist",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -312,7 +312,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T04:29:56.085Z"
+      "updatedAt": "2026-10-28T20:50:05.973Z"
     },
     {
       "id": "card_mvrjsv6q_0x4k5",
@@ -338,7 +338,7 @@
     },
     {
       "id": "card_mvrkzy6k_fq4hz",
-      "name": "",
+      "name": "Oak Windmill",
       "type": "building",
       "faction": "N",
       "pips": 0,
@@ -356,11 +356,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:55:18.860Z"
+      "updatedAt": "2026-10-28T21:20:54.498Z"
     },
     {
       "id": "card_mvrl4zqm_2es2l",
-      "name": "\"Mirror, Mirror\"",
+      "name": "Vanity Mirror",
       "type": "building",
       "faction": "R",
       "pips": 1,
@@ -378,11 +378,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:59:17.790Z"
+      "updatedAt": "2026-10-28T20:58:07.726Z"
     },
     {
       "id": "card_mvrlon9p_9f5ec",
-      "name": "",
+      "name": "Court Trumpeter",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -400,11 +400,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:25:54.477Z"
+      "updatedAt": "2026-10-28T20:46:23.266Z"
     },
     {
       "id": "card_mvrlp86k_0zurb",
-      "name": "",
+      "name": "Harried Hare",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -422,11 +422,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T04:14:58.220Z"
+      "updatedAt": "2026-10-28T20:51:41.681Z"
     },
     {
       "id": "card_mvrlqoga_r4xfg",
-      "name": "",
+      "name": "Palace Halberdier",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -444,11 +444,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:37:08.178Z"
+      "updatedAt": "2026-10-28T20:58:51.885Z"
     },
     {
       "id": "card_mvrltf84_63deu",
-      "name": "",
+      "name": "Ravenous Dowager",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -466,7 +466,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:49:45.706Z"
+      "updatedAt": "2026-10-28T20:58:32.728Z"
     },
     {
       "id": "card_mvrm7dum_5vanl",
@@ -492,7 +492,7 @@
     },
     {
       "id": "card_mvrm8s4w_yl17w",
-      "name": "",
+      "name": "Grimhilde, Envied and Envious",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -506,15 +506,15 @@
       "subtype": "QUEEN",
       "rulesText": "{Debut} Shuffle four **Apples** into your deck. {Poison} them and give them {Fate}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-grimhilde.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T04:30:10.544Z"
+      "updatedAt": "2026-10-28T22:15:00.000Z"
     },
     {
       "id": "card_mvrmdayy_71u8x",
-      "name": "",
+      "name": "Velvet Queen Valentina",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -528,15 +528,15 @@
       "subtype": "QUEEN",
       "rulesText": "{End of Turn} Sacrifice this Character's left neighbor to play a 2/4 Royal Vanguard on this Character's right. Give it {Provoke}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-valentina.jpg?v=2",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T04:33:41.578Z"
+      "updatedAt": "2026-10-30T00:10:06.000Z"
     },
     {
       "id": "card_mvrmfgsc_w8zmw",
-      "name": "",
+      "name": "Fairest of Them All",
       "type": "spell",
       "faction": "R",
       "pips": 2,
@@ -550,15 +550,15 @@
       "subtype": "",
       "rulesText": "Choose a friendly **Queen**. Kill all other Characters.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-fairest-of-them-all.jpg?v=4",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T04:45:10.820Z"
+      "updatedAt": "2026-10-29T22:31:10.000Z"
     },
     {
       "id": "card_mvrn0r4k_xbj7d",
-      "name": "",
+      "name": "Lady Tired-of-Waiting",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -576,11 +576,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:32:10.007Z"
+      "updatedAt": "2026-10-28T20:54:40.830Z"
     },
     {
       "id": "card_mvrr6xhe_863ug",
-      "name": "",
+      "name": "Powdered Rose-Joys",
       "type": "spell",
       "faction": "R",
       "pips": 1,
@@ -598,11 +598,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:48:42.242Z"
+      "updatedAt": "2026-10-28T20:44:58.014Z"
     },
     {
       "id": "card_mvrrbe1g_th6hb",
-      "name": "",
+      "name": "Painted Topiaries",
       "type": "building",
       "faction": "R",
       "pips": 1,
@@ -620,11 +620,11 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:56:45.313Z"
+      "updatedAt": "2026-10-28T20:51:24.653Z"
     },
     {
       "id": "card_mvrreqsj_fb440",
-      "name": "",
+      "name": "Bloodkey Baron",
       "type": "character",
       "faction": "R",
       "pips": 1,
@@ -642,7 +642,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T06:54:46.819Z"
+      "updatedAt": "2026-10-28T20:59:11.836Z"
     }
   ]
 }

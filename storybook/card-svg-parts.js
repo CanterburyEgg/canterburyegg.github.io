@@ -385,11 +385,7 @@ window.StorybookCardSVGs = (() => {
   // 3. Hearthstone-Style Curved Vellum Name Scroll Ribbon (with Elite Banner Augment!)
   function nameRibbon(title, isPlaceholder, uid, isElite = false) {
     const pathId = `ribbon-arc-${uid}`;
-    const len = (title || '').length;
-    let fontSize = 16.5;
-    if (len > 28) fontSize = 12.2;
-    else if (len > 22) fontSize = 13.6;
-    else if (len > 17) fontSize = 15;
+    const fontSize = 16.5;
 
     const eliteDefs = isElite ? `
       <linearGradient id="rib-gold-${uid}" x1="0" y1="0" x2="1" y2="1">
@@ -427,7 +423,7 @@ window.StorybookCardSVGs = (() => {
             <stop offset="100%" stop-color="#7c5d30"/>
           </linearGradient>
           ${eliteDefs}
-          <path id="${pathId}" d="M 28,36 Q 162,22 296,36" />
+          <path id="${pathId}" d="M 24,35.5 Q 162,23 300,35.5" />
         </defs>
         <path d="M 6,24 L 28,16 L 30,43 L 8,49 L 15,36 Z" fill="${tailFill}" stroke="#241304" stroke-width="2" stroke-linejoin="round"/>
         <path d="M 318,24 L 296,16 L 294,43 L 316,49 L 309,36 Z" fill="${tailFill}" stroke="#241304" stroke-width="2" stroke-linejoin="round"/>

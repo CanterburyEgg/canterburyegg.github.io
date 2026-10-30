@@ -40,7 +40,7 @@ description: "Load this rule whenever designing, discussing, or implementing the
 ## Core System Specification v1.0 (LOCKED)
 
 ### 1. Hero & Faction Deckbuilding
-- **Hero Loadout**: Each faction has **2 Hero Powers** (either Active with `{XAP}:` in its rules text, each usable `1/turn` independently, or Passive with plain text). At deckbuilding, choose **any 2 distinct Hero Powers** from across the game's Factions (`5` Mono-Faction loadouts + `40` Dual-Faction loadouts). Hero Powers render as lightweight tabletop **Medallion + Parchment Plaques** (not full deck cards).
+- **Hero Loadout**: Each faction has **2 Hero Powers** (either Active with `{XAP}:` in its rules text, each usable `1/turn` independently, or Passive with plain text). Flavor-wise, each Hero Power represents a **specific Hero character**—so at deckbuilding, you are choosing **your 2 Heroes** from across the game's Factions (`5` Mono-Faction loadouts + `40` Dual-Faction loadouts) and gaining access to their powers. Hero Powers render as lightweight tabletop **Medallion + Parchment Plaques** (not full deck cards).
 - **Faction Access**: Deck may include single-pip cards from **either chosen Faction**, plus **Neutral (`N`)** cards (0 faction pips).
 - **Double-Pip Loyalty (`XX`)**: Cards with double faction pips require **both** chosen Hero Powers to belong to that same Faction (Mono-Faction payoff).
 - **Core Numbers**:
@@ -88,6 +88,11 @@ description: "Load this rule whenever designing, discussing, or implementing the
       - **`Play`** is used intentionally even when effects create/deploy tokens onto the board (e.g., `"{Farewell}: Play a 2/4 Royal Vanguard"`), and counts as playing a Character for `{Devotee}` checks.
       - **Tokens** are standardized at **`1E`** (`energyReq: 1`) by default (which also neatly prevents `1E` tokens from triggering `1E` `{Devotee}` units!).
       - Card titles wrapped in quotes (`"..."`) in `cards.json` indicate working flavor-beat placeholders awaiting final names.
+      - **Card Naming Conventions**:
+        - Cards are **loosely inspired** by fairy tales, folklore, and faction worldbuilding (e.g., *Red Velvet Court*) rather than strictly literal 1:1 public-domain names.
+        - **Heroes**: Use a clean **Character Name** without an epithet (e.g., *King Valen*, *Belladonna*).
+        - **`1x` Elite Characters**: Use **Character Name + Epithet** (unless the title itself is already uniquely iconic/elite, such as *"The Queen of Hearts"*).
+        - **`2x` Standard Characters**: Use **indefinite role/trope titles** so controlling two copies on the board feels natural.
   - Project Folder: `/storybook/` (Card Builder at `/storybook/card-builder.html`, canonical data at `/storybook/cards.json`).
 
 ## Set 1 — Storybook / Fable Factions (LOCKED)
@@ -133,3 +138,37 @@ description: "Load this rule whenever designing, discussing, or implementing the
 - **Phase 2 (Complete)**: Core System Specification v1.0, all 5 Storybook Faction identities, core triggers (`Debut`, `Farewell`), and the 22-slice Mechanical Color Pie locked.
 - **Phase 3 (Complete — Card Designer v1)**: Interactive Card Designer & Set Studio built at `/storybook/card-builder.html` + Faction Worldbook & Pie Reference at `/storybook/factions.html`.
 - **Phase 4 (Active)**: Authoring initial vertical-slice cards (`R` Court & `H` Havenhearth + `N` Neutrals), followed by building the playable game engine.
+
+### Locked Red Velvet Court (`R`) & Neutral (`N`) Flavor Beats
+1. `card_mvrdweu3_tffta` (`hero_active` `{1AP}` Edict generator — `King Valen`): **The Velvet Machiavelli / Scheming Sovereign** (suave, dangerous young King who rules in tandem with his ruthless Queens)
+### 2. `Belladonna` (`card_mvrecr9y_ejwp5` — `hero_active` `{0AP}` Poison left-most Food): **Black-Lace Court Poisoner** (*Snow White* / *Borgia* inspiration)
+
+### Mandatory Card Art Quality Audit & Visual Style (LOCKED)
+- **Locked Game Art Style — Mignola / Dark Horse Ink & Gouache Wash**: All card art uses the expressive **Mike Mignola (*Hellboy*) / *Darkest Dungeon*** graphic novel ink aesthetic exemplified by `archive/art-belladonna-style9-mignola-ink.jpg`: heavy, organic brush-and-ink linework, massive pooled chiaroscuro black-ink shadows, gritty angular crosshatching, and rich, moody watercolor/gouache washes (never thin, flat, clean-lined modern comic-book coloring).
+- **Character Age Diversity**: Characters across the game must span a wide, authentic range of ages (weathered elders, matronly/middle-aged schemers, grizzled veterans, crone witches, children/pages, young nobles)—do NOT default every character in the world to the same 20-something age bracket.
+- **Before presenting ANY newly generated card illustration to the user**, you MUST inspect it via `read_file` and audit it against the North Star standards. **If it fails any check below, do NOT show it to the user—immediately send it back to the image generator with targeted corrections until it passes**:
+  1. **Brushwork, Ink & Shadow Weight**: Must feature bold, organic brush-and-ink contours, deep pooled black-ink shadows, gritty crosshatching, and textured gouache/watercolor washes matching `archive/art-belladonna-style9-mignola-ink.jpg`. Reject smooth airbrushed skin gradients, thin uniform digital lineart, fake glowing rim-light halos, and overworked micro-filigree noodles.
+  2. **Pose, Camera & Character Acting (NO "Selfie Stare" / Generic AI Face)**: Characters must have a dynamic, asymmetric posture or head tilt and genuine theatrical acting—often absorbed in their action (looking at what they are doing) rather than standing level-headed smiling politely at the camera like a modern Instagram portrait. Female characters should be strikingly beautiful/hot (`deep cleavage` where appropriate) without defaulting to the "Generic AI Woman" face or uncanny doll proportions.
+  3. **Physical & Narrative Logic**: Verify eye direction, hand-to-prop alignment, shadows, and physical storytelling (no fake neon poison auras—use physical syrupy glaze/liquids; no readable gibberish AI text; no duplicate shadows; no closed scrolls while stamping).
+  4. **Faction Identity & Frame Headroom**: Ensure the costume/environment belongs to the card's Faction (e.g., aristocratic dark court decadence for `R`, not cozy peasant cottages) and that the subject has proper headroom/margins for its specific card window (Oval + Elite Crown, Circular Hero Medallion, Spell Archway, or Building Window).
+3. `card_mvrhmr5k_zdo17` (`1E/0AP` `EDICT` — Wish `{2E}` Character w/ `{Devotee} +1/+1`): **Bestowing a Court Title** (*Puss in Boots* / *Brave Little Tailor*)
+4. `card_mvrr6xhe_863ug` (`1E/1AP` `FOOD` — `{Fate}` with Queen, Heal 2 from a Hero): **Turkish Delight** (*The Snow Queen* / *Narnia*)
+5. `card_mvrlon9p_9f5ec` (`1E/1AP` `2/2` Character — `{Devotee} +1/+1`): **Trumpet-Bearing Royal Herald** (*Cinderella* / *Sleeping Beauty*)
+6. `card_mvrlp86k_0zurb` (`1E/1AP` `1/1` Character — `{Farewell} Draw a card`): **White Rabbit / Frantic Court Courier** (*Alice in Wonderland*)
+7. `card_mvrhepzb_uh9ml` (`2E/1AP` `EDICT` — Draw 2, take 2 damage unless Queen): **Royal Tax Levy** (*Robin Hood* / *Rumpelstiltskin*)
+8. `card_mvrjs6yo_7ityt` (`2E/1AP` `1/3` Character — `{Debut} {Devotee}` Humble Pie): **Royal Pie-Baker** (*Sing a Song of Sixpence*)
+9. `card_mvrn0r4k_xbj7d` (`2E/1AP` `2/3` Character — `{Devotee}` `{0AP}` Hero Power): **Scheming Lady-in-Waiting** (*Snow White* / *Sleeping Beauty*)
+10. `card_mvrrbe1g_th6hb` (`2E/1AP` `+1E` Building — `{Devotee} Heal 2`): **Painted Rose-Garden** (*Alice in Wonderland*)
+11. `card_mvrl4zqm_2es2l` (`2E/1AP` `+1E [1]` Building — `{5E}{2AP}` copy friendly Character): **Magic Mirror** (*Snow White*)
+12. `card_mvrltf84_63deu` (`2E/2AP` `2/2` Standard `QUEEN` — `{Debut}` Wish for Food, one `{Poisoned}`): **Ogress Queen-Mother** (*Perrault's Sleeping Beauty*)
+13. `card_mvrlqoga_r4xfg` (`3E/1AP` `3/3` Character — `{Safeguard} {Provoke}`): **Palace / Playing-Card Halberdiers** (*Alice in Wonderland*)
+14. `card_mvrreqsj_fb440` (`3E/1AP` `4/3` Character — `{Siege}` sacrifice left neighbor for 2 damage): **Bluebeard** (*Perrault's Bluebeard*)
+15. `card_mvrhqoq9_hevyn` (`3E/1AP` `EDICT • FOOD` — `+3/+3` & friendly `{Provoke}`): **"Eat Me" Cake** (*Alice in Wonderland*)
+16. `card_mvrhemm3_shcv5` (`3E/2AP` `2p` `EDICT` — `**Kill** a Character`): **`Off With His Head!`** (*Alice in Wonderland*)
+17. `card_mvridm7s_tq9zo` (`4E/1AP` `EDICT` — `+4/+0` this turn & `{Ward}`): **Naming the Royal Champion / Trial by Combat** (*Arthurian & Chivalric Lore*)
+18. `card_mvrjkp2l_fldzs` (`4E/1AP` `FOOD` — `+2/+4` & friendly `{Farewell}` 2/4 Royal Vanguard): **Giant Banquet Surprise Pie / Cake with Guard Inside** (*Sing a Song of Sixpence* / Renaissance Banquet Lore)
+19. `card_mvrjdrhq_s3zpe` (`4E/1AP` `FOOD` — two Characters get `+2/+2`): **The Fox and the Stork's Two-Dish Supper** (*Aesop's Fables*)
+20. `card_mvrm8s4w_yl17w` (`4E/2AP` `4/4` Elite `QUEEN` — `{Debut}` shuffle four `{Poisoned}` `{Fate}` Apples): **Snow White's Evil Queen** (*Grimms' Snow White*)
+21. `card_mvrmdayy_71u8x` (`5E/2AP` `6/6` Elite `QUEEN` — `{End of Turn}` sacrifice left neighbor for `2/4` `{Provoke}` Royal Vanguard on right): **Queen of Hearts** (*Alice in Wonderland*)
+22. `card_mvrmfgsc_w8zmw` (`5E/3AP` `2p` Elite Spell — Choose a friendly Queen, Kill all other Characters): **"Fairest of Them All"** (*Snow White*)
+- **Neutral (`N`) Building** (`card_mvrkzy6k_fq4hz`, `0E/1AP` `+1E`): **Windmill**
