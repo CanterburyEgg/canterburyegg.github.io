@@ -597,6 +597,18 @@ textarea {
   border-color: hsl(248, 46%, 72%);
 }
 
+.chip-btn.chip-kw-swift {
+  background: hsl(201, 78%, 93%);
+  color: hsl(203, 82%, 25%);
+  border-color: hsl(201, 58%, 68%);
+}
+
+.chip-btn.chip-kw-kinship {
+  background: hsl(82, 52%, 92%);
+  color: hsl(84, 72%, 20%);
+  border-color: hsl(82, 42%, 62%);
+}
+
 .chip-btn.chip-ap-sym {
   background: hsl(39, 72%, 94%);
   color: hsl(28, 76%, 28%);
@@ -1473,6 +1485,18 @@ details.meta-drawer summary {
   color: #f2f4ff;
 }
 
+.inline-swift {
+  background: linear-gradient(180deg, #1a7ab8 0%, #0a3c61 100%);
+  border: 1px solid #96e0ff;
+  color: #f2fbff;
+}
+
+.inline-kinship {
+  background: linear-gradient(180deg, #4b6e18 0%, #223607 100%);
+  border: 1px solid #cde882;
+  color: #f7ffe8;
+}
+
 .inline-ap-group {
   display: inline-flex;
   align-items: center;
@@ -1570,17 +1594,16 @@ details.meta-drawer summary {
   transform: skewX(-10deg);
 }
 
-.card-rules-content em .inline-energy-gem-wrap .svg-stat-num {
-  font-style: italic;
-  font-synthesis: style;
-  transform-box: fill-box;
-  transform-origin: center;
-  transform: skewX(-8deg);
+.card-rules-content em .inline-energy-gem-wrap,
+.card-rules-content em .inline-energy-gem-wrap .svg-stat-num,
+.card-rules-content em .inline-energy {
+  font-style: normal;
+  font-synthesis: none;
+  transform: none;
 }
 
 .card-rules-content em .inline-pip,
-.card-rules-content em .inline-ap,
-.card-rules-content em .inline-energy {
+.card-rules-content em .inline-ap {
   font-style: italic;
   font-synthesis: style;
 }

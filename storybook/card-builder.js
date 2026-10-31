@@ -306,12 +306,18 @@
       html = html.replace(/\{provoke:?\}/gi,
         '<span class="inline-kw inline-provoke"><svg class="kw-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.4 1.3 H3.5 V3.1 H4.9 V1.3 H7.1 V3.1 H8.5 V1.3 H10.6 V6.1 C10.6 8.8 8.6 10.4 6 11.3 C3.4 10.4 1.4 8.8 1.4 6.1 Z M5.3 4.8 H6.7 V6.1 H7.8 V7.3 H6.7 V9.0 H5.3 V7.3 H4.2 V6.1 H5.3 Z" fill="currentColor" fill-rule="evenodd"/></svg>Provoke</span>'
       );
+      html = html.replace(/\{swift:?\}/gi,
+        '<span class="inline-kw inline-swift"><svg class="kw-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M0.8 2.0 H11.4 L9.2 4.3 H2.2 Z M2.0 5.2 H9.8 L7.7 7.4 H3.3 Z M3.2 8.3 H8.1 L6.0 10.5 H4.4 Z" fill="currentColor"/></svg>Swift</span>'
+      );
       html = html.replace(/\{(wards?):?\}/gi, (_, word) => {
         const label = word.toLowerCase() === 'wards' ? 'Wards' : 'Ward';
         return `<span class="inline-kw inline-ward"><svg class="kw-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0.8 C8.87 0.8 11.2 3.13 11.2 6 C11.2 8.87 8.87 11.2 6 11.2 C3.13 11.2 0.8 8.87 0.8 6 C0.8 3.13 3.13 0.8 6 0.8 Z M6 2.4 C4.01 2.4 2.4 4.01 2.4 6 C2.4 7.99 4.01 9.6 6 9.6 C7.99 9.6 9.6 7.99 9.6 6 C9.6 4.01 7.99 2.4 6 2.4 Z M6 3.8 L8.2 6 L6 8.2 L3.8 6 Z" fill="currentColor" fill-rule="evenodd"/></svg>${label}</span>`;
       });
       html = html.replace(/\{devotee:?\}/gi,
         '<span class="inline-kw inline-devotee"><svg class="kw-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 0.7 L8.3 3.2 L6 5.3 L3.7 3.2 Z M1.7 9.7 L6 5.6 L10.3 9.7 L8.9 11.1 L6 8.3 L3.1 11.1 Z" fill="currentColor"/></svg>Devotee</span>'
+      );
+      html = html.replace(/\{kinship:?\}/gi,
+        '<span class="inline-kw inline-kinship"><svg class="kw-icon" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.8 1.6 C4.79 1.6 5.6 2.41 5.6 3.4 C5.6 4.39 4.79 5.2 3.8 5.2 C2.81 5.2 2.0 4.39 2.0 3.4 C2.0 2.41 2.81 1.6 3.8 1.6 Z M8.2 1.6 C9.19 1.6 10.0 2.41 10.0 3.4 C10.0 4.39 9.19 5.2 8.2 5.2 C7.21 5.2 6.4 4.39 6.4 3.4 C6.4 2.41 7.21 1.6 8.2 1.6 Z M0.7 10.5 C0.7 7.8 2.0 6.2 3.8 6.2 C4.75 6.2 5.45 6.65 6.0 7.45 C6.55 6.65 7.25 6.2 8.2 6.2 C10.0 6.2 11.3 7.8 11.3 10.5 Z" fill="currentColor"/></svg>Kinship</span>'
       );
       html = html.replace(/\{(fated?):?\}/gi, (_, word) => {
         const label = word.toLowerCase() === 'fated' ? 'Fated' : 'Fate';

@@ -79,14 +79,25 @@ description: "Load this rule whenever designing, discussing, or implementing the
     - **`Poisoned`**: Healing or pump spells that reverse their effects on opponents (e.g., `+3/+3` becomes `-3/-3`, `Heal 2` becomes `2 damage`), while still working normally on friendly targets.
     - **`Safeguard`**: `"This Character takes no damage when attacking another Character."`
     - **`Devotee`**: Trigger keyword that fires the **first time each turn** you play a Character with a higher Energy requirement than this card (capped at once per turn).
+    - **`Kinship`**: Trigger keyword that fires **once**, as soon as you control another Character that shares this Character's subtype/type (whether already in play on arrival or arriving later).
     - **`Provoke`**: Positional blocker keyword — enemy Characters cannot attack your Hero, or allies without **`Provoke`** adjacent to this Character (shields your Hero + immediate left/right neighbors on the `6`-slot row).
+    - **`Swift`**: Immediate-attacker keyword — this Character can attack on the turn you play it (bypasses summoning sickness).
     - **`Ward`**: Stackable noun barrier (`"a {Ward}"` / `"{Wards}"`) — each **`Ward`** prevents the next single instance of damage that would be dealt to that Character or Hero, then breaks (multiple **`Wards`** stack!).
     - **`Fate`**: Card modifier — a card given **`Fate`** loses its `AP` cost (`0 AP`) and gains `"When played: Draw a card."`
     - **`Wish`**: Curated `1-of-3` card generation from outside your deck (*Discover* equivalent).
+    - **`Woodland Blessing`**: Smart-filtered random Character bonus rendered dynamically right onto each candidate card when seen (e.g., inside a `Wish`):
+      1. `This Character's {Debut} and {Farewell} abilities trigger twice.` *(only if it has Debut or Farewell)*
+      2. `When you play this Character, summon a 2/2 copy of it.`
+      3. `+2/+2`
+      4. `+1/+2 and {Provoke}` *(only if lacking Provoke)*
+      5. `+2/+1 and {Safeguard}` *(only if lacking Safeguard)*
+      6. `+1/+0 and {Swift}` *(only if lacking Swift)*
+      7. `{Kinship}: Give this Character +3/+3.` *(only if it has a Subtype)*
+      8. `+1/+1` and `{Debut}: Give this Character a {Ward}.`
     - **Templating & Token Conventions**:
       - Rules text refers to your Hero directly as `"you"` / `"yourself"` (e.g., `"You take 3 damage"`, `"Give yourself or a friendly Character..."`), and uses `**Kill**` for unconditional destruction.
-      - **`Play`** is used intentionally even when effects create/deploy tokens onto the board (e.g., `"{Farewell}: Play a 2/4 Royal Vanguard"`), and counts as playing a Character for `{Devotee}` checks.
-      - **Tokens** are standardized at **`1E`** (`energyReq: 1`) by default (which also neatly prevents `1E` tokens from triggering `1E` `{Devotee}` units!).
+      - **`Play` vs `Summon`**: **`Play`** strictly means casting a card from hand (fires `{Debut}`, `{Devotee}`, `{Fate}`, and `"When you play..."`), whereas **`Summon`** means any Character entering the board (playing from hand counts as summoning, while token-creation and copy effects say `"Summon a ..."` so they don't re-fire on-play triggers).
+      - **Tokens** are standardized at **`1E`** (`energyReq: 1`) by default.
       - Card titles wrapped in quotes (`"..."`) in `cards.json` indicate working flavor-beat placeholders awaiting final names.
       - **Card Naming Conventions**:
         - Cards are **loosely inspired** by fairy tales, folklore, and faction worldbuilding (e.g., *Red Velvet Court*) rather than strictly literal 1:1 public-domain names.
@@ -97,7 +108,7 @@ description: "Load this rule whenever designing, discussing, or implementing the
 
 ## Set 1 — Storybook / Fable Factions (LOCKED)
 1. **Red Velvet Court (`R` — Deep Crimson / Burgundy)** *(Palace / Regal Tyranny)*: Evil queens, vain kings, wicked stepmothers, loyal guards/footmen, royal executioners, magic mirrors, decrees, palace intrigue.
-2. **Havenhearth (`H` — Warm Amber / Gold)** *(Village & Road / Heroic Folk)*: Plucky folk, waistcoat-wearing talking critters, cottages, bakers, huntsmen, valiant tailors, gallant knights-errant.
+2. **Havenhearth (`H` — Warm Amber / Gold)** *(Village & Road / Heroic Folk)*: Plucky folk, waistcoat-wearing talking critters, cottages, bakers, huntsmen, valiant tailors, gallant knights-errant, and the safe, sun-dappled border woods of the **Honeywood**.
 3. **Deepbriar (`D` — Dark Forest / Moss Green)** *(Bog & Dark Woods / "Off the Path")*: Big bad wolves, bridge trolls, beanstalk giants, candy-house & swamp witches, cauldrons, briar thickets, dark curses.
 4. **Twilight Glade (`T` — Moonlit Violet / Indigo)** *(Moonlight, Fae & Living Lore)*: Fairy godmothers, sprites, changelings, pied pipers, wandering bards, wishes, riddles, fate-weaving story-ink.
 5. **Whimsy's Workshop (`W` — Confectioner / Bright Pink)** *(Enchanted Craft & Curios)*: Wooden puppets, tin soldiers, gingerbread folk, animated household curios, straw-to-gold looms, mechanical nightingales, magic lamps, master crafters.
@@ -144,12 +155,17 @@ description: "Load this rule whenever designing, discussing, or implementing the
 ### 2. `Belladonna` (`card_mvrecr9y_ejwp5` — `hero_active` `{0AP}` Poison left-most Food): **Black-Lace Court Poisoner** (*Snow White* / *Borgia* inspiration)
 
 ### Mandatory Card Art Quality Audit & Visual Style (LOCKED)
-- **Locked Game Art Style — Mignola / Dark Horse Ink & Gouache Wash**: All card art uses the expressive **Mike Mignola (*Hellboy*) / *Darkest Dungeon*** graphic novel ink aesthetic exemplified by `archive/art-belladonna-style9-mignola-ink.jpg`: heavy, organic brush-and-ink linework, massive pooled chiaroscuro black-ink shadows, gritty angular crosshatching, and rich, moody watercolor/gouache washes (never thin, flat, clean-lined modern comic-book coloring).
+- **Locked Game Art Style — Sleek Graphic-Novel Comic Ink & Flat Solid Blacks (`art-belladonna.jpg` + `art-bloodkey-baron.jpg`)**: All card art uses the razor-clean dark fairy-tale poster/graphic-novel aesthetic exemplified by `art-belladonna.jpg`, `art-bloodkey-baron.jpg`, and `archive/art-belladonna-style9-mignola-ink.jpg`:
+  1. **Crisp Tapered Ink Line Economy**: Confident, razor-clean tapered black comic-ink contours with minimal interior linework—keep skin, cloth, metal, and wood as smooth, calm, open spans of color (Joëlle Jones / *Fables* poster cover clarity).
+  2. **Big Flat Solid Blacks + Smooth Two-Tone Cel/Gouache Blocks**: Bold, chunked graphic slabs of **100% flat solid jet-black** shadows paired with smooth **two-tone cel/gouache shading** (1 clean base color + 1 smooth hard-edged shadow tone).
+  3. **STRICTLY ZERO Crosshatching / Woodcut Grit**: **NEVER** prompt for *"Darkest Dungeon"*, *"gritty crosshatching"*, *"etching/engraving lines"*, *"textured grunge washes"*, excessive cheek/knuckle scratch wrinkles, individual scratchy white hair/fur strands, or chalky yellow rim-light hair hatching.
+  4. **Poster-Like "Stage Set" Backgrounds**: Drop backgrounds into large, quiet graphic slabs of flat solid jet-black and simple flat two-tone slate/ambient shapes with just 2–3 cleanly silhouetted props—never clutter the frame corner-to-corner with brick masonry grids, wall cracks, and busy room furniture that fight the focal silhouette.
 - **Character Age Diversity**: Characters across the game must span a wide, authentic range of ages (weathered elders, matronly/middle-aged schemers, grizzled veterans, crone witches, children/pages, young nobles)—do NOT default every character in the world to the same 20-something age bracket.
+- **Human References — Vibe by Default, Exact Likeness Only On Request**: Unless the user explicitly asks for an exact facial reconstruction (e.g., Katie Stevens for `Rosalind`), treat actor/celebrity picks strictly as a **vibe, build, and attitude anchor**—translate their energy into an **original storybook character face** (and omit the celebrity's literal name from the final render prompt if needed) so cards never look like exact celebrity photos in costume.
 - **Before presenting ANY newly generated card illustration to the user**, you MUST inspect it via `read_file` and audit it against the North Star standards. **If it fails any check below, do NOT show it to the user—immediately send it back to the image generator with targeted corrections until it passes**:
-  1. **Brushwork, Ink & Shadow Weight**: Must feature bold, organic brush-and-ink contours, deep pooled black-ink shadows, gritty crosshatching, and textured gouache/watercolor washes matching `archive/art-belladonna-style9-mignola-ink.jpg`. Reject smooth airbrushed skin gradients, thin uniform digital lineart, fake glowing rim-light halos, and overworked micro-filigree noodles.
-  2. **Pose, Camera & Character Acting (NO "Selfie Stare" / Generic AI Face)**: Characters must have a dynamic, asymmetric posture or head tilt and genuine theatrical acting—often absorbed in their action (looking at what they are doing) rather than standing level-headed smiling politely at the camera like a modern Instagram portrait. Female characters should be strikingly beautiful/hot (`deep cleavage` where appropriate) without defaulting to the "Generic AI Woman" face or uncanny doll proportions.
-  3. **Physical & Narrative Logic**: Verify eye direction, hand-to-prop alignment, shadows, and physical storytelling (no fake neon poison auras—use physical syrupy glaze/liquids; no readable gibberish AI text; no duplicate shadows; no closed scrolls while stamping).
+  1. **Line Economy, Flat Blacks & Smooth Two-Tone Planes**: Must match `art-belladonna.jpg` and `art-bloodkey-baron.jpg`—razor-clean comic ink contours, large flat solid-black shadow shapes, smooth two-tone cel/gouache color blocks, and calm poster-like stage backgrounds. Reject scratchy crosshatching, woodcut engraving lines, dusty dungeon grit filters, smooth airbrushed 3D skin gradients, chalky rim-light halos, and overworked background clutter.
+  2. **Pose, Camera & Character Acting (NO "Selfie Stare" / Empty Distance Stares / Generic AI Face)**: Characters must have a dynamic, asymmetric posture or head tilt and genuine theatrical acting—actively absorbed in a grounded, sensible action (looking *directly along a locked eye-line at the prop/person they are interacting with*, never staring politely at the camera OR gazing vacantly off past the object into empty sky). Female characters should be strikingly beautiful/hot (`deep cleavage` where appropriate) without defaulting to the "Generic AI Woman" face or uncanny doll proportions.
+  3. **Physical & Narrative Logic**: Verify exact eye-to-prop laser alignment, hand-to-prop alignment, shadows, and grounded real-world physics (no fake neon poison auras—use physical syrupy glaze/liquids; no blossoms + full-grown fruit on a baby sapling; no unheld floating cloth; no readable gibberish AI text; no duplicate shadows; no closed scrolls while stamping).
   4. **Faction Identity & Frame Headroom**: Ensure the costume/environment belongs to the card's Faction (e.g., aristocratic dark court decadence for `R`, not cozy peasant cottages) and that the subject has proper headroom/margins for its specific card window (Oval + Elite Crown, Circular Hero Medallion, Spell Archway, or Building Window).
 3. `card_mvrhmr5k_zdo17` (`1E/0AP` `EDICT` — Wish `{2E}` Character w/ `{Devotee} +1/+1`): **Bestowing a Court Title** (*Puss in Boots* / *Brave Little Tailor*)
 4. `card_mvrr6xhe_863ug` (`1E/1AP` `FOOD` — `{Fate}` with Queen, Heal 2 from a Hero): **Turkish Delight** (*The Snow Queen* / *Narnia*)
@@ -172,3 +188,27 @@ description: "Load this rule whenever designing, discussing, or implementing the
 21. `card_mvrmdayy_71u8x` (`5E/2AP` `6/6` Elite `QUEEN` — `{End of Turn}` sacrifice left neighbor for `2/4` `{Provoke}` Royal Vanguard on right): **Queen of Hearts** (*Alice in Wonderland*)
 22. `card_mvrmfgsc_w8zmw` (`5E/3AP` `2p` Elite Spell — Choose a friendly Queen, Kill all other Characters): **"Fairest of Them All"** (*Snow White*)
 - **Neutral (`N`) Building** (`card_mvrkzy6k_fq4hz`, `0E/1AP` `+1E`): **Windmill**
+
+### Locked Havenhearth (`H`) Flavor Beats & Card Names
+1. `card_mvree65s_0b7nf` (`hero_active` `{1AP}` `+2/+1` temp, Animalfolk keeps it — **`Rosalind`**): **Rose-Red Woodsmaiden / Beast-Friend** (*Grimms' Snow-White and Rose-Red* — striking cottage heroine)
+2. `card_mvrehrld_xsd6w` (`hero_passive` 2 allies on each side → `{Safeguard}` — **`Flynn & Basker`**): **Two Musketeers Animalfolk Duo — Fox & Hound** (*Three Musketeers* / *The Fox and the Hound*)
+3. `card_mvua3z8u_lvooq` (`1E/1AP` `FOOD` — summon `{1E}/{2E}` gives `+1/+1` anywhere; give `+1/+1` temp — **`Stone Soup`**): **Stone Soup** (*Classic Folk Tale*)
+4. `card_mvua8iwo_9p8rl` (`1E/1AP` `3/2` vanilla `ANIMALFOLK` — **`Turnpike Tollkeep`**): **Turnpike Badger Brawler** (*Wind in the Willows* / *Redwall*)
+5. `card_mvua8m73_dgs2d` (`1E/1AP` `1/1` `ANIMALFOLK` — `{Kinship}` Draw a Character — **`Barnyard Troubadour`**): **Bremen Choir-Starter** (*Town Musicians of Bremen*)
+6. `card_mvuacgfm_tj74n` (`1E/1AP` `2/1` — `{Debut}` `+2/+1` temp — **`Whetsmith Apprentice`**): **Whetsmith Apprentice / Farrier** (*Village Forge Lore*)
+7. `card_mvug1oqe_xmd98` (`1E/1AP` `+1E` Elite Building — `{6E}` `{End of Turn}` Heal 6 or Draw 1 — **`Granny Thimble's Cottage`**): **Grandmother's Cottage / Roaring Hearth** (*Little Red* / *Snow-White & Rose-Red*)
+8. `card_mvu98w44_4w32a` (`2E/1AP` `2/1` — `{Debut}` Wish `Animalfolk` `+2/+1` — **`Gentle Woodsman`**): **Thorn-Pulling Woodsman** (*Androcles and the Lion* / *Snow White's Huntsman*)
+9. `card_mvu9z0mn_lncuu` (`2E/1AP` `3/1` `ANIMALFOLK` — `{Swift}` — **`Featherweight Lancer`**): **Dive-Bombing Swallow Lancer** (*Thumbelina's Swallow*)
+10. `card_mvuag3ss_ksiou` (`2E/1AP` `+1E [2]` Building — `{5E}{1AP}` Draw Character, `-1 AP` — **`Crossroads Inn`**): **Crossroads Wayside Inn** (*Canterbury Tales' Tabard Inn*)
+11. `card_mvub9om9_90zba` (`2E/1AP` `1/4` — `{Debut}` add `Cureall Cookie` — **`Sweet Old Soul`**): **Plump Apothecary-Baker Granny** (*Village Herb-Granny*)
+12. `card_mvuc56wm_yam76` (`2E/1AP` Spell — Deal 2 to Character; `3+` Chars do it again — **`Pots and Pans!`**): **Flying Skillets & Rolling Pins** (*Town Musicians of Bremen* cottage rout)
+13. `card_mvu91ysb_n31tf` (`3E/2AP` `3/4` Elite — `{Debut}` Plant an `Apple Tree` — **`Mother Pippin`**): **Mother Holle, Orchard Matron** (*Grimms' Mother Holle*)
+14. `card_mvu9ro10_lxwsc` (`3E/1AP` `FOOD` — Choose Hero, each of their Chars `+2/+1` temp — **`Harvest Banquet`**): **Harvest Barn-Raising Banquet** (*Countryside / Redwall Abbey Feast*)
+15. `card_mvubeg8t_aufxf` (`3E/1AP` `4/1` `ANIMALFOLK` — `{Kinship}` `{Safeguard}` — **`Honeywood Sentry`**): **Red Squirrel Longbowman** (*Redwall* / *Woodland Sharpshooter*)
+16. `card_mvubxz0x_fwouj` (`3E/1AP` `+1E [2]` Building — `{0AP}` Hero `+2/+0` temp — **`Old Chestnut Smithy`**): **Village Smithy & Weapon-Rack** (*Chestnut-Tree Forge*)
+17. `card_mvu9qeuj_9159i` (`4E/1AP` `3/2` — `{Debut}` left `+3/+2`, `{Farewell}` right `+3/+2` — **`Graybeard Knight-Errant`**): **Graybeard Knight-Errant / Old Mentor** (*Don Quixote* / *Aging Paladin*)
+18. `card_mvub5nrb_jr92d` (`4E/2AP` `2p` Spell — Summon six `1/1 Rabbits`, overflow `+1/+1` to Animalfolk — **`Under the Garden Gate`**): **Peter Rabbit Garden-Gate Stampede** (*The Tale of Peter Rabbit*)
+19. `card_mvub7lnm_zc6eo` (`4E/2AP` `2/6` `ANIMALFOLK` — `{Provoke}`, `{Debut}` summon two `1/1 Rabbits` — **`Hedgerow Matron`**): **Stout Mama Rabbit / Hare Matriarch** (*Old Mrs. Rabbit*)
+20. `card_mvubf9tu_8fzbh` (`4E/1AP` Spell — Wish Character + `Woodland Blessing` — **`Gift of the Wishing Oak`**): **Heart-Oak Wishing Tree Anointing** (*Cinderella's Wishing Tree* / *Sacred Oak*)
+21. `card_mvuc1r51_affx1` (`5E/2AP` Spell — Animalfolk `{Safeguard}` & each attack enemy Character — **`For Hearth and Hollow`**): **Great Woodland Muster** (*Redwall* / *Forest Uprising*)
+22. `card_mvufxmei_c0d6f` (`5E/2AP` `5/5` `2p` Elite — `{Debut}{Siege}` top `{1E}/{2E}` Char `+1/+1` & `{Fate}` — **`Kit Merryweather, Folk Hero`**): **Greenwood Outlaw Prince** (*Robin Hood*)
