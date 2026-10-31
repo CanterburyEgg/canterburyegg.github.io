@@ -1211,10 +1211,47 @@
     }
 
     const diskCards = (diskData && Array.isArray(diskData.cards)) ? diskData.cards : [];
-    const diskUpdatedAt = (diskData && diskData.updatedAt) ? diskData.updatedAt : '';
+    const maxCardUpdatedAt = cards => cards.reduce((m, c) => (c && c.updatedAt && c.updatedAt > m ? c.updatedAt : m), '');
+    const diskUpdatedAt = [diskData && diskData.updatedAt || '', maxCardUpdatedAt(diskCards)].sort().pop() || '';
+    const effectiveLocalUpdatedAt = [localUpdatedAt || '', maxCardUpdatedAt(state.cards)].sort().pop() || '';
 
-    if (diskCards.length > 0 && (!loadedLocal || state.cards.length === 0 || (diskUpdatedAt && diskUpdatedAt > localUpdatedAt))) {
-      // Populate or refresh browser storage when /storybook/cards.json has newer updates
+    if (diskCards.length > 0 && loadedLocal && state.cards.length > 0) {
+      // Per-card latest-wins merge so browser edits and external cards.json edits never overwrite each other
+      const mergedMap = new Map();
+      let diskHadNewer = diskUpdatedAt > effectiveLocalUpdatedAt;
+      let localHadNewer = effectiveLocalUpdatedAt > diskUpdatedAt;
+      for (const dc of diskCards) {
+        if (dc && dc.id) mergedMap.set(dc.id, dc);
+      }
+      for (const lc of state.cards) {
+        if (!lc || !lc.id) continue;
+        const dc = mergedMap.get(lc.id);
+        if (!dc) {
+          mergedMap.set(lc.id, lc);
+          localHadNewer = true;
+        } else if ((lc.updatedAt || '') > (dc.updatedAt || '')) {
+          mergedMap.set(lc.id, lc);
+          localHadNewer = true;
+        } else if ((dc.updatedAt || '') > (lc.updatedAt || '')) {
+          diskHadNewer = true;
+        }
+      }
+      state.cards = Array.from(mergedMap.values());
+      if (diskHadNewer || diskUpdatedAt >= effectiveLocalUpdatedAt) {
+        if (diskData.frameAssets) state.frameAssets = { ...state.frameAssets, ...diskData.frameAssets };
+        if (diskData.eliteAssets) state.eliteAssets = { ...state.eliteAssets, ...diskData.eliteAssets };
+      }
+      const newestStamp = [diskUpdatedAt, effectiveLocalUpdatedAt].sort().pop() || new Date().toISOString();
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          ...buildSavePayload(),
+          updatedAt: newestStamp
+        }));
+      } catch (_) {}
+      if (bridgeConnected && localHadNewer) {
+        await syncPayloadToDisk(buildSavePayload());
+      }
+    } else if (diskCards.length > 0 && (!loadedLocal || state.cards.length === 0)) {
       state.cards = diskCards;
       if (diskData.frameAssets) state.frameAssets = { ...state.frameAssets, ...diskData.frameAssets };
       if (diskData.eliteAssets) state.eliteAssets = { ...state.eliteAssets, ...diskData.eliteAssets };
@@ -1224,8 +1261,7 @@
           updatedAt: diskUpdatedAt || new Date().toISOString()
         }));
       } catch (_) {}
-    } else if (bridgeConnected && state.cards.length > 0 && (diskCards.length === 0 || localUpdatedAt >= diskUpdatedAt)) {
-      // Browser has newer/existing cards that aren't in cards.json yet -> flush straight to /storybook/cards.json!
+    } else if (bridgeConnected && state.cards.length > 0 && diskCards.length === 0) {
       await syncPayloadToDisk(buildSavePayload());
     }
 

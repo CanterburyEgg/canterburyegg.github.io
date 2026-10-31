@@ -1,7 +1,7 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-10-31T01:16:34.311Z",
+  "updatedAt": "2026-10-31T23:50:00.000Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
@@ -418,11 +418,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "{Farewell} Draw a card.",
       "flavorText": "",
-      "artUrl": "./assets/art-harried-hare.jpg?v=1",
+      "artUrl": "./assets/art-harried-hare.jpg?v=2",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T01:10:00.000Z"
+      "updatedAt": "2026-10-31T22:55:00.000Z"
     },
     {
       "id": "card_mvrlqoga_r4xfg",
@@ -748,11 +748,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "{Swift}",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-featherweight-lancer.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:10:29.023Z"
+      "updatedAt": "2026-10-31T23:50:00.000Z"
     },
     {
       "id": "card_mvua3z8u_lvooq",
@@ -770,11 +770,11 @@
       "subtype": "FOOD",
       "rulesText": "Whenever you summon a {1E} or {2E} Character, give this Spell +1/+1 (anywhere).\nGive a Character +1/+1 this turn.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-stone-soup.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:05:03.468Z"
+      "updatedAt": "2026-10-31T22:50:00.000Z"
     },
     {
       "id": "card_mvua8iwo_9p8rl",
@@ -792,11 +792,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-turnpike-tollkeep.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:07:24.262Z"
+      "updatedAt": "2026-10-31T22:50:00.000Z"
     },
     {
       "id": "card_mvua8m73_dgs2d",
