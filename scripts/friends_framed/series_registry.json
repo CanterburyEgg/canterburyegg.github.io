@@ -1,0 +1,3118 @@
+{
+  "S01E01": {
+    "season": 1,
+    "episode": 1,
+    "hash_id": "e_c28cf54f",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S01E02": {
+    "season": 1,
+    "episode": 2,
+    "hash_id": "e_234d392b",
+    "cands": [
+      9,
+      12,
+      5,
+      3,
+      11,
+      13
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E03": {
+    "season": 1,
+    "episode": 3,
+    "hash_id": "e_159e4f0b",
+    "cands": [
+      16,
+      11,
+      4,
+      14,
+      9,
+      13
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E04": {
+    "season": 1,
+    "episode": 4,
+    "hash_id": "e_1ac48c43",
+    "cands": [
+      16,
+      14,
+      0,
+      10,
+      9,
+      13
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E05": {
+    "season": 1,
+    "episode": 5,
+    "hash_id": "e_fe59f725",
+    "cands": [
+      1,
+      4,
+      3,
+      6,
+      2,
+      5
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E06": {
+    "season": 1,
+    "episode": 6,
+    "hash_id": "e_e4278e9b",
+    "cands": [
+      11,
+      2,
+      9,
+      8,
+      3,
+      5
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E07": {
+    "season": 1,
+    "episode": 7,
+    "hash_id": "e_29ca1a40",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S01E08": {
+    "season": 1,
+    "episode": 8,
+    "hash_id": "e_f59246dd",
+    "cands": [
+      6,
+      3,
+      7,
+      4,
+      1,
+      12
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E09": {
+    "season": 1,
+    "episode": 9,
+    "hash_id": "e_cf6345c2",
+    "cands": [
+      4,
+      5,
+      11,
+      0,
+      7,
+      1
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E10": {
+    "season": 1,
+    "episode": 10,
+    "hash_id": "e_66c1015d",
+    "cands": [
+      8,
+      9,
+      2,
+      16,
+      12,
+      5
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E11": {
+    "season": 1,
+    "episode": 11,
+    "hash_id": "e_f3dcb7ef",
+    "cands": [
+      5,
+      16,
+      10,
+      20,
+      19,
+      17
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E12": {
+    "season": 1,
+    "episode": 12,
+    "hash_id": "e_ad7f9e76",
+    "cands": [
+      3,
+      6,
+      8,
+      12,
+      2,
+      9
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E13": {
+    "season": 1,
+    "episode": 13,
+    "hash_id": "e_3c3f4edf",
+    "cands": [
+      0,
+      11,
+      3,
+      6,
+      2,
+      7
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E14": {
+    "season": 1,
+    "episode": 14,
+    "hash_id": "e_a8bc00ef",
+    "cands": [
+      0,
+      7,
+      1,
+      11,
+      9,
+      4
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E15": {
+    "season": 1,
+    "episode": 15,
+    "hash_id": "e_1a6f20fd",
+    "cands": [
+      8,
+      3,
+      7,
+      4,
+      5,
+      9
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E16": {
+    "season": 1,
+    "episode": 16,
+    "hash_id": "e_6cfb9739",
+    "cands": [
+      15,
+      20,
+      12,
+      1,
+      3,
+      5
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E17": {
+    "season": 1,
+    "episode": 17,
+    "hash_id": "e_c0bed1c0",
+    "cands": [
+      4,
+      8,
+      6,
+      17,
+      18,
+      2
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E18": {
+    "season": 1,
+    "episode": 18,
+    "hash_id": "e_10bf506e",
+    "cands": [
+      0,
+      1,
+      4,
+      3,
+      5,
+      6
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E19": {
+    "season": 1,
+    "episode": 19,
+    "hash_id": "e_0a030e0b",
+    "cands": [
+      0,
+      19,
+      18,
+      12,
+      9,
+      20
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E20": {
+    "season": 1,
+    "episode": 20,
+    "hash_id": "e_922972ec",
+    "cands": [
+      1,
+      2,
+      6,
+      3,
+      10,
+      8
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E21": {
+    "season": 1,
+    "episode": 21,
+    "hash_id": "e_b468ae9b",
+    "cands": [
+      6,
+      12,
+      7,
+      5,
+      0,
+      8
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E22": {
+    "season": 1,
+    "episode": 22,
+    "hash_id": "e_3054381c",
+    "cands": [
+      0,
+      8,
+      2,
+      9,
+      3,
+      1
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E23": {
+    "season": 1,
+    "episode": 23,
+    "hash_id": "e_28387f1d",
+    "cands": [
+      12,
+      14,
+      15,
+      2,
+      4,
+      7
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S01E24": {
+    "season": 1,
+    "episode": 24,
+    "hash_id": "e_e0251619",
+    "cands": [
+      5,
+      9,
+      2,
+      8,
+      1,
+      7
+    ],
+    "source": "s01_double_blind_verified"
+  },
+  "S02E01": {
+    "season": 2,
+    "episode": 1,
+    "hash_id": "e_4fcfb27b",
+    "cands": [
+      7,
+      6,
+      5,
+      2,
+      9,
+      3
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E02": {
+    "season": 2,
+    "episode": 2,
+    "hash_id": "e_282c95b1",
+    "cands": [
+      5,
+      1,
+      3,
+      6,
+      0,
+      2
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E03": {
+    "season": 2,
+    "episode": 3,
+    "hash_id": "e_f8fe9148",
+    "cands": [
+      10,
+      5,
+      6,
+      11,
+      2,
+      15
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E04": {
+    "season": 2,
+    "episode": 4,
+    "hash_id": "e_a924a4dc",
+    "cands": [
+      0,
+      5,
+      9,
+      6,
+      7,
+      4
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E05": {
+    "season": 2,
+    "episode": 5,
+    "hash_id": "e_47d124bf",
+    "cands": [
+      0,
+      10,
+      11,
+      4,
+      5,
+      1
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E06": {
+    "season": 2,
+    "episode": 6,
+    "hash_id": "e_5d9a22c0",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S02E07": {
+    "season": 2,
+    "episode": 7,
+    "hash_id": "e_d98b752b",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S02E08": {
+    "season": 2,
+    "episode": 8,
+    "hash_id": "e_ca38cf7d",
+    "cands": [
+      0,
+      16,
+      1,
+      2,
+      6,
+      7
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E09": {
+    "season": 2,
+    "episode": 9,
+    "hash_id": "e_695b6da6",
+    "cands": [
+      5,
+      0,
+      10,
+      1,
+      4,
+      9
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E10": {
+    "season": 2,
+    "episode": 10,
+    "hash_id": "e_c2e27d09",
+    "cands": [
+      14,
+      15,
+      6,
+      0,
+      5,
+      1
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E11": {
+    "season": 2,
+    "episode": 11,
+    "hash_id": "e_55ff9fc2",
+    "cands": [
+      16,
+      13,
+      1,
+      0,
+      7,
+      3
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E12": {
+    "season": 2,
+    "episode": 12,
+    "hash_id": "e_d27ff7a1",
+    "cands": [
+      2,
+      18,
+      0,
+      7,
+      4,
+      9
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E13": {
+    "season": 2,
+    "episode": 13,
+    "hash_id": "e_8618a6b2",
+    "cands": [
+      12,
+      14,
+      1,
+      5,
+      9,
+      10
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E14": {
+    "season": 2,
+    "episode": 14,
+    "hash_id": "e_66fc0392",
+    "cands": [
+      0,
+      6,
+      1,
+      8,
+      5,
+      2
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E15": {
+    "season": 2,
+    "episode": 15,
+    "hash_id": "e_3bee8048",
+    "cands": [
+      3,
+      4,
+      0,
+      1,
+      6,
+      5
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E16": {
+    "season": 2,
+    "episode": 16,
+    "hash_id": "e_310f67d6",
+    "cands": [
+      12,
+      10,
+      2,
+      0,
+      3,
+      1
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E17": {
+    "season": 2,
+    "episode": 17,
+    "hash_id": "e_a51fea8a",
+    "cands": [
+      7,
+      5,
+      6,
+      8,
+      1,
+      9
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E18": {
+    "season": 2,
+    "episode": 18,
+    "hash_id": "e_34f46856",
+    "cands": [
+      2,
+      8,
+      0,
+      6,
+      3,
+      10
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E19": {
+    "season": 2,
+    "episode": 19,
+    "hash_id": "e_f0b97fa9",
+    "cands": [
+      0,
+      7,
+      4,
+      15,
+      3,
+      5
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E20": {
+    "season": 2,
+    "episode": 20,
+    "hash_id": "e_200e4c72",
+    "cands": [
+      1,
+      0,
+      12,
+      3,
+      4,
+      2
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E21": {
+    "season": 2,
+    "episode": 21,
+    "hash_id": "e_ae64ae27",
+    "cands": [
+      12,
+      13,
+      2,
+      0,
+      8,
+      5
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E22": {
+    "season": 2,
+    "episode": 22,
+    "hash_id": "e_89037e9c",
+    "cands": [
+      10,
+      1,
+      11,
+      0,
+      2,
+      6
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E23": {
+    "season": 2,
+    "episode": 23,
+    "hash_id": "e_00314649",
+    "cands": [
+      3,
+      5,
+      1,
+      0,
+      9,
+      8
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S02E24": {
+    "season": 2,
+    "episode": 24,
+    "hash_id": "e_3252d46f",
+    "cands": [
+      7,
+      1,
+      3,
+      10,
+      0,
+      2
+    ],
+    "source": "s02_double_blind_verified"
+  },
+  "S03E01": {
+    "season": 3,
+    "episode": 1,
+    "hash_id": "e_95ec8ca3",
+    "cands": [
+      2,
+      0,
+      1,
+      7,
+      4,
+      3
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E02": {
+    "season": 3,
+    "episode": 2,
+    "hash_id": "e_fda46182",
+    "cands": [
+      0,
+      11,
+      5,
+      10,
+      9,
+      6
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E03": {
+    "season": 3,
+    "episode": 3,
+    "hash_id": "e_176af156",
+    "cands": [
+      11,
+      3,
+      4,
+      8,
+      0,
+      10
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E04": {
+    "season": 3,
+    "episode": 4,
+    "hash_id": "e_04587dad",
+    "cands": [
+      6,
+      12,
+      2,
+      15,
+      4,
+      1
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E05": {
+    "season": 3,
+    "episode": 5,
+    "hash_id": "e_42fc4884",
+    "cands": [
+      7,
+      2,
+      5,
+      4,
+      6,
+      3
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E06": {
+    "season": 3,
+    "episode": 6,
+    "hash_id": "e_12582602",
+    "cands": [
+      11,
+      4,
+      7,
+      2,
+      8,
+      0
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E07": {
+    "season": 3,
+    "episode": 7,
+    "hash_id": "e_cfee59f1",
+    "cands": [
+      6,
+      9,
+      0,
+      10,
+      2,
+      3
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E08": {
+    "season": 3,
+    "episode": 8,
+    "hash_id": "e_2e74654a",
+    "cands": [
+      1,
+      5,
+      4,
+      16,
+      12,
+      0
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E09": {
+    "season": 3,
+    "episode": 9,
+    "hash_id": "e_36827f8f",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S03E10": {
+    "season": 3,
+    "episode": 10,
+    "hash_id": "e_a2d4c4ff",
+    "cands": [
+      7,
+      8,
+      11,
+      6,
+      4,
+      5
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E11": {
+    "season": 3,
+    "episode": 11,
+    "hash_id": "e_64b96a7e",
+    "cands": [
+      12,
+      7,
+      0,
+      3,
+      4,
+      1
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E12": {
+    "season": 3,
+    "episode": 12,
+    "hash_id": "e_95198e68",
+    "cands": [
+      15,
+      3,
+      2,
+      5,
+      7,
+      4
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E13": {
+    "season": 3,
+    "episode": 13,
+    "hash_id": "e_78da19ee",
+    "cands": [
+      14,
+      17,
+      2,
+      15,
+      0,
+      7
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E14": {
+    "season": 3,
+    "episode": 14,
+    "hash_id": "e_8405ccb5",
+    "cands": [
+      0,
+      2,
+      3,
+      7,
+      10,
+      1
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E15": {
+    "season": 3,
+    "episode": 15,
+    "hash_id": "e_8b0e8525",
+    "cands": [
+      5,
+      0,
+      4,
+      10,
+      3,
+      9
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E16": {
+    "season": 3,
+    "episode": 16,
+    "hash_id": "e_a224165e",
+    "cands": [
+      10,
+      8,
+      9,
+      20,
+      0,
+      7
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E17": {
+    "season": 3,
+    "episode": 17,
+    "hash_id": "e_3c05b585",
+    "cands": [
+      5,
+      7,
+      11,
+      6,
+      3,
+      1
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E18": {
+    "season": 3,
+    "episode": 18,
+    "hash_id": "e_8a5c7566",
+    "cands": [
+      8,
+      4,
+      6,
+      5,
+      2,
+      1
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E19": {
+    "season": 3,
+    "episode": 19,
+    "hash_id": "e_6755537e",
+    "cands": [
+      17,
+      7,
+      8,
+      1,
+      0,
+      3
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E20": {
+    "season": 3,
+    "episode": 20,
+    "hash_id": "e_46e3bb95",
+    "cands": [
+      6,
+      9,
+      5,
+      4,
+      13,
+      7
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E21": {
+    "season": 3,
+    "episode": 21,
+    "hash_id": "e_c7e428c0",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S03E22": {
+    "season": 3,
+    "episode": 22,
+    "hash_id": "e_d4dcd65c",
+    "cands": [
+      16,
+      6,
+      3,
+      2,
+      5,
+      0
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E23": {
+    "season": 3,
+    "episode": 23,
+    "hash_id": "e_b41015b7",
+    "cands": [
+      0,
+      12,
+      3,
+      8,
+      4,
+      1
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E24": {
+    "season": 3,
+    "episode": 24,
+    "hash_id": "e_586e0dc9",
+    "cands": [
+      14,
+      15,
+      0,
+      1,
+      7,
+      4
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S03E25": {
+    "season": 3,
+    "episode": 25,
+    "hash_id": "e_76149b2d",
+    "cands": [
+      9,
+      6,
+      0,
+      4,
+      7,
+      3
+    ],
+    "source": "s03_double_blind_verified"
+  },
+  "S04E01": {
+    "season": 4,
+    "episode": 1,
+    "hash_id": "e_081a5f2a",
+    "cands": [
+      14,
+      11,
+      0,
+      17,
+      2,
+      1
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E02": {
+    "season": 4,
+    "episode": 2,
+    "hash_id": "e_fe86b016",
+    "cands": [
+      1,
+      0,
+      7,
+      17,
+      19,
+      6
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E03": {
+    "season": 4,
+    "episode": 3,
+    "hash_id": "e_1196bbb3",
+    "cands": [
+      12,
+      1,
+      2,
+      13,
+      10,
+      7
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E04": {
+    "season": 4,
+    "episode": 4,
+    "hash_id": "e_fced14cf",
+    "cands": [
+      0,
+      7,
+      18,
+      1,
+      10,
+      15
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E05": {
+    "season": 4,
+    "episode": 5,
+    "hash_id": "e_fc234c35",
+    "cands": [
+      7,
+      6,
+      4,
+      3,
+      11,
+      14
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E06": {
+    "season": 4,
+    "episode": 6,
+    "hash_id": "e_e940afa9",
+    "cands": [
+      0,
+      14,
+      9,
+      1,
+      4,
+      8
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E07": {
+    "season": 4,
+    "episode": 7,
+    "hash_id": "e_76b43e65",
+    "cands": [
+      0,
+      2,
+      3,
+      9,
+      5,
+      4
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E08": {
+    "season": 4,
+    "episode": 8,
+    "hash_id": "e_8bc22504",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S04E09": {
+    "season": 4,
+    "episode": 9,
+    "hash_id": "e_ca97e207",
+    "cands": [
+      4,
+      8,
+      2,
+      0,
+      6,
+      5
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E10": {
+    "season": 4,
+    "episode": 10,
+    "hash_id": "e_618729b0",
+    "cands": [
+      4,
+      10,
+      1,
+      0,
+      13,
+      3
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E11": {
+    "season": 4,
+    "episode": 11,
+    "hash_id": "e_2611f530",
+    "cands": [
+      1,
+      9,
+      0,
+      10,
+      7,
+      2
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E12": {
+    "season": 4,
+    "episode": 12,
+    "hash_id": "e_cfd6f68b",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S04E13": {
+    "season": 4,
+    "episode": 13,
+    "hash_id": "e_8cddc4ce",
+    "cands": [
+      10,
+      3,
+      9,
+      5,
+      1,
+      0
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E14": {
+    "season": 4,
+    "episode": 14,
+    "hash_id": "e_683a00ad",
+    "cands": [
+      9,
+      16,
+      0,
+      1,
+      6,
+      3
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E15": {
+    "season": 4,
+    "episode": 15,
+    "hash_id": "e_922a7779",
+    "cands": [
+      10,
+      8,
+      0,
+      3,
+      1,
+      5
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E16": {
+    "season": 4,
+    "episode": 16,
+    "hash_id": "e_a932a225",
+    "cands": [
+      9,
+      0,
+      1,
+      7,
+      3,
+      15
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E17": {
+    "season": 4,
+    "episode": 17,
+    "hash_id": "e_a5d55193",
+    "cands": [
+      5,
+      7,
+      6,
+      1,
+      2,
+      3
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E18": {
+    "season": 4,
+    "episode": 18,
+    "hash_id": "e_890ea59c",
+    "cands": [
+      0,
+      11,
+      17,
+      5,
+      9,
+      1
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E19": {
+    "season": 4,
+    "episode": 19,
+    "hash_id": "e_16d1156b",
+    "cands": [
+      8,
+      9,
+      4,
+      10,
+      6,
+      5
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E20": {
+    "season": 4,
+    "episode": 20,
+    "hash_id": "e_053e11b5",
+    "cands": [
+      12,
+      6,
+      0,
+      5,
+      8,
+      1
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E21": {
+    "season": 4,
+    "episode": 21,
+    "hash_id": "e_b6337550",
+    "cands": [
+      4,
+      1,
+      14,
+      15,
+      0,
+      2
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E22": {
+    "season": 4,
+    "episode": 22,
+    "hash_id": "e_b32c9b6b",
+    "cands": [
+      4,
+      1,
+      9,
+      5,
+      2,
+      3
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E23": {
+    "season": 4,
+    "episode": 23,
+    "hash_id": "e_ce3b0f8a",
+    "cands": [
+      2,
+      8,
+      0,
+      1,
+      6,
+      4
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S04E24": {
+    "season": 4,
+    "episode": 24,
+    "hash_id": "e_685d7e92",
+    "cands": [
+      0,
+      10,
+      6,
+      1,
+      8,
+      4
+    ],
+    "source": "s04_double_blind_verified"
+  },
+  "S05E01": {
+    "season": 5,
+    "episode": 1,
+    "hash_id": "e_c5922676",
+    "cands": [
+      4,
+      3,
+      8,
+      11,
+      5,
+      0
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E02": {
+    "season": 5,
+    "episode": 2,
+    "hash_id": "e_91695753",
+    "cands": [
+      0,
+      10,
+      9,
+      2,
+      6,
+      4
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E03": {
+    "season": 5,
+    "episode": 3,
+    "hash_id": "e_efb703ec",
+    "cands": [
+      10,
+      9,
+      12,
+      6,
+      0,
+      7
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E04": {
+    "season": 5,
+    "episode": 4,
+    "hash_id": "e_159b212d",
+    "cands": [
+      6,
+      8,
+      5,
+      0,
+      3,
+      7
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E05": {
+    "season": 5,
+    "episode": 5,
+    "hash_id": "e_c35d5d0a",
+    "cands": [
+      0,
+      5,
+      11,
+      7,
+      6,
+      1
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E06": {
+    "season": 5,
+    "episode": 6,
+    "hash_id": "e_804a750b",
+    "cands": [
+      1,
+      7,
+      5,
+      0,
+      6,
+      4
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E07": {
+    "season": 5,
+    "episode": 7,
+    "hash_id": "e_6fe4dc71",
+    "cands": [
+      8,
+      9,
+      6,
+      0,
+      7,
+      1
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E08": {
+    "season": 5,
+    "episode": 8,
+    "hash_id": "e_54d79a15",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S05E09": {
+    "season": 5,
+    "episode": 9,
+    "hash_id": "e_e1b79995",
+    "cands": [
+      0,
+      15,
+      6,
+      2,
+      3,
+      12
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E10": {
+    "season": 5,
+    "episode": 10,
+    "hash_id": "e_09773c41",
+    "cands": [
+      4,
+      10,
+      5,
+      1,
+      0,
+      2
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E11": {
+    "season": 5,
+    "episode": 11,
+    "hash_id": "e_dd70e49d",
+    "cands": [
+      14,
+      9,
+      0,
+      2,
+      1,
+      6
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E12": {
+    "season": 5,
+    "episode": 12,
+    "hash_id": "e_145d1be7",
+    "cands": [
+      11,
+      13,
+      17,
+      14,
+      15,
+      2
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E13": {
+    "season": 5,
+    "episode": 13,
+    "hash_id": "e_4544ce1b",
+    "cands": [
+      5,
+      2,
+      8,
+      0,
+      3,
+      6
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E14": {
+    "season": 5,
+    "episode": 14,
+    "hash_id": "e_2d5fa3dc",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S05E15": {
+    "season": 5,
+    "episode": 15,
+    "hash_id": "e_de2d65b6",
+    "cands": [
+      4,
+      15,
+      2,
+      7,
+      6,
+      9
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E16": {
+    "season": 5,
+    "episode": 16,
+    "hash_id": "e_fcab7b29",
+    "cands": [
+      2,
+      4,
+      9,
+      3,
+      5,
+      1
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E17": {
+    "season": 5,
+    "episode": 17,
+    "hash_id": "e_bd1292ed",
+    "cands": [
+      7,
+      11,
+      8,
+      12,
+      5,
+      0
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E18": {
+    "season": 5,
+    "episode": 18,
+    "hash_id": "e_3022227b",
+    "cands": [
+      6,
+      15,
+      14,
+      2,
+      10,
+      0
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E19": {
+    "season": 5,
+    "episode": 19,
+    "hash_id": "e_53031e70",
+    "cands": [
+      11,
+      4,
+      12,
+      1,
+      0,
+      2
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E20": {
+    "season": 5,
+    "episode": 20,
+    "hash_id": "e_d6549c1f",
+    "cands": [
+      4,
+      10,
+      7,
+      1,
+      6,
+      0
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E21": {
+    "season": 5,
+    "episode": 21,
+    "hash_id": "e_2acf32bb",
+    "cands": [
+      12,
+      5,
+      9,
+      3,
+      2,
+      0
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E22": {
+    "season": 5,
+    "episode": 22,
+    "hash_id": "e_b9478c17",
+    "cands": [
+      4,
+      6,
+      3,
+      9,
+      0,
+      5
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E23": {
+    "season": 5,
+    "episode": 23,
+    "hash_id": "e_03d281e4",
+    "cands": [
+      2,
+      10,
+      3,
+      6,
+      4,
+      0
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S05E24": {
+    "season": 5,
+    "episode": 24,
+    "hash_id": "e_6ef711a1",
+    "cands": [
+      6,
+      1,
+      0,
+      5,
+      4,
+      2
+    ],
+    "source": "s05_double_blind_verified"
+  },
+  "S06E01": {
+    "season": 6,
+    "episode": 1,
+    "hash_id": "e_244f33a1",
+    "cands": [
+      9,
+      3,
+      5,
+      0,
+      1,
+      4
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E02": {
+    "season": 6,
+    "episode": 2,
+    "hash_id": "e_a180a770",
+    "cands": [
+      7,
+      0,
+      2,
+      9,
+      3,
+      5
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E03": {
+    "season": 6,
+    "episode": 3,
+    "hash_id": "e_d569b201",
+    "cands": [
+      14,
+      1,
+      4,
+      0,
+      5,
+      2
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E04": {
+    "season": 6,
+    "episode": 4,
+    "hash_id": "e_9c8393db",
+    "cands": [
+      7,
+      3,
+      10,
+      6,
+      2,
+      9
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E05": {
+    "season": 6,
+    "episode": 5,
+    "hash_id": "e_c5fccae3",
+    "cands": [
+      1,
+      6,
+      3,
+      0,
+      4,
+      8
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E06": {
+    "season": 6,
+    "episode": 6,
+    "hash_id": "e_b052f033",
+    "cands": [
+      9,
+      3,
+      11,
+      5,
+      0,
+      4
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E07": {
+    "season": 6,
+    "episode": 7,
+    "hash_id": "e_461da218",
+    "cands": [
+      16,
+      6,
+      0,
+      17,
+      5,
+      11
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E08": {
+    "season": 6,
+    "episode": 8,
+    "hash_id": "e_3e8410ee",
+    "cands": [
+      1,
+      5,
+      3,
+      0,
+      2,
+      4
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E09": {
+    "season": 6,
+    "episode": 9,
+    "hash_id": "e_1ba24931",
+    "cands": [
+      15,
+      0,
+      17,
+      6,
+      4,
+      2
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E10": {
+    "season": 6,
+    "episode": 10,
+    "hash_id": "e_2aecbc7d",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S06E11": {
+    "season": 6,
+    "episode": 11,
+    "hash_id": "e_6bc1c2b5",
+    "cands": [
+      5,
+      7,
+      2,
+      0,
+      4,
+      1
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E12": {
+    "season": 6,
+    "episode": 12,
+    "hash_id": "e_9433370c",
+    "cands": [
+      5,
+      4,
+      6,
+      3,
+      1,
+      2
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E13": {
+    "season": 6,
+    "episode": 13,
+    "hash_id": "e_d40d1ed1",
+    "cands": [
+      7,
+      4,
+      5,
+      1,
+      2,
+      6
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E14": {
+    "season": 6,
+    "episode": 14,
+    "hash_id": "e_15599c54",
+    "cands": [
+      8,
+      4,
+      1,
+      3,
+      0,
+      2
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E15": {
+    "season": 6,
+    "episode": 15,
+    "hash_id": "e_d03b8892",
+    "cands": [
+      6,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E16": {
+    "season": 6,
+    "episode": 16,
+    "hash_id": "e_4cbfa16c",
+    "cands": [
+      8,
+      10,
+      2,
+      1,
+      6,
+      0
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E17": {
+    "season": 6,
+    "episode": 17,
+    "hash_id": "e_37a75508",
+    "cands": [
+      15,
+      13,
+      9,
+      5,
+      8,
+      7
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E18": {
+    "season": 6,
+    "episode": 18,
+    "hash_id": "e_75953964",
+    "cands": [
+      4,
+      0,
+      2,
+      3,
+      6,
+      5
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E19": {
+    "season": 6,
+    "episode": 19,
+    "hash_id": "e_e9662dc6",
+    "cands": [
+      20,
+      0,
+      15,
+      8,
+      3,
+      13
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E20": {
+    "season": 6,
+    "episode": 20,
+    "hash_id": "e_82898825",
+    "cands": [
+      18,
+      0,
+      22,
+      27,
+      4,
+      17
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E21": {
+    "season": 6,
+    "episode": 21,
+    "hash_id": "e_e82419de",
+    "cands": [
+      23,
+      27,
+      25,
+      12,
+      11,
+      16
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E22": {
+    "season": 6,
+    "episode": 22,
+    "hash_id": "e_2e77a92a",
+    "cands": [
+      1,
+      4,
+      0,
+      10,
+      6,
+      2
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E23": {
+    "season": 6,
+    "episode": 23,
+    "hash_id": "e_c65833de",
+    "cands": [
+      9,
+      10,
+      1,
+      5,
+      7,
+      4
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E24": {
+    "season": 6,
+    "episode": 24,
+    "hash_id": "e_67526f13",
+    "cands": [
+      3,
+      12,
+      10,
+      9,
+      1,
+      0
+    ],
+    "source": "s06_double_blind_verified"
+  },
+  "S06E25": {
+    "season": 6,
+    "episode": 25,
+    "hash_id": "e_ca34225a",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S07E01": {
+    "season": 7,
+    "episode": 1,
+    "hash_id": "e_4706f083",
+    "cands": [
+      13,
+      5,
+      0,
+      2,
+      3,
+      9
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E02": {
+    "season": 7,
+    "episode": 2,
+    "hash_id": "e_89131442",
+    "cands": [
+      2,
+      11,
+      4,
+      0,
+      5,
+      6
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E03": {
+    "season": 7,
+    "episode": 3,
+    "hash_id": "e_e3d93dea",
+    "cands": [
+      18,
+      5,
+      1,
+      4,
+      3,
+      2
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E04": {
+    "season": 7,
+    "episode": 4,
+    "hash_id": "e_92d8fd7a",
+    "cands": [
+      3,
+      5,
+      16,
+      0,
+      2,
+      1
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E05": {
+    "season": 7,
+    "episode": 5,
+    "hash_id": "e_a8ecba69",
+    "cands": [
+      2,
+      6,
+      7,
+      24,
+      1,
+      3
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E06": {
+    "season": 7,
+    "episode": 6,
+    "hash_id": "e_c3a5a327",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S07E07": {
+    "season": 7,
+    "episode": 7,
+    "hash_id": "e_8bcc09c9",
+    "cands": [
+      10,
+      2,
+      3,
+      8,
+      6,
+      11
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E08": {
+    "season": 7,
+    "episode": 8,
+    "hash_id": "e_20993969",
+    "cands": [
+      6,
+      2,
+      4,
+      5,
+      0,
+      1
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E09": {
+    "season": 7,
+    "episode": 9,
+    "hash_id": "e_c9226da5",
+    "cands": [
+      15,
+      23,
+      0,
+      6,
+      7,
+      20
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E10": {
+    "season": 7,
+    "episode": 10,
+    "hash_id": "e_553c384a",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S07E11": {
+    "season": 7,
+    "episode": 11,
+    "hash_id": "e_b8dea640",
+    "cands": [
+      16,
+      15,
+      7,
+      4,
+      14,
+      1
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E12": {
+    "season": 7,
+    "episode": 12,
+    "hash_id": "e_7def5ca3",
+    "cands": [
+      0,
+      4,
+      8,
+      13,
+      11,
+      5
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E13": {
+    "season": 7,
+    "episode": 13,
+    "hash_id": "e_6d04d8b0",
+    "cands": [
+      9,
+      10,
+      1,
+      3,
+      6,
+      4
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E14": {
+    "season": 7,
+    "episode": 14,
+    "hash_id": "e_2010e14d",
+    "cands": [
+      1,
+      5,
+      9,
+      7,
+      3,
+      0
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E15": {
+    "season": 7,
+    "episode": 15,
+    "hash_id": "e_ab71f4b0",
+    "cands": [
+      17,
+      9,
+      10,
+      6,
+      5,
+      0
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E16": {
+    "season": 7,
+    "episode": 16,
+    "hash_id": "e_56fcdbf5",
+    "cands": [
+      3,
+      10,
+      2,
+      1,
+      15,
+      5
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E17": {
+    "season": 7,
+    "episode": 17,
+    "hash_id": "e_8fde3aed",
+    "cands": [
+      10,
+      9,
+      2,
+      16,
+      1,
+      0
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E18": {
+    "season": 7,
+    "episode": 18,
+    "hash_id": "e_03268c34",
+    "cands": [
+      4,
+      13,
+      5,
+      8,
+      12,
+      6
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E19": {
+    "season": 7,
+    "episode": 19,
+    "hash_id": "e_7175684b",
+    "cands": [
+      17,
+      1,
+      7,
+      5,
+      2,
+      11
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E20": {
+    "season": 7,
+    "episode": 20,
+    "hash_id": "e_36e4aa37",
+    "cands": [
+      19,
+      13,
+      30,
+      4,
+      2,
+      6
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E21": {
+    "season": 7,
+    "episode": 21,
+    "hash_id": "e_32dac33d",
+    "cands": [
+      14,
+      16,
+      13,
+      5,
+      4,
+      27
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E22": {
+    "season": 7,
+    "episode": 22,
+    "hash_id": "e_505e8fe0",
+    "cands": [
+      27,
+      29,
+      21,
+      1,
+      23,
+      0
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E23": {
+    "season": 7,
+    "episode": 23,
+    "hash_id": "e_3c252b6d",
+    "cands": [
+      1,
+      0,
+      4,
+      13,
+      25,
+      3
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S07E24": {
+    "season": 7,
+    "episode": 24,
+    "hash_id": "e_58f0827e",
+    "cands": [
+      7,
+      6,
+      3,
+      4,
+      11,
+      9
+    ],
+    "source": "s07_double_blind_verified"
+  },
+  "S08E01": {
+    "season": 8,
+    "episode": 1,
+    "hash_id": "e_d97b324f",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S08E02": {
+    "season": 8,
+    "episode": 2,
+    "hash_id": "e_0e0d7f4f",
+    "cands": [
+      12,
+      9,
+      3,
+      14,
+      1,
+      6
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E03": {
+    "season": 8,
+    "episode": 3,
+    "hash_id": "e_50b191aa",
+    "cands": [
+      1,
+      5,
+      3,
+      0,
+      11,
+      7
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E04": {
+    "season": 8,
+    "episode": 4,
+    "hash_id": "e_f4e94002",
+    "cands": [
+      1,
+      2,
+      9,
+      8,
+      3,
+      6
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E05": {
+    "season": 8,
+    "episode": 5,
+    "hash_id": "e_ee48dd90",
+    "cands": [
+      2,
+      5,
+      12,
+      10,
+      1,
+      3
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E06": {
+    "season": 8,
+    "episode": 6,
+    "hash_id": "e_1e746b9e",
+    "cands": [
+      12,
+      7,
+      2,
+      8,
+      5,
+      9
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E07": {
+    "season": 8,
+    "episode": 7,
+    "hash_id": "e_7fa7ddd7",
+    "cands": [
+      14,
+      0,
+      6,
+      8,
+      2,
+      1
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E08": {
+    "season": 8,
+    "episode": 8,
+    "hash_id": "e_07af773c",
+    "cands": [
+      14,
+      5,
+      4,
+      9,
+      2,
+      3
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E09": {
+    "season": 8,
+    "episode": 9,
+    "hash_id": "e_c615a4b7",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S08E10": {
+    "season": 8,
+    "episode": 10,
+    "hash_id": "e_83ad09d4",
+    "cands": [
+      7,
+      1,
+      0,
+      12,
+      3,
+      6
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E11": {
+    "season": 8,
+    "episode": 11,
+    "hash_id": "e_4c4ae4b0",
+    "cands": [
+      11,
+      32,
+      0,
+      2,
+      3,
+      1
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E12": {
+    "season": 8,
+    "episode": 12,
+    "hash_id": "e_ccb9e22f",
+    "cands": [
+      1,
+      0,
+      8,
+      10,
+      6,
+      3
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E13": {
+    "season": 8,
+    "episode": 13,
+    "hash_id": "e_d850933b",
+    "cands": [
+      5,
+      9,
+      1,
+      10,
+      15,
+      2
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E14": {
+    "season": 8,
+    "episode": 14,
+    "hash_id": "e_924e216e",
+    "cands": [
+      0,
+      3,
+      9,
+      1,
+      2,
+      5
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E15": {
+    "season": 8,
+    "episode": 15,
+    "hash_id": "e_d0c1c6a0",
+    "cands": [
+      7,
+      11,
+      3,
+      1,
+      8,
+      0
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E16": {
+    "season": 8,
+    "episode": 16,
+    "hash_id": "e_ceebcb0b",
+    "cands": [
+      20,
+      9,
+      0,
+      11,
+      18,
+      1
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E17": {
+    "season": 8,
+    "episode": 17,
+    "hash_id": "e_e6c2a67c",
+    "cands": [
+      5,
+      6,
+      4,
+      14,
+      9,
+      7
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E18": {
+    "season": 8,
+    "episode": 18,
+    "hash_id": "e_aa11bd9c",
+    "cands": [
+      3,
+      7,
+      2,
+      15,
+      1,
+      14
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E19": {
+    "season": 8,
+    "episode": 19,
+    "hash_id": "e_10a8401f",
+    "cands": [
+      2,
+      6,
+      1,
+      7,
+      20,
+      0
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E20": {
+    "season": 8,
+    "episode": 20,
+    "hash_id": "e_1f9cb4c5",
+    "cands": [
+      12,
+      18,
+      6,
+      17,
+      1,
+      5
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E21": {
+    "season": 8,
+    "episode": 21,
+    "hash_id": "e_a74d28d8",
+    "cands": [
+      0,
+      7,
+      12,
+      3,
+      1,
+      4
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E22": {
+    "season": 8,
+    "episode": 22,
+    "hash_id": "e_8c766b05",
+    "cands": [
+      15,
+      3,
+      16,
+      11,
+      2,
+      0
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E23": {
+    "season": 8,
+    "episode": 23,
+    "hash_id": "e_5b559dd1",
+    "cands": [
+      2,
+      1,
+      15,
+      5,
+      6,
+      11
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S08E24": {
+    "season": 8,
+    "episode": 24,
+    "hash_id": "e_adfe5b1b",
+    "cands": [
+      3,
+      2,
+      8,
+      0,
+      1,
+      7
+    ],
+    "source": "s08_double_blind_verified"
+  },
+  "S09E01": {
+    "season": 9,
+    "episode": 1,
+    "hash_id": "e_318f1ce3",
+    "cands": [
+      15,
+      22,
+      7,
+      9,
+      13,
+      2
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E02": {
+    "season": 9,
+    "episode": 2,
+    "hash_id": "e_9504695c",
+    "cands": [
+      1,
+      2,
+      7,
+      0,
+      23,
+      5
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E03": {
+    "season": 9,
+    "episode": 3,
+    "hash_id": "e_03f066c9",
+    "cands": [
+      9,
+      0,
+      10,
+      8,
+      6,
+      7
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E04": {
+    "season": 9,
+    "episode": 4,
+    "hash_id": "e_345f1512",
+    "cands": [
+      12,
+      5,
+      1,
+      2,
+      3,
+      4
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E05": {
+    "season": 9,
+    "episode": 5,
+    "hash_id": "e_bbb7a8c1",
+    "cands": [
+      1,
+      9,
+      11,
+      24,
+      12,
+      14
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E06": {
+    "season": 9,
+    "episode": 6,
+    "hash_id": "e_eeb0f8d0",
+    "cands": [
+      5,
+      8,
+      0,
+      1,
+      4,
+      3
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E07": {
+    "season": 9,
+    "episode": 7,
+    "hash_id": "e_fe3c79e9",
+    "cands": [
+      0,
+      3,
+      6,
+      2,
+      4,
+      1
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E08": {
+    "season": 9,
+    "episode": 8,
+    "hash_id": "e_96e4b5e5",
+    "cands": [
+      0,
+      4,
+      11,
+      6,
+      12,
+      9
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E09": {
+    "season": 9,
+    "episode": 9,
+    "hash_id": "e_9e48a548",
+    "cands": [
+      4,
+      25,
+      22,
+      0,
+      5,
+      10
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E10": {
+    "season": 9,
+    "episode": 10,
+    "hash_id": "e_f8e21c1b",
+    "cands": [
+      12,
+      25,
+      13,
+      7,
+      28,
+      5
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E11": {
+    "season": 9,
+    "episode": 11,
+    "hash_id": "e_cf0597e2",
+    "cands": [
+      3,
+      23,
+      5,
+      0,
+      7,
+      2
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E12": {
+    "season": 9,
+    "episode": 12,
+    "hash_id": "e_5bbd7fda",
+    "cands": [
+      9,
+      1,
+      14,
+      0,
+      4,
+      5
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E13": {
+    "season": 9,
+    "episode": 13,
+    "hash_id": "e_fb94a363",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S09E14": {
+    "season": 9,
+    "episode": 14,
+    "hash_id": "e_694a4b85",
+    "cands": [
+      4,
+      3,
+      0,
+      10,
+      14,
+      2
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E15": {
+    "season": 9,
+    "episode": 15,
+    "hash_id": "e_b8530cdf",
+    "cands": [
+      2,
+      8,
+      1,
+      4,
+      6,
+      10
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E16": {
+    "season": 9,
+    "episode": 16,
+    "hash_id": "e_532d02a8",
+    "cands": [
+      2,
+      15,
+      12,
+      9,
+      0,
+      1
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E17": {
+    "season": 9,
+    "episode": 17,
+    "hash_id": "e_e24555c4",
+    "cands": [
+      12,
+      16,
+      25,
+      4,
+      0,
+      1
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E18": {
+    "season": 9,
+    "episode": 18,
+    "hash_id": "e_60ff9e02",
+    "cands": [
+      8,
+      2,
+      5,
+      11,
+      1,
+      3
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E19": {
+    "season": 9,
+    "episode": 19,
+    "hash_id": "e_b2b34813",
+    "cands": [
+      1,
+      7,
+      3,
+      4,
+      2,
+      8
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E20": {
+    "season": 9,
+    "episode": 20,
+    "hash_id": "e_f6ae76cf",
+    "cands": [
+      30,
+      31,
+      1,
+      20,
+      7,
+      0
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E21": {
+    "season": 9,
+    "episode": 21,
+    "hash_id": "e_1096ffac",
+    "cands": [
+      0,
+      14,
+      3,
+      6,
+      7,
+      2
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E22": {
+    "season": 9,
+    "episode": 22,
+    "hash_id": "e_01f50231",
+    "cands": [
+      18,
+      11,
+      19,
+      6,
+      4,
+      0
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S09E23": {
+    "season": 9,
+    "episode": 23,
+    "hash_id": "e_bbb5e00e",
+    "cands": [
+      5,
+      2,
+      8,
+      1,
+      6,
+      4
+    ],
+    "source": "s09_double_blind_verified"
+  },
+  "S10E01": {
+    "season": 10,
+    "episode": 1,
+    "hash_id": "e_a1f10418",
+    "cands": [
+      3,
+      6,
+      0,
+      7,
+      9,
+      8
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E02": {
+    "season": 10,
+    "episode": 2,
+    "hash_id": "e_d7a54b7a",
+    "cands": [
+      18,
+      8,
+      1,
+      20,
+      6,
+      7
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E03": {
+    "season": 10,
+    "episode": 3,
+    "hash_id": "e_11d81489",
+    "cands": [
+      3,
+      1,
+      2,
+      0,
+      4,
+      5
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E04": {
+    "season": 10,
+    "episode": 4,
+    "hash_id": "e_155bac1a",
+    "cands": [
+      6,
+      7,
+      21,
+      4,
+      15,
+      1
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E05": {
+    "season": 10,
+    "episode": 5,
+    "hash_id": "e_31039121",
+    "cands": [
+      3,
+      10,
+      1,
+      9,
+      2,
+      5
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E06": {
+    "season": 10,
+    "episode": 6,
+    "hash_id": "e_9dc8dfed",
+    "cands": [
+      8,
+      3,
+      2,
+      1,
+      0,
+      20
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E07": {
+    "season": 10,
+    "episode": 7,
+    "hash_id": "e_d5a0ed50",
+    "cands": [
+      7,
+      6,
+      2,
+      13,
+      1,
+      0
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E08": {
+    "season": 10,
+    "episode": 8,
+    "hash_id": "e_d52d31da",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S10E09": {
+    "season": 10,
+    "episode": 9,
+    "hash_id": "e_e191b6b0",
+    "cands": [
+      19,
+      8,
+      16,
+      21,
+      0,
+      4
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E10": {
+    "season": 10,
+    "episode": 10,
+    "hash_id": "e_1eec11ab",
+    "cands": [
+      14,
+      12,
+      9,
+      2,
+      0,
+      13
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E11": {
+    "season": 10,
+    "episode": 11,
+    "hash_id": "e_e87cc460",
+    "source": "prototype_20_double_blind_verified"
+  },
+  "S10E12": {
+    "season": 10,
+    "episode": 12,
+    "hash_id": "e_a4cea564",
+    "cands": [
+      15,
+      14,
+      12,
+      0,
+      1,
+      3
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E13": {
+    "season": 10,
+    "episode": 13,
+    "hash_id": "e_a9566d4e",
+    "cands": [
+      5,
+      9,
+      16,
+      0,
+      7,
+      1
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E14": {
+    "season": 10,
+    "episode": 14,
+    "hash_id": "e_396423f4",
+    "cands": [
+      27,
+      24,
+      15,
+      3,
+      0,
+      1
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E15": {
+    "season": 10,
+    "episode": 15,
+    "hash_id": "e_2e08b4db",
+    "cands": [
+      0,
+      5,
+      3,
+      20,
+      2,
+      4
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E16": {
+    "season": 10,
+    "episode": 16,
+    "hash_id": "e_91b366fa",
+    "cands": [
+      0,
+      4,
+      5,
+      6,
+      1,
+      10
+    ],
+    "source": "s10_double_blind_verified"
+  },
+  "S10E17": {
+    "season": 10,
+    "episode": 17,
+    "hash_id": "e_051ccd0b",
+    "source": "prototype_20_double_blind_verified"
+  }
+}
