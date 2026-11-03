@@ -1,7 +1,7 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-10-31T23:50:00.000Z",
+  "updatedAt": "2026-11-03T02:41:00.000Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
@@ -154,11 +154,11 @@
       "subtype": "EDICT",
       "rulesText": "Draw two cards. You take 2 damage unless you control a **Queen**.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-crowns-tithe.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:49:45.925Z"
+      "updatedAt": "2026-11-03T01:30:30.000Z"
     },
     {
       "id": "card_mvrhmr5k_zdo17",
@@ -198,11 +198,11 @@
       "subtype": "EDICT - FOOD",
       "rulesText": "Give a Character +3/+3. If it's friendly, give it {Provoke}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-eat-up-my-darling.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T21:26:15.791Z"
+      "updatedAt": "2026-11-03T02:41:00.000Z"
     },
     {
       "id": "card_mvridm7s_tq9zo",
@@ -264,11 +264,11 @@
       "subtype": "FOOD",
       "rulesText": "Give a Character +2/+4. If it's friendly, give it \"{Farewell}: Summon a 2/4 Royal Vanguard.\" ",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-showstopper-gateau.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T04:19:51.587Z"
+      "updatedAt": "2026-11-03T02:26:30.000Z"
     },
     {
       "id": "card_mvrjlj56_hloy2",
@@ -440,11 +440,11 @@
       "subtype": "",
       "rulesText": "{Safeguard} {Provoke} ",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-palace-halberdier.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:58:51.885Z"
+      "updatedAt": "2026-11-02T22:41:00.000Z"
     },
     {
       "id": "card_mvrltf84_63deu",
@@ -572,11 +572,11 @@
       "subtype": "",
       "rulesText": "{Devotee} Your next \"Hero Power\" this turn costs {0AP}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-lady-tired-of-waiting.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:54:40.830Z"
+      "updatedAt": "2026-11-03T02:26:30.000Z"
     },
     {
       "id": "card_mvrr6xhe_863ug",
@@ -616,11 +616,11 @@
       "subtype": "",
       "rulesText": "{Devotee} Heal 2 damage from yourself.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-painted-topiaries.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:51:24.653Z"
+      "updatedAt": "2026-11-02T23:12:30.000Z"
     },
     {
       "id": "card_mvrreqsj_fb440",
@@ -704,11 +704,11 @@
       "subtype": "",
       "rulesText": "{Debut} Give this Character's left neighbor +3/+2.\n{Farewell} Give this Character's right neighbor +3/+2.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-graybeard-knight-errant.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T06:39:31.314Z"
+      "updatedAt": "2026-11-02T21:39:30.000Z"
     },
     {
       "id": "card_mvu9ro10_lxwsc",
@@ -1056,11 +1056,11 @@
       "subtype": "",
       "rulesText": "{0AP}: Give yourself +2/+0 this turn.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-old-chestnut-smithy.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T19:05:53.240Z"
+      "updatedAt": "2026-11-02T20:58:30.000Z"
     },
     {
       "id": "card_mvuc1r51_affx1",
