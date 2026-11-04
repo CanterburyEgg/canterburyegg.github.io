@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storybook Playtest Table — Custom Deckbuilder &amp; 2-Handed Sandbox</title>
+  <meta name="description" content="Custom deckbuilder and interactive 2-handed playtest tabletop for the Storybook digital fairy-tale card game.">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600;1,9..144,700;1,9..144,800&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./card-builder.css?v=31">
+  <link rel="stylesheet" href="./game.css?v=3">
+</head>
+<body>
+
+  <!-- =====================================================================
+       VIEW 1: CUSTOM DECKBUILDER & 2-HANDED MATCH LOBBY
+       ===================================================================== -->
+  <div id="lobby-screen" class="lobby-screen">
+    <header class="studio-header">
+      <div class="brand-cluster">
+        <h1>Storybook Playtest Table</h1>
+        <span id="db-card-count" class="set-counter">Loading Set 1…</span>
+        <button type="button" id="db-sync-pill" class="sync-status-pill" title="Click to refresh live card definitions from Card Studio &amp; cards.json">Syncing…</button>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" id="import-decks-btn" class="btn" title="Import custom decks from a JSON file">Import Decks</button>
+        <input type="file" id="import-decks-input" accept=".json,application/json" hidden>
+        <input type="file" id="fallback-cards-input" accept=".json,application/json" hidden>
+        <button type="button" id="export-decks-btn" class="btn" title="Export saved custom decks as JSON">Export Decks</button>
+        <a id="nav-card-studio" href="./card-builder.html" class="btn header-nav-link" title="Open Card Designer &amp; Set Studio">Card Studio ↗</a>
+        <a id="nav-factions" href="./factions.html" class="btn header-nav-link" title="Open Faction Worldbook &amp; Mechanical Pie">Faction Guide ↗</a>
+      </div>
+    </header>
+
+    <main class="lobby-grid">
+      <!-- Left Column: Match Setup & Saved Custom Decks -->
+      <aside class="lobby-col-sticky" aria-label="Match Setup and Saved Decks">
+        <section class="match-setup-card" aria-labelledby="setup-heading">
+          <div class="setup-head">
+            <h2 id="setup-heading">2-Handed Table</h2>
+            <span class="mode-tag">Sandbox</span>
+          </div>
+
+          <div class="seat-field">
+            <label for="seat1-deck-select">Seat 1 Deck</label>
+            <select id="seat1-deck-select" class="studio-select"></select>
+          </div>
+
+          <div class="seat-field">
+            <label for="seat2-deck-select">Seat 2 Deck</label>
+            <select id="seat2-deck-select" class="studio-select"></select>
+          </div>
+
+          <div class="seat-field">
+            <label id="fp-group-label">Going First</label>
+            <div class="first-player-seg" role="radiogroup" aria-labelledby="fp-group-label">
+              <button type="button" id="fp-seat1-btn" class="fp-btn" data-fp="0">Seat 1</button>
+              <button type="button" id="fp-random-btn" class="fp-btn active" data-fp="random">Random</button>
+              <button type="button" id="fp-seat2-btn" class="fp-btn" data-fp="1">Seat 2</button>
+            </div>
+          </div>
+
+          <button type="button" id="start-match-btn" class="btn-launch-match" disabled>Start 2-Handed Match →</button>
+          <p id="match-setup-hint" class="setup-hint">Build at least one complete 25-card deck to launch a playtest match (mirror matches supported).</p>
+        </section>
+
+        <section class="panel saved-decks-panel" aria-labelledby="saved-decks-heading">
+          <div class="panel-header">
+            <h2 id="saved-decks-heading" class="panel-title">Custom Decks</h2>
+            <button type="button" id="new-deck-btn" class="btn btn-sm btn-primary">+ New Deck</button>
+          </div>
+          <div id="saved-decks-list" class="saved-decks-list"></div>
+        </section>
+      </aside>
+
+      <!-- Center Column: 2-Hero Loadout Picker & Collectible Card Browser -->
+      <section class="deck-center-col" aria-label="Deckbuilder Card Pool">
+        <div class="hero-picker-panel">
+          <div class="hero-picker-head">
+            <h2>1. Choose Two Heroes</h2>
+            <span id="loadout-summary-badge" class="loadout-summary-badge">Select 2 Heroes</span>
+          </div>
+          <div id="hero-picker-grid" class="hero-picker-grid"></div>
+        </div>
+
+        <div class="pool-browser-panel">
+          <div class="pool-filter-bar">
+            <button type="button" id="filter-legal-btn" class="legal-toggle-btn active" title="Show only cards legal for your chosen 2 Heroes">Legal for Heroes</button>
+
+            <div id="filter-faction-group" class="filter-pill-group" role="group" aria-label="Faction Filter">
+              <button type="button" id="ff-all" class="fpill active" data-faction="ALL">All</button>
+              <button type="button" id="ff-r" class="fpill" data-faction="R">Court</button>
+              <button type="button" id="ff-h" class="fpill" data-faction="H">Hearth</button>
+            </div>
+
+            <div id="filter-type-group" class="filter-pill-group" role="group" aria-label="Card Type Filter">
+              <button type="button" id="ft-all" class="fpill active" data-type="ALL">All Types</button>
+              <button type="button" id="ft-char" class="fpill" data-type="character">Characters</button>
+              <button type="button" id="ft-bldg" class="fpill" data-type="building">Buildings</button>
+              <button type="button" id="ft-spell" class="fpill" data-type="spell">Spells</button>
+            </div>
+
+            <div id="filter-energy-group" class="filter-pill-group" role="group" aria-label="Energy Requirement Filter">
+              <button type="button" id="fe-all" class="fpill active" data-energy="ALL">Any E</button>
+              <button type="button" id="fe-1" class="fpill" data-energy="1">1</button>
+              <button type="button" id="fe-2" class="fpill" data-energy="2">2</button>
+              <button type="button" id="fe-3" class="fpill" data-energy="3">3</button>
+              <button type="button" id="fe-4" class="fpill" data-energy="4">4</button>
+              <button type="button" id="fe-5" class="fpill" data-energy="5">5+</button>
+            </div>
+
+            <input type="search" id="pool-search-input" class="pool-search-input" placeholder="Search name, Food, Animalfolk, Devotee…" aria-label="Search cards">
+          </div>
+
+          <div id="deck-card-grid" class="deck-card-grid"></div>
+        </div>
+      </section>
+
+      <!-- Right Column: Active 25-Card Deck List -->
+      <aside class="lobby-col-sticky" aria-label="Active Deck List">
+        <section class="deck-editor-panel" aria-label="Active Deck Editor">
+          <div class="deck-editor-top">
+            <div class="deck-name-row">
+              <input type="text" id="deck-name-input" class="deck-name-input" placeholder="Deck Name" maxlength="42" aria-label="Deck Name">
+              <span id="deck-count-badge" class="deck-status-pill is-wip">0 / 25</span>
+            </div>
+
+            <div class="curve-and-stats">
+              <div id="energy-curve-bars" class="energy-curve-bars" aria-label="Energy Curve"></div>
+              <div id="deck-type-breakdown" class="type-breakdown">0 Char<br>0 Bldg · 0 Spell</div>
+            </div>
+
+            <div id="deck-validation-box" class="deck-validation-box" hidden></div>
+          </div>
+
+          <div id="deck-list-scroll" class="deck-list-scroll" aria-label="Cards in Deck"></div>
+
+          <div class="deck-editor-foot">
+            <button type="button" id="clear-deck-cards-btn" class="btn btn-sm">Clear Cards</button>
+            <button type="button" id="duplicate-active-deck-btn" class="btn btn-sm">Clone Deck</button>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <!-- =====================================================================
+       VIEW 2: 2-HANDED PLAYTEST TABLETOP (100vh Stage Wood)
+       ===================================================================== -->
+  <section id="tabletop-screen" class="tabletop-screen" aria-label="Playtest Battlefield" hidden>
+    <!-- Row 1: Match Top Bar -->
+    <header class="match-topbar">
+      <div class="mtb-left">
+        <button type="button" id="exit-match-btn" class="table-btn" title="Leave match and return to Deckbuilder">← Decks</button>
+        <span id="round-seat-label" class="round-seat-label">Round 1</span>
+      </div>
+
+      <div class="mtb-center">
+        <div class="phase-track" aria-label="Turn Phase">
+          <span id="phase-pill-main1" class="phase-pill active">Main 1</span>
+          <span class="phase-sep">›</span>
+          <span id="phase-pill-combat" class="phase-pill">Combat</span>
+          <span class="phase-sep">›</span>
+          <span id="phase-pill-main2" class="phase-pill">Main 2</span>
+        </div>
+        <button type="button" id="inspect-gameover-btn" class="table-btn is-toggled" hidden>★ Match Summary</button>
+      </div>
+
+      <div class="mtb-right">
+        <button type="button" id="undo-btn" class="table-btn" title="Undo last action (Cmd/Ctrl+Z)" disabled>↩ Undo</button>
+        <button type="button" id="peek-hand-btn" class="table-btn" title="Reveal opponent hand face-up for 2-handed playtesting">👁 Peek Enemy</button>
+        <button type="button" id="toggle-log-btn" class="table-btn" title="Toggle Combat &amp; Trigger Log">📜 Log</button>
+        <button type="button" id="toggle-sandbox-btn" class="table-btn" title="Open Playtest God-Mode Drawer">🛠 Sandbox</button>
+        <button type="button" id="end-combat-btn" class="btn-end-combat" hidden>End Combat → Main 2</button>
+        <button type="button" id="end-turn-btn" class="btn-end-turn">End Turn</button>
+      </div>
+    </header>
+
+    <!-- Row 2: Opponent Hand & Zone Piles -->
+    <div id="opp-hand-bar" class="opp-hand-bar">
+      <div id="opp-seat-chip" class="seat-info-chip"></div>
+      <div id="opp-cards-strip" class="opp-cards-strip"></div>
+      <div id="opp-zone-piles" class="zone-piles">
+        <button type="button" id="opp-deck-btn" class="zone-pile-btn" title="Opponent Deck (click to peek order in Sandbox)">🂠 20</button>
+        <button type="button" id="opp-grave-btn" class="zone-pile-btn" title="Inspect Opponent Graveyard">⚰ 0</button>
+      </div>
+    </div>
+
+    <!-- Row 3: Opponent Command Row (2 Left Bldgs | Heroes + Hero Portrait | 2 Right Bldgs) -->
+    <div id="opp-command-row" class="command-row"></div>
+
+    <!-- Row 4: Opponent 6-Slot Character Lane -->
+    <div id="opp-char-lane" class="character-lane"></div>
+
+    <!-- Row 5: Center Battlefield Seam & Targeting Prompt Bar -->
+    <div id="battlefield-seam" class="battlefield-seam">
+      <div id="action-prompt-bar" class="action-prompt-bar"></div>
+    </div>
+
+    <!-- Row 6: Active Player 6-Slot Character Lane -->
+    <div id="friendly-char-lane" class="character-lane"></div>
+
+    <!-- Row 7: Active Player Command Row (Resource Hub | 2 Left Bldgs | Heroes | 2 Right Bldgs | Deck/Grave) -->
+    <div id="friendly-command-row" class="command-row"></div>
+
+    <!-- Row 8: Active Player Hand Tray -->
+    <div id="friendly-hand-tray" class="hand-tray">
+      <div id="friendly-hand-row" class="hand-cards-row"></div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       TABLETOP OVERLAYS, DRAWERS & FLOATING HOVER INSPECTOR
+       ===================================================================== -->
+
+  <!-- Opening Selective Mulligan Modal -->
+  <div id="mulligan-modal" class="table-modal-backdrop" hidden>
+    <div class="table-modal-card" role="dialog" aria-labelledby="mulligan-title">
+      <div class="tmc-header">
+        <div class="tmc-title-block">
+          <h2 id="mulligan-title">Opening Mulligan</h2>
+          <p id="mulligan-subtitle">Click any cards you want to shuffle back and replace once.</p>
+        </div>
+        <button type="button" id="confirm-mulligan-btn" class="btn-end-turn">Keep Hand</button>
+      </div>
+      <div id="mulligan-cards-row" class="modal-cards-row"></div>
+    </div>
+  </div>
+
+  <!-- Wish (1-of-3 Discovery) Modal with Peek Battlefield Toggle -->
+  <div id="wish-modal" class="table-modal-backdrop" hidden>
+    <div class="table-modal-card" role="dialog" aria-labelledby="wish-title">
+      <div class="tmc-header">
+        <div class="tmc-title-block">
+          <h2 id="wish-title">Make a Wish</h2>
+          <p id="wish-subtitle">Choose 1 card to add to your hand.</p>
+        </div>
+        <button type="button" id="wish-peek-board-btn" class="table-btn">👁 Peek Battlefield</button>
+      </div>
+      <div id="wish-cards-row" class="modal-cards-row"></div>
+    </div>
+  </div>
+
+  <!-- Zone Inspector Modal (Graveyard & Ordered Sandbox Deck Peek) -->
+  <div id="zone-modal" class="table-modal-backdrop" hidden>
+    <div class="table-modal-card" role="dialog" aria-labelledby="zone-modal-title">
+      <div class="tmc-header">
+        <div class="tmc-title-block">
+          <h2 id="zone-modal-title">Graveyard</h2>
+          <p id="zone-modal-subtitle"></p>
+        </div>
+        <button type="button" id="close-zone-modal-btn" class="table-btn">Close ✕</button>
+      </div>
+      <div id="zone-cards-grid" class="zone-cards-grid"></div>
+    </div>
+  </div>
+
+  <!-- Game Over Modal -->
+  <div id="gameover-modal" class="table-modal-backdrop" hidden>
+    <div class="table-modal-card" role="dialog" aria-labelledby="gameover-title">
+      <div class="tmc-title-block" style="text-align:center;">
+        <h2 id="gameover-title">Victory!</h2>
+        <p id="gameover-reason"></p>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+        <button type="button" id="gameover-undo-btn" class="table-btn">↩ Undo Lethal Action</button>
+        <button type="button" id="gameover-inspect-btn" class="table-btn">👁 Inspect Final Board</button>
+        <button type="button" id="gameover-rematch-swap-btn" class="btn-end-combat">Rematch (Swap First)</button>
+        <button type="button" id="gameover-rematch-same-btn" class="table-btn">Rematch (Same Seats)</button>
+        <button type="button" id="gameover-lobby-btn" class="btn-end-turn">Back to Deckbuilder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Drawer: Combat & Trigger Event Log -->
+  <aside id="log-drawer" class="side-drawer" aria-label="Match Event Log" hidden>
+    <div class="drawer-head">
+      <h3>Match Chronicle</h3>
+      <button type="button" id="close-log-btn" class="table-btn">✕</button>
+    </div>
+    <div id="log-entries-list" class="drawer-body"></div>
+  </aside>
+
+  <!-- Right Drawer: Playtest Sandbox / God-Mode Tools -->
+  <aside id="sandbox-drawer" class="side-drawer" aria-label="Sandbox Tools" hidden>
+    <div class="drawer-head">
+      <h3>Playtest Sandbox</h3>
+      <button type="button" id="close-sandbox-btn" class="table-btn">✕</button>
+    </div>
+    <div class="drawer-body">
+      <div class="sb-section">
+        <span class="sb-label">Timeline</span>
+        <button type="button" id="sb-undo-btn" class="table-btn" style="width:100%;">↩ Undo Last Action (⌘Z)</button>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-label">Target Player</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <button type="button" id="sb-seat-active-btn" class="table-btn is-toggled">Active Player</button>
+          <button type="button" id="sb-seat-opp-btn" class="table-btn">Opponent</button>
+        </div>
+
+        <div class="sb-row">
+          <span>Action Points (AP)</span>
+          <div class="sb-btn-group">
+            <button type="button" id="sb-ap-minus" class="table-btn">-1</button>
+            <button type="button" id="sb-ap-plus" class="table-btn">+1</button>
+            <button type="button" id="sb-ap-plus3" class="table-btn">+3</button>
+          </div>
+        </div>
+
+        <div class="sb-row">
+          <span>Temp Energy</span>
+          <div class="sb-btn-group">
+            <button type="button" id="sb-e-minus" class="table-btn">-1E</button>
+            <button type="button" id="sb-e-plus" class="table-btn">+1E</button>
+            <button type="button" id="sb-e-plus3" class="table-btn">+3E</button>
+          </div>
+        </div>
+
+        <div class="sb-row">
+          <span>Hero HP</span>
+          <div class="sb-btn-group">
+            <button type="button" id="sb-hp-minus5" class="table-btn">-5</button>
+            <button type="button" id="sb-hp-minus1" class="table-btn">-1</button>
+            <button type="button" id="sb-hp-plus1" class="table-btn">+1</button>
+            <button type="button" id="sb-hp-plus5" class="table-btn">+5</button>
+            <button type="button" id="sb-hp-reset" class="table-btn" title="Restore to 25 HP">25</button>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:2px;">
+          <button type="button" id="sb-force-draw-btn" class="table-btn">+ Force Draw</button>
+          <button type="button" id="sb-peek-deck-btn" class="table-btn">🂠 Peek Deck Order</button>
+        </div>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-label">Add Any Card / Token to Hand</span>
+        <input type="search" id="sb-spawn-search" class="sb-input" placeholder="Search all 50 cards &amp; tokens…" aria-label="Search sandbox cards">
+        <div class="sb-checks">
+          <label><input type="checkbox" id="sb-check-poisoned"> {Poisoned}</label>
+          <label><input type="checkbox" id="sb-check-fated"> {Fate}</label>
+        </div>
+        <div id="sb-card-results" class="sb-card-results"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Floating 1.0x Full-Card Hover Inspector -->
+  <div id="card-hover-inspector" class="card-hover-inspector dock-right" hidden></div>
+
+  <!-- Non-Blocking Turn Swap Banner & Toast Slots -->
+  <div id="turn-banner-slot"></div>
+  <div id="toast-slot"></div>
+
+  <script src="./card-svg-parts.js?v=1"></script>
+  <script src="./game-data.js?v=1"></script>
+  <script src="./game-engine.js?v=3"></script>
+  <script src="./game-ui.js?v=3"></script>
+</body>
+</html>

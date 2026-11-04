@@ -1,7 +1,7 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-11-03T02:41:00.000Z",
+  "updatedAt": "2026-11-04T02:09:00.000Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
@@ -154,11 +154,11 @@
       "subtype": "EDICT",
       "rulesText": "Draw two cards. You take 2 damage unless you control a **Queen**.",
       "flavorText": "",
-      "artUrl": "./assets/art-crowns-tithe.jpg?v=1",
+      "artUrl": "./assets/art-crowns-tithe.jpg?v=2",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-03T01:30:30.000Z"
+      "updatedAt": "2026-11-03T23:30:00.000Z"
     },
     {
       "id": "card_mvrhmr5k_zdo17",
@@ -176,11 +176,11 @@
       "subtype": "EDICT",
       "rulesText": "**Wish** for a {2E} Character. It gains \"{Devotee}: This Character gets +1/+1.\"",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-royal-favour.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:47:53.019Z"
+      "updatedAt": "2026-11-03T22:00:00.000Z"
     },
     {
       "id": "card_mvrhqoq9_hevyn",
@@ -220,11 +220,11 @@
       "subtype": "EDICT",
       "rulesText": "Give yourself or a friendly Character +4/+0 this turn and a {Ward}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-dub-thee-champion.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T21:18:07.066Z"
+      "updatedAt": "2026-11-03T22:35:00.000Z"
     },
     {
       "id": "card_mvrjdrhq_s3zpe",
@@ -242,11 +242,11 @@
       "subtype": "FOOD",
       "rulesText": "Choose up to two Characters. Each gets +2/+2.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-supper-for-two.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T21:26:39.078Z"
+      "updatedAt": "2026-11-03T22:18:00.000Z"
     },
     {
       "id": "card_mvrjkp2l_fldzs",
@@ -286,11 +286,11 @@
       "subtype": "",
       "rulesText": "",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-royal-vanguard.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:16:12.069Z"
+      "updatedAt": "2026-11-04T02:09:00.000Z"
     },
     {
       "id": "card_mvrjs6yo_7ityt",
@@ -308,11 +308,11 @@
       "subtype": "",
       "rulesText": "{Debut} {Devotee} Add a Humble Pie to your hand.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-sixpence-tartist.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:50:05.973Z"
+      "updatedAt": "2026-11-03T22:18:00.000Z"
     },
     {
       "id": "card_mvrjsv6q_0x4k5",
@@ -330,11 +330,11 @@
       "subtype": "FOOD",
       "rulesText": "Give a Character +1/+1 this turn.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-humble-pie.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T03:27:54.256Z"
+      "updatedAt": "2026-11-04T02:09:00.000Z"
     },
     {
       "id": "card_mvrkzy6k_fq4hz",
@@ -396,11 +396,11 @@
       "subtype": "",
       "rulesText": "{Devotee}  This Character gets +1/+1.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-court-trumpeter.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:46:23.266Z"
+      "updatedAt": "2026-11-03T22:00:00.000Z"
     },
     {
       "id": "card_mvrlp86k_0zurb",
@@ -484,11 +484,11 @@
       "subtype": "FOOD",
       "rulesText": "Give a Character +1/+2.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-apple.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:23:39.667Z"
+      "updatedAt": "2026-11-04T02:09:00.000Z"
     },
     {
       "id": "card_mvrm8s4w_yl17w",
@@ -594,11 +594,11 @@
       "subtype": "FOOD",
       "rulesText": "If you control a **Queen**, this Spell has {Fate}. \nHeal 2 damage from a Hero.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-powdered-rose-joys.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T20:44:58.014Z"
+      "updatedAt": "2026-11-03T22:00:00.000Z"
     },
     {
       "id": "card_mvrrbe1g_th6hb",
@@ -682,11 +682,11 @@
       "subtype": "",
       "rulesText": "{Debut} **Wish** for an **Animalfolk**. Give it +2/+1.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-gentle-woodsman.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:10:15.591Z"
+      "updatedAt": "2026-11-04T01:05:00.000Z"
     },
     {
       "id": "card_mvu9qeuj_9159i",
@@ -726,11 +726,11 @@
       "subtype": "FOOD",
       "rulesText": "Choose a Hero. Give each of their Characters +2/+1 this turn.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-harvest-banquet.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:15:13.579Z"
+      "updatedAt": "2026-11-03T20:34:00.000Z"
     },
     {
       "id": "card_mvu9z0mn_lncuu",
@@ -748,11 +748,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "{Swift}",
       "flavorText": "",
-      "artUrl": "./assets/art-featherweight-lancer.jpg?v=1",
+      "artUrl": "./assets/art-featherweight-lancer.jpg?v=2",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T23:50:00.000Z"
+      "updatedAt": "2026-11-03T22:18:00.000Z"
     },
     {
       "id": "card_mvua3z8u_lvooq",
@@ -814,11 +814,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "{Kinship} Draw a Character.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-barnyard-troubadour.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:05:46.411Z"
+      "updatedAt": "2026-11-04T01:05:00.000Z"
     },
     {
       "id": "card_mvuacgfm_tj74n",
@@ -836,11 +836,11 @@
       "subtype": "",
       "rulesText": "{Debut} Give a friendly Character +2/+1 this turn.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-whetsmith-apprentice.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:09:06.236Z"
+      "updatedAt": "2026-11-03T20:15:00.000Z"
     },
     {
       "id": "card_mvuag3ss_ksiou",
@@ -858,11 +858,11 @@
       "subtype": "",
       "rulesText": "{5E}{1AP}: Draw a Character. Reduce its cost by {1AP}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-crossroads-inn.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:10:48.160Z"
+      "updatedAt": "2026-11-03T04:41:00.000Z"
     },
     {
       "id": "card_mvuaxugh_zr4wy",
@@ -880,11 +880,11 @@
       "subtype": "",
       "rulesText": "{End of Turn} Add an **Apple** to your hand.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-apple-tree.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T01:37:03.089Z"
+      "updatedAt": "2026-11-04T02:09:00.000Z"
     },
     {
       "id": "card_mvub5nrb_jr92d",
@@ -902,11 +902,11 @@
       "subtype": "",
       "rulesText": "Summon six 1/1 Rabbits. For each that won't fit, give a random friendly **Animalfolk** +1/+1 instead.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-under-the-garden-gate.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T06:39:06.936Z"
+      "updatedAt": "2026-11-03T20:15:00.000Z"
     },
     {
       "id": "card_mvub5qp5_3gqyh",
@@ -924,11 +924,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-rabbit.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T01:43:43.672Z"
+      "updatedAt": "2026-11-04T02:09:00.000Z"
     },
     {
       "id": "card_mvub7lnm_zc6eo",
@@ -946,11 +946,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "{Provoke}\n{Debut} Summon two 1/1 Rabbits.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-hedgerow-matron.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T06:39:43.393Z"
+      "updatedAt": "2026-11-04T01:05:00.000Z"
     },
     {
       "id": "card_mvub9om9_90zba",
@@ -968,11 +968,11 @@
       "subtype": "",
       "rulesText": "{Debut} Add a **Cureall Cookie** to your hand.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-sweet-old-soul.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T19:08:01.873Z"
+      "updatedAt": "2026-11-03T04:41:00.000Z"
     },
     {
       "id": "card_mvub9r9e_8kkl1",
@@ -990,11 +990,11 @@
       "subtype": "FOOD",
       "rulesText": "Heal 3 damage from a Character.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-cureall-cookie.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T01:55:34.759Z"
+      "updatedAt": "2026-11-04T02:09:00.000Z"
     },
     {
       "id": "card_mvubeg8t_aufxf",
@@ -1012,11 +1012,11 @@
       "subtype": "ANIMALFOLK",
       "rulesText": "{Kinship} This gains {Safeguard}.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-honeywood-sentry.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:20:31.564Z"
+      "updatedAt": "2026-11-03T20:24:00.000Z"
     },
     {
       "id": "card_mvubf9tu_8fzbh",
@@ -1034,11 +1034,11 @@
       "subtype": "",
       "rulesText": "**Wish** for a Character. Give it a **Woodland Blessing**.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-gift-of-the-wishing-oak.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T06:40:32.398Z"
+      "updatedAt": "2026-11-04T01:05:00.000Z"
     },
     {
       "id": "card_mvubxz0x_fwouj",
@@ -1078,11 +1078,11 @@
       "subtype": "",
       "rulesText": "Give your **Animalfolk** {Safeguard} this turn. They each attack an enemy Character.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-for-hearth-and-hollow.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T19:06:05.297Z"
+      "updatedAt": "2026-11-04T01:05:00.000Z"
     },
     {
       "id": "card_mvuc56wm_yam76",
@@ -1100,11 +1100,11 @@
       "subtype": "",
       "rulesText": "Deal 2 damage to a Character. If you have three or more Characters, do it again.",
       "flavorText": "",
-      "artUrl": "",
+      "artUrl": "./assets/art-pots-and-pans.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-30T05:14:25.152Z"
+      "updatedAt": "2026-11-04T01:31:00.000Z"
     },
     {
       "id": "card_mvufxmei_c0d6f",
