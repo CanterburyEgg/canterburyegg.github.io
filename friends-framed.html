@@ -748,7 +748,7 @@
             <div id="guess-bar" class="guess-bar">
                 <div class="search-wrap">
                     <div id="autocomplete" class="autocomplete" role="listbox"></div>
-                    <input id="guess-input" type="text" placeholder="Search episode title or season (e.g. 'embryos', 'armadillo', 's4')..." autocomplete="off" spellcheck="false">
+                    <input id="guess-input" type="text" placeholder="Search episode title or season..." autocomplete="off" spellcheck="false">
                 </div>
                 <button id="submit-btn" class="action-btn btn-submit" type="button">Submit</button>
                 <button id="skip-btn" class="action-btn btn-skip" type="button">Skip</button>
@@ -1151,7 +1151,7 @@
 
             if (sq) {
                 const seasonMatches = catalog.filter(ep => ep.s === sq.s && (sq.e === null || ep.e === sq.e));
-                state.acMatches = seasonMatches.slice(0, 26);
+                state.acMatches = seasonMatches;
             } else {
                 const hookStarts = [];
                 const hookWordStarts = [];
@@ -1181,7 +1181,7 @@
                     // }
                 }
 
-                state.acMatches = [...hookStarts, ...hookWordStarts, ...titleStarts, ...contains].slice(0, 10);
+                state.acMatches = [...hookStarts, ...hookWordStarts, ...titleStarts, ...contains];
             }
 
             state.acHighlight = state.acMatches.length > 0 ? 0 : -1;
@@ -1217,6 +1217,7 @@
                 box.appendChild(item);
             });
             box.classList.add('open');
+            box.scrollTop = 0;
         }
 
         function refreshAcHighlight() {
