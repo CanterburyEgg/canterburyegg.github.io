@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600;1,9..144,700;1,9..144,800&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./card-builder.css?v=31">
-  <link rel="stylesheet" href="./game.css?v=3">
+  <link rel="stylesheet" href="./game.css?v=4">
 </head>
 <body>
 
@@ -55,6 +55,14 @@
           </div>
 
           <div class="seat-field">
+            <label id="seat2-mode-label">Seat 2 Controller</label>
+            <div class="first-player-seg" role="radiogroup" aria-labelledby="seat2-mode-label">
+              <button type="button" id="mode-2p-btn" class="fp-btn active" data-ai="0">2-Handed</button>
+              <button type="button" id="mode-ai-btn" class="fp-btn" data-ai="1">🤖 AI Bot</button>
+            </div>
+          </div>
+
+          <div class="seat-field">
             <label id="fp-group-label">Going First</label>
             <div class="first-player-seg" role="radiogroup" aria-labelledby="fp-group-label">
               <button type="button" id="fp-seat1-btn" class="fp-btn" data-fp="0">Seat 1</button>
@@ -70,7 +78,10 @@
         <section class="panel saved-decks-panel" aria-labelledby="saved-decks-heading">
           <div class="panel-header">
             <h2 id="saved-decks-heading" class="panel-title">Custom Decks</h2>
-            <button type="button" id="new-deck-btn" class="btn btn-sm btn-primary">+ New Deck</button>
+            <div style="display:flex; gap:6px;">
+              <button type="button" id="load-ai-decks-btn" class="btn btn-sm" title="Add the AI-Evolved Champion Havenhearth &amp; Court decks to your deck list">🤖 AI Decks</button>
+              <button type="button" id="new-deck-btn" class="btn btn-sm btn-primary">+ New Deck</button>
+            </div>
           </div>
           <div id="saved-decks-list" class="saved-decks-list"></div>
         </section>
@@ -171,6 +182,7 @@
 
       <div class="mtb-right">
         <button type="button" id="undo-btn" class="table-btn" title="Undo last action (Cmd/Ctrl+Z)" disabled>↩ Undo</button>
+        <button type="button" id="ai-step-btn" class="table-btn" title="Have the Lookahead AI execute the best next move for the active player">🤖 AI Move</button>
         <button type="button" id="peek-hand-btn" class="table-btn" title="Reveal opponent hand face-up for 2-handed playtesting">👁 Peek Enemy</button>
         <button type="button" id="toggle-log-btn" class="table-btn" title="Toggle Combat &amp; Trigger Log">📜 Log</button>
         <button type="button" id="toggle-sandbox-btn" class="table-btn" title="Open Playtest God-Mode Drawer">🛠 Sandbox</button>
@@ -260,12 +272,14 @@
 
   <!-- Game Over Modal -->
   <div id="gameover-modal" class="table-modal-backdrop" hidden>
-    <div class="table-modal-card" role="dialog" aria-labelledby="gameover-title">
+    <div class="table-modal-card gameover-modal-card" role="dialog" aria-labelledby="gameover-title">
       <div class="tmc-title-block" style="text-align:center;">
         <h2 id="gameover-title">Victory!</h2>
         <p id="gameover-reason"></p>
       </div>
+      <div id="gameover-log-recap" class="gameover-log-recap" aria-label="Final Turn Chronicle"></div>
       <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+        <button type="button" id="gameover-copy-log-btn" class="table-btn">📋 Copy Match Log</button>
         <button type="button" id="gameover-undo-btn" class="table-btn">↩ Undo Lethal Action</button>
         <button type="button" id="gameover-inspect-btn" class="table-btn">👁 Inspect Final Board</button>
         <button type="button" id="gameover-rematch-swap-btn" class="btn-end-combat">Rematch (Swap First)</button>
@@ -279,7 +293,10 @@
   <aside id="log-drawer" class="side-drawer" aria-label="Match Event Log" hidden>
     <div class="drawer-head">
       <h3>Match Chronicle</h3>
-      <button type="button" id="close-log-btn" class="table-btn">✕</button>
+      <div style="display:flex; gap:6px; align-items:center;">
+        <button type="button" id="copy-log-btn" class="table-btn" title="Copy full match log to clipboard">📋 Copy Log</button>
+        <button type="button" id="close-log-btn" class="table-btn">✕</button>
+      </div>
     </div>
     <div id="log-entries-list" class="drawer-body"></div>
   </aside>
@@ -328,7 +345,7 @@
             <button type="button" id="sb-hp-minus1" class="table-btn">-1</button>
             <button type="button" id="sb-hp-plus1" class="table-btn">+1</button>
             <button type="button" id="sb-hp-plus5" class="table-btn">+5</button>
-            <button type="button" id="sb-hp-reset" class="table-btn" title="Restore to 25 HP">25</button>
+            <button type="button" id="sb-hp-reset" class="table-btn" title="Restore to 30 HP">30</button>
           </div>
         </div>
 
@@ -353,13 +370,15 @@
   <!-- Floating 1.0x Full-Card Hover Inspector -->
   <div id="card-hover-inspector" class="card-hover-inspector dock-right" hidden></div>
 
-  <!-- Non-Blocking Turn Swap Banner & Toast Slots -->
+  <!-- Non-Blocking Turn Swap Banner, AI Action Showcase & Toast Slots -->
   <div id="turn-banner-slot"></div>
+  <div id="ai-action-showcase" class="ai-action-showcase" hidden></div>
   <div id="toast-slot"></div>
 
   <script src="./card-svg-parts.js?v=1"></script>
-  <script src="./game-data.js?v=1"></script>
-  <script src="./game-engine.js?v=3"></script>
-  <script src="./game-ui.js?v=3"></script>
+  <script src="./game-data.js?v=2"></script>
+  <script src="./game-engine.js?v=12"></script>
+  <script src="./game-ai.js?v=13"></script>
+  <script src="./game-ui.js?v=11"></script>
 </body>
 </html>

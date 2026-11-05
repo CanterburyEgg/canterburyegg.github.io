@@ -1,7 +1,7 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-11-04T02:09:00.000Z",
+  "updatedAt": "2026-11-05T08:15:00.000Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
@@ -42,13 +42,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{1AP}: Add a random **Edict** to your hand. You take 3 damage unless you control a **Queen**.",
+      "rulesText": "{1AP}: Add a random **Edict** to your hand. You take 2 damage unless you control a **Queen**.",
       "flavorText": "",
       "artUrl": "./assets/art-king-valyn.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-28T22:55:10.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvrecr9y_ejwp5",
@@ -123,8 +123,8 @@
       "faction": "R",
       "pips": 2,
       "tier": "standard",
-      "energyReq": 3,
-      "apCost": 2,
+      "energyReq": 5,
+      "apCost": 1,
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
@@ -136,7 +136,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T00:59:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvrhepzb_uh9ml",
@@ -218,13 +218,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "EDICT",
-      "rulesText": "Give yourself or a friendly Character +4/+0 this turn and a {Ward}.",
+      "rulesText": "Give a friendly Character a {Ward}. Replace its {Debut} and {Farewell} with {Siege}.",
       "flavorText": "",
       "artUrl": "./assets/art-dub-thee-champion.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-03T22:35:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvrjdrhq_s3zpe",
@@ -328,13 +328,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "FOOD",
-      "rulesText": "Give a Character +1/+1 this turn.",
+      "rulesText": "Give a Character +2/+1 this turn.",
       "flavorText": "",
       "artUrl": "./assets/art-humble-pie.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-04T02:09:00.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvrkzy6k_fq4hz",
@@ -411,7 +411,7 @@
       "tier": "standard",
       "energyReq": 1,
       "apCost": 1,
-      "attack": 1,
+      "attack": 2,
       "health": 1,
       "energyProvided": 1,
       "durability": null,
@@ -422,7 +422,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T22:55:00.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvrlqoga_r4xfg",
@@ -454,9 +454,9 @@
       "pips": 1,
       "tier": "standard",
       "energyReq": 2,
-      "apCost": 2,
-      "attack": 2,
-      "health": 2,
+      "apCost": 1,
+      "attack": 1,
+      "health": 3,
       "energyProvided": 1,
       "durability": null,
       "subtype": "QUEEN",
@@ -466,7 +466,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T00:59:00.000Z"
+      "updatedAt": "2026-11-05T05:18:00.000Z"
     },
     {
       "id": "card_mvrm7dum_5vanl",
@@ -476,7 +476,7 @@
       "pips": 0,
       "tier": "token",
       "energyReq": 1,
-      "apCost": 1,
+      "apCost": 0,
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
@@ -488,7 +488,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-04T02:09:00.000Z"
+      "updatedAt": "2026-11-05T01:10:00.000Z"
     },
     {
       "id": "card_mvrm8s4w_yl17w",
@@ -541,20 +541,20 @@
       "faction": "R",
       "pips": 2,
       "tier": "elite",
-      "energyReq": 5,
+      "energyReq": 3,
       "apCost": 3,
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "Choose a friendly **Queen**. Kill all other Characters.",
+      "rulesText": "**Kill** all Characters. {6E}: Except friendly **Queens**.",
       "flavorText": "",
       "artUrl": "./assets/art-fairest-of-them-all.jpg?v=4",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-29T22:31:10.000Z"
+      "updatedAt": "2026-11-05T08:15:00.000Z"
     },
     {
       "id": "card_mvrn0r4k_xbj7d",
@@ -592,13 +592,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "FOOD",
-      "rulesText": "If you control a **Queen**, this Spell has {Fate}. \nHeal 2 damage from a Hero.",
+      "rulesText": "If you control a **Queen**, this Spell has {Fate}. \nHeal 3 damage from a Hero.",
       "flavorText": "",
       "artUrl": "./assets/art-powdered-rose-joys.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-03T22:00:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvrrbe1g_th6hb",
@@ -614,13 +614,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{Devotee} Heal 2 damage from yourself.",
+      "rulesText": "{Devotee} Add a **Powdered Rose-Joys** to your hand.",
       "flavorText": "",
       "artUrl": "./assets/art-painted-topiaries.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
-      "relatedCards": "",
-      "updatedAt": "2026-11-02T23:12:30.000Z"
+      "relatedCards": "Powdered Rose-Joys",
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvrreqsj_fb440",
@@ -630,19 +630,19 @@
       "pips": 1,
       "tier": "standard",
       "energyReq": 3,
-      "apCost": 1,
-      "attack": 4,
+      "apCost": 2,
+      "attack": 2,
       "health": 3,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{Siege} Sacrifice this Character's left neighbor to deal 2 damage to the defender.",
+      "rulesText": "{Debut} Sacrifice this Character's left neighbor to deal 2 damage to all enemy Characters.",
       "flavorText": "",
       "artUrl": "./assets/art-bloodkey-baron.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T00:11:00.000Z"
+      "updatedAt": "2026-11-04T22:09:00.000Z"
     },
     {
       "id": "card_mvu91ysb_n31tf",
@@ -658,13 +658,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{Debut} Plant an **Apple Tree**! (It provides {+1E} and adds an Apple to your hand at the end of each turn.)",
+      "rulesText": "{Debut} Plant an **Apple Tree**! (It provides {+1E}.)",
       "flavorText": "",
       "artUrl": "./assets/art-mother-pippin.jpg?v=4",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T00:32:30.000Z"
+      "updatedAt": "2026-11-05T01:10:00.000Z"
     },
     {
       "id": "card_mvu98w44_4w32a",
@@ -680,13 +680,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{Debut} **Wish** for an **Animalfolk**. Give it +2/+1.",
+      "rulesText": "{Debut} **Wish** for an **Animalfolk** Character. Give it a **Woodland Blessing**.",
       "flavorText": "",
       "artUrl": "./assets/art-gentle-woodsman.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-04T01:05:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvu9qeuj_9159i",
@@ -697,18 +697,18 @@
       "tier": "standard",
       "energyReq": 4,
       "apCost": 1,
-      "attack": 3,
+      "attack": 2,
       "health": 2,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{Debut} Give this Character's left neighbor +3/+2.\n{Farewell} Give this Character's right neighbor +3/+2.",
+      "rulesText": "{Debut} Give this Character's left neighbor +2/+2.\n{Farewell} Give this Character's right neighbor +2/+2.",
       "flavorText": "",
       "artUrl": "./assets/art-graybeard-knight-errant.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-02T21:39:30.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvu9ro10_lxwsc",
@@ -768,13 +768,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "FOOD",
-      "rulesText": "Whenever you summon a {1E} or {2E} Character, give this Spell +1/+1 (anywhere).\nGive a Character +1/+1 this turn.",
+      "rulesText": "Whenever you play a {1E} or {2E} Character, give this Spell +1/+1 (anywhere).\nGive a Character +1/+1 this turn.",
       "flavorText": "",
       "artUrl": "./assets/art-stone-soup.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T22:50:00.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvua8iwo_9p8rl",
@@ -785,8 +785,8 @@
       "tier": "standard",
       "energyReq": 1,
       "apCost": 1,
-      "attack": 3,
-      "health": 2,
+      "attack": 2,
+      "health": 3,
       "energyProvided": 1,
       "durability": null,
       "subtype": "ANIMALFOLK",
@@ -796,7 +796,7 @@
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T22:50:00.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvua8m73_dgs2d",
@@ -856,13 +856,13 @@
       "energyProvided": 1,
       "durability": 2,
       "subtype": "",
-      "rulesText": "{5E}{1AP}: Draw a Character. Reduce its cost by {1AP}.",
+      "rulesText": "{1AP}: Draw a Character. {5E}: Give it a **Woodland Blessing**.",
       "flavorText": "",
       "artUrl": "./assets/art-crossroads-inn.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-03T04:41:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvuaxugh_zr4wy",
@@ -876,15 +876,15 @@
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
-      "durability": null,
+      "durability": 3,
       "subtype": "",
-      "rulesText": "{End of Turn} Add an **Apple** to your hand.",
+      "rulesText": "{1AP}: Add two **Apples** to your hand.",
       "flavorText": "",
       "artUrl": "./assets/art-apple-tree.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
-      "relatedCards": "",
-      "updatedAt": "2026-11-04T02:09:00.000Z"
+      "relatedCards": "Apple",
+      "updatedAt": "2026-11-05T01:10:00.000Z"
     },
     {
       "id": "card_mvub5nrb_jr92d",
@@ -1025,20 +1025,20 @@
       "faction": "H",
       "pips": 1,
       "tier": "standard",
-      "energyReq": 4,
-      "apCost": 1,
+      "energyReq": 5,
+      "apCost": 2,
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "**Wish** for a Character. Give it a **Woodland Blessing**.",
+      "rulesText": "**Wish** for two Characters with **Woodland Blessings**. They each cost {1AP} less.",
       "flavorText": "",
       "artUrl": "./assets/art-gift-of-the-wishing-oak.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-04T01:05:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvubxz0x_fwouj",
@@ -1069,20 +1069,20 @@
       "faction": "H",
       "pips": 1,
       "tier": "standard",
-      "energyReq": 5,
+      "energyReq": 4,
       "apCost": 2,
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "Give your **Animalfolk** {Safeguard} this turn. They each attack an enemy Character.",
+      "rulesText": "Choose an enemy Character. Your **Animalfolk** gain {Safeguard} this turn and each attack it.",
       "flavorText": "",
       "artUrl": "./assets/art-for-hearth-and-hollow.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-04T01:05:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvuc56wm_yam76",
@@ -1098,13 +1098,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "Deal 2 damage to a Character. If you have three or more Characters, do it again.",
+      "rulesText": "Deal 2 damage to a Character. If you have four or more Characters, do it again.",
       "flavorText": "",
       "artUrl": "./assets/art-pots-and-pans.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-04T01:31:00.000Z"
+      "updatedAt": "2026-11-04T20:45:00.000Z"
     },
     {
       "id": "card_mvufxmei_c0d6f",
@@ -1113,20 +1113,20 @@
       "faction": "H",
       "pips": 2,
       "tier": "elite",
-      "energyReq": 5,
+      "energyReq": 4,
       "apCost": 2,
       "attack": 5,
-      "health": 5,
+      "health": 4,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{Debut} {Siege} Give the top {1E} or {2E} Character in your deck +1/+1 and {Fate}.",
+      "rulesText": "{Debut} Give this Character a {Ward}.\n{Debut} {Siege} Give the top {1E} or {2E} Character in your deck +1/+1 and {Fate}.",
       "flavorText": "",
       "artUrl": "./assets/art-kit-merryweather.jpg?v=3",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T00:32:30.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     },
     {
       "id": "card_mvug1oqe_xmd98",
@@ -1142,13 +1142,13 @@
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "{6E}: {End of Turn} Heal 6 damage randomly from a damaged friendly Character or yourself. If none are damaged, draw a card instead.",
+      "rulesText": "{1AP}: Heal 2. {5E}: Heal 4 instead. {7E}: Give +4 Health instead.",
       "flavorText": "",
       "artUrl": "./assets/art-granny-thimbles-cottage.jpg?v=4",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-10-31T00:43:00.000Z"
+      "updatedAt": "2026-11-05T07:05:00.000Z"
     }
   ]
 }
