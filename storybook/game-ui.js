@@ -19,6 +19,7 @@
     [IDS.APPLE_TREE]: IDS.APPLE,
     [IDS.UNDER_THE_GARDEN_GATE]: IDS.RABBIT,
     [IDS.HEDGEROW_MATRON]: IDS.RABBIT,
+    [IDS.FOR_HEARTH_AND_HOLLOW]: IDS.RABBIT,
     [IDS.SWEET_OLD_SOUL]: IDS.CUREALL_COOKIE
   };
 
@@ -31,6 +32,7 @@
     editingDeckId: null,
     seat1DeckId: '',
     seat2DeckId: '',
+    seat2IsAI: false,
     firstPlayerPref: 'random', // '0' | '1' | 'random'
     filters: {
       legalOnly: true,
@@ -54,8 +56,13 @@
     sandboxOpen: false,
     sandboxTargetMode: 'active', // 'active' | 'opp'
     sandboxSearch: '',
+    lastActionFx: null,
+    lastMoveKind: null,
     toastTimer: null,
-    bannerTimer: null
+    bannerTimer: null,
+    aiShowcaseTimer: null,
+    fxClearTimer: null,
+    aiTimer: null
   };
 
   const $ = id => document.getElementById(id);
@@ -70,6 +77,23 @@
     await reloadDatabase(false);
 
     ui.decks = GD.loadSavedDecks();
+    // Auto-sync any saved "🤖 AI Champion" preset decks so updated ramp/curve lists take effect immediately
+    const AI = window.StorybookAI;
+    if (AI && typeof AI.getPresetDecks === 'function') {
+      const presets = AI.getPresetDecks();
+      let syncedAny = false;
+      presets.forEach(p => {
+        const existing = ui.decks.find(d => d.name === p.name);
+        if (existing) {
+          const cardsMap = {};
+          (p.cardIds || []).forEach(cid => { cardsMap[cid] = (cardsMap[cid] || 0) + 1; });
+          existing.heroIds = [...(p.heroIds || [])];
+          existing.cards = cardsMap;
+          syncedAny = true;
+        }
+      });
+      if (syncedAny) GD.saveDecks(ui.decks);
+    }
     if (ui.decks.length > 0) {
       ui.editingDeckId = ui.decks[0].id;
     } else {
@@ -353,11 +377,14 @@
 
     const ready = valid.length > 0 && ui.seat1DeckId && ui.seat2DeckId;
     startBtn.disabled = !ready;
+    startBtn.textContent = ui.seat2IsAI ? 'Start Match vs. 🤖 AI →' : 'Start 2-Handed Match →';
     if (ready) {
       const mirror = ui.seat1DeckId === ui.seat2DeckId;
-      hint.textContent = mirror
-        ? 'Mirror match ready! Build a second 25-card deck anytime to pit different archetypes against each other.'
-        : 'Ready! Active player always sits at the bottom with smooth turn-pass perspective.';
+      hint.textContent = ui.seat2IsAI
+        ? 'Seat 2 is controlled by the Lookahead Beam-Search AI. Your seat stays anchored at the bottom.'
+        : mirror
+          ? 'Mirror match ready! Build a second 25-card deck anytime to pit different archetypes against each other.'
+          : 'Ready! Active player always sits at the bottom with smooth turn-pass perspective.';
     } else {
       const cur = getActiveDeck();
       const cnt = cur ? GD.countDeckCards(cur) : 0;
@@ -777,11 +804,359 @@
   // =========================================================================
 
   function buildMatchSpecFromDeck(deck, seatNumber) {
+    const isAISeat = seatNumber === 2 && ui.seat2IsAI;
     return {
-      name: `P${seatNumber} · ${deck.name}`,
+      name: `${isAISeat ? '🤖 AI' : `P${seatNumber}`} · ${deck.name}`,
       heroIds: [...deck.heroIds],
       cardIds: GD.expandDeckToCardIds(deck)
     };
+  }
+
+  function loadAIChampionDecksIntoLobby() {
+    const AI = window.StorybookAI;
+    if (!AI) {
+      showToast('AI module not loaded.');
+      return;
+    }
+    const presets = typeof AI.getPresetDecks === 'function' ? AI.getPresetDecks() : [];
+    if (presets.length === 0) return;
+
+    let added = 0;
+    let updated = 0;
+    presets.forEach(p => {
+      const cardsMap = {};
+      (p.cardIds || []).forEach(cid => {
+        cardsMap[cid] = (cardsMap[cid] || 0) + 1;
+      });
+      const existing = ui.decks.find(d => d.name === p.name);
+      if (!existing) {
+        ui.decks.unshift({
+          id: makeDeckId(),
+          name: p.name,
+          heroIds: [...(p.heroIds || [])],
+          cards: cardsMap,
+          updatedAt: new Date().toISOString()
+        });
+        added += 1;
+      } else {
+        existing.heroIds = [...(p.heroIds || [])];
+        existing.cards = cardsMap;
+        existing.updatedAt = new Date().toISOString();
+        updated += 1;
+      }
+    });
+
+    if (added > 0 || updated > 0) {
+      ui.editingDeckId = ui.decks[0].id;
+      persistDecks();
+      syncSeatSelections();
+      const hChamp = ui.decks.find(d => d.name.includes('AI Champion') && d.name.includes('Havenhearth'));
+      const rChamp = ui.decks.find(d => d.name.includes('AI Champion') && d.name.includes('Court'));
+      if (hChamp) ui.seat1DeckId = hChamp.id;
+      if (rChamp) ui.seat2DeckId = rChamp.id;
+      renderLobby();
+      showToast(added > 0 ? `Loaded ${added} AI Champion deck${added === 1 ? '' : 's'}!` : 'Synced latest AI Champion decks!');
+    }
+  }
+
+  function snapshotBoardForFx(s) {
+    if (!s || !ui.db) return null;
+    const units = new Map();
+    s.players.forEach((p, pIdx) => {
+      p.characters.forEach(u => {
+        const def = ui.db.cardMap.get(u.cardId);
+        units.set(u.uid, {
+          playerIndex: pIdx,
+          name: def?.name || 'Character',
+          hp: u.curHp,
+          atk: Engine.getUnitAtk(u),
+          wards: u.wards || 0
+        });
+      });
+    });
+    const heroes = s.players.map(p => ({
+      hp: p.hp,
+      wards: p.wards || 0
+    }));
+    return {
+      logLen: s.log ? s.log.length : 0,
+      units,
+      heroes
+    };
+  }
+
+  function recordActionFx(before, s, actionMeta = null) {
+    if (!before || !s || !ui.db) return null;
+    const unitDeltas = new Map();
+    const aliveUids = new Set();
+
+    s.players.forEach(p => {
+      p.characters.forEach(u => {
+        aliveUids.add(u.uid);
+        const prev = before.units.get(u.uid);
+        if (!prev) {
+          unitDeltas.set(u.uid, {
+            deltaHp: 0,
+            deltaAtk: 0,
+            deltaWards: 0,
+            justSummoned: true,
+            isAttacker: false,
+            isTarget: false
+          });
+        } else {
+          const dHp = u.curHp - prev.hp;
+          const dAtk = Engine.getUnitAtk(u) - prev.atk;
+          const dWards = (u.wards || 0) - prev.wards;
+          if (dHp !== 0 || dAtk !== 0 || dWards !== 0) {
+            unitDeltas.set(u.uid, {
+              deltaHp: dHp,
+              deltaAtk: dAtk,
+              deltaWards: dWards,
+              justSummoned: false,
+              isAttacker: false,
+              isTarget: false
+            });
+          }
+        }
+      });
+    });
+
+    const destroyedNames = [];
+    before.units.forEach((info, uid) => {
+      if (!aliveUids.has(uid)) {
+        destroyedNames.push(info.name);
+      }
+    });
+
+    const heroDeltas = s.players.map((p, idx) => {
+      const prev = before.heroes[idx] || { hp: p.hp, wards: p.wards || 0 };
+      return {
+        deltaHp: p.hp - prev.hp,
+        deltaWards: (p.wards || 0) - prev.wards,
+        isAttacker: false,
+        isTarget: false
+      };
+    });
+
+    if (actionMeta) {
+      if (actionMeta.kind === 'attack') {
+        if (actionMeta.attacker?.kind === 'character' && actionMeta.attacker.unitUid) {
+          const cur = unitDeltas.get(actionMeta.attacker.unitUid) || { deltaHp: 0, deltaAtk: 0, deltaWards: 0, justSummoned: false, isAttacker: false, isTarget: false };
+          cur.isAttacker = true;
+          unitDeltas.set(actionMeta.attacker.unitUid, cur);
+        } else if (actionMeta.attacker?.kind === 'hero' && Number.isInteger(actionMeta.attacker.playerIndex)) {
+          heroDeltas[actionMeta.attacker.playerIndex].isAttacker = true;
+        }
+        if (actionMeta.target?.kind === 'character' && actionMeta.target.unitUid) {
+          const cur = unitDeltas.get(actionMeta.target.unitUid) || { deltaHp: 0, deltaAtk: 0, deltaWards: 0, justSummoned: false, isAttacker: false, isTarget: false };
+          cur.isTarget = true;
+          unitDeltas.set(actionMeta.target.unitUid, cur);
+        } else if (actionMeta.target?.kind === 'hero' && Number.isInteger(actionMeta.target.playerIndex)) {
+          heroDeltas[actionMeta.target.playerIndex].isTarget = true;
+        }
+      } else if (actionMeta.opts?.target) {
+        const t = actionMeta.opts.target;
+        if (t.kind === 'unit' && t.unitUid) {
+          const cur = unitDeltas.get(t.unitUid) || { deltaHp: 0, deltaAtk: 0, deltaWards: 0, justSummoned: false, isAttacker: false, isTarget: false };
+          cur.isTarget = true;
+          unitDeltas.set(t.unitUid, cur);
+        } else if (t.kind === 'hero' && Number.isInteger(t.playerIndex)) {
+          heroDeltas[t.playerIndex].isTarget = true;
+        } else if (Array.isArray(t.unitUids)) {
+          t.unitUids.forEach(uid => {
+            const cur = unitDeltas.get(uid) || { deltaHp: 0, deltaAtk: 0, deltaWards: 0, justSummoned: false, isAttacker: false, isTarget: false };
+            cur.isTarget = true;
+            unitDeltas.set(uid, cur);
+          });
+        }
+      }
+    }
+
+    const newLogs = (s.log || []).slice(before.logLen);
+    ui.lastActionFx = {
+      unitDeltas,
+      heroDeltas,
+      destroyedNames,
+      newLogs,
+      desc: actionMeta?.desc || ''
+    };
+
+    clearTimeout(ui.fxClearTimer);
+    ui.fxClearTimer = setTimeout(() => {
+      ui.lastActionFx = null;
+    }, 1600);
+
+    return ui.lastActionFx;
+  }
+
+  function showAIActionShowcase(actionMeta, fx) {
+    const box = $('ai-action-showcase');
+    if (!box || !actionMeta) return;
+    if (actionMeta.kind === 'mulligan' || actionMeta.kind === 'end_combat' || actionMeta.kind === 'end_turn') {
+      return;
+    }
+
+    box.innerHTML = '';
+    const head = document.createElement('div');
+    head.className = 'aas-head';
+    head.textContent = `🤖 ${actionMeta.desc || actionMeta.kind}`;
+    box.appendChild(head);
+
+    const body = document.createElement('div');
+    body.className = 'aas-body';
+
+    if (actionMeta.cardId && ui.db && ui.db.cardMap.has(actionMeta.cardId)) {
+      const def = ui.db.cardMap.get(actionMeta.cardId);
+      const wrap = document.createElement('div');
+      wrap.className = 'aas-card-wrap';
+      wrap.appendChild(createScaledCardShell(def, 0.42, actionMeta.cardLive || {}));
+      body.appendChild(wrap);
+    }
+
+    const logList = document.createElement('div');
+    logList.className = 'aas-log-list';
+    const logs = (fx?.newLogs || []).filter(e => e.kind !== 'turn');
+    logs.slice(0, 5).forEach(entry => {
+      const item = document.createElement('div');
+      const cls = (entry.kind === 'dmg' || entry.kind === 'combat') ? ' is-dmg' : (entry.kind === 'heal' || entry.kind === 'buff') ? ' is-buff' : '';
+      item.className = `aas-log-item${cls}`;
+      item.textContent = entry.text;
+      logList.appendChild(item);
+    });
+    if (fx?.destroyedNames && fx.destroyedNames.length > 0) {
+      const item = document.createElement('div');
+      item.className = 'aas-log-item is-dmg';
+      item.textContent = `💀 Destroyed: ${fx.destroyedNames.join(', ')}`;
+      logList.appendChild(item);
+    }
+    if (logList.children.length > 0) {
+      body.appendChild(logList);
+    }
+    box.appendChild(body);
+    box.hidden = false;
+
+    clearTimeout(ui.aiShowcaseTimer);
+    ui.aiShowcaseTimer = setTimeout(() => {
+      box.hidden = true;
+    }, 2800);
+  }
+
+  function formatMatchLogText(s) {
+    if (!s || !ui.db) return '';
+    const lines = [];
+    lines.push('=== STORYBOOK MATCH CHRONICLE ===');
+    lines.push(`Round: ${s.round} | Phase: ${s.phase}`);
+    if (s.gameOver) {
+      const w = s.players[s.gameOver.winner];
+      lines.push(`Result: ${w ? w.name : 'Winner'} won (${s.gameOver.reason})`);
+    }
+    s.players.forEach((p, idx) => {
+      const e = Engine.getPlayerEnergy(p, ui.db);
+      const chars = p.characters.map(u => {
+        const d = ui.db.cardMap.get(u.cardId);
+        return `${d?.name || 'Unit'}(${Engine.getUnitAtk(u)}/${u.curHp}${u.wards ? `,Ward×${u.wards}` : ''})`;
+      }).join(', ') || 'none';
+      const bldgs = p.buildings.filter(Boolean).map(b => {
+        const d = ui.db.cardMap.get(b.cardId);
+        return `${d?.name || 'Bldg'}${b.charges !== null && b.charges !== undefined ? `[${b.charges}]` : ''}`;
+      }).join(', ') || 'none';
+      lines.push(`Seat ${idx + 1} (${p.name}): ${p.hp}/${p.maxHp} HP${p.wards ? ` (Ward×${p.wards})` : ''} | ${e}E, ${p.ap} AP | Hand: ${p.hand.length} | Deck: ${p.deck.length} | Board: [${chars}] | Bldgs: [${bldgs}]`);
+    });
+    lines.push('--- Chronological Log ---');
+    (s.log || []).forEach(entry => {
+      lines.push(`[${entry.kind || 'info'}] ${entry.text}`);
+    });
+    return lines.join('\n');
+  }
+
+  async function copyMatchLogToClipboard() {
+    const s = ui.match;
+    const text = s ? formatMatchLogText(s) : (localStorage.getItem('storybook_last_match_log_v1') || '');
+    if (!text) {
+      showToast('No match log available to copy.');
+      return;
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        showToast('📋 Copied full Match Log to clipboard!');
+        return;
+      }
+    } catch (_) {
+      // Fallback below
+    }
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('📋 Copied full Match Log to clipboard!');
+    } catch (_) {
+      showToast('Could not access clipboard.');
+    }
+    document.body.removeChild(ta);
+  }
+
+  function executeSingleAIMove(isAutoBot = false) {
+    const s = ui.match;
+    const AI = window.StorybookAI;
+    if (!s || !ui.db || !AI || s.gameOver) return;
+
+    ui.action = null;
+    hideHoverInspector();
+
+    const wasMulligan = s.phase === 'MULLIGAN';
+    const prevPlayer = s.activePlayer;
+    const beforeFx = snapshotBoardForFx(s);
+
+    const stepRes = AI.stepAI(s, ui.db, AI.LEARNED_WEIGHTS);
+    if (wasMulligan) ui.mulliganSelections.clear();
+    if (!s.pending || s.pending.type !== 'wish') ui.wishPeekingBoard = false;
+
+    const fx = recordActionFx(beforeFx, s, stepRes?.action || null);
+    ui.lastMoveKind = stepRes?.action?.kind || null;
+
+    renderTabletop();
+
+    if (wasMulligan && s.phase === 'MAIN1') {
+      const fp = s.players[s.activePlayer];
+      showTurnSwapBanner(`${fp.name} — Turn 1 Begins!`);
+      return;
+    }
+
+    if (stepRes?.action) {
+      showAIActionShowcase(stepRes.action, fx);
+      if (!isAutoBot || (stepRes.action.kind !== 'end_turn' && stepRes.action.kind !== 'end_combat')) {
+        showToast(`🤖 ${stepRes.action.desc || stepRes.action.kind}`);
+      }
+    }
+    if (!s.gameOver && !wasMulligan && s.activePlayer !== prevPlayer) {
+      const nextP = s.players[s.activePlayer];
+      showTurnSwapBanner(`${nextP.name}'s Turn — Turn ${nextP.turnsTaken} (${Engine.getPlayerEnergy(nextP, ui.db)}E · ${nextP.ap} AP)`);
+    }
+  }
+
+  function scheduleAIAutoMoveIfNeeded() {
+    clearTimeout(ui.aiTimer);
+    const s = ui.match;
+    if (!s || !ui.seat2IsAI || s.gameOver || ui.screen !== 'tabletop') return;
+
+    const aiShouldAct =
+      (s.phase === 'MULLIGAN' && s.mulliganStep === 1) ||
+      (s.phase !== 'MULLIGAN' && s.pending && s.pending.playerIndex === 1) ||
+      (s.phase !== 'MULLIGAN' && !s.pending && s.activePlayer === 1);
+
+    if (aiShouldAct) {
+      let delay = 880;
+      if (s.phase === 'MULLIGAN') delay = 240;
+      else if (ui.lastMoveKind === 'end_combat' || ui.lastMoveKind === 'wish_pass') delay = 520;
+      ui.aiTimer = setTimeout(() => {
+        executeSingleAIMove(true);
+      }, delay);
+    }
   }
 
   function launchMatchFromLobby() {
@@ -820,6 +1195,7 @@
   }
 
   function exitToLobby() {
+    clearTimeout(ui.aiTimer);
     ui.screen = 'lobby';
     ui.action = null;
     ui.logOpen = false;
@@ -839,6 +1215,7 @@
 
   function performUndo() {
     if (!ui.match) return;
+    clearTimeout(ui.aiTimer);
     const restored = Engine.undoLastAction(ui.match);
     if (!restored) {
       showToast('Nothing to undo.');
@@ -868,8 +1245,10 @@
     const s = ui.match;
     if (!s || !ui.db) return;
 
-    // During Mulligan, show the player currently mulliganing at the bottom
-    const viewIdx = s.phase === 'MULLIGAN' ? s.mulliganStep : s.activePlayer;
+    // In vs-AI mode, keep Seat 1 (Human) anchored at the bottom; in 2-Handed mode, follow active player
+    const viewIdx = ui.seat2IsAI
+      ? 0
+      : (s.phase === 'MULLIGAN' ? s.mulliganStep : s.activePlayer);
     const me = s.players[viewIdx];
     const opp = s.players[1 - viewIdx];
 
@@ -887,6 +1266,12 @@
     renderGameOverModal(s);
     if (ui.logOpen) renderLogDrawer(s);
     updateSandboxHeaderButtons(s);
+    try {
+      localStorage.setItem('storybook_last_match_log_v1', formatMatchLogText(s));
+    } catch (_) {
+      // Ignore storage quota errors
+    }
+    scheduleAIAutoMoveIfNeeded();
   }
 
   function renderTopMatchBar(s, me) {
@@ -1141,7 +1526,7 @@
       med.classList.add('is-selected-attacker');
     }
 
-    const heroTargetedBySpell = (ui.action?.mode === 'target_card')
+    const heroTargetedBySpell = (ui.action?.mode === 'target_card' || ui.action?.mode === 'target_building')
       && Array.isArray(ui.action.info.targetRule?.validHeroes)
       && ui.action.info.targetRule.validHeroes.includes(player.index);
 
@@ -1159,6 +1544,22 @@
       med.classList.add('is-provoke-blocked');
     }
 
+    const hFx = ui.lastActionFx && ui.lastActionFx.heroDeltas ? ui.lastActionFx.heroDeltas[player.index] : null;
+    let heroFxBadgeHtml = '';
+    if (hFx) {
+      if (hFx.isAttacker) med.classList.add('fx-just-attacked');
+      if (hFx.isTarget || hFx.deltaHp < 0 || hFx.deltaWards < 0) med.classList.add('fx-just-targeted');
+      if (hFx.deltaHp < 0) {
+        heroFxBadgeHtml = `<span class="fx-float-badge is-dmg">${hFx.deltaHp} HP 💥</span>`;
+      } else if (hFx.deltaWards < 0) {
+        heroFxBadgeHtml = `<span class="fx-float-badge is-ward">🛡 Ward Broken!</span>`;
+      } else if (hFx.deltaHp > 0) {
+        heroFxBadgeHtml = `<span class="fx-float-badge is-buff">+${hFx.deltaHp} HP 💚</span>`;
+      } else if (hFx.deltaWards > 0) {
+        heroFxBadgeHtml = `<span class="fx-float-badge is-ward">+Ward 🛡</span>`;
+      }
+    }
+
     med.innerHTML = `
       <div class="ham-inner">
         ${h0?.artUrl ? `<img class="ham-half-art" src="${GD.escapeHtml(h0.artUrl)}" alt="">` : '<div class="ham-half-art"></div>'}
@@ -1167,6 +1568,7 @@
       ${player.wards > 0 ? '<div class="ward-ring-overlay"></div>' : ''}
       ${player.wards > 0 ? `<span class="ward-count-pill">Ward ×${player.wards}</span>` : ''}
       ${heroBlockedByProvoke ? '<span class="provoke-lock-tag">🛡 Provoke</span>' : ''}
+      ${heroFxBadgeHtml}
       ${player.tempAtk > 0 ? `<span class="hero-atk-orb" title="${player.tempAtk} Hero Attack this turn">⚔${player.tempAtk}</span>` : ''}
       <span class="hero-hp-orb" title="${player.hp}/${player.maxHp} Hero HP">${player.hp}</span>
     `;
@@ -1305,8 +1707,7 @@
     const baseDefHp = Number(def?.health ?? unit.baseHp);
     const hasSafeguard = Engine.unitHasSafeguard(player, idx);
     const hasFarewell = (unit.extraFarewells && unit.extraFarewells.length > 0)
-      || unit.cardId === IDS.HARRIED_HARE
-      || unit.cardId === IDS.GRAYBEARD_KNIGHT;
+      || (!unit.dubbedChampion && (unit.cardId === IDS.HARRIED_HARE || unit.cardId === IDS.GRAYBEARD_KNIGHT));
     const hasDevotee = (unit.extraDevotees && unit.extraDevotees.length > 0)
       || unit.cardId === IDS.COURT_TRUMPETER
       || unit.cardId === IDS.SIXPENCE_TARTIST
@@ -1356,7 +1757,7 @@
     if (hasSafeguard) kwHtml += `<span class="bu-kw-pip kw-safeguard" title="Safeguard (no damage while attacking Characters)">🛡</span>`;
     if (hasFarewell) kwHtml += `<span class="bu-kw-pip kw-farewell" title="Farewell trigger">💧</span>`;
     if (hasDevotee) kwHtml += `<span class="bu-kw-pip${unit.devoteeUsedThisTurn ? ' kw-devotee-spent' : ''}" title="Devotee (${unit.devoteeUsedThisTurn ? 'used this turn' : 'ready'})">✦</span>`;
-    if (unit.cardId === IDS.BLOODKEY_BARON || unit.cardId === IDS.KIT_MERRYWEATHER) {
+    if (unit.cardId === IDS.BLOODKEY_BARON || unit.cardId === IDS.KIT_MERRYWEATHER || unit.dubbedChampion) {
       kwHtml += `<span class="bu-kw-pip" title="Siege (triggers on attack before combat)">⚔</span>`;
     }
     if (unit.doubleDebutFarewell) {
@@ -1367,6 +1768,23 @@
     const hpCls = unit.curHp < maxHp ? ' is-damaged' : maxHp > baseDefHp ? ' is-buffed' : '';
     const sleeping = unit.summoningSick && !unit.intrinsicSwift && !unit.attackedThisTurn;
 
+    const uFx = ui.lastActionFx && ui.lastActionFx.unitDeltas ? ui.lastActionFx.unitDeltas.get(unit.uid) : null;
+    let unitFxBadgeHtml = '';
+    if (uFx) {
+      if (uFx.isAttacker) el.classList.add('fx-just-attacked');
+      if (uFx.isTarget || uFx.deltaHp < 0 || uFx.deltaWards < 0) el.classList.add('fx-just-targeted');
+      if (uFx.justSummoned) el.classList.add('fx-just-summoned');
+      if (uFx.deltaHp < 0) {
+        unitFxBadgeHtml = `<span class="fx-float-badge is-dmg">${uFx.deltaHp} HP 💥</span>`;
+      } else if (uFx.deltaWards < 0) {
+        unitFxBadgeHtml = `<span class="fx-float-badge is-ward">🛡 Ward Broken!</span>`;
+      } else if (uFx.deltaHp > 0 || uFx.deltaAtk > 0) {
+        unitFxBadgeHtml = `<span class="fx-float-badge is-buff">${uFx.deltaAtk >= 0 ? `+${uFx.deltaAtk}` : uFx.deltaAtk}/${uFx.deltaHp >= 0 ? `+${uFx.deltaHp}` : uFx.deltaHp} ✦</span>`;
+      } else if (uFx.deltaWards > 0) {
+        unitFxBadgeHtml = `<span class="fx-float-badge is-ward">+Ward 🛡</span>`;
+      }
+    }
+
     el.innerHTML = `
       <div class="bu-inner">
         ${def?.artUrl ? `<img class="bu-art" src="${GD.escapeHtml(def.artUrl)}" alt="${GD.escapeHtml(def.name)}" style="object-position:50% ${def.artPosY ?? 50}%">` : ''}
@@ -1374,6 +1792,7 @@
       </div>
       ${unit.intrinsicProvoke ? '<span class="bu-provoke-crest">Provoke</span>' : ''}
       ${blockedByProvoke ? '<span class="provoke-lock-tag">🛡 Guarded</span>' : ''}
+      ${unitFxBadgeHtml}
       ${unit.wards > 0 ? '<div class="ward-ring-overlay"></div>' : ''}
       ${unit.wards > 0 ? `<span class="ward-count-pill">Ward ×${unit.wards}</span>` : ''}
       ${sleeping ? '<span class="bu-sleep-zzz" title="Summoning sickness">zZz</span>' : ''}
@@ -1386,10 +1805,16 @@
 
     el.addEventListener('mouseenter', ev => {
       if (!def) return;
+      const rawModLines = ((unit.templateInst && unit.templateInst.modLines) || [])
+        .filter(l => l !== 'Dubbed Champion: {Debut} & {Farewell} are now {Siege}!');
       const extraLines = [
-        ...((unit.templateInst && unit.templateInst.modLines) || []),
-        ...(unit.extraFarewells || []).map(f => f.text)
+        ...rawModLines.map(l => unit.dubbedChampion ? String(l).replace(/\{(debut|farewell):?\}/gi, '{Siege}') : l),
+        ...(unit.extraFarewells || []).map(f => f.text),
+        ...(unit.siegeExtraFarewells || []).map(f => String(f.text || '').replace(/\{farewell:?\}/gi, '{Siege}'))
       ];
+      const hoverDef = unit.dubbedChampion
+        ? { ...def, rulesText: String(def.rulesText || '').replace(/\{(debut|farewell):?\}/gi, '{Siege}') }
+        : def;
       const live = {
         attack: atk,
         health: unit.curHp,
@@ -1401,6 +1826,7 @@
         notes.push(`Turn modifier: ${unit.tempAtk >= 0 ? '+' : ''}${unit.tempAtk} Atk, +${unit.tempPosHp}/-${unit.tempNegHp} temp HP.`);
       }
       if (unit.wards > 0) notes.push(`Ward ×${unit.wards} (blocks next ${unit.wards} damage hit${unit.wards === 1 ? '' : 's'}).`);
+      if (unit.dubbedChampion) notes.push('Dubbed Champion: Debut & Farewell abilities replaced with Siege!');
       if (unit.intrinsicProvoke) notes.push('Provoke: shields Hero and non-Provoke immediate left/right neighbors.');
       if (Engine.isTargetBlockedByProvoke(player, 'character', idx)) notes.push('Currently shielded from attacks by an adjacent Provoke ally.');
       if (hasSafeguard) {
@@ -1409,7 +1835,7 @@
       }
       if (unit.attackedThisTurn) notes.push('Already attacked this turn.');
       else if (sleeping) notes.push('Summoning sickness (ready next turn).');
-      showHoverInspector(def, live, notes, ev.clientX);
+      showHoverInspector(hoverDef, live, notes, ev.clientX);
     });
     el.addEventListener('mouseleave', hideHoverInspector);
 
@@ -1489,7 +1915,14 @@
       return;
     }
 
-    // 3. Calm Ambient Phase Guidance
+    // 3. Calm Ambient Phase Guidance (including AI turn indicator!)
+    if (ui.seat2IsAI && s.activePlayer === 1 && !s.gameOver && s.phase !== 'MULLIGAN') {
+      bar.className = 'action-prompt-bar is-ai-thinking';
+      const lastDesc = ui.lastActionFx?.desc ? ` — ${ui.lastActionFx.desc}` : ' — Evaluating plays…';
+      bar.textContent = `🤖 AI Turn (${s.phase})${lastDesc}`;
+      return;
+    }
+
     bar.className = 'action-prompt-bar';
     if (s.phase === 'COMBAT') {
       const rem = Engine.getReadyAttackers(s).length;
@@ -1630,11 +2063,13 @@
   }
 
   function commitPlayCard(handIdx, opts) {
+    const beforeFx = snapshotBoardForFx(ui.match);
     const res = Engine.playCard(ui.match, ui.db, handIdx, opts);
     if (!res.ok) {
       showToast(res.reason || 'Could not play card.');
       return;
     }
+    recordActionFx(beforeFx, ui.match, { kind: 'play_card', opts });
     ui.action = null;
     hideHoverInspector();
     renderTabletop();
@@ -1661,8 +2096,10 @@
       return;
     }
 
+    const beforeFx = snapshotBoardForFx(s);
     const res = Engine.useHeroPower(s, ui.db, heroSlotIdx);
     if (!res.ok) showToast(res.reason);
+    else recordActionFx(beforeFx, s, { kind: 'hero_power' });
     ui.action = null;
     renderTabletop();
   }
@@ -1707,8 +2144,10 @@
       return;
     }
 
+    const beforeFx = snapshotBoardForFx(s);
     const res = Engine.activateBuilding(s, ui.db, slotIdx);
     if (!res.ok) showToast(res.reason);
+    else recordActionFx(beforeFx, s, { kind: 'activate_building' });
     ui.action = null;
     renderTabletop();
   }
@@ -1717,7 +2156,7 @@
     const s = ui.match;
     if (!s || s.pending || s.gameOver) return;
 
-    // 1. Spell targeting Hero (Dub Thee Champion, Powdered Rose-Joys, Harvest Banquet)
+    // 1. Spell or Building targeting Hero (Powdered Rose-Joys, Harvest Banquet, Granny Thimble's Cottage)
     if (ui.action?.mode === 'target_card') {
       const vh = ui.action.info.targetRule?.validHeroes;
       if (Array.isArray(vh) && vh.includes(player.index)) {
@@ -1728,14 +2167,31 @@
         return;
       }
     }
+    if (ui.action?.mode === 'target_building') {
+      const vh = ui.action.info.targetRule?.validHeroes;
+      if (Array.isArray(vh) && vh.includes(player.index)) {
+        const beforeFx = snapshotBoardForFx(s);
+        const res = Engine.activateBuilding(s, ui.db, ui.action.slotIdx, { kind: 'hero', playerIndex: player.index });
+        if (!res.ok) showToast(res.reason);
+        else recordActionFx(beforeFx, s, { kind: 'activate_building', opts: { target: { kind: 'hero', playerIndex: player.index } } });
+        ui.action = null;
+        hideHoverInspector();
+        renderTabletop();
+        return;
+      }
+    }
 
     // 2. Combat targeting Enemy Hero
     if (!isFriendly && ui.action?.mode === 'combat_attack') {
-      const res = Engine.declareAttack(s, ui.db, ui.action.attacker, { kind: 'hero', playerIndex: player.index });
+      const attacker = ui.action.attacker;
+      const target = { kind: 'hero', playerIndex: player.index };
+      const beforeFx = snapshotBoardForFx(s);
+      const res = Engine.declareAttack(s, ui.db, attacker, target);
       if (!res.ok) {
         showToast(res.reason);
         return;
       }
+      recordActionFx(beforeFx, s, { kind: 'attack', attacker, target });
       ui.action = null;
       renderTabletop();
       return;
@@ -1803,8 +2259,10 @@
         showToast('Choose a friendly Character.');
         return;
       }
+      const beforeFx = snapshotBoardForFx(s);
       const res = Engine.useHeroPower(s, ui.db, ui.action.heroSlotIdx, { unitUid: unit.uid });
       if (!res.ok) showToast(res.reason);
+      else recordActionFx(beforeFx, s, { kind: 'hero_power', opts: { target: { kind: 'unit', unitUid: unit.uid } } });
       ui.action = null;
       hideHoverInspector();
       renderTabletop();
@@ -1818,8 +2276,10 @@
         showToast('Choose a friendly Character to copy.');
         return;
       }
+      const beforeFx = snapshotBoardForFx(s);
       const res = Engine.activateBuilding(s, ui.db, ui.action.slotIdx, { unitUid: unit.uid });
       if (!res.ok) showToast(res.reason);
+      else recordActionFx(beforeFx, s, { kind: 'activate_building', opts: { target: { kind: 'unit', unitUid: unit.uid } } });
       ui.action = null;
       hideHoverInspector();
       renderTabletop();
@@ -1828,15 +2288,19 @@
 
     // 5. Combat target (Enemy Character)
     if (!isFriendly && ui.action?.mode === 'combat_attack') {
-      const res = Engine.declareAttack(s, ui.db, ui.action.attacker, {
+      const attacker = ui.action.attacker;
+      const target = {
         kind: 'character',
         playerIndex: player.index,
         unitUid: unit.uid
-      });
+      };
+      const beforeFx = snapshotBoardForFx(s);
+      const res = Engine.declareAttack(s, ui.db, attacker, target);
       if (!res.ok) {
         showToast(res.reason);
         return;
       }
+      recordActionFx(beforeFx, s, { kind: 'attack', attacker, target });
       ui.action = null;
       hideHoverInspector();
       renderTabletop();
@@ -1877,7 +2341,7 @@
 
   function renderMulliganModal(s) {
     const modal = $('mulligan-modal');
-    if (s.phase !== 'MULLIGAN') {
+    if (s.phase !== 'MULLIGAN' || (ui.seat2IsAI && s.mulliganStep === 1)) {
       modal.hidden = true;
       return;
     }
@@ -1919,7 +2383,7 @@
 
   function renderWishModal(s) {
     const modal = $('wish-modal');
-    if (!s.pending || s.pending.type !== 'wish') {
+    if (!s.pending || s.pending.type !== 'wish' || (ui.seat2IsAI && s.pending.playerIndex === 1)) {
       modal.hidden = true;
       ui.wishPeekingBoard = false;
       return;
@@ -2070,6 +2534,19 @@
     $('gameover-title').textContent = `★ ${winner.name} Wins!`;
     $('gameover-reason').textContent = `${s.gameOver.reason} · Finished on Round ${s.round}`;
     $('gameover-undo-btn').disabled = !(s.undoStack && s.undoStack.length > 0);
+
+    const recap = $('gameover-log-recap');
+    if (recap) {
+      recap.innerHTML = `<div class="gameover-recap-head">Final Turn Recap (Last 12 Events)</div>`;
+      const recent = (s.log || []).slice(-12);
+      recent.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = `log-entry kind-${entry.kind || 'info'}`;
+        div.textContent = entry.text;
+        recap.appendChild(div);
+      });
+      recap.scrollTop = recap.scrollHeight;
+    }
   }
 
   // =========================================================================
@@ -2167,6 +2644,23 @@
   function bindLobbyEvents() {
     $('db-sync-pill').addEventListener('click', () => reloadDatabase(true));
     $('new-deck-btn').addEventListener('click', () => createNewDeck(true));
+    if ($('load-ai-decks-btn')) {
+      $('load-ai-decks-btn').addEventListener('click', loadAIChampionDecksIntoLobby);
+    }
+
+    ['mode-2p-btn', 'mode-ai-btn'].forEach(id => {
+      const el = $(id);
+      if (!el) return;
+      el.addEventListener('click', e => {
+        ui.seat2IsAI = e.currentTarget.dataset.ai === '1';
+        ['mode-2p-btn', 'mode-ai-btn'].forEach(other => {
+          if ($(other)) $(other).classList.toggle('active', other === id);
+        });
+        const heading = $('setup-heading');
+        if (heading) heading.textContent = ui.seat2IsAI ? 'Play vs. 🤖 AI' : '2-Handed Table';
+        renderMatchSetupPanel();
+      });
+    });
 
     $('seat1-deck-select').addEventListener('change', e => {
       ui.seat1DeckId = e.target.value;
@@ -2312,6 +2806,9 @@
     $('exit-match-btn').addEventListener('click', exitToLobby);
     $('undo-btn').addEventListener('click', performUndo);
     $('sb-undo-btn').addEventListener('click', performUndo);
+    if ($('ai-step-btn')) {
+      $('ai-step-btn').addEventListener('click', () => executeSingleAIMove(false));
+    }
 
     $('peek-hand-btn').addEventListener('click', () => {
       ui.peekEnemyHand = !ui.peekEnemyHand;
@@ -2330,6 +2827,9 @@
       $('log-drawer').hidden = true;
       renderTabletop();
     });
+    if ($('copy-log-btn')) {
+      $('copy-log-btn').addEventListener('click', copyMatchLogToClipboard);
+    }
 
     $('toggle-sandbox-btn').addEventListener('click', () => {
       ui.sandboxOpen = !ui.sandboxOpen;
@@ -2391,6 +2891,9 @@
     });
 
     // Game Over controls
+    if ($('gameover-copy-log-btn')) {
+      $('gameover-copy-log-btn').addEventListener('click', copyMatchLogToClipboard);
+    }
     $('gameover-undo-btn').addEventListener('click', performUndo);
     $('gameover-inspect-btn').addEventListener('click', () => {
       ui.inspectingFinalBoard = true;
@@ -2442,8 +2945,9 @@
       if (!ui.match) return;
       const idx = getSandboxTargetIndex();
       const p = ui.match.players[idx];
-      Engine.sandbox.adjustResource(ui.match, idx, 'hp', 25 - p.hp);
-      p.maxHp = 25;
+      const baseHp = Engine.HERO_STARTING_HP || 30;
+      Engine.sandbox.adjustResource(ui.match, idx, 'hp', baseHp - p.hp);
+      p.maxHp = baseHp;
       renderTabletop();
     });
 

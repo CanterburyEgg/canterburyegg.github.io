@@ -80,7 +80,7 @@
   const MAX_HAND = 10;
   const MAX_CHARS = 6;
   const MAX_BLDGS = 4;
-  const HERO_STARTING_HP = 25;
+  const HERO_STARTING_HP = 30;
   const UNDO_STACK_CAP = 30;
 
   // 8 Woodland Blessings with smart-filtering rules
@@ -186,6 +186,7 @@
   }
 
   function logEvent(state, msg, kind = 'info') {
+    if (state.simMode) return;
     state.log.push({
       seq: (state.logSeq = (state.logSeq || 0) + 1),
       turn: state.round,
@@ -196,12 +197,122 @@
     if (state.log.length > 250) state.log.shift();
   }
 
+  function cloneCardInstFast(c) {
+    return {
+      uid: c.uid,
+      cardId: c.cardId,
+      owner: c.owner,
+      bonusAtk: c.bonusAtk,
+      bonusHp: c.bonusHp,
+      apReduction: c.apReduction,
+      poisoned: c.poisoned,
+      fated: c.fated,
+      provoke: c.provoke,
+      safeguard: c.safeguard,
+      swift: c.swift,
+      doubleDebutFarewell: c.doubleDebutFarewell,
+      summon22Copy: c.summon22Copy,
+      debutWard: c.debutWard,
+      extraDevotees: c.extraDevotees && c.extraDevotees.length ? c.extraDevotees.map(x => ({ ...x })) : [],
+      extraKinships: c.extraKinships && c.extraKinships.length ? c.extraKinships.map(x => ({ ...x })) : [],
+      modLines: c.modLines && c.modLines.length ? c.modLines.slice() : []
+    };
+  }
+
+  function cloneUnitFast(u) {
+    return {
+      uid: u.uid,
+      cardId: u.cardId,
+      owner: u.owner,
+      subtypes: u.subtypes,
+      energyReq: u.energyReq,
+      baseAtk: u.baseAtk,
+      baseHp: u.baseHp,
+      permAtk: u.permAtk,
+      permHp: u.permHp,
+      tempAtk: u.tempAtk,
+      tempPosHp: u.tempPosHp,
+      tempNegHp: u.tempNegHp,
+      curHp: u.curHp,
+      wards: u.wards,
+      summoningSick: u.summoningSick,
+      attackedThisTurn: u.attackedThisTurn,
+      intrinsicProvoke: u.intrinsicProvoke,
+      intrinsicSafeguard: u.intrinsicSafeguard,
+      tempSafeguard: u.tempSafeguard,
+      intrinsicSwift: u.intrinsicSwift,
+      doubleDebutFarewell: u.doubleDebutFarewell,
+      summon22Copy: u.summon22Copy,
+      debutWard: u.debutWard,
+      extraDevotees: u.extraDevotees && u.extraDevotees.length ? u.extraDevotees.map(x => ({ ...x })) : [],
+      extraKinships: u.extraKinships && u.extraKinships.length ? u.extraKinships.map(x => ({ ...x })) : [],
+      extraFarewells: u.extraFarewells && u.extraFarewells.length ? u.extraFarewells.map(x => ({ ...x })) : [],
+      siegeExtraFarewells: u.siegeExtraFarewells && u.siegeExtraFarewells.length ? u.siegeExtraFarewells.map(x => ({ ...x })) : [],
+      dubbedChampion: Boolean(u.dubbedChampion),
+      devoteeUsedThisTurn: u.devoteeUsedThisTurn,
+      intrinsicKinshipFired: u.intrinsicKinshipFired,
+      extraKinshipsFired: u.extraKinshipsFired,
+      markedDead: Boolean(u.markedDead),
+      templateInst: u.summon22Copy && u.templateInst ? cloneCardInstFast(u.templateInst) : u.templateInst
+    };
+  }
+
+  function cloneStateForSim(state) {
+    return {
+      simMode: true,
+      uidSeq: state.uidSeq,
+      logSeq: state.logSeq,
+      round: state.round,
+      firstPlayer: state.firstPlayer,
+      activePlayer: state.activePlayer,
+      phase: state.phase,
+      combatUsedThisTurn: state.combatUsedThisTurn,
+      mulliganStep: state.mulliganStep,
+      players: state.players.map(p => ({
+        index: p.index,
+        name: p.name,
+        factions: p.factions.slice(),
+        isMonoFaction: p.isMonoFaction,
+        heroes: p.heroes.map(h => ({ cardId: h.cardId, usedThisTurn: h.usedThisTurn })),
+        hp: p.hp,
+        maxHp: p.maxHp,
+        tempAtk: p.tempAtk,
+        wards: p.wards,
+        heroAttackedThisTurn: p.heroAttackedThisTurn,
+        turnsTaken: p.turnsTaken,
+        baseEnergy: p.baseEnergy,
+        bonusEnergyTemp: p.bonusEnergyTemp,
+        ap: p.ap,
+        maxAp: p.maxAp,
+        freeHeroPowerCount: p.freeHeroPowerCount,
+        stoneSoupBonus: p.stoneSoupBonus,
+        mulliganDone: p.mulliganDone,
+        deck: p.deck.map(cloneCardInstFast),
+        hand: p.hand.map(cloneCardInstFast),
+        graveyard: p.graveyard.slice(),
+        buildings: p.buildings.map(b => (b ? { ...b } : null)),
+        characters: p.characters.map(cloneUnitFast)
+      })),
+      pending: state.pending
+        ? {
+            ...state.pending,
+            options: state.pending.options ? state.pending.options.map(cloneCardInstFast) : undefined
+          }
+        : null,
+      effectQueue: state.effectQueue.length > 0 ? JSON.parse(JSON.stringify(state.effectQueue)) : [],
+      gameOver: state.gameOver ? { ...state.gameOver } : null,
+      log: [],
+      undoStack: []
+    };
+  }
+
   function cloneGameState(state) {
     const copy = { ...state, undoStack: [] };
     return JSON.parse(JSON.stringify(copy));
   }
 
   function pushUndo(state) {
+    if (state.simMode) return;
     if (!state.undoStack) state.undoStack = [];
     const snap = cloneGameState(state);
     state.undoStack.push(snap);
@@ -255,6 +366,7 @@
     const firstPlayer = opts.firstPlayer === 1 ? 1 : 0;
 
     const state = {
+      simMode: Boolean(opts.simMode),
       uidSeq: 0,
       logSeq: 0,
       round: 1,
@@ -563,16 +675,7 @@
     const pIdx = state.activePlayer;
     const p = state.players[pIdx];
 
-    // Queue {End of Turn} triggers cleanly: Buildings first (left-to-right), then Characters (snapshot UIDs left-to-right)
-    p.buildings.forEach(b => {
-      if (!b) return;
-      if (b.cardId === IDS.APPLE_TREE) {
-        state.effectQueue.push({ op: 'eot_apple_tree', playerIndex: pIdx, bldgUid: b.uid });
-      } else if (b.cardId === IDS.GRANNY_THIMBLES_COTTAGE) {
-        state.effectQueue.push({ op: 'eot_granny_cottage', playerIndex: pIdx, bldgUid: b.uid });
-      }
-    });
-
+    // Queue {End of Turn} triggers cleanly: Characters (snapshot UIDs left-to-right)
     p.characters.forEach(u => {
       if (u.cardId === IDS.VALENTINA) {
         state.effectQueue.push({ op: 'eot_valentina', playerIndex: pIdx, unitUid: u.uid });
@@ -877,8 +980,13 @@
     const baseAtk = override22 ? 2 : (Number(def?.attack ?? 0) + (inst.bonusAtk || 0));
     const baseHp = Math.max(1, override22 ? 2 : (Number(def?.health ?? 1) + (inst.bonusHp || 0)));
 
-    // Note Honeywood Sentry says "{Kinship} This gains {Safeguard}" — only grant intrinsic Safeguard if NOT attached to {Kinship}
-    const hasPlainProvoke = Boolean(inst.provoke || /\{provoke:?\}/i.test(rawRules));
+    // Note Honeywood Sentry says "{Kinship} This gains {Safeguard}" and Valentina says "...summon a 2/4 Royal Vanguard. Give it {Provoke}."
+    // Only grant intrinsic keywords when they are standalone unit keywords (or from Woodland Blessings on `inst`), not conditional/token grants!
+    const hasPlainProvoke = Boolean(
+      inst.provoke ||
+      def?.id === IDS.PALACE_HALBERDIER ||
+      (/\{provoke:?\}/i.test(rawRules) && !/(?:give\s+it|gains?|\{end of turn:?\}|\{kinship:?\}|\{debut:?\})[^.\n]*\{provoke:?\}/i.test(rawRules))
+    );
     const hasPlainSafeguard = Boolean(
       inst.safeguard ||
       (def?.id === IDS.PALACE_HALBERDIER) ||
@@ -910,13 +1018,15 @@
       doubleDebutFarewell: Boolean(inst.doubleDebutFarewell),
       summon22Copy: Boolean(inst.summon22Copy),
       debutWard: Number(inst.debutWard || 0),
-      extraDevotees: JSON.parse(JSON.stringify(inst.extraDevotees || [])),
-      extraKinships: JSON.parse(JSON.stringify(inst.extraKinships || [])),
+      extraDevotees: inst.extraDevotees && inst.extraDevotees.length ? inst.extraDevotees.map(x => ({ ...x })) : [],
+      extraKinships: inst.extraKinships && inst.extraKinships.length ? inst.extraKinships.map(x => ({ ...x })) : [],
       extraFarewells: [],
+      siegeExtraFarewells: [],
+      dubbedChampion: false,
       devoteeUsedThisTurn: false,
       intrinsicKinshipFired: false,
       extraKinshipsFired: false,
-      templateInst: JSON.parse(JSON.stringify(inst))
+      templateInst: inst.summon22Copy ? cloneCardInstFast(inst) : inst
     };
   }
 
@@ -925,13 +1035,6 @@
     if (p.characters.length >= MAX_CHARS) return false;
     const clamped = Math.max(0, Math.min(p.characters.length, insertIndex));
     p.characters.splice(clamped, 0, unit);
-
-    // Stone Soup "everywhere" aura: triggers whenever you summon (play or token/copy) a {1E} or {2E} Character!
-    const def = db.cardMap.get(unit.cardId);
-    const eReq = Number(def?.energyReq ?? unit.energyReq ?? 0);
-    if (eReq === 1 || eReq === 2) {
-      p.stoneSoupBonus += 1;
-    }
     return true;
   }
 
@@ -970,7 +1073,7 @@
   function summonExactBoardCopy(state, db, playerIndex, sourceUnit, insertIdxOverride = null) {
     const p = state.players[playerIndex];
     if (p.characters.length >= MAX_CHARS || !sourceUnit) return null;
-    const copy = JSON.parse(JSON.stringify(sourceUnit));
+    const copy = cloneUnitFast(sourceUnit);
     copy.uid = nextUid(state, 'unit');
     copy.owner = playerIndex;
     copy.summoningSick = true;
@@ -1032,8 +1135,8 @@
 
       if (b.cardId === IDS.PAINTED_TOPIARIES) {
         b.devoteeUsedThisTurn = true;
-        logEvent(state, `Painted Topiaries {Devotee} triggered!`);
-        healHero(state, playerIndex, 2, 'Painted Topiaries');
+        logEvent(state, `Painted Topiaries {Devotee} triggered — added Powdered Rose-Joys!`);
+        addInstanceToHand(state, db, playerIndex, createCardInstance(state, IDS.POWDERED_ROSE_JOYS, playerIndex), 'Painted Topiaries');
       }
     }
 
@@ -1107,6 +1210,19 @@
     return chosen;
   }
 
+  function applyRandomWoodlandBlessing(inst, def, rng = Math.random, usedBlessingIds = null) {
+    if (!inst || !def) return null;
+    let eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def) && (!usedBlessingIds || !usedBlessingIds.has(b.id)));
+    if (eligible.length === 0) {
+      eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def));
+    }
+    if (eligible.length === 0) return null;
+    const chosenB = eligible[Math.floor(rng() * eligible.length)];
+    if (usedBlessingIds) usedBlessingIds.add(chosenB.id);
+    chosenB.apply(inst);
+    return chosenB;
+  }
+
   function openWish(state, db, playerIndex, wishKind, sourceCardId, rng = Math.random) {
     let candidates = [];
     let title = 'Make a Wish';
@@ -1126,14 +1242,14 @@
         sourceCardId
       );
     } else if (wishKind === 'gentle_woodsman') {
-      title = 'Gentle Woodsman — Wish for an Animalfolk (+2/+1)';
+      title = 'Gentle Woodsman — Wish for a Blessed Animalfolk';
       candidates = buildGenerationPool(
         state, db, playerIndex,
         c => c.type === 'character' && hasSubtype(c, 'ANIMALFOLK'),
         sourceCardId
       );
     } else if (wishKind === 'wishing_oak') {
-      title = 'Gift of the Wishing Oak — Wish for a Blessed Character';
+      title = 'Gift of the Wishing Oak — Wish for a Blessed Character (-1 AP)';
       candidates = buildGenerationPool(
         state, db, playerIndex,
         c => c.type === 'character',
@@ -1158,23 +1274,19 @@
       const poisonIdx = Math.floor(rng() * options.length);
       options[poisonIdx].poisoned = true;
     } else if (wishKind === 'gentle_woodsman') {
-      options.forEach(inst => {
-        inst.bonusAtk += 2;
-        inst.bonusHp += 1;
-        inst.modLines.push('*(+2/+1 from Gentle Woodsman)*');
-      });
-    } else if (wishKind === 'wishing_oak') {
-      // Guarantee 3 distinct smart-filtered Woodland Blessings across the 3 choices
       const usedBlessingIds = new Set();
       options.forEach(inst => {
         const def = db.cardMap.get(inst.cardId);
-        let eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def) && !usedBlessingIds.has(b.id));
-        if (eligible.length === 0) {
-          eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def));
-        }
-        const chosenB = eligible[Math.floor(rng() * eligible.length)];
-        usedBlessingIds.add(chosenB.id);
-        chosenB.apply(inst);
+        applyRandomWoodlandBlessing(inst, def, rng, usedBlessingIds);
+      });
+    } else if (wishKind === 'wishing_oak') {
+      // Guarantee 3 distinct smart-filtered Woodland Blessings across the 3 choices, plus -1 AP
+      const usedBlessingIds = new Set();
+      options.forEach(inst => {
+        const def = db.cardMap.get(inst.cardId);
+        applyRandomWoodlandBlessing(inst, def, rng, usedBlessingIds);
+        inst.apReduction = (inst.apReduction || 0) + 1;
+        inst.modLines.push('Costs {1AP} less.');
       });
     }
 
@@ -1359,16 +1471,23 @@
           break;
         }
 
+        case 'open_wish': {
+          openWish(state, db, step.playerIndex, step.wishKind, step.sourceCardId, rng);
+          break;
+        }
+
         case 'run_farewell': {
           const u = step.unit;
-          if (u.cardId === IDS.HARRIED_HARE) {
-            logEvent(state, `Harried Hare {Farewell} — drawing a card!`);
-            drawCard(state, db, step.playerIndex);
-          } else if (u.cardId === IDS.GRAYBEARD_KNIGHT) {
-            if (step.rightNeighborUid) {
-              const rLoc = findUnitLocation(state, step.rightNeighborUid);
-              if (rLoc && rLoc.playerIndex === step.playerIndex) {
-                applyStatMod(state, db, rLoc.unit, 3, 2, false, 'Graybeard Knight-Errant Farewell');
+          if (!u.dubbedChampion) {
+            if (u.cardId === IDS.HARRIED_HARE) {
+              logEvent(state, `Harried Hare {Farewell} — drawing a card!`);
+              drawCard(state, db, step.playerIndex);
+            } else if (u.cardId === IDS.GRAYBEARD_KNIGHT) {
+              if (step.rightNeighborUid) {
+                const rLoc = findUnitLocation(state, step.rightNeighborUid);
+                if (rLoc && rLoc.playerIndex === step.playerIndex) {
+                  applyStatMod(state, db, rLoc.unit, 2, 2, false, 'Graybeard Knight-Errant Farewell');
+                }
               }
             }
           }
@@ -1509,10 +1628,49 @@
         openWish(state, db, playerIndex, 'gentle_woodsman', unit.cardId, rng);
         break;
       }
+      case IDS.BLOODKEY_BARON: {
+        const p = state.players[playerIndex];
+        const bLoc = findUnitLocation(state, unit.uid);
+        const bIdx = bLoc ? bLoc.index : currentIdx;
+        if (bIdx > 0 && p.characters[bIdx - 1]) {
+          const victim = p.characters[bIdx - 1];
+          const vDef = db.cardMap.get(victim.cardId);
+          const leftSurv = bIdx - 2 >= 0 ? p.characters[bIdx - 2].uid : null;
+          const rightUid = unit.uid;
+
+          p.characters.splice(bIdx - 1, 1);
+          p.graveyard.push(createCardInstance(state, victim.cardId, playerIndex));
+          logEvent(state, `Bloodkey Baron {Debut} sacrificed ${vDef ? vDef.name : 'his left neighbor'} to deal 2 damage to all enemy Characters!`, 'dmg');
+
+          // Deal 2 damage to all enemy Characters simultaneously, then reap deaths
+          const opp = state.players[1 - playerIndex];
+          for (const enemy of [...opp.characters]) {
+            dealDamageToUnit(state, db, enemy, 2, 'Bloodkey Baron', false);
+          }
+          reapDeaths(state, db);
+
+          // Queue victim's Farewell triggers (e.g. Harried Hare draw, Graybeard buffing Baron!)
+          const times = victim.doubleDebutFarewell ? 2 : 1;
+          const fSteps = [];
+          for (let t = 0; t < times; t++) {
+            fSteps.push({
+              op: 'run_farewell',
+              playerIndex,
+              unit: victim,
+              leftSurvivorUid: leftSurv,
+              rightNeighborUid: rightUid
+            });
+          }
+          state.effectQueue.unshift(...fSteps);
+        }
+        break;
+      }
       case IDS.GRAYBEARD_KNIGHT: {
         const p = state.players[playerIndex];
-        if (currentIdx > 0 && p.characters[currentIdx - 1]) {
-          applyStatMod(state, db, p.characters[currentIdx - 1], 3, 2, false, 'Graybeard Knight-Errant Debut');
+        const gLoc = findUnitLocation(state, unit.uid);
+        const gIdx = gLoc ? gLoc.index : currentIdx;
+        if (gIdx > 0 && p.characters[gIdx - 1]) {
+          applyStatMod(state, db, p.characters[gIdx - 1], 2, 2, false, 'Graybeard Knight-Errant Debut');
         }
         break;
       }
@@ -1537,6 +1695,8 @@
         break;
       }
       case IDS.KIT_MERRYWEATHER: {
+        unit.wards += 1;
+        logEvent(state, `Kit Merryweather {Debut} — gained a Ward!`, 'buff');
         triggerKitMerryweather(state, db, playerIndex);
         break;
       }
@@ -1668,14 +1828,16 @@
       }
 
       case IDS.DUB_THEE_CHAMPION: {
+        if (friendlyUnits.length === 0) {
+          return { playable: false, reason: 'Requires a friendly Character.' };
+        }
         return {
           playable: true,
           apCost,
           targetRule: {
-            kind: 'friendly_hero_or_unit',
-            validHeroes: [pIdx],
+            kind: 'single_unit',
             validUnits: friendlyUnits,
-            prompt: 'Choose yourself or a friendly Character (+4/+0 this turn and a Ward).'
+            prompt: 'Choose a friendly Character (gains a Ward; replaces Debut & Farewell with Siege).'
           }
         };
       }
@@ -1696,20 +1858,15 @@
       }
 
       case IDS.FAIREST_OF_THEM_ALL: {
-        const queens = p.characters
-          .filter(u => (u.subtypes || []).includes('QUEEN'))
-          .map(u => ({ playerIndex: pIdx, unitUid: u.uid }));
-        if (queens.length === 0) {
-          return { playable: false, reason: 'Requires controlling a friendly Queen.' };
+        const hasKillable = opp.characters.length > 0
+          || p.characters.some(u => !(u.subtypes || []).includes('QUEEN'));
+        if (!hasKillable) {
+          return { playable: false, reason: 'Requires at least one non-Queen or enemy Character on the board.' };
         }
         return {
           playable: true,
           apCost,
-          targetRule: {
-            kind: 'single_unit',
-            validUnits: queens,
-            prompt: 'Choose a friendly Queen to spare — all other Characters die!'
-          }
+          targetRule: null
         };
       }
 
@@ -1719,7 +1876,7 @@
         }
         const hasAnim = p.characters.some(u => (u.subtypes || []).includes('ANIMALFOLK'));
         if (!hasAnim) {
-          return { playable: false, reason: 'Requires at least one friendly Animalfolk.' };
+          return { playable: false, reason: 'Requires a friendly Animalfolk.' };
         }
         return {
           playable: true,
@@ -1797,6 +1954,12 @@
         : p.characters.length;
       const unit = buildUnitFromCardInstance(state, db, pIdx, inst, false);
       insertSummonedUnit(state, db, pIdx, unit, insertIdx);
+
+      // Stone Soup "everywhere" aura: triggers strictly when you PLAY a {1E} or {2E} Character from hand!
+      const playedEReq = Number(def.energyReq ?? unit.energyReq ?? 0);
+      if (playedEReq === 1 || playedEReq === 2) {
+        p.stoneSoupBonus += 1;
+      }
 
       logEvent(state, `${p.name} played ${def.name} (${getUnitAtk(unit)}/${unit.curHp}) for ${apCost} AP.`);
 
@@ -1923,17 +2086,22 @@
       }
 
       case IDS.DUB_THEE_CHAMPION: {
-        if (target.kind === 'hero') {
-          p.tempAtk += 4;
-          p.wards += 1;
-          logEvent(state, `${p.name} gained +4/+0 this turn and a {Ward}!`, 'buff');
-        } else {
-          const loc = findUnitLocation(state, target.unitUid);
-          if (loc) {
-            applyStatMod(state, db, loc.unit, 4, 0, true, def.name);
-            loc.unit.wards += 1;
-            logEvent(state, `${db.cardMap.get(loc.unit.cardId)?.name || 'Character'} gained a {Ward}!`, 'buff');
+        const loc = findUnitLocation(state, target && target.unitUid);
+        if (loc && loc.playerIndex === casterIdx) {
+          const u = loc.unit;
+          u.wards += 1;
+          u.dubbedChampion = true;
+          if (u.extraFarewells && u.extraFarewells.length > 0) {
+            u.siegeExtraFarewells = [...(u.siegeExtraFarewells || []), ...u.extraFarewells];
+            u.extraFarewells = [];
           }
+          if (!u.templateInst) u.templateInst = createCardInstance(state, u.cardId, casterIdx);
+          if (!u.templateInst.modLines) u.templateInst.modLines = [];
+          if (!u.templateInst.modLines.includes('Dubbed Champion: {Debut} & {Farewell} are now {Siege}!')) {
+            u.templateInst.modLines.push('Dubbed Champion: {Debut} & {Farewell} are now {Siege}!');
+          }
+          const uDef = db.cardMap.get(u.cardId);
+          logEvent(state, `${uDef ? uDef.name : 'Character'} was Dubbed Champion — gained a {Ward} and replaced {Debut}/{Farewell} with {Siege}!`, 'buff');
         }
         break;
       }
@@ -1969,7 +2137,7 @@
 
       case IDS.HUMBLE_PIE: {
         const loc = findUnitLocation(state, target.unitUid);
-        applyFoodStat(loc, 1, 1, true);
+        applyFoodStat(loc, 2, 1, true);
         break;
       }
 
@@ -1980,15 +2148,22 @@
       }
 
       case IDS.FAIREST_OF_THEM_ALL: {
-        const chosenUid = target.unitUid;
+        const spareQueens = getPlayerEnergy(p, db) >= 6;
         for (const pl of state.players) {
           for (const u of pl.characters) {
-            if (u.uid !== chosenUid) {
+            const isFriendlyQueen = spareQueens && pl.index === casterIdx && (u.subtypes || []).includes('QUEEN');
+            if (!isFriendlyQueen) {
               u.markedDead = true;
             }
           }
         }
-        logEvent(state, `Fairest of Them All destroyed all other Characters!`, 'dmg');
+        logEvent(
+          state,
+          spareQueens
+            ? `Fairest of Them All {6E} destroyed all Characters except ${p.name}'s Queens!`
+            : `Fairest of Them All destroyed all Characters!`,
+          'dmg'
+        );
         reapDeaths(state, db);
         break;
       }
@@ -1996,9 +2171,9 @@
       case IDS.POWDERED_ROSE_JOYS: {
         const tIdx = target.playerIndex;
         if (poisoned && tIdx !== casterIdx) {
-          dealDamageToHero(state, tIdx, 2, `Poisoned ${def.name}`);
+          dealDamageToHero(state, tIdx, 3, `Poisoned ${def.name}`);
         } else {
-          healHero(state, tIdx, 2, def.name);
+          healHero(state, tIdx, 3, def.name);
         }
         break;
       }
@@ -2057,6 +2232,12 @@
 
       case IDS.GIFT_OF_WISHING_OAK: {
         openWish(state, db, casterIdx, 'wishing_oak', def.id, rng);
+        state.effectQueue.unshift({
+          op: 'open_wish',
+          playerIndex: casterIdx,
+          wishKind: 'wishing_oak',
+          sourceCardId: def.id
+        });
         break;
       }
 
@@ -2081,7 +2262,7 @@
             kind: 'character',
             playerIndex: curTarget.playerIndex,
             unitUid: curTarget.unit.uid
-          }, { isBonusSpellStrike: true });
+          }, { isBonusSpellStrike: true, rng });
           // Drain any synchronous Farewells triggered by target dying mid-dogpile
           drainQueue(state, db, rng);
         }
@@ -2093,10 +2274,10 @@
         if (loc1) {
           dealDamageToUnit(state, db, loc1.unit, 2, def.name);
         }
-        if (!state.gameOver && p.characters.length >= 3) {
+        if (!state.gameOver && p.characters.length >= 4) {
           const loc2 = findUnitLocation(state, target.unitUid);
           if (loc2 && loc2.unit.curHp > 0) {
-            logEvent(state, `Pots and Pans! strikes again (3+ Characters)!`);
+            logEvent(state, `Pots and Pans! strikes again (4+ Characters)!`);
             dealDamageToUnit(state, db, loc2.unit, 2, def.name);
           }
         }
@@ -2194,7 +2375,7 @@
           if (added) logEvent(state, `King Valyn decreed a random Edict!`);
         }
         if (!playerControlsSubtype(p, 'QUEEN', db)) {
-          dealDamageToHero(state, pIdx, 3, 'King Valyn');
+          dealDamageToHero(state, pIdx, 2, 'King Valyn');
         }
         break;
       }
@@ -2265,8 +2446,33 @@
     }
 
     if (b.cardId === IDS.CROSSROADS_INN) {
+      if (p.ap < 1) return { usable: false, reason: `Costs 1 AP (you have ${p.ap} AP).` };
+      return { usable: true, apCost: 1, targetRule: null };
+    }
+
+    if (b.cardId === IDS.GRANNY_THIMBLES_COTTAGE) {
+      if (p.ap < 1) return { usable: false, reason: `Costs 1 AP (you have ${p.ap} AP).` };
       const curE = getPlayerEnergy(p, db);
-      if (curE < 5) return { usable: false, reason: `Requires 5 Energy (you have ${curE}E).` };
+      const opp = state.players[1 - pIdx];
+      const allUnits = [
+        ...p.characters.map(u => ({ playerIndex: pIdx, unitUid: u.uid })),
+        ...opp.characters.map(u => ({ playerIndex: opp.index, unitUid: u.uid }))
+      ];
+      return {
+        usable: true,
+        apCost: 1,
+        targetRule: {
+          kind: 'any_hero_or_unit',
+          validHeroes: [pIdx, opp.index],
+          validUnits: allUnits,
+          prompt: curE >= 7
+            ? "Choose a Hero or Character to get +4 Health (Granny Thimble's Cottage {7E})."
+            : `Choose a Hero or Character to heal ${curE >= 5 ? 4 : 2} (Granny Thimble's Cottage).`
+        }
+      };
+    }
+
+    if (b.cardId === IDS.APPLE_TREE) {
       if (p.ap < 1) return { usable: false, reason: `Costs 1 AP (you have ${p.ap} AP).` };
       return { usable: true, apCost: 1, targetRule: null };
     }
@@ -2287,9 +2493,18 @@
     const b = p.buildings[slotIndex];
 
     if (info.targetRule) {
-      const uid = target && target.unitUid;
-      if (!uid || !info.targetRule.validUnits.some(v => v.unitUid === uid)) {
-        return { ok: false, reason: 'Choose a valid friendly Character.' };
+      if (info.targetRule.kind === 'any_hero_or_unit') {
+        const okHero = target && target.kind === 'hero' && info.targetRule.validHeroes.includes(target.playerIndex);
+        const uid = target && target.unitUid;
+        const okUnit = Boolean(uid && info.targetRule.validUnits.some(v => v.unitUid === uid));
+        if (!okHero && !okUnit) {
+          return { ok: false, reason: 'Choose a valid Hero or Character.' };
+        }
+      } else {
+        const uid = target && target.unitUid;
+        if (!uid || !info.targetRule.validUnits.some(v => v.unitUid === uid)) {
+          return { ok: false, reason: 'Choose a valid friendly Character.' };
+        }
       }
     }
 
@@ -2307,10 +2522,36 @@
     } else if (b.cardId === IDS.CROSSROADS_INN) {
       logEvent(state, `${p.name} activated Crossroads Inn!`);
       const drawn = drawFilteredCharacter(state, db, pIdx, 'Crossroads Inn');
-      if (drawn) {
-        drawn.apReduction = (drawn.apReduction || 0) + 1;
-        logEvent(state, `Crossroads Inn reduced that Character's cost by 1 AP!`, 'buff');
+      if (drawn && getPlayerEnergy(p, db) >= 5) {
+        const dDef = db.cardMap.get(drawn.cardId);
+        applyRandomWoodlandBlessing(drawn, dDef, rng, null);
+        logEvent(state, `Crossroads Inn ({5E}) gave the drawn Character a Woodland Blessing!`, 'buff');
       }
+    } else if (b.cardId === IDS.GRANNY_THIMBLES_COTTAGE) {
+      const curE = getPlayerEnergy(p, db);
+      if (curE >= 7) {
+        if (target.kind === 'hero') {
+          const tP = state.players[target.playerIndex];
+          tP.maxHp += 4;
+          tP.hp += 4;
+          logEvent(state, `${tP.name} gained +4 Health from Granny Thimble's Cottage ({7E}) (${tP.hp}/${tP.maxHp})!`, 'buff');
+        } else {
+          const loc = findUnitLocation(state, target.unitUid);
+          if (loc) applyStatMod(state, db, loc.unit, 0, 4, false, "Granny Thimble's Cottage {7E}");
+        }
+      } else {
+        const healAmt = curE >= 5 ? 4 : 2;
+        if (target.kind === 'hero') {
+          healHero(state, target.playerIndex, healAmt, "Granny Thimble's Cottage");
+        } else {
+          const loc = findUnitLocation(state, target.unitUid);
+          if (loc) healUnit(state, db, loc.unit, healAmt, "Granny Thimble's Cottage");
+        }
+      }
+    } else if (b.cardId === IDS.APPLE_TREE) {
+      logEvent(state, `${p.name} harvested Apple Tree — added two Apples to hand!`, 'buff');
+      addInstanceToHand(state, db, pIdx, createCardInstance(state, IDS.APPLE, pIdx), 'Apple Tree');
+      addInstanceToHand(state, db, pIdx, createCardInstance(state, IDS.APPLE, pIdx), 'Apple Tree');
     } else if (b.cardId === IDS.OLD_CHESTNUT_SMITHY) {
       p.tempAtk += 2;
       logEvent(state, `${p.name} forged at Old Chestnut Smithy — Hero gained +2/+0 this turn!`, 'buff');
@@ -2322,6 +2563,7 @@
 
   // Combat Step & Character Strike Execution
   function executeCharacterStrike(state, db, attackerUid, targetSpec, opts = {}) {
+    const rng = opts.rng || Math.random;
     const aLoc = findUnitLocation(state, attackerUid);
     if (!aLoc) return;
     const atkPlayer = state.players[aLoc.playerIndex];
@@ -2336,51 +2578,45 @@
     // 1. Pre-combat {Siege} triggers!
     if (attacker.cardId === IDS.KIT_MERRYWEATHER) {
       triggerKitMerryweather(state, db, aLoc.playerIndex);
-    } else if (attacker.cardId === IDS.BLOODKEY_BARON) {
-      // Re-find Baron's index
-      const curBaron = findUnitLocation(state, attacker.uid);
-      if (curBaron && curBaron.index > 0) {
-        const victim = atkPlayer.characters[curBaron.index - 1];
-        const vDef = db.cardMap.get(victim.cardId);
-        const leftSurv = curBaron.index - 2 >= 0 ? atkPlayer.characters[curBaron.index - 2].uid : null;
-        const rightUid = attacker.uid;
+    }
+    if (attacker.dubbedChampion) {
+      const times = attacker.doubleDebutFarewell ? 2 : 1;
+      for (let t = 0; t < times; t++) {
+        const curLoc = findUnitLocation(state, attacker.uid);
+        if (!curLoc || curLoc.unit.curHp <= 0 || curLoc.unit.markedDead) break;
+        const u = curLoc.unit;
+        const pIdx = curLoc.playerIndex;
+        const p = state.players[pIdx];
 
-        atkPlayer.characters.splice(curBaron.index - 1, 1);
-        atkPlayer.graveyard.push(createCardInstance(state, victim.cardId, aLoc.playerIndex));
-        logEvent(state, `Bloodkey Baron {Siege} sacrificed ${vDef ? vDef.name : 'his left neighbor'} to deal 2 damage!`, 'dmg');
-
-        // Run victim Farewell synchronously first or queue before clash
-        const times = victim.doubleDebutFarewell ? 2 : 1;
-        for (let t = 0; t < times; t++) {
-          state.effectQueue.push({
-            op: 'run_farewell',
-            playerIndex: aLoc.playerIndex,
-            unit: victim,
-            leftSurvivorUid: leftSurv,
-            rightNeighborUid: rightUid
-          });
+        if (u.debutWard > 0) {
+          u.wards += u.debutWard;
+          logEvent(state, `${aName} {Siege} — gained ${u.debutWard} Ward!`, 'buff');
         }
-        drainQueue(state, db);
-        if (state.gameOver) return;
+        let defaultAllyTarget = null;
+        if (u.cardId === IDS.WHETSMITH_APPRENTICE) {
+          const otherAlly = p.characters.find(x => x.uid !== u.uid);
+          if (otherAlly) defaultAllyTarget = { unitUid: otherAlly.uid };
+        }
+        runUnitDebut(state, db, pIdx, u, curLoc.index, defaultAllyTarget, rng);
 
-        // Deal 2 Siege damage BEFORE combat strike!
-        if (targetSpec.kind === 'hero') {
-          dealDamageToHero(state, targetSpec.playerIndex, 2, 'Bloodkey Baron Siege');
-        } else {
-          const dLoc = findUnitLocation(state, targetSpec.unitUid);
-          if (dLoc) {
-            dealDamageToUnit(state, db, dLoc.unit, 2, 'Bloodkey Baron Siege', true);
-            drainQueue(state, db);
+        const afterDebutLoc = findUnitLocation(state, u.uid);
+        if (u.cardId === IDS.HARRIED_HARE) {
+          logEvent(state, `Harried Hare {Siege} — drawing a card!`);
+          drawCard(state, db, pIdx);
+        } else if (u.cardId === IDS.GRAYBEARD_KNIGHT && afterDebutLoc) {
+          const rUnit = p.characters[afterDebutLoc.index + 1];
+          if (rUnit) {
+            applyStatMod(state, db, rUnit, 2, 2, false, 'Graybeard Knight-Errant Siege');
           }
         }
-        if (state.gameOver) return;
-
-        // If defender died to the 2 Siege damage, abort combat strike cleanly (0 retaliation taken!)
-        if (targetSpec.kind === 'character') {
-          const stillAlive = findUnitLocation(state, targetSpec.unitUid);
-          if (!stillAlive) {
-            logEvent(state, `Defender fell to Bloodkey Baron's {Siege} before striking back!`);
-            return;
+        if (u.siegeExtraFarewells && u.siegeExtraFarewells.length > 0 && afterDebutLoc) {
+          for (const ef of u.siegeExtraFarewells) {
+            if (ef.kind === 'summon_vanguard') {
+              summonTokenCharacter(state, db, pIdx, IDS.ROYAL_VANGUARD, {
+                mode: 'right_of_uid',
+                uid: u.uid
+              });
+            }
           }
         }
       }
@@ -2388,7 +2624,7 @@
 
     // Re-verify attacker & target still alive after Siege
     const aAfter = findUnitLocation(state, attacker.uid);
-    if (!aAfter) return;
+    if (!aAfter || aAfter.unit.curHp <= 0 || aAfter.unit.markedDead) return;
     const atkDmg = getUnitAtk(aAfter.unit);
 
     if (targetSpec.kind === 'hero') {
@@ -2398,7 +2634,7 @@
     }
 
     const dLoc = findUnitLocation(state, targetSpec.unitUid);
-    if (!dLoc) return;
+    if (!dLoc || dLoc.unit.curHp <= 0 || dLoc.unit.markedDead) return;
     const dDef = db.cardMap.get(dLoc.unit.cardId);
     const dName = dDef ? dDef.name : 'Character';
     const defRetaliation = getUnitAtk(dLoc.unit);
@@ -2488,7 +2724,7 @@
         reapDeaths(state, db);
       }
     } else {
-      executeCharacterStrike(state, db, atkUnit.uid, targetSpec);
+      executeCharacterStrike(state, db, atkUnit.uid, targetSpec, { rng });
     }
 
     // Queue automatic transition to Main 2 if no ready attackers remain after deaths/Farewells
@@ -2570,6 +2806,7 @@
     advanceWish,
     resolveWish,
     resolveBuildingOverwrite,
+    cloneStateForSim,
     undoLastAction,
     sandbox
   };
