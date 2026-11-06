@@ -87,8 +87,8 @@
     "hash_id": "e_f59246dd",
     "cands": [
       6,
-      3,
       7,
+      3,
       4,
       1,
       12
@@ -171,10 +171,10 @@
     "hash_id": "e_a8bc00ef",
     "cands": [
       0,
+      1,
       7,
       9,
       4,
-      1,
       11
     ],
     "source": "s01_double_blind_verified+title_arc_reordered"
@@ -255,9 +255,9 @@
     "hash_id": "e_922972ec",
     "cands": [
       1,
-      2,
-      6,
       3,
+      6,
+      2,
       10,
       8
     ],
@@ -339,10 +339,10 @@
     "hash_id": "e_282c95b1",
     "cands": [
       5,
+      3,
       1,
       0,
       2,
-      3,
       6
     ],
     "source": "s02_double_blind_verified+title_arc_reordered"
@@ -519,9 +519,9 @@
     "hash_id": "e_310f67d6",
     "cands": [
       12,
-      0,
       10,
       3,
+      0,
       2,
       1
     ],
@@ -762,11 +762,11 @@
     "episode": 10,
     "hash_id": "e_a2d4c4ff",
     "cands": [
+      7,
+      11,
       8,
       4,
       5,
-      7,
-      11,
       6
     ],
     "source": "s03_double_blind_verified+title_arc_reordered"
@@ -889,8 +889,8 @@
     "hash_id": "e_6755537e",
     "cands": [
       17,
-      7,
       8,
+      7,
       1,
       0,
       3
@@ -1035,10 +1035,10 @@
     "hash_id": "e_fc234c35",
     "cands": [
       7,
-      4,
-      14,
       6,
       3,
+      4,
+      14,
       11
     ],
     "source": "s04_double_blind_verified+title_arc_reordered"
@@ -1110,10 +1110,10 @@
     "episode": 11,
     "hash_id": "e_2611f530",
     "cands": [
-      7,
-      2,
       9,
+      7,
       10,
+      2,
       0,
       1
     ],
@@ -1146,9 +1146,9 @@
     "cands": [
       9,
       16,
-      0,
       1,
       6,
+      0,
       3
     ],
     "source": "s04_double_blind_verified"
@@ -1590,8 +1590,8 @@
     "episode": 23,
     "hash_id": "e_03d281e4",
     "cands": [
-      2,
       10,
+      2,
       3,
       6,
       4,
@@ -1605,10 +1605,10 @@
     "hash_id": "e_6ef711a1",
     "cands": [
       5,
-      1,
       4,
-      6,
       0,
+      1,
+      6,
       2
     ],
     "source": "s05_double_blind_verified+title_arc_reordered"
@@ -1677,8 +1677,8 @@
       1,
       6,
       3,
-      0,
       4,
+      0,
       8
     ],
     "source": "s06_double_blind_verified"
@@ -1702,10 +1702,10 @@
     "episode": 7,
     "hash_id": "e_461da218",
     "cands": [
+      17,
       16,
       6,
       0,
-      17,
       5,
       11
     ],
@@ -1716,9 +1716,9 @@
     "episode": 8,
     "hash_id": "e_3e8410ee",
     "cands": [
+      7,
       1,
       2,
-      0,
       5,
       3,
       4
@@ -1731,8 +1731,8 @@
     "hash_id": "e_1ba24931",
     "cands": [
       15,
-      0,
       17,
+      0,
       6,
       4,
       2
@@ -1751,8 +1751,8 @@
     "hash_id": "e_6bc1c2b5",
     "cands": [
       5,
-      1,
       2,
+      1,
       7,
       4,
       0
@@ -1849,10 +1849,10 @@
     "hash_id": "e_75953964",
     "cands": [
       4,
+      1,
       0,
       2,
       3,
-      6,
       5
     ],
     "source": "s06_double_blind_verified"
@@ -2090,8 +2090,8 @@
     "episode": 12,
     "hash_id": "e_7def5ca3",
     "cands": [
-      0,
       4,
+      0,
       8,
       13,
       11,
@@ -2174,8 +2174,8 @@
     "episode": 18,
     "hash_id": "e_03268c34",
     "cands": [
-      4,
       13,
+      4,
       5,
       8,
       12,
@@ -2320,11 +2320,11 @@
     "episode": 5,
     "hash_id": "e_ee48dd90",
     "cands": [
+      5,
+      2,
       12,
       3,
       1,
-      5,
-      2,
       10
     ],
     "source": "s08_double_blind_verified+title_arc_reordered"
@@ -2334,8 +2334,8 @@
     "episode": 6,
     "hash_id": "e_1e746b9e",
     "cands": [
-      12,
-      7,
+      23,
+      24,
       2,
       8,
       5,
@@ -2349,8 +2349,8 @@
     "hash_id": "e_7fa7ddd7",
     "cands": [
       14,
-      0,
       6,
+      0,
       8,
       2,
       1
@@ -2363,10 +2363,10 @@
     "hash_id": "e_07af773c",
     "cands": [
       5,
+      14,
       4,
       2,
       3,
-      14,
       9
     ],
     "source": "s08_double_blind_verified+title_arc_reordered"
@@ -2398,8 +2398,8 @@
     "cands": [
       11,
       32,
-      0,
       2,
+      0,
       3,
       1
     ],
@@ -2578,8 +2578,8 @@
     "episode": 24,
     "hash_id": "e_adfe5b1b",
     "cands": [
-      0,
       3,
+      0,
       1,
       7,
       8,
@@ -2747,9 +2747,9 @@
     "hash_id": "e_5bbd7fda",
     "cands": [
       9,
-      1,
       14,
       0,
+      1,
       4,
       5
     ],
@@ -2851,10 +2851,10 @@
     "hash_id": "e_f6ae76cf",
     "cands": [
       30,
+      7,
       31,
       1,
       20,
-      7,
       0
     ],
     "source": "s09_double_blind_verified"
@@ -2907,10 +2907,10 @@
     "hash_id": "e_a1f10418",
     "cands": [
       6,
-      3,
-      8,
-      0,
       7,
+      3,
+      0,
+      8,
       9
     ],
     "source": "s10_double_blind_verified+title_arc_reordered"
@@ -2920,8 +2920,8 @@
     "episode": 2,
     "hash_id": "e_d7a54b7a",
     "cands": [
-      18,
-      20,
+      0,
+      4,
       1,
       8,
       6,
@@ -2964,8 +2964,8 @@
     "cands": [
       3,
       10,
-      1,
       9,
+      1,
       2,
       5
     ],
@@ -2992,8 +2992,8 @@
     "cands": [
       7,
       6,
-      2,
       13,
+      2,
       1,
       0
     ],
@@ -3011,9 +3011,9 @@
     "hash_id": "e_e191b6b0",
     "cands": [
       19,
+      12,
       16,
       21,
-      8,
       4,
       0
     ],
@@ -3044,9 +3044,9 @@
     "episode": 12,
     "hash_id": "e_a4cea564",
     "cands": [
-      15,
+      11,
       12,
-      14,
+      13,
       0,
       1,
       3
@@ -3058,9 +3058,9 @@
     "episode": 13,
     "hash_id": "e_a9566d4e",
     "cands": [
-      5,
       9,
       16,
+      5,
       0,
       7,
       1
