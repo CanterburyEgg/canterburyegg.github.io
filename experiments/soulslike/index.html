@@ -1,0 +1,2929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashen Pit — 3D Browser Soulslike (Mixamo + Three.js)</title>
+  <meta name="description" content="Third-person browser Soulslike boss arena built with Three.js and Mixamo animations, featuring Z-Target lock-on, i-frame dodge rolls, stamina & poise break, buckler parries, and frame-window sword combat." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-abyss: #090b10;
+      --panel-obsidian: rgba(12, 14, 20, 0.86);
+      --border-brass: rgba(194, 157, 92, 0.42);
+      --brass-bright: #e5c178;
+      --brass-dim: #9c7e44;
+      --text-parchment: #f1ece1;
+      --text-muted: #9ca3af;
+      --crimson-hp: #b91c1c;
+      --crimson-bright: #ef4444;
+      --cerulean-fp: #1d4ed8;
+      --cerulean-bright: #3b82f6;
+      --emerald-stam: #15803d;
+      --emerald-bright: #22c55e;
+      --amber-poise: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-abyss);
+      color: var(--text-parchment);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    #three-container {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    /* Cinematic Vignette & Hit Flash Overlay */
+    #screen-fx {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+      background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(4, 6, 10, 0.72) 100%);
+      transition: box-shadow 0.15s ease;
+    }
+
+    /* 3D World-Projected UI Layer (Lock-On Reticle, Floating Damage, Riposte Prompt) */
+    #world-ui-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    /* TOP SANDBOX & TELEMETRY BAR */
+    .souls-topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 46px;
+      background: linear-gradient(180deg, rgba(8, 10, 15, 0.94) 0%, rgba(12, 15, 22, 0.78) 100%);
+      border-bottom: 1px solid var(--border-brass);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      z-index: 30;
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar-left, .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-crest {
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--brass-bright);
+      padding-right: 8px;
+      border-right: 1px solid rgba(194, 157, 92, 0.25);
+    }
+
+    /* Live Frame-Data Telemetry Pill (Shows how Mixamo clip maps to Soulslike states!) */
+    .frame-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      background: rgba(15, 19, 28, 0.85);
+      border: 1px solid rgba(194, 157, 92, 0.3);
+      border-radius: 5px;
+      font-size: 11px;
+    }
+
+    .state-badge {
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-parchment);
+      min-width: 88px;
+      text-align: center;
+    }
+    .state-badge.windup { background: rgba(245, 158, 11, 0.28); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.5); }
+    .state-badge.active { background: rgba(239, 68, 68, 0.32); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.6); }
+    .state-badge.iframe { background: rgba(56, 189, 248, 0.30); color: #bae6fd; border: 1px solid rgba(56, 189, 248, 0.65); }
+    .state-badge.recovery { background: rgba(16, 185, 129, 0.24); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.45); }
+    .state-badge.stagger { background: rgba(225, 29, 72, 0.45); color: #fda4af; }
+
+    .frame-bar-wrap {
+      width: 96px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+    .frame-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--brass-bright);
+    }
+
+    .sb-btn {
+      background: rgba(22, 27, 38, 0.85);
+      color: var(--text-parchment);
+      border: 1px solid rgba(194, 157, 92, 0.32);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sb-btn:hover {
+      border-color: var(--brass-bright);
+      background: rgba(38, 46, 64, 0.92);
+    }
+    .sb-btn.toggled {
+      background: rgba(194, 157, 92, 0.24);
+      border-color: var(--brass-bright);
+      color: #fde68a;
+    }
+
+    /* TOP-LEFT PLAYER VIGOR / FOCUS / ENDURANCE BARS */
+    .player-vitals {
+      position: absolute;
+      top: 64px;
+      left: 24px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      pointer-events: none;
+    }
+
+    .vitals-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .covenant-crest {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #2a2419, #0d0f14 75%);
+      border: 2px solid var(--brass-bright);
+      box-shadow: 0 0 14px rgba(0, 0, 0, 0.85), inset 0 0 8px rgba(229, 193, 120, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--brass-bright);
+      flex-shrink: 0;
+    }
+
+    .bars-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .souls-bar-track {
+      position: relative;
+      height: 11px;
+      background: rgba(8, 10, 14, 0.9);
+      border: 1px solid rgba(194, 157, 92, 0.55);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.75);
+      overflow: hidden;
+    }
+    .souls-bar-track.hp { width: 290px; height: 13px; }
+    .souls-bar-track.fp { width: 210px; height: 10px; }
+    .souls-bar-track.stam { width: 255px; height: 11px; }
+
+    .souls-bar-trail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: #facc15;
+      transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .souls-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+    .souls-bar-fill.hp {
+      background: linear-gradient(90deg, #7f1d1d 0%, #dc2626 60%, #ef4444 100%);
+    }
+    .souls-bar-fill.fp {
+      background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 65%, #60a5fa 100%);
+    }
+    .souls-bar-fill.stam {
+      background: linear-gradient(90deg, #14532d 0%, #16a34a 65%, #4ade80 100%);
+    }
+    .souls-bar-fill.stam.exhausted {
+      background: linear-gradient(90deg, #78350f, #f59e0b);
+    }
+
+    .vitals-numbers {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: rgba(241, 236, 225, 0.85);
+      letter-spacing: 0.04em;
+      text-shadow: 0 1px 2px #000;
+      margin-left: 54px;
+    }
+
+    /* CONTROLS BANNER */
+    .controls-ribbon {
+      position: absolute;
+      top: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 14px;
+      background: rgba(10, 12, 18, 0.86);
+      border: 1px solid rgba(194, 157, 92, 0.38);
+      border-radius: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      z-index: 20;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .controls-ribbon b {
+      color: var(--brass-bright);
+    }
+
+    /* BOTTOM-LEFT D-PAD EQUIPMENT CRUCIBLE */
+    .equip-crucible {
+      position: absolute;
+      bottom: 24px;
+      left: 28px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: 58px 66px 58px;
+      grid-template-rows: 58px 66px;
+      gap: 6px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    .equip-slot {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, rgba(20, 23, 32, 0.92), rgba(9, 11, 16, 0.96));
+      border: 1.5px solid rgba(194, 157, 92, 0.48);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.75);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      text-align: center;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .equip-slot.active-glow {
+      border-color: #fde047;
+      box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+      transform: scale(1.05);
+    }
+    .equip-slot.top { grid-column: 2; grid-row: 1; }
+    .equip-slot.left { grid-column: 1; grid-row: 2; }
+    .equip-slot.center { grid-column: 2; grid-row: 2; border-color: var(--brass-bright); }
+    .equip-slot.right { grid-column: 3; grid-row: 2; }
+
+    .equip-key {
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--brass-bright);
+    }
+    .equip-title {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-parchment);
+      line-height: 1.15;
+      margin-top: 8px;
+    }
+    .equip-sub {
+      font-size: 9px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .flask-count {
+      position: absolute;
+      bottom: 3px;
+      right: 5px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fde047;
+      text-shadow: 0 1px 3px #000;
+    }
+
+    /* BOTTOM-CENTER BOSS HEALTH & POISE BAR */
+    .boss-hud {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(680px, 64vw);
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .boss-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 5px;
+      padding: 0 4px;
+    }
+
+    .boss-name {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--text-parchment);
+      text-shadow: 0 2px 6px #000;
+    }
+    .boss-phase-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fb923c;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .boss-hp-track {
+      position: relative;
+      width: 100%;
+      height: 15px;
+      background: rgba(8, 10, 14, 0.92);
+      border: 1.5px solid var(--brass-bright);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    .boss-hp-trail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: #fde047;
+      transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .boss-hp-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, #7f1d1d 0%, #b91c1c 55%, #ef4444 100%);
+    }
+
+    .boss-poise-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+    .poise-lbl {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--brass-bright);
+      text-transform: uppercase;
+    }
+    .boss-poise-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(12, 15, 20, 0.9);
+      border: 1px solid rgba(194, 157, 92, 0.42);
+      overflow: hidden;
+      position: relative;
+    }
+    .boss-poise-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #d97706, #fbbf24, #fef08a);
+      transition: width 0.1s ease;
+    }
+
+    /* LOCK-ON RETICLE & FLOATING NUMBERS */
+    .lock-reticle {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      display: none;
+    }
+    .lock-reticle::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 2px solid rgba(254, 240, 138, 0.92);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.85), inset 0 0 6px rgba(250, 204, 21, 0.5);
+    }
+    .lock-reticle::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px #fde047;
+    }
+
+    .riposte-prompt {
+      position: absolute;
+      transform: translate(-50%, -140%);
+      background: rgba(15, 10, 8, 0.92);
+      border: 1.5px solid #fde047;
+      color: #fef08a;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 18px rgba(250, 204, 21, 0.6);
+      display: none;
+      white-space: nowrap;
+    }
+
+    .float-dmg {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-weight: 800;
+      font-size: 14px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95);
+      pointer-events: none;
+      letter-spacing: 0.03em;
+    }
+
+    /* CENTER SOULS VICTORY / DEATH BANNER */
+    .souls-banner {
+      position: absolute;
+      top: 42%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, transparent 0%, rgba(5, 6, 8, 0.92) 20%, rgba(5, 6, 8, 0.92) 80%, transparent 100%);
+      border-top: 1px solid rgba(194, 157, 92, 0.35);
+      border-bottom: 1px solid rgba(194, 157, 92, 0.35);
+      padding: 22px 0;
+      text-align: center;
+      z-index: 40;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+    .souls-banner.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .souls-banner-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(28px, 4.5vw, 48px);
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-shadow: 0 0 24px rgba(0, 0, 0, 0.95);
+    }
+    .souls-banner-sub {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-parchment);
+      letter-spacing: 0.08em;
+    }
+    .souls-banner-btn {
+      margin-top: 14px;
+      padding: 8px 20px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      background: rgba(194, 157, 92, 0.22);
+      color: var(--brass-bright);
+      border: 1px solid var(--brass-bright);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .souls-banner-btn:hover {
+      background: rgba(194, 157, 92, 0.38);
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="souls-root">
+    <h1 class="sr-only">Ashen Pit — Third-Person Browser Soulslike Boss Duel</h1>
+
+    <div id="three-container"></div>
+    <div id="screen-fx"></div>
+
+    <div id="world-ui-layer">
+      <div class="lock-reticle" id="lock-reticle"></div>
+      <div class="riposte-prompt" id="riposte-prompt">⚡ STANCE BROKEN — LMB CRITICAL RIPOSTE!</div>
+      <div class="riposte-prompt" id="foggate-prompt" style="border-color:#fde047;color:#fef08a;">✨ PRESS F (OR WALK THROUGH) — TRAVERSE THE MIST</div>
+    </div>
+
+    <!-- TOP BAR: Mixamo Frame Telemetry + Sandbox Controls -->
+    <header class="souls-topbar">
+      <div class="topbar-left">
+        <span class="brand-crest">⚔️ ASHEN PIT (SOULSLIKE)</span>
+        <div class="frame-telemetry" title="Live Normalized Mixamo Clip Frame State">
+          <span style="color:var(--text-muted);font-weight:600;">State:</span>
+          <span class="state-badge" id="telemetry-state">IDLE</span>
+          <div class="frame-bar-wrap">
+            <div class="frame-bar-fill" id="telemetry-bar"></div>
+          </div>
+          <span id="telemetry-frame-txt" style="font-variant-numeric:tabular-nums;color:var(--brass-bright);min-width:42px;">u=0.00</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <button type="button" class="sb-btn" id="btn-warp-boss" title="Teleport directly inside Boss Arena or back to Outer Castle Gate">⚔️ Warp to Boss</button>
+        <button type="button" class="sb-btn" id="btn-lock-toggle" title="Toggle Hard Z-Target Lock-On (Tab / Middle Mouse)">🎯 Lock-On (Tab)</button>
+        <button type="button" class="sb-btn" id="btn-boss-ai" title="Pause or Resume Boss Attacks for Practice">🤖 Boss AI: Active</button>
+        <button type="button" class="sb-btn" id="btn-inf-stam" title="Toggle Infinite Stamina & Focus">⚡ Inf Stamina</button>
+        <button type="button" class="sb-btn" id="btn-reset-duel" title="Rest at Outer Cliffside Grace (Reset World)">🔥 Rest at Grace</button>
+        <label class="sb-btn" for="file-souls-picker" style="cursor:pointer;color:var(--brass-bright);">Load Mixamo .FBX/.GLB</label>
+        <input type="file" id="file-souls-picker" accept=".fbx,.glb,.gltf" multiple style="display:none;" />
+        <a class="sb-btn" href="../../moba/arena3d.html" style="text-decoration:none;">3D MOBA</a>
+        <a class="sb-btn" href="../../moba/index.html" style="text-decoration:none;">2D Sandbox</a>
+      </div>
+    </header>
+
+    <div class="controls-ribbon">
+      <b>WASD</b> Move (<b>Shift</b> Sprint) &bull; <b>Mouse / Arrows</b> Look &bull; <b>Space</b> Somersault Roll &bull; <b>C</b> Low Slide &bull; <b>LMB</b> 3-Hit Combo &bull; <b>RMB</b> Parry/Block &bull; <b>Q</b> Lion's Claw &bull; <b>R</b> Flask &bull; <b>F</b> Fog Gate
+    </div>
+
+    <!-- TOP-LEFT PLAYER VIGOR / FOCUS / ENDURANCE -->
+    <section class="player-vitals" aria-label="Player Vitals">
+      <div class="vitals-row">
+        <div class="covenant-crest" id="crest-indicator" title="Ember Restored">🔥</div>
+        <div class="bars-stack">
+          <div class="souls-bar-track hp">
+            <div class="souls-bar-trail" id="player-hp-trail" style="width:100%;"></div>
+            <div class="souls-bar-fill hp" id="player-hp-fill" style="width:100%;"></div>
+          </div>
+          <div class="souls-bar-track fp">
+            <div class="souls-bar-fill fp" id="player-fp-fill" style="width:100%;"></div>
+          </div>
+          <div class="souls-bar-track stam">
+            <div class="souls-bar-fill stam" id="player-stam-fill" style="width:100%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="vitals-numbers" id="player-vitals-txt">
+        HP 1200 / 1200 &nbsp;&bull;&nbsp; FP 120 / 120 &nbsp;&bull;&nbsp; STAM 140 / 140
+      </div>
+    </section>
+
+    <!-- BOTTOM-LEFT D-PAD EQUIPMENT CRUCIBLE -->
+    <section class="equip-crucible" aria-label="Equipment Loadout">
+      <div class="equip-slot top" id="slot-art">
+        <span class="equip-key">Q</span>
+        <div class="equip-title">Lion's Claw</div>
+        <div class="equip-sub">20 FP • Leap Slam</div>
+      </div>
+      <div class="equip-slot left" id="slot-shield">
+        <span class="equip-key">RMB</span>
+        <div class="equip-title">Iron Buckler</div>
+        <div class="equip-sub">Tap: Parry / Hold</div>
+      </div>
+      <div class="equip-slot center" id="slot-flask">
+        <span class="equip-key">R</span>
+        <div class="equip-title">Crimson Flask</div>
+        <div class="equip-sub">+650 Vigor</div>
+        <span class="flask-count" id="flask-charges-txt">x4</span>
+      </div>
+      <div class="equip-slot right" id="slot-sword">
+        <span class="equip-key">LMB</span>
+        <div class="equip-title">Claymore +10</div>
+        <div class="equip-sub" id="combo-step-txt">3-Hit / Riposte</div>
+      </div>
+    </section>
+
+    <!-- BOTTOM-CENTER BOSS HEALTH & POISE BAR -->
+    <section class="boss-hud" id="boss-hud-panel" aria-label="Boss Vitals" style="display:none;">
+      <div class="boss-header">
+        <span class="boss-name" id="boss-name-lbl">Vordt of the Ashen Pit, Coliseum Warden</span>
+        <span class="boss-phase-tag" id="boss-action-lbl">Stalking</span>
+      </div>
+      <div class="boss-hp-track">
+        <div class="boss-hp-trail" id="boss-hp-trail" style="width:100%;"></div>
+        <div class="boss-hp-fill" id="boss-hp-fill" style="width:100%;"></div>
+      </div>
+      <div class="boss-poise-row">
+        <span class="poise-lbl">Stance / Poise</span>
+        <div class="boss-poise-track">
+          <div class="boss-poise-fill" id="boss-poise-fill" style="width:0%;"></div>
+        </div>
+        <span id="boss-hp-txt" style="font-size:10.5px;font-weight:700;color:var(--text-muted);min-width:92px;text-align:right;">4200 / 4200</span>
+      </div>
+    </section>
+
+    <!-- CENTER VICTORY / DEATH OVERLAY BANNER -->
+    <section class="souls-banner" id="souls-banner">
+      <div class="souls-banner-title" id="banner-title">ASHEN FOE FELLED</div>
+      <div class="souls-banner-sub" id="banner-sub">Ember Restored &bull; +48,000 Runes Acquired</div>
+      <button type="button" class="souls-banner-btn" id="btn-banner-reset">Rise Again at Site of Grace</button>
+    </section>
+  </main>
+
+  <!-- Reuse the existing Mixamo FBX bundles & WebAudio synthesizer -->
+  <script src="../../moba/assets/brawler/brawler_mixamo_bundle.js"></script>
+  <script src="../../moba/assets/coyote/coyote_mixamo_bundle.js"></script>
+  <script src="../../moba/js/audio.js"></script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+    import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+
+    const SFX = window.MOBA ? window.MOBA.Audio : { play() {}, unlock() {} };
+
+    const container = document.getElementById('three-container');
+    const worldUiLayer = document.getElementById('world-ui-layer');
+    const lockReticleEl = document.getElementById('lock-reticle');
+    const ripostePromptEl = document.getElementById('riposte-prompt');
+    const fogGatePromptEl = document.getElementById('foggate-prompt');
+    const bossHudPanelEl = document.getElementById('boss-hud-panel');
+    const screenFxEl = document.getElementById('screen-fx');
+
+    // =========================================================
+    // 1. RENDERER, SCENE, GOTHIC CATHEDRAL LIGHTING & WORLD
+    // =========================================================
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.14;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x090c12);
+    scene.fog = new THREE.FogExp2(0x090c12, 0.0135);
+
+    // Over-the-shoulder Third-Person Perspective Camera (FOV 52 for dramatic scale!)
+    const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.25, 190);
+
+    // Cold Moonlight Hemisphere + Dynamic Shadow-Following Directional Light + Warm Bonfire Rim
+    const hemiLight = new THREE.HemisphereLight(0x93c5fd, 0x1f1916, 0.90);
+    scene.add(hemiLight);
+
+    const moonLight = new THREE.DirectionalLight(0xdbeafe, 1.9);
+    moonLight.position.set(16, 28, 14);
+    moonLight.castShadow = true;
+    moonLight.shadow.mapSize.set(2048, 2048);
+    moonLight.shadow.camera.near = 2;
+    moonLight.shadow.camera.far = 85;
+    const sc = 26;
+    moonLight.shadow.camera.left = -sc;
+    moonLight.shadow.camera.right = sc;
+    moonLight.shadow.camera.top = sc;
+    moonLight.shadow.camera.bottom = -sc;
+    moonLight.shadow.bias = -0.0005;
+    scene.add(moonLight);
+    scene.add(moonLight.target);
+
+    const emberRimLight = new THREE.DirectionalLight(0xf97316, 0.95);
+    emberRimLight.position.set(-18, 10, -16);
+    scene.add(emberRimLight);
+
+    // Procedural Engraved Dark Souls Stone Evergaol Floor Texture
+    function createEvergaolFloorTexture() {
+      const c = document.createElement('canvas');
+      c.width = 1024;
+      c.height = 1024;
+      const g = c.getContext('2d');
+
+      const grad = g.createRadialGradient(512, 512, 40, 512, 512, 512);
+      grad.addColorStop(0, '#2a2d35');
+      grad.addColorStop(0.55, '#1d2028');
+      grad.addColorStop(1, '#111318');
+      g.fillStyle = grad;
+      g.fillRect(0, 0, 1024, 1024);
+
+      for (let i = 0; i < 700; i++) {
+        const x = (i * 197) % 1024;
+        const y = (i * 353) % 1024;
+        const r = 6 + (i % 8) * 5;
+        g.fillStyle = i % 2 === 0 ? 'rgba(48, 53, 64, 0.25)' : 'rgba(10, 12, 16, 0.30)';
+        g.beginPath();
+        g.ellipse(x, y, r * 1.5, r * 0.9, (i % 7) * 0.5, 0, Math.PI * 2);
+        g.fill();
+      }
+
+      const rings = [110, 225, 360, 470];
+      rings.forEach((rad, idx) => {
+        g.strokeStyle = idx % 2 === 0 ? 'rgba(214, 175, 102, 0.32)' : 'rgba(148, 163, 184, 0.18)';
+        g.lineWidth = idx === 2 ? 5 : 3;
+        g.beginPath();
+        g.arc(512, 512, rad, 0, Math.PI * 2);
+        g.stroke();
+      });
+
+      g.strokeStyle = 'rgba(214, 175, 102, 0.16)';
+      g.lineWidth = 2;
+      for (let i = 0; i < 8; i++) {
+        const a = (i / 8) * Math.PI * 2;
+        g.beginPath();
+        g.moveTo(512 + Math.cos(a) * 110, 512 + Math.sin(a) * 110);
+        g.lineTo(512 + Math.cos(a) * 470, 512 + Math.sin(a) * 470);
+        g.stroke();
+      }
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 4;
+      return tex;
+    }
+
+    // Tiled Weathered Stone Flagstone Texture for Castle Approach, Bridge & Ramparts
+    function createCastleStoneTexture() {
+      const c = document.createElement('canvas');
+      c.width = 512;
+      c.height = 512;
+      const g = c.getContext('2d');
+      g.fillStyle = '#232730';
+      g.fillRect(0, 0, 512, 512);
+
+      // Ashlar stone blocks
+      const rows = 8;
+      const cols = 4;
+      const rh = 512 / rows;
+      const cw = 512 / cols;
+      for (let r = 0; r < rows; r++) {
+        const xOff = (r % 2) * (cw * 0.5);
+        for (let col = -1; col <= cols; col++) {
+          const bx = col * cw + xOff;
+          const by = r * rh;
+          const shade = 30 + ((r * 7 + col * 13) % 14);
+          g.fillStyle = `rgb(${shade}, ${shade + 4}, ${shade + 11})`;
+          g.fillRect(bx + 2, by + 2, cw - 4, rh - 4);
+        }
+      }
+      // Subtle brass center runner trim
+      g.strokeStyle = 'rgba(194, 157, 92, 0.22)';
+      g.lineWidth = 4;
+      g.strokeRect(6, 6, 500, 500);
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(4, 4);
+      tex.anisotropy = 4;
+      return tex;
+    }
+
+    const ARENA_RADIUS = 19.5;
+    const floorTex = createEvergaolFloorTexture();
+    const castleTex = createCastleStoneTexture();
+
+    const ground = new THREE.Mesh(
+      new THREE.CircleGeometry(ARENA_RADIUS + 0.6, 64),
+      new THREE.MeshStandardMaterial({ map: floorTex, roughness: 0.88, metalness: 0.08 })
+    );
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0x272a33, roughness: 0.82, metalness: 0.18 });
+    const stoneFloorMat = new THREE.MeshStandardMaterial({ map: castleTex, roughness: 0.86, metalness: 0.10 });
+    const darkStoneMat = new THREE.MeshStandardMaterial({ color: 0x1b1e26, roughness: 0.90, metalness: 0.12 });
+    const brassTrimMat = new THREE.MeshStandardMaterial({ color: 0xb48a4e, roughness: 0.4, metalness: 0.65 });
+
+    const rimRing = new THREE.Mesh(
+      new THREE.RingGeometry(ARENA_RADIUS - 0.18, ARENA_RADIUS + 0.25, 64),
+      new THREE.MeshBasicMaterial({ color: 0xd97706, side: THREE.DoubleSide, transparent: true, opacity: 0.42 })
+    );
+    rimRing.rotation.x = -Math.PI / 2;
+    rimRing.position.y = 0.03;
+    scene.add(rimRing);
+
+    // Helper: Build a flickering Brazier Column anywhere in the world
+    function addBrazierColumn(x, y, z, height = 2.6, withPointLight = false) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.40, 0.52, height, 7), wallMat);
+      col.position.set(x, y + height * 0.5, z);
+      col.castShadow = true;
+      col.receiveShadow = true;
+      scene.add(col);
+
+      const bowl = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.28, 0.26, 8), brassTrimMat);
+      bowl.position.set(x, y + height + 0.1, z);
+      scene.add(bowl);
+
+      const flame = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.28, 0),
+        new THREE.MeshBasicMaterial({ color: 0xf59e0b })
+      );
+      flame.position.set(x, y + height + 0.35, z);
+      scene.add(flame);
+
+      if (withPointLight) {
+        const pl = new THREE.PointLight(0xf59e0b, 2.4, 15);
+        pl.position.set(x, y + height + 0.6, z);
+        scene.add(pl);
+      }
+    }
+
+    // Helper: Build a Site of Grace (Coiled Sword Bonfire)
+    function addSiteOfGrace(x, y, z) {
+      const grp = new THREE.Group();
+      grp.position.set(x, y, z);
+      const mound = new THREE.Mesh(
+        new THREE.ConeGeometry(0.85, 0.38, 12),
+        new THREE.MeshStandardMaterial({ color: 0x3f2e26, roughness: 0.95 })
+      );
+      mound.position.y = 0.19;
+      grp.add(mound);
+
+      const sword = new THREE.Mesh(
+        new THREE.BoxGeometry(0.08, 1.25, 0.16),
+        new THREE.MeshStandardMaterial({ color: 0xd97706, emissive: 0xb45309, emissiveIntensity: 0.85 })
+      );
+      sword.position.y = 0.72;
+      sword.rotation.z = 0.18;
+      grp.add(sword);
+
+      const halo = new THREE.Mesh(
+        new THREE.RingGeometry(0.95, 1.15, 32),
+        new THREE.MeshBasicMaterial({ color: 0xfbbf24, side: THREE.DoubleSide, transparent: true, opacity: 0.55 })
+      );
+      halo.rotation.x = -Math.PI / 2;
+      halo.position.y = 0.04;
+      grp.add(halo);
+
+      const light = new THREE.PointLight(0xf59e0b, 3.6, 12);
+      light.position.set(0, 1.4, 0);
+      grp.add(light);
+      scene.add(grp);
+      return grp;
+    }
+
+    // =========================================================
+    // 1B. BUILD THE MODULAR RUINED CASTLE RUN-UP WORLD (z = 19.5 .. 96)
+    // =========================================================
+    const worldObstacles = []; // Static cylinders in the outer approach (pillars, statues, trees)
+
+    function buildCastleApproachWorld() {
+      const addBox = (w, h, d, x, y, z, mat = wallMat) => {
+        const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+        m.position.set(x, y, z);
+        m.castShadow = true;
+        m.receiveShadow = true;
+        scene.add(m);
+        return m;
+      };
+
+      const addColonnadePillar = (x, y, z, r = 0.75, h = 4.2) => {
+        const grp = new THREE.Group();
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.88, r, h, 8), wallMat);
+        shaft.position.y = h * 0.5;
+        shaft.castShadow = true;
+        shaft.receiveShadow = true;
+        grp.add(shaft);
+        const cap = new THREE.Mesh(new THREE.CylinderGeometry(r * 1.08, r * 0.9, 0.38, 8), brassTrimMat);
+        cap.position.y = h + 0.15;
+        cap.castShadow = true;
+        grp.add(cap);
+        grp.position.set(x, y, z);
+        scene.add(grp);
+        worldObstacles.push({ x, z, r: r * 0.95, yMin: y - 0.5, yMax: y + h });
+      };
+
+      // 1. CATHEDRAL ARCHWAY & GATEHOUSE TOWERS (z = 19.5, x = +-4.6)
+      addBox(3.4, 9.5, 3.4, -4.5, 4.75, 19.5, wallMat);
+      addBox(3.4, 9.5, 3.4,  4.5, 4.75, 19.5, wallMat);
+      // Overhead Lintel Arch connecting the twin Gatehouse Towers above the Fog Gate
+      addBox(12.4, 2.6, 2.8, 0, 8.2, 19.5, wallMat);
+      addBox(12.8, 0.45, 3.1, 0, 9.65, 19.5, brassTrimMat);
+      addBrazierColumn(-4.5, 9.5, 19.5, 1.2, false);
+      addBrazierColumn( 4.5, 9.5, 19.5, 1.2, false);
+
+      // 2. FORECOURT PLAZA (x: -16..16, z: 19.5..36, y = 0.0m)
+      addBox(32.4, 1.2, 17.0, 0, -0.6, 27.8, stoneFloorMat);
+      // Deep foundation piers under Forecourt
+      addBox(31.0, 14.0, 16.0, 0, -8.2, 27.8, darkStoneMat);
+      // Forecourt Parapet Walls (East, North-East, North-West, South-East, South-West)
+      addBox(0.8, 1.1, 17.0, 16.0, 0.55, 27.8, wallMat); // East wall
+      addBox(10.0, 1.6, 0.9, 11.2, 0.8, 19.5, wallMat);  // NE wall beside gatehouse
+      addBox(11.2, 1.1, 0.8, 10.6, 0.55, 36.1, wallMat); // SE wall narrowing to Bridge
+      addBox(11.2, 1.1, 0.8, -10.6, 0.55, 36.1, wallMat);// SW wall narrowing to Bridge
+
+      // Central Ruined Knight Monument / Plinth in Forecourt (0, 0, 28.0)
+      const monumentBase = new THREE.Mesh(new THREE.CylinderGeometry(1.45, 1.75, 1.2, 8), wallMat);
+      monumentBase.position.set(0, 0.6, 28.0);
+      monumentBase.castShadow = true;
+      monumentBase.receiveShadow = true;
+      scene.add(monumentBase);
+      const obelisk = new THREE.Mesh(new THREE.ConeGeometry(0.75, 3.8, 4), brassTrimMat);
+      obelisk.position.set(0, 3.1, 28.0);
+      obelisk.rotation.y = Math.PI / 4;
+      obelisk.castShadow = true;
+      scene.add(obelisk);
+      worldObstacles.push({ x: 0, z: 28.0, r: 1.65, yMin: -0.5, yMax: 4.5 });
+
+      // Forecourt Colonnade Pillars (East side)
+      addColonnadePillar(9.5, 0, 24.0, 0.72, 4.4);
+      addColonnadePillar(9.5, 0, 31.5, 0.72, 4.4);
+      addBrazierColumn(-3.6, 0, 21.8, 2.2, true);
+      addBrazierColumn( 3.6, 0, 21.8, 2.2, true);
+
+      // 3. WEST RAMPART STAIRCASE (x: -15.8..-11.2, z: 24.6..33.5, y: 0.0 -> +3.2m)
+      const rampSteps = 14;
+      for (let i = 0; i < rampSteps; i++) {
+        const u0 = i / rampSteps;
+        const u1 = (i + 1) / rampSteps;
+        const sz = 33.5 - (u0 + u1) * 0.5 * (33.5 - 24.6);
+        const sy = u1 * 3.2;
+        addBox(4.4, sy + 0.4, (33.5 - 24.6) / rampSteps + 0.08, -13.5, (sy - 0.4) * 0.5, sz, stoneFloorMat);
+      }
+      // Inner stairwell retaining wall separating West Stairs from Plaza
+      addBox(0.65, 3.6, 9.2, -11.1, 1.8, 29.0, wallMat);
+      // Outer West wall along Stairwell & Upper Rampart
+      addBox(0.8, 4.6, 17.0, -16.0, 2.3, 27.8, wallMat);
+
+      // 4. UPPER BATTLEMENT OVERLOOK BALCONY (x: -15.8..-4.5, z: 19.6..24.6, y = +3.2m)
+      addBox(11.4, 3.2, 5.0, -10.1, 1.6, 22.1, stoneFloorMat);
+      // North Battlement Crenellations on Upper Overlook
+      addBox(11.4, 1.15, 0.75, -10.1, 3.2 + 0.57, 19.6, wallMat);
+      // South Rail on Upper Overlook (from x = -11.1 to -4.5, leaving West Stair top open!)
+      addBox(6.6, 1.05, 0.65, -7.8, 3.2 + 0.52, 24.5, wallMat);
+      // Glowing Gold Beacon at the East Plunge Ledge (x = -4.5, z = 22.1, y = 3.2m) so player sees the drop-off!
+      addBrazierColumn(-4.8, 3.2, 20.4, 1.6, true);
+      addBrazierColumn(-14.8, 3.2, 20.4, 1.6, false);
+
+      // 5. ABYSSAL VIADUCT BRIDGE (x: -4.8..4.8, z: 36.0..60.0, y = 0.0m)
+      addBox(9.6, 1.4, 24.2, 0, -0.7, 48.0, stoneFloorMat);
+      // Massive Viaduct Stone Piers descending into the chasm
+      [40.0, 48.0, 56.0].forEach((bz, idx) => {
+        addBox(9.2, 18.0, 2.6, 0, -9.7, bz, darkStoneMat);
+        // Overhead Gothic Bridge Archway Rib
+        addBox(0.85, 5.2, 0.85, -4.55, 2.6, bz, wallMat);
+        addBox(0.85, 5.2, 0.85,  4.55, 2.6, bz, wallMat);
+        addBox(10.2, 1.1, 0.95, 0, 5.4, bz, wallMat);
+        addBox(10.5, 0.28, 1.1, 0, 6.05, bz, brassTrimMat);
+        if (idx === 1) {
+          addBrazierColumn(-4.55, 0, bz - 3.8, 2.1, true);
+          addBrazierColumn( 4.55, 0, bz - 3.8, 2.1, true);
+        }
+      });
+      // Bridge Low Parapet Curbs
+      addBox(0.65, 0.95, 24.0, -4.65, 0.47, 48.0, wallMat);
+      addBox(0.65, 0.95, 24.0,  4.65, 0.47, 48.0, wallMat);
+
+      // 6. GRAND 16-STEP STONE STAIRWAY (x: -5.2..5.2, z: 60.0..74.0, y: 0.0m down to -2.4m)
+      const grandSteps = 16;
+      for (let i = 0; i < grandSteps; i++) {
+        const u0 = i / grandSteps;
+        const u1 = (i + 1) / grandSteps;
+        const sz = 60.0 + (u0 + u1) * 0.5 * 14.0;
+        const sy = -u0 * 2.4;
+        addBox(9.8, 2.2, (14.0 / grandSteps) + 0.08, 0, sy - 1.1, sz, stoneFloorMat);
+        // Stepped side balustrades
+        addBox(0.75, 1.05, (14.0 / grandSteps) + 0.1, -4.95, sy + 0.52, sz, wallMat);
+        addBox(0.75, 1.05, (14.0 / grandSteps) + 0.1,  4.95, sy + 0.52, sz, wallMat);
+      }
+      addBrazierColumn(-5.0, 0.0, 60.2, 2.3, false);
+      addBrazierColumn( 5.0, 0.0, 60.2, 2.3, false);
+      addBrazierColumn(-5.0, -2.4, 74.2, 2.3, true);
+      addBrazierColumn( 5.0, -2.4, 74.2, 2.3, true);
+
+      // 7. OUTER CLIFFSIDE SANCTUARY & SPAWN GRACE (x: -13..13, z: 74.0..96.0, y = -2.4m)
+      addBox(26.4, 1.6, 22.4, 0, -2.4 - 0.8, 85.0, stoneFloorMat);
+      addBox(25.0, 14.0, 21.0, 0, -2.4 - 8.5, 85.0, darkStoneMat);
+      // Sanctuary Perimeter Parapet Walls
+      addBox(26.4, 1.2, 0.85, 0, -2.4 + 0.6, 95.8, wallMat);  // South cliff wall
+      addBox(0.85, 1.2, 22.4, -13.0, -2.4 + 0.6, 85.0, wallMat); // West wall
+      addBox(0.85, 1.2, 22.4,  13.0, -2.4 + 0.6, 85.0, wallMat); // East wall
+      addBox(8.2, 1.2, 0.85, -9.1, -2.4 + 0.6, 74.0, wallMat); // NW wall flanking stairs
+      addBox(8.2, 1.2, 0.85,  9.1, -2.4 + 0.6, 74.0, wallMat); // NE wall flanking stairs
+
+      // Sanctuary Colonnade Pillars & Outer Site of Grace at (0, -2.4, 83.5)
+      addColonnadePillar(-8.2, -2.4, 80.0, 0.72, 4.0);
+      addColonnadePillar( 8.2, -2.4, 80.0, 0.72, 4.0);
+      addColonnadePillar(-8.2, -2.4, 89.5, 0.72, 4.0);
+      addColonnadePillar( 8.2, -2.4, 89.5, 0.72, 4.0);
+      addSiteOfGrace(0, -2.4, 83.5);
+    }
+    buildCastleApproachWorld();
+
+    // Shimmering Golden Fog Gate at the Boss Cathedral Archway (z = 19.45)
+    const fogGateMat = new THREE.MeshBasicMaterial({
+      color: 0xfde047,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.46,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const fogGateMesh = new THREE.Mesh(new THREE.PlaneGeometry(5.6, 6.8), fogGateMat);
+    fogGateMesh.position.set(0, 3.4, 19.45);
+    scene.add(fogGateMesh);
+
+    // Destructible Cathedral Pillars inside Arena (Block movement & Boss attacks can shatter them!)
+    const pillars = [];
+    function spawnArenaPillars() {
+      pillars.forEach((p) => scene.remove(p.group));
+      pillars.length = 0;
+      const pillarCoords = [
+        [-7.5, -6.5], [7.5, -6.5],
+        [-7.5, 6.5],  [7.5, 6.5]
+      ];
+      pillarCoords.forEach(([x, z]) => {
+        const grp = new THREE.Group();
+        const base = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.12, 0.7, 8), wallMat);
+        base.position.y = 0.35;
+        base.castShadow = true;
+        base.receiveShadow = true;
+        grp.add(base);
+
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.76, 0.84, 3.8, 8), wallMat);
+        shaft.position.y = 2.6;
+        shaft.castShadow = true;
+        shaft.receiveShadow = true;
+        grp.add(shaft);
+
+        const cap = new THREE.Mesh(new THREE.CylinderGeometry(1.02, 0.82, 0.45, 8), brassTrimMat);
+        cap.position.y = 4.65;
+        cap.castShadow = true;
+        grp.add(cap);
+
+        grp.position.set(x, 0, z);
+        scene.add(grp);
+        pillars.push({ x, z, r: 0.96, intact: true, shaft, cap, group: grp });
+      });
+    }
+    spawnArenaPillars();
+
+    // Perimeter Torch Braziers around Boss Arena (skipping i=3 at South Archway so entrance is clear!)
+    for (let i = 0; i < 12; i++) {
+      if (i === 3) continue; // South entrance archway is at angle PI/2 (x=0, z=+19.9)
+      const a = (i / 12) * Math.PI * 2;
+      const bx = Math.cos(a) * (ARENA_RADIUS + 0.4);
+      const bz = Math.sin(a) * (ARENA_RADIUS + 0.4);
+      addBrazierColumn(bx, 0, bz, 2.6, false);
+    }
+
+    // =========================================================
+    // 2. PROCEDURAL 3D WEAPON & SHIELD MODELS + BLADE RIBBON TRAIL
+    // =========================================================
+    function buildKnightClaymoreMesh(isBossWeapon = false) {
+      const grp = new THREE.Group();
+      const scale = isBossWeapon ? 1.48 : 1.0;
+
+      const steelMat = new THREE.MeshStandardMaterial({
+        color: isBossWeapon ? 0x3f3f46 : 0xe2e8f0,
+        roughness: 0.25,
+        metalness: 0.85,
+        emissive: isBossWeapon ? 0x9a3412 : 0x0f172a,
+        emissiveIntensity: isBossWeapon ? 0.55 : 0.1
+      });
+      const hiltMat = new THREE.MeshStandardMaterial({
+        color: isBossWeapon ? 0xf59e0b : 0xd97706,
+        roughness: 0.35,
+        metalness: 0.75
+      });
+
+      // Grip along +Z axis so when parented or oriented from hand it points forward
+      const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.036, 0.34, 8), hiltMat);
+      grip.rotation.x = Math.PI / 2;
+      grip.position.z = -0.10;
+      grp.add(grip);
+
+      // Pommel
+      const pommel = new THREE.Mesh(new THREE.OctahedronGeometry(0.065, 0), hiltMat);
+      pommel.position.z = -0.29;
+      grp.add(pommel);
+
+      // Crossguard
+      const guard = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.06, 0.08), hiltMat);
+      guard.position.z = 0.08;
+      grp.add(guard);
+
+      // Long Double-Edged Claymore Blade (or Colossal Greathammer/Blade for Boss)
+      const bladeLen = isBossWeapon ? 1.75 : 1.38;
+      const bladeWidth = isBossWeapon ? 0.22 : 0.11;
+      const blade = new THREE.Mesh(new THREE.BoxGeometry(bladeWidth, 0.032, bladeLen), steelMat);
+      blade.position.z = 0.08 + bladeLen * 0.5;
+      blade.castShadow = true;
+      grp.add(blade);
+
+      // Blade Base & Tip Markers for physical sweep hitboxes & 3D ribbon trail!
+      const baseNode = new THREE.Object3D();
+      baseNode.position.set(0, 0, 0.16);
+      grp.add(baseNode);
+
+      const tipNode = new THREE.Object3D();
+      tipNode.position.set(0, 0, 0.12 + bladeLen);
+      grp.add(tipNode);
+
+      grp.scale.setScalar(scale);
+      return { group: grp, bladeMesh: blade, steelMat, baseNode, tipNode };
+    }
+
+    function buildBucklerShieldMesh() {
+      const grp = new THREE.Group();
+      const rimMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.38, metalness: 0.75 });
+      const faceMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.5, metalness: 0.65 });
+
+      const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.34, 0.06, 18), faceMat);
+      disc.rotation.x = Math.PI / 2;
+      disc.castShadow = true;
+      grp.add(disc);
+
+      const boss = new THREE.Mesh(new THREE.SphereGeometry(0.12, 12, 10), rimMat);
+      boss.position.z = 0.04;
+      grp.add(boss);
+
+      return grp;
+    }
+
+    // Dynamic 3D Sword Swing Ribbon Trail (Samples bladeBase & bladeTip each frame!)
+    function createSwingRibbon(colorHex, maxSegments = 18) {
+      const vertCount = (maxSegments + 1) * 2;
+      const positions = new Float32Array(vertCount * 3);
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const indices = [];
+      for (let i = 0; i < maxSegments; i++) {
+        const a = i * 2;
+        const b = a + 1;
+        const c = a + 2;
+        const d = a + 3;
+        indices.push(a, b, c, b, d, c);
+      }
+      geo.setIndex(indices);
+
+      const mat = new THREE.MeshBasicMaterial({
+        color: colorHex,
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.68,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.frustumCulled = false;
+      mesh.visible = false;
+      scene.add(mesh);
+
+      const history = [];
+      return {
+        mesh,
+        mat,
+        clear() {
+          history.length = 0;
+          mesh.visible = false;
+        },
+        pushSample(baseVec, tipVec) {
+          history.unshift({ base: baseVec.clone(), tip: tipVec.clone() });
+          if (history.length > maxSegments + 1) history.pop();
+          if (history.length < 2) {
+            mesh.visible = false;
+            return;
+          }
+          mesh.visible = true;
+          const posAttr = geo.getAttribute('position');
+          for (let i = 0; i <= maxSegments; i++) {
+            const sample = history[Math.min(i, history.length - 1)];
+            posAttr.setXYZ(i * 2, sample.base.x, sample.base.y, sample.base.z);
+            posAttr.setXYZ(i * 2 + 1, sample.tip.x, sample.tip.y, sample.tip.z);
+          }
+          posAttr.needsUpdate = true;
+        }
+      };
+    }
+
+    const playerRibbon = createSwingRibbon(0xfef08a, 16);
+    const bossRibbon = createSwingRibbon(0xf97316, 18);
+
+    // =========================================================
+    // 3. MIXAMO FBX BUNDLE PARSING & SKELETAL RETARGETING
+    // =========================================================
+    const EMPTY_PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO7Z0ioAAAAASUVORK5CYII=';
+    const fbxManager = new THREE.LoadingManager();
+    fbxManager.setURLModifier((url) => (url.startsWith('blob:') || url.startsWith('data:')) ? url : EMPTY_PNG);
+    const fbxLoader = new FBXLoader(fbxManager);
+    const gltfLoader = new GLTFLoader();
+
+    function b64ToBuffer(b64) {
+      const bin = atob(b64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return bytes.buffer;
+    }
+
+    function canonicalMixamoBone(rawName) {
+      return rawName.replace(/^.*?(mixamorig\d*:?|:)/i, '');
+    }
+
+    function prepareClipForModel(sourceClip, model, slot, idPrefix) {
+      const nodeByCanon = {};
+      let hipsBone = null;
+      model.traverse((obj) => {
+        if (!obj.name) return;
+        const c = canonicalMixamoBone(obj.name);
+        if (c && (obj.isBone || !nodeByCanon[c])) nodeByCanon[c] = obj;
+        if (c === 'Hips' && (obj.isBone || !hipsBone)) hipsBone = obj;
+      });
+
+      const keptTracks = [];
+      sourceClip.tracks.forEach((origTrack) => {
+        const dot = origTrack.name.lastIndexOf('.');
+        if (dot < 0) return;
+        const rawNode = origTrack.name.slice(0, dot);
+        const prop = origTrack.name.slice(dot + 1);
+        const canon = canonicalMixamoBone(rawNode);
+        const targetObj = nodeByCanon[canon];
+        if (!targetObj) return;
+        if (/Thumb|Index|Middle|Ring|Pinky/i.test(canon)) return;
+
+        if (prop === 'quaternion') {
+          const tr = origTrack.clone();
+          tr.name = targetObj.name + '.quaternion';
+          keptTracks.push(tr);
+        } else if (prop === 'position' && canon === 'Hips') {
+          const tr = origTrack.clone();
+          tr.name = targetObj.name + '.position';
+          const vals = tr.values;
+          const hx = hipsBone ? hipsBone.position.x : vals[0];
+          const hy = hipsBone ? hipsBone.position.y : vals[1];
+          const hz = hipsBone ? hipsBone.position.z : vals[2];
+          const x0 = vals[0] || 0;
+          const y0 = vals[1] || 1;
+          const z0 = vals[2] || 0;
+          const yScale = (hy > 0.01 && hy < 5 && Math.abs(y0) > 10) ? (hy / y0) : 1;
+          const inPlace = (slot === 'run' || slot === 'slide' || slot === 'jump');
+          const maxSway = inPlace ? 0.0 : (slot === 'idle' ? 0.05 : 0.09);
+          for (let k = 0; k < vals.length; k += 3) {
+            const dx = THREE.MathUtils.clamp((vals[k] - x0) * yScale, -maxSway, maxSway);
+            const dz = THREE.MathUtils.clamp((vals[k + 2] - z0) * yScale, -maxSway, maxSway);
+            vals[k] = hx + dx;
+            vals[k + 1] = yScale === 1 ? vals[k + 1] : vals[k + 1] * yScale;
+            vals[k + 2] = hz + dz;
+          }
+          keptTracks.push(tr);
+        }
+      });
+
+      return new THREE.AnimationClip(idPrefix + '_' + slot, sourceClip.duration, keptTracks);
+    }
+
+    // Parse shared Mixamo Brawler template + animations
+    const brawlerTemplate = { fbx: null, tex: null, clips: {} };
+    if (window.BRAWLER_MIXAMO) {
+      const tex = new THREE.TextureLoader().load(window.BRAWLER_MIXAMO.diffuseDataUrl);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      tex.anisotropy = 4;
+      brawlerTemplate.tex = tex;
+      const idleFbx = fbxLoader.parse(b64ToBuffer(window.BRAWLER_MIXAMO.idleFbxB64), '');
+      brawlerTemplate.fbx = idleFbx;
+      if (idleFbx.animations[0]) brawlerTemplate.clips.idle = idleFbx.animations[0];
+      const runFbx = fbxLoader.parse(b64ToBuffer(window.BRAWLER_MIXAMO.runFbxB64), '');
+      if (runFbx.animations[0]) brawlerTemplate.clips.run = runFbx.animations[0];
+      const punchFbx = fbxLoader.parse(b64ToBuffer(window.BRAWLER_MIXAMO.punchFbxB64), '');
+      if (punchFbx.animations[0]) brawlerTemplate.clips.punch = punchFbx.animations[0];
+      const kickFbx = fbxLoader.parse(b64ToBuffer(window.BRAWLER_MIXAMO.kickFbxB64), '');
+      if (kickFbx.animations[0]) brawlerTemplate.clips.kick = kickFbx.animations[0];
+      if (window.BRAWLER_MIXAMO.slideFbxB64) {
+        const slideFbx = fbxLoader.parse(b64ToBuffer(window.BRAWLER_MIXAMO.slideFbxB64), '');
+        if (slideFbx.animations[0]) brawlerTemplate.clips.slide = slideFbx.animations[0];
+      }
+      if (window.BRAWLER_MIXAMO.jumpFbxB64) {
+        const jumpFbx = fbxLoader.parse(b64ToBuffer(window.BRAWLER_MIXAMO.jumpFbxB64), '');
+        if (jumpFbx.animations[0]) brawlerTemplate.clips.jump = jumpFbx.animations[0];
+      }
+    }
+
+    function createRiggedActor(targetHeight, tintHex, emissiveHex, idPrefix) {
+      const pivot = new THREE.Group();
+      const tiltNode = new THREE.Group();
+      pivot.add(tiltNode);
+      scene.add(pivot);
+
+      const actor = {
+        idPrefix,
+        targetHeight,
+        pivot,
+        tiltNode,
+        model: null,
+        mixer: null,
+        actions: {},
+        activeAction: null,
+        rightHandBone: null,
+        leftHandBone: null,
+        meshes: [],
+        fadeTo(slot, fadeDur = 0.12, isOneShot = false, timeScale = 1.0, startAt = 0.0) {
+          const next = actor.actions[slot];
+          if (!next) return;
+          if (next === actor.activeAction && !isOneShot) {
+            next.setEffectiveTimeScale(timeScale);
+            return;
+          }
+          actor.activeAction = next;
+          Object.values(actor.actions).forEach((act) => {
+            if (act && act !== next && act.enabled) act.fadeOut(fadeDur);
+          });
+          next.enabled = true;
+          next.paused = false;
+          next.setEffectiveWeight(1);
+          next.setEffectiveTimeScale(timeScale);
+          if (isOneShot) {
+            next.reset();
+            next.time = startAt;
+            next.setLoop(THREE.LoopOnce, 1);
+            next.clampWhenFinished = true;
+            next.fadeIn(fadeDur).play();
+          } else {
+            next.setLoop(THREE.LoopRepeat, Infinity);
+            next.clampWhenFinished = false;
+            next.reset();
+            next.fadeIn(fadeDur).play();
+          }
+        },
+        installModel(sourceModel) {
+          if (actor.model) tiltNode.remove(actor.model);
+          actor.meshes = [];
+          actor.rightHandBone = null;
+          actor.leftHandBone = null;
+
+          sourceModel.updateMatrixWorld(true);
+          const box = new THREE.Box3().setFromObject(sourceModel);
+          const size = new THREE.Vector3();
+          box.getSize(size);
+          const scale = targetHeight / Math.max(0.01, size.y);
+          sourceModel.scale.multiplyScalar(scale);
+          sourceModel.updateMatrixWorld(true);
+
+          const box2 = new THREE.Box3().setFromObject(sourceModel);
+          const center = new THREE.Vector3();
+          box2.getCenter(center);
+          sourceModel.position.x -= center.x;
+          sourceModel.position.z -= center.z;
+          sourceModel.position.y -= box2.min.y;
+
+          sourceModel.traverse((child) => {
+            if (child.name) {
+              const c = canonicalMixamoBone(child.name);
+              if (c === 'RightHand' && (child.isBone || !actor.rightHandBone)) actor.rightHandBone = child;
+              if (c === 'LeftHand' && (child.isBone || !actor.leftHandBone)) actor.leftHandBone = child;
+            }
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+              child.frustumCulled = false;
+              const mat = new THREE.MeshStandardMaterial({
+                map: brawlerTemplate.tex,
+                color: tintHex,
+                roughness: 0.65,
+                metalness: 0.25,
+                emissive: emissiveHex,
+                emissiveIntensity: 0.18
+              });
+              child.material = mat;
+              actor.meshes.push(child);
+            }
+          });
+
+          actor.model = sourceModel;
+          tiltNode.add(sourceModel);
+          actor.mixer = new THREE.AnimationMixer(sourceModel);
+          actor.actions = {};
+          ['idle', 'run', 'punch', 'kick', 'slide', 'jump'].forEach((slot) => {
+            if (brawlerTemplate.clips[slot]) {
+              const prep = prepareClipForModel(brawlerTemplate.clips[slot], sourceModel, slot, idPrefix);
+              if (prep.tracks.length > 0) actor.actions[slot] = actor.mixer.clipAction(prep);
+            }
+          });
+          actor.fadeTo('idle', 0.1, false, 1.0);
+        }
+      };
+
+      if (brawlerTemplate.fbx) {
+        actor.installModel(SkeletonUtils.clone(brawlerTemplate.fbx));
+      }
+      return actor;
+    }
+
+    // Create Player Knight (2.05m tall, steel-tinted armor) & Giant Warden Boss (3.15m tall, obsidian/ember armor)
+    const playerActor = createRiggedActor(2.05, 0xe2e8f0, 0x0f172a, 'player');
+    const bossActor = createRiggedActor(3.15, 0x9ca3af, 0x7c2d12, 'boss');
+
+    const playerSword = buildKnightClaymoreMesh(false);
+    scene.add(playerSword.group);
+    const playerShield = buildBucklerShieldMesh();
+    scene.add(playerShield);
+
+    const bossWeapon = buildKnightClaymoreMesh(true);
+    scene.add(bossWeapon.group);
+
+    // =========================================================
+    // 4. SOULSLIKE PLAYER & BOSS STATE MACHINES
+    // =========================================================
+    const player = {
+      x: 0, y: -2.4, vy: 0, z: 88.5, r: 0.52,
+      facing: Math.PI, // Facing North toward the Grand Stairway & Cathedral
+      hp: 1200, maxHp: 1200, hpTrail: 1200,
+      fp: 120, maxFp: 120,
+      stam: 140, maxStam: 140, stamRegenDelay: 0, exhausted: false,
+      flasks: 4,
+      state: 'idle', // 'idle'|'move'|'roll'|'slide'|'light1'|'light2'|'light3'|'heavy'|'lionsClaw'|'parry'|'block'|'drink'|'riposte'|'stagger'|'dead'
+      stateTime: 0,
+      stateDur: 0,
+      activeStart: 0,
+      activeEnd: 0,
+      cancelStart: 1.0,
+      hasDealtHit: false,
+      bufferedInput: null, // 'LMB' | 'HEAVY' | 'ROLL' | 'SLIDE' | 'Q'
+      lungeSpeed: 0,
+      invincible: false,
+      parryActive: false,
+      hitFlash: 0
+    };
+
+    const boss = {
+      x: 0, z: -4.5, r: 0.92,
+      facing: 0,
+      hp: 4200, maxHp: 4200, hpTrail: 4200,
+      poise: 0, maxPoise: 100, poiseRegenDelay: 0,
+      phase: 1,
+      state: 'idle', // 'idle'|'stalk'|'slash1'|'slash2'|'overheadKick'|'chargeSlide'|'skyLeap'|'staggered'|'dead'
+      stateTime: 0,
+      stateDur: 0,
+      activeStart: 0,
+      activeEnd: 0,
+      hasDealtHit: false,
+      lungeSpeed: 0,
+      aiCooldown: 1.1,
+      strafeDir: 1,
+      hitFlash: 0,
+      label: 'Awaiting Challenger'
+    };
+
+    let bossFightStarted = false;
+    let lockOnActive = false;
+    document.getElementById('btn-lock-toggle').classList.toggle('toggled', false);
+    let bossAiEnabled = true;
+    let infStamMode = false;
+    let camYaw = 0; // 0 = looking from +Z toward -Z (North)
+    let camPitch = 0.30;
+    let camDist = 5.4;
+    let hitstopTimer = 0;
+    let shakeTimer = 0;
+    let shakeIntensity = 0;
+
+    // VFX Rings & Floating Numbers
+    const vfxRings = [];
+    const floatTexts = [];
+
+    function spawnFloat(x, y, z, txt, col, sizePx = 14) {
+      const el = document.createElement('div');
+      el.className = 'float-dmg';
+      el.style.color = col;
+      el.style.fontSize = sizePx + 'px';
+      el.textContent = txt;
+      worldUiLayer.appendChild(el);
+      floatTexts.push({ x, y, z, life: 0.95, el });
+    }
+
+    function spawnShockRing(x, z, color, startR, endR, dur = 0.32, yBase = null) {
+      const ringY = (yBase !== null ? yBase : (Math.hypot(x - player.x, z - player.z) < 2.5 ? player.y : 0)) + 0.06;
+      const m = new THREE.Mesh(
+        new THREE.RingGeometry(0.82, 1.0, 40),
+        new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide, transparent: true, opacity: 0.88, blending: THREE.AdditiveBlending, depthWrite: false })
+      );
+      m.rotation.x = -Math.PI / 2;
+      m.position.set(x, ringY, z);
+      m.scale.setScalar(startR);
+      scene.add(m);
+      vfxRings.push({ mesh: m, startR, endR, t: 0, dur });
+    }
+
+    function triggerScreenShake(intensity, dur = 0.18) {
+      shakeIntensity = Math.max(shakeIntensity, intensity);
+      shakeTimer = Math.max(shakeTimer, dur);
+    }
+
+    function showBanner(title, sub, colorHex) {
+      const banner = document.getElementById('souls-banner');
+      const titleEl = document.getElementById('banner-title');
+      const subEl = document.getElementById('banner-sub');
+      titleEl.textContent = title;
+      titleEl.style.color = colorHex;
+      subEl.textContent = sub;
+      banner.classList.add('visible');
+    }
+
+    function hideBanner() {
+      document.getElementById('souls-banner').classList.remove('visible');
+    }
+
+    function startBossEncounter() {
+      if (bossFightStarted) return;
+      bossFightStarted = true;
+      fogGatePromptEl.style.display = 'none';
+      bossHudPanelEl.style.display = 'block';
+      player.x = THREE.MathUtils.clamp(player.x, -2.0, 2.0);
+      player.y = 0;
+      player.vy = 0;
+      player.z = 16.4;
+      player.facing = Math.PI;
+      lockOnActive = true;
+      document.getElementById('btn-lock-toggle').classList.toggle('toggled', true);
+      boss.aiCooldown = 0.85;
+      boss.label = 'Stalking';
+      SFX.play('arena');
+      triggerScreenShake(0.18, 0.25);
+      spawnShockRing(player.x, player.z, 0xfde047, 0.4, 3.2, 0.45, 0);
+      spawnFloat(player.x, 2.6, player.z, 'GOLDEN FOG TRAVERSED!', '#fde047', 15);
+    }
+
+    function resetDuel(spawnAtBoss = false) {
+      hideBanner();
+      spawnArenaPillars();
+      if (spawnAtBoss === true) {
+        bossFightStarted = true;
+        bossHudPanelEl.style.display = 'block';
+        fogGatePromptEl.style.display = 'none';
+        player.x = 0; player.y = 0; player.vy = 0; player.z = 12.5; player.facing = Math.PI;
+        lockOnActive = true;
+      } else {
+        bossFightStarted = false;
+        bossHudPanelEl.style.display = 'none';
+        fogGatePromptEl.style.display = 'none';
+        player.x = 0; player.y = -2.4; player.vy = 0; player.z = 88.5; player.facing = Math.PI;
+        lockOnActive = false;
+      }
+      document.getElementById('btn-lock-toggle').classList.toggle('toggled', lockOnActive);
+      player.hp = player.maxHp; player.hpTrail = player.maxHp;
+      player.fp = player.maxFp;
+      player.stam = player.maxStam; player.exhausted = false;
+      player.flasks = 4;
+      player.state = 'idle'; player.stateTime = 0; player.bufferedInput = null;
+      playerActor.tiltNode.position.set(0, 0, 0);
+      playerActor.tiltNode.rotation.set(0, 0, 0);
+      playerActor.fadeTo('idle', 0.1, false, 1.0);
+      playerRibbon.clear();
+
+      boss.x = 0; boss.z = -4.5; boss.facing = 0;
+      boss.hp = boss.maxHp; boss.hpTrail = boss.maxHp;
+      boss.poise = 0; boss.phase = 1;
+      boss.state = 'idle'; boss.stateTime = 0; boss.aiCooldown = 1.0;
+      boss.label = bossFightStarted ? 'Stalking' : 'Awaiting Challenger';
+      bossWeapon.steelMat.emissive.setHex(0x9a3412);
+      bossWeapon.steelMat.emissiveIntensity = 0.65;
+      bossActor.tiltNode.position.set(0, 0, 0);
+      bossActor.tiltNode.rotation.set(0, 0, 0);
+      bossActor.fadeTo('idle', 0.1, false, 1.0);
+      bossRibbon.clear();
+
+      camYaw = 0;
+      camPitch = 0.30;
+      SFX.play('levelup');
+      spawnShockRing(player.x, player.z, 0xf59e0b, 0.3, 2.6, 0.4, player.y);
+      spawnFloat(player.x, player.y + 2.5, player.z, spawnAtBoss === true ? 'BOSS ARENA ENTERED' : 'SITE OF GRACE RESTORED', '#fde047', 15);
+    }
+
+    // =========================================================
+    // 5. PLAYER COMBAT ACTIONS (WITH EXPLICIT FRAME WINDOWS!)
+    // =========================================================
+    function consumeStam(amount) {
+      if (infStamMode) return true;
+      if (player.stam <= 0 || player.exhausted) {
+        spawnFloat(player.x, player.y + 2.3, player.z, 'LOW STAMINA!', '#f59e0b', 12);
+        return false;
+      }
+      player.stam = Math.max(0, player.stam - amount);
+      player.stamRegenDelay = 0.68;
+      if (player.stam <= 0) {
+        player.exhausted = true;
+        player.stamRegenDelay = 1.15;
+      }
+      return true;
+    }
+
+    function snapFacingTowardTarget(maxTurnRad = Math.PI) {
+      if (lockOnActive && boss.hp > 0) {
+        const targetAngle = Math.atan2(boss.x - player.x, boss.z - player.z);
+        let diff = targetAngle - player.facing;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        player.facing += THREE.MathUtils.clamp(diff, -maxTurnRad, maxTurnRad);
+      }
+    }
+
+    function getMoveInputWorldAngle() {
+      let mx = 0, mz = 0;
+      if (keys.KeyW || keys.ArrowUp) mz -= 1;
+      if (keys.KeyS || keys.ArrowDown) mz += 1;
+      if (keys.KeyA || keys.ArrowLeft) mx -= 1;
+      if (keys.KeyD || keys.ArrowRight) mx += 1;
+      if (Math.hypot(mx, mz) < 0.05) return null;
+      const inputAngle = Math.atan2(mx, mz);
+      return camYaw + inputAngle;
+    }
+
+    function enterPlayerState(newState) {
+      player.state = newState;
+      player.stateTime = 0;
+      player.hasDealtHit = false;
+      player.bufferedInput = null;
+      player.invincible = false;
+      player.parryActive = false;
+      playerActor.tiltNode.position.set(0, 0, 0);
+      playerActor.tiltNode.rotation.set(0, 0, 0);
+      playerRibbon.clear();
+
+      const moveAngle = getMoveInputWorldAngle();
+
+      if (newState === 'roll') {
+        if (!consumeStam(22)) {
+          player.state = 'idle';
+          return;
+        }
+        if (moveAngle !== null) player.facing = moveAngle;
+        else snapFacingTowardTarget();
+        player.stateDur = 0.54;
+        player.activeStart = 0.02; // I-Frames start immediately!
+        player.activeEnd = 0.36;   // 340ms of crisp Soulslike Invincibility Frames
+        player.cancelStart = 0.44;
+        player.lungeSpeed = 10.4;
+        if (playerActor.actions.jump) {
+          playerActor.fadeTo('jump', 0.04, true, 1.85, 0.08);
+        } else {
+          playerActor.fadeTo('run', 0.04, false, 2.0);
+        }
+        SFX.play('dash');
+        spawnShockRing(player.x, player.z, 0x38bdf8, 0.2, 0.95, 0.22);
+      } else if (newState === 'slide') {
+        if (!consumeStam(20)) {
+          player.state = 'idle';
+          return;
+        }
+        if (moveAngle !== null) player.facing = moveAngle;
+        else snapFacingTowardTarget();
+        player.stateDur = 0.56;
+        player.activeStart = 0.02;
+        player.activeEnd = 0.35;
+        player.cancelStart = 0.44;
+        player.lungeSpeed = 11.2;
+        if (playerActor.actions.slide) {
+          playerActor.fadeTo('slide', 0.05, true, 2.15, 0.12);
+        } else {
+          playerActor.fadeTo('run', 0.05, false, 2.0);
+        }
+        SFX.play('dash');
+        spawnShockRing(player.x, player.z, 0x38bdf8, 0.2, 0.95, 0.22);
+      } else if (newState === 'stagger') {
+        player.stateDur = 0.36;
+        player.activeStart = 0;
+        player.activeEnd = 0;
+        player.cancelStart = 0.78;
+        player.lungeSpeed = 0;
+        playerActor.fadeTo('idle', 0.05, false, 0.5);
+      } else if (newState === 'light1') {
+        // Check if Boss is Stance Broken and in front of us for a Critical Riposte!
+        if (boss.state === 'staggered' && Math.hypot(boss.x - player.x, boss.z - player.z) <= 3.1) {
+          enterPlayerState('riposte');
+          return;
+        }
+        if (!consumeStam(18)) { player.state = 'idle'; return; }
+        snapFacingTowardTarget(1.8);
+        player.stateDur = 0.64;
+        player.activeStart = 0.16;
+        player.activeEnd = 0.38;
+        player.cancelStart = 0.42;
+        player.lungeSpeed = 5.2;
+        playerActor.fadeTo('punch', 0.05, true, 1.55, 0.0);
+        SFX.play('claw');
+      } else if (newState === 'light2') {
+        if (!consumeStam(18)) { player.state = 'idle'; return; }
+        snapFacingTowardTarget(1.5);
+        player.stateDur = 0.62;
+        player.activeStart = 0.14;
+        player.activeEnd = 0.36;
+        player.cancelStart = 0.40;
+        player.lungeSpeed = 5.6;
+        playerActor.fadeTo('punch', 0.05, true, 1.65, 0.05);
+        SFX.play('claw');
+      } else if (newState === 'light3') {
+        if (!consumeStam(24)) { player.state = 'idle'; return; }
+        snapFacingTowardTarget(1.5);
+        player.stateDur = 0.82;
+        player.activeStart = 0.24;
+        player.activeEnd = 0.48;
+        player.cancelStart = 0.64;
+        player.lungeSpeed = 6.8;
+        playerActor.fadeTo('kick', 0.06, true, 1.85, 0.0);
+        SFX.play('punch');
+      } else if (newState === 'heavy') {
+        if (!consumeStam(30)) { player.state = 'idle'; return; }
+        snapFacingTowardTarget(1.8);
+        player.stateDur = 0.88;
+        player.activeStart = 0.28;
+        player.activeEnd = 0.52;
+        player.cancelStart = 0.68;
+        player.lungeSpeed = 8.2;
+        playerActor.fadeTo('kick', 0.06, true, 1.65, 0.0);
+        SFX.play('arena');
+      } else if (newState === 'lionsClaw') {
+        if (!infStamMode && player.fp < 20) {
+          spawnFloat(player.x, 2.3, player.z, 'NO FOCUS (FP)!', '#60a5fa', 12);
+          player.state = 'idle';
+          return;
+        }
+        if (!consumeStam(28)) { player.state = 'idle'; return; }
+        if (!infStamMode) player.fp = Math.max(0, player.fp - 20);
+        snapFacingTowardTarget(2.4);
+        player.stateDur = 0.92;
+        player.activeStart = 0.38;
+        player.activeEnd = 0.66;
+        player.cancelStart = 0.78;
+        player.lungeSpeed = 9.4;
+        if (playerActor.actions.jump) {
+          playerActor.fadeTo('jump', 0.05, true, 1.45, 0.04);
+        } else {
+          playerActor.fadeTo('kick', 0.05, true, 1.5, 0.0);
+        }
+        SFX.play('pillar');
+        spawnShockRing(player.x, player.z, 0xfde047, 0.3, 1.6, 0.28);
+        spawnFloat(player.x, 2.6, player.z, "ASH OF WAR: LION'S CLAW!", '#fde047', 13);
+      } else if (newState === 'parry') {
+        if (!consumeStam(14)) { player.state = 'idle'; return; }
+        snapFacingTowardTarget(2.2);
+        player.stateDur = 0.48;
+        player.activeStart = 0.02;
+        player.activeEnd = 0.25; // 230ms Golden Buckler Parry Window!
+        player.cancelStart = 0.38;
+        player.lungeSpeed = 0;
+        playerActor.fadeTo('idle', 0.05, false, 1.5);
+        SFX.play('chime');
+        spawnShockRing(player.x, player.z, 0xfef08a, 0.35, 1.15, 0.20);
+      } else if (newState === 'drink') {
+        if (player.flasks <= 0) {
+          spawnFloat(player.x, 2.3, player.z, 'FLASK EMPTY!', '#ef4444', 13);
+          player.state = 'idle';
+          return;
+        }
+        player.flasks -= 1;
+        player.stateDur = 0.82;
+        player.activeStart = 0.36;
+        player.activeEnd = 0.42;
+        player.cancelStart = 0.68;
+        player.lungeSpeed = 0;
+        playerActor.fadeTo('idle', 0.08, false, 0.6);
+        SFX.play('bubble');
+      } else if (newState === 'riposte') {
+        // Snap right in front of the Stance-Broken Boss for a cinematic Critical Strike!
+        const angToBoss = Math.atan2(boss.x - player.x, boss.z - player.z);
+        player.facing = angToBoss;
+        player.x = boss.x - Math.sin(angToBoss) * 1.65;
+        player.z = boss.z - Math.cos(angToBoss) * 1.65;
+        player.stateDur = 0.95;
+        player.activeStart = 0.34;
+        player.activeEnd = 0.55;
+        player.cancelStart = 0.80;
+        player.invincible = true; // Invincible during Riposte animation!
+        playerActor.fadeTo('kick', 0.04, true, 1.5, 0.0);
+        SFX.play('arena');
+        spawnShockRing(boss.x, boss.z, 0xfde047, 0.4, 2.8, 0.38);
+        spawnFloat(boss.x, 3.3, boss.z, 'CRITICAL RIPOSTE!', '#fde047', 17);
+      }
+    }
+
+    function queueOrTriggerAction(inputType) {
+      if (player.state === 'dead') return;
+      SFX.unlock();
+
+      const canActImmediately = (player.state === 'idle' || player.state === 'move' || player.state === 'block');
+      const u = player.stateDur > 0 ? (player.stateTime / player.stateDur) : 1;
+      const inCancelWindow = !canActImmediately && (u >= player.cancelStart);
+
+      if (!canActImmediately && !inCancelWindow) {
+        // Buffer the input for the upcoming cancel window!
+        player.bufferedInput = inputType;
+        return;
+      }
+
+      if (inputType === 'ROLL') {
+        enterPlayerState('roll');
+      } else if (inputType === 'SLIDE') {
+        enterPlayerState('slide');
+      } else if (inputType === 'LMB') {
+        if (player.state === 'light1') enterPlayerState('light2');
+        else if (player.state === 'light2') enterPlayerState('light3');
+        else enterPlayerState('light1');
+      } else if (inputType === 'HEAVY') {
+        enterPlayerState('heavy');
+      } else if (inputType === 'Q') {
+        enterPlayerState('lionsClaw');
+      } else if (inputType === 'PARRY') {
+        enterPlayerState('parry');
+      } else if (inputType === 'DRINK') {
+        enterPlayerState('drink');
+      }
+    }
+
+    // =========================================================
+    // 6. BOSS AI & ATTACK PATTERNS ("VORDT OF THE ASHEN PIT")
+    // =========================================================
+    function enterBossAttack(attackKind) {
+      boss.state = attackKind;
+      boss.stateTime = 0;
+      boss.hasDealtHit = false;
+      bossActor.tiltNode.position.set(0, 0, 0);
+      bossActor.tiltNode.rotation.set(0, 0, 0);
+      bossRibbon.clear();
+
+      const angToPlayer = Math.atan2(player.x - boss.x, player.z - boss.z);
+      boss.facing = angToPlayer;
+
+      if (attackKind === 'slash1') {
+        boss.label = 'Sweeping Cleave (Combo 1/2)';
+        boss.stateDur = boss.phase === 2 ? 0.92 : 1.05;
+        boss.activeStart = 0.36; // Delayed windup so player can read & time Roll or Parry!
+        boss.activeEnd = 0.62;
+        boss.lungeSpeed = 7.5;
+        bossActor.fadeTo('punch', 0.08, true, boss.phase === 2 ? 1.25 : 1.05, 0.0);
+        SFX.play('saw');
+        spawnShockRing(boss.x, boss.z, 0xf97316, 0.4, 1.6, 0.25);
+      } else if (attackKind === 'slash2') {
+        boss.label = 'Backhand Follow-Up (Combo 2/2)';
+        boss.stateDur = 0.86;
+        boss.activeStart = 0.28;
+        boss.activeEnd = 0.56;
+        boss.lungeSpeed = 8.2;
+        bossActor.fadeTo('punch', 0.06, true, 1.35, 0.04);
+        SFX.play('saw');
+      } else if (attackKind === 'overheadKick') {
+        boss.label = 'Coliseum Guard-Breaker Slam';
+        boss.stateDur = 1.15;
+        boss.activeStart = 0.42;
+        boss.activeEnd = 0.66;
+        boss.lungeSpeed = 6.4;
+        bossActor.fadeTo('kick', 0.08, true, 1.35, 0.0);
+        SFX.play('arena');
+        spawnShockRing(boss.x, boss.z, 0xef4444, 0.5, 2.2, 0.32);
+      } else if (attackKind === 'chargeSlide') {
+        boss.label = 'Borealis Bulldozer Charge';
+        boss.stateDur = 0.95;
+        boss.activeStart = 0.18;
+        boss.activeEnd = 0.76;
+        boss.lungeSpeed = boss.phase === 2 ? 15.8 : 13.8;
+        if (bossActor.actions.slide) {
+          bossActor.fadeTo('slide', 0.06, true, 1.65, 0.10);
+        } else {
+          bossActor.fadeTo('run', 0.06, false, 2.1);
+        }
+        SFX.play('cannon');
+        spawnShockRing(boss.x, boss.z, 0xf59e0b, 0.5, 2.6, 0.30);
+      } else if (attackKind === 'skyLeap') {
+        boss.label = 'Executioner Sky-Crater Dive';
+        boss.stateDur = 1.28;
+        boss.activeStart = 0.56;
+        boss.activeEnd = 0.78;
+        const dist = Math.hypot(player.x - boss.x, player.z - boss.z);
+        boss.lungeSpeed = THREE.MathUtils.clamp(dist / 0.72, 6.0, 15.5);
+        if (bossActor.actions.jump) {
+          bossActor.fadeTo('jump', 0.06, true, 1.15, 0.02);
+        } else {
+          bossActor.fadeTo('kick', 0.06, true, 1.2, 0.0);
+        }
+        SFX.play('pillar');
+        spawnShockRing(boss.x, boss.z, 0xf97316, 0.6, 3.0, 0.35);
+      }
+    }
+
+    function damageBoss(hpDmg, poiseDmg, isRiposte = false) {
+      if (boss.state === 'dead') return;
+      boss.hp = Math.max(0, boss.hp - hpDmg);
+      boss.hitFlash = 0.11;
+      hitstopTimer = isRiposte ? 0.11 : 0.045;
+      triggerScreenShake(isRiposte ? 0.32 : 0.12, isRiposte ? 0.28 : 0.14);
+
+      spawnFloat(
+        boss.x + (Math.random() - 0.5) * 0.6,
+        2.6 + Math.random() * 0.4,
+        boss.z,
+        (isRiposte ? 'CRITICAL ' : '') + Math.round(hpDmg),
+        isRiposte ? '#fde047' : '#fca5a5',
+        isRiposte ? 19 : 15
+      );
+      spawnShockRing(boss.x, boss.z, isRiposte ? 0xfde047 : 0xef4444, 0.3, isRiposte ? 2.8 : 1.45, 0.24);
+      SFX.play(isRiposte ? 'cannon' : 'punch');
+
+      // Check Victory
+      if (boss.hp <= 0) {
+        boss.state = 'dead';
+        boss.label = 'Vanquished';
+        bossRibbon.clear();
+        bossActor.tiltNode.rotation.set(-Math.PI / 2.2, 0, 0);
+        bossActor.tiltNode.position.set(0, 0.35, 0);
+        SFX.play('levelup');
+        spawnShockRing(boss.x, boss.z, 0xfde047, 0.5, 6.5, 0.75);
+        showBanner('ASHEN FOE FELLED', 'Vordt of the Ashen Pit Vanquished • +48,000 Runes', '#fde047');
+        return;
+      }
+
+      // Check Phase 2 Awakening at 55% HP!
+      if (boss.phase === 1 && boss.hp <= boss.maxHp * 0.55) {
+        boss.phase = 2;
+        bossWeapon.steelMat.emissive.setHex(0xea580c);
+        bossWeapon.steelMat.emissiveIntensity = 1.35;
+        bossActor.meshes.forEach((m) => {
+          m.material.emissive.setHex(0x9a3412);
+          m.material.emissiveIntensity = 0.45;
+        });
+        SFX.play('arena');
+        spawnShockRing(boss.x, boss.z, 0xf97316, 0.6, 5.2, 0.55);
+        spawnFloat(boss.x, 3.6, boss.z, '🔥 PHASE II: LORD OF CINDER AWAKENED!', '#fb923c', 16);
+      }
+
+      // Accumulate Poise / Stance Break
+      if (boss.state !== 'staggered' && !isRiposte) {
+        boss.poise = Math.min(boss.maxPoise, boss.poise + poiseDmg);
+        boss.poiseRegenDelay = 4.5;
+        if (boss.poise >= boss.maxPoise) {
+          boss.poise = boss.maxPoise;
+          boss.state = 'staggered';
+          boss.stateTime = 0;
+          boss.stateDur = 3.2; // 3.2s window to walk up and press LMB for a Critical Riposte!
+          boss.label = '⚡ STANCE BROKEN (RIPOSTE OPEN!)';
+          bossRibbon.clear();
+          bossActor.fadeTo('idle', 0.08, false, 0.35);
+          bossActor.tiltNode.rotation.set(0.28, 0, 0);
+          SFX.play('arena');
+          spawnShockRing(boss.x, boss.z, 0xfde047, 0.5, 3.4, 0.42);
+          spawnFloat(boss.x, 3.4, boss.z, '⚡ STANCE BROKEN!', '#fde047', 17);
+        }
+      } else if (isRiposte) {
+        boss.poise = 0;
+        boss.state = 'idle';
+        boss.aiCooldown = 1.1;
+        bossActor.tiltNode.rotation.set(0, 0, 0);
+      }
+    }
+
+    function resolveBossHitOnPlayer(rawDmg, attackLabel) {
+      if (player.state === 'dead' || player.invincible) {
+        if (player.invincible && (player.state === 'roll' || player.state === 'slide')) {
+          spawnFloat(player.x, 2.3, player.z, 'I-FRAME DODGE!', '#38bdf8', 13);
+          SFX.play('dash');
+        }
+        return;
+      }
+
+      // 1. Check Active Buckler Parry Window!
+      if (player.parryActive) {
+        hitstopTimer = 0.14;
+        triggerScreenShake(0.28, 0.25);
+        boss.poise = boss.maxPoise;
+        boss.state = 'staggered';
+        boss.stateTime = 0;
+        boss.stateDur = 3.5;
+        boss.label = '⚡ PARRIED — RIPOSTE OPEN!';
+        bossRibbon.clear();
+        bossActor.fadeTo('idle', 0.06, false, 0.3);
+        bossActor.tiltNode.rotation.set(0.32, 0, 0);
+        SFX.play('levelup');
+        spawnShockRing(player.x, player.z, 0xfef08a, 0.4, 3.6, 0.40);
+        spawnFloat(player.x, 2.7, player.z, '✨ PARRIED! (LMB TO RIPOSTE)', '#fde047', 17);
+        return;
+      }
+
+      // 2. Check Raised Shield Block (RMB Held)
+      const isBlocking = keys.MouseRight && (player.state === 'idle' || player.state === 'move' || player.state === 'block');
+      if (isBlocking) {
+        const stamCost = Math.round(rawDmg * 0.14);
+        if (player.stam >= stamCost || infStamMode) {
+          if (!infStamMode) player.stam -= stamCost;
+          player.stamRegenDelay = 0.85;
+          const chipDmg = Math.round(rawDmg * 0.18);
+          player.hp = Math.max(1, player.hp - chipDmg);
+          SFX.play('block');
+          triggerScreenShake(0.10, 0.12);
+          spawnShockRing(player.x, player.z, 0x93c5fd, 0.25, 1.3, 0.22);
+          spawnFloat(player.x, 2.3, player.z, 'BLOCKED (-' + chipDmg + ')', '#93c5fd', 13);
+          return;
+        } else {
+          // Guard Broken!
+          player.stam = 0;
+          player.exhausted = true;
+          spawnFloat(player.x, 2.6, player.z, 'GUARD BROKEN!', '#f59e0b', 15);
+        }
+      }
+
+      // 3. Direct Unblocked Hit!
+      player.hp = Math.max(0, player.hp - rawDmg);
+      player.hitFlash = 0.16;
+      hitstopTimer = 0.06;
+      triggerScreenShake(0.24, 0.22);
+      screenFxEl.style.boxShadow = 'inset 0 0 65px rgba(220, 38, 38, 0.65)';
+      setTimeout(() => { screenFxEl.style.boxShadow = 'none'; }, 180);
+
+      SFX.play('bleedPop');
+      spawnShockRing(player.x, player.z, 0xef4444, 0.3, 1.65, 0.26);
+      spawnFloat(player.x, 2.3, player.z, '-' + rawDmg, '#ef4444', 16);
+
+      if (player.hp <= 0) {
+        player.state = 'dead';
+        playerRibbon.clear();
+        playerActor.tiltNode.rotation.set(-Math.PI / 2.2, 0, 0);
+        playerActor.tiltNode.position.set(0, 0.3, 0);
+        SFX.play('arena');
+        showBanner('YOU DIED', 'Slain by ' + attackLabel + ' • Click Below to Rise at Site of Grace', '#dc2626');
+      } else {
+        enterPlayerState('stagger');
+      }
+    }
+
+    // =========================================================
+    // 7. INPUT LISTENERS & DRAG-AND-DROP MIXAMO HOT-SWAP
+    // =========================================================
+    const keys = {};
+    window.addEventListener('keydown', (e) => {
+      if (e.repeat) return;
+      keys[e.code] = true;
+      const nearFogGate = !bossFightStarted && player.z >= 18.5 && player.z <= 23.4 && Math.abs(player.x) <= 3.6 && player.y < 1.0;
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        queueOrTriggerAction('ROLL');
+      } else if (e.code === 'KeyC' || e.code === 'ControlLeft') {
+        e.preventDefault();
+        queueOrTriggerAction('SLIDE');
+      } else if (e.code === 'KeyQ') {
+        queueOrTriggerAction('Q');
+      } else if (e.code === 'KeyF' && nearFogGate) {
+        e.preventDefault();
+        startBossEncounter();
+      } else if (e.code === 'KeyE' && nearFogGate) {
+        e.preventDefault();
+        startBossEncounter();
+      } else if (e.code === 'KeyR' || e.code === 'KeyE') {
+        queueOrTriggerAction('DRINK');
+      } else if (e.code === 'Tab' || e.code === 'KeyF') {
+        e.preventDefault();
+        lockOnActive = !lockOnActive;
+        document.getElementById('btn-lock-toggle').classList.toggle('toggled', lockOnActive);
+      }
+    });
+    window.addEventListener('keyup', (e) => { keys[e.code] = false; });
+
+    window.addEventListener('contextmenu', (e) => e.preventDefault());
+    renderer.domElement.addEventListener('mousedown', (e) => {
+      SFX.unlock();
+      if (e.button === 0) {
+        if (e.shiftKey) queueOrTriggerAction('HEAVY');
+        else queueOrTriggerAction('LMB');
+      } else if (e.button === 1) {
+        e.preventDefault();
+        lockOnActive = !lockOnActive;
+        document.getElementById('btn-lock-toggle').classList.toggle('toggled', lockOnActive);
+      } else if (e.button === 2) {
+        keys.MouseRight = true;
+        queueOrTriggerAction('PARRY');
+      }
+    });
+    window.addEventListener('mouseup', (e) => {
+      if (e.button === 2) keys.MouseRight = false;
+    });
+
+    // Free Camera Orbit when moving mouse while holding Right-Click or when Unlocked
+    window.addEventListener('mousemove', (e) => {
+      if (!lockOnActive || (e.buttons & 2)) {
+        camYaw -= e.movementX * 0.0045;
+        camPitch = THREE.MathUtils.clamp(camPitch + e.movementY * 0.0035, 0.10, 0.85);
+      }
+    });
+    window.addEventListener('wheel', (e) => {
+      camDist = THREE.MathUtils.clamp(camDist + e.deltaY * 0.005, 3.2, 10.5);
+    }, { passive: true });
+
+    // Topbar Buttons
+    document.getElementById('btn-lock-toggle').addEventListener('click', () => {
+      lockOnActive = !lockOnActive;
+      document.getElementById('btn-lock-toggle').classList.toggle('toggled', lockOnActive);
+    });
+    const btnBossAi = document.getElementById('btn-boss-ai');
+    btnBossAi.addEventListener('click', () => {
+      bossAiEnabled = !bossAiEnabled;
+      btnBossAi.textContent = bossAiEnabled ? '🤖 Boss AI: Active' : '⏸️ Boss AI: Dummy';
+      btnBossAi.classList.toggle('toggled', !bossAiEnabled);
+    });
+    const btnInfStam = document.getElementById('btn-inf-stam');
+    btnInfStam.addEventListener('click', () => {
+      infStamMode = !infStamMode;
+      btnInfStam.classList.toggle('toggled', infStamMode);
+    });
+    document.getElementById('btn-warp-boss').addEventListener('click', () => resetDuel(true));
+    document.getElementById('btn-reset-duel').addEventListener('click', () => resetDuel(false));
+    document.getElementById('btn-banner-reset').addEventListener('click', () => resetDuel(false));
+
+    // Drag-and-Drop Custom Mixamo .FBX / .GLB Support
+    function handleCustomFiles(fileList) {
+      if (!fileList || fileList.length === 0) return;
+      Array.from(fileList).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const buf = ev.target.result;
+          if (/\.fbx$/i.test(file.name)) {
+            const fbx = fbxLoader.parse(buf, '');
+            let hasMesh = false;
+            fbx.traverse((c) => { if (c.isMesh) hasMesh = true; });
+            if (hasMesh) playerActor.installModel(fbx);
+            if (fbx.animations && fbx.animations[0]) {
+              const prep = prepareClipForModel(fbx.animations[0], playerActor.model, 'punch', 'player');
+              playerActor.actions.punch = playerActor.mixer.clipAction(prep);
+              spawnFloat(player.x, player.y + 2.5, player.z, 'LOADED MIXAMO CLIP: ' + file.name, '#4ade80', 13);
+            }
+          } else {
+            gltfLoader.parse(buf, '', (gltf) => {
+              playerActor.installModel(gltf.scene);
+              spawnFloat(player.x, player.y + 2.5, player.z, 'LOADED GLB: ' + file.name, '#4ade80', 13);
+            });
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    }
+    window.addEventListener('dragover', (e) => e.preventDefault());
+    window.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (e.dataTransfer.files) handleCustomFiles(e.dataTransfer.files);
+    });
+    document.getElementById('file-souls-picker').addEventListener('change', (e) => {
+      if (e.target.files) handleCustomFiles(e.target.files);
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // =========================================================
+    // 8. GEOMETRY HELPERS & MAIN 60FPS SOULSLIKE GAME LOOP
+    // =========================================================
+    const tmpVecA = new THREE.Vector3();
+    const tmpVecB = new THREE.Vector3();
+    const tmpVecC = new THREE.Vector3();
+
+    function distPointToSegment2D(px, pz, ax, az, bx, bz) {
+      const dx = bx - ax;
+      const dz = bz - az;
+      const lenSq = dx * dx + dz * dz;
+      if (lenSq < 0.0001) return Math.hypot(px - ax, pz - az);
+      const t = THREE.MathUtils.clamp(((px - ax) * dx + (pz - az) * dz) / lenSq, 0, 1);
+      return Math.hypot(px - (ax + t * dx), pz - (az + t * dz));
+    }
+
+    function projectToScreen(x, y, z) {
+      const v = tmpVecA.set(x, y, z).project(camera);
+      return {
+        x: (v.x * 0.5 + 0.5) * window.innerWidth,
+        y: (-v.y * 0.5 + 0.5) * window.innerHeight,
+        visible: v.z >= -1 && v.z <= 1
+      };
+    }
+
+    function clampToArenaAndPillars(unit, isBoss = false) {
+      const distCenter = Math.hypot(unit.x, unit.z);
+      if (distCenter > ARENA_RADIUS - unit.r) {
+        const ang = Math.atan2(unit.x, unit.z);
+        unit.x = Math.sin(ang) * (ARENA_RADIUS - unit.r);
+        unit.z = Math.cos(ang) * (ARENA_RADIUS - unit.r);
+      }
+      pillars.forEach((p) => {
+        if (!p.intact) return;
+        const dx = unit.x - p.x;
+        const dz = unit.z - p.z;
+        const d = Math.hypot(dx, dz) || 0.01;
+        if (d < unit.r + p.r) {
+          if (isBoss && (boss.state === 'chargeSlide' || boss.state === 'skyLeap' || boss.state === 'overheadKick')) {
+            // Boss heavy attacks shatter Cathedral Pillars!
+            p.intact = false;
+            p.shaft.visible = false;
+            p.cap.visible = false;
+            SFX.play('cannon');
+            triggerScreenShake(0.22, 0.20);
+            spawnShockRing(p.x, p.z, 0xd97706, 0.3, 2.4, 0.35, 0);
+            spawnFloat(p.x, 2.5, p.z, 'PILLAR SHATTERED!', '#fde047', 13);
+          } else {
+            unit.x = p.x + (dx / d) * (unit.r + p.r);
+            unit.z = p.z + (dz / d) * (unit.r + p.r);
+          }
+        }
+      });
+    }
+
+    // Fast Height-Zone & Corridor Collision Solver for the Castle Approach World!
+    function getZoneHalfWidth(z) {
+      if (z < 19.6) return 2.5;   // Cathedral Gatehouse Archway
+      if (z <= 36.0) return 15.25; // Forecourt Plaza & West Ramparts
+      if (z <= 60.0) return 4.05;  // Abyssal Viaduct Bridge
+      if (z <= 74.0) return 4.35;  // Grand 16-Step Stone Stairway
+      return 12.2;                 // Outer Cliffside Sanctuary
+    }
+
+    function resolveWorldCollisionAndElevation(unit, prevX, prevZ, dt) {
+      if (bossFightStarted) {
+        unit.y = 0;
+        unit.vy = 0;
+        // Also prevent walking back out through the sealed Golden Fog Gate at z = 18.8!
+        if (unit.z > 18.6 && Math.abs(unit.x) < 4.5) unit.z = 18.6;
+        clampToArenaAndPillars(unit, false);
+        return;
+      }
+
+      // Clamp outer Z boundaries of the world
+      unit.z = THREE.MathUtils.clamp(unit.z, 18.8, 95.1);
+
+      // Axis-separated corridor & plaza wall sliding (handles corners at z = 19.6, 36.0, 74.0)
+      const allowedHalfWAtNewZ = getZoneHalfWidth(unit.z);
+      if (Math.abs(unit.x) > allowedHalfWAtNewZ) {
+        const prevHalfW = getZoneHalfWidth(prevZ);
+        if (Math.abs(prevX) <= allowedHalfWAtNewZ) {
+          // Crossed X into a side wall
+          unit.x = Math.sign(unit.x) * allowedHalfWAtNewZ;
+        } else if (prevHalfW > allowedHalfWAtNewZ) {
+          // Walked North/South into a transverse end-wall (e.g., Gatehouse wall at z=19.6, Plaza South wall at z=36.0, Sanctuary North wall at z=74.0)
+          unit.z = prevZ;
+          unit.x = THREE.MathUtils.clamp(unit.x, -prevHalfW, prevHalfW);
+        } else {
+          unit.x = THREE.MathUtils.clamp(unit.x, -allowedHalfWAtNewZ, allowedHalfWAtNewZ);
+        }
+      }
+
+      // West Rampart Staircase (`x in [-15.25, -11.3]`, `z in [24.6, 33.5]`) & Upper Battlement Balcony (`x in [-15.25, -4.5]`, `z in [19.8, 24.6]`, `y = +3.2m`)
+      const onUpperBalcony = (unit.y >= 2.15 && unit.z >= 19.6 && unit.z <= 24.8 && unit.x <= -4.45);
+      const onWestStairs = (unit.x <= -11.05 && unit.z >= 24.5 && unit.z <= 33.6 && (prevX <= -10.9 || prevZ >= 32.8 || unit.y >= 0.35));
+
+      if (onUpperBalcony) {
+        // On Upper Battlement Overlook (`y = 3.2m`):
+        // South parapet wall at `z = 24.6` blocks walking South except where the West Staircase meets it (`x <= -11.2`)
+        if (unit.z > 24.35 && unit.x > -11.2) {
+          unit.z = 24.35;
+        }
+        if (unit.z < 19.9) unit.z = 19.9;
+      } else if (onWestStairs) {
+        // Keep inside the West Rampart Staircase channel (`x in [-15.2, -11.35]`) unless exiting at the bottom (`z >= 33.1`) or top (`z <= 24.7`)
+        if (unit.z > 24.7 && unit.z < 33.1 && unit.x > -11.35) {
+          unit.x = -11.35;
+        }
+      } else if (unit.y < 2.15) {
+        // Down on the Forecourt Plaza (`y = 0.0m`):
+        // 1) Solid masonry base of the Upper Battlement Overlook (`x < -4.2`, `z < 24.8`)
+        if (unit.x < -4.2 && unit.z < 24.8) {
+          if (prevX >= -4.25) unit.x = -4.2;
+          else unit.z = 24.8;
+        }
+        // 2) Retaining wall on East side of the West Rampart Staircase (`x < -10.55`, `z in [24.6, 33.1]`)
+        if (unit.x < -10.55 && unit.z >= 24.6 && unit.z < 33.1) {
+          if (prevX >= -10.6) unit.x = -10.55;
+          else unit.z = 33.1;
+        }
+      }
+
+      // Collide with Forecourt Monument Plinth, Colonnade Pillars & Site of Grace
+      worldObstacles.forEach((ob) => {
+        const dx = unit.x - ob.x;
+        const dz = unit.z - ob.z;
+        const d = Math.hypot(dx, dz) || 0.01;
+        if (d < unit.r + ob.r) {
+          unit.x = ob.x + (dx / d) * (unit.r + ob.r);
+          unit.z = ob.z + (dz / d) * (unit.r + ob.r);
+        }
+      });
+
+      // Compute Target Ground Elevation `targetY`
+      let targetY = 0.0;
+      if (unit.z >= 74.0) {
+        targetY = -2.4; // Outer Cliffside Sanctuary
+      } else if (unit.z > 60.0) {
+        // Grand 16-Step Stone Stairway (`z = 74.0 -> -2.4m`, `z = 60.0 -> 0.0m`)
+        const t = THREE.MathUtils.clamp((74.0 - unit.z) / 14.0, 0, 1);
+        targetY = -2.4 + 2.4 * t;
+      } else if (unit.x <= -11.0 && unit.z >= 24.6 && unit.z <= 33.5 && (onWestStairs || unit.y > 0.25)) {
+        // West Rampart 14-Step Staircase (`z = 33.5 -> 0.0m`, `z = 24.6 -> +3.2m`)
+        const t = THREE.MathUtils.clamp((33.5 - unit.z) / (33.5 - 24.6), 0, 1);
+        targetY = 3.2 * t;
+      } else if (unit.y >= 2.15 && unit.z >= 19.6 && unit.z <= 24.8 && unit.x <= -4.5) {
+        // Upper Battlement Overlook Balcony (`y = +3.2m`)
+        targetY = 3.2;
+      } else {
+        targetY = 0.0; // Forecourt Plaza & Abyssal Viaduct Bridge
+      }
+
+      // Smoothly step up/down stairs, or apply gravity when plunging off the +3.2m Upper Battlement Ledge!
+      if (unit.y > targetY + 0.55) {
+        unit.vy -= 26.0 * dt;
+        unit.y += unit.vy * dt;
+        if (unit.y <= targetY) {
+          unit.y = targetY;
+          unit.vy = 0;
+          SFX.play('punch');
+          triggerScreenShake(0.14, 0.16);
+          spawnShockRing(unit.x, unit.z, 0x94a3b8, 0.25, 1.85, 0.28, unit.y);
+          spawnFloat(unit.x, unit.y + 2.2, unit.z, 'PLUNGE LANDING', '#cbd5e1', 12);
+        }
+      } else {
+        unit.y += (targetY - unit.y) * Math.min(1, dt * 22);
+        unit.vy = 0;
+      }
+
+      // Check Golden Fog Gate Traversal (`z <= 19.35`, `|x| <= 2.8`, `y < 1.0`)
+      if (unit.z <= 19.35 && Math.abs(unit.x) <= 2.8 && unit.y < 1.0) {
+        startBossEncounter();
+      }
+    }
+
+    let last = performance.now();
+    function tick(now) {
+      let dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+
+      // Hitstop freeze for tactile weapon impact!
+      if (hitstopTimer > 0) {
+        hitstopTimer -= dt;
+        dt *= 0.08;
+      }
+
+      // Shimmer the Golden Fog Gate!
+      fogGateMat.opacity = bossFightStarted ? 0.18 : (0.36 + 0.10 * Math.sin(now * 0.004));
+
+      // 1. Stamina & Poise Recovery
+      if (player.stamRegenDelay > 0) {
+        player.stamRegenDelay -= dt;
+      } else {
+        const regenRate = (keys.MouseRight && player.state === 'block') ? 12 : 44;
+        player.stam = Math.min(player.maxStam, player.stam + regenRate * dt);
+        if (player.stam >= 28) player.exhausted = false;
+      }
+      player.hpTrail += (player.hp - player.hpTrail) * Math.min(1, dt * 3.2);
+      boss.hpTrail += (boss.hp - boss.hpTrail) * Math.min(1, dt * 3.0);
+
+      if (boss.state !== 'staggered') {
+        if (boss.poiseRegenDelay > 0) boss.poiseRegenDelay -= dt;
+        else boss.poise = Math.max(0, boss.poise - 9 * dt);
+      }
+
+      // 2. Update Player State Machine
+      const telemetryBadge = document.getElementById('telemetry-state');
+      const telemetryBar = document.getElementById('telemetry-bar');
+      const telemetryTxt = document.getElementById('telemetry-frame-txt');
+
+      const prevPlayerX = player.x;
+      const prevPlayerZ = player.z;
+
+      if (player.state === 'idle' || player.state === 'move' || player.state === 'block') {
+        const moveWorldAngle = getMoveInputWorldAngle();
+        const isBlocking = keys.MouseRight;
+        const isSprinting = !isBlocking && (keys.ShiftLeft || keys.ShiftRight);
+        if (moveWorldAngle !== null) {
+          player.state = isBlocking ? 'block' : 'move';
+          const moveSpd = isBlocking ? 3.5 : (isSprinting ? 8.35 : 6.15);
+          player.x += Math.sin(moveWorldAngle) * moveSpd * dt;
+          player.z += Math.cos(moveWorldAngle) * moveSpd * dt;
+          if (lockOnActive && bossFightStarted && boss.hp > 0) {
+            player.facing = Math.atan2(boss.x - player.x, boss.z - player.z);
+          } else {
+            player.facing = moveWorldAngle;
+          }
+          playerActor.fadeTo('run', 0.12, false, isBlocking ? 0.72 : (isSprinting ? 1.48 : 1.18));
+        } else {
+          player.state = isBlocking ? 'block' : 'idle';
+          if (lockOnActive && bossFightStarted && boss.hp > 0) {
+            player.facing = Math.atan2(boss.x - player.x, boss.z - player.z);
+          }
+          playerActor.fadeTo('idle', 0.14, false, 1.0);
+        }
+
+        telemetryBadge.className = 'state-badge';
+        telemetryBadge.textContent = (isSprinting && moveWorldAngle !== null) ? 'SPRINT' : player.state.toUpperCase();
+        telemetryBar.style.width = '0%';
+        telemetryTxt.textContent = 'y=' + player.y.toFixed(1) + 'm';
+      } else if (player.state !== 'dead') {
+        player.stateTime += dt;
+        const u = Math.min(1, player.stateTime / Math.max(0.01, player.stateDur));
+        const inActive = (player.stateTime >= player.activeStart && player.stateTime <= player.activeEnd);
+
+        // Update Live Frame-Window Telemetry UI!
+        telemetryBar.style.width = Math.round(u * 100) + '%';
+        telemetryTxt.textContent = 'u=' + u.toFixed(2);
+        if (player.state === 'stagger') {
+          telemetryBadge.className = 'state-badge stagger';
+          telemetryBadge.textContent = 'STAGGER';
+        } else if ((player.state === 'roll' || player.state === 'slide') && inActive) {
+          telemetryBadge.className = 'state-badge iframe';
+          telemetryBadge.textContent = 'I-FRAMES';
+        } else if (inActive) {
+          telemetryBadge.className = 'state-badge active';
+          telemetryBadge.textContent = player.state === 'parry' ? 'PARRY WIN' : 'ACTIVE HIT';
+        } else if (u < (player.activeStart / player.stateDur)) {
+          telemetryBadge.className = 'state-badge windup';
+          telemetryBadge.textContent = 'WINDUP';
+        } else {
+          telemetryBadge.className = 'state-badge recovery';
+          telemetryBadge.textContent = 'BUFFER/REC';
+        }
+
+        player.invincible = ((player.state === 'roll' || player.state === 'slide') && inActive) || player.state === 'riposte';
+        player.parryActive = (player.state === 'parry' && inActive);
+
+        // Forward Root-Motion Lunge Curve during Windup -> Active transition!
+        if (player.lungeSpeed > 0) {
+          const curve = (player.state === 'roll' || player.state === 'slide')
+            ? (1 - u * 0.45)
+            : (u < 0.55 ? Math.sin((u / 0.55) * Math.PI) : 0);
+          player.x += Math.sin(player.facing) * player.lungeSpeed * curve * dt;
+          player.z += Math.cos(player.facing) * player.lungeSpeed * curve * dt;
+        }
+
+        // Tucked Forward Somersault Roll (Space) vs High Somersault Flip (Q Lion's Claw)!
+        if (player.state === 'roll') {
+          const rollY = Math.sin(u * Math.PI) * 0.52;
+          playerActor.tiltNode.position.y = rollY;
+          playerActor.tiltNode.rotation.x = u * Math.PI * 2;
+        } else if (player.state === 'lionsClaw') {
+          const arcY = Math.sin(u * Math.PI) * 1.85;
+          playerActor.tiltNode.position.y = arcY;
+          playerActor.tiltNode.rotation.x = u * Math.PI * 2;
+        }
+
+        // Drink Crimson Flask Heal Trigger
+        if (player.state === 'drink' && inActive && !player.hasDealtHit) {
+          player.hasDealtHit = true;
+          const healAmt = 650;
+          player.hp = Math.min(player.maxHp, player.hp + healAmt);
+          SFX.play('levelup');
+          spawnShockRing(player.x, player.z, 0xfde047, 0.25, 1.8, 0.32, player.y);
+          spawnFloat(player.x, player.y + 2.5, player.z, '+' + healAmt + ' VIGOR', '#4ade80', 15);
+        }
+
+        // Check Buffered Input during Cancel Window!
+        if (player.bufferedInput && u >= player.cancelStart) {
+          const nextIn = player.bufferedInput;
+          player.bufferedInput = null;
+          queueOrTriggerAction(nextIn);
+        }
+        // Always exit non-looping state once stateTime reaches stateDur!
+        if (player.state !== 'idle' && player.state !== 'move' && player.state !== 'block' && player.stateTime >= player.stateDur) {
+          playerActor.tiltNode.position.set(0, 0, 0);
+          playerActor.tiltNode.rotation.set(0, 0, 0);
+          playerRibbon.clear();
+          player.lungeSpeed = 0;
+          player.invincible = false;
+          player.parryActive = false;
+          player.state = 'idle';
+          playerActor.fadeTo('idle', 0.12, false, 1.0);
+        }
+      }
+
+      // Separate Player & Boss capsules & resolve World / Arena Collision + Elevation
+      if (bossFightStarted && player.state !== 'dead' && boss.state !== 'dead') {
+        const dx = player.x - boss.x;
+        const dz = player.z - boss.z;
+        const d = Math.hypot(dx, dz) || 0.01;
+        const minSep = player.invincible ? (player.r * 0.45 + boss.r * 0.75) : (player.r + boss.r);
+        if (d < minSep) {
+          player.x = boss.x + (dx / d) * minSep;
+          player.z = boss.z + (dz / d) * minSep;
+        }
+      }
+      resolveWorldCollisionAndElevation(player, prevPlayerX, prevPlayerZ, dt);
+
+      // Show/Hide Golden Fog Gate Interaction Prompt when standing before the Cathedral Archway
+      const showFogPrompt = !bossFightStarted && player.z >= 19.35 && player.z <= 23.4 && Math.abs(player.x) <= 3.6 && player.y < 1.0;
+      fogGatePromptEl.style.display = showFogPrompt ? 'block' : 'none';
+
+      // 3. Update Boss AI & Attack State Machine (Active once Fog Gate is traversed!)
+      if (!bossFightStarted) {
+        bossActor.fadeTo('idle', 0.15, false, 0.85);
+      } else if (boss.state === 'staggered') {
+        boss.stateTime += dt;
+        if (boss.stateTime >= boss.stateDur) {
+          boss.poise = 0;
+          boss.state = 'idle';
+          boss.aiCooldown = 0.7;
+          bossActor.tiltNode.rotation.set(0, 0, 0);
+          bossActor.fadeTo('idle', 0.12, false, 1.0);
+        }
+      } else if (boss.state === 'idle' || boss.state === 'stalk') {
+        if (boss.hp > 0 && player.state !== 'dead') {
+          const dx = player.x - boss.x;
+          const dz = player.z - boss.z;
+          const dist = Math.hypot(dx, dz);
+          const angToPlayer = Math.atan2(dx, dz);
+          boss.facing = angToPlayer;
+
+          if (bossAiEnabled) {
+            boss.aiCooldown -= dt;
+            if (dist > 3.6) {
+              boss.state = 'stalk';
+              boss.label = boss.phase === 2 ? 'Cinder Pursuit' : 'Stalking';
+              const walkSpd = boss.phase === 2 ? 4.35 : 3.45;
+              boss.x += Math.sin(angToPlayer) * walkSpd * dt;
+              boss.z += Math.cos(angToPlayer) * walkSpd * dt;
+              bossActor.fadeTo('run', 0.15, false, 0.88);
+            } else {
+              // Circle-strafe menacingly at close range
+              const strafeAng = angToPlayer + boss.strafeDir * (Math.PI * 0.5);
+              boss.x += Math.sin(strafeAng) * 1.85 * dt;
+              boss.z += Math.cos(strafeAng) * 1.85 * dt;
+              bossActor.fadeTo('idle', 0.15, false, 1.0);
+            }
+
+            if (boss.aiCooldown <= 0) {
+              if (dist > 7.5) {
+                enterBossAttack(Math.random() < 0.55 ? 'chargeSlide' : 'skyLeap');
+              } else if (dist <= 3.9) {
+                const r = Math.random();
+                if (r < 0.52) enterBossAttack('slash1');
+                else if (r < 0.82) enterBossAttack('overheadKick');
+                else enterBossAttack('skyLeap');
+              } else {
+                enterBossAttack(Math.random() < 0.5 ? 'slash1' : 'chargeSlide');
+              }
+            }
+          } else {
+            boss.label = 'Practice Dummy (AI Paused)';
+            bossActor.fadeTo('idle', 0.15, false, 1.0);
+          }
+        }
+      } else if (boss.state !== 'dead') {
+        boss.stateTime += dt;
+        const u = Math.min(1, boss.stateTime / Math.max(0.01, boss.stateDur));
+        const inActive = (boss.stateTime >= boss.activeStart && boss.stateTime <= boss.activeEnd);
+
+        // Track player slightly during early windup (`u < 0.32`), then lock direction so player can dodge!
+        if (u < 0.32) {
+          const targetAng = Math.atan2(player.x - boss.x, player.z - boss.z);
+          let diff = targetAng - boss.facing;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          boss.facing += diff * Math.min(1, dt * 5.5);
+        }
+
+        // Boss forward lunge movement
+        if (boss.lungeSpeed > 0 && u < 0.72) {
+          const moveScale = boss.state === 'chargeSlide' ? 1.0 : Math.sin((u / 0.72) * Math.PI);
+          boss.x += Math.sin(boss.facing) * boss.lungeSpeed * moveScale * dt;
+          boss.z += Math.cos(boss.facing) * boss.lungeSpeed * moveScale * dt;
+        }
+
+        // Sky Leap Vertical Jump Arc!
+        if (boss.state === 'skyLeap') {
+          const jumpArc = u < 0.68 ? Math.sin((u / 0.68) * Math.PI) * 3.4 : 0;
+          bossActor.tiltNode.position.y = jumpArc;
+        }
+
+        // Check Boss Weapon / AoE Impact during Active Window!
+        if (inActive && !boss.hasDealtHit) {
+          bossWeapon.baseNode.getWorldPosition(tmpVecA);
+          bossWeapon.tipNode.getWorldPosition(tmpVecB);
+          bossRibbon.pushSample(tmpVecA, tmpVecB);
+
+          const bladeDist = distPointToSegment2D(player.x, player.z, tmpVecA.x, tmpVecA.z, tmpVecB.x, tmpVecB.z);
+          const bodyDist = Math.hypot(player.x - boss.x, player.z - boss.z);
+          const hitRange = boss.state === 'skyLeap' ? 3.2 : (boss.state === 'overheadKick' ? 2.65 : 1.35);
+
+          if (bladeDist <= player.r + 0.65 || bodyDist <= hitRange) {
+            boss.hasDealtHit = true;
+            const rawDmg = boss.state === 'skyLeap' ? 340
+              : boss.state === 'overheadKick' ? 290
+              : boss.state === 'chargeSlide' ? 260
+              : 225;
+            resolveBossHitOnPlayer(boss.phase === 2 ? Math.round(rawDmg * 1.2) : rawDmg, boss.label);
+          }
+        }
+
+        if (boss.stateTime >= boss.stateDur) {
+          bossActor.tiltNode.position.set(0, 0, 0);
+          bossRibbon.clear();
+          // Chain Slash 1 -> Slash 2 if player is close!
+          if (boss.state === 'slash1' && Math.hypot(player.x - boss.x, player.z - boss.z) <= 4.4) {
+            enterBossAttack('slash2');
+          } else {
+            boss.state = 'idle';
+            boss.aiCooldown = boss.phase === 2 ? 0.78 : 1.25;
+            boss.strafeDir = Math.random() < 0.5 ? 1 : -1;
+            bossActor.fadeTo('idle', 0.14, false, 1.0);
+          }
+        }
+      }
+      clampToArenaAndPillars(boss, true);
+
+      // 4. Update Skeletal Mixers & Attach 3D Weapons to Hand Bones!
+      playerActor.pivot.position.set(player.x, player.y, player.z);
+      let pDiff = player.facing - playerActor.pivot.rotation.y;
+      while (pDiff > Math.PI) pDiff -= Math.PI * 2;
+      while (pDiff < -Math.PI) pDiff += Math.PI * 2;
+      playerActor.pivot.rotation.y += pDiff * Math.min(1, dt * 20);
+      if (playerActor.mixer) playerActor.mixer.update(dt);
+
+      // Keep Dynamic Shadow-Casting Moonlight centered on the Player across the 100m world!
+      moonLight.position.set(player.x + 16, player.y + 28, player.z + 14);
+      moonLight.target.position.set(player.x, player.y, player.z);
+      moonLight.target.updateMatrixWorld();
+
+      bossActor.pivot.position.set(boss.x, 0, boss.z);
+      let bDiff = boss.facing - bossActor.pivot.rotation.y;
+      while (bDiff > Math.PI) bDiff -= Math.PI * 2;
+      while (bDiff < -Math.PI) bDiff += Math.PI * 2;
+      bossActor.pivot.rotation.y += bDiff * Math.min(1, dt * 14);
+      if (bossActor.mixer) bossActor.mixer.update(dt);
+
+      // Mount Player Claymore in RightHand & Buckler Shield on LeftHand
+      if (playerActor.model && playerActor.rightHandBone && playerActor.leftHandBone) {
+        playerActor.model.updateMatrixWorld(true);
+        playerActor.rightHandBone.getWorldPosition(tmpVecA);
+        playerSword.group.position.copy(tmpVecA);
+
+        const pFwdX = Math.sin(playerActor.pivot.rotation.y);
+        const pFwdZ = Math.cos(playerActor.pivot.rotation.y);
+        const u = player.stateDur > 0 ? (player.stateTime / player.stateDur) : 0;
+
+        // Dynamic Sword Swing Arc orientation relative to RightHand!
+        let swingYaw = playerActor.pivot.rotation.y;
+        let swingPitch = 0.25;
+        if (player.state === 'light1') {
+          swingYaw += (0.95 - u * 2.1);
+          swingPitch = 0.05;
+        } else if (player.state === 'light2') {
+          swingYaw += (-0.95 + u * 2.1);
+          swingPitch = -0.05;
+        } else if (player.state === 'light3' || player.state === 'heavy' || player.state === 'lionsClaw' || player.state === 'riposte') {
+          swingPitch = -0.85 + u * 1.75;
+        }
+        tmpVecB.set(
+          tmpVecA.x + Math.sin(swingYaw) * Math.cos(swingPitch),
+          tmpVecA.y + Math.sin(swingPitch),
+          tmpVecA.z + Math.cos(swingYaw) * Math.cos(swingPitch)
+        );
+        playerSword.group.up.set(0, 1, 0);
+        playerSword.group.lookAt(tmpVecB);
+
+        // Mount Shield on LeftHand (raised in front of chest when Blocking/Parrying!)
+        playerActor.leftHandBone.getWorldPosition(tmpVecC);
+        if (player.state === 'block' || player.state === 'parry') {
+          playerShield.position.set(player.x + pFwdX * 0.52, player.y + 1.28, player.z + pFwdZ * 0.52);
+          playerShield.rotation.set(0, playerActor.pivot.rotation.y, 0);
+        } else {
+          playerShield.position.copy(tmpVecC);
+          playerShield.rotation.set(0.2, playerActor.pivot.rotation.y - 1.2, 0);
+        }
+
+        // Check Player Physical Blade Sweep Hitbox during Active Attack Windows!
+        const isAttackState = ['light1', 'light2', 'light3', 'heavy', 'lionsClaw', 'riposte'].includes(player.state);
+        const inActive = isAttackState && (player.stateTime >= player.activeStart && player.stateTime <= player.activeEnd);
+        if (inActive) {
+          playerSword.baseNode.getWorldPosition(tmpVecA);
+          playerSword.tipNode.getWorldPosition(tmpVecB);
+          playerRibbon.pushSample(tmpVecA, tmpVecB);
+
+          if (bossFightStarted && !player.hasDealtHit && boss.state !== 'dead') {
+            const dBlade = distPointToSegment2D(boss.x, boss.z, tmpVecA.x, tmpVecA.z, tmpVecB.x, tmpVecB.z);
+            const dBody = Math.hypot(boss.x - player.x, boss.z - player.z);
+            if (dBlade <= boss.r + 0.55 || dBody <= boss.r + 1.45) {
+              player.hasDealtHit = true;
+              if (player.state === 'riposte') {
+                damageBoss(780, 0, true);
+              } else if (player.state === 'lionsClaw') {
+                damageBoss(410, 48, false);
+              } else if (player.state === 'heavy') {
+                damageBoss(295, 38, false);
+              } else if (player.state === 'light3') {
+                damageBoss(245, 30, false);
+              } else {
+                damageBoss(165, 18, false);
+              }
+            }
+          }
+        }
+      }
+
+      // Mount Boss Colossal Weapon in RightHand
+      if (bossActor.model && bossActor.rightHandBone) {
+        bossActor.model.updateMatrixWorld(true);
+        bossActor.rightHandBone.getWorldPosition(tmpVecA);
+        bossWeapon.group.position.copy(tmpVecA);
+        const u = boss.stateDur > 0 ? (boss.stateTime / boss.stateDur) : 0;
+        let bYaw = bossActor.pivot.rotation.y;
+        let bPitch = 0.15;
+        if (boss.state === 'slash1') bYaw += (1.1 - u * 2.2);
+        else if (boss.state === 'slash2') bYaw += (-1.1 + u * 2.2);
+        else if (boss.state === 'overheadKick' || boss.state === 'skyLeap') bPitch = -0.75 + u * 1.5;
+
+        tmpVecB.set(
+          tmpVecA.x + Math.sin(bYaw) * Math.cos(bPitch),
+          tmpVecA.y + Math.sin(bPitch),
+          tmpVecA.z + Math.cos(bYaw) * Math.cos(bPitch)
+        );
+        bossWeapon.group.up.set(0, 1, 0);
+        bossWeapon.group.lookAt(tmpVecB);
+      }
+
+      // Hit-flash & I-frame material feedback
+      if (player.hitFlash > 0) player.hitFlash -= dt;
+      playerActor.meshes.forEach((m) => {
+        if (player.hitFlash > 0) m.material.emissive.setHex(0xef4444);
+        else if (player.invincible) m.material.emissive.setHex(0x0284c7);
+        else m.material.emissive.setHex(0x0f172a);
+        m.material.emissiveIntensity = (player.hitFlash > 0 || player.invincible) ? 0.65 : 0.15;
+      });
+
+      if (boss.hitFlash > 0) boss.hitFlash -= dt;
+      bossActor.meshes.forEach((m) => {
+        m.material.emissive.setHex(boss.hitFlash > 0 ? 0xffffff : (boss.phase === 2 ? 0x9a3412 : 0x7c2d12));
+        m.material.emissiveIntensity = boss.hitFlash > 0 ? 0.85 : (boss.phase === 2 ? 0.45 : 0.18);
+      });
+
+      // 5. Third-Person Over-The-Shoulder + Z-Target Lock-On Camera
+      if (lockOnActive && bossFightStarted && boss.hp > 0) {
+        const desiredYaw = Math.atan2(player.x - boss.x, player.z - boss.z);
+        let yDiff = desiredYaw - camYaw;
+        while (yDiff > Math.PI) yDiff -= Math.PI * 2;
+        while (yDiff < -Math.PI) yDiff += Math.PI * 2;
+        camYaw += yDiff * Math.min(1, dt * 8.5);
+      } else if (!lockOnActive && player.state === 'move' && (keys.KeyA || keys.KeyD)) {
+        // Gentle Dark Souls / Elden Ring auto-follow camera yaw when strafing/turning while unlocked!
+        const turnDir = (keys.KeyA ? 1 : 0) + (keys.KeyD ? -1 : 0);
+        camYaw += turnDir * 0.75 * dt;
+      }
+
+      // Shoulder offset so the player stands slightly to the left of center, framing the world & Boss cleanly!
+      const rightX = Math.cos(camYaw) * 0.48;
+      const rightZ = -Math.sin(camYaw) * 0.48;
+      const pivotX = player.x + rightX;
+      const pivotY = player.y + 1.55;
+      const pivotZ = player.z + rightZ;
+
+      let desiredCamX = pivotX + Math.sin(camYaw) * Math.cos(camPitch) * camDist;
+      let desiredCamY = pivotY + Math.sin(camPitch) * camDist;
+      let desiredCamZ = pivotZ + Math.cos(camYaw) * Math.cos(camPitch) * camDist;
+
+      // Clamp camera inside outer balustrade when inside the Boss Arena
+      if (bossFightStarted) {
+        const camRad = Math.hypot(desiredCamX, desiredCamZ);
+        if (camRad > ARENA_RADIUS - 0.6) {
+          const scale = (ARENA_RADIUS - 0.6) / camRad;
+          desiredCamX *= scale;
+          desiredCamZ *= scale;
+        }
+      }
+
+      if (shakeTimer > 0) {
+        shakeTimer -= dt;
+        desiredCamX += (Math.random() - 0.5) * shakeIntensity;
+        desiredCamY += (Math.random() - 0.5) * shakeIntensity;
+      } else {
+        shakeIntensity = 0;
+      }
+
+      camera.position.set(desiredCamX, Math.max(player.y + 0.75, desiredCamY), desiredCamZ);
+      if (lockOnActive && bossFightStarted && boss.hp > 0) {
+        const lookX = player.x * 0.35 + boss.x * 0.65;
+        const lookY = 1.35 + bossActor.tiltNode.position.y * 0.55;
+        const lookZ = player.z * 0.35 + boss.z * 0.65;
+        camera.lookAt(lookX, lookY, lookZ);
+      } else {
+        camera.lookAt(pivotX - Math.sin(camYaw) * 6, pivotY - Math.sin(camPitch) * 3, pivotZ - Math.cos(camYaw) * 6);
+      }
+      camera.updateMatrixWorld();
+
+      // Update VFX Rings & Floating Numbers
+      for (let i = vfxRings.length - 1; i >= 0; i--) {
+        const r = vfxRings[i];
+        r.t += dt;
+        const k = Math.min(1, r.t / r.dur);
+        r.mesh.scale.setScalar(r.startR + (r.endR - r.startR) * k);
+        r.mesh.material.opacity = 0.88 * (1 - k);
+        if (k >= 1) {
+          scene.remove(r.mesh);
+          vfxRings.splice(i, 1);
+        }
+      }
+
+      for (let i = floatTexts.length - 1; i >= 0; i--) {
+        const f = floatTexts[i];
+        f.y += 1.35 * dt;
+        f.life -= dt;
+        const sp = projectToScreen(f.x, f.y, f.z);
+        f.el.style.left = sp.x + 'px';
+        f.el.style.top = sp.y + 'px';
+        f.el.style.opacity = Math.min(1, f.life * 1.6);
+        if (f.life <= 0) {
+          f.el.remove();
+          floatTexts.splice(i, 1);
+        }
+      }
+
+      // Lock-On Reticle & Stance-Break Riposte Prompt Projection
+      if (lockOnActive && bossFightStarted && boss.hp > 0) {
+        const chestPos = projectToScreen(boss.x, 1.85 + bossActor.tiltNode.position.y, boss.z);
+        lockReticleEl.style.display = chestPos.visible ? 'block' : 'none';
+        lockReticleEl.style.left = chestPos.x + 'px';
+        lockReticleEl.style.top = chestPos.y + 'px';
+      } else {
+        lockReticleEl.style.display = 'none';
+      }
+
+      if (bossFightStarted && boss.state === 'staggered') {
+        const promptPos = projectToScreen(boss.x, 3.25, boss.z);
+        ripostePromptEl.style.display = promptPos.visible ? 'block' : 'none';
+        ripostePromptEl.style.left = promptPos.x + 'px';
+        ripostePromptEl.style.top = promptPos.y + 'px';
+      } else {
+        ripostePromptEl.style.display = 'none';
+      }
+
+      // Sync HUD Bars & Equipment Crucible Highlights
+      document.getElementById('player-hp-fill').style.width = ((player.hp / player.maxHp) * 100) + '%';
+      document.getElementById('player-hp-trail').style.width = ((player.hpTrail / player.maxHp) * 100) + '%';
+      document.getElementById('player-fp-fill').style.width = ((player.fp / player.maxFp) * 100) + '%';
+      const stamFillEl = document.getElementById('player-stam-fill');
+      stamFillEl.style.width = ((player.stam / player.maxStam) * 100) + '%';
+      stamFillEl.classList.toggle('exhausted', player.exhausted);
+
+      document.getElementById('player-vitals-txt').innerHTML =
+        'HP ' + Math.round(player.hp) + ' / ' + player.maxHp +
+        ' &nbsp;&bull;&nbsp; FP ' + Math.round(player.fp) + ' / ' + player.maxFp +
+        ' &nbsp;&bull;&nbsp; STAM ' + Math.round(player.stam) + ' / ' + player.maxStam;
+
+      document.getElementById('flask-charges-txt').textContent = 'x' + player.flasks;
+      document.getElementById('slot-art').classList.toggle('active-glow', player.state === 'lionsClaw');
+      document.getElementById('slot-shield').classList.toggle('active-glow', player.state === 'block' || player.state === 'parry');
+      document.getElementById('slot-flask').classList.toggle('active-glow', player.state === 'drink');
+      document.getElementById('slot-sword').classList.toggle('active-glow', ['light1', 'light2', 'light3', 'heavy', 'riposte'].includes(player.state));
+
+      document.getElementById('boss-hp-fill').style.width = ((boss.hp / boss.maxHp) * 100) + '%';
+      document.getElementById('boss-hp-trail').style.width = ((boss.hpTrail / boss.maxHp) * 100) + '%';
+      document.getElementById('boss-poise-fill').style.width = ((boss.poise / boss.maxPoise) * 100) + '%';
+      document.getElementById('boss-hp-txt').textContent = Math.round(boss.hp) + ' / ' + boss.maxHp;
+      document.getElementById('boss-action-lbl').textContent = boss.label;
+
+      renderer.render(scene, camera);
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

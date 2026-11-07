@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mammal Golf</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <style>
+        :root {
+            --bg: #94a3b8;
+            --card-bg: #2d2f31;
+            --primary: #52b788;
+            --primary-bright: #74c69d;
+            --text-main: #e2e2e2;
+            --text-muted: #9ba1a6;
+            --border: #3f4245;
+            --input-bg: #111214;
+            --danger: #e63946;
+            --success: #2d6a4f;
+            --all-in: #f4a261;
+            --gold: #d4af37;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 36px 16px;
+            margin: 0;
+        }
+
+        #game-container {
+            background-color: var(--card-bg);
+            padding: 36px 36px 32px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 980px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        #calendar-trigger, #free-play-trigger {
+            position: absolute;
+            top: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            z-index: 10;
+        }
+        #calendar-trigger { right: 20px; }
+        #free-play-trigger { right: 60px; }
+        #calendar-trigger:hover, #free-play-trigger:hover { transform: scale(1.1); }
+        #calendar-trigger img, #free-play-trigger img { width: 28px; height: 28px; display: block; opacity: 0.85; }
+
+        h1 {
+            margin: 0 0 6px 0;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 22px;
+        }
+
+        /* Scorecard bar */
+        .scorecard-bar {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+        }
+
+        .score-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-right: 1px solid var(--border);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .score-pill:last-child { border-right: none; }
+        .score-pill span.val {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .score-pill span.val.accent { color: var(--primary); }
+        .score-pill span.val.gold { color: var(--gold); }
+
+        /* Input Row */
+        .input-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        #main-input {
+            padding: 14px 18px;
+            width: 100%;
+            max-width: 440px;
+            font-size: 1.15rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: #fff;
+            outline: none;
+            text-align: center;
+            transition: border-color 0.15s;
+        }
+        #main-input:focus {
+            border-color: var(--primary);
+        }
+        #main-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .swing-btn {
+            padding: 14px 22px;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary);
+            color: #111;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.15s;
+        }
+        .swing-btn:hover:not(:disabled) {
+            background: var(--primary-bright);
+            transform: translateY(-1px);
+        }
+        .swing-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Feedback Toast */
+        #feedback-banner {
+            min-height: 26px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+            transition: opacity 0.2s;
+        }
+        .fb-hit { color: var(--primary-bright); }
+        .fb-warn { color: var(--all-in); }
+        .fb-miss { color: var(--danger); }
+
+        /* 3x3 Category Grid */
+        .golf-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 10px 0 24px;
+            text-align: left;
+        }
+
+        @media (max-width: 740px) {
+            .golf-grid { grid-template-columns: 1fr; }
+            #game-container { padding: 24px 16px; }
+        }
+
+        .cat-card {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 148px;
+            position: relative;
+            transition: border-color 0.2s, background-color 0.2s, transform 0.15s;
+        }
+
+        .cat-card.clickable {
+            cursor: pointer;
+        }
+        .cat-card.clickable:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .cat-card.cleared {
+            background: linear-gradient(160deg, rgba(45, 106, 79, 0.38) 0%, rgba(17, 18, 20, 0.95) 100%);
+            border-color: var(--primary);
+        }
+
+        .cat-card.flash-hit {
+            animation: cardPulse 0.65s ease;
+        }
+
+        @keyframes cardPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.7); }
+            40% { transform: scale(1.025); box-shadow: 0 0 0 10px rgba(82, 183, 136, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(82, 183, 136, 0); }
+        }
+
+        .cat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            gap: 6px;
+        }
+
+        .group-badge {
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.07);
+            color: var(--text-muted);
+        }
+        .group-taxonomy { color: #93c5fd; background: rgba(59, 130, 246, 0.15); }
+        .group-geography { color: #fcd34d; background: rgba(245, 158, 11, 0.15); }
+        .group-conservation { color: #fca5a5; background: rgba(239, 68, 68, 0.15); }
+        .group-biology { color: #86efac; background: rgba(34, 197, 94, 0.15); }
+        .group-name { color: #d8b4fe; background: rgba(168, 85, 247, 0.15); }
+
+        .cat-count {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .cat-title {
+            font-size: 1.04rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0 0 6px 0;
+            line-height: 1.25;
+        }
+
+        .cat-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .cat-hits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            min-height: 24px;
+            align-items: center;
+        }
+
+        .hit-chip {
+            font-size: 0.73rem;
+            font-weight: 700;
+            background: var(--primary);
+            color: #0b1b13;
+            padding: 3px 9px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .unhit-label {
+            font-size: 0.72rem;
+            color: #5d6368;
+            font-style: italic;
+        }
+
+        /* Stroke Log & Post-Game Panel */
+        .bottom-area {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .strokes-log {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .stroke-badge {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 7px 12px;
+            font-size: 0.83rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stroke-badge .s-num {
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+        .stroke-badge .s-name {
+            color: #fff;
+            font-weight: 700;
+        }
+        .stroke-badge .s-cnt {
+            background: rgba(82, 183, 136, 0.2);
+            color: var(--primary-bright);
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 99px;
+        }
+
+        /* Result & Optimal Par Box */
+        #result-panel {
+            background: var(--input-bg);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .golf-rating {
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .golf-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .optimal-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .optimal-title {
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .opt-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .opt-row:last-child { margin-bottom: 0; }
+
+        .opt-mammal {
+            font-weight: 800;
+            color: #fff;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .opt-cats {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 9px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: all 0.15s;
+        }
+        .secondary-btn:hover {
+            border-color: var(--text-main);
+            color: #fff;
+        }
+        .secondary-btn.danger:hover {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: #fff;
+        }
+
+        /* Modals */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 16px;
+        }
+        .picker-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 440px;
+            padding: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .picker-box h2 {
+            margin-top: 0;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .game-num-btn {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: 0.12s;
+            font-size: 0.95rem;
+        }
+        .game-num-btn small {
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .game-num-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #111;
+        }
+        .game-num-btn:hover small { color: #111; }
+        .game-num-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .mammal-list-modal {
+            max-width: 580px;
+            text-align: left;
+        }
+        .mammal-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            max-height: 360px;
+            overflow-y: auto;
+            padding: 4px 2px;
+        }
+        .mammal-chip {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+        }
+        .mammal-chip.guessed {
+            border-color: var(--primary);
+            color: var(--primary-bright);
+            font-weight: 700;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div id="free-play-trigger" onclick="startFreePlay()" title="Generate Random Course">
+        <img src="../../img/free.png" alt="Free Play">
+    </div>
+
+    <div id="calendar-trigger" onclick="openPicker()" title="Select Course">
+        <img src="../../img/calendar.png" alt="Select Course">
+    </div>
+
+    <h1>MAMMAL GOLF</h1>
+    <div class="subtitle">Name as few mammals as possible to clear all 6 undeniable categories &mdash; every board has a 1-stroke Hole-in-One!</div>
+
+    <div class="scorecard-bar">
+        <div class="score-pill">Course <span class="val" id="course-num">#1</span></div>
+        <div class="score-pill">Par <span class="val gold" id="course-par">2</span></div>
+        <div class="score-pill">Strokes <span class="val accent" id="stroke-count">0</span></div>
+        <div class="score-pill">Cleared <span class="val" id="cleared-count">0 / 6</span></div>
+    </div>
+
+    <div class="input-row">
+        <input type="text" id="main-input" placeholder="Enter a mammal (e.g. Giraffe, Sea otter, Lion)..." autocomplete="off">
+        <button class="swing-btn" id="swing-btn" onclick="submitMammal()">Swing</button>
+    </div>
+
+    <div id="feedback-banner"></div>
+
+    <div class="golf-grid" id="golf-grid"></div>
+
+    <div class="bottom-area">
+        <div class="strokes-log" id="strokes-log"></div>
+
+        <div id="result-panel" class="hidden">
+            <div class="golf-rating" id="golf-rating-title">PAR!</div>
+            <div class="golf-sub" id="golf-rating-sub"></div>
+            <div class="optimal-box" id="optimal-box"></div>
+        </div>
+
+        <div class="controls-row">
+            <button class="secondary-btn" onclick="resetCurrentCourse()">Reset Hole</button>
+            <button class="secondary-btn danger" id="give-up-btn" onclick="giveUpHole()">Give Up &amp; Show Hole-in-One</button>
+            <button class="secondary-btn" onclick="nextCourse()">Next Hole &rarr;</button>
+        </div>
+    </div>
+</div>
+
+<!-- Course Picker Modal -->
+<div id="picker-modal" class="modal hidden" onclick="closePicker()">
+    <div class="picker-box" onclick="event.stopPropagation()">
+        <h2>Select Golf Course</h2>
+        <div class="game-grid" id="game-grid"></div>
+    </div>
+</div>
+
+<!-- Category Mammal Inspector Modal -->
+<div id="inspector-modal" class="modal hidden" onclick="closeInspector()">
+    <div class="picker-box mammal-list-modal" onclick="event.stopPropagation()">
+        <h2 id="insp-title" style="color:#fff; font-size:1.1rem; margin-bottom:4px;">Category</h2>
+        <div id="insp-desc" style="color:var(--text-muted); font-size:0.83rem; margin-bottom:14px;"></div>
+        <div class="mammal-chips" id="insp-chips"></div>
+    </div>
+</div>
+
+<script>
+/* __MAMMAL_GOLF_DATA_START__ */
+const EMBEDDED_MAMMAL_DATA = {"categories":[{"id":"order_carnivora","group":"taxonomy","name":"Order Carnivora","desc":"Member of the mammal order Carnivora (cats, dogs, bears, weasels, seals, raccoons, hyenas, civets, etc.)"},{"id":"family_felidae","group":"taxonomy","name":"Cat Family (Felidae)","desc":"Member of the biological family Felidae (true cats)"},{"id":"family_canidae","group":"taxonomy","name":"Dog Family (Canidae)","desc":"Member of the biological family Canidae (wolves, foxes, jackals, dogs)"},{"id":"order_rodentia","group":"taxonomy","name":"Rodent (Order Rodentia)","desc":"Member of the order Rodentia (gnawing mammals with continuously growing incisors)"},{"id":"order_primates","group":"taxonomy","name":"Primate (Order Primates)","desc":"Member of the order Primates (apes, monkeys, lemurs, tarsiers, lorises, bushbabies)"},{"id":"ungulate","group":"taxonomy","name":"Hoofed Mammal (Ungulate)","desc":"Hoofed land mammal (even-toed and odd-toed ungulates with hooves)"},{"id":"odd_toed_ungulate","group":"taxonomy","name":"Odd-Toed Ungulate","desc":"Member of order Perissodactyla (horses, zebras, asses, rhinos, tapirs)"},{"id":"marsupial_monotreme","group":"taxonomy","name":"Marsupial or Monotreme","desc":"Pouched mammal (marsupial) or egg-laying mammal (monotreme)"},{"id":"fully_marine","group":"taxonomy","name":"Marine Mammal","desc":"Ocean-dwelling mammal (whales, dolphins, porpoises, seals, sea lions, walrus, manatees, dugong, sea otter)"},{"id":"native_africa","group":"geography","name":"Native to Africa","desc":"Has a native wild population on the African continent or Madagascar"},{"id":"native_asia","group":"geography","name":"Native to Asia","desc":"Has a native wild population in Asia"},{"id":"native_north_america","group":"geography","name":"Native to North America","desc":"Has a native wild population in North or Central America / Caribbean"},{"id":"native_south_america","group":"geography","name":"Native to South America","desc":"Has a native wild population in South America"},{"id":"native_europe","group":"geography","name":"Native to Europe","desc":"Has a native wild population in Europe"},{"id":"native_australia","group":"geography","name":"Native to Australia/Oceania","desc":"Has a native wild population in Australia, Tasmania, New Guinea, or Oceania"},{"id":"single_continent","group":"geography","name":"Endemic to 1 Continent","desc":"Found natively on only a single continent (excluding oceanic whales/seals)"},{"id":"multi_continent","group":"geography","name":"Multi-Continent / Oceanic","desc":"Found natively across 2+ continents or across the world's oceans"},{"id":"diet_herbivore","group":"biology","name":"Strictly Herbivorous","desc":"Plant-eating mammal (grazer, browser, frugivore, folivore, or granivore)"},{"id":"diet_carnivore","group":"biology","name":"Vertebrate Predator","desc":"Primarily hunts and eats other vertebrate animals (meat or fish)"},{"id":"diet_insectivore","group":"biology","name":"Insectivore / Ant-Eater","desc":"Diet consists primarily of insects, ants, termites, or small invertebrates"},{"id":"diet_omnivore","group":"biology","name":"Omnivorous Diet","desc":"Eats both plant and animal matter (bears, raccoons, pigs, chimps, baboons, foxes, badgers, opossums, rats)"},{"id":"horns_antlers_tusks","group":"biology","name":"Horns, Antlers, or Tusks","desc":"Possesses true horns, antlers, ossicones, rhino horns, or projecting tusks"},{"id":"aquatic_semiaquatic","group":"biology","name":"Aquatic or Semi-Aquatic","desc":"Swims and forages in water (marine mammals, otters, beavers, hippos, capybaras, platypus, water shrews/voles)"},{"id":"terrestrial_only","group":"biology","name":"Strictly Land-Dwelling","desc":"Terrestrial or arboreal mammal (not aquatic or semi-aquatic)"},{"id":"stripes_or_spots","group":"biology","name":"Striped or Spotted Coat","desc":"Has prominent coat stripes, spots, bands, or rosettes"},{"id":"flight_or_gliding","group":"biology","name":"Flies or Glides","desc":"Capable of true powered flight (bats) or membrane gliding (flying squirrels, gliders, colugos)"},{"id":"weight_over_200kg","group":"biology","name":"Heavyweight (>200 kg / 440 lb)","desc":"Adults regularly exceed 200 kg (440 lbs) in body mass"},{"id":"weight_medium","group":"biology","name":"Medium-Sized (5–200 kg)","desc":"Adults weigh between 5 kg (11 lbs) and 200 kg (440 lbs)"},{"id":"weight_under_5kg","group":"biology","name":"Pint-Sized (<5 kg / 11 lb)","desc":"Adults weigh under 5 kg (11 lbs)"},{"id":"name_has_color","group":"name","name":"Color in Common Name","desc":"Common name contains a color word (Red, Black, White, Blue, Gray, Brown, Golden, Yellow, Silver)"},{"id":"name_has_geo","group":"name","name":"Place/Habitat in Name","desc":"Common name contains a place or habitat word (African, Asian, American, Arctic, Mountain, Sea, River, Forest, Desert, etc.)"},{"id":"name_double_letter","group":"name","name":"Double Letter in Name","desc":"Common name contains consecutive identical letters (e.g., Giraffe, Cheetah, Gorilla, Otter, Moose)"},{"id":"name_starts_vowel","group":"name","name":"Starts with a Vowel","desc":"Common name begins with A, E, I, O, or U"},{"id":"name_short_5","group":"name","name":"5-Letter (or Shorter) Name","desc":"Single-word common name with 5 letters or fewer (e.g., Lion, Tiger, Zebra, Horse, Moose, Koala, Orca, Sloth, Ibex, Hyrax)"},{"id":"name_single_word","group":"name","name":"Single-Word Name","desc":"Common name is a single unhyphenated word (e.g., Giraffe, Capybara, Platypus, Wolverine, Ibex, Hyrax)"},{"id":"name_multi_word","group":"name","name":"Multi-Word Name","desc":"Common name consists of two or more words (e.g., Polar bear, Sea otter, Red panda, Snow leopard, Blue whale)"}],"mammals_packed":[["Reindeer",[5,10,11,13,16,17,21,23,27,31,34],66977,["caribou","rangifer tarandus"]],["Beluga whale",[8,16,18,22,26,35],53591,["beluga","delphinapterus leucas"]],["Cheetah",[0,1,9,10,16,18,23,24,27,31,34],132767,["acinonyx jubatus"]],["Domestic dog",[0,2,10,13,16,20,23,27,35],386510,["dog","canis familiaris"]],["Dingo",[0,2,14,15,18,23,27,33,34],88622,["canis dingo"]],["Coyote",[0,2,11,15,20,23,27,34],130085,["prairie wolf","canis latrans"]],["Tiger",[0,1,10,15,18,23,24,26,33,34],202867,["bengal tiger","siberian tiger","panthera tigris"]],["Domestic cat",[0,1,9,10,13,16,18,23,28,35],732605,["cat","house cat","housecat","felis catus"]],["Orca",[8,16,18,22,26,32,33,34],193418,["killer whale","orcinus orca"]],["Lion",[0,1,9,10,16,18,23,26,33,34],194018,["african lion","panthera leo"]],["Sperm whale",[8,16,18,22,26,35],176401,["cachalot","physeter macrocephalus","dwarf sperm whale"]],["Horse",[5,6,10,13,16,17,23,26,33,34],199126,["domestic horse","stallion","mare","equus caballus"]],["Moose",[5,10,11,13,16,17,21,22,26,31,33,34],138149,["eurasian elk","alces alces"]],["Sheep",[5,10,13,16,17,21,23,27,31,33,34],79989,["domestic sheep","ram","ewe","ovis aries","dall sheep","snow sheep","barbary sheep"]],["Red fox",[0,2,9,10,11,13,16,20,23,27,29,35],82822,["fox","vulpes vulpes"]],["Chimpanzee",[4,9,15,20,23,27,31,34],90705,["chimp","pan troglodytes"]],["Raccoon",[0,11,15,20,23,24,27,31,34],145438,["trash panda","procyon lotor","cozumel raccoon","crab-eating raccoon"]],["Rabbit",[9,11,13,16,17,23,28,31,34],31226,["european rabbit","bunny","oryctolagus cuniculus","riverine rabbit","san jose brush rabbit","sumatran striped rabbit","venezuelan lowland rabbit","annamite striped rabbit","amami rabbit","volcano rabbit","tres marias rabbit","pygmy rabbit","bunyoro rabbit","swamp rabbit","brush rabbit","marsh rabbit"]],["Giraffe",[5,9,15,17,21,23,24,26,31,34],96049,["giraffa camelopardalis","northern giraffe","southern giraffe"]],["Bonobo",[4,9,15,20,23,27,34],90127,["pygmy chimpanzee","pan paniscus"]],["Wild boar",[5,9,10,13,16,20,21,23,27,35],84471,["boar","wild pig","sus scrofa"]],["Sea otter",[0,8,10,11,16,18,22,27,30,31,35],60977,["enhydra lutris"]],["Brown bear",[0,10,11,13,16,20,23,26,29,35],120200,["grizzly bear","grizzly","kodiak bear","bear","ursus arctos"]],["Jaguar",[0,1,11,12,16,18,23,24,27,34],153941,["panthera onca"]],["Spotted hyena",[0,9,15,18,23,24,27,31,35],39587,["hyena","laughing hyena","crocuta crocuta"]],["Leopard",[0,1,9,10,16,18,23,24,27,34],114695,["black panther","panthera pardus","sunda clouded leopard"]],["American black bear",[0,11,15,20,23,26,29,30,32,35],102812,["black bear","ursus americanus"]],["Gray wolf",[0,2,10,11,13,16,18,23,27,29,35],152714,["wolf","grey wolf","timber wolf","canis lupus"]],["Orangutan",[4,10,15,20,23,27,32,34],26791,["bornean orangutan","pongo pygmaeus","sumatran orangutan","tapanuli orangutan"]],["Gray whale",[8,16,18,22,26,29,35],17254,["grey whale","eschrichtius robustus"]],["Cougar",[0,1,11,12,16,18,23,27,34],143738,["puma","mountain lion","catamount","panther","puma concolor"]],["Cattle",[5,10,13,16,17,21,23,26,31,34],121237,["cow","bull","ox","zebu","bos taurus"]],["Golden jackal",[0,2,10,13,16,20,23,27,29,35],34302,["jackal","canis aureus"]],["Tasmanian devil",[7,14,15,18,23,27,30,35],99654,["sarcophilus harrisii"]],["Dugong",[8,9,10,14,16,17,22,26,34],68586,["dugong dugon"]],["Giant panda",[0,10,15,17,23,27,35],193801,["panda","panda bear","ailuropoda melanoleuca"]],["Blue whale",[8,16,18,22,26,29,35],132576,["balaenoptera musculus"]],["Dhole",[0,2,10,15,18,23,27,33,34],45626,["asiatic wild dog","indian wild dog","cuon alpinus"]],["White-tailed deer",[5,11,12,16,17,21,23,27,29,31,35],56046,["whitetail deer","deer","odocoileus virginianus"]],["Koala",[7,14,15,17,23,27,33,34],85152,["koala bear","phascolarctos cinereus"]],["Dromedary",[5,9,10,16,17,23,26,34],41038,["arabian camel","dromedary camel","camelus dromedarius"]],["Bottlenose dolphin",[8,16,18,22,26,31,35],10192,["dolphin","common bottlenose dolphin","tursiops truncatus"]],["Gorilla",[4,9,15,17,23,26,31,34],24076,["western gorilla","gorilla gorilla","eastern gorilla"]],["European bison",[5,13,15,17,21,23,26,30,32,35],37540,["wisent","bison bonasus"]],["Asian elephant",[10,15,17,21,23,26,30,32,35],41716,["indian elephant","elephas maximus"]],["American bison",[5,11,15,17,21,23,26,30,32,35],81779,["bison","buffalo","american buffalo","bison bison"]],["Domestic pig",[5,10,13,16,20,23,27,35],85861,["pig","hog","swine","sus domesticus"]],["Slow loris",[4,10,15,20,23,28,35],29216,["sunda slow loris","nycticebus coucang","javan slow loris","bangka slow loris","bengal slow loris","pygmy slow loris","borneo slow loris","kayan river slow loris","philippine slow loris"]],["Elk",[5,10,11,16,17,21,23,26,32,33,34],87045,["wapiti","cervus canadensis"]],["Platypus",[7,14,15,19,22,28,34],139413,["duck-billed platypus","ornithorhynchus anatinus"]],["Nutria",[3,12,15,17,22,27,34],82282,["coypu","myocastor coypus"]],["Beaver",[3,11,13,16,17,22,27,34],24084,["north american beaver","castor canadensis","eurasian beaver","mountain beaver"]],["Polar bear",[0,10,11,13,16,18,22,26,35],147795,["ursus maritimus"]],["Pangolin",[9,10,16,19,23,28,34],5754,["sunda pangolin","manis javanica","chinese pangolin","philippine pangolin","indian pangolin","white-bellied pangolin","giant pangolin","long-tailed pangolin","ground pangolin"]],["Flying fox",[10,14,16,17,23,25,28,35],6982,["large flying fox","fruit bat","megabat","pteropus vampyrus","aru flying fox","andersen's flying fox","kei flying fox","lombok flying fox","okinawa flying fox","philippine gray flying fox","talaud flying fox","giant golden-crowned flying fox","banks flying fox","black-bearded flying fox","temotu flying fox","bonin flying fox","rennell flying fox","rodrigues flying fox","vanikoro flying fox","admiralty flying fox","black flying fox","spectacled flying fox","big-eared flying fox","great flying fox","masked flying fox","little red flying fox","insular flying fox","little golden-mantled flying fox","solomons flying fox","samoa flying fox","sulawesi flying fox","sunda flying fox","aldabra flying fox","vanuatu flying fox","ashy-headed flying fox","bismarck masked flying fox","moluccan flying fox","makira flying fox","ryukyu flying fox","nicobar flying fox","lyle's flying fox","black-eared flying fox","caroline flying fox","mauritian flying fox","ornate flying fox","pelew flying fox","geelvink bay flying fox","grey-headed flying fox","madagascan flying fox","temminck's flying fox","kosrae flying fox","new caledonia flying fox","pemba flying fox"]],["Hippopotamus",[5,9,15,17,21,22,26,31,34],120845,["hippo","common hippopotamus","hippopotamus amphibius"]],["Golden lion tamarin",[4,12,15,20,23,28,29,35],9371,["tamarin","leontopithecus rosalia"]],["Narwhal",[8,16,18,21,22,26,34],98512,["monodon monoceros"]],["Guinea pig",[3,12,15,17,23,28,35],89562,["cavy","cavia porcellus","santa catarina's guinea pig","sacha guinea pig","brazilian guinea pig","shiny guinea pig","greater guinea pig","montane guinea pig"]],["Humpback whale",[8,16,18,22,26,35],76852,["megaptera novaeangliae"]],["Zebra",[5,6,9,15,17,23,24,26,33,34],21828,["plains zebra","equus quagga","grévy's zebra","mountain zebra"]],["Walrus",[0,8,10,11,13,16,18,21,22,26,34],74396,["odobenus rosmarus"]],["Bobcat",[0,1,11,15,18,23,24,27,34],107885,["lynx rufus"]],["Asian black bear",[0,10,15,20,23,27,29,30,32,35],36983,["moon bear","asiatic black bear","ursus thibetanus"]],["Manatee",[8,11,12,16,17,22,26,31,34],16763,["west indian manatee","sea cow","trichechus manatus","amazonian manatee","african manatee"]],["Brown rat",[3,10,13,16,20,23,28,29,35],36786,["rat","norway rat","rattus norvegicus"]],["Red panda",[0,10,15,17,23,28,29,35],115264,["lesser panda","ailurus fulgens"]],["Ring-tailed lemur",[4,9,15,20,23,24,28,35],21097,["lemur","lemur catta"]],["Goat",[5,10,13,16,17,21,23,27,33,34],86877,["domestic goat","capra hircus","wild goat"]],["Przewalski's horse",[5,6,10,15,17,23,26,35],51796,["takhi","mongolian wild horse","wild horse","equus ferus"]],["Ocelot",[0,1,11,12,16,18,23,24,27,32,34],73968,["leopardus pardalis"]],["Spectacled bear",[0,12,15,20,23,27,35],37863,["andean bear","tremarctos ornatus"]],["Donkey",[5,6,9,10,16,17,23,27,34],84419,["ass","burro","equus asinus"]],["Wolverine",[0,10,11,13,16,18,23,27,34],167413,["glutton","carcajou","gulo gulo"]],["Opossum",[7,11,12,16,20,23,28,31,32,34],31375,["virginia opossum","possum","didelphis virginiana"]],["African wild dog",[0,2,9,15,18,23,24,27,30,32,35],63126,["painted dog","cape hunting dog","painted wolf","lycaon pictus"]],["American mink",[0,11,15,18,22,28,30,32,35],22754,["mink","neogale vison"]],["Snow leopard",[0,1,10,15,18,23,24,27,30,35],107343,["ounce","panthera uncia"]],["Meerkat",[0,9,15,19,23,24,28,31,34],62200,["suricate","suricata suricatta"]],["Black rhinoceros",[5,6,9,15,17,21,23,26,29,35],31167,["black rhino","diceros bicornis"]],["European badger",[0,10,13,16,20,23,24,27,30,32,35],29768,["badger","meles meles"]],["House mouse",[3,10,13,16,20,23,28,35],34934,["mouse","field mouse","mus musculus"]],["Rhesus macaque",[4,10,15,20,23,27,35],27298,["macaque","rhesus monkey","macaca mulatta"]],["Groundhog",[3,11,15,17,23,28,34],55812,["woodchuck","whistlepig","marmot","marmota monax"]],["Stoat",[0,10,11,13,16,18,23,28,33,34],88214,["ermine","short-tailed weasel","mustela erminea"]],["Sloth",[11,12,16,17,23,28,33,34],8655,["brown-throated sloth","three-toed sloth","bradypus variegatus"]],["Bowhead whale",[8,16,18,22,26,35],34974,["balaena mysticetus"]],["Ferret",[0,13,15,18,23,28,31,34],62626,["domestic ferret","mustela furo"]],["African elephant",[9,15,17,21,23,26,30,32,35],57636,["african bush elephant","elephant","loxodonta africana"]],["African buffalo",[5,9,15,17,21,23,26,30,31,32,35],35585,["cape buffalo","syncerus caffer"]],["Muskox",[5,10,11,13,16,17,21,23,26,34],42974,["musk ox","ovibos moschatus"]],["Maned wolf",[0,2,12,15,20,23,27,35],62031,["chrysocyon brachyurus"]],["Llama",[5,12,15,17,23,27,31,33,34],51663,["lama glama"]],["Pallas's cat",[0,1,10,15,18,23,28,31,35],82869,["manul","pallas cat","otocolobus manul"]],["Giant otter",[0,12,15,18,22,27,31,35],30058,["giant river otter","pteronura brasiliensis"]],["Impala",[5,9,15,17,21,23,27,32,34],25231,["aepyceros melampus"]],["Pronghorn",[5,11,15,17,21,23,27,34],51214,["pronghorn antelope","antilocapra americana"]],["Water buffalo",[5,10,15,17,21,22,26,30,31,35],53190,["bubalus bubalis","wild water buffalo"]],["Amazon river dolphin",[12,15,18,22,27,30,32,35],40198,["pink river dolphin","boto","inia geoffrensis"]],["Jaguarundi",[0,1,11,12,16,18,23,27,34],47572,["herpailurus yagouaroundi"]],["Alpaca",[5,12,15,17,23,27,32,34],56294,["vicugna pacos"]],["Springbok",[5,9,15,17,21,23,27,34],27469,["antidorcas marsupialis"]],["Black-footed ferret",[0,11,15,18,23,28,29,31,35],24369,["mustela nigripes"]],["Capybara",[3,12,15,17,22,27,34],202495,["greater capybara","hydrochoerus hydrochaeris","lesser capybara"]],["Mandrill",[4,9,15,20,23,27,31,34],36594,["mandrillus sphinx"]],["Caracal",[0,1,9,10,16,18,23,27,34],83690,["desert lynx","caracal caracal"]],["Wombat",[7,14,15,17,23,27,34],5604,["common wombat","vombatus ursinus","northern hairy-nosed wombat","southern hairy-nosed wombat"]],["Indian rhinoceros",[5,6,10,15,17,21,23,26,30,32,35],28641,["indian rhino","greater one-horned rhino","rhinoceros unicornis"]],["Sloth bear",[0,10,15,19,23,27,35],63175,["melursus ursinus"]],["Sand cat",[0,1,9,10,16,18,23,28,30,35],49201,["felis margarita"]],["Okapi",[5,9,15,17,21,23,24,26,32,33,34],89362,["okapia johnstoni"]],["Striped hyena",[0,9,10,16,20,23,24,27,35],27039,["hyaena hyaena"]],["Aardvark",[9,15,19,23,27,31,32,34],76653,["orycteropus afer"]],["Binturong",[0,10,15,20,23,27,34],107708,["bearcat","arctictis binturong"]],["Porcupine",[3,11,15,17,23,27,34],16529,["north american porcupine","erethizon dorsatum","baturite porcupine","streaked dwarf porcupine","black dwarf porcupine","andean porcupine","roosmalen's dwarf porcupine","brown hairy dwarf porcupine","bicolored-spined porcupine","bahia porcupine","black-tailed hairy dwarf porcupine","mexican hairy dwarf porcupine","brazilian porcupine","frosted hairy dwarf porcupine","stump-tailed porcupine","paraguaian hairy dwarf porcupine","african brush-tailed porcupine","asiatic brush-tailed porcupine","cape porcupine","malayan porcupine","thick-spined porcupine","indian crested porcupine","sunda porcupine","sumatran porcupine","long-tailed porcupine","philippine porcupine"]],["Mongoose",[0,9,10,16,18,23,28,31,34],9153,["indian gray mongoose","indian grey mongoose","urva edwardsii","pousargues's mongoose","grandidier's mongoose","narrow-striped mongoose","marsh mongoose","bushy-tailed mongoose","black-footed mongoose","yellow mongoose","ethiopian dwarf mongoose","common dwarf mongoose","small indian mongoose","kaokoveld slender mongoose","indian brown mongoose","egyptian mongoose","small asian mongoose","long-nosed mongoose","somali slender mongoose","cape gray mongoose","slender mongoose","ruddy mongoose","crab-eating mongoose","stripe-necked mongoose","white-tailed mongoose","gambian mongoose","banded mongoose","selous' mongoose","meller's mongoose","jackson's mongoose","short-tailed mongoose","collared mongoose","sokoke dog mongoose","broad-striped malagasy mongoose","liberian mongoose","brown-tailed mongoose"]],["Capuchin monkey",[4,11,12,16,20,23,28,35],26369,["capuchin","white-headed capuchin","cebus capucinus"]],["Sun bear",[0,10,15,20,23,27,35],42217,["honey bear","helarctos malayanus"]],["Sugar glider",[7,14,15,20,23,25,28,35],45921,["petaurus breviceps"]],["Chital",[5,10,15,17,21,23,24,27,34],21838,["axis deer","spotted deer","axis axis"]],["Naked mole-rat",[3,9,15,17,23,28,35],39033,["naked mole rat","heterocephalus glaber"]],["Serval",[0,1,9,15,18,23,24,27,34],65153,["leptailurus serval"]],["White rhinoceros",[5,6,9,15,17,21,23,26,29,35],44093,["white rhino","rhinoceros","rhino","ceratotherium simum"]],["Gibbon",[4,10,15,20,23,27,31,34],8973,["lar gibbon","white-handed gibbon","hylobates lar"]],["Armadillo",[11,12,16,19,23,28,31,32,34],17160,["nine-banded armadillo","dasypus novemcinctus"]],["Tarsier",[4,10,15,19,23,28,34],9626,["philippine tarsier","carlito syrichta","siau island tarsier","lariang tarsier","niemitz's tarsier","peleng tarsier","pygmy tarsier","sangihe tarsier","horsfield's tarsier","dian's tarsier","spectral tarsier"]],["Clouded leopard",[0,1,10,15,18,23,24,27,30,35],34344,["neofelis nebulosa"]],["Arctic fox",[0,2,10,11,13,16,20,23,28,30,32,35],56734,["white fox","polar fox","vulpes lagopus"]],["Gelada",[4,9,15,17,23,27,34],11299,["bleeding-heart monkey","theropithecus gelada"]],["Hedgehog",[9,10,13,16,19,23,28,34],13180,["european hedgehog","erinaceus europaeus","four-toed hedgehog","north african hedgehog","southern african hedgehog","somali hedgehog","amur hedgehog","southern white-breasted hedgehog","northern white-breasted hedgehog","long-eared hedgehog","indian long-eared hedgehog","daurian hedgehog","hugh's hedgehog","desert hedgehog","brandt's hedgehog","indian hedgehog","bare-bellied hedgehog"]],["Prairie dog",[3,11,15,17,23,28,30,35],7315,["black-tailed prairie dog","cynomys ludovicianus","mexican prairie dog","utah prairie dog","gunnison's prairie dog","white-tailed prairie dog"]],["Leopard seal",[0,8,16,18,22,24,26,35],62146,["hydrurga leptonyx"]],["Japanese macaque",[4,10,15,20,23,27,30,35],27932,["snow monkey","macaca fuscata"]],["Numbat",[7,14,15,19,23,24,28,34],21546,["banded anteater","myrmecobius fasciatus"]],["Echidna",[7,14,15,19,23,28,32,34],16017,["short-beaked echidna","spiny anteater","tachyglossus aculeatus","attenborough's long-beaked echidna","western long-beaked echidna","eastern long-beaked echidna"]],["Red deer",[5,9,10,13,16,17,21,23,26,29,31,35],52982,["stag","cervus elaphus"]],["Roe deer",[5,10,13,16,17,21,23,27,31,35],32596,["capreolus capreolus","siberian roe deer"]],["Giant anteater",[11,12,16,19,23,27,35],24523,["anteater","myrmecophaga tridactyla"]],["Hyrax",[9,10,16,17,23,28,33,34],39462,["rock hyrax","tree hyrax","yellow-spotted rock hyrax","southern tree hyrax","western tree hyrax","dassie","procavia capensis","eastern tree hyrax"]],["Baboon",[4,9,15,20,23,27,31,34],8361,["olive baboon","papio anubis","yellow baboon","hamadryas baboon","kinda baboon","chacma baboon","guinea baboon"]],["Sea lion",[0,8,11,16,18,22,26,30,35],18177,["california sea lion","zalophus californianus","australian sea lion","new zealand sea lion","galápagos sea lion","south american sea lion","steller sea lion"]],["Blue wildebeest",[5,9,15,17,21,23,24,26,29,31,35],12492,["wildebeest","gnu","connochaetes taurinus"]],["Saiga antelope",[5,10,13,16,17,21,23,27,35],18964,["saiga","saiga tatarica"]],["Peccary",[5,11,12,16,20,21,23,27,31,34],8906,["collared peccary","javelina","pecari tajacu","chacoan peccary","white-lipped peccary"]],["Fishing cat",[0,1,10,15,18,22,24,27,35],26999,["prionailurus viverrinus"]],["Quokka",[7,14,15,17,23,28,31,34],88928,["setonix brachyurus"]],["Muskrat",[3,11,15,20,22,28,34],36994,["ondatra zibethicus","round-tailed muskrat"]],["Honey badger",[0,9,10,16,20,23,27,35],131254,["ratel","mellivora capensis"]],["Aardwolf",[0,9,15,19,23,24,27,31,32,34],25724,["proteles cristata"]],["Yak",[5,10,15,17,21,23,26,33,34],11672,["wild yak","domestic yak","bos mutus"]],["Kinkajou",[0,11,12,16,20,23,28,34],40637,["potos flavus"]],["Snowshoe hare",[11,15,17,23,28,35],12879,["hare","lepus americanus"]],["Siamang",[4,10,15,17,23,27,34],12143,["symphalangus syndactylus"]],["Indri",[4,9,15,17,23,27,32,33,34],9420,["indri indri"]],["Vampire bat",[11,12,16,18,23,25,28,35],11736,["common vampire bat","bat","desmodus rotundus","white-winged vampire bat","hairy-legged vampire bat","greater false vampire bat","lesser false vampire bat"]],["Harbor porpoise",[8,16,18,22,27,35],11035,["porpoise","harbour porpoise","phocoena phocoena"]],["Lynx",[0,1,10,11,13,16,18,23,24,27,33,34],40367,["eurasian lynx","lynx lynx","canada lynx"]],["Harp seal",[0,8,11,13,16,18,22,27,35],15277,["pagophilus groenlandicus"]],["Golden hamster",[3,10,15,20,23,28,29,35],14812,["hamster","syrian hamster","mesocricetus auratus"]],["Bactrian camel",[5,10,15,17,23,26,35],38076,["camel","wild bactrian camel","camelus bactrianus","camelus ferus"]],["Bighorn sheep",[5,11,15,17,21,23,27,31,35],31833,["ovis canadensis"]],["Vicuña",[5,12,15,17,23,27,34],31358,["vicuna","vicugna vicugna"]],["Aye-aye",[4,9,15,20,23,28,32,35],36173,["daubentonia madagascariensis"]],["Guanaco",[5,12,15,17,23,27,34],28822,["lama guanicoe"]],["Fennec fox",[0,2,9,15,20,23,28,31,35],44372,["fennec","vulpes zerda"]],["Coati",[0,12,15,20,23,27,33,34],10770,["coatimundi","south american coati","nasua nasua","eastern mountain coati","white-nosed coati","western mountain coati"]],["Minke whale",[8,16,18,22,26,35],7451,["common minke whale","balaenoptera acutorostrata","antarctic minke whale"]],["Wallaby",[7,14,15,17,23,27,31,34],8774,["red-necked wallaby","notamacropus rufogriseus","agile wallaby","black-striped wallaby","tammar wallaby","western brush wallaby","whiptail wallaby","northern nail-tail wallaby","swamp wallaby","parma wallaby","bridled nail-tail wallaby"]],["Mongolian gerbil",[3,10,15,20,23,28,30,35],12394,["gerbil","meriones unguiculatus"]],["Margay",[0,1,11,12,16,18,23,24,28,34],32018,["leopardus wiedii"]],["Chipmunk",[3,10,11,16,20,23,24,28,34],43231,["eastern chipmunk","tamias striatus","palmer's chipmunk","siberian chipmunk","alpine chipmunk","yellow-pine chipmunk","gray-footed chipmunk","gray-collared chipmunk","cliff chipmunk","durango chipmunk","merriam's chipmunk","least chipmunk","california chipmunk","yellow-cheeked chipmunk","panamint chipmunk","long-eared chipmunk","colorado chipmunk","red-tailed chipmunk","hopi chipmunk","allen's chipmunk","siskiyou chipmunk","sonoma chipmunk","lodgepole chipmunk","townsend's chipmunk","uinta chipmunk","buller's chipmunk"]],["Chinchilla",[3,12,15,17,23,28,31,34],50258,["long-tailed chinchilla","chinchilla lanigera","short-tailed chinchilla"]],["Star-nosed mole",[11,15,19,22,28,35],12851,["mole","condylura cristata"]],["Elephant seal",[0,8,12,14,16,18,22,26,32,35],31109,["southern elephant seal","mirounga leonina","northern elephant seal"]],["Gazelle",[5,9,10,16,17,21,23,24,27,31,34],14495,["thomson's gazelle","eudorcas thomsonii","dama gazelle","rhim gazelle","speke's gazelle","przewalski's gazelle","mongalla gazelle","grant's gazelle","mongolian gazelle","red-fronted gazelle","eritrean gazelle","cuvier's gazelle","dorcas gazelle","mountain gazelle","arabian sand gazelle","goitered gazelle","soemmerring's gazelle"]],["Pygmy hippopotamus",[5,9,15,17,21,22,26,31,35],24639,["pygmy hippo","choeropsis liberiensis"]],["Bat-eared fox",[0,2,9,15,19,23,28,35],13064,["otocyon megalotis"]],["Weasel",[0,10,11,13,16,18,23,28,34],30700,["least weasel","mustela nivalis","sichuan weasel","tonkin weasel","patagonian weasel","amazon weasel","long-tailed weasel","yellow-bellied weasel","indonesian mountain weasel","malayan weasel","siberian weasel","back-striped weasel","egyptian weasel","african striped weasel","mountain weasel","japanese weasel","colombian weasel"]],["Jerboa",[3,9,10,16,20,23,28,34],40776,["lesser egyptian jerboa","jaculus jaculus","iranian jerboa","four-toed jerboa","five-toed pygmy jerboa","thaler's jerboa","baluchistan pygmy jerboa","heptner's pygmy jerboa","pale pygmy jerboa","balikun jerboa","gobi jerboa","small five-toed jerboa","hotson's jerboa","great jerboa","severtzov's jerboa","mongolian five-toed jerboa","williams' jerboa","bobrinski's jerboa","northern three-toed jerboa","lichtenstein's jerboa","long-eared jerboa","blanford's jerboa","greater egyptian jerboa","comb-toed jerboa","lesser fat-tailed jerboa","dwarf fat-tailed jerboa","greater fat-tailed jerboa","thick-tailed pygmy jerboa","kozlov's pygmy jerboa","euphrates jerboa","vinogradov's jerboa","andrews's three-toed jerboa","mongolian three-toed jerboa","thick-tailed three-toed jerboa"]],["Harbor seal",[0,8,10,11,13,16,18,22,24,27,35],21340,["seal","common seal","phoca vitulina"]],["Galago",[4,9,15,20,23,28,34],28576,["bushbaby","bush baby","senegal bushbaby","galago senegalensis","makandé squirrel galago","rondo dwarf galago","kenya coast galago","brown greater galago","northern greater galago","angolan dwarf galago"]],["American badger",[0,11,15,18,23,24,27,30,32,35],26412,["taxidea taxus"]],["Marmoset",[4,12,15,20,23,28,34],5865,["common marmoset","callithrix jacchus"]],["American pika",[11,15,17,23,28,30,32,35],9117,["pika","ochotona princeps"]],["Gemsbok",[5,9,15,17,21,23,26,34],13993,["oryx","oryx gazella"]],["Striped skunk",[0,11,15,20,23,24,28,35],18299,["skunk","mephitis mephitis"]],["South American tapir",[5,6,12,15,17,22,26,30,35],9616,["tapir","brazilian tapir","tapirus terrestris"]],["Flying squirrel",[3,10,11,13,16,20,23,25,28,31,35],28247,["northern flying squirrel","glaucomys sabrinus","namdapha flying squirrel","black flying squirrel","hairy-footed flying squirrel","bartel's flying squirrel","gray-cheeked flying squirrel","jentink's flying squirrel","sumatran flying squirrel","lesser pygmy flying squirrel","hose's pygmy flying squirrel","selangor pygmy flying squirrel","hagen's flying squirrel","arrow flying squirrel","woolly flying squirrel","sipora flying squirrel","mentawi flying squirrel","smoky flying squirrel","groove-toothed flying squirrel","thomas's flying squirrel","kashmir flying squirrel","southern flying squirrel","particolored flying squirrel","indochinese flying squirrel","red-cheeked flying squirrel","javanese flying squirrel","red and white giant flying squirrel","spotted giant flying squirrel","japanese giant flying squirrel","hodgson's giant flying squirrel","red giant flying squirrel","indian giant flying squirrel","chinese giant flying squirrel","basilan flying squirrel","mindanao flying squirrel","japanese dwarf flying squirrel","siberian flying squirrel","beecroft's flying squirrel","pel's flying squirrel","pygmy scaly-tailed flying squirrel","palawan flying squirrel","bhutan giant flying squirrel","complex-toothed flying squirrel","whiskered flying squirrel","siberut flying squirrel","temminck's flying squirrel","vordermann's flying squirrel"]],["Red kangaroo",[7,14,15,17,23,27,29,31,35],22397,["kangaroo","osphranter rufus","macropus rufus"]],["Tiger quoll",[7,14,15,18,23,24,28,31,35],8352,["quoll","spotted-tail quoll","dasyurus maculatus"]],["Chamois",[5,10,13,16,17,21,23,27,34],27835,["rupicapra rupicapra","pyrenean chamois"]],["Vervet monkey",[4,9,15,20,23,28,35],18427,["vervet","chlorocebus pygerythrus"]],["Babirusa",[5,10,15,20,21,23,27,34],17472,["north sulawesi babirusa","babyrousa babyrussa","togian babirusa"]],["Ibex",[5,9,10,13,16,17,21,23,27,32,33,34],19180,["alpine ibex","nubian ibex","walia ibex","spanish ibex","siberian ibex","capra ibex"]],["Elephant shrew",[9,15,19,23,28,32,35],15526,["sengi","dusky-footed elephant shrew","dusky elephant shrew","karoo rock elephant shrew","short-snouted elephant shrew","cape elephant shrew","bushveld elephant shrew","eastern rock elephant shrew","north african elephant shrew","rufous elephant shrew","western rock elephant shrew","four-toed elephant shrew"]],["Muntjac",[5,10,15,17,21,23,27,34],39198,["barking deer","indian muntjac","muntiacus muntjak","giant muntjac","fea's muntjac","gongshan muntjac","sumatran muntjac","pu hoat muntjac","leaf muntjac","roosevelt's muntjac","truong son muntjac","reeves's muntjac","northern red muntjac","bornean yellow muntjac","hairy-fronted muntjac"]],["Proboscis monkey",[4,10,15,17,22,27,35],32854,["nasalis larvatus"]],["Spinner dolphin",[8,16,18,22,27,31,35],5401,["stenella longirostris"]],["Agouti",[3,12,15,17,23,28,32,34],16958,["red-rumped agouti","dasyprocta leporina","azara's agouti","orange agouti","iack's agouti","kalinowski's agouti","brown agouti","ruatan island agouti","black agouti","black-rumped agouti","central american agouti","coiban agouti","orinoco agouti","mexican agouti"]],["Kudu",[5,9,15,17,21,23,24,26,33,34],14772,["greater kudu","tragelaphus strepsiceros","lesser kudu"]],["Honduran white bat",[11,15,17,23,25,28,29,30,35],7548,["ectophylla alba"]],["Warthog",[5,9,15,20,21,23,27,34],11116,["common warthog","phacochoerus africanus","desert warthog"]],["Squirrel monkey",[4,11,12,16,20,23,28,31,35],11360,["common squirrel monkey","saimiri sciureus","central american squirrel monkey","black squirrel monkey","black-capped squirrel monkey","bare-eared squirrel monkey"]],["Tree-kangaroo",[7,14,15,17,23,27,31,35],34570,["tree kangaroo","goodfellow's tree-kangaroo","dendrolagus goodfellowi","wondiwoi tree-kangaroo","golden-mantled tree-kangaroo","matschie's tree-kangaroo","ifola tree-kangaroo","bennett's tree-kangaroo","lumholtz's tree-kangaroo","doria's tree-kangaroo","grizzled tree-kangaroo","lowlands tree-kangaroo","seri's tree-kangaroo","ursine tree-kangaroo"]],["Kangaroo rat",[3,11,15,17,23,28,31,35],14298,["ord's kangaroo rat","dipodomys ordii","san quintin kangaroo rat","giant kangaroo rat","stephens' kangaroo rat","agile kangaroo rat","california kangaroo rat","gulf coast kangaroo rat","desert kangaroo rat","heermann's kangaroo rat","merriam's kangaroo rat","chisel-toothed kangaroo rat","nelson's kangaroo rat","panamint kangaroo rat","phillips' kangaroo rat","dulzura kangaroo rat","narrow-faced kangaroo rat","banner-tailed kangaroo rat","texas kangaroo rat","fresno kangaroo rat"]],["Mountain goat",[5,11,15,17,21,23,27,30,35],36796,["rocky mountain goat","oreamnos americanus"]],["Pine marten",[0,10,13,16,20,23,28,35],31146,["marten","european pine marten","martes martes"]],["Malayan tapir",[5,6,10,15,17,22,26,30,35],15503,["tapirus indicus"]],["Bongo",[5,9,15,17,21,23,24,26,33,34],13674,["tragelaphus eurycerus"]],["Pocket gopher",[3,11,15,17,23,28,35],25505,["gopher","plains pocket gopher","geomys bursarius","big pocket gopher","tropical pocket gopher","michoacan pocket gopher","yellow-faced pocket gopher","oriental basin pocket gopher","smoky pocket gopher","goldman's pocket gopher","merriam's pocket gopher","cofre de perote pocket gopher","volcán de toluca pocket gopher","attwater's pocket gopher","baird's pocket gopher","knox jones's pocket gopher","texas pocket gopher","southeastern pocket gopher","central texas pocket gopher","cherrie's pocket gopher","darien pocket gopher","chiriqui pocket gopher","oaxacan pocket gopher","giant pocket gopher","variable pocket gopher","hispid pocket gopher","underwood's pocket gopher","buller's pocket gopher","botta's pocket gopher","camas pocket gopher","wyoming pocket gopher","idaho pocket gopher","mazama pocket gopher","mountain pocket gopher","northern pocket gopher","townsend's pocket gopher","southern pocket gopher","desert pocket gopher"]],["Fossa",[0,9,15,18,23,27,31,33,34],57268,["cryptoprocta ferox"]],["Alpine marmot",[3,13,15,17,23,28,30,32,35],6430,["marmota marmota"]],["Fur seal",[0,8,10,11,16,18,22,26,35],5591,["northern fur seal","callorhinus ursinus","galápagos fur seal","antarctic fur seal","south american fur seal","new zealand fur seal","juan fernández fur seal","brown fur seal","guadalupe fur seal","subantarctic fur seal"]],["Eland",[5,9,15,17,21,23,26,32,33,34],23908,["common eland","taurotragus oryx"]],["Fallow deer",[5,10,13,16,17,21,23,24,27,31,35],23296,["dama dama","persian fallow deer","european fallow deer"]],["Bumblebee bat",[10,15,19,23,25,28,31,35],22743,["kitti's hog-nosed bat","craseonycteris thonglongyai"]],["Patagonian mara",[3,12,15,17,23,27,30,35],19350,["mara","dolichotis patagonum"]],["Crested porcupine",[3,9,13,16,17,23,27,35],7601,["hystrix cristata"]],["Dik-dik",[5,9,15,17,21,23,28,35],18085,["kirk's dik-dik","dik dik","madoqua kirkii","silver dik-dik","günther's dik-dik","salt's dik-dik"]],["Raccoon dog",[0,2,10,13,16,20,23,27,31,35],14978,["tanuki","nyctereutes procyonoides"]],["River otter",[0,11,15,18,22,27,30,31,35],28690,["north american river otter","otter","lontra canadensis","southern river otter"]],["Gray squirrel",[3,11,15,20,23,28,29,31,35],43204,["squirrel","eastern gray squirrel","sciurus carolinensis","arizona gray squirrel","mexican gray squirrel","western gray squirrel"]],["North Pacific right whale",[8,16,18,22,27,35],500,["eubalaena japonica"]],["Goa",[5,10,15,17,21,23,27,33,34],500,["procapra picticaudata"]],["Southern right whale",[8,16,18,22,27,35],500,["eubalaena australis"]],["North Atlantic right whale",[8,16,18,22,27,35],500,["eubalaena glacialis"]],["Red wolf",[0,2,11,15,18,23,27,29,35],500,["canis rufus"]],["Hartebeest",[5,9,15,17,21,23,26,31,34],500,["alcelaphus buselaphus"]],["Sumatran rhinoceros",[5,6,10,15,17,21,23,26,30,35],500,[]],["Marsh rice rat",[3,11,12,16,20,22,28,30,35],500,["oryzomys palustris"]],["Sei whale",[8,16,18,22,27,35],500,["balaenoptera borealis"]],["Nilgai",[5,10,11,16,17,21,23,26,34],500,["boselaphus tragocamelus"]],["Banteng",[5,10,15,17,21,23,26,34],500,["bos javanicus"]],["Baiji",[10,15,18,22,27,33,34],500,["lipotes vexillifer"]],["Gray mouse lemur",[4,9,15,20,23,27,29,35],500,["microcebus murinus"]],["Striped polecat",[0,9,15,18,23,24,28,35],500,["ictonyx striatus"]],["Vaquita",[8,16,18,22,27,34],500,["phocoena sinus"]],["Lamia",[3,14,15,20,23,28,33,34],500,["chiruromys lamia"]],["Wildcat",[0,1,13,15,18,23,28,34],500,[]],["European polecat",[0,9,11,13,16,18,23,28,30,32,35],500,["mustela putorius"]],["Rice's whale",[8,16,18,22,27,35],500,["balaenoptera ricei"]],["Indiana bat",[11,15,19,23,25,28,32,35],500,["myotis sodalis"]],["Blackbuck",[5,10,11,12,16,17,21,23,27,34],500,["antilope cervicapra"]],["Alcathoe whiskered bat",[13,15,19,23,25,28,32,35],500,["myotis alcathoe"]],["African forest elephant",[9,15,17,21,23,26,30,32,35],500,[]],["Irrawaddy dolphin",[8,16,18,22,27,31,32,35],500,["orcaella brevirostris"]],["Gaur",[5,10,15,17,21,23,26,33,34],500,["bos gaurus"]],["Silky sifaka",[4,9,15,20,23,27,35],500,["propithecus candidus"]],["Cotton-top tamarin",[4,12,15,20,23,27,31,35],500,["saguinus oedipus"]],["Ethiopian wolf",[0,2,9,15,18,23,27,30,32,35],500,["canis simensis"]],["Diademed sifaka",[4,9,15,20,23,27,35],500,["propithecus diadema"]],["Grey seal",[0,8,11,13,16,18,22,26,29,35],500,["halichoerus grypus"]],["Saola",[5,10,15,17,21,23,27,33,34],500,["pseudoryx nghetinhensis"]],["European hare",[10,11,13,16,17,23,28,30,32,35],500,["lepus europaeus"]],["Javan rhinoceros",[5,6,10,15,17,21,23,26,30,35],500,[]],["Bryde's whale",[8,16,18,22,27,35],500,["balaenoptera edeni"]],["Mule deer",[5,11,12,16,17,21,23,27,31,35],500,[]],["Waterbuck",[5,9,15,17,21,22,26,34],500,["kobus ellipsiprymnus"]],["Barbary macaque",[4,9,13,16,20,23,27,35],500,["macaca sylvanus"]],["Drill",[4,9,15,20,23,27,31,33,34],500,["mandrillus leucophaeus"]],["Omura's whale",[8,16,18,22,27,32,35],500,["balaenoptera omurai"]],["Black rat",[3,9,10,11,13,16,20,23,28,29,35],500,["rattus rattus"]],["Nyala",[5,9,15,17,21,23,24,27,33,34],500,["tragelaphus angasii"]],["Tamaraw",[5,10,15,17,23,27,34],500,["bubalus mindorensis"]],["Jungle cat",[0,1,9,10,13,16,18,23,27,35],500,[]],["Red squirrel",[3,10,11,13,16,20,23,28,29,31,35],500,["sciurus vulgaris"]],["Big brown bat",[11,12,13,16,19,23,25,28,29,35],500,["eptesicus fuscus"]],["Japanese serow",[5,10,15,17,21,23,27,30,35],500,["capricornis crispus"]],["Saharan striped polecat",[0,9,15,18,23,24,28,35],500,["ictonyx libycus"]],["White-fronted capuchin",[4,12,15,20,23,28,29,35],500,["cebus albifrons"]],["Sitatunga",[5,9,15,17,21,22,24,27,34],500,["tragelaphus spekii"]],["Golden-crowned sifaka",[4,9,15,20,23,27,29,35],500,["propithecus tattersalli"]],["Black-backed jackal",[0,2,9,15,20,23,27,29,35],500,["canis mesomelas"]],["Egyptian fruit bat",[9,10,13,16,17,23,25,28,32,35],500,["rousettus aegyptiacus"]],["Hector's dolphin",[8,16,18,22,27,35],500,["cephalorhynchus hectori"]],["White-throated woodrat",[3,11,15,20,23,28,29,31,35],500,["neotoma albigula"]],["Klipspringer",[5,9,15,17,21,23,27,34],500,["oreotragus oreotragus"]],["Greater bamboo lemur",[4,9,15,20,23,27,31,35],500,["hapalemur simus"]],["Short-beaked common dolphin",[8,16,18,22,27,31,35],500,["delphinus delphis"]],["Talamancan rice rat",[3,11,12,16,20,23,28,35],500,["transandinomys talamancae"]],["Markhor",[5,10,15,17,21,23,27,34],500,["capra falconeri"]],["Onager",[5,6,10,13,16,17,23,27,32,34],500,["equus hemionus"]],["Olympic marmot",[3,11,15,17,23,28,32,35],500,["marmota olympus"]],["Mantled guereza",[4,9,15,20,23,27,35],500,["colobus guereza"]],["Kultarr",[7,14,15,20,23,27,31,34],500,["antechinomys laniger"]],["Rakali",[3,10,14,16,20,23,28,34],500,["hydromys chrysogaster"]],["Melon-headed whale",[8,16,18,22,27,35],500,["peponocephala electra"]],["Addax",[5,9,15,17,21,23,26,31,32,33,34],500,["addax nasomaculatus"]],["Leopard cat",[0,1,10,13,16,18,23,24,28,35],500,[]],["American marten",[0,11,15,18,23,28,30,32,35],500,["martes americana"]],["Tenrec",[9,15,19,23,28,34],2760,["tailless tenrec","tenrec ecaudatus","four-toed rice tenrec","jenkins' shrew tenrec","northern shrew tenrec","lesser hedgehog tenrec","large-eared tenrec","highland streaked tenrec","lowland streaked tenrec","short-tailed shrew tenrec","cowan's shrew tenrec","dobson's shrew tenrec","drouhard's shrew tenrec","pale shrew tenrec","gracile shrew tenrec","grandidier's shrew tenrec","naked-nosed shrew tenrec","lesser long-tailed shrew tenrec","major's long-tailed tenrec","pygmy shrew tenrec","greater long-tailed shrew tenrec","least shrew tenrec","shrew-toothed shrew tenrec","taiva shrew tenrec","talazac's shrew tenrec","thomas's shrew tenrec","mole-like rice tenrec","greater hedgehog tenrec","web-footed tenrec","dryad shrew tenrec","montane shrew tenrec","nasolo's shrew tenrec"]],["Hirola",[5,9,15,17,21,23,27,34],500,["beatragus hunteri"]],["Culpeo",[0,2,12,15,20,23,27,34],500,["lycalopex culpaeus"]],["Argali",[5,10,13,16,17,21,23,27,32,34],500,["ovis ammon"]],["Black wildebeest",[5,9,15,17,21,23,26,29,31,35],500,["connochaetes gnou"]],["Boodie",[7,14,15,20,23,27,31,34],500,["bettongia lesueur"]],["Brush mouse",[3,11,15,20,23,28,35],500,["peromyscus boylii"]],["Leadbeater's possum",[7,14,15,20,23,28,31,35],500,[]],["Oribi",[5,9,15,17,21,23,27,32,33,34],500,["ourebia ourebi"]],["Darwin's fox",[0,2,12,15,20,23,27,35],500,["lycalopex fulvipes"]],["Colocolo",[0,1,12,15,18,23,27,34],500,["leopardus colocolo"]],["Arctic ground squirrel",[3,11,15,20,23,28,30,31,32,35],500,["urocitellus parryii"]],["Gilbert's potoroo",[7,14,15,20,23,27,31,35],500,[]],["Cuvier's beaked whale",[8,16,18,22,27,35],500,["ziphius cavirostris"]],["Mexican free-tailed bat",[11,12,16,19,23,25,28,30,31,35],500,["tadarida brasiliensis"]],["Himalayan tahr",[5,10,11,12,16,17,21,23,27,30,35],500,["hemitragus jemlahicus"]],["Dormouse",[3,13,15,20,23,28,34],4346,["hazel dormouse","muscardinus avellanarius","chinese dormouse","woolly dormouse","angolan african dormouse","jentink's dormouse","johnston's african dormouse","monard's dormouse","silent dormouse","masked mouse-tailed dormouse","setzer's mouse-tailed dormouse","desert dormouse","chinese pygmy dormouse","forest dormouse","asian garden dormouse","maghreb garden dormouse","japanese dormouse","edible dormouse","christy's dormouse","kellen's dormouse","lorrain dormouse","small-eared dormouse","woodland dormouse","nagtglas's african dormouse","spectacled dormouse","rock dormouse","stone dormouse","garden dormouse","malabar spiny dormouse","balochistan forest dormouse","roach's mouse-tailed dormouse"]],["Hispid cotton rat",[3,11,15,20,23,28,31,35],500,["sigmodon hispidus"]],["Sika deer",[5,10,11,13,16,17,21,23,27,31,35],500,[]],["Sable",[0,10,13,16,18,23,27,33,34],500,["martes zibellina"]],["Kouprey",[5,10,15,17,21,23,26,34],500,["bos sauveli"]],["Kiang",[5,6,10,15,17,23,27,33,34],500,["equus kiang"]],["Bushpig",[5,9,15,20,21,23,27,34],500,["potamochoerus larvatus"]],["Island fox",[0,2,11,15,20,23,28,30,32,35],500,["urocyon littoralis"]],["Golden snub-nosed monkey",[4,10,15,17,23,27,29,35],500,["rhinopithecus roxellana"]],["South Asian river dolphin",[10,15,18,22,27,30,35],500,["platanista gangetica"]],["Gray fox",[0,2,11,12,16,20,23,27,29,35],500,["urocyon cinereoargenteus"]],["Lemming",[3,10,11,13,16,17,23,28,31,34],3090,["norway lemming","lemmus lemmus","unalaska collared lemming","wrangel lemming","wrangel island lemming","northern collared lemming","ungava collared lemming","nelson's collared lemming","ogilvie mountains collared lemming","richardson's collared lemming","arctic lemming","yellow steppe lemming","przewalski's steppe lemming","steppe lemming","amur lemming","siberian brown lemming","north american brown lemming","wood lemming","northern bog lemming","southern bog lemming"]],["Dibatag",[5,9,15,17,21,23,27,34],500,["ammodorcas clarkei"]],["Mountain cottontail",[11,15,17,23,28,30,31,35],500,["sylvilagus nuttallii"]],["Barasingha",[5,10,15,17,21,23,26,34],500,["rucervus duvaucelii"]],["Columbian ground squirrel",[3,11,15,20,23,28,31,35],500,["urocitellus columbianus"]],["Bilby",[7,14,15,20,23,28,33,34],4811,["greater bilby","macrotis lagotis"]],["Tufted capuchin",[4,11,12,16,20,23,28,35],500,["sapajus apella"]],["Bharal",[5,10,15,17,21,23,27,34],500,["pseudois nayaur"]],["Black-tailed jackrabbit",[11,15,17,23,28,29,31,35],500,["lepus californicus"]],["Gerenuk",[5,9,15,17,21,23,27,34],500,["litocranius walleri"]],["Brazilian false rice rat",[3,12,15,20,23,28,30,35],500,["pseudoryzomys simplex"]],["Moustached guenon",[4,9,15,20,23,27,35],500,["cercopithecus cephus"]],["Ringed seal",[0,8,10,11,13,16,18,22,24,27,35],500,["pusa hispida"]],["Hispaniolan solenodon",[11,15,19,23,28,35],500,["solenodon paradoxus"]],["European mink",[0,10,13,16,18,22,28,30,32,35],500,["mustela lutreola"]],["Spectral bat",[11,12,16,19,23,25,28,35],500,["vampyrum spectrum"]],["Kob",[5,9,15,17,21,23,27,33,34],500,["kobus kob"]],["Olinguito",[0,12,15,20,23,28,32,34],500,["bassaricyon neblina"]],["Common brushtail possum",[7,14,15,17,23,28,31,35],500,["trichosurus vulpecula"]],["Fox squirrel",[3,11,15,20,23,28,31,35],500,["sciurus niger"]],["Meadow vole",[3,11,15,17,23,28,35],500,["microtus pennsylvanicus"]],["Bolivar rice rat",[3,11,12,16,20,23,28,35],500,["transandinomys bolivaris"]],["Hammer-headed bat",[9,15,17,23,25,28,31,35],500,["hypsignathus monstrosus"]],["Weddell seal",[0,8,9,12,14,16,18,22,26,31,35],500,["leptonychotes weddellii"]],["Hoffmann's two-toed sloth",[11,12,16,20,23,28,31,35],500,["choloepus hoffmanni"]],["New Zealand long-tailed bat",[14,15,19,23,25,28,35],500,["chalinolobus tuberculatus"]],["Spider monkey",[4,11,12,16,17,23,27,35],4421,["geoffroy's spider monkey","ateles geoffroyi","brown spider monkey","white-bellied spider monkey","peruvian spider monkey","white-cheeked spider monkey","red-faced spider monkey"]],["Risso's dolphin",[8,16,18,22,26,31,35],500,["grampus griseus"]],["Eastern cottontail",[11,12,16,17,23,28,31,32,35],500,["sylvilagus floridanus"]],["Honey possum",[7,14,15,20,23,28,31,35],500,["tarsipes rostratus"]],["White-eared titi",[4,12,15,20,23,27,29,35],500,["callicebus donacophilus"]],["Perrier's sifaka",[4,9,15,20,23,27,31,35],500,["propithecus perrieri"]],["Moor macaque",[4,10,15,20,23,27,31,35],500,["macaca maura"]],["Kodkod",[0,1,12,15,18,23,24,28,34],500,[]],["Takin",[5,10,15,17,21,23,26,33,34],500,["budorcas taxicolor"]],["Small Indian civet",[0,10,15,20,23,24,28,30,31,35],500,["viverricula indica"]],["Northern pig-tailed macaque",[4,10,15,20,23,27,35],500,[]],["Golden angwantibo",[4,9,15,20,23,28,29,35],500,["arctocebus aureus"]],["Atlantic white-sided dolphin",[8,16,18,22,27,29,32,35],500,["lagenorhynchus acutus"]],["White-faced spiny tree-rat",[3,12,15,17,23,28,29,31,35],500,["echimys chrysurus"]],["Tayra",[0,11,12,16,18,23,27,33,34],500,["eira barbara"]],["Perrin's beaked whale",[8,16,18,22,27,31,35],500,["mesoplodon perrini"]],["Eld's deer",[5,10,15,17,21,23,27,31,32,35],500,["rucervus eldii"]],["Striped dolphin",[8,16,18,22,24,27,35],500,["stenella coeruleoalba"]],["African civet",[0,9,15,20,23,24,28,30,32,35],500,["civettictis civetta"]],["Red-shanked douc",[4,10,15,20,23,27,29,35],500,[]],["Water deer",[5,10,13,16,17,22,27,30,31,35],500,["hydropotes inermis"]],["Dusky hopping mouse",[3,16,20,23,28,31,35],500,["notomys fuscus"]],["Tenkile",[7,14,15,20,23,27,34],500,[]],["American red squirrel",[3,11,15,20,23,28,29,30,31,32,35],500,["tamiasciurus hudsonicus"]],["Abert's squirrel",[3,11,15,20,23,28,31,32,35],500,["sciurus aberti"]],["Chinkara",[5,10,15,17,21,23,27,34],500,["gazella bennettii"]],["Bohor reedbuck",[5,9,15,17,21,23,27,31,35],500,["redunca redunca"]],["Mountain nyala",[5,9,15,17,21,23,24,27,30,35],500,["tragelaphus buxtoni"]],["Common genet",[0,9,13,16,20,23,24,28,31,35],500,["genetta genetta"]],["Tapeti",[11,12,16,17,23,28,34],500,["sylvilagus brasiliensis"]],["Hispid hare",[10,15,17,23,28,35],500,["caprolagus hispidus"]],["Nabarlek",[7,14,15,20,23,27,34],500,["petrogale concinna"]],["Yangtze finless porpoise",[8,16,18,22,27,31,35],500,["neophocaena asiaeorientalis"]],["Sambar deer",[5,10,11,16,17,21,23,26,31,35],500,["rusa unicolor"]],["Pichi",[12,15,19,23,28,33,34],500,["zaedyus pichiy"]],["Milne-Edwards' sportive lemur",[4,9,15,17,23,28,35],500,["lepilemur edwardsi"]],["Beech marten",[0,10,11,13,16,18,23,28,31,35],500,["martes foina"]],["Black-and-white ruffed lemur",[4,9,15,20,23,27,29,31,35],500,["varecia variegata"]],["Eastern quoll",[7,14,15,20,23,24,27,31,32,35],500,["dasyurus viverrinus"]],["Tibetan antelope",[5,10,15,17,21,23,27,30,35],500,["pantholops hodgsonii"]],["Southwestern pygmy possum",[7,14,15,20,23,28,31,35],500,["cercartetus concinnus"]],["Blue duiker",[5,9,15,17,21,23,27,29,35],500,["philantomba monticola"]],["Dibbler",[7,14,15,20,23,27,31,34],500,["parantechinus apicalis"]],["Neotropical otter",[0,11,12,16,18,22,27,31,35],500,["lontra longicaudis"]],["Zanzibar red colobus",[4,9,15,17,23,27,29,35],500,["piliocolobus kirkii"]],["Mountain pygmy possum",[7,14,15,20,23,28,30,31,35],500,[]],["Vancouver Island marmot",[3,11,15,17,23,28,30,35],500,["marmota vancouverensis"]],["Hooded seal",[0,8,11,13,16,18,22,26,31,35],500,["cystophora cristata"]],["Alaska marmot",[3,11,15,17,23,28,32,35],500,["marmota broweri"]],["Grivet",[4,9,11,16,20,23,27,34],500,["chlorocebus aethiops"]],["Steenbok",[5,9,15,17,21,23,27,31,34],500,["raphicerus campestris"]],["Tehuantepec jackrabbit",[11,15,17,23,28,31,35],500,["lepus flavigularis"]],["Kit fox",[0,2,11,15,20,23,28,35],500,["vulpes macrotis"]],["Small-toothed sportive lemur",[4,9,15,17,23,28,31,35],500,["lepilemur microdon"]],["Golden bandicoot",[7,14,15,20,23,27,29,31,35],500,["isoodon auratus"]],["Eastern grey kangaroo",[7,14,15,17,23,27,29,31,32,35],500,["macropus giganteus"]],["Caspian seal",[0,8,10,13,16,18,22,27,35],500,["pusa caspica"]],["Gee's golden langur",[4,10,15,17,23,27,29,31,35],500,["trachypithecus geei"]],["Allen's swamp monkey",[4,9,15,20,22,27,30,31,32,35],500,["allenopithecus nigroviridis"]],["Cacomistle",[0,11,15,20,23,28,34],500,["bassariscus sumichrasti"]],["Lechwe",[5,9,15,17,21,22,27,34],500,["kobus leche"]],["Pink fairy armadillo",[12,15,19,23,27,29,31,35],500,["chlamyphorus truncatus"]],["Northern quoll",[7,14,15,20,23,24,27,31,35],500,["dasyurus hallucatus"]],["North American deermouse",[3,11,15,20,23,28,30,31,35],500,["peromyscus maniculatus"]],["European hamster",[3,10,13,16,20,23,28,30,32,35],500,["cricetus cricetus"]],["White-nosed saki",[4,12,15,20,23,27,29,35],500,["chiropotes albinasus"]],["Small Japanese mole",[10,15,19,23,28,30,31,35],500,["mogera imaizumii"]],["Bush dog",[0,2,11,12,16,18,23,27,30,35],500,["speothos venaticus"]],["Dall's porpoise",[8,16,18,22,27,31,35],500,["phocoenoides dalli"]],["Shepherd's beaked whale",[8,16,18,22,26,35],500,["tasmacetus shepherdi"]],["Collared pika",[11,15,17,23,28,31,35],500,["ochotona collaris"]],["Crabeater seal",[0,8,9,12,14,16,18,22,26,35],500,["lobodon carcinophaga"]],["Greater stick-nest rat",[3,16,20,23,28,35],500,["leporillus conditor"]],["Emperor tamarin",[4,12,15,20,23,28,32,35],500,["saguinus imperator"]],["Bearded seal",[0,8,10,11,13,16,18,22,26,35],500,["erignathus barbatus"]],["Monjon",[7,14,15,20,23,27,34],500,["petrogale burbidgei"]],["Moonrat",[10,15,19,23,28,31,34],500,["echinosorex gymnura"]],["Roborovski hamster",[3,10,13,16,20,23,28,35],500,["phodopus roborovskii"]],["Taruca",[5,12,15,17,21,23,27,34],500,["hippocamelus antisensis"]],["Sunda flying lemur",[10,15,17,23,25,28,35],500,["galeopterus variegatus"]],["European otter",[0,9,10,13,16,18,22,27,30,31,32,35],500,["lutra lutra"]],["Pacific white-sided dolphin",[8,16,18,22,27,29,35],500,["lagenorhynchus obliquidens"]],["Pampas deer",[5,12,15,17,21,23,27,31,35],500,["ozotoceros bezoarticus"]],["Djungarian hamster",[3,10,13,16,20,23,28,35],500,["phodopus sungorus"]],["Mountain degu",[3,12,15,17,23,28,30,35],500,["octodontomys gliroides"]],["Bornean ferret-badger",[0,10,15,20,23,24,28,30,31,35],500,["melogale everetti"]],["Roloway monkey",[4,16,20,23,27,35],500,["cercopithecus roloway"]],["Manchurian hare",[10,13,16,17,23,28,35],500,["lepus mandshuricus"]],["Banded palm civet",[0,10,15,20,23,24,28,35],500,["hemigalus derbyanus"]],["Six-banded armadillo",[12,15,19,23,24,27,31,35],500,["euphractus sexcinctus"]],["Suni",[5,9,15,17,21,23,27,33,34],500,["nesotragus moschatus"]],["Tonkin snub-nosed monkey",[4,10,15,17,23,27,35],500,["rhinopithecus avunculus"]]],"boards":[{"id":1,"par":2,"categories":["name_multi_word","weight_over_200kg","native_europe","terrestrial_only","diet_herbivore","horns_antlers_tusks"],"hole_in_ones":["Red deer","European bison"],"sample_solution":["Horse","Wild boar"]},{"id":2,"par":2,"categories":["horns_antlers_tusks","native_africa","terrestrial_only","name_single_word","diet_omnivore","single_continent"],"hole_in_ones":["Warthog","Bushpig"],"sample_solution":["Raccoon","Hippopotamus"]},{"id":3,"par":2,"categories":["multi_continent","horns_antlers_tusks","native_europe","diet_herbivore","native_north_america","name_single_word"],"hole_in_ones":["Moose","Reindeer","Muskox"],"sample_solution":["Horse","White-tailed deer"]},{"id":4,"par":2,"categories":["native_asia","weight_under_5kg","diet_carnivore","name_single_word","multi_continent","terrestrial_only"],"hole_in_ones":["Stoat","Weasel","Mongoose"],"sample_solution":["Tiger","Arctic fox"]},{"id":5,"par":2,"categories":["single_continent","terrestrial_only","diet_omnivore","name_single_word","order_carnivora","native_north_america"],"hole_in_ones":["Raccoon","Coyote","Cacomistle"],"sample_solution":["Tiger","Brown bear"]},{"id":6,"par":2,"categories":["native_asia","diet_carnivore","weight_over_200kg","order_carnivora","aquatic_semiaquatic","name_single_word"],"hole_in_ones":["Walrus"],"sample_solution":["Orca","Wolverine"]},{"id":7,"par":2,"categories":["weight_medium","native_south_america","native_north_america","name_multi_word","multi_continent","diet_herbivore"],"hole_in_ones":["White-tailed deer","Spider monkey","Mule deer","Himalayan tahr"],"sample_solution":["Jaguar","Mountain goat"]},{"id":8,"par":2,"categories":["terrestrial_only","order_carnivora","native_asia","name_has_color","native_north_america","diet_carnivore"],"hole_in_ones":["Gray wolf"],"sample_solution":["Domestic cat","American black bear"]},{"id":9,"par":2,"categories":["stripes_or_spots","order_carnivora","native_south_america","name_starts_vowel","weight_medium","diet_carnivore"],"hole_in_ones":["Ocelot"],"sample_solution":["Cougar","European badger"]},{"id":10,"par":2,"categories":["native_asia","diet_omnivore","name_double_letter","family_canidae","terrestrial_only","weight_medium"],"hole_in_ones":["Raccoon dog"],"sample_solution":["Gray wolf","Raccoon"]},{"id":11,"par":2,"categories":["diet_omnivore","native_north_america","name_starts_vowel","native_asia","weight_under_5kg","order_carnivora"],"hole_in_ones":["Arctic fox"],"sample_solution":["Brown bear","Opossum"]},{"id":12,"par":2,"categories":["native_north_america","name_has_geo","diet_herbivore","weight_medium","single_continent","horns_antlers_tusks"],"hole_in_ones":["Mountain goat"],"sample_solution":["Reindeer","African elephant"]},{"id":13,"par":2,"categories":["diet_carnivore","name_has_geo","native_asia","order_carnivora","multi_continent","aquatic_semiaquatic"],"hole_in_ones":["Sea otter","European mink","European otter"],"sample_solution":["Domestic cat","River otter"]},{"id":14,"par":2,"categories":["diet_omnivore","weight_medium","terrestrial_only","native_south_america","order_carnivora","name_single_word"],"hole_in_ones":["Coati","Culpeo"],"sample_solution":["Domestic dog","Alpaca"]},{"id":15,"par":2,"categories":["native_europe","native_asia","weight_under_5kg","name_has_color","order_rodentia","multi_continent"],"hole_in_ones":["Brown rat","Black rat","Red squirrel"],"sample_solution":["Domestic cat","Golden hamster"]},{"id":16,"par":2,"categories":["fully_marine","native_north_america","name_multi_word","stripes_or_spots","weight_medium","diet_carnivore"],"hole_in_ones":["Harbor seal","Ringed seal"],"sample_solution":["Jaguar","Leopard seal"]},{"id":17,"par":2,"categories":["name_single_word","native_north_america","order_carnivora","multi_continent","stripes_or_spots","terrestrial_only"],"hole_in_ones":["Jaguar","Ocelot","Lynx","Margay"],"sample_solution":["Tiger","Gray wolf"]},{"id":18,"par":2,"categories":["native_south_america","weight_under_5kg","marsupial_monotreme","name_starts_vowel","native_north_america","multi_continent"],"hole_in_ones":["Opossum"],"sample_solution":["Ocelot","Echidna"]},{"id":19,"par":2,"categories":["order_carnivora","weight_under_5kg","terrestrial_only","native_europe","single_continent","name_double_letter"],"hole_in_ones":["Ferret"],"sample_solution":["Domestic cat","Raccoon"]},{"id":20,"par":2,"categories":["order_rodentia","name_has_geo","diet_omnivore","single_continent","terrestrial_only","native_asia"],"hole_in_ones":["Mongolian gerbil"],"sample_solution":["Binturong","Patagonian mara"]},{"id":21,"par":2,"categories":["order_carnivora","diet_carnivore","name_multi_word","aquatic_semiaquatic","weight_medium","stripes_or_spots"],"hole_in_ones":["Fishing cat","Harbor seal","Ringed seal"],"sample_solution":["Jaguar","Polar bear"]},{"id":22,"par":2,"categories":["weight_over_200kg","single_continent","native_asia","name_double_letter","ungulate","diet_herbivore"],"hole_in_ones":["Water buffalo"],"sample_solution":["Horse","Llama"]},{"id":23,"par":2,"categories":["terrestrial_only","name_double_letter","weight_under_5kg","native_africa","order_carnivora","multi_continent"],"hole_in_ones":["Mongoose","Common genet"],"sample_solution":["Lion","Pallas's cat"]},{"id":24,"par":2,"categories":["name_starts_vowel","terrestrial_only","order_carnivora","native_asia","diet_omnivore","single_continent"],"hole_in_ones":["Asian black bear"],"sample_solution":["Domestic dog","African wild dog"]},{"id":25,"par":2,"categories":["native_asia","name_multi_word","multi_continent","native_africa","weight_under_5kg","diet_carnivore"],"hole_in_ones":["Domestic cat","Sand cat"],"sample_solution":["Lion","Pallas's cat"]},{"id":26,"par":2,"categories":["name_has_color","native_europe","native_africa","diet_omnivore","order_carnivora","terrestrial_only"],"hole_in_ones":["Red fox"],"sample_solution":["Domestic cat","American black bear"]},{"id":27,"par":2,"categories":["weight_medium","terrestrial_only","multi_continent","name_multi_word","ungulate","native_europe"],"hole_in_ones":["Domestic pig","Wild boar","Roe deer","Fallow deer","Saiga antelope","Sika deer"],"sample_solution":["Domestic cat","Donkey"]},{"id":28,"par":2,"categories":["name_multi_word","native_north_america","terrestrial_only","flight_or_gliding","native_south_america","diet_carnivore"],"hole_in_ones":["Vampire bat"],"sample_solution":["Jaguar","Flying squirrel"]},{"id":29,"par":2,"categories":["native_asia","name_single_word","terrestrial_only","diet_carnivore","multi_continent","weight_medium"],"hole_in_ones":["Wolverine","Cheetah","Leopard","Caracal","Lynx","Sable"],"sample_solution":["Domestic cat","Bobcat"]},{"id":30,"par":2,"categories":["name_starts_vowel","diet_carnivore","terrestrial_only","single_continent","weight_medium","native_africa"],"hole_in_ones":["African wild dog","Ethiopian wolf"],"sample_solution":["Cheetah","Okapi"]}]};
+/* __MAMMAL_GOLF_DATA_END__ */
+
+let DB = EMBEDDED_MAMMAL_DATA;
+let catMap = {};
+let currentBoard = null;
+let currentCourseIdx = 0;
+let isFreePlay = false;
+let strokes = []; // [{ mammal, hitCats, newCats }]
+let clearedCats = new Set();
+let holeFinished = false;
+
+// Generic family/group aliases so typing "whale", "bear", "fox", "deer", "seal", "rhino", etc.
+// can test all matching species in the database and pick the one that clears the most categories on the current board!
+const GENERIC_GROUP_TERMS = {
+    "bear": ["Brown bear", "Polar bear", "American black bear", "Asian black bear", "Giant panda", "Spectacled bear", "Sloth bear", "Sun bear"],
+    "whale": ["Blue whale", "Humpback whale", "Sperm whale", "Bowhead whale", "Minke whale", "Gray whale", "Beluga whale", "Orca"],
+    "dolphin": ["Bottlenose dolphin", "Spinner dolphin", "Amazon river dolphin", "Orca"],
+    "seal": ["Harbor seal", "Elephant seal", "Leopard seal", "Harp seal", "Fur seal"],
+    "fox": ["Red fox", "Arctic fox", "Fennec fox", "Bat-eared fox"],
+    "wolf": ["Gray wolf", "Maned wolf", "African wild dog"],
+    "deer": ["White-tailed deer", "Red deer", "Fallow deer", "Roe deer", "Chital", "Muntjac", "Reindeer", "Moose", "Elk"],
+    "rhino": ["White rhinoceros", "Black rhinoceros", "Indian rhinoceros"],
+    "rhinoceros": ["White rhinoceros", "Black rhinoceros", "Indian rhinoceros"],
+    "elephant": ["African elephant", "Asian elephant"],
+    "camel": ["Bactrian camel", "Dromedary"],
+    "tapir": ["South American tapir", "Malayan tapir"],
+    "otter": ["Sea otter", "River otter", "Giant otter"],
+    "badger": ["European badger", "American badger", "Honey badger"],
+    "hyena": ["Spotted hyena", "Striped hyena"],
+    "bison": ["American bison", "European bison"],
+    "buffalo": ["African buffalo", "Water buffalo", "American bison"],
+    "squirrel": ["Gray squirrel", "Flying squirrel"],
+    "porcupine": ["Porcupine", "Crested porcupine"],
+    "monkey": ["Capuchin monkey", "Howler monkey", "Spider monkey", "Squirrel monkey", "Proboscis monkey", "Vervet monkey", "Rhesus macaque", "Japanese macaque", "Mandrill", "Baboon"],
+    "bat": ["Vampire bat", "Flying fox", "Bumblebee bat", "Honduran white bat"],
+    "kangaroo": ["Red kangaroo", "Tree-kangaroo"],
+    "hippo": ["Hippopotamus", "Pygmy hippopotamus"],
+    "pig": ["Domestic pig", "Wild boar", "Warthog"],
+    "goat": ["Goat", "Mountain goat", "Alpine ibex"],
+    "sheep": ["Sheep", "Bighorn sheep"]
+};
+
+function normalizeStr(s) {
+    return (s || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/['’`-]/g, " ")
+        .replace(/[^a-z0-9 ]+/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function editDistance(a, b) {
+    if (Math.abs(a.length - b.length) > 2) return 99;
+    const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) dp[0][j] = j;
+    for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+            dp[i][j] = a[i - 1] === b[j - 1]
+                ? dp[i - 1][j - 1]
+                : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+        }
+    }
+    return dp[a.length][b.length];
+}
+
+function scoreMammalOnCurrentBoard(m) {
+    const activeCats = currentBoard.categories;
+    let newHits = 0;
+    let totalHits = 0;
+    for (const c of activeCats) {
+        if (m.traits.includes(c)) {
+            totalHits++;
+            if (!clearedCats.has(c)) newHits++;
+        }
+    }
+    return { newHits, totalHits, views: m.views_60d || 0 };
+}
+
+function findBestMammalMatch(rawQuery) {
+    const q = normalizeStr(rawQuery);
+    if (!q) return null;
+
+    // 1. Check if the query is a generic group term (like "bear", "whale", "rhino", "fox")
+    // AND also check exact canonical/alias matches; collect all candidate species and pick the one
+    // that clears the most new categories on the current board!
+    const candidates = new Map();
+
+    if (GENERIC_GROUP_TERMS[q]) {
+        for (const cName of GENERIC_GROUP_TERMS[q]) {
+            const found = DB.mammals.find(m => m.name === cName);
+            if (found) candidates.set(found.name, found);
+        }
+    }
+
+    for (const m of DB.mammals) {
+        const nNorm = normalizeStr(m.name);
+        if (nNorm === q) {
+            // Exact canonical name match: if not a generic group word, return immediately
+            if (!GENERIC_GROUP_TERMS[q]) return m;
+            candidates.set(m.name, m);
+        }
+        for (const al of (m.aliases || [])) {
+            if (normalizeStr(al) === q) {
+                candidates.set(m.name, m);
+            }
+        }
+    }
+
+    if (candidates.size > 0) {
+        const list = Array.from(candidates.values());
+        list.sort((a, b) => {
+            const sa = scoreMammalOnCurrentBoard(a);
+            const sb = scoreMammalOnCurrentBoard(b);
+            if (sb.newHits !== sa.newHits) return sb.newHits - sa.newHits;
+            if (sb.totalHits !== sa.totalHits) return sb.totalHits - sa.totalHits;
+            return sb.views - sa.views;
+        });
+        return list[0];
+    }
+
+    // 2. Fuzzy 1-edit-distance match (for words >= 4 chars)
+    if (q.length >= 4) {
+        let bestMammal = null;
+        let bestDist = 99;
+        for (const m of DB.mammals) {
+            const allNames = [m.name, ...(m.aliases || [])];
+            for (const nm of allNames) {
+                const norm = normalizeStr(nm);
+                const d = editDistance(q, norm);
+                const maxAllowed = norm.length >= 7 ? 2 : 1;
+                if (d <= maxAllowed && d < bestDist) {
+                    bestDist = d;
+                    bestMammal = m;
+                }
+            }
+        }
+        if (bestMammal) return bestMammal;
+    }
+
+    return null;
+}
+
+function initDatabase(data) {
+    if (data.mammals_packed && !data.mammals) {
+        const catIds = data.categories.map(c => c.id);
+        data.mammals = data.mammals_packed.map(row => {
+            const [name, maskOrIdxs, views_60d, aliases] = row;
+            const traits = Array.isArray(maskOrIdxs)
+                ? maskOrIdxs.map(idx => catIds[idx]).filter(Boolean)
+                : catIds.filter((_, i) => (maskOrIdxs & (1 << i)) !== 0);
+            return { name, traits, views_60d, aliases: aliases || [] };
+        });
+    }
+    DB = data;
+    catMap = {};
+    for (const c of DB.categories) {
+        const matching = DB.mammals.filter(m => m.traits.includes(c.id));
+        catMap[c.id] = { ...c, count: matching.length, mammals: matching };
+    }
+    buildCoursePicker();
+    loadCourse(0);
+}
+
+function buildCoursePicker() {
+    const grid = document.getElementById("game-grid");
+    grid.innerHTML = "";
+    DB.boards.forEach((b, idx) => {
+        const btn = document.createElement("div");
+        btn.className = "game-num-btn" + (idx === currentCourseIdx && !isFreePlay ? " active" : "");
+        btn.innerHTML = `<span>#${b.id}</span><small>PAR ${b.par}</small>`;
+        btn.onclick = () => {
+            isFreePlay = false;
+            loadCourse(idx);
+            closePicker();
+        };
+        grid.appendChild(btn);
+    });
+}
+
+function loadCourse(idx) {
+    currentCourseIdx = idx;
+    currentBoard = DB.boards[idx];
+    resetCurrentCourse();
+    buildCoursePicker();
+}
+
+function resetCurrentCourse() {
+    strokes = [];
+    clearedCats = new Set();
+    holeFinished = false;
+
+    document.getElementById("course-num").textContent = isFreePlay ? "FREE" : `#${currentBoard.id}`;
+    document.getElementById("course-par").textContent = currentBoard.par;
+    document.getElementById("main-input").disabled = false;
+    document.getElementById("swing-btn").disabled = false;
+    document.getElementById("give-up-btn").classList.remove("hidden");
+    document.getElementById("result-panel").classList.add("hidden");
+    setFeedback("", "");
+
+    renderBoard([]);
+    renderScorecard();
+    document.getElementById("main-input").focus();
+}
+
+function setFeedback(msg, cls) {
+    const el = document.getElementById("feedback-banner");
+    el.className = cls || "";
+    el.textContent = msg;
+}
+
+function renderScorecard() {
+    const totalCats = currentBoard ? currentBoard.categories.length : 6;
+    document.getElementById("stroke-count").textContent = strokes.length;
+    document.getElementById("cleared-count").textContent = `${clearedCats.size} / ${totalCats}`;
+
+    const logEl = document.getElementById("strokes-log");
+    logEl.innerHTML = "";
+    strokes.forEach((s, i) => {
+        const badge = document.createElement("div");
+        badge.className = "stroke-badge";
+        badge.innerHTML = `
+            <span class="s-num">Stroke ${i + 1}</span>
+            <span class="s-name">${s.mammal.name}</span>
+            <span class="s-cnt">${s.hitCats.length} hit</span>
+        `;
+        logEl.appendChild(badge);
+    });
+}
+
+function renderBoard(newlyHitCatIds = []) {
+    const grid = document.getElementById("golf-grid");
+    grid.innerHTML = "";
+
+    for (const catId of currentBoard.categories) {
+        const cat = catMap[catId];
+        const isCleared = clearedCats.has(catId);
+        const card = document.createElement("div");
+        const flashClass = newlyHitCatIds.includes(catId) ? " flash-hit" : "";
+        const clickClass = holeFinished ? " clickable" : "";
+        card.className = `cat-card${isCleared ? " cleared" : ""}${flashClass}${clickClass}`;
+
+        if (holeFinished) {
+            card.onclick = () => openInspector(catId);
+        }
+
+        const hittingMammals = strokes
+            .filter(s => s.hitCats.includes(catId))
+            .map(s => s.mammal.name);
+
+        const hitsHtml = hittingMammals.length > 0
+            ? hittingMammals.map(nm => `<span class="hit-chip">&#10003; ${nm}</span>`).join("")
+            : `<span class="unhit-label">${holeFinished ? "Click to view all " + cat.count + " mammals" : "Uncovered"}</span>`;
+
+        card.innerHTML = `
+            <div>
+                <div class="cat-top">
+                    <span class="group-badge group-${cat.group}">${cat.group}</span>
+                    <span class="cat-count">${cat.count} mammals</span>
+                </div>
+                <h3 class="cat-title">${cat.name}</h3>
+                <div class="cat-desc">${cat.desc}</div>
+            </div>
+            <div class="cat-hits">${hitsHtml}</div>
+        `;
+        grid.appendChild(card);
+    }
+}
+
+function submitMammal() {
+    if (holeFinished) return;
+    const input = document.getElementById("main-input");
+    const raw = input.value.trim();
+    if (!raw) return;
+
+    const mammal = findBestMammalMatch(raw);
+    if (!mammal) {
+        setFeedback(`"${raw}" isn't in our verified mammal roster (try a specific common name like "Gray wolf" or "Capybara").`, "fb-miss");
+        return;
+    }
+
+    if (strokes.some(s => s.mammal.name === mammal.name)) {
+        setFeedback(`You already played ${mammal.name} on this hole!`, "fb-warn");
+        input.value = "";
+        return;
+    }
+
+    const totalCats = currentBoard.categories.length;
+    const hitCats = currentBoard.categories.filter(cid => mammal.traits.includes(cid));
+    const newCats = hitCats.filter(cid => !clearedCats.has(cid));
+
+    if (newCats.length === 0) {
+        if (hitCats.length === 0) {
+            setFeedback(`${mammal.name} doesn't match any of the ${totalCats} categories on this board (No stroke penalty).`, "fb-warn");
+        } else {
+            setFeedback(`${mammal.name} only matches categories you've already cleared (No stroke penalty).`, "fb-warn");
+        }
+        input.value = "";
+        return;
+    }
+
+    strokes.push({ mammal, hitCats, newCats });
+    newCats.forEach(cid => clearedCats.add(cid));
+    input.value = "";
+
+    let comboLabel;
+    if (newCats.length === totalCats && strokes.length === 1) {
+        comboLabel = `🏆 ${mammal.name.toUpperCase()} — ${totalCats}-FOR-${totalCats} HOLE-IN-ONE!!`;
+    } else if (newCats.length >= 3) {
+        comboLabel = `🔥 ${mammal.name.toUpperCase()} — ${hitCats.length}-CATEGORY SWING! (+${newCats.length} new)`;
+    } else {
+        comboLabel = `${mammal.name} cleared ${newCats.length} new categor${newCats.length === 1 ? "y" : "ies"} (${hitCats.length} total on board)!`;
+    }
+    setFeedback(comboLabel, "fb-hit");
+
+    renderScorecard();
+    renderBoard(newCats);
+
+    if (clearedCats.size === totalCats) {
+        finishHole(false);
+    }
+}
+
+function finishHole(gaveUp) {
+    holeFinished = true;
+    document.getElementById("main-input").disabled = true;
+    document.getElementById("swing-btn").disabled = true;
+    document.getElementById("give-up-btn").classList.add("hidden");
+
+    const panel = document.getElementById("result-panel");
+    const titleEl = document.getElementById("golf-rating-title");
+    const subEl = document.getElementById("golf-rating-sub");
+    const optBox = document.getElementById("optimal-box");
+
+    panel.classList.remove("hidden");
+
+    const totalCats = currentBoard.categories.length;
+    const par = currentBoard.par;
+    const s = strokes.length;
+
+    if (gaveUp) {
+        titleEl.textContent = "HOLE CONCEDED";
+        titleEl.style.color = "var(--danger)";
+        subEl.textContent = `You cleared ${clearedCats.size} of ${totalCats} categories in ${s} stroke${s === 1 ? "" : "s"}. Click any category card above to explore all valid mammals!`;
+    } else {
+        const diff = s - par;
+        let rating = "PAR!";
+        let color = "var(--primary-bright)";
+        if (s === 1) { rating = "🏆 HOLE-IN-ONE! (-1)"; color = "var(--gold)"; }
+        else if (diff <= -2) { rating = "🦅 EAGLE! (" + diff + ")"; color = "var(--gold)"; }
+        else if (diff === -1) { rating = "🐦 BIRDIE! (-1)"; color = "var(--gold)"; }
+        else if (diff === 0) { rating = "⛳ EVEN PAR!"; color = "var(--primary-bright)"; }
+        else if (diff === 1) { rating = "BOGEY (+1)"; color = "var(--all-in)"; }
+        else if (diff === 2) { rating = "DOUBLE BOGEY (+2)"; color = "var(--all-in)"; }
+        else { rating = `+${diff} OVER PAR`; color = "var(--danger)"; }
+
+        titleEl.textContent = rating;
+        titleEl.style.color = color;
+        subEl.textContent = `Cleared all ${totalCats} categories in ${s} stroke${s === 1 ? "" : "s"} on a Par ${par} course. Click any category card above to inspect all valid mammals!`;
+    }
+
+    // Find all 1-stroke Hole-in-One mammals for this 6-category board
+    const hioMammals = DB.mammals.filter(m =>
+        currentBoard.categories.every(cid => m.traits.includes(cid))
+    );
+    let rowsHtml = "";
+    if (hioMammals.length > 0) {
+        rowsHtml += `<div class="optimal-title">🏆 1-Stroke Hole-in-One Mammal${hioMammals.length > 1 ? "s (" + hioMammals.length + ")" : " (Unique 1-of-1!)"}</div>`;
+        for (const m of hioMammals) {
+            rowsHtml += `
+                <div class="opt-row">
+                    <span class="opt-mammal" style="color: var(--gold);">&#9733; ${m.name}</span>
+                    <span class="opt-cats">&rarr; Clears all ${totalCats} categories in 1 stroke!</span>
+                </div>
+            `;
+        }
+    }
+
+    // Also show a 2-stroke Even Par pair
+    const solNames = currentBoard.sample_solution || [];
+    if (solNames.length > 0) {
+        rowsHtml += `<div class="optimal-title" style="margin-top: 10px;">⛳ Sample 2-Stroke Even Par Pair</div>`;
+        for (const nm of solNames) {
+            const m = DB.mammals.find(x => x.name === nm);
+            if (!m) continue;
+            const covered = currentBoard.categories
+                .filter(cid => m.traits.includes(cid))
+                .map(cid => catMap[cid].name);
+            rowsHtml += `
+                <div class="opt-row">
+                    <span class="opt-mammal">${m.name}</span>
+                    <span class="opt-cats">&rarr; ${covered.join(" • ")} (${covered.length})</span>
+                </div>
+            `;
+        }
+    }
+    optBox.innerHTML = rowsHtml;
+
+    renderBoard([]);
+}
+
+function giveUpHole() {
+    if (holeFinished) return;
+    finishHole(true);
+}
+
+function nextCourse() {
+    if (isFreePlay) {
+        startFreePlay();
+    } else {
+        const nextIdx = (currentCourseIdx + 1) % DB.boards.length;
+        loadCourse(nextIdx);
+    }
+}
+
+function areCategoriesOrthogonalClient(chosen) {
+    const s = new Set(chosen);
+    if (s.has("aquatic_semiaquatic") && s.has("terrestrial_only")) return false;
+    if (s.has("single_continent") && s.has("multi_continent")) return false;
+    if (s.has("name_single_word") && s.has("name_multi_word")) return false;
+
+    if (s.has("fully_marine") && (s.has("aquatic_semiaquatic") || s.has("multi_continent"))) return false;
+    if ((s.has("family_felidae") || s.has("family_canidae")) && s.has("order_carnivora")) return false;
+    if (s.has("family_felidae") && s.has("diet_carnivore")) return false;
+    if (s.has("odd_toed_ungulate") && (s.has("ungulate") || s.has("diet_herbivore"))) return false;
+    if (s.has("horns_antlers_tusks") && s.has("ungulate")) return false;
+    if (s.has("name_short_5") && s.has("name_single_word")) return false;
+    if (s.has("name_has_color") && s.has("name_multi_word")) return false;
+    if (s.has("name_has_geo") && s.has("name_multi_word")) return false;
+
+    const taxCats = ["order_carnivora", "family_felidae", "family_canidae", "order_rodentia", "order_primates", "ungulate", "odd_toed_ungulate", "marsupial_monotreme", "fully_marine"];
+    const dietCats = ["diet_herbivore", "diet_carnivore", "diet_insectivore", "diet_omnivore"];
+    const weightCats = ["weight_over_200kg", "weight_medium", "weight_under_5kg"];
+    const continentCats = ["native_africa", "native_asia", "native_north_america", "native_south_america", "native_europe", "native_australia"];
+
+    const countIn = grp => grp.filter(x => s.has(x)).length;
+    if (countIn(taxCats) > 1) return false;
+    if (countIn(dietCats) > 1) return false;
+    if (countIn(weightCats) > 1) return false;
+    if (countIn(continentCats) > 1 && s.has("single_continent")) return false;
+    if (countIn(continentCats) > 2) return false;
+    return true;
+}
+
+// Client-side solver for 6-Category Par 2 + 1-Stroke Hole-in-One Free Play boards
+function solveBoardParClient(chosenCats) {
+    const targetMask = (1 << chosenCats.length) - 1;
+    const idxMap = {};
+    chosenCats.forEach((cid, i) => { idxMap[cid] = i; });
+
+    const hios = [];
+    const partials = [];
+    for (const m of DB.mammals) {
+        let mask = 0;
+        let popCount = 0;
+        for (const t of m.traits) {
+            if (idxMap[t] !== undefined) {
+                mask |= (1 << idxMap[t]);
+                popCount++;
+            }
+        }
+        if (mask === targetMask) {
+            hios.push({ name: m.name, views: m.views_60d || 10000 });
+        } else if (popCount >= 2 && popCount <= 5) {
+            partials.push({ mask, popCount, name: m.name, views: m.views_60d || 10000 });
+        }
+    }
+
+    if (hios.length === 0 || hios.length > 4) return null;
+    hios.sort((a, b) => b.views - a.views);
+    partials.sort((a, b) => b.popCount - a.popCount || b.views - a.views);
+
+    const top = partials.slice(0, 60);
+    for (let i = 0; i < top.length; i++) {
+        for (let j = i + 1; j < top.length; j++) {
+            if ((top[i].mask | top[j].mask) === targetMask) {
+                return {
+                    par: 2,
+                    hole_in_ones: hios.map(x => x.name),
+                    sample_solution: [top[i].name, top[j].name]
+                };
+            }
+        }
+    }
+    return null;
+}
+
+function startFreePlay() {
+    const bioCats = DB.categories.filter(c => c.group !== "name" && catMap[c.id].count >= 5).map(c => c.id);
+    const nameCats = DB.categories.filter(c => c.group === "name" && catMap[c.id].count >= 5).map(c => c.id);
+
+    const shuffle = arr => {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    };
+
+    // Anchor around a random mammal's traits so we find a Hole-in-One board immediately!
+    const shuffledMammals = shuffle(DB.mammals);
+    for (const anchor of shuffledMammals) {
+        const mBio = anchor.traits.filter(t => bioCats.includes(t));
+        const mName = anchor.traits.filter(t => nameCats.includes(t));
+        if (mBio.length < 5 || mName.length < 1) continue;
+
+        for (let attempt = 0; attempt < 12; attempt++) {
+            const chosen = [
+                ...shuffle(mBio).slice(0, 5),
+                shuffle(mName)[0]
+            ];
+            if (!areCategoriesOrthogonalClient(chosen)) continue;
+            const solved = solveBoardParClient(chosen);
+            if (solved) {
+                isFreePlay = true;
+                currentBoard = {
+                    id: "FREE",
+                    par: solved.par,
+                    categories: shuffle(chosen),
+                    hole_in_ones: solved.hole_in_ones,
+                    sample_solution: solved.sample_solution
+                };
+                resetCurrentCourse();
+                buildCoursePicker();
+                return;
+            }
+        }
+    }
+}
+
+function openPicker() {
+    document.getElementById("picker-modal").classList.remove("hidden");
+}
+function closePicker() {
+    document.getElementById("picker-modal").classList.add("hidden");
+}
+
+function openInspector(catId) {
+    const cat = catMap[catId];
+    if (!cat) return;
+    document.getElementById("insp-title").textContent = `${cat.name} (${cat.count})`;
+    document.getElementById("insp-desc").textContent = cat.desc;
+    const chips = document.getElementById("insp-chips");
+    chips.innerHTML = "";
+    const guessedSet = new Set(strokes.map(s => s.mammal.name));
+    for (const m of cat.mammals) {
+        const sp = document.createElement("span");
+        sp.className = "mammal-chip" + (guessedSet.has(m.name) ? " guessed" : "");
+        sp.textContent = m.name;
+        chips.appendChild(sp);
+    }
+    document.getElementById("inspector-modal").classList.remove("hidden");
+}
+function closeInspector() {
+    document.getElementById("inspector-modal").classList.add("hidden");
+}
+
+document.getElementById("main-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        submitMammal();
+    }
+});
+
+// Boot: load embedded data immediately, and also attempt fetch in case JSON was updated
+if (EMBEDDED_MAMMAL_DATA) {
+    initDatabase(EMBEDDED_MAMMAL_DATA);
+} else {
+    fetch("mammal_golf.json")
+        .then(r => r.json())
+        .then(data => initDatabase(data))
+        .catch(err => console.error("Failed to load mammal_golf.json:", err));
+}
+</script>
+</body>
+</html>
