@@ -38,7 +38,7 @@ USER_AGENT = "CanterburyEggTriviaBot/1.0 (https://canterburyegg.github.io; conta
 MAMMAL_DIR = Path(__file__).resolve().parent
 CACHE_PATH = MAMMAL_DIR / ".mammal_wiki_cache.json"
 LISTS_CACHE_PATH = MAMMAL_DIR / ".mammal_lists_cache.json"
-OUT_JSON_PATH = MAMMAL_DIR / "mammal_golf.json"
+OUT_JSON_PATH = MAMMAL_DIR / "mole_in_one.json"
 
 IUCN_LIST_PAGES: dict[str, str] = {
     "List of critically endangered mammals": "CR",
@@ -1396,10 +1396,11 @@ def build_mammal_fun_facts(m: dict[str, Any], row: tuple[Any, ...]) -> list[str]
         if s and s not in facts:
             facts.append(s)
 
-    for f in SIGNATURE_MAMMAL_FACTS.get(name, []):
-        s = f.strip()
-        if s and s not in facts:
-            facts.append(s)
+    if not facts:
+        for f in SIGNATURE_MAMMAL_FACTS.get(name, []):
+            s = f.strip()
+            if s and s not in facts:
+                facts.append(s)
 
     return facts[:10]
 
@@ -2024,13 +2025,13 @@ def main() -> None:
         }
         html_text = html_path.read_text(encoding="utf-8")
         marker_re = re.compile(
-            r"/\* __MAMMAL_GOLF_DATA_START__ \*/.*?/\* __MAMMAL_GOLF_DATA_END__ \*/",
+            r"/\* __MOLE_IN_ONE_DATA_START__ \*/.*?/\* __MOLE_IN_ONE_DATA_END__ \*/",
             re.S,
         )
         replacement_block = (
-            "/* __MAMMAL_GOLF_DATA_START__ */\n"
+            "/* __MOLE_IN_ONE_DATA_START__ */\n"
             f"const EMBEDDED_MAMMAL_DATA = {json.dumps(compact_payload, ensure_ascii=False, separators=(',', ':'))};\n"
-            "/* __MAMMAL_GOLF_DATA_END__ */"
+            "/* __MOLE_IN_ONE_DATA_END__ */"
         )
         if marker_re.search(html_text):
             html_path.write_text(marker_re.sub(lambda _: replacement_block, html_text), encoding="utf-8")
