@@ -1,0 +1,1400 @@
+{
+  "Canada lynx": {
+    "title": "Canada lynx",
+    "views_60d": 36882,
+    "wiki_iucn": "LC",
+    "extract": "The Canada lynx (Lynx canadensis) or Canadian lynx is one of the four living species in the genus Lynx. It is a medium-sized wild cat characterized by long, dense fur, triangular ears with black tufts at the tips, and broad, snowshoe-like paws."
+  },
+  "Cheetah": {
+    "title": "Cheetah",
+    "views_60d": 132767,
+    "wiki_iucn": "VU",
+    "extract": "The cheetah (Acinonyx jubatus) is a species of large feline and the only living member of the genus Acinonyx. The cheetah is a pursuit predator and the fastest land animal, capable of running at 93–104 km/h (58–65 mph); it has evolved for speed, having powerful hindlimb muscles and a long lumbar spine."
+  },
+  "Clouded leopard": {
+    "title": "Clouded leopard",
+    "views_60d": 34344,
+    "wiki_iucn": "VU",
+    "extract": "The clouded leopard (Neofelis nebulosa), also called mainland clouded leopard, is a wild cat that has large dusky-grey blotches and irregular spots and stripes reminiscent of clouds. Its head-and-body length ranges from 68.6 to 108 cm (27.0 to 42.5 in) with a 61 to 91 cm (24 to 36 in) long tail, which it uses for balancing when moving in trees."
+  },
+  "Cougar": {
+    "title": "Cougar",
+    "views_60d": 143738,
+    "wiki_iucn": "LC",
+    "extract": "The cougar ( KOO-gər; Puma concolor), also called puma, mountain lion, catamount, and panther, is a large small cat native to the Americas. It inhabits North, Central and South America, making it the most widely distributed wild, terrestrial mammal in the Western Hemisphere, and one of the most widespread in the world."
+  },
+  "Eurasian lynx": {
+    "title": "Eurasian lynx",
+    "views_60d": 40367,
+    "wiki_iucn": "LC",
+    "extract": "The Eurasian lynx (Lynx lynx) is one of the four extant species within the medium-sized wild cat genus Lynx. It is widely distributed from Northern, Central and Eastern Europe to Central Asia and Siberia, the Tibetan Plateau and the Himalayas."
+  },
+  "Jaguar": {
+    "title": "Jaguar",
+    "views_60d": 153941,
+    "wiki_iucn": "NT",
+    "extract": "The jaguar (Panthera onca) is a large cat species and the only living member of the genus Panthera that is native to the Americas. Its coat features pale yellow to tan colored fur covered with spots that transition to rosettes on the sides; some individuals have a melanistic spotted coat."
+  },
+  "Leopard": {
+    "title": "Leopard",
+    "views_60d": 114695,
+    "wiki_iucn": "VU",
+    "extract": "The leopard (Panthera pardus) is one of the five extant cat species in the genus Panthera. It has a pale yellowish to dark golden fur with dark spots grouped in rosettes."
+  },
+  "Lion": {
+    "title": "Lion",
+    "views_60d": 194018,
+    "wiki_iucn": "VU",
+    "extract": "The lion (Panthera leo) is a large cat of the genus Panthera, currently ranging only in sub-Saharan Africa and India. It has a muscular, broad-chested body; a short, rounded head; round ears; and a dark, hairy tuft at the tip of its tail."
+  },
+  "Snow leopard": {
+    "title": "Snow leopard",
+    "views_60d": 107343,
+    "wiki_iucn": "VU",
+    "extract": "The snow leopard (Panthera uncia) is a felid species in the genus Panthera. It has a thick whitish to grey fur with black spots on the head and neck, with larger rosettes on the back, flanks and bushy tail."
+  },
+  "Tiger": {
+    "title": "Tiger",
+    "views_60d": 202867,
+    "wiki_iucn": "EN",
+    "extract": "The tiger (Panthera tigris) is a large cat and a member of the genus Panthera native to Asia. It has a powerful, muscular body with a large head and paws, a long tail and orange fur that fades to white in parts, with black, mostly vertical stripes."
+  },
+  "Bobcat": {
+    "title": "Bobcat",
+    "views_60d": 107885,
+    "wiki_iucn": "LC",
+    "extract": "The bobcat (Lynx rufus), also known as the wildcat, bay lynx, or red lynx, is one of the four extant species within the medium-sized wild cat genus Lynx. Native to North America, it ranges from southern Canada through most of the contiguous United States to Oaxaca in Mexico."
+  },
+  "Caracal": {
+    "title": "Caracal",
+    "views_60d": 83690,
+    "wiki_iucn": "LC",
+    "extract": "The caracal (Caracal caracal) is a wild cat native to Africa, the Middle East, Central Asia, and arid areas of Pakistan and northwestern India. It is characterised by a robust build, long legs, a short face, long tufted ears, relatively short tail, and long canine teeth."
+  },
+  "Cat": {
+    "title": "Cat",
+    "views_60d": 732605,
+    "wiki_iucn": "DOM",
+    "extract": "The cat (Felis catus), also called domestic cat and house cat, is a small domesticated carnivorous mammal. It is a member of Felidae, the family of mammals in the order Carnivora also colloquially referred to as cats."
+  },
+  "Fishing cat": {
+    "title": "Fishing cat",
+    "views_60d": 26999,
+    "wiki_iucn": "VU",
+    "extract": "The fishing cat (Prionailurus viverrinus) is a medium-sized wild cat of South and Southeast Asia. It has a deep yellowish-grey fur with black lines and spots."
+  },
+  "Jaguarundi": {
+    "title": "Jaguarundi",
+    "views_60d": 47572,
+    "wiki_iucn": "NT",
+    "extract": "The jaguarundi (Herpailurus yagouaroundi;  or ) is a wild cat native to the Americas. Its range extends from central Argentina in the south and much of South America east of the Andes, through Central America, and into northern Mexico."
+  },
+  "Margay": {
+    "title": "Margay",
+    "views_60d": 32018,
+    "wiki_iucn": "NT",
+    "extract": "The margay (Leopardus wiedii) is a small wild cat native to Mexico, Central and South America. A solitary and nocturnal felid, it lives mainly in primary evergreen and deciduous forests."
+  },
+  "Ocelot": {
+    "title": "Ocelot",
+    "views_60d": 73968,
+    "wiki_iucn": "LC",
+    "extract": "The ocelot (Leopardus pardalis) is a medium-sized spotted wild cat that reaches 40–50 cm (16–20 in) at the shoulders and weighs between 7 and 15.5 kg (15 and 34 lb) on average. It is native to the southwestern United States, Mexico, Central and South America, and the Caribbean islands of Trinidad and Margarita."
+  },
+  "Pallas's cat": {
+    "title": "Pallas's cat",
+    "views_60d": 82869,
+    "wiki_iucn": "LC",
+    "extract": "Pallas's cat (Otocolobus manul), also called manul, is a small wild cat with long and dense light grey fur, and rounded ears set low on the sides of the head. Its head-and-body length ranges from 46 to 65 cm (18 to 26 in) with a 21–31 cm (8.3–12.2 in) long bushy tail."
+  },
+  "Sand cat": {
+    "title": "Sand cat",
+    "views_60d": 49201,
+    "wiki_iucn": "LC",
+    "extract": "The sand cat (Felis margarita) is a small wild cat that inhabits sandy and stony deserts far from water sources. With its sandy to light grey fur, it is well camouflaged in a desert environment."
+  },
+  "Serval": {
+    "title": "Serval",
+    "views_60d": 65153,
+    "wiki_iucn": "LC",
+    "extract": "The serval (Leptailurus serval) is a wild small cat native to Africa. It is widespread in sub-Saharan countries, where it inhabits grasslands, wetlands, moorlands and bamboo thickets."
+  },
+  "African wild dog": {
+    "title": "African wild dog",
+    "views_60d": 63126,
+    "wiki_iucn": "EN",
+    "extract": "The African wild dog (Lycaon pictus), also called painted dog and Cape hunting dog, is a wild canine native to sub-Saharan Africa. It is the largest wild canine in Africa and the only extant member of the genus Lycaon, which is distinguished from Canis by dentition highly specialised for a hypercarnivorous diet and by a lack of dewclaws."
+  },
+  "Arctic fox": {
+    "title": "Arctic fox",
+    "views_60d": 56734,
+    "wiki_iucn": "LC",
+    "extract": "The Arctic fox (Vulpes lagopus), also known as the white fox, polar fox, or snow fox, is a small species of fox native to the Arctic regions of the Northern Hemisphere and common throughout the Arctic tundra. It is well adapted to living in cold environments, and is known for its thick, warm fur that can be used as camouflage against snow in the winter."
+  },
+  "Coyote": {
+    "title": "Coyote",
+    "views_60d": 130085,
+    "wiki_iucn": "LC",
+    "extract": "The coyote (/kaɪ(j)oʊt(i)/, KY-(y)oh-t(ee)) (Canis latrans) is a species of canine also known as the American jackal, prairie wolf, and brush wolf. It is native to North America, and it is smaller than its close relative, the gray wolf, and slightly smaller than the closely related eastern wolf and red wolf."
+  },
+  "Dhole": {
+    "title": "Dhole",
+    "views_60d": 45626,
+    "wiki_iucn": "EN",
+    "extract": "The dhole ( dohl; Cuon alpinus) is a canid native to South, East and Southeast Asia. The sole member of the genus Cuon, it is anatomically distinguished from members of the genus Canis in several aspects: its skull is convex rather than concave in profile, it lacks a third lower molar, and the upper molars possess only a single cusp as opposed to between two and four."
+  },
+  "Fennec fox": {
+    "title": "Fennec fox",
+    "views_60d": 44372,
+    "wiki_iucn": "LC",
+    "extract": "The fennec fox (Vulpes zerda) is a small fox native to the deserts of North Africa, ranging from Western Sahara and Mauritania to the Sinai Peninsula. Its most distinctive feature is its unusually large ears, which serve to dissipate heat and listen for underground prey."
+  },
+  "Golden jackal": {
+    "title": "Golden jackal",
+    "views_60d": 34302,
+    "wiki_iucn": "LC",
+    "extract": "The golden jackal (Canis aureus), also called the common jackal, is a wolf-like canid that is native to Eurasia. The golden jackal's coat varies in color from a pale creamy yellow in summer to a dark tawny beige in winter."
+  },
+  "Maned wolf": {
+    "title": "Maned wolf",
+    "views_60d": 62031,
+    "wiki_iucn": "NT",
+    "extract": "The maned wolf  (Chrysocyon brachyurus) is a large canine of South America. It is found in Argentina, Brazil, Bolivia, Peru, and Paraguay, and is almost locally extinct in Uruguay."
+  },
+  "Red fox": {
+    "title": "Red fox",
+    "views_60d": 82822,
+    "wiki_iucn": "LC",
+    "extract": "The red fox (Vulpes vulpes) is the largest of the true foxes, and the most widely distributed member of the order Carnivora. It is present across the entire Northern Hemisphere, including most of Europe, Asia, and North America, as well as parts of North Africa."
+  },
+  "Wolf": {
+    "title": "Wolf",
+    "views_60d": 152714,
+    "wiki_iucn": "LC",
+    "extract": "The wolf (Canis lupus; pl.: wolves), also known as the grey wolf or gray wolf, is a canine native to Eurasia and North America. More than thirty subspecies of Canis lupus have been recognized, including the dog and dingo, though grey wolves, as popularly understood, include only naturally occurring wild subspecies."
+  },
+  "Nyctereutes": {
+    "title": "Nyctereutes",
+    "views_60d": 14978,
+    "wiki_iucn": null,
+    "extract": "Nyctereutes (Ancient Greek: νύξ, νυκτ- [nýx, nykt-] 'night' + ἐρέυτης [eréutēs] 'wanderer') is a genus of Asian canid with two extant species, the raccoon dogs: the common raccoon dog (Nyctereutes procyonoides) and the Japanese raccoon dog (Nyctereutes viverrinus).\nNyctereutes entered the fossil record 5.5 million years ago (Mya) in northern China."
+  },
+  "Raccoon dog": {
+    "title": "Nyctereutes",
+    "views_60d": 14978,
+    "wiki_iucn": null,
+    "extract": "Nyctereutes (Ancient Greek: νύξ, νυκτ- [nýx, nykt-] 'night' + ἐρέυτης [eréutēs] 'wanderer') is a genus of Asian canid with two extant species, the raccoon dogs: the common raccoon dog (Nyctereutes procyonoides) and the Japanese raccoon dog (Nyctereutes viverrinus).\nNyctereutes entered the fossil record 5.5 million years ago (Mya) in northern China."
+  },
+  "American black bear": {
+    "title": "American black bear",
+    "views_60d": 102812,
+    "wiki_iucn": "LC",
+    "extract": "The American black bear (Ursus americanus), or simply black bear, is a species of medium-sized bear which is endemic to North America. It is the continent's smallest and most widely distributed bear species."
+  },
+  "Asian black bear": {
+    "title": "Asian black bear",
+    "views_60d": 36983,
+    "wiki_iucn": "VU",
+    "extract": "The Asian black bear (Ursus thibetanus), also known as the Asiatic black bear, moon bear and white-chested bear, is a medium-sized bear species native to Asia that is largely adapted to an arboreal lifestyle. It is distributed from southeastern Iran, Pakistan, India and the Himalayas to mainland Southeast Asia, the Korean Peninsula, Taiwan, China and the Russian Far East to the islands of Honshū and Shikoku in Japan."
+  },
+  "Bat-eared fox": {
+    "title": "Bat-eared fox",
+    "views_60d": 13064,
+    "wiki_iucn": "LC",
+    "extract": "The bat-eared fox (Otocyon megalotis) is a species of fox found on the African savanna. It is the only extant species of the genus Otocyon, and is the sister species to all other members of the tribe Vulpini, not genetically being a true fox."
+  },
+  "Brown bear": {
+    "title": "Brown bear",
+    "views_60d": 120200,
+    "wiki_iucn": "LC",
+    "extract": "The brown bear (Ursus arctos) is a large bear native to Eurasia and North America. Of the land carnivorans, it is rivaled in size only by its closest relative, the polar bear, which is much less variable in size and slightly bigger on average."
+  },
+  "Dingo": {
+    "title": "Dingo",
+    "views_60d": 88622,
+    "wiki_iucn": null,
+    "extract": "The dingo is a lineage of dog found in Australia. It is a medium-sized canine that possesses a lean, hardy body adapted for speed, agility, and stamina."
+  },
+  "Dog": {
+    "title": "Dog",
+    "views_60d": 386510,
+    "wiki_iucn": "DOM",
+    "extract": "The dog (Canis familiaris or Canis lupus familiaris) is a domesticated descendant of wolves. Also called the domestic dog, it was selectively bred during the Late Pleistocene by hunter-gatherers."
+  },
+  "Giant panda": {
+    "title": "Giant panda",
+    "views_60d": 193801,
+    "wiki_iucn": "VU",
+    "extract": "The giant panda (Ailuropoda melanoleuca), also known as the panda bear or simply panda, is a bear species endemic to China. It is characterised by its white coat with black patches around the eyes, ears, legs and shoulders."
+  },
+  "Polar bear": {
+    "title": "Polar bear",
+    "views_60d": 147795,
+    "wiki_iucn": "VU",
+    "extract": "The polar bear (Ursus maritimus) is a large bear native to the Arctic and nearby areas. It is closely related to the brown bear, and the two species can interbreed."
+  },
+  "Sloth bear": {
+    "title": "Sloth bear",
+    "views_60d": 63175,
+    "wiki_iucn": "VU",
+    "extract": "The sloth bear (Melursus ursinus), also known as the Indian bear, is a myrmecophagous bear species native to the Indian subcontinent. It feeds on fruits, ants and termites."
+  },
+  "Spectacled bear": {
+    "title": "Spectacled bear",
+    "views_60d": 37863,
+    "wiki_iucn": "VU",
+    "extract": "The spectacled bear (Tremarctos ornatus), also known as the Andean bear, is a species of bear native to the Andes Mountains in northern and western South America. It is the only living species of bear native to South America, and the last remaining short-faced bear (subfamily Tremarctinae)."
+  },
+  "American badger": {
+    "title": "American badger",
+    "views_60d": 26412,
+    "wiki_iucn": "LC",
+    "extract": "The American badger (Taxidea taxus) is a North American badger  similar in appearance to the European badger, although not closely related. It is found in the western, central, and northeastern United States, northern Mexico, and south-central Canada to certain areas of southwestern British Columbia."
+  },
+  "European badger": {
+    "title": "European badger",
+    "views_60d": 29768,
+    "wiki_iucn": "LC",
+    "extract": "The European badger (Meles meles), also known as the Eurasian badger, is a species of badger in the family Mustelidae native to Europe and West Asia and parts of Central Asia. It is classified as least concern on the IUCN Red List due to its wide range and large, stable population size which is thought to be increasing in some regions."
+  },
+  "Giant otter": {
+    "title": "Giant otter",
+    "views_60d": 30058,
+    "wiki_iucn": "EN",
+    "extract": "The giant otter or giant river otter (Pteronura brasiliensis) is a South American carnivorous mammal. It is the longest member of the weasel family, Mustelidae, reaching up to 1.8 m (5 ft 11 in)."
+  },
+  "Honey badger": {
+    "title": "Honey badger",
+    "views_60d": 131254,
+    "wiki_iucn": "LC",
+    "extract": "The honey badger (Mellivora capensis), also known as the ratel ( or ), is a mammal widely distributed across Africa, Southwest Asia, and the Indian subcontinent. It is the sole living representative of the Mellivorinae subfamily of the Mustelidae."
+  },
+  "Least weasel": {
+    "title": "Least weasel",
+    "views_60d": 30700,
+    "wiki_iucn": "LC",
+    "extract": "The least weasel (Mustela nivalis), little weasel, common weasel, or simply weasel is the smallest member of the genus Mustela, family Mustelidae and order Carnivora. It is native to Eurasia, North America and North Africa, and has been introduced to New Zealand, Malta, Crete, the Azores, and São Tomé."
+  },
+  "North American river otter": {
+    "title": "North American river otter",
+    "views_60d": 28690,
+    "wiki_iucn": "LC",
+    "extract": "The North American river otter (Lontra canadensis), also known as the northern river otter and river otter, is a semiaquatic mammal that is endemic to the North American continent throughout most of Canada and along the coasts of the United States and its inland waterways. An adult North American river otter can weigh between 5 and 14 kilograms (11–31 lb)."
+  },
+  "Sea otter": {
+    "title": "Sea otter",
+    "views_60d": 60977,
+    "wiki_iucn": "EN",
+    "extract": "The sea otter (Enhydra lutris) is a marine mammal native to the coasts of the northern and eastern North Pacific Ocean. Adult sea otters typically weigh between 14 and 45 kg (30–100 lb), making them the heaviest members of the weasel family, but among the smallest marine mammals."
+  },
+  "Stoat": {
+    "title": "Stoat",
+    "views_60d": 88214,
+    "wiki_iucn": "LC",
+    "extract": "The stoat (Mustela erminea), also known as the Eurasian ermine or ermine, is a species of mustelid native to Eurasia and the northern regions of North America. Because of its wide circumpolar distribution, it is listed as Least Concern on the IUCN Red List."
+  },
+  "Sun bear": {
+    "title": "Sun bear",
+    "views_60d": 42217,
+    "wiki_iucn": "VU",
+    "extract": "The sun bear (Helarctos malayanus) is a bear species in the family Ursidae found in the tropical forests of Southeast Asia. It is the only species in the genus Helarctos and the smallest bear species, standing nearly 70 cm (28 in) at the shoulder and weighing 25–65 kg (55–143 lb)."
+  },
+  "Wolverine": {
+    "title": "Wolverine",
+    "views_60d": 167413,
+    "wiki_iucn": "LC",
+    "extract": "The wolverine ( WUUL-və-reen, US also  WUUL-və-REEN; Gulo gulo), also called the carcajou or quickhatch (from East Cree, kwiihkwahaacheew), is the largest land-dwelling member of the family Mustelidae. It is a muscular carnivore and a solitary animal."
+  },
+  "American mink": {
+    "title": "American mink",
+    "views_60d": 22754,
+    "wiki_iucn": "LC",
+    "extract": "The American mink (Neogale vison) is a semiaquatic species of mustelid native to North America, though human introduction has expanded its range to many parts of Europe, Asia, and South America. Because of range expansion, the American mink is classed as a least-concern species by the IUCN. The American mink was formerly thought to be the only extant member of the genus Neovison following the extinction of the sea mink (N. macrodon), but recent studies, followed by taxonomic authorities, have reclassified it and the sea mink within the genus Neogale, which also contains a few New World weasel species."
+  },
+  "Black-footed ferret": {
+    "title": "Black-footed ferret",
+    "views_60d": 24369,
+    "wiki_iucn": "EN",
+    "extract": "The black-footed ferret (Mustela nigripes), also known as the American polecat or prairie dog hunter, is a mustelid species native to central North America. It is roughly the size of a mink and is similar in appearance to the European polecat and the Asian steppe polecat."
+  },
+  "European pine marten": {
+    "title": "European pine marten",
+    "views_60d": 31146,
+    "wiki_iucn": "LC",
+    "extract": "The European pine marten (Martes martes), also known as the pine marten, is a mustelid native to and widespread in most of Europe, Asia Minor, the Caucasus, and parts of Iran, Iraq, and Syria. It is listed as Least Concern on the IUCN Red List."
+  },
+  "Ferret": {
+    "title": "Ferret",
+    "views_60d": 62626,
+    "wiki_iucn": "DOM",
+    "extract": "The ferret (Mustela furo) is a small, domesticated species belonging to the family Mustelidae. The ferret is most likely a domesticated form of the wild European polecat (Mustela putorius), as evidenced by the ferret's ability to interbreed with European polecats and produce hybrid offspring."
+  },
+  "Kinkajou": {
+    "title": "Kinkajou",
+    "views_60d": 40637,
+    "wiki_iucn": "LC",
+    "extract": "The kinkajou (/ˈkɪŋkədʒuː/ KING-kə-joo; Potos flavus) is a mammal of the family Procyonidae, a relative to olingos, coatis, raccoons, and the ringtail and cacomistle. It is the only member of the genus Potos and is also known as the honey bear (a name shared with several unrelated species)."
+  },
+  "Meerkat": {
+    "title": "Meerkat",
+    "views_60d": 62200,
+    "wiki_iucn": "LC",
+    "extract": "The meerkat (Suricata suricatta) or suricate is a small mongoose found in southern Africa. It is characterised by a broad head, large eyes, a pointed snout, long legs, a thin tapering tail, and a brindled coat pattern."
+  },
+  "Raccoon": {
+    "title": "Raccoon",
+    "views_60d": 145438,
+    "wiki_iucn": "LC",
+    "extract": "The raccoon ( or US:  , Procyon lotor), sometimes called the North American, northern or common raccoon (also spelled racoon) to distinguish it from other species of raccoon, is a mammal native to North America. It is the largest of the procyonid family, having a body length of 40 to 70 cm (16 to 28 in), and a body weight of 5 to 26 kg (11 to 57 lb)."
+  },
+  "Red panda": {
+    "title": "Red panda",
+    "views_60d": 115264,
+    "wiki_iucn": "EN",
+    "extract": "The red panda (Ailurus fulgens), also known as the lesser panda, is a small mammal native to the eastern Himalayas and southwestern China. It has dense reddish-brown fur with a black belly and legs, white-lined ears, a mostly white muzzle and a ringed tail."
+  },
+  "South American coati": {
+    "title": "South American coati",
+    "views_60d": 10770,
+    "wiki_iucn": "LC",
+    "extract": "The South American coati (Nasua nasua), also known as the ring-tailed coati or brown-nosed coati, is a coati species and a member of the raccoon family (Procyonidae), found in the tropical and subtropical parts of South America. An adult generally weighs from 2–7.2 kg (4.4–15.9 lb) and is 85–113 cm (33–44 in) long, with half of that being its tail."
+  },
+  "Striped skunk": {
+    "title": "Striped skunk",
+    "views_60d": 18299,
+    "wiki_iucn": "LC",
+    "extract": "The striped skunk (Mephitis mephitis) is a skunk of the genus Mephitis that occurs across much of North America, including southern Canada, the United States, and northern Mexico. It is currently listed as least concern by the IUCN on account of its wide range and ability to adapt to human-modified environments."
+  },
+  "Aardwolf": {
+    "title": "Aardwolf",
+    "views_60d": 25724,
+    "wiki_iucn": "LC",
+    "extract": "The aardwolf (Proteles cristatus) is an insectivorous hyaenid species, native to East and Southern Africa. Its name means \"earth-wolf\" in Afrikaans and Dutch."
+  },
+  "Binturong": {
+    "title": "Binturong",
+    "views_60d": 107708,
+    "wiki_iucn": "VU",
+    "extract": "The binturong (Arctictis binturong) (; bin-TURE-ong, BIN-ture-ong), also known as the bearcat, is an arboreal viverrid native to South and Southeast Asia. It is the only species in the genus Arctictis, and it is divided into nine subspecies."
+  },
+  "Fossa (animal)": {
+    "title": "Fossa (animal)",
+    "views_60d": 57268,
+    "wiki_iucn": "VU",
+    "extract": "The fossa (Cryptoprocta ferox;  FOSS-ə or  FOO-sə; Malagasy: [ˈfusə̥]) is a slender, long-tailed, cat-like mammal that is endemic to Madagascar. It is a member of the carnivoran family Eupleridae."
+  },
+  "Harbor seal": {
+    "title": "Harbor seal",
+    "views_60d": 21340,
+    "wiki_iucn": "LC",
+    "extract": "The harbor (or harbour) seal (Phoca vitulina), also known as the common seal, is a true seal found along temperate and Arctic marine coastlines of the Northern Hemisphere. The most widely distributed species of pinniped (walruses, eared seals, and true seals), they are found in coastal waters of the northern Atlantic and Pacific oceans, Baltic and North seas."
+  },
+  "Indian grey mongoose": {
+    "title": "Indian grey mongoose",
+    "views_60d": 9153,
+    "wiki_iucn": "LC",
+    "extract": "The Indian grey mongoose or Asian grey mongoose (Urva edwardsii) is a mongoose species native to the Indian subcontinent and West Asia. It is listed as least concern on the IUCN Red List."
+  },
+  "Leopard seal": {
+    "title": "Leopard seal",
+    "views_60d": 62146,
+    "wiki_iucn": "LC",
+    "extract": "The leopard seal (Hydrurga leptonyx), also referred to as the sea leopard, is a long and muscular seal native to the Southern Ocean of Antarctica and southern Patagonia. It is the second largest species of seal in the Antarctic (after the southern elephant seal)."
+  },
+  "Southern elephant seal": {
+    "title": "Southern elephant seal",
+    "views_60d": 31109,
+    "wiki_iucn": "VU",
+    "extract": "The southern elephant seal (Mirounga leonina) is one of two species of elephant seals. It is the largest member of the clade Pinnipedia and the order Carnivora, as well as the largest extant marine mammal that is not a cetacean."
+  },
+  "Spotted hyena": {
+    "title": "Spotted hyena",
+    "views_60d": 39587,
+    "wiki_iucn": "LC",
+    "extract": "The spotted hyena (Crocuta crocuta), also known as the laughing hyena, is a hyena species, currently classed as the sole extant member of the genus Crocuta, native to sub-Saharan Africa. It is listed as being of least concern by the IUCN due to its widespread range and large numbers estimated between 27,000 and 47,000 individuals."
+  },
+  "Striped hyena": {
+    "title": "Striped hyena",
+    "views_60d": 27039,
+    "wiki_iucn": "NT",
+    "extract": "The striped hyena (Hyaena hyaena) is a species of hyena native to North and East Africa, the Middle East, the Caucasus, Central Asia, and the Indian subcontinent. It is the only extant species in the genus Hyaena."
+  },
+  "Walrus": {
+    "title": "Walrus",
+    "views_60d": 74396,
+    "wiki_iucn": "VU",
+    "extract": "The walrus (Odobenus rosmarus; plural walrus or walruses) is a large pinniped marine mammal with  discontinuous distribution about the North Pole in the Arctic Ocean and subarctic seas of the Northern Hemisphere. It is the only extant species in the family Odobenidae and genus Odobenus."
+  },
+  "Blue whale": {
+    "title": "Blue whale",
+    "views_60d": 132576,
+    "wiki_iucn": "EN",
+    "extract": "The blue whale (Balaenoptera musculus) is a species of baleen whale and the largest marine mammal in the rorqual family Balaenopteridae. Reaching a maximum confirmed length of 29.9–30.5 m (98–100 ft) and weighing up to 190–200 t (190–200 long tons; 210–220 short tons), it is the largest animal known to have ever existed."
+  },
+  "Bowhead whale": {
+    "title": "Bowhead whale",
+    "views_60d": 34974,
+    "wiki_iucn": "LC",
+    "extract": "The bowhead whale (Balaena mysticetus), sometimes known as the Greenland right whale, Arctic whale, and polar whale, is a species of baleen whale belonging to the family Balaenidae and is the only living representative of the genus Balaena. It is the only baleen whale endemic to the Arctic and subarctic waters, and is named after its characteristic massive triangular skull, which it uses to break through Arctic ice."
+  },
+  "California sea lion": {
+    "title": "California sea lion",
+    "views_60d": 18177,
+    "wiki_iucn": "LC",
+    "extract": "The California sea lion (Zalophus californianus) is a coastal eared seal native to western North America. It is one of six species of sea lions."
+  },
+  "Common minke whale": {
+    "title": "Common minke whale",
+    "views_60d": 7451,
+    "wiki_iucn": "LC",
+    "extract": "The common minke whale or northern minke whale (Balaenoptera acutorostrata) is a species of minke whale within the suborder of baleen whales.\nIt is the smallest species of the rorquals and the second smallest species of baleen whale."
+  },
+  "Gray whale": {
+    "title": "Gray whale",
+    "views_60d": 17254,
+    "wiki_iucn": "LC",
+    "extract": "The gray whale (Eschrichtius robustus), also known as the grey whale, is a baleen whale that migrates between feeding and breeding grounds yearly. It reaches a length of 14.9–15.2 m (49–50 ft), a weight of  up to 41 to 45 tonnes (45 to 50 short tons; 40 to 44 long tons) and lives between 55 and 70 years, although one female was estimated to be 75–80 years of age."
+  },
+  "Harp seal": {
+    "title": "Harp seal",
+    "views_60d": 15277,
+    "wiki_iucn": "NT",
+    "extract": "The harp seal (Pagophilus groenlandicus), also known as the saddleback seal or Greenland seal, is a species of earless seal, or true seal, native to the northernmost Atlantic Ocean and Arctic Ocean. Originally in the genus Phoca with a number of other species, it was reclassified into the monotypic genus Pagophilus in 1844."
+  },
+  "Humpback whale": {
+    "title": "Humpback whale",
+    "views_60d": 76852,
+    "wiki_iucn": "LC",
+    "extract": "The humpback whale (Megaptera novaeangliae) is a species of baleen whale. It is a rorqual (a member of the family Balaenopteridae) and is the only species in the genus Megaptera."
+  },
+  "Northern fur seal": {
+    "title": "Northern fur seal",
+    "views_60d": 5591,
+    "wiki_iucn": "VU",
+    "extract": "The northern fur seal (Callorhinus ursinus) is an eared seal found along the north Pacific Ocean, the Bering Sea, Sea of Japan and the Sea of Okhotsk. It is the largest member of the fur seal subfamily (Arctocephalinae) and the only living species in the genus Callorhinus."
+  },
+  "Orca": {
+    "title": "Orca",
+    "views_60d": 193418,
+    "wiki_iucn": "DD",
+    "extract": "The orca (Orcinus orca), or killer whale, is a toothed whale and the largest member of the oceanic dolphin family. The only extant species in the genus Orcinus, it is recognizable by its distinct pigmentation, being mostly black on top, white on the bottom, and having recognizable white eye patches."
+  },
+  "Sperm whale": {
+    "title": "Sperm whale",
+    "views_60d": 176401,
+    "wiki_iucn": "VU",
+    "extract": "The sperm whale or cachalot (Physeter macrocephalus) is the largest of the toothed whales and the largest toothed predator. It is the only living member of the genus Physeter and one of three extant species in the sperm whale superfamily Physeteroidea, along with the pygmy sperm whale and dwarf sperm whale of the genus Kogia."
+  },
+  "Amazon river dolphin": {
+    "title": "Amazon river dolphin",
+    "views_60d": 40198,
+    "wiki_iucn": "EN",
+    "extract": "The Amazon river dolphin (Inia geoffrensis), also known as the boto, bufeo or pink river dolphin, is a species of toothed whale endemic to South America and is classified in the family Iniidae. Three subspecies are currently recognized: I. g."
+  },
+  "Beluga whale": {
+    "title": "Beluga whale",
+    "views_60d": 53591,
+    "wiki_iucn": "LC",
+    "extract": "The beluga whale () or the white whale (Delphinapterus leucas) is an Arctic and sub-Arctic cetacean. It is one of two living members of the family Monodontidae, along with the narwhal, and the only member of the genus Delphinapterus."
+  },
+  "Common bottlenose dolphin": {
+    "title": "Common bottlenose dolphin",
+    "views_60d": 10192,
+    "wiki_iucn": "LC",
+    "extract": "The common bottlenose dolphin or Atlantic bottlenose dolphin (Tursiops truncatus) is one of three species of bottlenose dolphin in the genus Tursiops. While formerly known simply as the bottlenose dolphin, this term is now applied to the genus Tursiops as a whole."
+  },
+  "Dugong": {
+    "title": "Dugong",
+    "views_60d": 68586,
+    "wiki_iucn": "VU",
+    "extract": "The dugong (; Dugong dugon) is a marine mammal. It is one of four living species of the order Sirenia, which also includes three species of manatees."
+  },
+  "Giraffe": {
+    "title": "Giraffe",
+    "views_60d": 96049,
+    "wiki_iucn": "VU",
+    "extract": "Giraffes (genus Giraffa) are large African hoofed mammals. They are the tallest living terrestrial animals and the largest ruminants on Earth."
+  },
+  "Harbour porpoise": {
+    "title": "Harbour porpoise",
+    "views_60d": 11035,
+    "wiki_iucn": "LC",
+    "extract": "The harbour porpoise (Phocoena phocoena) is one of eight extant species of porpoise. It is one of the smallest species of  cetacean."
+  },
+  "Narwhal": {
+    "title": "Narwhal",
+    "views_60d": 98512,
+    "wiki_iucn": "LC",
+    "extract": "The narwhal (Monodon monoceros) is a species of toothed whale native to the Arctic. It is the only member of the genus Monodon and one of two living representatives of the family Monodontidae."
+  },
+  "Okapi": {
+    "title": "Okapi",
+    "views_60d": 89362,
+    "wiki_iucn": "EN",
+    "extract": "The okapi (; Okapia johnstoni), also known as forest giraffe and zebra giraffe, is an artiodactyl mammal that is endemic to the northeast Democratic Republic of the Congo. It is the only species in the genus Okapia."
+  },
+  "Spinner dolphin": {
+    "title": "Spinner dolphin",
+    "views_60d": 5401,
+    "wiki_iucn": "LC",
+    "extract": "The spinner dolphin (Stenella longirostris) is a small dolphin found in off-shore tropical waters around the world. It is famous for its acrobatic displays in which it rotates around its longitudinal axis as it leaps through the air."
+  },
+  "West Indian manatee": {
+    "title": "West Indian manatee",
+    "views_60d": 16763,
+    "wiki_iucn": "VU",
+    "extract": "The West Indian manatee (Trichechus manatus), also known as the North American manatee, is a large, aquatic mammal native to warm coastal areas of the Caribbean, from the Eastern United States to northern Brazil. Living alone or in herds, it feeds on underwater plants and uses its whiskers to navigate."
+  },
+  "Chital": {
+    "title": "Chital",
+    "views_60d": 21838,
+    "wiki_iucn": "LC",
+    "extract": "The chital (Axis axis; ), also called spotted deer and axis deer, is a deer species native to the Indian subcontinent. It was first described by Johann Christian Polycarp Erxleben in 1777."
+  },
+  "Elk": {
+    "title": "Elk",
+    "views_60d": 87045,
+    "wiki_iucn": "LC",
+    "extract": "The elk (pl.: elk or elks; Cervus canadensis) or wapiti (pronounced ) is the second largest species within the deer family, Cervidae, and one of the largest terrestrial mammals in its native range of North America and Central and East Asia. The word \"elk\" originally referred to the European variety of the moose, Alces alces, but was transferred to Cervus canadensis by North American colonists."
+  },
+  "Fallow deer": {
+    "title": "Fallow deer",
+    "views_60d": 23296,
+    "wiki_iucn": null,
+    "extract": "Fallow deer is the common name for species of deer in the genus Dama of subfamily Cervinae. The two living species are the European fallow deer (Dama dama), native to Europe and Anatolia, and the Persian fallow deer (Dama mesopotamica), native to the Middle East."
+  },
+  "Hippopotamus": {
+    "title": "Hippopotamus",
+    "views_60d": 120845,
+    "wiki_iucn": "VU",
+    "extract": "The hippopotamus (Hippopotamus amphibius; ; pl.: hippopotamuses or hippopotami), often shortened to hippo (pl.: hippos), further qualified as the common hippopotamus, Nile hippopotamus and river hippopotamus, is a large semiaquatic mammal native to sub-Saharan Africa. It is one of only two extant species in the family Hippopotamidae, the other being the pygmy hippopotamus (Choeropsis liberiensis or Hexaprotodon liberiensis)."
+  },
+  "Moose": {
+    "title": "Moose",
+    "views_60d": 138149,
+    "wiki_iucn": "LC",
+    "extract": "The moose or elk (Alces alces) is the world's tallest, largest and heaviest extant species of deer and the only extant species in the genus Alces. It is also the tallest, and the second-largest, land animal in North America, falling short only to the American bison in body mass."
+  },
+  "Pygmy hippopotamus": {
+    "title": "Pygmy hippopotamus",
+    "views_60d": 24639,
+    "wiki_iucn": "EN",
+    "extract": "The pygmy hippopotamus or pygmy hippo (Choeropsis liberiensis) is a small hippopotamid which is native to the forests and swamps of West Africa, primarily in Liberia, with small populations in Sierra Leone, Guinea, and Ivory Coast. It has been extirpated from Nigeria and possibly Guinea-Bissau."
+  },
+  "Red deer": {
+    "title": "Red deer",
+    "views_60d": 52982,
+    "wiki_iucn": "LC",
+    "extract": "The red deer (Cervus elaphus) is a species of deer in the genus Cervus. It is one of the largest deer species."
+  },
+  "Reindeer": {
+    "title": "Reindeer",
+    "views_60d": 66977,
+    "wiki_iucn": "VU",
+    "extract": "The reindeer or caribou (Rangifer tarandus) is a species of deer with circumpolar distribution, native to the Arctic, subarctic, tundra, boreal, and mountainous regions of Northern Europe, Siberia, and North America. It is the only representative of the genus Rangifer."
+  },
+  "Roe deer": {
+    "title": "Roe deer",
+    "views_60d": 32596,
+    "wiki_iucn": "LC",
+    "extract": "The roe deer (Capreolus capreolus), also known as the roe, western roe deer, or European roe, is a species of deer. The male of the species is sometimes referred to as a roebuck."
+  },
+  "White-tailed deer": {
+    "title": "White-tailed deer",
+    "views_60d": 56046,
+    "wiki_iucn": "LC",
+    "extract": "The white-tailed deer (Odocoileus virginianus), also known commonly as the whitetail and the Virginia deer, is a medium-sized species of deer native to North and South America. It is the most widely distributed mainland ungulate herbivore in the Americas; coupled with its natural predator, the mountain lion (Puma concolor), it is one of the most widely distributed terrestrial mammal species in the Americas and the world."
+  },
+  "African buffalo": {
+    "title": "African buffalo",
+    "views_60d": 35585,
+    "wiki_iucn": "NT",
+    "extract": "The African buffalo (Syncerus caffer) is a large bovine native to sub-Saharan Africa. First described in 1779 by Anders Sparrman, it is the only extant species of the genus Syncerus."
+  },
+  "American bison": {
+    "title": "American bison",
+    "views_60d": 81779,
+    "wiki_iucn": "NT",
+    "extract": "The American bison (Bison bison; pl.: bison), commonly known as the American buffalo, or simply buffalo (not to be confused with true buffalo), is a species of bison that is endemic to North America. It is one of two extant species of bison, along with the European bison."
+  },
+  "Bighorn sheep": {
+    "title": "Bighorn sheep",
+    "views_60d": 31833,
+    "wiki_iucn": "LC",
+    "extract": "The bighorn sheep (Ovis canadensis) or bighorn is a species of sheep native to North America. It is named for its large horns, a pair of them may weigh up to 14 kg (30 lb); the sheep altogether typically weigh up to 143 kg (315 lb)."
+  },
+  "Cattle": {
+    "title": "Cattle",
+    "views_60d": 121237,
+    "wiki_iucn": "DOM",
+    "extract": "Cattle (Bos taurus) are large, domesticated, bovid ungulates widely kept as livestock. They are prominent modern members of the subfamily Bovinae and the most widespread species of the genus Bos."
+  },
+  "European bison": {
+    "title": "European bison",
+    "views_60d": 37540,
+    "wiki_iucn": "NT",
+    "extract": "The European bison (pl.: bison) (Bison bonasus) or the European wood bison, also known as the wisent ( or ), the zubr (), or sometimes colloquially as the European buffalo, is a European species of bison. It is one of two extant species of bison, alongside the American bison."
+  },
+  "Muntjac": {
+    "title": "Muntjac",
+    "views_60d": 39198,
+    "wiki_iucn": null,
+    "extract": "Muntjacs (  MUNT-jak), also known as the barking deer or rib-faced deer, are small deer of the genus Muntiacus native to South Asia and Southeast Asia. Muntjacs are thought to have begun appearing 15–35 million years ago, with remains found in Miocene deposits in France, Germany and Poland."
+  },
+  "Muskox": {
+    "title": "Muskox",
+    "views_60d": 42974,
+    "wiki_iucn": "LC",
+    "extract": "The muskox (Ovibos moschatus) is a hoofed mammal of the family Bovidae. Native to the Arctic, it is noted for its thick coat and for the strong odor emitted by males during the seasonal rut, from which its name derives."
+  },
+  "Pronghorn": {
+    "title": "Pronghorn",
+    "views_60d": 51214,
+    "wiki_iucn": "LC",
+    "extract": "The pronghorn (UK: , US: ) (Antilocapra americana) is a species of artiodactyl (even-toed, hoofed) mammal indigenous to interior western and central North America. Though not an antelope, it is known colloquially in North America as the American antelope, prong buck, pronghorn antelope, and prairie antelope, because it closely resembles the antelopes of the Old World and fills a similar ecological niche due to parallel evolution."
+  },
+  "Water buffalo": {
+    "title": "Water buffalo",
+    "views_60d": 53190,
+    "wiki_iucn": "DOM",
+    "extract": "The water buffalo (Bubalus bubalis), also called domestic water buffalo, Asian water buffalo, and Asiatic water buffalo, is a large domesticated bovine originating in South and Southeast Asia descended from the wild water buffalo. Today, it is also kept in regions including Italy, the Balkans, Australia, the Americas, and parts of Africa."
+  },
+  "Wild yak": {
+    "title": "Wild yak",
+    "views_60d": 11672,
+    "wiki_iucn": "VU",
+    "extract": "The wild yak (Bos mutus) is a large, wild bovine native to the Himalayas. It is the ancestor of the domestic yak (Bos grunniens)."
+  },
+  "Alpine ibex": {
+    "title": "Alpine ibex",
+    "views_60d": 19180,
+    "wiki_iucn": "LC",
+    "extract": "The Alpine ibex (Capra ibex), also known as the steinbock, is a European species of goat which lives in the Alps. It is one of ten species in the genus Capra, and its closest living relative is the Iberian ibex."
+  },
+  "Blue wildebeest": {
+    "title": "Blue wildebeest",
+    "views_60d": 12492,
+    "wiki_iucn": "LC",
+    "extract": "The blue wildebeest (Connochaetes taurinus), also called the common wildebeest, white-bearded gnu or brindled gnu, is a large antelope and one of the two species of wildebeest. It is placed in the genus Connochaetes and family Bovidae, and has a close taxonomic relationship with the black wildebeest."
+  },
+  "Chamois": {
+    "title": "Chamois",
+    "views_60d": 27835,
+    "wiki_iucn": "LC",
+    "extract": "The chamois (; French: [ʃamwa] ; Rupicapra rupicapra), or Alpine chamois, is a species of goat-antelope native to mountainous parts of Europe and Western Asia, from the Pyrenees and the Cantabrian Mountain Range, the Alps, the Apennines, the Dinarides, the Tatra to the Carpathian Mountains, the Balkan Mountains, the Rila–Rhodope massif, Pindus, the northeastern mountains of Turkey, and the Caucasus. It has also been introduced to the South Island of New Zealand."
+  },
+  "Goat": {
+    "title": "Goat",
+    "views_60d": 86877,
+    "wiki_iucn": "DOM",
+    "extract": "The goat or domestic goat (Capra hircus) is a species of caprine that is mostly kept as livestock. It was domesticated from the wild goat (C. aegagrus) of Southwest Asia and Eastern Europe."
+  },
+  "Greater kudu": {
+    "title": "Greater kudu",
+    "views_60d": 14772,
+    "wiki_iucn": "LC",
+    "extract": "The greater kudu  (Tragelaphus strepsiceros) is a large woodland antelope, found throughout eastern and southern Africa. Despite occupying such widespread territory, they are sparsely populated in most areas due to declining habitat, deforestation, and poaching."
+  },
+  "Impala": {
+    "title": "Impala",
+    "views_60d": 25231,
+    "wiki_iucn": "LC",
+    "extract": "The impala or rooibok (Aepyceros melampus, lit. 'black-footed high-horn' in Ancient Greek) is a medium-sized antelope found in eastern and southern Africa."
+  },
+  "Mountain goat": {
+    "title": "Mountain goat",
+    "views_60d": 36796,
+    "wiki_iucn": "LC",
+    "extract": "The mountain goat (Oreamnos americanus), also known as the Rocky Mountain goat, is a cloven-footed mammal that is endemic to the remote and rugged mountainous areas of western North America. A subalpine to truly alpine species, it is a sure-footed climber commonly seen on sheer rock faces, near-vertical cliffs and icy passages."
+  },
+  "Sheep": {
+    "title": "Sheep",
+    "views_60d": 79989,
+    "wiki_iucn": "DOM",
+    "extract": "Sheep (pl.: sheep) or domestic sheep  (Ovis aries) are a domesticated ruminant mammal typically kept as livestock. Although the term sheep can apply to other species in the genus Ovis, in everyday usage it almost always refers to domesticated sheep."
+  },
+  "Springbok": {
+    "title": "Springbok",
+    "views_60d": 27469,
+    "wiki_iucn": "LC",
+    "extract": "The springbok or springbuck (Antidorcas marsupialis) is an antelope found mainly in south and southwest Africa. The sole living member of the genus Antidorcas, this bovid was first described by the German zoologist Eberhard August Wilhelm von Zimmermann in 1780."
+  },
+  "Thomson's gazelle": {
+    "title": "Thomson's gazelle",
+    "views_60d": 14495,
+    "wiki_iucn": "LC",
+    "extract": "Thomson's gazelle (Eudorcas thomsonii) is one of the best known species of gazelles. It is named after explorer Joseph Thomson and is sometimes referred to as a \"tommie\"."
+  },
+  "Babirusa": {
+    "title": "Babirusa",
+    "views_60d": 17472,
+    "wiki_iucn": null,
+    "extract": "Babirusas, also called deer-pigs (Malay: babi rusa), are a genus, Babyrousa, in the swine family found in the Indonesian islands of Sulawesi, Togian, Sula and Buru. Previously all members of this genus were considered part of a single species, B. babyrussa, but in 2002 they were split into several species."
+  },
+  "Bongo (antelope)": {
+    "title": "Bongo (antelope)",
+    "views_60d": 13674,
+    "wiki_iucn": "NT",
+    "extract": "The bongo (Tragelaphus eurycerus) is a large, mostly nocturnal, forest-dwelling antelope, native to sub-Saharan Africa. Bongos are characterised by a striking reddish-brown coat, black-and-white markings, white-yellow stripes, and long, slightly spiraled horns."
+  },
+  "Collared peccary": {
+    "title": "Collared peccary",
+    "views_60d": 8906,
+    "wiki_iucn": "LC",
+    "extract": "The collared peccary (Dicotyles tajacu) is a peccary, a species of artiodactyl (even-toed) mammal in the family Tayassuidae. It is the only extant member of the genus Dicotyles."
+  },
+  "Common eland": {
+    "title": "Common eland",
+    "views_60d": 23908,
+    "wiki_iucn": "LC",
+    "extract": "The common eland (Tragelaphus oryx), also known as the southern eland or eland antelope, is a large savannah and plains antelope found in East and Southern Africa. An adult male is around 1.6 m (5.2 ft) tall at the shoulder and can weigh up to 942 kg (2,077 lb) with a typical range of 500–600 kg (1,100–1,300 lb)."
+  },
+  "Common warthog": {
+    "title": "Common warthog",
+    "views_60d": 11116,
+    "wiki_iucn": "LC",
+    "extract": "The common warthog (Phacochoerus africanus) is a wild member of the pig family (Suidae) found in grassland, savanna, and woodland in sub-Saharan Africa. In the past, it was commonly treated as a subspecies of P. aethiopicus, but today that scientific name is restricted to the desert warthog of northern Kenya, Somalia, and eastern Ethiopia."
+  },
+  "Gemsbok": {
+    "title": "Gemsbok",
+    "views_60d": 13993,
+    "wiki_iucn": "LC",
+    "extract": "The gemsbok (Oryx gazella) is a large antelope in the genus Oryx. It is endemic to the dry and barren regions of Botswana, Namibia, South Africa and (parts of) Zimbabwe, mainly inhabiting the Kalahari and Namib Deserts, areas in which it is supremely adapted for survival."
+  },
+  "Kirk's dik-dik": {
+    "title": "Kirk's dik-dik",
+    "views_60d": 18085,
+    "wiki_iucn": "LC",
+    "extract": "Kirk's dik-dik (Madoqua kirkii) is a species of small dik-dik antelope native to Eastern and Southern Africa. It is believed to have six subspecies and possibly a seventh existing in southwest Africa."
+  },
+  "Pig": {
+    "title": "Pig",
+    "views_60d": 85861,
+    "wiki_iucn": "DOM",
+    "extract": "The pig (Sus domesticus), also called swine (pl.: swine) or hog, is an omnivorous, domesticated, even-toed, hoofed mammal. It is named the domestic pig when distinguishing it from other members of the genus Sus."
+  },
+  "Saiga antelope": {
+    "title": "Saiga antelope",
+    "views_60d": 18964,
+    "wiki_iucn": "NT",
+    "extract": "The saiga antelope (Saiga tatarica, ), or simply saiga, is a species of antelope which during antiquity inhabited a vast area of the Eurasian steppe, spanning the foothills of the Carpathian Mountains in the northwest and Caucasus in the southwest into Mongolia in the northeast and Dzungaria in the southeast. During the Pleistocene, it ranged across the mammoth steppe from the British Isles to Beringia."
+  },
+  "Wild boar": {
+    "title": "Wild boar",
+    "views_60d": 84471,
+    "wiki_iucn": "LC",
+    "extract": "The wild boar (Sus scrofa), also known as the wild swine, common wild pig, Eurasian wild pig, or simply wild pig, is a suid native to much of Eurasia and North Africa and has been introduced to the Americas and Oceania. The species is now one of the widest-ranging mammals in the world as well as the most widespread suiform."
+  },
+  "Alpaca": {
+    "title": "Alpaca",
+    "views_60d": 56294,
+    "wiki_iucn": "DOM",
+    "extract": "The alpaca (Lama pacos) is a domesticated species of South American camelid. Traditionally, alpacas were kept in herds that grazed on the level heights of the Andes of Southern Peru, Western Bolivia, Ecuador, and Northern Chile."
+  },
+  "Bactrian camel": {
+    "title": "Bactrian camel",
+    "views_60d": 38076,
+    "wiki_iucn": "DOM",
+    "extract": "The Bactrian camel (Camelus bactrianus), also known as the Mongolian camel, domestic Bactrian camel, two-humped camel or double-humped camel, is a camel native to the steppes of Central Asia. It has two humps on its back, in contrast to the single-humped dromedary."
+  },
+  "Donkey": {
+    "title": "Donkey",
+    "views_60d": 84419,
+    "wiki_iucn": "DOM",
+    "extract": "The donkey, ass, or burro is a domesticated equine. It derives from the African wild ass, Equus africanus, and may be classified either as a subspecies thereof, Equus africanus asinus, or as a separate species, Equus asinus."
+  },
+  "Dromedary": {
+    "title": "Dromedary",
+    "views_60d": 41038,
+    "wiki_iucn": "DOM",
+    "extract": "The dromedary (Camelus dromedarius), also known as the dromedary camel, Arabian camel and one-humped camel, is a large camel of the genus Camelus with one hump on its back. It is the tallest of the three camel species; adult males stand 1.8–2.4 m (5.9–7.9 ft) at the shoulder, while females are 1.7–1.9 m (5.6–6.2 ft) tall."
+  },
+  "Guanaco": {
+    "title": "Guanaco",
+    "views_60d": 28822,
+    "wiki_iucn": "LC",
+    "extract": "The guanaco ( gwah-NAH-koh; Lama guanicoe) is a camelid native to South America, closely related to the domesticated llama. Guanacos are one of two wild South American camelids; the other species is the vicuña, which lives at higher elevations."
+  },
+  "Horse": {
+    "title": "Horse",
+    "views_60d": 199126,
+    "wiki_iucn": "DOM",
+    "extract": "The horse (Equus ferus caballus) is a domesticated, one-toed, hoofed mammal. It belongs to the taxonomic family Equidae and is one of two extant subspecies of Equus ferus."
+  },
+  "Llama": {
+    "title": "Llama",
+    "views_60d": 51663,
+    "wiki_iucn": "DOM",
+    "extract": "The llama (; Spanish pronunciation: [ˈʎama] or [ˈʝama]; Lama glama) is a domesticated South American camelid, widely used as a meat and pack animal by Andean cultures since the pre-Columbian era.\nLlamas are social animals and live with others as a herd."
+  },
+  "Plains zebra": {
+    "title": "Plains zebra",
+    "views_60d": 21828,
+    "wiki_iucn": "NT",
+    "extract": "The plains zebra (Equus quagga, formerly Equus burchellii) is the most common and geographically widespread species of zebra. Its range is fragmented, but spans much of southern and eastern Africa south of the Sahara."
+  },
+  "Przewalski's horse": {
+    "title": "Przewalski's horse",
+    "views_60d": 51796,
+    "wiki_iucn": "EN",
+    "extract": "Przewalski's horse (Equus ferus przewalskii or Equus przewalskii), also called the takhi, Mongolian wild horse or Dzungarian horse, is a rare and endangered wild horse originally native to the steppes of Central Asia. It is named after Russian geographer and explorer Nikolay Przhevalsky."
+  },
+  "Vicuña": {
+    "title": "Vicuña",
+    "views_60d": 31358,
+    "wiki_iucn": "LC",
+    "extract": "The vicuña (Lama vicugna) or vicuna (both , very rarely spelled vicugna, its Latin specific name) is a wild South American camelid which lives in high alpine areas of the Andes. It is a relative of the llama, the domesticated descendant of the guanaco, the only other still wild South American camelid."
+  },
+  "Aardvark": {
+    "title": "Aardvark",
+    "views_60d": 76653,
+    "wiki_iucn": "LC",
+    "extract": "The aardvark ( ; Orycteropus afer) is a medium-sized, burrowing, nocturnal mammal native to Africa. The aardvark is the only living member of the genus Orycteropus, the family Orycteropodidae and the order Tubulidentata."
+  },
+  "African bush elephant": {
+    "title": "African bush elephant",
+    "views_60d": 57636,
+    "wiki_iucn": "EN",
+    "extract": "The African bush elephant (Loxodonta africana), also known as the African savanna elephant, is a species of elephant native to sub-Saharan Africa and the largest living terrestrial animal, with fully grown bulls reaching an average shoulder height of 3.04–3.36 m (10.0–11.0 ft) and a body mass of 5.2–6.9 t (5.7–7.6 short tons); the largest recorded specimen had a shoulder height of 3.96 m (13.0 ft) and an estimated body mass of 10.4 t (11.5 short tons). It is characterised by its long prehensile trunk with two finger-like processes; a concave back; large ears which help reduce body heat; and sturdy tusks that are noticeably curved."
+  },
+  "Asian elephant": {
+    "title": "Asian elephant",
+    "views_60d": 41716,
+    "wiki_iucn": "EN",
+    "extract": "The Asian elephant (Elephas maximus), also known as the Asiatic elephant, is the only living species in the genus Elephas. It is the largest living land animal in Asia and the second largest living elephantid in the world."
+  },
+  "Black rhinoceros": {
+    "title": "Black rhinoceros",
+    "views_60d": 31167,
+    "wiki_iucn": "CR",
+    "extract": "The black rhinoceros (Diceros bicornis), also called the black rhino or the hooked-lip rhinoceros, is a species of rhinoceros native to East and Southern Africa, including Angola, Botswana, Eswatini, Kenya, Lesotho, Malawi, Mozambique, Namibia, South Africa, Tanzania, Zambia, and Zimbabwe. Although the species is referred to as black, its colours vary from brown to grey."
+  },
+  "Indian rhinoceros": {
+    "title": "Indian rhinoceros",
+    "views_60d": 28641,
+    "wiki_iucn": "VU",
+    "extract": "The Indian rhinoceros (Rhinoceros unicornis), also known as the greater one-horned rhinoceros, great Indian rhinoceros or Indian rhino, is a rhinoceros species native to the Indian subcontinent. It is the second largest living rhinoceros and the largest in Asia, with adult males weighing 2.07–2.2 t (2.04–2.17 long tons; 2.28–2.43 short tons) and adult females 1.6 t (1.6 long tons; 1.8 short tons)."
+  },
+  "Malayan tapir": {
+    "title": "Malayan tapir",
+    "views_60d": 15503,
+    "wiki_iucn": "EN",
+    "extract": "The Malayan tapir (Tapirus indicus), also called Asian tapir, Asiatic tapir, oriental tapir, Indian tapir, piebald tapir, or black-and-white tapir, is the only living tapir species outside of the Americas. It is native to Southeast Asia from the Malay Peninsula to Sumatra."
+  },
+  "Rock hyrax": {
+    "title": "Rock hyrax",
+    "views_60d": 39462,
+    "wiki_iucn": "LC",
+    "extract": "The rock hyrax (; Procavia capensis), also called dassie, Rickaz, Cape hyrax, rock rabbit, or coney (in early English Bible translations), is a medium-sized terrestrial hyrax native to Africa and the Middle East. Commonly called the dassie in South Africa (; Afrikaans: klipdassie), it is one of the five living species of the order Hyracoidea, and the only one in the genus Procavia."
+  },
+  "South American tapir": {
+    "title": "South American tapir",
+    "views_60d": 9616,
+    "wiki_iucn": "VU",
+    "extract": "The South American tapir (Tapirus terrestris), also commonly called the Brazilian tapir (from the Tupi tapi'ira), the Amazonian tapir, the maned tapir, the lowland tapir, anta (Brazilian Portuguese), and sachavaca (literally \"bushcow\", in mixed Quechua and Spanish), is one of the four recognized species in the tapir family (of the order Perissodactyla, with the mountain tapir, the Malayan tapir, and the Baird's tapir). It is the largest surviving native terrestrial mammal in the Amazon."
+  },
+  "White rhinoceros": {
+    "title": "White rhinoceros",
+    "views_60d": 44093,
+    "wiki_iucn": "NT",
+    "extract": "The white rhinoceros, white rhino or square-lipped rhinoceros (Ceratotherium simum) is the largest extant species of rhinoceros. It has a wide mouth used for grazing and is the most social of all rhino species."
+  },
+  "Sengi": {
+    "title": "Sengi",
+    "views_60d": 15526,
+    "wiki_iucn": null,
+    "extract": "Sengis, also called elephant shrews or jumping shrews, are small insectivorous mammals native to Africa, belonging to the family Macroscelididae, in the order Macroscelidea. Their traditional common English name \"elephant shrew\" comes from a perceived resemblance between their long noses and the trunk of an elephant, and their superficial similarity with shrews (family Soricidae) in the order Eulipotyphla."
+  },
+  "Elephant shrew": {
+    "title": "Sengi",
+    "views_60d": 15526,
+    "wiki_iucn": null,
+    "extract": "Sengis, also called elephant shrews or jumping shrews, are small insectivorous mammals native to Africa, belonging to the family Macroscelididae, in the order Macroscelidea. Their traditional common English name \"elephant shrew\" comes from a perceived resemblance between their long noses and the trunk of an elephant, and their superficial similarity with shrews (family Soricidae) in the order Eulipotyphla."
+  },
+  "Bonobo": {
+    "title": "Bonobo",
+    "views_60d": 90127,
+    "wiki_iucn": "EN",
+    "extract": "The bonobo (; Pan paniscus), also historically called the pygmy chimpanzee, is the smallest species of great ape and one of the two making up the genus Pan (the other being the chimpanzee, Pan troglodytes). While bonobos are today recognized as a distinct species, they were initially thought to be a subspecies of Pan troglodytes, because of the physical similarities between the two species."
+  },
+  "Bornean orangutan": {
+    "title": "Bornean orangutan",
+    "views_60d": 26791,
+    "wiki_iucn": "CR",
+    "extract": "The Bornean orangutan (Pongo pygmaeus) is an orangutan species endemic to the island of Borneo. It belongs to the only genus of great apes native to Asia and is the largest of the three Pongo species."
+  },
+  "Chimpanzee": {
+    "title": "Chimpanzee",
+    "views_60d": 90705,
+    "wiki_iucn": "EN",
+    "extract": "The chimpanzee (; Pan troglodytes), commonly abbreviated to chimp, is a medium-sized great ape species found in the forests and savannas of equatorial Africa. It has four confirmed subspecies and a fifth proposed one."
+  },
+  "Gelada": {
+    "title": "Gelada",
+    "views_60d": 11299,
+    "wiki_iucn": "LC",
+    "extract": "The gelada (Theropithecus gelada, Amharic: ጭላዳ, romanized: č̣əlada, Oromo: Jaldeessa daabee), sometimes called the bleeding-heart monkey or the gelada baboon, is a species of Old World monkey found only in the Ethiopian Highlands, living at elevations of 1,800–4,400 m (5,900–14,400 ft) above sea level. It is the only living member of the genus Theropithecus, a name derived from the Greek root words for \"beast-ape\" (θηρο-πίθηκος : thēro-píthēkos)."
+  },
+  "Lar gibbon": {
+    "title": "Lar gibbon",
+    "views_60d": 8973,
+    "wiki_iucn": "EN",
+    "extract": "The lar gibbon (Hylobates lar), also known as the white-handed gibbon, is an endangered primate in the gibbon family, Hylobatidae. It is one of the better-known gibbons and is often kept in captivity."
+  },
+  "Mandrill": {
+    "title": "Mandrill",
+    "views_60d": 36594,
+    "wiki_iucn": "VU",
+    "extract": "The mandrill (Mandrillus sphinx) is a large Old World monkey native to west central Africa. It is one of the most colorful mammals in the world, with red and blue skin on its face and posterior."
+  },
+  "Olive baboon": {
+    "title": "Olive baboon",
+    "views_60d": 8361,
+    "wiki_iucn": "LC",
+    "extract": "The olive baboon (Papio anubis), also called the Anubis baboon, is a member of the family Cercopithecidae Old World monkeys. The species is the most wide-ranging of all baboons, being native to 25 countries throughout Africa, extending from Mali eastward to Ethiopia and Tanzania."
+  },
+  "Siamang": {
+    "title": "Siamang",
+    "views_60d": 12143,
+    "wiki_iucn": "EN",
+    "extract": "The siamang (, also UK: ; Symphalangus syndactylus) is an endangered arboreal, black-furred gibbon native to the tropical rainforests of Indonesia, Malaysia, and Thailand. The largest of the gibbons, the siamang can be twice the size of other gibbons, reaching 1 m (3.3 ft) in height, and weighing up to 14 kg (31 lb)."
+  },
+  "Tailless tenrec": {
+    "title": "Tailless tenrec",
+    "views_60d": 2760,
+    "wiki_iucn": "LC",
+    "extract": "The tailless tenrec (Tenrec ecaudatus), also known as the common tenrec, is a species of mammal in the family Tenrecidae. It is the only member of the genus Tenrec."
+  },
+  "Western gorilla": {
+    "title": "Western gorilla",
+    "views_60d": 24076,
+    "wiki_iucn": "CR",
+    "extract": "The western gorilla (Gorilla gorilla) is a great ape found in Africa, one of two species of the hominine genus Gorilla. Large and robust with males weighing around 168 kilograms (370 lb), the species is found in a region of midwest Africa, geographically isolated from the eastern gorilla (Gorilla beringei)."
+  },
+  "Capuchin monkey": {
+    "title": "Capuchin monkey",
+    "views_60d": 26369,
+    "wiki_iucn": null,
+    "extract": "The capuchin monkeys () are New World monkeys of the subfamily Cebinae. They are considered among the most intelligent primates and are known for their complex foraging skills, such as tool use to crack open nuts."
+  },
+  "Common marmoset": {
+    "title": "Common marmoset",
+    "views_60d": 5865,
+    "wiki_iucn": "LC",
+    "extract": "The common marmoset (Callithrix jacchus), also called white-tufted marmoset or white-tufted-ear marmoset, is a New World monkey. It originally lived on the northeastern coast of Brazil, in the states of Piauí, Paraíba, Ceará, Rio Grande do Norte, Pernambuco, Alagoas, and Bahia."
+  },
+  "Geoffroy's spider monkey": {
+    "title": "Geoffroy's spider monkey",
+    "views_60d": 4421,
+    "wiki_iucn": "EN",
+    "extract": "Geoffroy's spider monkey (Ateles geoffroyi), also known as the black-handed spider monkey or the Central American spider monkey, is a species of spider monkey, a type of New World monkey, from Central America, parts of Mexico and possibly a small portion of Colombia. There are at least five subspecies."
+  },
+  "Golden lion tamarin": {
+    "title": "Golden lion tamarin",
+    "views_60d": 9371,
+    "wiki_iucn": "EN",
+    "extract": "The golden lion tamarin (Leontopithecus rosalia; Portuguese: mico-leão-dourado [ˈmiku leˈɐ̃w do(w)ˈɾadu, - liˈɐ̃w -]), less commonly known as the golden lion marmoset, is a small New World monkey of the family Callitrichidae. Endemic to the Atlantic coastal forests of Brazil, the golden lion tamarin is an endangered species."
+  },
+  "Japanese macaque": {
+    "title": "Japanese macaque",
+    "views_60d": 27932,
+    "wiki_iucn": "LC",
+    "extract": "The Japanese macaque (Macaca fuscata), also known as the snow monkey, is a terrestrial Old World monkey species that is native to Japan. Colloquially, this macaque is referred to as the \"snow monkey\", because some live in areas where snow covers the ground for months each year."
+  },
+  "Mantled howler": {
+    "title": "Mantled howler",
+    "views_60d": 2662,
+    "wiki_iucn": "VU",
+    "extract": "The mantled howler (Alouatta palliata) is a species of howler monkey, a type of New World monkey, from Central and South America. It is one of the monkey species most often seen and heard in the wild in Central America."
+  },
+  "Proboscis monkey": {
+    "title": "Proboscis monkey",
+    "views_60d": 32854,
+    "wiki_iucn": "EN",
+    "extract": "The proboscis monkey or long-nosed monkey (Nasalis larvatus) is an arboreal Old World monkey with an unusually large nose (or proboscis), a reddish-brown skin color and a long tail. It is endemic to the Southeast Asian island of Borneo and is found mostly in mangrove forests and on the coastal areas of the island."
+  },
+  "Rhesus macaque": {
+    "title": "Rhesus macaque",
+    "views_60d": 27298,
+    "wiki_iucn": "LC",
+    "extract": "The rhesus macaque (Macaca mulatta), colloquially rhesus monkey, is a species of Old World monkey in the Macaca genus. There are between six and nine recognised subspecies split between two groups, the Chinese-derived and the Indian-derived."
+  },
+  "Squirrel monkey": {
+    "title": "Squirrel monkey",
+    "views_60d": 11360,
+    "wiki_iucn": null,
+    "extract": "Squirrel monkeys are New World monkeys of the genus Saimiri. Saimiri is the only genus in the subfamily Saimiriinae."
+  },
+  "Vervet monkey": {
+    "title": "Vervet monkey",
+    "views_60d": 18427,
+    "wiki_iucn": "LC",
+    "extract": "The vervet monkey (Chlorocebus pygerythrus), or simply vervet, is an Old World monkey of the family Cercopithecidae native to Africa. The term \"vervet\" is also used to refer to all the members of the genus Chlorocebus."
+  },
+  "Aye-aye": {
+    "title": "Aye-aye",
+    "views_60d": 36173,
+    "wiki_iucn": "EN",
+    "extract": "The aye-aye (, Daubentonia madagascariensis) is a long-fingered lemur, a strepsirrhine primate native to Madagascar with rodent-like teeth that perpetually grow and a special thin middle finger that they can use to catch grubs and larvae out of tree trunks.\nIt is the world's largest nocturnal primate."
+  },
+  "Capybara": {
+    "title": "Capybara",
+    "views_60d": 202495,
+    "wiki_iucn": "LC",
+    "extract": "The capybara (  kap-ih-BAR-uh) or greater capybara (Hydrochoerus hydrochaeris) is the largest living rodent, native to all countries in South America except Chile. It is a semiaquatic herbivore that inhabits savannas and dense forests, living near and in bodies of freshwater and feeding mainly on grasses and aquatic plants."
+  },
+  "Crested porcupine": {
+    "title": "Crested porcupine",
+    "views_60d": 7601,
+    "wiki_iucn": "LC",
+    "extract": "The crested porcupine (Hystrix cristata), also known as the African crested porcupine, is a species of rodent in the family Hystricidae native to Italy, North Africa, West Africa, Central Africa and East Africa. Alongside the Cape porcupine, it is one of the largest porcupine species in the world."
+  },
+  "Galago": {
+    "title": "Galago",
+    "views_60d": 28576,
+    "wiki_iucn": null,
+    "extract": "Galagos , also known as bush babies or nagapies (meaning \"night monkeys\" in Afrikaans), are small nocturnal primates native to continental, sub-Sahara Africa, and make up the family Galagidae (also sometimes called Galagonidae). They are considered a sister group of the Lorisidae."
+  },
+  "Indri": {
+    "title": "Indri",
+    "views_60d": 9420,
+    "wiki_iucn": "CR",
+    "extract": "The indri ( ; Indri indri), also called the babakoto, is one of the largest living lemurs, with a head-body length of about 64–72 cm (25–28+1⁄2 in) and a weight of between 6 and 9.5 kg (13 and 21 lb). It has a black and white coat and maintains an upright posture when climbing or clinging."
+  },
+  "North American beaver": {
+    "title": "North American beaver",
+    "views_60d": 24084,
+    "wiki_iucn": "LC",
+    "extract": "The North American beaver (Castor canadensis) is one of two extant beaver species, along with the Eurasian beaver (Castor fiber). It is native to North America and has been introduced in South America (Patagonia) and Europe (primarily Finland and Karelia)."
+  },
+  "North American porcupine": {
+    "title": "North American porcupine",
+    "views_60d": 16529,
+    "wiki_iucn": "LC",
+    "extract": "The North American porcupine (Erethizon dorsatum), also known as the Canadian porcupine, is a large quill-covered rodent in the New World porcupine family. It is the second largest rodent in North America after the North American beaver (Castor canadensis)."
+  },
+  "Philippine tarsier": {
+    "title": "Philippine tarsier",
+    "views_60d": 9626,
+    "wiki_iucn": "NT",
+    "extract": "The Philippine tarsier (Carlito syrichta) is a species of tarsier endemic to the Philippines. It is found in the southeastern part of the archipelago, particularly on the islands of Bohol, Samar and Leyte."
+  },
+  "Ring-tailed lemur": {
+    "title": "Ring-tailed lemur",
+    "views_60d": 21097,
+    "wiki_iucn": "EN",
+    "extract": "The ring-tailed lemur (Lemur catta) is a medium- to larger-sized strepsirrhine (wet-nosed) primate and the most internationally recognized lemur species, owing to its long, black-and-white, ringed tail. It belongs to Lemuridae, one of five lemur families, and is the only member of the Lemur genus."
+  },
+  "Slow loris": {
+    "title": "Slow loris",
+    "views_60d": 29216,
+    "wiki_iucn": "CITES",
+    "extract": "Slow lorises are a group of several species of nocturnal strepsirrhine primates that make up the genus Nycticebus. Found in Southeast Asia and nearby areas, they range from Bangladesh and Northeast India in the west to the Sulu Archipelago in the Philippines in the east, and from Yunnan province in China in the north to the island of Java in the south."
+  },
+  "Alpine marmot": {
+    "title": "Alpine marmot",
+    "views_60d": 6430,
+    "wiki_iucn": "LC",
+    "extract": "The alpine marmot (Marmota marmota) is a large ground-dwelling squirrel, from the genus of marmots. It is found in high numbers in mountainous areas of central and southern Europe, at heights between 800 and 3,200 m (2,600–10,500 ft) in the Alps, Carpathians, Tatras and Northern Apennines."
+  },
+  "Black-tailed prairie dog": {
+    "title": "Black-tailed prairie dog",
+    "views_60d": 7315,
+    "wiki_iucn": "LC",
+    "extract": "The black-tailed prairie dog (Cynomys ludovicianus) is a rodent of the family Sciuridae (the squirrels) found in the Great Plains of North America from about the United States–Canada border to the United States–Mexico border. Unlike some other prairie dogs, these animals do not truly hibernate."
+  },
+  "Chinchilla": {
+    "title": "Chinchilla",
+    "views_60d": 50258,
+    "wiki_iucn": null,
+    "extract": "Chinchilla is a genus consisting of two species (Chinchilla chinchilla and Chinchilla lanigera) of crepuscular rodents of the parvorder Caviomorpha, native to the Andes Mountains in South America. They live in colonies called \"herds\" at high elevations up to 4,270 m (14,000 ft)."
+  },
+  "Chipmunk": {
+    "title": "Chipmunk",
+    "views_60d": 43231,
+    "wiki_iucn": null,
+    "extract": "Chipmunks are small, striped burrowing squirrels of subtribe Tamiina. Chipmunks are found in North America, with the exception of the Siberian chipmunk, which is found primarily in Asia."
+  },
+  "Eastern gray squirrel": {
+    "title": "Eastern gray squirrel",
+    "views_60d": 43204,
+    "wiki_iucn": "LC",
+    "extract": "The eastern gray squirrel (Sciurus carolinensis), spelled as grey squirrel outside of the United States, is a species of tree squirrel in the genus Sciurus. It is native to eastern North America, where it is the most prodigious and ecologically essential natural forest regenerator."
+  },
+  "Flying squirrel": {
+    "title": "Flying squirrel",
+    "views_60d": 28247,
+    "wiki_iucn": null,
+    "extract": "Flying squirrels (scientifically known  as Pteromyini or Petauristini) are a tribe of 50 species of squirrels in the family Sciuridae. Despite their name, they are not in fact capable of full flight in the same way as birds or bats, but they are able to glide from one tree to another with the aid of a patagium, a furred skin membrane that stretches from wrist to ankle."
+  },
+  "Golden hamster": {
+    "title": "Golden hamster",
+    "views_60d": 14812,
+    "wiki_iucn": "EN",
+    "extract": "The golden hamster or Syrian hamster (Mesocricetus auratus) is a rodent belonging to the hamster subfamily, Cricetinae. Their natural geographical range is in an arid region of northern Syria and southern Turkey."
+  },
+  "Gopher": {
+    "title": "Gopher",
+    "views_60d": 25505,
+    "wiki_iucn": null,
+    "extract": "Pocket gophers, commonly referred to simply as gophers, are burrowing rodents of the family Geomyidae. The roughly 41 species are all endemic to North and Central America."
+  },
+  "Groundhog": {
+    "title": "Groundhog",
+    "views_60d": 55812,
+    "wiki_iucn": "LC",
+    "extract": "The groundhog (Marmota monax), also known as the woodchuck, is a rodent of the family Sciuridae, belonging to the group of large ground squirrels known as marmots. \nA lowland creature of North America, it is found through much of the Eastern United States, across Canada and into Alaska."
+  },
+  "Guinea pig": {
+    "title": "Guinea pig",
+    "views_60d": 89562,
+    "wiki_iucn": "DOM",
+    "extract": "The guinea pig (Cavia porcellus), also known as the domestic guinea pig, cavy or domestic cavy ( KAY-vee), is a species of rodent. It belongs to the genus Cavia, family Caviidae, and its closest wild relatives include the montane guinea pig."
+  },
+  "House mouse": {
+    "title": "House mouse",
+    "views_60d": 34934,
+    "wiki_iucn": "LC",
+    "extract": "The house mouse (Mus musculus) is a small mammal of the rodent family Muridae, characteristically having a pointed snout, large rounded ears, and a long and almost hairless tail. It is one of the most abundant species of the genus Mus."
+  },
+  "Jerboa": {
+    "title": "Jerboa",
+    "views_60d": 40776,
+    "wiki_iucn": null,
+    "extract": "Jerboas ( ) are the members of the family Dipodidae. They are nocturnal hopping desert rodents found throughout North Africa and Asia."
+  },
+  "Kangaroo rat": {
+    "title": "Kangaroo rat",
+    "views_60d": 14298,
+    "wiki_iucn": null,
+    "extract": "Kangaroo rats, small mostly nocturnal rodents of genus Dipodomys, are native to arid areas of western North America. The common name derives from their bipedal form."
+  },
+  "Mongolian gerbil": {
+    "title": "Mongolian gerbil",
+    "views_60d": 12394,
+    "wiki_iucn": "LC",
+    "extract": "The Mongolian gerbil, also referred to as the Mongolian jird (Meriones unguiculatus), is a rodent belonging to the subfamily Gerbillinae. Their body size is typically 110–135 mm (4+1⁄4–5+1⁄4 in), with a 95–120 mm (3+3⁄4–4+3⁄4 in) tail, and body weight 60–130 g (2–4+1⁄2 oz), with adult males larger than females."
+  },
+  "Muskrat": {
+    "title": "Muskrat",
+    "views_60d": 36994,
+    "wiki_iucn": "LC",
+    "extract": "The muskrat or common muskrat (Ondatra zibethicus) is a medium-sized semiaquatic rodent. \nAdult muskrats weigh 0.6–2 kg (1+1⁄4–4+1⁄2 lb), with a body length (excluding the tail) of 20–35 cm (8–14 in)."
+  },
+  "Naked mole-rat": {
+    "title": "Naked mole-rat",
+    "views_60d": 39033,
+    "wiki_iucn": "LC",
+    "extract": "The naked mole-rat (Heterocephalus glaber), also known as the sand puppy, is a burrowing rodent native to the Horn of Africa and parts of Kenya, notably in Somali regions. It is the only species in the genus Heterocephalus."
+  },
+  "Norway lemming": {
+    "title": "Norway lemming",
+    "views_60d": 3090,
+    "wiki_iucn": "LC",
+    "extract": "The Norway lemming, also known as the Norwegian lemming (Lemmus lemmus), is a common species of lemming found in northern Fennoscandia, where it is the only vertebrate species endemic to the region. The Norway lemming dwells in tundra and fells, and prefers to live near water."
+  },
+  "Nutria": {
+    "title": "Nutria",
+    "views_60d": 82282,
+    "wiki_iucn": "LC",
+    "extract": "The nutria () or coypu () (Myocastor coypus) is an herbivorous, semiaquatic rodent native to South America.\nClassified for a long time as the only member of the family Myocastoridae, Myocastor has since been included within Echimyidae, the family of the spiny rats."
+  },
+  "Patagonian mara": {
+    "title": "Patagonian mara",
+    "views_60d": 19350,
+    "wiki_iucn": "NT",
+    "extract": "The Patagonian mara (Dolichotis patagonum) is a rodent in the mara genus Dolichotis. It is also known as the Patagonian cavy or Patagonian hare."
+  },
+  "Agouti": {
+    "title": "Agouti",
+    "views_60d": 16958,
+    "wiki_iucn": null,
+    "extract": "The agouti ( , ə-GOO-tee) or common agouti is any of several rodent species of the genus Dasyprocta, from Ancient Greek δασύς (dasús), meaning \"hair\", and πρωκτός (prōktós), meaning \"anus\". They are native to Central America, northern and central South America, and the southern Lesser Antilles."
+  },
+  "Common agouti": {
+    "title": "Agouti",
+    "views_60d": 16958,
+    "wiki_iucn": null,
+    "extract": "The agouti ( , ə-GOO-tee) or common agouti is any of several rodent species of the genus Dasyprocta, from Ancient Greek δασύς (dasús), meaning \"hair\", and πρωκτός (prōktós), meaning \"anus\". They are native to Central America, northern and central South America, and the southern Lesser Antilles."
+  },
+  "American pika": {
+    "title": "American pika",
+    "views_60d": 9117,
+    "wiki_iucn": "LC",
+    "extract": "The American pika (Ochotona princeps) is a small, herbivorous mammal of the family Ochotonidae, closely related to rabbits and hares (order Lagomorpha). It is native to the mountainous regions of western North America, typically inhabiting rocky slopes and talus fields at or above the tree line."
+  },
+  "Brown rat": {
+    "title": "Brown rat",
+    "views_60d": 36786,
+    "wiki_iucn": "LC",
+    "extract": "The brown rat (Rattus norvegicus), also known as the common rat, street rat, sewer rat, wharf rat, Hanover rat, Norway rat and Norwegian rat, is a widespread, common species of rat. One of the largest muroids, it is a brown or grey rodent with a body length of up to 28 cm (11 in) long, and a tail slightly shorter than that."
+  },
+  "European rabbit": {
+    "title": "European rabbit",
+    "views_60d": 31226,
+    "wiki_iucn": "NT",
+    "extract": "The European rabbit (Oryctolagus cuniculus) or coney is a species of rabbit native to the Iberian Peninsula and southwestern France. It has been introduced to hundreds of locations around the world."
+  },
+  "Hazel dormouse": {
+    "title": "Hazel dormouse",
+    "views_60d": 4346,
+    "wiki_iucn": "LC",
+    "extract": "The hazel dormouse or common dormouse (Muscardinus avellanarius) is a small dormouse species native to Europe and the only living species in the genus Muscardinus. Its habitat include mainly the woodland as well as hedgerows and scrub."
+  },
+  "Koala": {
+    "title": "Koala",
+    "views_60d": 85152,
+    "wiki_iucn": "VU",
+    "extract": "The koala (Phascolarctos cinereus), sometimes inaccurately called the koala bear, is an arboreal herbivorous marsupial native to Australia. It is the only extant representative of the family Phascolarctidae."
+  },
+  "Quokka": {
+    "title": "Quokka",
+    "views_60d": 88928,
+    "wiki_iucn": "VU",
+    "extract": "The quokka (; Setonix brachyurus) is a macropod native to Australia. It is about the size of a domestic cat."
+  },
+  "Red-necked wallaby": {
+    "title": "Red-necked wallaby",
+    "views_60d": 8774,
+    "wiki_iucn": "LC",
+    "extract": "The red-necked wallaby or Bennett's wallaby (Notamacropus rufogriseus) is a medium-sized macropod marsupial (wallaby), common in the more temperate and fertile parts of eastern Australia, including Tasmania. Red-necked wallabies have been introduced to several other countries, including New Zealand, the United Kingdom (in England and Scotland), Ireland, the Isle of Man, France and Germany."
+  },
+  "Red kangaroo": {
+    "title": "Red kangaroo",
+    "views_60d": 22397,
+    "wiki_iucn": "LC",
+    "extract": "The red kangaroo (Osphranter rufus) is the largest of all kangaroos, the largest terrestrial mammal native to Australia, and the largest extant marsupial. It is found across mainland Australia, except for the more fertile areas, such as southern Western Australia, the eastern and southeastern coasts, and the rainforests along the northern coast."
+  },
+  "Snowshoe hare": {
+    "title": "Snowshoe hare",
+    "views_60d": 12879,
+    "wiki_iucn": "LC",
+    "extract": "The snowshoe hare (Lepus americanus), also called the varying hare or snowshoe rabbit, is a species of hare found in North America. The \"snowshoe\" moniker refers to the hare's large hind feet, which prevent it from sinking into soft snow, much like snowshoes."
+  },
+  "Tree-kangaroo": {
+    "title": "Tree-kangaroo",
+    "views_60d": 34570,
+    "wiki_iucn": null,
+    "extract": "Tree-kangaroos are marsupials of the genus Dendrolagus, adapted for arboreal locomotion. They inhabit the tropical rainforests of New Guinea and far northeastern  Queensland, Australia, along with some of the islands in the region."
+  },
+  "Brown-throated sloth": {
+    "title": "Brown-throated sloth",
+    "views_60d": 8655,
+    "wiki_iucn": "LC",
+    "extract": "The brown-throated sloth (Bradypus variegatus)  is a species of three-toed sloth found in the Neotropical realm of Central and South America.\nIt is the most common of the five species of three-toed sloth, and is found in the forests of South and Central America  in countries such as Bolivia, Brazil, Colombia, Ecuador, Honduras, Nicaragua, Panama, Paraguay, Peru, and Venezuela."
+  },
+  "Common wombat": {
+    "title": "Common wombat",
+    "views_60d": 5604,
+    "wiki_iucn": "LC",
+    "extract": "The common wombat (Vombatus ursinus), also known as a bare-nosed wombat, is a marsupial, one of three extant species of wombats and the sole extant member of the genus Vombatus. It has three subspecies: Vombatus ursinus hirsutus, found on the Australian mainland;\nVombatus ursinus tasmaniensis (Tasmanian wombat), found in Tasmania; and Vombatus ursinus ursinus (Bass Strait wombat), found on Flinders Island and Maria Island in the Bass Strait."
+  },
+  "Greater bilby": {
+    "title": "Greater bilby",
+    "views_60d": 4811,
+    "wiki_iucn": "VU",
+    "extract": "The greater bilby (Macrotis lagotis) or often simply bilby, is a long-eared, rabbit-like marsupial found in Australia. It lives in burrows and is active at night, feeding on insects, fruit, or fungi."
+  },
+  "Numbat": {
+    "title": "Numbat",
+    "views_60d": 21546,
+    "wiki_iucn": "NT",
+    "extract": "The numbat (; binomen: Myrmecobius fasciatus), also known as the noombat or walpurti, is an insectivorous marsupial. It is diurnal and its diet consists almost exclusively of termites."
+  },
+  "Platypus": {
+    "title": "Platypus",
+    "views_60d": 139413,
+    "wiki_iucn": "NT",
+    "extract": "The platypus (Ornithorhynchus anatinus), sometimes referred to as the duck-billed platypus, is a semiaquatic, egg-laying mammal endemic to eastern Australia, including Tasmania. The platypus is the sole living representative of the family Ornithorhynchidae and genus Ornithorhynchus, though a number of related species appear in the fossil record."
+  },
+  "Short-beaked echidna": {
+    "title": "Short-beaked echidna",
+    "views_60d": 16017,
+    "wiki_iucn": "LC",
+    "extract": "The short-beaked echidna (Tachyglossus aculeatus), also known as the common echidna, or short-nosed echidna, is one of four living species of echidna, and the only member of the genus Tachyglossus, from Ancient Greek ταχύς (takhús), meaning \"fast\", and γλῶσσα (glôssa), meaning \"tongue\". It is covered in fur and spines and has a distinctive snout and a specialised tongue, which it uses to catch its insect prey at a great speed."
+  },
+  "Sugar glider": {
+    "title": "Sugar glider",
+    "views_60d": 45921,
+    "wiki_iucn": "LC",
+    "extract": "The sugar glider (Petaurus breviceps) is a small, omnivorous, arboreal, and nocturnal gliding possum. The common name refers to its predilection for sugary foods such as sap and nectar and its ability to glide through the air, much like a flying squirrel."
+  },
+  "Tasmanian devil": {
+    "title": "Tasmanian devil",
+    "views_60d": 99654,
+    "wiki_iucn": "EN",
+    "extract": "The Tasmanian devil (Sarcophilus harrisii; palawa kani: purinina) is a carnivorous marsupial of the family Dasyuridae. It was formerly present across mainland Australia, but became extinct there around 3,500 years ago; it is now confined to the island of Tasmania."
+  },
+  "Tiger quoll": {
+    "title": "Tiger quoll",
+    "views_60d": 8352,
+    "wiki_iucn": "NT",
+    "extract": "The tiger quoll (Dasyurus maculatus), also known as the spotted-tailed quoll, spotted quoll, spotted-tailed dasyure, or tiger cat, is a carnivorous marsupial of the quoll genus Dasyurus native to Australia. With males and females weighing around 3.5 and 1.8 kg (7.7 and 4.0 lb), respectively, it is the world's second-largest extant carnivorous marsupial, behind the Tasmanian devil."
+  },
+  "Virginia opossum": {
+    "title": "Virginia opossum",
+    "views_60d": 31375,
+    "wiki_iucn": "LC",
+    "extract": "The Virginia opossum (Didelphis virginiana), also known as the North American opossum, is a member of the opossum family found from southern Canada to northern Costa Rica, making it the northernmost marsupial in the world. Commonly referred to simply as the possum, it is a solitary nocturnal animal about the size of a domestic cat, and a successful opportunist."
+  },
+  "Common shrew": {
+    "title": "Common shrew",
+    "views_60d": 3337,
+    "wiki_iucn": "LC",
+    "extract": "The common shrew (Sorex araneus), also known as the Eurasian shrew, is the most common shrew, and one of the most common mammals, throughout Northern Europe, including Great Britain, but excluding Ireland. It is 55 to 82 millimetres (2.2 to 3.2 in) long and weighs 5 to 12 grams (0.2 to 0.4 oz), and has velvety dark brown fur with a pale underside."
+  },
+  "Common vampire bat": {
+    "title": "Common vampire bat",
+    "views_60d": 11736,
+    "wiki_iucn": "LC",
+    "extract": "The common vampire bat (Desmodus rotundus) is a small, leaf-nosed bat native to the Americas. It is one of three extant species of vampire bats, the other two being the hairy-legged and the white-winged vampire bats."
+  },
+  "European hedgehog": {
+    "title": "European hedgehog",
+    "views_60d": 13180,
+    "wiki_iucn": "NT",
+    "extract": "The European hedgehog (Erinaceus europaeus), also known as the West European hedgehog, Western European hedgehog or common hedgehog, is a hedgehog species native to Europe from Iberia and Italy northwards into Scandinavia and westwards into Ireland. It is a generally common and widely distributed species that can survive across a wide range of habitat types."
+  },
+  "Giant anteater": {
+    "title": "Giant anteater",
+    "views_60d": 24523,
+    "wiki_iucn": "VU",
+    "extract": "The giant anteater (Myrmecophaga tridactyla) is a large insectivorous mammal native to Central and South America. It is the largest of the four living species of anteaters, which are classified with sloths in the order Pilosa."
+  },
+  "Honduran white bat": {
+    "title": "Honduran white bat",
+    "views_60d": 7548,
+    "wiki_iucn": "NT",
+    "extract": "The Honduran white bat (Ectophylla alba), also called the Caribbean white tent-making bat, is a species of bat in the family Phyllostomidae. It is the only member of the genus Ectophylla."
+  },
+  "Kitti's hog-nosed bat": {
+    "title": "Kitti's hog-nosed bat",
+    "views_60d": 22743,
+    "wiki_iucn": "NT",
+    "extract": "Kitti's hog-nosed bat (Craseonycteris thonglongyai), also known as the bumblebee bat or hog-nosed bat, is a near-threatened species of bat and the only extant member of the family Craseonycteridae. It occurs in western Thailand and southeast Myanmar, where it occupies limestone caves along rivers."
+  },
+  "Large flying fox": {
+    "title": "Large flying fox",
+    "views_60d": 6982,
+    "wiki_iucn": "EN",
+    "extract": "The large flying fox (Pteropus vampyrus), also known as the greater flying fox, Malayan flying fox, Malaysian flying fox, large fruit bat, kalang, or kalong, is a southeast Asian species of megabat in the family Pteropodidae. Despite its scientific name, it feeds exclusively on fruits, nectar, and flowers, like the other flying foxes of the genus Pteropus."
+  },
+  "Nine-banded armadillo": {
+    "title": "Nine-banded armadillo",
+    "views_60d": 17160,
+    "wiki_iucn": "LC",
+    "extract": "The nine-banded armadillo (Dasypus novemcinctus), also called the nine-banded long-nosed armadillo or common armadillo, is a species of armadillo native to South America. The Mexican long-nosed armadillo of North America was formerly treated as a subspecies of the nine-banded armadillo."
+  },
+  "Star-nosed mole": {
+    "title": "Star-nosed mole",
+    "views_60d": 12851,
+    "wiki_iucn": "LC",
+    "extract": "The star-nosed mole (Condylura cristata) is a small semiaquatic mole found in moist, low elevation areas in the northeastern parts of North America. It is the only extant member of the tribe Condylurini and genus Condylura."
+  },
+  "Sunda pangolin": {
+    "title": "Sunda pangolin",
+    "views_60d": 5754,
+    "wiki_iucn": "CR",
+    "extract": "The Sunda pangolin (Manis javanica), also known as the Malayan or Javan pangolin, is a species of pangolin. It is a member of the Manidae family."
+  }
+}

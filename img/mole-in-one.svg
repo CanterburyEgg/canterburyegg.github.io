@@ -1,0 +1,49 @@
+<svg viewBox="0 0 128 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Soft green putting hill -->
+    <ellipse cx="64" cy="78" rx="56" ry="15" fill="#74d393" stroke="#28854a" stroke-width="3.2"/>
+    <ellipse cx="64" cy="75" rx="46" ry="10.5" fill="#99e6b2"/>
+    <!-- Flagpole behind the hole -->
+    <path d="M82 72V12" stroke="#243b2c" stroke-width="3.4" stroke-linecap="round"/>
+    <!-- Waving pennant flag -->
+    <path d="M82 13L114 23L82 34V13Z" fill="#ef6461" stroke="#243b2c" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Golf ball resting near the cup -->
+    <circle cx="94" cy="73" r="7.5" fill="#ffffff" stroke="#243b2c" stroke-width="2.6"/>
+    <circle cx="92" cy="71" r="1" fill="#b7d3a8"/>
+    <circle cx="96" cy="70.5" r="1" fill="#b7d3a8"/>
+    <circle cx="94.5" cy="74.5" r="1" fill="#b7d3a8"/>
+    <!-- Dark golf hole / burrow opening -->
+    <ellipse cx="52" cy="74" rx="22" ry="7" fill="#243b2c"/>
+    <!-- Little earthy soil rim -->
+    <path d="M28 74C28 70 39 67.5 52 67.5C65 67.5 76 70 76 74" stroke="#8c5a3c" stroke-width="3.2" stroke-linecap="round"/>
+    <!-- Star-nosed mole velvety body & head popping out of the hole -->
+    <path d="M35 74C35 54 41 44 52 44C63 44 69 54 69 74Z" fill="#4a3731" stroke="#243b2c" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Soft lighter belly patch -->
+    <ellipse cx="52" cy="68.5" rx="9" ry="6.5" fill="#685048"/>
+    <!-- Big pink digging forepaws gripping the turf edge -->
+    <g fill="#ffb3c6" stroke="#243b2c" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="34" cy="73" rx="6.5" ry="4.2" transform="rotate(-12 34 73)"/>
+        <path d="M28 72L25.5 74.5M31 75L29.5 78M35 75.5L34.5 78.5"/>
+        <ellipse cx="70" cy="73" rx="6.5" ry="4.2" transform="rotate(12 70 73)"/>
+        <path d="M76 72L78.5 74.5M73 75L74.5 78M69 75.5L69.5 78.5"/>
+    </g>
+    <!-- Iconic 22-ray fleshy pink star-nose rosette! -->
+    <g transform="translate(52, 59.5) scale(1.06, 0.92)">
+        <g fill="#ff7aa2" stroke="#243b2c" stroke-width="1.55" stroke-linejoin="round">
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(30)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(60)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(90)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(120)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(150)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(180)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(210)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(240)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(270)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(300)"/>
+            <ellipse cx="0" cy="-7.8" rx="1.7" ry="3.5" transform="rotate(330)"/>
+        </g>
+        <ellipse cx="0" cy="0" rx="5.3" ry="4.1" fill="#ff9ebb" stroke="#243b2c" stroke-width="1.7"/>
+        <circle cx="-1.85" cy="0.2" r="1.2" fill="#243b2c"/>
+        <circle cx="1.85" cy="0.2" r="1.2" fill="#243b2c"/>
+    </g>
+</svg>
