@@ -1356,7 +1356,7 @@
         </div>
 
         <div class="controls-row">
-            <button class="secondary-btn" onclick="resetCurrentCourse()">&#8635; Reset Hole</button>
+            <button class="secondary-btn" onclick="resetCurrentCourse(true)">&#8635; Reset Hole</button>
             <button class="secondary-btn danger" id="give-up-btn" onclick="giveUpHole()">🏳️ Show Mole-in-One</button>
             <button class="secondary-btn" onclick="nextCourse()">Next Hole &rarr;</button>
         </div>
@@ -1400,12 +1400,80 @@ let currentMode = "course"; // "course" | "daily" | "free"
 let activeCourseIdx = 0;    // 0, 1, 2
 let activeHoleIdx = 0;      // 0..8 within activeCourseIdx
 let activeDailyOffset = 0;  // 0 = today, or -6..+6 to preview Mon-Sun
-let holeScores = {};        // key: `${courseId}_${holeIdx}` -> { strokes, par }
+let holeScores = {};        // key: `${courseId}_${holeIdx}` or `daily_${dateKey}` -> { strokes, par }
+let holeStates = {};        // key: `${courseId}_${holeIdx}` or `daily_${dateKey}` -> { mammalNames, finished, gaveUp, feedbackMsg, feedbackCls }
+let lastActiveView = null;  // { mode, courseIdx, holeIdx, dailyOffset, savedDateKey }
 let strokes = [];           // [{ mammal, hitCats, newCats }]
 let clearedCats = new Set();
 let holeFinished = false;
+let currentHoleGaveUp = false;
 let baseSignaturesSet = new Set();
 let baseHioSet = new Set();
+
+const STORAGE_KEY = "MOLE_IN_ONE_SAVE_V1";
+
+function getTodayDateKey() {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
+
+function loadSavedProgressFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") {
+            holeScores = parsed.holeScores || {};
+            holeStates = parsed.holeStates || {};
+            lastActiveView = parsed.lastActiveView || null;
+        }
+    } catch (e) {
+        console.warn("Could not load Mole in One progress from localStorage:", e);
+    }
+}
+
+function saveProgressToStorage() {
+    try {
+        const payload = {
+            holeScores,
+            holeStates,
+            lastActiveView: {
+                mode: currentMode,
+                courseIdx: activeCourseIdx,
+                holeIdx: activeHoleIdx,
+                dailyOffset: activeDailyOffset,
+                savedDateKey: getTodayDateKey()
+            }
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch (e) {
+        console.warn("Could not save Mole in One progress to localStorage:", e);
+    }
+}
+
+function getCurrentHoleKey() {
+    if (currentMode === "course" && DB && DB.courses && DB.courses[activeCourseIdx]) {
+        return `${DB.courses[activeCourseIdx].id}_${activeHoleIdx}`;
+    }
+    if (currentMode === "daily" && currentBoard && currentBoard.dateKey) {
+        return `daily_${currentBoard.dateKey}`;
+    }
+    return null;
+}
+
+function saveCurrentHoleState() {
+    const key = getCurrentHoleKey();
+    if (!key) return;
+    const fbEl = document.getElementById("feedback-banner");
+    holeStates[key] = {
+        mammalNames: strokes.map(s => s.mammal.name),
+        finished: holeFinished,
+        gaveUp: currentHoleGaveUp,
+        feedbackMsg: fbEl ? fbEl.textContent : "",
+        feedbackCls: fbEl ? fbEl.className : "fb-prompt"
+    };
+    saveProgressToStorage();
+}
 
 // Generic family/group aliases so typing "whale", "bear", "fox", "deer", "seal", "rhino", etc.
 // can test all matching species in the database and pick the one that clears the most categories on the current board!
@@ -1587,6 +1655,19 @@ function initDatabase(data) {
 
     // Reset rolling daily schedule state
     resetDailyScheduleState();
+
+    // Load saved progress (scores, hole states, and active view) from localStorage
+    loadSavedProgressFromStorage();
+
+    if (lastActiveView && lastActiveView.savedDateKey === getTodayDateKey()) {
+        if (lastActiveView.mode === "course" && DB.courses && DB.courses[lastActiveView.courseIdx]) {
+            selectBaseCourse(lastActiveView.courseIdx, lastActiveView.holeIdx || 0);
+            return;
+        } else if (lastActiveView.mode === "daily") {
+            selectDailyMode(lastActiveView.dailyOffset || 0);
+            return;
+        }
+    }
 
     // Default to TODAY'S GAME on page load!
     selectDailyMode(0);
@@ -1860,8 +1941,9 @@ function selectBaseCourse(courseIdx, holeIdx = 0) {
     currentBoard = course.holes[holeIdx];
     updateModeTabsUI();
     renderHoleStrip();
-    resetCurrentCourse();
+    resetCurrentCourse(false);
     buildCoursePicker();
+    saveProgressToStorage();
 }
 
 function selectDailyMode(dayOffset = 0) {
@@ -1872,8 +1954,9 @@ function selectDailyMode(dayOffset = 0) {
     currentBoard = getDailyBoardForDate(dt);
     updateModeTabsUI();
     renderHoleStrip();
-    resetCurrentCourse();
+    resetCurrentCourse(false);
     buildCoursePicker();
+    saveProgressToStorage();
 }
 
 function updateModeTabsUI() {
@@ -2087,10 +2170,20 @@ function updateSuggestions() {
     return;
 }
 
-function resetCurrentCourse() {
+function resetCurrentCourse(forceClear = false) {
+    const holeKey = getCurrentHoleKey();
+    if (forceClear && holeKey) {
+        delete holeStates[holeKey];
+        delete holeScores[holeKey];
+        saveProgressToStorage();
+        renderHoleStrip();
+        buildCoursePicker();
+    }
+
     strokes = [];
     clearedCats = new Set();
     holeFinished = false;
+    currentHoleGaveUp = false;
 
     const totalCats = currentBoard ? currentBoard.categories.length : 6;
     if (currentMode === "daily") {
@@ -2111,6 +2204,30 @@ function resetCurrentCourse() {
     const sugBar = document.getElementById("suggestions-bar");
     if (sugBar) sugBar.innerHTML = "";
     setFeedback("Guess a mammal that fits in one or more of the categories below!", "fb-prompt");
+
+    // Restore saved hole state if present and not force-clearing
+    const savedState = (!forceClear && holeKey) ? holeStates[holeKey] : null;
+    if (savedState && Array.isArray(savedState.mammalNames)) {
+        for (const mName of savedState.mammalNames) {
+            const mammal = DB.mammals.find(m => m.name === mName);
+            if (!mammal) continue;
+            const hitCats = currentBoard.categories.filter(cid => mammal.traits.includes(cid));
+            const newCats = hitCats.filter(cid => !clearedCats.has(cid));
+            strokes.push({ mammal, hitCats, newCats });
+            newCats.forEach(cid => clearedCats.add(cid));
+        }
+        if (savedState.feedbackMsg) {
+            setFeedback(savedState.feedbackMsg, savedState.feedbackCls || "fb-fact");
+        }
+        renderScorecard();
+        renderBoard([]);
+        if (savedState.finished) {
+            finishHole(Boolean(savedState.gaveUp), true);
+            return;
+        }
+        document.getElementById("main-input").focus();
+        return;
+    }
 
     renderBoard([]);
     renderScorecard();
@@ -2236,6 +2353,7 @@ function submitMammal() {
 
     renderScorecard();
     renderBoard(newCats);
+    saveCurrentHoleState();
 
     if (clearedCats.size === totalCats) {
         launchConfettiBurst(strokes.length === 1);
@@ -2243,8 +2361,9 @@ function submitMammal() {
     }
 }
 
-function finishHole(gaveUp) {
+function finishHole(gaveUp, skipSave = false) {
     holeFinished = true;
+    currentHoleGaveUp = Boolean(gaveUp);
     document.getElementById("main-input").disabled = true;
     document.getElementById("swing-btn").disabled = true;
     document.getElementById("give-up-btn").classList.add("hidden");
@@ -2282,13 +2401,16 @@ function finishHole(gaveUp) {
         titleEl.style.color = color;
     }
 
-    if (!gaveUp && currentMode === "course") {
-        const course = DB.courses[activeCourseIdx];
-        holeScores[`${course.id}_${activeHoleIdx}`] = { strokes: s, par };
-        renderHoleStrip();
-    } else if (!gaveUp && currentMode === "daily" && currentBoard.dateKey) {
-        holeScores[`daily_${currentBoard.dateKey}`] = { strokes: s, par };
-        buildCoursePicker();
+    if (!skipSave) {
+        if (!gaveUp && currentMode === "course") {
+            const course = DB.courses[activeCourseIdx];
+            holeScores[`${course.id}_${activeHoleIdx}`] = { strokes: s, par };
+            renderHoleStrip();
+        } else if (!gaveUp && currentMode === "daily" && currentBoard.dateKey) {
+            holeScores[`daily_${currentBoard.dateKey}`] = { strokes: s, par };
+            buildCoursePicker();
+        }
+        saveCurrentHoleState();
     }
 
     // Show HOLE-IN-ONE (N/N) and OTHER TOP ANSWERS (>= N-2 boxes)
