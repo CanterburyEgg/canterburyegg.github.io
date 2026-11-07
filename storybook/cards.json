@@ -1,12 +1,12 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-11-05T08:15:00.000Z",
+  "updatedAt": "2026-11-07T00:46:00.000Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
     "H": "./assets/frame-H.jpg",
-    "D": "",
+    "D": "./assets/frame-D.jpg",
     "T": "",
     "W": "",
     "N": ""
@@ -14,7 +14,7 @@
   "eliteAssets": {
     "R": "./assets/elite-R.png",
     "H": "./assets/elite-H.png",
-    "D": "",
+    "D": "./assets/elite-D.png",
     "T": "",
     "W": "",
     "N": ""
@@ -22,7 +22,7 @@
   "crestAssets": {
     "R": "./assets/elite-R.png",
     "H": "./assets/elite-H.png",
-    "D": "",
+    "D": "./assets/elite-D.png",
     "T": "",
     "W": "",
     "N": ""
@@ -209,7 +209,7 @@
       "name": "Dub Thee Champion",
       "type": "spell",
       "faction": "R",
-      "pips": 1,
+      "pips": 2,
       "tier": "standard",
       "energyReq": 4,
       "apCost": 1,
@@ -1001,7 +1001,7 @@
       "name": "Honeywood Sentry",
       "type": "character",
       "faction": "H",
-      "pips": 1,
+      "pips": 2,
       "tier": "standard",
       "energyReq": 3,
       "apCost": 1,
@@ -1070,19 +1070,19 @@
       "pips": 1,
       "tier": "standard",
       "energyReq": 4,
-      "apCost": 2,
+      "apCost": 1,
       "attack": 2,
       "health": 2,
       "energyProvided": 1,
       "durability": null,
       "subtype": "",
-      "rulesText": "Choose an enemy Character. Your **Animalfolk** gain {Safeguard} this turn and each attack it.",
+      "rulesText": "Give each Character in your hand a **Woodland Blessing**.",
       "flavorText": "",
       "artUrl": "./assets/art-for-hearth-and-hollow.jpg?v=1",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-05T07:05:00.000Z"
+      "updatedAt": "2026-11-06T22:47:00.000Z"
     },
     {
       "id": "card_mvuc56wm_yam76",
@@ -1149,6 +1149,28 @@
       "artPrompt": "",
       "relatedCards": "",
       "updatedAt": "2026-11-05T07:05:00.000Z"
+    },
+    {
+      "id": "card_mvucoin0_boon1",
+      "name": "Wishing Coin",
+      "type": "spell",
+      "faction": "N",
+      "pips": 1,
+      "tier": "token",
+      "energyReq": 1,
+      "apCost": 0,
+      "attack": 2,
+      "health": 2,
+      "energyProvided": 1,
+      "durability": null,
+      "subtype": "",
+      "rulesText": "Gain {1AP} or {+1E} this turn.",
+      "flavorText": "",
+      "artUrl": "",
+      "artPosY": 50,
+      "artPrompt": "",
+      "relatedCards": "",
+      "updatedAt": "2026-11-05T19:50:00.000Z"
     }
   ]
 }

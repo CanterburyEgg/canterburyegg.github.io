@@ -71,29 +71,71 @@
   // Initialization & Live Card Studio Sync
   // =========================================================================
 
+  function isPresetDeckName(name) {
+    const s = String(name || '');
+    return /^(?:🤖\s*AI\s*Champion|🏆\s*#\d+|🥈\s*#\d+|🥉\s*#\d+|🏅\s*#\d+|⚔️\s*#\d+)/u.test(s);
+  }
+
+  function syncPresetDecksIntoList() {
+    const AI = window.StorybookAI;
+    if (!AI || typeof AI.getPresetDecks !== 'function') return { added: 0, updated: 0 };
+    const presets = AI.getPresetDecks();
+    if (!Array.isArray(presets) || presets.length === 0) return { added: 0, updated: 0 };
+
+    const heroPairKey = ids => [...(ids || [])].sort().join('|');
+    const existingByPair = new Map();
+    const customDecks = [];
+
+    (ui.decks || []).forEach(d => {
+      if (isPresetDeckName(d.name)) {
+        const key = heroPairKey(d.heroIds);
+        if (key && !existingByPair.has(key)) {
+          existingByPair.set(key, d);
+        }
+      } else {
+        customDecks.push(d);
+      }
+    });
+
+    let added = 0;
+    let updated = 0;
+    const syncedPresets = presets.map(p => {
+      const cardsMap = {};
+      (p.cardIds || []).forEach(cid => {
+        cardsMap[cid] = (cardsMap[cid] || 0) + 1;
+      });
+      const key = heroPairKey(p.heroIds);
+      const prev = existingByPair.get(key) || (ui.decks || []).find(d => d.name === p.name);
+      if (prev) {
+        prev.name = p.name;
+        prev.heroIds = [...(p.heroIds || [])];
+        prev.cards = cardsMap;
+        prev.updatedAt = new Date().toISOString();
+        updated += 1;
+        return prev;
+      }
+      added += 1;
+      return {
+        id: makeDeckId(),
+        name: p.name,
+        heroIds: [...(p.heroIds || [])],
+        cards: cardsMap,
+        updatedAt: new Date().toISOString()
+      };
+    });
+
+    ui.decks = [...syncedPresets, ...customDecks];
+    GD.saveDecks(ui.decks);
+    return { added, updated };
+  }
+
   async function init() {
     bindLobbyEvents();
     bindTabletopEvents();
     await reloadDatabase(false);
 
     ui.decks = GD.loadSavedDecks();
-    // Auto-sync any saved "🤖 AI Champion" preset decks so updated ramp/curve lists take effect immediately
-    const AI = window.StorybookAI;
-    if (AI && typeof AI.getPresetDecks === 'function') {
-      const presets = AI.getPresetDecks();
-      let syncedAny = false;
-      presets.forEach(p => {
-        const existing = ui.decks.find(d => d.name === p.name);
-        if (existing) {
-          const cardsMap = {};
-          (p.cardIds || []).forEach(cid => { cardsMap[cid] = (cardsMap[cid] || 0) + 1; });
-          existing.heroIds = [...(p.heroIds || [])];
-          existing.cards = cardsMap;
-          syncedAny = true;
-        }
-      });
-      if (syncedAny) GD.saveDecks(ui.decks);
-    }
+    syncPresetDecksIntoList();
     if (ui.decks.length > 0) {
       ui.editingDeckId = ui.decks[0].id;
     } else {
@@ -818,44 +860,18 @@
       showToast('AI module not loaded.');
       return;
     }
-    const presets = typeof AI.getPresetDecks === 'function' ? AI.getPresetDecks() : [];
-    if (presets.length === 0) return;
-
-    let added = 0;
-    let updated = 0;
-    presets.forEach(p => {
-      const cardsMap = {};
-      (p.cardIds || []).forEach(cid => {
-        cardsMap[cid] = (cardsMap[cid] || 0) + 1;
-      });
-      const existing = ui.decks.find(d => d.name === p.name);
-      if (!existing) {
-        ui.decks.unshift({
-          id: makeDeckId(),
-          name: p.name,
-          heroIds: [...(p.heroIds || [])],
-          cards: cardsMap,
-          updatedAt: new Date().toISOString()
-        });
-        added += 1;
-      } else {
-        existing.heroIds = [...(p.heroIds || [])];
-        existing.cards = cardsMap;
-        existing.updatedAt = new Date().toISOString();
-        updated += 1;
-      }
-    });
-
+    const { added, updated } = syncPresetDecksIntoList();
     if (added > 0 || updated > 0) {
       ui.editingDeckId = ui.decks[0].id;
-      persistDecks();
       syncSeatSelections();
-      const hChamp = ui.decks.find(d => d.name.includes('AI Champion') && d.name.includes('Havenhearth'));
-      const rChamp = ui.decks.find(d => d.name.includes('AI Champion') && d.name.includes('Court'));
-      if (hChamp) ui.seat1DeckId = hChamp.id;
-      if (rChamp) ui.seat2DeckId = rChamp.id;
+      const firstChamp = ui.decks.find(d => d.name.startsWith('🏆 #1'));
+      const secondChamp = ui.decks.find(d => d.name.startsWith('🥈 #2'));
+      if (firstChamp) ui.seat1DeckId = firstChamp.id;
+      if (secondChamp) ui.seat2DeckId = secondChamp.id;
       renderLobby();
-      showToast(added > 0 ? `Loaded ${added} AI Champion deck${added === 1 ? '' : 's'}!` : 'Synced latest AI Champion decks!');
+      showToast(added > 0
+        ? `Loaded all 6 Final Tournament decks into the Playtest Table!`
+        : `Synced all 6 Final Tournament decks (#1–#6)!`);
     }
   }
 
@@ -1906,6 +1922,27 @@
         bar.appendChild(cBtn);
       }
 
+      // Wishing Coin: inline +1 AP or +1 Energy choice buttons
+      if (ui.action.mode === 'choice_card') {
+        const apBtn = document.createElement('button');
+        apBtn.type = 'button';
+        apBtn.className = 'prompt-mini-btn confirm';
+        apBtn.textContent = '◆ Gain +1 AP This Turn';
+        apBtn.addEventListener('click', () => {
+          commitPlayCard(ui.action.handIdx, { target: { mode: 'ap' } });
+        });
+        bar.appendChild(apBtn);
+
+        const eBtn = document.createElement('button');
+        eBtn.type = 'button';
+        eBtn.className = 'prompt-mini-btn confirm';
+        eBtn.textContent = '⚡ Gain +1 Energy This Turn';
+        eBtn.addEventListener('click', () => {
+          commitPlayCard(ui.action.handIdx, { target: { mode: 'energy' } });
+        });
+        bar.appendChild(eBtn);
+      }
+
       const cancelBtn = document.createElement('button');
       cancelBtn.type = 'button';
       cancelBtn.className = 'prompt-mini-btn';
@@ -1967,7 +2004,7 @@
       if (playInfo.playable && !s.pending) slot.classList.add('is-playable');
       else slot.classList.add('is-unplayable');
 
-      if (ui.action && ui.action.handIdx === idx && (ui.action.mode === 'placing_char' || ui.action.mode === 'placing_bldg' || ui.action.mode === 'target_card' || ui.action.mode === 'target_multi_card')) {
+      if (ui.action && ui.action.handIdx === idx && (ui.action.mode === 'placing_char' || ui.action.mode === 'placing_bldg' || ui.action.mode === 'target_card' || ui.action.mode === 'target_multi_card' || ui.action.mode === 'choice_card')) {
         slot.classList.add('is-selected-hand');
       }
 
@@ -1984,7 +2021,7 @@
       slot.addEventListener('click', () => handleHandCardClick(idx));
       slot.addEventListener('mouseenter', ev => {
         const notes = [];
-        if (inst.poisoned) notes.push('Poisoned: reverses healing/buffs onto enemy targets (-X/-Y bypasses Ward; reversed heal hits Ward).');
+        if (inst.poisoned) notes.push('Poisoned: healing/buffs are reversed into damage/-X/-Y (-X/-Y bypasses Ward; reversed heal hits Ward).');
         if (live.fated) notes.push('Fate active: costs 0 AP and draws a card when played!');
         if (inst.apReduction > 0 && !live.fated) notes.push(`Cost reduced by ${inst.apReduction} AP.`);
         if (!playInfo.playable && playInfo.reason) notes.push(playInfo.reason);
@@ -2039,6 +2076,8 @@
     if (info.targetRule) {
       if (info.targetRule.kind === 'up_to_two_units') {
         ui.action = { mode: 'target_multi_card', handIdx, info, pickedUids: [] };
+      } else if (info.targetRule.kind === 'choice_mode') {
+        ui.action = { mode: 'choice_card', handIdx, info };
       } else {
         ui.action = { mode: 'target_card', handIdx, insertIndex: undefined, info };
       }
@@ -2348,8 +2387,10 @@
     modal.hidden = false;
     const p = s.players[s.mulliganStep];
     const goingFirst = s.mulliganStep === s.firstPlayer;
-    $('mulligan-title').textContent = `${p.name} — Opening Mulligan (${goingFirst ? 'Going First · 4 Cards' : 'Going Second · 5 Cards'})`;
-    $('mulligan-subtitle').textContent = 'Click any cards to shuffle back and replace once. You will also draw +1 card at the start of Turn 1.';
+    $('mulligan-title').textContent = `${p.name} — Opening Mulligan (${goingFirst ? 'Going First · 4 Cards' : 'Going Second · 5 Cards + Wishing Coin'})`;
+    $('mulligan-subtitle').textContent = goingFirst
+      ? 'Click any cards to shuffle back and replace once. You will also draw +1 card at the start of Turn 1.'
+      : 'Click any cards to shuffle back and replace once. Going second also adds a Wishing Coin (+1 AP or +1E this turn) to your hand.';
 
     const btn = $('confirm-mulligan-btn');
     const nRep = ui.mulliganSelections.size;

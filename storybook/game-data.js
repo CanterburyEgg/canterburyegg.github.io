@@ -33,7 +33,7 @@ window.StorybookGameData = (() => {
     global: '',
     R: './assets/frame-R.jpg',
     H: './assets/frame-H.jpg',
-    D: '',
+    D: './assets/frame-D.jpg',
     T: '',
     W: '',
     N: ''
@@ -42,7 +42,7 @@ window.StorybookGameData = (() => {
   const DEFAULT_ELITE_CROWNS = {
     R: './assets/elite-R.png',
     H: './assets/elite-H.png',
-    D: '',
+    D: './assets/elite-D.png',
     T: '',
     W: '',
     N: ''
@@ -51,7 +51,7 @@ window.StorybookGameData = (() => {
   const DEFAULT_ELITE_SPELL_CROWNS = {
     R: './assets/elite-R-spell.png',
     H: './assets/elite-H-spell.png',
-    D: '',
+    D: './assets/elite-D-spell.png',
     T: '',
     W: '',
     N: ''

@@ -37,7 +37,7 @@
     global: '',
     R: './assets/frame-R.jpg',
     H: './assets/frame-H.jpg',
-    D: '',
+    D: './assets/frame-D.jpg',
     T: '',
     W: '',
     N: ''
@@ -46,7 +46,7 @@
   const DEFAULT_ELITE_CROWNS = {
     R: './assets/elite-R.png',
     H: './assets/elite-H.png',
-    D: '',
+    D: './assets/elite-D.png',
     T: '',
     W: '',
     N: ''
@@ -55,7 +55,7 @@
   const DEFAULT_ELITE_SPELL_CROWNS = {
     R: './assets/elite-R-spell.png',
     H: './assets/elite-H-spell.png',
-    D: '',
+    D: './assets/elite-D-spell.png',
     T: '',
     W: '',
     N: ''
@@ -1265,10 +1265,27 @@
       await syncPayloadToDisk(buildSavePayload());
     }
 
-    // Load the most recently updated card into the stage on boot
-    if (state.cards.length > 0 && !state.currentCard.id) {
-      const sortedByRecent = [...state.cards].sort((a, b) => String(b.updatedAt || '').localeCompare(String(a.updatedAt || '')));
-      state.currentCard = structuredClone(sortedByRecent[0]);
+    // Load a Deepbriar (D) Elite Character preview on boot so D Frame & Crown are immediately visible
+    if (!state.currentCard.id) {
+      state.currentCard = createBlankCard({
+        faction: 'D',
+        type: 'character',
+        tier: 'elite',
+        pips: 1,
+        energyReq: 5,
+        apCost: 2,
+        attack: 6,
+        health: 6,
+        name: 'Deepbriar Frame Preview',
+        subtype: 'BEAST',
+        rulesText: '{Debut} Deal 3 damage to an enemy Character.\n{Siege} Gain +2/+2.'
+      });
+    }
+    if (!state.frameAssets.D || state.frameAssets.D.includes('-opt')) {
+      state.frameAssets.D = DEFAULT_FRAMES.D;
+    }
+    if (!state.eliteAssets.D || state.eliteAssets.D.includes('-opt')) {
+      state.eliteAssets.D = DEFAULT_ELITE_CROWNS.D;
     }
 
     updateSyncPill(bridgeConnected ? 'synced' : 'local');

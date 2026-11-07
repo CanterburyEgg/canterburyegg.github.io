@@ -65,13 +65,14 @@
     KIT_MERRYWEATHER: 'card_mvufxmei_c0d6f',
     GRANNY_THIMBLES_COTTAGE: 'card_mvug1oqe_xmd98',
 
-    // Tokens (6)
+    // Tokens (7)
     ROYAL_VANGUARD: 'card_mvrjlj56_hloy2',
     HUMBLE_PIE: 'card_mvrjsv6q_0x4k5',
     APPLE: 'card_mvrm7dum_5vanl',
     APPLE_TREE: 'card_mvuaxugh_zr4wy',
     RABBIT: 'card_mvub5qp5_3gqyh',
     CUREALL_COOKIE: 'card_mvub9r9e_8kkl1',
+    WISHING_COIN: 'card_mvucoin0_boon1',
 
     // Hidden tentative Neutral
     OAK_WINDMILL: 'card_mvrkzy6k_fq4hz'
@@ -87,7 +88,7 @@
   const WOODLAND_BLESSINGS = [
     {
       id: 'double_triggers',
-      eligible: def => /\{(debut|farewell):?\}/i.test(def.rulesText || ''),
+      eligible: (def, inst) => /\{(debut|farewell):?\}/i.test(def.rulesText || '') && !(inst && inst.doubleDebutFarewell),
       apply: inst => {
         inst.doubleDebutFarewell = true;
         inst.modLines.push('This Character\'s {Debut} and {Farewell} abilities trigger twice.');
@@ -95,7 +96,7 @@
     },
     {
       id: 'summon_22_copy',
-      eligible: () => true,
+      eligible: (def, inst) => !(inst && inst.summon22Copy),
       apply: inst => {
         inst.summon22Copy = true;
         inst.modLines.push('When you play this Character, summon a 2/2 copy of it.');
@@ -112,7 +113,7 @@
     },
     {
       id: 'provoke_1_2',
-      eligible: def => !/\{provoke:?\}/i.test(def.rulesText || ''),
+      eligible: (def, inst) => !/\{provoke:?\}/i.test(def.rulesText || '') && !(inst && inst.provoke),
       apply: inst => {
         inst.bonusAtk += 1;
         inst.bonusHp += 2;
@@ -122,7 +123,7 @@
     },
     {
       id: 'safeguard_2_1',
-      eligible: def => !/\{safeguard:?\}/i.test(def.rulesText || ''),
+      eligible: (def, inst) => !/\{safeguard:?\}/i.test(def.rulesText || '') && !(inst && inst.safeguard),
       apply: inst => {
         inst.bonusAtk += 2;
         inst.bonusHp += 1;
@@ -132,7 +133,7 @@
     },
     {
       id: 'swift_1_0',
-      eligible: def => !/\{swift:?\}/i.test(def.rulesText || ''),
+      eligible: (def, inst) => !/\{swift:?\}/i.test(def.rulesText || '') && !(inst && inst.swift),
       apply: inst => {
         inst.bonusAtk += 1;
         inst.swift = true;
@@ -474,6 +475,16 @@
     if (!state.players[other].mulliganDone) {
       state.mulliganStep = other;
     } else {
+      const secondIdx = 1 - state.firstPlayer;
+      if (db.cardMap && db.cardMap.has(IDS.WISHING_COIN)) {
+        addInstanceToHand(
+          state,
+          db,
+          secondIdx,
+          createCardInstance(state, IDS.WISHING_COIN, secondIdx),
+          'Going Second'
+        );
+      }
       startTurn(state, db, state.firstPlayer, rng);
     }
     return true;
@@ -1212,9 +1223,9 @@
 
   function applyRandomWoodlandBlessing(inst, def, rng = Math.random, usedBlessingIds = null) {
     if (!inst || !def) return null;
-    let eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def) && (!usedBlessingIds || !usedBlessingIds.has(b.id)));
+    let eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def, inst) && (!usedBlessingIds || !usedBlessingIds.has(b.id)));
     if (eligible.length === 0) {
-      eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def));
+      eligible = WOODLAND_BLESSINGS.filter(b => b.eligible(def, inst));
     }
     if (eligible.length === 0) return null;
     const chosenB = eligible[Math.floor(rng() * eligible.length)];
@@ -1776,6 +1787,17 @@
       case IDS.GIFT_OF_WISHING_OAK:
         return { playable: true, apCost, targetRule: null };
 
+      case IDS.WISHING_COIN:
+        return {
+          playable: true,
+          apCost,
+          targetRule: {
+            kind: 'choice_mode',
+            modes: ['ap', 'energy'],
+            prompt: `${def.name} — Choose one for this turn:`
+          }
+        };
+
       case IDS.UNDER_THE_GARDEN_GATE: {
         // Playable if there is empty board space OR at least 1 friendly Animalfolk to receive +1/+1
         const hasAnim = p.characters.some(u => (u.subtypes || []).includes('ANIMALFOLK'));
@@ -1803,7 +1825,7 @@
             kind: 'single_unit',
             validUnits: allUnits,
             prompt: inst.poisoned
-              ? `Choose a Character (${def.name} is Poisoned — reverses on enemies!).`
+              ? `Choose a Character (${def.name} is Poisoned — reverses buffs/heals into -X/-Y or damage!).`
               : `Choose a Character for ${def.name}.`
           }
         };
@@ -1821,7 +1843,7 @@
             maxTargets: Math.min(2, allUnits.length),
             validUnits: allUnits,
             prompt: inst.poisoned
-              ? 'Choose up to 2 Characters (+2/+2 to friendlies, -2/-2 to enemies).'
+              ? 'Choose up to 2 Characters (Poisoned — gives -2/-2!).'
               : 'Choose up to 2 Characters to get +2/+2.'
           }
         };
@@ -1851,7 +1873,7 @@
             kind: 'any_hero',
             validHeroes: [pIdx, opp.index],
             prompt: inst.poisoned
-              ? `Choose a Hero (${def.name} is Poisoned — reverses on your opponent!).`
+              ? `Choose a Hero (${def.name} is Poisoned — reverses effect!).`
               : `Choose a Hero for ${def.name}.`
           }
         };
@@ -1871,21 +1893,14 @@
       }
 
       case IDS.FOR_HEARTH_AND_HOLLOW: {
-        if (enemyUnits.length === 0) {
-          return { playable: false, reason: 'Requires an enemy Character to target.' };
-        }
-        const hasAnim = p.characters.some(u => (u.subtypes || []).includes('ANIMALFOLK'));
-        if (!hasAnim) {
-          return { playable: false, reason: 'Requires a friendly Animalfolk.' };
+        const hasCharInHand = p.hand.some((c, idx) => idx !== handIndex && db.cardMap.get(c.cardId)?.type === 'character');
+        if (!hasCharInHand) {
+          return { playable: false, reason: 'Requires a Character in your hand.' };
         }
         return {
           playable: true,
           apCost,
-          targetRule: {
-            kind: 'single_unit',
-            validUnits: enemyUnits,
-            prompt: 'Choose an enemy Character — your Animalfolk gain Safeguard and attack it!'
-          }
+          targetRule: null
         };
       }
 
@@ -1927,6 +1942,11 @@
         const t = opts.target;
         if (!t || t.kind !== 'hero' || !tr.validHeroes.includes(t.playerIndex)) {
           return { ok: false, reason: 'Choose a valid Hero.' };
+        }
+      } else if (tr.kind === 'choice_mode') {
+        const mode = (opts.target && opts.target.mode) || opts.mode;
+        if (!mode || !tr.modes.includes(mode)) {
+          return { ok: false, reason: 'Choose +1 AP or +1 Energy.' };
         }
       }
     }
@@ -2045,7 +2065,7 @@
     const applyFoodStat = (loc, atkAmt, hpAmt, isTemp, onFriendlyExtra = null) => {
       if (!loc) return;
       const isEnemy = loc.playerIndex !== casterIdx;
-      if (poisoned && isEnemy) {
+      if (poisoned) {
         applyStatMod(state, db, loc.unit, -atkAmt, -hpAmt, isTemp, `Poisoned ${def.name}`);
       } else {
         applyStatMod(state, db, loc.unit, atkAmt, hpAmt, isTemp, def.name);
@@ -2073,6 +2093,18 @@
 
       case IDS.ROYAL_FAVOUR: {
         openWish(state, db, casterIdx, 'royal_favour', def.id, rng);
+        break;
+      }
+
+      case IDS.WISHING_COIN: {
+        const mode = (target && target.mode) || 'energy';
+        if (mode === 'ap') {
+          p.ap += 1;
+          logEvent(state, `${p.name} gained +1 AP this turn (${def.name})!`, 'buff');
+        } else {
+          p.bonusEnergyTemp = (p.bonusEnergyTemp || 0) + 1;
+          logEvent(state, `${p.name} gained +1 Energy this turn (${def.name})!`, 'buff');
+        }
         break;
       }
 
@@ -2112,8 +2144,7 @@
         for (const uid of uids) {
           const loc = findUnitLocation(state, uid);
           if (!loc) continue;
-          const isEnemy = loc.playerIndex !== casterIdx;
-          if (poisoned && isEnemy) {
+          if (poisoned) {
             applyStatMod(state, db, loc.unit, -2, -2, false, `Poisoned ${def.name}`, false);
           } else {
             applyStatMod(state, db, loc.unit, 2, 2, false, def.name, false);
@@ -2170,7 +2201,7 @@
 
       case IDS.POWDERED_ROSE_JOYS: {
         const tIdx = target.playerIndex;
-        if (poisoned && tIdx !== casterIdx) {
+        if (poisoned) {
           dealDamageToHero(state, tIdx, 3, `Poisoned ${def.name}`);
         } else {
           healHero(state, tIdx, 3, def.name);
@@ -2181,9 +2212,8 @@
       case IDS.HARVEST_BANQUET: {
         const tIdx = target.playerIndex;
         const tPlayer = state.players[tIdx];
-        const isEnemy = tIdx !== casterIdx;
         for (const u of tPlayer.characters) {
-          if (poisoned && isEnemy) {
+          if (poisoned) {
             applyStatMod(state, db, u, -2, -1, true, `Poisoned ${def.name}`, false);
           } else {
             applyStatMod(state, db, u, 2, 1, true, def.name, false);
@@ -2221,7 +2251,7 @@
       case IDS.CUREALL_COOKIE: {
         const loc = findUnitLocation(state, target.unitUid);
         if (loc) {
-          if (poisoned && loc.playerIndex !== casterIdx) {
+          if (poisoned) {
             dealDamageToUnit(state, db, loc.unit, 3, `Poisoned ${def.name}`);
           } else {
             healUnit(state, db, loc.unit, 3, def.name);
@@ -2242,30 +2272,19 @@
       }
 
       case IDS.FOR_HEARTH_AND_HOLLOW: {
-        const tLoc = findUnitLocation(state, target.unitUid);
-        if (!tLoc) break;
-
-        const animalfolk = p.characters.filter(u => (u.subtypes || []).includes('ANIMALFOLK'));
-        animalfolk.forEach(u => { u.tempSafeguard = true; });
-        logEvent(state, `${p.name}'s ${animalfolk.length} Animalfolk gained {Safeguard} this turn!`, 'buff');
-
-        const orderUids = shuffleInPlace(animalfolk.map(u => u.uid), rng);
-        for (const aUid of orderUids) {
-          if (state.gameOver) break;
-          const curTarget = findUnitLocation(state, target.unitUid);
-          if (!curTarget || curTarget.unit.curHp <= 0 || curTarget.unit.markedDead) break;
-          const curAttacker = findUnitLocation(state, aUid);
-          if (!curAttacker || curAttacker.playerIndex !== casterIdx) continue;
-
-          // Execute free bonus Safeguard strike without setting attackedThisTurn or needing readiness
-          executeCharacterStrike(state, db, curAttacker.unit.uid, {
-            kind: 'character',
-            playerIndex: curTarget.playerIndex,
-            unitUid: curTarget.unit.uid
-          }, { isBonusSpellStrike: true, rng });
-          // Drain any synchronous Farewells triggered by target dying mid-dogpile
-          drainQueue(state, db, rng);
+        let blessedCount = 0;
+        for (const hInst of p.hand) {
+          const hDef = db.cardMap.get(hInst.cardId);
+          if (hDef && hDef.type === 'character') {
+            applyRandomWoodlandBlessing(hInst, hDef, rng, null);
+            blessedCount += 1;
+          }
         }
+        logEvent(
+          state,
+          `${p.name} gave ${blessedCount} Character${blessedCount === 1 ? '' : 's'} in hand a Woodland Blessing!`,
+          'buff'
+        );
         break;
       }
 

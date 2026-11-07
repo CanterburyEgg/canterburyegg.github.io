@@ -183,20 +183,48 @@
       score += 1.2;
     }
 
+    const oppBoardAtk = opp.characters.reduce((s, u) => s + Engine.getUnitAtk(u), 0);
+    const myHasProvoke = p.characters.some(u => u.intrinsicProvoke);
+    const needProvokeUrgently = !myHasProvoke && opp.characters.length > 0 && (p.hp <= 15 || p.hp <= oppBoardAtk + 6);
+    const isWishingOak = state.pending && state.pending.type === 'wish' && state.pending.wishKind === 'wishing_oak';
+
     if (def.type === 'character') {
       const atk = Number(def.attack ?? 0) + (inst.bonusAtk || 0);
       const hp = Number(def.health ?? 1) + (inst.bonusHp || 0);
       score += (atk * 1.15 + hp * 1.05) / Math.max(1, apCost * 0.85);
 
-      if (inst.swift || /\{swift:?\}/i.test(def.rulesText || '')) {
+      // In Gift of the Wishing Oak (5E+), penalize low-impact 1-Energy drops so the AI pushes its luck for 3E-5E haymakers!
+      if (isWishingOak) {
+        if (eReq === 1 && def.id !== IDS.HARRIED_HARE) {
+          score -= 2.8;
+        } else if (eReq >= 3 && eReq <= curE) {
+          score += 1.6;
+        }
+      }
+
+      const hasSwift = Boolean(inst.swift || /\{swift:?\}/i.test(def.rulesText || ''));
+      const hasProvoke = Boolean(
+        inst.provoke ||
+        def.id === IDS.PALACE_HALBERDIER ||
+        def.id === IDS.HEDGEROW_MATRON ||
+        (/\{provoke:?\}/i.test(def.rulesText || '') && !/(?:give\s+it|gains?|\{end of turn:?\}|\{kinship:?\}|\{debut:?\})[^.\n]*\{provoke:?\}/i.test(def.rulesText || ''))
+      );
+      const hasSafeguard = Boolean(
+        inst.safeguard ||
+        def.id === IDS.PALACE_HALBERDIER ||
+        (/\{safeguard:?\}/i.test(def.rulesText || '') && !/\{kinship:?\}[^.\n]*\{safeguard:?\}/i.test(def.rulesText || ''))
+      );
+
+      if (hasSwift) {
         score += 2.2;
         if (opp.hp <= atk + 3 || opp.characters.some(u => u.curHp <= atk)) score += 2.0;
       }
-      if (inst.provoke || /\{provoke:?\}/i.test(def.rulesText || '')) {
-        score += 1.8;
-        if (p.hp <= 12) score += 2.2;
+      if (hasProvoke) {
+        score += 2.0;
+        if (needProvokeUrgently) score += 4.5;
+        else if (p.hp <= 18) score += 1.8;
       }
-      if (inst.safeguard || /\{safeguard:?\}/i.test(def.rulesText || '')) {
+      if (hasSafeguard) {
         score += 1.8;
       }
       if (inst.doubleDebutFarewell) score += 2.8;
@@ -208,12 +236,14 @@
 
       // High-impact specific Characters
       if (def.id === IDS.HEDGEROW_MATRON && eReq <= curE + 1) score += 2.8;
+      if (def.id === IDS.PALACE_HALBERDIER && eReq <= curE + 1) score += 2.4;
       if (def.id === IDS.KIT_MERRYWEATHER && eReq <= curE + 1) score += 2.6;
       if (def.id === IDS.MOTHER_PIPPIN && eReq <= curE + 1) score += 2.4;
       if (def.id === IDS.VALENTINA && eReq <= curE + 1) score += 2.6;
       if (def.id === IDS.GRIMHILDE && eReq <= curE + 1) score += 2.2;
       if (def.id === IDS.RAVENOUS_DOWAGER) score += 2.4;
       if (def.id === IDS.GENTLE_WOODSMAN) score += 2.0;
+      if (def.id === IDS.SWEET_OLD_SOUL && eReq <= curE + 1) score += 1.8;
       if (def.id === IDS.GRAYBEARD_KNIGHT && p.characters.length >= 1) score += 2.2;
       if (def.id === IDS.HONEYWOOD_SENTRY && p.characters.some(u => (u.subtypes || []).includes('ANIMALFOLK'))) {
         score += 2.1;
@@ -262,7 +292,7 @@
 
   function chooseWishOptionOrPass(state, db, weights = LEARNED_WEIGHTS) {
     if (!state.pending || state.pending.type !== 'wish') return 0;
-    const { options, stepIndex = 0, playerIndex } = state.pending;
+    const { options, stepIndex = 0, playerIndex, wishKind } = state.pending;
     const remainingAfter = options.length - 1 - stepIndex;
     if (remainingAfter <= 0) {
       return stepIndex; // Final card must be claimed
@@ -270,9 +300,32 @@
 
     const currentInst = options[stepIndex];
     const score = scoreCardInstanceInContext(state, db, playerIndex, currentInst, weights);
-    const threshold = stepIndex === 0
-      ? (weights.wishPassThreshold1 ?? 7.2)
-      : (weights.wishPassThreshold2 ?? 5.3);
+    let threshold = stepIndex === 0
+      ? (weights.wishPassThreshold1 ?? 8.95)
+      : (weights.wishPassThreshold2 ?? 6.20);
+
+    // Normalize threshold for Wish pools that grant universal bonuses to every offer:
+    // - wishing_oak grants a Woodland Blessing (+2.1..3.4) AND -1 AP (+1.6) to all 3 offers
+    // - gentle_woodsman grants a Woodland Blessing (+2.1..3.4) to all 3 offers
+    // - royal_favour grants {Devotee} +1/+1 (+1.8) to all 3 offers
+    if (wishKind === 'wishing_oak') {
+      threshold += stepIndex === 0 ? 5.6 : 4.4;
+    } else if (wishKind === 'gentle_woodsman') {
+      threshold += stepIndex === 0 ? 3.2 : 2.2;
+    } else if (wishKind === 'royal_favour') {
+      threshold += stepIndex === 0 ? 2.2 : 1.5;
+    }
+
+    // When under heavy board/lethal pressure with no Provoke blocker, raise offer 1 bar for non-Provoke units to dig for a Provoke!
+    const p = state.players[playerIndex];
+    const opp = state.players[1 - playerIndex];
+    const oppBoardAtk = opp.characters.reduce((s, u) => s + Engine.getUnitAtk(u), 0);
+    const needProvokeUrgently = !p.characters.some(u => u.intrinsicProvoke) &&
+      opp.characters.length > 0 &&
+      (p.hp <= 15 || p.hp <= oppBoardAtk + 6);
+    if (needProvokeUrgently && stepIndex === 0 && (wishKind === 'wishing_oak' || wishKind === 'gentle_woodsman')) {
+      threshold += 1.6;
+    }
 
     return score >= threshold ? stepIndex : 'pass';
   }
@@ -349,21 +402,58 @@
       const maxHp = Engine.getUnitMaxHp(u);
       const subs = u.subtypes || [];
 
-      score += atk * weights.unitAtk;
-      score += curHp * weights.unitHp;
-      if (curHp < maxHp) score -= 0.25; // slight preference for undamaged units
+      // Prevent temporary buffs (e.g. Stone Soup / Humble Pie) from inflating mid-turn beam scores
+      // when they overkill targets or sit on units that have already attacked / cannot attack this turn.
+      const permAtk = Math.max(0, u.baseAtk + u.permAtk - (u.tempAtk < 0 ? Math.abs(u.tempAtk) : 0));
+      const posTempAtk = Math.max(0, u.tempAtk || 0);
+      const readyToSwing = isMySide &&
+        (state.phase === 'MAIN1' || state.phase === 'COMBAT') &&
+        (state.phase === 'COMBAT' || !state.combatUsedThisTurn) &&
+        Engine.isUnitReadyToAttack(u);
+      let effectiveTempAtk = 0;
+      if (readyToSwing && posTempAtk > 0) {
+        const faceOpen = !Engine.isTargetBlockedByProvoke(opp, 'hero');
+        const maxEnemyHp = opp.characters.reduce((m, e) => Math.max(m, e.curHp), 0);
+        const maxUsefulTotalAtk = faceOpen ? Math.max(opp.hp, maxEnemyHp) : maxEnemyHp;
+        const usefulExtraAtk = Math.max(0, Math.min(posTempAtk, maxUsefulTotalAtk - permAtk));
+        effectiveTempAtk = usefulExtraAtk * 0.6;
+      }
+
+      const permMaxHp = Math.max(1, u.baseHp + u.permHp);
+      const survivingEotHp = Math.min(curHp, permMaxHp);
+      const maxEnemyAtk = opp.characters.reduce((m, e) => Math.max(m, Engine.getUnitAtk(e)), 0);
+      const tempShieldBuffer = (readyToSwing && opp.characters.length > 0)
+        ? Math.min(Math.max(0, curHp - survivingEotHp), Math.max(2, maxEnemyAtk)) * 0.85
+        : 0;
+      if (readyToSwing && (posTempAtk > 0 || curHp > survivingEotHp) && opp.characters.length > 0) {
+        // Reward temporary buffs that actually cross a kill-or-survival combat breakpoint on an enemy threat
+        const crossesBreakpoint = opp.characters.some(e => {
+          const eAtk = Engine.getUnitAtk(e);
+          const eHp = e.curHp;
+          const couldKillAndSurviveBefore = permAtk >= eHp && survivingEotHp > eAtk;
+          const canKillAndSurviveNow = atk >= eHp && curHp > eAtk;
+          return !couldKillAndSurviveBefore && canKillAndSurviveNow;
+        });
+        if (crossesBreakpoint) {
+          score += 5.2;
+        }
+      }
+
+      score += (permAtk + effectiveTempAtk) * weights.unitAtk;
+      score += (survivingEotHp + tempShieldBuffer) * weights.unitHp;
+      if (survivingEotHp < permMaxHp) score -= 0.25; // slight preference for undamaged units
 
       if (u.wards > 0) {
-        score += u.wards * (weights.unitWard + atk * 0.25);
+        score += u.wards * (weights.unitWard + permAtk * 0.25);
       }
       if (Engine.unitHasSafeguard(player, idx)) {
-        score += weights.unitSafeguard + atk * 0.35;
+        score += weights.unitSafeguard + permAtk * 0.35;
       }
       if (u.intrinsicProvoke) {
-        score += weights.unitProvoke + curHp * 0.35;
+        score += weights.unitProvoke + survivingEotHp * 0.35;
       } else if (Engine.isTargetBlockedByProvoke(player, 'character', idx)) {
         // Shielded by an adjacent Provoke ally!
-        score += weights.provokeShieldedAlly + atk * 0.25;
+        score += weights.provokeShieldedAlly + permAtk * 0.25;
       }
 
       if (subs.includes('QUEEN')) {
@@ -373,13 +463,18 @@
       // Specific engine & Farewell values on board
       if (u.cardId === IDS.KIT_MERRYWEATHER) {
         score += weights.kitThreat;
+      } else if (u.cardId === IDS.VALENTINA) {
+        // Valentina is a premier recurring End-of-Turn engine (summons a 2/4 Provoke Royal Vanguard every turn)
+        score += 4.6;
       } else if (u.cardId === IDS.HARRIED_HARE && !u.dubbedChampion) {
         score += 2.3; // Farewell card draw banked on board
       } else if (u.cardId === IDS.GRAYBEARD_KNIGHT && !u.dubbedChampion) {
         // Farewell +2/+2 banked if there is a right neighbor!
         if (idx < nChars - 1) score += 3.2;
       } else if (
-        (u.cardId === IDS.COURT_TRUMPETER || u.cardId === IDS.SIXPENCE_TARTIST || u.cardId === IDS.LADY_TIRED_OF_WAITING) &&
+        (u.cardId === IDS.COURT_TRUMPETER ||
+          u.cardId === IDS.SIXPENCE_TARTIST ||
+          (u.cardId === IDS.LADY_TIRED_OF_WAITING && player.heroes.some(h => h.cardId === IDS.KING_VALYN || h.cardId === IDS.ROSALIND))) &&
         player.turnsTaken <= 5
       ) {
         score += weights.devoteeEngine;
@@ -424,14 +519,21 @@
       // Velvet Queen Valentina positioning awareness (in case evaluated mid-turn before EOT)
       if (u.cardId === IDS.VALENTINA) {
         if (idx === 0) {
-          score += 1.0; // Safe at leftmost slot 0
+          score += 1.5; // Safe at leftmost slot 0 when no expendable fodder / Farewell ally is on left
         } else {
           const victim = player.characters[idx - 1];
-          const vVal = Engine.getUnitAtk(victim) + victim.curHp;
-          if ((!victim.dubbedChampion && (victim.cardId === IDS.HARRIED_HARE || victim.cardId === IDS.GRAYBEARD_KNIGHT)) || vVal <= 3) {
-            score += weights.valentinaPos;
-          } else if (vVal >= 6) {
-            score -= weights.valentinaPos * 0.9;
+          const victimSurvHp = Math.min(victim.curHp, Math.max(1, victim.baseHp + victim.permHp));
+          const vVal = Math.max(0, victim.baseAtk + victim.permAtk) + victimSurvHp;
+          const hasBeneficialFarewell = (!victim.dubbedChampion && (victim.cardId === IDS.HARRIED_HARE || victim.cardId === IDS.GRAYBEARD_KNIGHT)) ||
+            (victim.extraFarewells && victim.extraFarewells.length > 0);
+          if (hasBeneficialFarewell) {
+            score += weights.valentinaPos * 1.25;
+          } else if (vVal <= 2 && !victim.dubbedChampion && victim.cardId !== IDS.KIT_MERRYWEATHER) {
+            // True 1/1 fodder (Rabbit, 1/1 Barnyard Troubadour)
+            score += weights.valentinaPos * 0.85;
+          } else {
+            // Penalize leaving a real combat unit (e.g. 2/3 Turnpike Tollkeep) to be eaten by Valentina!
+            score -= (vVal - 1.5) * 1.45;
           }
         }
       }
@@ -462,8 +564,9 @@
       });
     const energyCap = hasCottage ? 7 : (hasFairest ? 6 : (hasFiveEPayoff ? 5 : 4));
     const maxUsefulBldgE = hasCottage ? 4 : (hasFairest ? 3 : (hasFiveEPayoff ? 2 : 1));
-    const totalProjectedE = Math.min(energyCap, Math.max(3, player.baseEnergy) + Math.max(0, activeE - player.baseEnergy) + pendingE);
-    const usefulActiveBldgE = Math.min(maxUsefulBldgE, Math.max(0, Math.min(energyCap, activeE) - player.baseEnergy));
+    const permActiveE = activeE - (player.bonusEnergyTemp || 0);
+    const totalProjectedE = Math.min(energyCap, Math.max(3, player.baseEnergy) + Math.max(0, permActiveE - player.baseEnergy) + pendingE);
+    const usefulActiveBldgE = Math.min(maxUsefulBldgE, Math.max(0, Math.min(energyCap, permActiveE) - player.baseEnergy));
     const remainingUsefulRamp = Math.max(0, maxUsefulBldgE - usefulActiveBldgE);
     const usefulPendingE = Math.min(remainingUsefulRamp, pendingE);
     score += usefulActiveBldgE * weights.activeEnergy;
@@ -545,30 +648,108 @@
     score += effectiveCards * weights.handCard;
 
     let soupCountInHand = 0;
-    player.hand.forEach(inst => {
-      if (Engine.isCardEffectivelyFated(state, player.index, inst)) {
-        score += weights.handFated;
+    const hasQueenInHand = player.hand.some(c => {
+      const cd = db.cardMap.get(c.cardId);
+      return cd && Engine.hasSubtype(cd, 'QUEEN');
+    });
+    const hasBelladonnaHero = Engine.playerHasHero(player, IDS.BELLADONNA);
+    const leftFoodIdx = player.hand.findIndex(c => {
+      const cd = db.cardMap.get(c.cardId);
+      return cd && Engine.hasSubtype(cd, 'FOOD');
+    });
+    const hasUnpoisonedFoodBehindLeft = leftFoodIdx !== -1 && player.hand.slice(leftFoodIdx + 1).some(c => {
+      const cd = db.cardMap.get(c.cardId);
+      return cd && Engine.hasSubtype(cd, 'FOOD') && !c.poisoned;
+    });
+    let totalUnitFoodInHand = 0;
+    player.hand.forEach(c => {
+      if (c.cardId === IDS.POWDERED_ROSE_JOYS) return;
+      const cd = db.cardMap.get(c.cardId);
+      if (cd && Engine.hasSubtype(cd, 'FOOD')) totalUnitFoodInHand += 1;
+    });
+    let seenPoisonedUnitFood = 0;
+
+    player.hand.forEach((inst, hIdx) => {
+      const isFated = Engine.isCardEffectivelyFated(state, player.index, inst);
+      const isBlockingBelladonna = inst.cardId === IDS.POWDERED_ROSE_JOYS &&
+        hasBelladonnaHero &&
+        hIdx === leftFoodIdx &&
+        hasUnpoisonedFoodBehindLeft;
+
+      if (isFated) {
+        if (inst.cardId === IDS.POWDERED_ROSE_JOYS) {
+          // Hold Fated Powdered Rose-Joys in hand when healthy & not pushing lethal; reduce hoard bonus when healing, lethal, or blocking Belladonna is active!
+          const readyToCashIn = isBlockingBelladonna || (!inst.poisoned && player.hp <= 27) || (inst.poisoned && opp.hp <= 18);
+          score += readyToCashIn ? 0.35 : weights.handFated;
+          if (isBlockingBelladonna) score -= 2.4;
+        } else {
+          score += weights.handFated;
+        }
+      } else if (inst.cardId === IDS.POWDERED_ROSE_JOYS) {
+        // Un-Fated Powdered Rose-Joys does not draw a card on cast; discount its raw hand-size value when blocking Belladonna or ready to heal/burn!
+        const readyToCashUnfated = isBlockingBelladonna ||
+          (!inst.poisoned && (player.hp <= 20 || (!hasQueenInHand && player.hp < player.maxHp))) ||
+          (inst.poisoned && opp.hp <= 9);
+        if (readyToCashUnfated) {
+          score -= isBlockingBelladonna ? 2.4 : 1.6;
+        }
       }
       const statBuffs = (inst.bonusAtk || 0) + (inst.bonusHp || 0);
       if (statBuffs > 0) {
         score += statBuffs * weights.handBuffStats;
       }
+      if (inst.doubleDebutFarewell) score += 1.6;
+      if (inst.summon22Copy) score += 2.0;
+      if (inst.provoke) score += 0.9;
+      if (inst.safeguard) score += 1.1;
+      if (inst.swift) score += 1.0;
+      if (inst.debutWard > 0) score += inst.debutWard * 1.0;
+      if (inst.extraKinships && inst.extraKinships.length > 0) score += inst.extraKinships.length * 1.4;
       if (inst.apReduction > 0) {
         score += inst.apReduction * 2.0;
       }
       if (inst.poisoned) {
         const d = db.cardMap.get(inst.cardId);
         if (d && Engine.hasSubtype(d, 'FOOD')) {
-          score += weights.handPoisonedFood;
+          if (inst.cardId === IDS.POWDERED_ROSE_JOYS) {
+            if (player.hp <= 20 && opp.hp > 9) {
+              // At <= 20 HP we need Powdered Rose-Joys un-poisoned to heal ourselves!
+              score -= 2.5;
+            } else if (hasBelladonnaHero) {
+              // Do not pre-poison Powdered Rose-Joys and leave it sitting in hand (which locks Belladonna's leftmost-Food targeting and forfeits healing);
+              // Belladonna (0 AP) can poison it on the exact turn we cast it!
+              score -= 0.45;
+            } else if (opp.hp <= 18) {
+              score += 0.35;
+            } else {
+              score += weights.handPoisonedFood;
+            }
+          } else {
+            seenPoisonedUnitFood += 1;
+            const isCheapFood = inst.cardId === IDS.CUREALL_COOKIE || inst.cardId === IDS.HUMBLE_PIE || inst.cardId === IDS.APPLE || inst.cardId === IDS.STONE_SOUP;
+            if (!hasBelladonnaHero || (inst.cardId === IDS.APPLE && inst.fated)) {
+              score += weights.handPoisonedFood;
+            } else if (isCheapFood && totalUnitFoodInHand >= 2 && seenPoisonedUnitFood < totalUnitFoodInHand) {
+              // Pre-poisoning a cheap/token Food when holding 2+ Foods sets up a 2-Food turn without locking out 3E-4E haymaker Foods!
+              score += weights.handPoisonedFood;
+            } else {
+              // Under Option 1, keep 3E-4E unit-Foods (Showstopper Gateau, Eat Up My Darling, Supper for Two, Harvest Banquet) and lone Foods un-poisoned at EOT so Belladonna (0 AP) can still poison on demand OR buff allies!
+              score -= 0.45;
+            }
+          }
         }
       }
       if (inst.cardId === IDS.STONE_SOUP) {
         soupCountInHand += 1;
+      } else if (inst.cardId === IDS.WISHING_COIN) {
+        // Smart reserve value so AI holds Wishing Coin until it unlocks a real tempo swing (+1E curve jump or +1 AP double play)
+        score += 7.0;
       }
     });
 
     if (player.stoneSoupBonus > 0 && isHearth) {
-      score += player.stoneSoupBonus * (0.85 + soupCountInHand * (weights.stoneSoupScale * 0.65));
+      // Reserve bonus for holding Stone Soup while it scales, capped so a huge Stone Soup (+5/+5..+8/+8) is actually cast for big board swings!
+      score += Math.min(4, player.stoneSoupBonus) * 0.55 + soupCountInHand * Math.min(3, player.stoneSoupBonus) * 1.15;
     }
 
     // Grimhilde Poisoned Fate Apples in deck
@@ -842,7 +1023,7 @@
       const b = p.buildings.map(x => (x ? `${x.cardId}:${x.charges}:${x.usedThisTurn ? 1 : 0}:${x.energyActive ? 1 : 0}` : '_')).join(',');
       const c = p.characters.map(u => `${u.cardId}:${Engine.getUnitAtk(u)}:${u.curHp}:${u.wards}:${u.intrinsicProvoke ? 1 : 0}:${u.intrinsicSafeguard || u.tempSafeguard ? 1 : 0}:${u.attackedThisTurn ? 1 : 0}:${u.summoningSick ? 1 : 0}:${u.devoteeUsedThisTurn ? 1 : 0}:${u.dubbedChampion ? 1 : 0}:${(u.siegeExtraFarewells || []).length}`).join(',');
       const hr = p.heroes.map(x => (x.usedThisTurn ? 1 : 0)).join('');
-      return `${p.hp}:${p.maxHp}|${p.tempAtk}|${p.wards}|${p.heroAttackedThisTurn ? 1 : 0}|${p.ap}|${p.freeHeroPowerCount}|${p.stoneSoupBonus}|${hr}|${b}|${c}|${h}|${p.deck.length}`;
+      return `${p.hp}:${p.maxHp}|${p.tempAtk}|${p.wards}|${p.heroAttackedThisTurn ? 1 : 0}|${p.ap}|${p.bonusEnergyTemp || 0}|${p.freeHeroPowerCount}|${p.stoneSoupBonus}|${hr}|${b}|${c}|${h}|${p.deck.length}`;
     };
     const pend = state.pending ? `${state.pending.type}:${state.pending.stepIndex || 0}` : '';
     return `${state.activePlayer}#${state.phase}#${state.combatUsedThisTurn ? 1 : 0}#${pend}#${fmtPlayer(p0)}#${fmtPlayer(p1)}`;
@@ -1067,14 +1248,30 @@
             break;
           }
 
-          case IDS.UNDER_THE_GARDEN_GATE: {
+          case IDS.UNDER_THE_GARDEN_GATE:
+          case IDS.FOR_HEARTH_AND_HOLLOW: {
             actions.push({ kind: 'play_card', handIndex: hIdx, cardUid: inst.uid, opts: {} });
             break;
           }
 
+          case IDS.WISHING_COIN: {
+            actions.push({
+              kind: 'play_card',
+              handIndex: hIdx,
+              cardUid: inst.uid,
+              opts: { target: { mode: 'energy' } }
+            });
+            actions.push({
+              kind: 'play_card',
+              handIndex: hIdx,
+              cardUid: inst.uid,
+              opts: { target: { mode: 'ap' } }
+            });
+            break;
+          }
+
           case IDS.OFF_WITH_HIS_HEAD:
-          case IDS.POTS_AND_PANS:
-          case IDS.FOR_HEARTH_AND_HOLLOW: {
+          case IDS.POTS_AND_PANS: {
             // Target enemy Characters
             opp.characters.forEach(u => {
               actions.push({
@@ -1092,8 +1289,8 @@
           case IDS.HUMBLE_PIE:
           case IDS.APPLE:
           case IDS.STONE_SOUP: {
+            // Option 1: Poisoned Food is strictly committed to its reversed (-X/-Y) effect on enemy Characters!
             if (inst.poisoned) {
-              // Poisoned Food -> target enemy Characters!
               opp.characters.forEach(u => {
                 actions.push({
                   kind: 'play_card',
@@ -1103,7 +1300,6 @@
                 });
               });
             } else {
-              // Unpoisoned Food -> target friendly Characters!
               p.characters.forEach(u => {
                 actions.push({
                   kind: 'play_card',
@@ -1200,20 +1396,52 @@
 
           case IDS.POWDERED_ROSE_JOYS: {
             const fated = Engine.isCardEffectivelyFated(state, pIdx, inst);
+            const leftFoodIdx = p.hand.findIndex(c => {
+              const cd = db.cardMap.get(c.cardId);
+              return cd && Engine.hasSubtype(cd, 'FOOD');
+            });
+            const isBlockingBelladonna = Engine.playerHasHero(p, IDS.BELLADONNA) &&
+              hIdx === leftFoodIdx &&
+              p.hand.slice(leftFoodIdx + 1).some(c => {
+                const cd = db.cardMap.get(c.cardId);
+                return cd && Engine.hasSubtype(cd, 'FOOD') && !c.poisoned;
+              });
+            // Check if there is any other non-Rose-Joys AP play available this turn
+            const hasOtherApPlay = p.hand.some((other, oIdx) => {
+              if (oIdx === hIdx || other.cardId === IDS.POWDERED_ROSE_JOYS || other.cardId === IDS.WISHING_COIN) return false;
+              const oInfo = Engine.getCardPlayInfo(state, db, oIdx);
+              return oInfo.playable && oInfo.apCost > 0;
+            }) || p.heroes.some((h, hi) => {
+              const hInf = Engine.getHeroPowerInfo(state, db, hi);
+              return hInf.usable && hInf.apCost > 0;
+            });
+
             if (inst.poisoned) {
-              actions.push({
-                kind: 'play_card',
-                handIndex: hIdx,
-                cardUid: inst.uid,
-                opts: { target: { kind: 'hero', playerIndex: opp.index } }
-              });
-            } else if (p.hp < p.maxHp || (fated && p.deck.length >= 2)) {
-              actions.push({
-                kind: 'play_card',
-                handIndex: hIdx,
-                cardUid: inst.uid,
-                opts: { target: { kind: 'hero', playerIndex: pIdx } }
-              });
+              // Poisoned Powdered Rose-Joys deals 3 damage to enemy Hero
+              const canCashBurn = isBlockingBelladonna || (fated
+                ? (opp.hp <= 18 || (!hasOtherApPlay && p.deck.length >= 2))
+                : (opp.hp <= 9));
+              if (canCashBurn) {
+                actions.push({
+                  kind: 'play_card',
+                  handIndex: hIdx,
+                  cardUid: inst.uid,
+                  opts: { target: { kind: 'hero', playerIndex: opp.index } }
+                });
+              }
+            } else {
+              // Un-poisoned Powdered Rose-Joys heals friendly Hero 3 HP
+              const canCashHeal = isBlockingBelladonna || (fated
+                ? (p.hp <= 27 || (!hasOtherApPlay && p.hand.length <= 2 && p.deck.length >= 2))
+                : (p.hp <= 20));
+              if (canCashHeal) {
+                actions.push({
+                  kind: 'play_card',
+                  handIndex: hIdx,
+                  cardUid: inst.uid,
+                  opts: { target: { kind: 'hero', playerIndex: pIdx } }
+                });
+              }
             }
             break;
           }
@@ -1263,7 +1491,17 @@
       const readyAttackers = Engine.getReadyAttackers(state);
       const legalTargets = Engine.getLegalCombatTargets(state);
 
-      if (readyAttackers.length > 0 && legalTargets.length > 0) {
+      // If in MAIN1 with ready attackers and holding a free 0-AP un-poisoned Apple/Humble Pie (with no unused Belladonna),
+      // cast the 0-AP buff onto our board BEFORE entering Combat!
+      const hasUnusedBella = p.heroes.some((h, hi) => h.cardId === IDS.BELLADONNA && Engine.getHeroPowerInfo(state, db, hi).usable);
+      const holdingFreePreCombatBuff = state.phase === 'MAIN1' && !hasUnusedBella && p.characters.length > 0 && p.hand.some((c, hi) => {
+        if (c.poisoned) return false;
+        if (c.cardId !== IDS.APPLE && c.cardId !== IDS.HUMBLE_PIE) return false;
+        const cInf = Engine.getCardPlayInfo(state, db, hi);
+        return cInf.playable && cInf.apCost === 0;
+      });
+
+      if (readyAttackers.length > 0 && legalTargets.length > 0 && !holdingFreePreCombatBuff) {
         // Order ready attackers canonically so we don't explode symmetric permutations:
         // 1. Hero with temporary Attack (e.g. Dub Thee Champion +4/+0 & Ward, or Old Chestnut Smithy +2/+0) first so it is never pruned!
         // 2. Kit Merryweather ({Siege})
@@ -1461,8 +1699,34 @@
           if (visitedHashes.has(hKey)) continue;
           visitedHashes.add(hKey);
 
+          const usedCoinInPlan = childActions.some(a => a.kind === 'play_card' && a.opts && a.opts.target && a.opts.target.mode);
+          const usedBellaInPlan = childActions.some(
+            a => a.kind === 'hero_power' && childSim.players[playerIndex].heroes[a.heroSlotIndex]?.cardId === IDS.BELLADONNA
+          );
+          const usedAppleTreePreCombat = !childSim.combatUsedThisTurn &&
+            Engine.getReadyAttackers(childSim).length > 0 &&
+            childActions.some(a => a.kind === 'activate_building' && node.simState.players[playerIndex].buildings[a.slotIndex]?.cardId === IDS.APPLE_TREE);
+          const playedSwiftPreCombat = !childSim.combatUsedThisTurn &&
+            childActions.some(a => a.kind === 'play_card' && childSim.players[playerIndex].characters.some(u => u.intrinsicSwift && !u.attackedThisTurn));
+          // Credit unspent ready attackers in MAIN1/COMBAT so the beam doesn't prematurely rush into COMBAT
+          // (which locks out playing Swift units, Apple Tree harvests, and combat buffs) just to cash in attacks at depth 0!
+          let unspentAttackPotential = 0;
+          if (childSim.phase === 'MAIN1' || childSim.phase === 'COMBAT') {
+            const cMe = childSim.players[playerIndex];
+            for (const u of cMe.characters) {
+              if (Engine.isUnitReadyToAttack(u)) {
+                unspentAttackPotential += 3.6 + Math.min(8, Engine.getUnitAtk(u)) * 0.7;
+              }
+            }
+            if (Engine.isHeroReadyToAttack(cMe)) {
+              unspentAttackPotential += 3.0 + cMe.tempAtk * 0.7;
+            }
+          }
+          const coinBridge = (usedCoinInPlan ? 11.0 : 0) + (usedBellaInPlan ? 4.5 : 0) + (usedAppleTreePreCombat ? 5.5 : 0) + (playedSwiftPreCombat ? 4.5 : 0) + unspentAttackPotential;
+          const preCombatReady = !childSim.combatUsedThisTurn && Engine.getReadyAttackers(childSim).length > 0;
+          const counterWeight = preCombatReady ? 0.20 : 0.85;
           const midScore = evaluateState(childSim, db, playerIndex, weights) -
-            estimateOpponentCounterThreat(childSim, db, playerIndex, weights) * 0.85;
+            estimateOpponentCounterThreat(childSim, db, playerIndex, weights) * counterWeight + coinBridge;
           nextCandidates.push({
             simState: childSim,
             actions: childActions,
@@ -1534,7 +1798,9 @@
         const t = action.opts && action.opts.target;
         let tDesc = '';
         if (t) {
-          if (t.kind === 'hero') {
+          if (t.mode) {
+            tDesc = t.mode === 'ap' ? ' (+1 AP)' : ' (+1 Energy)';
+          } else if (t.kind === 'hero') {
             tDesc = ` → ${state.players[t.playerIndex].name}`;
           } else if (t.unitUid) {
             for (const pl of state.players) {
@@ -2003,43 +2269,142 @@
 
   const CHAMPION_DECKS = [
     {
-      name: '🤖 AI Champion Havenhearth',
+      name: '🏆 #1 Havenhearth Pureblood (Mono-H)',
       heroIds: [IDS.ROSALIND, IDS.FLYNN_BASKER],
       cardIds: [
-        IDS.BARNYARD_TROUBADOUR,
-        IDS.STONE_SOUP, IDS.STONE_SOUP,
+        IDS.BARNYARD_TROUBADOUR, IDS.BARNYARD_TROUBADOUR,
         IDS.TURNPIKE_TOLLKEEP, IDS.TURNPIKE_TOLLKEEP,
+        IDS.WHETSMITH_APPRENTICE,
         IDS.CROSSROADS_INN, IDS.CROSSROADS_INN,
-        IDS.FEATHERWEIGHT_LANCER,
+        IDS.FEATHERWEIGHT_LANCER, IDS.FEATHERWEIGHT_LANCER,
         IDS.GENTLE_WOODSMAN, IDS.GENTLE_WOODSMAN,
-        IDS.POTS_AND_PANS, IDS.POTS_AND_PANS,
         IDS.SWEET_OLD_SOUL, IDS.SWEET_OLD_SOUL,
-        IDS.HONEYWOOD_SENTRY, IDS.HONEYWOOD_SENTRY,
         IDS.MOTHER_PIPPIN,
-        IDS.OLD_CHESTNUT_SMITHY,
+        IDS.OLD_CHESTNUT_SMITHY, IDS.OLD_CHESTNUT_SMITHY,
         IDS.FOR_HEARTH_AND_HOLLOW, IDS.FOR_HEARTH_AND_HOLLOW,
+        IDS.GRAYBEARD_KNIGHT, IDS.GRAYBEARD_KNIGHT,
+        IDS.HEDGEROW_MATRON, IDS.HEDGEROW_MATRON,
         IDS.KIT_MERRYWEATHER,
-        IDS.UNDER_THE_GARDEN_GATE, IDS.UNDER_THE_GARDEN_GATE,
-        IDS.GIFT_OF_WISHING_OAK, IDS.GIFT_OF_WISHING_OAK
+        IDS.UNDER_THE_GARDEN_GATE,
+        IDS.GIFT_OF_WISHING_OAK
       ]
     },
     {
-      name: '🤖 AI Champion Red Velvet Court',
+      name: '🥈 #2 Red Velvet Pureblood (Mono-R)',
       heroIds: [IDS.KING_VALYN, IDS.BELLADONNA],
       cardIds: [
+        IDS.COURT_TRUMPETER, IDS.COURT_TRUMPETER,
         IDS.HARRIED_HARE, IDS.HARRIED_HARE,
         IDS.ROYAL_FAVOUR, IDS.ROYAL_FAVOUR,
         IDS.PAINTED_TOPIARIES, IDS.PAINTED_TOPIARIES,
         IDS.RAVENOUS_DOWAGER, IDS.RAVENOUS_DOWAGER,
         IDS.SIXPENCE_TARTIST, IDS.SIXPENCE_TARTIST,
-        IDS.VANITY_MIRROR, IDS.VANITY_MIRROR,
+        IDS.VANITY_MIRROR,
+        IDS.BLOODKEY_BARON,
+        IDS.EAT_UP_MY_DARLING, IDS.EAT_UP_MY_DARLING,
         IDS.FAIREST_OF_THEM_ALL,
         IDS.PALACE_HALBERDIER, IDS.PALACE_HALBERDIER,
-        IDS.DUB_THEE_CHAMPION, IDS.DUB_THEE_CHAMPION,
+        IDS.DUB_THEE_CHAMPION,
         IDS.GRIMHILDE,
-        IDS.SHOWSTOPPER_GATEAU, IDS.SHOWSTOPPER_GATEAU,
+        IDS.SHOWSTOPPER_GATEAU,
         IDS.SUPPER_FOR_TWO, IDS.SUPPER_FOR_TWO,
-        IDS.OFF_WITH_HIS_HEAD, IDS.OFF_WITH_HIS_HEAD,
+        IDS.VALENTINA
+      ]
+    },
+    {
+      name: '🥉 #3 Poisoned Pack (Belladonna + Flynn)',
+      heroIds: [IDS.BELLADONNA, IDS.FLYNN_BASKER],
+      cardIds: [
+        IDS.COURT_TRUMPETER,
+        IDS.POWDERED_ROSE_JOYS,
+        IDS.ROYAL_FAVOUR,
+        IDS.TURNPIKE_TOLLKEEP, IDS.TURNPIKE_TOLLKEEP,
+        IDS.WHETSMITH_APPRENTICE, IDS.WHETSMITH_APPRENTICE,
+        IDS.CROSSROADS_INN, IDS.CROSSROADS_INN,
+        IDS.FEATHERWEIGHT_LANCER,
+        IDS.GENTLE_WOODSMAN, IDS.GENTLE_WOODSMAN,
+        IDS.LADY_TIRED_OF_WAITING,
+        IDS.HARVEST_BANQUET, IDS.HARVEST_BANQUET,
+        IDS.MOTHER_PIPPIN,
+        IDS.OLD_CHESTNUT_SMITHY,
+        IDS.PALACE_HALBERDIER,
+        IDS.FOR_HEARTH_AND_HOLLOW, IDS.FOR_HEARTH_AND_HOLLOW,
+        IDS.GRIMHILDE,
+        IDS.HEDGEROW_MATRON,
+        IDS.SUPPER_FOR_TWO,
+        IDS.GIFT_OF_WISHING_OAK, IDS.GIFT_OF_WISHING_OAK
+      ]
+    },
+    {
+      name: '🏅 #4 Nightshade Briar (Belladonna + Rosalind)',
+      heroIds: [IDS.BELLADONNA, IDS.ROSALIND],
+      cardIds: [
+        IDS.BARNYARD_TROUBADOUR,
+        IDS.COURT_TRUMPETER, IDS.COURT_TRUMPETER,
+        IDS.POWDERED_ROSE_JOYS,
+        IDS.ROYAL_FAVOUR, IDS.ROYAL_FAVOUR,
+        IDS.STONE_SOUP, IDS.STONE_SOUP,
+        IDS.TURNPIKE_TOLLKEEP,
+        IDS.WHETSMITH_APPRENTICE, IDS.WHETSMITH_APPRENTICE,
+        IDS.CROSSROADS_INN,
+        IDS.FEATHERWEIGHT_LANCER,
+        IDS.PAINTED_TOPIARIES, IDS.PAINTED_TOPIARIES,
+        IDS.POTS_AND_PANS,
+        IDS.RAVENOUS_DOWAGER,
+        IDS.SIXPENCE_TARTIST,
+        IDS.EAT_UP_MY_DARLING,
+        IDS.MOTHER_PIPPIN,
+        IDS.OLD_CHESTNUT_SMITHY,
+        IDS.GRAYBEARD_KNIGHT,
+        IDS.HEDGEROW_MATRON, IDS.HEDGEROW_MATRON,
+        IDS.VALENTINA
+      ]
+    },
+    {
+      name: '⚔️ #5 Royal Hounds (Valyn + Flynn)',
+      heroIds: [IDS.KING_VALYN, IDS.FLYNN_BASKER],
+      cardIds: [
+        IDS.COURT_TRUMPETER, IDS.COURT_TRUMPETER,
+        IDS.HARRIED_HARE,
+        IDS.POWDERED_ROSE_JOYS, IDS.POWDERED_ROSE_JOYS,
+        IDS.ROYAL_FAVOUR, IDS.ROYAL_FAVOUR,
+        IDS.TURNPIKE_TOLLKEEP,
+        IDS.WHETSMITH_APPRENTICE,
+        IDS.FEATHERWEIGHT_LANCER, IDS.FEATHERWEIGHT_LANCER,
+        IDS.LADY_TIRED_OF_WAITING,
+        IDS.PAINTED_TOPIARIES,
+        IDS.POTS_AND_PANS,
+        IDS.RAVENOUS_DOWAGER, IDS.RAVENOUS_DOWAGER,
+        IDS.EAT_UP_MY_DARLING,
+        IDS.HARVEST_BANQUET,
+        IDS.OLD_CHESTNUT_SMITHY,
+        IDS.PALACE_HALBERDIER, IDS.PALACE_HALBERDIER,
+        IDS.GRAYBEARD_KNIGHT,
+        IDS.HEDGEROW_MATRON, IDS.HEDGEROW_MATRON,
+        IDS.SHOWSTOPPER_GATEAU
+      ]
+    },
+    {
+      name: '⚔️ #6 Crown & Cottager (Valyn + Rosalind)',
+      heroIds: [IDS.KING_VALYN, IDS.ROSALIND],
+      cardIds: [
+        IDS.BARNYARD_TROUBADOUR, IDS.BARNYARD_TROUBADOUR,
+        IDS.COURT_TRUMPETER, IDS.COURT_TRUMPETER,
+        IDS.ROYAL_FAVOUR,
+        IDS.WHETSMITH_APPRENTICE, IDS.WHETSMITH_APPRENTICE,
+        IDS.CROSSROADS_INN, IDS.CROSSROADS_INN,
+        IDS.FEATHERWEIGHT_LANCER, IDS.FEATHERWEIGHT_LANCER,
+        IDS.GENTLE_WOODSMAN,
+        IDS.LADY_TIRED_OF_WAITING,
+        IDS.PAINTED_TOPIARIES,
+        IDS.POTS_AND_PANS,
+        IDS.RAVENOUS_DOWAGER,
+        IDS.SWEET_OLD_SOUL, IDS.SWEET_OLD_SOUL,
+        IDS.BLOODKEY_BARON,
+        IDS.OLD_CHESTNUT_SMITHY,
+        IDS.PALACE_HALBERDIER,
+        IDS.HEDGEROW_MATRON, IDS.HEDGEROW_MATRON,
+        IDS.SUPPER_FOR_TWO,
         IDS.VALENTINA
       ]
     }

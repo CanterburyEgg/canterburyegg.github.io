@@ -120,32 +120,58 @@ window.StorybookCardSVGs = (() => {
     return `
       <defs>
         <linearGradient id="d-vine-${uid}" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#e3f5c4"/>
-          <stop offset="50%" stop-color="#9ec468"/>
-          <stop offset="100%" stop-color="#426320"/>
+          <stop offset="0%" stop-color="#eefad6"/>
+          <stop offset="46%" stop-color="#9dc763"/>
+          <stop offset="100%" stop-color="#385719"/>
         </linearGradient>
-        <radialGradient id="d-gem-${uid}" cx="38%" cy="32%" r="65%">
-          <stop offset="0%" stop-color="#b8ffcf"/>
-          <stop offset="45%" stop-color="#19b35c"/>
-          <stop offset="100%" stop-color="#063b1c"/>
+        <linearGradient id="d-thorn-${uid}" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff6d1"/>
+          <stop offset="50%" stop-color="#b8d479"/>
+          <stop offset="100%" stop-color="#496921"/>
+        </linearGradient>
+        <radialGradient id="d-gem-${uid}" cx="36%" cy="30%" r="68%">
+          <stop offset="0%" stop-color="#c9ffdb"/>
+          <stop offset="42%" stop-color="#19bd63"/>
+          <stop offset="82%" stop-color="#095e2d"/>
+          <stop offset="100%" stop-color="#042b14"/>
         </radialGradient>
       </defs>
-      <path fill-rule="evenodd"
-            d="M 24,8.2 C 32.5,11.5 37.2,18.2 36.2,26.2 C 35.4,32.5 30.5,37.2 24,38.5 C 17.5,37.2 12.6,32.5 11.8,26.2 C 10.8,18.2 15.5,11.5 24,8.2 Z
-               M 24,13.6 C 18.4,16.2 15.6,20.8 16.2,26.0 C 16.8,30.2 19.8,33.2 24,34.2 C 28.2,33.2 31.2,30.2 31.8,26.0 C 32.4,20.8 29.6,16.2 24,13.6 Z"
-            fill="url(#d-vine-${uid})" stroke="#13290e" stroke-width="1.2" stroke-linejoin="round"/>
-      <g fill="url(#d-vine-${uid})" stroke="#13290e" stroke-width="1.05" stroke-linejoin="round">
-        <polygon points="12.5,19.5 7.8,16.2 14.2,15.8"/>
-        <polygon points="35.5,19.5 40.2,16.2 33.8,15.8"/>
-        <polygon points="12.2,28.5 7.6,31.2 14.0,31.8"/>
-        <polygon points="35.8,28.5 40.4,31.2 34.0,31.8"/>
-        <polygon points="24,8.2 21.4,13.2 24,11.8 26.6,13.2"/>
+      <!-- Subtle Drop Shadow -->
+      <g transform="translate(0, 1.4)" fill="#04170b" opacity="0.68">
+        <path fill-rule="evenodd"
+              d="M 24,7.8 C 32.8,11.2 37.5,18.0 36.4,26.2 C 35.5,32.8 30.6,37.5 24,38.8 C 17.4,37.5 12.5,32.8 11.6,26.2 C 10.5,18.0 15.2,11.2 24,7.8 Z
+                 M 24,13.4 C 18.4,16.0 15.5,20.7 16.1,26.0 C 16.7,30.3 19.7,33.4 24,34.4 C 28.3,33.4 31.3,30.3 31.9,26.0 C 32.5,20.7 29.6,16.0 24,13.4 Z"/>
+        <path d="M 12.8,19.8 C 9.8,18.5 8.2,16.8 7.4,14.8 C 9.8,15.2 12.0,15.6 14.3,16.2 Z"/>
+        <path d="M 35.2,19.8 C 38.2,18.5 39.8,16.8 40.6,14.8 C 38.2,15.2 36.0,15.6 33.7,16.2 Z"/>
+        <path d="M 12.2,28.0 C 9.4,29.4 8.0,31.0 7.2,33.0 C 9.8,32.6 12.0,32.0 14.2,31.2 Z"/>
+        <path d="M 35.8,28.0 C 38.6,29.4 40.0,31.0 40.8,33.0 C 38.2,32.6 36.0,32.0 33.8,31.2 Z"/>
       </g>
-      <path d="M 24,17.2 C 27.2,21.2 28.8,23.8 28.8,26.6 C 28.8,29.5 26.7,31.5 24,31.5 C 21.3,31.5 19.2,29.5 19.2,26.6 C 19.2,23.8 20.8,21.2 24,17.2 Z"
-            fill="#0a2614" stroke="#dff5be" stroke-width="0.95"/>
-      <path d="M 24,18.8 C 26.5,22.0 27.6,24.2 27.6,26.5 C 27.6,28.7 26.0,30.2 24,30.2 C 22.0,30.2 20.4,28.7 20.4,26.5 C 20.4,24.2 21.5,22.0 24,18.8 Z"
+      <!-- Interlaced Gnarled Briar Wreath -->
+      <path fill-rule="evenodd"
+            d="M 24,7.8 C 32.8,11.2 37.5,18.0 36.4,26.2 C 35.5,32.8 30.6,37.5 24,38.8 C 17.4,37.5 12.5,32.8 11.6,26.2 C 10.5,18.0 15.2,11.2 24,7.8 Z
+               M 24,13.4 C 18.4,16.0 15.5,20.7 16.1,26.0 C 16.7,30.3 19.7,33.4 24,34.4 C 28.3,33.4 31.3,30.3 31.9,26.0 C 32.5,20.7 29.6,16.0 24,13.4 Z"
+            fill="url(#d-vine-${uid})" stroke="#0f240b" stroke-width="1.25" stroke-linejoin="round"/>
+      <!-- Carved Vine Twist Grooves & Specular Bark Highlight -->
+      <path d="M 15.2,14.5 C 12.8,18.5 12.4,23.2 13.8,27.8" fill="none" stroke="#ffffff" stroke-width="0.95" opacity="0.32" stroke-linecap="round"/>
+      <path d="M 13.5,21.5 C 14.8,23.2 15.6,25.0 16.0,26.8" fill="none" stroke="#1d3b12" stroke-width="0.95" stroke-linecap="round"/>
+      <path d="M 34.5,21.5 C 33.2,23.2 32.4,25.0 32.0,26.8" fill="none" stroke="#1d3b12" stroke-width="0.95" stroke-linecap="round"/>
+      <path d="M 17.8,34.8 C 20.0,36.2 22.0,37.2 24.0,38.4" fill="none" stroke="#1d3b12" stroke-width="0.95" stroke-linecap="round"/>
+      <!-- Wicked Curved Rose-Thorns (Outer & Inner Crown) -->
+      <g fill="url(#d-thorn-${uid})" stroke="#0f240b" stroke-width="1.05" stroke-linejoin="round">
+        <path d="M 12.6,19.8 C 9.8,18.4 8.2,16.8 7.3,14.6 C 10.0,15.1 12.2,15.6 14.4,16.4 Z"/>
+        <path d="M 35.4,19.8 C 38.2,18.4 39.8,16.8 40.7,14.6 C 38.0,15.1 35.8,15.6 33.6,16.4 Z"/>
+        <path d="M 12.1,28.0 C 9.4,29.4 7.9,31.0 7.1,33.2 C 9.8,32.7 12.1,32.0 14.3,31.0 Z"/>
+        <path d="M 35.9,28.0 C 38.6,29.4 40.1,31.0 40.9,33.2 C 38.2,32.7 35.9,32.0 33.7,31.0 Z"/>
+        <polygon points="24,7.6 21.1,13.4 24,11.8 26.9,13.4"/>
+        <polygon points="24,39.0 21.6,34.4 24,35.6 26.4,34.4"/>
+      </g>
+      <!-- Central Faceted Bog-Emerald Venom Drop -->
+      <path d="M 24,16.6 C 27.5,20.8 29.2,23.6 29.2,26.6 C 29.2,29.7 26.9,31.9 24,31.9 C 21.1,31.9 18.8,29.7 18.8,26.6 C 18.8,23.6 20.5,20.8 24,16.6 Z"
+            fill="#072110" stroke="#e4f7c5" stroke-width="1.0" stroke-linejoin="round"/>
+      <path d="M 24,18.2 C 26.7,21.6 27.9,24.0 27.9,26.5 C 27.9,28.9 26.2,30.5 24,30.5 C 21.8,30.5 20.1,28.9 20.1,26.5 C 20.1,24.0 21.3,21.6 24,18.2 Z"
             fill="url(#d-gem-${uid})"/>
-      <ellipse cx="22.5" cy="24.8" rx="1.2" ry="2.2" transform="rotate(-18 22.5 24.8)" fill="#ffffff" opacity="0.55"/>
+      <path d="M 24,18.6 L 26.2,23.2 L 24,24.4 L 21.8,23.2 Z" fill="#ffffff" opacity="0.28"/>
+      <ellipse cx="22.3" cy="24.8" rx="1.25" ry="2.35" transform="rotate(-18 22.3 24.8)" fill="#ffffff" opacity="0.62"/>
     `;
   }
 
@@ -233,7 +259,16 @@ window.StorybookCardSVGs = (() => {
       bg2: '#0e301c',
       fg: '#d8f0b8',
       render: renderEmblemD,
-      path: `<path fill-rule="evenodd" d="M 24,8.2 C 32.5,11.5 37.2,18.2 36.2,26.2 C 35.4,32.5 30.5,37.2 24,38.5 C 17.5,37.2 12.6,32.5 11.8,26.2 C 10.8,18.2 15.5,11.5 24,8.2 Z M 24,13.6 C 18.4,16.2 15.6,20.8 16.2,26.0 C 16.8,30.2 19.8,33.2 24,34.2 C 28.2,33.2 31.2,30.2 31.8,26.0 C 32.4,20.8 29.6,16.2 24,13.6 Z M 24,18.0 C 26.8,21.5 28.2,24.0 28.2,26.6 C 28.2,29.2 26.3,31.0 24,31.0 C 21.7,31.0 19.8,29.2 19.8,26.6 C 19.8,24.0 21.2,21.5 24,18.0 Z" />`
+      watermark: `
+        <path fill-rule="evenodd" d="M 24,7.8 C 32.8,11.2 37.5,18.0 36.4,26.2 C 35.5,32.8 30.6,37.5 24,38.8 C 17.4,37.5 12.5,32.8 11.6,26.2 C 10.5,18.0 15.2,11.2 24,7.8 Z M 24,13.4 C 18.4,16.0 15.5,20.7 16.1,26.0 C 16.7,30.3 19.7,33.4 24,34.4 C 28.3,33.4 31.3,30.3 31.9,26.0 C 32.5,20.7 29.6,16.0 24,13.4 Z"/>
+        <path d="M 12.6,19.8 C 9.8,18.4 8.2,16.8 7.3,14.6 C 10.0,15.1 12.2,15.6 14.4,16.4 Z"/>
+        <path d="M 35.4,19.8 C 38.2,18.4 39.8,16.8 40.7,14.6 C 38.0,15.1 35.8,15.6 33.6,16.4 Z"/>
+        <path d="M 12.1,28.0 C 9.4,29.4 7.9,31.0 7.1,33.2 C 9.8,32.7 12.1,32.0 14.3,31.0 Z"/>
+        <path d="M 35.9,28.0 C 38.6,29.4 40.1,31.0 40.9,33.2 C 38.2,32.7 35.9,32.0 33.7,31.0 Z"/>
+        <polygon points="24,7.6 21.1,13.4 24,11.8 26.9,13.4"/>
+        <polygon points="24,39.0 21.6,34.4 24,35.6 26.4,34.4"/>
+        <path fill-rule="evenodd" d="M 24,16.6 C 27.5,20.8 29.2,23.6 29.2,26.6 C 29.2,29.7 26.9,31.9 24,31.9 C 21.1,31.9 18.8,29.7 18.8,26.6 C 18.8,23.6 20.5,20.8 24,16.6 Z M 22.3,22.8 C 21.4,22.8 20.8,23.8 20.8,25.0 C 20.8,26.2 21.4,27.2 22.3,27.2 C 23.2,27.2 23.8,26.2 23.8,25.0 C 23.8,23.8 23.2,22.8 22.3,22.8 Z"/>
+      `
     },
     T: {
       bg1: '#4d43a3',

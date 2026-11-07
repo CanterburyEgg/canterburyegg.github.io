@@ -1197,11 +1197,17 @@ details.meta-drawer summary {
   top: -36px;
 }
 
+.tcg-card[data-faction="D"] .elite-crest-slot {
+  width: 208px;
+  top: -34px;
+}
+
 .tcg-card[data-card-type="building"] .elite-crest-slot {
   top: -26px;
 }
 
-.tcg-card[data-faction="H"][data-card-type="building"] .elite-crest-slot {
+.tcg-card[data-faction="H"][data-card-type="building"] .elite-crest-slot,
+.tcg-card[data-faction="D"][data-card-type="building"] .elite-crest-slot {
   top: -32px;
 }
 
@@ -1210,7 +1216,8 @@ details.meta-drawer summary {
   top: -32px;
 }
 
-.tcg-card[data-faction="H"][data-card-type="spell"] .elite-crest-slot {
+.tcg-card[data-faction="H"][data-card-type="spell"] .elite-crest-slot,
+.tcg-card[data-faction="D"][data-card-type="spell"] .elite-crest-slot {
   width: 210px;
   top: -34px;
 }
