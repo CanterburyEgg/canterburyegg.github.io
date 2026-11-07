@@ -1,0 +1,4177 @@
+// Phase 1: Full 3D 4v4 MOBA Match Engine
+// Lanes, Towers, Barracks (Super Minions), Ancient Cores, Marching Minion Waves,
+// Jungle Camps + Central Boss (+10% All Stats), Dota-style Tree/Wall LOS Fog of War + Wards (F),
+// Proximity Gold/XP, Lv 1-12 + Lv 3/6/10 Binary Talents, Fountain Recall (B) + 4-Slot Shop (P),
+// 7 Rigged 3D Mixamo Bot Heroes (3 Allies + 4 Enemies), Interactive Minimap & Tactical Pings.
+
+window.MOBA_PHASE1_ENGINE = (function () {
+  const DATA = window.MOBA_PHASE1;
+
+  function createEngine(ctx) {
+    const {
+      THREE,
+      SkeletonUtils,
+      scene,
+      camera,
+      labelLayer,
+      hero,
+      getActiveHeroId,
+      getTemplates,
+      prepareClipForModel,
+      spawnFloat,
+      spawnShockRing,
+      SFX
+    } = ctx;
+
+    // Match State
+    let matchMode = true; // true = Full 4v4 MOBA Match, false = Close Arena Sandbox
+    let matchTime = 0;
+    let waveTimer = 2.5; // First minion wave spawns 2.5s into match!
+    let waveCount = 0;
+    let teamKills = [0, 0];
+    let bossBuffTimer = [0, 0]; // Team 0 / Team 1 +10% All-Stats Boss Buff remaining seconds
+    let botDifficulty = 'normal'; // 'easy' | 'normal' | 'hard'
+    let gameOver = null; // null | { winnerTeam: 0 | 1, title: string }
+
+    // Player Progression, Economy, Talents, Shop, Recall & Wards
+    const playerProg = {
+      level: 1,
+      xp: 0,
+      gold: 600, // Starting gold for boots or dirk!
+      kills: 0,
+      deaths: 0,
+      assists: 0,
+      respawnTimer: 0,
+      recallTimer: 0,
+      wardCharges: 2,
+      wardRechargeTimer: 0,
+      items: [], // max 4 item objects from DATA.SHOP_ITEMS
+      talents: { 3: null, 6: null, 10: null }, // 'L' | 'R'
+      punchCounter: 0 // For Brawler 6R Haymaker Cleave (every 3rd punch)
+    };
+
+    // World Containers
+    const mapGroup = new THREE.Group();
+    scene.add(mapGroup);
+
+    const structures = [];
+    const minions = [];
+    const camps = [];
+    const bots = [];
+    const wards = [];
+    const projectiles = []; // Tower, minion, camp, and bot projectiles
+    const pings = [];       // Active tactical pings on map & minimap
+    let mapObstacles = [];  // LOS & collision obstacles (trees + stone pillars)
+
+    // Reusable Materials & Geometries
+    const orderMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9, roughness: 0.45, metalness: 0.35, emissive: 0x0369a1, emissiveIntensity: 0.25 });
+    const chaosMat = new THREE.MeshStandardMaterial({ color: 0xe11d48, roughness: 0.45, metalness: 0.35, emissive: 0x881337, emissiveIntensity: 0.25 });
+    const stoneBaseMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.85, metalness: 0.12 });
+    const goldTrimMat = new THREE.MeshStandardMaterial({ color: 0xfbbf24, roughness: 0.35, metalness: 0.65 });
+    const superMat = new THREE.MeshStandardMaterial({ color: 0xfde047, roughness: 0.3, metalness: 0.7, emissive: 0xb45309, emissiveIntensity: 0.35 });
+
+    // Helper: Create overhead HTML nameplate (compact for minions, prominent high-z-index for Heroes/Bots/Structures)
+    function createPlate(cls = 'enemy', tagText = '', isMinion = false) {
+      const root = document.createElement('div');
+      root.className = 'plate-3d';
+      root.style.zIndex = isMinion ? '2' : '15';
+      if (isMinion) {
+        root.style.opacity = '0.88';
+        root.innerHTML =
+          (tagText ? '<div class="plate-tag" style="font-size:9px;min-height:10px;">' + tagText + '</div>' : '') +
+          '<div class="plate-bar" style="width:42px;height:5px;"><div class="plate-hp ' + cls + '"></div><div class="plate-sh"></div></div>';
+      } else {
+        const tagStyle = cls === 'enemy'
+          ? 'background:rgba(15,23,42,0.88);border:1px solid rgba(244,63,94,0.65);padding:1px 5px;border-radius:3px;color:#fda4af;'
+          : 'background:rgba(15,23,42,0.82);border:1px solid rgba(56,189,248,0.5);padding:1px 5px;border-radius:3px;color:#bae6fd;';
+        root.innerHTML =
+          '<div class="plate-tag" style="' + tagStyle + '">' + tagText + '</div>' +
+          '<div class="plate-bar"><div class="plate-hp ' + cls + '"></div><div class="plate-sh"></div></div>';
+      }
+      labelLayer.appendChild(root);
+      return root;
+    }
+
+    let minionSeq = 0;
+
+    function projectToScreen(x, y, z) {
+      const v = new THREE.Vector3(x, y, z).project(camera);
+      return {
+        x: (v.x * 0.5 + 0.5) * window.innerWidth,
+        y: (-v.y * 0.5 + 0.5) * window.innerHeight,
+        visible: v.z >= -1 && v.z <= 1 && Math.abs(v.x) <= 1.15 && Math.abs(v.y) <= 1.15
+      };
+    }
+
+    // =========================================================
+    // DOTA-STYLE LINE-OF-SIGHT (LOS) TREE & PILLAR OCCLUSION
+    // =========================================================
+    function segmentBlockedByObstacle(ax, az, bx, bz) {
+      const dx = bx - ax;
+      const dz = bz - az;
+      const lenSq = dx * dx + dz * dz;
+      if (lenSq < 0.01) return false;
+      for (let i = 0; i < mapObstacles.length; i++) {
+        const o = mapObstacles[i];
+        const t = THREE.MathUtils.clamp(((o.x - ax) * dx + (o.z - az) * dz) / lenSq, 0.05, 0.95);
+        const cx = ax + t * dx;
+        const cz = az + t * dz;
+        const distSq = (cx - o.x) * (cx - o.x) + (cz - o.z) * (cz - o.z);
+        const blockR = o.r * 0.92;
+        if (distSq < blockR * blockR) return true;
+      }
+      return false;
+    }
+
+    // Check if world point (tx, tz) is visible to Team 0 (Order)
+    function isPointVisibleToOrder(tx, tz) {
+      if (!matchMode) return true;
+      // 1. Order Fountain / Base vision
+      if (Math.hypot(tx - (-60), tz - 0) <= 22) return true;
+
+      // 2. Player Hero vision (17.5m unobstructed by trees/pillars)
+      if (playerProg.respawnTimer <= 0) {
+        const dPlayer = Math.hypot(tx - hero.x, tz - hero.z);
+        if (dPlayer <= 3.2) return true;
+        if (dPlayer <= 17.5 && !segmentBlockedByObstacle(hero.x, hero.z, tx, tz)) return true;
+      }
+
+      // 3. Allied Bots vision (16.0m unobstructed)
+      for (let i = 0; i < bots.length; i++) {
+        const b = bots[i];
+        if (b.team !== 0 || b.respawnTimer > 0) continue;
+        const d = Math.hypot(tx - b.x, tz - b.z);
+        if (d <= 16.0 && !segmentBlockedByObstacle(b.x, b.z, tx, tz)) return true;
+      }
+
+      // 4. Allied Structures vision (14.5m)
+      for (let i = 0; i < structures.length; i++) {
+        const s = structures[i];
+        if (s.team !== 0 || s.hp <= 0) continue;
+        if (Math.hypot(tx - s.x, tz - s.z) <= 14.5) return true;
+      }
+
+      // 5. Allied Minions vision (10.5m unobstructed)
+      for (let i = 0; i < minions.length; i++) {
+        const m = minions[i];
+        if (m.team !== 0 || m.hp <= 0) continue;
+        const d = Math.hypot(tx - m.x, tz - m.z);
+        if (d <= 10.5 && !segmentBlockedByObstacle(m.x, m.z, tx, tz)) return true;
+      }
+
+      // 6. Allied Observer Wards vision (16.0m unobstructed!)
+      for (let i = 0; i < wards.length; i++) {
+        const w = wards[i];
+        if (Math.hypot(tx - w.x, tz - w.z) <= 16.0 && !segmentBlockedByObstacle(w.x, w.z, tx, tz)) return true;
+      }
+
+      return false;
+    }
+
+    // Check if the Player is currently spotted by any Enemy (Team 1 Chaos) unit or structure (for Panther's P: Shadow Stalker!)
+    function isPlayerSeenByChaos() {
+      if ((hero.stealthTimer || 0) > 0) return false;
+      if (!matchMode) return false;
+      if (Math.hypot(hero.x - 60, hero.z - 0) <= 20) return true;
+      for (let i = 0; i < bots.length; i++) {
+        const b = bots[i];
+        if (b.team !== 1 || b.respawnTimer > 0) continue;
+        const d = Math.hypot(hero.x - b.x, hero.z - b.z);
+        if (d <= 15.0 && !segmentBlockedByObstacle(b.x, b.z, hero.x, hero.z)) return true;
+      }
+      for (let i = 0; i < structures.length; i++) {
+        const s = structures[i];
+        if (s.team !== 1 || s.hp <= 0) continue;
+        if (Math.hypot(hero.x - s.x, hero.z - s.z) <= 13.5) return true;
+      }
+      for (let i = 0; i < minions.length; i++) {
+        const m = minions[i];
+        if (m.team !== 1 || m.hp <= 0) continue;
+        const d = Math.hypot(hero.x - m.x, hero.z - m.z);
+        if (d <= 9.5 && !segmentBlockedByObstacle(m.x, m.z, hero.x, hero.z)) return true;
+      }
+      return false;
+    }
+
+    // =========================================================
+    // BUILD 3D MOBA MAP, LANES, FOUNTAINS, TREES & STRUCTURES
+    // =========================================================
+    const recallRingMesh = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.05, 1.05, 3.2, 28, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false })
+    );
+    recallRingMesh.visible = false;
+    scene.add(recallRingMesh);
+
+    const bossAuraPlayer = new THREE.Mesh(
+      new THREE.RingGeometry(0.85, 1.08, 36),
+      new THREE.MeshBasicMaterial({ color: 0xfde047, side: THREE.DoubleSide, transparent: true, opacity: 0.75 })
+    );
+    bossAuraPlayer.rotation.x = -Math.PI / 2;
+    bossAuraPlayer.position.y = 0.05;
+    bossAuraPlayer.visible = false;
+    scene.add(bossAuraPlayer);
+
+    function buildLaneRibbon(waypoints, colorHex, width = 5.2) {
+      const mat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.94, metalness: 0.04 });
+      for (let i = 0; i < waypoints.length - 1; i++) {
+        const a = waypoints[i];
+        const b = waypoints[i + 1];
+        const dx = b.x - a.x;
+        const dz = b.z - a.z;
+        const len = Math.hypot(dx, dz);
+        const seg = new THREE.Mesh(new THREE.PlaneGeometry(width, len + 1.8), mat);
+        seg.rotation.x = -Math.PI / 2;
+        seg.rotation.z = -Math.atan2(dx, dz);
+        seg.position.set((a.x + b.x) * 0.5, 0.015, (a.z + b.z) * 0.5);
+        seg.receiveShadow = true;
+        mapGroup.add(seg);
+      }
+    }
+
+    function buildStructureMesh(s) {
+      const grp = new THREE.Group();
+      const tMat = s.team === 0 ? orderMat : chaosMat;
+      if (s.kind === 'tower') {
+        const base = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.45, 2.2, 8), stoneBaseMat);
+        base.position.y = 1.1;
+        base.castShadow = true;
+        base.receiveShadow = true;
+        grp.add(base);
+
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 1.0, 2.4, 8), tMat);
+        pillar.position.y = 3.1;
+        pillar.castShadow = true;
+        grp.add(pillar);
+
+        const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.62, 0), new THREE.MeshBasicMaterial({ color: s.team === 0 ? 0x38bdf8 : 0xfb7185 }));
+        crystal.position.y = 5.0;
+        grp.add(crystal);
+        s.crystal = crystal;
+
+        // Tower range ring on ground
+        const rRing = new THREE.Mesh(
+          new THREE.RingGeometry(s.range - 0.08, s.range, 48),
+          new THREE.MeshBasicMaterial({ color: s.team === 0 ? 0x38bdf8 : 0xf43f5e, side: THREE.DoubleSide, transparent: true, opacity: 0.16 })
+        );
+        rRing.rotation.x = -Math.PI / 2;
+        rRing.position.y = 0.03;
+        grp.add(rRing);
+      } else if (s.kind === 'barracks') {
+        const hall = new THREE.Mesh(new THREE.BoxGeometry(2.6, 1.9, 2.6), stoneBaseMat);
+        hall.position.y = 0.95;
+        hall.castShadow = true;
+        grp.add(hall);
+
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(2.1, 1.3, 4), tMat);
+        roof.position.y = 2.55;
+        roof.rotation.y = Math.PI / 4;
+        roof.castShadow = true;
+        grp.add(roof);
+      } else if (s.kind === 'ancient') {
+        const dais = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 2.6, 1.2, 12), stoneBaseMat);
+        dais.position.y = 0.6;
+        dais.castShadow = true;
+        grp.add(dais);
+
+        const core = new THREE.Mesh(new THREE.OctahedronGeometry(1.35, 1), tMat);
+        core.position.y = 3.1;
+        core.castShadow = true;
+        grp.add(core);
+        s.crystal = core;
+
+        const halo = new THREE.Mesh(new THREE.TorusGeometry(1.75, 0.1, 10, 32), goldTrimMat);
+        halo.position.y = 3.1;
+        halo.rotation.x = Math.PI / 2;
+        grp.add(halo);
+        s.halo = halo;
+      }
+      // Golden Invulnerability Force-Shield Ring (shown while outer structures in the lane are still standing!)
+      const invulnRing = new THREE.Mesh(
+        new THREE.RingGeometry(s.r + 0.35, s.r + 0.62, 40),
+        new THREE.MeshBasicMaterial({ color: 0xfde047, side: THREE.DoubleSide, transparent: true, opacity: 0.65 })
+      );
+      invulnRing.rotation.x = -Math.PI / 2;
+      invulnRing.position.y = 0.08;
+      invulnRing.visible = s.tier > 1;
+      grp.add(invulnRing);
+      s.invulnRing = invulnRing;
+
+      grp.position.set(s.x, 0, s.z);
+      mapGroup.add(grp);
+      s.mesh = grp;
+      s.shootCd = 0;
+      s.plate = createPlate(s.team === 0 ? '' : 'enemy', s.name);
+    }
+
+    // Sequential MOBA Lane Structure Vulnerability Rule:
+    // T1 is always vulnerable; T2 requires lane T1 dead; Barracks requires lane T2 dead; Ancient requires >=1 Barracks dead!
+    function isStructureVulnerable(s) {
+      if (!s || s.hp <= 0) return false;
+      if (s.tier === 1) return true;
+      if (s.tier === 2) {
+        const t1 = structures.find((o) => o.team === s.team && o.lane === s.lane && o.tier === 1);
+        return !t1 || t1.hp <= 0;
+      }
+      if (s.tier === 3) {
+        const t2 = structures.find((o) => o.team === s.team && o.lane === s.lane && o.tier === 2);
+        return !t2 || t2.hp <= 0;
+      }
+      if (s.tier === 4) {
+        const anyRaxDown = structures.some((o) => o.team === s.team && o.kind === 'barracks' && o.hp <= 0);
+        return anyRaxDown;
+      }
+      return true;
+    }
+
+    function buildCampMesh(c) {
+      const grp = new THREE.Group();
+      c.homeX = c.x;
+      c.homeZ = c.z;
+      c.leashR = c.isBoss ? 10.5 : 9.2;
+
+      // Pit Floor Circle (stays anchored at homeX, homeZ)
+      const pit = new THREE.Mesh(
+        new THREE.CircleGeometry(c.isBoss ? 4.2 : 2.3, 28),
+        new THREE.MeshStandardMaterial({ color: c.isBoss ? 0x292116 : 0x243022, roughness: 0.95 })
+      );
+      pit.rotation.x = -Math.PI / 2;
+      pit.position.y = 0.02;
+      grp.add(pit);
+
+      // Leash Territory Ring (glows when camp is aggroed so player sees the exact leash boundary!)
+      const leashRing = new THREE.Mesh(
+        new THREE.RingGeometry(c.leashR - 0.10, c.leashR, 48),
+        new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.28 })
+      );
+      leashRing.rotation.x = -Math.PI / 2;
+      leashRing.position.y = 0.03;
+      leashRing.visible = false;
+      grp.add(leashRing);
+      c.leashRing = leashRing;
+
+      const mobGrp = new THREE.Group();
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: c.isBoss ? 0xd97706 : 0x7c2d12,
+        roughness: 0.55,
+        metalness: c.isBoss ? 0.35 : 0.1
+      });
+      const sc = c.isBoss ? 1.85 : 1.0;
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.55 * sc, 0.68 * sc, 1.45 * sc, 9), bodyMat);
+      body.position.y = 0.75 * sc;
+      body.castShadow = true;
+      mobGrp.add(body);
+
+      const head = new THREE.Mesh(new THREE.DodecahedronGeometry(0.45 * sc, 0), goldTrimMat);
+      head.position.y = 1.68 * sc;
+      head.castShadow = true;
+      mobGrp.add(head);
+
+      if (c.isBoss) {
+        const crown = new THREE.Mesh(new THREE.TorusGeometry(0.65, 0.09, 8, 24), new THREE.MeshBasicMaterial({ color: 0xfde047 }));
+        crown.position.y = 3.6;
+        crown.rotation.x = Math.PI / 2;
+        mobGrp.add(crown);
+      }
+
+      grp.add(mobGrp);
+      grp.position.set(c.homeX, 0, c.homeZ);
+      mapGroup.add(grp);
+
+      c.mesh = grp;
+      c.mobGrp = mobGrp;
+      c.body = body;
+      c.origMat = bodyMat;
+      c.hp = c.maxHp;
+      c.respawnTimer = 0;
+      c.atkCd = 0;
+      c.hitFlash = 0;
+      c.r = c.isBoss ? 1.35 : 0.75;
+      c.spd = c.isBoss ? 4.85 : 5.35;
+      c.atkRange = c.isBoss ? 2.55 : 1.85;
+      c.state = 'idle'; // 'idle' | 'aggro' | 'leashing'
+      c.aggroTarget = null;
+      c.patience = 5.0;
+      c.plate = createPlate('enemy', c.name);
+    }
+
+    function build3DMap() {
+      // Clear any previous map children
+      while (mapGroup.children.length > 0) {
+        mapGroup.remove(mapGroup.children[0]);
+      }
+      structures.forEach((s) => s.plate && s.plate.remove());
+      structures.length = 0;
+      camps.forEach((c) => c.plate && c.plate.remove());
+      camps.length = 0;
+      minions.forEach((m) => { mapGroup.remove(m.mesh); m.plate && m.plate.remove(); });
+      minions.length = 0;
+
+      // 1. Top Short Solo Lane (1v1) & Bottom Long Duo Lane (2v2) Cobblestone Paths + River/Jungle
+      buildLaneRibbon(DATA.LANE_WAYPOINTS.top, 0x3b352b, 5.4);
+      buildLaneRibbon(DATA.LANE_WAYPOINTS.bot, 0x3b352b, 5.8);
+
+      // Central Jungle River / Boss Boulevard
+      const river = new THREE.Mesh(
+        new THREE.PlaneGeometry(6.5, 62),
+        new THREE.MeshStandardMaterial({ color: 0x163840, roughness: 0.55, metalness: 0.15 })
+      );
+      river.rotation.x = -Math.PI / 2;
+      river.position.set(0, 0.01, 0);
+      mapGroup.add(river);
+
+      // Order & Chaos Base Fountains (Left x=-62, Right x=+62)
+      [[-62, 0, 0x38bdf8, 'ORDER FOUNTAIN (HEAL & SHOP)'], [62, 0, 0xf43f5e, 'CHAOS FOUNTAIN']].forEach(([fx, fz, col]) => {
+        const pad = new THREE.Mesh(
+          new THREE.CylinderGeometry(5.2, 5.6, 0.28, 32),
+          new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6, metalness: 0.3 })
+        );
+        pad.position.set(fx, 0.14, fz);
+        pad.receiveShadow = true;
+        mapGroup.add(pad);
+
+        const glow = new THREE.Mesh(
+          new THREE.RingGeometry(4.4, 5.1, 40),
+          new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide, transparent: true, opacity: 0.75 })
+        );
+        glow.rotation.x = -Math.PI / 2;
+        glow.position.set(fx, 0.30, fz);
+        mapGroup.add(glow);
+      });
+
+      // 2. LOS-Blocking Jungle Trees & Stone Pillars
+      mapObstacles = DATA.buildMapObstacles();
+      const trunkMat = new THREE.MeshStandardMaterial({ color: 0x4a2f1d, roughness: 0.9 });
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x1e4628, roughness: 0.8 });
+      mapObstacles.forEach((o) => {
+        if (o.kind === 'pillar') {
+          const m = new THREE.Mesh(new THREE.CylinderGeometry(o.r * 0.85, o.r, 3.4, 9), stoneBaseMat);
+          m.position.set(o.x, 1.7, o.z);
+          m.castShadow = true;
+          m.receiveShadow = true;
+          mapGroup.add(m);
+        } else {
+          const s = o.scale || 1.0;
+          const tGrp = new THREE.Group();
+          const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.24 * s, 0.38 * s, 1.8 * s, 7), trunkMat);
+          tr.position.y = 0.9 * s;
+          tr.castShadow = true;
+          tGrp.add(tr);
+          const c1 = new THREE.Mesh(new THREE.ConeGeometry(1.35 * s, 2.5 * s, 8), leafMat);
+          c1.position.y = 2.4 * s;
+          c1.castShadow = true;
+          tGrp.add(c1);
+          const c2 = new THREE.Mesh(new THREE.ConeGeometry(1.0 * s, 2.0 * s, 8), leafMat);
+          c2.position.y = 3.6 * s;
+          c2.castShadow = true;
+          tGrp.add(c2);
+          tGrp.position.set(o.x, 0, o.z);
+          mapGroup.add(tGrp);
+        }
+      });
+
+      // 3. Structures (Towers, Barracks, Ancient Cores)
+      DATA.buildInitialStructures().forEach((s) => {
+        structures.push(s);
+        buildStructureMesh(s);
+      });
+
+      // 4. Neutral Jungle Camps & Central Boss Pit
+      DATA.buildJungleCamps().forEach((c) => {
+        camps.push(c);
+        buildCampMesh(c);
+      });
+    }
+
+    // =========================================================
+    // SPAWN 7 RIGGED 3D BOT HEROES (3 ALLIES + 4 ENEMIES = 4v4)
+    // Always 1 Coyote, 1 Sorceress, 1 Brawler, and 1 Bodyguard per team!
+    // =========================================================
+    const HERO_LABELS = {
+      coyote: 'Coyote',
+      sorceress: 'Sorceress',
+      brawler: 'Brawler',
+      bodyguard: 'Bodyguard',
+      panther: 'Panther'
+    };
+
+    function buildBotRoster(playerHeroId) {
+      const allFive = ['brawler', 'panther', 'coyote', 'sorceress', 'bodyguard'];
+      const allyTypes = allFive.filter((h) => h !== playerHeroId);
+
+      // Assign role-authentic Allied Bots (Solo -> Jungle -> Support/Carry Duo)
+      const soloType = allyTypes.find((h) => h === 'brawler' || h === 'bodyguard') || allyTypes[0];
+      const rem1 = allyTypes.filter((h) => h !== soloType);
+      const jgType = rem1.find((h) => h === 'panther' || h === 'brawler' || h === 'coyote') || rem1[0];
+      const rem2 = rem1.filter((h) => h !== jgType);
+      const duoType = rem2.find((h) => h === 'bodyguard' || h === 'sorceress' || h === 'coyote') || rem2[0];
+
+      return [
+        // Team 0 (Order — 3 Allied Bots + Player = 4v4!)
+        { id: 'bot_o_solo', team: 0, name: 'Ally ' + HERO_LABELS[soloType] + ' (Solo)', heroType: soloType, lane: 'top', role: 'Solo', homeX: -59, homeZ: -3 },
+        { id: 'bot_o_jg',   team: 0, name: 'Ally ' + HERO_LABELS[jgType] + ' (Jungle)', heroType: jgType, lane: 'jungle', role: 'Jungle', homeX: -59, homeZ: 0 },
+        { id: 'bot_o_supp', team: 0, name: 'Ally ' + HERO_LABELS[duoType] + ' (Duo)', heroType: duoType, lane: 'bot', role: 'Support', homeX: -59, homeZ: 3 },
+
+        // Team 1 (Chaos — 4 Enemy Bots featuring Panther in the Jungle!)
+        { id: 'bot_c_solo',  team: 1, name: 'Chaos Brawler (Solo)',     heroType: 'brawler',   lane: 'top',    role: 'Solo',    homeX: 59, homeZ: -3 },
+        { id: 'bot_c_jg',    team: 1, name: 'Chaos Panther (Jungle)',   heroType: 'panther',   lane: 'jungle', role: 'Jungle',  homeX: 59, homeZ: 0 },
+        { id: 'bot_c_carry', team: 1, name: 'Chaos Sorceress (Carry)',  heroType: 'sorceress', lane: 'bot',    role: 'Carry',   homeX: 59, homeZ: 2.5 },
+        { id: 'bot_c_supp',  team: 1, name: 'Chaos Bodyguard (Supp)',   heroType: 'bodyguard', lane: 'bot',    role: 'Support', homeX: 59, homeZ: 4.5 }
+      ];
+    }
+
+    function createWandMeshGroup() {
+      const grp = new THREE.Group();
+      const shaft = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.022, 0.032, 0.78, 8),
+        new THREE.MeshStandardMaterial({ color: 0x3b0764, roughness: 0.35, metalness: 0.65 })
+      );
+      shaft.rotation.x = Math.PI / 2;
+      shaft.position.z = 0.28;
+      grp.add(shaft);
+
+      const ferrule = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.038, 0.038, 0.12, 8),
+        goldTrimMat
+      );
+      ferrule.rotation.x = Math.PI / 2;
+      ferrule.position.z = 0.58;
+      grp.add(ferrule);
+
+      const star = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.13, 0),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      star.position.z = 0.72;
+      grp.add(star);
+
+      const halo = new THREE.Mesh(
+        new THREE.RingGeometry(0.14, 0.19, 20),
+        new THREE.MeshBasicMaterial({ color: 0xfde047, side: THREE.DoubleSide })
+      );
+      halo.position.z = 0.72;
+      grp.add(halo);
+      return grp;
+    }
+
+    function attachRigToBot(bot) {
+      const templates = getTemplates();
+      const tmpl = templates[bot.heroType] || (bot.heroType === 'coyote' || bot.heroType === 'sorceress' ? templates.coyote : templates.brawler);
+      if (!tmpl || !tmpl.fbx) return;
+
+      if (bot.rigLoaded) {
+        if (bot.heroType === 'coyote' && !bot.bowPivot && templates.crossbowScene) {
+          const bowClone = templates.crossbowScene.clone(true);
+          const bowPivot = new THREE.Group();
+          bowClone.rotation.y = -Math.PI / 2;
+          bowClone.position.set(0, -0.14, 0.24);
+          bowPivot.scale.setScalar(0.86);
+          bowPivot.add(bowClone);
+          scene.add(bowPivot);
+          bot.bowPivot = bowPivot;
+        }
+        return;
+      }
+
+      const cloned = SkeletonUtils.clone(tmpl.fbx);
+      const spec = DATA.HERO_SPECS && DATA.HERO_SPECS[bot.heroType];
+      const targetH = spec ? spec.height : (bot.heroType === 'coyote' ? 1.96 : 2.22);
+      cloned.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(cloned);
+      const sz = new THREE.Vector3();
+      box.getSize(sz);
+      const sc = targetH / Math.max(0.01, sz.y);
+      cloned.scale.multiplyScalar(sc);
+      if (bot.heroType === 'bodyguard') {
+        cloned.scale.x *= 1.15;
+        cloned.scale.z *= 1.15;
+      }
+      cloned.updateMatrixWorld(true);
+      const box2 = new THREE.Box3().setFromObject(cloned);
+      const ctr = new THREE.Vector3();
+      box2.getCenter(ctr);
+      cloned.position.set(-ctr.x, -box2.min.y, -ctr.z);
+
+      let rh = null, lh = null;
+      const meshes = [];
+      cloned.traverse((ch) => {
+        if (ch.name) {
+          const c = ch.name.replace(/^.*?(mixamorig\d*:?|:)/i, '');
+          if (c === 'RightHand' && (ch.isBone || !rh)) rh = ch;
+          if (c === 'LeftHand' && (ch.isBone || !lh)) lh = ch;
+        }
+        if (ch.isMesh) {
+          ch.castShadow = true;
+          ch.receiveShadow = true;
+          ch.frustumCulled = false;
+          ch.material = new THREE.MeshStandardMaterial({
+            map: tmpl.tex,
+            color: bot.team === 0 ? 0xffffff : 0xffdada,
+            roughness: 0.78,
+            metalness: 0.12
+          });
+          meshes.push(ch);
+        }
+      });
+
+      bot.placeholder.visible = false;
+      bot.pivot.add(cloned);
+      bot.model = cloned;
+      bot.meshes = meshes;
+      bot.baseModelPos = cloned.position.clone();
+      bot.rightHand = rh;
+      bot.leftHand = lh;
+      bot.mixer = new THREE.AnimationMixer(cloned);
+      bot.actions = {};
+      ['idle', 'run', 'punch', 'kick', 'jump', 'slide', 'crawl'].forEach((slot) => {
+        if (tmpl.clips[slot]) {
+          const prep = prepareClipForModel(tmpl.clips[slot], cloned, slot);
+          if (prep.tracks.length > 0) {
+            bot.actions[slot] = bot.mixer.clipAction(prep);
+          }
+        }
+      });
+      if (bot.actions.idle) {
+        bot.actions.idle.play();
+        bot.activeAction = bot.actions.idle;
+      }
+
+      // Attach 3D Crossbow prop to Coyote bots, or 3D Magician's Wand to Sorceress bots!
+      if (bot.heroType === 'coyote' && templates.crossbowScene) {
+        const bowClone = templates.crossbowScene.clone(true);
+        const bowPivot = new THREE.Group();
+        bowClone.rotation.y = -Math.PI / 2;
+        bowClone.position.set(0, -0.14, 0.24);
+        bowPivot.scale.setScalar(0.86);
+        bowPivot.add(bowClone);
+        scene.add(bowPivot);
+        bot.bowPivot = bowPivot;
+      } else if (bot.heroType === 'sorceress' && !window.SORCERESS_MIXAMO) {
+        const wandPivot = createWandMeshGroup();
+        scene.add(wandPivot);
+        bot.bowPivot = wandPivot;
+      }
+
+      bot.rigLoaded = true;
+    }
+
+    function applyBotSpecStats(bot, heroType) {
+      const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroType]) || DATA.HERO_SPECS.brawler;
+      const isRanged = heroType === 'coyote' || heroType === 'sorceress';
+      const lv = Math.max(0, (bot.level || 1) - 1);
+      bot.heroType = heroType;
+      bot.maxHp = Math.round(spec.baseHp + lv * spec.hpGrow);
+      bot.hp = Math.min(bot.hp || bot.maxHp, bot.maxHp);
+      bot.armor = Math.round(spec.baseArmor + lv * spec.armorGrow);
+      bot.fResist = Math.round(spec.baseFResist + lv * spec.fResistGrow);
+      bot.physAtk = Math.round(spec.baseAtk + lv * spec.atkGrow);
+      bot.fant = Math.round((spec.baseFant || 0) + lv * (spec.fantGrow || 0));
+      bot.atk = heroType === 'sorceress' ? Math.round(bot.physAtk * 0.40 + bot.fant * 0.55) : bot.physAtk;
+      bot.dmgType = heroType === 'sorceress' ? 'fantasy' : 'physical';
+      bot.range = isRanged ? 8.2 : (heroType === 'panther' ? 2.15 : 1.95);
+      bot.spd = spec.baseSpd * 0.97;
+    }
+
+    function spawnBots() {
+      bots.forEach((b) => {
+        mapGroup.remove(b.pivot);
+        if (b.bowPivot) scene.remove(b.bowPivot);
+        if (b.plate) b.plate.remove();
+      });
+      bots.length = 0;
+
+      const roster = buildBotRoster(getActiveHeroId());
+      roster.forEach((cfg) => {
+        const pivot = new THREE.Group();
+        const ring = new THREE.Mesh(
+          new THREE.RingGeometry(0.62, 0.75, 32),
+          new THREE.MeshBasicMaterial({ color: cfg.team === 0 ? 0x38bdf8 : 0xf43f5e, side: THREE.DoubleSide, transparent: true, opacity: 0.65 })
+        );
+        ring.rotation.x = -Math.PI / 2;
+        ring.position.y = 0.03;
+        pivot.add(ring);
+
+        // Fallback capsule until FBX template finishes parsing
+        const ph = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.42, 0.45, 1.8, 12),
+          cfg.team === 0 ? orderMat : chaosMat
+        );
+        ph.position.y = 0.9;
+        pivot.add(ph);
+
+        pivot.position.set(cfg.homeX, 0, cfg.homeZ);
+        mapGroup.add(pivot);
+
+        const bot = {
+          ...cfg,
+          x: cfg.homeX,
+          z: cfg.homeZ,
+          r: cfg.heroType === 'bodyguard' ? 0.62 : 0.52,
+          facing: cfg.team === 0 ? Math.PI / 2 : -Math.PI / 2,
+          level: 1,
+          xp: 0,
+          gold: 500,
+          hp: 1500,
+          maxHp: 1500,
+          armor: 22,
+          fResist: 22,
+          bonusResAura: 0,
+          atk: 55,
+          dmgType: 'physical',
+          range: 2.0,
+          spd: 5.9,
+          atkCd: 0,
+          skillCd: 3.0,
+          cdQ: 1.5,
+          cdE: 2.5,
+          cdR: 5.0,
+          qTempoStacks: 0,
+          qTempoTimer: 0,
+          siphonBonus: 0,
+          siphonTimer: 0,
+          stealthTimer: 0,
+          arenaTimer: 0,
+          monoTimer: 0,
+          monoTick: 0,
+          basicCombo: 0,
+          atkAnimTimer: 0,
+          animSlot: 'punch',
+          animTimeScale: 1.0,
+          animStartTime: 0,
+          animForceRestart: false,
+          leapTimer: 0,
+          leapDur: 0.42,
+          leapSx: cfg.homeX,
+          leapSz: cfg.homeZ,
+          leapTx: cfg.homeX,
+          leapTz: cfg.homeZ,
+          leapOnLand: null,
+          dashTimer: 0,
+          dashVx: 0,
+          dashVz: 0,
+          respawnTimer: 0,
+          bleedStacks: 0,
+          bleedTimer: 0,
+          slowTimer: 0,
+          stunTimer: 0,
+          tauntTimer: 0,
+          knockbackVx: 0,
+          knockbackVz: 0,
+          knockbackTimer: 0,
+          knockbackWallStun: false,
+          lastDamagedByPlayerAt: -99,
+          wpIdx: cfg.team === 0 ? 1 : 5,
+          campIdx: 0,
+          pivot,
+          groundRing: ring,
+          placeholder: ph,
+          rigLoaded: false,
+          mixer: null,
+          actions: {},
+          activeAction: null,
+          plate: createPlate(cfg.team === 0 ? '' : 'enemy', cfg.name)
+        };
+        applyBotSpecStats(bot, cfg.heroType);
+        bot.hp = bot.maxHp;
+        bots.push(bot);
+        attachRigToBot(bot);
+      });
+    }
+
+    // Keep Order Team with 4 distinct heroes when the player switches heroes (1/2/3/4/5)
+    function syncAlliedBotsToPlayerHero() {
+      const playerHero = getActiveHeroId();
+      const allFive = ['brawler', 'panther', 'coyote', 'sorceress', 'bodyguard'];
+      const usedByOrder = new Set([playerHero]);
+      const allyBots = bots.filter((b) => b.team === 0);
+      allyBots.forEach((b) => {
+        if (!usedByOrder.has(b.heroType)) {
+          usedByOrder.add(b.heroType);
+        }
+      });
+      allyBots.forEach((b) => {
+        if (b.heroType === playerHero) {
+          const replacement = allFive.find((h) => !usedByOrder.has(h)) || 'brawler';
+          usedByOrder.add(replacement);
+          if (b.model) b.pivot.remove(b.model);
+          if (b.bowPivot) { scene.remove(b.bowPivot); b.bowPivot = null; }
+          b.rigLoaded = false;
+          b.name = 'Ally ' + HERO_LABELS[replacement] + ' (' + b.role + ')';
+          applyBotSpecStats(b, replacement);
+          attachRigToBot(b);
+        }
+      });
+    }
+
+    // =========================================================
+    // SPAWN MARCHING 3D MINION WAVES (MELEE, RANGED & SUPER!)
+    // =========================================================
+    function spawnMinionWave() {
+      waveCount++;
+      ['top', 'bot'].forEach((lane) => {
+        [0, 1].forEach((team) => {
+          const enemyTeam = 1 - team;
+          const enemyRax = structures.find((s) => s.team === enemyTeam && s.lane === lane && s.kind === 'barracks');
+          const spawnSuper = enemyRax && enemyRax.hp <= 0;
+
+          const wps = DATA.LANE_WAYPOINTS[lane];
+          // Spawn right on the lane-facing front of the Barracks (wpIdx 1 is just ahead) so minions never get wedged behind the Barracks!
+          const startWp = team === 0 ? { x: -48.0, z: lane === 'top' ? -18.5 : 18.5 } : { x: 48.0, z: lane === 'top' ? -18.5 : 18.5 };
+          const dir = team === 0 ? 1 : -1;
+
+          // 2-Rank Phalanx Formation: 3 Melee in Front Rank (-1.65m, 0m, +1.65m), 2 Ranged in Back Rank (-0.95m, +0.95m), +1 Super Vanguard
+          const slots = [
+            { kind: 'melee',  rankBack: 0.0,  formZ: -1.65 },
+            { kind: 'melee',  rankBack: 0.0,  formZ:  0.00 },
+            { kind: 'melee',  rankBack: 0.0,  formZ:  1.65 },
+            { kind: 'ranged', rankBack: 2.1,  formZ: -0.95 },
+            { kind: 'ranged', rankBack: 2.1,  formZ:  0.95 }
+          ];
+          if (spawnSuper) slots.push({ kind: 'super', rankBack: -1.2, formZ: 0.0 });
+
+          slots.forEach((slot) => {
+            const kind = slot.kind;
+            const grp = new THREE.Group();
+            const isSuper = kind === 'super';
+            const isRanged = kind === 'ranged';
+            const sc = isSuper ? 1.48 : (isRanged ? 0.78 : 0.92);
+            const mat = isSuper ? superMat : (team === 0 ? orderMat : chaosMat);
+
+            // Team-colored ground ring so Order vs Chaos minions and their spacing are immediately readable
+            const ring = new THREE.Mesh(
+              new THREE.RingGeometry(0.36 * sc, 0.46 * sc, 18),
+              new THREE.MeshBasicMaterial({
+                color: isSuper ? 0xfde047 : (team === 0 ? 0x38bdf8 : 0xf43f5e),
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.55
+              })
+            );
+            ring.rotation.x = -Math.PI / 2;
+            ring.position.y = 0.025;
+            grp.add(ring);
+
+            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.32 * sc, 0.38 * sc, 1.05 * sc, 8), mat);
+            body.position.y = 0.55 * sc;
+            body.castShadow = true;
+            grp.add(body);
+
+            const head = new THREE.Mesh(
+              isRanged ? new THREE.OctahedronGeometry(0.26 * sc, 0) : new THREE.SphereGeometry(0.24 * sc, 8, 8),
+              goldTrimMat
+            );
+            head.position.y = 1.22 * sc;
+            grp.add(head);
+
+            const ox = startWp.x - dir * slot.rankBack;
+            const oz = startWp.z + slot.formZ;
+            grp.position.set(ox, 0, oz);
+            mapGroup.add(grp);
+
+            const maxHp = isSuper ? 1250 : (isRanged ? 380 : 560);
+            minions.push({
+              id: 'min_' + (++minionSeq),
+              team,
+              lane,
+              kind,
+              x: ox,
+              z: oz,
+              formZ: slot.formZ,
+              r: 0.42 * sc,
+              hp: maxHp,
+              maxHp,
+              armor: isSuper ? 28 : (isRanged ? 6 : 12),
+              fResist: isSuper ? 24 : (isRanged ? 6 : 10),
+              atk: isSuper ? 48 : (isRanged ? 24 : 18),
+              range: isRanged ? 6.2 : 1.75,
+              spd: 4.5,
+              atkCd: Math.random() * 0.4,
+              bleedStacks: 0,
+              bleedTimer: 0,
+              tauntTimer: 0,
+              knockbackVx: 0,
+              knockbackVz: 0,
+              knockbackTimer: 0,
+              knockbackWallStun: false,
+              lastDamagedByPlayerAt: -99,
+              wpIdx: team === 0 ? 1 : wps.length - 2,
+              mesh: grp,
+              plate: createPlate(team === 0 ? '' : 'enemy', isSuper ? 'SUPER MINION' : '', true)
+            });
+          });
+        });
+      });
+    }
+
+    // =========================================================
+    // PURE PROXIMITY GOLD & XP (WITH 2V2 SUPPORT TRIBUTE!)
+    // =========================================================
+    function grantProximityReward(deadTeam, x, z, baseGold, baseXp) {
+      const rewardTeam = 1 - deadTeam;
+      if (rewardTeam === 0) {
+        // Player receives full proximity Gold & XP within 16m (or global assist share if on map!)
+        const dPlayer = Math.hypot(hero.x - x, hero.z - z);
+        if (playerProg.respawnTimer <= 0 && dPlayer <= 16.5) {
+          // Support Tribute: Even if Allied Duo Partner Bot is right next to you in 2v2 Bot Lane, you get 100% unstarved Gold & XP!
+          addPlayerGoldAndXp(baseGold, baseXp, x, z);
+        }
+        bots.forEach((b) => {
+          if (b.team === 0 && b.respawnTimer <= 0 && Math.hypot(b.x - x, b.z - z) <= 16.5) {
+            b.gold += baseGold;
+            b.xp += baseXp;
+            checkBotLevelUp(b);
+          }
+        });
+      } else {
+        bots.forEach((b) => {
+          if (b.team === 1 && b.respawnTimer <= 0 && Math.hypot(b.x - x, b.z - z) <= 16.5) {
+            b.gold += baseGold;
+            b.xp += baseXp;
+            checkBotLevelUp(b);
+          }
+        });
+      }
+    }
+
+    function addPlayerGoldAndXp(goldAmt, xpAmt, fx, fz) {
+      playerProg.gold += Math.round(goldAmt);
+      playerProg.xp += Math.round(xpAmt);
+      if (goldAmt >= 25) {
+        spawnFloat(fx, 2.1, fz, '+' + Math.round(goldAmt) + 'g', '#fde047');
+      }
+      while (playerProg.level < 12 && playerProg.xp >= DATA.LEVEL_XP[playerProg.level + 1]) {
+        playerProg.level++;
+        const st = getPlayerStats();
+        hero.maxHp = st.maxHp;
+        hero.maxMp = st.maxMp;
+        hero.hp = Math.min(hero.maxHp, hero.hp + 180);
+        hero.mp = Math.min(hero.maxMp, (hero.mp || 0) + 95);
+        SFX.play('chime');
+        spawnShockRing(hero.x, hero.z, 0xfde047, 0.3, 2.2, 0.4);
+        spawnFloat(hero.x, 2.9, hero.z, 'LEVEL UP! LV ' + playerProg.level, '#fde047');
+        if (playerProg.level === 4) {
+          spawnFloat(hero.x, 3.3, hero.z, 'ULTIMATE (R) UNLOCKED!', '#f59e0b');
+        } else if (playerProg.level === 6 || playerProg.level === 9) {
+          spawnFloat(hero.x, 3.3, hero.z, 'Q & E UPGRADED (RANK ' + (playerProg.level >= 9 ? 3 : 2) + ')!', '#38bdf8');
+        } else if (playerProg.level === 8 || playerProg.level === 12) {
+          spawnFloat(hero.x, 3.3, hero.z, 'ULTIMATE UPGRADED (RANK ' + (playerProg.level >= 12 ? 3 : 2) + ')!', '#f59e0b');
+        }
+        refreshTalentModalUI();
+      }
+      refreshShopAndHudUI();
+    }
+
+    function checkBotLevelUp(b) {
+      while (b.level < 12 && b.xp >= DATA.LEVEL_XP[b.level + 1]) {
+        const prevMax = b.maxHp;
+        b.level++;
+        applyBotSpecStats(b, b.heroType);
+        b.hp = Math.min(b.maxHp, b.hp + (b.maxHp - prevMax) + 90);
+      }
+    }
+
+    // Compute Shirtless Bodyguard Passive ("Stand Behind Me!"): +14 Armor & Fantasy Resist per Ally-Enemy threat line screened
+    function computeBodyguardStacks() {
+      const heroId = getActiveHeroId();
+      bots.forEach((b) => { b.bonusResAura = 0; });
+      if (heroId !== 'bodyguard' || playerProg.respawnTimer > 0) {
+        hero.guardStacks = 0;
+        return 0;
+      }
+      if (hero.peakPhysiqueTimer > 0) {
+        hero.guardStacks = 6;
+        return 6;
+      }
+      let stacks = 0;
+      const allies = bots.filter((b) => b.team === 0 && b.respawnTimer <= 0);
+      const enemies = bots.filter((b) => b.team === 1 && b.respawnTimer <= 0);
+      allies.forEach((al) => {
+        let protectedAlly = false;
+        enemies.forEach((en) => {
+          if (Math.hypot(en.x - al.x, en.z - al.z) > 19.0) return;
+          const sx = en.x - al.x;
+          const sz = en.z - al.z;
+          const lenSq = sx * sx + sz * sz;
+          if (lenSq < 0.1) return;
+          const t = ((hero.x - al.x) * sx + (hero.z - al.z) * sz) / lenSq;
+          if (t > 0.08 && t < 0.94) {
+            const px = al.x + t * sx;
+            const pz = al.z + t * sz;
+            if (Math.hypot(hero.x - px, hero.z - pz) <= 2.9) {
+              stacks++;
+              protectedAlly = true;
+            }
+          }
+        });
+        if (protectedAlly && playerProg.talents[3] === 'R') {
+          al.bonusResAura = Math.min(6, stacks) * 7;
+        }
+      });
+      hero.guardStacks = Math.min(6, stacks);
+      return hero.guardStacks;
+    }
+
+    // Compute Player Total Stats (Base + Level + 4-Slot Items + Boss +10% All-Stats Buff + Talents + Passives!)
+    function getPlayerStats() {
+      const heroId = getActiveHeroId();
+      const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroId]) || DATA.HERO_SPECS.coyote;
+      const lvBonus = playerProg.level - 1;
+
+      let atk = Math.round(spec.baseAtk + lvBonus * spec.atkGrow);
+      let fant = Math.round(spec.baseFant + lvBonus * spec.fantGrow);
+      let maxHp = Math.round(spec.baseHp + lvBonus * spec.hpGrow);
+      let maxMp = Math.round(spec.baseMp + lvBonus * spec.mpGrow);
+      let mpRegen = spec.mpRegen + lvBonus * 0.45;
+      let armor = Math.round(spec.baseArmor + lvBonus * spec.armorGrow);
+      let fResist = Math.round(spec.baseFResist + lvBonus * spec.fResistGrow);
+      let asPct = lvBonus * (heroId === 'coyote' ? 0.038 : 0.03);
+      let spdPct = 0;
+      let lifesteal = 0;
+      let cdr = 0;
+      let slowOnHit = 0;
+      let cleaveProc = 0;
+      let executeAmp = 0;
+      let spellAmp = 0;
+      let allyAuraRes = 0;
+
+      playerProg.items.forEach((it) => {
+        const st = it.stats;
+        if (st.atk) atk += st.atk;
+        if (st.fant) fant += st.fant;
+        if (st.maxHp) maxHp += st.maxHp;
+        if (st.maxMp) maxMp += st.maxMp;
+        if (st.mpRegen) mpRegen += st.mpRegen;
+        if (st.armor) armor += st.armor;
+        if (st.fResist) fResist += st.fResist;
+        if (st.asPct) asPct += st.asPct;
+        if (st.spdPct) spdPct += st.spdPct;
+        if (st.lifesteal) lifesteal += st.lifesteal;
+        if (st.cdr) cdr += st.cdr;
+        if (st.slowOnHit) slowOnHit = Math.max(slowOnHit, st.slowOnHit);
+        if (st.cleaveProc) cleaveProc += st.cleaveProc;
+        if (st.executeAmp) executeAmp = Math.max(executeAmp, st.executeAmp);
+        if (st.spellAmp) spellAmp += st.spellAmp;
+        if (st.allyAuraRes) allyAuraRes += st.allyAuraRes;
+      });
+
+      // Bodyguard Passive ("Stand Behind Me!"): +14 Armor & Fantasy Resist per stack
+      const guardStacks = computeBodyguardStacks();
+      if (heroId === 'bodyguard' && guardStacks > 0) {
+        armor += guardStacks * 14;
+        fResist += guardStacks * 14;
+      }
+
+      // Coyote 3L Talent: Bloodhound Stride (+4% MS per active Bleed stack on nearby enemies)
+      if (heroId === 'coyote' && playerProg.talents[3] === 'L') {
+        let nearBleeds = 0;
+        bots.forEach((b) => { if (b.team === 1 && b.bleedStacks > 0 && Math.hypot(b.x - hero.x, b.z - hero.z) <= 14) nearBleeds += b.bleedStacks; });
+        camps.forEach((c) => { if (c.bleedStacks > 0 && Math.hypot(c.x - hero.x, c.z - hero.z) <= 14) nearBleeds += c.bleedStacks; });
+        spdPct += Math.min(0.20, nearBleeds * 0.04);
+      }
+
+      // Panther Passive ("Shadow Stalker"): +28% Move Speed (+38% with 3L Duskwalker) while Unseen by enemies (or lingering for 2.2s/3.5s after being spotted!)
+      let pantherUnseen = false;
+      if (heroId === 'panther' && playerProg.respawnTimer <= 0) {
+        if (!isPlayerSeenByChaos()) {
+          hero.unseenLingerTimer = playerProg.talents[3] === 'L' ? 3.5 : 2.2;
+        }
+        if ((hero.stealthTimer || 0) > 0 || (hero.unseenLingerTimer || 0) > 0) {
+          pantherUnseen = true;
+          spdPct += (playerProg.talents[3] === 'L' ? 0.38 : 0.28);
+        }
+      }
+
+      // Central Boss +10% All-Stats Buff!
+      if (bossBuffTimer[0] > 0) {
+        atk = Math.round(atk * 1.10);
+        fant = Math.round(fant * 1.10);
+        maxHp = Math.round(maxHp * 1.10);
+        maxMp = Math.round(maxMp * 1.10);
+        armor = Math.round(armor * 1.10);
+        fResist = Math.round(fResist * 1.10);
+        spdPct += 0.10;
+      }
+
+      const maxBleed = (heroId === 'coyote' && playerProg.talents[7] === 'R') ? 5 : 4;
+      const qeRank = playerProg.level >= 9 ? 3 : (playerProg.level >= 6 ? 2 : 1);
+      const ultRank = playerProg.level >= 12 ? 3 : (playerProg.level >= 8 ? 2 : (playerProg.level >= 4 ? 1 : 0));
+      return {
+        atk, fant, maxHp, maxMp, mpRegen, armor, fResist,
+        asPct, spdPct, lifesteal, cdr, slowOnHit, cleaveProc,
+        executeAmp, spellAmp, allyAuraRes, maxBleed, guardStacks, pantherUnseen, qeRank, ultRank
+      };
+    }
+
+    // =========================================================
+    // UNIFIED TARGET QUERY & DAMAGE ROUTING FOR PLAYER KIT
+    // =========================================================
+    function getHostileTargets() {
+      const list = [];
+      if (!matchMode) return list;
+      bots.forEach((b) => {
+        if (b.team === 1 && b.respawnTimer <= 0) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r });
+      });
+      minions.forEach((m) => {
+        if (m.team === 1 && m.hp > 0) list.push({ kind: 'minion', ref: m, x: m.x, z: m.z, r: m.r });
+      });
+      camps.forEach((c) => {
+        if (c.respawnTimer <= 0 && c.hp > 0) list.push({ kind: 'camp', ref: c, x: c.x, z: c.z, r: c.r });
+      });
+      structures.forEach((s) => {
+        if (s.team === 1 && s.hp > 0) list.push({ kind: 'structure', ref: s, x: s.x, z: s.z, r: s.r });
+      });
+      return list;
+    }
+
+    function getAlliedTargets() {
+      const list = [];
+      if (!matchMode) return list;
+      bots.forEach((b) => {
+        if (b.team === 0 && b.respawnTimer <= 0) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r });
+      });
+      return list;
+    }
+
+    function dealPlayerDamageToUnit(targetObj, rawDmg, opts = {}) {
+      const st = getPlayerStats();
+      const u = targetObj.ref;
+      if (!u || (u.hp !== undefined && u.hp <= 0)) return false;
+
+      // 1. Structure Invulnerability & Backdoor Protection Check!
+      if (targetObj.kind === 'structure') {
+        if (!isStructureVulnerable(u)) {
+          if (!opts.isDoT) {
+            SFX.play('block');
+            spawnShockRing(u.x, u.z, 0xfde047, 0.4, u.r + 0.6, 0.22);
+            spawnFloat(u.x, 3.2, u.z, 'INVULNERABLE! (DESTROY OUTER TOWER FIRST)', '#fde047');
+          }
+          return false;
+        }
+      }
+
+      // 2. Jungle Camp Leash Territory & Evade Check!
+      if (targetObj.kind === 'camp') {
+        if (u.state === 'leashing') {
+          if (!opts.isDoT) {
+            SFX.play('block');
+            spawnFloat(u.x, 2.5, u.z, 'LEASHING (INVULNERABLE)', '#fde047');
+          }
+          return false;
+        }
+        const playerDistFromHome = Math.hypot(hero.x - u.homeX, hero.z - u.homeZ);
+        if (!opts.isDoT && playerDistFromHome > u.leashR + 0.8) {
+          SFX.play('block');
+          if (u.leashRing) u.leashRing.visible = true;
+          spawnFloat(u.x, 2.6, u.z, 'EVADED! (FIGHT INSIDE CAMP TERRITORY)', '#fde047');
+          return false;
+        }
+        // Aggro Camp onto Player!
+        u.state = 'aggro';
+        u.aggroTarget = hero;
+        u.patience = 5.0;
+        if (u.leashRing) u.leashRing.visible = true;
+      }
+
+      const dmgType = opts.dmgType || 'physical';
+      let dmg = rawDmg;
+
+      // Fantasy Spell Amp Item Proc (Crown of the Astral Archon: +18% bonus Fantasy spell dmg)
+      if (dmgType === 'fantasy' && !opts.isBasic && st.spellAmp > 0) {
+        dmg *= (1 + st.spellAmp);
+      }
+
+      // Armor vs. Fantasy Resist Mitigation on Target
+      const targetResist = dmgType === 'fantasy'
+        ? (u.fResist !== undefined ? u.fResist : (u.armor || 16))
+        : (u.armor || 0);
+      dmg *= 100 / (100 + Math.max(0, targetResist));
+
+      // Backdoor Protection on Enemy Structures (65% damage reduction if no Order minions within 11.5m!)
+      if (targetObj.kind === 'structure') {
+        const hasAlliedWave = minions.some((m) => m.team === 0 && m.hp > 0 && Math.hypot(m.x - u.x, m.z - u.z) <= 11.5);
+        if (!hasAlliedWave) {
+          dmg *= 0.35;
+        }
+      }
+
+      // Execute Amp Item Proc (+25% dmg vs targets <45% HP)
+      if (st.executeAmp > 0 && u.hp / u.maxHp < 0.45 && targetObj.kind !== 'structure') {
+        dmg *= (1 + st.executeAmp);
+      }
+
+      dmg = Math.max(1, Math.round(dmg));
+      u.hp -= dmg;
+      u.lastDamagedByPlayerAt = matchTime;
+
+      // Physical/Spell Lifesteal Item Proc
+      if (st.lifesteal > 0 && hero.hp < hero.maxHp) {
+        hero.hp = Math.min(hero.maxHp, hero.hp + Math.round(dmg * st.lifesteal));
+      }
+
+      // Bleed Stacks (Coyote Passive)
+      if (opts.bleedAdd && targetObj.kind !== 'structure') {
+        u.bleedStacks = Math.min(st.maxBleed, (u.bleedStacks || 0) + opts.bleedAdd);
+        u.bleedTimer = 5.5;
+      }
+
+      // Slow-on-Hit Item Proc or Ability Slow
+      if ((st.slowOnHit > 0 || opts.slowDur) && targetObj.kind !== 'structure') {
+        u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur || 1.5);
+      }
+
+      // Stun (Brawler Q Kick / Wall Stun)
+      if (opts.stunDur && targetObj.kind !== 'structure') {
+        u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
+        spawnFloat(u.x, 2.6, u.z, 'STUNNED!', '#fde047');
+      }
+
+      // Taunt (Bodyguard R Eyes On Me!)
+      if (opts.tauntDur && targetObj.kind !== 'structure') {
+        u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
+        spawnFloat(u.x, 2.65, u.z, 'TAUNTED!', '#fde047');
+      }
+
+      // Knockback Displacement (Bodyguard Q Bouncer Haymaker / Sorceress 10L Gravity Collapse)
+      if (opts.knockbackDist && targetObj.kind !== 'structure') {
+        let dirX = opts.knockbackDirX;
+        let dirZ = opts.knockbackDirZ;
+        if (dirX === undefined || dirZ === undefined) {
+          const ox = opts.kbOriginX !== undefined ? opts.kbOriginX : hero.x;
+          const oz = opts.kbOriginZ !== undefined ? opts.kbOriginZ : hero.z;
+          dirX = u.x - ox;
+          dirZ = u.z - oz;
+          if (Math.hypot(dirX, dirZ) < 0.01) {
+            dirX = Math.sin(hero.facing || 0);
+            dirZ = Math.cos(hero.facing || 0);
+          }
+        }
+        const kLen = Math.hypot(dirX, dirZ) || 1;
+        const kDur = opts.knockbackDur || 0.26;
+        u.knockbackVx = (dirX / kLen) * (opts.knockbackDist / kDur);
+        u.knockbackVz = (dirZ / kLen) * (opts.knockbackDist / kDur);
+        u.knockbackTimer = kDur;
+        u.knockbackWallStun = !!opts.wallStun;
+        if (opts.knockbackDist > 0) {
+          spawnFloat(u.x, 2.55, u.z, 'KNOCKBACK!', '#38bdf8');
+        }
+      }
+
+      // Cleave Item Proc (Pit Champion's Cestus) — properly routes lethal cleave through handleUnitDeath!
+      if (opts.isBasic && st.cleaveProc > 0) {
+        spawnShockRing(u.x, u.z, 0xfbbf24, 0.2, 2.3, 0.2);
+        getHostileTargets().forEach((other) => {
+          if (other.ref !== u && other.kind !== 'structure' && other.ref.hp > 0 && Math.hypot(other.x - u.x, other.z - u.z) <= 2.4) {
+            const cleaveDmg = Math.max(1, Math.round(st.cleaveProc * (100 / (100 + (other.ref.armor || 0)))));
+            other.ref.hp -= cleaveDmg;
+            other.ref.lastDamagedByPlayerAt = matchTime;
+            if (other.ref.plate) {
+              const hpEl = other.ref.plate.querySelector('.plate-hp');
+              if (hpEl) hpEl.style.width = Math.max(0, (other.ref.hp / other.ref.maxHp) * 100) + '%';
+            }
+            spawnFloat(other.x, 2.0, other.z, String(cleaveDmg), '#fbbf24');
+            if (other.ref.hp <= 0) {
+              handleUnitDeath(other);
+            }
+          }
+        });
+      }
+
+      if (u.plate) {
+        const hpEl = u.plate.querySelector('.plate-hp');
+        if (hpEl) hpEl.style.width = Math.max(0, (u.hp / u.maxHp) * 100) + '%';
+      }
+      const defaultCol = dmgType === 'fantasy' ? '#38bdf8' : '#fb7185';
+      spawnFloat(u.x, 2.2, u.z, String(dmg), opts.color || defaultCol);
+
+      // Check Unit Death & Rewards!
+      if (u.hp <= 0) {
+        handleUnitDeath(targetObj);
+      }
+      return true;
+    }
+
+    // Sorceress Passive ("Soul Siphon"): Enemies dying within 2.5s of taking damage from you restore 36 (+6/Lv) Mana (3x on Heroes!)
+    function checkSorceressSoulSiphon(u, isHeroVictim) {
+      if (getActiveHeroId() !== 'sorceress') return;
+      if (!u || matchTime - (u.lastDamagedByPlayerAt || -99) > 2.5) return;
+      const baseMana = 36 + playerProg.level * 6;
+      const gain = isHeroVictim ? baseMana * 3 : baseMana;
+      hero.mp = Math.min(hero.maxMp || 440, (hero.mp || 0) + gain);
+      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.25, 1.45, 0.25);
+      spawnFloat(hero.x, 2.75, hero.z, 'SOUL SIPHON +' + gain + ' MP!', '#38bdf8');
+    }
+
+    function handleUnitDeath(targetObj) {
+      const u = targetObj.ref;
+      if (!u) return;
+      if (targetObj.kind === 'minion') {
+        u.hp = 0;
+        mapGroup.remove(u.mesh);
+        if (u.plate) u.plate.remove();
+        const idx = minions.indexOf(u);
+        if (idx >= 0) minions.splice(idx, 1);
+        if (!u._dead) {
+          u._dead = true;
+          if (u.team === 1) checkSorceressSoulSiphon(u, false);
+          grantProximityReward(u.team, u.x, u.z, u.kind === 'super' ? 68 : 34, u.kind === 'super' ? 85 : 46);
+        }
+      } else if (targetObj.kind === 'camp') {
+        u.hp = 0;
+        u.respawnTimer = u.respawnDur;
+        u.state = 'idle';
+        u.aggroTarget = null;
+        u.bleedStacks = 0;
+        u.x = u.homeX;
+        u.z = u.homeZ;
+        u.mobGrp.position.set(0, 0, 0);
+        u.mobGrp.visible = false;
+        if (u.leashRing) u.leashRing.visible = false;
+        u.plate.style.display = 'none';
+        checkSorceressSoulSiphon(u, u.isBoss);
+        addPlayerGoldAndXp(u.gold, u.xp, u.x, u.z);
+        if (u.isBoss) {
+          bossBuffTimer[0] = 90.0; // +10% All-Stats Buff for 90s!
+          SFX.play('arena');
+          spawnShockRing(u.x, u.z, 0xfde047, 0.5, 5.5, 0.5);
+          spawnFloat(u.x, 3.4, u.z, 'BOSS SLAIN! +10% ALL STATS (90s)', '#fde047');
+        }
+      } else if (targetObj.kind === 'bot') {
+        u.hp = 0;
+        u.respawnTimer = 8 + u.level * 1.5;
+        u.bleedStacks = 0;
+        u.tauntTimer = 0;
+        u.knockbackTimer = 0;
+        u.pivot.visible = false;
+        if (u.bowPivot) u.bowPivot.visible = false;
+        u.plate.style.display = 'none';
+        if (u.team === 1) {
+          teamKills[0]++;
+          playerProg.kills++;
+          checkSorceressSoulSiphon(u, true);
+          // Panther 10L Talent ("Apex Reset"): Hero takedowns within 4s of exiting R Stealth refresh E and grant 2.5s Stealth!
+          if (getActiveHeroId() === 'panther' && playerProg.talents[10] === 'L' && ((hero.stealthTimer || 0) > 0 || (hero.stealthExitTimer || 0) > 0)) {
+            hero.cdE = 0;
+            hero.stealthTimer = Math.max(hero.stealthTimer || 0, 2.5);
+            spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.3, 2.2, 0.32);
+            spawnFloat(hero.x, 3.0, hero.z, 'APEX RESET! E REFRESHED + 2.5s STEALTH!', '#2dd4bf');
+          }
+          addPlayerGoldAndXp(240 + u.level * 20, 260 + u.level * 25, u.x, u.z);
+          spawnFloat(u.x, 2.9, u.z, 'ENEMY HERO SLAIN! +260g', '#fde047');
+        } else {
+          teamKills[1]++;
+        }
+      } else if (targetObj.kind === 'structure') {
+        u.hp = 0;
+        u.mesh.visible = false;
+        u.plate.style.display = 'none';
+        SFX.play('arena');
+        spawnShockRing(u.x, u.z, 0xfde047, 0.6, 4.2, 0.45);
+        if (u.team === 1) {
+          addPlayerGoldAndXp(280, 300, u.x, u.z);
+          if (u.kind === 'barracks') {
+            spawnFloat(u.x, 3.2, u.z, 'BARRACKS DESTROYED! SUPER MINIONS SPAWNING!', '#fde047');
+          } else {
+            spawnFloat(u.x, 3.0, u.z, u.name.toUpperCase() + ' DESTROYED!', '#fde047');
+          }
+        }
+        if (u.kind === 'ancient') {
+          const win = u.team === 1;
+          gameOver = {
+            winnerTeam: win ? 0 : 1,
+            title: win ? 'VICTORY — CHAOS ANCIENT DESTROYED!' : 'DEFEAT — ORDER ANCIENT FELL'
+          };
+          showVictoryModal();
+        }
+      }
+    }
+
+    // =========================================================
+    // TACTICAL PINGS & OBSERVER WARDS (F) & RECALL (B)
+    // =========================================================
+    function placeWard() {
+      if (playerProg.wardCharges <= 0) {
+        spawnFloat(hero.x, 2.5, hero.z, 'WARD RECHARGING!', '#fb7185');
+        return;
+      }
+      playerProg.wardCharges--;
+      if (playerProg.wardRechargeTimer <= 0) playerProg.wardRechargeTimer = 45.0;
+
+      const dx = ctx.aimWorld.x - hero.x;
+      const dz = ctx.aimWorld.z - hero.z;
+      const dist = Math.min(7.5, Math.hypot(dx, dz) || 0.01);
+      const ang = Math.atan2(dx, dz);
+      const wx = hero.x + Math.sin(ang) * dist;
+      const wz = hero.z + Math.cos(ang) * dist;
+
+      const wGrp = new THREE.Group();
+      const post = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.14, 1.1, 8), goldTrimMat);
+      post.position.y = 0.55;
+      wGrp.add(post);
+      const eye = new THREE.Mesh(new THREE.OctahedronGeometry(0.24, 0), new THREE.MeshBasicMaterial({ color: 0x38bdf8 }));
+      eye.position.y = 1.25;
+      wGrp.add(eye);
+      const vRing = new THREE.Mesh(
+        new THREE.RingGeometry(15.8, 16.0, 48),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide, transparent: true, opacity: 0.22 })
+      );
+      vRing.rotation.x = -Math.PI / 2;
+      vRing.position.y = 0.04;
+      wGrp.add(vRing);
+
+      wGrp.position.set(wx, 0, wz);
+      mapGroup.add(wGrp);
+      wards.push({ x: wx, z: wz, life: 75.0, mesh: wGrp, eye });
+      SFX.play('chime');
+      spawnFloat(wx, 2.2, wz, 'OBSERVER WARD (75s)', '#38bdf8');
+      refreshShopAndHudUI();
+    }
+
+    function startRecall() {
+      if (playerProg.respawnTimer > 0) return;
+      playerProg.recallTimer = 3.0;
+      SFX.play('chime');
+      spawnFloat(hero.x, 2.6, hero.z, 'RECALLING TO FOUNTAIN (3.0s)...', '#38bdf8');
+    }
+
+    function triggerPing(kind, wx, wz) {
+      const colors = { attack: '#f43f5e', retreat: '#fde047', group: '#38bdf8', boss: '#f59e0b' };
+      const labels = { attack: 'ATTACK / GANK!', retreat: 'FALL BACK!', group: 'GROUP PUSH!', boss: 'TARGET BOSS!' };
+      const hex = colors[kind] || '#38bdf8';
+      SFX.play('chime');
+      spawnShockRing(wx, wz, parseInt(hex.slice(1), 16), 0.4, 3.5, 0.45);
+      spawnFloat(wx, 3.1, wz, 'PING: ' + labels[kind], hex);
+      pings.push({ kind, x: wx, z: wz, life: 8.0, color: hex });
+    }
+
+    // =========================================================
+    // UI: SCOREBOARD, MINIMAP, SHOP DRAWER & TALENT MODAL
+    // =========================================================
+    let minimapCtx = null;
+
+    function buildPhase1UI() {
+      const uiRoot = document.createElement('div');
+      uiRoot.id = 'phase1-ui-layer';
+      uiRoot.innerHTML = `
+        <!-- Top Scoreboard Pill -->
+        <div id="p1-scoreboard" style="position:absolute;top:58px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;padding:6px 16px;background:rgba(10,16,24,0.92);border:1px solid rgba(251,191,36,0.45);border-radius:8px;z-index:22;font-size:12px;font-weight:700;color:#f8fafc;box-shadow:0 6px 20px rgba(0,0,0,0.5);">
+          <span style="color:#38bdf8;">ORDER <b id="p1-score-o" style="font-size:15px;">0</b></span>
+          <span id="p1-clock" style="padding:2px 8px;background:rgba(255,255,255,0.08);border-radius:4px;font-family:monospace;font-size:13px;color:#fde047;">00:00</span>
+          <span style="color:#fb7185;"><b id="p1-score-c" style="font-size:15px;">0</b> CHAOS</span>
+          <span style="color:rgba(255,255,255,0.2);">|</span>
+          <span id="p1-kda" style="color:#cbd5e1;font-size:11px;">LV 1 • 0/0/0</span>
+          <span id="p1-gold" style="color:#fde047;font-size:12.5px;">🪙 600g</span>
+          <button type="button" id="p1-btn-shop" class="sb-btn" style="padding:3px 9px;font-size:11px;border-color:rgba(250,204,21,0.6);color:#fde047;">🛒 Shop (P)</button>
+          <button type="button" id="p1-btn-lvlup" class="sb-btn" style="padding:3px 8px;font-size:11px;border-color:rgba(56,189,248,0.6);color:#38bdf8;" title="Sandbox: Grant +1 Hero Level (tests Lv 3/7/10 Talents & Lv 6/8/9/12 Ability Ranks)">⬆️ +1 LV</button>
+          <button type="button" id="p1-btn-gold" class="sb-btn" style="padding:3px 8px;font-size:11px;border-color:rgba(74,222,128,0.6);color:#86efac;" title="Sandbox: Grant +500 Gold">+500g</button>
+          <button type="button" id="p1-btn-ward" class="sb-btn" style="padding:3px 8px;font-size:11px;" title="Place Observer Ward (F)">👁️ Ward (F): 2</button>
+          <button type="button" id="p1-btn-recall" class="sb-btn" style="padding:3px 8px;font-size:11px;" title="Channel 3s Free Recall to Fountain (B)">🌀 Recall (B)</button>
+          <select id="p1-bot-diff" style="background:#0f172a;color:#e2e8f0;border:1px solid rgba(255,255,255,0.2);border-radius:4px;padding:2px 6px;font-size:11px;">
+            <option value="easy">Bots: Easy (AA Only)</option>
+            <option value="normal" selected>Bots: Medium (Spells)</option>
+            <option value="hard">Bots: Hard (Tactical)</option>
+          </select>
+        </div>
+
+        <!-- Lv 3 / 6 / 10 Binary Talent Choice Banner -->
+        <div id="p1-talent-modal" style="display:none;position:absolute;bottom:142px;left:50%;transform:translateX(-50%);background:rgba(12,19,28,0.96);border:2px solid #fbbf24;border-radius:10px;padding:10px 16px;z-index:30;min-width:520px;box-shadow:0 10px 30px rgba(0,0,0,0.75);">
+          <div style="text-align:center;font-size:11.5px;font-weight:800;color:#fde047;letter-spacing:0.08em;margin-bottom:8px;" id="p1-talent-title">LEVEL 3 TALENT UNLOCKED — CHOOSE ONE</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <button type="button" id="p1-tal-left" style="text-align:left;padding:8px 12px;background:rgba(30,41,59,0.9);border:1px solid rgba(56,189,248,0.55);border-radius:6px;color:#f8fafc;cursor:pointer;">
+              <div style="font-size:12px;font-weight:800;color:#38bdf8;" id="p1-tal-l-name">[L] Left Talent</div>
+              <div style="font-size:10.5px;color:#cbd5e1;margin-top:2px;" id="p1-tal-l-desc"></div>
+            </button>
+            <button type="button" id="p1-tal-right" style="text-align:left;padding:8px 12px;background:rgba(30,41,59,0.9);border:1px solid rgba(251,191,36,0.55);border-radius:6px;color:#f8fafc;cursor:pointer;">
+              <div style="font-size:12px;font-weight:800;color:#fde047;" id="p1-tal-r-name">[R] Right Talent</div>
+              <div style="font-size:10.5px;color:#cbd5e1;margin-top:2px;" id="p1-tal-r-desc"></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4-Slot Base Item Shop Drawer -->
+        <div id="p1-shop-modal" style="display:none;position:absolute;top:105px;left:50%;transform:translateX(-50%);width:620px;background:rgba(11,17,26,0.97);border:1px solid rgba(251,191,36,0.55);border-radius:10px;padding:14px;z-index:35;color:#f8fafc;box-shadow:0 16px 40px rgba(0,0,0,0.8);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div>
+              <span style="font-size:14px;font-weight:800;color:#fde047;">FOUNTAIN ARMORY (4-SLOT PASSIVE &amp; PROC ITEMS)</span>
+              <div style="font-size:11px;color:#94a3b8;" id="p1-shop-status">Stand on Allied Fountain (or enable 0 CD Mode) to purchase items.</div>
+            </div>
+            <button type="button" id="p1-shop-close" class="sb-btn" style="padding:3px 9px;">✕ Close (P)</button>
+          </div>
+          <div style="margin-bottom:10px;display:flex;gap:8px;align-items:center;">
+            <span style="font-size:11px;font-weight:700;color:#cbd5e1;">YOUR 4 SLOTS:</span>
+            <div id="p1-inv-row" style="display:flex;gap:6px;flex:1;"></div>
+          </div>
+          <div id="p1-shop-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:280px;overflow-y:auto;"></div>
+        </div>
+
+        <!-- Bottom-Right Interactive 2D Minimap & Tactical Bot Pings -->
+        <div id="p1-minimap-box" style="position:absolute;right:14px;bottom:14px;background:rgba(9,14,22,0.94);border:1px solid rgba(251,191,36,0.45);border-radius:8px;padding:8px;z-index:24;box-shadow:0 8px 24px rgba(0,0,0,0.65);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;gap:4px;">
+            <span style="font-size:10px;font-weight:800;color:#fde047;letter-spacing:0.05em;">4V4 TACTICAL MAP</span>
+            <div style="display:flex;gap:3px;">
+              <button type="button" class="sb-btn" id="ping-btn-atk" style="padding:1px 5px;font-size:9.5px;color:#fb7185;" title="Ping Attack/Gank (Z)">⚔️ Z</button>
+              <button type="button" class="sb-btn" id="ping-btn-ret" style="padding:1px 5px;font-size:9.5px;color:#fde047;" title="Ping Retreat (X)">🛡️ X</button>
+              <button type="button" class="sb-btn" id="ping-btn-grp" style="padding:1px 5px;font-size:9.5px;color:#38bdf8;" title="Ping Group Push (C)">🚩 C</button>
+              <button type="button" class="sb-btn" id="ping-btn-boss" style="padding:1px 5px;font-size:9.5px;color:#f59e0b;" title="Ping Take Boss (V)">👑 V</button>
+            </div>
+          </div>
+          <canvas id="p1-minimap" width="222" height="150" style="display:block;border-radius:4px;border:1px solid rgba(255,255,255,0.14);cursor:crosshair;"></canvas>
+        </div>
+
+        <!-- Victory / Defeat Modal -->
+        <div id="p1-gameover-modal" style="display:none;position:absolute;inset:0;background:rgba(5,9,15,0.82);z-index:50;align-items:center;justify-content:center;flex-direction:column;gap:14px;">
+          <div id="p1-gameover-title" style="font-family:'Cinzel',serif;font-size:32px;font-weight:800;color:#fde047;text-shadow:0 4px 18px #000;">VICTORY</div>
+          <button type="button" id="p1-btn-restart" class="sb-btn toggled" style="padding:10px 22px;font-size:14px;font-weight:800;">Play Another 4v4 Match</button>
+        </div>
+      `;
+      document.getElementById('game-root').appendChild(uiRoot);
+
+      const mmCanvas = document.getElementById('p1-minimap');
+      minimapCtx = mmCanvas.getContext('2d');
+
+      // Click on Minimap -> Tactical Ping at clicked map coordinate!
+      mmCanvas.addEventListener('mousedown', (e) => {
+        const rect = mmCanvas.getBoundingClientRect();
+        const u = (e.clientX - rect.left) / rect.width;
+        const v = (e.clientY - rect.top) / rect.height;
+        const wx = (u - 0.5) * DATA.MAP_W;
+        const wz = (v - 0.5) * DATA.MAP_H;
+        triggerPing(e.altKey ? 'attack' : 'group', wx, wz);
+      });
+
+      document.getElementById('ping-btn-atk').addEventListener('click', () => triggerPing('attack', ctx.aimWorld.x, ctx.aimWorld.z));
+      document.getElementById('ping-btn-ret').addEventListener('click', () => triggerPing('retreat', hero.x, hero.z));
+      document.getElementById('ping-btn-grp').addEventListener('click', () => triggerPing('group', hero.x, hero.z));
+      document.getElementById('ping-btn-boss').addEventListener('click', () => triggerPing('boss', 0, 0));
+
+      document.getElementById('p1-btn-ward').addEventListener('click', placeWard);
+      document.getElementById('p1-btn-recall').addEventListener('click', startRecall);
+      document.getElementById('p1-btn-shop').addEventListener('click', toggleShopModal);
+      document.getElementById('p1-btn-lvlup').addEventListener('click', () => {
+        if (playerProg.level < 12) {
+          const nextXp = DATA.LEVEL_XP[playerProg.level + 1];
+          addPlayerGoldAndXp(0, Math.max(1, nextXp - playerProg.xp), hero.x, hero.z);
+        } else {
+          spawnFloat(hero.x, 2.8, hero.z, 'MAX LEVEL (LV 12) REACHED!', '#fde047');
+        }
+      });
+      document.getElementById('p1-btn-gold').addEventListener('click', () => {
+        addPlayerGoldAndXp(500, 0, hero.x, hero.z);
+      });
+      document.getElementById('p1-shop-close').addEventListener('click', toggleShopModal);
+      document.getElementById('p1-bot-diff').addEventListener('change', (e) => { botDifficulty = e.target.value; });
+      document.getElementById('p1-btn-restart').addEventListener('click', resetMatch);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.repeat) return;
+        if (e.code === 'KeyF') placeWard();
+        if (e.code === 'KeyB') startRecall();
+        if (e.code === 'KeyP') toggleShopModal();
+        if (e.code === 'KeyZ') triggerPing('attack', ctx.aimWorld.x, ctx.aimWorld.z);
+        if (e.code === 'KeyX') triggerPing('retreat', hero.x, hero.z);
+        if (e.code === 'KeyC') triggerPing('group', hero.x, hero.z);
+        if (e.code === 'KeyV') triggerPing('boss', 0, 0);
+      });
+
+      refreshShopAndHudUI();
+      refreshTalentModalUI();
+    }
+
+    function toggleShopModal() {
+      const el = document.getElementById('p1-shop-modal');
+      if (!el) return;
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      refreshShopAndHudUI();
+    }
+
+    function isNearOrderFountain() {
+      return Math.hypot(hero.x - (-62), hero.z - 0) <= 9.5 || ctx.isWtfMode();
+    }
+
+    function buyShopItem(itemId) {
+      const item = DATA.SHOP_ITEMS.find((it) => it.id === itemId);
+      if (!item) return;
+      if (!isNearOrderFountain()) {
+        spawnFloat(hero.x, 2.6, hero.z, 'RECALL TO FOUNTAIN (B) TO BUY!', '#fb7185');
+        return;
+      }
+      if (playerProg.items.length >= 4) {
+        spawnFloat(hero.x, 2.6, hero.z, '4 ITEM SLOTS FULL!', '#fb7185');
+        return;
+      }
+      if (playerProg.gold < item.cost) {
+        spawnFloat(hero.x, 2.6, hero.z, 'NEED ' + item.cost + ' GOLD!', '#fb7185');
+        return;
+      }
+      playerProg.gold -= item.cost;
+      playerProg.items.push(item);
+      const st = getPlayerStats();
+      hero.maxHp = st.maxHp;
+      hero.hp = Math.min(hero.maxHp, hero.hp + (item.stats.maxHp || 0));
+      SFX.play('chime');
+      spawnFloat(hero.x, 2.7, hero.z, 'EQUIPPED: ' + item.name, '#fde047');
+      refreshShopAndHudUI();
+    }
+
+    function refreshShopAndHudUI() {
+      const gEl = document.getElementById('p1-gold');
+      if (!gEl) return;
+      gEl.textContent = '🪙 ' + playerProg.gold + 'g';
+      document.getElementById('p1-kda').textContent =
+        'LV ' + playerProg.level + ' • ' + playerProg.kills + '/' + playerProg.deaths + '/' + playerProg.assists +
+        (bossBuffTimer[0] > 0 ? ' • 👑 BOSS +10%' : '');
+      document.getElementById('p1-score-o').textContent = String(teamKills[0]);
+      document.getElementById('p1-score-c').textContent = String(teamKills[1]);
+      document.getElementById('p1-btn-ward').textContent = '👁️ Ward (F): ' + playerProg.wardCharges;
+
+      const invRow = document.getElementById('p1-inv-row');
+      if (invRow) {
+        invRow.innerHTML = [0, 1, 2, 3].map((idx) => {
+          const it = playerProg.items[idx];
+          return `<div style="flex:1;padding:5px 8px;background:rgba(30,41,59,0.85);border:1px solid ${it ? '#fbbf24' : 'rgba(255,255,255,0.15)'};border-radius:5px;font-size:10.5px;color:${it ? '#fde047' : '#64748b'};font-weight:700;">
+            ${it ? it.name : 'Empty Slot #' + (idx + 1)}
+          </div>`;
+        }).join('');
+      }
+
+      const grid = document.getElementById('p1-shop-grid');
+      if (grid) {
+        const canBuyHere = isNearOrderFountain();
+        grid.innerHTML = DATA.SHOP_ITEMS.map((it) => {
+          const afford = playerProg.gold >= it.cost && playerProg.items.length < 4 && canBuyHere;
+          return `<div style="padding:8px 10px;background:rgba(20,29,42,0.92);border:1px solid ${afford ? 'rgba(250,204,21,0.5)' : 'rgba(255,255,255,0.1)'};border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <div>
+              <div style="font-size:12px;font-weight:800;color:#f8fafc;">${it.name} <span style="color:#fde047;">(${it.cost}g)</span></div>
+              <div style="font-size:10px;color:#94a3b8;margin-top:2px;">${it.desc}</div>
+            </div>
+            <button type="button" data-buy="${it.id}" class="sb-btn" style="padding:4px 9px;font-size:11px;opacity:${afford ? '1' : '0.45'};">Buy</button>
+          </div>`;
+        }).join('');
+        grid.querySelectorAll('[data-buy]').forEach((btn) => {
+          btn.addEventListener('click', () => buyShopItem(btn.getAttribute('data-buy')));
+        });
+      }
+    }
+
+    function refreshTalentModalUI() {
+      const modal = document.getElementById('p1-talent-modal');
+      if (!modal) return;
+      const tier = [3, 7, 10].find((t) => playerProg.level >= t && !playerProg.talents[t]);
+      if (!tier) {
+        modal.style.display = 'none';
+        return;
+      }
+      const tree = DATA.HERO_TALENTS[getActiveHeroId()][tier];
+      modal.style.display = 'block';
+      document.getElementById('p1-talent-title').textContent = 'LEVEL ' + tier + ' HERO TALENT UNLOCKED — CHOOSE ONE';
+      document.getElementById('p1-tal-l-name').textContent = '[L] ' + tree.L.name;
+      document.getElementById('p1-tal-l-desc').textContent = tree.L.desc;
+      document.getElementById('p1-tal-r-name').textContent = '[R] ' + tree.R.name;
+      document.getElementById('p1-tal-r-desc').textContent = tree.R.desc;
+
+      document.getElementById('p1-tal-left').onclick = () => {
+        playerProg.talents[tier] = 'L';
+        SFX.play('chime');
+        spawnFloat(hero.x, 2.8, hero.z, 'TALENT: ' + tree.L.name, '#38bdf8');
+        refreshTalentModalUI();
+      };
+      document.getElementById('p1-tal-right').onclick = () => {
+        playerProg.talents[tier] = 'R';
+        SFX.play('chime');
+        spawnFloat(hero.x, 2.8, hero.z, 'TALENT: ' + tree.R.name, '#fde047');
+        refreshTalentModalUI();
+      };
+    }
+
+    function showVictoryModal() {
+      const m = document.getElementById('p1-gameover-modal');
+      if (!m || !gameOver) return;
+      m.style.display = 'flex';
+      const t = document.getElementById('p1-gameover-title');
+      t.textContent = gameOver.title;
+      t.style.color = gameOver.winnerTeam === 0 ? '#4ade80' : '#fb7185';
+    }
+
+    function resetMatch() {
+      gameOver = null;
+      const m = document.getElementById('p1-gameover-modal');
+      if (m) m.style.display = 'none';
+      matchTime = 0;
+      waveTimer = 2.0;
+      waveCount = 0;
+      teamKills = [0, 0];
+      bossBuffTimer = [0, 0];
+      playerProg.level = 1;
+      playerProg.xp = 0;
+      playerProg.gold = 600;
+      playerProg.kills = 0;
+      playerProg.deaths = 0;
+      playerProg.assists = 0;
+      playerProg.respawnTimer = 0;
+      playerProg.recallTimer = 0;
+      playerProg.wardCharges = 2;
+      playerProg.items = [];
+      playerProg.talents = { 3: null, 7: null, 10: null };
+
+      hero.x = -58;
+      hero.z = 3;
+      const st = getPlayerStats();
+      hero.maxHp = st.maxHp;
+      hero.hp = hero.maxHp;
+      hero.maxMp = st.maxMp;
+      hero.mp = hero.maxMp;
+
+      botVfxMeshes.forEach((p) => scene.remove(p.grp));
+      botVfxMeshes.length = 0;
+      botGrenades.forEach((g) => { scene.remove(g.mesh); scene.remove(g.teleGrp); });
+      botGrenades.length = 0;
+      botMonoliths.forEach((m) => scene.remove(m.grp));
+      botMonoliths.length = 0;
+      botArenas.forEach((a) => scene.remove(a.group));
+      botArenas.length = 0;
+
+      build3DMap();
+      spawnBots();
+      refreshShopAndHudUI();
+      refreshTalentModalUI();
+    }
+
+    // =========================================================
+    // BOT AI, TOWER AI, MINION AI & CAMP AI UPDATE LOOP
+    // =========================================================
+    const rhTmp = new THREE.Vector3();
+    const lhTmp = new THREE.Vector3();
+    const bowDirTmp = new THREE.Vector3();
+
+    // 3D Physical Slow Indicator Ring + Orbiting Frost Crystals at a slowed unit's feet!
+    const slowRingMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const slowDiscMat = new THREE.MeshBasicMaterial({
+      color: 0x0284c7,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.28,
+      depthWrite: false
+    });
+    const slowShardGeo = new THREE.OctahedronGeometry(0.12, 0);
+    const slowShardMat = new THREE.MeshBasicMaterial({ color: 0x7dd3fc });
+
+    function updateUnitSlowVisual(u, parentGrp, radius, dt) {
+      if (!u || !parentGrp) return;
+      const active = (u.slowTimer || 0) > 0;
+      if (!active) {
+        if (u.slowFxGrp) u.slowFxGrp.visible = false;
+        return;
+      }
+      if (!u.slowFxGrp) {
+        const grp = new THREE.Group();
+        const r = radius || 0.72;
+        const ring = new THREE.Mesh(new THREE.RingGeometry(r * 0.78, r * 1.02, 28), slowRingMat);
+        ring.rotation.x = -Math.PI / 2;
+        ring.position.y = 0.06;
+        grp.add(ring);
+
+        const disc = new THREE.Mesh(new THREE.CircleGeometry(r * 0.78, 24), slowDiscMat);
+        disc.rotation.x = -Math.PI / 2;
+        disc.position.y = 0.05;
+        grp.add(disc);
+
+        for (let k = 0; k < 4; k++) {
+          const shard = new THREE.Mesh(slowShardGeo, slowShardMat);
+          const a = (k / 4) * Math.PI * 2;
+          shard.position.set(Math.cos(a) * (r * 0.90), 0.22, Math.sin(a) * (r * 0.90));
+          grp.add(shard);
+        }
+        parentGrp.add(grp);
+        u.slowFxGrp = grp;
+      }
+      u.slowFxGrp.visible = true;
+      u.slowFxGrp.rotation.y -= dt * 3.2;
+    }
+
+    function spawnUnitProjectile(sx, sz, targetUnit, dmg, colorHex, spd = 15.5, dmgType = 'physical', attackerObj = null, customMesh = null, extraOpts = null) {
+      const orb = customMesh || new THREE.Mesh(
+        new THREE.SphereGeometry(0.20, 10, 8),
+        new THREE.MeshBasicMaterial({ color: colorHex })
+      );
+      orb.position.set(sx, 1.35, sz);
+      scene.add(orb);
+      projectiles.push({ mesh: orb, target: targetUnit, dmg, spd, life: 2.2, dmgType, attackerObj, extraOpts });
+    }
+
+    function spawnBotCrossbowBolt(b, targetUnit, dmg, bleedAdd = 1, isHeartseeker = false, angleOffset = 0) {
+      const boltGrp = new THREE.Group();
+      const len = isHeartseeker ? 1.55 : 0.85;
+      const rad = isHeartseeker ? 0.075 : 0.038;
+      const shaft = new THREE.Mesh(
+        new THREE.CylinderGeometry(rad * 0.65, rad, len, 8),
+        new THREE.MeshBasicMaterial({ color: isHeartseeker ? 0xfde047 : (b.team === 0 ? 0x38bdf8 : 0xf43f5e) })
+      );
+      shaft.rotation.x = Math.PI / 2;
+      boltGrp.add(shaft);
+
+      const tip = new THREE.Mesh(
+        new THREE.ConeGeometry(rad * 1.9, len * 0.35, 8),
+        new THREE.MeshBasicMaterial({ color: isHeartseeker ? 0xf43f5e : 0xfbbf24 })
+      );
+      tip.rotation.x = Math.PI / 2;
+      tip.position.z = len * 0.55;
+      boltGrp.add(tip);
+
+      const ang = b.facing + angleOffset;
+      const sx = b.x + Math.sin(ang) * 0.72 + Math.cos(ang) * (angleOffset * 1.8);
+      const sz = b.z + Math.cos(ang) * 0.72 - Math.sin(ang) * (angleOffset * 1.8);
+      boltGrp.rotation.y = ang;
+      spawnUnitProjectile(
+        sx,
+        sz,
+        targetUnit,
+        dmg,
+        0xfde047,
+        isHeartseeker ? 28.0 : 21.0,
+        'physical',
+        { kind: 'bot', ref: b },
+        boltGrp,
+        { orientAlongDir: true, bleedAdd }
+      );
+    }
+
+    function spawnBotAstralBolt(b, targetUnit, dmg) {
+      const boltGrp = new THREE.Group();
+      const core = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.16, 0),
+        new THREE.MeshBasicMaterial({ color: 0xe879f9 })
+      );
+      boltGrp.add(core);
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(0.22, 0.025, 8, 20),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      ring.rotation.x = Math.PI / 2;
+      boltGrp.add(ring);
+
+      let sx = b.x + Math.sin(b.facing) * 0.72;
+      let sz = b.z + Math.cos(b.facing) * 0.72;
+      if (b.model && b.rightHand) {
+        b.model.updateMatrixWorld(true);
+        b.rightHand.getWorldPosition(rhTmp);
+        sx = rhTmp.x;
+        sz = rhTmp.z;
+      }
+      spawnUnitProjectile(
+        sx,
+        sz,
+        targetUnit,
+        dmg,
+        0xe879f9,
+        19.5,
+        'fantasy',
+        { kind: 'bot', ref: b },
+        boltGrp,
+        { spinAstral: true }
+      );
+    }
+
+    const botGrenades = [];
+    function launchBotShrapnelGrenade(b, tx, tz, outerDmg, slowDur = 0) {
+      const outerR = 2.45;
+      const bullseyeR = 0.92;
+      const teleGrp = new THREE.Group();
+      const outerRing = new THREE.Mesh(
+        new THREE.RingGeometry(outerR - 0.08, outerR, 40),
+        new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.65 })
+      );
+      outerRing.rotation.x = -Math.PI / 2;
+      outerRing.position.y = 0.04;
+      teleGrp.add(outerRing);
+
+      const innerRing = new THREE.Mesh(
+        new THREE.RingGeometry(bullseyeR - 0.07, bullseyeR, 32),
+        new THREE.MeshBasicMaterial({ color: 0xf43f5e, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
+      );
+      innerRing.rotation.x = -Math.PI / 2;
+      innerRing.position.y = 0.05;
+      teleGrp.add(innerRing);
+
+      teleGrp.position.set(tx, 0, tz);
+      scene.add(teleGrp);
+
+      const gMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.18, 12, 10),
+        new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.35, metalness: 0.75, emissive: 0xf43f5e, emissiveIntensity: 0.6 })
+      );
+      const sx = b.x + Math.sin(b.facing) * 0.45;
+      const sz = b.z + Math.cos(b.facing) * 0.45;
+      gMesh.position.set(sx, 1.45, sz);
+      scene.add(gMesh);
+
+      botGrenades.push({
+        mesh: gMesh,
+        teleGrp,
+        sx, sz, tx, tz,
+        outerR, bullseyeR,
+        outerDmg,
+        slowDur,
+        casterBot: b,
+        t: 0,
+        dur: 0.48
+      });
+    }
+
+    const botMonoliths = [];
+    function spawnBotCataclysmMonolith(b, tx, tz, pulseDmg, collapseDmg) {
+      const grp = new THREE.Group();
+      const obelisk = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.68, 0),
+        new THREE.MeshStandardMaterial({ color: 0x3b0764, emissive: 0xd946ef, emissiveIntensity: 0.75, roughness: 0.25, metalness: 0.8 })
+      );
+      obelisk.scale.set(0.85, 2.4, 0.85);
+      obelisk.position.y = 1.85;
+      grp.add(obelisk);
+
+      const zoneRing = new THREE.Mesh(
+        new THREE.RingGeometry(0.92, 1.0, 48),
+        new THREE.MeshBasicMaterial({ color: 0xe879f9, side: THREE.DoubleSide, transparent: true, opacity: 0.88, blending: THREE.AdditiveBlending })
+      );
+      zoneRing.rotation.x = -Math.PI / 2;
+      zoneRing.position.y = 0.05;
+      zoneRing.scale.setScalar(2.0);
+      grp.add(zoneRing);
+
+      const zoneDisc = new THREE.Mesh(
+        new THREE.CircleGeometry(1.0, 48),
+        new THREE.MeshBasicMaterial({ color: 0x7e22ce, side: THREE.DoubleSide, transparent: true, opacity: 0.24, blending: THREE.AdditiveBlending, depthWrite: false })
+      );
+      zoneDisc.rotation.x = -Math.PI / 2;
+      zoneDisc.position.y = 0.03;
+      zoneDisc.scale.setScalar(2.0);
+      grp.add(zoneDisc);
+
+      grp.position.set(tx, 0, tz);
+      scene.add(grp);
+      spawnShockRing(tx, tz, 0xe879f9, 0.5, 2.4, 0.35);
+      spawnFloat(tx, 2.9, tz, 'CATACLYSM MONOLITH!', '#e879f9');
+
+      botMonoliths.push({
+        grp, obelisk, zoneRing, zoneDisc,
+        x: tx, z: tz,
+        startR: 2.0, maxR: 4.5, curR: 2.0,
+        t: 0, dur: 5.0,
+        tickTimer: 0.1,
+        pulseDmg,
+        collapseDmg,
+        casterBot: b
+      });
+    }
+
+    const botArenas = [];
+    function spawnBotPitArena(b, x, z, dur = 5.5) {
+      const group = new THREE.Group();
+      const radius = 4.6;
+      const wall = new THREE.Mesh(
+        new THREE.CylinderGeometry(radius, radius, 2.2, 48, 1, true),
+        new THREE.MeshBasicMaterial({
+          color: b.team === 0 ? 0x38bdf8 : 0xf43f5e,
+          transparent: true,
+          opacity: 0.22,
+          side: THREE.DoubleSide,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        })
+      );
+      wall.position.y = 1.1;
+      group.add(wall);
+
+      const rim = new THREE.Mesh(
+        new THREE.RingGeometry(radius - 0.14, radius + 0.08, 56),
+        new THREE.MeshBasicMaterial({ color: 0xfbbf24, side: THREE.DoubleSide })
+      );
+      rim.rotation.x = -Math.PI / 2;
+      rim.position.y = 0.04;
+      group.add(rim);
+
+      const postGeo = new THREE.CylinderGeometry(0.16, 0.22, 2.35, 7);
+      const orbGeo = new THREE.OctahedronGeometry(0.24, 0);
+      const orbMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24 });
+      for (let i = 0; i < 12; i++) {
+        const a = (i / 12) * Math.PI * 2;
+        const px = Math.cos(a) * radius;
+        const pz = Math.sin(a) * radius;
+        const post = new THREE.Mesh(postGeo, stoneBaseMat);
+        post.position.set(px, 1.17, pz);
+        post.castShadow = true;
+        group.add(post);
+        const orb = new THREE.Mesh(orbGeo, orbMat);
+        orb.position.set(px, 2.5, pz);
+        group.add(orb);
+      }
+      group.position.set(x, 0, z);
+      scene.add(group);
+
+      const insideMap = new WeakMap();
+      if (playerProg.respawnTimer <= 0) {
+        insideMap.set(hero, Math.hypot(hero.x - x, hero.z - z) <= radius);
+      }
+      bots.forEach((ob) => {
+        if (ob.respawnTimer <= 0) insideMap.set(ob, Math.hypot(ob.x - x, ob.z - z) <= radius);
+      });
+      minions.forEach((m) => {
+        if (m.hp > 0) insideMap.set(m, Math.hypot(m.x - x, m.z - z) <= radius);
+      });
+
+      spawnShockRing(x, z, b.team === 0 ? 0x38bdf8 : 0xf43f5e, 0.8, radius, 0.35);
+      spawnFloat(x, 2.8, z, b.name + ': WELCOME TO THE PIT!', '#fb7185');
+      botArenas.push({ x, z, r: radius, life: dur, group, wall, team: b.team, casterBot: b, insideMap });
+    }
+
+    const botVfxMeshes = [];
+    function spawnBotStarfallPillar(tx, tz, radius = 1.65, delay = 0.38, dmg = 0, isFromQ = true, slowDur = 0, casterBot = null) {
+      const grp = new THREE.Group();
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(radius - 0.09, radius, 40),
+        new THREE.MeshBasicMaterial({ color: isFromQ ? 0xe879f9 : 0x38bdf8, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
+      );
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.y = 0.04;
+      grp.add(ring);
+
+      const innerFill = new THREE.Mesh(
+        new THREE.CircleGeometry(radius * 0.96, 36),
+        new THREE.MeshBasicMaterial({ color: 0xa855f7, side: THREE.DoubleSide, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false })
+      );
+      innerFill.rotation.x = -Math.PI / 2;
+      innerFill.position.y = 0.03;
+      grp.add(innerFill);
+
+      const crystal = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.14, radius * 0.52, 3.1, 6),
+        new THREE.MeshBasicMaterial({ color: isFromQ ? 0xf472b6 : 0x38bdf8, transparent: true, opacity: 0.88, blending: THREE.AdditiveBlending })
+      );
+      crystal.position.y = 1.55;
+      crystal.scale.set(0.1, 0.01, 0.1);
+      crystal.visible = false;
+      grp.add(crystal);
+
+      grp.position.set(tx, 0, tz);
+      scene.add(grp);
+      botVfxMeshes.push({
+        grp, crystal, innerFill, ring,
+        x: tx, z: tz, r: radius,
+        delay,
+        erupted: false,
+        postLife: 0.28,
+        dmg,
+        isFromQ,
+        slowDur,
+        casterBot
+      });
+    }
+
+    // Advance Knockback on a unit (including Player Hero!) and check for Bodyguard 3L "Into the Stonework" Wall-Stun!
+    function stepUnitKnockback(u, dt, kind) {
+      if (!u || !u.knockbackTimer || u.knockbackTimer <= 0) return false;
+      const stepDt = Math.min(dt, u.knockbackTimer);
+      u.x = THREE.MathUtils.clamp(u.x + (u.knockbackVx || 0) * stepDt, -69, 69);
+      u.z = THREE.MathUtils.clamp(u.z + (u.knockbackVz || 0) * stepDt, -46, 46);
+      u.knockbackTimer -= dt;
+
+      let hitWall = false;
+      for (let k = 0; k < mapObstacles.length; k++) {
+        const o = mapObstacles[k];
+        const dx = u.x - o.x;
+        const dz = u.z - o.z;
+        const d = Math.hypot(dx, dz) || 0.01;
+        if (d < (u.r || 0.45) + o.r) {
+          u.x = o.x + (dx / d) * ((u.r || 0.45) + o.r);
+          u.z = o.z + (dz / d) * ((u.r || 0.45) + o.r);
+          hitWall = true;
+        }
+      }
+      for (let k = 0; k < structures.length; k++) {
+        const s = structures[k];
+        if (!s || s.hp <= 0) continue;
+        const dx = u.x - s.x;
+        const dz = u.z - s.z;
+        const d = Math.hypot(dx, dz) || 0.01;
+        if (d < (u.r || 0.45) + s.r + 0.15) {
+          u.x = s.x + (dx / d) * ((u.r || 0.45) + s.r + 0.15);
+          u.z = s.z + (dz / d) * ((u.r || 0.45) + s.r + 0.15);
+          hitWall = true;
+        }
+      }
+      const ar = ctx.getArena ? ctx.getArena() : null;
+      if (ar && Math.abs(Math.hypot(u.x - ar.x, u.z - ar.z) - ar.r) <= (u.r || 0.45) + 0.25) {
+        clampUnitToArena(u, ar);
+        hitWall = true;
+      }
+
+      if (hitWall && u.knockbackWallStun) {
+        u.knockbackWallStun = false;
+        u.knockbackTimer = 0;
+        u.stunTimer = Math.max(u.stunTimer || 0, 1.0);
+        SFX.play('arena');
+        spawnShockRing(u.x, u.z, 0xfde047, 0.25, 1.7, 0.28);
+        spawnFloat(u.x, 2.85, u.z, 'WALL STUN! (1.0s)', '#fde047');
+        if (u === hero) {
+          damageOrderHeroOrBot(hero, 65 + (u.knockbackBotLvl || 4) * 12, 'physical');
+        } else {
+          dealPlayerDamageToUnit({ kind, ref: u }, 65 + playerProg.level * 12, { dmgType: 'physical', color: '#fde047', isDoT: true });
+        }
+      }
+      return true;
+    }
+
+    function damageOrderHeroOrBot(unit, rawDmg, dmgType = 'physical', attackerObj = null) {
+      const st = getPlayerStats();
+      if (unit === hero) {
+        if (playerProg.respawnTimer > 0) return;
+        const resist = dmgType === 'fantasy' ? st.fResist : st.armor;
+        const mitigated = Math.round(rawDmg * (100 / (100 + Math.max(0, resist))));
+        playerProg.recallTimer = 0; // Interrupt recall on taking damage!
+
+        // Bodyguard 10L Talent ("Thorns of Brass"): Reflect 25% of incoming damage while R Shield holds!
+        if (getActiveHeroId() === 'bodyguard' && hero.rShieldTimer > 0 && hero.shield > 0 && playerProg.talents[10] === 'L' && attackerObj && attackerObj.ref) {
+          dealPlayerDamageToUnit(attackerObj, rawDmg * 0.25, { dmgType: 'physical', color: '#fde047', isDoT: true });
+        }
+
+        if (hero.shield >= mitigated) {
+          hero.shield -= mitigated;
+        } else {
+          const rem = mitigated - hero.shield;
+          hero.shield = 0;
+          hero.rShieldTimer = 0;
+          hero.hp -= rem;
+        }
+        if (hero.hp <= 0) {
+          hero.hp = 0;
+          playerProg.deaths++;
+          teamKills[1]++;
+          playerProg.respawnTimer = 6.0 + playerProg.level * 1.2;
+          spawnFloat(hero.x, 2.8, hero.z, 'SLAIN! RESPAWNING IN ' + Math.round(playerProg.respawnTimer) + 's', '#fb7185');
+          hero.x = -62;
+          hero.z = 0;
+          refreshShopAndHudUI();
+        }
+      } else {
+        const allyAura = (st.allyAuraRes > 0 && Math.hypot(unit.x - hero.x, unit.z - hero.z) <= 7.5) ? st.allyAuraRes : 0;
+        const baseRes = dmgType === 'fantasy' ? (unit.fResist || 20) : (unit.armor || 20);
+        const totalRes = baseRes + (unit.bonusResAura || 0) + allyAura;
+        const mitigated = Math.max(1, Math.round(rawDmg * (100 / (100 + totalRes))));
+        if (unit.shield && unit.shield > 0) {
+          if (unit.shield >= mitigated) {
+            unit.shield -= mitigated;
+            return;
+          } else {
+            const rem = mitigated - unit.shield;
+            unit.shield = 0;
+            unit.hp -= rem;
+          }
+        } else {
+          unit.hp -= mitigated;
+        }
+        if (unit.hp <= 0) {
+          handleUnitDeath({ kind: 'bot', ref: unit });
+        }
+      }
+    }
+
+    function updateBots(dt) {
+      const diffMult = botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0);
+      const isEasy = botDifficulty === 'easy';
+      const isHard = botDifficulty === 'hard';
+      const activePing = pings.length > 0 ? pings[pings.length - 1] : null;
+      const bleedTickRate = (10 + playerProg.level * 2.0) * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+
+      // Helper to apply CC / Bleed / Marks from a Bot ability onto a target (Player, Bot, Minion, or Camp)
+      function applyBotCcAndEffects(targetObj, opts = {}) {
+        if (!targetObj || !targetObj.ref) return;
+        const u = targetObj.ref;
+        if (targetObj.kind === 'structure') return;
+        if (opts.stunDur && opts.stunDur > 0) {
+          u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
+        }
+        if (opts.slowDur && opts.slowDur > 0) {
+          u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur);
+        }
+        if (opts.tauntDur && opts.tauntDur > 0 && u !== hero) {
+          u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
+        }
+        if (opts.bleedAdd && opts.bleedAdd > 0 && u !== hero) {
+          u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
+          u.bleedTimer = 5.5;
+        }
+        if (opts.marks && opts.marks > 0) {
+          u.predatorMarks = opts.marks;
+          u.predatorMarkTimer = 5.0;
+        }
+        if (opts.kbDist && opts.kbDist > 0 && opts.fromBot) {
+          let kx = u.x - opts.fromBot.x;
+          let kz = u.z - opts.fromBot.z;
+          const kl = Math.hypot(kx, kz) || 0.01;
+          u.knockbackVx = (kx / kl) * (opts.kbDist / 0.25);
+          u.knockbackVz = (kz / kl) * (opts.kbDist / 0.25);
+          u.knockbackTimer = 0.25;
+          u.knockbackWallStun = !!opts.wallStun;
+          u.knockbackBotLvl = opts.fromBot.level || 4;
+        }
+      }
+
+      // Update Bot Starfall Pillar telegraph windups & crystal eruptions (matching player Sorceress 0.38s windup -> 0.28s eruption!)
+      for (let i = botVfxMeshes.length - 1; i >= 0; i--) {
+        const p = botVfxMeshes[i];
+        if (!p.erupted) {
+          p.delay -= dt;
+          if (p.innerFill) {
+            p.innerFill.material.opacity = 0.20 + Math.min(0.45, (0.34 - Math.max(0, p.delay)) * 1.2);
+          }
+          if (p.delay <= 0) {
+            p.erupted = true;
+            if (p.crystal) {
+              p.crystal.visible = true;
+              p.crystal.scale.set(1, 1, 1);
+            }
+            spawnShockRing(p.x, p.z, p.isFromQ ? 0xe879f9 : 0x38bdf8, 0.25, p.r, 0.26);
+            if (p.dmg > 0 && p.casterBot) {
+              const cb = p.casterBot;
+              let hitHero = false;
+              if (cb.team === 1 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r + (hero.r || 0.52)) {
+                applyBotDamageToTarget({ kind: 'player', ref: hero }, p.dmg, cb, 'fantasy');
+                if (p.slowDur > 0) applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: p.slowDur });
+                hitHero = true;
+              }
+              bots.forEach((ob) => {
+                if (ob.team !== cb.team && ob.respawnTimer <= 0 && Math.hypot(ob.x - p.x, ob.z - p.z) <= p.r + ob.r) {
+                  applyBotDamageToTarget({ kind: 'bot', ref: ob }, p.dmg, cb, 'fantasy');
+                  if (p.slowDur > 0) applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: p.slowDur });
+                  hitHero = true;
+                }
+              });
+              minions.forEach((em) => {
+                if (em.team !== cb.team && em.hp > 0 && Math.hypot(em.x - p.x, em.z - p.z) <= p.r + em.r) {
+                  applyBotDamageToTarget({ kind: 'minion', ref: em }, p.dmg, cb, 'fantasy');
+                  if (p.slowDur > 0) applyBotCcAndEffects({ kind: 'minion', ref: em }, { slowDur: p.slowDur });
+                }
+              });
+              if (p.isFromQ && hitHero) {
+                cb.qTempoStacks = Math.min(cb.level >= 10 && isHard ? 4 : 3, (cb.qTempoStacks || 0) + 1);
+                cb.qTempoTimer = 5.0;
+              }
+            }
+          }
+        } else {
+          p.postLife -= dt;
+          const k = Math.max(0, p.postLife / 0.28);
+          if (p.crystal) {
+            p.crystal.scale.set(k, 1.0 + (1 - k) * 0.35, k);
+            p.crystal.material.opacity = 0.88 * k;
+          }
+          if (p.ring) p.ring.material.opacity = 0.85 * k;
+          if (p.postLife <= 0) {
+            scene.remove(p.grp);
+            botVfxMeshes.splice(i, 1);
+          }
+        }
+      }
+
+      // Advance Player Hero Knockback (e.g. from Enemy Bodyguard's Q Haymaker!)
+      if (playerProg.respawnTimer <= 0) {
+        stepUnitKnockback(hero, dt, 'player');
+      }
+
+      // Update Bot Shrapnel Grenades (0.48s parabolic arc + Dual Bullseye / Outer Telegraph Rings!)
+      for (let i = botGrenades.length - 1; i >= 0; i--) {
+        const g = botGrenades[i];
+        g.t += dt;
+        const u = Math.min(1, g.t / g.dur);
+        const gx = g.sx + (g.tx - g.sx) * u;
+        const gz = g.sz + (g.tz - g.sz) * u;
+        const gy = (1 - u) * 1.45 + Math.sin(u * Math.PI) * 3.1;
+        g.mesh.position.set(gx, gy, gz);
+        g.mesh.rotation.x += dt * 14;
+        g.mesh.rotation.z += dt * 10;
+        if (u >= 1) {
+          scene.remove(g.mesh);
+          scene.remove(g.teleGrp);
+          const cb = g.casterBot;
+          let anyBullseye = false;
+          if (cb) {
+            const checkHit = (targetObj, rad) => {
+              const d = Math.hypot(targetObj.ref.x - g.tx, targetObj.ref.z - g.tz);
+              if (d <= g.outerR + rad) {
+                const isBulls = d <= g.bullseyeR + rad * 0.45;
+                if (isBulls) anyBullseye = true;
+                const dmg = isBulls ? g.outerDmg * 2 : g.outerDmg;
+                applyBotDamageToTarget(targetObj, dmg, cb, 'physical');
+                applyBotCcAndEffects(targetObj, { bleedAdd: isBulls ? 4 : 2, slowDur: g.slowDur });
+              }
+            };
+            if (cb.team === 1 && playerProg.respawnTimer <= 0) {
+              checkHit({ kind: 'player', ref: hero }, hero.r || 0.52);
+            }
+            bots.forEach((ob) => {
+              if (ob.team !== cb.team && ob.respawnTimer <= 0) checkHit({ kind: 'bot', ref: ob }, ob.r);
+            });
+            minions.forEach((em) => {
+              if (em.team !== cb.team && em.hp > 0) checkHit({ kind: 'minion', ref: em }, em.r);
+            });
+          }
+          spawnShockRing(g.tx, g.tz, anyBullseye ? 0xf43f5e : 0xf59e0b, 0.25, g.outerR, 0.28);
+          spawnFloat(g.tx, 2.7, g.tz, anyBullseye ? 'BULLSEYE GRENADE (2x)!' : 'SHRAPNEL GRENADE!', '#fde047');
+          botGrenades.splice(i, 1);
+        }
+      }
+
+      // Update Bot Cataclysm Monoliths (3D rotating obelisk + expanding 2.0m -> 4.5m ring + 0.5s pulses + 5.0s gravity collapse!)
+      for (let i = botMonoliths.length - 1; i >= 0; i--) {
+        const m = botMonoliths[i];
+        m.t += dt;
+        const frac = Math.min(1, m.t / m.dur);
+        m.curR = m.startR + (m.maxR - m.startR) * frac;
+        m.obelisk.rotation.y += dt * (2.2 + frac * 4.5);
+        m.obelisk.position.y = 1.85 + Math.sin(m.t * 5.0) * 0.18;
+        m.zoneRing.scale.setScalar(m.curR);
+        m.zoneDisc.scale.setScalar(m.curR);
+        m.tickTimer -= dt;
+        const cb = m.casterBot;
+        if (m.tickTimer <= 0 && cb) {
+          m.tickTimer = 0.50;
+          spawnShockRing(m.x, m.z, 0xd946ef, m.curR * 0.35, m.curR, 0.24);
+          if (cb.team === 1 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - m.x, hero.z - m.z) <= m.curR + (hero.r || 0.52)) {
+            applyBotDamageToTarget({ kind: 'player', ref: hero }, m.pulseDmg, cb, 'fantasy');
+            applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: 0.65 });
+          }
+          bots.forEach((ob) => {
+            if (ob.team !== cb.team && ob.respawnTimer <= 0 && Math.hypot(ob.x - m.x, ob.z - m.z) <= m.curR + ob.r) {
+              applyBotDamageToTarget({ kind: 'bot', ref: ob }, m.pulseDmg, cb, 'fantasy');
+              applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: 0.65 });
+            }
+          });
+          minions.forEach((em) => {
+            if (em.team !== cb.team && em.hp > 0 && Math.hypot(em.x - m.x, em.z - m.z) <= m.curR + em.r) {
+              applyBotDamageToTarget({ kind: 'minion', ref: em }, m.pulseDmg, cb, 'fantasy');
+            }
+          });
+        }
+        if (m.t >= m.dur) {
+          spawnShockRing(m.x, m.z, 0xfde047, m.curR, 0.25, 0.38);
+          if (cb) {
+            const collapseUnit = (targetObj, rad) => {
+              const u = targetObj.ref;
+              const d = Math.hypot(u.x - m.x, u.z - m.z);
+              if (d <= m.curR + rad) {
+                const pullDist = Math.min(d * 0.72, 2.8);
+                if (d > 0.05) {
+                  u.x -= ((u.x - m.x) / d) * pullDist;
+                  u.z -= ((u.z - m.z) / d) * pullDist;
+                }
+                applyBotDamageToTarget(targetObj, m.collapseDmg, cb, 'fantasy');
+                applyBotCcAndEffects(targetObj, { slowDur: 1.5 });
+              }
+            };
+            if (cb.team === 1 && playerProg.respawnTimer <= 0) collapseUnit({ kind: 'player', ref: hero }, hero.r || 0.52);
+            bots.forEach((ob) => {
+              if (ob.team !== cb.team && ob.respawnTimer <= 0) collapseUnit({ kind: 'bot', ref: ob }, ob.r);
+            });
+            minions.forEach((em) => {
+              if (em.team !== cb.team && em.hp > 0) collapseUnit({ kind: 'minion', ref: em }, em.r);
+            });
+          }
+          spawnFloat(m.x, 3.0, m.z, 'GRAVITY COLLAPSE!', '#fde047');
+          scene.remove(m.grp);
+          botMonoliths.splice(i, 1);
+        }
+      }
+
+      // Update Bot Pit Arenas (3D Coliseum Wall + caster tethered expiry)
+      for (let i = botArenas.length - 1; i >= 0; i--) {
+        const ar = botArenas[i];
+        ar.life -= dt;
+        ar.wall.material.opacity = 0.16 + Math.sin(ar.life * 8) * 0.06;
+        const cb = ar.casterBot;
+        const casterLeft = !cb || cb.respawnTimer > 0 || Math.hypot(cb.x - ar.x, cb.z - ar.z) > ar.r + 0.35;
+        if (ar.life <= 0 || casterLeft) {
+          if (cb) cb.arenaTimer = 0;
+          scene.remove(ar.group);
+          botArenas.splice(i, 1);
+        }
+      }
+
+      function playBotAction(b, slot, timeScale = 1.0, startTime = 0, lockDur = 0.40) {
+        b.atkAnimTimer = lockDur;
+        b.animSlot = slot;
+        b.animTimeScale = timeScale;
+        b.animStartTime = startTime;
+        b.animForceRestart = true;
+      }
+
+      function scheduleBotHit(b, delay, fn) {
+        if (!b.pendingHits) b.pendingHits = [];
+        b.pendingHits.push({ timer: delay, fn });
+      }
+
+      bots.forEach((b) => {
+        if (!b.rigLoaded) attachRigToBot(b);
+        if (b.respawnTimer > 0) {
+          b.pendingHits = [];
+          b.rChargeTimer = 0;
+          b.gnashAnim = 0;
+          b.stealthBlend = 0;
+          if (b.rLaserMesh) b.rLaserMesh.visible = false;
+          b.respawnTimer -= dt;
+          if (b.respawnTimer <= 0) {
+            b.x = b.homeX;
+            b.z = b.homeZ;
+            b.hp = b.maxHp;
+            b.shield = 0;
+            b.stealthTimer = 0;
+            b.arenaTimer = 0;
+            b.monoTimer = 0;
+            b.leapTimer = 0;
+            b.leapOnLand = null;
+            b.dashTimer = 0;
+            b.dashOnEnd = null;
+            b.pivot.visible = true;
+            if (b.bowPivot) b.bowPivot.visible = true;
+          }
+          return;
+        }
+
+        const rQE = (b.level || 1) >= 9 ? 2 : ((b.level || 1) >= 6 ? 1 : 0);
+        const rUlt = (b.level || 1) >= 12 ? 2 : ((b.level || 1) >= 8 ? 1 : 0);
+        const scaleMult = (b.team === 1 ? diffMult : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
+
+        b.atkCd = Math.max(0, b.atkCd - dt);
+        b.skillCd = Math.max(0, b.skillCd - dt);
+        b.cdQ = Math.max(0, (b.cdQ || 0) - dt);
+        b.cdE = Math.max(0, (b.cdE || 0) - dt);
+        b.cdR = Math.max(0, (b.cdR || 0) - dt);
+        b.atkAnimTimer = Math.max(0, b.atkAnimTimer - dt);
+        b.slowTimer = Math.max(0, b.slowTimer - dt);
+        b.stunTimer = Math.max(0, b.stunTimer - dt);
+        b.tauntTimer = Math.max(0, (b.tauntTimer || 0) - dt);
+        b.stealthTimer = Math.max(0, (b.stealthTimer || 0) - dt);
+        b.arenaTimer = Math.max(0, (b.arenaTimer || 0) - dt);
+        if ((b.qTempoTimer || 0) > 0) {
+          b.qTempoTimer -= dt;
+          if (b.qTempoTimer <= 0) b.qTempoStacks = 0;
+        }
+        if ((b.siphonTimer || 0) > 0) {
+          b.siphonTimer -= dt;
+          if (b.siphonTimer <= 0) b.siphonBonus = 0;
+        }
+        if ((b.predatorMarkTimer || 0) > 0) {
+          b.predatorMarkTimer -= dt;
+          if (b.predatorMarkTimer <= 0) b.predatorMarks = 0;
+        }
+        if (b.shieldTimer && b.shieldTimer > 0) {
+          b.shieldTimer -= dt;
+          if (b.shieldTimer <= 0) b.shield = 0;
+        }
+
+        // Tick Scheduled Swing-Apex Windup Callbacks (canceled if stunned!)
+        if (b.pendingHits && b.pendingHits.length > 0) {
+          if (b.stunTimer > 0) {
+            b.pendingHits.length = 0;
+          } else {
+            for (let hi = b.pendingHits.length - 1; hi >= 0; hi--) {
+              b.pendingHits[hi].timer -= dt;
+              if (b.pendingHits[hi].timer <= 0) {
+                const fn = b.pendingHits[hi].fn;
+                b.pendingHits.splice(hi, 1);
+                fn();
+              }
+            }
+          }
+        }
+
+        // Tick Coyote R: Heartseeker 1.10s Laser Sight Charge -> Giant Piercing Bolt!
+        if ((b.rChargeTimer || 0) > 0) {
+          if (b.stunTimer > 0) {
+            b.rChargeTimer = 0;
+            if (b.rLaserMesh) b.rLaserMesh.visible = false;
+          } else {
+            b.rChargeTimer -= dt;
+            const rt = b.rChargeTarget;
+            if (rt && rt.ref && (rt.ref.hp === undefined || rt.ref.hp > 0)) {
+              b.facing = Math.atan2(rt.ref.x - b.x, rt.ref.z - b.z);
+            }
+            if (!b.rLaserMesh) {
+              const lGrp = new THREE.Group();
+              const beam = new THREE.Mesh(
+                new THREE.CylinderGeometry(0.035, 0.035, 11.5, 8),
+                new THREE.MeshBasicMaterial({ color: 0xf43f5e, transparent: true, opacity: 0.85, blending: THREE.AdditiveBlending })
+              );
+              beam.rotation.x = Math.PI / 2;
+              beam.position.set(0, 1.35, 5.75);
+              lGrp.add(beam);
+              const muzzle = new THREE.Mesh(
+                new THREE.SphereGeometry(0.18, 10, 8),
+                new THREE.MeshBasicMaterial({ color: 0xfde047 })
+              );
+              muzzle.position.set(0, 1.35, 0.72);
+              lGrp.add(muzzle);
+              b.pivot.add(lGrp);
+              b.rLaserMesh = lGrp;
+            }
+            b.rLaserMesh.visible = true;
+            if (b.rChargeTimer <= 0) {
+              b.rLaserMesh.visible = false;
+              playBotAction(b, 'punch', 0.95, 0.0, 0.35);
+              if (rt && rt.ref && (rt.ref.hp === undefined || rt.ref.hp > 0)) {
+                const stacks = rt.ref.bleedStacks || 2;
+                const popDmg = stacks * Math.round([60, 80, 100][rUlt] * (isHard && b.level >= 7 ? 1.25 : 1.0));
+                const rDmg = Math.round((130 + b.physAtk * 0.85 + popDmg) * scaleMult);
+                rt.ref.bleedStacks = 0;
+                spawnBotCrossbowBolt(b, rt, rDmg, 0, true, 0);
+                spawnShockRing(b.x, b.z, 0xfde047, 0.3, 1.6, 0.25);
+                spawnFloat(b.x, 2.75, b.z, 'HEARTSEEKER PIERCE!', '#fde047');
+              }
+            }
+          }
+        } else if (b.rLaserMesh) {
+          b.rLaserMesh.visible = false;
+        }
+
+        if (b.bleedTimer > 0 && b.bleedStacks > 0) {
+          b.bleedTimer -= dt;
+          b.bleedTickAccum = (b.bleedTickAccum || 0) + dt;
+          if (b.bleedTickAccum >= 0.65) {
+            b.bleedTickAccum -= 0.65;
+            dealPlayerDamageToUnit({ kind: 'bot', ref: b }, Math.round(b.bleedStacks * bleedTickRate), { color: '#f43f5e', isDoT: true });
+            if (b.respawnTimer > 0) return;
+          }
+          if (b.bleedTimer <= 0) {
+            b.bleedStacks = 0;
+            b.bleedTickAccum = 0;
+          }
+        }
+
+        // Fountain Healing for low-HP bots
+        const homeDist = Math.hypot(b.x - b.homeX, b.z - b.homeZ);
+        if (homeDist <= 7.5 && b.hp < b.maxHp) {
+          b.hp = Math.min(b.maxHp, b.hp + 220 * dt);
+        }
+
+        let isMoving = false;
+        let airborneY = 0;
+        if (b.leapTimer > 0) {
+          b.leapTimer = Math.max(0, b.leapTimer - dt);
+          const u = 1 - (b.leapTimer / (b.leapDur || 0.42));
+          b.x = b.leapSx + (b.leapTx - b.leapSx) * u;
+          b.z = b.leapSz + (b.leapTz - b.leapSz) * u;
+          airborneY = Math.sin(u * Math.PI) * 1.65;
+          if (b.leapTimer <= 0 && b.leapOnLand) {
+            const landFn = b.leapOnLand;
+            b.leapOnLand = null;
+            landFn();
+          }
+        } else if (b.dashTimer > 0) {
+          const stepDt = Math.min(dt, b.dashTimer);
+          b.x = THREE.MathUtils.clamp(b.x + (b.dashVx || 0) * stepDt, -68, 68);
+          b.z = THREE.MathUtils.clamp(b.z + (b.dashVz || 0) * stepDt, -45, 45);
+          b.dashTimer = Math.max(0, b.dashTimer - dt);
+          if (b.dashTimer <= 0 && b.dashOnEnd) {
+            const endFn = b.dashOnEnd;
+            b.dashOnEnd = null;
+            endFn();
+          }
+        } else if (stepUnitKnockback(b, dt, 'bot')) {
+          if (b.respawnTimer > 0) return;
+        } else if (b.stunTimer <= 0 && (b.rChargeTimer || 0) <= 0) {
+          // =========================================================
+          // TARGET ACQUISITION (Easy/Medium = Closest; Hard = Tactical Priority & Peel!)
+          // =========================================================
+          let bestTarget = null;
+          let bestDist = 11.5;
+          let bestScore = 9999;
+
+          const considerCandidate = (cand, dist) => {
+            if (dist > 11.5) return;
+            if (!isHard) {
+              // In Medium mode, give Enemy Heroes a slight priority edge over minions when within spell/attack range so bots cast spells on heroes!
+              const heroBias = (!isEasy && (cand.kind === 'player' || cand.kind === 'bot') && dist <= 9.6) ? -3.2 : 0;
+              const score = dist + heroBias;
+              if (score < bestScore) {
+                bestScore = score;
+                bestDist = dist;
+                bestTarget = cand;
+              }
+              return;
+            }
+            // Hard Mode Tactical Scoring (lower score = higher priority!)
+            let score = dist;
+            const u = cand.ref;
+            const hpPct = u && u.maxHp ? (u.hp / u.maxHp) : 1.0;
+            if (cand.kind === 'player' || cand.kind === 'bot') {
+              score -= 4.5; // Prioritize Enemy Heroes over minions/structures
+              if (hpPct < 0.38) score -= 5.0; // Execute low-HP heroes!
+              const isSquishy = cand.kind === 'player'
+                ? (getActiveHeroId() === 'coyote' || getActiveHeroId() === 'sorceress' || getActiveHeroId() === 'panther')
+                : (u.heroType === 'coyote' || u.heroType === 'sorceress' || u.heroType === 'panther');
+              if (isSquishy && (b.heroType === 'panther' || b.heroType === 'brawler' || b.heroType === 'coyote')) {
+                score -= 2.8;
+              }
+            } else if (cand.kind === 'minion' && u.hp <= b.atk * 1.15) {
+              score -= 2.2; // Last-hit low-HP minions when no hero threat
+            }
+            if (score < bestScore) {
+              bestScore = score;
+              bestDist = dist;
+              bestTarget = cand;
+            }
+          };
+
+          if (b.team === 1 && b.tauntTimer > 0 && playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0) {
+            bestDist = Math.hypot(hero.x - b.x, hero.z - b.z);
+            bestTarget = { kind: 'player', ref: hero };
+          } else if (b.team === 0) {
+            bots.forEach((eb) => {
+              if (eb.team === 1 && eb.respawnTimer <= 0 && (eb.stealthTimer || 0) <= 0) {
+                considerCandidate({ kind: 'bot', ref: eb }, Math.hypot(eb.x - b.x, eb.z - b.z));
+              }
+            });
+            minions.forEach((em) => {
+              if (em.team === 1 && em.hp > 0) {
+                considerCandidate({ kind: 'minion', ref: em }, Math.hypot(em.x - b.x, em.z - b.z));
+              }
+            });
+            structures.forEach((es) => {
+              if (es.team === 1 && es.hp > 0 && isStructureVulnerable(es)) {
+                considerCandidate({ kind: 'structure', ref: es }, Math.hypot(es.x - b.x, es.z - b.z));
+              }
+            });
+            if (b.lane === 'jungle' || (activePing && activePing.kind === 'boss')) {
+              camps.forEach((c) => {
+                if (c.respawnTimer <= 0 && c.hp > 0 && c.state !== 'leashing') {
+                  considerCandidate({ kind: 'camp', ref: c }, Math.hypot(c.x - b.x, c.z - b.z));
+                }
+              });
+            }
+          } else {
+            if (playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0) {
+              considerCandidate({ kind: 'player', ref: hero }, Math.hypot(hero.x - b.x, hero.z - b.z));
+            }
+            bots.forEach((ab) => {
+              if (ab.team === 0 && ab.respawnTimer <= 0 && (ab.stealthTimer || 0) <= 0) {
+                considerCandidate({ kind: 'bot', ref: ab }, Math.hypot(ab.x - b.x, ab.z - b.z));
+              }
+            });
+            minions.forEach((am) => {
+              if (am.team === 0 && am.hp > 0) {
+                considerCandidate({ kind: 'minion', ref: am }, Math.hypot(am.x - b.x, am.z - b.z));
+              }
+            });
+            structures.forEach((as) => {
+              if (as.team === 0 && as.hp > 0 && isStructureVulnerable(as)) {
+                considerCandidate({ kind: 'structure', ref: as }, Math.hypot(as.x - b.x, as.z - b.z));
+              }
+            });
+            if (b.lane === 'jungle') {
+              camps.forEach((c) => {
+                if (c.respawnTimer <= 0 && c.hp > 0 && c.state !== 'leashing') {
+                  considerCandidate({ kind: 'camp', ref: c }, Math.hypot(c.x - b.x, c.z - b.z));
+                }
+              });
+            }
+          }
+
+          // Hard Mode Bodyguard Peel: If an enemy melee diver is within 3.5m of an allied Carry (or Player!), target that diver to peel!
+          let allyToPeel = null;
+          if (isHard && b.heroType === 'bodyguard') {
+            const allies = bots.filter((al) => al.team === b.team && al !== b && al.respawnTimer <= 0);
+            if (b.team === 0 && playerProg.respawnTimer <= 0) {
+              allies.unshift(hero);
+            }
+            for (let aIdx = 0; aIdx < allies.length; aIdx++) {
+              const al = allies[aIdx];
+              if (Math.hypot(al.x - b.x, al.z - b.z) > 10.5) continue;
+              // Find closest enemy hero attacking this ally
+              if (b.team === 1 && playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0 && Math.hypot(hero.x - al.x, hero.z - al.z) <= 3.6) {
+                allyToPeel = al;
+                bestTarget = { kind: 'player', ref: hero };
+                bestDist = Math.hypot(hero.x - b.x, hero.z - b.z);
+                break;
+              }
+              const diver = bots.find((eb) => eb.team !== b.team && eb.respawnTimer <= 0 && Math.hypot(eb.x - al.x, eb.z - al.z) <= 3.6);
+              if (diver) {
+                allyToPeel = al;
+                bestTarget = { kind: 'bot', ref: diver };
+                bestDist = Math.hypot(diver.x - b.x, diver.z - b.z);
+                break;
+              }
+            }
+          }
+
+          const isHeroTarget = bestTarget && (bestTarget.kind === 'player' || bestTarget.kind === 'bot');
+
+          // =========================================================
+          // SPELL CASTING: MEDIUM (Simple Spells) & HARD (Tactical Combos)
+          // Easy Mode strictly uses Basic Attacks (AAs) ONLY!
+          // =========================================================
+          if (!isEasy && bestTarget && bestTarget.kind !== 'structure' && b.atkAnimTimer <= 0) {
+            const tx = bestTarget.ref.x;
+            const tz = bestTarget.ref.z;
+            b.facing = Math.atan2(tx - b.x, tz - b.z);
+
+            // 1. PANTHER ROGUE BOT (R: Nightprowl Stealth Shimmer -> E: Predator's Leap -> Q: 2-Hit Slash & Gnash Sequence)
+            if (b.heroType === 'panther') {
+              if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 10.5 && (bestDist > 3.2 || (isHard && b.cdE <= 0.5))) {
+                b.cdR = [38.0, 32.0, 26.0][rUlt];
+                b.stealthTimer = [2.5, 3.0, 3.5][rUlt];
+                spawnShockRing(b.x, b.z, 0x2dd4bf, 0.3, 2.2, 0.28);
+                spawnFloat(b.x, 2.75, b.z, b.name + ': NIGHTPROWL!', '#2dd4bf');
+              }
+              const leapMax = (b.stealthTimer > 0 || isHard) ? 9.5 : 7.5;
+              if (b.cdE <= 0 && bestDist <= leapMax && (bestDist >= 2.2 || isHeroTarget)) {
+                const fromStealth = b.stealthTimer > 0;
+                const lockedTarget = bestTarget;
+                b.stealthTimer = 0;
+                b.cdE = [7.5, 6.2, 5.0][rQE];
+                const ang = Math.atan2(tx - b.x, tz - b.z);
+                b.leapSx = b.x;
+                b.leapSz = b.z;
+                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, -68, 68);
+                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, -45, 45);
+                b.leapDur = 0.36;
+                b.leapTimer = 0.36;
+                playBotAction(b, 'jump', 1.65, 0.0, 0.42);
+                spawnShockRing(b.x, b.z, 0x2dd4bf, 0.22, 1.2, 0.22);
+                b.leapOnLand = () => {
+                  const pounceDmg = Math.round((55 + b.level * 11 + (b.fant || 24) * 0.75) * scaleMult);
+                  spawnShockRing(b.x, b.z, 0x2dd4bf, 0.28, 2.4, 0.26);
+                  if (lockedTarget && lockedTarget.ref && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.2) {
+                    applyBotDamageToTarget(lockedTarget, pounceDmg, b, 'fantasy');
+                    applyBotCcAndEffects(lockedTarget, {
+                      marks: 3,
+                      stunDur: (isHard && fromStealth && b.level >= 10) ? 0.8 : 0,
+                      slowDur: (fromStealth && b.level >= 10) ? 1.5 : 0
+                    });
+                  }
+                  spawnFloat(b.x, 2.7, b.z, fromStealth && isHard ? 'THROAT POUNCE! (3x MARK)' : 'POUNCE! (3x MARK)', '#2dd4bf');
+                };
+              } else if (b.cdQ <= 0 && bestDist <= 2.5) {
+                b.stealthTimer = 0;
+                b.cdQ = [5.8, 5.0, 4.2][rQE];
+                const lockedTarget = bestTarget;
+                const rankMult = [1.0, 1.25, 1.50][rQE];
+                const lowHpAmp = (isHard && bestTarget.ref.hp / bestTarget.ref.maxHp < 0.40) ? 1.30 : 1.0;
+                const slashDmg = Math.round((45 + b.level * 8 + b.physAtk * 0.80) * lowHpAmp * scaleMult);
+                const gnashDmg = Math.round((65 + b.level * 12 + b.physAtk * 1.10) * lowHpAmp * scaleMult);
+                const healAmt = Math.round((50 + b.level * 11) * rankMult * (isHard ? 1.35 : 1.0));
+                const consumeOneMark = () => {
+                  if (lockedTarget && lockedTarget.ref && (lockedTarget.ref.predatorMarks || 0) > 0) {
+                    lockedTarget.ref.predatorMarks--;
+                    const markDmg = Math.round((34 + b.level * 7 + (b.fant || 24) * 0.80) * rankMult * scaleMult);
+                    applyBotDamageToTarget(lockedTarget, markDmg, b, 'fantasy');
+                    if (lockedTarget.ref.predatorMarks === 0 && isHard && b.level >= 7) {
+                      b.cdE = Math.max(0, b.cdE - 2.0);
+                      applyBotCcAndEffects(lockedTarget, { slowDur: 1.25 });
+                    }
+                  }
+                };
+                playBotAction(b, 'punch', 2.40, 0.85, 0.48);
+                // 1st Hit: Claw Slash at 0.13s
+                scheduleBotHit(b, 0.13, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.0) {
+                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0x2dd4bf, 0.20, 1.45, 0.20);
+                    applyBotDamageToTarget(lockedTarget, slashDmg, b, 'physical');
+                    consumeOneMark();
+                    spawnFloat(lockedTarget.ref.x, 2.55, lockedTarget.ref.z, 'SLASH!', '#2dd4bf');
+                  }
+                });
+                // 2nd Hit: Gnash Bite Lunge at 0.34s (with procedural forward bite lunge + crimson bite ring + self-heal!)
+                scheduleBotHit(b, 0.34, () => {
+                  b.gnashAnim = 0.22;
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.1) {
+                    b.hp = Math.min(b.maxHp, b.hp + healAmt);
+                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0xf43f5e, 0.25, 1.85, 0.24);
+                    applyBotDamageToTarget(lockedTarget, gnashDmg, b, 'physical');
+                    consumeOneMark();
+                    spawnFloat(b.x, 2.75, b.z, 'GNASH! (+' + healAmt + ' HP)', '#f43f5e');
+                  }
+                });
+              }
+            }
+
+            // 2. PIT BRAWLER BOT (she/her: E: 1st Vault Dash -> 2nd Rebound Slide Dash + Shield, R: 3D Pit Arena Wall, Q: 0.23s Windup MMA Stun Kick)
+            else if (b.heroType === 'brawler') {
+              if (b.cdE <= 0 && bestDist <= 5.8 && (bestDist >= 2.2 || b.hp / b.maxHp < 0.65)) {
+                b.cdE = [10.0, 9.0, 8.0][rQE];
+                const lockedTarget = bestTarget;
+                const ang = Math.atan2(tx - b.x, tz - b.z);
+                const destX = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, -68, 68);
+                const destZ = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, -45, 45);
+                const dashDur = 0.24;
+                b.dashTimer = dashDur;
+                b.dashVx = (destX - b.x) / dashDur;
+                b.dashVz = (destZ - b.z) / dashDur;
+                playBotAction(b, 'jump', 1.75, 0.03, 0.38);
+                spawnShockRing(b.x, b.z, 0xf43f5e, 0.28, 1.6, 0.22);
+                b.dashOnEnd = () => {
+                  const arenaAmp = b.arenaTimer > 0 ? ([1.20, 1.25, 1.30][rUlt] + (isHard && b.level >= 10 ? 0.10 : 0)) : 1.0;
+                  const hitDmg = Math.round((58 + b.level * 10 + b.physAtk * 0.50) * arenaAmp * scaleMult);
+                  const shAmt = Math.round(([180, 240, 300][rQE] + b.level * 15) * (isHard && b.level >= 7 ? 1.35 : 1.0));
+                  b.shield = Math.max(b.shield || 0, shAmt);
+                  b.shieldTimer = 3.5;
+                  spawnShockRing(b.x, b.z, 0xfde047, 0.3, 2.1, 0.26);
+                  if (lockedTarget && lockedTarget.ref && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 2.9) {
+                    applyBotDamageToTarget(lockedTarget, hitDmg, b, 'physical');
+                    // Trigger 2nd Rebound Slide Dash through target (matching player Brawler E rebound!)
+                    const rebDur = 0.22;
+                    const rebX = THREE.MathUtils.clamp(b.x + Math.sin(ang) * 2.1, -68, 68);
+                    const rebZ = THREE.MathUtils.clamp(b.z + Math.cos(ang) * 2.1, -45, 45);
+                    b.dashTimer = rebDur;
+                    b.dashVx = (rebX - b.x) / rebDur;
+                    b.dashVz = (rebZ - b.z) / rebDur;
+                    playBotAction(b, 'slide', 2.35, 0.14, 0.26);
+                    b.dashOnEnd = () => {
+                      if (lockedTarget && lockedTarget.ref && lockedTarget.ref.hp > 0 && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 2.9) {
+                        applyBotDamageToTarget(lockedTarget, Math.round(hitDmg * 0.55), b, 'physical');
+                        spawnShockRing(b.x, b.z, 0xf43f5e, 0.25, 1.8, 0.22);
+                      }
+                    };
+                  }
+                  spawnFloat(b.x, 2.7, b.z, 'VAULT DASH! (+' + shAmt + ' SHIELD)', '#fde047');
+                };
+              } else if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 3.6) {
+                b.cdR = [46.0, 40.0, 34.0][rUlt];
+                const arenaDur = (isHard && b.level >= 10) ? 6.5 : 5.5;
+                b.arenaTimer = arenaDur;
+                if (isHard && b.level >= 10) b.cdE = 0;
+                playBotAction(b, 'kick', 1.45, 0.0, 0.38);
+                spawnBotPitArena(b, b.x, b.z, arenaDur);
+              } else if (b.cdQ <= 0 && bestDist <= 2.5) {
+                b.cdQ = [7.5, 6.8, 6.0][rQE] - (isHard && b.level >= 3 ? 1.5 : 0);
+                const lockedTarget = bestTarget;
+                playBotAction(b, 'kick', 1.45, 0.0, 0.50);
+                // 0.23s kick apex windup before impact!
+                scheduleBotHit(b, 0.23, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.1) {
+                    const arenaAmp = b.arenaTimer > 0 ? ([1.20, 1.25, 1.30][rUlt] + (isHard && b.level >= 10 ? 0.10 : 0)) : 1.0;
+                    const qDmg = Math.round((85 + b.level * 14 + b.physAtk * 0.90) * arenaAmp * scaleMult);
+                    const stunDur = [1.0, 1.1, 1.2][rQE] + (isHard && b.level >= 3 ? 0.25 : 0);
+                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0xfbbf24, 0.25, 1.95, 0.25);
+                    applyBotDamageToTarget(lockedTarget, qDmg, b, 'physical');
+                    applyBotCcAndEffects(lockedTarget, { stunDur });
+                    spawnFloat(lockedTarget.ref.x, 2.7, lockedTarget.ref.z, 'MMA STUN KICK!', '#fde047');
+                  }
+                });
+              }
+            }
+
+            // 3. COLISEUM BODYGUARD BOT (E: Crowd Dive + Rescue Shield -> R: AoE Taunt -> Q: 0.24s Windup Haymaker Knockback)
+            else if (b.heroType === 'bodyguard') {
+              if (b.cdE <= 0 && bestDist <= (isHard && b.level >= 7 ? 9.5 : 7.8) && (bestDist >= 2.5 || allyToPeel)) {
+                b.cdE = [11.0, 9.5, 8.0][rQE];
+                const lockedTarget = bestTarget;
+                const isPeelDive = !!allyToPeel;
+                const ang = Math.atan2(tx - b.x, tz - b.z);
+                b.leapSx = b.x;
+                b.leapSz = b.z;
+                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, -68, 68);
+                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, -45, 45);
+                b.leapDur = 0.42;
+                b.leapTimer = 0.42;
+                // Jump Attack.fbx: start at 0.52s (takeoff) at 2.55x so clipTime reaches 1.60s (ground slam) right as leapTimer hits 0!
+                playBotAction(b, 'jump', 2.55, 0.52, 0.54);
+                spawnShockRing(b.x, b.z, 0x38bdf8, 0.3, 1.4, 0.24);
+                spawnFloat(b.x, 2.75, b.z, isPeelDive ? 'PEEL DIVE!' : 'CROWD DIVE!', '#38bdf8');
+                b.leapOnLand = () => {
+                  const eDmg = Math.round((55 + b.level * 10 + b.physAtk * 0.70) * scaleMult);
+                  const slowDur = [1.8, 2.1, 2.4][rQE] + (isHard && b.level >= 7 ? 0.5 : 0);
+                  spawnShockRing(b.x, b.z, 0x38bdf8, 0.35, 2.85, 0.32);
+                  if (lockedTarget && lockedTarget.ref && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.5) {
+                    applyBotDamageToTarget(lockedTarget, eDmg, b, 'physical');
+                    applyBotCcAndEffects(lockedTarget, { slowDur });
+                  }
+                  // Grant Heroic Rescue Shield to self & nearby allied Carry (including Player!)
+                  if (b.level >= 7) {
+                    const shVal = 140 + b.level * 20;
+                    b.shield = Math.max(b.shield || 0, shVal);
+                    b.shieldTimer = 3.5;
+                    if (b.team === 0 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - b.x, hero.z - b.z) <= 4.2) {
+                      hero.shield = Math.max(hero.shield || 0, shVal);
+                      hero.shieldTimer = Math.max(hero.shieldTimer || 0, 3.5);
+                      spawnFloat(hero.x, 2.8, hero.z, 'ALLY RESCUE SHIELD! (+' + shVal + ')', '#38bdf8');
+                    }
+                  }
+                };
+              } else if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 4.6) {
+                b.cdR = [44.0, 38.0, 32.0][rUlt];
+                playBotAction(b, 'slide', 1.55, 0.10, 0.65);
+                const rDmg = Math.round((75 + b.level * 14 + b.physAtk * 0.50) * scaleMult);
+                const tauntDur = [1.5, 1.75, 2.0][rUlt];
+                const shVal = 180 + b.level * 25 + 130;
+                b.shield = Math.max(b.shield || 0, shVal);
+                b.shieldTimer = 4.5;
+                spawnShockRing(b.x, b.z, 0xfde047, 0.4, 4.8, 0.35);
+                applyBotDamageToTarget(bestTarget, rDmg, b, 'physical');
+                applyBotCcAndEffects(bestTarget, { tauntDur, stunDur: tauntDur * 0.5 });
+                spawnFloat(b.x, 2.85, b.z, 'EYES ON ME! (+' + shVal + ' SHIELD)', '#fde047');
+              } else if (b.cdQ <= 0 && bestDist <= 2.4) {
+                b.cdQ = [7.5, 6.5, 5.5][rQE];
+                const lockedTarget = bestTarget;
+                playBotAction(b, 'kick', 1.65, 0.0, 0.40);
+                // 0.24s Haymaker swing apex windup before knockback!
+                scheduleBotHit(b, 0.24, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.1) {
+                    const qDmg = Math.round(([70, 110, 150][rQE] + b.physAtk * 0.80) * scaleMult);
+                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0x38bdf8, 0.28, 2.1, 0.25);
+                    applyBotDamageToTarget(lockedTarget, qDmg, b, 'physical');
+                    applyBotCcAndEffects(lockedTarget, { kbDist: 3.4, fromBot: b, wallStun: b.level >= 3 });
+                    spawnFloat(lockedTarget.ref.x, 2.7, lockedTarget.ref.z, 'HAYMAKER KNOCKBACK!', '#38bdf8');
+                  }
+                });
+              }
+            }
+
+            // 4. ASTRAL SORCERESS BOT (E: Defensive/Offensive Rift Stride -> R: 0.50s Windup + 3D Cataclysm Monolith -> Q: 0.38s Telegraph Starfall Pillar)
+            else if (b.heroType === 'sorceress') {
+              if (b.cdE <= 0 && ((isHard && bestDist <= 4.2) || (!isHard && bestDist <= 7.5 && isHeroTarget))) {
+                b.cdE = [12.0, 10.5, 9.0][rQE];
+                const angToEnemy = Math.atan2(tx - b.x, tz - b.z);
+                let endX = b.x;
+                let endZ = b.z;
+                // Hard Sorceress dashes smoothly AWAY from close melee threats while firing 3 cascading pillars toward enemy!
+                if (isHard && bestDist <= 4.2) {
+                  endX = THREE.MathUtils.clamp(b.x - Math.sin(angToEnemy) * 3.8, -68, 68);
+                  endZ = THREE.MathUtils.clamp(b.z - Math.cos(angToEnemy) * 3.8, -45, 45);
+                  const dashDur = 0.24;
+                  b.dashTimer = dashDur;
+                  b.dashVx = (endX - b.x) / dashDur;
+                  b.dashVz = (endZ - b.z) / dashDur;
+                }
+                playBotAction(b, 'punch', 2.25, 0.22, 0.30);
+                spawnShockRing(b.x, b.z, 0x38bdf8, 0.25, 1.35, 0.24);
+                const lineAng = Math.atan2(tx - endX, tz - endZ);
+                const ePillarDmg = Math.round(([50, 80, 110][rQE] + (b.fant || 52) * 0.65) * scaleMult);
+                const eSlow = b.level >= 3 ? 1.5 : 0;
+                [1.8, 3.6, 5.4].forEach((stepDist, idx) => {
+                  const px = endX + Math.sin(lineAng) * stepDist;
+                  const pz = endZ + Math.cos(lineAng) * stepDist;
+                  spawnBotStarfallPillar(px, pz, 1.35, 0.18 + idx * 0.12, ePillarDmg, false, eSlow, b);
+                });
+                spawnFloat(b.x, 2.7, b.z, 'RIFT STRIDE!', '#38bdf8');
+              } else if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 8.8) {
+                b.cdR = [46.0, 40.0, 34.0][rUlt];
+                playBotAction(b, 'kick', 2.20, 0.25, 0.72);
+                const mx = tx;
+                const mz = tz;
+                const pulseDmg = Math.round(([45, 70, 95][rUlt] + (b.fant || 52) * 0.38) * scaleMult);
+                const collapseDmg = Math.round(([130, 195, 260][rUlt] + (b.fant || 52) * 0.85) * scaleMult);
+                spawnShockRing(mx, mz, 0xe879f9, 2.0, 0.4, 0.50);
+                // 0.50s cast windup before the 3D Obelisk & Expanding Gravity Zone erupt!
+                scheduleBotHit(b, 0.50, () => {
+                  spawnBotCataclysmMonolith(b, mx, mz, pulseDmg, collapseDmg);
+                });
+              } else if (b.cdQ <= 0 && bestDist <= (isHard && b.level >= 3 ? 10.2 : 9.4)) {
+                const baseQCd = [5.2, 4.8, 4.4][rQE];
+                b.cdQ = Math.max(1.50, baseQCd - (b.qTempoStacks || 0) * 0.90);
+                // Match player Sorceress Q: 0.54s windup animation + 0.38s ground telegraph ring before the Starfall Pillar erupts!
+                playBotAction(b, 'punch', 2.25, 0.22, 0.54);
+                const qDmg = Math.round((60 + b.level * 12 + (b.fant || 52) * 0.92) * scaleMult);
+                const qRad = isHard && b.level >= 7 ? 2.0 : 1.65;
+                spawnBotStarfallPillar(tx, tz, qRad, 0.38, qDmg, true, 0, b);
+              }
+            }
+
+            // 5. COYOTE CROSSBOWMAN BOT (E: 0.22s Windup + 0.48s Arcing Shrapnel Grenade, Q: 3-Bolt Spread Fan Volley, R: 1.10s Laser Sight Charge -> Giant Heartseeker Bolt)
+            else if (b.heroType === 'coyote') {
+              if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 11.0 && ((bestTarget.ref.bleedStacks || 0) >= 3 || bestTarget.ref.hp / bestTarget.ref.maxHp < 0.35)) {
+                b.cdR = [42.0, 36.0, 30.0][rUlt];
+                b.rChargeTimer = 1.10;
+                b.rChargeTarget = bestTarget;
+                playBotAction(b, 'idle', 0.25, 0.0, 1.15);
+                spawnFloat(b.x, 2.75, b.z, b.name + ': LOCKING HEARTSEEKER...', '#f43f5e');
+              } else if (b.cdE <= 0 && bestDist <= 9.8 && isHeroTarget) {
+                b.cdE = [11.0, 9.8, 8.5][rQE];
+                const gTx = tx;
+                const gTz = tz;
+                const outerDmg = Math.round(([70, 105, 140][rQE] + b.physAtk * 0.48) * scaleMult);
+                const slowDur = b.level >= 7 ? 2.5 : 0;
+                playBotAction(b, 'kick', 1.85, 1.28, 0.40);
+                // 0.22s throw windup before launching the arcing 3D grenade!
+                scheduleBotHit(b, 0.22, () => {
+                  launchBotShrapnelGrenade(b, gTx, gTz, outerDmg, slowDur);
+                });
+              } else if (b.cdQ <= 0 && bestDist <= 8.4) {
+                b.cdQ = [7.5, 6.5, 5.5][rQE];
+                playBotAction(b, 'punch', 0.95, 0.0, 0.28);
+                const perBoltDmg = Math.round(([25, 45, 65][rQE] + b.physAtk * 0.45) * scaleMult);
+                const spreadAngles = (isHard && b.level >= 3) ? [-0.24, -0.12, 0, 0.12, 0.24] : [-0.15, 0, 0.15];
+                spreadAngles.forEach((angOff) => {
+                  spawnBotCrossbowBolt(b, bestTarget, perBoltDmg, 1, false, angOff);
+                });
+                spawnFloat(b.x, 2.6, b.z, 'FAN VOLLEY!', '#f59e0b');
+              }
+            }
+          }
+
+          // =========================================================
+          // MOVEMENT, HARD-MODE ORB-WALK KITING, JUNGLE GANKS & BASIC ATTACKS
+          // =========================================================
+          let gx = b.x, gz = b.z;
+          const lowHpRetreat = (b.tauntTimer <= 0) && ((b.hp / b.maxHp < (isHard ? 0.28 : 0.22)) || (b.team === 0 && activePing && activePing.kind === 'retreat'));
+
+          // Hard Mode Tower Dive Safety: Don't walk under an active enemy Tower without allied minions unless executing < 22% HP target
+          let unsafeTowerDive = false;
+          if (isHard && bestTarget && bestTarget.kind !== 'structure') {
+            const enemyTower = structures.find((s) => s.team !== b.team && s.hp > 0 && s.kind === 'tower' && Math.hypot(bestTarget.ref.x - s.x, bestTarget.ref.z - s.z) <= 8.5);
+            if (enemyTower) {
+              const allyMinionUnderTower = minions.some((m) => m.team === b.team && m.hp > 0 && Math.hypot(m.x - enemyTower.x, m.z - enemyTower.z) <= 8.5);
+              const canExecute = bestTarget.ref.hp / (bestTarget.ref.maxHp || 1500) < 0.22 && b.hp / b.maxHp > 0.55;
+              if (!allyMinionUnderTower && !canExecute) {
+                unsafeTowerDive = true;
+              }
+            }
+          }
+
+          const targetRad = (bestTarget && bestTarget.ref && bestTarget.ref.r) ? bestTarget.ref.r : 0;
+          if (lowHpRetreat || unsafeTowerDive) {
+            gx = b.homeX;
+            gz = b.homeZ;
+          } else if (b.team === 0 && activePing && (activePing.kind === 'attack' || activePing.kind === 'group' || activePing.kind === 'boss')) {
+            gx = activePing.x;
+            gz = activePing.z;
+          } else if (bestTarget && bestDist <= b.range + targetRad + 0.38 && b.leapTimer <= 0 && b.dashTimer <= 0 && b.atkAnimTimer <= 0) {
+            b.facing = Math.atan2(bestTarget.ref.x - b.x, bestTarget.ref.z - b.z);
+            if (b.atkCd <= 0) {
+              const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[b.heroType]) || null;
+              const baseInterval = spec ? spec.atkCd : 1.12;
+              b.atkCd = baseInterval / (1 + (b.level - 1) * 0.035);
+              const lockedTarget = bestTarget;
+              const lockedRad = (lockedTarget && lockedTarget.ref && lockedTarget.ref.r) ? lockedTarget.ref.r : 0;
+              let dmg = Math.round(b.atk * scaleMult);
+
+              if (b.heroType === 'bodyguard') {
+                playBotAction(b, 'punch', 2.15, 0.42, 0.48);
+                scheduleBotHit(b, 0.27, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= b.range + lockedRad + 1.2) {
+                    applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
+                  }
+                });
+              } else if (b.heroType === 'sorceress') {
+                playBotAction(b, 'punch', 2.25, 0.22, 0.34);
+                scheduleBotHit(b, 0.22, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  spawnBotAstralBolt(b, lockedTarget, dmg);
+                });
+              } else if (b.heroType === 'panther') {
+                b.stealthTimer = 0;
+                playBotAction(b, 'punch', 2.45, 0.82, 0.34);
+                scheduleBotHit(b, 0.16, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= b.range + lockedRad + 1.2) {
+                    if ((lockedTarget.ref.predatorMarks || 0) > 0) {
+                      lockedTarget.ref.predatorMarks--;
+                      const rankMult = [1.0, 1.25, 1.50][rQE];
+                      const markDmg = Math.round((34 + b.level * 7 + (b.fant || 24) * 0.80) * rankMult * scaleMult);
+                      applyBotDamageToTarget(lockedTarget, markDmg, b, 'fantasy');
+                      if (lockedTarget.ref.predatorMarks === 0 && isHard && b.level >= 7) {
+                        b.cdE = Math.max(0, b.cdE - 2.0);
+                        applyBotCcAndEffects(lockedTarget, { slowDur: 1.25 });
+                      }
+                    }
+                    applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
+                  }
+                });
+              } else if (b.heroType === 'brawler') {
+                playBotAction(b, 'punch', 1.35, 0.0, 0.36);
+                scheduleBotHit(b, 0.16, () => {
+                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
+                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= b.range + lockedRad + 1.2) {
+                    b.siphonBonus = Math.min(0.12, (b.siphonBonus || 0) + 0.04);
+                    b.siphonTimer = 5.0;
+                    if (!isEasy && b.level >= 7) {
+                      b.basicCombo = ((b.basicCombo || 0) + 1) % 3;
+                      if (b.basicCombo === 0) {
+                        dmg += 36 + b.level * 4;
+                        b.hp = Math.min(b.maxHp, b.hp + 55 + b.level * 5);
+                        spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0xfde047, 0.25, 2.1, 0.24);
+                      }
+                    }
+                    applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
+                  }
+                });
+              } else if (b.heroType === 'coyote') {
+                playBotAction(b, 'punch', 1.35, 0.0, 0.36);
+                spawnBotCrossbowBolt(b, lockedTarget, dmg, 1, false, 0);
+              }
+            } else if (isHard && b.range > 4.0 && b.atkAnimTimer <= 0 && bestDist < 5.4 && bestTarget.kind !== 'structure') {
+              // Hard Mode Ranged Orb-Walk Kiting: step backward toward allied fountain between basic attacks!
+              const awayAng = Math.atan2(b.x - bestTarget.ref.x, b.z - bestTarget.ref.z);
+              gx = THREE.MathUtils.clamp(b.x + Math.sin(awayAng) * 3.0 + (b.homeX - b.x) * 0.08, -68, 68);
+              gz = THREE.MathUtils.clamp(b.z + Math.cos(awayAng) * 3.0, -45, 45);
+            }
+          } else if (bestTarget) {
+            gx = bestTarget.ref.x;
+            gz = bestTarget.ref.z;
+          } else if (b.lane === 'jungle') {
+            // Hard Mode Panther Jungle Ganks: If a lane enemy Hero is < 75% HP or overextended, roam to gank them!
+            let gankTarget = null;
+            if (isHard && b.level >= 2) {
+              if (b.team === 1 && playerProg.respawnTimer <= 0 && (hero.hp / hero.maxHp < 0.78 || hero.x > -8)) {
+                gankTarget = hero;
+              } else {
+                gankTarget = bots.find((eb) => eb.team !== b.team && eb.respawnTimer <= 0 && (eb.hp / eb.maxHp < 0.78 || (b.team === 0 ? eb.x < 8 : eb.x > -8)));
+              }
+            }
+            const liveCamp = camps.find((c) => c.respawnTimer <= 0 && !c.isBoss && (b.team === 0 ? c.homeX < 0 : c.homeX > 0));
+            if (gankTarget && (!liveCamp || b.level >= 3)) {
+              gx = gankTarget.x;
+              gz = gankTarget.z;
+            } else if (liveCamp) {
+              gx = liveCamp.homeX;
+              gz = liveCamp.homeZ;
+            } else {
+              gx = 0;
+              gz = -18;
+            }
+          } else {
+            const wps = DATA.LANE_WAYPOINTS[b.lane];
+            const wp = wps[b.wpIdx] || wps[3];
+            gx = wp.x;
+            gz = wp.z;
+            if (Math.hypot(gx - b.x, gz - b.z) <= 3.2) {
+              if (b.team === 0 && b.wpIdx < wps.length - 1) b.wpIdx++;
+              if (b.team === 1 && b.wpIdx > 0) b.wpIdx--;
+            }
+          }
+
+          const dx = gx - b.x;
+          const dz = gz - b.z;
+          const distGoal = Math.hypot(dx, dz);
+          const isKitingStep = isHard && b.range > 4.0 && bestTarget && bestDist < 5.4;
+          if (distGoal > 0.6 && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
+            isMoving = true;
+            const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : 0);
+            const spd = b.spd * (1 + bonusSpd) * (b.slowTimer > 0 ? 0.68 : 1.0);
+            const steered = steerUnitAroundStructures(b, dx / distGoal, dz / distGoal, bestTarget ? bestTarget.ref : null);
+            b.x += steered.vx * spd * dt;
+            b.z += steered.vz * spd * dt;
+            b.facing = Math.atan2(steered.vx, steered.vz);
+          }
+        }
+
+        // Update 3D Transform & Mixamo Animation State (Always runs even when stunned so HP bar & animations stay live!)
+        b.airborneY = airborneY;
+        b.pivot.position.set(b.x, airborneY, b.z);
+        if (b.groundRing) b.groundRing.position.y = 0.03 - airborneY;
+        b.pivot.rotation.y = b.facing;
+        updateUnitSlowVisual(b, b.pivot, 0.85, dt);
+
+        // Panther Rogue Bot R: Nightprowl Translucent Twilight-Teal Stealth Shimmer + Gnash Bite Lunge!
+        if (b.heroType === 'panther' && b.meshes && b.meshes.length > 0) {
+          const wantStealth = (b.stealthTimer || 0) > 0 ? 1.0 : 0.0;
+          const curBlend = b.stealthBlend || 0;
+          if (Math.abs(wantStealth - curBlend) > 0.005) {
+            const rate = wantStealth > curBlend ? (dt / 0.55) : (dt / 0.40);
+            b.stealthBlend = wantStealth > curBlend ? Math.min(1, curBlend + rate) : Math.max(0, curBlend - rate);
+            const sb = b.stealthBlend;
+            b.meshes.forEach((m) => {
+              const mats = Array.isArray(m.material) ? m.material : [m.material];
+              mats.forEach((mat) => {
+                if (!mat) return;
+                mat.transparent = sb > 0.01;
+                mat.opacity = 1.0 - sb * 0.58;
+                if (mat.color) mat.color.setRGB(1.0 - sb * 0.55, 1.0 - sb * 0.12, 1.0 - sb * 0.15);
+              });
+            });
+          }
+        }
+        if (b.model && b.baseModelPos) {
+          if ((b.gnashAnim || 0) > 0) {
+            b.gnashAnim = Math.max(0, b.gnashAnim - dt);
+            const u = 1.0 - (b.gnashAnim / 0.22);
+            const lunge = Math.sin(u * Math.PI);
+            b.model.position.set(b.baseModelPos.x, b.baseModelPos.y + lunge * 0.16, b.baseModelPos.z + lunge * 0.55);
+          } else {
+            b.model.position.copy(b.baseModelPos);
+          }
+        }
+
+        const vis = b.team === 0 || isPointVisibleToOrder(b.x, b.z);
+        b.pivot.visible = vis;
+        if (b.bowPivot) b.bowPivot.visible = vis;
+
+        if (b.mixer && vis) {
+          const isProwlCrawl = b.heroType === 'panther' && (b.stealthTimer || 0) > 0 && !!b.actions.crawl;
+          const moveAct = isProwlCrawl ? b.actions.crawl : (b.actions.run || b.actions.idle);
+          const wantAct = (b.stunTimer <= 0 && b.atkAnimTimer > 0)
+            ? (b.actions[b.animSlot || 'punch'] || b.actions.punch || b.actions.idle)
+            : (isMoving || isProwlCrawl ? moveAct : b.actions.idle);
+          if (wantAct && (wantAct !== b.activeAction || b.animForceRestart)) {
+            b.animForceRestart = false;
+            if (b.activeAction && b.activeAction !== wantAct) b.activeAction.fadeOut(0.08);
+            wantAct.reset();
+            if (b.stunTimer <= 0 && b.atkAnimTimer > 0) {
+              wantAct.time = b.animStartTime || 0;
+              wantAct.setEffectiveTimeScale(b.animTimeScale || 1.0);
+            } else {
+              wantAct.setEffectiveTimeScale(1.0);
+            }
+            wantAct.fadeIn(0.08).play();
+            b.activeAction = wantAct;
+          }
+          if (b.activeAction && b.activeAction === b.actions.run) {
+            b.activeAction.setEffectiveTimeScale(b.slowTimer > 0 ? 0.62 : 1.0);
+          } else if (b.activeAction && b.activeAction === b.actions.crawl) {
+            b.activeAction.setEffectiveTimeScale(isMoving ? 1.38 : 0.18);
+          }
+          b.mixer.update(dt);
+
+          if (b.bowPivot && b.rightHand && b.leftHand) {
+            b.model.updateMatrixWorld(true);
+            b.rightHand.getWorldPosition(rhTmp);
+            b.leftHand.getWorldPosition(lhTmp);
+            b.bowPivot.position.copy(rhTmp);
+            const fx = Math.sin(b.facing);
+            const fz = Math.cos(b.facing);
+            bowDirTmp.set(rhTmp.x + fx, rhTmp.y, rhTmp.z + fz);
+            b.bowPivot.up.set(0, 1, 0);
+            b.bowPivot.lookAt(bowDirTmp);
+          }
+        }
+
+        // Update Nameplate (always updates HP bar & Stun/Taunt/Slow/Bleed tags immediately!)
+        if (vis) {
+          const sp = projectToScreen(b.x, 2.45, b.z);
+          b.plate.style.display = sp.visible ? 'flex' : 'none';
+          b.plate.style.left = sp.x + 'px';
+          b.plate.style.top = sp.y + 'px';
+          b.plate.querySelector('.plate-hp').style.width = Math.max(0, (b.hp / b.maxHp) * 100) + '%';
+          const shEl = b.plate.querySelector('.plate-sh');
+          if (shEl) shEl.style.width = Math.max(0, ((b.shield || 0) / b.maxHp) * 100) + '%';
+          b.plate.querySelector('.plate-tag').textContent =
+            'Lv' + b.level + ' ' + b.name +
+            (b.stunTimer > 0 ? ' [⚡ STUNNED]' : '') +
+            (b.tauntTimer > 0 ? ' [💢 TAUNTED]' : '') +
+            (b.slowTimer > 0 ? ' [❄️ SLOWED]' : '') +
+            ((b.predatorMarks || 0) > 0 && (b.predatorMarkTimer || 0) > 0 ? ' [🐾x' + b.predatorMarks + ']' : '') +
+            (b.bleedStacks > 0 ? ' [🩸x' + b.bleedStacks + ']' : '');
+        } else {
+          b.plate.style.display = 'none';
+        }
+      });
+    }
+
+    function applyBotDamageToTarget(targetObj, dmg, attackerBot = null, dmgType = 'physical', attackerObj = null) {
+      if (!targetObj || !targetObj.ref) return;
+      const u = targetObj.ref;
+      if (targetObj.kind === 'structure' && !isStructureVulnerable(u)) return;
+      if (targetObj.kind === 'camp') {
+        if (u.state === 'leashing') return;
+        if (attackerBot) {
+          u.state = 'aggro';
+          u.aggroTarget = attackerBot;
+          u.patience = 5.0;
+        }
+      }
+      const atkRef = attackerObj || (attackerBot ? { kind: 'bot', ref: attackerBot } : null);
+      if (targetObj.kind === 'player' || (targetObj.kind === 'bot' && u.team === 0)) {
+        damageOrderHeroOrBot(u, dmg, dmgType, atkRef);
+      } else {
+        const res = dmgType === 'fantasy' ? (u.fResist || u.armor || 0) : (u.armor || 0);
+        const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + res))));
+        u.hp -= mitigated;
+        if (u.hp <= 0) {
+          handleUnitDeath(targetObj);
+        }
+      }
+    }
+
+    // Snapshot inside/outside state when Pit Brawler casts R (Pit Arena)
+    function onArenaSpawned(ar) {
+      if (!ar) return;
+      bots.forEach((b) => {
+        if (b.respawnTimer <= 0) b.wasInsideArena = Math.hypot(b.x - ar.x, b.z - ar.z) <= ar.r;
+      });
+      minions.forEach((m) => {
+        if (m.hp > 0) m.wasInsideArena = Math.hypot(m.x - ar.x, m.z - ar.z) <= ar.r;
+      });
+      camps.forEach((c) => {
+        if (c.respawnTimer <= 0) c.wasInsideArena = Math.hypot(c.x - ar.x, c.z - ar.z) <= ar.r;
+      });
+    }
+
+    // Enforce Pit Arena Coliseum Wall on ENEMY units only (Teammates can freely enter & leave an allied Pit Arena!)
+    function clampUnitToArena(u, ar, uTeam = 1) {
+      if (!ar || !u) return;
+      const arTeam = ar.team !== undefined ? ar.team : 0;
+      if (uTeam === arTeam) return;
+      let wasIn;
+      if (ar.insideMap) {
+        if (!ar.insideMap.has(u)) {
+          ar.insideMap.set(u, Math.hypot(u.x - ar.x, u.z - ar.z) <= ar.r);
+        }
+        wasIn = ar.insideMap.get(u);
+      } else {
+        if (u.wasInsideArena === undefined) {
+          u.wasInsideArena = Math.hypot(u.x - ar.x, u.z - ar.z) <= ar.r;
+        }
+        wasIn = u.wasInsideArena;
+      }
+      const dx = u.x - ar.x;
+      const dz = u.z - ar.z;
+      const d = Math.hypot(dx, dz) || 0.01;
+      const ur = u.r || 0.45;
+      if (wasIn) {
+        if (d > ar.r - ur) {
+          u.x = ar.x + (dx / d) * (ar.r - ur);
+          u.z = ar.z + (dz / d) * (ar.r - ur);
+        }
+      } else if (d < ar.r + ur) {
+        u.x = ar.x + (dx / d) * (ar.r + ur);
+        u.z = ar.z + (dz / d) * (ar.r + ur);
+      }
+    }
+
+    // Pure radial circle separation for living Towers/Barracks/Ancients (zero sideways teleport so units never rubber-band!)
+    function pushUnitOutOfStructure(u, s) {
+      if (!s || s.hp <= 0) return;
+      const dx = u.x - s.x;
+      const dz = u.z - s.z;
+      const d = Math.hypot(dx, dz) || 0.01;
+      const minR = (u.r || 0.42) + s.r + 0.24;
+      if (d < minR) {
+        u.x = s.x + (dx / d) * minR;
+        u.z = s.z + (dz / d) * minR;
+      }
+    }
+
+    // Smooth forward tangential velocity steering around Structures & Map Obstacles so Bots and Minions glide around Towers/Barracks at normal speed
+    function steerUnitAroundStructures(u, dirX, dirZ, targetRef = null) {
+      let vx = dirX;
+      let vz = dirZ;
+      const ur = u.r || 0.45;
+      for (let i = 0; i < structures.length; i++) {
+        const s = structures[i];
+        if (!s || s.hp <= 0 || s === targetRef) continue;
+        const toSx = s.x - u.x;
+        const toSz = s.z - u.z;
+        const d = Math.hypot(toSx, toSz) || 0.01;
+        const avoidR = ur + s.r + 1.55;
+        if (d < avoidR) {
+          const nx = toSx / d;
+          const nz = toSz / d;
+          const dot = vx * nx + vz * nz;
+          if (dot > -0.05) {
+            // Two tangents around the structure; pick the one aligned with current travel direction (or away from map border on dead-center approach)
+            const t1x = -nz, t1z = nx;
+            const t2x = nz, t2z = -nx;
+            const d1 = vx * t1x + vz * t1z;
+            const d2 = vx * t2x + vz * t2z;
+            let tx, tz;
+            if (Math.abs(d1 - d2) > 0.08) {
+              tx = d1 >= d2 ? t1x : t2x;
+              tz = d1 >= d2 ? t1z : t2z;
+            } else {
+              // Tie-breaker: steer toward inner lane (z closer to 0)
+              const z1 = Math.abs(s.z + t1z * 2.0);
+              const z2 = Math.abs(s.z + t2z * 2.0);
+              tx = z1 <= z2 ? t1x : t2x;
+              tz = z1 <= z2 ? t1z : t2z;
+            }
+            const blend = THREE.MathUtils.clamp((avoidR - d) / 1.35, 0.25, 1.0);
+            vx = vx * (1 - blend) + (tx - nx * 0.18) * blend;
+            vz = vz * (1 - blend) + (tz - nz * 0.18) * blend;
+            const len = Math.hypot(vx, vz) || 1.0;
+            vx /= len;
+            vz /= len;
+          }
+        }
+      }
+      return { vx, vz };
+    }
+
+    // Pairwise Circle Separation so Minions & Bots never stack on top of each other or hide Heroes!
+    function resolveUnitSeparation() {
+      const ar = ctx.getArena ? ctx.getArena() : null;
+      const playerDashing = hero.dashTimer > 0;
+
+      for (let pass = 0; pass < 2; pass++) {
+        // 1. Minion <-> Minion Separation
+        for (let i = 0; i < minions.length; i++) {
+          const a = minions[i];
+          if (a.hp <= 0) continue;
+          for (let j = i + 1; j < minions.length; j++) {
+            const b = minions[j];
+            if (b.hp <= 0) continue;
+            let dx = b.x - a.x;
+            let dz = b.z - a.z;
+            let d = Math.hypot(dx, dz);
+            const minSep = a.r + b.r + 0.82;
+            if (d < minSep) {
+              if (d < 0.02) {
+                const ang = ((i * 7 + j * 13) % 12) * (Math.PI / 6);
+                dx = Math.cos(ang);
+                dz = Math.sin(ang);
+                d = 1.0;
+              }
+              const push = (minSep - d) * 0.5;
+              const nx = dx / d;
+              const nz = dz / d;
+              a.x -= nx * push;
+              a.z -= nz * push;
+              b.x += nx * push;
+              b.z += nz * push;
+            }
+          }
+        }
+
+        // 2. Minion <-> Player Hero & Minion <-> Bots Separation (Never push enemies away while Player is dashing!)
+        for (let i = 0; i < minions.length; i++) {
+          const m = minions[i];
+          if (m.hp <= 0) continue;
+
+          if (playerProg.respawnTimer <= 0 && !playerDashing) {
+            let dx = m.x - hero.x;
+            let dz = m.z - hero.z;
+            let d = Math.hypot(dx, dz);
+            const minSep = m.r + (hero.r || 0.52);
+            if (d < minSep) {
+              if (d < 0.02) { dx = 1; dz = 0; d = 1; }
+              const push = minSep - d;
+              m.x += (dx / d) * push;
+              m.z += (dz / d) * push;
+            }
+          }
+
+          for (let j = 0; j < bots.length; j++) {
+            const b = bots[j];
+            if (b.respawnTimer > 0) continue;
+            let dx = m.x - b.x;
+            let dz = m.z - b.z;
+            let d = Math.hypot(dx, dz);
+            const minSep = m.r + b.r + 0.55;
+            if (d < minSep) {
+              if (d < 0.02) {
+                const ang = ((i * 5 + j * 11) % 12) * (Math.PI / 6);
+                dx = Math.cos(ang);
+                dz = Math.sin(ang);
+                d = 1.0;
+              }
+              const push = minSep - d;
+              m.x += (dx / d) * push * 0.85;
+              m.z += (dz / d) * push * 0.85;
+              b.x -= (dx / d) * push * 0.15;
+              b.z -= (dz / d) * push * 0.15;
+            }
+          }
+
+          // Clamp Minions outside Trees/Pillars, Towers/Barracks/Ancients & Pit Arena Wall
+          for (let k = 0; k < mapObstacles.length; k++) {
+            const o = mapObstacles[k];
+            const dx = m.x - o.x;
+            const dz = m.z - o.z;
+            const d = Math.hypot(dx, dz) || 0.01;
+            if (d < m.r + o.r) {
+              m.x = o.x + (dx / d) * (m.r + o.r);
+              m.z = o.z + (dz / d) * (m.r + o.r);
+            }
+          }
+          for (let k = 0; k < structures.length; k++) {
+            pushUnitOutOfStructure(m, structures[k], i);
+          }
+          if (ar) clampUnitToArena(m, ar, m.team);
+          for (let k = 0; k < botArenas.length; k++) {
+            clampUnitToArena(m, botArenas[k], m.team);
+          }
+        }
+
+        // 3. Bot <-> Bot & Bot <-> Player Hero + Map Obstacles, Structures & Pit Arena Wall Separation
+        if (playerProg.respawnTimer <= 0) {
+          for (let k = 0; k < botArenas.length; k++) {
+            clampUnitToArena(hero, botArenas[k], 0);
+          }
+        }
+        for (let i = 0; i < bots.length; i++) {
+          const a = bots[i];
+          if (a.respawnTimer > 0) continue;
+          if (playerProg.respawnTimer <= 0 && !playerDashing) {
+            let dx = a.x - hero.x;
+            let dz = a.z - hero.z;
+            let d = Math.hypot(dx, dz);
+            const minSep = a.r + (hero.r || 0.52);
+            if (d < minSep) {
+              if (d < 0.02) { dx = 1; dz = 0; d = 1; }
+              const push = minSep - d;
+              a.x += (dx / d) * push;
+              a.z += (dz / d) * push;
+            }
+          }
+          for (let j = i + 1; j < bots.length; j++) {
+            const b = bots[j];
+            if (b.respawnTimer > 0) continue;
+            let dx = b.x - a.x;
+            let dz = b.z - a.z;
+            let d = Math.hypot(dx, dz);
+            const minSep = a.r + b.r + 0.65;
+            if (d < minSep) {
+              if (d < 0.02) {
+                const ang = ((i * 3 + j * 7) % 12) * (Math.PI / 6);
+                dx = Math.cos(ang);
+                dz = Math.sin(ang);
+                d = 1.0;
+              }
+              const push = (minSep - d) * 0.5;
+              a.x -= (dx / d) * push;
+              a.z -= (dz / d) * push;
+              b.x += (dx / d) * push;
+              b.z += (dz / d) * push;
+            }
+          }
+          for (let k = 0; k < mapObstacles.length; k++) {
+            const o = mapObstacles[k];
+            const dx = a.x - o.x;
+            const dz = a.z - o.z;
+            const d = Math.hypot(dx, dz) || 0.01;
+            if (d < a.r + o.r) {
+              a.x = o.x + (dx / d) * (a.r + o.r);
+              a.z = o.z + (dz / d) * (a.r + o.r);
+            }
+          }
+          for (let k = 0; k < structures.length; k++) {
+            pushUnitOutOfStructure(a, structures[k], i);
+          }
+          if (ar) clampUnitToArena(a, ar, a.team);
+          for (let k = 0; k < botArenas.length; k++) {
+            clampUnitToArena(a, botArenas[k], a.team);
+          }
+        }
+      }
+
+      if (!ar) {
+        bots.forEach((b) => { b.wasInsideArena = undefined; });
+        minions.forEach((m) => { m.wasInsideArena = undefined; });
+        camps.forEach((c) => { c.wasInsideArena = undefined; });
+      }
+
+      // Sync Bot 3D pivots & nameplates after separation
+      bots.forEach((b) => {
+        if (b.respawnTimer > 0) return;
+        const ay = b.airborneY || 0;
+        b.pivot.position.set(b.x, ay, b.z);
+        if (b.groundRing) b.groundRing.position.y = 0.03 - ay;
+        if (b.pivot.visible) {
+          const sp = projectToScreen(b.x, 2.45 + ay, b.z);
+          b.plate.style.left = sp.x + 'px';
+          b.plate.style.top = sp.y + 'px';
+        }
+      });
+    }
+
+    function updateMinionsAndStructures(dt) {
+      // 1. Minion Waves Spawn Timer
+      waveTimer -= dt;
+      if (waveTimer <= 0) {
+        waveTimer = 24.0;
+        spawnMinionWave();
+      }
+
+      // 2. Update Minion AI, Bleed DoT & Movement
+      const bleedTickMinion = (10 + playerProg.level * 2.0) * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+      for (let i = minions.length - 1; i >= 0; i--) {
+        const m = minions[i];
+        if (!m) continue;
+        if (m.hp <= 0) {
+          handleUnitDeath({ kind: 'minion', ref: m });
+          continue;
+        }
+        m.atkCd = Math.max(0, m.atkCd - dt);
+        m.slowTimer = Math.max(0, (m.slowTimer || 0) - dt);
+        m.stunTimer = Math.max(0, (m.stunTimer || 0) - dt);
+        m.tauntTimer = Math.max(0, (m.tauntTimer || 0) - dt);
+
+        if (m.bleedTimer > 0 && m.bleedStacks > 0) {
+          m.bleedTimer -= dt;
+          m.bleedTickAccum = (m.bleedTickAccum || 0) + dt;
+          if (m.bleedTickAccum >= 0.65) {
+            m.bleedTickAccum -= 0.65;
+            dealPlayerDamageToUnit({ kind: 'minion', ref: m }, Math.round(m.bleedStacks * bleedTickMinion), { color: '#f43f5e', isDoT: true });
+            if (m.hp <= 0) continue;
+          }
+          if (m.bleedTimer <= 0) {
+            m.bleedStacks = 0;
+            m.bleedTickAccum = 0;
+          }
+        }
+
+        if (stepUnitKnockback(m, dt, 'minion')) continue;
+        if (m.stunTimer > 0) continue;
+
+        // Find nearest enemy minion (preferring lateral slot match so wave spreads cleanly!), structure, or hero within 8.5m
+        let bestT = null;
+        let bestScore = 8.5;
+        let bestActualD = 8.5;
+        const enemyTeam = 1 - m.team;
+
+        if (m.team === 1 && m.tauntTimer > 0 && playerProg.respawnTimer <= 0) {
+          bestActualD = Math.hypot(hero.x - m.x, hero.z - m.z);
+          bestT = { kind: 'player', ref: hero };
+        } else {
+          minions.forEach((em) => {
+            if (em.team === enemyTeam && em.hp > 0) {
+              const d = Math.hypot(em.x - m.x, em.z - m.z);
+              const slotBias = Math.abs((em.formZ || 0) - (m.formZ || 0)) * 0.35;
+              if (d < 8.5 && d + slotBias < bestScore) {
+                bestScore = d + slotBias;
+                bestActualD = d;
+                bestT = { kind: 'minion', ref: em };
+              }
+            }
+          });
+          structures.forEach((es) => {
+            if (es.team === enemyTeam && es.hp > 0 && isStructureVulnerable(es)) {
+              const d = Math.hypot(es.x - m.x, es.z - m.z);
+              if (d < bestScore) { bestScore = d; bestActualD = d; bestT = { kind: 'structure', ref: es }; }
+            }
+          });
+          bots.forEach((eb) => {
+            if (eb.team === enemyTeam && eb.respawnTimer <= 0) {
+              const d = Math.hypot(eb.x - m.x, eb.z - m.z);
+              if (d < bestScore) { bestScore = d; bestActualD = d; bestT = { kind: 'bot', ref: eb }; }
+            }
+          });
+          if (enemyTeam === 0 && playerProg.respawnTimer <= 0) {
+            const dp = Math.hypot(hero.x - m.x, hero.z - m.z);
+            if (dp < bestScore) { bestScore = dp; bestActualD = dp; bestT = { kind: 'player', ref: hero }; }
+          }
+        }
+
+        if (bestT && bestActualD <= m.range + bestT.ref.r) {
+          m.mesh.rotation.y = Math.atan2(bestT.ref.x - m.x, bestT.ref.z - m.z);
+          if (m.atkCd <= 0) {
+            m.atkCd = 1.35;
+            if (m.kind === 'ranged') {
+              spawnUnitProjectile(m.x, m.z, bestT, m.atk, m.team === 0 ? 0x38bdf8 : 0xf43f5e, 14.0, 'physical', { kind: 'minion', ref: m });
+            } else {
+              applyBotDamageToTarget(bestT, m.atk, null, 'physical', { kind: 'minion', ref: m });
+            }
+          }
+        } else {
+          let gx = bestT ? bestT.ref.x : m.x;
+          let gz = bestT ? (bestT.ref.z + (m.formZ || 0) * 0.32) : m.z;
+          if (!bestT) {
+            const wps = DATA.LANE_WAYPOINTS[m.lane];
+            const wp = wps[m.wpIdx] || wps[3];
+            gx = wp.x;
+            gz = wp.z + (m.formZ || 0);
+            if (Math.hypot(wp.x - m.x, wp.z - m.z) <= 3.2) {
+              if (m.team === 0 && m.wpIdx < wps.length - 1) m.wpIdx++;
+              if (m.team === 1 && m.wpIdx > 0) m.wpIdx--;
+            }
+          }
+          const dx = gx - m.x;
+          const dz = gz - m.z;
+          const d = Math.hypot(dx, dz) || 0.01;
+          const spd = m.spd * (m.slowTimer > 0 ? 0.72 : 1.0);
+          const steered = steerUnitAroundStructures(m, dx / d, dz / d, bestT ? bestT.ref : null);
+          m.x += steered.vx * spd * dt;
+          m.z += steered.vz * spd * dt;
+          m.mesh.rotation.y = Math.atan2(steered.vx, steered.vz);
+        }
+      }
+
+      // Run pairwise unit separation so minions and bots never stack on top of each other!
+      resolveUnitSeparation();
+
+      // Sync Minion 3D meshes & compact HP bars after separation
+      for (let i = minions.length - 1; i >= 0; i--) {
+        const m = minions[i];
+        if (!m) continue;
+        if (m.hp <= 0) {
+          handleUnitDeath({ kind: 'minion', ref: m });
+          continue;
+        }
+        m.mesh.position.set(m.x, 0, m.z);
+        updateUnitSlowVisual(m, m.mesh, 0.58, dt);
+        const vis = m.team === 0 || isPointVisibleToOrder(m.x, m.z);
+        m.mesh.visible = vis;
+        if (vis) {
+          const sp = projectToScreen(m.x, 1.55, m.z);
+          m.plate.style.display = sp.visible ? 'flex' : 'none';
+          m.plate.style.left = sp.x + 'px';
+          m.plate.style.top = sp.y + 'px';
+          m.plate.querySelector('.plate-hp').style.width = Math.max(0, (m.hp / m.maxHp) * 100) + '%';
+        } else {
+          m.plate.style.display = 'none';
+        }
+      }
+
+      // 3. Update Structures (Towers & Ancients fire at enemies in range; Minions prioritized first!)
+      structures.forEach((s) => {
+        if (s.hp <= 0) return;
+        if (s.crystal) s.crystal.rotation.y += dt * 1.8;
+        if (s.halo) s.halo.rotation.z += dt * 1.2;
+
+        const vuln = isStructureVulnerable(s);
+        if (s.invulnRing) s.invulnRing.visible = !vuln;
+
+        if (s.atk > 0) {
+          s.shootCd = Math.max(0, s.shootCd - dt);
+          if (s.shootCd <= 0) {
+            const enemyTeam = 1 - s.team;
+            let target = null;
+            let minD = s.range;
+            // Priority 1: Enemy Minions in range
+            minions.forEach((em) => {
+              if (em.team === enemyTeam && em.hp > 0) {
+                const d = Math.hypot(em.x - s.x, em.z - s.z);
+                if (d <= minD) { minD = d; target = { kind: 'minion', ref: em }; }
+              }
+            });
+            // Priority 2: Enemy Heroes/Bots in range
+            if (!target) {
+              bots.forEach((eb) => {
+                if (eb.team === enemyTeam && eb.respawnTimer <= 0) {
+                  const d = Math.hypot(eb.x - s.x, eb.z - s.z);
+                  if (d <= minD) { minD = d; target = { kind: 'bot', ref: eb }; }
+                }
+              });
+              if (enemyTeam === 0 && playerProg.respawnTimer <= 0) {
+                const dp = Math.hypot(hero.x - s.x, hero.z - s.z);
+                if (dp <= minD) { target = { kind: 'player', ref: hero }; }
+              }
+            }
+            if (target) {
+              s.shootCd = 1.35;
+              spawnUnitProjectile(s.x, s.z, target, s.atk, s.team === 0 ? 0x38bdf8 : 0xf43f5e, 18.5);
+            }
+          }
+        }
+
+        const sp = projectToScreen(s.x, s.kind === 'tower' ? 5.6 : 4.2, s.z);
+        s.plate.style.display = sp.visible ? 'flex' : 'none';
+        s.plate.style.left = sp.x + 'px';
+        s.plate.style.top = sp.y + 'px';
+        s.plate.querySelector('.plate-hp').style.width = Math.max(0, (s.hp / s.maxHp) * 100) + '%';
+        s.plate.querySelector('.plate-tag').textContent = s.name + (vuln ? '' : ' [🔒 INVULNERABLE]');
+      });
+
+      // 4. Update Neutral Jungle Camps & Central Boss (Active Chase, Melee Attack & Leash Reset!)
+      const bleedTickCamp = (10 + playerProg.level * 2.0) * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+      camps.forEach((c) => {
+        if (c.respawnTimer > 0) {
+          c.respawnTimer -= dt;
+          if (c.respawnTimer <= 0) {
+            c.hp = c.maxHp;
+            c.bleedStacks = 0;
+            c.state = 'idle';
+            c.aggroTarget = null;
+            c.x = c.homeX;
+            c.z = c.homeZ;
+            c.mobGrp.position.set(0, 0, 0);
+            c.mobGrp.visible = true;
+            if (c.leashRing) c.leashRing.visible = false;
+          }
+          return;
+        }
+        c.atkCd = Math.max(0, c.atkCd - dt);
+        c.stunTimer = Math.max(0, (c.stunTimer || 0) - dt);
+        c.slowTimer = Math.max(0, (c.slowTimer || 0) - dt);
+        c.tauntTimer = Math.max(0, (c.tauntTimer || 0) - dt);
+
+        if (c.bleedTimer > 0 && c.bleedStacks > 0 && c.state !== 'leashing') {
+          c.bleedTimer -= dt;
+          c.bleedTickAccum = (c.bleedTickAccum || 0) + dt;
+          if (c.bleedTickAccum >= 0.65) {
+            c.bleedTickAccum -= 0.65;
+            dealPlayerDamageToUnit({ kind: 'camp', ref: c }, Math.round(c.bleedStacks * bleedTickCamp), { color: '#f43f5e', isDoT: true });
+            if (c.respawnTimer > 0) return;
+          }
+          if (c.bleedTimer <= 0) {
+            c.bleedStacks = 0;
+            c.bleedTickAccum = 0;
+          }
+        }
+
+        if (stepUnitKnockback(c, dt, 'camp')) {
+          c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
+        } else if (c.state === 'aggro') {
+          if (c.leashRing) c.leashRing.visible = true;
+          const t = c.aggroTarget;
+          const targetDead = !t || (t === hero ? playerProg.respawnTimer > 0 : t.respawnTimer > 0);
+          const campDistHome = Math.hypot(c.x - c.homeX, c.z - c.homeZ);
+          const targetDistHome = t ? Math.hypot(t.x - c.homeX, t.z - c.homeZ) : 999;
+
+          if (targetDistHome > c.leashR + 0.5) {
+            c.patience -= dt * 2.2;
+          } else {
+            c.patience = Math.min(5.0, c.patience + dt);
+          }
+
+          // Trigger Leash Reset if pulled past leashR or attacker left camp territory!
+          if (targetDead || campDistHome > c.leashR || c.patience <= 0) {
+            c.state = 'leashing';
+            c.aggroTarget = null;
+            c.bleedStacks = 0;
+            c.bleedTimer = 0;
+            spawnFloat(c.x, 2.6, c.z, 'LEASHED! RESETTING', '#fde047');
+          } else if (c.stunTimer <= 0) {
+            const dx = t.x - c.x;
+            const dz = t.z - c.z;
+            const distT = Math.hypot(dx, dz) || 0.01;
+            c.mobGrp.rotation.y = Math.atan2(dx, dz);
+            if (distT <= c.atkRange + (t.r || 0.5)) {
+              if (c.atkCd <= 0) {
+                c.atkCd = 1.15;
+                damageOrderHeroOrBot(t, c.atk, 'physical', { kind: 'camp', ref: c });
+              }
+            } else {
+              const spd = c.spd * (c.slowTimer > 0 ? 0.72 : 1.0);
+              c.x += (dx / distT) * spd * dt;
+              c.z += (dz / distT) * spd * dt;
+              const ar = ctx.getArena ? ctx.getArena() : null;
+              if (ar) clampUnitToArena(c, ar);
+              c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
+            }
+          }
+        } else if (c.state === 'leashing') {
+          if (c.leashRing) c.leashRing.visible = true;
+          c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.32 * dt);
+          const dx = c.homeX - c.x;
+          const dz = c.homeZ - c.z;
+          const dHome = Math.hypot(dx, dz);
+          if (dHome <= 0.35) {
+            c.x = c.homeX;
+            c.z = c.homeZ;
+            c.mobGrp.position.set(0, 0, 0);
+            c.hp = c.maxHp;
+            c.state = 'idle';
+            if (c.leashRing) c.leashRing.visible = false;
+          } else {
+            c.x += (dx / dHome) * 7.8 * dt;
+            c.z += (dz / dHome) * 7.8 * dt;
+            c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
+            c.mobGrp.rotation.y = Math.atan2(dx, dz);
+          }
+        } else {
+          // Idle at home pit: slowly regenerate if chipped
+          if (c.leashRing) c.leashRing.visible = false;
+          if (c.hp < c.maxHp) c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.15 * dt);
+        }
+
+        const vis = isPointVisibleToOrder(c.x, c.z);
+        c.mobGrp.visible = vis;
+        updateUnitSlowVisual(c, c.mobGrp, c.isBoss ? 1.35 : 0.82, dt);
+        if (vis) {
+          const sp = projectToScreen(c.x, c.isBoss ? 4.2 : 2.3, c.z);
+          c.plate.style.display = sp.visible ? 'flex' : 'none';
+          c.plate.style.left = sp.x + 'px';
+          c.plate.style.top = sp.y + 'px';
+          c.plate.querySelector('.plate-hp').style.width = Math.max(0, (c.hp / c.maxHp) * 100) + '%';
+          c.plate.querySelector('.plate-tag').textContent =
+            c.name +
+            (c.stunTimer > 0 ? ' [⚡ STUNNED]' : '') +
+            (c.slowTimer > 0 ? ' [❄️ SLOWED]' : '') +
+            (c.state === 'leashing' ? ' [LEASHING]' : '') +
+            (c.bleedStacks > 0 ? ' [🩸x' + c.bleedStacks + ']' : '');
+        } else {
+          c.plate.style.display = 'none';
+        }
+      });
+
+      // 5. Update Homing Unit Projectiles (with 2-Way Pit Arena Wall Blocking!)
+      const activeArena = ctx.getArena ? ctx.getArena() : null;
+      for (let i = projectiles.length - 1; i >= 0; i--) {
+        const p = projectiles[i];
+        p.life -= dt;
+        const u = p.target && p.target.ref;
+        if (!u || (u.hp !== undefined && u.hp <= 0) || p.life <= 0) {
+          scene.remove(p.mesh);
+          projectiles.splice(i, 1);
+          continue;
+        }
+        const prevX = p.mesh.position.x;
+        const prevZ = p.mesh.position.z;
+        const dx = u.x - prevX;
+        const dz = u.z - prevZ;
+        const d = Math.hypot(dx, dz) || 0.01;
+        if (d <= 0.55) {
+          applyBotDamageToTarget(p.target, p.dmg, null, p.dmgType || 'physical', p.attackerObj || null);
+          if (p.extraOpts && p.extraOpts.bleedAdd && u !== hero && p.target.kind !== 'structure') {
+            u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + p.extraOpts.bleedAdd);
+            u.bleedTimer = 5.5;
+          }
+          scene.remove(p.mesh);
+          projectiles.splice(i, 1);
+        } else {
+          p.mesh.position.x += (dx / d) * p.spd * dt;
+          p.mesh.position.z += (dz / d) * p.spd * dt;
+          if (p.extraOpts) {
+            if (p.extraOpts.orientAlongDir) {
+              p.mesh.rotation.y = Math.atan2(dx, dz);
+            } else if (p.extraOpts.spinAstral) {
+              p.mesh.rotation.y += dt * 7.5;
+              p.mesh.rotation.z += dt * 5.0;
+            }
+          }
+          let blockedByWall = false;
+          if (activeArena) {
+            const wasIn = Math.hypot(prevX - activeArena.x, prevZ - activeArena.z) <= activeArena.r;
+            const nowIn = Math.hypot(p.mesh.position.x - activeArena.x, p.mesh.position.z - activeArena.z) <= activeArena.r;
+            if (wasIn !== nowIn) blockedByWall = true;
+          }
+          for (let k = 0; k < botArenas.length && !blockedByWall; k++) {
+            const bar = botArenas[k];
+            const wasIn = Math.hypot(prevX - bar.x, prevZ - bar.z) <= bar.r;
+            const nowIn = Math.hypot(p.mesh.position.x - bar.x, p.mesh.position.z - bar.z) <= bar.r;
+            if (wasIn !== nowIn) blockedByWall = true;
+          }
+          if (blockedByWall) {
+            SFX.play('block');
+            spawnShockRing(p.mesh.position.x, p.mesh.position.z, 0xfde047, 0.2, 0.9, 0.2);
+            spawnFloat(p.mesh.position.x, 1.5, p.mesh.position.z, 'BLOCKED!', '#fde047');
+            scene.remove(p.mesh);
+            projectiles.splice(i, 1);
+          }
+        }
+      }
+    }
+
+    // =========================================================
+    // RENDER 2D TACTICAL MINIMAP
+    // =========================================================
+    function drawMinimap() {
+      if (!minimapCtx) return;
+      const c = minimapCtx;
+      const w = 222, h = 150;
+      c.fillStyle = '#0b141a';
+      c.fillRect(0, 0, w, h);
+
+      const toX = (wx) => ((wx / DATA.MAP_W) + 0.5) * w;
+      const toY = (wz) => ((wz / DATA.MAP_H) + 0.5) * h;
+
+      // Draw Top & Bot Lane Paths
+      c.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+      c.lineWidth = 5;
+      ['top', 'bot'].forEach((ln) => {
+        const wps = DATA.LANE_WAYPOINTS[ln];
+        c.beginPath();
+        wps.forEach((p, idx) => {
+          if (idx === 0) c.moveTo(toX(p.x), toY(p.z));
+          else c.lineTo(toX(p.x), toY(p.z));
+        });
+        c.stroke();
+      });
+
+      // Draw Jungle Camps & Central Boss
+      camps.forEach((cp) => {
+        if (cp.respawnTimer > 0) return;
+        c.fillStyle = cp.isBoss ? '#fde047' : '#d97706';
+        c.beginPath();
+        c.arc(toX(cp.x), toY(cp.z), cp.isBoss ? 4.5 : 2.5, 0, Math.PI * 2);
+        c.fill();
+      });
+
+      // Draw Structures
+      structures.forEach((s) => {
+        if (s.hp <= 0) return;
+        c.fillStyle = s.team === 0 ? '#38bdf8' : '#fb7185';
+        const sz = s.kind === 'ancient' ? 7 : 5;
+        c.fillRect(toX(s.x) - sz * 0.5, toY(s.z) - sz * 0.5, sz, sz);
+      });
+
+      // Draw Minions
+      minions.forEach((m) => {
+        if (m.hp <= 0) return;
+        if (m.team === 1 && !isPointVisibleToOrder(m.x, m.z)) return;
+        c.fillStyle = m.team === 0 ? '#7dd3fc' : '#fda4af';
+        c.fillRect(toX(m.x) - 1.5, toY(m.z) - 1.5, 3, 3);
+      });
+
+      // Draw Wards
+      wards.forEach((wd) => {
+        c.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+        c.lineWidth = 1;
+        c.beginPath();
+        c.arc(toX(wd.x), toY(wd.z), 18, 0, Math.PI * 2);
+        c.stroke();
+      });
+
+      // Draw Bots
+      bots.forEach((b) => {
+        if (b.respawnTimer > 0) return;
+        if (b.team === 1 && !isPointVisibleToOrder(b.x, b.z)) return;
+        c.fillStyle = b.team === 0 ? '#22d3ee' : '#f43f5e';
+        c.beginPath();
+        c.arc(toX(b.x), toY(b.z), 4.0, 0, Math.PI * 2);
+        c.fill();
+      });
+
+      // Draw Player Hero
+      if (playerProg.respawnTimer <= 0) {
+        c.fillStyle = '#4ade80';
+        c.strokeStyle = '#ffffff';
+        c.lineWidth = 1.5;
+        c.beginPath();
+        c.arc(toX(hero.x), toY(hero.z), 4.8, 0, Math.PI * 2);
+        c.fill();
+        c.stroke();
+      }
+
+      // Draw Active Tactical Pings
+      pings.forEach((pg) => {
+        c.strokeStyle = pg.color;
+        c.lineWidth = 2;
+        c.beginPath();
+        c.arc(toX(pg.x), toY(pg.z), 6 + Math.sin(pg.life * 8) * 3, 0, Math.PI * 2);
+        c.stroke();
+      });
+    }
+
+    // =========================================================
+    // MAIN PER-FRAME UPDATE CALLED FROM ARENA3D.HTML
+    // =========================================================
+    function update(dt) {
+      if (!matchMode || gameOver) return;
+
+      matchTime += dt;
+      const mins = String(Math.floor(matchTime / 60)).padStart(2, '0');
+      const secs = String(Math.floor(matchTime % 60)).padStart(2, '0');
+      const clk = document.getElementById('p1-clock');
+      if (clk) clk.textContent = mins + ':' + secs;
+
+      // Passive Gold Trickle (3g/sec)
+      if (Math.floor(matchTime) !== Math.floor(matchTime - dt)) {
+        playerProg.gold += 3;
+        refreshShopAndHudUI();
+      }
+
+      // Boss Buff Timers
+      [0, 1].forEach((tm) => {
+        if (bossBuffTimer[tm] > 0) bossBuffTimer[tm] = Math.max(0, bossBuffTimer[tm] - dt);
+      });
+      bossAuraPlayer.visible = bossBuffTimer[0] > 0 && playerProg.respawnTimer <= 0;
+      bossAuraPlayer.position.set(hero.x, 0.05, hero.z);
+
+      // Ward Recharge & Lifetime
+      if (playerProg.wardCharges < 2) {
+        playerProg.wardRechargeTimer -= dt;
+        if (playerProg.wardRechargeTimer <= 0) {
+          playerProg.wardCharges++;
+          playerProg.wardRechargeTimer = playerProg.wardCharges < 2 ? 45.0 : 0;
+          refreshShopAndHudUI();
+        }
+      }
+      for (let i = wards.length - 1; i >= 0; i--) {
+        const w = wards[i];
+        w.life -= dt;
+        w.eye.rotation.y += dt * 2.5;
+        if (w.life <= 0) {
+          mapGroup.remove(w.mesh);
+          wards.splice(i, 1);
+        }
+      }
+
+      // Active Tactical Pings Lifetime
+      for (let i = pings.length - 1; i >= 0; i--) {
+        pings[i].life -= dt;
+        if (pings[i].life <= 0) pings.splice(i, 1);
+      }
+
+      // Player Respawn, Passive & Fountain HP/Mana Regen, & Channeled Free Recall (B)
+      const st = getPlayerStats();
+      hero.maxHp = st.maxHp;
+      hero.maxMp = st.maxMp;
+      if (hero.mp === undefined) hero.mp = st.maxMp;
+
+      if (playerProg.respawnTimer > 0) {
+        playerProg.respawnTimer -= dt;
+        if (playerProg.respawnTimer <= 0) {
+          hero.x = -59;
+          hero.z = 2;
+          hero.hp = hero.maxHp;
+          hero.mp = hero.maxMp;
+          spawnFloat(hero.x, 2.7, hero.z, 'RESPAWNED AT ORDER FOUNTAIN!', '#4ade80');
+        }
+      } else {
+        // Passive Mana & HP Regen (or instant full Mana in 0 CD Mode!)
+        if (ctx.isWtfMode()) {
+          hero.mp = hero.maxMp;
+        } else {
+          hero.hp = Math.min(hero.maxHp, hero.hp + (5.5 + playerProg.level * 0.6) * dt);
+          hero.mp = Math.min(hero.maxMp, hero.mp + st.mpRegen * dt);
+        }
+
+        // Order Fountain Healing & Mana Restore (+240 HP/sec, +180 MP/sec)
+        if (Math.hypot(hero.x - (-62), hero.z - 0) <= 6.5) {
+          hero.hp = Math.min(hero.maxHp, hero.hp + 240 * dt);
+          hero.mp = Math.min(hero.maxMp, hero.mp + 180 * dt);
+        }
+        // Channeled Recall (B)
+        if (playerProg.recallTimer > 0) {
+          if (ctx.isPlayerMoving()) {
+            playerProg.recallTimer = 0;
+            recallRingMesh.visible = false;
+            spawnFloat(hero.x, 2.5, hero.z, 'RECALL INTERRUPTED', '#fb7185');
+          } else {
+            playerProg.recallTimer -= dt;
+            recallRingMesh.visible = true;
+            recallRingMesh.position.set(hero.x, 1.6, hero.z);
+            recallRingMesh.rotation.y += dt * 4.5;
+            if (playerProg.recallTimer <= 0) {
+              recallRingMesh.visible = false;
+              hero.x = -62;
+              hero.z = 0;
+              hero.hp = hero.maxHp;
+              hero.mp = hero.maxMp;
+              SFX.play('chime');
+              spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.4, 2.6, 0.35);
+              spawnFloat(hero.x, 2.8, hero.z, 'ARRIVED AT FOUNTAIN!', '#38bdf8');
+              refreshShopAndHudUI();
+            }
+          }
+        } else {
+          recallRingMesh.visible = false;
+        }
+      }
+
+      updateBots(dt);
+      updateMinionsAndStructures(dt);
+      drawMinimap();
+    }
+
+    // Initialize Map, Bots & UI
+    build3DMap();
+    buildPhase1UI();
+    spawnBots();
+    hero.x = -55;
+    hero.z = 12;
+
+    return {
+      update,
+      getPlayerStats,
+      getHostileTargets,
+      getAlliedTargets,
+      dealPlayerDamageToUnit,
+      onArenaSpawned,
+      getPlayerProg: () => playerProg,
+      getMapObstacles: () => mapObstacles.concat(structures.filter((s) => s.hp > 0)),
+      notifyTemplatesReady: () => bots.forEach((b) => attachRigToBot(b)),
+      notifyHeroSwitched: () => {
+        const st = getPlayerStats();
+        hero.maxHp = st.maxHp;
+        hero.hp = hero.maxHp;
+        hero.maxMp = st.maxMp;
+        hero.mp = hero.maxMp;
+        syncAlliedBotsToPlayerHero();
+        refreshTalentModalUI();
+        refreshShopAndHudUI();
+      }
+    };
+  }
+
+  return { createEngine };
+})();
