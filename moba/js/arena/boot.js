@@ -26,8 +26,7 @@ async function bootArenaWithLoadingBar() {
   const steps = [
     { id: 'coyote', label: 'Coyote Crossbowman', src: 'assets/coyote/coyote_mixamo_bundle.js', globalKey: 'COYOTE_MIXAMO', pStart: 10, pEnd: 24 },
     { id: 'brawler', label: 'Pit Brawler', src: 'assets/brawler/brawler_mixamo_bundle.js', globalKey: 'BRAWLER_MIXAMO', pStart: 30, pEnd: 44 },
-    { id: 'sorceress', label: 'Astral Sorceress', src: 'assets/sorceress/sorceress_mixamo_bundle.js', globalKey: 'SORCERESS_MIXAMO', pStart: 50, pEnd: 64 },
-    { id: 'bodyguard', label: 'Shirtless Bodyguard', src: 'assets/guardian/guardian_mixamo_bundle.js', globalKey: 'GUARDIAN_MIXAMO', pStart: 68, pEnd: 78 }
+    { id: 'sorceress', label: 'Astral Sorceress', src: 'assets/sorceress/sorceress_mixamo_bundle.js', globalKey: 'SORCERESS_MIXAMO', pStart: 50, pEnd: 64 }
   ];
   Object.values(window.MOBA_HEROES || {}).forEach((k) => {
     if (k.bundle) steps.push({ id: k.id, label: k.bundle.label, src: k.bundle.src, globalKey: k.bundle.globalKey, pStart: k.bundle.pStart, pEnd: k.bundle.pEnd });

@@ -146,20 +146,6 @@ window.MOBA_PHASE1 = (function () {
         R: { id: '10R', name: '4th Resonance', desc: 'Max Q cooldown stacks 3 -> 4 vs Heroes, and Q deals +20% dmg inside R' }
       }
     },
-    bodyguard: {
-      3: {
-        L: { id: '3L', name: 'Into the Stonework', desc: 'Q Haymaker knocking an enemy into a Wall, Tree, or Tower Stuns for 1.0s' },
-        R: { id: '3R', name: 'Broad Shoulders', desc: 'Allies behind you receive 50% (+7/stack) of your Passive Armor & Resist' }
-      },
-      7: {
-        L: { id: '7L', name: 'Sky Drop', desc: 'E Crowd Dive leap range +25% and Slow increased from 35% to 50%' },
-        R: { id: '7R', name: 'Heroic Rescue', desc: 'Allies inside E landing zone gain a Shield and have Slows cleansed' }
-      },
-      10: {
-        L: { id: '10L', name: 'Thorns of Brass', desc: 'R Eyes On Me! radius +25% and reflects 25% of damage taken while Shield holds' },
-        R: { id: '10R', name: 'Peak Physique', desc: 'Casting R grants doubled max Passive resists (+84 Armor & Resist) for 6s' }
-      }
-    }
   };
 
   // Base Stats, Growth & Mana Costs for All 5 Playable 3D Heroes
@@ -215,23 +201,6 @@ window.MOBA_PHASE1 = (function () {
       atkCd: 1.12,
       mpCosts: { Q: 38, E: 60, R: 100 }
     },
-    bodyguard: {
-      id: 'bodyguard',
-      name: 'Coliseum Bodyguard',
-      role: 'Support • Melee Crowd-Control Bouncer',
-      glyph: 'B',
-      color: '#eab308',
-      height: 2.38,
-      baseHp: 1760, hpGrow: 140,
-      baseMp: 300, mpGrow: 26, mpRegen: 5.5,
-      baseAtk: 50, atkGrow: 5.0,
-      baseFant: 0, fantGrow: 0,
-      baseArmor: 28, armorGrow: 3.4,
-      baseFResist: 25, fResistGrow: 3.0,
-      baseSpd: 6.05,
-      atkCd: 1.30,
-      mpCosts: { Q: 45, E: 55, R: 90 }
-    }
   };
 
   // 4-Slot Base Shop Items (Physical, Fantasy, Mana & Tank Support — Zero Active Keys!)

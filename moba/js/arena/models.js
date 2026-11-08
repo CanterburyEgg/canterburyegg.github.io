@@ -133,13 +133,13 @@ function canonicalMixamoBone(rawName) {
 function updateSlotPills() {
   const isCoyote = activeHeroId === 'coyote';
   const isSorc = activeHeroId === 'sorceress';
-  const isBg = activeHeroId === 'bodyguard';
+  const pl = (heroKit() && heroKit().pillLabels) || {};
   const slots = [
     ['idle', 'pill-idle', 'Idle'],
     ['run', 'pill-run', 'Run'],
     ['punch', 'pill-punch', isCoyote ? 'Fire' : isSorc ? '1H Cast' : 'Punch'],
-    ['kick', 'pill-kick', isCoyote ? 'Grenade' : isSorc ? '2H Area' : isBg ? 'Haymaker' : 'Kick'],
-    ['dash', 'pill-dash', isCoyote ? 'Crossbow' : isSorc ? 'Rig' : isBg ? 'Leap' : 'Dash']
+    ['kick', 'pill-kick', isCoyote ? 'Grenade' : isSorc ? '2H Area' : (pl.kick || 'Kick')],
+    ['dash', 'pill-dash', isCoyote ? 'Crossbow' : isSorc ? 'Rig' : (pl.dash || 'Dash')]
   ];
   slots.forEach(([key, id, label]) => {
     const el = document.getElementById(id);
@@ -241,7 +241,7 @@ function prepareClipForModel(sourceClip, model, slot) {
         }
         // For Bodyguard's & Panther's E Leap ('jump'), heroPivot.position.y (airborneY) already drives the parabolic leap arc,
         // so clamp any duplicate upward Hips hop while preserving the landing crouch compression!
-        vals[k + 1] = ((activeHeroId === 'bodyguard' || clipTw.jumpClampHips) && slot === 'jump') ? Math.min(hy, rawY) : rawY;
+        vals[k + 1] = (clipTw.jumpClampHips && slot === 'jump') ? Math.min(hy, rawY) : rawY;
         vals[k + 2] = hz + dz;
       }
       keptTracks.push(tr);
@@ -491,7 +491,6 @@ const heroTemplates = {
   coyote: { fbx: null, tex: null, clips: {} },
   brawler: { fbx: null, tex: null, clips: {} },
   sorceress: { fbx: null, tex: null, clips: {} },
-  bodyguard: { fbx: null, tex: null, clips: {} },
   crossbowScene: null
 };
 Object.keys(window.MOBA_HEROES || {}).forEach((id) => {
@@ -499,59 +498,6 @@ Object.keys(window.MOBA_HEROES || {}).forEach((id) => {
 });
 let phase1Engine = null;
 let isMovingNow = false;
-
-// Post-process Guardian v2 FBX skin weights so his skull, jaw, mouth, and beard are 100% rigid on mixamorigHead!
-function lockGuardianHeadSkinWeights(fbxRoot) {
-  fbxRoot.traverse((ch) => {
-    if (!ch.isSkinnedMesh || !ch.geometry || !ch.skeleton) return;
-    const geom = ch.geometry;
-    const posAttr = geom.attributes.position;
-    const skinIdx = geom.attributes.skinIndex;
-    const skinWgt = geom.attributes.skinWeight;
-    if (!posAttr || !skinIdx || !skinWgt) return;
-
-    let headBoneIdx = -1;
-    ch.skeleton.bones.forEach((b, idx) => {
-      if (canonicalMixamoBone(b.name) === 'Head') headBoneIdx = idx;
-    });
-    if (headBoneIdx < 0) return;
-
-    let minY = Infinity, maxY = -Infinity, minX = Infinity, maxX = -Infinity;
-    for (let i = 0; i < posAttr.count; i++) {
-      const x = posAttr.getX(i);
-      const y = posAttr.getY(i);
-      if (y < minY) minY = y;
-      if (y > maxY) maxY = y;
-      if (x < minX) minX = x;
-      if (x > maxX) maxX = x;
-    }
-    const H = Math.max(0.001, maxY - minY);
-    const cx = (minX + maxX) * 0.5;
-
-    for (let i = 0; i < posAttr.count; i++) {
-      const nx = Math.abs(posAttr.getX(i) - cx) / H;
-      const ny = (posAttr.getY(i) - minY) / H;
-      const nz = posAttr.getZ(i) / H;
-
-      // Entire upper skull/hair (ny >= 0.852) OR front jaw/mouth/mustache/beard down to goatee tip (ny >= 0.820 && nz >= 0.016)
-      const isRigidHead = (nx <= 0.056) && (ny >= 0.852 || (ny >= 0.820 && nz >= 0.016));
-      if (isRigidHead) {
-        skinIdx.setXYZW(i, headBoneIdx, 0, 0, 0);
-        skinWgt.setXYZW(i, 1.0, 0.0, 0.0, 0.0);
-      } else if (nx <= 0.054 && ny >= 0.798 && ny < 0.820 && nz >= 0.012) {
-        // Smooth transition collar on upper throat just below beard tip
-        const t = (ny - 0.798) / 0.022;
-        const w0 = skinWgt.getX(i) * (1 - t);
-        const w1 = skinWgt.getY(i) * (1 - t);
-        const w2 = skinWgt.getZ(i) * (1 - t);
-        skinIdx.setW(i, headBoneIdx);
-        skinWgt.setXYZW(i, w0, w1, w2, t);
-      }
-    }
-    skinIdx.needsUpdate = true;
-    skinWgt.needsUpdate = true;
-  });
-}
 
 const pendingTexPromises = [];
 function loadHeroDiffuseTexture(dataUrl) {
@@ -637,41 +583,11 @@ function parseBrawlerBundle(bundle, targetTmpl) {
   return idleFbx;
 }
 
-function parseGuardianBundle(gBundle, targetTmpl) {
-  if (!gBundle || targetTmpl.fbx) return targetTmpl.fbx;
-  targetTmpl.tex = loadHeroDiffuseTexture(gBundle.diffuseDataUrl);
-  const gIdleFbx = fbxLoader.parse(b64ToBuffer(gBundle.idleFbxB64), '');
-  gIdleFbx.traverse((ch) => {
-    if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) {
-      ch.geometry.computeVertexNormals();
-    }
-  });
-  lockGuardianHeadSkinWeights(gIdleFbx);
-  targetTmpl.fbx = gIdleFbx;
-  if (gIdleFbx.animations[0]) targetTmpl.clips.idle = gIdleFbx.animations[0];
-  const gRunFbx = fbxLoader.parse(b64ToBuffer(gBundle.runFbxB64), '');
-  if (gRunFbx.animations[0]) targetTmpl.clips.run = gRunFbx.animations[0];
-  const gPunchFbx = fbxLoader.parse(b64ToBuffer(gBundle.punchFbxB64), '');
-  if (gPunchFbx.animations[0]) targetTmpl.clips.punch = gPunchFbx.animations[0];
-  const gKickFbx = fbxLoader.parse(b64ToBuffer(gBundle.kickFbxB64), '');
-  if (gKickFbx.animations[0]) targetTmpl.clips.kick = gKickFbx.animations[0];
-  if (gBundle.jumpFbxB64) {
-    const gJumpFbx = fbxLoader.parse(b64ToBuffer(gBundle.jumpFbxB64), '');
-    if (gJumpFbx.animations[0]) targetTmpl.clips.jump = gJumpFbx.animations[0];
-  }
-  if (gBundle.tauntFbxB64) {
-    const gTauntFbx = fbxLoader.parse(b64ToBuffer(gBundle.tauntFbxB64), '');
-    if (gTauntFbx.animations[0]) targetTmpl.clips.slide = gTauntFbx.animations[0];
-  }
-  return gIdleFbx;
-}
-
 // Lazily parse a hero's FBX template on demand so startup only parses what is needed immediately!
 const HERO_BUNDLE_PARSERS = {
   coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote),
   sorceress: () => parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceress),
-  brawler: () => parseBrawlerBundle(window.BRAWLER_MIXAMO, heroTemplates.brawler),
-  bodyguard: () => parseGuardianBundle(window.GUARDIAN_MIXAMO, heroTemplates.bodyguard)
+  brawler: () => parseBrawlerBundle(window.BRAWLER_MIXAMO, heroTemplates.brawler)
 };
 Object.values(window.MOBA_HEROES || {}).forEach((k) => {
   if (k.parseBundle && k.bundle) HERO_BUNDLE_PARSERS[k.id] = () => k.parseBundle(window[k.bundle.globalKey], heroTemplates[k.id]);
@@ -865,51 +781,6 @@ const HERO_UI_META = {
       }
     }
   },
-  bodyguard: {
-    height: 2.38,
-    modelLabel: 'Shirtless Bodyguard (Coliseum Strongman)',
-    glyph: 'B',
-    color: '#38bdf8',
-    name: 'Shirtless Bodyguard (3D)',
-    role: 'Support • Melee Vanguard Tank & Protector',
-    passive: 'Stand Behind!',
-    lmb: 'Knuckles',
-    q: 'Haymaker',
-    e: 'Crowd Dive',
-    r: 'Eyes On Me!',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Stand Behind Me! (+Armor/Res screening Allies) &bull; <b>Q</b> Knockback Haymaker &bull; <b>E</b> Crowd Dive Leap &bull; <b>R</b> AoE Taunt + Shield &bull; <b>P</b> Shop',
-    tooltips: {
-      P: {
-        title: 'Passive • Stand Behind Me!',
-        meta: 'Innate Vanguard Aura',
-        body: 'Positioning yourself between nearby enemies and an allied Hero grants up to <b>3 stacks of Guard (+14 Armor & +14 Fantasy Resist per stack, up to +42)</b>.',
-        talentLevels: [3, 10]
-      },
-      LMB: {
-        title: 'LMB • Brass Knuckles',
-        meta: '0 MP • 1.30s Base ATK',
-        body: 'Delivers a heavy close-range hook punch dealing <b>100% Physical ATK</b> in a wide frontal arc.'
-      },
-      Q: {
-        title: 'Q • Bouncer Haymaker',
-        meta: '45 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Unleashes a massive uppercut that deals <b>Physical Damage</b> and <b>knocks enemies back 3.8m</b>. (With Lv3 Talent, knocking foes into walls/trees Stuns for 1.0s!)',
-        talentLevels: [3]
-      },
-      E: {
-        title: 'E • Crowd Dive',
-        meta: '55 MP • 11.0s / 9.5s / 8.0s CD (Lv 1/6/9)',
-        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>Physical Damage</b> and <b>Slow enemies by 35% for 1.8s / 2.1s / 2.4s</b>.',
-        talentLevels: [7]
-      },
-      R: {
-        title: 'R • Eyes On Me!',
-        meta: '90 MP • 44s / 38s / 32s CD (Lv 4/8/12)',
-        body: 'Roars a thunderous battle-cry that deals AoE Physical Damage, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.',
-        talentLevels: [10]
-      }
-    }
-  }
 };
 Object.values(window.MOBA_HEROES || {}).forEach((k) => {
   if (k.ui) HERO_UI_META[k.id] = k.ui;

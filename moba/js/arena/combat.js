@@ -555,70 +555,6 @@ function fireStrikeImpact(strike) {
     return;
   }
 
-  // Shirtless Bodyguard Melee Impact (Basic Knuckles OR Q Bouncer Haymaker Knockback!)
-  if (activeHeroId === 'bodyguard') {
-    const reach = strike.isHaymaker ? 1.45 : 1.18;
-    const fx = hero.x + Math.sin(strike.facing) * reach;
-    const fz = hero.z + Math.cos(strike.facing) * reach;
-    const hitRadius = strike.isHaymaker ? 2.25 : 1.58;
-    spawnShockRing(fx, fz, strike.isHaymaker ? 0x38bdf8 : 0xfbbf24, 0.28, hitRadius, 0.26);
-
-    const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-    const dmg = strike.isHaymaker
-      ? Math.round([70, 110, 150][rQE] + st.atk * 0.80)
-      : Math.round(st.atk * 1.00);
-    const kbDist = strike.isHaymaker ? 3.8 : 0;
-    const wallStun = strike.isHaymaker && talents[3] === 'L';
-
-    dummies.forEach((d) => {
-      if (d.isShooter && !shooterEnabled) return;
-      if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
-        damageDummy(d, dmg, strike.isHaymaker ? '#38bdf8' : '#fb7185');
-        if (kbDist > 0) {
-          let dirX = d.x - hero.x;
-          let dirZ = d.z - hero.z;
-          let dirLen = Math.hypot(dirX, dirZ);
-          if (dirLen < 0.05) {
-            dirX = Math.sin(strike.facing);
-            dirZ = Math.cos(strike.facing);
-            dirLen = 1;
-          }
-          const kbDur = 0.26;
-          d.kbVx = (dirX / dirLen) * (kbDist / kbDur);
-          d.kbVz = (dirZ / dirLen) * (kbDist / kbDur);
-          d.kbTimer = kbDur;
-          d.kbWallStun = wallStun;
-          d.resetDelay = 3.5;
-          spawnFloat(d.x, 2.7, d.z, 'KNOCKBACK!', '#38bdf8');
-        }
-      }
-    });
-
-    if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t) => {
-        if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
-          let dirX = t.x - hero.x;
-          let dirZ = t.z - hero.z;
-          if (Math.hypot(dirX, dirZ) < 0.05) {
-            dirX = Math.sin(strike.facing);
-            dirZ = Math.cos(strike.facing);
-          }
-          phase1Engine.dealPlayerDamageToUnit(t, dmg, {
-            isBasic: !strike.isHaymaker,
-            dmgType: 'physical',
-            knockbackDist: kbDist,
-            knockbackDirX: dirX,
-            knockbackDirZ: dirZ,
-            kbOriginX: hero.x,
-            kbOriginZ: hero.z,
-            wallStun
-          });
-        }
-      });
-    }
-    return;
-  }
-
   const fx = hero.x + Math.sin(strike.facing) * 1.15;
   const fz = hero.z + Math.cos(strike.facing) * 1.15;
 
@@ -731,15 +667,6 @@ function tryAttack() {
     pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23 };
   } else if (heroKit() && heroKit().onBasicAttack) {
     heroKit().onBasicAttack(st);
-  } else if (activeHeroId === 'bodyguard') {
-    hero.atkTimer = 1.30 / (1 + st.asPct);
-    // Hook Punch.fbx (2.17s): skip the 0.42s off-hand guard shift and start right as the right shoulder cocks back;
-    // at 2.15x speed, the Right-Hand Hook Punch impacts at t = 0.27s (clipTime = 1.00s) and finishes follow-through at 0.50s!
-    hero.punchAnim = 0.50;
-    if (actions.punch) {
-      fadeToAction(actions.punch, 0.05, true, 2.15, 0.42);
-    }
-    pendingStrike = { isKick: false, isHaymaker: false, facing: hero.facing, t: 0.27 };
   } else {
     hero.atkTimer = 1.04 / (1 + st.asPct);
     hero.punchAnim = 0.48;
@@ -985,97 +912,6 @@ function castKey(slot) {
       const tz = hero.z + (dz / dist) * clamped;
       spawnShockRing(tx, tz, 0xe879f9, 2.0, 0.4, 0.50);
       pendingSorcUlt = { tx, tz, t: 0.50 };
-    }
-    return;
-  }
-
-  // =====================================================
-  // 3. SHIRTLESS BODYGUARD
-  // =====================================================
-  if (activeHeroId === 'bodyguard') {
-    if (slot === 'Q') {
-      if (hero.leapTimer > 0) return;
-      if (!wtfMode && hero.cdQ > 0) return;
-      if (!trySpendMana('Q')) return;
-      hero.cdQ = wtfMode ? 0.22 : [7.5, 6.5, 5.5][rQE] * cdrMult;
-      hero.kickAnim = 0.38;
-      const act = actions.kick || actions.punch;
-      if (act) fadeToAction(act, 0.05, true, 1.65);
-      SFX.play('chime');
-      pendingStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24 };
-      spawnFloat(hero.x, 2.6, hero.z, 'BOUNCER HAYMAKER!', '#38bdf8');
-    } else if (slot === 'E') {
-      if (hero.leapTimer > 0) return;
-      if (!wtfMode && hero.cdE > 0) return;
-      if (!trySpendMana('E')) return;
-      hero.cdE = wtfMode ? 0.30 : [11.0, 9.5, 8.0][rQE] * cdrMult;
-
-      const maxLeap = talents[7] === 'L' ? 9.75 : 7.8;
-      const dx = aimWorld.x - hero.x;
-      const dz = aimWorld.z - hero.z;
-      const dist = Math.hypot(dx, dz) || 0.01;
-      const clamped = Math.min(maxLeap, dist);
-      hero.leapSx = hero.x;
-      hero.leapSz = hero.z;
-      hero.leapTx = THREE.MathUtils.clamp(hero.x + (dx / dist) * clamped, -69, 69);
-      hero.leapTz = THREE.MathUtils.clamp(hero.z + (dz / dist) * clamped, -46, 46);
-      hero.leapDur = 0.42;
-      hero.leapTimer = hero.leapDur;
-      hero.kickAnim = 0.54; // 0.42s leap + 0.12s ground-slam follow-through
-      // Jump Attack.fbx: start at 0.52s (takeoff) at 2.55x so clipTime reaches 1.60s (ground slam) right as leapTimer hits 0!
-      if (actions.jump) fadeToAction(actions.jump, 0.05, true, 2.55, 0.52);
-      SFX.play('dash');
-      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.3, 1.4, 0.24);
-      spawnFloat(hero.x, 2.7, hero.z, 'CROWD DIVE!', '#38bdf8');
-    } else if (slot === 'R') {
-      if (!wtfMode && pProg.level < 4) {
-        spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
-        return;
-      }
-      if (!wtfMode && hero.cdR > 0) return;
-      if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.45 : [44.0, 38.0, 32.0][rUlt] * cdrMult;
-
-      const rRad = talents[10] === 'L' ? 6.0 : 4.8;
-      const rDmg = Math.round(75 + (pProg.level || 1) * 14 + st.atk * 0.50);
-      const tauntDur = [1.5, 1.75, 2.0][rUlt];
-      let enemyScore = 0;
-
-      dummies.forEach((d) => {
-        if (d.isShooter && !shooterEnabled) return;
-        if (Math.hypot(d.x - hero.x, d.z - hero.z) <= rRad + d.r) {
-          damageDummy(d, rDmg, '#fde047');
-          enemyScore += 2;
-          spawnFloat(d.x, 2.75, d.z, 'TAUNTED (' + tauntDur + 's)!', '#fde047');
-        }
-      });
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (t.kind === 'structure') return;
-          if (Math.hypot(t.x - hero.x, t.z - hero.z) <= rRad + t.r) {
-            const hit = phase1Engine.dealPlayerDamageToUnit(t, rDmg, {
-              dmgType: 'physical',
-              tauntDur,
-              color: '#fde047'
-            });
-            if (hit) enemyScore += (t.kind === 'bot' ? 2 : 1);
-          }
-        });
-      }
-
-      hero.shield = Math.round(180 + (pProg.level || 1) * 25 + enemyScore * 65);
-      hero.shieldTimer = 4.5;
-      hero.rShieldTimer = 4.5;
-      if (talents[10] === 'R') {
-        hero.peakPhysiqueTimer = 6.0;
-      }
-      hero.kickAnim = 0.72;
-      const tauntAct = actions.slide || actions.kick;
-      if (tauntAct) fadeToAction(tauntAct, 0.05, true, 1.55, 0.10);
-      SFX.play('arena');
-      spawnShockRing(hero.x, hero.z, 0xfbbf24, 0.5, rRad, 0.38);
-      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.3, rRad * 0.75, 0.28);
-      spawnFloat(hero.x, 2.9, hero.z, 'EYES ON ME! (+' + hero.shield + ' SHIELD)', '#fde047');
     }
     return;
   }

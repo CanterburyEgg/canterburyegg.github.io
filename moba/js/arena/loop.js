@@ -109,11 +109,6 @@ function tick(now) {
     oneShotActive = false;
     if (actions.idle) fadeToAction(actions.idle, 0.14, false, 1.0);
   }
-  // Release Bodyguard's E Jump Attack clip right after the 1.60s ground slam + brief follow-through (1.92s) so it doesn't linger!
-  if (activeHeroId === 'bodyguard' && actions.jump && activeAction === actions.jump && hero.leapTimer <= 0 && actions.jump.time >= 1.92) {
-    oneShotActive = false;
-    if (actions.idle) fadeToAction(actions.idle, 0.16, false, 1.0);
-  }
   const kitRelease = heroKit();
   if (kitRelease && kitRelease.releaseOneShotClips) kitRelease.releaseOneShotClips();
 
@@ -223,53 +218,6 @@ function tick(now) {
       const kitLand = heroKit();
       if (kitLand && kitLand.onLeapLand) {
         kitLand.onLeapLand({ st, pProg, talents });
-      } else {
-      // Bodyguard E (Crowd Dive) Landing Slam!
-      const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-      const slamR = 2.85;
-      const slamDmg = Math.round(55 + (pProg.level || 1) * 10 + st.atk * 0.70);
-      const slamSlow = [1.8, 2.1, 2.4][rQE] + (talents[7] === 'L' ? 0.5 : 0);
-      SFX.play('arena');
-      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.35, slamR, 0.32);
-
-      dummies.forEach((d) => {
-        if (d.isShooter && !shooterEnabled) return;
-        if (Math.hypot(d.x - hero.x, d.z - hero.z) <= slamR + d.r) {
-          damageDummy(d, slamDmg, '#38bdf8');
-          d.slowTimer = Math.max(d.slowTimer || 0, slamSlow);
-          spawnFloat(d.x, 2.65, d.z, talents[7] === 'L' ? '50% SLOW!' : '35% SLOW!', '#38bdf8');
-        }
-      });
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (t.kind === 'structure') return;
-          if (Math.hypot(t.x - hero.x, t.z - hero.z) <= slamR + t.r) {
-            phase1Engine.dealPlayerDamageToUnit(t, slamDmg, {
-              dmgType: 'physical',
-              slowDur: slamSlow,
-              color: '#38bdf8'
-            });
-          }
-        });
-        // Talent 7R (Heroic Rescue): Shield self + nearby Allied Bots & cleanse slows!
-        if (talents[7] === 'R') {
-          const rescueSh = 140 + (pProg.level || 1) * 20;
-          hero.shield = Math.max(hero.shield, rescueSh);
-          hero.shieldTimer = 3.5;
-          let shieldedAllies = 0;
-          if (phase1Engine.getAlliedTargets) {
-            phase1Engine.getAlliedTargets().forEach((ally) => {
-              if (Math.hypot(ally.x - hero.x, ally.z - hero.z) <= 3.4) {
-                ally.shield = Math.max(ally.shield || 0, rescueSh);
-                ally.shieldTimer = 3.5;
-                ally.slowTimer = 0;
-                shieldedAllies++;
-              }
-            });
-          }
-          spawnFloat(hero.x, 2.85, hero.z, 'HEROIC RESCUE! (+' + rescueSh + ' SHIELD' + (shieldedAllies > 0 ? ' TO ALLIES' : '') + ')', '#fde047');
-        }
-      }
       }
     }
   } else if (hero.dashTimer > 0) {
@@ -406,7 +354,7 @@ function tick(now) {
     const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || (hero.stunTimer || 0) > 0;
     if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
       isMoving = true;
-      const baseSpd = activeHeroId === 'coyote' ? 6.10 : activeHeroId === 'sorceress' ? 6.00 : activeHeroId === 'bodyguard' ? 6.05 : (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
+      const baseSpd = activeHeroId === 'coyote' ? 6.10 : activeHeroId === 'sorceress' ? 6.00 : (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
       const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
       const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow;
@@ -1004,7 +952,6 @@ function tick(now) {
   if (mpPlateBar) {
     mpPlateBar.style.width = Math.max(0, ((hero.mp || 0) / Math.max(1, hero.maxMp || 1)) * 100) + '%';
   }
-  const bgTag = activeHeroId === 'bodyguard' && (st.bgStacks || 0) > 0 ? ' [GUARD x' + st.bgStacks + ']' : '';
   const sorcTag = activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0 ? ' [TEMPO x' + hero.qTempoStacks + ']' : '';
   const kitHud = heroKit();
   const kitTag = (kitHud && kitHud.hudTag) ? kitHud.hudTag(st) : '';
@@ -1012,7 +959,7 @@ function tick(now) {
     pProg.recallTimer > 0 ? 'RECALLING (' + pProg.recallTimer.toFixed(1) + 's)'
     : hero.rChargeTimer > 0 ? 'HEARTSEEKER (' + hero.rChargeTimer.toFixed(1) + 's)'
     : hero.qArmed ? 'KICK ARMED!'
-    : 'Lv' + pProg.level + bgTag + sorcTag + kitTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
+    : 'Lv' + pProg.level + sorcTag + kitTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
 
   dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
@@ -1042,7 +989,7 @@ function tick(now) {
   }
 
   const meta = HERO_UI_META[activeHeroId] || HERO_UI_META.coyote;
-  const baseSpdHud = activeHeroId === 'coyote' ? 332 : activeHeroId === 'sorceress' ? 328 : activeHeroId === 'bodyguard' ? 334 : (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
+  const baseSpdHud = activeHeroId === 'coyote' ? 332 : activeHeroId === 'sorceress' ? 328 : (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
   const rSlowHud = hero.rChargeTimer > 0 ? 0.50 : 1.0;
   const eSlipHud = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
   document.getElementById('hud3d-lvl').textContent = pProg.level || 1;
@@ -1070,9 +1017,7 @@ function tick(now) {
   const passPip = document.getElementById('pip3d-passive');
   if (passPip) {
     let pText = '';
-    if (activeHeroId === 'bodyguard' && (st.bgStacks || 0) > 0) {
-      pText = st.bgStacks + 'x';
-    } else if (activeHeroId === 'brawler' && hero.siphonBonus > 0) {
+    if (activeHeroId === 'brawler' && hero.siphonBonus > 0) {
       pText = '+' + Math.round(hero.siphonBonus * 100) + '%';
     } else if (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0) {
       pText = hero.qTempoStacks + 'x';
@@ -1093,7 +1038,7 @@ function tick(now) {
   document.getElementById('s3d-q').classList.toggle('empowered', hero.qArmed || (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0));
   document.getElementById('s3d-e').classList.toggle('recast-ready', hero.eRecast > 0 || (!!heroKit() && !!heroKit().eReadyGlow && heroKit().eReadyGlow(st)));
   document.getElementById('pip3d-e').style.display = hero.eRecast > 0 ? 'block' : 'none';
-  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (activeHeroId === 'sorceress' && !!sorcMonolith) || (activeHeroId === 'bodyguard' && (hero.rShieldTimer || 0) > 0) || (!!heroKit() && !!heroKit().rEmpowered && heroKit().rEmpowered()));
+  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (activeHeroId === 'sorceress' && !!sorcMonolith) || (!!heroKit() && !!heroKit().rEmpowered && heroKit().rEmpowered()));
 
   // Update Q / E (Lv 1/6/9) and R (Lv 4/8/12) 3-Pip Rank Indicators
   const curLvl = pProg.level || 1;
