@@ -12,6 +12,10 @@ window.StorybookGameData = (() => {
   // Oak Windmill stays hidden from Deckbuilder & Wish while its design is tentative
   const HIDDEN_CARD_IDS = new Set(['card_mvrkzy6k_fq4hz']);
 
+  // Tier helpers: Elite Tokens wear Elite frame hardware but are non-collectible like Tokens
+  const isTokenTier = t => t === 'token' || t === 'elite_token';
+  const isEliteTier = t => t === 'elite' || t === 'elite_token';
+
   const FACTIONS = {
     R: { code: 'R', name: 'Red Velvet Court', short: 'Court', color: 'hsl(347, 65%, 30%)' },
     H: { code: 'H', name: 'Havenhearth', short: 'Hearth', color: 'hsl(37, 78%, 37%)' },
@@ -294,9 +298,9 @@ window.StorybookGameData = (() => {
     const activeCards = mergedCards.filter(c => !HIDDEN_CARD_IDS.has(c.id));
     const heroes = activeCards.filter(c => c.type === 'hero_active' || c.type === 'hero_passive');
     const collectibles = activeCards.filter(c =>
-      c.tier !== 'token' && c.type !== 'hero_active' && c.type !== 'hero_passive'
+      !isTokenTier(c.tier) && c.type !== 'hero_active' && c.type !== 'hero_passive'
     );
-    const tokens = activeCards.filter(c => c.tier === 'token');
+    const tokens = activeCards.filter(c => isTokenTier(c.tier));
 
     return {
       allCards: mergedCards,
@@ -320,7 +324,7 @@ window.StorybookGameData = (() => {
 
     const c = cardDef;
     const isHero = c.type === 'hero_active' || c.type === 'hero_passive';
-    const isElite = !isHero && c.tier === 'elite';
+    const isElite = !isHero && isEliteTier(c.tier);
 
     const effEnergyReq = live.energyReq !== undefined ? live.energyReq : (c.energyReq ?? 0);
     const baseAp = isHero ? parseHeroApCost(c) : (c.apCost ?? 1);
@@ -571,7 +575,7 @@ window.StorybookGameData = (() => {
 
   function isCardLegalForHeroes(cardDef, heroDefs) {
     if (!cardDef || HIDDEN_CARD_IDS.has(cardDef.id)) return false;
-    if (cardDef.tier === 'token' || cardDef.type === 'hero_active' || cardDef.type === 'hero_passive') return false;
+    if (isTokenTier(cardDef.tier) || cardDef.type === 'hero_active' || cardDef.type === 'hero_passive') return false;
     if (cardDef.faction === 'N') return true;
     if (!heroDefs || heroDefs.length === 0) return true;
     const allowedFactions = new Set(heroDefs.map(h => h.faction));
@@ -610,7 +614,7 @@ window.StorybookGameData = (() => {
         errors.push(`Unknown or unavailable card (${cardId}).`);
         continue;
       }
-      if (c.tier === 'token' || c.type === 'hero_active' || c.type === 'hero_passive') {
+      if (isTokenTier(c.tier) || c.type === 'hero_active' || c.type === 'hero_passive') {
         errors.push(`${c.name} cannot be placed in a main deck.`);
         continue;
       }

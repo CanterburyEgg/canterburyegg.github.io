@@ -398,6 +398,12 @@ textarea {
   gap: 6px;
 }
 
+.segmented-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
 .seg-btn {
   padding: 7px 4px;
   font-family: var(--font-ui);
@@ -1168,7 +1174,8 @@ details.meta-drawer summary {
 }
 
 /* Elite (1x) Frame Addition: Sculpted Crown-Diadem Topper + Burnished Gold Bezel */
-.tcg-card[data-card-tier="elite"] .card-art-bezel-wrap {
+.tcg-card[data-card-tier="elite"] .card-art-bezel-wrap,
+.tcg-card[data-card-tier="elite_token"] .card-art-bezel-wrap {
   padding: 7px;
   background: linear-gradient(145deg, #fff5bf 0%, #f0bd56 32%, #b87918 68%, #4d2c05 100%);
   box-shadow:

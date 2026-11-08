@@ -2636,7 +2636,7 @@
     spawnable.forEach(def => {
       const row = document.createElement('div');
       row.className = 'sb-spawn-item';
-      const tag = def.tier === 'token' ? 'Token' : `${def.energyReq}E`;
+      const tag = def.tier === 'elite_token' ? 'Elite Token' : def.tier === 'token' ? 'Token' : `${def.energyReq}E`;
       row.innerHTML = `
         <span style="min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
           <strong>${GD.escapeHtml(def.name)}</strong> <span style="opacity:.65">(${tag})</span>
