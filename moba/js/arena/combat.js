@@ -224,78 +224,6 @@ function applyBleedStacks(d, count) {
   }
 }
 
-function buildArena3D(x, z) {
-  if (arena) scene.remove(arena.group);
-  const group = new THREE.Group();
-  const radius = 4.6;
-  const talents = phase1Engine ? phase1Engine.getPlayerProg().talents : {};
-
-  // Glowing Force-Wall Cylinder (blocks projectiles in & out!)
-  const wall = new THREE.Mesh(
-    new THREE.CylinderGeometry(radius, radius, 2.2, 48, 1, true),
-    new THREE.MeshBasicMaterial({
-      color: 0xf43f5e,
-      transparent: true,
-      opacity: 0.22,
-      side: THREE.DoubleSide,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    })
-  );
-  wall.position.y = 1.1;
-  group.add(wall);
-
-  // Floor Rim Ring
-  const rim = new THREE.Mesh(
-    new THREE.RingGeometry(radius - 0.14, radius + 0.08, 56),
-    new THREE.MeshBasicMaterial({ color: 0xfbbf24, side: THREE.DoubleSide })
-  );
-  rim.rotation.x = -Math.PI / 2;
-  rim.position.y = 0.04;
-  group.add(rim);
-
-  // 12 Coliseum Iron & Brass Posts around the perimeter
-  const postGeo = new THREE.CylinderGeometry(0.16, 0.22, 2.35, 7);
-  const orbGeo = new THREE.OctahedronGeometry(0.24, 0);
-  const orbMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24 });
-  for (let i = 0; i < 12; i++) {
-    const a = (i / 12) * Math.PI * 2;
-    const px = Math.cos(a) * radius;
-    const pz = Math.sin(a) * radius;
-    const post = new THREE.Mesh(postGeo, wallMat);
-    post.position.set(px, 1.17, pz);
-    post.castShadow = true;
-    group.add(post);
-
-    const orb = new THREE.Mesh(orbGeo, orbMat);
-    orb.position.set(px, 2.5, pz);
-    group.add(orb);
-  }
-
-  group.position.set(x, 0, z);
-  scene.add(group);
-
-  dummies.forEach((d) => {
-    d.wasInsideArena = Math.hypot(d.x - x, d.z - z) <= radius;
-  });
-  hero.wasInsideArena = true;
-  const pLvl = phase1Engine ? (phase1Engine.getPlayerProg().level || 4) : 4;
-  const rUlt = pLvl >= 12 ? 2 : (pLvl >= 8 ? 1 : 0);
-  const baseArenaAmp = [1.20, 1.25, 1.30][rUlt] + (talents[10] === 'L' ? 0.10 : 0);
-  const arenaDur = talents[10] === 'L' ? 7.0 : 5.5;
-  arena = { x, z, r: radius, life: arenaDur, group, wall, amp: baseArenaAmp };
-  if (phase1Engine && phase1Engine.onArenaSpawned) {
-    phase1Engine.onArenaSpawned(arena);
-  }
-  // Brawler 10R Talent (Gladiator's Rush): Casting R immediately resets E cooldown!
-  if (talents[10] === 'R') {
-    hero.cdE = 0;
-  }
-  SFX.play('arena');
-  spawnShockRing(x, z, 0xf43f5e, 0.8, radius, 0.35);
-  spawnFloat(x, 2.8, z, 'WELCOME TO THE PIT!', '#fb7185');
-}
-
 function damageDummy(d, raw, customColor = '#fb7185') {
   let dmg = raw;
   if (arena && Math.hypot(d.x - arena.x, d.z - arena.z) <= arena.r) dmg *= (arena.amp || 1.25);
@@ -554,61 +482,6 @@ function fireStrikeImpact(strike) {
     kitImpact.onStrikeImpact(strike, { st, pProg, talents });
     return;
   }
-
-  const fx = hero.x + Math.sin(strike.facing) * 1.15;
-  const fz = hero.z + Math.cos(strike.facing) * 1.15;
-
-  // Brawler 7R Talent (Haymaker Cleave): Every 3rd basic punch unleashes a 2.3m shockwave (+36+4/Lv dmg & heals 55+5/Lv HP)!
-  let isHaymaker = false;
-  const haymakerHeal = 55 + (pProg.level || 1) * 5;
-  if (!strike.isKick && talents[7] === 'R') {
-    hero.basicCombo = (hero.basicCombo + 1) % 3;
-    if (hero.basicCombo === 0) {
-      isHaymaker = true;
-      hero.hp = Math.min(hero.maxHp, hero.hp + haymakerHeal);
-      spawnShockRing(fx, fz, 0xfde047, 0.3, 2.35, 0.28);
-      spawnFloat(hero.x, 2.6, hero.z, 'HAYMAKER CLEAVE! (+' + haymakerHeal + ' HP)', '#4ade80');
-    }
-  }
-  const hitRadius = strike.isKick ? 1.95 : (isHaymaker ? 2.35 : 1.52);
-  spawnShockRing(fx, fz, strike.isKick ? 0xfbbf24 : 0xf43f5e, 0.25, hitRadius, 0.24);
-
-  const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-  const baseStrikeDmg = strike.isKick
-    ? Math.round(85 + (pProg.level || 1) * 14 + st.atk * 0.90)
-    : Math.round(st.atk + (isHaymaker ? 36 + (pProg.level || 1) * 4 : 0));
-  const stunDur = [1.0, 1.1, 1.2][rQE] + (talents[3] === 'L' ? 0.25 : 0);
-  const siphonStep = talents[3] === 'R' ? 0.04 : 0.02;
-  const siphonCap = talents[3] === 'R' ? 0.12 : 0.08;
-
-  dummies.forEach((d) => {
-    if (d.isShooter && !shooterEnabled) return;
-    if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
-      damageDummy(d, baseStrikeDmg);
-      d.siphoned = Math.min(siphonCap, d.siphoned + siphonStep);
-      d.siphonTimer = 4.0;
-      if (strike.isKick) {
-        d.stunTimer = stunDur;
-        spawnFloat(d.x, 2.7, d.z, 'STUNNED!', '#fde047');
-      }
-    }
-  });
-
-  // Hit 4v4 Hostile Targets (Enemy Bots, Enemy Minions, Jungle Camps + Boss, Structures!)
-  if (phase1Engine) {
-    const arenaMult = (arena && Math.hypot(hero.x - arena.x, hero.z - arena.z) <= arena.r) ? (arena.amp || 1.25) : 1.0;
-    phase1Engine.getHostileTargets().forEach((t) => {
-      if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
-        const didHit = phase1Engine.dealPlayerDamageToUnit(t, baseStrikeDmg * arenaMult, {
-          isBasic: !strike.isKick,
-          stunDur: strike.isKick ? stunDur : 0
-        });
-        if (didHit) {
-          hero.siphonBonus = Math.min(siphonCap, hero.siphonBonus + siphonStep);
-        }
-      }
-    });
-  }
 }
 
 function tryAttack() {
@@ -646,72 +519,22 @@ function tryAttack() {
     return;
   }
 
-  // Pit Brawler or Shirtless Bodyguard Melee Attack
+  // Melee heroes (kit decides punch/kick/claw)
   if (pendingStrike) {
     fireStrikeImpact(pendingStrike);
     pendingStrike = null;
   }
   hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-  const isKick = activeHeroId === 'brawler' && hero.qArmed;
+  const qWasArmed = hero.qArmed;
   hero.qArmed = false;
 
-  if (isKick) {
-    hero.atkTimer = 1.04 / (1 + st.asPct * 0.5);
-    // Full 0.76s commit window so moving during Q Kick finishes the roundhouse & leg plant before blending to run!
-    hero.kickAnim = 0.76;
-    const kickAct = actions.kick || actions.punch;
-    if (kickAct) {
-      const dur = kickAct.getClip().duration || 1.6;
-      fadeToAction(kickAct, 0.06, true, THREE.MathUtils.clamp(dur / 0.78, 1.25, 2.25));
-    }
-    pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23 };
-  } else if (heroKit() && heroKit().onBasicAttack) {
-    heroKit().onBasicAttack(st);
-  } else {
-    hero.atkTimer = 1.04 / (1 + st.asPct);
-    hero.punchAnim = 0.48;
-
-    // Each click swings 1 punch: default to Punching (1), or alternate 1/2/1/2/1 if attacking in rapid sequence!
-    if (hero.comboResetTimer > 0) {
-      hero.basicCombo = (hero.basicCombo + 1) % 2;
-    } else {
-      hero.basicCombo = 0;
-    }
-    hero.comboResetTimer = hero.atkTimer + 0.48;
-
-    const punchAct = (hero.basicCombo === 1 && actions.punch2) ? actions.punch2 : actions.punch;
-    if (punchAct) {
-      const dur = punchAct.getClip().duration || 0.87;
-      fadeToAction(punchAct, 0.05, true, THREE.MathUtils.clamp(dur / 0.62, 1.1, 1.8));
-    }
-    pendingStrike = { isKick: false, isHaymaker: false, facing: hero.facing, t: 0.16 };
+  if (heroKit() && heroKit().onBasicAttack) {
+    heroKit().onBasicAttack(st, qWasArmed);
   }
 }
 
 let dashTrailTimer = 0;
 let activeDashClipKind = null; // 'slide' | 'jump' | null
-
-function triggerDashAnimation(isRebound) {
-  hero.punchAnim = 0;
-  hero.kickAnim = 0;
-  pendingStrike = null;
-
-  // Dash sequence: 1st Dash (!isRebound) = Flying Kick (actions.jump) => 2nd Rebound Dash (isRebound) = Running Slide (actions.slide)
-  if (!isRebound && actions.jump) {
-    activeDashClipKind = 'jump';
-    fadeToAction(actions.jump, 0.05, true, 1.75, 0.03);
-    spawnShockRing(hero.x, hero.z, 0xfde047, 0.25, 1.15, 0.22);
-  } else if (actions.slide) {
-    activeDashClipKind = 'slide';
-    fadeToAction(actions.slide, 0.05, true, 2.35, 0.14);
-    dashTrailTimer = 0;
-  } else if (actions.jump) {
-    activeDashClipKind = 'jump';
-    fadeToAction(actions.jump, 0.05, true, 1.75, 0.03);
-  } else {
-    activeDashClipKind = null;
-  }
-}
 
 function launchShrapnelGrenade(tx, tz) {
   const outerR = 2.45;
@@ -921,57 +744,6 @@ function castKey(slot) {
   if (kitCast && kitCast.cast) {
     kitCast.cast(slot, { st, pProg, talents, cdrMult, rQE, rUlt });
     return;
-  }
-
-  // =====================================================
-  // 5. PIT BRAWLER
-  // =====================================================
-  if (slot === 'Q') {
-    if (!wtfMode && hero.cdQ > 0) return;
-    if (!trySpendMana('Q')) return;
-    const baseQCd = [7.5, 6.8, 6.0][rQE] - (talents[3] === 'L' ? 1.5 : 0);
-    hero.cdQ = wtfMode ? 0.15 : baseQCd * cdrMult;
-    hero.qArmed = true;
-    hero.atkTimer = 0;
-    const dummyNear = dummies.some((d) => (!d.isShooter || shooterEnabled) && Math.hypot(d.x - hero.x, d.z - hero.z) <= 2.9);
-    const unitNear = phase1Engine && phase1Engine.getHostileTargets().some((t) => Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.9);
-    if (dummyNear || unitNear) {
-      tryAttack();
-    } else {
-      SFX.play('chime');
-      spawnFloat(hero.x, 2.5, hero.z, 'KICK ARMED!', '#fde047');
-    }
-  } else if (slot === 'E') {
-    if (hero.eRecast > 0) {
-      hero.eRecast = 0;
-      hero.dashVx = Math.sin(hero.facing) * 14.2;
-      hero.dashVz = Math.cos(hero.facing) * 14.2;
-      hero.dashTimer = 0.36;
-      hero.dashKind = 'second';
-      hero.dashHit = false;
-      triggerDashAnimation(true);
-      SFX.play('dash');
-      return;
-    }
-    if (!wtfMode && hero.cdE > 0) return;
-    if (!trySpendMana('E')) return;
-    hero.cdE = wtfMode ? 0.25 : [10.0, 9.0, 8.0][rQE] * cdrMult;
-    hero.dashVx = Math.sin(hero.facing) * 14.2;
-    hero.dashVz = Math.cos(hero.facing) * 14.2;
-    hero.dashTimer = 0.36;
-    hero.dashKind = 'first';
-    hero.dashHit = false;
-    triggerDashAnimation(false);
-    SFX.play('dash');
-  } else if (slot === 'R') {
-    if (!wtfMode && pProg.level < 4) {
-      spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
-      return;
-    }
-    if (!wtfMode && hero.cdR > 0) return;
-    if (!trySpendMana('R')) return;
-    hero.cdR = wtfMode ? 0.4 : [46.0, 40.0, 34.0][rUlt] * cdrMult;
-    buildArena3D(hero.x, hero.z);
   }
 }
 

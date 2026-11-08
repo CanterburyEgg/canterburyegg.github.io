@@ -489,7 +489,6 @@ function b64ToBuffer(b64) {
 // Pre-parsed 3D Hero Templates shared by Player & all 7 4v4 Mixamo Bots!
 const heroTemplates = {
   coyote: { fbx: null, tex: null, clips: {} },
-  brawler: { fbx: null, tex: null, clips: {} },
   sorceress: { fbx: null, tex: null, clips: {} },
   crossbowScene: null
 };
@@ -551,43 +550,10 @@ function parseSorcBundle(bundle, targetTmpl) {
   return idleFbx;
 }
 
-function parseBrawlerBundle(bundle, targetTmpl) {
-  if (!bundle || targetTmpl.fbx) return targetTmpl.fbx;
-  targetTmpl.tex = loadHeroDiffuseTexture(bundle.diffuseDataUrl);
-  const idleFbx = fbxLoader.parse(b64ToBuffer(bundle.idleFbxB64), '');
-  idleFbx.traverse((ch) => {
-    if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) {
-      ch.geometry.computeVertexNormals();
-    }
-  });
-  targetTmpl.fbx = idleFbx;
-  if (idleFbx.animations[0]) targetTmpl.clips.idle = idleFbx.animations[0];
-  const runFbx = fbxLoader.parse(b64ToBuffer(bundle.runFbxB64), '');
-  if (runFbx.animations[0]) targetTmpl.clips.run = runFbx.animations[0];
-  const punchFbx = fbxLoader.parse(b64ToBuffer(bundle.punchFbxB64), '');
-  if (punchFbx.animations[0]) targetTmpl.clips.punch = punchFbx.animations[0];
-  if (bundle.punch2FbxB64) {
-    const punch2Fbx = fbxLoader.parse(b64ToBuffer(bundle.punch2FbxB64), '');
-    if (punch2Fbx.animations[0]) targetTmpl.clips.punch2 = punch2Fbx.animations[0];
-  }
-  const kickFbx = fbxLoader.parse(b64ToBuffer(bundle.kickFbxB64), '');
-  if (kickFbx.animations[0]) targetTmpl.clips.kick = kickFbx.animations[0];
-  if (bundle.slideFbxB64) {
-    const slideFbx = fbxLoader.parse(b64ToBuffer(bundle.slideFbxB64), '');
-    if (slideFbx.animations[0]) targetTmpl.clips.slide = slideFbx.animations[0];
-  }
-  if (bundle.jumpFbxB64) {
-    const jumpFbx = fbxLoader.parse(b64ToBuffer(bundle.jumpFbxB64), '');
-    if (jumpFbx.animations[0]) targetTmpl.clips.jump = jumpFbx.animations[0];
-  }
-  return idleFbx;
-}
-
 // Lazily parse a hero's FBX template on demand so startup only parses what is needed immediately!
 const HERO_BUNDLE_PARSERS = {
   coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote),
-  sorceress: () => parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceress),
-  brawler: () => parseBrawlerBundle(window.BRAWLER_MIXAMO, heroTemplates.brawler)
+  sorceress: () => parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceress)
 };
 Object.values(window.MOBA_HEROES || {}).forEach((k) => {
   if (k.parseBundle && k.bundle) HERO_BUNDLE_PARSERS[k.id] = () => k.parseBundle(window[k.bundle.globalKey], heroTemplates[k.id]);
@@ -685,53 +651,6 @@ const HERO_UI_META = {
         title: 'R • Heartseeker Piercer',
         meta: '90 MP • 42s / 36s / 30s CD (Lv 4/8/12)',
         body: 'Channel for up to 2.0s (press <b>R</b> again to release early), aiming a long-range sniper laser that pierces all enemies and <b>detonates all active Bleed stacks</b> for massive bonus physical burst.',
-        talentLevels: [10]
-      }
-    }
-  },
-  brawler: {
-    height: 2.25,
-    modelLabel: 'Pit Brawler (Mixamo Rigged)',
-    glyph: 'P',
-    color: '#f43f5e',
-    name: 'Pit Brawler (3D)',
-    role: 'Solo • Melee Physical Coliseum Bruiser',
-    passive: 'Combo Siphon',
-    lmb: 'Punch',
-    q: 'Stun Kick',
-    e: '2x Dash',
-    r: 'Pit Arena',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>LMB</b> Punch &bull; <b>Q+LMB</b> Stun Kick &bull; <b>E</b> 2x Vault Dash &bull; <b>R</b> Pit Arena &bull; <b>P</b> Shop &bull; <b>F</b> Ward &bull; <b>B</b> Recall',
-    tooltips: {
-      P: {
-        title: 'Passive • Coliseum Rhythm',
-        meta: 'Innate Combo & Siphon',
-        metaColor: '#fb7185',
-        body: 'She chains rapid <b>left/right hook combinations</b> in melee combat, siphoning Move Speed. Wall-rebounding with <b>E: Vault Dash</b> grants her a <b>Coliseum Barrier Shield</b> and unlocks a second recast dash.',
-        talentLevels: [3, 7]
-      },
-      LMB: {
-        title: 'LMB • Heavy Knuckle Combo',
-        meta: '0 MP • 1.04s Base ATK',
-        body: 'She strikes enemies in front of her for <b>100% Physical ATK</b>, alternating between rapid jabs and heavy cross hooks.',
-        talentLevels: [3, 7]
-      },
-      Q: {
-        title: 'Q • MMA Roundhouse Kick',
-        meta: '40 MP • 7.5s / 6.8s / 6.0s CD (Lv 1/6/9)',
-        body: 'Empowers her next basic attack (or fires immediately if an enemy is in range) to unleash a spinning roundhouse kick that deals <b>85 (+14/Lv + 90% ATK) Physical Damage</b> and <b>Stuns for 1.0s / 1.1s / 1.2s</b>.',
-        talentLevels: [3]
-      },
-      E: {
-        title: 'E • 2x Cage Vault Dash',
-        meta: '50 MP • 10.0s / 9.0s / 8.0s CD (Lv 1/6/9)',
-        body: 'She lunges forward with a <b>Flying Kick</b>. Colliding with an enemy or wall/pillar grants a <b>Shield</b> and unlocks a <b>2nd Recast (Running Slide)</b> within 3.0s.',
-        talentLevels: [7]
-      },
-      R: {
-        title: 'R • Bloodsport Pit Arena',
-        meta: '95 MP • 46s / 40s / 34s CD (Lv 4/8/12)',
-        body: 'She slams the ground to erect an octagonal ring of <b>Coliseum Stone Walls</b> for 5.0s (+20% / 25% / 30% damage inside), trapping enemies and creating rebound surfaces for <b>E: Vault Dash</b>.',
         talentLevels: [10]
       }
     }

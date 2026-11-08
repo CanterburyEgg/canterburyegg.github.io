@@ -282,65 +282,9 @@ function tick(now) {
       });
     }
 
-    if (!hero.dashHit && (hitWall || hitDummy || hitHostile)) {
-      hero.dashHit = true;
-      const rimMult = hitArenaRim ? (talents[10] === 'R' ? 1.65 : 1.35) : 1.0;
-      const dashDmg = Math.round((58 + (pProg.level || 1) * 10 + st.atk * 0.50) * rimMult);
-      if (hitDummy) damageDummy(hitDummy, dashDmg);
-      if (hitHostile && phase1Engine) {
-        phase1Engine.dealPlayerDamageToUnit(hitHostile, dashDmg);
-        if (hero.dashKind === 'first') {
-          const ux = hero.x - hitHostile.x;
-          const uz = hero.z - hitHostile.z;
-          const ud = Math.hypot(ux, uz) || 0.01;
-          if (ud < hero.r + hitHostile.r + 0.08) {
-            hero.x = hitHostile.x + (ux / ud) * (hero.r + hitHostile.r + 0.08);
-            hero.z = hitHostile.z + (uz / ud) * (hero.r + hitHostile.r + 0.08);
-          }
-        }
-      }
-      if (hitArenaRim) {
-        spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.35, 2.8, 0.32);
-        dummies.forEach((d) => {
-          if (d !== hitDummy && (!d.isShooter || shooterEnabled) && Math.hypot(d.x - hero.x, d.z - hero.z) <= 2.8 + d.r) {
-            damageDummy(d, dashDmg, '#fde047');
-          }
-        });
-        if (phase1Engine) {
-          phase1Engine.getHostileTargets().forEach((t) => {
-            if ((!hitHostile || t.ref !== hitHostile.ref) && Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.8 + t.r) {
-              phase1Engine.dealPlayerDamageToUnit(t, dashDmg, { color: '#fde047' });
-            }
-          });
-        }
-      }
-      if (hero.dashKind === 'first') {
-        hero.dashTimer = 0;
-        const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-        const shieldMult = (talents[7] === 'L' ? 1.35 : 1.0) * (hitArenaRim ? 1.35 : 1.0);
-        hero.shield = Math.round(([180, 240, 300][rQE] + (pProg.level || 1) * 15) * shieldMult);
-        hero.shieldTimer = 3.5;
-        hero.eRecast = 3.0;
-        SFX.play(hitArenaRim ? 'arena' : 'punch');
-        spawnShockRing(hero.x, hero.z, 0xfbbf24, 0.3, 1.8, 0.25);
-        spawnFloat(
-          hero.x,
-          2.65,
-          hero.z,
-          hitArenaRim ? 'PIT WALL REBOUND! (+35% SHIELD & AOE)' : 'REBOUND! 2ND DASH',
-          '#fde047'
-        );
-      }
-    }
-    if (hero.dashTimer <= 0 && hero.dashKind === 'second' && talents[7] === 'L') {
-      spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.3, 2.4, 0.3);
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.4 + t.r) {
-            phase1Engine.dealPlayerDamageToUnit(t, 95);
-          }
-        });
-      }
+    const kitDash = heroKit();
+    if (kitDash && kitDash.onDashStep) {
+      kitDash.onDashStep({ st, pProg, talents, hitWall, hitArenaRim, hitDummy, hitHostile });
     }
   } else {
     hero.stunTimer = Math.max(0, (hero.stunTimer || 0) - dt);
@@ -1017,9 +961,7 @@ function tick(now) {
   const passPip = document.getElementById('pip3d-passive');
   if (passPip) {
     let pText = '';
-    if (activeHeroId === 'brawler' && hero.siphonBonus > 0) {
-      pText = '+' + Math.round(hero.siphonBonus * 100) + '%';
-    } else if (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0) {
+    if (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0) {
       pText = hero.qTempoStacks + 'x';
     } else if (heroKit() && heroKit().passivePip) {
       pText = heroKit().passivePip(st);

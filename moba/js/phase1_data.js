@@ -118,20 +118,6 @@ window.MOBA_PHASE1 = (function () {
         R: { id: '10R', name: 'Piercing Broadheads', desc: 'Q Fan Volley fires 5 bolts that pierce all enemies' }
       }
     },
-    brawler: {
-      3: {
-        L: { id: '3L', name: 'Low Blow', desc: '-1.5s Q MMA Stun Kick cooldown & +0.25s Stun' },
-        R: { id: '3R', name: 'Relentless Siphon', desc: 'Her punches siphon 4% Move Speed per hit (up to 12%) for 6s' }
-      },
-      7: {
-        L: { id: '7L', name: 'Heavy Impact', desc: '+35% E Rebound Shield & her 2nd Jump Vault slams a 2.4m AoE' },
-        R: { id: '7R', name: 'Haymaker Cleave', desc: 'Every 3rd punch cleaves nearby foes & heals her for +55 (+5/Lv) HP' }
-      },
-      10: {
-        L: { id: '10L', name: 'Bloodsport Champion', desc: '+1.5s R Pit Arena duration & +10% extra Arena bonus damage' },
-        R: { id: '10R', name: 'Cage Fighter', desc: 'Casting R resets E cooldown & Arena wall rebounds deal +65% bonus dmg' }
-      }
-    },
     sorceress: {
       3: {
         L: { id: '3L', name: 'Far Sight', desc: 'Q Starfall Pillar cast range increased by +15% (9.5m -> 11.0m)' },
@@ -166,23 +152,6 @@ window.MOBA_PHASE1 = (function () {
       baseSpd: 6.10,
       atkCd: 1.05,
       mpCosts: { Q: 40, E: 55, R: 90 }
-    },
-    brawler: {
-      id: 'brawler',
-      name: 'Pit Brawler',
-      role: 'Solo • Melee Coliseum Cage-Fighter',
-      glyph: 'P',
-      color: '#f43f5e',
-      height: 2.25,
-      baseHp: 1660, hpGrow: 132,
-      baseMp: 280, mpGrow: 24, mpRegen: 5.0,
-      baseAtk: 64, atkGrow: 7.8,
-      baseFant: 0, fantGrow: 0,
-      baseArmor: 30, armorGrow: 3.6,
-      baseFResist: 25, fResistGrow: 2.8,
-      baseSpd: 5.88,
-      atkCd: 1.04,
-      mpCosts: { Q: 40, E: 50, R: 95 }
     },
     sorceress: {
       id: 'sorceress',
