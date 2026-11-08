@@ -2450,6 +2450,7 @@
       let dmg = raw;
       if (arena && Math.hypot(d.x - arena.x, d.z - arena.z) <= arena.r) dmg *= (arena.amp || 1.25);
       dmg = Math.round(dmg);
+      if (window.__MOBA_TEST && window.__MOBA_TEST.onDummyDamage) window.__MOBA_TEST.onDummyDamage(d, dmg);
       d.hp -= dmg;
       if (d.hp <= 0) {
         d.hp = d.maxHp;
@@ -3626,6 +3627,7 @@
 
       raycaster.setFromCamera(mouseNDC, camera);
       raycaster.ray.intersectPlane(groundPlane, aimWorld);
+      if (window.__MOBA_TEST && window.__MOBA_TEST.aim) aimWorld.set(window.__MOBA_TEST.aim.x, 0, window.__MOBA_TEST.aim.z);
 
       hero.atkTimer = Math.max(0, hero.atkTimer - dt);
       hero.comboResetTimer = Math.max(0, (hero.comboResetTimer || 0) - dt);
@@ -4897,6 +4899,37 @@
       if (overlay) overlay.classList.add('hidden');
       last = performance.now();
       requestAnimationFrame(tick);
+
+      // Refactor safety net: ?selftest (all heroes) or ?selftest=<heroId> runs js/selftest.js
+      if (window.__MOBA_TEST) {
+        loadScriptAsync('js/selftest.js');
+      }
+    }
+
+    // =========================================================
+    // SELFTEST HOOK (only exists when the URL contains ?selftest)
+    // Keep this API stable during the refactor so selftest.js never changes.
+    // =========================================================
+    if (/[?&]selftest/.test(location.search)) {
+      window.__MOBA_TEST = {
+        aim: null,
+        onDummyDamage: null,
+        api: {
+          hero,
+          dummies,
+          switchHero,
+          castKey,
+          tryAttack,
+          getEngine: () => phase1Engine,
+          getActiveHeroId: () => activeHeroId,
+          isBusy: () => !!(
+            arena || sorcMonolith || pendingStrike || pendingGrenadeThrow || pendingSorcBolt || pendingSorcUlt ||
+            heroBolts.length || heroGrenades.length || sorcPillars.length ||
+            hero.rChargeTimer > 0 || hero.dashTimer > 0 || hero.leapTimer > 0 || (hero.qFlurryRemaining || 0) > 0
+          ),
+          endLingeringZones: () => { if (arena) arena.life = 0; }
+        }
+      };
     }
 
     bootArenaWithLoadingBar();
