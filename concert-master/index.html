@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concert Master — Symphonic Keyboard Rhythm Game</title>
+  <meta
+    name="description"
+    content="Concert Master: a cosmic concert-hall rhythm game. Play wind ensemble and RuneScape orchestral scores on D F J K, chase S+ ranks and full combos."
+  />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./index.css?v=cm1" />
+</head>
+<body>
+  <!-- Full-Viewport 3D Concert Hall in Space Highway -->
+  <canvas id="stage-canvas" aria-label="3D symphonic rhythm highway"></canvas>
+
+  <!-- Cosmic menu backdrop (nebula + vignette) shown behind every menu screen -->
+  <div id="menu-backdrop" class="menu-backdrop" aria-hidden="true">
+    <div class="nebula nebula-a"></div>
+    <div class="nebula nebula-b"></div>
+  </div>
+
+  <!-- =====================================================================
+       TITLE SCREEN
+       ===================================================================== -->
+  <main id="title-screen" class="screen menu-screen">
+    <a href="../index.html" id="nav-home-link" class="corner-home-link">← Egg's Games</a>
+    <div class="title-stack">
+      <p class="title-kicker">A Cosmic Concert Hall Rhythm Game</p>
+      <h1 id="app-title" class="game-logo">
+        <span class="logo-line logo-concert">Concert</span>
+        <span class="logo-line logo-master">Master</span>
+      </h1>
+      <div class="logo-rule" aria-hidden="true"><span>♩</span></div>
+      <button type="button" id="btn-press-start" class="press-start">Press Any Key</button>
+    </div>
+    <p class="title-footer">D · F · J · K &nbsp;—&nbsp; Wind Ensemble &amp; Orchestral Scores</p>
+  </main>
+
+  <!-- =====================================================================
+       MAIN MENU
+       ===================================================================== -->
+  <section id="menu-screen" class="screen menu-screen hidden" aria-labelledby="menu-logo">
+    <a href="../index.html" id="nav-home-link-menu" class="corner-home-link">← Egg's Games</a>
+    <div class="main-menu-layout">
+      <h2 id="menu-logo" class="game-logo game-logo-sm">
+        <span class="logo-line logo-concert">Concert</span>
+        <span class="logo-line logo-master">Master</span>
+      </h2>
+      <nav class="main-menu" role="menu" aria-label="Main menu">
+        <button type="button" id="menu-play" class="menu-item" role="menuitem" data-menu="play">
+          <span class="menu-item-label">Play</span>
+          <span class="menu-item-sub">Choose a piece &amp; take the podium</span>
+        </button>
+        <button type="button" id="menu-settings" class="menu-item" role="menuitem" data-menu="settings">
+          <span class="menu-item-label">Settings</span>
+          <span class="menu-item-sub">Volume, scroll speed &amp; audio offset</span>
+        </button>
+        <button type="button" id="menu-calibrate" class="menu-item" role="menuitem" data-menu="calibrate">
+          <span class="menu-item-label">Calibrate</span>
+          <span class="menu-item-sub">Tap along to sync your speakers</span>
+        </button>
+      </nav>
+    </div>
+    <footer class="nav-hints"><kbd>↑</kbd><kbd>↓</kbd> Move <kbd>Enter</kbd> Select <kbd>Esc</kbd> Back</footer>
+  </section>
+
+  <!-- =====================================================================
+       SONG SELECT
+       ===================================================================== -->
+  <section id="select-screen" class="screen menu-screen hidden" aria-labelledby="select-heading">
+    <header class="select-header">
+      <h2 id="select-heading" class="screen-heading">Song Select</h2>
+      <label class="rehearsal-toggle" for="rehearsal-toggle">
+        <input type="checkbox" id="rehearsal-toggle" />
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        <span>Rehearsal (WIP)</span>
+      </label>
+    </header>
+
+    <div class="select-layout">
+      <!-- Song wheel -->
+      <div class="wheel-viewport" id="wheel-viewport">
+        <div id="song-wheel" class="song-wheel" role="listbox" aria-label="Song wheel"></div>
+      </div>
+
+      <!-- Selected song detail -->
+      <aside class="song-detail" id="song-detail" aria-live="polite">
+        <p id="detail-composer" class="detail-composer">Composer</p>
+        <h3 id="detail-title" class="detail-title">Title</h3>
+        <p id="detail-ensemble" class="detail-ensemble">Ensemble</p>
+
+        <div class="detail-row">
+          <div class="detail-stat">
+            <span class="stat-label">Length</span>
+            <span id="detail-length" class="stat-value">—</span>
+          </div>
+          <div class="detail-stat">
+            <span class="stat-label">Difficulty</span>
+            <span id="detail-rating" class="rating-notes" aria-label="Difficulty"></span>
+          </div>
+        </div>
+
+        <div class="difficulty-switch" role="radiogroup" aria-label="Difficulty">
+          <button type="button" id="diff-easy" class="diff-btn" data-density="fewer" role="radio">Easy</button>
+          <button type="button" id="diff-hard" class="diff-btn" data-density="more" role="radio">Hard</button>
+        </div>
+
+        <div class="best-panel" id="best-panel">
+          <span class="stat-label">Personal Best · <span id="best-diff-label">Hard</span></span>
+          <div class="best-row">
+            <span id="best-rank" class="best-rank">—</span>
+            <div class="best-figures">
+              <span id="best-score" class="best-score">No record yet</span>
+              <span id="best-acc" class="best-acc"></span>
+            </div>
+            <span id="best-fc" class="best-fc hidden">FC</span>
+          </div>
+        </div>
+
+        <!-- Custom Track drop zone (only shown when the Custom Track card is selected) -->
+        <div id="drop-zone" class="drop-zone hidden" role="button" tabindex="0">
+          <p id="drop-zone-title" class="drop-zone-title">Drop an audio file here, or click to browse</p>
+          <p id="drop-zone-hint" class="drop-zone-hint">MP3, M4A, FLAC, WAV, OGG · Processed locally in your browser</p>
+          <input type="file" id="audio-file-input" accept="audio/*,.mp3,.m4a,.flac,.wav,.ogg,.aac,.opus" />
+        </div>
+
+        <div id="lobby-error" class="error-banner hidden" role="alert"></div>
+
+        <button type="button" id="btn-start-game" class="play-btn">
+          <span>Play</span><kbd>Enter</kbd>
+        </button>
+      </aside>
+    </div>
+
+    <footer class="nav-hints">
+      <kbd>↑</kbd><kbd>↓</kbd> Song <kbd>←</kbd><kbd>→</kbd> Difficulty <kbd>Enter</kbd> Play <kbd>Esc</kbd> Back
+    </footer>
+  </section>
+
+  <!-- =====================================================================
+       SETTINGS
+       ===================================================================== -->
+  <section id="settings-screen" class="screen menu-screen hidden" aria-labelledby="settings-heading">
+    <div class="settings-panel">
+      <h2 id="settings-heading" class="screen-heading">Settings</h2>
+      <div class="settings-list">
+        <div class="setting-row" data-setting="hitsound">
+          <label for="hitsound-slider">Hit Sound Volume</label>
+          <input type="range" id="hitsound-slider" min="0" max="100" value="52" />
+          <span id="hitsound-val" class="slider-val">52%</span>
+        </div>
+        <div class="setting-row" data-setting="speed">
+          <label for="speed-slider">Scroll Speed</label>
+          <input type="range" id="speed-slider" min="1" max="10" step="0.5" value="5.5" />
+          <span id="speed-val" class="slider-val">5.5x</span>
+        </div>
+        <div class="setting-row" data-setting="offset">
+          <label for="offset-slider">Audio Offset</label>
+          <input type="range" id="offset-slider" min="-200" max="350" step="1" value="0" />
+          <span id="offset-val" class="slider-val">0ms</span>
+        </div>
+      </div>
+      <div class="settings-actions">
+        <button type="button" id="btn-open-sync" class="secondary-btn">Calibrate Offset…</button>
+        <button type="button" id="btn-settings-back" class="primary-btn compact">Done</button>
+      </div>
+    </div>
+    <footer class="nav-hints"><kbd>↑</kbd><kbd>↓</kbd> Setting <kbd>←</kbd><kbd>→</kbd> Adjust <kbd>Esc</kbd> Back</footer>
+  </section>
+
+  <!-- =====================================================================
+       SPECTRAL PRE-SCAN OVERLAY
+       ===================================================================== -->
+  <section id="analysis-screen" class="screen hidden" aria-live="polite">
+    <div class="analysis-card">
+      <h2 class="analysis-title">Reading the Score</h2>
+      <p id="analysis-status-text" class="analysis-status">Preparing concert audio...</p>
+      <div class="progress-track">
+        <div id="analysis-progress-fill" class="progress-fill"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       IN-CONCERT HUD
+       ===================================================================== -->
+  <section id="hud-screen" class="screen hidden">
+    <header class="hud-top-bar">
+      <div class="hud-piece-info">
+        <div class="hud-title-row">
+          <div id="hud-title" class="hud-piece-title">Jupiter</div>
+          <span id="hud-engine-pill" class="engine-pill neural">NEURAL ML</span>
+        </div>
+        <div id="hud-subtitle" class="hud-piece-sub">Gustav Holst · 4 Keys</div>
+      </div>
+
+      <div class="timeline-wrap" title="Click anywhere along the dynamic contour to seek">
+        <canvas id="timeline-canvas"></canvas>
+        <div class="timeline-times">
+          <span id="time-current">0:00</span>
+          <span>Click contour to seek</span>
+          <span id="time-total">8:00</span>
+        </div>
+      </div>
+
+      <div class="hud-right-cluster">
+        <div class="hud-stat-box">
+          <div id="hud-accuracy" class="hud-accuracy">100.00%</div>
+          <div id="hud-score" class="hud-score-sub">0</div>
+        </div>
+        <div class="hud-btn-group">
+          <button type="button" id="btn-pause" class="icon-btn">Pause (Esc)</button>
+          <button type="button" id="btn-lobby-hud" class="icon-btn">Song Select</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="hud-center-callout">
+      <div id="hud-combo" class="combo-number">—</div>
+      <div class="combo-label">Combo</div>
+      <div id="hud-judgment" class="judgment-text">PERFECT</div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       PAUSE MODAL
+       ===================================================================== -->
+  <div id="pause-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="pause-heading">
+    <div class="pause-card game-panel">
+      <h2 id="pause-heading" class="screen-heading">Intermission</h2>
+      <div class="pause-menu" role="menu">
+        <button type="button" id="btn-resume" class="menu-item compact" role="menuitem">
+          <span class="menu-item-label">Resume</span>
+        </button>
+        <button type="button" id="btn-restart" class="menu-item compact" role="menuitem">
+          <span class="menu-item-label">Restart</span>
+        </button>
+        <button type="button" id="btn-pause-lobby" class="menu-item compact" role="menuitem">
+          <span class="menu-item-label">Song Select</span>
+        </button>
+      </div>
+      <div class="sliders-panel">
+        <div class="slider-row">
+          <label for="pause-hitsound-slider">Hit Sound</label>
+          <input type="range" id="pause-hitsound-slider" min="0" max="100" value="52" />
+          <span id="pause-hitsound-val" class="slider-val">52%</span>
+        </div>
+        <div class="slider-row">
+          <label for="pause-speed-slider">Scroll Speed</label>
+          <input type="range" id="pause-speed-slider" min="1" max="10" step="0.5" value="5.5" />
+          <span id="pause-speed-val" class="slider-val">5.5x</span>
+        </div>
+        <div class="slider-row offset-row">
+          <div class="offset-label-wrap">
+            <label for="pause-offset-slider">Audio Offset</label>
+            <button type="button" id="btn-pause-open-sync" class="mini-sync-btn">Tap Sync</button>
+          </div>
+          <input type="range" id="pause-offset-slider" min="-200" max="350" step="1" value="0" />
+          <span id="pause-offset-val" class="slider-val">0ms</span>
+        </div>
+        <div id="pause-live-tendency" class="live-tendency-row hidden">
+          <span id="pause-tendency-text">Recent hits: +0ms</span>
+          <button type="button" id="btn-apply-tendency" class="mini-sync-btn">Auto-Adjust</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       RESULTS SCREEN
+       ===================================================================== -->
+  <section id="results-screen" class="screen hidden">
+    <div class="results-card game-panel">
+      <div id="res-new-best" class="new-best-banner hidden">New Best!</div>
+      <div class="results-top">
+        <div class="results-headline">
+          <p class="section-label">Curtain Call · <span id="res-diff">Hard</span></p>
+          <h2 id="res-title">Jupiter</h2>
+          <p id="res-sub">Gustav Holst</p>
+          <span id="res-fc" class="fc-emblem">Full Combo · Zero Misses</span>
+        </div>
+        <div id="res-rank" class="results-rank rank-stamp">S</div>
+      </div>
+
+      <div class="results-metrics">
+        <div class="metric-tile">
+          <span class="metric-label">Accuracy</span>
+          <span id="res-acc" class="metric-value">99.20%</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-label">Max Combo</span>
+          <span id="res-combo" class="metric-value">412</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-label">Score</span>
+          <span id="res-score" class="metric-value">384,200</span>
+        </div>
+        <div class="metric-tile">
+          <span class="metric-label">Perfect / Great / Good / Miss</span>
+          <span id="res-breakdown" class="metric-value metric-small">0 / 0 / 0 / 0</span>
+        </div>
+      </div>
+
+      <div class="graph-box">
+        <p class="section-label">Accuracy Across the Piece</p>
+        <canvas id="results-graph-canvas"></canvas>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" id="btn-results-lobby" class="secondary-btn">Song Select</button>
+        <button type="button" id="btn-replay" class="primary-btn compact">Play Again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       TAP-TO-SYNC LATENCY CALIBRATOR MODAL
+       ===================================================================== -->
+  <div id="sync-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="sync-heading">
+    <div class="pause-card sync-card game-panel">
+      <div class="sync-header">
+        <p class="section-label">Calibrate · 80 BPM</p>
+        <h2 id="sync-heading" class="screen-heading">Tap to the Woodblock</h2>
+        <p class="sync-instructions">
+          Listen to the steady pulse (closing your eyes helps!) and tap <strong>SPACE</strong>, <strong>F</strong>, or
+          <strong>J</strong> along with the beat at least 8 times.
+        </p>
+      </div>
+
+      <div class="sync-readout-box">
+        <div class="sync-stat-pair">
+          <span class="metric-label">Taps Recorded</span>
+          <span id="sync-tap-count" class="metric-value">0 / 8</span>
+        </div>
+        <div class="sync-stat-pair">
+          <span class="metric-label">Detected Offset</span>
+          <span id="sync-detected-val" class="metric-value sync-highlight">—</span>
+        </div>
+      </div>
+
+      <div class="sync-meter-wrap">
+        <div class="sync-meter-labels">
+          <span>-150ms (Early)</span>
+          <span>0ms</span>
+          <span>+350ms (Bluetooth / Late)</span>
+        </div>
+        <div id="sync-meter-track" class="sync-meter-track">
+          <div class="sync-zero-line" style="left: 30%;"></div>
+          <div id="sync-median-marker" class="sync-median-marker hidden"></div>
+          <div id="sync-pips-layer"></div>
+        </div>
+        <p id="sync-last-tap-msg" class="sync-last-tap-msg">Waiting for first tap...</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" id="btn-sync-reset" class="secondary-btn">Reset Taps</button>
+        <button type="button" id="btn-sync-cancel" class="secondary-btn">Cancel</button>
+        <button type="button" id="btn-sync-apply" class="primary-btn compact" disabled>Apply Offset</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./game.js?v=cm1"></script>
+</body>
+</html>
