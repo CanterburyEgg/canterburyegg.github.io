@@ -11,7 +11,8 @@ const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 let crossbowMounted = false;
 
 // Spawn a 3D glowing Crossbow Bolt (or R Heartseeker Piercing Bolt!)
-function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false) {
+// rangeMult scales how far it flies; popScale scales the Heartseeker's Bleed detonation damage (see loop.js heroBolts)
+function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false, rangeMult = 1, popScale = 1) {
   const boltGrp = new THREE.Group();
   const len = isPiercingHeartseeker ? 1.55 : 0.85;
   const rad = isPiercingHeartseeker ? 0.075 : 0.038;
@@ -48,11 +49,21 @@ function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, 
     isHeartseeker: isPiercingHeartseeker,
     pierce: isPiercingHeartseeker || forcePierce,
     hitIds: new Set(),
-    life: isPiercingHeartseeker ? 0.68 : 0.55
+    popScale,
+    life: (isPiercingHeartseeker ? 0.68 : 0.55) * rangeMult
   });
 }
 
+// R Heartseeker charge scaling: an instant release would be 50% damage / 60% range, ramping to 100% at the full 2.0s;
+// a full charge is a Perfect Shot (+25% Bleed detonation damage). Early release is allowed after 0.35s (~59%).
+const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBonus: 1.25 };
+
 function fireHeartseekerRelease() {
+  const charge = THREE.MathUtils.clamp(1 - (hero.rChargeTimer / HEARTSEEKER.chargeDur), 0, 1);
+  const isPerfect = charge >= 0.999;
+  const power = HEARTSEEKER.minPower + (1 - HEARTSEEKER.minPower) * charge;
+  const range = HEARTSEEKER.minRange + (1 - HEARTSEEKER.minRange) * charge;
+  const popScale = power * (isPerfect ? HEARTSEEKER.perfectPopBonus : 1);
   hero.rChargeTimer = 0;
   laserSightMesh.visible = false;
   muzzleOrb.visible = false;
@@ -63,7 +74,12 @@ function fireHeartseekerRelease() {
   SFX.play('arena');
   spawnShockRing(hero.x + Math.sin(hero.facing) * 0.8, hero.z + Math.cos(hero.facing) * 0.8, 0xf43f5e, 0.2, 1.6, 0.26);
   const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 52 };
-  spawnCrossbowBolt(hero.facing, Math.round(130 + st.atk * 0.85), 1, true, true);
+  spawnCrossbowBolt(hero.facing, Math.round((130 + st.atk * 0.85) * power), 1, true, true, range, popScale);
+  if (isPerfect) {
+    spawnFloat(hero.x, 2.75, hero.z, 'PERFECT SHOT! (+25% BLEED POP)', '#fde047');
+  } else {
+    spawnFloat(hero.x, 2.75, hero.z, 'QUICK SHOT (' + Math.round(power * 100) + '%)', '#fb7185');
+  }
 }
 
 function launchShrapnelGrenade(tx, tz) {
@@ -194,7 +210,7 @@ H.coyote = {
       R: {
         title: 'R • Heartseeker Piercer',
         meta: '90 MP • 42s / 36s / 30s CD (Lv 4/8/12)',
-        body: 'Channel for up to 2.0s (press <b>R</b> again to release early), aiming a long-range sniper laser that pierces all enemies and <b>detonates all active Bleed stacks</b> for massive bonus physical burst.',
+        body: 'Channel for up to 2.0s, aiming a long-range sniper laser that pierces all enemies and <b>detonates all active Bleed stacks</b> for massive bonus physical burst. Damage and range grow with the charge; press <b>R</b> again to fire a weaker Quick Shot early, or hold the full 2.0s for a <b>Perfect Shot (+25% Bleed detonation)</b>.',
         talentLevels: [10]
       }
     }

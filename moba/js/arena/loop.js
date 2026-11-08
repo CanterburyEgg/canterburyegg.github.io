@@ -311,7 +311,7 @@ function tick(now) {
         b.hitIds.add('d_' + d.id);
         if (b.isHeartseeker) {
           const stacks = d.bleedStacks;
-          const popDmg = stacks * 110;
+          const popDmg = Math.round(stacks * 110 * (b.popScale || 1));
           damageDummy(d, b.dmg + popDmg, stacks > 0 ? '#fde047' : '#fb7185');
           if (stacks > 0) {
             d.bleedStacks = 0;
@@ -346,7 +346,7 @@ function tick(now) {
           if (b.isHeartseeker) {
             const stacks = t.ref.bleedStacks || 0;
             const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-            const popDmg = stacks * Math.round([60, 80, 100][rUlt] * (talents[7] === 'R' ? 1.25 : 1.0));
+            const popDmg = Math.round(stacks * Math.round([60, 80, 100][rUlt] * (talents[7] === 'R' ? 1.25 : 1.0)) * (b.popScale || 1));
             const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185' });
             if (didHit && stacks > 0) {
               t.ref.bleedStacks = 0;

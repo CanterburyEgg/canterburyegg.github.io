@@ -9,9 +9,9 @@ Branch: `moba-hero-kits` (local only, not pushed). Verification: `arena3d.html?s
 - [x] Panther
 - [x] Bodyguard
 - [x] Brawler (+ gameplay changes: Pit traps her inside / recast R drops it; always-alternating hooks)
-- [ ] Sorceress
-- [ ] Coyote
-- Then Phase 2 (bots use the real hero kits), then Fairy & Scientist.
+- [x] Sorceress
+- [x] Coyote (+ gameplay change: Heartseeker charge scales damage/range; full charge = Perfect Shot)
+- **Phase 1 complete.** Next: Phase 2 (bots use the real hero kits), then Fairy & Scientist.
 
 ## Deferred fixes (found during the move; kept verbatim so the selftest stays identical)
 - **Bodyguard GUARD tag/pip never shows**: HUD reads `st.bgStacks` but `getPlayerStats()` returns `guardStacks`.
