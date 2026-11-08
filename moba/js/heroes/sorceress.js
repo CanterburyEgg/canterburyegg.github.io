@@ -7,8 +7,32 @@
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
-// Spawn Sorceress LMB Astral Spark Bolt (Fantasy Damage!)
-function spawnAstralBolt(angle, dmg) {
+// E Rift Stride: bolts fire when the dash ends (kit-local; isBusy() tells the self-test to wait)
+let pendingRiftBolts = null;
+const RIFT = { range: 9.0, maxBolts: 3, spread: 0.55, speed: 21, life: 1.6 };
+
+// Up to RIFT.maxBolts nearest live enemies (dummies + engine units, no structures) within range of (x, z)
+function nearestRiftTargets(x, z) {
+  const found = [];
+  dummies.forEach((d) => {
+    if (d.isShooter && !shooterEnabled) return;
+    const dist = Math.hypot(d.x - x, d.z - z) - d.r;
+    if (dist <= RIFT.range) found.push({ dist, d });
+  });
+  if (phase1Engine) {
+    phase1Engine.getHostileTargets().forEach((t) => {
+      if (!t || t.kind === 'structure' || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) return;
+      const dist = Math.hypot(t.x - x, t.z - z) - (t.r || 0);
+      if (dist <= RIFT.range) found.push({ dist, ref: t.ref });
+    });
+  }
+  found.sort((a, b) => a.dist - b.dist);
+  return found.slice(0, RIFT.maxBolts);
+}
+
+// Spawn Sorceress LMB Astral Spark Bolt (Fantasy Damage!). opts (E Rift Stride bolts):
+// { homeTo: {d}|{ref}, slowDur, fromBody } -> homing, not a basic attack, only hits its target
+function spawnAstralBolt(angle, dmg, opts) {
   const boltGrp = new THREE.Group();
   const core = new THREE.Mesh(
     new THREE.OctahedronGeometry(0.16, 0),
@@ -30,18 +54,22 @@ function spawnAstralBolt(angle, dmg) {
   let startX = hero.x + fwdX * 0.78 + rightPerpX;
   let startY = 1.44;
   let startZ = hero.z + fwdZ * 0.78 + rightPerpZ;
-  if (currentModel && rightHandBone) {
+  if (currentModel && rightHandBone && !(opts && opts.fromBody)) {
     heroPivot.updateMatrixWorld(true);
     rightHandBone.getWorldPosition(rhWorld);
     startX = rhWorld.x + fwdX * 0.28;
     startY = THREE.MathUtils.clamp(rhWorld.y, 1.32, 1.60);
     startZ = rhWorld.z + fwdZ * 0.28;
+  } else if (opts && opts.fromBody) {
+    startX = hero.x + fwdX * 0.45;
+    startY = 1.35;
+    startZ = hero.z + fwdZ * 0.45;
   }
   boltGrp.position.set(startX, startY, startZ);
   boltGrp.rotation.y = angle;
   scene.add(boltGrp);
 
-  const spd = 19.5;
+  const spd = opts ? RIFT.speed : 19.5;
   heroBolts.push({
     mesh: boltGrp,
     vx: Math.sin(angle) * spd,
@@ -52,11 +80,15 @@ function spawnAstralBolt(angle, dmg) {
     isHeartseeker: false,
     pierce: false,
     hitIds: new Set(),
-    life: 0.54
+    life: opts ? RIFT.life : 0.54,
+    homeTo: opts ? opts.homeTo : null,
+    age: 0,
+    isBasic: !opts,
+    slowDur: opts ? (opts.slowDur || 0) : 0
   });
 }
 
-// Spawn Sorceress 3D Starfall Pillar (used by Q and E 3-Pillar Cascade)
+// Spawn Sorceress 3D Starfall Pillar (Q)
 function spawnStarfallPillar(tx, tz, radius, delay, dmg, isFromQ, slowDur = 0) {
   const grp = new THREE.Group();
   const ring = new THREE.Mesh(
@@ -177,7 +209,7 @@ H.sorceress = {
   talents: {
     3: {
       L: { id: '3L', name: 'Far Sight', desc: 'Q Starfall Pillar cast range increased by +15% (9.5m -> 11.0m)' },
-      R: { id: '3R', name: 'Chilling Wake', desc: "E Rift Stride's 3-pillar line slows hit enemies by 25% for 1.5s" }
+      R: { id: '3R', name: 'Chilling Wake', desc: "E Rift Stride's bolts slow hit enemies by 25% for 1.5s" }
     },
     7: {
       L: { id: '7L', name: 'Wide Conduit', desc: 'Q Starfall Pillar explosion radius increased by +20%' },
@@ -201,7 +233,7 @@ H.sorceress = {
     q: 'Star Pillar',
     e: 'Rift Stride',
     r: 'Monolith',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Soul Siphon (+MP on Kills) &bull; <b>Q</b> Starfall Pillar (-0.9s CD/Hit) &bull; <b>E</b> Rift Stride + 3-Pillar Line &bull; <b>R</b> Cataclysm Monolith &bull; <b>P</b> Shop',
+    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Soul Siphon (+MP on Kills) &bull; <b>Q</b> Starfall Pillar (-0.9s CD/Hit) &bull; <b>E</b> Rift Stride + 3 Homing Bolts &bull; <b>R</b> Cataclysm Monolith &bull; <b>P</b> Shop',
     tooltips: {
       P: {
         title: 'Passive • Soul Siphon & Astral Tempo',
@@ -223,7 +255,7 @@ H.sorceress = {
       E: {
         title: 'E • Rift Stride',
         meta: '60 MP • 12.0s / 10.5s / 9.0s CD (Lv 1/6/9)',
-        body: 'Blinks/dashes in your movement direction and erupts a <b>cascading line of 3 Starfall Pillars</b> from your landing spot toward the cursor.',
+        body: 'Dashes in your movement direction, then fires <b>3 homing Fantasy bolts</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 bolts on the closest; 1 enemy: all 3).',
         talentLevels: [3, 7]
       },
       R: {
@@ -274,7 +306,7 @@ H.sorceress = {
     pendingSorcBolt = { facing: hero.facing, dmg: sparkDmg, t: 0.22 };
   },
 
-  // Q Starfall Pillar (Astral Tempo CDR), E Rift Stride + 3-pillar line, R Cataclysm Monolith
+  // Q Starfall Pillar (Astral Tempo CDR), E Rift Stride + homing bolts, R Cataclysm Monolith
   cast(slot, ctx) {
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     if (slot === 'Q') {
@@ -326,17 +358,10 @@ H.sorceress = {
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.25, 1.35, 0.24);
 
-      // Erupt cascading line of 3 Starfall Pillars from post-dash position toward aimWorld!
-      const endX = hero.x + Math.sin(dashAng) * dashDist;
-      const endZ = hero.z + Math.cos(dashAng) * dashDist;
-      const lineAng = Math.atan2(aimWorld.x - endX, aimWorld.z - endZ);
+      // When the dash ends: one homing Fantasy bolt at each of the (up to) 3 nearest enemies in range
       const eDmg = Math.round([50, 80, 110][rQE] + (st.fant || 0) * 0.65);
       const eSlow = talents[3] === 'R' ? 1.5 : 0;
-      [1.8, 3.6, 5.4].forEach((stepDist, idx) => {
-        const px = endX + Math.sin(lineAng) * stepDist;
-        const pz = endZ + Math.cos(lineAng) * stepDist;
-        spawnStarfallPillar(px, pz, 1.35, 0.18 + idx * 0.12, eDmg, false, eSlow);
-      });
+      pendingRiftBolts = { t: dashDur, dmg: eDmg, slowDur: eSlow };
       spawnFloat(hero.x, 2.55, hero.z, 'RIFT STRIDE!', '#38bdf8');
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
@@ -365,6 +390,31 @@ H.sorceress = {
 
   // Runs every frame for every hero kit: LMB bolt release and R monolith slam after their windups
   tickTimers(dt) {
+    if (pendingRiftBolts) {
+      pendingRiftBolts.t -= dt;
+      if (pendingRiftBolts.t <= 0) {
+        const rb = pendingRiftBolts;
+        pendingRiftBolts = null;
+        if (activeHeroId === 'sorceress') {
+          const near = nearestRiftTargets(hero.x, hero.z);
+          // Always 3 bolts when anyone's in range: 3 targets = 1 each, 2 targets = 2 on the closest + 1, 1 target = all 3
+          const targets = near.length === 0 ? [] : near.length === 1 ? [near[0], near[0], near[0]]
+            : near.length === 2 ? [near[0], near[0], near[1]] : near;
+          if (targets.length) {
+            SFX.play('chime');
+            spawnShockRing(hero.x, hero.z, 0xe879f9, 0.3, 1.1, 0.2);
+          }
+          targets.forEach((tg, idx) => {
+            const tx = tg.d ? tg.d.x : tg.ref.x;
+            const tz = tg.d ? tg.d.z : tg.ref.z;
+            // Fan out a little, then curve in (spread: left / center / right)
+            const fan = (idx - (targets.length - 1) / 2) * RIFT.spread;
+            const ang = Math.atan2(tx - hero.x, tz - hero.z) + fan;
+            spawnAstralBolt(ang, rb.dmg, { homeTo: tg.d ? { d: tg.d } : { ref: tg.ref }, slowDur: rb.slowDur, fromBody: true });
+          });
+        }
+      }
+    }
     if (pendingSorcBolt) {
       pendingSorcBolt.t -= dt;
       if (pendingSorcBolt.t <= 0) {
@@ -391,7 +441,7 @@ H.sorceress = {
   // Runs every frame for every hero kit: Starfall Pillars erupting and the expanding Cataclysm Monolith
   updateWorld(dt, ctx) {
     const { st, pProg, talents, now } = ctx;
-    // Update Sorceress 3D Starfall Pillars (Q & E 3-Pillar Cascade)
+    // Update Sorceress 3D Starfall Pillars (Q)
     for (let i = sorcPillars.length - 1; i >= 0; i--) {
       const p = sorcPillars[i];
       if (!p.erupted) {
@@ -572,6 +622,11 @@ H.sorceress = {
 
   rEmpowered() {
     return !!sorcMonolith;
+  },
+
+  // Self-test: still has something scheduled
+  isBusy() {
+    return !!pendingRiftBolts;
   }
 };
 })();

@@ -295,6 +295,25 @@ function tick(now) {
   const hostiles = phase1Engine ? phase1Engine.getHostileTargets() : [];
   for (let i = heroBolts.length - 1; i >= 0; i--) {
     const b = heroBolts[i];
+    // Homing bolts (Sorceress E): steer toward their one target, turning harder the longer they fly
+    if (b.homeTo) {
+      b.age = (b.age || 0) + dt;
+      const ht = b.homeTo.d || b.homeTo.ref;
+      const alive = ht && !(ht.hp !== undefined && ht.hp <= 0 && !b.homeTo.d);
+      if (alive) {
+        const want = Math.atan2(ht.x - b.mesh.position.x, ht.z - b.mesh.position.z);
+        const cur = Math.atan2(b.vx, b.vz);
+        let diff = want - cur;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        const turn = (10 + b.age * 40) * dt;
+        const ang = cur + THREE.MathUtils.clamp(diff, -turn, turn);
+        const spd = Math.hypot(b.vx, b.vz);
+        b.vx = Math.sin(ang) * spd;
+        b.vz = Math.cos(ang) * spd;
+        b.mesh.rotation.y = ang;
+      }
+    }
     b.mesh.position.x += b.vx * dt;
     b.mesh.position.z += b.vz * dt;
     b.life -= dt;
@@ -306,6 +325,7 @@ function tick(now) {
       const d = dummies[j];
       if (d.isShooter && !shooterEnabled) continue;
       if (b.hitIds.has('d_' + d.id)) continue;
+      if (b.homeTo && b.homeTo.d !== d) continue;
       const hitR = d.r + (b.isHeartseeker ? 0.48 : 0.28);
       if (Math.hypot(b.mesh.position.x - d.x, b.mesh.position.z - d.z) <= hitR) {
         b.hitIds.add('d_' + d.id);
@@ -340,6 +360,7 @@ function tick(now) {
         if (!t || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) continue;
         const uid = t.kind + '_' + (t.ref.id || j);
         if (b.hitIds.has(uid)) continue;
+        if (b.homeTo && b.homeTo.ref !== t.ref) continue;
         const hitR = t.r + (b.isHeartseeker ? 0.48 : 0.28);
         if (Math.hypot(b.mesh.position.x - t.x, b.mesh.position.z - t.z) <= hitR) {
           b.hitIds.add(uid);
@@ -361,7 +382,8 @@ function tick(now) {
           } else {
             const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg, {
               bleedAdd: b.bleedAdd,
-              isBasic: true,
+              isBasic: b.isBasic !== false,
+              slowDur: b.slowDur || 0,
               dmgType: b.dmgType || 'physical'
             });
             if (didHit) spawnShockRing(t.x, t.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);

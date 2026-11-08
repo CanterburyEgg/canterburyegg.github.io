@@ -354,7 +354,8 @@ H.coyote = {
       hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
       laserSightMesh.visible = true;
       laserSightMesh.position.set(hero.x + Math.sin(hero.facing) * 0.55, 0.09, hero.z + Math.cos(hero.facing) * 0.55);
-      laserSightMesh.rotation.z = -hero.facing;
+      // Plane points along local +Y; after rotation.x = -PI/2 that's (-sin z, 0, -cos z), so z = facing + PI aims it at (sin f, cos f)
+      laserSightMesh.rotation.z = hero.facing + Math.PI;
       const chargePct = 1 - (hero.rChargeTimer / 2.0);
       laserSightMesh.scale.x = 0.7 + chargePct * 1.6;
       muzzleOrb.visible = true;

@@ -31,17 +31,17 @@
      sorceress | Lv1 | LMB  dmg=43 hits=1 unit=0 cd=1.12 mp=0
      sorceress | Lv1 | Q  dmg=120 hits=1 unit=0 cd=5.20 mp=38
      sorceress | Lv1 | Q>LMB  dmg=163 hits=2 unit=0 cd=5.20 mp=38
-     sorceress | Lv1 | E  dmg=168 hits=2 unit=0 cd=12.00 mp=60
+     sorceress | Lv1 | E  dmg=252 hits=3 unit=0 cd=12.00 mp=60
      sorceress | Lv1 | R  dmg=0 hits=0 unit=0 cd=0.00 mp=0
      sorceress | Lv12-L | LMB  dmg=108 hits=1 unit=0 cd=0.84 mp=0
      sorceress | Lv12-L | Q  dmg=1098 hits=3 unit=0 cd=4.40 mp=38
      sorceress | Lv12-L | Q>LMB  dmg=1206 hits=4 unit=0 cd=4.40 mp=38
-     sorceress | Lv12-L | E  dmg=414 hits=2 unit=0 cd=9.00 mp=60
+     sorceress | Lv12-L | E  dmg=621 hits=3 unit=0 cd=9.00 mp=60
      sorceress | Lv12-L | R  dmg=4560 hits=30 unit=0 cd=34.00 mp=100
      sorceress | Lv12-R | LMB  dmg=108 hits=1 unit=0 cd=0.84 mp=0
      sorceress | Lv12-R | Q  dmg=341 hits=1 unit=0 cd=4.40 mp=38
      sorceress | Lv12-R | Q>LMB  dmg=449 hits=2 unit=0 cd=4.40 mp=38
-     sorceress | Lv12-R | E  dmg=207 hits=1 unit=0 cd=9.00 mp=60
+     sorceress | Lv12-R | E  dmg=621 hits=3 unit=0 cd=9.00 mp=60
      sorceress | Lv12-R | R  dmg=4560 hits=30 unit=0 cd=34.00 mp=100
      bodyguard | Lv1 | LMB  dmg=50 hits=1 unit=0 cd=1.30 mp=0
      bodyguard | Lv1 | Q  dmg=330 hits=3 unit=0 cd=7.50 mp=45

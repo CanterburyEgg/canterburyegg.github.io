@@ -101,7 +101,8 @@ if (/[?&]selftest/.test(location.search)) {
       isBusy: () => !!(
         arena || sorcMonolith || pendingStrike || pendingGrenadeThrow || pendingSorcBolt || pendingSorcUlt ||
         heroBolts.length || heroGrenades.length || sorcPillars.length ||
-        hero.rChargeTimer > 0 || hero.dashTimer > 0 || hero.leapTimer > 0 || (hero.qFlurryRemaining || 0) > 0
+        hero.rChargeTimer > 0 || hero.dashTimer > 0 || hero.leapTimer > 0 || (hero.qFlurryRemaining || 0) > 0 ||
+        Object.values(window.MOBA_HEROES || {}).some((k) => k.isBusy && k.isBusy())
       ),
       endLingeringZones: () => { if (arena) arena.life = 0; }
     }
