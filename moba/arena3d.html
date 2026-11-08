@@ -1969,7 +1969,7 @@
       document.getElementById('lbl3d-e').textContent = meta.e;
       document.getElementById('lbl3d-r').textContent = meta.r;
 
-      const specs = window.MOBA_PHASE1_DATA && window.MOBA_PHASE1_DATA.HERO_SPECS[heroId];
+      const specs = window.MOBA_PHASE1 && window.MOBA_PHASE1.HERO_SPECS[heroId];
       const mpCosts = (specs && specs.mpCosts) || { Q: 40, E: 55, R: 90 };
       document.getElementById('mp3d-q').textContent = mpCosts.Q;
       document.getElementById('mp3d-e').textContent = mpCosts.E;
@@ -2486,7 +2486,7 @@
 
     function trySpendMana(slot) {
       if (wtfMode) return true;
-      const specs = window.MOBA_PHASE1_DATA && window.MOBA_PHASE1_DATA.HERO_SPECS[activeHeroId];
+      const specs = window.MOBA_PHASE1 && window.MOBA_PHASE1.HERO_SPECS[activeHeroId];
       const cost = (specs && specs.mpCosts && specs.mpCosts[slot]) || 0;
       if ((hero.mp || 0) < cost) {
         SFX.play('block');
