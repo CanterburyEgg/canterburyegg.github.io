@@ -1,0 +1,1211 @@
+// MOBA 3D arena: Main per-frame update (tick).
+// Classic script (not a module) so the game still works from file://. Loaded in order by arena3d.html;
+// top-level let/const/function names are shared across all js/arena/*.js files.
+'use strict';
+
+// =========================================================
+// MAIN 60FPS 3D LOOP
+// =========================================================
+let last = performance.now();
+function tick(now) {
+  // Selftest uses a fixed 60 Hz step so results are identical on any machine / frame rate
+  const dt = window.__MOBA_TEST ? (1 / 60) : Math.min(0.05, (now - last) / 1000);
+  last = now;
+
+  raycaster.setFromCamera(mouseNDC, camera);
+  raycaster.ray.intersectPlane(groundPlane, aimWorld);
+  if (window.__MOBA_TEST && window.__MOBA_TEST.aim) aimWorld.set(window.__MOBA_TEST.aim.x, 0, window.__MOBA_TEST.aim.z);
+  if (window.__MOBA_TEST) window.__MOBA_TEST.gameTime += dt;
+
+  hero.atkTimer = Math.max(0, hero.atkTimer - dt);
+  hero.comboResetTimer = Math.max(0, (hero.comboResetTimer || 0) - dt);
+  hero.cdQ = Math.max(0, hero.cdQ - dt);
+  hero.cdE = Math.max(0, hero.cdE - dt);
+  hero.cdR = Math.max(0, hero.cdR - dt);
+  hero.eRecast = Math.max(0, hero.eRecast - dt);
+  hero.punchAnim = Math.max(0, hero.punchAnim - dt);
+  hero.kickAnim = Math.max(0, hero.kickAnim - dt);
+  hero.grenadeAnim = Math.max(0, hero.grenadeAnim - dt);
+  hero.eSpeedBuffTimer = Math.max(0, (hero.eSpeedBuffTimer || 0) - dt);
+  hero.stealthTimer = Math.max(0, (hero.stealthTimer || 0) - dt);
+  hero.stealthExitTimer = Math.max(0, (hero.stealthExitTimer || 0) - dt);
+  hero.unseenLingerTimer = Math.max(0, (hero.unseenLingerTimer || 0) - dt);
+  if (hero.qTempoTimer > 0) {
+    hero.qTempoTimer -= dt;
+    if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0;
+  }
+
+  if ((hero.qFlurryRemaining || 0) > 0) {
+    hero.qFlurryTimer = (hero.qFlurryTimer || 0) - dt;
+    if (hero.qFlurryTimer <= 0) {
+      hero.qFlurryRemaining = 0;
+      if (activeHeroId === 'panther') {
+        hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+        // Begin Phase 2 of Q (Slash & Gnash): Feline Lunge-Bite ("Gnash"!)
+        hero.gnashDur = 0.34;
+        hero.gnashAnim = 0.34;
+        oneShotActive = false;
+        if (actions.idle) {
+          fadeToAction(actions.idle, 0.22, false, 1.0);
+        }
+        pendingStrike = {
+          isKick: false,
+          isFlurry: true,
+          isBite: true,
+          facing: hero.facing,
+          t: 0.14
+        };
+      }
+    }
+  }
+  if ((hero.gnashAnim || 0) > 0) {
+    hero.gnashAnim = Math.max(0, hero.gnashAnim - dt);
+  }
+
+  if (pendingStrike) {
+    pendingStrike.t -= dt;
+    if (pendingStrike.t <= 0) {
+      const s = pendingStrike;
+      pendingStrike = null;
+      fireStrikeImpact(s);
+    }
+  }
+  if (pendingGrenadeThrow) {
+    pendingGrenadeThrow.t -= dt;
+    if (pendingGrenadeThrow.t <= 0) {
+      const g = pendingGrenadeThrow;
+      pendingGrenadeThrow = null;
+      launchShrapnelGrenade(g.tx, g.tz);
+    }
+  }
+  if (pendingSorcBolt) {
+    pendingSorcBolt.t -= dt;
+    if (pendingSorcBolt.t <= 0) {
+      const b = pendingSorcBolt;
+      pendingSorcBolt = null;
+      if (activeHeroId === 'sorceress') {
+        SFX.play('chime');
+        spawnAstralBolt(b.facing, b.dmg);
+      }
+    }
+  }
+  if (pendingSorcUlt) {
+    pendingSorcUlt.t -= dt;
+    if (pendingSorcUlt.t <= 0) {
+      const u = pendingSorcUlt;
+      pendingSorcUlt = null;
+      if (activeHeroId === 'sorceress') {
+        spawnCataclysmMonolith(u.tx, u.tz);
+      }
+    }
+  }
+
+  // Coyote R 2.0s Self-Slowed Laser-Sight Charge
+  if (hero.rChargeTimer > 0) {
+    hero.rChargeTimer -= dt;
+    hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+    laserSightMesh.visible = true;
+    laserSightMesh.position.set(hero.x + Math.sin(hero.facing) * 0.55, 0.09, hero.z + Math.cos(hero.facing) * 0.55);
+    laserSightMesh.rotation.z = -hero.facing;
+    const chargePct = 1 - (hero.rChargeTimer / 2.0);
+    laserSightMesh.scale.x = 0.7 + chargePct * 1.6;
+    muzzleOrb.visible = true;
+    muzzleOrb.scale.setScalar(0.6 + chargePct * 1.1 + Math.sin(now * 0.03) * 0.15);
+    if (hero.rChargeTimer <= 0) {
+      fireHeartseekerRelease();
+    }
+  } else {
+    laserSightMesh.visible = false;
+    muzzleOrb.visible = false;
+  }
+
+  // Stop Toss Grenade clip cleanly at 2.25s so it never loops back toward frame 0!
+  if ((activeHeroId === 'coyote' || activeHeroId === 'sorceress') && actions.kick && activeAction === actions.kick && actions.kick.time >= 2.25) {
+    oneShotActive = false;
+    if (actions.idle) fadeToAction(actions.idle, 0.14, false, 1.0);
+  }
+  // Release Bodyguard's E Jump Attack clip right after the 1.60s ground slam + brief follow-through (1.92s) so it doesn't linger!
+  if (activeHeroId === 'bodyguard' && actions.jump && activeAction === actions.jump && hero.leapTimer <= 0 && actions.jump.time >= 1.92) {
+    oneShotActive = false;
+    if (actions.idle) fadeToAction(actions.idle, 0.16, false, 1.0);
+  }
+  if (activeHeroId === 'panther' && actions.jump && activeAction === actions.jump && hero.leapTimer <= 0 && actions.jump.time >= 0.58) {
+    oneShotActive = false;
+    if (actions.idle) fadeToAction(actions.idle, 0.14, false, 1.0);
+  }
+
+  if (hero.shieldTimer > 0) {
+    hero.shieldTimer -= dt;
+    if (hero.shieldTimer <= 0) hero.shield = 0;
+  }
+
+  const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 55, fant: 40, maxHp: hero.maxHp, maxMp: hero.maxMp, spdPct: 0, bgStacks: 0 };
+  const pProg = phase1Engine ? phase1Engine.getPlayerProg() : { level: 1, recallTimer: 0, talents: {} };
+  const talents = pProg.talents || {};
+  const allObstacles = phase1Engine ? obstacles.concat(phase1Engine.getMapObstacles()) : obstacles;
+
+  // Update Dummies (Passive Move Speed Siphon, Bleed DoT, Physical Knockback & 3D Slow Ring!)
+  let siphonTotal = 0;
+  dummies.forEach((d) => {
+    if (d.siphonTimer > 0) {
+      d.siphonTimer -= dt;
+      siphonTotal += d.siphoned;
+      if (d.siphonTimer <= 0) d.siphoned = 0;
+    }
+    if (d.bleedTimer > 0 && d.bleedStacks > 0) {
+      d.bleedTimer -= dt;
+      d.bleedRingGrp.rotation.y += dt * 3.2;
+      d.bleedTickTimer -= dt;
+      if (d.bleedTickTimer <= 0) {
+        d.bleedTickTimer = 0.65;
+        damageDummy(d, d.bleedStacks * 12, '#f43f5e');
+      }
+      if (d.bleedTimer <= 0) {
+        d.bleedStacks = 0;
+        for (let k = 0; k < 4; k++) d.bleedPips[k].visible = false;
+      }
+    }
+    if (d.kbTimer > 0) {
+      const stepDt = Math.min(dt, d.kbTimer);
+      d.x += d.kbVx * stepDt;
+      d.z += d.kbVz * stepDt;
+      d.kbTimer -= dt;
+      let hitWall = false;
+      allObstacles.forEach((o) => {
+        const ox = d.x - o.x;
+        const oz = d.z - o.z;
+        const dist = Math.hypot(ox, oz) || 0.01;
+        if (dist < d.r + o.r) {
+          d.x = o.x + (ox / dist) * (d.r + o.r);
+          d.z = o.z + (oz / dist) * (d.r + o.r);
+          hitWall = true;
+        }
+      });
+      if (hitWall && d.kbWallStun) {
+        d.kbWallStun = false;
+        d.kbTimer = 0;
+        d.stunTimer = Math.max(d.stunTimer, 1.0);
+        SFX.play('arena');
+        spawnShockRing(d.x, d.z, 0xfde047, 0.25, 1.7, 0.28);
+        spawnFloat(d.x, 2.85, d.z, 'WALL STUN! (1.0s)', '#fde047');
+        damageDummy(d, 65 + (pProg.level || 1) * 12, '#fde047');
+      }
+      d.mesh.position.set(d.x, 0, d.z);
+    } else if (d.resetDelay > 0) {
+      d.resetDelay -= dt;
+    } else if (Math.hypot(d.x - d.homeX, d.z - d.homeZ) > 0.05) {
+      const rx = d.homeX - d.x;
+      const rz = d.homeZ - d.z;
+      const rd = Math.hypot(rx, rz);
+      const step = Math.min(rd, 4.5 * dt);
+      d.x += (rx / rd) * step;
+      d.z += (rz / rd) * step;
+      d.mesh.position.set(d.x, 0, d.z);
+    }
+    d.stunTimer = Math.max(0, d.stunTimer - dt);
+    d.slowTimer = Math.max(0, (d.slowTimer || 0) - dt);
+    if ((d.predatorMarkTimer || 0) > 0) {
+      d.predatorMarkTimer = Math.max(0, d.predatorMarkTimer - dt);
+      if (d.predatorMarkTimer <= 0) d.predatorMarks = 0;
+    }
+    if (d.slowFxGrp) {
+      d.slowFxGrp.visible = d.slowTimer > 0;
+      if (d.slowTimer > 0) d.slowFxGrp.rotation.y -= dt * 3.2;
+    }
+    if (d.hitFlash > 0) {
+      d.hitFlash -= dt;
+      d.torso.material = d.hitFlash > 0 ? new THREE.MeshBasicMaterial({ color: 0xffffff }) : (d.slowTimer > 0 ? d.chilledMat : d.origMat);
+    } else {
+      d.torso.material = d.slowTimer > 0 ? d.chilledMat : d.origMat;
+    }
+  });
+  // Decay Brawler Siphon Bonus when out of combat
+  if (dummies.every((d) => d.siphonTimer <= 0)) {
+    hero.siphonBonus = Math.max(0, hero.siphonBonus - dt * 0.025);
+  } else {
+    hero.siphonBonus = Math.max(hero.siphonBonus, siphonTotal);
+  }
+
+  // Movement, Airborne Leap (Bodyguard E), & Rebound Dash (Brawler E / Sorceress E)
+  let isMoving = false;
+  let airborneY = 0;
+  if (hero.leapTimer > 0) {
+    hero.leapTimer = Math.max(0, hero.leapTimer - dt);
+    const u = 1 - (hero.leapTimer / (hero.leapDur || 0.38));
+    hero.x = hero.leapSx + (hero.leapTx - hero.leapSx) * u;
+    hero.z = hero.leapSz + (hero.leapTz - hero.leapSz) * u;
+    airborneY = Math.sin(u * Math.PI) * 1.65;
+
+    if (hero.leapTimer <= 0) {
+      if (activeHeroId === 'panther') {
+        // Panther E (Predator's Leap) Landing Pounce + 3 Predator Marks!
+        const pounceR = 2.65;
+        const pounceDmg = Math.round(55 + (pProg.level || 1) * 11 + (st.fant || 0) * 0.75);
+        const isThroatPounce = hero.leapFromStealth && talents[10] === 'R';
+        SFX.play('arena');
+        spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.30, pounceR, 0.28);
+        spawnShockRing(hero.x, hero.z, 0xa855f7, 0.18, pounceR * 0.7, 0.22);
+
+        dummies.forEach((d) => {
+          if (d.isShooter && !shooterEnabled) return;
+          if (Math.hypot(d.x - hero.x, d.z - hero.z) <= pounceR + d.r) {
+            damageDummy(d, pounceDmg, '#a855f7');
+            d.predatorMarks = 3;
+            d.predatorMarkTimer = 5.0;
+            if (isThroatPounce) {
+              d.slowTimer = Math.max(d.slowTimer || 0, 2.0);
+              d.stunTimer = Math.max(d.stunTimer || 0, 0.8);
+              spawnFloat(d.x, 2.85, d.z, 'THROAT POUNCE! SILENCED & 40% SLOW + 3 MARKS!', '#fde047');
+            } else {
+              spawnFloat(d.x, 2.65, d.z, '3x PREDATOR MARK!', '#2dd4bf');
+            }
+          }
+        });
+        if (phase1Engine) {
+          phase1Engine.getHostileTargets().forEach((t) => {
+            if (t.kind === 'structure') return;
+            if (Math.hypot(t.x - hero.x, t.z - hero.z) <= pounceR + t.r) {
+              if (t.ref) {
+                t.ref.predatorMarks = 3;
+                t.ref.predatorMarkTimer = 5.0;
+              }
+              phase1Engine.dealPlayerDamageToUnit(t, pounceDmg, {
+                dmgType: 'fantasy',
+                slowDur: isThroatPounce ? 2.0 : 0,
+                stunDur: isThroatPounce ? 0.8 : 0,
+                color: '#a855f7'
+              });
+              spawnFloat(
+                t.x,
+                2.75,
+                t.z,
+                isThroatPounce ? 'THROAT POUNCE! SILENCED & 3 MARKS!' : '3x PREDATOR MARK!',
+                isThroatPounce ? '#fde047' : '#2dd4bf'
+              );
+            }
+          });
+        }
+        hero.leapFromStealth = false;
+      } else {
+      // Bodyguard E (Crowd Dive) Landing Slam!
+      const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
+      const slamR = 2.85;
+      const slamDmg = Math.round(55 + (pProg.level || 1) * 10 + st.atk * 0.70);
+      const slamSlow = [1.8, 2.1, 2.4][rQE] + (talents[7] === 'L' ? 0.5 : 0);
+      SFX.play('arena');
+      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.35, slamR, 0.32);
+
+      dummies.forEach((d) => {
+        if (d.isShooter && !shooterEnabled) return;
+        if (Math.hypot(d.x - hero.x, d.z - hero.z) <= slamR + d.r) {
+          damageDummy(d, slamDmg, '#38bdf8');
+          d.slowTimer = Math.max(d.slowTimer || 0, slamSlow);
+          spawnFloat(d.x, 2.65, d.z, talents[7] === 'L' ? '50% SLOW!' : '35% SLOW!', '#38bdf8');
+        }
+      });
+      if (phase1Engine) {
+        phase1Engine.getHostileTargets().forEach((t) => {
+          if (t.kind === 'structure') return;
+          if (Math.hypot(t.x - hero.x, t.z - hero.z) <= slamR + t.r) {
+            phase1Engine.dealPlayerDamageToUnit(t, slamDmg, {
+              dmgType: 'physical',
+              slowDur: slamSlow,
+              color: '#38bdf8'
+            });
+          }
+        });
+        // Talent 7R (Heroic Rescue): Shield self + nearby Allied Bots & cleanse slows!
+        if (talents[7] === 'R') {
+          const rescueSh = 140 + (pProg.level || 1) * 20;
+          hero.shield = Math.max(hero.shield, rescueSh);
+          hero.shieldTimer = 3.5;
+          let shieldedAllies = 0;
+          if (phase1Engine.getAlliedTargets) {
+            phase1Engine.getAlliedTargets().forEach((ally) => {
+              if (Math.hypot(ally.x - hero.x, ally.z - hero.z) <= 3.4) {
+                ally.shield = Math.max(ally.shield || 0, rescueSh);
+                ally.shieldTimer = 3.5;
+                ally.slowTimer = 0;
+                shieldedAllies++;
+              }
+            });
+          }
+          spawnFloat(hero.x, 2.85, hero.z, 'HEROIC RESCUE! (+' + rescueSh + ' SHIELD' + (shieldedAllies > 0 ? ' TO ALLIES' : '') + ')', '#fde047');
+        }
+      }
+      }
+    }
+  } else if (hero.dashTimer > 0) {
+    const prevX = hero.x;
+    const prevZ = hero.z;
+    hero.x += hero.dashVx * dt;
+    hero.z += hero.dashVz * dt;
+    hero.dashTimer -= dt;
+
+    let hitWall = false;
+    allObstacles.forEach((o) => {
+      const dx = hero.x - o.x;
+      const dz = hero.z - o.z;
+      const d = Math.hypot(dx, dz) || 0.01;
+      if (d < hero.r + o.r) {
+        hero.x = o.x + (dx / d) * (hero.r + o.r);
+        hero.z = o.z + (dz / d) * (hero.r + o.r);
+        hitWall = true;
+      }
+    });
+
+    let hitArenaRim = false;
+    if (arena) {
+      const dxA = hero.x - arena.x;
+      const dzA = hero.z - arena.z;
+      const distA = Math.hypot(dxA, dzA) || 0.01;
+      const radialDot = dxA * hero.dashVx + dzA * hero.dashVz;
+
+      if (distA >= arena.r - hero.r - 0.12 && radialDot > 0) {
+        hero.x = arena.x + (dxA / distA) * (arena.r - hero.r);
+        hero.z = arena.z + (dzA / distA) * (arena.r - hero.r);
+        if (hero.dashKind === 'first') {
+          hitWall = true;
+          hitArenaRim = true;
+        }
+      }
+    }
+
+    const segX = hero.x - prevX;
+    const segZ = hero.z - prevZ;
+    const segLenSq = segX * segX + segZ * segZ;
+    const distToDashSeg = (tx, tz) => {
+      if (segLenSq < 0.0001) return Math.hypot(hero.x - tx, hero.z - tz);
+      const u = THREE.MathUtils.clamp(((tx - prevX) * segX + (tz - prevZ) * segZ) / segLenSq, 0, 1);
+      return Math.hypot((prevX + u * segX) - tx, (prevZ + u * segZ) - tz);
+    };
+
+    let hitDummy = null;
+    dummies.forEach((d) => {
+      if (d.isShooter && !shooterEnabled) return;
+      if (distToDashSeg(d.x, d.z) <= hero.r + d.r + 0.35) hitDummy = d;
+    });
+    let hitHostile = null;
+    let bestHostileDist = 999;
+    if (phase1Engine) {
+      phase1Engine.getHostileTargets().forEach((t) => {
+        const dist = distToDashSeg(t.x, t.z);
+        if (dist <= hero.r + t.r + 0.42 && dist < bestHostileDist) {
+          bestHostileDist = dist;
+          hitHostile = t;
+        }
+      });
+    }
+
+    if (!hero.dashHit && (hitWall || hitDummy || hitHostile)) {
+      hero.dashHit = true;
+      const rimMult = hitArenaRim ? (talents[10] === 'R' ? 1.65 : 1.35) : 1.0;
+      const dashDmg = Math.round((58 + (pProg.level || 1) * 10 + st.atk * 0.50) * rimMult);
+      if (hitDummy) damageDummy(hitDummy, dashDmg);
+      if (hitHostile && phase1Engine) {
+        phase1Engine.dealPlayerDamageToUnit(hitHostile, dashDmg);
+        if (hero.dashKind === 'first') {
+          const ux = hero.x - hitHostile.x;
+          const uz = hero.z - hitHostile.z;
+          const ud = Math.hypot(ux, uz) || 0.01;
+          if (ud < hero.r + hitHostile.r + 0.08) {
+            hero.x = hitHostile.x + (ux / ud) * (hero.r + hitHostile.r + 0.08);
+            hero.z = hitHostile.z + (uz / ud) * (hero.r + hitHostile.r + 0.08);
+          }
+        }
+      }
+      if (hitArenaRim) {
+        spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.35, 2.8, 0.32);
+        dummies.forEach((d) => {
+          if (d !== hitDummy && (!d.isShooter || shooterEnabled) && Math.hypot(d.x - hero.x, d.z - hero.z) <= 2.8 + d.r) {
+            damageDummy(d, dashDmg, '#fde047');
+          }
+        });
+        if (phase1Engine) {
+          phase1Engine.getHostileTargets().forEach((t) => {
+            if ((!hitHostile || t.ref !== hitHostile.ref) && Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.8 + t.r) {
+              phase1Engine.dealPlayerDamageToUnit(t, dashDmg, { color: '#fde047' });
+            }
+          });
+        }
+      }
+      if (hero.dashKind === 'first') {
+        hero.dashTimer = 0;
+        const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
+        const shieldMult = (talents[7] === 'L' ? 1.35 : 1.0) * (hitArenaRim ? 1.35 : 1.0);
+        hero.shield = Math.round(([180, 240, 300][rQE] + (pProg.level || 1) * 15) * shieldMult);
+        hero.shieldTimer = 3.5;
+        hero.eRecast = 3.0;
+        SFX.play(hitArenaRim ? 'arena' : 'punch');
+        spawnShockRing(hero.x, hero.z, 0xfbbf24, 0.3, 1.8, 0.25);
+        spawnFloat(
+          hero.x,
+          2.65,
+          hero.z,
+          hitArenaRim ? 'PIT WALL REBOUND! (+35% SHIELD & AOE)' : 'REBOUND! 2ND DASH',
+          '#fde047'
+        );
+      }
+    }
+    if (hero.dashTimer <= 0 && hero.dashKind === 'second' && talents[7] === 'L') {
+      spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.3, 2.4, 0.3);
+      if (phase1Engine) {
+        phase1Engine.getHostileTargets().forEach((t) => {
+          if (Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.4 + t.r) {
+            phase1Engine.dealPlayerDamageToUnit(t, 95);
+          }
+        });
+      }
+    }
+  } else {
+    hero.stunTimer = Math.max(0, (hero.stunTimer || 0) - dt);
+    hero.slowTimer = Math.max(0, (hero.slowTimer || 0) - dt);
+    let mx = 0, mz = 0;
+    if (keys.KeyW || keys.ArrowUp) mz -= 1;
+    if (keys.KeyS || keys.ArrowDown) mz += 1;
+    if (keys.KeyA || keys.ArrowLeft) mx -= 1;
+    if (keys.KeyD || keys.ArrowRight) mx += 1;
+    const ml = Math.hypot(mx, mz);
+    const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || (hero.stunTimer || 0) > 0;
+    if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
+      isMoving = true;
+      const baseSpd = activeHeroId === 'coyote' ? 6.10 : activeHeroId === 'sorceress' ? 6.00 : activeHeroId === 'bodyguard' ? 6.05 : activeHeroId === 'panther' ? 6.55 : 5.88;
+      const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
+      const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
+      const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow;
+      hero.x += (mx / ml) * spd * dt;
+      hero.z += (mz / ml) * spd * dt;
+      if (hero.rChargeTimer <= 0) {
+        hero.facing = Math.atan2(mx, mz);
+      }
+    } else if (!inAttackLock) {
+      hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+    }
+    allObstacles.forEach((o) => {
+      const dx = hero.x - o.x;
+      const dz = hero.z - o.z;
+      const d = Math.hypot(dx, dz) || 0.01;
+      if (d < hero.r + o.r) {
+        hero.x = o.x + (dx / d) * (hero.r + o.r);
+        hero.z = o.z + (dz / d) * (hero.r + o.r);
+      }
+    });
+    if (arena) {
+      const distA = Math.hypot(hero.x - arena.x, hero.z - arena.z);
+      if (distA > arena.r + 0.15) {
+        scene.remove(arena.group);
+        arena = null;
+        SFX.play('block');
+        spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.4, 2.2, 0.28);
+        spawnFloat(hero.x, 2.65, hero.z, 'LEFT THE PIT — ARENA DROPPED!', '#fb7185');
+      }
+    }
+  }
+  isMovingNow = isMoving;
+  hero.x = THREE.MathUtils.clamp(hero.x, -70, 70);
+  hero.z = THREE.MathUtils.clamp(hero.z, -47, 47);
+
+  if (mouseDown) tryAttack();
+
+  // Update Coyote Crossbow Bolts, R Heartseeker Bolt, & Sorceress Astral Spark Bolts
+  const hostiles = phase1Engine ? phase1Engine.getHostileTargets() : [];
+  for (let i = heroBolts.length - 1; i >= 0; i--) {
+    const b = heroBolts[i];
+    b.mesh.position.x += b.vx * dt;
+    b.mesh.position.z += b.vz * dt;
+    b.life -= dt;
+
+    let removed = false;
+    const isFant = b.dmgType === 'fantasy';
+    // 1. Check Practice Dummies
+    for (let j = 0; j < dummies.length; j++) {
+      const d = dummies[j];
+      if (d.isShooter && !shooterEnabled) continue;
+      if (b.hitIds.has('d_' + d.id)) continue;
+      const hitR = d.r + (b.isHeartseeker ? 0.48 : 0.28);
+      if (Math.hypot(b.mesh.position.x - d.x, b.mesh.position.z - d.z) <= hitR) {
+        b.hitIds.add('d_' + d.id);
+        if (b.isHeartseeker) {
+          const stacks = d.bleedStacks;
+          const popDmg = stacks * 110;
+          damageDummy(d, b.dmg + popDmg, stacks > 0 ? '#fde047' : '#fb7185');
+          if (stacks > 0) {
+            d.bleedStacks = 0;
+            d.bleedTimer = 0;
+            for (let k = 0; k < 4; k++) d.bleedPips[k].visible = false;
+            spawnShockRing(d.x, d.z, 0xf43f5e, 0.35, 2.2, 0.32);
+            spawnFloat(d.x, 2.85, d.z, 'BLEED DETONATED (' + stacks + 'x)!', '#fde047');
+          }
+        } else {
+          damageDummy(d, b.dmg, isFant ? '#e879f9' : '#fb7185');
+          if (b.bleedAdd > 0) applyBleedStacks(d, b.bleedAdd);
+          spawnShockRing(d.x, d.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
+          if (!b.pierce) {
+            scene.remove(b.mesh);
+            heroBolts.splice(i, 1);
+            removed = true;
+            break;
+          }
+        }
+      }
+    }
+    // 2. Check 4v4 Hostile Targets (Enemy Bots, Minions, Jungle Camps + Boss, Structures!)
+    if (!removed && phase1Engine) {
+      for (let j = 0; j < hostiles.length; j++) {
+        const t = hostiles[j];
+        if (!t || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) continue;
+        const uid = t.kind + '_' + (t.ref.id || j);
+        if (b.hitIds.has(uid)) continue;
+        const hitR = t.r + (b.isHeartseeker ? 0.48 : 0.28);
+        if (Math.hypot(b.mesh.position.x - t.x, b.mesh.position.z - t.z) <= hitR) {
+          b.hitIds.add(uid);
+          if (b.isHeartseeker) {
+            const stacks = t.ref.bleedStacks || 0;
+            const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
+            const popDmg = stacks * Math.round([60, 80, 100][rUlt] * (talents[7] === 'R' ? 1.25 : 1.0));
+            const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185' });
+            if (didHit && stacks > 0) {
+              t.ref.bleedStacks = 0;
+              t.ref.bleedTimer = 0;
+              spawnShockRing(t.x, t.z, 0xf43f5e, 0.35, 2.2, 0.32);
+              spawnFloat(t.x, 2.85, t.z, 'BLEED DETONATED (' + stacks + 'x)!', '#fde047');
+              if (stacks >= 4 && talents[10] === 'L') {
+                hero.cdR *= 0.5;
+                spawnFloat(hero.x, 2.9, hero.z, 'EXECUTIONER: 50% R REFUND!', '#38bdf8');
+              }
+            }
+          } else {
+            const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg, {
+              bleedAdd: b.bleedAdd,
+              isBasic: true,
+              dmgType: b.dmgType || 'physical'
+            });
+            if (didHit) spawnShockRing(t.x, t.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
+            if (!b.pierce) {
+              scene.remove(b.mesh);
+              heroBolts.splice(i, 1);
+              removed = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+    if (!removed && b.life <= 0) {
+      scene.remove(b.mesh);
+      heroBolts.splice(i, 1);
+    }
+  }
+
+  // Update Sorceress 3D Starfall Pillars (Q & E 3-Pillar Cascade)
+  for (let i = sorcPillars.length - 1; i >= 0; i--) {
+    const p = sorcPillars[i];
+    if (!p.erupted) {
+      p.delay -= dt;
+      p.innerFill.material.opacity = 0.20 + Math.min(0.45, (0.34 - Math.max(0, p.delay)) * 1.2);
+      if (p.delay <= 0) {
+        p.erupted = true;
+        p.crystal.visible = true;
+        p.crystal.scale.set(1, 1, 1);
+        SFX.play('arena');
+        spawnShockRing(p.x, p.z, p.isFromQ ? 0xe879f9 : 0x38bdf8, 0.25, p.r, 0.26);
+
+        let hitHeroOrBoss = false;
+        let hitAny = false;
+        // Talent 10R (4th Resonance): Pillars deal +20% damage to enemies inside Cataclysm Monolith!
+        const inMonoAmp = (sorcMonolith && talents[10] === 'R' && Math.hypot(p.x - sorcMonolith.x, p.z - sorcMonolith.z) <= sorcMonolith.curR + p.r) ? 1.20 : 1.0;
+        const finalPillarDmg = Math.round(p.dmg * inMonoAmp);
+
+        dummies.forEach((d) => {
+          if (d.isShooter && !shooterEnabled) return;
+          if (Math.hypot(d.x - p.x, d.z - p.z) <= p.r + d.r) {
+            damageDummy(d, finalPillarDmg, '#e879f9');
+            hitHeroOrBoss = true;
+            hitAny = true;
+          }
+        });
+        if (phase1Engine) {
+          phase1Engine.getHostileTargets().forEach((t) => {
+            if (t.kind === 'structure') return;
+            if (Math.hypot(t.x - p.x, t.z - p.z) <= p.r + t.r) {
+              const hit = phase1Engine.dealPlayerDamageToUnit(t, finalPillarDmg, {
+                dmgType: 'fantasy',
+                slowDur: p.slowDur || 0,
+                color: '#e879f9'
+              });
+              if (hit) {
+                hitAny = true;
+                if (t.kind === 'bot' || (t.kind === 'monster' && t.ref && t.ref.isBoss)) {
+                  hitHeroOrBoss = true;
+                }
+              }
+            }
+          });
+        }
+
+        if (p.isFromQ && hitAny) {
+          const maxStacks = talents[10] === 'R' ? 4 : 3;
+          const cap = hitHeroOrBoss ? maxStacks : Math.min(2, maxStacks);
+          if ((hero.qTempoStacks || 0) < cap) {
+            hero.qTempoStacks = (hero.qTempoStacks || 0) + 1;
+          }
+          hero.qTempoTimer = 5.0;
+          spawnFloat(hero.x, 2.75, hero.z, 'STARFALL TEMPO ' + hero.qTempoStacks + 'x (-' + hero.qTempoStacks + 's Q CD)!', '#e879f9');
+        }
+      }
+    } else {
+      p.postLife -= dt;
+      const k = Math.max(0, p.postLife / 0.28);
+      p.crystal.scale.set(k, 1.0 + (1 - k) * 0.35, k);
+      p.crystal.material.opacity = 0.88 * k;
+      if (p.postLife <= 0) {
+        scene.remove(p.grp);
+        sorcPillars.splice(i, 1);
+      }
+    }
+  }
+
+  // Update Sorceress R (Cataclysm Monolith) 5.0s Expanding Field
+  if (sorcMonolith) {
+    sorcMonolith.t += dt;
+    const u = Math.min(1, sorcMonolith.t / sorcMonolith.dur);
+    sorcMonolith.curR = sorcMonolith.startR + (sorcMonolith.maxR - sorcMonolith.startR) * u;
+    sorcMonolith.zoneRing.scale.setScalar(sorcMonolith.curR);
+    sorcMonolith.zoneDisc.scale.setScalar(sorcMonolith.curR);
+    sorcMonolith.obelisk.rotation.y += dt * 2.8;
+    sorcMonolith.obelisk.position.y = 1.85 + Math.sin(now * 0.006) * 0.22;
+
+    sorcMonolith.tickTimer -= dt;
+    if (sorcMonolith.tickTimer <= 0) {
+      sorcMonolith.tickTimer = 0.5;
+      const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
+      const tickDmg = Math.round([45, 70, 95][rUlt] + (st.fant || 0) * 0.38);
+      spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0xa855f7, 0.4, sorcMonolith.curR, 0.28);
+
+      dummies.forEach((d) => {
+        if (d.isShooter && !shooterEnabled) return;
+        if (Math.hypot(d.x - sorcMonolith.x, d.z - sorcMonolith.z) <= sorcMonolith.curR + d.r) {
+          damageDummy(d, tickDmg, '#e879f9');
+        }
+      });
+      if (phase1Engine) {
+        phase1Engine.getHostileTargets().forEach((t) => {
+          if (t.kind === 'structure') return;
+          if (Math.hypot(t.x - sorcMonolith.x, t.z - sorcMonolith.z) <= sorcMonolith.curR + t.r) {
+            phase1Engine.dealPlayerDamageToUnit(t, tickDmg, {
+              dmgType: 'fantasy',
+              slowDur: 0.65,
+              color: '#e879f9'
+            });
+          }
+        });
+      }
+    }
+
+    // Talent 10L (Gravity Collapse): At max size (t >= 4.2s), pulls enemies inward & deals bonus burst!
+    if (!sorcMonolith.collapsed && sorcMonolith.t >= 4.2 && talents[10] === 'L') {
+      sorcMonolith.collapsed = true;
+      const collapseDmg = Math.round(85 + (st.fant || 0) * 0.55);
+      SFX.play('arena');
+      spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0x38bdf8, sorcMonolith.curR, 0.4, 0.34);
+      spawnFloat(sorcMonolith.x, 3.1, sorcMonolith.z, 'GRAVITY COLLAPSE!', '#38bdf8');
+      if (phase1Engine) {
+        phase1Engine.getHostileTargets().forEach((t) => {
+          if (t.kind === 'structure') return;
+          const dx = sorcMonolith.x - t.x;
+          const dz = sorcMonolith.z - t.z;
+          const dist = Math.hypot(dx, dz) || 0.01;
+          if (dist <= sorcMonolith.curR + t.r) {
+            const pull = Math.min(1.8, dist * 0.65);
+            if (t.ref) {
+              t.ref.x += (dx / dist) * pull;
+              t.ref.z += (dz / dist) * pull;
+            }
+            phase1Engine.dealPlayerDamageToUnit(t, collapseDmg, { dmgType: 'fantasy', color: '#38bdf8' });
+          }
+        });
+      }
+    }
+
+    if (sorcMonolith.t >= sorcMonolith.dur) {
+      scene.remove(sorcMonolith.grp);
+      sorcMonolith = null;
+    }
+  }
+
+  // Update Coyote Arcing 3D Shrapnel Grenades
+  for (let i = heroGrenades.length - 1; i >= 0; i--) {
+    const g = heroGrenades[i];
+    g.t += dt;
+    const u = Math.min(1, g.t / g.dur);
+    const gx = g.sx + (g.tx - g.sx) * u;
+    const gz = g.sz + (g.tz - g.sz) * u;
+    const gy = (1 - u) * 1.45 + Math.sin(u * Math.PI) * 2.85;
+    g.mesh.position.set(gx, gy, gz);
+    g.mesh.rotation.x += dt * 14;
+    g.mesh.rotation.z += dt * 10;
+
+    if (u >= 1) {
+      SFX.play('arena');
+      spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
+      spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
+      const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
+      const outerDmg = Math.round([70, 105, 140][rQE] + st.atk * 0.48);
+      const bullDmg = outerDmg * 2;
+      const grenSlow = talents[7] === 'L' ? 2.5 : 0;
+
+      dummies.forEach((d) => {
+        if (d.isShooter && !shooterEnabled) return;
+        const dist = Math.hypot(d.x - g.tx, d.z - g.tz);
+        if (dist <= g.bullseyeR + d.r * 0.45) {
+          damageDummy(d, bullDmg, '#fde047');
+          applyBleedStacks(d, 4);
+          spawnFloat(d.x, 2.8, d.z, 'BULLSEYE 2X! (4 BLEEDS)', '#fde047');
+        } else if (dist <= g.outerR + d.r) {
+          damageDummy(d, outerDmg);
+          applyBleedStacks(d, 2);
+          spawnFloat(d.x, 2.65, d.z, '+2 BLEED', '#fb7185');
+        }
+      });
+
+      if (phase1Engine) {
+        phase1Engine.getHostileTargets().forEach((t) => {
+          if (t.kind === 'structure') return;
+          const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
+          if (realDist <= g.bullseyeR + t.r * 0.45) {
+            const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: 4, slowDur: grenSlow, color: '#fde047' });
+            if (didHit) spawnFloat(t.x, 2.8, t.z, 'BULLSEYE 2X! (4 BLEEDS)', '#fde047');
+          } else if (realDist <= g.outerR + t.r) {
+            phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: 2, slowDur: grenSlow });
+          }
+        });
+      }
+
+      scene.remove(g.mesh);
+      scene.remove(g.teleGrp);
+      heroGrenades.splice(i, 1);
+    }
+  }
+
+  // Shooter Bot Projectiles (Tests 3D Arena Barrier!)
+  const shooter = dummies.find((d) => d.isShooter);
+  shooter.mesh.visible = shooterEnabled;
+  shooter.plate.style.display = shooterEnabled ? 'flex' : 'none';
+  if (shooterEnabled && shooter.stunTimer <= 0) {
+    shooter.shootCd -= dt;
+    if (shooter.shootCd <= 0) {
+      shooter.shootCd = 1.25;
+      const ang = Math.atan2(hero.x - shooter.x, hero.z - shooter.z);
+      const orb = new THREE.Mesh(
+        new THREE.SphereGeometry(0.24, 12, 10),
+        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+      );
+      orb.position.set(shooter.x, 1.3, shooter.z);
+      scene.add(orb);
+      projectiles.push({ mesh: orb, vx: Math.sin(ang) * 10.5, vz: Math.cos(ang) * 10.5, life: 2.6 });
+    }
+  }
+
+  for (let i = projectiles.length - 1; i >= 0; i--) {
+    const p = projectiles[i];
+    const px = p.mesh.position.x;
+    const pz = p.mesh.position.z;
+    p.mesh.position.x += p.vx * dt;
+    p.mesh.position.z += p.vz * dt;
+    p.life -= dt;
+
+    // 2-Way Arena Projectile Block!
+    if (arena) {
+      const wasIn = Math.hypot(px - arena.x, pz - arena.z) <= arena.r;
+      const nowIn = Math.hypot(p.mesh.position.x - arena.x, p.mesh.position.z - arena.z) <= arena.r;
+      if (wasIn !== nowIn) {
+        SFX.play('block');
+        spawnShockRing(p.mesh.position.x, p.mesh.position.z, 0xfde047, 0.2, 0.9, 0.2);
+        spawnFloat(p.mesh.position.x, 1.5, p.mesh.position.z, 'BLOCKED!', '#fde047');
+        scene.remove(p.mesh);
+        projectiles.splice(i, 1);
+        continue;
+      }
+    }
+
+    if (Math.hypot(p.mesh.position.x - hero.x, p.mesh.position.z - hero.z) <= hero.r + 0.28) {
+      const dmg = 65;
+      if (hero.shield >= dmg) hero.shield -= dmg;
+      else { hero.hp = Math.max(200, hero.hp - (dmg - hero.shield)); hero.shield = 0; }
+      scene.remove(p.mesh);
+      projectiles.splice(i, 1);
+      continue;
+    }
+    if (p.life <= 0) {
+      scene.remove(p.mesh);
+      projectiles.splice(i, 1);
+    }
+  }
+
+  if (arena) {
+    arena.life -= dt;
+    arena.wall.material.opacity = 0.18 + Math.sin(now * 0.008) * 0.05;
+    if (arena.life <= 0) {
+      scene.remove(arena.group);
+      arena = null;
+    }
+  }
+
+  for (let i = vfxRings.length - 1; i >= 0; i--) {
+    const r = vfxRings[i];
+    r.t += dt;
+    const k = Math.min(1, r.t / r.dur);
+    r.mesh.scale.setScalar(r.startR + (r.endR - r.startR) * k);
+    r.mesh.material.opacity = 0.85 * (1 - k);
+    if (k >= 1) {
+      scene.remove(r.mesh);
+      vfxRings.splice(i, 1);
+    }
+  }
+
+  // Animate Hero Pivot & Skeletal Mixer
+  heroPivot.position.set(hero.x, airborneY, hero.z);
+  let diff = hero.facing - heroPivot.rotation.y;
+  while (diff > Math.PI) diff -= Math.PI * 2;
+  while (diff < -Math.PI) diff += Math.PI * 2;
+  heroPivot.rotation.y += diff * Math.min(1, dt * 18);
+
+  if (mixer) {
+    heroTiltNode.position.set(0, 0, 0);
+    if (hero.dashTimer > 0) {
+      heroTiltNode.rotation.set(activeDashClipKind === 'jump' ? 0.16 : 0, 0, 0);
+      if (activeDashClipKind === 'slide') {
+        dashTrailTimer -= dt;
+        if (dashTrailTimer <= 0) {
+          dashTrailTimer = 0.075;
+          spawnShockRing(hero.x, hero.z, 0xd6b470, 0.18, 0.72, 0.22);
+        }
+      } else if (!activeDashClipKind && (actions.run || actions.idle)) {
+        heroTiltNode.rotation.set(0.22, 0, 0);
+        fadeToAction(actions.run || actions.idle, 0.08, false, 1.9);
+      }
+    } else {
+      heroTiltNode.rotation.set(0, 0, 0);
+      if (activeDashClipKind) {
+        if (activeDashClipKind === 'jump') {
+          spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.22, 1.15, 0.20);
+        }
+        activeDashClipKind = null;
+        oneShotActive = false;
+      }
+      const inCommit = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || hero.leapTimer > 0;
+      const isNightprowlCrawl = activeHeroId === 'panther' && (hero.stealthTimer || 0) > 0 && !!actions.crawl;
+      const moveAct = isNightprowlCrawl ? actions.crawl : actions.run;
+      const runScale = (hero.rChargeTimer > 0 ? 0.62 : isNightprowlCrawl ? 1.38 : 1.15) * (1 + hero.siphonBonus);
+
+      // Track smooth transition into/out of All-Fours Prowl (0.50s drop onto front paws, 0.42s rise back to two feet)
+      const wasProwling = (hero.prowlBlend || 0) > 0.5;
+      if (isNightprowlCrawl) {
+        hero.prowlBlend = Math.min(1, (hero.prowlBlend || 0) + dt / 0.50);
+      } else {
+        hero.prowlBlend = Math.max(0, (hero.prowlBlend || 0) - dt / 0.42);
+      }
+      const prowlFadeDur = (isNightprowlCrawl && activeAction !== actions.crawl) ? 0.50
+        : (!isNightprowlCrawl && wasProwling) ? 0.42
+        : 0.16;
+
+      if (oneShotActive && isMoving && !inCommit && moveAct) {
+        fadeToAction(moveAct, 0.24, false, runScale);
+      } else if (!oneShotActive) {
+        if (isNightprowlCrawl) {
+          // Stay on all fours throughout Nightprowl (1.38x bounding prowl while moving, 0.16x crouched breathing while still!)
+          fadeToAction(actions.crawl, prowlFadeDur, false, isMoving ? runScale : 0.16);
+        } else if (isMoving && moveAct) {
+          fadeToAction(moveAct, prowlFadeDur, false, runScale);
+        } else if (actions.idle) {
+          fadeToAction(actions.idle, prowlFadeDur, false, 1.0);
+        } else if (moveAct) {
+          fadeToAction(moveAct, prowlFadeDur, false, isMoving ? runScale : 0.0);
+        }
+      }
+
+      // Add a smooth feline dive-to-paws arc during the upright <-> all-fours transition + bounding gallop rock while prowling!
+      const pb = hero.prowlBlend || 0;
+      if (pb > 0.01 && pb < 0.99) {
+        const diveArc = Math.sin(pb * Math.PI);
+        heroTiltNode.position.y += diveArc * 0.14;
+        heroTiltNode.position.z += diveArc * 0.18;
+        heroTiltNode.rotation.x += diveArc * 0.26;
+      } else if (pb >= 0.99 && isMoving && actions.crawl) {
+        const boundPhase = ((actions.crawl.time || 0) / 0.67) * Math.PI * 2;
+        heroTiltNode.rotation.x += Math.sin(boundPhase) * 0.095;
+        heroTiltNode.position.y += Math.abs(Math.cos(boundPhase)) * 0.065;
+      }
+    }
+    mixer.update(dt);
+
+    // Apply Procedural Skeletal Feline Bite Lunge ("Gnash" - 2nd Hit of Panther's Q!) right after mixer.update(dt)
+    if (activeHeroId === 'panther' && (hero.gnashAnim || 0) > 0) {
+      const u = 1 - (hero.gnashAnim / (hero.gnashDur || 0.34));
+      if (u < 0.28) {
+        // Phase 2A (0.00 -> 0.28): Coil neck/jaws back & sweep arms behind ribs as the 1st claw swipe finishes
+        const coil = Math.sin((u / 0.28) * (Math.PI * 0.5));
+        heroTiltNode.position.z -= 0.08 * coil;
+        heroTiltNode.rotation.x -= 0.10 * coil;
+        if (heroBones.Spine) heroBones.Spine.rotateX(-0.10 * coil);
+        if (heroBones.Neck) heroBones.Neck.rotateX(-0.22 * coil);
+        if (heroBones.Head) heroBones.Head.rotateX(-0.32 * coil);
+        if (heroBones.LeftArm) heroBones.LeftArm.rotateX(0.35 * coil);
+        if (heroBones.RightArm) heroBones.RightArm.rotateX(0.45 * coil);
+      } else {
+        // Phase 2B (0.28 -> 1.00): Explosive forward lunge & ferocious downward Jaws/Head Bite Snap!
+        const biteEnv = Math.sin(((u - 0.28) / 0.72) * Math.PI);
+        heroTiltNode.position.z += 0.44 * biteEnv;
+        heroTiltNode.position.y -= 0.11 * biteEnv;
+        heroTiltNode.rotation.x += 0.28 * biteEnv;
+        if (heroBones.Spine) heroBones.Spine.rotateX(0.16 * biteEnv);
+        if (heroBones.Spine1) heroBones.Spine1.rotateX(0.16 * biteEnv);
+        if (heroBones.Spine2) heroBones.Spine2.rotateX(0.14 * biteEnv);
+        if (heroBones.Neck) heroBones.Neck.rotateX(0.32 * biteEnv);
+        if (heroBones.Head) {
+          heroBones.Head.rotateX(0.46 * biteEnv);
+          heroBones.Head.rotateZ(0.18 * biteEnv);
+        }
+        if (heroBones.LeftArm) heroBones.LeftArm.rotateX(0.50 * biteEnv);
+        if (heroBones.RightArm) heroBones.RightArm.rotateX(0.55 * biteEnv);
+      }
+    }
+  }
+
+  // Smooth Twilight-Teal Stealth Shimmer Transition (0.55s fade-in, 0.40s fade-out) during Panther's R (Nightprowl)!
+  if (loadedMeshes && loadedMeshes.length > 0) {
+    const wantStealth = activeHeroId === 'panther' && (hero.stealthTimer || 0) > 0;
+    const prevBlend = hero.stealthBlend || 0;
+    if (wantStealth) {
+      hero.stealthBlend = Math.min(1, prevBlend + dt / 0.55);
+      if (prevBlend < 0.45 && hero.stealthBlend >= 0.45) {
+        spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.18, 1.45, 0.26);
+      }
+    } else {
+      hero.stealthBlend = Math.max(0, prevBlend - dt / 0.40);
+    }
+    const sb = hero.stealthBlend;
+    if (sb > 0.001 || hero._stealthMatActive) {
+      hero._stealthMatActive = sb > 0.001;
+      const s = sb * sb * (3 - 2 * sb); // Smoothstep
+      const op = 1.0 - s * 0.58; // Smoothly glides 1.0 -> 0.42
+      const shimmer = Math.sin(s * Math.PI); // Peaks mid-transition as he dissolves into shadow!
+      loadedMeshes.forEach((m) => {
+        if (!m.material) return;
+        const mats = Array.isArray(m.material) ? m.material : [m.material];
+        mats.forEach((mat) => {
+          const needTrans = s > 0.005;
+          if (mat.transparent !== needTrans) {
+            mat.transparent = needTrans;
+            mat.needsUpdate = true;
+          }
+          mat.opacity = needTrans ? op : 1.0;
+          if (mat.color) {
+            if (needTrans) {
+              mat.color.setRGB(
+                1.0 - s * 0.42 - shimmer * 0.22,
+                1.0 - s * 0.08 + shimmer * 0.06,
+                1.0 - s * 0.12 + shimmer * 0.08
+              );
+            } else {
+              mat.color.setHex(0xffffff);
+            }
+          }
+        });
+      });
+    }
+  }
+
+  // Update 3D Repeating Crossbow Attachment in Coyote's Hands & 3D Star Wand in Sorceress's RightHand!
+  if (activeHeroId === 'coyote' && currentModel && rightHandBone && leftHandBone) {
+    currentModel.updateMatrixWorld(true);
+    rightHandBone.getWorldPosition(rhWorld);
+    leftHandBone.getWorldPosition(lhWorld);
+
+    const fwdX = Math.sin(heroPivot.rotation.y);
+    const fwdZ = Math.cos(heroPivot.rotation.y);
+
+    if (hero.grenadeAnim > 0) {
+      crossbowPivot.position.copy(lhWorld);
+      bowAimTarget.set(lhWorld.x + fwdX * 0.85, lhWorld.y - 0.22, lhWorld.z + fwdZ * 0.85);
+      crossbowPivot.up.set(0, 1, 0);
+      crossbowPivot.lookAt(bowAimTarget);
+
+      handGrenadeMesh.visible = !!pendingGrenadeThrow;
+      handGrenadeMesh.position.copy(rhWorld);
+    } else {
+      handGrenadeMesh.visible = false;
+      crossbowPivot.position.copy(rhWorld);
+      const handDx = lhWorld.x - rhWorld.x;
+      const handDz = lhWorld.z - rhWorld.z;
+      const handLen = Math.hypot(handDx, handDz) || 0.01;
+      const dirX = (handDx / handLen) * 0.35 + fwdX * 0.65;
+      const dirZ = (handDz / handLen) * 0.35 + fwdZ * 0.65;
+      const dirY = THREE.MathUtils.clamp(lhWorld.y - rhWorld.y, -0.08, 0.08);
+      bowAimTarget.set(rhWorld.x + dirX, rhWorld.y + dirY, rhWorld.z + dirZ);
+      crossbowPivot.up.set(0, 1, 0);
+      crossbowPivot.lookAt(bowAimTarget);
+    }
+  } else if (activeHeroId === 'sorceress' && currentModel && rightHandBone) {
+    handGrenadeMesh.visible = false;
+    currentModel.updateMatrixWorld(true);
+    rightHandBone.getWorldPosition(rhWorld);
+    const fwdX = Math.sin(heroPivot.rotation.y);
+    const fwdZ = Math.cos(heroPivot.rotation.y);
+    wandPivot.position.copy(rhWorld);
+    bowAimTarget.set(rhWorld.x + fwdX * 0.9, rhWorld.y + 0.25, rhWorld.z + fwdZ * 0.9);
+    wandPivot.up.set(0, 1, 0);
+    wandPivot.lookAt(bowAimTarget);
+  } else {
+    handGrenadeMesh.visible = false;
+  }
+
+  const playerDead = phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0;
+  heroPivot.visible = !playerDead;
+  crossbowPivot.visible = !playerDead && activeHeroId === 'coyote';
+  wandPivot.visible = !playerDead && activeHeroId === 'sorceress' && !window.SORCERESS_MIXAMO;
+  shieldSphere.visible = !playerDead && hero.shield > 0;
+
+  // Update League Camera & Sun Shadow Follow
+  const camY = Math.sin(CAM_PITCH) * camDist;
+  const camZOff = Math.cos(CAM_PITCH) * camDist;
+  camera.position.set(hero.x, camY, hero.z + camZOff);
+  camera.lookAt(hero.x, 0.9, hero.z);
+  camera.updateMatrixWorld();
+
+  sunLight.position.set(hero.x + 12, 24, hero.z + 10);
+  sunLight.target.position.set(hero.x, 0, hero.z);
+  sunLight.target.updateMatrixWorld();
+
+  // Update Phase 1 4v4 MOBA Engine (Bots, Minion Waves, Towers, Jungle Camps + Boss, LOS Fog & Minimap!)
+  if (phase1Engine) {
+    phase1Engine.update(dt);
+  }
+
+  if (window.__MOBA_TEST && window.__MOBA_TEST.noRender) scene.updateMatrixWorld();
+  else renderer.render(scene, camera);
+
+  // Update Overhead 3D Unit Plates & HUD
+  const hpPos = projectToScreen(hero.x, HERO_HEIGHT + airborneY + 0.45, hero.z);
+  heroPlate.style.display = (!playerDead && hpPos.visible) ? 'flex' : 'none';
+  heroPlate.style.left = hpPos.x + 'px';
+  heroPlate.style.top = hpPos.y + 'px';
+  heroPlate.querySelector('.plate-hp').style.width = Math.max(0, (hero.hp / hero.maxHp) * 100) + '%';
+  heroPlate.querySelector('.plate-sh').style.width = Math.max(0, (hero.shield / hero.maxHp) * 100) + '%';
+  const mpPlateBar = heroPlate.querySelector('.plate-mp');
+  if (mpPlateBar) {
+    mpPlateBar.style.width = Math.max(0, ((hero.mp || 0) / Math.max(1, hero.maxMp || 1)) * 100) + '%';
+  }
+  const bgTag = activeHeroId === 'bodyguard' && (st.bgStacks || 0) > 0 ? ' [GUARD x' + st.bgStacks + ']' : '';
+  const sorcTag = activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0 ? ' [TEMPO x' + hero.qTempoStacks + ']' : '';
+  const pantherTag = activeHeroId === 'panther'
+    ? ((hero.stealthTimer || 0) > 0 ? ' [🐾 NIGHTPROWL ' + hero.stealthTimer.toFixed(1) + 's]' : (st.pantherUnseen ? ' [🐾 UNSEEN]' : ''))
+    : '';
+  heroPlate.querySelector('.plate-tag').textContent =
+    pProg.recallTimer > 0 ? 'RECALLING (' + pProg.recallTimer.toFixed(1) + 's)'
+    : hero.rChargeTimer > 0 ? 'HEARTSEEKER (' + hero.rChargeTimer.toFixed(1) + 's)'
+    : hero.qArmed ? 'KICK ARMED!'
+    : 'Lv' + pProg.level + bgTag + sorcTag + pantherTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
+
+  dummies.forEach((d) => {
+    if (d.isShooter && !shooterEnabled) return;
+    const p = projectToScreen(d.x, 2.75, d.z);
+    d.plate.style.display = p.visible ? 'flex' : 'none';
+    d.plate.style.left = p.x + 'px';
+    d.plate.style.top = p.y + 'px';
+    d.plate.querySelector('.plate-hp').style.width = ((d.hp / d.maxHp) * 100) + '%';
+    const bleedStr = d.bleedStacks > 0 ? ' [BLEED x' + d.bleedStacks + ']' : '';
+    const markStr = (d.predatorMarks || 0) > 0 ? ' [🐾x' + d.predatorMarks + ']' : '';
+    const slowStr = d.slowTimer > 0 ? ' [❄️ SLOWED]' : '';
+    d.plate.querySelector('.plate-tag').textContent = (d.stunTimer > 0 ? '⚡ STUNNED' : d.name) + slowStr + bleedStr + markStr;
+  });
+
+  for (let i = floatTexts.length - 1; i >= 0; i--) {
+    const f = floatTexts[i];
+    f.y += 1.4 * dt;
+    f.life -= dt;
+    const sp = projectToScreen(f.x, f.y, f.z);
+    f.el.style.left = sp.x + 'px';
+    f.el.style.top = sp.y + 'px';
+    f.el.style.opacity = Math.min(1, f.life * 1.6);
+    if (f.life <= 0) {
+      f.el.remove();
+      floatTexts.splice(i, 1);
+    }
+  }
+
+  const meta = HERO_UI_META[activeHeroId] || HERO_UI_META.coyote;
+  const baseSpdHud = activeHeroId === 'coyote' ? 332 : activeHeroId === 'sorceress' ? 328 : activeHeroId === 'bodyguard' ? 334 : activeHeroId === 'panther' ? 342 : 338;
+  const rSlowHud = hero.rChargeTimer > 0 ? 0.50 : 1.0;
+  const eSlipHud = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
+  document.getElementById('hud3d-lvl').textContent = pProg.level || 1;
+  document.getElementById('hud3d-atk').textContent = 'ATK ' + st.atk;
+  document.getElementById('hud3d-fant').textContent = 'FANT ' + (st.fant || 0);
+  document.getElementById('hud3d-def').textContent = 'ARM ' + (st.armor || 18) + '•RES ' + (st.fResist || 18);
+  document.getElementById('hud3d-spd').textContent = 'SPD ' + Math.round(baseSpdHud * (1 + hero.siphonBonus + eSlipHud + (st.spdPct || 0)) * rSlowHud);
+
+  document.getElementById('hp3d-fill').style.width = Math.max(0, (hero.hp / hero.maxHp) * 100) + '%';
+  document.getElementById('sh3d-fill').style.width = Math.max(0, (hero.shield / hero.maxHp) * 100) + '%';
+  document.getElementById('hp3d-txt').textContent =
+    Math.round(hero.hp) + (hero.shield > 0 ? ' (+' + hero.shield + ')' : '') + ' / ' + hero.maxHp;
+
+  const maxMp = Math.max(1, hero.maxMp || st.maxMp || 310);
+  const curMp = Math.round(hero.mp !== undefined ? hero.mp : maxMp);
+  document.getElementById('mp3d-fill').style.width = Math.max(0, (curMp / maxMp) * 100) + '%';
+  document.getElementById('mp3d-txt').textContent = curMp + ' / ' + maxMp + ' MP';
+
+  document.getElementById('lbl3d-q').textContent = hero.cdQ > 0.05 ? hero.cdQ.toFixed(1) + 's' : meta.q;
+  document.getElementById('lbl3d-e').textContent = hero.cdE > 0.05 && hero.eRecast <= 0 ? hero.cdE.toFixed(1) + 's' : meta.e;
+  document.getElementById('lbl3d-r').textContent =
+    (!wtfMode && (pProg.level || 1) < 4) ? 'LV 4 REQ'
+    : (hero.cdR > 0.05 && hero.rChargeTimer <= 0 ? Math.ceil(hero.cdR) + 's' : meta.r);
+
+  const passPip = document.getElementById('pip3d-passive');
+  if (passPip) {
+    let pText = '';
+    if (activeHeroId === 'bodyguard' && (st.bgStacks || 0) > 0) {
+      pText = st.bgStacks + 'x';
+    } else if (activeHeroId === 'brawler' && hero.siphonBonus > 0) {
+      pText = '+' + Math.round(hero.siphonBonus * 100) + '%';
+    } else if (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0) {
+      pText = hero.qTempoStacks + 'x';
+    } else if (activeHeroId === 'panther' && ((hero.stealthTimer || 0) > 0 || st.pantherUnseen)) {
+      pText = (hero.stealthTimer || 0) > 0 ? 'STEALTH' : 'UNSEEN';
+    }
+    passPip.style.display = pText ? 'block' : 'none';
+    if (pText) passPip.textContent = pText;
+  }
+
+  const qPip = document.getElementById('pip3d-q');
+  if (qPip) {
+    const showQStacks = activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0;
+    qPip.style.display = showQStacks ? 'block' : 'none';
+    if (showQStacks) qPip.textContent = hero.qTempoStacks + 'x';
+  }
+
+  document.getElementById('s3d-q').classList.toggle('empowered', hero.qArmed || (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0));
+  document.getElementById('s3d-e').classList.toggle('recast-ready', hero.eRecast > 0 || (activeHeroId === 'panther' && ((hero.stealthTimer || 0) > 0 || st.pantherUnseen)));
+  document.getElementById('pip3d-e').style.display = hero.eRecast > 0 ? 'block' : 'none';
+  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (activeHeroId === 'sorceress' && !!sorcMonolith) || (activeHeroId === 'bodyguard' && (hero.rShieldTimer || 0) > 0) || (activeHeroId === 'panther' && (hero.stealthTimer || 0) > 0));
+
+  // Update Q / E (Lv 1/6/9) and R (Lv 4/8/12) 3-Pip Rank Indicators
+  const curLvl = pProg.level || 1;
+  const qeRankNow = curLvl >= 9 ? 3 : (curLvl >= 6 ? 2 : 1);
+  const ultRankNow = curLvl >= 12 ? 3 : (curLvl >= 8 ? 2 : (curLvl >= 4 ? 1 : 0));
+  ['rpips-q', 'rpips-e'].forEach((id) => {
+    const row = document.getElementById(id);
+    if (row) {
+      for (let k = 0; k < 3; k++) {
+        if (row.children[k]) row.children[k].classList.toggle('on', k < qeRankNow);
+      }
+    }
+  });
+  const rRow = document.getElementById('rpips-r');
+  if (rRow) {
+    for (let k = 0; k < 3; k++) {
+      if (rRow.children[k]) rRow.children[k].classList.toggle('ult-on', k < ultRankNow);
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
