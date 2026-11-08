@@ -3622,12 +3622,14 @@
     // =========================================================
     let last = performance.now();
     function tick(now) {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      // Selftest uses a fixed 60 Hz step so results are identical on any machine / frame rate
+      const dt = window.__MOBA_TEST ? (1 / 60) : Math.min(0.05, (now - last) / 1000);
       last = now;
 
       raycaster.setFromCamera(mouseNDC, camera);
       raycaster.ray.intersectPlane(groundPlane, aimWorld);
       if (window.__MOBA_TEST && window.__MOBA_TEST.aim) aimWorld.set(window.__MOBA_TEST.aim.x, 0, window.__MOBA_TEST.aim.z);
+      if (window.__MOBA_TEST) window.__MOBA_TEST.gameTime += dt;
 
       hero.atkTimer = Math.max(0, hero.atkTimer - dt);
       hero.comboResetTimer = Math.max(0, (hero.comboResetTimer || 0) - dt);
@@ -4701,7 +4703,8 @@
         phase1Engine.update(dt);
       }
 
-      renderer.render(scene, camera);
+      if (window.__MOBA_TEST && window.__MOBA_TEST.noRender) scene.updateMatrixWorld();
+      else renderer.render(scene, camera);
 
       // Update Overhead 3D Unit Plates & HUD
       const hpPos = projectToScreen(hero.x, HERO_HEIGHT + airborneY + 0.45, hero.z);
@@ -4913,6 +4916,8 @@
     if (/[?&]selftest/.test(location.search)) {
       window.__MOBA_TEST = {
         aim: null,
+        gameTime: 0, // seconds of simulated game time (sum of tick dt), frame-rate independent
+        noRender: /[?&]norender/.test(location.search), // headless runs: skip drawing, keep logic
         onDummyDamage: null,
         api: {
           hero,

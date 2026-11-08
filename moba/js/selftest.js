@@ -25,6 +25,12 @@
   const heroes = param && ALL_HEROES.includes(param) ? [param] : ALL_HEROES;
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const gameNow = () => T.gameTime || 0;
+  // Wait for N seconds of *game* time (frame-rate independent; slow machines just take longer).
+  async function waitGame(sec) {
+    const until = gameNow() + sec;
+    while (gameNow() < until) await sleep(20);
+  }
   const target = A.dummies[1] || A.dummies[0];
 
   // ---- Freeze the match so nothing but the player's casts changes state ----
@@ -33,12 +39,12 @@
   let dummyEvents = [];
   let unitEvents = [];
   let lastEventAt = 0;
-  T.onDummyDamage = (d, dmg) => { dummyEvents.push(dmg); lastEventAt = performance.now(); };
+  T.onDummyDamage = (d, dmg) => { dummyEvents.push(dmg); lastEventAt = gameNow(); };
   if (eng && eng.dealPlayerDamageToUnit) {
     const orig = eng.dealPlayerDamageToUnit;
     eng.dealPlayerDamageToUnit = function (t, dmg) {
       unitEvents.push(Math.round(dmg || 0));
-      lastEventAt = performance.now();
+      lastEventAt = gameNow();
       return orig.apply(this, arguments);
     };
   }
@@ -82,22 +88,27 @@
     T.aim = { x: target.homeX, z: target.homeZ };
   }
 
-  async function waitQuiet(startAt, minMs, maxMs) {
+  // Wait (in game time) until nothing is in flight: no projectiles/zones/pending strikes, no bleeds,
+  // and no damage for 0.9s. Returns true if it gave up after maxSec of game time.
+  async function waitQuiet(startAt, minSec, maxSec) {
     for (;;) {
-      await sleep(100);
-      const now = performance.now();
+      await sleep(30);
+      const now = gameNow();
       const bleeding = A.dummies.some((d) => (d.bleedStacks || 0) > 0);
-      const quiet = now - Math.max(startAt, lastEventAt) >= 900;
-      if (now - startAt >= minMs && quiet && !bleeding && !A.isBusy()) return false;
-      if (now - startAt >= maxMs) return true;
+      const quiet = now - Math.max(startAt, lastEventAt) >= 0.9;
+      if (now - startAt >= minSec && quiet && !bleeding && !A.isBusy()) return false;
+      if (now - startAt >= maxSec) return true;
     }
   }
 
   async function measure(heroId, slot) {
+    // Drain anything left over from the previous row before resetting (prevents leaks between rows)
+    if (A.endLingeringZones) A.endLingeringZones();
+    await waitQuiet(gameNow(), 0, 30);
     resetStage(heroId);
-    await sleep(250); // let one or two frames apply aim + position
+    await waitGame(0.15); // let a few frames apply aim + position
     dummyEvents = []; unitEvents = [];
-    const startAt = performance.now();
+    const startAt = gameNow();
     const mp0 = hero.mp;
     let cd = 0;
     if (slot === 'LMB') { A.tryAttack(); cd = hero.atkTimer; }
@@ -105,11 +116,11 @@
     else { A.castKey(slot); cd = hero['cd' + slot]; }
     const mp = Math.round(mp0 - hero.mp);
     if (slot === 'Q>LMB') {
-      await sleep(350);
+      await waitGame(0.35);
       hero.atkTimer = 0;
       A.tryAttack();
     }
-    const timedOut = await waitQuiet(startAt, 1200, 12000);
+    const timedOut = await waitQuiet(startAt, 1.2, 15);
     const dmg = dummyEvents.reduce((a, b) => a + b, 0);
     const unit = unitEvents.reduce((a, b) => a + b, 0);
     return 'dmg=' + dmg + ' hits=' + dummyEvents.length + ' unit=' + unit +
@@ -122,7 +133,7 @@
     let n = 0;
     for (const heroId of heroes) {
       A.switchHero(heroId);
-      await sleep(400);
+      await waitGame(0.3);
       for (const cfg of CONFIGS) {
         const prog = eng ? eng.getPlayerProg() : null;
         if (prog) {
