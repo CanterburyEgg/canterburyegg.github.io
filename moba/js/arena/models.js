@@ -132,20 +132,19 @@ function canonicalMixamoBone(rawName) {
 
 function updateSlotPills() {
   const isCoyote = activeHeroId === 'coyote';
-  const isSorc = activeHeroId === 'sorceress';
   const pl = (heroKit() && heroKit().pillLabels) || {};
   const slots = [
     ['idle', 'pill-idle', 'Idle'],
     ['run', 'pill-run', 'Run'],
-    ['punch', 'pill-punch', isCoyote ? 'Fire' : isSorc ? '1H Cast' : 'Punch'],
-    ['kick', 'pill-kick', isCoyote ? 'Grenade' : isSorc ? '2H Area' : (pl.kick || 'Kick')],
-    ['dash', 'pill-dash', isCoyote ? 'Crossbow' : isSorc ? 'Rig' : (pl.dash || 'Dash')]
+    ['punch', 'pill-punch', isCoyote ? 'Fire' : (pl.punch || 'Punch')],
+    ['kick', 'pill-kick', isCoyote ? 'Grenade' : (pl.kick || 'Kick')],
+    ['dash', 'pill-dash', isCoyote ? 'Crossbow' : (pl.dash || 'Dash')]
   ];
   slots.forEach(([key, id, label]) => {
     const el = document.getElementById(id);
     if (!el) return;
     const has = key === 'dash'
-      ? (isCoyote ? crossbowPivot.children.length > 1 : isSorc ? !!(actions.idle && actions.run) : !!(actions.slide || actions.jump))
+      ? (isCoyote ? crossbowPivot.children.length > 1 : pl.dashReady ? pl.dashReady() : !!(actions.slide || actions.jump))
       : !!actions[key];
     el.textContent = label + (has ? ' ✓' : ' —');
     el.style.background = has ? 'hsla(142, 65%, 36%, 0.32)' : 'rgba(255,255,255,0.07)';
@@ -489,7 +488,6 @@ function b64ToBuffer(b64) {
 // Pre-parsed 3D Hero Templates shared by Player & all 7 4v4 Mixamo Bots!
 const heroTemplates = {
   coyote: { fbx: null, tex: null, clips: {} },
-  sorceress: { fbx: null, tex: null, clips: {} },
   crossbowScene: null
 };
 Object.keys(window.MOBA_HEROES || {}).forEach((id) => {
@@ -530,30 +528,9 @@ function parseCoyoteBundle(bundle, targetTmpl) {
   return idleFbx;
 }
 
-function parseSorcBundle(bundle, targetTmpl) {
-  if (!bundle || targetTmpl.fbx) return targetTmpl.fbx;
-  targetTmpl.tex = loadHeroDiffuseTexture(bundle.diffuseDataUrl);
-  const idleFbx = fbxLoader.parse(b64ToBuffer(bundle.idleFbxB64), '');
-  idleFbx.traverse((ch) => {
-    if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) {
-      ch.geometry.computeVertexNormals();
-    }
-  });
-  targetTmpl.fbx = idleFbx;
-  if (idleFbx.animations[0]) targetTmpl.clips.idle = idleFbx.animations[0];
-  const runFbx = fbxLoader.parse(b64ToBuffer(bundle.runFbxB64), '');
-  if (runFbx.animations[0]) targetTmpl.clips.run = runFbx.animations[0];
-  const atk1hFbx = fbxLoader.parse(b64ToBuffer(bundle.attack1hFbxB64), '');
-  if (atk1hFbx.animations[0]) targetTmpl.clips.punch = atk1hFbx.animations[0];
-  const atk2hFbx = fbxLoader.parse(b64ToBuffer(bundle.attack2hFbxB64), '');
-  if (atk2hFbx.animations[0]) targetTmpl.clips.kick = atk2hFbx.animations[0];
-  return idleFbx;
-}
-
 // Lazily parse a hero's FBX template on demand so startup only parses what is needed immediately!
 const HERO_BUNDLE_PARSERS = {
-  coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote),
-  sorceress: () => parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceress)
+  coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote)
 };
 Object.values(window.MOBA_HEROES || {}).forEach((k) => {
   if (k.parseBundle && k.bundle) HERO_BUNDLE_PARSERS[k.id] = () => k.parseBundle(window[k.bundle.globalKey], heroTemplates[k.id]);
@@ -651,51 +628,6 @@ const HERO_UI_META = {
         title: 'R • Heartseeker Piercer',
         meta: '90 MP • 42s / 36s / 30s CD (Lv 4/8/12)',
         body: 'Channel for up to 2.0s (press <b>R</b> again to release early), aiming a long-range sniper laser that pierces all enemies and <b>detonates all active Bleed stacks</b> for massive bonus physical burst.',
-        talentLevels: [10]
-      }
-    }
-  },
-  sorceress: {
-    height: 1.94,
-    modelLabel: 'Astral Sorceress (Mixamo Rigged)',
-    glyph: 'S',
-    color: '#e879f9',
-    name: 'Astral Sorceress (3D)',
-    role: 'Carry • Ranged Fantasy Burst & Zone Mage',
-    passive: 'Soul Siphon',
-    lmb: 'Astral Bolt',
-    q: 'Star Pillar',
-    e: 'Rift Stride',
-    r: 'Monolith',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Soul Siphon (+MP on Kills) &bull; <b>Q</b> Starfall Pillar (-0.9s CD/Hit) &bull; <b>E</b> Rift Stride + 3-Pillar Line &bull; <b>R</b> Cataclysm Monolith &bull; <b>P</b> Shop',
-    tooltips: {
-      P: {
-        title: 'Passive • Soul Siphon & Astral Tempo',
-        meta: 'Innate Mana & CDR',
-        body: 'Killing any unit siphons <b>36 (+6/Lv) Mana (3x on Hero takedowns)</b>. Hitting enemies with <b>Q: Starfall Pillar</b> grants <b>Astral Tempo</b> stacks (up to 3x), reducing Q cooldown by <b>-0.9s per stack (1.50s min floor)</b>.',
-        talentLevels: [10]
-      },
-      LMB: {
-        title: 'LMB • Astral Bolt',
-        meta: '0 MP • 1.12s Base ATK',
-        body: 'Hurls a luminous bolt of starlight from her hand dealing <b>Physical + Fantasy Damage</b> at long range.'
-      },
-      Q: {
-        title: 'Q • Starfall Pillar',
-        meta: '38 MP • 5.2s / 4.8s / 4.4s Base CD (Lv 1/6/9)',
-        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>heavy Fantasy Damage</b> in an area. Hitting an enemy grants <b>+1 Astral Tempo stack (-0.9s Q CD, 1.50s floor)</b>.',
-        talentLevels: [3, 7, 10]
-      },
-      E: {
-        title: 'E • Rift Stride',
-        meta: '60 MP • 12.0s / 10.5s / 9.0s CD (Lv 1/6/9)',
-        body: 'Blinks/dashes in your movement direction and erupts a <b>cascading line of 3 Starfall Pillars</b> from your landing spot toward the cursor.',
-        talentLevels: [3, 7]
-      },
-      R: {
-        title: 'R • Cataclysm Monolith',
-        meta: '100 MP • 46s / 40s / 34s CD (Lv 4/8/12)',
-        body: 'After a 0.50s 2H overhead windup, slams down an expanding <b>Astral Monolith</b> zone for 5.0s that continuously <b>Slows enemies</b> and pulses <b>Fantasy Damage</b>.',
         talentLevels: [10]
       }
     }

@@ -63,27 +63,7 @@ function tick(now) {
       launchShrapnelGrenade(g.tx, g.tz);
     }
   }
-  if (pendingSorcBolt) {
-    pendingSorcBolt.t -= dt;
-    if (pendingSorcBolt.t <= 0) {
-      const b = pendingSorcBolt;
-      pendingSorcBolt = null;
-      if (activeHeroId === 'sorceress') {
-        SFX.play('chime');
-        spawnAstralBolt(b.facing, b.dmg);
-      }
-    }
-  }
-  if (pendingSorcUlt) {
-    pendingSorcUlt.t -= dt;
-    if (pendingSorcUlt.t <= 0) {
-      const u = pendingSorcUlt;
-      pendingSorcUlt = null;
-      if (activeHeroId === 'sorceress') {
-        spawnCataclysmMonolith(u.tx, u.tz);
-      }
-    }
-  }
+  Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.tickTimers) k.tickTimers(dt); });
 
   // Coyote R 2.0s Self-Slowed Laser-Sight Charge
   if (hero.rChargeTimer > 0) {
@@ -105,7 +85,7 @@ function tick(now) {
   }
 
   // Stop Toss Grenade clip cleanly at 2.25s so it never loops back toward frame 0!
-  if ((activeHeroId === 'coyote' || activeHeroId === 'sorceress') && actions.kick && activeAction === actions.kick && actions.kick.time >= 2.25) {
+  if (activeHeroId === 'coyote' && actions.kick && activeAction === actions.kick && actions.kick.time >= 2.25) {
     oneShotActive = false;
     if (actions.idle) fadeToAction(actions.idle, 0.14, false, 1.0);
   }
@@ -298,7 +278,7 @@ function tick(now) {
     const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || (hero.stunTimer || 0) > 0;
     if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
       isMoving = true;
-      const baseSpd = activeHeroId === 'coyote' ? 6.10 : activeHeroId === 'sorceress' ? 6.00 : (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
+      const baseSpd = activeHeroId === 'coyote' ? 6.10 : (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
       const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
       const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow;
@@ -433,141 +413,8 @@ function tick(now) {
     }
   }
 
-  // Update Sorceress 3D Starfall Pillars (Q & E 3-Pillar Cascade)
-  for (let i = sorcPillars.length - 1; i >= 0; i--) {
-    const p = sorcPillars[i];
-    if (!p.erupted) {
-      p.delay -= dt;
-      p.innerFill.material.opacity = 0.20 + Math.min(0.45, (0.34 - Math.max(0, p.delay)) * 1.2);
-      if (p.delay <= 0) {
-        p.erupted = true;
-        p.crystal.visible = true;
-        p.crystal.scale.set(1, 1, 1);
-        SFX.play('arena');
-        spawnShockRing(p.x, p.z, p.isFromQ ? 0xe879f9 : 0x38bdf8, 0.25, p.r, 0.26);
-
-        let hitHeroOrBoss = false;
-        let hitAny = false;
-        // Talent 10R (4th Resonance): Pillars deal +20% damage to enemies inside Cataclysm Monolith!
-        const inMonoAmp = (sorcMonolith && talents[10] === 'R' && Math.hypot(p.x - sorcMonolith.x, p.z - sorcMonolith.z) <= sorcMonolith.curR + p.r) ? 1.20 : 1.0;
-        const finalPillarDmg = Math.round(p.dmg * inMonoAmp);
-
-        dummies.forEach((d) => {
-          if (d.isShooter && !shooterEnabled) return;
-          if (Math.hypot(d.x - p.x, d.z - p.z) <= p.r + d.r) {
-            damageDummy(d, finalPillarDmg, '#e879f9');
-            hitHeroOrBoss = true;
-            hitAny = true;
-          }
-        });
-        if (phase1Engine) {
-          phase1Engine.getHostileTargets().forEach((t) => {
-            if (t.kind === 'structure') return;
-            if (Math.hypot(t.x - p.x, t.z - p.z) <= p.r + t.r) {
-              const hit = phase1Engine.dealPlayerDamageToUnit(t, finalPillarDmg, {
-                dmgType: 'fantasy',
-                slowDur: p.slowDur || 0,
-                color: '#e879f9'
-              });
-              if (hit) {
-                hitAny = true;
-                if (t.kind === 'bot' || (t.kind === 'monster' && t.ref && t.ref.isBoss)) {
-                  hitHeroOrBoss = true;
-                }
-              }
-            }
-          });
-        }
-
-        if (p.isFromQ && hitAny) {
-          const maxStacks = talents[10] === 'R' ? 4 : 3;
-          const cap = hitHeroOrBoss ? maxStacks : Math.min(2, maxStacks);
-          if ((hero.qTempoStacks || 0) < cap) {
-            hero.qTempoStacks = (hero.qTempoStacks || 0) + 1;
-          }
-          hero.qTempoTimer = 5.0;
-          spawnFloat(hero.x, 2.75, hero.z, 'STARFALL TEMPO ' + hero.qTempoStacks + 'x (-' + hero.qTempoStacks + 's Q CD)!', '#e879f9');
-        }
-      }
-    } else {
-      p.postLife -= dt;
-      const k = Math.max(0, p.postLife / 0.28);
-      p.crystal.scale.set(k, 1.0 + (1 - k) * 0.35, k);
-      p.crystal.material.opacity = 0.88 * k;
-      if (p.postLife <= 0) {
-        scene.remove(p.grp);
-        sorcPillars.splice(i, 1);
-      }
-    }
-  }
-
-  // Update Sorceress R (Cataclysm Monolith) 5.0s Expanding Field
-  if (sorcMonolith) {
-    sorcMonolith.t += dt;
-    const u = Math.min(1, sorcMonolith.t / sorcMonolith.dur);
-    sorcMonolith.curR = sorcMonolith.startR + (sorcMonolith.maxR - sorcMonolith.startR) * u;
-    sorcMonolith.zoneRing.scale.setScalar(sorcMonolith.curR);
-    sorcMonolith.zoneDisc.scale.setScalar(sorcMonolith.curR);
-    sorcMonolith.obelisk.rotation.y += dt * 2.8;
-    sorcMonolith.obelisk.position.y = 1.85 + Math.sin(now * 0.006) * 0.22;
-
-    sorcMonolith.tickTimer -= dt;
-    if (sorcMonolith.tickTimer <= 0) {
-      sorcMonolith.tickTimer = 0.5;
-      const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-      const tickDmg = Math.round([45, 70, 95][rUlt] + (st.fant || 0) * 0.38);
-      spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0xa855f7, 0.4, sorcMonolith.curR, 0.28);
-
-      dummies.forEach((d) => {
-        if (d.isShooter && !shooterEnabled) return;
-        if (Math.hypot(d.x - sorcMonolith.x, d.z - sorcMonolith.z) <= sorcMonolith.curR + d.r) {
-          damageDummy(d, tickDmg, '#e879f9');
-        }
-      });
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (t.kind === 'structure') return;
-          if (Math.hypot(t.x - sorcMonolith.x, t.z - sorcMonolith.z) <= sorcMonolith.curR + t.r) {
-            phase1Engine.dealPlayerDamageToUnit(t, tickDmg, {
-              dmgType: 'fantasy',
-              slowDur: 0.65,
-              color: '#e879f9'
-            });
-          }
-        });
-      }
-    }
-
-    // Talent 10L (Gravity Collapse): At max size (t >= 4.2s), pulls enemies inward & deals bonus burst!
-    if (!sorcMonolith.collapsed && sorcMonolith.t >= 4.2 && talents[10] === 'L') {
-      sorcMonolith.collapsed = true;
-      const collapseDmg = Math.round(85 + (st.fant || 0) * 0.55);
-      SFX.play('arena');
-      spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0x38bdf8, sorcMonolith.curR, 0.4, 0.34);
-      spawnFloat(sorcMonolith.x, 3.1, sorcMonolith.z, 'GRAVITY COLLAPSE!', '#38bdf8');
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (t.kind === 'structure') return;
-          const dx = sorcMonolith.x - t.x;
-          const dz = sorcMonolith.z - t.z;
-          const dist = Math.hypot(dx, dz) || 0.01;
-          if (dist <= sorcMonolith.curR + t.r) {
-            const pull = Math.min(1.8, dist * 0.65);
-            if (t.ref) {
-              t.ref.x += (dx / dist) * pull;
-              t.ref.z += (dz / dist) * pull;
-            }
-            phase1Engine.dealPlayerDamageToUnit(t, collapseDmg, { dmgType: 'fantasy', color: '#38bdf8' });
-          }
-        });
-      }
-    }
-
-    if (sorcMonolith.t >= sorcMonolith.dur) {
-      scene.remove(sorcMonolith.grp);
-      sorcMonolith = null;
-    }
-  }
+  // Hero-owned world objects (zones, pillars, ...)
+  Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.updateWorld) k.updateWorld(dt, { st, pProg, talents, now }); });
 
   // Update Coyote Arcing 3D Shrapnel Grenades
   for (let i = heroGrenades.length - 1; i >= 0; i--) {
@@ -853,24 +700,17 @@ function tick(now) {
       crossbowPivot.up.set(0, 1, 0);
       crossbowPivot.lookAt(bowAimTarget);
     }
-  } else if (activeHeroId === 'sorceress' && currentModel && rightHandBone) {
-    handGrenadeMesh.visible = false;
-    currentModel.updateMatrixWorld(true);
-    rightHandBone.getWorldPosition(rhWorld);
-    const fwdX = Math.sin(heroPivot.rotation.y);
-    const fwdZ = Math.cos(heroPivot.rotation.y);
-    wandPivot.position.copy(rhWorld);
-    bowAimTarget.set(rhWorld.x + fwdX * 0.9, rhWorld.y + 0.25, rhWorld.z + fwdZ * 0.9);
-    wandPivot.up.set(0, 1, 0);
-    wandPivot.lookAt(bowAimTarget);
   } else {
-    handGrenadeMesh.visible = false;
+    const kitProps = heroKit();
+    if (!(kitProps && kitProps.updateHandProps && kitProps.updateHandProps())) {
+      handGrenadeMesh.visible = false;
+    }
   }
 
   const playerDead = phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0;
   heroPivot.visible = !playerDead;
   crossbowPivot.visible = !playerDead && activeHeroId === 'coyote';
-  wandPivot.visible = !playerDead && activeHeroId === 'sorceress' && !window.SORCERESS_MIXAMO;
+  wandPivot.visible = !playerDead && !!(heroKit() && heroKit().usesWandProp) && !window.SORCERESS_MIXAMO;
   shieldSphere.visible = !playerDead && hero.shield > 0;
 
   // Update League Camera & Sun Shadow Follow
@@ -903,14 +743,13 @@ function tick(now) {
   if (mpPlateBar) {
     mpPlateBar.style.width = Math.max(0, ((hero.mp || 0) / Math.max(1, hero.maxMp || 1)) * 100) + '%';
   }
-  const sorcTag = activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0 ? ' [TEMPO x' + hero.qTempoStacks + ']' : '';
   const kitHud = heroKit();
   const kitTag = (kitHud && kitHud.hudTag) ? kitHud.hudTag(st) : '';
   heroPlate.querySelector('.plate-tag').textContent =
     pProg.recallTimer > 0 ? 'RECALLING (' + pProg.recallTimer.toFixed(1) + 's)'
     : hero.rChargeTimer > 0 ? 'HEARTSEEKER (' + hero.rChargeTimer.toFixed(1) + 's)'
     : hero.qArmed ? 'KICK ARMED!'
-    : 'Lv' + pProg.level + sorcTag + kitTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
+    : 'Lv' + pProg.level + kitTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
 
   dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
@@ -940,7 +779,7 @@ function tick(now) {
   }
 
   const meta = HERO_UI_META[activeHeroId] || HERO_UI_META.coyote;
-  const baseSpdHud = activeHeroId === 'coyote' ? 332 : activeHeroId === 'sorceress' ? 328 : (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
+  const baseSpdHud = activeHeroId === 'coyote' ? 332 : (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
   const rSlowHud = hero.rChargeTimer > 0 ? 0.50 : 1.0;
   const eSlipHud = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
   document.getElementById('hud3d-lvl').textContent = pProg.level || 1;
@@ -968,9 +807,7 @@ function tick(now) {
   const passPip = document.getElementById('pip3d-passive');
   if (passPip) {
     let pText = '';
-    if (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0) {
-      pText = hero.qTempoStacks + 'x';
-    } else if (heroKit() && heroKit().passivePip) {
+    if (heroKit() && heroKit().passivePip) {
       pText = heroKit().passivePip(st);
     }
     passPip.style.display = pText ? 'block' : 'none';
@@ -979,15 +816,15 @@ function tick(now) {
 
   const qPip = document.getElementById('pip3d-q');
   if (qPip) {
-    const showQStacks = activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0;
+    const showQStacks = !!(heroKit() && heroKit().showQStacks && heroKit().showQStacks());
     qPip.style.display = showQStacks ? 'block' : 'none';
     if (showQStacks) qPip.textContent = hero.qTempoStacks + 'x';
   }
 
-  document.getElementById('s3d-q').classList.toggle('empowered', hero.qArmed || (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0));
+  document.getElementById('s3d-q').classList.toggle('empowered', hero.qArmed || (!!heroKit() && !!heroKit().qEmpowered && heroKit().qEmpowered()));
   document.getElementById('s3d-e').classList.toggle('recast-ready', hero.eRecast > 0 || (!!heroKit() && !!heroKit().eReadyGlow && heroKit().eReadyGlow(st)));
   document.getElementById('pip3d-e').style.display = hero.eRecast > 0 ? 'block' : 'none';
-  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (activeHeroId === 'sorceress' && !!sorcMonolith) || (!!heroKit() && !!heroKit().rEmpowered && heroKit().rEmpowered()));
+  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (!!heroKit() && !!heroKit().rEmpowered && heroKit().rEmpowered()));
 
   // Update Q / E (Lv 1/6/9) and R (Lv 4/8/12) 3-Pip Rank Indicators
   const curLvl = pProg.level || 1;

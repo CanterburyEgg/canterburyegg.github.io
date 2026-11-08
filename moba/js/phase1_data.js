@@ -118,20 +118,6 @@ window.MOBA_PHASE1 = (function () {
         R: { id: '10R', name: 'Piercing Broadheads', desc: 'Q Fan Volley fires 5 bolts that pierce all enemies' }
       }
     },
-    sorceress: {
-      3: {
-        L: { id: '3L', name: 'Far Sight', desc: 'Q Starfall Pillar cast range increased by +15% (9.5m -> 11.0m)' },
-        R: { id: '3R', name: 'Chilling Wake', desc: "E Rift Stride's 3-pillar line slows hit enemies by 25% for 1.5s" }
-      },
-      7: {
-        L: { id: '7L', name: 'Wide Conduit', desc: 'Q Starfall Pillar explosion radius increased by +20%' },
-        R: { id: '7R', name: 'Astral Slipstream', desc: 'E dash distance +25% and grants +25% Move Speed for 1.5s' }
-      },
-      10: {
-        L: { id: '10L', name: 'Gravity Collapse', desc: 'R Cataclysm Monolith pulls enemies inward upon reaching max size' },
-        R: { id: '10R', name: '4th Resonance', desc: 'Max Q cooldown stacks 3 -> 4 vs Heroes, and Q deals +20% dmg inside R' }
-      }
-    },
   };
 
   // Base Stats, Growth & Mana Costs for All 5 Playable 3D Heroes
@@ -152,23 +138,6 @@ window.MOBA_PHASE1 = (function () {
       baseSpd: 6.10,
       atkCd: 1.05,
       mpCosts: { Q: 40, E: 55, R: 90 }
-    },
-    sorceress: {
-      id: 'sorceress',
-      name: 'Astral Sorceress',
-      role: 'Carry • Ranged Late-Game Fantasy Mage',
-      glyph: 'S',
-      color: '#38bdf8',
-      height: 2.05,
-      baseHp: 1260, hpGrow: 100,
-      baseMp: 440, mpGrow: 40, mpRegen: 7.5,
-      baseAtk: 36, atkGrow: 2.5,
-      baseFant: 52, fantGrow: 8.8,
-      baseArmor: 15, armorGrow: 2.2,
-      baseFResist: 24, fResistGrow: 2.6,
-      baseSpd: 6.00,
-      atkCd: 1.12,
-      mpCosts: { Q: 38, E: 60, R: 100 }
     },
   };
 
