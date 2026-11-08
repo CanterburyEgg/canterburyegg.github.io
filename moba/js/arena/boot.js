@@ -23,9 +23,7 @@ async function bootArenaWithLoadingBar() {
   };
   const yieldForPaint = () => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 20)));
 
-  const steps = [
-    { id: 'coyote', label: 'Coyote Crossbowman', src: 'assets/coyote/coyote_mixamo_bundle.js', globalKey: 'COYOTE_MIXAMO', pStart: 10, pEnd: 24 }
-  ];
+  const steps = [];
   Object.values(window.MOBA_HEROES || {}).forEach((k) => {
     if (k.bundle) steps.push({ id: k.id, label: k.bundle.label, src: k.bundle.src, globalKey: k.bundle.globalKey, pStart: k.bundle.pStart, pEnd: k.bundle.pEnd });
   });
@@ -44,8 +42,9 @@ async function bootArenaWithLoadingBar() {
     await yieldForPaint();
 
     ensureHeroTemplateReady(s.id);
-    if (s.id === 'coyote') {
-      await mountCoyoteCrossbowProp();
+    const stepKit = heroKit(s.id);
+    if (stepKit && stepKit.mountProps) {
+      await stepKit.mountProps();
     }
     setPillState(s.id, 'done');
     setProgress(s.pEnd, s.label + ' Ready!');

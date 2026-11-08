@@ -104,41 +104,10 @@ window.MOBA_PHASE1 = (function () {
 
   // Binary Left/Right Talents at Levels 3, 7, and 10 (All 5 Playable 3D Heroes)
   const HERO_TALENTS = {
-    coyote: {
-      3: {
-        L: { id: '3L', name: 'Bloodhound Stride', desc: '+4% Move Speed per active Bleed stack on nearby enemies' },
-        R: { id: '3R', name: 'Hair-Trigger Crank', desc: 'Q Fan Volley reload time reduced from 1.10s to 0.80s' }
-      },
-      7: {
-        L: { id: '7L', name: 'Concussive Shrapnel', desc: 'E Grenade slows by 25% (45% on Bullseye) for 2.5s' },
-        R: { id: '7R', name: 'Deep Serration', desc: 'Max Bleed stacks increased from 4 to 5 (+25% Bleed & R damage)' }
-      },
-      10: {
-        L: { id: '10L', name: "Executioner's Tempo", desc: 'Detonating 4+ Bleed stacks with R refunds 50% of R cooldown' },
-        R: { id: '10R', name: 'Piercing Broadheads', desc: 'Q Fan Volley fires 5 bolts that pierce all enemies' }
-      }
-    },
   };
 
   // Base Stats, Growth & Mana Costs for All 5 Playable 3D Heroes
   const HERO_SPECS = {
-    coyote: {
-      id: 'coyote',
-      name: 'Coyote Crossbowman',
-      role: 'Carry • Ranged Physical Bleed Marksman',
-      glyph: 'C',
-      color: '#f59e0b',
-      height: 1.98,
-      baseHp: 1380, hpGrow: 114,
-      baseMp: 310, mpGrow: 26, mpRegen: 5.5,
-      baseAtk: 56, atkGrow: 7.2,
-      baseFant: 0, fantGrow: 0,
-      baseArmor: 19, armorGrow: 2.8,
-      baseFResist: 19, fResistGrow: 2.2,
-      baseSpd: 6.10,
-      atkCd: 1.05,
-      mpCosts: { Q: 40, E: 55, R: 90 }
-    },
   };
 
   // 4-Slot Base Shop Items (Physical, Fantasy, Mana & Tank Support — Zero Active Keys!)

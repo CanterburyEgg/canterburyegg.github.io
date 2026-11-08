@@ -275,62 +275,6 @@ function trySpendMana(slot) {
   return true;
 }
 
-// Spawn a 3D glowing Crossbow Bolt (or R Heartseeker Piercing Bolt!)
-function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false) {
-  const boltGrp = new THREE.Group();
-  const len = isPiercingHeartseeker ? 1.55 : 0.85;
-  const rad = isPiercingHeartseeker ? 0.075 : 0.038;
-  const shaft = new THREE.Mesh(
-    new THREE.CylinderGeometry(rad * 0.65, rad, len, 8),
-    new THREE.MeshBasicMaterial({ color: isPiercingHeartseeker ? 0xfde047 : 0xf43f5e })
-  );
-  shaft.rotation.x = Math.PI / 2;
-  boltGrp.add(shaft);
-
-  // Glowing crimson arrowhead
-  const tip = new THREE.Mesh(
-    new THREE.ConeGeometry(rad * 1.9, len * 0.35, 8),
-    new THREE.MeshBasicMaterial({ color: isPiercingHeartseeker ? 0xf43f5e : 0xfbbf24 })
-  );
-  tip.rotation.x = Math.PI / 2;
-  tip.position.z = len * 0.55;
-  boltGrp.add(tip);
-
-  const startX = hero.x + Math.sin(angle) * 0.72;
-  const startZ = hero.z + Math.cos(angle) * 0.72;
-  boltGrp.position.set(startX, 1.18, startZ);
-  boltGrp.rotation.y = angle;
-  scene.add(boltGrp);
-
-  const spd = isPiercingHeartseeker ? 28.0 : 21.0;
-  heroBolts.push({
-    mesh: boltGrp,
-    vx: Math.sin(angle) * spd,
-    vz: Math.cos(angle) * spd,
-    dmg,
-    dmgType: 'physical',
-    bleedAdd,
-    isHeartseeker: isPiercingHeartseeker,
-    pierce: isPiercingHeartseeker || forcePierce,
-    hitIds: new Set(),
-    life: isPiercingHeartseeker ? 0.68 : 0.55
-  });
-}
-
-function fireHeartseekerRelease() {
-  hero.rChargeTimer = 0;
-  laserSightMesh.visible = false;
-  muzzleOrb.visible = false;
-  hero.punchAnim = 0.24;
-  if (actions.punch) {
-    fadeToAction(actions.punch, 0.04, true, 1.0);
-  }
-  SFX.play('arena');
-  spawnShockRing(hero.x + Math.sin(hero.facing) * 0.8, hero.z + Math.cos(hero.facing) * 0.8, 0xf43f5e, 0.2, 1.6, 0.26);
-  const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 52 };
-  spawnCrossbowBolt(hero.facing, Math.round(130 + st.atk * 0.85), 1, true, true);
-}
-
 function fireStrikeImpact(strike) {
   SFX.play(strike.isBite ? 'arena' : 'punch');
   const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 62 };
@@ -348,18 +292,6 @@ function tryAttack() {
   if (phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0) return;
   if (hero.atkTimer > 0 || hero.dashTimer > 0 || hero.leapTimer > 0 || hero.grenadeAnim > 0 || hero.rChargeTimer > 0) return;
   const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 55, fant: 40, asPct: 0 };
-
-  if (activeHeroId === 'coyote') {
-    hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-    hero.atkTimer = 1.05 / (1 + st.asPct);
-    hero.punchAnim = 0.22;
-    if (actions.punch) {
-      fadeToAction(actions.punch, 0.04, true, 0.95);
-    }
-    SFX.play('punch');
-    spawnCrossbowBolt(hero.facing, st.atk, 1, false, false);
-    return;
-  }
 
   const kitRanged = heroKit();
   if (kitRanged && kitRanged.onRangedAttack) {
@@ -384,52 +316,6 @@ function tryAttack() {
 let dashTrailTimer = 0;
 let activeDashClipKind = null; // 'slide' | 'jump' | null
 
-function launchShrapnelGrenade(tx, tz) {
-  const outerR = 2.45;
-  const bullseyeR = 0.92;
-
-  // Target Telegraph Rings on Ground (Outer Shrapnel Ring + Inner 2x Bullseye Ring!)
-  const teleGrp = new THREE.Group();
-  const outerRing = new THREE.Mesh(
-    new THREE.RingGeometry(outerR - 0.08, outerR, 40),
-    new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.65 })
-  );
-  outerRing.rotation.x = -Math.PI / 2;
-  outerRing.position.y = 0.04;
-  teleGrp.add(outerRing);
-
-  const innerRing = new THREE.Mesh(
-    new THREE.RingGeometry(bullseyeR - 0.07, bullseyeR, 32),
-    new THREE.MeshBasicMaterial({ color: 0xf43f5e, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
-  );
-  innerRing.rotation.x = -Math.PI / 2;
-  innerRing.position.y = 0.05;
-  teleGrp.add(innerRing);
-
-  teleGrp.position.set(tx, 0, tz);
-  scene.add(teleGrp);
-
-  // Flying 3D Iron Shrapnel Grenade
-  const gMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(0.18, 12, 10),
-    new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.35, metalness: 0.75, emissive: 0xf43f5e, emissiveIntensity: 0.6 })
-  );
-  const sx = hero.x + Math.sin(hero.facing) * 0.45;
-  const sz = hero.z + Math.cos(hero.facing) * 0.45;
-  gMesh.position.set(sx, 1.45, sz);
-  scene.add(gMesh);
-
-  SFX.play('dash');
-  heroGrenades.push({
-    mesh: gMesh,
-    teleGrp,
-    sx, sz, tx, tz,
-    outerR, bullseyeR,
-    t: 0,
-    dur: 0.48
-  });
-}
-
 function castKey(slot) {
   if (phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0) return;
   SFX.unlock();
@@ -440,62 +326,6 @@ function castKey(slot) {
   const cdrMult = 1 - (st.cdr || 0);
   const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
   const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-
-  // =====================================================
-  // 1. COYOTE CROSSBOWMAN
-  // =====================================================
-  if (activeHeroId === 'coyote') {
-    if (slot === 'Q') {
-      if (hero.rChargeTimer > 0 || hero.grenadeAnim > 0) return;
-      if (!wtfMode && hero.cdQ > 0) return;
-      if (!trySpendMana('Q')) return;
-      hero.cdQ = wtfMode ? 0.25 : [7.5, 6.5, 5.5][rQE] * cdrMult;
-      hero.atkTimer = (talents[3] === 'R' ? 0.80 : 1.10) / (1 + (st.asPct || 0) * 0.5);
-      hero.punchAnim = 0.24;
-      if (actions.punch) fadeToAction(actions.punch, 0.04, true, 0.95);
-      SFX.play('punch');
-      const angles = talents[10] === 'R' ? [-0.22, -0.11, 0, 0.11, 0.22] : [-0.14, 0, 0.14];
-      const pierceQ = talents[10] === 'R';
-      const boltDmg = Math.round([25, 45, 65][rQE] + st.atk * 0.85);
-      angles.forEach((off) => {
-        spawnCrossbowBolt(hero.facing + off, boltDmg, 1, false, pierceQ);
-      });
-      spawnFloat(hero.x, 2.4, hero.z, pierceQ ? '5-BOLT PIERCE VOLLEY!' : 'FAN VOLLEY!', '#fde047');
-    } else if (slot === 'E') {
-      if (hero.rChargeTimer > 0) return;
-      if (!wtfMode && hero.cdE > 0) return;
-      if (!trySpendMana('E')) return;
-      hero.cdE = wtfMode ? 0.35 : [11.0, 9.8, 8.5][rQE] * cdrMult;
-      hero.grenadeAnim = 0.42;
-      const dx = aimWorld.x - hero.x;
-      const dz = aimWorld.z - hero.z;
-      const dist = Math.hypot(dx, dz) || 0.01;
-      const clampedDist = Math.min(10.5, dist);
-      const tx = hero.x + (dx / dist) * clampedDist;
-      const tz = hero.z + (dz / dist) * clampedDist;
-
-      if (actions.kick) {
-        fadeToAction(actions.kick, 0.05, true, 1.85, 1.28);
-      }
-      pendingGrenadeThrow = { tx, tz, t: 0.22 };
-    } else if (slot === 'R') {
-      if (hero.rChargeTimer > 0) {
-        if (hero.rChargeTimer <= 1.65) fireHeartseekerRelease();
-        return;
-      }
-      if (!wtfMode && pProg.level < 4) {
-        spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
-        return;
-      }
-      if (!wtfMode && hero.cdR > 0) return;
-      if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.5 : [42.0, 36.0, 30.0][rUlt] * cdrMult;
-      hero.rChargeTimer = 2.0;
-      SFX.play('chime');
-      spawnFloat(hero.x, 2.55, hero.z, 'CHARGING HEARTSEEKER!', '#fb7185');
-    }
-    return;
-  }
 
   // Heroes migrated to js/heroes/<id>.js
   const kitCast = heroKit();

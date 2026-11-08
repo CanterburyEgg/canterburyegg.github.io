@@ -131,20 +131,19 @@ function canonicalMixamoBone(rawName) {
 }
 
 function updateSlotPills() {
-  const isCoyote = activeHeroId === 'coyote';
   const pl = (heroKit() && heroKit().pillLabels) || {};
   const slots = [
     ['idle', 'pill-idle', 'Idle'],
     ['run', 'pill-run', 'Run'],
-    ['punch', 'pill-punch', isCoyote ? 'Fire' : (pl.punch || 'Punch')],
-    ['kick', 'pill-kick', isCoyote ? 'Grenade' : (pl.kick || 'Kick')],
-    ['dash', 'pill-dash', isCoyote ? 'Crossbow' : (pl.dash || 'Dash')]
+    ['punch', 'pill-punch', pl.punch || 'Punch'],
+    ['kick', 'pill-kick', pl.kick || 'Kick'],
+    ['dash', 'pill-dash', pl.dash || 'Dash']
   ];
   slots.forEach(([key, id, label]) => {
     const el = document.getElementById(id);
     if (!el) return;
     const has = key === 'dash'
-      ? (isCoyote ? crossbowPivot.children.length > 1 : pl.dashReady ? pl.dashReady() : !!(actions.slide || actions.jump))
+      ? (pl.dashReady ? pl.dashReady() : !!(actions.slide || actions.jump))
       : !!actions[key];
     el.textContent = label + (has ? ' ✓' : ' —');
     el.style.background = has ? 'hsla(142, 65%, 36%, 0.32)' : 'rgba(255,255,255,0.07)';
@@ -487,7 +486,6 @@ function b64ToBuffer(b64) {
 
 // Pre-parsed 3D Hero Templates shared by Player & all 7 4v4 Mixamo Bots!
 const heroTemplates = {
-  coyote: { fbx: null, tex: null, clips: {} },
   crossbowScene: null
 };
 Object.keys(window.MOBA_HEROES || {}).forEach((id) => {
@@ -508,29 +506,8 @@ function loadHeroDiffuseTexture(dataUrl) {
   return tex;
 }
 
-function parseCoyoteBundle(bundle, targetTmpl) {
-  if (!bundle || targetTmpl.fbx) return targetTmpl.fbx;
-  targetTmpl.tex = loadHeroDiffuseTexture(bundle.diffuseDataUrl);
-  const idleFbx = fbxLoader.parse(b64ToBuffer(bundle.idleFbxB64), '');
-  idleFbx.traverse((ch) => {
-    if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) {
-      ch.geometry.computeVertexNormals();
-    }
-  });
-  targetTmpl.fbx = idleFbx;
-  if (idleFbx.animations[0]) targetTmpl.clips.idle = idleFbx.animations[0];
-  const runFbx = fbxLoader.parse(b64ToBuffer(bundle.runFbxB64), '');
-  if (runFbx.animations[0]) targetTmpl.clips.run = runFbx.animations[0];
-  const fireFbx = fbxLoader.parse(b64ToBuffer(bundle.fireFbxB64), '');
-  if (fireFbx.animations[0]) targetTmpl.clips.punch = fireFbx.animations[0];
-  const grenFbx = fbxLoader.parse(b64ToBuffer(bundle.grenadeFbxB64), '');
-  if (grenFbx.animations[0]) targetTmpl.clips.kick = grenFbx.animations[0];
-  return idleFbx;
-}
-
 // Lazily parse a hero's FBX template on demand so startup only parses what is needed immediately!
 const HERO_BUNDLE_PARSERS = {
-  coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote)
 };
 Object.values(window.MOBA_HEROES || {}).forEach((k) => {
   if (k.parseBundle && k.bundle) HERO_BUNDLE_PARSERS[k.id] = () => k.parseBundle(window[k.bundle.globalKey], heroTemplates[k.id]);
@@ -553,85 +530,7 @@ function loadScriptAsync(src) {
   });
 }
 
-let crossbowMounted = false;
-function mountCoyoteCrossbowProp() {
-  if (crossbowMounted || !window.COYOTE_MIXAMO || !window.COYOTE_MIXAMO.crossbowGlbB64) return Promise.resolve();
-  crossbowMounted = true;
-  return new Promise((resolve) => {
-    gltfLoader.parse(b64ToBuffer(window.COYOTE_MIXAMO.crossbowGlbB64), '', (gltf) => {
-      const bowScene = gltf.scene;
-      bowScene.traverse((ch) => {
-        if (ch.isMesh) {
-          ch.castShadow = true;
-          ch.receiveShadow = true;
-          ch.frustumCulled = false;
-          if (ch.material && ch.material.map) {
-            ch.material.map.colorSpace = THREE.SRGBColorSpace;
-          }
-        }
-      });
-      // Cache clean unrotated clone for Coyote Bots before rotating player's bowScene:
-      heroTemplates.crossbowScene = bowScene.clone(true);
-      if (phase1Engine) phase1Engine.notifyTemplatesReady();
-
-      // Raw GLB has +X = barrel tip (+0.50), -X = buttstock (-0.50), +Y = top sights, +-Z = horizontal bow prod.
-      // Rotate Y by -90 deg so +X barrel points along +Z (Three.js lookAt direction!) and shift grip to origin:
-      bowScene.rotation.y = -Math.PI / 2;
-      bowScene.position.set(0, -0.14, 0.24);
-      crossbowPivot.scale.setScalar(0.88);
-      crossbowPivot.add(bowScene);
-      updateSlotPills();
-      resolve();
-    }, () => resolve());
-  });
-}
-
 const HERO_UI_META = {
-  coyote: {
-    height: 1.98,
-    modelLabel: 'Coyote Crossbowman (Mixamo + 3D Crossbow)',
-    glyph: 'C',
-    color: '#f59e0b',
-    name: 'Coyote Crossbowman (3D)',
-    role: 'Carry • Ranged Physical Bleed Marksman',
-    passive: 'Serrated Bolts',
-    lmb: 'Bleed Bolt',
-    q: '3-Bolt Fan',
-    e: 'Grenade',
-    r: 'Heartseeker',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>LMB</b> Bleed Bolt &bull; <b>Q</b> Fan Volley &bull; <b>E</b> Shrapnel Grenade (2x Bullseye) &bull; <b>R</b> Heartseeker &bull; <b>P</b> Shop &bull; <b>F</b> Ward &bull; <b>B</b> Recall',
-    tooltips: {
-      P: {
-        title: 'Passive • Serrated Broadheads',
-        meta: 'Innate Bleed',
-        body: 'Crossbow bolts apply <b>Serrated Bleed</b> for 4.5s (stacks up to <b>4x</b>; 5x with Lv7 Talent), dealing physical damage over time and priming targets for <b>R: Heartseeker</b> detonation.',
-        talentLevels: [3, 7]
-      },
-      LMB: {
-        title: 'LMB • Repeating Crossbow',
-        meta: '0 MP • 1.05s Base ATK',
-        body: 'Fires a high-velocity quarrel for <b>100% Physical ATK</b> and applies <b>1 stack of Serrated Bleed</b>.'
-      },
-      Q: {
-        title: 'Q • 3-Bolt Fan Volley',
-        meta: '40 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Fires a tight spread of <b>3 serrated bolts</b> in a cone, each dealing <b>Physical Damage</b> and applying <b>1 stack of Bleed</b>.',
-        talentLevels: [3, 10]
-      },
-      E: {
-        title: 'E • Shrapnel Grenade',
-        meta: '55 MP • 11.0s / 9.8s / 8.5s CD (Lv 1/6/9)',
-        body: 'Lobs an explosive black-powder grenade to the target zone. Enemies caught in the <b>inner Bullseye</b> take <b>2x Physical Damage</b> and <b>+2 Bleed stacks</b> (outer ring applies 1 stack).',
-        talentLevels: [7]
-      },
-      R: {
-        title: 'R • Heartseeker Piercer',
-        meta: '90 MP • 42s / 36s / 30s CD (Lv 4/8/12)',
-        body: 'Channel for up to 2.0s (press <b>R</b> again to release early), aiming a long-range sniper laser that pierces all enemies and <b>detonates all active Bleed stacks</b> for massive bonus physical burst.',
-        talentLevels: [10]
-      }
-    }
-  },
 };
 Object.values(window.MOBA_HEROES || {}).forEach((k) => {
   if (k.ui) HERO_UI_META[k.id] = k.ui;
@@ -657,7 +556,7 @@ function switchHero(heroId) {
     });
   }
 
-  crossbowPivot.visible = (heroId === 'coyote');
+  crossbowPivot.visible = !!(heroKit(heroId) && heroKit(heroId).usesCrossbowProp);
   wandPivot.visible = false;
   laserSightMesh.visible = false;
   muzzleOrb.visible = false;

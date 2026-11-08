@@ -55,40 +55,8 @@ function tick(now) {
       fireStrikeImpact(s);
     }
   }
-  if (pendingGrenadeThrow) {
-    pendingGrenadeThrow.t -= dt;
-    if (pendingGrenadeThrow.t <= 0) {
-      const g = pendingGrenadeThrow;
-      pendingGrenadeThrow = null;
-      launchShrapnelGrenade(g.tx, g.tz);
-    }
-  }
-  Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.tickTimers) k.tickTimers(dt); });
+  Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.tickTimers) k.tickTimers(dt, now); });
 
-  // Coyote R 2.0s Self-Slowed Laser-Sight Charge
-  if (hero.rChargeTimer > 0) {
-    hero.rChargeTimer -= dt;
-    hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-    laserSightMesh.visible = true;
-    laserSightMesh.position.set(hero.x + Math.sin(hero.facing) * 0.55, 0.09, hero.z + Math.cos(hero.facing) * 0.55);
-    laserSightMesh.rotation.z = -hero.facing;
-    const chargePct = 1 - (hero.rChargeTimer / 2.0);
-    laserSightMesh.scale.x = 0.7 + chargePct * 1.6;
-    muzzleOrb.visible = true;
-    muzzleOrb.scale.setScalar(0.6 + chargePct * 1.1 + Math.sin(now * 0.03) * 0.15);
-    if (hero.rChargeTimer <= 0) {
-      fireHeartseekerRelease();
-    }
-  } else {
-    laserSightMesh.visible = false;
-    muzzleOrb.visible = false;
-  }
-
-  // Stop Toss Grenade clip cleanly at 2.25s so it never loops back toward frame 0!
-  if (activeHeroId === 'coyote' && actions.kick && activeAction === actions.kick && actions.kick.time >= 2.25) {
-    oneShotActive = false;
-    if (actions.idle) fadeToAction(actions.idle, 0.14, false, 1.0);
-  }
   const kitRelease = heroKit();
   if (kitRelease && kitRelease.releaseOneShotClips) kitRelease.releaseOneShotClips();
 
@@ -278,7 +246,7 @@ function tick(now) {
     const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || (hero.stunTimer || 0) > 0;
     if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
       isMoving = true;
-      const baseSpd = activeHeroId === 'coyote' ? 6.10 : (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
+      const baseSpd = (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
       const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
       const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow;
@@ -415,60 +383,6 @@ function tick(now) {
 
   // Hero-owned world objects (zones, pillars, ...)
   Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.updateWorld) k.updateWorld(dt, { st, pProg, talents, now }); });
-
-  // Update Coyote Arcing 3D Shrapnel Grenades
-  for (let i = heroGrenades.length - 1; i >= 0; i--) {
-    const g = heroGrenades[i];
-    g.t += dt;
-    const u = Math.min(1, g.t / g.dur);
-    const gx = g.sx + (g.tx - g.sx) * u;
-    const gz = g.sz + (g.tz - g.sz) * u;
-    const gy = (1 - u) * 1.45 + Math.sin(u * Math.PI) * 2.85;
-    g.mesh.position.set(gx, gy, gz);
-    g.mesh.rotation.x += dt * 14;
-    g.mesh.rotation.z += dt * 10;
-
-    if (u >= 1) {
-      SFX.play('arena');
-      spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
-      spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
-      const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-      const outerDmg = Math.round([70, 105, 140][rQE] + st.atk * 0.48);
-      const bullDmg = outerDmg * 2;
-      const grenSlow = talents[7] === 'L' ? 2.5 : 0;
-
-      dummies.forEach((d) => {
-        if (d.isShooter && !shooterEnabled) return;
-        const dist = Math.hypot(d.x - g.tx, d.z - g.tz);
-        if (dist <= g.bullseyeR + d.r * 0.45) {
-          damageDummy(d, bullDmg, '#fde047');
-          applyBleedStacks(d, 4);
-          spawnFloat(d.x, 2.8, d.z, 'BULLSEYE 2X! (4 BLEEDS)', '#fde047');
-        } else if (dist <= g.outerR + d.r) {
-          damageDummy(d, outerDmg);
-          applyBleedStacks(d, 2);
-          spawnFloat(d.x, 2.65, d.z, '+2 BLEED', '#fb7185');
-        }
-      });
-
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (t.kind === 'structure') return;
-          const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
-          if (realDist <= g.bullseyeR + t.r * 0.45) {
-            const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: 4, slowDur: grenSlow, color: '#fde047' });
-            if (didHit) spawnFloat(t.x, 2.8, t.z, 'BULLSEYE 2X! (4 BLEEDS)', '#fde047');
-          } else if (realDist <= g.outerR + t.r) {
-            phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: 2, slowDur: grenSlow });
-          }
-        });
-      }
-
-      scene.remove(g.mesh);
-      scene.remove(g.teleGrp);
-      heroGrenades.splice(i, 1);
-    }
-  }
 
   // Shooter Bot Projectiles (Tests 3D Arena Barrier!)
   const shooter = dummies.find((d) => d.isShooter);
@@ -670,46 +584,15 @@ function tick(now) {
     }
   }
 
-  // Update 3D Repeating Crossbow Attachment in Coyote's Hands & 3D Star Wand in Sorceress's RightHand!
-  if (activeHeroId === 'coyote' && currentModel && rightHandBone && leftHandBone) {
-    currentModel.updateMatrixWorld(true);
-    rightHandBone.getWorldPosition(rhWorld);
-    leftHandBone.getWorldPosition(lhWorld);
-
-    const fwdX = Math.sin(heroPivot.rotation.y);
-    const fwdZ = Math.cos(heroPivot.rotation.y);
-
-    if (hero.grenadeAnim > 0) {
-      crossbowPivot.position.copy(lhWorld);
-      bowAimTarget.set(lhWorld.x + fwdX * 0.85, lhWorld.y - 0.22, lhWorld.z + fwdZ * 0.85);
-      crossbowPivot.up.set(0, 1, 0);
-      crossbowPivot.lookAt(bowAimTarget);
-
-      handGrenadeMesh.visible = !!pendingGrenadeThrow;
-      handGrenadeMesh.position.copy(rhWorld);
-    } else {
-      handGrenadeMesh.visible = false;
-      crossbowPivot.position.copy(rhWorld);
-      const handDx = lhWorld.x - rhWorld.x;
-      const handDz = lhWorld.z - rhWorld.z;
-      const handLen = Math.hypot(handDx, handDz) || 0.01;
-      const dirX = (handDx / handLen) * 0.35 + fwdX * 0.65;
-      const dirZ = (handDz / handLen) * 0.35 + fwdZ * 0.65;
-      const dirY = THREE.MathUtils.clamp(lhWorld.y - rhWorld.y, -0.08, 0.08);
-      bowAimTarget.set(rhWorld.x + dirX, rhWorld.y + dirY, rhWorld.z + dirZ);
-      crossbowPivot.up.set(0, 1, 0);
-      crossbowPivot.lookAt(bowAimTarget);
-    }
-  } else {
-    const kitProps = heroKit();
-    if (!(kitProps && kitProps.updateHandProps && kitProps.updateHandProps())) {
-      handGrenadeMesh.visible = false;
-    }
+  // Hand-held weapon props (crossbow, wand, ...)
+  const kitProps = heroKit();
+  if (!(kitProps && kitProps.updateHandProps && kitProps.updateHandProps())) {
+    handGrenadeMesh.visible = false;
   }
 
   const playerDead = phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0;
   heroPivot.visible = !playerDead;
-  crossbowPivot.visible = !playerDead && activeHeroId === 'coyote';
+  crossbowPivot.visible = !playerDead && !!(heroKit() && heroKit().usesCrossbowProp);
   wandPivot.visible = !playerDead && !!(heroKit() && heroKit().usesWandProp) && !window.SORCERESS_MIXAMO;
   shieldSphere.visible = !playerDead && hero.shield > 0;
 
@@ -779,7 +662,7 @@ function tick(now) {
   }
 
   const meta = HERO_UI_META[activeHeroId] || HERO_UI_META.coyote;
-  const baseSpdHud = activeHeroId === 'coyote' ? 332 : (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
+  const baseSpdHud = (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
   const rSlowHud = hero.rChargeTimer > 0 ? 0.50 : 1.0;
   const eSlipHud = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
   document.getElementById('hud3d-lvl').textContent = pProg.level || 1;
