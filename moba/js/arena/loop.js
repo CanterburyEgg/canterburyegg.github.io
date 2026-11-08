@@ -39,23 +39,8 @@ function tick(now) {
     hero.qFlurryTimer = (hero.qFlurryTimer || 0) - dt;
     if (hero.qFlurryTimer <= 0) {
       hero.qFlurryRemaining = 0;
-      if (activeHeroId === 'panther') {
-        hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-        // Begin Phase 2 of Q (Slash & Gnash): Feline Lunge-Bite ("Gnash"!)
-        hero.gnashDur = 0.34;
-        hero.gnashAnim = 0.34;
-        oneShotActive = false;
-        if (actions.idle) {
-          fadeToAction(actions.idle, 0.22, false, 1.0);
-        }
-        pendingStrike = {
-          isKick: false,
-          isFlurry: true,
-          isBite: true,
-          facing: hero.facing,
-          t: 0.14
-        };
-      }
+      const kitFlurry = heroKit();
+      if (kitFlurry && kitFlurry.onFlurryEnd) kitFlurry.onFlurryEnd();
     }
   }
   if ((hero.gnashAnim || 0) > 0) {
@@ -129,10 +114,8 @@ function tick(now) {
     oneShotActive = false;
     if (actions.idle) fadeToAction(actions.idle, 0.16, false, 1.0);
   }
-  if (activeHeroId === 'panther' && actions.jump && activeAction === actions.jump && hero.leapTimer <= 0 && actions.jump.time >= 0.58) {
-    oneShotActive = false;
-    if (actions.idle) fadeToAction(actions.idle, 0.14, false, 1.0);
-  }
+  const kitRelease = heroKit();
+  if (kitRelease && kitRelease.releaseOneShotClips) kitRelease.releaseOneShotClips();
 
   if (hero.shieldTimer > 0) {
     hero.shieldTimer -= dt;
@@ -237,55 +220,9 @@ function tick(now) {
     airborneY = Math.sin(u * Math.PI) * 1.65;
 
     if (hero.leapTimer <= 0) {
-      if (activeHeroId === 'panther') {
-        // Panther E (Predator's Leap) Landing Pounce + 3 Predator Marks!
-        const pounceR = 2.65;
-        const pounceDmg = Math.round(55 + (pProg.level || 1) * 11 + (st.fant || 0) * 0.75);
-        const isThroatPounce = hero.leapFromStealth && talents[10] === 'R';
-        SFX.play('arena');
-        spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.30, pounceR, 0.28);
-        spawnShockRing(hero.x, hero.z, 0xa855f7, 0.18, pounceR * 0.7, 0.22);
-
-        dummies.forEach((d) => {
-          if (d.isShooter && !shooterEnabled) return;
-          if (Math.hypot(d.x - hero.x, d.z - hero.z) <= pounceR + d.r) {
-            damageDummy(d, pounceDmg, '#a855f7');
-            d.predatorMarks = 3;
-            d.predatorMarkTimer = 5.0;
-            if (isThroatPounce) {
-              d.slowTimer = Math.max(d.slowTimer || 0, 2.0);
-              d.stunTimer = Math.max(d.stunTimer || 0, 0.8);
-              spawnFloat(d.x, 2.85, d.z, 'THROAT POUNCE! SILENCED & 40% SLOW + 3 MARKS!', '#fde047');
-            } else {
-              spawnFloat(d.x, 2.65, d.z, '3x PREDATOR MARK!', '#2dd4bf');
-            }
-          }
-        });
-        if (phase1Engine) {
-          phase1Engine.getHostileTargets().forEach((t) => {
-            if (t.kind === 'structure') return;
-            if (Math.hypot(t.x - hero.x, t.z - hero.z) <= pounceR + t.r) {
-              if (t.ref) {
-                t.ref.predatorMarks = 3;
-                t.ref.predatorMarkTimer = 5.0;
-              }
-              phase1Engine.dealPlayerDamageToUnit(t, pounceDmg, {
-                dmgType: 'fantasy',
-                slowDur: isThroatPounce ? 2.0 : 0,
-                stunDur: isThroatPounce ? 0.8 : 0,
-                color: '#a855f7'
-              });
-              spawnFloat(
-                t.x,
-                2.75,
-                t.z,
-                isThroatPounce ? 'THROAT POUNCE! SILENCED & 3 MARKS!' : '3x PREDATOR MARK!',
-                isThroatPounce ? '#fde047' : '#2dd4bf'
-              );
-            }
-          });
-        }
-        hero.leapFromStealth = false;
+      const kitLand = heroKit();
+      if (kitLand && kitLand.onLeapLand) {
+        kitLand.onLeapLand({ st, pProg, talents });
       } else {
       // Bodyguard E (Crowd Dive) Landing Slam!
       const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
@@ -469,7 +406,7 @@ function tick(now) {
     const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || (hero.stunTimer || 0) > 0;
     if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
       isMoving = true;
-      const baseSpd = activeHeroId === 'coyote' ? 6.10 : activeHeroId === 'sorceress' ? 6.00 : activeHeroId === 'bodyguard' ? 6.05 : activeHeroId === 'panther' ? 6.55 : 5.88;
+      const baseSpd = activeHeroId === 'coyote' ? 6.10 : activeHeroId === 'sorceress' ? 6.00 : activeHeroId === 'bodyguard' ? 6.05 : (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
       const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
       const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow;
@@ -894,7 +831,7 @@ function tick(now) {
         oneShotActive = false;
       }
       const inCommit = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || hero.leapTimer > 0;
-      const isNightprowlCrawl = activeHeroId === 'panther' && (hero.stealthTimer || 0) > 0 && !!actions.crawl;
+      const isNightprowlCrawl = !!(heroKit() && heroKit().isAltMoveActive && heroKit().isAltMoveActive());
       const moveAct = isNightprowlCrawl ? actions.crawl : actions.run;
       const runScale = (hero.rChargeTimer > 0 ? 0.62 : isNightprowlCrawl ? 1.38 : 1.15) * (1 + hero.siphonBonus);
 
@@ -939,42 +876,13 @@ function tick(now) {
     }
     mixer.update(dt);
 
-    // Apply Procedural Skeletal Feline Bite Lunge ("Gnash" - 2nd Hit of Panther's Q!) right after mixer.update(dt)
-    if (activeHeroId === 'panther' && (hero.gnashAnim || 0) > 0) {
-      const u = 1 - (hero.gnashAnim / (hero.gnashDur || 0.34));
-      if (u < 0.28) {
-        // Phase 2A (0.00 -> 0.28): Coil neck/jaws back & sweep arms behind ribs as the 1st claw swipe finishes
-        const coil = Math.sin((u / 0.28) * (Math.PI * 0.5));
-        heroTiltNode.position.z -= 0.08 * coil;
-        heroTiltNode.rotation.x -= 0.10 * coil;
-        if (heroBones.Spine) heroBones.Spine.rotateX(-0.10 * coil);
-        if (heroBones.Neck) heroBones.Neck.rotateX(-0.22 * coil);
-        if (heroBones.Head) heroBones.Head.rotateX(-0.32 * coil);
-        if (heroBones.LeftArm) heroBones.LeftArm.rotateX(0.35 * coil);
-        if (heroBones.RightArm) heroBones.RightArm.rotateX(0.45 * coil);
-      } else {
-        // Phase 2B (0.28 -> 1.00): Explosive forward lunge & ferocious downward Jaws/Head Bite Snap!
-        const biteEnv = Math.sin(((u - 0.28) / 0.72) * Math.PI);
-        heroTiltNode.position.z += 0.44 * biteEnv;
-        heroTiltNode.position.y -= 0.11 * biteEnv;
-        heroTiltNode.rotation.x += 0.28 * biteEnv;
-        if (heroBones.Spine) heroBones.Spine.rotateX(0.16 * biteEnv);
-        if (heroBones.Spine1) heroBones.Spine1.rotateX(0.16 * biteEnv);
-        if (heroBones.Spine2) heroBones.Spine2.rotateX(0.14 * biteEnv);
-        if (heroBones.Neck) heroBones.Neck.rotateX(0.32 * biteEnv);
-        if (heroBones.Head) {
-          heroBones.Head.rotateX(0.46 * biteEnv);
-          heroBones.Head.rotateZ(0.18 * biteEnv);
-        }
-        if (heroBones.LeftArm) heroBones.LeftArm.rotateX(0.50 * biteEnv);
-        if (heroBones.RightArm) heroBones.RightArm.rotateX(0.55 * biteEnv);
-      }
-    }
+    const kitPost = heroKit();
+    if (kitPost && kitPost.postMixer) kitPost.postMixer();
   }
 
   // Smooth Twilight-Teal Stealth Shimmer Transition (0.55s fade-in, 0.40s fade-out) during Panther's R (Nightprowl)!
   if (loadedMeshes && loadedMeshes.length > 0) {
-    const wantStealth = activeHeroId === 'panther' && (hero.stealthTimer || 0) > 0;
+    const wantStealth = !!(heroKit() && heroKit().wantsStealthShimmer && heroKit().wantsStealthShimmer());
     const prevBlend = hero.stealthBlend || 0;
     if (wantStealth) {
       hero.stealthBlend = Math.min(1, prevBlend + dt / 0.55);
@@ -1098,14 +1006,13 @@ function tick(now) {
   }
   const bgTag = activeHeroId === 'bodyguard' && (st.bgStacks || 0) > 0 ? ' [GUARD x' + st.bgStacks + ']' : '';
   const sorcTag = activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0 ? ' [TEMPO x' + hero.qTempoStacks + ']' : '';
-  const pantherTag = activeHeroId === 'panther'
-    ? ((hero.stealthTimer || 0) > 0 ? ' [🐾 NIGHTPROWL ' + hero.stealthTimer.toFixed(1) + 's]' : (st.pantherUnseen ? ' [🐾 UNSEEN]' : ''))
-    : '';
+  const kitHud = heroKit();
+  const kitTag = (kitHud && kitHud.hudTag) ? kitHud.hudTag(st) : '';
   heroPlate.querySelector('.plate-tag').textContent =
     pProg.recallTimer > 0 ? 'RECALLING (' + pProg.recallTimer.toFixed(1) + 's)'
     : hero.rChargeTimer > 0 ? 'HEARTSEEKER (' + hero.rChargeTimer.toFixed(1) + 's)'
     : hero.qArmed ? 'KICK ARMED!'
-    : 'Lv' + pProg.level + bgTag + sorcTag + pantherTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
+    : 'Lv' + pProg.level + bgTag + sorcTag + kitTag + (hero.siphonBonus > 0 ? ' +' + Math.round(hero.siphonBonus * 100) + '% SPD' : '');
 
   dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
@@ -1135,7 +1042,7 @@ function tick(now) {
   }
 
   const meta = HERO_UI_META[activeHeroId] || HERO_UI_META.coyote;
-  const baseSpdHud = activeHeroId === 'coyote' ? 332 : activeHeroId === 'sorceress' ? 328 : activeHeroId === 'bodyguard' ? 334 : activeHeroId === 'panther' ? 342 : 338;
+  const baseSpdHud = activeHeroId === 'coyote' ? 332 : activeHeroId === 'sorceress' ? 328 : activeHeroId === 'bodyguard' ? 334 : (heroKit() && heroKit().hudSpeed) ? heroKit().hudSpeed : 338;
   const rSlowHud = hero.rChargeTimer > 0 ? 0.50 : 1.0;
   const eSlipHud = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
   document.getElementById('hud3d-lvl').textContent = pProg.level || 1;
@@ -1169,8 +1076,8 @@ function tick(now) {
       pText = '+' + Math.round(hero.siphonBonus * 100) + '%';
     } else if (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0) {
       pText = hero.qTempoStacks + 'x';
-    } else if (activeHeroId === 'panther' && ((hero.stealthTimer || 0) > 0 || st.pantherUnseen)) {
-      pText = (hero.stealthTimer || 0) > 0 ? 'STEALTH' : 'UNSEEN';
+    } else if (heroKit() && heroKit().passivePip) {
+      pText = heroKit().passivePip(st);
     }
     passPip.style.display = pText ? 'block' : 'none';
     if (pText) passPip.textContent = pText;
@@ -1184,9 +1091,9 @@ function tick(now) {
   }
 
   document.getElementById('s3d-q').classList.toggle('empowered', hero.qArmed || (activeHeroId === 'sorceress' && (hero.qTempoStacks || 0) > 0));
-  document.getElementById('s3d-e').classList.toggle('recast-ready', hero.eRecast > 0 || (activeHeroId === 'panther' && ((hero.stealthTimer || 0) > 0 || st.pantherUnseen)));
+  document.getElementById('s3d-e').classList.toggle('recast-ready', hero.eRecast > 0 || (!!heroKit() && !!heroKit().eReadyGlow && heroKit().eReadyGlow(st)));
   document.getElementById('pip3d-e').style.display = hero.eRecast > 0 ? 'block' : 'none';
-  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (activeHeroId === 'sorceress' && !!sorcMonolith) || (activeHeroId === 'bodyguard' && (hero.rShieldTimer || 0) > 0) || (activeHeroId === 'panther' && (hero.stealthTimer || 0) > 0));
+  document.getElementById('s3d-r').classList.toggle('empowered', hero.rChargeTimer > 0 || (activeHeroId === 'sorceress' && !!sorcMonolith) || (activeHeroId === 'bodyguard' && (hero.rShieldTimer || 0) > 0) || (!!heroKit() && !!heroKit().rEmpowered && heroKit().rEmpowered()));
 
   // Update Q / E (Lv 1/6/9) and R (Lv 4/8/12) 3-Pip Rank Indicators
   const curLvl = pProg.level || 1;

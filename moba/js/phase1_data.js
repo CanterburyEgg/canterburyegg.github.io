@@ -159,20 +159,6 @@ window.MOBA_PHASE1 = (function () {
         L: { id: '10L', name: 'Thorns of Brass', desc: 'R Eyes On Me! radius +25% and reflects 25% of damage taken while Shield holds' },
         R: { id: '10R', name: 'Peak Physique', desc: 'Casting R grants doubled max Passive resists (+84 Armor & Resist) for 6s' }
       }
-    },
-    panther: {
-      3: {
-        L: { id: '3L', name: 'Duskwalker', desc: 'Unseen Move Speed rises to +38% and lingers +1.3s longer after being spotted' },
-        R: { id: '3R', name: 'Bloodfangs', desc: 'Q Slash & Gnash healing +35% and deals +30% bonus damage to enemies below 40% HP' }
-      },
-      7: {
-        L: { id: '7L', name: 'Hamstring Mark', desc: 'Consuming the 3rd E Predator Mark Slows by 50% (1.25s) and refunds 2s off E CD' },
-        R: { id: '7R', name: 'Arcane Claws', desc: 'E Predator Mark bonus damage increased by +35% (Fantasy damage)' }
-      },
-      10: {
-        L: { id: '10L', name: 'Apex Reset', desc: 'Hero takedowns within 4s of exiting R Stealth refresh E and grant 2.5s Stealth' },
-        R: { id: '10R', name: 'Throat Pounce', desc: 'Leaping with E from R Stealth applies a 40% Slow + 0.8s Silence/Stun on landing' }
-      }
     }
   };
 
@@ -245,23 +231,6 @@ window.MOBA_PHASE1 = (function () {
       baseSpd: 6.05,
       atkCd: 1.30,
       mpCosts: { Q: 45, E: 55, R: 90 }
-    },
-    panther: {
-      id: 'panther',
-      name: 'Panther Rogue',
-      role: 'Jungle • Melee Stealth Assassin',
-      glyph: 'X',
-      color: '#2dd4bf',
-      height: 2.15,
-      baseHp: 1380, hpGrow: 118,
-      baseMp: 300, mpGrow: 25, mpRegen: 5.5,
-      baseAtk: 56, atkGrow: 7.5,
-      baseFant: 24, fantGrow: 5.2,
-      baseArmor: 20, armorGrow: 2.8,
-      baseFResist: 20, fResistGrow: 2.6,
-      baseSpd: 6.55,
-      atkCd: 0.78,
-      mpCosts: { Q: 45, E: 50, R: 80 }
     }
   };
 
@@ -352,6 +321,12 @@ window.MOBA_PHASE1 = (function () {
       desc: '+54 ATK, +20% AS • Passive Proc: +25% damage vs targets below 45% HP'
     }
   ];
+
+  // Heroes migrated to js/heroes/<id>.js register their own stats & talents (loaded before this file)
+  Object.values(window.MOBA_HEROES || {}).forEach((k) => {
+    if (k.spec) HERO_SPECS[k.id] = k.spec;
+    if (k.talents) HERO_TALENTS[k.id] = k.talents;
+  });
 
   return {
     MAP_W,

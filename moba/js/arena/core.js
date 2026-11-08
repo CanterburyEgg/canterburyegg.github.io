@@ -8,7 +8,12 @@ const SFX = window.MOBA ? window.MOBA.Audio : { play() {}, unlock() {} };
 // 1 world unit in Three.js = ~1 meter
 // Pit Brawler = 2.25 units tall; Coyote Crossbowman = 1.98 units tall (shorter, wirier scavenger!)
 let HERO_HEIGHT = 1.98;
-let activeHeroId = 'coyote'; // 'coyote' | 'brawler'
+let activeHeroId = 'coyote';
+
+// Active hero's kit from js/heroes/<id>.js (null for heroes not migrated yet)
+function heroKit(id) {
+  return (window.MOBA_HEROES || {})[id || activeHeroId] || null;
+} // 'coyote' | 'brawler'
 
 const container = document.getElementById('three-container');
 const labelLayer = document.getElementById('label-layer');

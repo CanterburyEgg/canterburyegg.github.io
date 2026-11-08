@@ -549,83 +549,9 @@ function fireStrikeImpact(strike) {
   const pProg = phase1Engine ? phase1Engine.getPlayerProg() : { level: 1, talents: {} };
   const talents = pProg.talents || {};
 
-  // Panther Rogue Melee Impact (LMB Twin Claws OR Q Slash & Gnash: 1st Hit = Slash Swipe, 2nd Hit = Gnash Bite!)
-  if (activeHeroId === 'panther') {
-    const reach = strike.isBite ? 1.28 : 1.15;
-    const fx = hero.x + Math.sin(strike.facing) * reach;
-    const fz = hero.z + Math.cos(strike.facing) * reach;
-    const hitRadius = strike.isFlurry ? 1.88 : 1.55;
-    spawnShockRing(fx, fz, strike.isBite ? 0xf43f5e : (strike.isFlurry ? 0x2dd4bf : 0xfbbf24), 0.24, hitRadius, 0.22);
-    if (strike.isBite) {
-      spawnFloat(hero.x, 2.75, hero.z, 'GNASH!', '#f43f5e');
-    }
-
-    const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-    const rankMult = [1.0, 1.25, 1.50][rQE];
-    const baseClawDmg = strike.isFlurry
-      ? Math.round(strike.isBite ? (62 + (pProg.level || 1) * 11 + st.atk * 1.05) : (48 + (pProg.level || 1) * 9 + st.atk * 0.85))
-      : Math.round(st.atk);
-    const markBonusDmg = Math.round((34 + (pProg.level || 1) * 7 + (st.fant || 24) * 0.80) * rankMult * (talents[7] === 'R' ? 1.35 : 1.0));
-    const healPerHit = strike.isFlurry
-      ? Math.round((strike.isBite ? (28 + (pProg.level || 1) * 6) : (22 + (pProg.level || 1) * 5)) * rankMult * (talents[3] === 'R' ? 1.35 : 1.0))
-      : 0;
-    let didHitAny = false;
-
-    dummies.forEach((d) => {
-      if (d.isShooter && !shooterEnabled) return;
-      if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
-        didHitAny = true;
-        const lowHpAmp = (strike.isFlurry && talents[3] === 'R' && d.hp / d.maxHp < 0.40) ? 1.30 : 1.0;
-        damageDummy(d, Math.round(baseClawDmg * lowHpAmp), strike.isFlurry ? '#2dd4bf' : '#fb7185');
-        if ((d.predatorMarks || 0) > 0 && (d.predatorMarkTimer || 0) > 0) {
-          d.predatorMarks--;
-          damageDummy(d, markBonusDmg, '#fde047');
-          spawnShockRing(d.x, d.z, 0x2dd4bf, 0.2, 1.35, 0.22);
-          if (d.predatorMarks === 0 && talents[7] === 'L') {
-            d.slowTimer = Math.max(d.slowTimer || 0, 1.25);
-            hero.cdE = Math.max(0, hero.cdE - 2.0);
-            spawnFloat(d.x, 2.8, d.z, 'HAMSTRING MARK! (50% SLOW & -2s E CD)', '#2dd4bf');
-          } else {
-            spawnFloat(d.x, 2.7, d.z, 'MARK PROC! +' + markBonusDmg, '#fde047');
-          }
-        }
-      }
-    });
-
-    if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t) => {
-        if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
-          const u = t.ref;
-          const lowHpAmp = (strike.isFlurry && talents[3] === 'R' && u && u.hp / u.maxHp < 0.40 && t.kind !== 'structure') ? 1.30 : 1.0;
-          const hit = phase1Engine.dealPlayerDamageToUnit(t, Math.round(baseClawDmg * lowHpAmp), {
-            isBasic: !strike.isFlurry,
-            dmgType: 'physical',
-            color: strike.isFlurry ? '#2dd4bf' : '#fb7185'
-          });
-          if (hit) {
-            didHitAny = true;
-            if (u && (u.predatorMarks || 0) > 0 && (u.predatorMarkTimer || 0) > 0 && u.hp > 0) {
-              u.predatorMarks--;
-              const isThirdMark = (u.predatorMarks === 0);
-              phase1Engine.dealPlayerDamageToUnit(t, markBonusDmg, {
-                dmgType: 'fantasy',
-                slowDur: (isThirdMark && talents[7] === 'L') ? 1.25 : 0,
-                color: '#fde047'
-              });
-              if (isThirdMark && talents[7] === 'L') {
-                hero.cdE = Math.max(0, hero.cdE - 2.0);
-                spawnFloat(t.x, 2.8, t.z, 'HAMSTRING MARK! (50% SLOW & -2s E CD)', '#2dd4bf');
-              }
-            }
-          }
-        }
-      });
-    }
-
-    if (didHitAny && healPerHit > 0) {
-      hero.hp = Math.min(hero.maxHp, hero.hp + healPerHit);
-      spawnFloat(hero.x, 2.65, hero.z, '+' + healPerHit + ' HP', '#4ade80');
-    }
+  const kitImpact = heroKit();
+  if (kitImpact && kitImpact.onStrikeImpact) {
+    kitImpact.onStrikeImpact(strike, { st, pProg, talents });
     return;
   }
 
@@ -803,19 +729,8 @@ function tryAttack() {
       fadeToAction(kickAct, 0.06, true, THREE.MathUtils.clamp(dur / 0.78, 1.25, 2.25));
     }
     pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23 };
-  } else if (activeHeroId === 'panther') {
-    if ((hero.stealthTimer || 0) > 0) {
-      hero.stealthTimer = 0;
-      hero.stealthExitTimer = 4.0;
-      spawnFloat(hero.x, 2.75, hero.z, 'AMBUSH FROM STEALTH!', '#2dd4bf');
-    }
-    hero.atkTimer = 0.78 / (1 + st.asPct);
-    hero.punchAnim = 0.36;
-    if (actions.punch) {
-      // Mutant Swiping.fbx: skip the 0.00s-0.82s slow windup and start right at 0.82s as the claw sweeps across!
-      fadeToAction(actions.punch, 0.04, true, 2.45, 0.82);
-    }
-    pendingStrike = { isKick: false, isHaymaker: false, isFlurry: false, isBite: false, facing: hero.facing, t: 0.16 };
+  } else if (heroKit() && heroKit().onBasicAttack) {
+    heroKit().onBasicAttack(st);
   } else if (activeHeroId === 'bodyguard') {
     hero.atkTimer = 1.30 / (1 + st.asPct);
     // Hook Punch.fbx (2.17s): skip the 0.42s off-hand guard shift and start right as the right shoulder cocks back;
@@ -1165,85 +1080,10 @@ function castKey(slot) {
     return;
   }
 
-  // =====================================================
-  // 4. PANTHER ROGUE
-  // =====================================================
-  if (activeHeroId === 'panther') {
-    const stNow = phase1Engine ? phase1Engine.getPlayerStats() : { pantherUnseen: true };
-    if (slot === 'Q') {
-      if (!wtfMode && hero.cdQ > 0) return;
-      if (!trySpendMana('Q')) return;
-      hero.cdQ = wtfMode ? 0.15 : [5.8, 5.0, 4.2][rQE] * cdrMult;
-      if ((hero.stealthTimer || 0) > 0) {
-        hero.stealthTimer = 0;
-        hero.stealthExitTimer = 4.0;
-      }
-      hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-      hero.punchAnim = 0.54;
-      hero.qFlurryRemaining = 1; // 2nd Hit: The Feline Bite ("Gnash")!
-      hero.qFlurryTimer = 0.21;
-      hero.gnashAnim = 0;
-      if (actions.punch) {
-        oneShotActive = true;
-        // Start Mutant Swiping at 0.85s (2.40x) so the 1st Hit is a clean, wide horizontal Claw Swipe across!
-        fadeToAction(actions.punch, 0.04, true, 2.40, 0.85);
-      }
-      pendingStrike = {
-        isKick: false,
-        isFlurry: true,
-        isBite: false,
-        facing: hero.facing,
-        t: 0.13
-      };
-      SFX.play('dash');
-      spawnFloat(hero.x, 2.65, hero.z, 'SLASH!', '#2dd4bf');
-    } else if (slot === 'E') {
-      if (!wtfMode && hero.cdE > 0) return;
-      if (!trySpendMana('E')) return;
-      hero.cdE = wtfMode ? 0.25 : [7.5, 6.2, 5.0][rQE] * cdrMult;
-      const fromUnseen = (hero.stealthTimer || 0) > 0 || (stNow && stNow.pantherUnseen);
-      hero.leapFromStealth = fromUnseen;
-      if ((hero.stealthTimer || 0) > 0) {
-        hero.stealthTimer = 0;
-        hero.stealthExitTimer = 4.0;
-      }
-      const dx = aimWorld.x - hero.x;
-      const dz = aimWorld.z - hero.z;
-      const dist = Math.hypot(dx, dz) || 0.01;
-      const maxRange = fromUnseen ? 7.8 * 1.65 : 7.8;
-      const leapDist = Math.min(maxRange, Math.max(2.2, dist));
-      hero.facing = Math.atan2(dx, dz);
-      hero.leapSx = hero.x;
-      hero.leapSz = hero.z;
-      hero.leapTx = THREE.MathUtils.clamp(hero.x + (dx / dist) * leapDist, -69, 69);
-      hero.leapTz = THREE.MathUtils.clamp(hero.z + (dz / dist) * leapDist, -46, 46);
-      hero.leapDur = 0.36;
-      hero.leapTimer = 0.36;
-      hero.kickAnim = 0.42;
-      if (actions.jump) {
-        oneShotActive = true;
-        fadeToAction(actions.jump, 0.04, true, 1.65, 0.0);
-      }
-      SFX.play('dash');
-      spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.22, 1.2, 0.22);
-      if (fromUnseen) {
-        spawnFloat(hero.x, 2.75, hero.z, 'SHADOW POUNCE (+65% RANGE)!', '#2dd4bf');
-      }
-    } else if (slot === 'R') {
-      if (!wtfMode && pProg.level < 4) {
-        spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
-        return;
-      }
-      if (!wtfMode && hero.cdR > 0) return;
-      if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.4 : [38.0, 32.0, 26.0][rUlt] * cdrMult;
-      hero.stealthTimer = 6.0;
-      hero.unseenLingerTimer = talents[3] === 'L' ? 3.5 : 2.2;
-      SFX.play('dash');
-      spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);
-      spawnShockRing(hero.x, hero.z, 0xa855f7, 0.2, 1.8, 0.26);
-      spawnFloat(hero.x, 2.9, hero.z, 'NIGHTPROWL STEALTH (6.0s)!', '#2dd4bf');
-    }
+  // Heroes migrated to js/heroes/<id>.js
+  const kitCast = heroKit();
+  if (kitCast && kitCast.cast) {
+    kitCast.cast(slot, { st, pProg, talents, cdrMult, rQE, rUlt });
     return;
   }
 

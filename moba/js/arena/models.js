@@ -170,6 +170,7 @@ function classifyClipSlot(filename) {
 
 // Retarget a Mixamo AnimationClip cleanly onto currentModel's bone names & lock horizontal Hips drift
 function prepareClipForModel(sourceClip, model, slot) {
+  const clipTw = (heroKit() && heroKit().clipTweaks) || {};
   const nodeByCanon = {};
   let hipsBone = null;
   model.traverse((obj) => {
@@ -198,7 +199,7 @@ function prepareClipForModel(sourceClip, model, slot) {
       tr.name = targetObj.name + '.quaternion';
       // For Panther's all-fours prowl ('crawl'), stabilize the zombie-like side-to-side head/neck waggle
       // and lift his gaze slightly forward so he stalks like a feline predator!
-      if (activeHeroId === 'panther' && slot === 'crawl' && (canon === 'Head' || canon === 'Neck')) {
+      if (clipTw.crawlStabilizeHead && slot === 'crawl' && (canon === 'Head' || canon === 'Neck')) {
         const qVals = tr.values;
         const q0 = new THREE.Quaternion(qVals[0], qVals[1], qVals[2], qVals[3]);
         const qLift = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), canon === 'Head' ? -0.16 : -0.08);
@@ -233,14 +234,14 @@ function prepareClipForModel(sourceClip, model, slot) {
         const dz = THREE.MathUtils.clamp((vals[k + 2] - z0) * yScale, -maxSway, maxSway);
         vals[k] = hx + dx;
         let rawY = yScale === 1 ? vals[k + 1] : vals[k + 1] * yScale;
-        if (activeHeroId === 'panther' && slot === 'crawl') {
+        if (clipTw.crawlBound && slot === 'crawl') {
           // Add a feline bounding suspension wave so he bounds on all fours instead of dragging flat!
           const phase = ((k / 3) / numKeys) * Math.PI * 2;
           rawY += (0.055 + Math.sin(phase) * 0.055) * hy;
         }
         // For Bodyguard's & Panther's E Leap ('jump'), heroPivot.position.y (airborneY) already drives the parabolic leap arc,
         // so clamp any duplicate upward Hips hop while preserving the landing crouch compression!
-        vals[k + 1] = ((activeHeroId === 'bodyguard' || activeHeroId === 'panther') && slot === 'jump') ? Math.min(hy, rawY) : rawY;
+        vals[k + 1] = ((activeHeroId === 'bodyguard' || clipTw.jumpClampHips) && slot === 'jump') ? Math.min(hy, rawY) : rawY;
         vals[k + 2] = hz + dz;
       }
       keptTracks.push(tr);
@@ -491,9 +492,11 @@ const heroTemplates = {
   brawler: { fbx: null, tex: null, clips: {} },
   sorceress: { fbx: null, tex: null, clips: {} },
   bodyguard: { fbx: null, tex: null, clips: {} },
-  panther: { fbx: null, tex: null, clips: {} },
   crossbowScene: null
 };
+Object.keys(window.MOBA_HEROES || {}).forEach((id) => {
+  if (!heroTemplates[id]) heroTemplates[id] = { fbx: null, tex: null, clips: {} };
+});
 let phase1Engine = null;
 let isMovingNow = false;
 
@@ -663,40 +666,16 @@ function parseGuardianBundle(gBundle, targetTmpl) {
   return gIdleFbx;
 }
 
-function parsePantherBundle(pBundle, targetTmpl) {
-  if (!pBundle || targetTmpl.fbx) return targetTmpl.fbx;
-  targetTmpl.tex = loadHeroDiffuseTexture(pBundle.diffuseDataUrl);
-  const pIdleFbx = fbxLoader.parse(b64ToBuffer(pBundle.idleFbxB64), '');
-  pIdleFbx.traverse((ch) => {
-    if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) {
-      ch.geometry.computeVertexNormals();
-    }
-  });
-  targetTmpl.fbx = pIdleFbx;
-  if (pIdleFbx.animations[0]) targetTmpl.clips.idle = pIdleFbx.animations[0];
-  const pRunFbx = fbxLoader.parse(b64ToBuffer(pBundle.runFbxB64), '');
-  if (pRunFbx.animations[0]) targetTmpl.clips.run = pRunFbx.animations[0];
-  if (pBundle.crawlFbxB64) {
-    const pCrawlFbx = fbxLoader.parse(b64ToBuffer(pBundle.crawlFbxB64), '');
-    if (pCrawlFbx.animations[0]) targetTmpl.clips.crawl = pCrawlFbx.animations[0];
-  }
-  const pPunchFbx = fbxLoader.parse(b64ToBuffer(pBundle.punchFbxB64), '');
-  if (pPunchFbx.animations[0]) targetTmpl.clips.punch = pPunchFbx.animations[0];
-  if (pBundle.jumpFbxB64) {
-    const pJumpFbx = fbxLoader.parse(b64ToBuffer(pBundle.jumpFbxB64), '');
-    if (pJumpFbx.animations[0]) targetTmpl.clips.jump = pJumpFbx.animations[0];
-  }
-  return pIdleFbx;
-}
-
 // Lazily parse a hero's FBX template on demand so startup only parses what is needed immediately!
 const HERO_BUNDLE_PARSERS = {
   coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote),
   sorceress: () => parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceress),
   brawler: () => parseBrawlerBundle(window.BRAWLER_MIXAMO, heroTemplates.brawler),
-  bodyguard: () => parseGuardianBundle(window.GUARDIAN_MIXAMO, heroTemplates.bodyguard),
-  panther: () => parsePantherBundle(window.PANTHER_MIXAMO, heroTemplates.panther)
+  bodyguard: () => parseGuardianBundle(window.GUARDIAN_MIXAMO, heroTemplates.bodyguard)
 };
+Object.values(window.MOBA_HEROES || {}).forEach((k) => {
+  if (k.parseBundle && k.bundle) HERO_BUNDLE_PARSERS[k.id] = () => k.parseBundle(window[k.bundle.globalKey], heroTemplates[k.id]);
+});
 function ensureHeroTemplateReady(heroId) {
   const parse = HERO_BUNDLE_PARSERS[heroId];
   if (!parse) return null;
@@ -930,54 +909,11 @@ const HERO_UI_META = {
         talentLevels: [10]
       }
     }
-  },
-  panther: {
-    height: 2.15,
-    modelLabel: 'Panther Rogue (Mixamo + Nightprowl All-Fours)',
-    glyph: 'X',
-    color: '#2dd4bf',
-    name: 'Panther Rogue (3D)',
-    role: 'Jungle • Melee Physical Stealth Assassin',
-    passive: 'Shadow Stalker',
-    lmb: 'Twin Claws',
-    q: 'Slash&Gnash',
-    e: 'Mark Leap',
-    r: 'Nightprowl',
-    banner: '<b>1/2/3/4/5</b> Hero &bull; <b>Passive</b> Shadow Stalker (+28% Unseen MS) &bull; <b>Q</b> Slash &amp; Gnash (Swipe + Bite) &bull; <b>E</b> Predator&#39;s Leap &bull; <b>R</b> Nightprowl Stealth (All-Fours Prowl!) &bull; <b>P</b> Shop',
-    tooltips: {
-      P: {
-        title: 'Passive • Shadow Stalker',
-        meta: 'Innate Unseen Speed',
-        body: 'Gain <b>+28% Move Speed</b> while Unseen by enemies (behind LOS trees/pillars, out of enemy vision, or during <b>R: Nightprowl</b> Stealth), lingering for 2.2s after being spotted.',
-        talentLevels: [3]
-      },
-      LMB: {
-        title: 'LMB • Twin Claws',
-        meta: '0 MP • 0.78s Base ATK',
-        body: 'Rapid Physical claw swipes for <b>100% Physical ATK</b> that consume active <b>E: Predator Marks</b> for bonus Fantasy burst damage.',
-        talentLevels: [7]
-      },
-      Q: {
-        title: 'Q • Slash & Gnash',
-        meta: '45 MP • 5.8s / 5.0s / 4.2s CD (Lv 1/6/9)',
-        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; both hits deal Physical Damage, <b>heal you</b>, and each consumes an active <b>Predator Mark</b>!',
-        talentLevels: [3, 7]
-      },
-      E: {
-        title: "E • Predator's Leap",
-        meta: '50 MP • 7.5s / 6.2s / 5.0s CD (Lv 1/6/9)',
-        body: 'Pounces to the target spot (<b>+65% range while Unseen or in R Stealth!</b>), dealing AoE Fantasy Damage and applying <b>3 Predator Marks</b> for 5.0s so your next 3 hits deal bonus Fantasy burst.',
-        talentLevels: [7, 10]
-      },
-      R: {
-        title: 'R • Nightprowl',
-        meta: '80 MP • 38s / 32s / 26s CD (Lv 4/8/12)',
-        body: 'Drops onto all fours and enters <b>Stealth for up to 6.0s</b>, immediately activating <b>Shadow Stalker (+28% MS)</b> and boosting <b>E: Predator&#39;s Leap range by +65%</b>.',
-        talentLevels: [3, 10]
-      }
-    }
   }
 };
+Object.values(window.MOBA_HEROES || {}).forEach((k) => {
+  if (k.ui) HERO_UI_META[k.id] = k.ui;
+});
 
 // Switch cleanly between all 5 3D Heroes ('coyote' | 'brawler' | 'sorceress' | 'bodyguard' | 'panther')!
 function switchHero(heroId) {
