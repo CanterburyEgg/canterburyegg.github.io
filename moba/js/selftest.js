@@ -34,7 +34,22 @@
   const target = A.dummies[1] || A.dummies[0];
 
   // ---- Freeze the match so nothing but the player's casts changes state ----
+  const origEngineUpdate = eng ? eng.update : null;
+  const origProg = eng ? (() => { const p = eng.getPlayerProg(); return { level: p.level, talents: Object.assign({}, p.talents) }; })() : null;
+  const origHeroId = A.getActiveHeroId();
   if (eng) eng.update = function () {};
+
+  // Put the game back the way it was (level, talents, hero, live match) so you can keep playing afterwards
+  function restoreGame() {
+    if (eng && origProg) {
+      const p = eng.getPlayerProg();
+      p.level = origProg.level;
+      Object.keys(p.talents).forEach((k) => { p.talents[k] = null; });
+      Object.assign(p.talents, origProg.talents);
+    }
+    A.switchHero(origHeroId);
+    if (eng && origEngineUpdate) eng.update = origEngineUpdate;
+  }
 
   let dummyEvents = [];
   let unitEvents = [];
@@ -150,6 +165,7 @@
     }
     T.aim = null;
     T.onDummyDamage = null;
+    restoreGame();
     report(results);
   }
 
