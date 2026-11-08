@@ -7,6 +7,15 @@
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
+// Left/right hook combo (clip times measured from the Punching / Punching2 Mixamo clips' spine bend)
+const COMBO = {
+  leftStartAt: 0.30,     // left hook clip time that's already hunched (skips its own crouch-down)
+  leftBlend: 0.12,       // crossfade into the left hook
+  rightPeakAt: 0.36,     // right hook clip time where the punch is fully extended
+  leftPeakAt: 0.58,      // left hook clip time where the punch is fully extended
+  resetAfterReady: 2.0   // back to the right hook after this many seconds without attacking
+};
+
 // R The Pit Arena: build the 3D cage and register it as the active arena zone
 function buildArena3D(x, z) {
   if (arena) scene.remove(arena.group);
@@ -242,18 +251,24 @@ H.brawler = {
       hero.atkTimer = 1.04 / (1 + st.asPct);
       hero.punchAnim = 0.48;
 
-      // Each click swings 1 punch: default to Punching (1), or alternate 1/2/1/2/1 if attacking in rapid sequence!
+      // Every swing switches hands (right hook, left hook, ...); resets to the right hook after ~2s without attacking
       if (hero.comboResetTimer > 0) {
         hero.basicCombo = (hero.basicCombo + 1) % 2;
       } else {
         hero.basicCombo = 0;
       }
-      hero.comboResetTimer = hero.atkTimer + 0.48;
+      hero.comboResetTimer = hero.atkTimer + COMBO.resetAfterReady;
 
-      const punchAct = (hero.basicCombo === 1 && actions.punch2) ? actions.punch2 : actions.punch;
-      if (punchAct) {
-        const dur = punchAct.getClip().duration || 0.87;
-        fadeToAction(punchAct, 0.05, true, THREE.MathUtils.clamp(dur / 0.62, 1.1, 1.8));
+      const rightDur = actions.punch ? (actions.punch.getClip().duration || 0.87) : 0.87;
+      const rightScale = THREE.MathUtils.clamp(rightDur / 0.62, 1.1, 1.8);
+      if (hero.basicCombo === 1 && actions.punch2) {
+        // Skip the left clip's own crouch-down (start where it's already hunched, softer blend), and play it at the
+        // speed that lands its punch at the same moment after the click as the right hook's punch
+        const rightPeakSec = COMBO.rightPeakAt / rightScale;
+        const leftScale = (COMBO.leftPeakAt - COMBO.leftStartAt) / rightPeakSec;
+        fadeToAction(actions.punch2, COMBO.leftBlend, true, leftScale, COMBO.leftStartAt);
+      } else if (actions.punch) {
+        fadeToAction(actions.punch, 0.05, true, rightScale);
       }
       pendingStrike = { isKick: false, isHaymaker: false, facing: hero.facing, t: 0.16 };
     }
@@ -269,8 +284,9 @@ H.brawler = {
     let isHaymaker = false;
     const haymakerHeal = 55 + (pProg.level || 1) * 5;
     if (!strike.isKick && talents[7] === 'R') {
-      hero.basicCombo = (hero.basicCombo + 1) % 3;
-      if (hero.basicCombo === 0) {
+      // Own counter so the left/right combo can't scramble the "every 3rd punch" count
+      hero.haymakerCount = ((hero.haymakerCount || 0) + 1) % 3;
+      if (hero.haymakerCount === 0) {
         isHaymaker = true;
         hero.hp = Math.min(hero.maxHp, hero.hp + haymakerHeal);
         spawnShockRing(fx, fz, 0xfde047, 0.3, 2.35, 0.28);
