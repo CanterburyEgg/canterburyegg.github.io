@@ -340,8 +340,6 @@
         <span class="strip-label">3D Hero</span>
         <button type="button" class="sb-btn toggled" id="btn-hero-coyote" style="font-weight:700;">🐺 1: Coyote</button>
         <button type="button" class="sb-btn" id="btn-hero-brawler" style="font-weight:700;">🥊 2: Brawler</button>
-        <button type="button" class="sb-btn" id="btn-brawler-ver" title="Switch between New Hunyuan Brawler (v2) and Original Brawler (v1)" style="border-color:hsla(350,80%,60%,0.6);color:#fda4af;">🔄 Model: v2 (New)</button>
-        <button type="button" class="sb-btn" id="btn-brawler-sbs" title="Show v1 and v2 Brawler Models Side-by-Side" style="border-color:hsla(45,90%,55%,0.6);color:#fde047;">👥 Side-by-Side</button>
         <button type="button" class="sb-btn" id="btn-hero-sorceress" style="font-weight:700;">✨ 3: Sorceress</button>
         <button type="button" class="sb-btn" id="btn-hero-bodyguard" style="font-weight:700;">🛡️ 4: Bodyguard</button>
         <button type="button" class="sb-btn" id="btn-hero-panther" style="font-weight:700;">🐾 5: Panther</button>
@@ -642,19 +640,6 @@
     let oneShotActive = false;
     let dashStyleMode = 'combo'; // 'combo' (Flying Kick E1 -> Slide E2) | 'slide' | 'jump'
 
-    // Side-by-Side Hero v1 vs v2 Comparison Twin State (supports all 5 heroes!)
-    const activeHeroVer = { coyote: 'v2', brawler: 'v2', sorceress: 'v2', bodyguard: 'v2', panther: 'v2' };
-    let sideBySideCompare = false;
-    const comparePivot = new THREE.Group();
-    const compareTiltNode = new THREE.Group();
-    comparePivot.add(compareTiltNode);
-    comparePivot.visible = false;
-    scene.add(comparePivot);
-    let compareModel = null;
-    let compareMixer = null;
-    const compareActions = { idle: null, run: null, crawl: null, punch: null, punch2: null, kick: null, slide: null, jump: null };
-    let compareActiveAction = null;
-
     // Hand bones on currentModel for 3D weapon prop attachment
     let rightHandBone = null;
     let leftHandBone = null;
@@ -904,45 +889,6 @@
           nextAction.play();
         }
       }
-
-      // Mirror the exact same slot transition onto the Side-by-Side Comparison Twin if active!
-      if (sideBySideCompare && compareMixer) {
-        const slotKey = Object.keys(actions).find((k) => actions[k] === nextAction);
-        const twinAct = slotKey ? (compareActions[slotKey] || (slotKey === 'punch2' ? compareActions.punch : null)) : null;
-        if (twinAct) {
-          if (twinAct === compareActiveAction && !isOneShot) {
-            twinAct.setEffectiveTimeScale(timeScale);
-          } else {
-            compareActiveAction = twinAct;
-            Object.values(compareActions).forEach((a) => {
-              if (a && a !== twinAct && a.enabled) a.fadeOut(fadeDur);
-            });
-            const twinWasEnabled = twinAct.enabled && twinAct.getEffectiveWeight() > 0.02;
-            twinAct.enabled = true;
-            twinAct.paused = false;
-            twinAct.setEffectiveTimeScale(timeScale);
-            twinAct.setEffectiveWeight(1);
-            if (isOneShot) {
-              twinAct.reset();
-              twinAct.time = startAt;
-              twinAct.setLoop(THREE.LoopOnce, 1);
-              twinAct.clampWhenFinished = true;
-              twinAct.fadeIn(fadeDur).play();
-            } else {
-              twinAct.setLoop(THREE.LoopRepeat, Infinity);
-              twinAct.clampWhenFinished = false;
-              if (!twinWasEnabled) {
-                twinAct.reset();
-                twinAct.fadeIn(fadeDur).play();
-              } else {
-                twinAct.stopFading();
-                twinAct.setEffectiveWeight(1);
-                twinAct.play();
-              }
-            }
-          }
-        }
-      }
     }
 
     function bindClipToSlot(slot, clip) {
@@ -1034,10 +980,6 @@
       box.getSize(size);
       const scale = HERO_HEIGHT / Math.max(0.01, size.y);
       model.scale.multiplyScalar(scale);
-      if (activeHeroId === 'bodyguard' && activeHeroVer.bodyguard === 'v1') {
-        model.scale.x *= 1.15;
-        model.scale.z *= 1.15;
-      }
       model.updateMatrixWorld(true);
 
       const box2 = new THREE.Box3().setFromObject(model);
@@ -1141,197 +1083,13 @@
       return bytes.buffer;
     }
 
-    // Create stylized 2K diffuse texture variants for Sorceress (Arcane Stage Magician) & Bodyguard (Coliseum Strongman)
-    function createHeroVariantTexture(baseDataUrl, mode) {
-      const c = document.createElement('canvas');
-      c.width = 512;
-      c.height = 512;
-      const ctx = c.getContext('2d');
-      ctx.fillStyle = mode === 'sorceress' ? '#2e1065' : '#9a5b3e';
-      ctx.fillRect(0, 0, 512, 512);
-      const tex = new THREE.CanvasTexture(c);
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = 4;
-
-      const img = new Image();
-      img.onload = () => {
-        c.width = img.width || 1024;
-        c.height = img.height || 1024;
-        ctx.drawImage(img, 0, 0, c.width, c.height);
-        const imgData = ctx.getImageData(0, 0, c.width, c.height);
-        const d = imgData.data;
-        for (let i = 0; i < d.length; i += 4) {
-          const r = d[i], g = d[i + 1], b = d[i + 2];
-          const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-          if (mode === 'sorceress') {
-            // Glamorous LeBlanc/Stage Magician palette: luminous porcelain-rose skin on bright tones,
-            // midnight-violet velvet corset on darks, and neon magenta-pink / cyan highlights on mids!
-            if (lum > 145) {
-              d[i] = Math.min(255, Math.round(lum * 1.08 + 18));
-              d[i + 1] = Math.min(255, Math.round(lum * 0.90 + 10));
-              d[i + 2] = Math.min(255, Math.round(lum * 0.96 + 22));
-            } else if (lum > 78) {
-              d[i] = Math.min(255, Math.round(r * 0.65 + 140));
-              d[i + 1] = Math.min(255, Math.round(g * 0.45 + 35));
-              d[i + 2] = Math.min(255, Math.round(b * 0.75 + 155));
-            } else {
-              d[i] = Math.round(lum * 0.45 + 22);
-              d[i + 1] = Math.round(lum * 0.22 + 8);
-              d[i + 2] = Math.round(lum * 0.78 + 48);
-            }
-          } else {
-            // Shirtless Coliseum Bodyguard palette: warm sun-bronzed bare-chest strongman skin on mids/highs,
-            // gleaming brass belt & dark slate-navy coliseum trousers on lows!
-            if (lum > 90) {
-              d[i] = Math.min(255, Math.round(lum * 1.16 + 24));
-              d[i + 1] = Math.min(255, Math.round(lum * 0.82 + 10));
-              d[i + 2] = Math.min(255, Math.round(lum * 0.62 + 4));
-            } else {
-              d[i] = Math.round(lum * 0.45 + 14);
-              d[i + 1] = Math.round(lum * 0.52 + 20);
-              d[i + 2] = Math.round(lum * 0.72 + 34);
-            }
-          }
-        }
-        ctx.putImageData(imgData, 0, 0);
-        tex.needsUpdate = true;
-      };
-      img.src = baseDataUrl;
-      return tex;
-    }
-
-    function markCustomMesh(m) {
-      m.castShadow = true;
-      m.receiveShadow = true;
-      m.frustumCulled = false;
-      m.userData.keepCustomMat = true;
-      return m;
-    }
-
-    // Attach 3D Stage Magician Top-Hat, Pastel Pink/Cyan Hair Locks, and High-Cut Coattails to Sorceress Rig
-    function decorateSorceressRig(fbx) {
-      let headBone = null, hipsBone = null;
-      fbx.traverse((obj) => {
-        if (!obj.name) return;
-        const c = canonicalMixamoBone(obj.name);
-        if (c === 'Head' && (obj.isBone || !headBone)) headBone = obj;
-        if (c === 'Hips' && (obj.isBone || !hipsBone)) hipsBone = obj;
-      });
-      const box = new THREE.Box3().setFromObject(fbx);
-      const sz = new THREE.Vector3();
-      box.getSize(sz);
-      const u = Math.max(0.01, sz.y) / 1.94; // Native bone unit scale
-
-      if (headBone) {
-        const hatGrp = new THREE.Group();
-        hatGrp.position.set(0.03 * u, 0.19 * u, 0.01 * u);
-        hatGrp.rotation.set(-0.14, 0, -0.18);
-
-        const velvetMat = new THREE.MeshStandardMaterial({ color: 0x1e1b4b, roughness: 0.45, metalness: 0.25 });
-        const neonPinkMat = new THREE.MeshBasicMaterial({ color: 0xf472b6 });
-        const neonCyanMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
-
-        const brim = markCustomMesh(new THREE.Mesh(new THREE.CylinderGeometry(0.16 * u, 0.16 * u, 0.018 * u, 20), velvetMat));
-        hatGrp.add(brim);
-        const crown = markCustomMesh(new THREE.Mesh(new THREE.CylinderGeometry(0.115 * u, 0.098 * u, 0.15 * u, 18), velvetMat));
-        crown.position.y = 0.08 * u;
-        hatGrp.add(crown);
-        const band = markCustomMesh(new THREE.Mesh(new THREE.CylinderGeometry(0.103 * u, 0.101 * u, 0.028 * u, 18), neonPinkMat));
-        band.position.y = 0.025 * u;
-        hatGrp.add(band);
-        headBone.add(hatGrp);
-
-        // Colorful Pixie/Twin-Tail Hair Locks (Magenta-Pink Left, Neon-Cyan Right)
-        const lockGeo = new THREE.ConeGeometry(0.055 * u, 0.34 * u, 10);
-        const leftLock = markCustomMesh(new THREE.Mesh(lockGeo, neonPinkMat));
-        leftLock.position.set(0.12 * u, 0.02 * u, -0.08 * u);
-        leftLock.rotation.set(0.35, 0, -0.32);
-        headBone.add(leftLock);
-
-        const rightLock = markCustomMesh(new THREE.Mesh(lockGeo, neonCyanMat));
-        rightLock.position.set(-0.12 * u, 0.02 * u, -0.08 * u);
-        rightLock.rotation.set(0.35, 0, 0.32);
-        headBone.add(rightLock);
-      }
-
-      if (hipsBone) {
-        // High-Cut Stage Magician Coattails swept strictly behind her silhouette!
-        const tailMat = new THREE.MeshStandardMaterial({
-          color: 0x3b0764,
-          emissive: 0x86198f,
-          emissiveIntensity: 0.28,
-          roughness: 0.5,
-          side: THREE.DoubleSide
-        });
-        const tailGeo = new THREE.ConeGeometry(0.085 * u, 0.42 * u, 6);
-        const leftTail = markCustomMesh(new THREE.Mesh(tailGeo, tailMat));
-        leftTail.position.set(0.09 * u, -0.16 * u, -0.14 * u);
-        leftTail.rotation.set(Math.PI - 0.32, 0, -0.15);
-        hipsBone.add(leftTail);
-
-        const rightTail = markCustomMesh(new THREE.Mesh(tailGeo, tailMat));
-        rightTail.position.set(-0.09 * u, -0.16 * u, -0.14 * u);
-        rightTail.rotation.set(Math.PI - 0.32, 0, 0.15);
-        hipsBone.add(rightTail);
-      }
-    }
-
-    // Attach 3D Ornate Brass Champion Waist Belt & Iron-and-Brass Coliseum Vambraces to Bodyguard Rig
-    function decorateBodyguardRig(fbx) {
-      let hipsBone = null, lForeArm = null, rForeArm = null;
-      fbx.traverse((obj) => {
-        if (!obj.name) return;
-        const c = canonicalMixamoBone(obj.name);
-        if (c === 'Hips' && (obj.isBone || !hipsBone)) hipsBone = obj;
-        if (c === 'LeftForeArm' && (obj.isBone || !lForeArm)) lForeArm = obj;
-        if (c === 'RightForeArm' && (obj.isBone || !rForeArm)) rForeArm = obj;
-      });
-      const box = new THREE.Box3().setFromObject(fbx);
-      const sz = new THREE.Vector3();
-      box.getSize(sz);
-      const u = Math.max(0.01, sz.y) / 2.25;
-
-      const brassMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.28, metalness: 0.85 });
-      const ironMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.42, metalness: 0.78 });
-
-      if (hipsBone) {
-        const belt = markCustomMesh(new THREE.Mesh(new THREE.CylinderGeometry(0.195 * u, 0.205 * u, 0.11 * u, 20), brassMat));
-        belt.position.set(0, 0.02 * u, 0);
-        hipsBone.add(belt);
-
-        const buckle = markCustomMesh(new THREE.Mesh(new THREE.OctahedronGeometry(0.075 * u, 0), brassMat));
-        buckle.position.set(0, 0.02 * u, 0.195 * u);
-        hipsBone.add(buckle);
-      }
-      [lForeArm, rForeArm].forEach((armBone) => {
-        if (!armBone) return;
-        const bracer = markCustomMesh(new THREE.Mesh(new THREE.CylinderGeometry(0.068 * u, 0.058 * u, 0.19 * u, 12), ironMat));
-        bracer.position.set(0, 0.09 * u, 0);
-        armBone.add(bracer);
-
-        const cuff = markCustomMesh(new THREE.Mesh(new THREE.CylinderGeometry(0.074 * u, 0.074 * u, 0.035 * u, 12), brassMat));
-        cuff.position.set(0, 0.17 * u, 0);
-        armBone.add(cuff);
-      });
-    }
-
     // Pre-parsed 3D Hero Templates shared by Player & all 7 4v4 Mixamo Bots!
     const heroTemplates = {
       coyote: { fbx: null, tex: null, clips: {} },
-      coyoteV2: { fbx: null, tex: null, clips: {}, label: 'Coyote Crossbowman v2 (New Hunyuan 3D + Crossbow)' },
-      coyoteV1: { fbx: null, tex: null, clips: {}, label: 'Coyote Crossbowman v1 (Original Model + Crossbow)' },
       brawler: { fbx: null, tex: null, clips: {} },
-      brawlerV2: { fbx: null, tex: null, clips: {}, label: 'Pit Brawler v2 (New Hunyuan 3D)' },
-      brawlerV1: { fbx: null, tex: null, clips: {}, label: 'Pit Brawler v1 (Original Model)' },
       sorceress: { fbx: null, tex: null, clips: {} },
-      sorceressV2: { fbx: null, tex: null, clips: {}, label: 'Astral Sorceress v2 (New Hunyuan 3D)' },
-      sorceressV1: { fbx: null, tex: null, clips: {}, label: 'Astral Sorceress v1 (Original Model)' },
       bodyguard: { fbx: null, tex: null, clips: {} },
-      bodyguardV2: { fbx: null, tex: null, clips: {}, label: 'Guardian Bodyguard v2 (New Hunyuan 3D)' },
-      bodyguardV1: { fbx: null, tex: null, clips: {}, label: 'Guardian Bodyguard v1 (Original Model)' },
       panther: { fbx: null, tex: null, clips: {} },
-      pantherV2: { fbx: null, tex: null, clips: {}, label: 'Panther Rogue v2 (New Hunyuan 3D)' },
-      pantherV1: { fbx: null, tex: null, clips: {}, label: 'Panther Rogue v1 (New Hunyuan 3D)' },
       crossbowScene: null
     };
     let phase1Engine = null;
@@ -1529,96 +1287,19 @@
       return pIdleFbx;
     }
 
-    // Lazily parse a hero's v2 or v1 FBX template on demand so startup only parses what is needed immediately!
-    function ensureHeroTemplateReady(heroId, ver = 'v2') {
-      if (heroId === 'coyote') {
-        if (ver === 'v2') {
-          if (!heroTemplates.coyoteV2.fbx && window.COYOTE_MIXAMO) {
-            parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyoteV2);
-          }
-        } else {
-          if (!heroTemplates.coyoteV1.fbx) {
-            if (window.COYOTE_V1_MIXAMO) {
-              parseCoyoteBundle(window.COYOTE_V1_MIXAMO, heroTemplates.coyoteV1);
-            } else {
-              ensureHeroTemplateReady('coyote', 'v2');
-              heroTemplates.coyoteV1 = heroTemplates.coyoteV2;
-            }
-          }
-        }
-        heroTemplates.coyote = activeHeroVer.coyote === 'v1' ? heroTemplates.coyoteV1 : heroTemplates.coyoteV2;
-        return ver === 'v1' ? heroTemplates.coyoteV1 : heroTemplates.coyoteV2;
-      }
-
-      if (heroId === 'sorceress') {
-        if (ver === 'v2') {
-          if (!heroTemplates.sorceressV2.fbx && window.SORCERESS_MIXAMO) {
-            parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceressV2);
-          }
-        } else {
-          if (!heroTemplates.sorceressV1.fbx) {
-            if (window.SORCERESS_V1_MIXAMO) {
-              parseSorcBundle(window.SORCERESS_V1_MIXAMO, heroTemplates.sorceressV1);
-            } else {
-              ensureHeroTemplateReady('sorceress', 'v2');
-              heroTemplates.sorceressV1 = heroTemplates.sorceressV2;
-            }
-          }
-        }
-        heroTemplates.sorceress = activeHeroVer.sorceress === 'v1' ? heroTemplates.sorceressV1 : heroTemplates.sorceressV2;
-        return ver === 'v1' ? heroTemplates.sorceressV1 : heroTemplates.sorceressV2;
-      }
-
-      if (heroId === 'brawler') {
-        if (ver === 'v2') {
-          if (!heroTemplates.brawlerV2.fbx && window.BRAWLER_MIXAMO) {
-            parseBrawlerBundle(window.BRAWLER_MIXAMO, heroTemplates.brawlerV2);
-          }
-        } else {
-          if (!heroTemplates.brawlerV1.fbx) {
-            if (window.BRAWLER_V1_MIXAMO) {
-              parseBrawlerBundle(window.BRAWLER_V1_MIXAMO, heroTemplates.brawlerV1);
-            } else {
-              ensureHeroTemplateReady('brawler', 'v2');
-              heroTemplates.brawlerV1 = heroTemplates.brawlerV2;
-            }
-          }
-        }
-        heroTemplates.brawler = activeHeroVer.brawler === 'v1' ? heroTemplates.brawlerV1 : heroTemplates.brawlerV2;
-        return ver === 'v1' ? heroTemplates.brawlerV1 : heroTemplates.brawlerV2;
-      }
-
-      if (heroId === 'bodyguard') {
-        if (ver === 'v2') {
-          if (!heroTemplates.bodyguardV2.fbx && window.GUARDIAN_MIXAMO) {
-            parseGuardianBundle(window.GUARDIAN_MIXAMO, heroTemplates.bodyguardV2);
-          }
-        } else {
-          if (!heroTemplates.bodyguardV1.fbx && (window.BRAWLER_V1_MIXAMO || window.BRAWLER_MIXAMO)) {
-            const bgSourceBundle = window.BRAWLER_V1_MIXAMO || window.BRAWLER_MIXAMO;
-            const brawlerTmpl = ensureHeroTemplateReady('brawler', window.BRAWLER_V1_MIXAMO ? 'v1' : 'v2');
-            if (brawlerTmpl && brawlerTmpl.fbx) {
-              heroTemplates.bodyguardV1.tex = createHeroVariantTexture(bgSourceBundle.diffuseDataUrl, 'bodyguard');
-              const bgFbx = SkeletonUtils.clone(brawlerTmpl.fbx);
-              decorateBodyguardRig(bgFbx);
-              heroTemplates.bodyguardV1.fbx = bgFbx;
-              heroTemplates.bodyguardV1.clips = { ...brawlerTmpl.clips };
-            }
-          }
-        }
-        heroTemplates.bodyguard = activeHeroVer.bodyguard === 'v1' ? heroTemplates.bodyguardV1 : heroTemplates.bodyguardV2;
-        return ver === 'v1' ? heroTemplates.bodyguardV1 : heroTemplates.bodyguardV2;
-      }
-
-      if (heroId === 'panther') {
-        if (!heroTemplates.pantherV2.fbx && window.PANTHER_MIXAMO) {
-          parsePantherBundle(window.PANTHER_MIXAMO, heroTemplates.pantherV2);
-        }
-        heroTemplates.pantherV1 = heroTemplates.pantherV2;
-        heroTemplates.panther = heroTemplates.pantherV2;
-        return heroTemplates.pantherV2;
-      }
-      return null;
+    // Lazily parse a hero's FBX template on demand so startup only parses what is needed immediately!
+    const HERO_BUNDLE_PARSERS = {
+      coyote: () => parseCoyoteBundle(window.COYOTE_MIXAMO, heroTemplates.coyote),
+      sorceress: () => parseSorcBundle(window.SORCERESS_MIXAMO, heroTemplates.sorceress),
+      brawler: () => parseBrawlerBundle(window.BRAWLER_MIXAMO, heroTemplates.brawler),
+      bodyguard: () => parseGuardianBundle(window.GUARDIAN_MIXAMO, heroTemplates.bodyguard),
+      panther: () => parsePantherBundle(window.PANTHER_MIXAMO, heroTemplates.panther)
+    };
+    function ensureHeroTemplateReady(heroId) {
+      const parse = HERO_BUNDLE_PARSERS[heroId];
+      if (!parse) return null;
+      if (!heroTemplates[heroId].fbx) parse();
+      return heroTemplates[heroId];
     }
 
     function loadScriptAsync(src) {
@@ -1905,7 +1586,7 @@
 
       rawClips.idle = rawClips.run = rawClips.crawl = rawClips.punch = rawClips.punch2 = rawClips.kick = rawClips.slide = rawClips.jump = null;
 
-      ensureHeroTemplateReady(heroId, activeHeroVer[heroId] || 'v2');
+      ensureHeroTemplateReady(heroId);
       const tmpl = heroTemplates[heroId] || heroTemplates.coyote;
       if (tmpl && tmpl.fbx) {
         fallbackBrawlerTex = tmpl.tex;
@@ -1977,156 +1658,7 @@
 
       document.getElementById('drop-banner').innerHTML = meta.banner;
 
-      const btnVer = document.getElementById('btn-brawler-ver');
-      if (btnVer && (heroId === 'coyote' || heroId === 'brawler' || heroId === 'sorceress' || heroId === 'bodyguard')) {
-        const ver = activeHeroVer[heroId] || 'v2';
-        btnVer.textContent = ver === 'v2' ? '🔄 Model: v2 (New)' : '🔄 Model: v1 (Old)';
-        btnVer.classList.toggle('toggled', ver === 'v1');
-      }
-
       updateSlotPills();
-      rebuildCompareTwin();
-    }
-
-    function rebuildCompareTwin() {
-      if (compareModel) {
-        compareTiltNode.remove(compareModel);
-        compareModel = null;
-      }
-      compareMixer = null;
-      compareActiveAction = null;
-      ['idle', 'run', 'punch', 'punch2', 'kick', 'slide', 'jump'].forEach((s) => { compareActions[s] = null; });
-
-      const supportsCompare = (activeHeroId === 'coyote' || activeHeroId === 'brawler' || activeHeroId === 'sorceress' || activeHeroId === 'bodyguard');
-      if (!sideBySideCompare || !supportsCompare) {
-        comparePivot.visible = false;
-        return;
-      }
-      const ver = activeHeroVer[activeHeroId] || 'v2';
-      ensureHeroTemplateReady(activeHeroId, ver === 'v2' ? 'v1' : 'v2');
-      const twinTmpl = activeHeroId === 'coyote'
-        ? (ver === 'v2' ? heroTemplates.coyoteV1 : heroTemplates.coyoteV2)
-        : activeHeroId === 'sorceress'
-        ? (ver === 'v2' ? heroTemplates.sorceressV1 : heroTemplates.sorceressV2)
-        : activeHeroId === 'bodyguard'
-        ? (ver === 'v2' ? heroTemplates.bodyguardV1 : heroTemplates.bodyguardV2)
-        : (ver === 'v2' ? heroTemplates.brawlerV1 : heroTemplates.brawlerV2);
-      if (!twinTmpl || !twinTmpl.fbx) {
-        comparePivot.visible = false;
-        return;
-      }
-
-      const cloned = SkeletonUtils.clone(twinTmpl.fbx);
-      cloned.updateMatrixWorld(true);
-      const box = new THREE.Box3().setFromObject(cloned);
-      const size = new THREE.Vector3();
-      box.getSize(size);
-      const scale = HERO_HEIGHT / Math.max(0.01, size.y);
-      cloned.scale.multiplyScalar(scale);
-      cloned.updateMatrixWorld(true);
-      const box2 = new THREE.Box3().setFromObject(cloned);
-      const center = new THREE.Vector3();
-      box2.getCenter(center);
-      cloned.position.x -= center.x;
-      cloned.position.z -= center.z;
-      cloned.position.y -= box2.min.y;
-
-      cloned.traverse((ch) => {
-        if (ch.isMesh) {
-          ch.castShadow = true;
-          ch.receiveShadow = true;
-          ch.frustumCulled = false;
-          if (ch.geometry) {
-            ch.geometry.computeVertexNormals();
-          }
-          ch.material = new THREE.MeshStandardMaterial({
-            map: twinTmpl.tex,
-            roughness: 0.72,
-            metalness: 0.08
-          });
-        }
-      });
-
-      compareTiltNode.add(cloned);
-      compareModel = cloned;
-      compareMixer = new THREE.AnimationMixer(compareModel);
-      compareMixer.addEventListener('finished', () => {
-        const fb = compareActions.idle || compareActions.run;
-        if (fb) {
-          Object.values(compareActions).forEach((a) => { if (a && a !== fb && a.enabled) a.fadeOut(0.14); });
-          fb.reset().setLoop(THREE.LoopRepeat, Infinity).fadeIn(0.14).play();
-          compareActiveAction = fb;
-        }
-      });
-
-      ['idle', 'run', 'punch', 'punch2', 'kick', 'slide', 'jump'].forEach((slot) => {
-        const srcClip = twinTmpl.clips[slot];
-        if (!srcClip) return;
-        const prep = prepareClipForModel(srcClip, compareModel, slot);
-        if (prep.tracks.length > 0) {
-          compareActions[slot] = compareMixer.clipAction(prep);
-        }
-      });
-      if (compareActions.idle) {
-        compareActions.idle.play();
-        compareActiveAction = compareActions.idle;
-      }
-      comparePivot.visible = true;
-    }
-
-    function toggleHeroModelVersion(targetHeroId) {
-      const heroKey = (targetHeroId === 'coyote' || targetHeroId === 'brawler' || targetHeroId === 'sorceress' || targetHeroId === 'bodyguard')
-        ? targetHeroId
-        : ((activeHeroId === 'coyote' || activeHeroId === 'sorceress' || activeHeroId === 'bodyguard') ? activeHeroId : 'brawler');
-      activeHeroVer[heroKey] = activeHeroVer[heroKey] === 'v2' ? 'v1' : 'v2';
-      const ver = activeHeroVer[heroKey];
-      ensureHeroTemplateReady(heroKey, ver);
-      if (heroKey === 'coyote') {
-        heroTemplates.coyote = ver === 'v2' ? heroTemplates.coyoteV2 : heroTemplates.coyoteV1;
-        HERO_UI_META.coyote.modelLabel = heroTemplates.coyote.label || 'Coyote Crossbowman (Mixamo + 3D Crossbow)';
-      } else if (heroKey === 'sorceress') {
-        heroTemplates.sorceress = ver === 'v2' ? heroTemplates.sorceressV2 : heroTemplates.sorceressV1;
-        HERO_UI_META.sorceress.modelLabel = heroTemplates.sorceress.label || 'Astral Sorceress (Mixamo Rigged)';
-      } else if (heroKey === 'bodyguard') {
-        heroTemplates.bodyguard = ver === 'v2' ? heroTemplates.bodyguardV2 : heroTemplates.bodyguardV1;
-        HERO_UI_META.bodyguard.modelLabel = heroTemplates.bodyguard.label || 'Guardian Bodyguard (Mixamo Rigged)';
-      } else {
-        heroTemplates.brawler = ver === 'v2' ? heroTemplates.brawlerV2 : heroTemplates.brawlerV1;
-        HERO_UI_META.brawler.modelLabel = heroTemplates.brawler.label || 'Pit Brawler (Mixamo Rigged)';
-      }
-      const btnVer = document.getElementById('btn-brawler-ver');
-      if (btnVer) {
-        btnVer.textContent = ver === 'v2' ? '🔄 Model: v2 (New)' : '🔄 Model: v1 (Old)';
-        btnVer.classList.toggle('toggled', ver === 'v1');
-      }
-      if (activeHeroId !== heroKey) {
-        switchHero(heroKey);
-      } else {
-        // Hot-swap 3D model in place without resetting position or health!
-        const tmpl = heroTemplates[heroKey];
-        if (tmpl && tmpl.fbx) {
-          fallbackBrawlerTex = tmpl.tex;
-          const cloned = SkeletonUtils.clone(tmpl.fbx);
-          installModelObject(cloned, HERO_UI_META[heroKey].modelLabel, true);
-          rawClips.idle = rawClips.run = rawClips.punch = rawClips.punch2 = rawClips.kick = rawClips.slide = rawClips.jump = null;
-          ['idle', 'run', 'punch', 'punch2', 'kick', 'slide', 'jump'].forEach((slot) => {
-            if (tmpl.clips[slot]) bindClipToSlot(slot, tmpl.clips[slot]);
-          });
-        }
-        rebuildCompareTwin();
-      }
-      const heroTitle = heroKey === 'coyote' ? 'COYOTE' : heroKey === 'sorceress' ? 'SORCERESS' : heroKey === 'bodyguard' ? 'BODYGUARD' : 'BRAWLER';
-      spawnFloat(hero.x, 2.75, hero.z, heroTitle + (ver === 'v2' ? ' v2 (NEW HUNYUAN)' : ' v1 (ORIGINAL)'), '#fde047');
-    }
-
-    function toggleSideBySideCompare() {
-      sideBySideCompare = !sideBySideCompare;
-      const btnSbs = document.getElementById('btn-brawler-sbs');
-      if (btnSbs) btnSbs.classList.toggle('toggled', sideBySideCompare);
-      rebuildCompareTwin();
-      if (sideBySideCompare) {
-        spawnFloat(hero.x, 2.85, hero.z, 'SIDE-BY-SIDE: v2 (LEFT) vs v1 (RIGHT)', '#fde047');
-      }
     }
 
     // Multi-File Drag-and-Drop or Picker (.FBX + .GLB)!
@@ -3453,24 +2985,19 @@
       if (e.repeat) return;
       keys[e.code] = true;
       if (e.code === 'Digit1') {
-        if (activeHeroId === 'coyote') toggleHeroModelVersion('coyote');
-        else switchHero('coyote');
+        switchHero('coyote');
       }
       if (e.code === 'Digit2') {
-        if (activeHeroId === 'brawler') toggleHeroModelVersion('brawler');
-        else switchHero('brawler');
+        switchHero('brawler');
       }
       if (e.code === 'Digit3') {
-        if (activeHeroId === 'sorceress') toggleHeroModelVersion('sorceress');
-        else switchHero('sorceress');
+        switchHero('sorceress');
       }
       if (e.code === 'Digit4') {
-        if (activeHeroId === 'bodyguard') toggleHeroModelVersion('bodyguard');
-        else switchHero('bodyguard');
+        switchHero('bodyguard');
       }
       if (e.code === 'Digit5') {
-        if (activeHeroId === 'panther') toggleHeroModelVersion('panther');
-        else switchHero('panther');
+        switchHero('panther');
       }
       if (e.code === 'KeyQ') castKey('Q');
       if (e.code === 'KeyE') castKey('E');
@@ -3480,26 +3007,19 @@
 
     // Toolbar UI Buttons
     document.getElementById('btn-hero-coyote').addEventListener('click', () => {
-      if (activeHeroId === 'coyote') toggleHeroModelVersion('coyote');
-      else switchHero('coyote');
+      switchHero('coyote');
     });
     document.getElementById('btn-hero-brawler').addEventListener('click', () => {
-      if (activeHeroId === 'brawler') toggleHeroModelVersion('brawler');
-      else switchHero('brawler');
+      switchHero('brawler');
     });
-    document.getElementById('btn-brawler-ver').addEventListener('click', () => toggleHeroModelVersion());
-    document.getElementById('btn-brawler-sbs').addEventListener('click', () => toggleSideBySideCompare());
     document.getElementById('btn-hero-sorceress').addEventListener('click', () => {
-      if (activeHeroId === 'sorceress') toggleHeroModelVersion('sorceress');
-      else switchHero('sorceress');
+      switchHero('sorceress');
     });
     document.getElementById('btn-hero-bodyguard').addEventListener('click', () => {
-      if (activeHeroId === 'bodyguard') toggleHeroModelVersion('bodyguard');
-      else switchHero('bodyguard');
+      switchHero('bodyguard');
     });
     document.getElementById('btn-hero-panther').addEventListener('click', () => {
-      if (activeHeroId === 'panther') toggleHeroModelVersion('panther');
-      else switchHero('panther');
+      switchHero('panther');
     });
 
     // Hover Tooltips & Click-to-Cast for HUD Ability Bar (Passive, LMB, Q, E, R)
@@ -4630,13 +4150,6 @@
         }
       }
 
-      if (sideBySideCompare && comparePivot.visible && compareMixer) {
-        comparePivot.position.set(hero.x + 1.95, airborneY, hero.z);
-        comparePivot.rotation.y = heroPivot.rotation.y;
-        compareTiltNode.rotation.copy(heroTiltNode.rotation);
-        compareMixer.update(dt);
-      }
-
       // Update 3D Repeating Crossbow Attachment in Coyote's Hands & 3D Star Wand in Sorceress's RightHand!
       if (activeHeroId === 'coyote' && currentModel && rightHandBone && leftHandBone) {
         currentModel.updateMatrixWorld(true);
@@ -4871,7 +4384,7 @@
         setProgress(Math.round((s.pStart + s.pEnd) * 0.5), 'Rigging ' + s.label + ' Mixamo Skeleton...');
         await yieldForPaint();
 
-        ensureHeroTemplateReady(s.id, 'v2');
+        ensureHeroTemplateReady(s.id);
         if (s.id === 'coyote') {
           await mountCoyoteCrossbowProp();
         }
