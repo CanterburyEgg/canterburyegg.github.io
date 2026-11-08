@@ -320,13 +320,20 @@ function tick(now) {
       }
     });
     if (arena) {
-      const distA = Math.hypot(hero.x - arena.x, hero.z - arena.z);
-      if (distA > arena.r + 0.15) {
+      // Brawler's Pit: she can't walk out (recast R drops it). If she ended up far outside some other way
+      // (respawn at fountain, recall), drop it instead of yanking her back.
+      const dxA = hero.x - arena.x;
+      const dzA = hero.z - arena.z;
+      const distA = Math.hypot(dxA, dzA) || 0.01;
+      if (distA > arena.r + 2.5) {
         scene.remove(arena.group);
         arena = null;
         SFX.play('block');
         spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.4, 2.2, 0.28);
         spawnFloat(hero.x, 2.65, hero.z, 'LEFT THE PIT — ARENA DROPPED!', '#fb7185');
+      } else if (distA > arena.r - hero.r) {
+        hero.x = arena.x + (dxA / distA) * (arena.r - hero.r);
+        hero.z = arena.z + (dzA / distA) * (arena.r - hero.r);
       }
     }
   }

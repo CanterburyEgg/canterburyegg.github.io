@@ -185,7 +185,7 @@ H.brawler = {
       R: {
         title: 'R • Bloodsport Pit Arena',
         meta: '95 MP • 46s / 40s / 34s CD (Lv 4/8/12)',
-        body: 'She slams the ground to erect an octagonal ring of <b>Coliseum Stone Walls</b> for 5.0s (+20% / 25% / 30% damage inside), trapping enemies and creating rebound surfaces for <b>E: Vault Dash</b>.',
+        body: 'She slams the ground to erect an octagonal ring of <b>Coliseum Stone Walls</b> for 5.0s (+20% / 25% / 30% damage inside), trapping enemies (and herself) and creating rebound surfaces for <b>E: Vault Dash</b>. <b>Recast R to drop the Pit early.</b>',
         talentLevels: [10]
       }
     }
@@ -359,6 +359,14 @@ H.brawler = {
       triggerDashAnimation(false);
       SFX.play('dash');
     } else if (slot === 'R') {
+      // Recast while the Pit is up: drop it early (free; cooldown keeps running from the original cast)
+      if (arena) {
+        arena.life = 0; // loop.js removes it on the next frame
+        SFX.play('block');
+        spawnShockRing(arena.x, arena.z, 0xf43f5e, arena.r, 0.6, 0.30);
+        spawnFloat(hero.x, 2.65, hero.z, 'PIT DROPPED!', '#fb7185');
+        return;
+      }
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
         return;
@@ -438,6 +446,11 @@ H.brawler = {
   // Passive slot pip text ('' hides it)
   passivePip(st) {
     return hero.siphonBonus > 0 ? '+' + Math.round(hero.siphonBonus * 100) + '%' : '';
+  },
+
+  // R slot glows while the Pit is up (recast to drop it)
+  rEmpowered() {
+    return !!arena;
   }
 };
 })();
