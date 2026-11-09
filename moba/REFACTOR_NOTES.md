@@ -1,6 +1,6 @@
 # Hero-kit restructure: progress & deferred fixes
 
-Branch: `moba-hero-kits` (local only, not pushed). Verification: `arena3d.html?selftest` must match
+Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must match
 [tests/selftest_baseline.txt](tests/selftest_baseline.txt) after every restructure step.
 
 ## Phase 1 progress (move each hero into `js/heroes/<id>.js`, verbatim)
@@ -22,3 +22,15 @@ Branch: `moba-hero-kits` (local only, not pushed). Verification: `arena3d.html?s
 - **Bundle size**: brawler/coyote/sorceress `*_mixamo_bundle.js` still embed the old v1 models (now unused) - strip to
   cut load time.
 - `updateSlotPills` dev-toolbar labels still special-case Coyote/Sorceress.
+
+## To-do list (as of 2026-11-08)
+- [ ] **Model check + Mixamo packaging**: Fairy, Saw Scientist, Cannon Imp, siege cannon, Treefolk (reserve hero #9).
+  Check each against its concept, then decimate and export `*_for_mixamo.zip`. Props (saw gun, wrench, cannon): size/orientation check only.
+- [ ] **Map style session**: layout concept = castle base on a plateau, castle-bridge top lane over a gorge, sloped woods
+  jungle, valley bottom lane. Gentle cosmetic elevation via one `groundHeight(x, z)` function. Boss in the gorge beside
+  the bridge (true "under the bridge" would need a two-layer system; deferred).
+- [ ] **Shop overhaul** (new stat model: Attack / Ability / single Resist; see DESIGN_RULES.md).
+- [ ] **Asset housekeeping**: drop the unnecessary `v2_current/` / `v1_archive/` folder split and `_v2_` file names;
+  delete unused v1 assets; update the loader paths.
+- [ ] **Talent pass**: all 8 heroes, level by level (see DESIGN_RULES.md).
+- [ ] **Phase 2**: bots use the real hero kits, then implement the new kits from DESIGN_RULES.md.
