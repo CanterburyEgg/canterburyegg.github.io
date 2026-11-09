@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D 4v4 MOBA — Coyote, Brawler, Sorceress &amp; Bodyguard</title>
+  <meta name="description" content="League-angle Three.js 3D 4v4 MOBA with 4 playable heroes (Coyote Crossbowman, Pit Brawler, Astral Sorceress, Shirtless Bodyguard), Mana system, Fantasy & Physical items, and binary talents." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #three-container {
+      position: absolute;
+      inset: 0;
+    }
+    .drop-banner {
+      position: absolute;
+      top: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 14px;
+      background: hsla(208, 24%, 11%, 0.88);
+      border: 1px solid hsla(41, 56%, 48%, 0.45);
+      border-radius: 6px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      pointer-events: none;
+      z-index: 20;
+    }
+    .drop-banner b {
+      color: var(--brass-bright);
+    }
+    .unit-label-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 12;
+    }
+    .plate-3d {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .plate-tag {
+      font-size: 10px;
+      font-weight: 800;
+      color: #fde047;
+      text-shadow: 0 1px 3px #000;
+      min-height: 12px;
+    }
+    .plate-bar {
+      position: relative;
+      width: 72px;
+      height: 8px;
+      background: rgba(8, 12, 16, 0.88);
+      border: 1px solid rgba(0, 0, 0, 0.9);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .plate-hp {
+      height: 100%;
+      background: linear-gradient(90deg, #16a34a, #4ade80);
+    }
+    .plate-hp.enemy {
+      background: linear-gradient(90deg, #dc2626, #fb7185);
+    }
+    .plate-sh {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background: #fde047;
+    }
+    .plate-mp-wrap {
+      width: 72px;
+      height: 4px;
+      background: rgba(8, 12, 16, 0.88);
+      border: 1px solid rgba(0, 0, 0, 0.85);
+      border-top: none;
+      border-radius: 0 0 2px 2px;
+      overflow: hidden;
+      margin-top: -2px;
+    }
+    .plate-mp {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+    }
+    .mp-pip {
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #38bdf8;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95);
+      pointer-events: none;
+    }
+    .float-dmg {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-weight: 800;
+      font-size: 13px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.95);
+      pointer-events: none;
+    }
+    .ability-slot.passive-slot {
+      border-color: hsla(43, 82%, 56%, 0.55);
+      background: linear-gradient(180deg, rgba(44, 34, 16, 0.88), rgba(18, 15, 11, 0.94));
+    }
+    .ability-slot.passive-slot .keycap {
+      color: #fde047;
+      border-color: rgba(253, 224, 71, 0.45);
+      background: rgba(253, 224, 71, 0.12);
+    }
+    .ability-slot {
+      cursor: pointer;
+    }
+    .ability-tooltip-3d {
+      position: fixed;
+      bottom: 98px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 340px;
+      padding: 11px 14px;
+      background: rgba(11, 16, 23, 0.96);
+      border: 1px solid hsla(41, 72%, 56%, 0.65);
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.78);
+      color: #f1f5f9;
+      font-size: 12px;
+      line-height: 1.45;
+      pointer-events: none;
+      z-index: 120;
+      display: none;
+    }
+    .ability-tooltip-3d.visible {
+      display: block;
+    }
+    .ability-tooltip-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .ability-tooltip-title {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: #fde047;
+    }
+    .ability-tooltip-meta {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #38bdf8;
+      white-space: nowrap;
+    }
+    .ability-tooltip-body b {
+      color: #fde047;
+    }
+    .ability-tooltip-talent {
+      margin-top: 6px;
+      padding-top: 5px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.14);
+      font-size: 11px;
+      color: #93c5fd;
+    }
+    .rank-pips-row {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .rank-pip {
+      width: 6px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      transition: all 0.2s ease;
+    }
+    .rank-pip.on {
+      background: #fde047;
+      border-color: #f59e0b;
+      box-shadow: 0 0 6px rgba(253, 224, 71, 0.85);
+    }
+    .rank-pip.ult-on {
+      background: #38bdf8;
+      border-color: #0284c7;
+      box-shadow: 0 0 6px rgba(56, 189, 248, 0.9);
+    }
+    /* Full-Screen Startup Loading Overlay */
+    #arena-loader-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 40%, #162621 0%, #090d11 75%, #050709 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: opacity 0.32s ease, visibility 0.32s ease;
+    }
+    #arena-loader-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-card {
+      width: min(520px, 90vw);
+      padding: 28px 30px 24px;
+      border-radius: 14px;
+      background: rgba(15, 23, 30, 0.88);
+      border: 1px solid rgba(214, 180, 112, 0.42);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      text-align: center;
+    }
+    .loader-title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fde047;
+      margin-bottom: 4px;
+    }
+    .loader-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 18px;
+    }
+    .loader-roster-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .loader-hero-pill {
+      padding: 8px 6px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748b;
+      transition: all 0.2s ease;
+    }
+    .loader-hero-pill.active {
+      border-color: rgba(56, 189, 248, 0.65);
+      background: rgba(56, 189, 248, 0.12);
+      color: #e0f2fe;
+    }
+    .loader-hero-pill.done {
+      border-color: rgba(74, 222, 128, 0.65);
+      background: rgba(74, 222, 128, 0.14);
+      color: #86efac;
+    }
+    .loader-bar-track {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      width: 6%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f59e0b 0%, #fde047 50%, #38bdf8 100%);
+      box-shadow: 0 0 14px rgba(253, 224, 71, 0.55);
+      transition: width 0.18s ease-out;
+    }
+    .loader-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+    .loader-pct {
+      color: #fde047;
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="arena-loader-overlay">
+    <div class="loader-card">
+      <div class="loader-title">Coliseum 3D Arena</div>
+      <div class="loader-sub">Rigging 4v4 Mixamo Champions &amp; Warming Up WebGL Shaders</div>
+      <div class="loader-roster-grid">
+        <div class="loader-hero-pill active" id="ld-pill-coyote">🐺 Coyote</div>
+        <div class="loader-hero-pill" id="ld-pill-brawler">🥊 Brawler</div>
+        <div class="loader-hero-pill" id="ld-pill-sorceress">✨ Sorceress</div>
+        <div class="loader-hero-pill" id="ld-pill-bodyguard">🛡️ Bodyguard</div>
+        <div class="loader-hero-pill" id="ld-pill-panther">🐾 Panther</div>
+      </div>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loader-bar-fill"></div>
+      </div>
+      <div class="loader-status-row">
+        <span id="loader-step-txt">Initializing 3D Summoner's Rift...</span>
+        <span class="loader-pct" id="loader-pct-txt">6%</span>
+      </div>
+    </div>
+  </div>
+  <main id="game-root">
+    <h1 class="sr-only">3D 4v4 MOBA — Coyote Crossbowman, Pit Brawler, Astral Sorceress &amp; Shirtless Bodyguard</h1>
+
+    <div id="three-container"></div>
+    <div class="unit-label-layer" id="label-layer"></div>
+
+    <header class="sandbox-topbar">
+      <div class="roster-strip">
+        <span class="strip-label">3D Hero</span>
+        <button type="button" class="sb-btn toggled" id="btn-hero-coyote" style="font-weight:700;">🐺 1: Coyote</button>
+        <button type="button" class="sb-btn" id="btn-hero-brawler" style="font-weight:700;">🥊 2: Brawler</button>
+        <button type="button" class="sb-btn" id="btn-hero-sorceress" style="font-weight:700;">✨ 3: Sorceress</button>
+        <button type="button" class="sb-btn" id="btn-hero-bodyguard" style="font-weight:700;">🛡️ 4: Bodyguard</button>
+        <button type="button" class="sb-btn" id="btn-hero-panther" style="font-weight:700;">🐾 5: Panther</button>
+        <span style="font-size:11px;color:var(--text-parchment);font-weight:600;padding:0 4px;" id="lbl-model-name">
+          Coyote Crossbowman (Mixamo + 3D Crossbow)
+        </span>
+        <span id="anim-slot-pills" style="display:inline-flex;gap:4px;font-size:10px;margin-left:2px;">
+          <span id="pill-idle" style="padding:2px 5px;border-radius:4px;background:rgba(255,255,255,0.07);color:var(--text-muted);">Idle —</span>
+          <span id="pill-run" style="padding:2px 5px;border-radius:4px;background:rgba(255,255,255,0.07);color:var(--text-muted);">Run —</span>
+          <span id="pill-punch" style="padding:2px 5px;border-radius:4px;background:rgba(255,255,255,0.07);color:var(--text-muted);">Atk —</span>
+          <span id="pill-kick" style="padding:2px 5px;border-radius:4px;background:rgba(255,255,255,0.07);color:var(--text-muted);">Skill —</span>
+          <span id="pill-dash" style="padding:2px 5px;border-radius:4px;background:rgba(255,255,255,0.07);color:var(--text-muted);">Prop —</span>
+        </span>
+      </div>
+
+      <div class="sandbox-tools">
+        <button type="button" class="sb-btn toggled" id="btn-cam-moba">MOBA Zoom</button>
+        <button type="button" class="sb-btn" id="btn-cam-close">Close-Up Inspect</button>
+        <button type="button" class="sb-btn" id="btn-unlit-toggle" title="Compare Hand-Painted Unlit League Look vs Shaded PBR">Hand-Painted Lit</button>
+        <button type="button" class="sb-btn" id="btn-shooter-3d">Shooter Bot</button>
+        <button type="button" class="sb-btn" id="btn-wtf-3d">0 CD Mode</button>
+        <label class="sb-btn" for="file-glb-picker" style="cursor:pointer;border-color:hsla(41,72%,56%,0.65);color:var(--brass-bright);">Load Mixamo .FBX / .GLB</label>
+        <input type="file" id="file-glb-picker" accept=".fbx,.glb,.gltf" multiple style="display:none;" />
+        <a class="sb-btn" href="../experiments/soulslike/index.html" style="text-decoration:none;border-color:hsla(16,85%,58%,0.7);color:#fdba74;">⚔️ 3D Soulslike</a>
+        <a class="sb-btn" href="index.html" style="text-decoration:none;">2D All-8 Sandbox</a>
+      </div>
+    </header>
+
+    <div class="drop-banner" id="drop-banner">
+      <b>1/2/3/4</b> Switch Hero &bull; <b>WASD</b> Run &bull; <b>LMB</b> Attack &bull; <b>Q / E / R</b> Abilities &bull; <b>P</b> Shop &bull; <b>F</b> Ward &bull; <b>B</b> Recall &bull; <b>Z/X/C/V</b> Ping Bots
+    </div>
+
+    <section class="hud-bottom">
+      <div class="hero-identity-box">
+        <div class="portrait-crest">
+          <span class="portrait-glyph" id="hud3d-glyph" style="color:#f59e0b;">C</span>
+          <span class="portrait-lvl" id="hud3d-lvl">1</span>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-name" id="hud3d-name">Coyote Crossbowman (3D)</div>
+          <div class="hero-meta-role" id="hud3d-role">Carry • Ranged Physical Bleed Marksman</div>
+          <div class="hero-meta-stats">
+            <span class="stat-phys" id="hud3d-atk">ATK 52</span>
+            <span class="stat-fant" id="hud3d-fant" style="color:#c084fc;">FANT 0</span>
+            <span id="hud3d-def" style="color:#93c5fd;">ARM 18•RES 16</span>
+            <span id="hud3d-spd">SPD 332</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-center-col">
+        <div class="ability-tooltip-3d" id="ability-tooltip-3d">
+          <div class="ability-tooltip-hdr">
+            <span class="ability-tooltip-title" id="tt3d-title">Passive</span>
+            <span class="ability-tooltip-meta" id="tt3d-meta">Innate</span>
+          </div>
+          <div class="ability-tooltip-body" id="tt3d-body"></div>
+          <div class="ability-tooltip-talent" id="tt3d-talent" style="display:none;"></div>
+        </div>
+        <div class="ability-row">
+          <div class="ability-slot passive-slot" id="s3d-passive" data-slot="P">
+            <span class="keycap">PAS</span>
+            <span class="ability-code" id="code3d-passive">INN</span>
+            <span class="ability-label-short" id="lbl3d-passive">Serrated</span>
+            <span class="stack-pip" id="pip3d-passive" style="display:none;">1x</span>
+          </div>
+          <div class="ability-slot" id="s3d-lmb" data-slot="LMB">
+            <span class="keycap">LMB</span>
+            <span class="ability-code">ATK</span>
+            <span class="ability-label-short" id="lbl3d-lmb">Bleed Bolt</span>
+          </div>
+          <div class="ability-slot" id="s3d-q" data-slot="Q">
+            <span class="keycap">Q</span>
+            <span class="mp-pip" id="mp3d-q">40</span>
+            <span class="ability-code">Q</span>
+            <span class="ability-label-short" id="lbl3d-q">3-Bolt Fan</span>
+            <span class="stack-pip" id="pip3d-q" style="display:none;">1x</span>
+            <div class="rank-pips-row" id="rpips-q"><span class="rank-pip on"></span><span class="rank-pip"></span><span class="rank-pip"></span></div>
+            <div class="cd-overlay" id="cd3d-q"></div>
+          </div>
+          <div class="ability-slot" id="s3d-e" data-slot="E">
+            <span class="keycap">E</span>
+            <span class="mp-pip" id="mp3d-e">55</span>
+            <span class="ability-code">E</span>
+            <span class="ability-label-short" id="lbl3d-e">Grenade</span>
+            <span class="stack-pip" id="pip3d-e" style="display:none;">2ND</span>
+            <div class="rank-pips-row" id="rpips-e"><span class="rank-pip on"></span><span class="rank-pip"></span><span class="rank-pip"></span></div>
+            <div class="cd-overlay" id="cd3d-e"></div>
+          </div>
+          <div class="ability-slot" id="s3d-r" data-slot="R">
+            <span class="keycap">R</span>
+            <span class="mp-pip" id="mp3d-r">90</span>
+            <span class="ability-code">R</span>
+            <span class="ability-label-short" id="lbl3d-r">Heartseeker</span>
+            <div class="rank-pips-row" id="rpips-r"><span class="rank-pip"></span><span class="rank-pip"></span><span class="rank-pip"></span></div>
+            <div class="cd-overlay" id="cd3d-r"></div>
+          </div>
+        </div>
+        <div class="resource-bars">
+          <div class="res-track">
+            <div class="res-fill hp" id="hp3d-fill" style="width:100%;"></div>
+            <div class="res-shield" id="sh3d-fill" style="width:0%;"></div>
+            <div class="res-text" id="hp3d-txt">620 / 620</div>
+          </div>
+          <div class="res-track" style="height:12px;margin-top:3px;">
+            <div class="res-fill mp" id="mp3d-fill" style="width:100%;background:linear-gradient(90deg,#0284c7,#38bdf8);"></div>
+            <div class="res-text" id="mp3d-txt" style="font-size:10px;">310 / 310 MP</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/audio.js"></script>
+  <script src="js/heroes/brawler.js"></script>
+  <script src="js/heroes/sorceress.js"></script>
+  <script src="js/heroes/coyote.js"></script>
+  <script src="js/heroes/bodyguard.js"></script>
+  <script src="js/heroes/panther.js"></script>
+  <script src="js/phase1_data.js"></script>
+  <script src="js/phase1_engine.js"></script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+    import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+
+    // Expose Three.js to the classic-script engine files (keeps file:// support, no build step)
+    window.THREE = THREE;
+    window.GLTFLoader = GLTFLoader;
+    window.FBXLoader = FBXLoader;
+    window.SkeletonUtils = SkeletonUtils;
+
+    const ARENA_FILES = ['core', 'models', 'combat', 'hud', 'loop', 'boot'];
+    for (const f of ARENA_FILES) {
+      await new Promise((resolve, reject) => {
+        const el = document.createElement('script');
+        el.src = 'js/arena/' + f + '.js';
+        el.async = false;
+        el.onload = resolve;
+        el.onerror = () => reject(new Error('Failed to load js/arena/' + f + '.js'));
+        document.body.appendChild(el);
+      });
+    }
+  </script>
+</body>
+</html>

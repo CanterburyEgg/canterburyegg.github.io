@@ -1,0 +1,725 @@
+:root {
+  /* Curated High-Fantasy Warcraft / Classic MOBA Palette (HSL-tuned, Zero Violet) */
+  --bg-obsidian: hsl(205, 24%, 8%);
+  --panel-stone: hsla(208, 22%, 12%, 0.94);
+  --panel-stone-elevated: hsla(206, 20%, 16%, 0.96);
+  --panel-inset: hsla(210, 26%, 8%, 0.9);
+
+  --brass-dark: hsl(38, 42%, 28%);
+  --brass-mid: hsl(41, 56%, 46%);
+  --brass-bright: hsl(44, 78%, 66%);
+
+  --text-parchment: hsl(42, 38%, 92%);
+  --text-muted: hsl(205, 16%, 68%);
+  --text-dim: hsl(205, 14%, 48%);
+
+  --hp-fill: hsl(142, 62%, 42%);
+  --hp-bright: hsl(142, 70%, 56%);
+  --mp-fill: hsl(208, 78%, 50%);
+  --mp-bright: hsl(199, 88%, 64%);
+  --shield-fill: hsl(45, 86%, 72%);
+
+  --dmg-physical: hsl(11, 78%, 56%);
+  --dmg-fantasy: hsl(192, 88%, 58%);
+  --accent-emerald: hsl(154, 64%, 46%);
+  --accent-amber: hsl(38, 92%, 58%);
+
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --shadow-heavy: 0 12px 32px rgba(0, 0, 0, 0.62), inset 0 1px 0 rgba(255, 232, 175, 0.14);
+  --border-ornate: 1px solid hsla(41, 52%, 48%, 0.42);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-obsidian);
+  color: var(--text-parchment);
+  font-family: var(--font-ui);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+#game-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#arena-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
+/* Visually hidden accessible main heading */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TOP SANDBOX BAR (Hero Roster + Practice Controls)
+   ========================================================= */
+.sandbox-topbar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.roster-strip,
+.sandbox-tools {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: linear-gradient(180deg, var(--panel-stone-elevated), var(--panel-stone));
+  border: var(--border-ornate);
+  border-radius: 8px;
+  box-shadow: var(--shadow-heavy);
+  backdrop-filter: blur(8px);
+}
+
+.strip-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+  padding: 0 6px 0 2px;
+  border-right: 1px solid hsla(41, 40%, 45%, 0.25);
+  margin-right: 2px;
+}
+
+.hero-chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  background: var(--panel-inset);
+  border: 1px solid hsla(205, 18%, 32%, 0.55);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.hero-chip:hover {
+  color: var(--text-parchment);
+  border-color: var(--brass-mid);
+  transform: translateY(-1px);
+}
+
+.hero-chip.active {
+  background: linear-gradient(180deg, hsla(40, 52%, 24%, 0.85), hsla(38, 48%, 14%, 0.92));
+  border-color: var(--brass-bright);
+  color: var(--text-parchment);
+  box-shadow: 0 0 12px hsla(42, 78%, 55%, 0.22);
+}
+
+.hero-chip .key-hint {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--brass-bright);
+  opacity: 0.8;
+}
+
+.hero-chip .role-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Sandbox Tool Buttons */
+.sandbox-tools {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.sb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  background: var(--panel-inset);
+  border: 1px solid hsla(205, 20%, 34%, 0.6);
+  border-radius: 5px;
+  color: var(--text-parchment);
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.14s ease, border-color 0.14s ease, transform 0.1s ease;
+}
+
+.sb-btn:hover {
+  background: hsla(205, 22%, 20%, 0.95);
+  border-color: var(--brass-mid);
+}
+
+.sb-btn:active {
+  transform: translateY(1px);
+}
+
+.sb-btn.toggled {
+  background: linear-gradient(180deg, hsla(154, 54%, 22%, 0.9), hsla(154, 58%, 14%, 0.95));
+  border-color: var(--accent-emerald);
+  color: hsl(150, 75%, 86%);
+}
+
+.sb-btn.warn.toggled {
+  background: linear-gradient(180deg, hsla(14, 62%, 26%, 0.9), hsla(14, 64%, 16%, 0.95));
+  border-color: var(--dmg-physical);
+  color: hsl(16, 90%, 88%);
+}
+
+.lvl-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--panel-inset);
+  border: 1px solid hsla(41, 42%, 44%, 0.45);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.lvl-stepper span {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brass-bright);
+  min-width: 44px;
+  text-align: center;
+}
+
+.lvl-mini-btn {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  background: hsla(206, 20%, 22%, 0.9);
+  color: var(--text-parchment);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.lvl-mini-btn:hover {
+  background: var(--brass-dark);
+}
+
+/* =========================================================
+   LEFT TALENT TREE PANEL (Levels 3 / 6 / 10)
+   ========================================================= */
+.talent-panel {
+  position: absolute;
+  left: 12px;
+  bottom: 16px;
+  width: 288px;
+  background: linear-gradient(180deg, var(--panel-stone-elevated), var(--panel-stone));
+  border: var(--border-ornate);
+  border-radius: 8px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow-heavy);
+  backdrop-filter: blur(8px);
+  z-index: 20;
+}
+
+.talent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid hsla(41, 40%, 45%, 0.25);
+}
+
+.talent-header h2 {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+}
+
+.talent-sub {
+  font-size: 10.5px;
+  color: var(--text-muted);
+}
+
+.talent-tier {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr;
+  gap: 5px;
+  align-items: stretch;
+  margin-bottom: 6px;
+}
+
+.talent-tier:last-child {
+  margin-bottom: 0;
+}
+
+.tier-lvl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 4px;
+  background: var(--panel-inset);
+  color: var(--text-dim);
+  border: 1px solid hsla(205, 18%, 26%, 0.6);
+}
+
+.talent-tier.unlocked .tier-lvl {
+  color: var(--brass-bright);
+  border-color: var(--brass-mid);
+}
+
+.talent-choice {
+  padding: 5px 7px;
+  background: var(--panel-inset);
+  border: 1px solid hsla(205, 18%, 28%, 0.65);
+  border-radius: 5px;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+  line-height: 1.28;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease, color 0.14s ease;
+}
+
+.talent-tier.locked .talent-choice {
+  opacity: 0.45;
+}
+
+.talent-choice:hover {
+  border-color: var(--brass-mid);
+  color: var(--text-parchment);
+}
+
+.talent-choice.selected {
+  background: linear-gradient(180deg, hsla(40, 58%, 23%, 0.9), hsla(38, 52%, 14%, 0.95));
+  border-color: var(--brass-bright);
+  color: var(--text-parchment);
+}
+
+.talent-choice strong {
+  display: block;
+  font-size: 11px;
+  color: var(--brass-bright);
+  margin-bottom: 1px;
+}
+
+/* =========================================================
+   BOTTOM CENTER CLASSIC MOBA HUD
+   ========================================================= */
+.hud-bottom {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(180deg, var(--panel-stone-elevated), var(--panel-stone));
+  border: var(--border-ornate);
+  border-radius: 10px;
+  box-shadow: var(--shadow-heavy);
+  z-index: 20;
+}
+
+.hero-identity-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 12px;
+  border-right: 1px solid hsla(41, 40%, 45%, 0.25);
+  min-width: 205px;
+}
+
+.portrait-crest {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: radial-gradient(circle at 35% 30%, hsl(205, 24%, 24%), hsl(208, 28%, 10%));
+  border: 2px solid var(--brass-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.portrait-glyph {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--brass-bright);
+}
+
+.portrait-lvl {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  min-width: 22px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: hsl(39, 55%, 18%);
+  border: 1px solid var(--brass-bright);
+  color: var(--brass-bright);
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-meta-name {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-parchment);
+}
+
+.hero-meta-role {
+  font-size: 11px;
+  color: var(--brass-bright);
+  font-weight: 600;
+}
+
+.hero-meta-stats {
+  display: flex;
+  gap: 8px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.stat-phys {
+  color: var(--dmg-physical);
+  font-weight: 700;
+}
+
+.stat-fant {
+  color: var(--dmg-fantasy);
+  font-weight: 700;
+}
+
+/* Center Action Column: Abilities + HP/MP Bars */
+.hud-center-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 340px;
+}
+
+.ability-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ability-slot {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, hsl(206, 24%, 17%), hsl(208, 28%, 9%));
+  border: 1.5px solid hsla(41, 45%, 48%, 0.62);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.1s ease, border-color 0.14s ease;
+}
+
+.ability-slot.passive-slot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border-color: hsla(192, 65%, 54%, 0.55);
+}
+
+.ability-slot.utility-slot {
+  width: 42px;
+  height: 42px;
+  border-color: hsla(205, 25%, 44%, 0.6);
+}
+
+.ability-slot:hover {
+  border-color: var(--brass-bright);
+  transform: translateY(-1px);
+}
+
+.ability-slot.locked-ult {
+  opacity: 0.42;
+  filter: grayscale(0.8);
+}
+
+.ability-slot.recast-ready,
+.ability-slot.empowered {
+  border-color: var(--dmg-fantasy);
+  box-shadow: 0 0 14px hsla(192, 88%, 58%, 0.45), inset 0 0 10px hsla(192, 88%, 58%, 0.25);
+}
+
+.ability-code {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-parchment);
+  z-index: 2;
+}
+
+.ability-label-short {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0 3px;
+  line-height: 1.1;
+  z-index: 2;
+}
+
+.keycap {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--brass-bright);
+  z-index: 3;
+}
+
+.mana-pip {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--mp-bright);
+  z-index: 3;
+}
+
+.stack-pip {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 4px;
+  border-radius: 4px;
+  background: hsla(38, 85%, 45%, 0.92);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 800;
+  z-index: 4;
+}
+
+.cd-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 10, 14, 0.78);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-parchment);
+  z-index: 4;
+}
+
+.ability-slot.on-cd .cd-overlay {
+  display: flex;
+}
+
+/* Resource Bars */
+.resource-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.res-track {
+  position: relative;
+  height: 15px;
+  background: var(--panel-inset);
+  border: 1px solid hsla(205, 22%, 28%, 0.8);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.res-fill {
+  height: 100%;
+  transition: width 0.08s linear;
+}
+
+.res-fill.hp {
+  background: linear-gradient(90deg, var(--hp-fill), var(--hp-bright));
+}
+
+.res-fill.mp {
+  background: linear-gradient(90deg, var(--mp-fill), var(--mp-bright));
+}
+
+.res-shield {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: hsla(45, 90%, 72%, 0.78);
+  pointer-events: none;
+}
+
+.res-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* =========================================================
+   BOTTOM RIGHT MINIMAP & CONTROLS LEGEND
+   ========================================================= */
+.minimap-dock {
+  position: absolute;
+  right: 12px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  z-index: 20;
+}
+
+.controls-pill {
+  padding: 5px 10px;
+  background: var(--panel-stone);
+  border: var(--border-ornate);
+  border-radius: 6px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-heavy);
+}
+
+.controls-pill b {
+  color: var(--brass-bright);
+}
+
+.minimap-frame {
+  padding: 4px;
+  background: linear-gradient(180deg, var(--panel-stone-elevated), var(--panel-stone));
+  border: var(--border-ornate);
+  border-radius: 8px;
+  box-shadow: var(--shadow-heavy);
+}
+
+#minimap-canvas {
+  display: block;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   TOOLTIP CARD
+   ========================================================= */
+.ability-tooltip {
+  position: fixed;
+  width: 280px;
+  padding: 10px 12px;
+  background: hsla(208, 26%, 10%, 0.97);
+  border: 1px solid var(--brass-mid);
+  border-radius: 7px;
+  box-shadow: var(--shadow-heavy);
+  pointer-events: none;
+  z-index: 50;
+  display: none;
+}
+
+.ability-tooltip.visible {
+  display: block;
+}
+
+.tt-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.tt-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brass-bright);
+}
+
+.tt-meta {
+  font-size: 10.5px;
+  color: var(--mp-bright);
+  font-weight: 600;
+}
+
+.tt-body {
+  font-size: 11.5px;
+  line-height: 1.42;
+  color: var(--text-parchment);
+}
+
+@media (max-width: 1180px) {
+  .talent-panel {
+    width: 245px;
+    bottom: 108px;
+  }
+  .hero-identity-box {
+    min-width: 165px;
+  }
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOBA Combat Sandbox — 8-Hero Arena</title>
+  <meta name="description" content="Lightweight browser-based fantasy MOBA combat sandbox featuring 8 custom heroes, WASD + mouse skillshots, real-time line-of-sight tree shadows, and live talent builds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game-root">
+    <h1 class="sr-only">4v4 Fantasy MOBA — 8-Hero Combat Sandbox</h1>
+
+    <canvas id="arena-canvas"></canvas>
+
+    <!-- TOP SANDBOX HEADER: Hero Hot-Swap (1-8) + Sandbox Toggles -->
+    <header class="sandbox-topbar" id="sandbox-topbar">
+      <nav class="roster-strip" id="hero-roster-strip" aria-label="Hero Selector">
+        <span class="strip-label">Heroes</span>
+        <!-- Populated dynamically from MOBA.HEROES -->
+      </nav>
+
+      <section class="sandbox-tools" id="sandbox-tools" aria-label="Sandbox Controls">
+        <div class="lvl-stepper" id="level-stepper">
+          <button type="button" class="lvl-mini-btn" id="btn-lvl-down" title="Decrease Level">-</button>
+          <span id="lbl-sandbox-lvl">Lv 6</span>
+          <button type="button" class="lvl-mini-btn" id="btn-lvl-up" title="Increase Level">+</button>
+        </div>
+        <button type="button" class="sb-btn" id="btn-lvl-max" title="Jump to Max Level 12">Max Lv</button>
+        <button type="button" class="sb-btn" id="btn-wtf-mode" title="Toggle Zero Cooldowns & Infinite Mana">0 CD / Mana</button>
+        <button type="button" class="sb-btn" id="btn-turret-dummy" title="Toggle Enemy Ranged Projectile Shooter">Shooter Bot</button>
+        <button type="button" class="sb-btn warn" id="btn-enemy-ward" title="Toggle Enemy Observer Ward in Forest (Tests Unseen Passive)">Enemy Ward</button>
+        <button type="button" class="sb-btn" id="btn-spawn-creeps" title="Spawn Killable Creep Pack (Tests On-Kill Passives)">+Creeps</button>
+        <button type="button" class="sb-btn" id="btn-dmg-cannon" title="Deal Heavy Damage to Anchored Cannon (Tests Scrap Salvage)">Break Cannon</button>
+        <button type="button" class="sb-btn" id="btn-reset-arena" title="Reset Hero Position & Dummies">Reset</button>
+        <button type="button" class="sb-btn toggled" id="btn-sfx-toggle" title="Toggle Procedural Sound Effects">SFX</button>
+        <a class="sb-btn" href="arena3d.html" style="text-decoration:none;border-color:var(--brass-bright);color:var(--brass-bright);">3D Brawler Test</a>
+        <a class="sb-btn" href="../experiments/soulslike/index.html" style="text-decoration:none;border-color:hsla(16,85%,58%,0.7);color:#fdba74;">⚔️ 3D Soulslike</a>
+      </section>
+    </header>
+
+    <!-- LEFT TALENT PICKER (Levels 3 / 6 / 10) -->
+    <aside class="talent-panel" id="talent-panel" aria-label="Hero Talents">
+      <div class="talent-header">
+        <h2>Hero Talents</h2>
+        <span class="talent-sub" id="talent-status-lbl">Click any tier to test</span>
+      </div>
+      <div id="talent-tiers-container">
+        <!-- Populated dynamically per hero -->
+      </div>
+    </aside>
+
+    <!-- BOTTOM CENTER CLASSIC MOBA ACTION BAR -->
+    <section class="hud-bottom" id="hud-bottom" aria-label="Hero Combat HUD">
+      <div class="hero-identity-box">
+        <div class="portrait-crest" id="hud-portrait-crest">
+          <span class="portrait-glyph" id="hud-portrait-glyph">S</span>
+          <span class="portrait-lvl" id="hud-lvl-badge">6</span>
+        </div>
+        <div class="hero-meta">
+          <div class="hero-meta-name" id="hud-hero-name">Sorceress</div>
+          <div class="hero-meta-role" id="hud-hero-role">Carry • Ranged</div>
+          <div class="hero-meta-stats">
+            <span class="stat-phys" id="hud-stat-phys" title="Physical Attack Damage">ATK 52</span>
+            <span class="stat-fant" id="hud-stat-fant" title="Fantasy Power">FNT 40</span>
+            <span id="hud-stat-spd" title="Movement Speed">SPD 330</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-center-col">
+        <div class="ability-row" id="hud-ability-row">
+          <div class="ability-slot passive-slot" id="slot-passive" data-slot="P">
+            <span class="keycap">P</span>
+            <span class="ability-code" id="code-P">P</span>
+            <span class="stack-pip" id="pip-P" style="display:none;">0</span>
+          </div>
+          <div class="ability-slot" id="slot-lmb" data-slot="LMB">
+            <span class="keycap">LMB</span>
+            <span class="ability-code" id="code-LMB">ATK</span>
+            <span class="ability-label-short" id="lbl-LMB">Bolt</span>
+            <div class="cd-overlay" id="cd-LMB"></div>
+          </div>
+          <div class="ability-slot" id="slot-q" data-slot="Q">
+            <span class="keycap">Q</span>
+            <span class="ability-code" id="code-Q">Q</span>
+            <span class="ability-label-short" id="lbl-Q">Pillar</span>
+            <span class="mana-pip" id="mp-Q">45</span>
+            <span class="stack-pip" id="pip-Q" style="display:none;">0</span>
+            <div class="cd-overlay" id="cd-Q"></div>
+          </div>
+          <div class="ability-slot" id="slot-e" data-slot="E">
+            <span class="keycap">E</span>
+            <span class="ability-code" id="code-E">E</span>
+            <span class="ability-label-short" id="lbl-E">Dash</span>
+            <span class="mana-pip" id="mp-E">55</span>
+            <span class="stack-pip" id="pip-E" style="display:none;">0</span>
+            <div class="cd-overlay" id="cd-E"></div>
+          </div>
+          <div class="ability-slot" id="slot-r" data-slot="R">
+            <span class="keycap">R</span>
+            <span class="ability-code" id="code-R">R</span>
+            <span class="ability-label-short" id="lbl-R">Ult</span>
+            <span class="mana-pip" id="mp-R">90</span>
+            <div class="cd-overlay" id="cd-R"></div>
+          </div>
+          <div class="ability-slot utility-slot" id="slot-ward" data-slot="F">
+            <span class="keycap">F</span>
+            <span class="ability-code">WRD</span>
+            <div class="cd-overlay" id="cd-F"></div>
+          </div>
+          <div class="ability-slot utility-slot" id="slot-recall" data-slot="B">
+            <span class="keycap">B</span>
+            <span class="ability-code">RCL</span>
+            <div class="cd-overlay" id="cd-B"></div>
+          </div>
+        </div>
+
+        <div class="resource-bars">
+          <div class="res-track" id="hp-track">
+            <div class="res-fill hp" id="hp-fill" style="width: 100%;"></div>
+            <div class="res-shield" id="shield-fill" style="width: 0%;"></div>
+            <div class="res-text" id="hp-text">850 / 850</div>
+          </div>
+          <div class="res-track" id="mp-track">
+            <div class="res-fill mp" id="mp-fill" style="width: 100%;"></div>
+            <div class="res-text" id="mp-text">420 / 420</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM RIGHT MINIMAP & CONTROLS -->
+    <aside class="minimap-dock" id="minimap-dock" aria-label="Minimap and Controls">
+      <div class="controls-pill">
+        <b>WASD</b> Move &bull; <b>LMB</b> Auto &bull; <b>Q E R</b> Spells &bull; <b>F</b> Ward &bull; <b>B</b> Recall &bull; <b>1-8</b> Heroes
+      </div>
+      <div class="minimap-frame">
+        <canvas id="minimap-canvas" width="208" height="144"></canvas>
+      </div>
+    </aside>
+
+    <!-- FLOATING ABILITY TOOLTIP -->
+    <div class="ability-tooltip" id="ability-tooltip" role="tooltip">
+      <div class="tt-head">
+        <span class="tt-title" id="tt-title">Ability</span>
+        <span class="tt-meta" id="tt-meta">CD 5s</span>
+      </div>
+      <div class="tt-body" id="tt-body">Description</div>
+    </div>
+  </main>
+
+  <script defer src="js/config.js"></script>
+  <script defer src="js/audio.js"></script>
+  <script defer src="js/vision.js"></script>
+  <script defer src="js/combat.js"></script>
+  <script defer src="js/renderer.js"></script>
+  <script defer src="js/main.js"></script>
+</body>
+</html>

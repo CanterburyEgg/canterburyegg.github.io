@@ -275,7 +275,7 @@ MAMMAL_ROSTER: list[tuple[str, str, str, str, list[str], str, str, str, str, lis
     ("Jerboa", "Jerboa", "Rodentia", "Dipodidae", ["AF", "AS"], "O", "LC", "S", "", ["lesser egyptian jerboa", "jaculus jaculus"]),
     ("Kangaroo rat", "Kangaroo rat", "Rodentia", "Heteromyidae", ["NA"], "H", "LC", "S", "", ["ord's kangaroo rat", "dipodomys ordii"]),
     ("Mongolian gerbil", "Mongolian gerbil", "Rodentia", "Muridae", ["AS"], "O", "LC", "S", "", ["gerbil", "meriones unguiculatus"]),
-    ("House mouse", "House mouse", "Rodentia", "Muridae", ["AS", "EU"], "O", "LC", "S", "", ["mouse", "field mouse", "mus musculus"]),
+    ("House mouse", "House mouse", "Rodentia", "Muridae", ["AS", "EU"], "O", "LC", "S", "", ["mouse", "field mouse", "domestic mouse", "pet mouse", "fancy mouse", "mus musculus"]),
     ("Brown rat", "Brown rat", "Rodentia", "Muridae", ["AS", "EU"], "O", "LC", "S", "", ["rat", "norway rat", "rattus norvegicus"]),
     ("Dormouse", "Hazel dormouse", "Rodentia", "Gliridae", ["EU"], "O", "LC", "S", "", ["hazel dormouse", "muscardinus avellanarius"]),
     ("Rabbit", "European rabbit", "Lagomorpha", "Leporidae", ["EU", "AF", "NA"], "H", "EN", "S", "", ["european rabbit", "bunny", "oryctolagus cuniculus"]),

@@ -30,8 +30,13 @@
   const TIER_LABELS = {
     standard: '2×',
     elite: '1× Elite',
-    token: 'Token'
+    token: 'Token',
+    elite_token: 'Elite Token'
   };
+
+  // Tier helpers: Elite Tokens wear Elite frame hardware but are non-collectible like Tokens
+  const isTokenTier = t => t === 'token' || t === 'elite_token';
+  const isEliteTier = t => t === 'elite' || t === 'elite_token';
 
   const DEFAULT_FRAMES = {
     global: '',
@@ -470,7 +475,7 @@
     ribbonUidCounter += 1;
     const uid = ribbonUidCounter;
 
-    const isElite = !isHero && c.tier === 'elite';
+    const isElite = !isHero && isEliteTier(c.tier);
     cardEl.dataset.faction = c.faction;
     cardEl.dataset.cardType = c.type;
     cardEl.dataset.cardTier = isHero ? 'standard' : (c.tier || 'standard');
@@ -881,7 +886,7 @@
     const filtered = state.cards.filter(c => {
       if (state.libFilterFaction !== 'ALL' && c.faction !== state.libFilterFaction) return false;
       if (state.libFilterType === 'token') {
-        if (c.tier !== 'token') return false;
+        if (!isTokenTier(c.tier)) return false;
       } else if (state.libFilterType === 'hero') {
         if (c.type !== 'hero_active' && c.type !== 'hero_passive') return false;
       } else if (state.libFilterType !== 'ALL' && c.type !== state.libFilterType) {
@@ -897,8 +902,8 @@
     // Sort Tokens after EVERYTHING else -> then by Faction order -> Energy Req -> Name
     const fOrder = { R: 1, H: 2, D: 3, T: 4, W: 5, N: 6 };
     filtered.sort((a, b) => {
-      const ta = a.tier === 'token' ? 1 : 0;
-      const tb = b.tier === 'token' ? 1 : 0;
+      const ta = isTokenTier(a.tier) ? 1 : 0;
+      const tb = isTokenTier(b.tier) ? 1 : 0;
       if (ta !== tb) return ta - tb;
       if (fOrder[a.faction] !== fOrder[b.faction]) return (fOrder[a.faction] || 9) - (fOrder[b.faction] || 9);
       const ea = (a.type === 'hero_active' || a.type === 'hero_passive') ? -1 : (a.energyReq ?? 0);
@@ -936,7 +941,8 @@
     }
 
     filtered.forEach(c => {
-      const isToken = c.tier === 'token';
+      const isToken = isTokenTier(c.tier);
+      const tokenLabel = c.tier === 'elite_token' ? 'ELITE TOKEN' : 'TOKEN';
       const row = document.createElement('div');
       row.className = 'lib-row' + (state.currentCard.id === c.id ? ' selected' : '') + (isToken ? ' is-token' : '');
       const isHero = c.type === 'hero_active' || c.type === 'hero_passive';
@@ -960,10 +966,10 @@
         <div class="lib-cost-orb" style="background:${orbColor}">${orbText}</div>
         <div class="lib-meta">
           <div class="lib-name">${escapeHtml(c.name || `Untitled ${TYPE_LABELS[c.type]}`)}</div>
-          <div class="lib-sub">${isToken ? 'TOKEN • ' : ''}${TYPE_LABELS[c.type]}${c.subtype ? ' — ' + escapeHtml(c.subtype.trim().replace(/\s*-\s*/g, ' • ')) : ''}${!isHero ? ` • ${c.apCost ?? 1} AP` : ''}</div>
+          <div class="lib-sub">${isToken ? tokenLabel + ' • ' : ''}${TYPE_LABELS[c.type]}${c.subtype ? ' — ' + escapeHtml(c.subtype.trim().replace(/\s*-\s*/g, ' • ')) : ''}${!isHero ? ` • ${c.apCost ?? 1} AP` : ''}</div>
         </div>
         <div class="lib-badges">
-          ${isToken ? '<span class="lib-token-badge">TOKEN</span>' : ''}
+          ${isToken ? `<span class="lib-token-badge">${c.tier === 'elite_token' ? 'TOKEN ★' : 'TOKEN'}</span>` : ''}
           ${statSummary ? `<span>${escapeHtml(statSummary)}</span>` : ''}
           ${!isToken ? `<span>${escapeHtml(pipStr)}</span>` : ''}
         </div>
@@ -1018,13 +1024,13 @@
 
     factionKeys.forEach(fKey => {
       const fCards = state.cards.filter(c => c.faction === fKey);
-      const collectible = fCards.filter(c => c.tier !== 'token' && c.type !== 'hero_active' && c.type !== 'hero_passive');
+      const collectible = fCards.filter(c => !isTokenTier(c.tier) && c.type !== 'hero_active' && c.type !== 'hero_passive');
       const chars = collectible.filter(c => c.type === 'character').length;
       const bldgs = collectible.filter(c => c.type === 'building').length;
       const spells = collectible.filter(c => c.type === 'spell').length;
       const twoPips = collectible.filter(c => c.pips === 2).length;
       const heroes = fCards.filter(c => c.type === 'hero_active' || c.type === 'hero_passive').length;
-      const tokens = fCards.filter(c => c.tier === 'token').length;
+      const tokens = fCards.filter(c => isTokenTier(c.tier)).length;
 
       tableHtml += `
         <tr>
@@ -1046,7 +1052,7 @@
     const buckets = [0, 1, 2, 3, 4, 5, 6, 7];
     const counts = buckets.map(b => {
       return state.cards.filter(c => {
-        if (c.tier === 'token' || c.type === 'hero_active' || c.type === 'hero_passive') return false;
+        if (isTokenTier(c.tier) || c.type === 'hero_active' || c.type === 'hero_passive') return false;
         const req = Number(c.energyReq ?? 0);
         return b === 7 ? req >= 7 : req === b;
       }).length;
@@ -1265,21 +1271,12 @@
       await syncPayloadToDisk(buildSavePayload());
     }
 
-    // Load a Deepbriar (D) Elite Character preview on boot so D Frame & Crown are immediately visible
-    if (!state.currentCard.id) {
-      state.currentCard = createBlankCard({
-        faction: 'D',
-        type: 'character',
-        tier: 'elite',
-        pips: 1,
-        energyReq: 5,
-        apCost: 2,
-        attack: 6,
-        health: 6,
-        name: 'Deepbriar Frame Preview',
-        subtype: 'BEAST',
-        rulesText: '{Debut} Deal 3 damage to an enemy Character.\n{Siege} Gain +2/+2.'
-      });
+    // Re-open the most recently edited card on boot
+    if (!state.currentCard.id && state.cards.length > 0) {
+      const sortedByRecent = [...state.cards].sort((a, b) =>
+        String(b.updatedAt || '').localeCompare(String(a.updatedAt || ''))
+      );
+      state.currentCard = structuredClone(sortedByRecent[0]);
     }
     if (!state.frameAssets.D || state.frameAssets.D.includes('-opt')) {
       state.frameAssets.D = DEFAULT_FRAMES.D;
