@@ -182,7 +182,7 @@ function spawnCataclysmMonolith(tx, tz) {
 H.sorceress = {
   id: 'sorceress',
 
-  bundle: { label: 'Astral Sorceress', src: 'assets/sorceress/sorceress_mixamo_bundle.js', globalKey: 'SORCERESS_MIXAMO', pStart: 50, pEnd: 64 },
+  bundle: { label: 'Astral Sorceress', src: 'assets/sorceress/sorceress_bundle.js', globalKey: 'SORCERESS_MIXAMO', pStart: 50, pEnd: 64 },
   moveSpeed: 6.00, // world units/s before bonuses
   hudSpeed: 328,   // SPD number shown in the HUD
   usesWandProp: true, // procedural star wand (only shown if her Mixamo bundle is missing)

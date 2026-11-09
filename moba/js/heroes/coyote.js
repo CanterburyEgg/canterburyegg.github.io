@@ -131,7 +131,7 @@ function launchShrapnelGrenade(tx, tz) {
 H.coyote = {
   id: 'coyote',
 
-  bundle: { label: 'Coyote Crossbowman', src: 'assets/coyote/coyote_mixamo_bundle.js', globalKey: 'COYOTE_MIXAMO', pStart: 10, pEnd: 24 },
+  bundle: { label: 'Coyote Crossbowman', src: 'assets/coyote/coyote_bundle.js', globalKey: 'COYOTE_MIXAMO', pStart: 10, pEnd: 24 },
   moveSpeed: 6.10, // world units/s before bonuses
   hudSpeed: 332,   // SPD number shown in the HUD
   usesCrossbowProp: true,

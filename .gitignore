@@ -16,3 +16,8 @@ concert-master/scores/sevens.*
 concert-master/scores/ride.*
 concert-master/scores/maslanka*.*
 concert-master/scores/wine-dark-sea*.*
+
+# MOBA asset pipeline sources (kept on disk only; the game loads <id>_bundle.js)
+moba/assets/**/*.glb
+moba/assets/**/*.zip
+moba/assets/**/*.fbx

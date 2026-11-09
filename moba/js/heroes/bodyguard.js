@@ -62,7 +62,7 @@ function lockGuardianHeadSkinWeights(fbxRoot) {
 H.bodyguard = {
   id: 'bodyguard',
 
-  bundle: { label: 'Shirtless Bodyguard', src: 'assets/guardian/guardian_mixamo_bundle.js', globalKey: 'GUARDIAN_MIXAMO', pStart: 68, pEnd: 78 },
+  bundle: { label: 'Shirtless Bodyguard', src: 'assets/bodyguard/bodyguard_bundle.js', globalKey: 'GUARDIAN_MIXAMO', pStart: 68, pEnd: 78 },
   moveSpeed: 6.05, // world units/s before bonuses
   hudSpeed: 334,   // SPD number shown in the HUD
   clipTweaks: { jumpClampHips: true },

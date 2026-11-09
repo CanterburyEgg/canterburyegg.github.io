@@ -5,10 +5,10 @@ Status: design interview **complete**. ✅ All 6 concept PNGs generated (2026-11
 Budget for today's 3D quota: 2 fully textured models + 1 untextured model (matches the 3 heroes).
 
 ## Existing pipeline (how the 5 finished heroes were built)
-1. Concept A-pose image → `assets/<hero>/v2_current/concept_apose.*` (style reference: [panther_apose_clean.png](assets/panther/panther_apose_clean.png), [coyote concept_apose.png](assets/coyote/v2_current/concept_apose.png) — stylized painterly hand-painted MOBA look, flat gray or white background, front view, strict ~45° A-pose, empty open hands)
-2. Hunyuan 3D → `<hero>_v2_hunyuan_50k.glb` + `<hero>_v2_texture.jpg`
-3. `<hero>_v2_for_mixamo.zip` → Mixamo auto-rig → `mixamo_fbx/` animations
-4. Packed into `assets/<hero>/<hero>_mixamo_bundle.js` (`window.<HERO>_MIXAMO = { diffuseDataUrl, ... }`)
+1. Concept A-pose image → `assets/<id>/<id>_concept.png` (style reference: [panther_concept.png](assets/panther/panther_concept.png), [coyote_concept.png](assets/coyote/coyote_concept.png) — stylized painterly hand-painted MOBA look, flat gray or white background, front view, strict ~45° A-pose, empty open hands)
+2. Hunyuan 3D → `<id>_raw.glb` + `<id>_texture.jpg`
+3. `<id>_mixamo.zip` → Mixamo auto-rig → `mixamo/` clips (snake_case)
+4. Packed into `assets/<id>/<id>_bundle.js` (`window.<HERO>_MIXAMO = { diffuseDataUrl, ... }`)
 5. Registered in the loader list in `arena3d.html` (~line 4850) and specs/talents in `js/phase1_data.js` (`HERO_SPECS`, `HERO_TALENTS` — currently only 5 heroes)
 - Props follow Coyote's pattern: `crossbow_prop.png` → `crossbow_3d_prop.glb` → embedded as `crossbowGlbB64`, mounted to a pivot that follows the hand bone (`crossbowPivot` in `arena3d.html`).
 
@@ -37,12 +37,12 @@ Budget for today's 3D quota: 2 fully textured models + 1 untextured model (match
 ## To generate when the queues are back (6 images)
 | # | Image | Save to |
 |---|---|---|
-| 1 | Little Fairy A-pose | `assets/fairy/v2_current/concept_apose.png` |
-| 2 | Cannon Imp A-pose | `assets/cannon/v2_current/concept_apose.png` |
-| 3 | Saw Scientist A-pose | `assets/scientist/v2_current/concept_apose.png` |
-| 4 | Siege Cannon prop (3/4 view, gray bg) | `assets/cannon/v2_current/cannon_prop.png` |
-| 5 | Heavy Wrench prop | `assets/cannon/v2_current/wrench_prop.png` |
-| 6 | Chem-Buzzsaw prop | `assets/scientist/v2_current/buzzsaw_prop.png` |
+| 1 | Little Fairy A-pose | `assets/fairy/fairy_concept.png` |
+| 2 | Cannon Imp A-pose | `assets/imp/imp_concept.png` |
+| 3 | Saw Scientist A-pose | `assets/scientist/scientist_concept.png` |
+| 4 | Siege Cannon prop (3/4 view, gray bg) | `assets/imp/props/cannon_concept.png` |
+| 5 | Heavy Wrench prop | `assets/imp/props/wrench_concept.png` |
+| 6 | Chem-Buzzsaw prop | `assets/scientist/props/saw_blade_reference.png` |
 
 ## Prop implementation decisions (2026-11-07)
 - **Siege Cannon:** one rigid Tripo GLB, no disassembly or rig. Carried bazooka-style over the right shoulder at ~60% scale, attached to the RightHand bone the same way `crossbowPivot` works. On Q: Anchor it detaches into the world, drops in front of the Imp, pops to full scale with a smoke puff, turns its whole body toward targets and recoils along the barrel when firing. Swapped for a scrap-pile mesh when destroyed. Q again or walking over the scrap re-attaches it to the hand.

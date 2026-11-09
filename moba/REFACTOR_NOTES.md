@@ -19,7 +19,7 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   10L Apex Reset; Bodyguard guard stacks + 10L Thorns of Brass; Coyote bleed talents; Sorceress Soul Siphon.
 - **Brawler Footwork Siphon** dummy tracking, arena zone lifetime/projectile blocking and arena damage amp still live in
   shared `loop.js` / `combat.js`.
-- **Bundle size**: brawler/coyote/sorceress `*_mixamo_bundle.js` still embed the old v1 models (now unused) - strip to
+- **Bundle size**: brawler/coyote/sorceress `*_bundle.js` still embed the old v1 models (now unused) - strip to
   cut load time.
 - `updateSlotPills` dev-toolbar labels still special-case Coyote/Sorceress.
 
@@ -29,8 +29,13 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
 - [ ] **Map style session**: layout concept = castle base on a plateau, castle-bridge top lane over a gorge, sloped woods
   jungle, valley bottom lane. Gentle cosmetic elevation via one `groundHeight(x, z)` function. Boss in the gorge beside
   the bridge (true "under the bridge" would need a two-layer system; deferred).
-- [ ] **Shop overhaul** (new stat model: Attack / Ability / single Resist; see DESIGN_RULES.md).
-- [ ] **Asset housekeeping**: drop the unnecessary `v2_current/` / `v1_archive/` folder split and `_v2_` file names;
-  delete unused v1 assets; update the loader paths.
+- [ ] **Shop overhaul** (new stat model: Attack / Ability / single Resist; see DESIGN_RULES.md). Three tiers:
+  1. **Basic items:** one per stat (+Attack Speed, +Attack, +Ability Power, +Resist, +HP, etc.).
+  2. **Combined items:** take two basic items and combine them into one, upgrading the amount of each stat.
+  3. **Specialty items:** each combined item branches into **two specialty variants** with different use cases
+     (basic → combined → branching specialty). Each specialty gives **at least** the two stats of its combined item.
+- [x] **Asset housekeeping** (2026-11-09): layout is `assets/<id>/<id>_{concept.png,texture.jpg,preview.jpg,bundle.js}`,
+  `mixamo/*.fbx`, `props/`. IDs: `guardian`→`bodyguard`, `cannon`→`imp`. v1 assets deleted. `.glb/.zip/.fbx` under
+  assets are git-ignored (on disk only; the game only loads `<id>_bundle.js`).
 - [ ] **Talent pass**: all 8 heroes, level by level (see DESIGN_RULES.md).
 - [ ] **Phase 2**: bots use the real hero kits, then implement the new kits from DESIGN_RULES.md.
