@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concert Master — Chart Audit Sandbox</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./sandbox.css?v=2" />
+</head>
+<body>
+  <aside class="clip-list">
+    <h1>Audit Sandbox</h1>
+    <p class="hint">Hard · D F J K &nbsp;|&nbsp; <b>Left</b> = baseline or last checkpoint · <b>Right</b> = current build</p>
+    <div id="clips" role="listbox" aria-label="Audit clips"></div>
+    <p class="hint keys">
+      <kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd> play &nbsp; <kbd>Space</kbd> start/replay &nbsp; <kbd>Tab</kbd> switch side · <kbd>C</kbd> baseline/checkpoint<br />
+      <kbd>↑</kbd><kbd>↓</kbd> clip &nbsp; <kbd>S</kbd> slow-mo &nbsp; <kbd>Esc</kbd> stop
+    </p>
+  </aside>
+
+  <main class="stage">
+    <header class="clip-header">
+      <div>
+        <p id="clip-song" class="clip-song">—</p>
+        <h2 id="clip-title" class="clip-title">Pick a clip</h2>
+        <p id="clip-issue" class="clip-issue"></p>
+      </div>
+      <div class="controls">
+        <div class="side-toggle" role="radiogroup" aria-label="Compare against">
+          <button type="button" id="btn-ref-baseline">vs Locked baseline</button>
+          <button type="button" id="btn-ref-checkpoint">vs Last checkpoint</button>
+        </div>
+        <div class="side-toggle" role="radiogroup" aria-label="Chart to play">
+          <button type="button" id="btn-side-old">Play left</button>
+          <button type="button" id="btn-side-new">Play current</button>
+        </div>
+        <button type="button" id="btn-play">▶ Start</button>
+        <button type="button" id="btn-slow">0.5× Slow-mo: Off</button>
+        <span id="clock" class="clock">0:00.00</span>
+      </div>
+    </header>
+
+    <div class="highways">
+      <section class="side" id="side-old">
+        <h3><span id="old-label">Baseline</span> <span id="old-count" class="count"></span> <span id="score-old" class="score"></span></h3>
+        <canvas id="cv-old"></canvas>
+        <ol id="list-old" class="note-list"></ol>
+      </section>
+      <section class="side" id="side-new">
+        <h3>Current build <span id="new-count" class="count"></span> <span id="score-new" class="score"></span></h3>
+        <canvas id="cv-new"></canvas>
+        <ol id="list-new" class="note-list"></ol>
+      </section>
+    </div>
+    <p id="status" class="status"></p>
+  </main>
+
+  <script type="module" src="./sandbox.js?v=6"></script>
+</body>
+</html>

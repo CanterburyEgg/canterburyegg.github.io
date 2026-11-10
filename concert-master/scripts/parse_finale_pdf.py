@@ -1289,6 +1289,17 @@ def parse_finale_pdf_score(pdf_path: Path) -> list[dict]:
                                     for cx0, cy0, cx1, cy1 in staff_curves
                                 ):
                                     tied_to_prev = True
+                                elif ev_x < prev_x - 100.0 and any(
+                                    # Tie across a system break: the tied-over note opens the NEW system, and the engraver draws
+                                    # a short incoming half-tie that starts just left of it at notehead height
+                                    # (e.g. Sevens 1:56 / 2:08 / 3:26: a 16th at the end of a line tied into the next line's note).
+                                    ev_x - 9.0 <= cx0 <= ev_x - 0.5
+                                    and ev_x - 1.0 <= cx1 <= ev_x + 3.0
+                                    and abs(cy1 - top_y) <= 4.5
+                                    and abs(cy0 - cy1) <= 2.0
+                                    for cx0, cy0, cx1, cy1 in staff_curves
+                                ):
+                                    tied_to_prev = True
                                 elif ps["is_drum"] and eff_q >= 1.8 and (prev_list[-1][1] - prev_list[-1][0]) >= 2.2:
                                     # Cross-page / cross-barline decaying roll (`fp > n.`)
                                     tied_to_prev = True
