@@ -229,10 +229,70 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
     }
 
+    // Map structure models (assets/map/map_bundle.js, parsed in boot.js into window.MOBA_MAP_TEMPLATES).
+    // Uniformly scales a template so its footprint is `diameter` wide, centered, base on the ground.
+    const MAP_MODEL_FIT = {
+      tower: { pad: 0.5 },   // footprint = 2r + pad (r = collision radius)
+      ancient: { pad: 0.6 }
+    };
+    function fitMapModel(tmpl, diameter) {
+      const obj = tmpl.clone(true);
+      const box = new THREE.Box3().setFromObject(obj);
+      const size = box.getSize(new THREE.Vector3());
+      const k = diameter / Math.max(size.x, size.z);
+      obj.scale.setScalar(k);
+      const c = box.getCenter(new THREE.Vector3());
+      obj.position.set(-c.x * k, -box.min.y * k, -c.z * k);
+      obj.traverse((ch) => { if (ch.isMesh) { ch.castShadow = true; ch.receiveShadow = true; } });
+      const holder = new THREE.Group();
+      holder.add(obj);
+      holder.userData.height = size.y * k;
+      return holder;
+    }
+
     function buildStructureMesh(s) {
       const grp = new THREE.Group();
       const tMat = s.team === 0 ? orderMat : chaosMat;
-      if (s.kind === 'tower') {
+      const teamHex = s.team === 0 ? 0x38bdf8 : 0xf43f5e;
+      const mapTmpl = window.MOBA_MAP_TEMPLATES || {};
+      if (s.kind === 'tower' && mapTmpl.tower) {
+        const model = fitMapModel(mapTmpl.tower, s.r * 2 + MAP_MODEL_FIT.tower.pad);
+        grp.add(model);
+        // Team marker floating over the empty top platform (stand-in until the ballista prop exists)
+        const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.42, 0), new THREE.MeshBasicMaterial({ color: s.team === 0 ? 0x38bdf8 : 0xfb7185 }));
+        crystal.position.y = model.userData.height + 0.75;
+        grp.add(crystal);
+        s.crystal = crystal;
+
+        const rRing = new THREE.Mesh(
+          new THREE.RingGeometry(s.range - 0.08, s.range, 48),
+          new THREE.MeshBasicMaterial({ color: teamHex, side: THREE.DoubleSide, transparent: true, opacity: 0.16 })
+        );
+        rRing.rotation.x = -Math.PI / 2;
+        rRing.position.y = 0.03;
+        grp.add(rRing);
+      } else if (s.kind === 'ancient' && mapTmpl.hearth) {
+        const model = fitMapModel(mapTmpl.hearth, s.r * 2 + MAP_MODEL_FIT.ancient.pad);
+        grp.add(model);
+        // Eternal flame in the team color, sitting in the hearth bowl
+        const flame = new THREE.Group();
+        const flameTop = model.userData.height * 0.86;
+        [[1.15, 2.2, 0.85], [0.8, 2.9, 0.6], [0.45, 3.4, 0.9]].forEach(([rad, h, op], i) => {
+          const cone = new THREE.Mesh(
+            new THREE.ConeGeometry(rad, h, 12, 1, true),
+            new THREE.MeshBasicMaterial({ color: i === 2 ? 0xffffff : teamHex, transparent: true, opacity: op * 0.7, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide })
+          );
+          cone.position.y = h * 0.5;
+          flame.add(cone);
+        });
+        flame.position.y = flameTop;
+        grp.add(flame);
+        const light = new THREE.PointLight(teamHex, 18, 14, 2);
+        light.position.y = flameTop + 1.2;
+        grp.add(light);
+        s.flame = flame;
+        s.flameLight = light;
+      } else if (s.kind === 'tower') {
         const base = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.45, 2.2, 8), stoneBaseMat);
         base.position.y = 1.1;
         base.castShadow = true;
@@ -3714,6 +3774,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (s.hp <= 0) return;
         if (s.crystal) s.crystal.rotation.y += dt * 1.8;
         if (s.halo) s.halo.rotation.z += dt * 1.2;
+        if (s.flame) {
+          const t = performance.now() * 0.001;
+          s.flame.rotation.y += dt * 0.9;
+          s.flame.scale.set(1 + Math.sin(t * 7.3) * 0.06, 1 + Math.sin(t * 5.1) * 0.12 + Math.sin(t * 11.7) * 0.05, 1 + Math.cos(t * 6.4) * 0.06);
+          if (s.flameLight) s.flameLight.intensity = 16 + Math.sin(t * 9.0) * 3 + Math.sin(t * 13.0) * 2;
+        }
 
         const vuln = isStructureVulnerable(s);
         if (s.invulnRing) s.invulnRing.visible = !vuln;
@@ -4160,6 +4226,21 @@ window.MOBA_PHASE1_ENGINE = (function () {
       getPlayerProg: () => playerProg,
       getMapObstacles: () => mapObstacles.concat(structures.filter((s) => s.hp > 0)),
       notifyTemplatesReady: () => bots.forEach((b) => attachRigToBot(b)),
+      // Map models finished loading (boot.js): rebuild structure visuals with them, keeping game state
+      notifyMapModelsReady: () => {
+        structures.forEach((s) => {
+          if (s.mesh) mapGroup.remove(s.mesh);
+          if (s.plate) s.plate.remove();
+          s.crystal = s.halo = s.flame = s.flameLight = null;
+          const cd = s.shootCd || 0;
+          buildStructureMesh(s);
+          s.shootCd = cd;
+          if (s.hp <= 0) {
+            s.mesh.visible = false;
+            s.plate.style.display = 'none';
+          }
+        });
+      },
       notifyHeroSwitched: () => {
         const st = getPlayerStats();
         hero.maxHp = st.maxHp;

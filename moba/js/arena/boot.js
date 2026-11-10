@@ -3,6 +3,27 @@
 // top-level let/const/function names are shared across all js/arena/*.js files.
 'use strict';
 
+// Map structure models: assets/map/map_bundle.js (base64 GLBs) -> window.MOBA_MAP_TEMPLATES -> engine rebuilds structures.
+// Missing bundle or a parse error just leaves the old primitive structures in place.
+async function loadMapModels() {
+  if (!window.MOBA_MAP_MODELS) await loadScriptAsync('assets/map/map_bundle.js');
+  const src = window.MOBA_MAP_MODELS;
+  if (!src) return;
+  const parseGlb = (b64) => new Promise((resolve) => {
+    try {
+      gltfLoader.parse(b64ToBuffer(b64), '', (g) => resolve(g.scene), () => resolve(null));
+    } catch (e) {
+      resolve(null);
+    }
+  });
+  const tmpl = {};
+  const [tower, hearth] = await Promise.all([parseGlb(src.towerGlbB64), parseGlb(src.hearthGlbB64)]);
+  if (tower) tmpl.tower = tower;
+  if (hearth) tmpl.hearth = hearth;
+  window.MOBA_MAP_TEMPLATES = tmpl;
+  if (phase1Engine && phase1Engine.notifyMapModelsReady) phase1Engine.notifyMapModelsReady();
+}
+
 // Preload & parse all 5 v2 Mixamo Hero Bundles + 3D Crossbow + WebGL Shader Compile behind the loading bar
 // so there is zero stutter once the Arena is revealed!
 async function bootArenaWithLoadingBar() {
@@ -50,6 +71,10 @@ async function bootArenaWithLoadingBar() {
     setProgress(s.pEnd, s.label + ' Ready!');
     await yieldForPaint();
   }
+
+  setProgress(94, 'Raising the Castle Towers...');
+  await yieldForPaint();
+  await loadMapModels();
 
   setProgress(96, 'Spawning 4v4 Bots & Compiling WebGL Shaders...');
   await yieldForPaint();
