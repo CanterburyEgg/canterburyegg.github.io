@@ -149,6 +149,13 @@ async function bootArenaWithLoadingBar() {
     const dh = /[?&]shotdelay=(\d+)/.exec(location.search);
     setTimeout(() => logHeroShot(), dh ? parseInt(dh[1], 10) * 1000 : (act ? 1000 : 1500));
   }
+  // Dev: &devturret=N destroys the Imp's planted turret N seconds in
+  const dtur = /[?&]devturret=(\d+)/.exec(location.search);
+  if (dtur) setTimeout(() => {
+    const k = window.MOBA_HEROES.imp;
+    if (k && k.devDestroyTurret) k.devDestroyTurret();
+    console.log('HERODBG turret destroyed, tag=' + (k && k.hudTag ? k.hudTag() : ''));
+  }, parseInt(dtur[1], 10) * 1000);
   // Dev: &devdie=N kills the player N seconds in (1.5s respawn) and logs whether they came back
   const dd = /[?&]devdie=(\d+)/.exec(location.search);
   if (dd && phase1Engine) {

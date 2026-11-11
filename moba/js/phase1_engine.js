@@ -129,6 +129,112 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     // Check if world point (tx, tz) is visible to Team 0 (Order)
+    // =========================================================
+    // FOG OF WAR: darken the ground everywhere Order can't currently see.
+    // Same sources and ranges as isPointVisibleToOrder(); LOS sources cast rays that stop at trees/pillars/walls.
+    // Drawn into a small canvas (FOG_PX per meter) and laid over the ground as a transparent plane.
+    // =========================================================
+    const FOG_PX = 3, FOG_RAYS = 72, FOG_EVERY = 1 / 30; // ~30 updates/s
+    const fog = (function () {
+      const W = MAP.W, H = MAP.H;
+      const mk = () => { const c = document.createElement('canvas'); c.width = Math.round(W * FOG_PX); c.height = Math.round(H * FOG_PX); return c; };
+      const out = mk(), vis = mk();
+      const tex = new THREE.CanvasTexture(out);
+      tex.minFilter = THREE.LinearFilter;
+      tex.magFilter = THREE.LinearFilter;
+      const mesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(W, H),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false })
+      );
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.y = 0.09;
+      mesh.renderOrder = 5;
+      scene.add(mesh);
+      return { out, vis, octx: out.getContext('2d'), vctx: vis.getContext('2d'), tex, mesh, t: 0, W, H };
+    })();
+    const fogX = (x) => (x + fog.W / 2) * FOG_PX;
+    const fogZ = (z) => (z + fog.H / 2) * FOG_PX;
+
+    // distance along (dx,dz) from (sx,sz) to the first LOS blocker, capped at range
+    function fogRay(sx, sz, dx, dz, range, near) {
+      let best = range;
+      for (let i = 0; i < near.length; i++) {
+        const o = near[i];
+        const ox = o.x - sx, oz = o.z - sz;
+        const tc = ox * dx + oz * dz;           // closest approach along the ray
+        if (tc <= 0 || tc - o.r > best) continue;
+        const d2 = ox * ox + oz * oz - tc * tc;
+        const rr = o.r * 0.92;
+        if (d2 > rr * rr) continue;
+        const tHit = tc - Math.sqrt(rr * rr - d2) + o.r * 0.6; // let the light reach a bit into the blocker
+        if (tHit > 0 && tHit < best) best = tHit;
+      }
+      return best;
+    }
+    function fogSource(ctx2, sx, sz, range, los, rays = FOG_RAYS) {
+      if (!los) {
+        ctx2.beginPath();
+        ctx2.arc(fogX(sx), fogZ(sz), range * FOG_PX, 0, Math.PI * 2);
+        ctx2.fill();
+        return;
+      }
+      const near = [];
+      for (let i = 0; i < mapObstacles.length; i++) {
+        const o = mapObstacles[i];
+        if (o.noLos) continue;
+        if (Math.abs(o.x - sx) < range + o.r && Math.abs(o.z - sz) < range + o.r) near.push(o);
+      }
+      ctx2.beginPath();
+      for (let k = 0; k < rays; k++) {
+        const a = (k / rays) * Math.PI * 2;
+        const dx = Math.sin(a), dz = Math.cos(a);
+        const d = fogRay(sx, sz, dx, dz, range, near);
+        const px = fogX(sx + dx * d), pz = fogZ(sz + dz * d);
+        if (k === 0) ctx2.moveTo(px, pz); else ctx2.lineTo(px, pz);
+      }
+      ctx2.closePath();
+      ctx2.fill();
+      ctx2.beginPath();
+      ctx2.arc(fogX(sx), fogZ(sz), 3.2 * FOG_PX, 0, Math.PI * 2); // always see right around a unit
+      ctx2.fill();
+    }
+    function updateFog(dt) {
+      fog.mesh.visible = matchMode;
+      if (!matchMode) return;
+      fog.t -= dt;
+      if (fog.t > 0) return;
+      fog.t = FOG_EVERY;
+      const v = fog.vctx;
+      v.clearRect(0, 0, fog.vis.width, fog.vis.height);
+      v.fillStyle = '#fff';
+      fogSource(v, MAP.BASE.fountain.x, MAP.BASE.fountain.z, 24, false);
+      if (playerProg.respawnTimer <= 0) fogSource(v, hero.x, hero.z, 17.5, true);
+      bots.forEach((b) => { if (b.team === 0 && b.respawnTimer <= 0) fogSource(v, b.x, b.z, 16.0, true); });
+      structures.forEach((st) => { if (st.team === 0 && st.hp > 0) fogSource(v, st.x, st.z, 14.5, false); });
+      minions.forEach((m) => { if (m.team === 0 && m.hp > 0) fogSource(v, m.x, m.z, 10.5, true, 40); });
+      wards.forEach((w) => fogSource(v, w.x, w.z, 16.0, true));
+      if (spyglass.revealT > 0) {
+        const Ho = MAP.HOLLOW;
+        v.beginPath();
+        v.moveTo(fogX(-Ho.halfTop), fogZ(Ho.top));
+        v.lineTo(fogX(Ho.halfTop), fogZ(Ho.top));
+        v.lineTo(fogX(0), fogZ(Ho.tipZ));
+        v.closePath();
+        v.fill();
+      }
+      const o = fog.octx;
+      o.globalCompositeOperation = 'source-over';
+      o.clearRect(0, 0, fog.out.width, fog.out.height);
+      o.fillStyle = 'rgba(3, 6, 12, 0.76)';
+      o.fillRect(0, 0, fog.out.width, fog.out.height);
+      o.globalCompositeOperation = 'destination-out';
+      o.filter = 'blur(' + (FOG_PX * 0.9).toFixed(1) + 'px)';
+      o.drawImage(fog.vis, 0, 0);
+      o.filter = 'none';
+      o.globalCompositeOperation = 'source-over';
+      fog.tex.needsUpdate = true;
+    }
+
     function updateSpyglass(dt) {
       const sg = spyglass;
       sg.cd = Math.max(0, sg.cd - dt);
@@ -4642,6 +4748,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       updateSpyglass(dt);
+      updateFog(dt);
 
       // Pooled minion rigs are only visible during the loading-screen shader warm-up; never draw them in play
       if (minionPoolHolder.visible) minionPoolHolder.visible = false;

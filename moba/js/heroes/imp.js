@@ -10,14 +10,17 @@
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
-const CARRY_SIZE = 0.95;   // bare barrel length while carried
+const CARRY_SIZE = 0.9;    // bare barrel length while carried
 const TURRET_SIZE = 1.3;   // full cannon (with carriage) when planted
 const WRENCH_SIZE = 0.34;
 const WRENCH_GRIP = 0.05;  // grip point this far up from the handle end
 const WRENCH_OFF = { f: 0, s: 0, n: 0.01 };
 const WRENCH_TWIST = 0;
 let cannonCarry = null, cannonTurret = null, wrench = null, propsLoading = false;
-let turret = null;         // { x, z, facing, shootCd }
+let turret = null;         // { x, z, facing, shootCd, hp, maxHp, armor, r, team, plantedAt } (also an engine deployable)
+let scrap = null;          // { x, z, mesh } wreck left when the turret is destroyed; salvage it (Q) or return to base
+let turretPlate = null;    // overhead HP bar
+const PICKUP_LOCKOUT = 1.5;
 let superball = null;      // { mesh, x, z, ang, dist, hit:Set, dmg }
 let recoil = 0;            // 0..1 kick amount, decays
 let pendingQ = null;       // { t, kind: 'plant'|'pickup' }
@@ -26,7 +29,47 @@ const puffs = [];          // rocket-jump exhaust
 
 const UPPER_BODY = /^(Spine|Spine1|Spine2|Neck|Head|LeftShoulder|LeftArm|LeftForeArm|LeftHand|RightShoulder|RightArm|RightForeArm|RightHand)$/;
 
-function carrying() { return !turret; }
+function carrying() { return !turret && !scrap; }
+
+function turretMaxHp() {
+  const lvl = phase1Engine ? (phase1Engine.getPlayerProg().level || 1) : 1;
+  return 520 + lvl * 70;
+}
+
+function destroyTurret() {
+  if (!turret) return;
+  const t = turret;
+  turret = null;
+  smoke(t.x, t.z, 2.6);
+  spawnShockRing(t.x, t.z, 0xfb923c, 0.3, 2.4, 0.4);
+  SFX.play('arena');
+  spawnFloat(t.x, 2.6, t.z, 'TURRET DESTROYED! SALVAGE THE SCRAP', '#fb923c');
+  // a little heap of wreckage: bent plates + the barrel's cap
+  const g = new THREE.Group();
+  const iron = new THREE.MeshStandardMaterial({ color: 0x3f3f46, metalness: 0.6, roughness: 0.5 });
+  const brass = new THREE.MeshStandardMaterial({ color: 0x9a7b3c, metalness: 0.6, roughness: 0.45 });
+  for (let i = 0; i < 7; i++) {
+    const m = new THREE.Mesh(i % 3 === 0 ? new THREE.CylinderGeometry(0.12, 0.14, 0.5, 8) : new THREE.BoxGeometry(0.4 + (i % 2) * 0.2, 0.08, 0.3), i % 4 === 0 ? brass : iron);
+    m.position.set(Math.sin(i * 2.4) * 0.45, 0.06 + (i % 3) * 0.07, Math.cos(i * 2.4) * 0.45);
+    m.rotation.set(i * 0.6, i * 1.1, i * 0.35);
+    m.castShadow = true;
+    g.add(m);
+  }
+  const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.06, 6, 14), new THREE.MeshStandardMaterial({ color: 0x5b3d24, roughness: 0.9 }));
+  wheel.rotation.x = Math.PI / 2 - 0.3;
+  wheel.position.set(0.2, 0.08, -0.1);
+  g.add(wheel);
+  g.position.set(t.x, 0, t.z);
+  scene.add(g);
+  scrap = { x: t.x, z: t.z, mesh: g };
+}
+
+function clearScrap(msg) {
+  if (!scrap) return;
+  scene.remove(scrap.mesh);
+  scrap = null;
+  if (msg) spawnFloat(hero.x, 2.6, hero.z, msg, '#fb923c');
+}
 
 function smoke(x, z, r) {
   spawnShockRing(x, z, 0xd6d3d1, 0.3, r, 0.45);
@@ -91,9 +134,9 @@ H.imp = {
     r: 'Superball',
     banner: '<b>Q</b> Plant / pick up the cannon &bull; <b>E</b> Rocket jump (carrying) or hop &bull; <b>R</b> Superball &bull; <b>P</b> Shop',
     tooltips: {
-      P: { title: 'Passive • Two Forms', meta: 'Carrying vs. Unburdened', body: 'Carrying: slow, long-range cannon shots. Unburdened: <b>+22% move speed</b> and fast wrench swings. (Coming: wrench hits repair your turret.)' },
+      P: { title: 'Passive • Two Forms', meta: 'Carrying vs. Unburdened', body: 'Carrying: slow, long-range cannon shots. Unburdened: <b>+22% move speed</b> and fast wrench swings. <b>Wrench hits repair your turret.</b>' },
       LMB: { title: 'LMB • Siege Shot / Wrench', meta: '0 MP • 1.05s Base ATK', body: 'Carrying: fire a cannonball for <b>Attack damage</b>. Unburdened: a quick wrench swing.' },
-      Q: { title: 'Q • Anchor Turret', meta: '20 MP • 3s CD', body: 'Plant the cannon as a <b>turret</b> that fires at nearby enemies. Press Q next to it to pick it back up. (Coming: turret HP and scrap salvage.)' },
+      Q: { title: 'Q • Anchor Turret', meta: '20 MP • 3s CD', body: 'Plant the cannon as a <b>turret</b> with its own HP that fires at nearby enemies. Press Q next to it to pick it back up (after 1.5s). If it is destroyed it leaves <b>scrap</b>: Q on it to salvage, or head home for a fresh cannon.' },
       E: { title: 'E • Blast Hop', meta: '50 MP • 8.5s CD', body: 'Carrying: the cannon blasts downward for a <b>long rocket jump</b>. Unburdened: a <b>short nimble hop</b>.' },
       R: { title: 'R • Superball', meta: '85 MP • 38s CD (Lv 4)', body: 'Fire a giant cannonball <b>from wherever the cannon is</b> (hands or turret). It pierces and <b>knocks up</b> everything it hits for 1.0s.' }
     }
@@ -132,6 +175,17 @@ H.imp = {
 
   onStrikeImpact(strike, ctx) {
     KitFx.hitCone(2.0, 0.8, Math.round(ctx.st.atk * 0.85), { isBasic: true, color: '#fb923c' });
+    // Tinkerer: wrench hits on his own turret repair it
+    if (turret && turret.hp < turret.maxHp) {
+      const dx = turret.x - hero.x, dz = turret.z - hero.z, d = Math.hypot(dx, dz);
+      const inFront = d < 0.8 || (dx * Math.sin(hero.facing) + dz * Math.cos(hero.facing)) / d > Math.cos(0.9);
+      if (d <= 2.0 + turret.r && inFront) {
+        const heal = Math.round(turret.maxHp * 0.12);
+        turret.hp = Math.min(turret.maxHp, turret.hp + heal);
+        spawnFloat(turret.x, 2.2, turret.z, '+' + heal + ' REPAIRED', '#4ade80');
+        spawnShockRing(turret.x, turret.z, 0x4ade80, 0.3, 1.3, 0.25);
+      }
+    }
   },
 
   cast(slot, ctx) {
@@ -147,9 +201,23 @@ H.imp = {
         hero.kickAnim = 0.8;
         if (lift) fadeToAction(lift, 0.06, true, 2.6, 4.6); // set-down phase: touches the ground at clip 5.5s -> ~0.35s
         pendingQ = { t: 0.35, kind: 'plant', x: hero.x + Math.sin(hero.facing) * 1.6, z: hero.z + Math.cos(hero.facing) * 1.6, facing: hero.facing };
+      } else if (scrap) {
+        if (Math.hypot(hero.x - scrap.x, hero.z - scrap.z) > 2.0) {
+          spawnFloat(hero.x, 2.6, hero.z, 'SALVAGE YOUR SCRAP (OR GO HOME)!', '#fb923c');
+          return;
+        }
+        hero.cdQ = wtfMode ? 0.3 : 1.5;
+        hero.facing = Math.atan2(scrap.x - hero.x, scrap.z - hero.z);
+        hero.kickAnim = 0.75;
+        if (lift) fadeToAction(lift, 0.06, true, 3.2, 0.7);
+        pendingQ = { t: 0.72, kind: 'salvage' };
       } else {
         if (Math.hypot(hero.x - turret.x, hero.z - turret.z) > 2.0) {
           spawnFloat(hero.x, 2.6, hero.z, 'WALK BACK TO YOUR CANNON!', '#fb923c');
+          return;
+        }
+        if (!wtfMode && performance.now() / 1000 - turret.plantedAt < PICKUP_LOCKOUT) {
+          spawnFloat(hero.x, 2.6, hero.z, 'STILL SETTLING...', '#fb923c');
           return;
         }
         hero.cdQ = wtfMode ? 0.3 : 1.5;
@@ -189,6 +257,10 @@ H.imp = {
         return;
       }
       if (!wtfMode && hero.cdR > 0) return;
+      if (scrap) {
+        spawnFloat(hero.x, 2.6, hero.z, 'YOUR CANNON IS SCRAP!', '#fb7185');
+        return;
+      }
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.5 : 38 * cdrMult;
       const from = carrying() ? { x: hero.x, z: hero.z } : { x: turret.x, z: turret.z };
@@ -218,17 +290,33 @@ H.imp = {
 
   tickTimers(dt) {
     recoil = Math.max(0, recoil - dt * 6);
+    // back at base (recall / respawn): the workshop hands him a fresh cannon
+    if (scrap && activeHeroId === 'imp' && window.MOBA_MAP) {
+      const f = window.MOBA_MAP.BASE.fountain;
+      if (Math.hypot(hero.x - f.x, hero.z - f.z) < 9) clearScrap('FRESH CANNON FROM THE WORKSHOP!');
+    }
     if (pendingQ) {
       pendingQ.t -= dt;
       if (pendingQ.t <= 0) {
         const q = pendingQ;
         pendingQ = null;
         if (q.kind === 'plant') {
-          turret = { x: q.x, z: q.z, facing: q.facing, shootCd: 0.8 };
+          const mhp = turretMaxHp();
+          turret = {
+            x: q.x, z: q.z, facing: q.facing, shootCd: 0.8, plantedAt: performance.now() / 1000,
+            hp: mhp, maxHp: mhp, armor: 25, r: 0.9, team: 0,
+            onDestroyed: () => destroyTurret()
+          };
+          if (phase1Engine && phase1Engine.addDeployable) phase1Engine.addDeployable(turret);
           smoke(q.x, q.z, 2.2);
           SFX.play('block');
-        } else {
+        } else if (q.kind === 'salvage') {
+          if (scrap) smoke(scrap.x, scrap.z, 1.4);
+          clearScrap('CANNON SALVAGED!');
+          SFX.play('block');
+        } else if (turret) {
           smoke(turret.x, turret.z, 1.4);
+          if (phase1Engine && phase1Engine.removeDeployable) phase1Engine.removeDeployable(turret);
           turret = null;
           SFX.play('block');
         }
@@ -342,7 +430,7 @@ H.imp = {
             puffs.push({ m: puff, t: 0.5 });
           }
         } else {
-          KitFx.placeAtBone(cannonCarry, 'Spine2', { x: 0.04, y: -0.2, z: 0.3 - kick }, { x: 0, y: Math.PI / 2, z: -0.06 });
+          KitFx.placeAtBone(cannonCarry, 'Spine2', { x: 0.04, y: -0.2, z: 0.46 - kick }, { x: 0, y: Math.PI / 2, z: -0.06 });
         }
       }
     }
@@ -361,6 +449,24 @@ H.imp = {
         cannonTurret.rotation.set(0, turret.facing + Math.PI / 2, 0);
       }
     }
+    // turret HP bar
+    if (!turretPlate) {
+      turretPlate = document.createElement('div');
+      turretPlate.className = 'plate-3d';
+      turretPlate.style.zIndex = '14';
+      turretPlate.innerHTML = '<div class="plate-tag" style="background:rgba(15,23,42,0.82);border:1px solid rgba(251,146,60,0.6);padding:1px 5px;border-radius:3px;color:#fed7aa;">Turret</div><div class="plate-bar" style="width:56px;"><div class="plate-hp ally"></div><div class="plate-sh"></div></div>';
+      labelLayer.appendChild(turretPlate);
+    }
+    if (turret && activeHeroId === 'imp') {
+      const sp = projectToScreen(turret.x, 2.1, turret.z);
+      turretPlate.style.display = sp.visible ? 'flex' : 'none';
+      turretPlate.style.left = sp.x + 'px';
+      turretPlate.style.top = sp.y + 'px';
+      turretPlate.querySelector('.plate-hp').style.width = Math.max(0, turret.hp / turret.maxHp * 100) + '%';
+    } else {
+      turretPlate.style.display = 'none';
+    }
+    if (scrap) scrap.mesh.visible = activeHeroId === 'imp';
     // Unburdened: right hand balls into a fist around the wrench handle
     const fist = !carrying();
     KitFx.curlHand('Right', fist ? 1 : 0);
@@ -375,9 +481,16 @@ H.imp = {
 
   onSwitchedAway() {
     [cannonCarry, cannonTurret, wrench].forEach((p) => { if (p) p.visible = false; });
+    if (turretPlate) turretPlate.style.display = 'none';
+    if (turret && phase1Engine && phase1Engine.removeDeployable) phase1Engine.removeDeployable(turret);
+    turret = null;
+    clearScrap();
   },
 
-  hudTag() { return carrying() ? ' [CARRYING]' : ' [UNBURDENED]'; },
+  // Dev (&devturret=N in boot.js): blow up the planted turret to test scrap/salvage
+  devDestroyTurret() { if (turret) { turret.hp = 0; if (phase1Engine) phase1Engine.removeDeployable(turret); destroyTurret(); } },
+
+  hudTag() { return scrap ? ' [SCRAPPED]' : (carrying() ? ' [CARRYING]' : ' [UNBURDENED]'); },
   passivePip() { return carrying() ? '' : '+22%'; },
   qEmpowered() { return !carrying(); }
 };
