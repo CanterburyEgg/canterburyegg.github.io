@@ -1996,8 +1996,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       playerProg.items = [];
       playerProg.talents = { 3: null, 7: null, 10: null };
 
-      hero.x = -58;
-      hero.z = 3;
+      hero.x = MAP.BASE.heroSpawn.x;
+      hero.z = MAP.BASE.heroSpawn.z;
       const st = getPlayerStats();
       hero.maxHp = st.maxHp;
       hero.hp = hero.maxHp;
@@ -4427,8 +4427,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (playerProg.respawnTimer > 0) {
         playerProg.respawnTimer -= dt;
         if (playerProg.respawnTimer <= 0) {
-          hero.x = -59;
-          hero.z = 2;
+          hero.x = MAP.BASE.heroSpawn.x;
+          hero.z = MAP.BASE.heroSpawn.z;
           hero.hp = hero.maxHp;
           hero.mp = hero.maxMp;
           spawnFloat(hero.x, 2.7, hero.z, 'RESPAWNED AT ORDER FOUNTAIN!', '#4ade80');

@@ -10,13 +10,19 @@
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
-const CARRY_SIZE = 1.05;   // cannon length while carried
-const TURRET_SIZE = 2.1;   // full size when planted
+const CARRY_SIZE = 0.95;   // bare barrel length while carried
+const TURRET_SIZE = 1.3;   // full cannon (with carriage) when planted
+const WRENCH_SIZE = 0.34;
+const WRENCH_GRIP = 0.05;  // grip point this far up from the handle end
+const WRENCH_OFF = { f: 0, s: 0, n: 0.01 };
+const WRENCH_TWIST = 0;
 let cannonCarry = null, cannonTurret = null, wrench = null, propsLoading = false;
 let turret = null;         // { x, z, facing, shootCd }
 let superball = null;      // { mesh, x, z, ang, dist, hit:Set, dmg }
 let recoil = 0;            // 0..1 kick amount, decays
 let pendingQ = null;       // { t, kind: 'plant'|'pickup' }
+let rocketPuff = 0, PUFF_GEO = null;
+const puffs = [];          // rocket-jump exhaust
 
 const UPPER_BODY = /^(Spine|Spine1|Spine2|Neck|Head|LeftShoulder|LeftArm|LeftForeArm|LeftHand|RightShoulder|RightArm|RightForeArm|RightHand)$/;
 
@@ -35,12 +41,17 @@ H.imp = {
   id: 'imp',
   roster: { order: 8, emoji: '💣', short: 'Imp' },
   bundle: { label: 'Cannon Imp', src: 'assets/imp/imp_bundle.js', globalKey: 'IMP_MIXAMO', pStart: 75, pEnd: 88 },
-  bundleClips: { idle: 'idleFbxB64', run: 'runFbxB64', idleFree: 'idleFreeFbxB64', runFree: 'runFreeFbxB64', punch: 'punchFbxB64', kick: 'kickFbxB64', jump: 'jumpFbxB64' },
+  bundleClips: { idle: 'idleFbxB64', run: 'runFreeFbxB64', idleFree: 'idleFreeFbxB64', runFree: 'runFbxB64', punch: 'punchFbxB64', kick: 'kickFbxB64', jump: 'jumpFbxB64' },
   moveSpeed: 5.9,
   hudSpeed: 322,
   pillLabels: { punch: 'Wrench', kick: 'Lift', dash: 'Jump', dashReady: () => true },
   // While carrying, his run keeps Box Idle's arms (cradling the cannon)
-  clipTweaks: { overlay: { run: { from: 'idle', bones: UPPER_BODY } } },
+  // While carrying, his run keeps Box Idle's arms (cradling the cannon). The unburdened hop plays the Jumping clip as-is
+  // (its upward Hips hop is clamped since the code arc already lifts him).
+  clipTweaks: {
+    jumpClampHips: true,
+    overlay: { run: { from: 'idle', bones: UPPER_BODY } }
+  },
 
   spec: {
     id: 'imp',
@@ -128,24 +139,24 @@ H.imp = {
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
       if (pendingQ) return;
+      // Lifting Object (8.3s): squats 0.6-1.75s, heaves up to ~3.0s, holds, sets down at ~5.5s, stands by ~6.75s
       const lift = actions.kick;
-      const dur = lift ? lift.getClip().duration : 1.2;
       if (carrying()) {
         if (!trySpendMana('Q')) return;
         hero.cdQ = wtfMode ? 0.3 : 3.0 * cdrMult;
-        hero.kickAnim = 0.6;
-        if (lift) fadeToAction(lift, 0.06, true, (dur * 0.5) / 0.6, dur * 0.5); // second half: set it down
-        pendingQ = { t: 0.45, kind: 'plant', x: hero.x + Math.sin(hero.facing) * 1.6, z: hero.z + Math.cos(hero.facing) * 1.6, facing: hero.facing };
+        hero.kickAnim = 0.8;
+        if (lift) fadeToAction(lift, 0.06, true, 2.6, 4.6); // set-down phase: touches the ground at clip 5.5s -> ~0.35s
+        pendingQ = { t: 0.35, kind: 'plant', x: hero.x + Math.sin(hero.facing) * 1.6, z: hero.z + Math.cos(hero.facing) * 1.6, facing: hero.facing };
       } else {
-        if (Math.hypot(hero.x - turret.x, hero.z - turret.z) > 3.2) {
+        if (Math.hypot(hero.x - turret.x, hero.z - turret.z) > 2.0) {
           spawnFloat(hero.x, 2.6, hero.z, 'WALK BACK TO YOUR CANNON!', '#fb923c');
           return;
         }
         hero.cdQ = wtfMode ? 0.3 : 1.5;
         hero.facing = Math.atan2(turret.x - hero.x, turret.z - hero.z);
-        hero.kickAnim = 0.6;
-        if (lift) fadeToAction(lift, 0.06, true, (dur * 0.5) / 0.6, 0); // first half: heave it up
-        pendingQ = { t: 0.5, kind: 'pickup' };
+        hero.kickAnim = 0.75;
+        if (lift) fadeToAction(lift, 0.06, true, 3.2, 0.7); // squat + heave: lifted at clip 3.0s -> ~0.72s
+        pendingQ = { t: 0.72, kind: 'pickup' };
       }
     } else if (slot === 'E') {
       if (!wtfMode && hero.cdE > 0) return;
@@ -161,15 +172,16 @@ H.imp = {
       hero.leapTx = hero.x + Math.sin(ang) * d;
       hero.leapTz = hero.z + Math.cos(ang) * d;
       hero.leapDur = longJump ? 0.75 : 0.42;
-      hero.leapHeight = longJump ? 3.2 : 1.2;
+      hero.leapHeight = longJump ? 3.2 : 0.9;
       hero.leapTimer = hero.leapDur;
       hero.impRocket = longJump;
       if (longJump) {
         smoke(hero.x, hero.z, 2.2);
         SFX.play('arena');
-        if (actions.idle) fadeToAction(actions.idle, 0.05, false, 0); // frozen carry pose in the air
+        if (actions.idle) fadeToAction(actions.idle, 0.05, false, 0); // frozen carry pose in the air (barrel aimed down)
       } else {
         SFX.play('dash');
+        if (actions.jump) fadeToAction(actions.jump, 0.05, true, 1.67, 0.3);
       }
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
@@ -302,11 +314,13 @@ H.imp = {
     if (!propsLoading && src) {
       propsLoading = true;
       Promise.all([
-        KitFx.loadPropGlb(src.cannonGlbB64, CARRY_SIZE),
+        KitFx.loadPropGlb(src.barrelGlbB64 || src.cannonGlbB64, CARRY_SIZE),
         KitFx.loadPropGlb(src.cannonGlbB64, TURRET_SIZE),
-        KitFx.loadPropGlb(src.wrenchGlbB64, 0.55)
+        KitFx.loadPropGlb(src.wrenchGlbB64, WRENCH_SIZE)
       ]).then(([c1, c2, w]) => {
         cannonCarry = c1; cannonTurret = c2; wrench = w;
+        // grip point: slide the wrench so a spot just above its handle end (+X) sits at the holder origin
+        if (w && w.children[0]) w.children[0].position.x -= WRENCH_SIZE * 0.5 - WRENCH_GRIP;
         [c1, c2, w].forEach((p) => p && scene.add(p));
       });
     }
@@ -314,22 +328,45 @@ H.imp = {
       cannonCarry.visible = carrying() && !(pendingQ && pendingQ.kind === 'plant' && pendingQ.t < 0.15);
       if (cannonCarry.visible) {
         const kick = recoil * 0.12;
-        // cradled across his chest, barrel forward; pointed straight down during the rocket jump
-        const pitch = hero.impRocket ? -1.35 : 0.08;
-        KitFx.placeAtBone(cannonCarry, 'Spine2', { x: 0.05, y: hero.impRocket ? -0.25 : -0.22, z: 0.32 - kick }, { x: pitch, y: -Math.PI / 2, z: 0 });
+        // the bare barrel cradled across his chest, muzzle (-X) forward. Rocket jump: muzzle straight down under him,
+        // breech at his chest. (Pitch is about the barrel's side axis = local Z; local X is the barrel's length.)
+        if (hero.impRocket) {
+          KitFx.placeAtBone(cannonCarry, 'Spine2', { x: 0.02, y: -0.5, z: 0.22 }, { x: 0, y: Math.PI / 2, z: Math.PI / 2 - 0.12 });
+          rocketPuff -= 1 / 60;
+          if (rocketPuff <= 0) {
+            rocketPuff = 0.07;
+            const p = cannonCarry.position;
+            const puff = new THREE.Mesh(PUFF_GEO || (PUFF_GEO = new THREE.SphereGeometry(0.22, 8, 6)), new THREE.MeshBasicMaterial({ color: 0xd6d3d1, transparent: true, opacity: 0.6, depthWrite: false }));
+            puff.position.set(p.x, p.y - 0.5, p.z);
+            scene.add(puff);
+            puffs.push({ m: puff, t: 0.5 });
+          }
+        } else {
+          KitFx.placeAtBone(cannonCarry, 'Spine2', { x: 0.04, y: -0.2, z: 0.3 - kick }, { x: 0, y: Math.PI / 2, z: -0.06 });
+        }
       }
+    }
+    for (let i = puffs.length - 1; i >= 0; i--) {
+      const pf = puffs[i];
+      pf.t -= 1 / 60;
+      pf.m.scale.setScalar(1 + (0.5 - pf.t) * 3);
+      pf.m.material.opacity = Math.max(0, pf.t * 1.2);
+      if (pf.t <= 0) { scene.remove(pf.m); pf.m.material.dispose(); puffs.splice(i, 1); }
     }
     if (cannonTurret) {
       cannonTurret.visible = !!turret && activeHeroId === 'imp';
       if (turret) {
         const kick = (turret.kick || 0) * 0.15;
         cannonTurret.position.set(turret.x - Math.sin(turret.facing) * kick, TURRET_SIZE * 0.36, turret.z - Math.cos(turret.facing) * kick);
-        cannonTurret.rotation.set(0, turret.facing - Math.PI / 2, 0);
+        cannonTurret.rotation.set(0, turret.facing + Math.PI / 2, 0);
       }
     }
+    // Unburdened: right hand balls into a fist around the wrench handle
+    const fist = !carrying();
+    KitFx.curlHand('Right', fist ? 1 : 0);
     if (wrench) {
-      wrench.visible = !carrying();
-      if (wrench.visible) KitFx.placeAtBone(wrench, 'RightHand', { x: 0, y: -0.02, z: 0.1 }, { x: -Math.PI / 2, y: 0, z: 0 });
+      wrench.visible = fist;
+      if (fist) KitFx.seatInFist(wrench, 'Right', WRENCH_OFF, WRENCH_TWIST);
     }
     // body recoil: a quick shove back along his facing
     if (recoil > 0) heroTiltNode.position.z -= recoil * 0.18;

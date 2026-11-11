@@ -7,9 +7,12 @@
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
 let sawGun = null;          // world-space prop following the right hand
+let gunBlade = null;        // { holder, spin } code-built blade mounted on the gun's hub
 let sawGunLoading = false;
 let blade = null;           // R boomerang blade { mesh, out, t, sx, sz, ang, hitOut:Set, hitBack:Set, dmg }
 let sawTick = 0;
+const sparks = [];
+let SPARK_GEO = null, SPARK_MAT = null;
 
 function makeBladeMesh() {
   const g = new THREE.Group();
@@ -26,6 +29,7 @@ function makeBladeMesh() {
   const ring = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.03, 8, 24), new THREE.MeshBasicMaterial({ color: 0x4ade80 }));
   ring.rotation.x = Math.PI / 2;
   g.add(ring);
+  g.userData.ring = ring;
   return g;
 }
 
@@ -90,7 +94,7 @@ H.scientist = {
 
   // Movement clips: walk with the saw revved, run otherwise
   locomotion() {
-    return hero.sawOn ? { idle: 'crawl', move: 'crawl' } : null;
+    return hero.sawOn ? { idle: 'idle', move: 'crawl' } : null;
   },
   speedMult() {
     return hero.sawOn ? 0.75 : 1;
@@ -100,8 +104,8 @@ H.scientist = {
     if (hero.sawOn) return; // the saw is busy
     hero.atkTimer = 0.9 / (1 + st.asPct);
     hero.punchAnim = 0.34;
-    if (actions.punch) fadeToAction(actions.punch, 0.05, true, 2.0, 0.3);
-    pendingStrike = { isKick: false, facing: hero.facing, t: 0.16 };
+    if (actions.punch) fadeToAction(actions.punch, 0.05, true, 2.0, 0.15); // jab extends at clip 0.35s -> ~0.10s
+    pendingStrike = { isKick: false, facing: hero.facing, t: 0.1 };
   },
 
   onStrikeImpact(strike, ctx) {
@@ -128,16 +132,9 @@ H.scientist = {
     } else if (slot === 'E') {
       if (!wtfMode && hero.cdE > 0) return;
       hero.cdE = wtfMode ? 0.3 : 10 * cdrMult;
-      const cost = Math.round(hero.hp * 0.06);
-      hero.hp = Math.max(1, hero.hp - cost);
-      spawnFloat(hero.x, 2.4, hero.z, '-' + cost, '#fb7185');
-      hero.injectTimer = 4.0;
-      hero.injectHealPerSec = (cost * 1.6 + 30 + [0, 20, 40][rQE]) / 4.0;
-      hero.eSpeedBuffTimer = 2.0; // shared +25% move speed buff
-      hero.kickAnim = 0.4;
-      if (actions.kick) fadeToAction(actions.kick, 0.06, true, 2.2, 0.6);
-      SFX.play('chime');
-      spawnShockRing(hero.x, hero.z, 0x4ade80, 0.2, 1.2, 0.3);
+      hero.kickAnim = 0.65;
+      if (actions.kick) fadeToAction(actions.kick, 0.06, true, 2.2, 0.6); // bottle reaches his mouth at clip 1.73s -> ~0.5s
+      hero.pendingInject = { t: 0.5, rQE };
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
@@ -151,8 +148,10 @@ H.scientist = {
       hero.kickAnim = 0.45;
       if (actions.slide) fadeToAction(actions.slide, 0.06, true, 1.8, 0.5);
       const mesh = makeBladeMesh();
+      mesh.visible = false;
       scene.add(mesh);
       blade = {
+        delay: 0.24, // release frame of the throw (clip 0.93s)
         mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
         hitOut: new Set(), hitBack: new Set(), dmg: Math.round([120, 170, 220][Math.min(2, (pProg.level || 1) >= 12 ? 2 : (pProg.level || 1) >= 8 ? 1 : 0)] + st.atk * 0.6)
       };
@@ -161,6 +160,23 @@ H.scientist = {
   },
 
   tickTimers(dt) {
+    if (hero.pendingInject) {
+      hero.pendingInject.t -= dt;
+      if (hero.pendingInject.t <= 0) {
+        const rQE = hero.pendingInject.rQE;
+        hero.pendingInject = null;
+        if (activeHeroId === 'scientist') {
+          const cost = Math.round(hero.hp * 0.06);
+          hero.hp = Math.max(1, hero.hp - cost);
+          spawnFloat(hero.x, 2.4, hero.z, '-' + cost, '#fb7185');
+          hero.injectTimer = 4.0;
+          hero.injectHealPerSec = (cost * 1.6 + 30 + [0, 20, 40][rQE]) / 4.0;
+          hero.eSpeedBuffTimer = 2.0; // shared +25% move speed buff
+          SFX.play('chime');
+          spawnShockRing(hero.x, hero.z, 0x4ade80, 0.2, 1.2, 0.3);
+        }
+      }
+    }
     if (hero.injectTimer > 0) {
       hero.injectTimer -= dt;
       if (activeHeroId === 'scientist') hero.hp = Math.min(hero.maxHp, hero.hp + (hero.injectHealPerSec || 0) * dt);
@@ -188,6 +204,12 @@ H.scientist = {
   updateWorld(dt) {
     if (!blade) return;
     const b = blade;
+    if (b.delay > 0) {
+      b.delay -= dt;
+      if (b.delay > 0) return;
+      b.mesh.visible = true;
+      b.sx = hero.x; b.sz = hero.z; b.ang = hero.facing;
+    }
     b.t += dt;
     const sx = Math.sin(b.ang), sz = Math.cos(b.ang);
     let x, z;
@@ -250,11 +272,62 @@ H.scientist = {
       KitFx.placeAtBone(sawGun, 'RightHand', { x: 0.02, y: -0.02, z: 0.12 }, { x: 0, y: -Math.PI / 2, z: 0 });
       if (hero.sawOn) sawGun.rotation.z += Math.sin(performance.now() * 0.08) * 0.03; // rattle while revving
     }
+    if (!gunBlade) {
+      const holder = new THREE.Group();
+      const spin = makeBladeMesh();
+      spin.scale.setScalar(0.34);
+      const tilt = new THREE.Group();
+      tilt.rotation.z = Math.PI / 2; // disc stands vertical, edge facing forward
+      tilt.add(spin);
+      // glow halo that only shows while the saw is running
+      const glow = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.09, 8, 28), new THREE.MeshBasicMaterial({ color: 0x86efac, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+      glow.rotation.x = Math.PI / 2;
+      spin.add(glow);
+      holder.add(tilt);
+      scene.add(holder);
+      SPARK_GEO = new THREE.SphereGeometry(0.025, 5, 4);
+      SPARK_MAT = new THREE.MeshBasicMaterial({ color: 0xfde68a, blending: THREE.AdditiveBlending, transparent: true });
+      gunBlade = { holder, spin, glow, ring: spin.userData.ring, speed: 0, sparkT: 0 };
+    }
+    gunBlade.holder.visible = !blade;
+    if (!blade) {
+      KitFx.placeAtBone(gunBlade.holder, 'RightHand', { x: 0.02, y: 0.03, z: 0.52 }, { x: 0, y: 0, z: 0 });
+      // Off: blade parked, ring dark. On (Q): spins up hard, ring glows green, sparks fly. Jabs give it a quick buzz.
+      const want = hero.sawOn ? 1 : (hero.punchAnim > 0 ? 0.6 : 0);
+      const gb = gunBlade;
+      gb.speed = THREE.MathUtils.lerp(gb.speed, want, want > gb.speed ? 0.25 : 0.06);
+      gb.spin.rotation.y += gb.speed * 0.95;
+      const on = hero.sawOn ? 1 : 0;
+      const pulse = 0.75 + Math.sin(performance.now() * 0.03) * 0.25;
+      gb.ring.material.color.setHex(gb.speed > 0.3 ? 0x4ade80 : 0x3f4a44);
+      gb.glow.material.opacity = on * 0.55 * pulse;
+      if (on) {
+        gb.sparkT -= 1 / 60;
+        if (gb.sparkT <= 0) {
+          gb.sparkT = 0.12 + Math.random() * 0.1;
+          for (let k = 0; k < 3; k++) {
+            const m = new THREE.Mesh(SPARK_GEO, SPARK_MAT);
+            m.position.copy(gb.holder.position);
+            const a = Math.random() * Math.PI * 2;
+            sparks.push({ m, vx: Math.cos(a) * 2.2, vy: 1.5 + Math.random() * 2, vz: Math.sin(a) * 2.2, t: 0.3 });
+            scene.add(m);
+          }
+        }
+      }
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const sp = sparks[i];
+        sp.t -= 1 / 60;
+        sp.vy -= 9.8 / 60;
+        sp.m.position.x += sp.vx / 60; sp.m.position.y += sp.vy / 60; sp.m.position.z += sp.vz / 60;
+        if (sp.t <= 0) { scene.remove(sp.m); sparks.splice(i, 1); }
+      }
+    }
     return true;
   },
 
   onSwitchedAway() {
     if (sawGun) sawGun.visible = false;
+    if (gunBlade) gunBlade.holder.visible = false;
     hero.sawOn = false;
   },
 

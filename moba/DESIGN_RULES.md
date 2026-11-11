@@ -120,7 +120,7 @@ Almost every distribution question (mobility, CC, shields and speed, what talent
 - **Passive (Fairy Dust):** keep. **Only Q pops create dust**: a patch for 3.5s that heals allies standing inside over time, and becomes Dreamdust during R.
 - **LMB (Glimmer Dart):** keep; a light Attack-damage poke (support filler is fine).
 - **Q (Pop! Bubble):** a **slow lob to a target spot** (~0.6s visible flight, so enemies can dodge). It pops over a **~2.5m area**: enemies inside take Ability damage and a 2s slow, allies inside get a shield, and the pop area becomes a dust patch. Prediction is the skill.
-- **E (Pixie Hop) → 2-charge targeted blink.** **2 charges (~10s each)**, blink to **any unit within ~7m**, enemy or ally. **You can't hop to the same unit again until the charge used on it has recharged.** Enemy: minor Ability damage + **1s silence**. Ally: pure reposition. Hops leave no dust. (Sorceress's E also has 2 charges; fine: hers is a free-direction step, Fairy's is a targeted unit blink.)
+- **E (Pixie Hop) → 2-charge targeted blink.** **2 charges (~10s each)**, blink to **any unit within ~7m**, enemy or ally. **You can't hop to the same unit again until the charge used on it has recharged.** Enemy: minor Ability damage + **1s silence**. Ally: pure reposition. **Each hop drops a Fairy Dust patch at the target** (user correction, 2026-11-10). (Sorceress's E also has 2 charges; fine: hers is a free-direction step, Fairy's is a targeted unit blink.)
 - **R (Lullaby Glamour):** **casting bursts a ~4m Dreamdust ring around her**, and for **10s all her dust, including new Q patches, is Dreamdust**: enemies inside fall asleep for 2s, woken early by damage. Reliable every time; lobbing Q during R is the skill.
 
 ## Pit Brawler ✅

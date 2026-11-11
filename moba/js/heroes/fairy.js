@@ -34,6 +34,7 @@ function makeWings() {
     pivot.userData.side = side;
     g.add(pivot);
   });
+  g.scale.setScalar(0.75); // sized for her smaller 1.15m body
   g.userData.isFairyWings = true;
   scene.add(g);
   return g;
@@ -62,18 +63,42 @@ function nearestUnitTo(x, z, maxDist, includeAllies) {
   return best;
 }
 
-function spawnDust(x, z, r, life) {
+let dustTex = null;
+function softBlobTexture() {
+  if (dustTex) return dustTex;
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(64, 64, 4, 64, 64, 62);
+  grad.addColorStop(0, 'rgba(255,255,255,1)');
+  grad.addColorStop(0.55, 'rgba(255,255,255,0.55)');
+  grad.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 128, 128);
+  dustTex = new THREE.CanvasTexture(c);
+  return dustTex;
+}
+let _limbAxis = null;
+function spawnDust(x, z, r, life, ring = false) {
   const grp = new THREE.Group();
-  const disc = new THREE.Mesh(
-    new THREE.CircleGeometry(r, 32),
-    new THREE.MeshBasicMaterial({ color: 0x86efac, transparent: true, opacity: 0.22, depthWrite: false })
-  );
-  disc.rotation.x = -Math.PI / 2;
-  disc.position.y = 0.05;
-  grp.add(disc);
-  for (let i = 0; i < 18; i++) {
+  const disc = new THREE.MeshBasicMaterial({ color: 0x86efac, map: softBlobTexture(), transparent: true, opacity: 0.32, depthWrite: false });
+  // overlapping soft blobs: a loose ring for R, a lumpy patch otherwise
+  const n = ring ? 14 : 6;
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2 + Math.random() * 0.6;
+    const rr = ring ? r * (0.72 + Math.random() * 0.22) : r * Math.random() * 0.45;
+    const br = ring ? r * (0.22 + Math.random() * 0.14) : r * (0.5 + Math.random() * 0.3);
+    const blob = new THREE.Mesh(new THREE.CircleGeometry(br, 20), disc);
+    blob.rotation.x = -Math.PI / 2;
+    blob.scale.set(1 + Math.random() * 0.4, 1, 1);
+    blob.rotation.z = Math.random() * Math.PI;
+    blob.position.set(Math.cos(a) * rr, 0.05 + i * 0.002, Math.sin(a) * rr);
+    grp.add(blob);
+  }
+  for (let i = 0; i < (ring ? 36 : 18); i++) {
     const s = new THREE.Mesh(new THREE.OctahedronGeometry(0.06, 0), new THREE.MeshBasicMaterial({ color: 0xfef9c3 }));
-    const a = Math.random() * Math.PI * 2, rr = Math.random() * r;
+    s.userData.sparkle = true;
+    const a = Math.random() * Math.PI * 2, rr = ring ? r * (0.6 + Math.random() * 0.4) : Math.random() * r;
     s.position.set(Math.cos(a) * rr, 0.2 + Math.random() * 1.0, Math.sin(a) * rr);
     s.userData.phase = Math.random() * 6;
     grp.add(s);
@@ -96,7 +121,8 @@ H.fairy = {
     overlay: {
       punch: { from: 'idle', bones: /^(Hips|LeftUpLeg|LeftLeg|LeftFoot|LeftToeBase|RightUpLeg|RightLeg|RightFoot|RightToeBase)$/ },
       kick: { from: 'idle', bones: /^(Hips|LeftUpLeg|LeftLeg|LeftFoot|LeftToeBase|RightUpLeg|RightLeg|RightFoot|RightToeBase)$/ },
-      slide: { from: 'idle', bones: /^(Hips|LeftUpLeg|LeftLeg|LeftFoot|LeftToeBase|RightUpLeg|RightLeg|RightFoot|RightToeBase)$/ }
+      // the twirl lives in the Hips rotation, so only the legs keep the hover pose here
+      slide: { from: 'idle', bones: /^(LeftUpLeg|LeftLeg|LeftFoot|LeftToeBase|RightUpLeg|RightLeg|RightFoot|RightToeBase)$/ }
     }
   },
 
@@ -106,7 +132,7 @@ H.fairy = {
     role: 'Support • Ranged Enchanter',
     glyph: 'F',
     color: '#34d399',
-    height: 1.55,
+    height: 1.15,
     baseHp: 1080, hpGrow: 88,
     baseMp: 440, mpGrow: 40, mpRegen: 7.5,
     baseAtk: 30, atkGrow: 1.8,
@@ -125,7 +151,7 @@ H.fairy = {
   },
 
   ui: {
-    height: 1.55,
+    height: 1.15,
     modelLabel: 'Little Fairy (Mixamo Rigged)',
     glyph: 'F',
     color: '#34d399',
@@ -155,14 +181,14 @@ H.fairy = {
     hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
     hero.atkTimer = 0.86 / (1 + st.asPct);
     hero.punchAnim = 0.32;
-    if (actions.punch) fadeToAction(actions.punch, 0.05, true, 1.9, 0.35);
+    if (actions.punch) fadeToAction(actions.punch, 0.05, true, 1.6, 0.2); // point extends at clip 0.45s -> ~0.16s
     const dmg = Math.round(st.atk * 1.0);
     const facing = hero.facing;
     setTimeout(() => {
       if (activeHeroId !== 'fairy') return;
       SFX.play('chime');
       const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.12, 0), new THREE.MeshBasicMaterial({ color: 0xbbf7d0 }));
-      KitFx.spawnBolt(facing, dmg, { mesh: m, speed: 20, life: 0.5, y: 1.3 + HOVER, dmgType: 'physical' });
+      KitFx.spawnBolt(facing, dmg, { mesh: m, speed: 12.5, life: 0.75, y: 1.3 + HOVER, dmgType: 'physical' });
     }, 160);
   },
 
@@ -172,8 +198,8 @@ H.fairy = {
       if (!wtfMode && hero.cdQ > 0) return;
       if (!trySpendMana('Q')) return;
       hero.cdQ = wtfMode ? 0.3 : 6.5 * cdrMult;
-      hero.kickAnim = 0.5;
-      if (actions.kick) fadeToAction(actions.kick, 0.06, true, 1.8, 0.4);
+      hero.kickAnim = 0.55;
+      if (actions.kick) fadeToAction(actions.kick, 0.06, true, 1.6, 1.65); // kiss at clip 1.93s, blow ~2.2s -> release at ~0.34s
       const dx = aimWorld.x - hero.x, dz = aimWorld.z - hero.z;
       const dist = Math.min(9, Math.hypot(dx, dz) || 0.01);
       const ang = Math.atan2(dx, dz);
@@ -181,12 +207,12 @@ H.fairy = {
         new THREE.SphereGeometry(0.42, 18, 14),
         new THREE.MeshBasicMaterial({ color: 0xa7f3d0, transparent: true, opacity: 0.45, depthWrite: false })
       );
+      mesh.visible = false;
       scene.add(mesh);
       pendingBubble = {
         mesh, sx: hero.x, sz: hero.z, tx: hero.x + Math.sin(ang) * dist, tz: hero.z + Math.cos(ang) * dist,
-        t: 0, dur: 0.6, dmg: Math.round([60, 90, 120][rQE] + (st.fant || 0) * 0.6)
+        delay: 0.34, t: 0, dur: 0.6, dmg: Math.round([60, 90, 120][rQE] + (st.fant || 0) * 0.6)
       };
-      SFX.play('chime');
     } else if (slot === 'E') {
       hero.hopCharges = hero.hopCharges === undefined ? 2 : hero.hopCharges;
       if (!wtfMode && hero.hopCharges <= 0) return;
@@ -207,6 +233,7 @@ H.fairy = {
       hero.z = target.z - Math.cos(ang) * 1.1;
       hero.facing = ang;
       spawnShockRing(hero.x, hero.z, 0x86efac, 0.2, 1.3, 0.25);
+      spawnDust(target.x, target.z, 2.5, 3.5);
       SFX.play('dash');
       if (target.enemy) {
         const dmg = Math.round(30 + (st.fant || 0) * 0.3);
@@ -226,14 +253,17 @@ H.fairy = {
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.5 : 48 * cdrMult;
-      hero.kickAnim = 0.9;
-      if (actions.slide) fadeToAction(actions.slide, 0.08, true, 1.6, 0.6);
+      hero.kickAnim = 0.75;
+      if (actions.slide) fadeToAction(actions.slide, 0.06, true, 1.6, 1.25); // just the second spin (clip ~1.25-2.5s)
       lullabyTimer = 10;
       dustPatches.forEach((p) => { p.dream = true; });
-      spawnDust(hero.x, hero.z, 4.0, 10);
-      spawnShockRing(hero.x, hero.z, 0xc4b5fd, 0.4, 4.2, 0.5);
       spawnFloat(hero.x, 3.0, hero.z, 'LULLABY!', '#c4b5fd');
-      SFX.play('arena');
+      setTimeout(() => {
+        if (activeHeroId !== 'fairy') return;
+        spawnDust(hero.x, hero.z, 4.0, 10, true);
+        spawnShockRing(hero.x, hero.z, 0xc4b5fd, 0.4, 4.2, 0.5);
+        SFX.play('arena');
+      }, 400);
     }
   },
 
@@ -255,6 +285,12 @@ H.fairy = {
   updateWorld(dt) {
     if (pendingBubble) {
       const b = pendingBubble;
+      if (b.delay > 0) {
+        b.delay -= dt;
+        if (b.delay > 0) return;
+        b.mesh.visible = true;
+        SFX.play('chime');
+      }
       b.t += dt;
       const u = Math.min(1, b.t / b.dur);
       b.mesh.position.set(b.sx + (b.tx - b.sx) * u, 1.6 + Math.sin(u * Math.PI) * 2.2, b.sz + (b.tz - b.sz) * u);
@@ -276,12 +312,20 @@ H.fairy = {
       const p = dustPatches[i];
       p.t -= dt;
       if (lullabyTimer > 0) p.dream = true;
-      p.disc.material.color.setHex(p.dream ? 0xc4b5fd : 0x86efac);
-      p.disc.material.opacity = 0.22 * Math.min(1, p.t / 0.6);
-      p.grp.children.forEach((c, k) => { if (k > 0) c.position.y = 0.3 + Math.sin(performance.now() * 0.002 + c.userData.phase) * 0.3 + 0.5; });
-      // Heal the Fairy (and later allies) standing inside
+      p.disc.color.setHex(p.dream ? 0xc4b5fd : 0x86efac);
+      p.disc.opacity = 0.32 * Math.min(1, p.t / 0.6);
+      p.grp.children.forEach((c) => { if (c.userData.sparkle) c.position.y = 0.3 + Math.sin(performance.now() * 0.002 + c.userData.phase) * 0.3 + 0.5; });
+      // Heal the Fairy and allied bots standing inside
       if (activeHeroId === 'fairy' && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r) {
         hero.hp = Math.min(hero.maxHp, hero.hp + 18 * dt);
+      }
+      if (phase1Engine) {
+        phase1Engine.getAlliedTargets().forEach((a) => {
+          const b = a.ref;
+          if (b.hp > 0 && b.hp < b.maxHp && Math.hypot(a.x - p.x, a.z - p.z) <= p.r + (a.r || 0.5) * 0.5) {
+            b.hp = Math.min(b.maxHp, b.hp + 18 * dt);
+          }
+        });
       }
       // Dreamdust: enemies inside fall asleep (stun stand-in; damage would wake them once sleep exists)
       if (p.dream) {
@@ -301,14 +345,61 @@ H.fairy = {
   // Hover + lean + wing flap (runs after the mixer each frame)
   postMixer() {
     const t = performance.now() * 0.001;
-    heroTiltNode.position.y += HOVER + Math.sin(t * 2.4) * 0.08;
-    heroTiltNode.rotation.x += isMovingNow ? 0.28 : 0.0;
+    const dt = Math.min(0.05, t - (hero.fairyLastT || t));
+    hero.fairyLastT = t;
+    // bank into turns from how fast the facing is changing
+    let dYaw = heroPivot.rotation.y - (hero.fairyLastYaw === undefined ? heroPivot.rotation.y : hero.fairyLastYaw);
+    while (dYaw > Math.PI) dYaw -= Math.PI * 2;
+    while (dYaw < -Math.PI) dYaw += Math.PI * 2;
+    hero.fairyLastYaw = heroPivot.rotation.y;
+    const bankTarget = dt > 0 ? THREE.MathUtils.clamp(-dYaw / dt * 0.06, -0.45, 0.45) : 0;
+    hero.fairyBank = THREE.MathUtils.lerp(hero.fairyBank || 0, bankTarget, Math.min(1, dt * 6));
+    // pitch eases into a forward lean and swings slightly back when she stops
+    const pitchTarget = isMovingNow ? 0.32 : (hero.fairyWasMoving ? -0.12 : 0.0);
+    if (!isMovingNow && hero.fairyWasMoving) hero.fairyStopT = 0.35;
+    hero.fairyWasMoving = isMovingNow && true;
+    hero.fairyStopT = Math.max(0, (hero.fairyStopT || 0) - dt);
+    hero.fairyPitch = THREE.MathUtils.lerp(hero.fairyPitch || 0, hero.fairyStopT > 0 ? -0.12 : pitchTarget, Math.min(1, dt * 4));
+    const flapHz = isMovingNow ? 4.2 : 2.2;
+    const flapPh = hero.fairyFlapPh = ((hero.fairyFlapPh || 0) + dt * flapHz * Math.PI * 2) % (Math.PI * 2);
+    const pump = Math.max(0, Math.sin(flapPh)) * 0.035; // little lift on each downstroke
+    heroTiltNode.position.y += HOVER + Math.sin(t * 1.6) * 0.13 + pump;
+    heroTiltNode.rotation.x += hero.fairyPitch;
+    heroTiltNode.rotation.z += hero.fairyBank + Math.sin(t * 0.9) * (isMovingNow ? 0.02 : 0.06);
+    heroTiltNode.rotation.y += Math.sin(t * 0.7) * (isMovingNow ? 0 : 0.08);
+    // Limbs: the clips leave her arms and legs doll-still, so add a flutter on top.
+    // Flying: legs trail back and scissor-kick, knees bent, arms swept back with a little swing.
+    // Hovering: legs dangle and kick lazily, arms drift.
+    const mw = hero.fairyMoveW = THREE.MathUtils.lerp(hero.fairyMoveW || 0, isMovingNow ? 1 : 0, Math.min(1, dt * 5));
+    const casting = hero.kickAnim > 0 || hero.punchAnim > 0;
+    const aw = hero.fairyArmW = THREE.MathUtils.lerp(hero.fairyArmW === undefined ? 1 : hero.fairyArmW, casting ? 0 : 1, Math.min(1, dt * (casting ? 14 : 4)));
+    const yaw = heroPivot.rotation.y;
+    const side = _limbAxis || (_limbAxis = new THREE.Vector3());
+    side.set(Math.cos(yaw), 0, -Math.sin(yaw)); // + angle swings a hanging limb backward
+    // fade the legs out during casts too (spins/kisses twist the hips, and the world-space swing would pinwheel)
+    // integrate the phase (t * freq would race through cycles whenever freq changes, since t is huge)
+    const kickHz = 0.7 + mw * 0.35;
+    const ph = hero.fairyLegPh = ((hero.fairyLegPh || 0) + dt * kickHz * Math.PI * 2) % (Math.PI * 2);
+    const legBack = aw * (0.06 + mw * 0.16);
+    const legAmp = aw * (0.06 + mw * 0.04);
+    const kneeBase = aw * (0.25 + mw * 0.25), kneeKick = aw * (0.1 + mw * 0.06);
+    KitFx.swingBone('LeftUpLeg', side, legBack + Math.sin(ph) * legAmp);
+    KitFx.swingBone('RightUpLeg', side, legBack - Math.sin(ph) * legAmp);
+    KitFx.swingBone('LeftLeg', side, kneeBase + Math.max(0, Math.sin(ph + 0.9)) * kneeKick);
+    KitFx.swingBone('RightLeg', side, kneeBase + Math.max(0, -Math.sin(ph + 0.9)) * kneeKick);
+    if (aw > 0.01) {
+      const armSwing = Math.sin(ph + 0.6);
+      KitFx.swingBone('LeftArm', side, aw * (mw * 0.45 + armSwing * (0.06 + mw * 0.06)));
+      KitFx.swingBone('RightArm', side, aw * (mw * 0.45 - armSwing * (0.06 + mw * 0.06)));
+      KitFx.swingBone('LeftForeArm', side, -aw * (0.2 + Math.sin(t * 2.1) * 0.08));
+      KitFx.swingBone('RightForeArm', side, -aw * (0.2 + Math.sin(t * 2.1 + 1.3) * 0.08));
+    }
     if (!wings) wings = makeWings();
     const spine = KitFx.bone('Spine2');
     if (spine) {
       wings.visible = true;
       KitFx.placeAtBone(wings, 'Spine2', { x: 0, y: 0.05, z: -0.16 }, { x: isMovingNow ? 0.3 : 0.05, y: 0, z: 0 });
-      const flap = Math.sin(t * (isMovingNow ? 26 : 14)) * 0.45;
+      const flap = Math.sin(flapPh) * 0.45;
       wings.children.forEach((w) => { w.rotation.y = w.userData.side * (0.35 + flap); });
     }
   },

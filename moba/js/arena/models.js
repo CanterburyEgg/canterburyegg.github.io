@@ -239,7 +239,7 @@ function prepareClipForModel(sourceClip, model, slot, tweaksOverride) {
         }
         // For Bodyguard's & Panther's E Leap ('jump'), heroPivot.position.y (airborneY) already drives the parabolic leap arc,
         // so clamp any duplicate upward Hips hop while preserving the landing crouch compression!
-        vals[k + 1] = (clipTw.jumpClampHips && slot === 'jump') ? Math.min(hy, rawY) : rawY;
+        vals[k + 1] = (clipTw.jumpClampHips && /^jump/.test(slot)) ? Math.min(hy, rawY) : rawY;
         vals[k + 2] = hz + dz;
       }
       keptTracks.push(tr);
