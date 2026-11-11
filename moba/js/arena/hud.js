@@ -121,6 +121,14 @@ btnSh.addEventListener('click', () => {
   shooterEnabled = !shooterEnabled;
   btnSh.classList.toggle('toggled', shooterEnabled);
 });
+const btnBots = document.getElementById('btn-bots-3d');
+let botsEnabled = true;
+if (btnBots) btnBots.addEventListener('click', () => {
+  if (!phase1Engine || !phase1Engine.setBotsEnabled) return;
+  botsEnabled = !botsEnabled;
+  phase1Engine.setBotsEnabled(botsEnabled);
+  btnBots.classList.toggle('toggled', botsEnabled);
+});
 const btnWtf = document.getElementById('btn-wtf-3d');
 btnWtf.addEventListener('click', () => {
   wtfMode = !wtfMode;

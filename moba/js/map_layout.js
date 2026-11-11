@@ -7,11 +7,17 @@ window.MOBA_MAP = (function () {
   'use strict';
   const W = 160; // x: -80 .. 80
   const H = 110; // z: -55 .. 55
-  const BOUNDS = { minX: -78, maxX: 78, minZ: -47, maxZ: 52 };
+  const BOUNDS = { minX: -78, maxX: 78, minZ: -51, maxZ: 52 }; // minZ reaches the lookout deck; northMinZ() keeps the chasm off-limits
 
   // ---- Key lines --------------------------------------------------------
   const TOP_Z = -40;          // top lane (bridge road) centerline
-  const BRIDGE_HALF = 3.2;    // road half-width; railings sit just outside
+  const BRIDGE_HALF = 3.2;
+  const LANE_GAP_HALF = 2.4;
+  const T2_GAP_X = 46;
+  // Lookout deck: a railed trapezoid jutting north off the bridge at mid-span (between the T1 towers), over the chasm
+  const RAIL_Z = TOP_Z - BRIDGE_HALF - 0.4;
+  const DECK = { mouthHalf: 9, backHalf: 6.5, backZ: RAIL_Z - 6.8, wallHalf: 5 }; // entrances: wallHalf..mouthHalf on each side
+  const T2_GAP_X_ = 0;        // |x| of the T2 towers: a wall break opens to the jungle right in front of each  // half-width of each crumbled break in the top lane's south wall    // road half-width; railings sit just outside
   const CASTLE = { x0: 52, x1: 79, z0: -48, z1: -6 }; // |x| range and z range of each castle's walls
   const UPPER_GATE_Z = TOP_Z; // gate in the castle's inner (east/west) wall, opening |z - TOP_Z| < 3
   const SIDE_GATE_X = 60;     // gate in the castle's south wall, opening ||x| - 60| < 3
@@ -123,7 +129,35 @@ window.MOBA_MAP = (function () {
       add(xo, CASTLE.z1, xo, CASTLE.z0, 'castle', team);
     });
     // Bridge railings: north side along the whole road (the drop), south side over the hollow
-    add(-CASTLE.x0, TOP_Z - BRIDGE_HALF - 0.4, CASTLE.x0, TOP_Z - BRIDGE_HALF - 0.4, 'rail');
+    // (open in the middle where the lookout deck juts out; the deck has its own railing on three sides)
+    add(-CASTLE.x0, RAIL_Z, -DECK.mouthHalf, RAIL_Z, 'rail');
+    add(DECK.mouthHalf, RAIL_Z, CASTLE.x0, RAIL_Z, 'rail');
+    add(-DECK.mouthHalf, RAIL_Z, -DECK.backHalf, DECK.backZ, 'rail');
+    add(-DECK.backHalf, DECK.backZ, DECK.backHalf, DECK.backZ, 'rail');
+    add(DECK.backHalf, DECK.backZ, DECK.mouthHalf, RAIL_Z, 'rail');
+    // Deck mouth: a solid stone wall across the middle with an entrance on either side  =====/__|====|__\=====
+    // so the back of the deck has no line of sight to the top lane
+    segs.push({ x0: -DECK.wallHalf, z0: RAIL_Z, x1: DECK.wallHalf, z1: RAIL_Z, kind: 'lanewall', crumble0: false, crumble1: false });
+    // South lane wall: castle to castle, broken (crumbled) where the two jungle Y paths leave the road.
+    //   ====\__/========\__/====   Gap edges get crumble flags so the renderer tapers them into rubble.
+    const LW_Z = TOP_Z + BRIDGE_HALF + 0.6;
+    const gap = (sign) => {
+      const p = JUNGLE_PATHS[sign < 0 ? 0 : 1];
+      const t = (LW_Z - p[0].z) / (p[1].z - p[0].z);
+      const x = p[0].x + (p[1].x - p[0].x) * t;      // where the Y path crosses the wall line
+      // a = outer edge (toward the castle), b = inner edge, which stops at the hollow's corner cliff
+      const inner = x - LANE_GAP_HALF * sign;
+      return { a: x + LANE_GAP_HALF * sign, b: sign < 0 ? Math.min(inner, -HOLLOW.halfTop) : Math.max(inner, HOLLOW.halfTop) };
+    };
+    const gl = gap(-1), gr = gap(1);
+    const lw = (x0, x1, c0, c1) => segs.push({ x0, z0: LW_Z, x1, z1: LW_Z, kind: 'lanewall', crumble0: c0, crumble1: c1 });
+    // plus a break right in front of each T2 tower
+    const t2 = T2_GAP_X;
+    lw(-CASTLE.x0, -t2 - LANE_GAP_HALF, false, true);
+    lw(-t2 + LANE_GAP_HALF, gl.a, true, true);
+    lw(gl.b, gr.b, true, true);
+    lw(gr.a, t2 - LANE_GAP_HALF, true, true);
+    lw(t2 + LANE_GAP_HALF, CASTLE.x0, true, false);
     // Hollow: top cliff under the bridge, two side cliffs ending short of the tip (the entrance)
     const sideEnd = (sign) => {
       // point along the side edge where |x| = entranceHalf
@@ -240,6 +274,7 @@ window.MOBA_MAP = (function () {
     both({ x: -63, z: -27 });                   // courtyard center
     both({ x: -56, z: TOP_Z });                 // upper gate inner
     both({ x: -48, z: TOP_Z });                 // upper gate outer
+    both({ x: -T2_GAP_X, z: TOP_Z + BRIDGE_HALF + 3.5 }); // jungle side of the T2 wall break
     both({ x: -SIDE_GATE_X, z: -10 });          // side gate inner
     both({ x: -SIDE_GATE_X, z: -1 });           // side gate outer
     LANE_WAYPOINTS.top.forEach((p) => n.push({ x: p.x, z: p.z }));
@@ -305,13 +340,26 @@ window.MOBA_MAP = (function () {
     return { x: p.x, z: p.z };
   }
 
+  // Northmost z a unit may stand at for a given x: the bridge railing, except on the lookout deck (leaps can't land
+  // in the chasm). Inside the castles the castle walls already bound things.
+  function northMinZ(x) {
+    const ax = Math.abs(x);
+    if (ax > CASTLE.x0) return BOUNDS.minZ;
+    if (ax <= DECK.backHalf) return DECK.backZ + 0.6;
+    if (ax < DECK.mouthHalf) {
+      const t = (ax - DECK.backHalf) / (DECK.mouthHalf - DECK.backHalf);
+      return DECK.backZ + (RAIL_Z - DECK.backZ) * t + 0.6;
+    }
+    return RAIL_Z + 0.6;
+  }
+
   // Look-only elevation (Stage B fills this in; gameplay stays flat)
   function groundHeight(x, z) {
     return 0;
   }
 
   return {
-    W, H, BOUNDS, TOP_Z, BRIDGE_HALF, CASTLE, UPPER_GATE_Z, SIDE_GATE_X, GATE_HALF, HOLLOW, BASE,
+    W, H, BOUNDS, TOP_Z, BRIDGE_HALF, RAIL_Z, DECK, northMinZ, CASTLE, UPPER_GATE_Z, SIDE_GATE_X, GATE_HALF, HOLLOW, BASE,
     teamPoint, LANE_WAYPOINTS, JUNGLE_PATHS, WALLS,
     buildInitialStructures, buildJungleCamps, buildMapObstacles, wallCircles,
     segmentBlockedByWalls, navNextPoint, inHollow, inCastle, distToPolyline, groundHeight

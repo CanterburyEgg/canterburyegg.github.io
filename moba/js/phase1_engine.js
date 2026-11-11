@@ -126,6 +126,39 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     // Check if world point (tx, tz) is visible to Team 0 (Order)
+    function updateSpyglass(dt) {
+      const sg = spyglass;
+      sg.cd = Math.max(0, sg.cd - dt);
+      sg.revealT = Math.max(0, sg.revealT - dt);
+      const near = playerProg.respawnTimer <= 0 && Math.hypot(hero.x - sg.x, hero.z - sg.z) <= SPY_RANGE;
+      if (near && sg.cd <= 0 && !ctx.isPlayerMoving()) {
+        if (sg.channel === 0) spawnFloat(sg.x, 2.4, sg.z, 'SPYING...', '#fde68a');
+        sg.channel += dt;
+        if (sg.channel >= SPY_CHANNEL) {
+          sg.channel = 0;
+          sg.revealT = SPY_REVEAL;
+          sg.cd = SPY_CD;
+          SFX.play('chime');
+          spawnFloat(MAP.HOLLOW.boss.x, 3.2, MAP.HOLLOW.boss.z, 'BOSS PIT REVEALED!', '#fde68a');
+          spawnShockRing(MAP.HOLLOW.boss.x, MAP.HOLLOW.boss.z, 0xfde68a, 1.0, 9.0, 0.6);
+        }
+      } else if (sg.channel > 0) {
+        sg.channel = 0;
+      }
+      // visuals: lens glows when ready, ring fills while channeling, the pit glows faintly while revealed
+      const ready = sg.cd <= 0;
+      sg.lens.material.color.setHex(ready ? 0x7dd3fc : 0x334155);
+      sg.brass.emissive.setHex(ready && near ? 0x3b2a08 : 0x000000);
+      sg.ring.visible = sg.channel > 0;
+      if (sg.ring.visible) {
+        const u = sg.channel / SPY_CHANNEL;
+        sg.ring.scale.setScalar(0.4 + u * 0.6);
+        sg.ring.material.opacity = 0.4 + u * 0.5;
+      }
+      sg.head.rotation.y = Math.sin(performance.now() * 0.0004) * 0.25; // idle sweep
+      sg.tint.material.opacity = sg.revealT > 0 ? 0.12 * Math.min(1, sg.revealT / 0.8) : 0;
+    }
+
     function isPointVisibleToOrder(tx, tz) {
       if (!matchMode) return true;
       // 1. Order Fountain / Base vision
@@ -161,7 +194,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (d <= 10.5 && !segmentBlockedByObstacle(m.x, m.z, tx, tz)) return true;
       }
 
-      // 6. Allied Observer Wards vision (16.0m unobstructed!)
+      // 6. Lookout Spyglass: the boss pit while revealed
+      if (spyglass.revealT > 0 && MAP.inHollow(tx, tz)) return true;
+
+      // 7. Allied Observer Wards vision (16.0m unobstructed!)
       for (let i = 0; i < wards.length; i++) {
         const w = wards[i];
         if (Math.hypot(tx - w.x, tz - w.z) <= 16.0 && !segmentBlockedByObstacle(w.x, w.z, tx, tz)) return true;
@@ -204,6 +240,60 @@ window.MOBA_PHASE1_ENGINE = (function () {
     );
     recallRingMesh.visible = false;
     scene.add(recallRingMesh);
+
+    // Lookout Spyglass on the bridge deck: stand still at it for SPY_CHANNEL s to reveal the boss pit for SPY_REVEAL s.
+    // Code-built stand-in (brass tube on a tripod); swap for a real prop later.
+    const SPY_CHANNEL = 1.5, SPY_REVEAL = 6.0, SPY_CD = 30.0, SPY_RANGE = 1.7;
+    const spyglass = (function () {
+      const D = MAP.DECK;
+      const x = 0, z = D.backZ + 1.4;
+      const g = new THREE.Group();
+      const wood = new THREE.MeshStandardMaterial({ color: 0x5b3d24, roughness: 0.85 });
+      const brass = new THREE.MeshStandardMaterial({ color: 0xc8a14a, metalness: 0.75, roughness: 0.35, emissive: 0x000000 });
+      for (let i = 0; i < 3; i++) {
+        const a = (i / 3) * Math.PI * 2;
+        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 1.35, 6), wood);
+        leg.position.set(Math.sin(a) * 0.28, 0.62, Math.cos(a) * 0.28);
+        leg.rotation.set(Math.cos(a) * 0.38, 0, -Math.sin(a) * 0.38);
+        leg.castShadow = true;
+        g.add(leg);
+      }
+      const head = new THREE.Group();
+      head.position.y = 1.32;
+      const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.13, 1.1, 14), brass);
+      tube.rotation.x = Math.PI / 2;
+      tube.castShadow = true;
+      head.add(tube);
+      const eye = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.2, 10), brass);
+      eye.rotation.x = Math.PI / 2;
+      eye.position.z = -0.62;
+      head.add(eye);
+      const lens = new THREE.Mesh(new THREE.CircleGeometry(0.12, 16), new THREE.MeshBasicMaterial({ color: 0x7dd3fc }));
+      lens.position.z = 0.56;
+      head.add(lens);
+      head.rotation.x = 0.12; // aimed south, out over the valley, tipped down a touch
+      g.add(head);
+      g.position.set(x, 0, z);
+      scene.add(g);
+      // channel ring (fills up while spying)
+      const ring = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.05, 40, 1, 0, Math.PI * 2), new THREE.MeshBasicMaterial({ color: 0xfde68a, side: THREE.DoubleSide, transparent: true, opacity: 0.8 }));
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.set(x, 0.06, z);
+      ring.visible = false;
+      scene.add(ring);
+      // reveal marker over the hollow
+      const H = MAP.HOLLOW;
+      const sh = new THREE.Shape();
+      sh.moveTo(-H.halfTop, -H.top);
+      sh.lineTo(H.halfTop, -H.top);
+      sh.lineTo(0, -H.tipZ);
+      sh.closePath();
+      const tint = new THREE.Mesh(new THREE.ShapeGeometry(sh), new THREE.MeshBasicMaterial({ color: 0xfde68a, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide }));
+      tint.rotation.x = -Math.PI / 2; // shape y -> world -z, so the shape was built with z negated
+      tint.position.y = 0.07;
+      scene.add(tint);
+      return { x, z, g, head, brass, lens, ring, tint, channel: 0, revealT: 0, cd: 0 };
+    })();
 
     const bossAuraPlayer = new THREE.Mesh(
       new THREE.RingGeometry(0.85, 1.08, 36),
@@ -526,6 +616,40 @@ window.MOBA_PHASE1_ENGINE = (function () {
             const t = i / n;
             addBox(sandMat, 0.9, 1.4, 0.9, w.x0 + dx * t, 0.7, w.z0 + dz * t);
           }
+        } else if (w.kind === 'lanewall') {
+          // Low stone wall along the top lane's south side; ends next to a jungle break crumble into rubble
+          const LW_H = 1.9, LW_D = 0.9, CR = 3.2; // height, depth, crumble length
+          const ux = dx / len, uz = dz / len;
+          const s0 = w.crumble0 ? CR : 0, s1 = w.crumble1 ? CR : 0;
+          const solid = len - s0 - s1;
+          if (solid > 0.1) {
+            const mx = w.x0 + ux * (s0 + solid / 2), mz = w.z0 + uz * (s0 + solid / 2);
+            addBox(sandMat, solid, LW_H, LW_D, mx, LW_H / 2, mz, rotY);
+            addBox(greyMat, solid + 0.1, 0.25, LW_D + 0.15, mx, LW_H + 0.1, mz, rotY);
+            addBox(greyMat, solid + 0.1, 0.5, LW_D + 0.12, mx, 0.25, mz, rotY);
+          }
+          // crumbled end: stepped, jagged blocks getting lower toward the gap, then loose rubble on the ground
+          const crumble = (fromEnd) => {
+            const steps = 5;
+            for (let k = 0; k < steps; k++) {
+              const u = (k + 0.5) / steps;                // 0 at the solid wall -> 1 at the gap
+              const along = fromEnd ? len - s1 + u * CR : s0 - u * CR;
+              const h = LW_H * (1 - u * 0.85) * (0.8 + ((k * 7) % 3) * 0.12);
+              const px = w.x0 + ux * along, pz = w.z0 + uz * along;
+              addBox(k % 2 ? greyMat : sandMat, CR / steps + 0.05, h, LW_D * (1 - u * 0.25), px, h / 2, pz, rotY + (k % 2 ? 0.06 : -0.05));
+            }
+            for (let k = 0; k < 6; k++) {
+              const along = fromEnd ? len + 0.2 + k * 0.45 : -0.2 - k * 0.45;
+              const side = ((k * 5) % 3 - 1) * 0.6;
+              const rb = new THREE.Mesh(new THREE.DodecahedronGeometry(0.22 + ((k * 3) % 4) * 0.07, 0), k % 2 ? rockMat : greyMat);
+              rb.position.set(w.x0 + ux * along - uz * side, 0.15, w.z0 + uz * along + ux * side);
+              rb.rotation.set(k * 0.9, k * 1.7, k * 0.3);
+              rb.castShadow = true;
+              mapGroup.add(rb);
+            }
+          };
+          if (w.crumble0) crumble(false);
+          if (w.crumble1) crumble(true);
         } else if (w.kind === 'cliff') {
           addBox(rockMat, len + 1.2, 2.6, 1.8, cx, 1.3, cz, rotY);
           // irregular boulders along the cliff so it reads as rock, not a wall
@@ -2417,6 +2541,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const resist = dmgType === 'fantasy' ? st.fResist : st.armor;
         const mitigated = Math.round(rawDmg * (100 / (100 + Math.max(0, resist))));
         playerProg.recallTimer = 0; // Interrupt recall on taking damage!
+        if (spyglass.channel > 0) { spyglass.channel = 0; spawnFloat(hero.x, 2.5, hero.z, 'SPYGLASS INTERRUPTED', '#fb7185'); }
 
         // Bodyguard 10L Talent ("Thorns of Brass"): Reflect 25% of incoming damage while R Shield holds!
         if (getActiveHeroId() === 'bodyguard' && hero.rShieldTimer > 0 && hero.shield > 0 && playerProg.talents[10] === 'L' && attackerObj && attackerObj.ref) {
@@ -4297,6 +4422,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const x0 = toX(s * MAP.CASTLE.x0), x1 = toX(s * MAP.CASTLE.x1);
         c.strokeRect(Math.min(x0, x1), toY(MAP.CASTLE.z0), Math.abs(x1 - x0), toY(MAP.CASTLE.z1) - toY(MAP.CASTLE.z0));
       });
+      MAP.WALLS.forEach((wl) => {
+        if (wl.kind !== 'lanewall') return;
+        c.beginPath();
+        c.moveTo(toX(wl.x0), toY(wl.z0));
+        c.lineTo(toX(wl.x1), toY(wl.z1));
+        c.stroke();
+      });
       c.fillStyle = 'rgba(60, 48, 34, 0.7)';
       c.beginPath();
       c.moveTo(toX(-MAP.HOLLOW.halfTop), toY(MAP.HOLLOW.top));
@@ -4475,6 +4607,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       }
 
+      updateSpyglass(dt);
+
       // Pooled minion rigs are only visible during the loading-screen shader warm-up; never draw them in play
       if (minionPoolHolder.visible) minionPoolHolder.visible = false;
       updateBots(dt);
@@ -4497,6 +4631,20 @@ window.MOBA_PHASE1_ENGINE = (function () {
       dealPlayerDamageToUnit,
       onArenaSpawned,
       getPlayerProg: () => playerProg,
+      // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns
+      setBotsEnabled: (on) => {
+        bots.forEach((b) => {
+          if (on) {
+            if (b.respawnTimer > 1e8) b.respawnTimer = 0.001; // respawns at home next frame
+          } else {
+            b.respawnTimer = 1e9;
+            b.pendingHits = [];
+            b.pivot.visible = false;
+            if (b.bowPivot) b.bowPivot.visible = false;
+            if (b.plate) b.plate.style.display = 'none';
+          }
+        });
+      },
       getMapObstacles: () => mapObstacles.concat(structures.filter((s) => s.hp > 0)),
       notifyTemplatesReady: () => bots.forEach((b) => attachRigToBot(b)),
       notifyMinionTemplatesReady: () => prewarmMinionRigs(),

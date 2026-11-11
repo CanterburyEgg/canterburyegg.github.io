@@ -39,3 +39,19 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   assets are git-ignored (on disk only; the game only loads `<id>_bundle.js`).
 - [ ] **Talent pass**: all 8 heroes, level by level (see DESIGN_RULES.md).
 - [ ] **Phase 2**: bots use the real hero kits, then implement the new kits from DESIGN_RULES.md.
+- [ ] **See-through walls (pinned 2026-11-10)**: when the player (or something they need to see) is behind a wall, tree
+  or other tall map piece from the camera's point of view, fade that piece out so you can always see yourself.
+- [ ] **Spyglass prop**: replace the code-built stand-in on the lookout deck with a real model (next model batch).
+- [ ] **Pit guardian (Behemoth) rig**: four-legged, so Mixamo can't rig it; check for an auto-rigger that handles quadrupeds, else rig it in code.
+- [ ] **Fog of war darkening (pinned 2026-11-11)**: darken the ground/map in areas the player's team can't currently see
+  (the engine already answers "is this point visible" for hiding enemies; drive a dark overlay from the same vision).
+
+## Next model batch (5 Hunyuan credits, planned 2026-11-11)
+Jungle camps are still primitive stand-ins and they're everywhere, so they're the biggest visual gap.
+1. **Moss golem** (humanoid, so Mixamo rigs it as usual)
+2. **Signature jungle tree** (static; replaces the blob trees, the jungle's main look)
+3. **Thorn-wolf** (four-legged)
+4. **Boar** (four-legged)
+5. **Spare**: a redo if one comes out badly, otherwise a second tree or rock variant
+Wolf and boar are four-legged like the Behemoth, so one quadruped rig solution (auto-rigger or code rig) covers all three.
+Tripo props (separate from the Hunyuan credits): spyglass, then ballista / minion weapons.

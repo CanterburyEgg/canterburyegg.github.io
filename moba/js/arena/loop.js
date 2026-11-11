@@ -289,6 +289,7 @@ function tick(now) {
   isMovingNow = isMoving;
   hero.x = THREE.MathUtils.clamp(hero.x, window.MOBA_MAP.BOUNDS.minX, window.MOBA_MAP.BOUNDS.maxX);
   hero.z = THREE.MathUtils.clamp(hero.z, window.MOBA_MAP.BOUNDS.minZ, window.MOBA_MAP.BOUNDS.maxZ);
+  hero.z = Math.max(hero.z, window.MOBA_MAP.northMinZ(hero.x));
 
   if (mouseDown) tryAttack();
 

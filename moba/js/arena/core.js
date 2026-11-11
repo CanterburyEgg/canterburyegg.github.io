@@ -157,6 +157,34 @@ function createGroundTexture() {
   g.fillStyle = chasm;
   g.fillRect(X(-M.CASTLE.x0), 0, X(M.CASTLE.x0) - X(-M.CASTLE.x0), Z(railZ));
 
+  // Lookout deck off the bridge's north side: weathered timber planks over the chasm
+  const D = M.DECK;
+  const deckPath = () => {
+    g.beginPath();
+    g.moveTo(X(-D.mouthHalf - 0.4), Z(railZ + 0.6));
+    g.lineTo(X(-D.backHalf - 0.3), Z(D.backZ - 0.3));
+    g.lineTo(X(D.backHalf + 0.3), Z(D.backZ - 0.3));
+    g.lineTo(X(D.mouthHalf + 0.4), Z(railZ + 0.6));
+    g.closePath();
+  };
+  g.fillStyle = '#6b4f33';
+  deckPath();
+  g.fill();
+  g.save();
+  deckPath();
+  g.clip();
+  for (let z = D.backZ - 0.3; z < railZ + 0.6; z += 0.55) {
+    g.fillStyle = 'rgba(30, 20, 12, 0.55)';
+    g.fillRect(X(-D.mouthHalf - 1), Z(z), (D.mouthHalf * 2 + 2) * PX, 0.07 * PX);  // plank seams
+    for (let x = -D.mouthHalf - 1; x < D.mouthHalf + 1; x += 2.2 + rnd() * 1.6) {
+      g.fillRect(X(x), Z(z), 0.06 * PX, 0.55 * PX);                                  // staggered butt joints
+      g.fillStyle = rnd() < 0.5 ? 'rgba(150, 112, 70, 0.18)' : 'rgba(40, 28, 16, 0.18)';
+      g.fillRect(X(x + 0.1), Z(z + 0.08), (1.5 + rnd()) * PX, 0.4 * PX);            // plank tone variation
+      g.fillStyle = 'rgba(30, 20, 12, 0.55)';
+    }
+  }
+  g.restore();
+
   // Top lane: cobbled bridge road across the whole span
   const top = M.LANE_WAYPOINTS.top;
   stroke(top, M.BRIDGE_HALF * 2, '#5a554c', '#857b6c');
