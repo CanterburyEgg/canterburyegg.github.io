@@ -45,6 +45,9 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
 - [ ] **Pit guardian (Behemoth) rig**: four-legged, so Mixamo can't rig it; check for an auto-rigger that handles quadrupeds, else rig it in code.
 - [ ] **Fog of war darkening (pinned 2026-11-11)**: darken the ground/map in areas the player's team can't currently see
   (the engine already answers "is this point visible" for hiding enemies; drive a dark overlay from the same vision).
+- [ ] **Imp turret health (noted 2026-11-11)**: the planted cannon has no HP or health bar yet, so enemies can't hit it.
+  Give it HP plus an overhead bar, make it targetable by bots, minions and towers, and when it's destroyed the Imp has
+  to salvage the scrap to get his cannon back (DESIGN_RULES.md). Wrench hits repair it.
 
 ## Next model batch (5 Hunyuan credits, planned 2026-11-11)
 Jungle camps are still primitive stand-ins and they're everywhere, so they're the biggest visual gap.
