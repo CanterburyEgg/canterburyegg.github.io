@@ -59,6 +59,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
     const minions = [];
     const camps = [];
     const bots = [];
+    // Player-owned destructibles (e.g. the Imp's planted turret): { x, z, r, hp, maxHp, armor, team: 0, onDestroyed() }.
+    // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
+    const deployables = [];
     const wards = [];
     const projectiles = []; // Tower, minion, camp, and bot projectiles
     const pings = [];       // Active tactical pings on map & minimap
@@ -3080,6 +3083,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 considerCandidate({ kind: 'structure', ref: as }, Math.hypot(as.x - b.x, as.z - b.z));
               }
             });
+            deployables.forEach((dp) => {
+              if (dp.hp > 0) considerCandidate({ kind: 'deployable', ref: dp }, Math.hypot(dp.x - b.x, dp.z - b.z));
+            });
             if (b.lane === 'jungle') {
               camps.forEach((c) => {
                 if (c.respawnTimer <= 0 && c.hp > 0 && c.state !== 'leashing') {
@@ -3687,6 +3693,19 @@ window.MOBA_PHASE1_ENGINE = (function () {
           u.patience = 5.0;
         }
       }
+      if (targetObj.kind === 'deployable') {
+        if (u.hp <= 0) return;
+        const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + (u.armor || 0)))));
+        u.hp -= mitigated;
+        if (u.onDamaged) u.onDamaged(mitigated);
+        if (u.hp <= 0) {
+          u.hp = 0;
+          const i = deployables.indexOf(u);
+          if (i >= 0) deployables.splice(i, 1);
+          if (u.onDestroyed) u.onDestroyed();
+        }
+        return;
+      }
       const atkRef = attackerObj || (attackerBot ? { kind: 'bot', ref: attackerBot } : null);
       if (targetObj.kind === 'player' || (targetObj.kind === 'bot' && u.team === 0)) {
         damageOrderHeroOrBot(u, dmg, dmgType, atkRef);
@@ -4057,6 +4076,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
             const dp = Math.hypot(hero.x - m.x, hero.z - m.z);
             if (dp < bestScore) { bestScore = dp; bestActualD = dp; bestT = { kind: 'player', ref: hero }; }
           }
+          if (enemyTeam === 0) {
+            deployables.forEach((dq) => {
+              if (dq.hp <= 0) return;
+              const d = Math.hypot(dq.x - m.x, dq.z - m.z);
+              if (d < bestScore) { bestScore = d; bestActualD = d; bestT = { kind: 'deployable', ref: dq }; }
+            });
+          }
         }
 
         if (bestT && bestActualD <= m.range + bestT.ref.r) {
@@ -4169,6 +4195,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 if (d <= minD) { minD = d; target = { kind: 'minion', ref: em }; }
               }
             });
+            // Priority 1.5: the Imp's turret and other player deployables
+            if (!target && enemyTeam === 0) {
+              deployables.forEach((dq) => {
+                if (dq.hp <= 0) return;
+                const d = Math.hypot(dq.x - s.x, dq.z - s.z);
+                if (d <= minD) { minD = d; target = { kind: 'deployable', ref: dq }; }
+              });
+            }
             // Priority 2: Enemy Heroes/Bots in range
             if (!target) {
               bots.forEach((eb) => {
@@ -4631,6 +4665,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       dealPlayerDamageToUnit,
       onArenaSpawned,
       getPlayerProg: () => playerProg,
+      addDeployable: (d) => { if (deployables.indexOf(d) < 0) deployables.push(d); },
+      removeDeployable: (d) => { const i = deployables.indexOf(d); if (i >= 0) deployables.splice(i, 1); },
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns
       setBotsEnabled: (on) => {
         bots.forEach((b) => {
