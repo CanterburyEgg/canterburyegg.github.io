@@ -39,6 +39,15 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   assets are git-ignored (on disk only; the game only loads `<id>_bundle.js`).
 - [ ] **Talent pass**: all 8 heroes, level by level (see DESIGN_RULES.md).
 - [ ] **Phase 2**: bots use the real hero kits, then implement the new kits from DESIGN_RULES.md.
+  - Pattern (2026-11-11): kits take an **actor** (`KitFx.player` or `phase1Engine.botActor(bot)`, see kit_helpers.js).
+    `cast(slot, ctx)` → `castFor(actor, slot, ctx?)`, basic attack → `basicAttackFor(actor, st)`, per-caster timers →
+    `tickActor(actor, dt)`. Bot-owned projectiles carry `owner` and hit `owner.hostiles()` via `owner.damage()`.
+    The bot brain (engine) only picks the ability + aim (`b.aimTarget`), then calls the kit. `KIT_BOTS` in the engine
+    lists converted heroes; the rest keep their old bot code until converted.
+  - [x] Coyote (player selftest rows identical; bots now use the player formulas, so they hit harder than the old bot copy)
+  - [ ] Brawler  - [ ] Sorceress  - [ ] Bodyguard  - [ ] Panther  - [ ] Fairy  - [ ] Scientist  - [ ] Imp
+  - [ ] Delete the old bot-only ability copies (spawnBotCrossbowBolt, launchBotShrapnelGrenade, ...) once all 8 are on kits
+  - Dev: `?chaoscarry=<hero>` swaps the enemy carry; `&simfast&botlog=N` runs a fast headless sim and logs bot kit casts.
 - [ ] **See-through walls (pinned 2026-11-10)**: when the player (or something they need to see) is behind a wall, tree
   or other tall map piece from the camera's point of view, fade that piece out so you can always see yourself.
 - [ ] **Spyglass prop**: replace the code-built stand-in on the lookout deck with a real model (next model batch).

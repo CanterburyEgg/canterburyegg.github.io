@@ -62,6 +62,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Player-owned destructibles (e.g. the Imp's planted turret): { x, z, r, hp, maxHp, armor, team: 0, onDestroyed() }.
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
+    // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
+    const KIT_BOTS = { coyote: true };
+    // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
+    function kitBotReady(type) {
+      const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
+      return !!(k && typeof k.castFor === 'function' && typeof k.basicAttackFor === 'function' && typeof k.tickActor === 'function');
+    }
     const wards = [];
     const projectiles = []; // Tower, minion, camp, and bot projectiles
     const pings = [];       // Active tactical pings on map & minimap
@@ -902,6 +909,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const jgType = rem1.find((h) => h === 'panther' || h === 'brawler' || h === 'coyote') || rem1[0];
       const rem2 = rem1.filter((h) => h !== jgType);
       const duoType = rem2.find((h) => h === 'bodyguard' || h === 'sorceress' || h === 'coyote') || rem2[0];
+      // Dev: ?chaoscarry=coyote swaps the enemy carry (to test bots on the real kits)
+      const cc = /[?&]chaoscarry=([a-z]+)/.exec(location.search);
+      const chaosCarry = cc && HERO_LABELS[cc[1]] ? cc[1] : 'sorceress';
 
       return [
         // Team 0 (Order — 3 Allied Bots + Player = 4v4!)
@@ -912,7 +922,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         // Team 1 (Chaos — 4 Enemy Bots featuring Panther in the Jungle!)
         { id: 'bot_c_solo',  team: 1, name: 'Chaos Brawler (Solo)',     heroType: 'brawler',   lane: 'top',    role: 'Solo',    homeX: -MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
         { id: 'bot_c_jg',    team: 1, name: 'Chaos Panther (Jungle)',   heroType: 'panther',   lane: 'jungle', role: 'Jungle',  homeX: -MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
-        { id: 'bot_c_carry', team: 1, name: 'Chaos Sorceress (Carry)',  heroType: 'sorceress', lane: 'bot',    role: 'Carry',   homeX: -MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
+        { id: 'bot_c_carry', team: 1, name: 'Chaos ' + HERO_LABELS[chaosCarry] + ' (Carry)', heroType: chaosCarry, lane: 'bot', role: 'Carry', homeX: -MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
         { id: 'bot_c_supp',  team: 1, name: 'Chaos Bodyguard (Supp)',   heroType: 'bodyguard', lane: 'bot',    role: 'Support', homeX: -MAP.BASE.botHomes[3].x, homeZ: MAP.BASE.botHomes[3].z }
       ];
     }
@@ -1633,6 +1643,67 @@ window.MOBA_PHASE1_ENGINE = (function () {
       });
       return list;
     }
+
+    // ---- Phase 2: bot actors (see KitFx actor notes in js/heroes/kit_helpers.js) ----
+    // Enemies of a team as kit targets. Chaos (1) sees the player too; Order bots see camps like the player does.
+    function hostilesForTeam(team) {
+      if (team === 0) return getHostileTargets();
+      const list = [];
+      if (!matchMode) return list;
+      if (playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0) list.push({ kind: 'player', ref: hero, x: hero.x, z: hero.z, r: hero.r || 0.52 });
+      bots.forEach((b) => { if (b.team === 0 && b.respawnTimer <= 0) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r }); });
+      minions.forEach((m) => { if (m.team === 0 && m.hp > 0) list.push({ kind: 'minion', ref: m, x: m.x, z: m.z, r: m.r }); });
+      camps.forEach((c) => { if (c.respawnTimer <= 0 && c.hp > 0) list.push({ kind: 'camp', ref: c, x: c.x, z: c.z, r: c.r }); });
+      structures.forEach((st) => { if (st.team === 0 && st.hp > 0) list.push({ kind: 'structure', ref: st, x: st.x, z: st.z, r: st.r }); });
+      deployables.forEach((d) => { if (d.hp > 0) list.push({ kind: 'deployable', ref: d, x: d.x, z: d.z, r: d.r || 0.8 }); });
+      return list;
+    }
+    // CC/bleed from a bot-cast kit ability (mirrors applyBotCcAndEffects inside updateBots)
+    function applyActorEffects(targetObj, opts) {
+      const u = targetObj.ref;
+      if (!u || targetObj.kind === 'structure' || targetObj.kind === 'deployable') return;
+      if (opts.stunDur > 0) u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
+      if (opts.slowDur > 0) u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur);
+      if (opts.bleedAdd > 0 && u !== hero) {
+        u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
+        u.bleedTimer = 5.5;
+      }
+    }
+    function botActor(b) {
+      if (b._actor) return b._actor;
+      b._actor = {
+        unit: b,
+        get team() { return b.team; },
+        isPlayer: false,
+        level: () => b.level || 1,
+        talents: () => ({}),
+        stats: () => ({ atk: b.physAtk || b.atk || 52, fant: b.fant || 0, asPct: ((b.level || 1) - 1) * 0.035 }),
+        aim: () => {
+          const t = b.aimTarget && b.aimTarget.ref;
+          if (t && (t.hp === undefined || t.hp > 0)) return { x: t.x, z: t.z };
+          return { x: b.aimX !== undefined ? b.aimX : b.x + Math.sin(b.facing), z: b.aimZ !== undefined ? b.aimZ : b.z + Math.cos(b.facing) };
+        },
+        wtf: false,
+        spend: () => true,
+        play: (slot, fade, oneShot, speed, start, lock) => {
+          b.atkAnimTimer = lock || 0.35;
+          b.animSlot = slot;
+          b.animTimeScale = speed || 1;
+          b.animStartTime = start || 0;
+          b.animForceRestart = true;
+        },
+        hostiles: () => hostilesForTeam(b.team),
+        damage: (t, dmg, opts) => {
+          opts = opts || {};
+          const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
+          applyBotDamageToTarget(t, Math.round(dmg * scale), b, opts.dmgType || 'physical');
+          applyActorEffects(t, opts);
+          return true;
+        }
+      };
+      return b._actor;
+    }
+    function botDiffMult() { return botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0); }
 
     function getAlliedTargets() {
       const list = [];
@@ -3007,17 +3078,16 @@ window.MOBA_PHASE1_ENGINE = (function () {
           }
         }
 
-        // Tick Coyote R: Heartseeker 1.10s Laser Sight Charge -> Giant Piercing Bolt!
+        // Phase 2: bots on real kits tick their kit timers (windups, charges) every frame
+        const botKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+        if (kitBotReady(b.heroType)) botKit.tickActor(botActor(b), dt, performance.now());
+
+        // Coyote R laser sight while charging (the kit counts the charge down and fires; stuns cancel it here)
         if ((b.rChargeTimer || 0) > 0) {
           if (b.stunTimer > 0) {
             b.rChargeTimer = 0;
             if (b.rLaserMesh) b.rLaserMesh.visible = false;
           } else {
-            b.rChargeTimer -= dt;
-            const rt = b.rChargeTarget;
-            if (rt && rt.ref && (rt.ref.hp === undefined || rt.ref.hp > 0)) {
-              b.facing = Math.atan2(rt.ref.x - b.x, rt.ref.z - b.z);
-            }
             if (!b.rLaserMesh) {
               const lGrp = new THREE.Group();
               const beam = new THREE.Mesh(
@@ -3037,19 +3107,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
               b.rLaserMesh = lGrp;
             }
             b.rLaserMesh.visible = true;
-            if (b.rChargeTimer <= 0) {
-              b.rLaserMesh.visible = false;
-              playBotAction(b, 'punch', 0.95, 0.0, 0.35);
-              if (rt && rt.ref && (rt.ref.hp === undefined || rt.ref.hp > 0)) {
-                const stacks = rt.ref.bleedStacks || 2;
-                const popDmg = stacks * Math.round([60, 80, 100][rUlt] * (isHard && b.level >= 7 ? 1.25 : 1.0));
-                const rDmg = Math.round((130 + b.physAtk * 0.85 + popDmg) * scaleMult);
-                rt.ref.bleedStacks = 0;
-                spawnBotCrossbowBolt(b, rt, rDmg, 0, true, 0);
-                spawnShockRing(b.x, b.z, 0xfde047, 0.3, 1.6, 0.25);
-                spawnFloat(b.x, 2.75, b.z, 'HEARTSEEKER PIERCE!', '#fde047');
-              }
-            }
           }
         } else if (b.rLaserMesh) {
           b.rLaserMesh.visible = false;
@@ -3506,33 +3563,18 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
 
             // 5. COYOTE CROSSBOWMAN BOT (E: 0.22s Windup + 0.48s Arcing Shrapnel Grenade, Q: 3-Bolt Spread Fan Volley, R: 1.10s Laser Sight Charge -> Giant Heartseeker Bolt)
-            else if (b.heroType === 'coyote') {
+            // (Phase 2: the brain only picks the ability and the aim; the real Coyote kit does the rest)
+            else if (b.heroType === 'coyote' && kitBotReady('coyote')) {
+              const kit = window.MOBA_HEROES.coyote;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
               if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 11.0 && ((bestTarget.ref.bleedStacks || 0) >= 3 || bestTarget.ref.hp / bestTarget.ref.maxHp < 0.35)) {
-                b.cdR = [42.0, 36.0, 30.0][rUlt];
-                b.rChargeTimer = 1.10;
-                b.rChargeTarget = bestTarget;
-                playBotAction(b, 'idle', 0.25, 0.0, 1.15);
+                kit.castFor(actor, 'R');
                 spawnFloat(b.x, 2.75, b.z, b.name + ': LOCKING HEARTSEEKER...', '#f43f5e');
               } else if (b.cdE <= 0 && bestDist <= 9.8 && isHeroTarget) {
-                b.cdE = [11.0, 9.8, 8.5][rQE];
-                const gTx = tx;
-                const gTz = tz;
-                const outerDmg = Math.round(([70, 105, 140][rQE] + b.physAtk * 0.48) * scaleMult);
-                const slowDur = b.level >= 7 ? 2.5 : 0;
-                playBotAction(b, 'kick', 1.85, 1.28, 0.40);
-                // 0.22s throw windup before launching the arcing 3D grenade!
-                scheduleBotHit(b, 0.22, () => {
-                  launchBotShrapnelGrenade(b, gTx, gTz, outerDmg, slowDur);
-                });
+                kit.castFor(actor, 'E');
               } else if (b.cdQ <= 0 && bestDist <= 8.4) {
-                b.cdQ = [7.5, 6.5, 5.5][rQE];
-                playBotAction(b, 'punch', 0.95, 0.0, 0.28);
-                const perBoltDmg = Math.round(([25, 45, 65][rQE] + b.physAtk * 0.45) * scaleMult);
-                const spreadAngles = (isHard && b.level >= 3) ? [-0.24, -0.12, 0, 0.12, 0.24] : [-0.15, 0, 0.15];
-                spreadAngles.forEach((angOff) => {
-                  spawnBotCrossbowBolt(b, bestTarget, perBoltDmg, 1, false, angOff);
-                });
-                spawnFloat(b.x, 2.6, b.z, 'FAN VOLLEY!', '#f59e0b');
+                kit.castFor(actor, 'Q');
               }
             }
           }
@@ -3624,9 +3666,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
                     applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
                   }
                 });
-              } else if (b.heroType === 'coyote') {
-                playBotAction(b, 'punch', 1.35, 0.0, 0.36);
-                spawnBotCrossbowBolt(b, lockedTarget, dmg, 1, false, 0);
+              } else if (b.heroType === 'coyote' && kitBotReady('coyote')) {
+                b.aimTarget = lockedTarget;
+                const actor = botActor(b);
+                window.MOBA_HEROES.coyote.basicAttackFor(actor, actor.stats());
               }
             } else if (isHard && b.range > 4.0 && b.atkAnimTimer <= 0 && bestDist < 5.4 && bestTarget.kind !== 'structure') {
               // Hard Mode Ranged Orb-Walk Kiting: step backward toward allied fountain between basic attacks!
@@ -4772,6 +4815,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       dealPlayerDamageToUnit,
       onArenaSpawned,
       getPlayerProg: () => playerProg,
+      devBots: () => bots,
+      devMatchTime: () => matchTime,
       addDeployable: (d) => { if (deployables.indexOf(d) < 0) deployables.push(d); },
       removeDeployable: (d) => { const i = deployables.indexOf(d); if (i >= 0) deployables.splice(i, 1); },
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns

@@ -1,3 +1,5 @@
+const SIMFAST = /[?&]simfast/.test(location.search);
+let simFrame = 0;
 // MOBA 3D arena: Main per-frame update (tick).
 // Classic script (not a module) so the game still works from file://. Loaded in order by arena3d.html;
 // top-level let/const/function names are shared across all js/arena/*.js files.
@@ -9,7 +11,8 @@
 let last = performance.now();
 function tick(now) {
   // Selftest uses a fixed 60 Hz step so results are identical on any machine / frame rate
-  const dt = window.__MOBA_TEST ? (1 / 60) : Math.min(0.05, (now - last) / 1000);
+  // Dev: ?simfast = fixed 0.05s steps and render only every 20th frame (headless bot testing)
+  const dt = window.__MOBA_TEST ? (1 / 60) : (SIMFAST ? 0.05 : Math.min(0.05, (now - last) / 1000));
   last = now;
 
   raycaster.setFromCamera(mouseNDC, camera);
@@ -293,10 +296,48 @@ function tick(now) {
 
   if (mouseDown) tryAttack();
 
+  // Bot-owned kit bolts (Phase 2): same flight, but they hit their owner's enemies (no dummies) via owner.damage().
+  // Returns true when the bolt is finished.
+  function stepOwnedBolt(b, dt) {
+    const o = b.owner;
+    b.mesh.position.x += b.vx * dt;
+    b.mesh.position.z += b.vz * dt;
+    b.life -= dt;
+    const list = o.hostiles();
+    for (let j = 0; j < list.length; j++) {
+      const t = list[j];
+      if (!t || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) continue;
+      const uid = t.kind + '_' + (t.ref.id || j);
+      if (b.hitIds.has(uid)) continue;
+      const hitR = (t.r || 0.5) + (b.isHeartseeker ? 0.48 : 0.28);
+      if (Math.hypot(b.mesh.position.x - t.x, b.mesh.position.z - t.z) > hitR) continue;
+      b.hitIds.add(uid);
+      if (b.isHeartseeker) {
+        const stacks = t.ref.bleedStacks || 0;
+        const rU = KitFx.rUlt(o.level());
+        const popDmg = Math.round(stacks * Math.round([60, 80, 100][rU] * (o.talents()[7] === 'R' ? 1.25 : 1.0)) * (b.popScale || 1));
+        o.damage(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185' });
+        if (stacks > 0) {
+          t.ref.bleedStacks = 0;
+          t.ref.bleedTimer = 0;
+          spawnShockRing(t.x, t.z, 0xf43f5e, 0.35, 2.2, 0.32);
+          spawnFloat(t.x, 2.85, t.z, 'BLEED DETONATED (' + stacks + 'x)!', '#fde047');
+        }
+      } else {
+        o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical' });
+        spawnShockRing(t.x, t.z, 0xf43f5e, 0.15, 0.65, 0.16);
+        if (!b.pierce) { scene.remove(b.mesh); return true; }
+      }
+    }
+    if (b.life <= 0) { scene.remove(b.mesh); return true; }
+    return false;
+  }
+
   // Update Coyote Crossbow Bolts, R Heartseeker Bolt, & Sorceress Astral Spark Bolts
   const hostiles = phase1Engine ? phase1Engine.getHostileTargets() : [];
   for (let i = heroBolts.length - 1; i >= 0; i--) {
     const b = heroBolts[i];
+    if (b.owner) { if (stepOwnedBolt(b, dt)) heroBolts.splice(i, 1); continue; }
     // Homing bolts (Sorceress E): steer toward their one target, turning harder the longer they fly
     if (b.homeTo) {
       b.age = (b.age || 0) + dt;
@@ -640,7 +681,8 @@ function tick(now) {
   }
 
   if (window.__MOBA_TEST && window.__MOBA_TEST.noRender) scene.updateMatrixWorld();
-  else renderer.render(scene, camera);
+  else if (!SIMFAST || (simFrame++ % 20) === 0) renderer.render(scene, camera);
+  else scene.updateMatrixWorld();
 
   // Update Overhead 3D Unit Plates & HUD
   const hpPos = projectToScreen(hero.x, HERO_HEIGHT + airborneY + 0.45, hero.z);

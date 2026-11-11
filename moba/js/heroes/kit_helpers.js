@@ -5,6 +5,37 @@
 
 const K = (window.KitFx = {});
 
+// ---- Actors (Phase 2: one kit, any caster) ----
+// A kit's ability code talks to an "actor" instead of the player globals, so the same code runs for the player and for bots.
+//   unit      the moving body (hero or bot): x, z, facing, cdQ/cdE/cdR, rChargeTimer, ...
+//   team      0 = Order (player side), 1 = Chaos
+//   isPlayer  true only for the player actor (dummies, HUD floats, mana, talents)
+//   level() talents() stats()   progression + current stats ({ atk, fant, asPct, ... })
+//   aim()     { x, z } the actor is aiming at (mouse for the player, the brain's chosen point for bots)
+//   wtf       0-cooldown dev mode (player only)
+//   spend(slot)              pay mana (bots don't use mana yet)
+//   play(slot, fade, oneShot, speed, start, lock)   play an animation clip slot
+//   hostiles()               enemy targets [{ kind, ref, x, z, r }] (includes the player for Chaos bots)
+//   damage(t, dmg, opts)     deal damage + effects (bleedAdd, slowDur, stunDur, isBasic, dmgType, color)
+// Bot actors come from the engine: phase1Engine.botActor(bot).
+K.player = {
+  get unit() { return hero; },
+  team: 0,
+  isPlayer: true,
+  level() { return phase1Engine ? (phase1Engine.getPlayerProg().level || 1) : 1; },
+  talents() { return phase1Engine ? phase1Engine.getPlayerProg().talents : {}; },
+  stats() { return phase1Engine ? phase1Engine.getPlayerStats() : { atk: 52, fant: 0, asPct: 0 }; },
+  aim() { return aimWorld; },
+  get wtf() { return wtfMode; },
+  spend(slot) { return trySpendMana(slot); },
+  play(slot, fade, oneShot, speed, start) { if (actions[slot]) fadeToAction(actions[slot], fade, oneShot, speed, start); },
+  hostiles() { return phase1Engine ? phase1Engine.getHostileTargets() : []; },
+  damage(t, dmg, opts) { return phase1Engine ? phase1Engine.dealPlayerDamageToUnit(t, dmg, opts || {}) : false; }
+};
+// rank helpers shared by kits: Q/E ranks at 6/9, R ranks at 8/12
+K.rQE = (lvl) => (lvl >= 9 ? 2 : (lvl >= 6 ? 1 : 0));
+K.rUlt = (lvl) => (lvl >= 12 ? 2 : (lvl >= 8 ? 1 : 0));
+
 // Damage everything (dummies + engine units, no structures unless opts.structures) inside a circle.
 // opts: dealPlayerDamageToUnit options (dmgType, slowDur, stunDur, knockbackDist, ...) + color; returns hit count.
 K.hitArea = function (x, z, r, dmg, opts = {}) {

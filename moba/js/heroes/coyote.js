@@ -12,13 +12,15 @@ let crossbowMounted = false;
 
 // Spawn a 3D glowing Crossbow Bolt (or R Heartseeker Piercing Bolt!)
 // rangeMult scales how far it flies; popScale scales the Heartseeker's Bleed detonation damage (see loop.js heroBolts)
-function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false, rangeMult = 1, popScale = 1) {
+// actor: KitFx.player or a bot actor (phase1Engine.botActor). Bolts remember a bot owner so loop.js hits that bot's enemies.
+function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false, rangeMult = 1, popScale = 1) {
+  const u = actor.unit;
   const boltGrp = new THREE.Group();
   const len = isPiercingHeartseeker ? 1.55 : 0.85;
   const rad = isPiercingHeartseeker ? 0.075 : 0.038;
   const shaft = new THREE.Mesh(
     new THREE.CylinderGeometry(rad * 0.65, rad, len, 8),
-    new THREE.MeshBasicMaterial({ color: isPiercingHeartseeker ? 0xfde047 : 0xf43f5e })
+    new THREE.MeshBasicMaterial({ color: isPiercingHeartseeker ? 0xfde047 : (actor.isPlayer || actor.team === 1 ? 0xf43f5e : 0x38bdf8) })
   );
   shaft.rotation.x = Math.PI / 2;
   boltGrp.add(shaft);
@@ -32,8 +34,8 @@ function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, 
   tip.position.z = len * 0.55;
   boltGrp.add(tip);
 
-  const startX = hero.x + Math.sin(angle) * 0.72;
-  const startZ = hero.z + Math.cos(angle) * 0.72;
+  const startX = u.x + Math.sin(angle) * 0.72;
+  const startZ = u.z + Math.cos(angle) * 0.72;
   boltGrp.position.set(startX, 1.18, startZ);
   boltGrp.rotation.y = angle;
   scene.add(boltGrp);
@@ -50,31 +52,36 @@ function spawnCrossbowBolt(angle, dmg, bleedAdd, isPiercingHeartseeker = false, 
     pierce: isPiercingHeartseeker || forcePierce,
     hitIds: new Set(),
     popScale,
+    owner: actor.isPlayer ? null : actor,
     life: (isPiercingHeartseeker ? 0.68 : 0.55) * rangeMult
   });
 }
 
 // R Heartseeker charge scaling: an instant release would be 50% damage / 60% range, ramping to 100% at the full 2.0s;
 // a full charge is a Perfect Shot (+25% Bleed detonation damage). Early release is allowed after 0.35s (~59%).
+function getPendingGrenade(actor) { return actor.isPlayer ? pendingGrenadeThrow : actor.unit.coyPendingGrenade; }
+function setPendingGrenade(actor, g) { if (actor.isPlayer) pendingGrenadeThrow = g; else actor.unit.coyPendingGrenade = g; }
+
 const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBonus: 1.25 };
 
-function fireHeartseekerRelease() {
+function fireHeartseekerRelease(actor) {
+  const hero = actor.unit; // (local alias: the caster)
   const charge = THREE.MathUtils.clamp(1 - (hero.rChargeTimer / HEARTSEEKER.chargeDur), 0, 1);
   const isPerfect = charge >= 0.999;
   const power = HEARTSEEKER.minPower + (1 - HEARTSEEKER.minPower) * charge;
   const range = HEARTSEEKER.minRange + (1 - HEARTSEEKER.minRange) * charge;
   const popScale = power * (isPerfect ? HEARTSEEKER.perfectPopBonus : 1);
   hero.rChargeTimer = 0;
-  laserSightMesh.visible = false;
-  muzzleOrb.visible = false;
-  hero.punchAnim = 0.24;
-  if (actions.punch) {
-    fadeToAction(actions.punch, 0.04, true, 1.0);
+  if (actor.isPlayer) {
+    laserSightMesh.visible = false;
+    muzzleOrb.visible = false;
   }
+  hero.punchAnim = 0.24;
+  actor.play('punch', 0.04, true, 1.0, 0, 0.35);
   SFX.play('arena');
   spawnShockRing(hero.x + Math.sin(hero.facing) * 0.8, hero.z + Math.cos(hero.facing) * 0.8, 0xf43f5e, 0.2, 1.6, 0.26);
-  const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 52 };
-  spawnCrossbowBolt(hero.facing, Math.round((130 + st.atk * 0.85) * power), 1, true, true, range, popScale);
+  const st = actor.stats();
+  spawnCrossbowBolt(actor, hero.facing, Math.round((130 + st.atk * 0.85) * power), 1, true, true, range, popScale);
   if (isPerfect) {
     spawnFloat(hero.x, 2.75, hero.z, 'PERFECT SHOT! (+25% BLEED POP)', '#fde047');
   } else {
@@ -82,7 +89,8 @@ function fireHeartseekerRelease() {
   }
 }
 
-function launchShrapnelGrenade(tx, tz) {
+function launchShrapnelGrenade(actor, tx, tz) {
+  const hero = actor.unit; // (local alias: the caster)
   const outerR = 2.45;
   const bullseyeR = 0.92;
 
@@ -123,6 +131,7 @@ function launchShrapnelGrenade(tx, tz) {
     teleGrp,
     sx, sz, tx, tz,
     outerR, bullseyeR,
+    owner: actor.isPlayer ? null : actor,
     t: 0,
     dur: 0.48
   });
@@ -273,19 +282,40 @@ H.coyote = {
 
   // LMB Heavy Crossbow bolt (applies 1 Bleed)
   onRangedAttack(st) {
-    hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+    this.basicAttackFor(KitFx.player, st);
+  },
+
+  // The same basic attack for any actor (the bot brain decides when; it also owns the bot's attack timer)
+  basicAttackFor(actor, st) {
+    const hero = actor.unit;
+    if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L.lmb = (L.lmb || 0) + 1; }
+    const aim = actor.aim();
+    hero.facing = Math.atan2(aim.x - hero.x, aim.z - hero.z);
     hero.atkTimer = 1.05 / (1 + st.asPct);
     hero.punchAnim = 0.22;
-    if (actions.punch) {
-      fadeToAction(actions.punch, 0.04, true, 0.95);
-    }
+    actor.play('punch', 0.04, true, 0.95, 0, 0.36);
     SFX.play('punch');
-    spawnCrossbowBolt(hero.facing, st.atk, 1, false, false);
+    spawnCrossbowBolt(actor, hero.facing, st.atk, 1, false, false);
   },
 
   // Q Triple-Notch fan volley, E Briar Bomb grenade, R Heartseeker Quarrel (2s charge, recast to fire early)
   cast(slot, ctx) {
+    return this.castFor(KitFx.player, slot, ctx);
+  },
+
+  // ctx is optional for bots: built from the actor (no talents yet, no CDR items)
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
+    const hero = actor.unit;
+    const wtfMode = actor.wtf;
+    const trySpendMana = (sl) => actor.spend(sl);
+    const aimWorld = actor.aim();
+    if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L[slot] = (L[slot] || 0) + 1; }
+    if (!actor.isPlayer) hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
     if (slot === 'Q') {
       if (hero.rChargeTimer > 0 || hero.grenadeAnim > 0) return;
       if (!wtfMode && hero.cdQ > 0) return;
@@ -293,13 +323,13 @@ H.coyote = {
       hero.cdQ = wtfMode ? 0.25 : [7.5, 6.5, 5.5][rQE] * cdrMult;
       hero.atkTimer = (talents[3] === 'R' ? 0.80 : 1.10) / (1 + (st.asPct || 0) * 0.5);
       hero.punchAnim = 0.24;
-      if (actions.punch) fadeToAction(actions.punch, 0.04, true, 0.95);
+      actor.play('punch', 0.04, true, 0.95, 0, 0.28);
       SFX.play('punch');
       const angles = talents[10] === 'R' ? [-0.22, -0.11, 0, 0.11, 0.22] : [-0.14, 0, 0.14];
       const pierceQ = talents[10] === 'R';
       const boltDmg = Math.round([25, 45, 65][rQE] + st.atk * 0.85);
       angles.forEach((off) => {
-        spawnCrossbowBolt(hero.facing + off, boltDmg, 1, false, pierceQ);
+        spawnCrossbowBolt(actor, hero.facing + off, boltDmg, 1, false, pierceQ);
       });
       spawnFloat(hero.x, 2.4, hero.z, pierceQ ? '5-BOLT PIERCE VOLLEY!' : 'FAN VOLLEY!', '#fde047');
     } else if (slot === 'E') {
@@ -315,13 +345,11 @@ H.coyote = {
       const tx = hero.x + (dx / dist) * clampedDist;
       const tz = hero.z + (dz / dist) * clampedDist;
 
-      if (actions.kick) {
-        fadeToAction(actions.kick, 0.05, true, 1.85, 1.28);
-      }
-      pendingGrenadeThrow = { tx, tz, t: 0.22 };
+      actor.play('kick', 0.05, true, 1.85, 1.28, 0.4);
+      setPendingGrenade(actor, { tx, tz, t: 0.22 });
     } else if (slot === 'R') {
       if (hero.rChargeTimer > 0) {
-        if (hero.rChargeTimer <= 1.65) fireHeartseekerRelease();
+        if (hero.rChargeTimer <= 1.65) fireHeartseekerRelease(actor);
         return;
       }
       if (!wtfMode && pProg.level < 4) {
@@ -340,13 +368,36 @@ H.coyote = {
 
   // Runs every frame for every hero kit: E grenade release after its windup, R Heartseeker charge + laser sight
   tickTimers(dt, now) {
-    if (pendingGrenadeThrow) {
-      pendingGrenadeThrow.t -= dt;
-      if (pendingGrenadeThrow.t <= 0) {
-        const g = pendingGrenadeThrow;
-        pendingGrenadeThrow = null;
-        launchShrapnelGrenade(g.tx, g.tz);
+    this.tickActor(KitFx.player, dt, now);
+  },
+
+  // Per-caster timers (the engine calls this for Coyote bots every frame)
+  tickActor(actor, dt, now) {
+    const hero = actor.unit;
+    const pg = getPendingGrenade(actor);
+    if (pg) {
+      if (!actor.isPlayer && (hero.stunTimer || 0) > 0) {
+        setPendingGrenade(actor, null); // stunned bots lose their windup, like their old scheduled hits
+      } else {
+        pg.t -= dt;
+        if (pg.t <= 0) {
+          setPendingGrenade(actor, null);
+          launchShrapnelGrenade(actor, pg.tx, pg.tz);
+        }
       }
+    }
+    if (!actor.isPlayer) {
+      // (the player's anim timers tick in loop.js; a bot's tick here)
+      hero.grenadeAnim = Math.max(0, (hero.grenadeAnim || 0) - dt);
+      hero.punchAnim = Math.max(0, (hero.punchAnim || 0) - dt);
+      // bots: charge toward the aim, release at full charge (the engine draws their laser and cancels on stun)
+      if (hero.rChargeTimer > 0) {
+        hero.rChargeTimer -= dt;
+        const a = actor.aim();
+        hero.facing = Math.atan2(a.x - hero.x, a.z - hero.z);
+        if (hero.rChargeTimer <= 0) fireHeartseekerRelease(actor);
+      }
+      return;
     }
 
     // Coyote R 2.0s Self-Slowed Laser-Sight Charge
@@ -362,7 +413,7 @@ H.coyote = {
       muzzleOrb.visible = true;
       muzzleOrb.scale.setScalar(0.6 + chargePct * 1.1 + Math.sin(now * 0.03) * 0.15);
       if (hero.rChargeTimer <= 0) {
-        fireHeartseekerRelease();
+        fireHeartseekerRelease(actor);
       }
     } else {
       laserSightMesh.visible = false;
@@ -385,7 +436,26 @@ H.coyote = {
       g.mesh.rotation.x += dt * 14;
       g.mesh.rotation.z += dt * 10;
 
-      if (u >= 1) {
+      if (u >= 1 && g.owner) {
+        // a bot's grenade: same numbers, from that bot's level/stats, hitting that bot's enemies
+        const o = g.owner;
+        SFX.play('arena');
+        spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
+        spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
+        const ost = o.stats(), otal = o.talents();
+        const oRank = KitFx.rQE(o.level());
+        const outerDmg = Math.round([70, 105, 140][oRank] + ost.atk * 0.48);
+        const grenSlow = otal[7] === 'L' ? 2.5 : 0;
+        o.hostiles().forEach((t) => {
+          if (t.kind === 'structure') return;
+          const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
+          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: 4, slowDur: grenSlow, color: '#fde047' });
+          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: 2, slowDur: grenSlow });
+        });
+        scene.remove(g.mesh);
+        scene.remove(g.teleGrp);
+        heroGrenades.splice(i, 1);
+      } else if (u >= 1) {
         SFX.play('arena');
         spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
         spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);

@@ -149,6 +149,19 @@ async function bootArenaWithLoadingBar() {
     const dh = /[?&]shotdelay=(\d+)/.exec(location.search);
     setTimeout(() => logHeroShot(), dh ? parseInt(dh[1], 10) * 1000 : (act ? 1000 : 1500));
   }
+  // Dev: &botlog=N logs bot kit-cast counts every N seconds (plus any errors)
+  const blg = /[?&]botlog=(\d+)/.exec(location.search);
+  if (blg) {
+    window.addEventListener('error', (e) => console.log('BOTLOG error ' + e.message + ' @' + e.filename + ':' + e.lineno));
+    let n = 0;
+    const iv = setInterval(() => {
+      n++;
+      const cb = phase1Engine && phase1Engine.devBots ? phase1Engine.devBots().find((b) => b.heroType === 'coyote') : null;
+      const info = cb ? { t: Math.round(phase1Engine.devMatchTime()), x: Math.round(cb.x), z: Math.round(cb.z), lv: cb.level, hp: Math.round(cb.hp), dead: cb.respawnTimer > 0 } : 'no coyote bot';
+      console.log('BOTLOG ' + n + ' ' + JSON.stringify(window.__kitBotLog || {}) + ' ' + JSON.stringify(info));
+      if (n >= 8) { clearInterval(iv); console.log('BOTLOG done'); }
+    }, parseInt(blg[1], 10) * 1000);
+  }
   // Dev: &devturret=N destroys the Imp's planted turret N seconds in
   const dtur = /[?&]devturret=(\d+)/.exec(location.search);
   if (dtur) setTimeout(() => {
