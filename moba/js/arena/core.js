@@ -58,58 +58,141 @@ const rimLight = new THREE.DirectionalLight(0x7dd3fc, 0.85);
 rimLight.position.set(-14, 12, -16);
 scene.add(rimLight);
 
-// Procedural Painted Summoner's Rift Grass & Courtyard Texture
+// Painted map ground: the whole castle map (MOBA_MAP) drawn into one canvas texture laid over the ground plane.
+// Grass slopes, a lighter valley, dirt lanes & jungle paths, a cobbled bridge road, stone courtyards,
+// the behemoth hollow's earthen floor, and the chasm north of the bridge.
+const GROUND_W = window.MOBA_MAP.W + 40;  // world size of the ground plane
+const GROUND_H = window.MOBA_MAP.H + 40;
 function createGroundTexture() {
+  const M = window.MOBA_MAP;
+  const PX = 12; // texture pixels per meter
   const c = document.createElement('canvas');
-  c.width = 1024;
-  c.height = 1024;
+  c.width = Math.round(GROUND_W * PX);
+  c.height = Math.round(GROUND_H * PX);
   const g = c.getContext('2d');
+  const X = (x) => (x + GROUND_W / 2) * PX;
+  const Z = (z) => (z + GROUND_H / 2) * PX;
+  let seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
 
-  const grad = g.createRadialGradient(512, 512, 80, 512, 512, 620);
-  grad.addColorStop(0, '#365c37');
-  grad.addColorStop(0.6, '#29482b');
-  grad.addColorStop(1, '#1b331e');
+  // Base grass: darker up on the slopes, lighter toward the valley floor
+  const grad = g.createLinearGradient(0, Z(M.TOP_Z), 0, Z(M.BOUNDS.maxZ));
+  grad.addColorStop(0, '#2c4a2c');
+  grad.addColorStop(0.55, '#34572f');
+  grad.addColorStop(1, '#4a6f36');
   g.fillStyle = grad;
-  g.fillRect(0, 0, 1024, 1024);
+  g.fillRect(0, 0, c.width, c.height);
 
-  // Painterly grass brush dabs
-  for (let i = 0; i < 900; i++) {
-    const x = (i * 173) % 1024;
-    const y = (i * 389) % 1024;
-    const r = 8 + (i % 7) * 5;
-    g.fillStyle = i % 3 === 0 ? 'rgba(82, 134, 68, 0.22)' : 'rgba(22, 46, 24, 0.20)';
+  // Painterly grass dabs
+  for (let i = 0; i < 5200; i++) {
+    const x = rnd() * c.width, y = rnd() * c.height;
+    const r = (6 + rnd() * 22) * PX / 10;
+    g.fillStyle = rnd() < 0.45 ? 'rgba(98, 146, 70, 0.16)' : 'rgba(20, 42, 22, 0.16)';
     g.beginPath();
-    g.ellipse(x, y, r * 1.4, r * 0.8, (i % 5) * 0.6, 0, Math.PI * 2);
+    g.ellipse(x, y, r * 1.5, r * 0.8, rnd() * Math.PI, 0, Math.PI * 2);
     g.fill();
   }
 
-  // Central Painted Cobblestone Pit Ring
-  const stoneGrad = g.createRadialGradient(512, 512, 20, 512, 512, 270);
-  stoneGrad.addColorStop(0, '#625749');
-  stoneGrad.addColorStop(0.82, '#4d4439');
-  stoneGrad.addColorStop(1, 'rgba(77, 68, 57, 0)');
-  g.fillStyle = stoneGrad;
-  g.beginPath();
-  g.arc(512, 512, 275, 0, Math.PI * 2);
-  g.fill();
+  // Path stroke helper (soft edge + core)
+  const stroke = (pts, width, edge, core) => {
+    g.lineCap = 'round';
+    g.lineJoin = 'round';
+    [[width + 1.6, edge], [width, core]].forEach(([w, col]) => {
+      g.strokeStyle = col;
+      g.lineWidth = w * PX;
+      g.beginPath();
+      pts.forEach((p, i) => (i ? g.lineTo(X(p.x), Z(p.z)) : g.moveTo(X(p.x), Z(p.z))));
+      g.stroke();
+    });
+  };
+  // Dirt speckle along a path
+  const speckle = (pts, width, col, n) => {
+    for (let i = 0; i < pts.length - 1; i++) {
+      const a = pts[i], b = pts[i + 1];
+      for (let k = 0; k < n; k++) {
+        const t = rnd();
+        const ox = (rnd() - 0.5) * width, oz = (rnd() - 0.5) * width;
+        g.fillStyle = col;
+        g.beginPath();
+        g.arc(X(a.x + (b.x - a.x) * t + ox), Z(a.z + (b.z - a.z) * t + oz), (0.15 + rnd() * 0.35) * PX, 0, Math.PI * 2);
+        g.fill();
+      }
+    }
+  };
 
-  g.strokeStyle = 'rgba(214, 180, 112, 0.42)';
-  g.lineWidth = 6;
+  // Behemoth hollow floor (earth + moss), slightly larger than the walled triangle
+  const H = M.HOLLOW;
+  g.fillStyle = '#3d3326';
   g.beginPath();
-  g.arc(512, 512, 220, 0, Math.PI * 2);
-  g.stroke();
+  g.moveTo(X(-H.halfTop - 1.5), Z(H.top - 0.5));
+  g.lineTo(X(H.halfTop + 1.5), Z(H.top - 0.5));
+  g.lineTo(X(0), Z(H.tipZ + 3));
+  g.closePath();
+  g.fill();
+  for (let i = 0; i < 240; i++) {
+    const t = rnd(), u = rnd() * (1 - t);
+    const z = H.top + (H.tipZ - H.top) * t;
+    const halfW = H.halfTop * (1 - t);
+    g.fillStyle = rnd() < 0.5 ? 'rgba(70, 100, 48, 0.35)' : 'rgba(30, 24, 18, 0.35)';
+    g.beginPath();
+    g.arc(X((rnd() * 2 - 1) * halfW * 0.9), Z(z + u), (0.4 + rnd() * 1.1) * PX, 0, Math.PI * 2);
+    g.fill();
+  }
+
+  // Jungle Y path (narrow dirt)
+  M.JUNGLE_PATHS.forEach((pts) => {
+    stroke(pts, 3.6, 'rgba(70, 58, 40, 0.55)', '#6e5b40');
+    speckle(pts, 3.0, 'rgba(48, 38, 26, 0.5)', 60);
+  });
+  // Bottom lane (wide dirt road)
+  stroke(M.LANE_WAYPOINTS.bot, 6.0, 'rgba(78, 64, 44, 0.6)', '#7b6847');
+  speckle(M.LANE_WAYPOINTS.bot, 5.0, 'rgba(52, 42, 28, 0.45)', 140);
+
+  // North chasm beyond the bridge (between the castles)
+  const railZ = M.TOP_Z - M.BRIDGE_HALF - 0.4;
+  const chasm = g.createLinearGradient(0, Z(railZ), 0, Z(railZ - 8));
+  chasm.addColorStop(0, '#2a2a28');
+  chasm.addColorStop(0.25, '#141517');
+  chasm.addColorStop(1, '#0b0c0e');
+  g.fillStyle = chasm;
+  g.fillRect(X(-M.CASTLE.x0), 0, X(M.CASTLE.x0) - X(-M.CASTLE.x0), Z(railZ));
+
+  // Top lane: cobbled bridge road across the whole span
+  const top = M.LANE_WAYPOINTS.top;
+  stroke(top, M.BRIDGE_HALF * 2, '#5a554c', '#857b6c');
+  for (let x = top[0].x; x < top[top.length - 1].x; x += 0.9) {
+    for (let k = -3; k <= 3; k++) {
+      g.fillStyle = (Math.floor(x / 0.9) + k) % 2 ? 'rgba(60, 54, 46, 0.35)' : 'rgba(150, 140, 122, 0.25)';
+      g.fillRect(X(x), Z(M.TOP_Z + k * 0.9 - 0.4), 0.8 * PX, 0.8 * PX);
+    }
+  }
+
+  // Castle courtyards: flagstones
+  [0, 1].forEach((team) => {
+    const s = team === 0 ? -1 : 1;
+    const x0 = Math.min(s * M.CASTLE.x0, s * M.CASTLE.x1), x1 = Math.max(s * M.CASTLE.x0, s * M.CASTLE.x1);
+    g.fillStyle = '#7a7062';
+    g.fillRect(X(x0), Z(M.CASTLE.z0), X(x1) - X(x0), Z(M.CASTLE.z1) - Z(M.CASTLE.z0));
+    for (let x = x0; x < x1; x += 1.6) {
+      for (let z = M.CASTLE.z0; z < M.CASTLE.z1; z += 1.6) {
+        const shade = 0.08 + rnd() * 0.16;
+        g.fillStyle = rnd() < 0.5 ? `rgba(40, 34, 28, ${shade})` : `rgba(190, 176, 150, ${shade})`;
+        g.fillRect(X(x + 0.06), Z(z + 0.06), 1.48 * PX, 1.48 * PX);
+      }
+    }
+    // dirt ramps out of both gates
+    stroke([{ x: s * (M.CASTLE.x0 + 5), z: M.UPPER_GATE_Z }, { x: s * (M.CASTLE.x0 - 2), z: M.UPPER_GATE_Z }], 5.6, '#5a554c', '#857b6c');
+    stroke([{ x: s * M.SIDE_GATE_X, z: M.CASTLE.z1 - 5 }, { x: s * M.SIDE_GATE_X, z: M.CASTLE.z1 + 3 }], 5.6, 'rgba(78, 64, 44, 0.6)', '#7b6847');
+  });
 
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
-  tex.wrapS = THREE.RepeatWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(3, 2);
-  tex.anisotropy = 4;
+  tex.anisotropy = 8;
   return tex;
 }
 
 const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(168, 116),
+  new THREE.PlaneGeometry(GROUND_W, GROUND_H),
   new THREE.MeshStandardMaterial({ map: createGroundTexture(), roughness: 0.92, metalness: 0.02 })
 );
 ground.rotation.x = -Math.PI / 2;
@@ -143,6 +226,8 @@ const trunkMat = new THREE.MeshStandardMaterial({ color: 0x4a3222, roughness: 0.
 const leafMat1 = new THREE.MeshStandardMaterial({ color: 0x1e4d28, roughness: 0.82 });
 const leafMat2 = new THREE.MeshStandardMaterial({ color: 0x2b6937, roughness: 0.78 });
 
-// Order Base Training Alcove Rebound Pillars (Full 4v4 Map Trees/Pillars are built by phase1Engine)
-addStonePillarWall(-51.5, -10.5, 0.95);
-addStonePillarWall(-45.5, -10.5, 0.95);
+// Order castle training alcove rebound pillars (positions relative to MOBA_MAP.BASE.alcove = the Pit Target dummy;
+// keep this geometry rigid so the selftest stays comparable). Full map trees/walls are built by phase1Engine.
+const ALCOVE = window.MOBA_MAP.BASE.alcove;
+addStonePillarWall(ALCOVE.x - 1.3, ALCOVE.z + 2.7, 0.95);
+addStonePillarWall(ALCOVE.x + 4.7, ALCOVE.z + 2.7, 0.95);

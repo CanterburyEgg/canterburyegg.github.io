@@ -167,8 +167,8 @@ function classifyClipSlot(filename) {
 }
 
 // Retarget a Mixamo AnimationClip cleanly onto currentModel's bone names & lock horizontal Hips drift
-function prepareClipForModel(sourceClip, model, slot) {
-  const clipTw = (heroKit() && heroKit().clipTweaks) || {};
+function prepareClipForModel(sourceClip, model, slot, tweaksOverride) {
+  const clipTw = tweaksOverride || ((heroKit() && heroKit().clipTweaks) || {});
   const nodeByCanon = {};
   let hipsBone = null;
   model.traverse((obj) => {
@@ -224,7 +224,7 @@ function prepareClipForModel(sourceClip, model, slot) {
       const z0 = vals[2] || 0;
       const yScale = (hy > 0.01 && hy < 5 && Math.abs(y0) > 10) ? (hy / y0) : 1;
       // Pin Run, Crawl, Slide, and Jump strictly in-place on X/Z while keeping exact vertical Y drop/arc!
-      const inPlace = (slot === 'run' || slot === 'crawl' || slot === 'slide' || slot === 'jump');
+      const inPlace = /^(run|crawl|slide|jump)/i.test(slot) || /Run$/.test(slot);
       const maxSway = inPlace ? 0.0 : (slot === 'idle' ? 0.06 : 0.10);
       const numKeys = Math.max(1, vals.length / 3);
       for (let k = 0; k < vals.length; k += 3) {
@@ -246,7 +246,54 @@ function prepareClipForModel(sourceClip, model, slot) {
     }
   });
 
+  // Pose overlay (kit.clipOverlay[slot] = { from: 'idle', bones: /regex on canonical bone name/ }):
+  // those bones hold the first-frame pose of another clip, e.g. Fairy's dangling legs while casting,
+  // or the Imp's Box Idle arms while his legs run.
+  const overlay = model === currentModel && clipTw.overlay && clipTw.overlay[slot];
+  const fromClip = overlay && rawClips[overlay.from];
+  if (overlay && fromClip) {
+    const bonesRe = overlay.bones;
+    const isOver = (trName) => {
+      const dot = trName.lastIndexOf('.');
+      return bonesRe.test(canonicalMixamoBone(trName.slice(0, dot)));
+    };
+    for (let i = keptTracks.length - 1; i >= 0; i--) if (isOver(keptTracks[i].name)) keptTracks.splice(i, 1);
+    fromClip.tracks.forEach((tr) => {
+      const dot = tr.name.lastIndexOf('.');
+      if (dot < 0) return;
+      const canon = canonicalMixamoBone(tr.name.slice(0, dot));
+      const prop = tr.name.slice(dot + 1);
+      const targetObj = nodeByCanon[canon];
+      if (!targetObj || !bonesRe.test(canon) || /Thumb|Index|Middle|Ring|Pinky/i.test(canon)) return;
+      if (prop === 'quaternion') {
+        keptTracks.push(new THREE.QuaternionKeyframeTrack(targetObj.name + '.quaternion', [0], Array.from(tr.values.slice(0, 4))));
+      } else if (prop === 'position' && canon === 'Hips') {
+        const hp = hipsBone ? hipsBone.position : { x: tr.values[0], y: tr.values[1], z: tr.values[2] };
+        const y0 = tr.values[1];
+        const ys = (hp.y > 0.01 && hp.y < 5 && Math.abs(y0) > 10) ? hp.y / y0 : 1;
+        keptTracks.push(new THREE.VectorKeyframeTrack(targetObj.name + '.position', [0], [hp.x, ys === 1 ? y0 : y0 * ys, hp.z]));
+      }
+    });
+  }
   return new THREE.AnimationClip(activeHeroId + '_' + slot, sourceClip.duration, keptTracks);
+}
+
+// Shared Mixamo bundle parser for kits: map = { slot: 'bundleKey', ... }; the idle entry is the skinned model.
+function parseMixamoBundle(bundle, targetTmpl, map) {
+  if (!bundle || targetTmpl.fbx) return targetTmpl.fbx;
+  targetTmpl.tex = loadHeroDiffuseTexture(bundle.diffuseDataUrl);
+  const base = fbxLoader.parse(b64ToBuffer(bundle[map.idle]), '');
+  base.traverse((ch) => {
+    if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) ch.geometry.computeVertexNormals();
+  });
+  targetTmpl.fbx = base;
+  if (base.animations[0]) targetTmpl.clips.idle = base.animations[0];
+  Object.keys(map).forEach((slot) => {
+    if (slot === 'idle' || !bundle[map[slot]]) return;
+    const f = fbxLoader.parse(b64ToBuffer(bundle[map[slot]]), '');
+    if (f.animations[0]) targetTmpl.clips[slot] = f.animations[0];
+  });
+  return base;
 }
 
 function fadeToAction(nextAction, fadeDur = 0.14, isOneShot = false, timeScale = 1.0, startAt = 0.0) {
@@ -318,10 +365,10 @@ function bindClipToSlot(slot, clip) {
 }
 
 function rebuildAllActionsOnCurrentModel() {
-  actions.idle = actions.run = actions.crawl = actions.punch = actions.punch2 = actions.kick = actions.slide = actions.jump = null;
+  Object.keys(actions).forEach((k) => { actions[k] = null; });
   activeAction = null;
   oneShotActive = false;
-  ['idle', 'run', 'crawl', 'punch', 'punch2', 'kick', 'slide', 'jump'].forEach((slot) => {
+  Object.keys(rawClips).forEach((slot) => {
     if (rawClips[slot]) bindClipToSlot(slot, rawClips[slot]);
   });
   updateSlotPills();
@@ -543,7 +590,8 @@ function switchHero(heroId) {
   const meta = HERO_UI_META[heroId];
   HERO_HEIGHT = meta.height;
 
-  rawClips.idle = rawClips.run = rawClips.crawl = rawClips.punch = rawClips.punch2 = rawClips.kick = rawClips.slide = rawClips.jump = null;
+  Object.keys(rawClips).forEach((k) => { if (/^(idle|run|crawl|punch|punch2|kick|slide|jump)$/.test(k)) rawClips[k] = null; else delete rawClips[k]; });
+  Object.keys(actions).forEach((k) => { if (!/^(idle|run|crawl|punch|punch2|kick|slide|jump)$/.test(k)) delete actions[k]; });
 
   ensureHeroTemplateReady(heroId);
   const tmpl = heroTemplates[heroId] || heroTemplates.coyote;
@@ -551,12 +599,15 @@ function switchHero(heroId) {
     fallbackBrawlerTex = tmpl.tex;
     const cloned = SkeletonUtils.clone(tmpl.fbx);
     installModelObject(cloned, meta.modelLabel, true);
-    ['idle', 'run', 'crawl', 'punch', 'punch2', 'kick', 'slide', 'jump'].forEach((slot) => {
-      if (tmpl.clips[slot]) bindClipToSlot(slot, tmpl.clips[slot]);
+    // idle first (pose overlays sample it), then every other clip the kit provides
+    if (tmpl.clips.idle) bindClipToSlot('idle', tmpl.clips.idle);
+    Object.keys(tmpl.clips).forEach((slot) => {
+      if (slot !== 'idle' && tmpl.clips[slot]) bindClipToSlot(slot, tmpl.clips[slot]);
     });
   }
 
   crossbowPivot.visible = !!(heroKit(heroId) && heroKit(heroId).usesCrossbowProp);
+  Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.onSwitchedAway && k.id !== heroId) k.onSwitchedAway(); });
   wandPivot.visible = false;
   laserSightMesh.visible = false;
   muzzleOrb.visible = false;
@@ -590,7 +641,7 @@ function switchHero(heroId) {
   hero.qFlurryRemaining = 0;
   hero.qFlurryTimer = 0;
 
-  ['coyote', 'brawler', 'sorceress', 'bodyguard', 'panther'].forEach((id) => {
+  Object.keys(window.MOBA_HEROES || {}).forEach((id) => {
     const btn = document.getElementById('btn-hero-' + id);
     if (btn) btn.classList.toggle('toggled', id === heroId);
   });

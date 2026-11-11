@@ -313,12 +313,7 @@
     <div class="loader-card">
       <div class="loader-title">Coliseum 3D Arena</div>
       <div class="loader-sub">Rigging 4v4 Mixamo Champions &amp; Warming Up WebGL Shaders</div>
-      <div class="loader-roster-grid">
-        <div class="loader-hero-pill active" id="ld-pill-coyote">🐺 Coyote</div>
-        <div class="loader-hero-pill" id="ld-pill-brawler">🥊 Brawler</div>
-        <div class="loader-hero-pill" id="ld-pill-sorceress">✨ Sorceress</div>
-        <div class="loader-hero-pill" id="ld-pill-bodyguard">🛡️ Bodyguard</div>
-        <div class="loader-hero-pill" id="ld-pill-panther">🐾 Panther</div>
+      <div class="loader-roster-grid" id="ld-roster-grid">
       </div>
       <div class="loader-bar-track">
         <div class="loader-bar-fill" id="loader-bar-fill"></div>
@@ -338,11 +333,7 @@
     <header class="sandbox-topbar">
       <div class="roster-strip">
         <span class="strip-label">3D Hero</span>
-        <button type="button" class="sb-btn toggled" id="btn-hero-coyote" style="font-weight:700;">🐺 1: Coyote</button>
-        <button type="button" class="sb-btn" id="btn-hero-brawler" style="font-weight:700;">🥊 2: Brawler</button>
-        <button type="button" class="sb-btn" id="btn-hero-sorceress" style="font-weight:700;">✨ 3: Sorceress</button>
-        <button type="button" class="sb-btn" id="btn-hero-bodyguard" style="font-weight:700;">🛡️ 4: Bodyguard</button>
-        <button type="button" class="sb-btn" id="btn-hero-panther" style="font-weight:700;">🐾 5: Panther</button>
+        <span id="roster-buttons" style="display:contents;"></span>
         <span style="font-size:11px;color:var(--text-parchment);font-weight:600;padding:0 4px;" id="lbl-model-name">
           Coyote Crossbowman (Mixamo + 3D Crossbow)
         </span>
@@ -454,11 +445,16 @@
   </main>
 
   <script src="js/audio.js"></script>
+  <script src="js/heroes/kit_helpers.js"></script>
   <script src="js/heroes/brawler.js"></script>
   <script src="js/heroes/sorceress.js"></script>
   <script src="js/heroes/coyote.js"></script>
   <script src="js/heroes/bodyguard.js"></script>
   <script src="js/heroes/panther.js"></script>
+  <script src="js/heroes/fairy.js"></script>
+  <script src="js/heroes/scientist.js"></script>
+  <script src="js/heroes/imp.js"></script>
+  <script src="js/map_layout.js"></script>
   <script src="js/phase1_data.js"></script>
   <script src="js/phase1_engine.js"></script>
   <script type="module">

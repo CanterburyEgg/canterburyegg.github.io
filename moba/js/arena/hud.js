@@ -3,22 +3,33 @@
 // top-level let/const/function names are shared across all js/arena/*.js files.
 'use strict';
 
-// Toolbar UI Buttons
-document.getElementById('btn-hero-coyote').addEventListener('click', () => {
-  switchHero('coyote');
-});
-document.getElementById('btn-hero-brawler').addEventListener('click', () => {
-  switchHero('brawler');
-});
-document.getElementById('btn-hero-sorceress').addEventListener('click', () => {
-  switchHero('sorceress');
-});
-document.getElementById('btn-hero-bodyguard').addEventListener('click', () => {
-  switchHero('bodyguard');
-});
-document.getElementById('btn-hero-panther').addEventListener('click', () => {
-  switchHero('panther');
-});
+// Roster: hero buttons, loading-screen pills and number-key hotkeys come from each kit's `roster` entry
+function rosterKits() {
+  return Object.values(window.MOBA_HEROES || {}).filter((k) => k.roster).sort((a, b) => a.roster.order - b.roster.order);
+}
+(function buildRosterUI() {
+  const btnHost = document.getElementById('roster-buttons');
+  const pillHost = document.getElementById('ld-roster-grid');
+  rosterKits().forEach((k, i) => {
+    if (btnHost) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sb-btn' + (k.id === 'coyote' ? ' toggled' : '');
+      b.id = 'btn-hero-' + k.id;
+      b.style.fontWeight = '700';
+      b.textContent = k.roster.emoji + ' ' + (i + 1) + ': ' + k.roster.short;
+      b.addEventListener('click', () => switchHero(k.id));
+      btnHost.appendChild(b);
+    }
+    if (pillHost) {
+      const p = document.createElement('div');
+      p.className = 'loader-hero-pill' + (i === 0 ? ' active' : '');
+      p.id = 'ld-pill-' + k.id;
+      p.textContent = k.roster.emoji + ' ' + k.roster.short;
+      pillHost.appendChild(p);
+    }
+  });
+})();
 
 // Hover Tooltips & Click-to-Cast for HUD Ability Bar (Passive, LMB, Q, E, R)
 const ttEl = document.getElementById('ability-tooltip-3d');

@@ -8,8 +8,9 @@ const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
 H.panther = {
   id: 'panther',
+  roster: { order: 5, emoji: '🐾', short: 'Panther' },
 
-  bundle: { label: 'Panther Rogue', src: 'assets/panther/panther_bundle.js', globalKey: 'PANTHER_MIXAMO', pStart: 82, pEnd: 94 },
+  bundle: { label: 'Panther Rogue', src: 'assets/panther/panther_bundle.js', globalKey: 'PANTHER_MIXAMO', pStart: 45, pEnd: 55 },
   moveSpeed: 6.55, // world units/s before bonuses
   hudSpeed: 342,   // SPD number shown in the HUD
   clipTweaks: { crawlStabilizeHead: true, crawlBound: true, jumpClampHips: true },

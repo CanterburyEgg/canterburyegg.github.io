@@ -1,100 +1,23 @@
 // Phase 1: 3D 4v4 MOBA Map, Structures, Talents & Passive/Proc Item Shop Data
 // Works over file:// and http:// with zero build step.
 window.MOBA_PHASE1 = (function () {
-  const MAP_W = 148; // X: -74 .. +74 (Order Base at -62, Chaos Base at +62)
-  const MAP_H = 100; // Z: -50 .. +50 (Top Solo Lane at z=-33, Bot Duo Lane at z=+37)
+  // Map layout lives in js/map_layout.js (window.MOBA_MAP); this file just re-exports it for the engine.
+  const MAP = window.MOBA_MAP;
+  const MAP_W = MAP.W;
+  const MAP_H = MAP.H;
+  const LANE_WAYPOINTS = MAP.LANE_WAYPOINTS;
+  const buildInitialStructures = MAP.buildInitialStructures;
+  const buildJungleCamps = MAP.buildJungleCamps;
 
-  // Waypoints for Top (Short Solo 1v1) and Bot (Long Duo 2v2) lanes (Order -> Chaos)
-  const LANE_WAYPOINTS = {
-    top: [
-      { x: -56, z: -6 },
-      { x: -46, z: -26 },
-      { x: -24, z: -33 },
-      { x: 0, z: -33 },
-      { x: 24, z: -33 },
-      { x: 46, z: -26 },
-      { x: 56, z: -6 }
-    ],
-    bot: [
-      { x: -56, z: 6 },
-      { x: -48, z: 30 },
-      { x: -26, z: 38 },
-      { x: 0, z: 39 },
-      { x: 26, z: 38 },
-      { x: 48, z: 30 },
-      { x: 56, z: 6 }
-    ]
-  };
-
-  // Structures per team: 2 Towers + 1 Barracks per lane + 1 Ancient Core
-  function buildInitialStructures() {
-    return [
-      // ORDER (Team 0 — Left Side, Blue/Emerald)
-      { id: 'o_top_t1', team: 0, lane: 'top', kind: 'tower', tier: 1, name: 'Order Top T1 Tower', x: -22, z: -33, r: 1.45, hp: 2800, maxHp: 2800, armor: 45, atk: 135, range: 9.5 },
-      { id: 'o_top_t2', team: 0, lane: 'top', kind: 'tower', tier: 2, name: 'Order Top T2 Tower', x: -43, z: -24, r: 1.5, hp: 3400, maxHp: 3400, armor: 50, atk: 160, range: 9.5 },
-      { id: 'o_top_rax', team: 0, lane: 'top', kind: 'barracks', tier: 3, name: 'Order Top Barracks', x: -51, z: -13, r: 1.65, hp: 3000, maxHp: 3000, armor: 40, atk: 0, range: 0 },
-
-      { id: 'o_bot_t1', team: 0, lane: 'bot', kind: 'tower', tier: 1, name: 'Order Bot T1 Tower', x: -23, z: 38, r: 1.45, hp: 2800, maxHp: 2800, armor: 45, atk: 135, range: 9.5 },
-      { id: 'o_bot_t2', team: 0, lane: 'bot', kind: 'tower', tier: 2, name: 'Order Bot T2 Tower', x: -45, z: 28, r: 1.5, hp: 3400, maxHp: 3400, armor: 50, atk: 160, range: 9.5 },
-      { id: 'o_bot_rax', team: 0, lane: 'bot', kind: 'barracks', tier: 3, name: 'Order Bot Barracks', x: -51, z: 13, r: 1.65, hp: 3000, maxHp: 3000, armor: 40, atk: 0, range: 0 },
-
-      { id: 'o_ancient', team: 0, lane: 'base', kind: 'ancient', tier: 4, name: 'Order Ancient Core', x: -57, z: 0, r: 2.35, hp: 5500, maxHp: 5500, armor: 55, atk: 185, range: 10.5 },
-
-      // CHAOS (Team 1 — Right Side, Crimson/Gold)
-      { id: 'c_top_t1', team: 1, lane: 'top', kind: 'tower', tier: 1, name: 'Chaos Top T1 Tower', x: 22, z: -33, r: 1.45, hp: 2800, maxHp: 2800, armor: 45, atk: 135, range: 9.5 },
-      { id: 'c_top_t2', team: 1, lane: 'top', kind: 'tower', tier: 2, name: 'Chaos Top T2 Tower', x: 43, z: -24, r: 1.5, hp: 3400, maxHp: 3400, armor: 50, atk: 160, range: 9.5 },
-      { id: 'c_top_rax', team: 1, lane: 'top', kind: 'barracks', tier: 3, name: 'Chaos Top Barracks', x: 51, z: -13, r: 1.65, hp: 3000, maxHp: 3000, armor: 40, atk: 0, range: 0 },
-
-      { id: 'c_bot_t1', team: 1, lane: 'bot', kind: 'tower', tier: 1, name: 'Chaos Bot T1 Tower', x: 23, z: 38, r: 1.45, hp: 2800, maxHp: 2800, armor: 45, atk: 135, range: 9.5 },
-      { id: 'c_bot_t2', team: 1, lane: 'bot', kind: 'tower', tier: 2, name: 'Chaos Bot T2 Tower', x: 45, z: 28, r: 1.5, hp: 3400, maxHp: 3400, armor: 50, atk: 160, range: 9.5 },
-      { id: 'c_bot_rax', team: 1, lane: 'bot', kind: 'barracks', tier: 3, name: 'Chaos Bot Barracks', x: 51, z: 13, r: 1.65, hp: 3000, maxHp: 3000, armor: 40, atk: 0, range: 0 },
-
-      { id: 'c_ancient', team: 1, lane: 'base', kind: 'ancient', tier: 4, name: 'Chaos Ancient Core', x: 57, z: 0, r: 2.35, hp: 5500, maxHp: 5500, armor: 55, atk: 185, range: 10.5 }
-    ];
-  }
-
-  // Neutral Jungle Camps (3 per half) + 1 Central Boss Pit (+10% All-Stats Buff!)
-  function buildJungleCamps() {
-    return [
-      { id: 'camp_o_north', name: 'Razorback Pack', x: -19, z: -15, isBoss: false, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
-      { id: 'camp_o_mid',   name: 'Stone Golem',    x: -31, z: 0,   isBoss: false, maxHp: 1400, armor: 22, atk: 56, gold: 165, xp: 195, respawnDur: 45 },
-      { id: 'camp_o_south', name: 'Bramble Stalkers', x: -18, z: 17, isBoss: false, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
-
-      { id: 'camp_c_north', name: 'Razorback Pack', x: 19, z: -15, isBoss: false, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
-      { id: 'camp_c_mid',   name: 'Stone Golem',    x: 31, z: 0,   isBoss: false, maxHp: 1400, armor: 22, atk: 56, gold: 165, xp: 195, respawnDur: 45 },
-      { id: 'camp_c_south', name: 'Bramble Stalkers', x: 18, z: 17, isBoss: false, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
-
-      { id: 'camp_boss',    name: 'Coliseum Behemoth (BOSS: +10% All Stats)', x: 0, z: 0, isBoss: true, maxHp: 4800, armor: 38, atk: 125, gold: 380, xp: 420, respawnDur: 95 }
-    ];
-  }
-
-  // LOS-Blocking Jungle Trees & Stone Pillars (Mirrored Left & Right)
+  // LOS-blocking trees & pillars, plus wall collision circles (castle walls & hollow cliffs block sight; bridge rails don't)
   function buildMapObstacles() {
-    const obs = [];
-    const halfPillars = [
-      [-10, -8, 1.3], [-10, 8, 1.3],
-      [-25, -21, 1.4], [-25, 23, 1.4],
-      [-37, -11, 1.35], [-37, 11, 1.35]
-    ];
-    halfPillars.forEach(([x, z, r]) => {
-      obs.push({ kind: 'pillar', x, z, r });
-      obs.push({ kind: 'pillar', x: -x, z, r });
-    });
-
-    const halfTrees = [
-      [-14, -24, 1.15], [-11, -25, 1.05], [-8, -23, 1.1],
-      [-28, -8, 1.15], [-26, -5, 1.05],
-      [-14, 25, 1.15], [-11, 27, 1.1], [-8, 24, 1.05],
-      [-28, 9, 1.15], [-26, 6, 1.05],
-      [-38, -20, 1.1], [-38, 21, 1.1],
-      [-4, -25, 1.15], [0, -26, 1.2],
-      [-4, 26, 1.15], [0, 27, 1.2]
-    ];
-    halfTrees.forEach(([x, z, s]) => {
-      obs.push({ kind: 'tree', x, z, r: 0.92 * s, scale: s });
-      if (Math.abs(x) > 0.5) {
-        obs.push({ kind: 'tree', x: -x, z, r: 0.92 * s, scale: s });
-      }
+    const obs = MAP.buildMapObstacles();
+    MAP.WALLS.forEach((w) => {
+      MAP.wallCircles(w).forEach((c) => {
+        if (w.kind === 'rail') c.noLos = true;
+        c.wallKind = w.kind;
+        obs.push(c);
+      });
     });
     return obs;
   }

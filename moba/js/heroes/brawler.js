@@ -114,8 +114,9 @@ function triggerDashAnimation(isRebound) {
 
 H.brawler = {
   id: 'brawler',
+  roster: { order: 2, emoji: '🥊', short: 'Brawler' },
 
-  bundle: { label: 'Pit Brawler', src: 'assets/brawler/brawler_bundle.js', globalKey: 'BRAWLER_MIXAMO', pStart: 30, pEnd: 44 },
+  bundle: { label: 'Pit Brawler', src: 'assets/brawler/brawler_bundle.js', globalKey: 'BRAWLER_MIXAMO', pStart: 15, pEnd: 25 },
   moveSpeed: 5.88, // world units/s before bonuses
   hudSpeed: 338,   // SPD number shown in the HUD
 

@@ -119,16 +119,16 @@ function spawnDummy(name, x, z, isShooter = false) {
 }
 
 // Order Base Training Alcove Dummies (North of Allied Fountain so Central Boss Pit at (0,0) is clear!)
-spawnDummy('Pit Target', -50.2, -13.2, false);
-spawnDummy('Heavy Bag #1', -48.0, -14.4, false);
-spawnDummy('Heavy Bag #2', -45.8, -13.2, false);
-spawnDummy('Arcane Shooter', -53.2, -9.5, true);
+spawnDummy('Pit Target', ALCOVE.x, ALCOVE.z, false);
+spawnDummy('Heavy Bag #1', ALCOVE.x + 2.2, ALCOVE.z - 1.2, false);
+spawnDummy('Heavy Bag #2', ALCOVE.x + 4.4, ALCOVE.z, false);
+spawnDummy('Arcane Shooter', ALCOVE.x - 3.0, ALCOVE.z + 3.7, true);
 
 // =========================================================
 // 3D HERO GAMEPLAY STATE & VFX
 // =========================================================
 const hero = {
-  x: -55, z: 12, r: 0.52,
+  x: window.MOBA_MAP.BASE.heroSpawn.x, z: window.MOBA_MAP.BASE.heroSpawn.z, r: 0.52,
   facing: 0,
   hp: 1350, maxHp: 1350,
   mp: 310, maxMp: 310,
@@ -338,20 +338,10 @@ function castKey(slot) {
 window.addEventListener('keydown', (e) => {
   if (e.repeat) return;
   keys[e.code] = true;
-  if (e.code === 'Digit1') {
-    switchHero('coyote');
-  }
-  if (e.code === 'Digit2') {
-    switchHero('brawler');
-  }
-  if (e.code === 'Digit3') {
-    switchHero('sorceress');
-  }
-  if (e.code === 'Digit4') {
-    switchHero('bodyguard');
-  }
-  if (e.code === 'Digit5') {
-    switchHero('panther');
+  const digit = /^Digit([1-9])$/.exec(e.code);
+  if (digit) {
+    const k = rosterKits()[parseInt(digit[1], 10) - 1];
+    if (k) switchHero(k.id);
   }
   if (e.code === 'KeyQ') castKey('Q');
   if (e.code === 'KeyE') castKey('E');

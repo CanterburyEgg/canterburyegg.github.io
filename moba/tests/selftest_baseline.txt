@@ -49,8 +49,8 @@
      bodyguard | Lv1 | E  dmg=300 hits=3 unit=0 cd=11.00 mp=55
      bodyguard | Lv1 | R  dmg=0 hits=0 unit=0 cd=0.00 mp=0
      bodyguard | Lv12-L | LMB  dmg=105 hits=1 unit=0 cd=0.98 mp=0
-     bodyguard | Lv12-L | Q  dmg=911 hits=4 unit=0 cd=5.50 mp=45
-     bodyguard | Lv12-L | Q>LMB  dmg=1016 hits=5 unit=0 cd=5.50 mp=45
+     bodyguard | Lv12-L | Q  dmg=702 hits=3 unit=0 cd=5.50 mp=45
+     bodyguard | Lv12-L | Q>LMB  dmg=702 hits=3 unit=0 cd=5.50 mp=45
      bodyguard | Lv12-L | E  dmg=747 hits=3 unit=0 cd=8.00 mp=55
      bodyguard | Lv12-L | R  dmg=888 hits=3 unit=0 cd=32.00 mp=90
      bodyguard | Lv12-R | LMB  dmg=105 hits=1 unit=0 cd=0.98 mp=0

@@ -22,6 +22,30 @@ async function loadMapModels() {
   if (hearth) tmpl.hearth = hearth;
   window.MOBA_MAP_TEMPLATES = tmpl;
   if (phase1Engine && phase1Engine.notifyMapModelsReady) phase1Engine.notifyMapModelsReady();
+
+  // Armor minions (regular + super): skinned idle model + clips
+  if (!window.MOBA_MINION_BUNDLE) await loadScriptAsync('assets/map/minion_bundle.js');
+  const mb = window.MOBA_MINION_BUNDLE;
+  if (mb) {
+    try {
+      const fbx = (b64) => fbxLoader.parse(b64ToBuffer(b64), '');
+      const clip = (b64) => { const f = fbx(b64); return f.animations[0] || null; };
+      const build = (pre, attackKeys) => {
+        const base = fbx(mb[pre + 'Idle']);
+        base.traverse((ch) => { if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) ch.geometry.computeVertexNormals(); });
+        const t = { fbx: base, tex: loadHeroDiffuseTexture(mb[pre + 'Tex']), clips: { idle: base.animations[0], walk: clip(mb[pre + 'Walk']), death: clip(mb[pre + 'Death']) } };
+        Object.keys(attackKeys).forEach((slot) => { t.clips[slot] = clip(mb[attackKeys[slot]]); });
+        return t;
+      };
+      window.MOBA_MINION_TEMPLATES = {
+        minion: build('minion', { melee: 'minionMelee', ranged: 'minionRanged' }),
+        super: build('super', { melee: 'superAttack' })
+      };
+      if (phase1Engine && phase1Engine.notifyMinionTemplatesReady) phase1Engine.notifyMinionTemplatesReady();
+    } catch (e) {
+      console.warn('Minion bundle failed to parse; keeping primitive minions', e);
+    }
+  }
 }
 
 // Preload & parse all 5 v2 Mixamo Hero Bundles + 3D Crossbow + WebGL Shader Compile behind the loading bar
@@ -53,7 +77,7 @@ async function bootArenaWithLoadingBar() {
   for (let i = 0; i < steps.length; i++) {
     const s = steps[i];
     setPillState(s.id, 'active');
-    setProgress(s.pStart, 'Loading ' + (i + 1) + '/5: ' + s.label + '...');
+    setProgress(s.pStart, 'Loading ' + (i + 1) + '/' + steps.length + ': ' + s.label + '...');
     await yieldForPaint();
 
     if (!window[s.globalKey]) {
@@ -103,7 +127,57 @@ async function bootArenaWithLoadingBar() {
   if (window.__MOBA_TEST) {
     loadScriptAsync('js/selftest.js');
   }
+  // Dev: ?mapshot logs a top-down render of the whole map to the console as base64 PNG chunks
+  if (/[?&]mapshot/.test(location.search)) {
+    const dm = /[?&]shotdelay=(\d+)/.exec(location.search);
+    setTimeout(logMapShot, dm ? parseInt(dm[1], 10) * 1000 : 1500);
+  }
+  // Dev: ?hero=<id> starts as that hero; &heroshot[=action] logs a close-up (action: punch|kick|slide|run|...)
+  const hm = /[?&]hero=([a-z]+)/.exec(location.search);
+  if (hm) switchHero(hm[1]);
+  const hs = /[?&]heroshot(?:=([a-zA-Z]+))?/.exec(location.search);
+  if (hs) {
+    const act = hs[1];
+    if (act === 'run') { keys.KeyD = true; }
+    else if (act === 'Q' || act === 'E' || act === 'R') { setTimeout(() => castKey(act), 600); }
+    else if (act === 'lmb') { setTimeout(() => tryAttack(), 600); }
+    else if (act && actions[act]) setTimeout(() => fadeToAction(actions[act], 0.05, true, 1.0, 0), 600);
+    const dh = /[?&]shotdelay=(\d+)/.exec(location.search);
+    setTimeout(() => logHeroShot(), dh ? parseInt(dh[1], 10) * 1000 : (act ? 1000 : 1500));
+  }
 }
+
+function logHeroShot() {
+  const cam = new THREE.PerspectiveCamera(35, renderer.domElement.width / renderer.domElement.height, 0.1, 200);
+  const yaw = heroPivot.rotation.y;
+  // 3/4 front view of the hero
+  cam.position.set(hero.x + Math.sin(yaw + 0.6) * 5.5, 2.4, hero.z + Math.cos(yaw + 0.6) * 5.5);
+  cam.lookAt(hero.x, 1.0, hero.z);
+  renderer.render(scene, cam);
+  const data = renderer.domElement.toDataURL('image/png').split(',')[1];
+  const CH = 30000;
+  for (let i = 0; i < data.length; i += CH) console.log('RENDERPNG ' + String(i / CH).padStart(4, '0') + ' ' + data.slice(i, i + CH));
+  console.log('RENDEREND');
+}
+
+function logMapShot() {
+  const M = window.MOBA_MAP;
+  const m = /[?&]mapshot=([-\d.]+),([-\d.]+),([\d.]+)/.exec(location.search); // optional cx,cz,halfWidth
+  const cx = m ? parseFloat(m[1]) : 0, cz = m ? parseFloat(m[2]) : 0;
+  const halfW = m ? parseFloat(m[3]) : M.W / 2 + 2;
+  const aspect = renderer.domElement.width / renderer.domElement.height;
+  const halfH = halfW / aspect;
+  const cam = new THREE.OrthographicCamera(-halfW, halfW, halfH, -halfH, 0.1, 400);
+  cam.position.set(cx, 150, cz);
+  cam.up.set(0, 0, -1);
+  cam.lookAt(cx, 0, cz);
+  renderer.render(scene, cam);
+  const data = renderer.domElement.toDataURL('image/png').split(',')[1];
+  const CH = 30000;
+  for (let i = 0; i < data.length; i += CH) console.log('RENDERPNG ' + String(i / CH).padStart(4, '0') + ' ' + data.slice(i, i + CH));
+  console.log('RENDEREND');
+}
+
 
 // =========================================================
 // SELFTEST HOOK (only exists when the URL contains ?selftest)

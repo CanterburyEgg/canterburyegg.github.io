@@ -6,6 +6,7 @@
 
 window.MOBA_PHASE1_ENGINE = (function () {
   const DATA = window.MOBA_PHASE1;
+  const MAP = window.MOBA_MAP;
 
   function createEngine(ctx) {
     const {
@@ -113,6 +114,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (lenSq < 0.01) return false;
       for (let i = 0; i < mapObstacles.length; i++) {
         const o = mapObstacles[i];
+        if (o.noLos) continue;
         const t = THREE.MathUtils.clamp(((o.x - ax) * dx + (o.z - az) * dz) / lenSq, 0.05, 0.95);
         const cx = ax + t * dx;
         const cz = az + t * dz;
@@ -127,7 +129,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     function isPointVisibleToOrder(tx, tz) {
       if (!matchMode) return true;
       // 1. Order Fountain / Base vision
-      if (Math.hypot(tx - (-60), tz - 0) <= 22) return true;
+      if (Math.hypot(tx - MAP.BASE.fountain.x, tz - MAP.BASE.fountain.z) <= 24) return true;
 
       // 2. Player Hero vision (17.5m unobstructed by trees/pillars)
       if (playerProg.respawnTimer <= 0) {
@@ -172,7 +174,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     function isPlayerSeenByChaos() {
       if ((hero.stealthTimer || 0) > 0) return false;
       if (!matchMode) return false;
-      if (Math.hypot(hero.x - 60, hero.z - 0) <= 20) return true;
+      if (Math.hypot(hero.x + MAP.BASE.fountain.x, hero.z - MAP.BASE.fountain.z) <= 22) return true;
       for (let i = 0; i < bots.length; i++) {
         const b = bots[i];
         if (b.team !== 1 || b.respawnTimer > 0) continue;
@@ -318,14 +320,15 @@ window.MOBA_PHASE1_ENGINE = (function () {
         rRing.position.y = 0.03;
         grp.add(rRing);
       } else if (s.kind === 'barracks') {
-        const hall = new THREE.Mesh(new THREE.BoxGeometry(2.6, 1.9, 2.6), stoneBaseMat);
-        hall.position.y = 0.95;
-        hall.castShadow = true;
-        grp.add(hall);
+        // Gatehouse: the targetable flank tower of a castle gate
+        const body = new THREE.Mesh(new THREE.CylinderGeometry(s.r, s.r * 1.08, 5.0, 14), stoneBaseMat);
+        body.position.y = 2.5;
+        body.castShadow = true;
+        body.receiveShadow = true;
+        grp.add(body);
 
-        const roof = new THREE.Mesh(new THREE.ConeGeometry(2.1, 1.3, 4), tMat);
-        roof.position.y = 2.55;
-        roof.rotation.y = Math.PI / 4;
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(s.r * 1.35, s.r * 1.7, 14), tMat);
+        roof.position.y = 5.0 + s.r * 0.85;
         roof.castShadow = true;
         grp.add(roof);
       } else if (s.kind === 'ancient') {
@@ -455,6 +458,114 @@ window.MOBA_PHASE1_ENGINE = (function () {
       c.plate = createPlate('enemy', c.name);
     }
 
+    // Castle walls & gates, bridge railings and the behemoth hollow's cliffs (code-built; see MAP_DESIGN.md)
+    function buildCastleWorks() {
+      const sandMat = new THREE.MeshStandardMaterial({ color: 0xb79d74, roughness: 0.9 });
+      const greyMat = new THREE.MeshStandardMaterial({ color: 0x8d8a83, roughness: 0.92 });
+      const roofMat = new THREE.MeshStandardMaterial({ color: 0x9a4a32, roughness: 0.85 });
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x5b3b22, roughness: 0.9 });
+      const rockMat = new THREE.MeshStandardMaterial({ color: 0x5c5448, roughness: 0.97, flatShading: true });
+      const mossMat = new THREE.MeshStandardMaterial({ color: 0x3e5a2c, roughness: 0.95, flatShading: true });
+      const WALL_H = 3.4, WALL_D = 1.5;
+
+      const addBox = (mat, w, h, d, x, y, z, rotY = 0) => {
+        const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+        m.position.set(x, y, z);
+        m.rotation.y = rotY;
+        m.castShadow = true;
+        m.receiveShadow = true;
+        mapGroup.add(m);
+        return m;
+      };
+      const addTower = (x, z, r, h, team, withBanner) => {
+        const body = new THREE.Mesh(new THREE.CylinderGeometry(r, r * 1.08, h, 14), sandMat);
+        body.position.set(x, h / 2, z);
+        body.castShadow = true;
+        body.receiveShadow = true;
+        mapGroup.add(body);
+        const band = new THREE.Mesh(new THREE.CylinderGeometry(r * 1.12, r * 1.12, 0.5, 14), greyMat);
+        band.position.set(x, h - 0.25, z);
+        mapGroup.add(band);
+        const roof = new THREE.Mesh(new THREE.ConeGeometry(r * 1.3, r * 1.6, 14), roofMat);
+        roof.position.set(x, h + r * 0.8, z);
+        roof.castShadow = true;
+        mapGroup.add(roof);
+        if (withBanner) {
+          const banner = new THREE.Mesh(
+            new THREE.PlaneGeometry(1.1, 2.2),
+            new THREE.MeshStandardMaterial({ color: team === 0 ? 0x2b7fd6 : 0xc8324a, roughness: 0.8, side: THREE.DoubleSide })
+          );
+          banner.position.set(x, h - 1.6, z);
+          banner.lookAt(0, h - 1.6, z); // face the map center
+          banner.position.x += Math.sign(-x) * (r + 0.05);
+          mapGroup.add(banner);
+        }
+      };
+
+      // Merlons along castle wall tops (one instanced mesh)
+      const merlonGeo = new THREE.BoxGeometry(0.9, 0.7, WALL_D * 1.05);
+      const merlonSpots = [];
+      MAP.WALLS.forEach((w) => {
+        const dx = w.x1 - w.x0, dz = w.z1 - w.z0;
+        const len = Math.hypot(dx, dz);
+        const cx = (w.x0 + w.x1) / 2, cz = (w.z0 + w.z1) / 2;
+        const rotY = Math.atan2(dx, dz) + Math.PI / 2;
+        if (w.kind === 'castle') {
+          addBox(sandMat, len + WALL_D, WALL_H, WALL_D, cx, WALL_H / 2, cz, rotY);
+          addBox(greyMat, len + WALL_D + 0.1, 0.6, WALL_D + 0.12, cx, 0.3, cz, rotY);
+          const n = Math.floor(len / 1.8);
+          for (let i = 0; i <= n; i++) {
+            const t = n === 0 ? 0.5 : i / n;
+            merlonSpots.push({ x: w.x0 + dx * t, z: w.z0 + dz * t, rotY });
+          }
+        } else if (w.kind === 'rail') {
+          addBox(greyMat, len, 1.0, 0.6, cx, 0.5, cz, rotY);
+          // posts every ~6 m
+          const n = Math.floor(len / 6);
+          for (let i = 0; i <= n; i++) {
+            const t = i / n;
+            addBox(sandMat, 0.9, 1.4, 0.9, w.x0 + dx * t, 0.7, w.z0 + dz * t);
+          }
+        } else if (w.kind === 'cliff') {
+          addBox(rockMat, len + 1.2, 2.6, 1.8, cx, 1.3, cz, rotY);
+          // irregular boulders along the cliff so it reads as rock, not a wall
+          const n = Math.floor(len / 2.2);
+          for (let i = 0; i <= n; i++) {
+            const t = i / Math.max(1, n);
+            const b = new THREE.Mesh(new THREE.DodecahedronGeometry(1.0 + ((i * 37) % 7) * 0.12, 0), i % 3 === 0 ? mossMat : rockMat);
+            b.position.set(w.x0 + dx * t + Math.sin(i * 2.3) * 0.5, 1.6 + ((i * 13) % 5) * 0.25, w.z0 + dz * t + Math.cos(i * 1.7) * 0.5);
+            b.rotation.set(i * 0.7, i * 1.3, i * 0.4);
+            b.castShadow = true;
+            mapGroup.add(b);
+          }
+        }
+      });
+      const merlons = new THREE.InstancedMesh(merlonGeo, sandMat, merlonSpots.length);
+      const mtx = new THREE.Matrix4();
+      merlonSpots.forEach((p, i) => {
+        mtx.makeRotationY(p.rotY);
+        mtx.setPosition(p.x, WALL_H + 0.35, p.z);
+        merlons.setMatrixAt(i, mtx);
+      });
+      merlons.castShadow = true;
+      mapGroup.add(merlons);
+
+      // Corner towers and gate towers (gatehouse structures add their own targetable tower on one flank)
+      [0, 1].forEach((team) => {
+        const s = team === 0 ? -1 : 1;
+        const C = MAP.CASTLE;
+        [[C.x0, C.z0], [C.x1, C.z0], [C.x0, C.z1], [C.x1, C.z1]].forEach(([ax, z]) => addTower(s * ax, z, 2.3, 5.4, team, false));
+        // Upper gate: flank on the south side (north flank is the gatehouse structure), plus an arch
+        const gz = MAP.UPPER_GATE_Z, gh = MAP.GATE_HALF;
+        addTower(s * C.x0, gz + gh + 1.2, 1.7, 4.8, team, true);
+        addBox(sandMat, WALL_D + 0.4, 1.1, gh * 2 + 1.4, s * C.x0, 4.2, gz);
+        // Side gate: flank on the east/west (inner) side, plus an arch
+        const gx = MAP.SIDE_GATE_X;
+        addTower(s * (gx - gh - 1.2), C.z1, 1.7, 4.8, team, true);
+        addBox(sandMat, gh * 2 + 1.4, 1.1, WALL_D + 0.4, s * gx, 4.2, C.z1);
+      });
+    }
+
     function build3DMap() {
       // Clear any previous map children
       while (mapGroup.children.length > 0) {
@@ -464,29 +575,20 @@ window.MOBA_PHASE1_ENGINE = (function () {
       structures.length = 0;
       camps.forEach((c) => c.plate && c.plate.remove());
       camps.length = 0;
-      minions.forEach((m) => { mapGroup.remove(m.mesh); m.plate && m.plate.remove(); });
+      minions.forEach((m) => { mapGroup.remove(m.mesh); m.plate && m.plate.remove(); if (m.rig) releaseMinionRig(m.rig); });
       minions.length = 0;
+      dyingMinions.forEach((dm) => { mapGroup.remove(dm.mesh); releaseMinionRig(dm.rig); });
+      dyingMinions.length = 0;
 
-      // 1. Top Short Solo Lane (1v1) & Bottom Long Duo Lane (2v2) Cobblestone Paths + River/Jungle
-      buildLaneRibbon(DATA.LANE_WAYPOINTS.top, 0x3b352b, 5.4);
-      buildLaneRibbon(DATA.LANE_WAYPOINTS.bot, 0x3b352b, 5.8);
-
-      // Central Jungle River / Boss Boulevard
-      const river = new THREE.Mesh(
-        new THREE.PlaneGeometry(6.5, 62),
-        new THREE.MeshStandardMaterial({ color: 0x163840, roughness: 0.55, metalness: 0.15 })
-      );
-      river.rotation.x = -Math.PI / 2;
-      river.position.set(0, 0.01, 0);
-      mapGroup.add(river);
-
-      // Order & Chaos Base Fountains (Left x=-62, Right x=+62)
-      [[-62, 0, 0x38bdf8, 'ORDER FOUNTAIN (HEAL & SHOP)'], [62, 0, 0xf43f5e, 'CHAOS FOUNTAIN']].forEach(([fx, fz, col]) => {
+      // 1. Lanes, jungle paths, castle courtyards and the hollow are painted into the ground texture (arena/core.js).
+      //    Here: fountains, castle walls & gates, bridge railings, hollow cliffs.
+      [[0, 0x38bdf8], [1, 0xf43f5e]].forEach(([team, col]) => {
+        const f = MAP.teamPoint(team, MAP.BASE.fountain);
         const pad = new THREE.Mesh(
           new THREE.CylinderGeometry(5.2, 5.6, 0.28, 32),
           new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6, metalness: 0.3 })
         );
-        pad.position.set(fx, 0.14, fz);
+        pad.position.set(f.x, 0.14, f.z);
         pad.receiveShadow = true;
         mapGroup.add(pad);
 
@@ -495,15 +597,17 @@ window.MOBA_PHASE1_ENGINE = (function () {
           new THREE.MeshBasicMaterial({ color: col, side: THREE.DoubleSide, transparent: true, opacity: 0.75 })
         );
         glow.rotation.x = -Math.PI / 2;
-        glow.position.set(fx, 0.30, fz);
+        glow.position.set(f.x, 0.30, f.z);
         mapGroup.add(glow);
       });
+      buildCastleWorks();
 
       // 2. LOS-Blocking Jungle Trees & Stone Pillars
       mapObstacles = DATA.buildMapObstacles();
       const trunkMat = new THREE.MeshStandardMaterial({ color: 0x4a2f1d, roughness: 0.9 });
       const leafMat = new THREE.MeshStandardMaterial({ color: 0x1e4628, roughness: 0.8 });
       mapObstacles.forEach((o) => {
+        if (o.kind === 'wall') return; // drawn by buildCastleWorks
         if (o.kind === 'pillar') {
           const m = new THREE.Mesh(new THREE.CylinderGeometry(o.r * 0.85, o.r, 3.4, 9), stoneBaseMat);
           m.position.set(o.x, 1.7, o.z);
@@ -568,15 +672,15 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       return [
         // Team 0 (Order — 3 Allied Bots + Player = 4v4!)
-        { id: 'bot_o_solo', team: 0, name: 'Ally ' + HERO_LABELS[soloType] + ' (Solo)', heroType: soloType, lane: 'top', role: 'Solo', homeX: -59, homeZ: -3 },
-        { id: 'bot_o_jg',   team: 0, name: 'Ally ' + HERO_LABELS[jgType] + ' (Jungle)', heroType: jgType, lane: 'jungle', role: 'Jungle', homeX: -59, homeZ: 0 },
-        { id: 'bot_o_supp', team: 0, name: 'Ally ' + HERO_LABELS[duoType] + ' (Duo)', heroType: duoType, lane: 'bot', role: 'Support', homeX: -59, homeZ: 3 },
+        { id: 'bot_o_solo', team: 0, name: 'Ally ' + HERO_LABELS[soloType] + ' (Solo)', heroType: soloType, lane: 'top', role: 'Solo', homeX: MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
+        { id: 'bot_o_jg',   team: 0, name: 'Ally ' + HERO_LABELS[jgType] + ' (Jungle)', heroType: jgType, lane: 'jungle', role: 'Jungle', homeX: MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
+        { id: 'bot_o_supp', team: 0, name: 'Ally ' + HERO_LABELS[duoType] + ' (Duo)', heroType: duoType, lane: 'bot', role: 'Support', homeX: MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
 
         // Team 1 (Chaos — 4 Enemy Bots featuring Panther in the Jungle!)
-        { id: 'bot_c_solo',  team: 1, name: 'Chaos Brawler (Solo)',     heroType: 'brawler',   lane: 'top',    role: 'Solo',    homeX: 59, homeZ: -3 },
-        { id: 'bot_c_jg',    team: 1, name: 'Chaos Panther (Jungle)',   heroType: 'panther',   lane: 'jungle', role: 'Jungle',  homeX: 59, homeZ: 0 },
-        { id: 'bot_c_carry', team: 1, name: 'Chaos Sorceress (Carry)',  heroType: 'sorceress', lane: 'bot',    role: 'Carry',   homeX: 59, homeZ: 2.5 },
-        { id: 'bot_c_supp',  team: 1, name: 'Chaos Bodyguard (Supp)',   heroType: 'bodyguard', lane: 'bot',    role: 'Support', homeX: 59, homeZ: 4.5 }
+        { id: 'bot_c_solo',  team: 1, name: 'Chaos Brawler (Solo)',     heroType: 'brawler',   lane: 'top',    role: 'Solo',    homeX: -MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
+        { id: 'bot_c_jg',    team: 1, name: 'Chaos Panther (Jungle)',   heroType: 'panther',   lane: 'jungle', role: 'Jungle',  homeX: -MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
+        { id: 'bot_c_carry', team: 1, name: 'Chaos Sorceress (Carry)',  heroType: 'sorceress', lane: 'bot',    role: 'Carry',   homeX: -MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
+        { id: 'bot_c_supp',  team: 1, name: 'Chaos Bodyguard (Supp)',   heroType: 'bodyguard', lane: 'bot',    role: 'Support', homeX: -MAP.BASE.botHomes[3].x, homeZ: MAP.BASE.botHomes[3].z }
       ];
     }
 
@@ -866,6 +970,114 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // =========================================================
     // SPAWN MARCHING 3D MINION WAVES (MELEE, RANGED & SUPER!)
     // =========================================================
+    // ---- Armor minion rigs (assets/map/minion_bundle.js -> window.MOBA_MINION_TEMPLATES) ----
+    // Team glow: texels painted pure magenta in the concept become the team color and glow (emissive).
+    const minionMats = {};
+    function minionMaterial(type, team, tex) {
+      const key = type + team;
+      if (minionMats[key]) return minionMats[key];
+      const col = new THREE.Color(team === 0 ? 0x38bdf8 : 0xf43f5e);
+      const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55, metalness: 0.35 });
+      mat.onBeforeCompile = (shader) => {
+        shader.uniforms.teamGlow = { value: col };
+        shader.fragmentShader = 'uniform vec3 teamGlow;\n' + shader.fragmentShader
+          .replace('#include <map_fragment>', `#include <map_fragment>
+            float glowMask = smoothstep(0.18, 0.42, min(diffuseColor.r, diffuseColor.b) - diffuseColor.g);
+            diffuseColor.rgb = mix(diffuseColor.rgb, teamGlow, glowMask);`)
+          .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+            totalEmissiveRadiance += teamGlow * glowMask * 1.6;`);
+      };
+      minionMats[key] = mat;
+      return mat;
+    }
+    // Clips are prepared once per minion kind and shared by every mixer (clones keep the template's bone names).
+    const minionClipCache = {};
+    const minionRigPool = {};     // key kind+team -> [rig]
+    const minionPoolHolder = new THREE.Group();
+    minionPoolHolder.position.y = -60; // parked out of sight (still compiled by renderer.compile)
+    scene.add(minionPoolHolder);
+    function minionClipsFor(kind, model, tmpl) {
+      if (minionClipCache[kind]) return minionClipCache[kind];
+      const attackSlot = kind === 'ranged' ? 'ranged' : 'melee';
+      const out = {};
+      [['idle', 'idle', 'idle'], ['walk', 'run', 'walk'], [attackSlot, 'punch', 'attack'], ['death', 'punch', 'death']].forEach(([slot, as, name]) => {
+        const src = tmpl.clips[slot];
+        if (!src) return;
+        const prep = prepareClipForModel(src, model, as, {});
+        if (prep.tracks.length) out[name] = prep;
+      });
+      minionClipCache[kind] = out;
+      return out;
+    }
+    function createMinionRig(kind, team) {
+      const T = window.MOBA_MINION_TEMPLATES;
+      const type = kind === 'super' ? 'super' : 'minion';
+      const tmpl = T && T[type];
+      if (!tmpl || !tmpl.fbx) return null;
+      const model = SkeletonUtils.clone(tmpl.fbx);
+      const targetH = kind === 'super' ? 2.25 : (kind === 'ranged' ? 1.3 : 1.45);
+      model.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(model);
+      const sz = box.getSize(new THREE.Vector3());
+      model.scale.multiplyScalar(targetH / Math.max(0.01, sz.y));
+      model.updateMatrixWorld(true);
+      const box2 = new THREE.Box3().setFromObject(model);
+      const c = box2.getCenter(new THREE.Vector3());
+      model.position.set(-c.x, -box2.min.y, -c.z);
+      const mat = minionMaterial(type, team, tmpl.tex);
+      model.traverse((ch) => {
+        if (ch.isMesh) {
+          ch.material = mat;
+          ch.castShadow = true;
+          ch.frustumCulled = false;
+        }
+      });
+      const mixer = new THREE.AnimationMixer(model);
+      const clips = minionClipsFor(kind, model, tmpl);
+      const acts = {};
+      Object.keys(clips).forEach((name) => { acts[name] = mixer.clipAction(clips[name]); });
+      if (acts.attack) { acts.attack.setLoop(THREE.LoopOnce); acts.attack.clampWhenFinished = true; }
+      if (acts.death) { acts.death.setLoop(THREE.LoopOnce); acts.death.clampWhenFinished = true; }
+      return { model, mixer, acts, active: null, poolKey: kind + team, basePos: model.position.clone() };
+    }
+    function buildMinionRig(kind, team) {
+      const pool = minionRigPool[kind + team];
+      const rig = (pool && pool.length) ? pool.pop() : createMinionRig(kind, team);
+      if (!rig) return null;
+      rig.mixer.stopAllAction();
+      rig.model.position.copy(rig.basePos);
+      rig.active = rig.acts.walk || rig.acts.idle || null;
+      if (rig.active) rig.active.reset().play();
+      return rig;
+    }
+    function releaseMinionRig(rig) {
+      if (!rig) return;
+      rig.mixer.stopAllAction();
+      rig.model.position.copy(rig.basePos);
+      minionPoolHolder.add(rig.model);
+      (minionRigPool[rig.poolKey] = minionRigPool[rig.poolKey] || []).push(rig);
+    }
+    // Build a starting pool behind the loading screen (also lets renderer.compile warm the glow shader)
+    function prewarmMinionRigs() {
+      if (!window.MOBA_MINION_TEMPLATES) return;
+      [[0, 'melee', 14], [1, 'melee', 14], [0, 'ranged', 10], [1, 'ranged', 10], [0, 'super', 3], [1, 'super', 3]].forEach(([team, kind, n]) => {
+        for (let i = 0; i < n; i++) {
+          const rig = createMinionRig(kind, team);
+          if (rig) releaseMinionRig(rig);
+        }
+      });
+    }
+
+    function playMinionAct(m, name, fade = 0.15) {
+      const rig = m.rig;
+      const next = rig && rig.acts[name];
+      if (!next || rig.active === next) return;
+      next.reset().play();
+      if (rig.active) rig.active.crossFadeTo(next, fade, false);
+      rig.active = next;
+    }
+    const dyingMinions = [];
+
     function spawnMinionWave() {
       waveCount++;
       ['top', 'bot'].forEach((lane) => {
@@ -876,7 +1088,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
           const wps = DATA.LANE_WAYPOINTS[lane];
           // Spawn right on the lane-facing front of the Barracks (wpIdx 1 is just ahead) so minions never get wedged behind the Barracks!
-          const startWp = team === 0 ? { x: -48.0, z: lane === 'top' ? -18.5 : 18.5 } : { x: 48.0, z: lane === 'top' ? -18.5 : 18.5 };
+          const startWp = team === 0 ? wps[0] : wps[wps.length - 1];
           const dir = team === 0 ? 1 : -1;
 
           // 2-Rank Phalanx Formation: 3 Melee in Front Rank (-1.65m, 0m, +1.65m), 2 Ranged in Back Rank (-0.95m, +0.95m), +1 Super Vanguard
@@ -911,17 +1123,22 @@ window.MOBA_PHASE1_ENGINE = (function () {
             ring.position.y = 0.025;
             grp.add(ring);
 
-            const body = new THREE.Mesh(new THREE.CylinderGeometry(0.32 * sc, 0.38 * sc, 1.05 * sc, 8), mat);
-            body.position.y = 0.55 * sc;
-            body.castShadow = true;
-            grp.add(body);
+            const rig = buildMinionRig(kind, team);
+            if (rig) {
+              grp.add(rig.model);
+            } else {
+              const body = new THREE.Mesh(new THREE.CylinderGeometry(0.32 * sc, 0.38 * sc, 1.05 * sc, 8), mat);
+              body.position.y = 0.55 * sc;
+              body.castShadow = true;
+              grp.add(body);
 
-            const head = new THREE.Mesh(
-              isRanged ? new THREE.OctahedronGeometry(0.26 * sc, 0) : new THREE.SphereGeometry(0.24 * sc, 8, 8),
-              goldTrimMat
-            );
-            head.position.y = 1.22 * sc;
-            grp.add(head);
+              const head = new THREE.Mesh(
+                isRanged ? new THREE.OctahedronGeometry(0.26 * sc, 0) : new THREE.SphereGeometry(0.24 * sc, 8, 8),
+                goldTrimMat
+              );
+              head.position.y = 1.22 * sc;
+              grp.add(head);
+            }
 
             const ox = startWp.x - dir * slot.rankBack;
             const oz = startWp.z + slot.formZ;
@@ -956,6 +1173,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               lastDamagedByPlayerAt: -99,
               wpIdx: team === 0 ? 1 : wps.length - 2,
               mesh: grp,
+              rig,
               plate: createPlate(team === 0 ? '' : 'enemy', isSuper ? 'SUPER MINION' : '', true)
             });
           });
@@ -1366,7 +1584,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!u) return;
       if (targetObj.kind === 'minion') {
         u.hp = 0;
-        mapGroup.remove(u.mesh);
+        if (u.rig && u.rig.acts.death && u.mesh.visible && !u._dead) {
+          playMinionAct(u, 'death', 0.1);
+          dyingMinions.push({ mesh: u.mesh, rig: u.rig, t: 1.9 });
+        } else {
+          mapGroup.remove(u.mesh);
+          releaseMinionRig(u.rig);
+        }
         if (u.plate) u.plate.remove();
         const idx = minions.indexOf(u);
         if (idx >= 0) minions.splice(idx, 1);
@@ -1644,7 +1868,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     function isNearOrderFountain() {
-      return Math.hypot(hero.x - (-62), hero.z - 0) <= 9.5 || ctx.isWtfMode();
+      return Math.hypot(hero.x - MAP.BASE.fountain.x, hero.z - MAP.BASE.fountain.z) <= 9.5 || ctx.isWtfMode();
     }
 
     function buyShopItem(itemId) {
@@ -2213,8 +2437,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           teamKills[1]++;
           playerProg.respawnTimer = 6.0 + playerProg.level * 1.2;
           spawnFloat(hero.x, 2.8, hero.z, 'SLAIN! RESPAWNING IN ' + Math.round(playerProg.respawnTimer) + 's', '#fb7185');
-          hero.x = -62;
-          hero.z = 0;
+          hero.x = MAP.BASE.heroSpawn.x;
+          hero.z = MAP.BASE.heroSpawn.z;
           refreshShopAndHudUI();
         }
       } else {
@@ -2632,8 +2856,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           }
         } else if (b.dashTimer > 0) {
           const stepDt = Math.min(dt, b.dashTimer);
-          b.x = THREE.MathUtils.clamp(b.x + (b.dashVx || 0) * stepDt, -68, 68);
-          b.z = THREE.MathUtils.clamp(b.z + (b.dashVz || 0) * stepDt, -45, 45);
+          b.x = THREE.MathUtils.clamp(b.x + (b.dashVx || 0) * stepDt, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+          b.z = THREE.MathUtils.clamp(b.z + (b.dashVz || 0) * stepDt, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
           b.dashTimer = Math.max(0, b.dashTimer - dt);
           if (b.dashTimer <= 0 && b.dashOnEnd) {
             const endFn = b.dashOnEnd;
@@ -2795,8 +3019,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 const ang = Math.atan2(tx - b.x, tz - b.z);
                 b.leapSx = b.x;
                 b.leapSz = b.z;
-                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, -68, 68);
-                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, -45, 45);
+                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
                 b.leapDur = 0.36;
                 b.leapTimer = 0.36;
                 playBotAction(b, 'jump', 1.65, 0.0, 0.42);
@@ -2866,8 +3090,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 b.cdE = [10.0, 9.0, 8.0][rQE];
                 const lockedTarget = bestTarget;
                 const ang = Math.atan2(tx - b.x, tz - b.z);
-                const destX = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, -68, 68);
-                const destZ = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, -45, 45);
+                const destX = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+                const destZ = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
                 const dashDur = 0.24;
                 b.dashTimer = dashDur;
                 b.dashVx = (destX - b.x) / dashDur;
@@ -2885,8 +3109,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
                     applyBotDamageToTarget(lockedTarget, hitDmg, b, 'physical');
                     // Trigger 2nd Rebound Slide Dash through target (matching player Brawler E rebound!)
                     const rebDur = 0.22;
-                    const rebX = THREE.MathUtils.clamp(b.x + Math.sin(ang) * 2.1, -68, 68);
-                    const rebZ = THREE.MathUtils.clamp(b.z + Math.cos(ang) * 2.1, -45, 45);
+                    const rebX = THREE.MathUtils.clamp(b.x + Math.sin(ang) * 2.1, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+                    const rebZ = THREE.MathUtils.clamp(b.z + Math.cos(ang) * 2.1, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
                     b.dashTimer = rebDur;
                     b.dashVx = (rebX - b.x) / rebDur;
                     b.dashVz = (rebZ - b.z) / rebDur;
@@ -2936,8 +3160,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 const ang = Math.atan2(tx - b.x, tz - b.z);
                 b.leapSx = b.x;
                 b.leapSz = b.z;
-                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, -68, 68);
-                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, -45, 45);
+                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
                 b.leapDur = 0.42;
                 b.leapTimer = 0.42;
                 // Jump Attack.fbx: start at 0.52s (takeoff) at 2.55x so clipTime reaches 1.60s (ground slam) right as leapTimer hits 0!
@@ -3003,8 +3227,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 let endZ = b.z;
                 // Hard Sorceress dashes smoothly AWAY from close melee threats while firing 3 cascading pillars toward enemy!
                 if (isHard && bestDist <= 4.2) {
-                  endX = THREE.MathUtils.clamp(b.x - Math.sin(angToEnemy) * 3.8, -68, 68);
-                  endZ = THREE.MathUtils.clamp(b.z - Math.cos(angToEnemy) * 3.8, -45, 45);
+                  endX = THREE.MathUtils.clamp(b.x - Math.sin(angToEnemy) * 3.8, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+                  endZ = THREE.MathUtils.clamp(b.z - Math.cos(angToEnemy) * 3.8, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
                   const dashDur = 0.24;
                   b.dashTimer = dashDur;
                   b.dashVx = (endX - b.x) / dashDur;
@@ -3170,8 +3394,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
             } else if (isHard && b.range > 4.0 && b.atkAnimTimer <= 0 && bestDist < 5.4 && bestTarget.kind !== 'structure') {
               // Hard Mode Ranged Orb-Walk Kiting: step backward toward allied fountain between basic attacks!
               const awayAng = Math.atan2(b.x - bestTarget.ref.x, b.z - bestTarget.ref.z);
-              gx = THREE.MathUtils.clamp(b.x + Math.sin(awayAng) * 3.0 + (b.homeX - b.x) * 0.08, -68, 68);
-              gz = THREE.MathUtils.clamp(b.z + Math.cos(awayAng) * 3.0, -45, 45);
+              gx = THREE.MathUtils.clamp(b.x + Math.sin(awayAng) * 3.0 + (b.homeX - b.x) * 0.08, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+              gz = THREE.MathUtils.clamp(b.z + Math.cos(awayAng) * 3.0, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
             }
           } else if (bestTarget) {
             gx = bestTarget.ref.x;
@@ -3208,8 +3432,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
           }
 
-          const dx = gx - b.x;
-          const dz = gz - b.z;
+          const navPt = MAP.navNextPoint(b.x, b.z, gx, gz);
+          const dx = navPt.x - b.x;
+          const dz = navPt.z - b.z;
           const distGoal = Math.hypot(dx, dz);
           const isKitingStep = isHard && b.range > 4.0 && bestTarget && bestDist < 5.4;
           if (distGoal > 0.6 && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
@@ -3711,8 +3936,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
         if (bestT && bestActualD <= m.range + bestT.ref.r) {
           m.mesh.rotation.y = Math.atan2(bestT.ref.x - m.x, bestT.ref.z - m.z);
+          m.moving = false;
           if (m.atkCd <= 0) {
             m.atkCd = 1.35;
+            if (m.rig && m.rig.acts.attack) { playMinionAct(m, 'attack', 0.08); m.rig.acts.attack.reset().play(); m.attackAnimT = 0.9; }
             if (m.kind === 'ranged') {
               spawnUnitProjectile(m.x, m.z, bestT, m.atk, m.team === 0 ? 0x38bdf8 : 0xf43f5e, 14.0, 'physical', { kind: 'minion', ref: m });
             } else {
@@ -3732,19 +3959,34 @@ window.MOBA_PHASE1_ENGINE = (function () {
               if (m.team === 1 && m.wpIdx > 0) m.wpIdx--;
             }
           }
-          const dx = gx - m.x;
-          const dz = gz - m.z;
+          const navPt = MAP.navNextPoint(m.x, m.z, gx, gz);
+          const dx = navPt.x - m.x;
+          const dz = navPt.z - m.z;
           const d = Math.hypot(dx, dz) || 0.01;
           const spd = m.spd * (m.slowTimer > 0 ? 0.72 : 1.0);
           const steered = steerUnitAroundStructures(m, dx / d, dz / d, bestT ? bestT.ref : null);
           m.x += steered.vx * spd * dt;
           m.z += steered.vz * spd * dt;
           m.mesh.rotation.y = Math.atan2(steered.vx, steered.vz);
+          m.moving = true;
         }
       }
 
       // Run pairwise unit separation so minions and bots never stack on top of each other!
       resolveUnitSeparation();
+
+      // Finish death animations, then remove the bodies
+      for (let i = dyingMinions.length - 1; i >= 0; i--) {
+        const dm = dyingMinions[i];
+        dm.t -= dt;
+        dm.rig.mixer.update(dt);
+        if (dm.t < 0.4) dm.mesh.position.y -= dt * 1.2; // sink into the ground
+        if (dm.t <= 0) {
+          mapGroup.remove(dm.mesh);
+          releaseMinionRig(dm.rig);
+          dyingMinions.splice(i, 1);
+        }
+      }
 
       // Sync Minion 3D meshes & compact HP bars after separation
       for (let i = minions.length - 1; i >= 0; i--) {
@@ -3755,6 +3997,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
           continue;
         }
         m.mesh.position.set(m.x, 0, m.z);
+        if (m.rig) {
+          m.attackAnimT = Math.max(0, (m.attackAnimT || 0) - dt);
+          if (m.attackAnimT <= 0) playMinionAct(m, m.moving ? 'walk' : 'idle');
+          m.rig.mixer.update(dt * (m.slowTimer > 0 ? 0.72 : 1));
+        }
         updateUnitSlowVisual(m, m.mesh, 0.58, dt);
         const vis = m.team === 0 || isPointVisibleToOrder(m.x, m.z);
         m.mesh.visible = vis;
@@ -3896,8 +4143,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
               }
             } else {
               const spd = c.spd * (c.slowTimer > 0 ? 0.72 : 1.0);
-              c.x += (dx / distT) * spd * dt;
-              c.z += (dz / distT) * spd * dt;
+              const navPt = MAP.navNextPoint(c.x, c.z, t.x, t.z);
+              const ndx = navPt.x - c.x, ndz = navPt.z - c.z;
+              const nd = Math.hypot(ndx, ndz) || 0.01;
+              c.x += (ndx / nd) * spd * dt;
+              c.z += (ndz / nd) * spd * dt;
               const ar = ctx.getArena ? ctx.getArena() : null;
               if (ar) clampUnitToArena(c, ar);
               c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
@@ -3917,10 +4167,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
             c.state = 'idle';
             if (c.leashRing) c.leashRing.visible = false;
           } else {
-            c.x += (dx / dHome) * 7.8 * dt;
-            c.z += (dz / dHome) * 7.8 * dt;
+            const homeNav = MAP.navNextPoint(c.x, c.z, c.homeX, c.homeZ);
+            const hdx = homeNav.x - c.x, hdz = homeNav.z - c.z;
+            const hd = Math.hypot(hdx, hdz) || 0.01;
+            c.x += (hdx / hd) * 7.8 * dt;
+            c.z += (hdz / hd) * 7.8 * dt;
             c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
-            c.mobGrp.rotation.y = Math.atan2(dx, dz);
+            c.mobGrp.rotation.y = Math.atan2(hdx, hdz);
           }
         } else {
           // Idle at home pit: slowly regenerate if chipped
@@ -4031,8 +4284,26 @@ window.MOBA_PHASE1_ENGINE = (function () {
         });
         c.stroke();
       });
-
-      // Draw Jungle Camps & Central Boss
+      // Jungle Y path, castles and the behemoth hollow
+      c.lineWidth = 2.5;
+      MAP.JUNGLE_PATHS.forEach((pts) => {
+        c.beginPath();
+        pts.forEach((p, idx) => (idx ? c.lineTo(toX(p.x), toY(p.z)) : c.moveTo(toX(p.x), toY(p.z))));
+        c.stroke();
+      });
+      c.strokeStyle = 'rgba(214, 196, 160, 0.45)';
+      c.lineWidth = 1.5;
+      [-1, 1].forEach((s) => {
+        const x0 = toX(s * MAP.CASTLE.x0), x1 = toX(s * MAP.CASTLE.x1);
+        c.strokeRect(Math.min(x0, x1), toY(MAP.CASTLE.z0), Math.abs(x1 - x0), toY(MAP.CASTLE.z1) - toY(MAP.CASTLE.z0));
+      });
+      c.fillStyle = 'rgba(60, 48, 34, 0.7)';
+      c.beginPath();
+      c.moveTo(toX(-MAP.HOLLOW.halfTop), toY(MAP.HOLLOW.top));
+      c.lineTo(toX(MAP.HOLLOW.halfTop), toY(MAP.HOLLOW.top));
+      c.lineTo(toX(0), toY(MAP.HOLLOW.tipZ));
+      c.closePath();
+      c.fill();
       camps.forEach((cp) => {
         if (cp.respawnTimer > 0) return;
         c.fillStyle = cp.isBoss ? '#fde047' : '#d97706';
@@ -4172,7 +4443,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
 
         // Order Fountain Healing & Mana Restore (+240 HP/sec, +180 MP/sec)
-        if (Math.hypot(hero.x - (-62), hero.z - 0) <= 6.5) {
+        if (Math.hypot(hero.x - MAP.BASE.fountain.x, hero.z - MAP.BASE.fountain.z) <= 6.5) {
           hero.hp = Math.min(hero.maxHp, hero.hp + 240 * dt);
           hero.mp = Math.min(hero.maxMp, hero.mp + 180 * dt);
         }
@@ -4189,8 +4460,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
             recallRingMesh.rotation.y += dt * 4.5;
             if (playerProg.recallTimer <= 0) {
               recallRingMesh.visible = false;
-              hero.x = -62;
-              hero.z = 0;
+              hero.x = MAP.BASE.heroSpawn.x;
+              hero.z = MAP.BASE.heroSpawn.z;
               hero.hp = hero.maxHp;
               hero.mp = hero.maxMp;
               SFX.play('chime');
@@ -4204,6 +4475,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       }
 
+      // Pooled minion rigs are only visible during the loading-screen shader warm-up; never draw them in play
+      if (minionPoolHolder.visible) minionPoolHolder.visible = false;
       updateBots(dt);
       updateMinionsAndStructures(dt);
       drawMinimap();
@@ -4213,8 +4486,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
     build3DMap();
     buildPhase1UI();
     spawnBots();
-    hero.x = -55;
-    hero.z = 12;
+    hero.x = MAP.BASE.heroSpawn.x;
+    hero.z = MAP.BASE.heroSpawn.z;
 
     return {
       update,
@@ -4226,6 +4499,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       getPlayerProg: () => playerProg,
       getMapObstacles: () => mapObstacles.concat(structures.filter((s) => s.hp > 0)),
       notifyTemplatesReady: () => bots.forEach((b) => attachRigToBot(b)),
+      notifyMinionTemplatesReady: () => prewarmMinionRigs(),
       // Map models finished loading (boot.js): rebuild structure visuals with them, keeping game state
       notifyMapModelsReady: () => {
         structures.forEach((s) => {

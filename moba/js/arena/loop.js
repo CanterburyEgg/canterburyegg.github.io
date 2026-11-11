@@ -160,7 +160,7 @@ function tick(now) {
     const u = 1 - (hero.leapTimer / (hero.leapDur || 0.38));
     hero.x = hero.leapSx + (hero.leapTx - hero.leapSx) * u;
     hero.z = hero.leapSz + (hero.leapTz - hero.leapSz) * u;
-    airborneY = Math.sin(u * Math.PI) * 1.65;
+    airborneY = Math.sin(u * Math.PI) * (hero.leapHeight || 1.65);
 
     if (hero.leapTimer <= 0) {
       const kitLand = heroKit();
@@ -249,7 +249,8 @@ function tick(now) {
       const baseSpd = (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
       const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
-      const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow;
+      const kitSpd = heroKit() && heroKit().speedMult ? heroKit().speedMult() : 1;
+      const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow * kitSpd;
       hero.x += (mx / ml) * spd * dt;
       hero.z += (mz / ml) * spd * dt;
       if (hero.rChargeTimer <= 0) {
@@ -286,8 +287,8 @@ function tick(now) {
     }
   }
   isMovingNow = isMoving;
-  hero.x = THREE.MathUtils.clamp(hero.x, -70, 70);
-  hero.z = THREE.MathUtils.clamp(hero.z, -47, 47);
+  hero.x = THREE.MathUtils.clamp(hero.x, window.MOBA_MAP.BOUNDS.minX, window.MOBA_MAP.BOUNDS.maxX);
+  hero.z = THREE.MathUtils.clamp(hero.z, window.MOBA_MAP.BOUNDS.minZ, window.MOBA_MAP.BOUNDS.maxZ);
 
   if (mouseDown) tryAttack();
 
@@ -514,7 +515,10 @@ function tick(now) {
       }
       const inCommit = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || hero.leapTimer > 0;
       const isNightprowlCrawl = !!(heroKit() && heroKit().isAltMoveActive && heroKit().isAltMoveActive());
-      const moveAct = isNightprowlCrawl ? actions.crawl : actions.run;
+      // Kits can swap their locomotion clips (e.g. Cannon Imp carrying vs. unburdened): { idle: slot, move: slot }
+      const loco = heroKit() && heroKit().locomotion ? heroKit().locomotion() : null;
+      const idleAct = (loco && actions[loco.idle]) || actions.idle;
+      const moveAct = isNightprowlCrawl ? actions.crawl : ((loco && actions[loco.move]) || actions.run);
       const runScale = (hero.rChargeTimer > 0 ? 0.62 : isNightprowlCrawl ? 1.38 : 1.15) * (1 + hero.siphonBonus);
 
       // Track smooth transition into/out of All-Fours Prowl (0.50s drop onto front paws, 0.42s rise back to two feet)
@@ -536,8 +540,8 @@ function tick(now) {
           fadeToAction(actions.crawl, prowlFadeDur, false, isMoving ? runScale : 0.16);
         } else if (isMoving && moveAct) {
           fadeToAction(moveAct, prowlFadeDur, false, runScale);
-        } else if (actions.idle) {
-          fadeToAction(actions.idle, prowlFadeDur, false, 1.0);
+        } else if (idleAct) {
+          fadeToAction(idleAct, prowlFadeDur, false, 1.0);
         } else if (moveAct) {
           fadeToAction(moveAct, prowlFadeDur, false, isMoving ? runScale : 0.0);
         }

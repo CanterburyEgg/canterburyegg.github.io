@@ -9,12 +9,29 @@
 - **Architecture style: weathered old-world stone.** A sturdy, slightly crooked storybook castle: warm sandstone and gray stone, wooden beams, slate/terracotta roofs, ivy. **Both teams share the architecture**, told apart by team-colored banners.
 
 ## Layout (locked)
-- **Mirror-symmetric, left vs. right.** Each team's castle sits on a plateau at one end.
-- **Top lane:** a long stone bridge from one castle's upper gate to the other's, spanning a gorge.
-- **Bottom lane:** the valley floor between the castles' side gates, reached by a gradual downhill.
-- **Jungle:** the sloped woods between the lanes. The two jungles are split down the middle by a path from the bridge down to the valley. They should be slightly different from each other; detailed layouts come later.
-- **Boss:** in the gorge beside the bridge's midpoint (true "under the bridge" would need a two-floor system; deferred).
-- **Elevation:** gentle, look-only, via one `groundHeight(x, z)` function. Gameplay stays flat for now.
+```
+ ORDER                     TOP LANE (stone bridge)                     CHAOS
+ CASTLE ═════════════╦═════════════════════════════════╦══════════════ CASTLE
+ [plateau]           ║▓▓▓▓▓▓▓▓ cliff wall ▓▓▓▓▓▓▓▓▓▓▓▓▓║          [plateau]
+   side gate          ╲                                 ╱          side gate
+      ╲                ╲       BEHEMOTH'S HOLLOW       ╱              ╱
+       ╲    ORDER       ╲         ( BEHEMOTH )        ╱   CHAOS      ╱
+        ╲   JUNGLE       ╲                           ╱    JUNGLE    ╱
+         ╲  (slope)       ╲                         ╱     (slope)  ╱
+          ╲                ╲_______ entrance ____╱              ╱
+           ╲                          ║                        ╱
+            ╲                         ║ single path           ╱
+             ╚════════════════════════╩══════════════════════╝
+                             BOTTOM LANE (valley floor)
+```
+- **Mirror-symmetric, left vs. right.** Each team's castle sits on a plateau at one end; the ground slopes **gently** down from the castles toward the valley.
+- **Top lane:** a stone bridge road between the castles' upper gates.
+- **Bottom lane:** leaves each castle's **side gate**, runs diagonally down the slope (the outer diagonals), then turns along the valley floor.
+- **Jungle path (the Y):** at about **1/3 and 2/3 along the top lane**, a path branches downhill on each side. The two branches run down the sides of the behemoth's hollow and **meet at its entrance**; from there **one path runs straight down to the middle of the valley** (bottom lane midpoint).
+- **Jungles:** the two sloped woods outside the Y, one per team; they should be slightly different from each other (detailed layouts later).
+- **Behemoth's hollow:** fills the triangle under the bridge between the branch paths. **Cliff wall on its top side** (you can't drop in from the bridge) and walled sides; **the only way in is the entrance at its bottom tip**, where the branch paths meet, so reaching it from the bridge is a circuitous route. The behemoth sits in its **upper middle, closer to top lane than bottom**.
+- **Elevation:** gentle, look-only, via one `groundHeight(x, z)` function. Gameplay stays flat for now (walls and cliffs are collision obstacles).
+- **Size: about 160 x 110 m** (+15-20% over the old 140 x 94), so a lane is about a 22 s walk at hero speed and the hollow + jungles fit between the lanes. All positions derive from one map scale so it can be retuned later. Gold/XP pacing gets retuned separately.
 
 ## Structures (locked)
 Per team, per lane: **T1 tower → T2 tower → gatehouse**, then the **core** in the castle courtyard, plus the **fountain**. This is the current engine skeleton, re-skinned.
