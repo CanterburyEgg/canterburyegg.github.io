@@ -132,6 +132,10 @@ async function bootArenaWithLoadingBar() {
     const dm = /[?&]shotdelay=(\d+)/.exec(location.search);
     setTimeout(logMapShot, dm ? parseInt(dm[1], 10) * 1000 : 1500);
   }
+  // Dev: ?clipscan=<heroId> logs each clip's key moments (contact, kiss/drink, spin) for timing work
+  if (/[?&]clipscan=/.test(location.search)) {
+    loadScriptAsync('js/clipscan.js').then(() => window.__runClipScan && window.__runClipScan());
+  }
   // Dev: ?hero=<id> starts as that hero; &heroshot[=action] logs a close-up (action: punch|kick|slide|run|...)
   const hm = /[?&]hero=([a-z]+)/.exec(location.search);
   if (hm) switchHero(hm[1]);
@@ -145,11 +149,51 @@ async function bootArenaWithLoadingBar() {
     const dh = /[?&]shotdelay=(\d+)/.exec(location.search);
     setTimeout(() => logHeroShot(), dh ? parseInt(dh[1], 10) * 1000 : (act ? 1000 : 1500));
   }
+  // Dev: &devdie=N kills the player N seconds in (1.5s respawn) and logs whether they came back
+  const dd = /[?&]devdie=(\d+)/.exec(location.search);
+  if (dd && phase1Engine) {
+    window.addEventListener('error', (e) => console.log('DIEDBG error ' + e.message + ' @' + e.filename + ':' + e.lineno));
+    setTimeout(() => {
+      const pp = phase1Engine.getPlayerProg();
+      hero.hp = 0;
+      pp.respawnTimer = 1.5;
+      console.log('DIEDBG died ' + JSON.stringify({ x: hero.x, z: hero.z }));
+      let n = 0;
+      const iv = setInterval(() => {
+        n++;
+        const done = pp.respawnTimer <= 0 || n >= 12;
+        console.log('DIEDBG ' + (done ? 'after ' : 'tick ') + JSON.stringify({ t: +pp.respawnTimer.toFixed(2), hp: Math.round(hero.hp), x: hero.x, z: hero.z, vis: heroPivot.visible }));
+        if (done) clearInterval(iv);
+      }, 2000);
+    }, parseInt(dd[1], 10) * 1000);
+  }
 }
 
 function logHeroShot() {
+  console.log('HERODBG ' + JSON.stringify({ kickAnim: hero.kickAnim, oneShot: oneShotActive, act: activeAction && activeAction.getClip().name, t: activeAction && +activeAction.time.toFixed(2), ts: activeAction && activeAction.getEffectiveTimeScale(), cdQ: hero.cdQ }));
   const cam = new THREE.PerspectiveCamera(35, renderer.domElement.width / renderer.domElement.height, 0.1, 200);
   const yaw = heroPivot.rotation.y;
+  // &shotbone=<Bone>[&shotdist=m]: three close-ups (front / side / back-ish) around one bone, side by side
+  const sb = /[?&]shotbone=([A-Za-z0-9]+)/.exec(location.search);
+  if (sb && heroBones[sb[1]]) {
+    const sd = /[?&]shotdist=([\d.]+)/.exec(location.search);
+    const dist = sd ? parseFloat(sd[1]) : 0.9;
+    const p = heroBones[sb[1]].getWorldPosition(new THREE.Vector3());
+    const w = renderer.domElement.width, h = renderer.domElement.height;
+    const out = document.createElement('canvas');
+    out.width = w * 3; out.height = h;
+    const g2 = out.getContext('2d');
+    [0.5, Math.PI / 2 + 0.6, -0.9].forEach((a, i) => {
+      cam.position.set(p.x + Math.sin(yaw + a) * dist, p.y + dist * 0.35, p.z + Math.cos(yaw + a) * dist);
+      cam.lookAt(p);
+      renderer.render(scene, cam);
+      g2.drawImage(renderer.domElement, i * w, 0);
+    });
+    const data2 = out.toDataURL('image/png').split(',')[1];
+    for (let i = 0; i < data2.length; i += 30000) console.log('RENDERPNG ' + String(i / 30000).padStart(4, '0') + ' ' + data2.slice(i, i + 30000));
+    console.log('RENDEREND');
+    return;
+  }
   // 3/4 front view of the hero
   cam.position.set(hero.x + Math.sin(yaw + 0.6) * 5.5, 2.4, hero.z + Math.cos(yaw + 0.6) * 5.5);
   cam.lookAt(hero.x, 1.0, hero.z);
