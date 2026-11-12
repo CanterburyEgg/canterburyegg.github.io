@@ -1326,19 +1326,19 @@
                     <div class="club-menu-section-label">Indigo League Courses</div>
                     <button class="club-menu-item" id="tab-course-0" onclick="selectBaseCourse(0); closeClubMenu();">
                         <div class="club-item-left">
-                            <div class="club-item-title">Pallet Town Links</div>
+                            <div class="club-item-title">Viridian Forest</div>
                         </div>
                         <span class="club-item-badge" id="course-badge-0">Par 18</span>
                     </button>
                     <button class="club-menu-item" id="tab-course-1" onclick="selectBaseCourse(1); closeClubMenu();">
                         <div class="club-item-left">
-                            <div class="club-item-title">Viridian Forest</div>
+                            <div class="club-item-title">Safari Zone</div>
                         </div>
                         <span class="club-item-badge" id="course-badge-1">Par 22</span>
                     </button>
                     <button class="club-menu-item" id="tab-course-2" onclick="selectBaseCourse(2); closeClubMenu();">
                         <div class="club-item-left">
-                            <div class="club-item-title">Victory Road</div>
+                            <div class="club-item-title">Indigo Plateau</div>
                         </div>
                         <span class="club-item-badge" id="course-badge-2">Par 25</span>
                     </button>
@@ -2246,7 +2246,12 @@ function resetCurrentCourse(forceClear = false) {
         }
         if (savedState.feedbackMsg) {
             const fbMon = savedState.feedbackMon ? DB.pokemon.find(m => m.name === savedState.feedbackMon) : null;
-            setFeedback(savedState.feedbackMsg, savedState.feedbackCls || "fb-fact", fbMon);
+            if ((savedState.feedbackCls || "fb-fact") === "fb-fact" && fbMon) {
+                // Re-pick from the current data so corrected Pokédex entries replace old saved text
+                setFeedback(pickRandomPokemonFact(fbMon), "fb-fact", fbMon);
+            } else {
+                setFeedback(savedState.feedbackMsg, savedState.feedbackCls || "fb-fact", fbMon);
+            }
         }
         renderScorecard();
         renderBoard([]);

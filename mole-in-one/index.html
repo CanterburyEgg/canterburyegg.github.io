@@ -2301,7 +2301,13 @@ function resetCurrentCourse(forceClear = false) {
             newCats.forEach(cid => clearedCats.add(cid));
         }
         if (savedState.feedbackMsg) {
-            setFeedback(savedState.feedbackMsg, savedState.feedbackCls || "fb-fact");
+            const lastMammal = strokes.length ? strokes[strokes.length - 1].mammal : null;
+            if ((savedState.feedbackCls || "fb-fact") === "fb-fact" && lastMammal) {
+                // Re-pick from the current data so corrected facts replace old saved text
+                setFeedback(pickRandomMammalFact(lastMammal), "fb-fact");
+            } else {
+                setFeedback(savedState.feedbackMsg, savedState.feedbackCls || "fb-fact");
+            }
         }
         renderScorecard();
         renderBoard([]);

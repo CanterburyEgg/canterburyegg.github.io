@@ -946,9 +946,9 @@ def build_game(roster: list[dict[str, Any]]) -> dict[str, Any]:
     c3p2, c3p3, c3p4 = p2[14:18], p3[4:7], p4[:2]
     c3 = [c3p2[0], c3p3[0], c3p2[1], c3p4[0], c3p2[2], c3p3[1], c3p2[3], c3p3[2], c3p4[1]]
     course_meta = [
-        ("course_1", "Pallet Town Links", "9 Holes of Par 2", "", c1),
-        ("course_2", "Viridian Forest", "5 Par 2s & 4 Par 3s", "", c2),
-        ("course_3", "Victory Road", "4 Par 2s, 3 Par 3s & 2 Par 4s", "", c3),
+        ("course_1", "Viridian Forest", "9 Holes of Par 2", "", c1),
+        ("course_2", "Safari Zone", "5 Par 2s & 4 Par 3s", "", c2),
+        ("course_3", "Indigo Plateau", "4 Par 2s, 3 Par 3s & 2 Par 4s", "", c3),
     ]
     courses = []
     for num, (cid, name, sub, icon, holes) in enumerate(course_meta, 1):
