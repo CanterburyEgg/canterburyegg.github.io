@@ -1471,8 +1471,19 @@ let baseHioSet = new Set();
 
 const STORAGE_KEY = "ELITE_FORE_SAVE_V1";
 
+// Daily holes roll over at midnight Pacific time for everyone, wherever they are.
+// Returns a local Date at midnight whose year/month/day are today's date in Pacific time.
+const GAME_TIME_ZONE = "America/Los_Angeles";
+function pacificToday() {
+    const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: GAME_TIME_ZONE, year: "numeric", month: "numeric", day: "numeric"
+    }).formatToParts(new Date());
+    const get = type => Number(parts.find(x => x.type === type).value);
+    return new Date(get("year"), get("month") - 1, get("day"));
+}
+
 function getTodayDateKey() {
-    const now = new Date();
+    const now = pacificToday();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 }
 
@@ -2002,7 +2013,7 @@ function selectBaseCourse(courseIdx, holeIdx = 0) {
 function selectDailyMode(dayOffset = 0) {
     currentMode = "daily";
     activeDailyOffset = dayOffset;
-    const dt = new Date();
+    const dt = pacificToday();
     dt.setDate(dt.getDate() + dayOffset);
     currentBoard = getDailyBoardForDate(dt);
     updateModeTabsUI();
@@ -2087,12 +2098,12 @@ function firstDailyDate() {
 
 function minCalendarOffset() {
     const first = firstDailyDate();
-    const today = new Date();
+    const today = pacificToday();
     return (first.getFullYear() - today.getFullYear()) * 12 + (first.getMonth() - today.getMonth());
 }
 
 function dailyDayIndexForOffset(offset) {
-    const dt = new Date();
+    const dt = pacificToday();
     dt.setDate(dt.getDate() + offset);
     return getDailySlotForDate(dt).dayIndex;
 }
@@ -2107,7 +2118,7 @@ function buildCoursePicker() {
     if (!grid) return;
     grid.innerHTML = "";
 
-    const today = new Date();
+    const today = pacificToday();
     const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
     const viewDate = new Date(today.getFullYear(), today.getMonth() + calendarMonthOffset, 1);
