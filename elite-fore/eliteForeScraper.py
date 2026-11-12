@@ -371,7 +371,9 @@ def build_roster() -> tuple[list[dict[str, Any]], dict[str, Any]]:
         lo = letters_only(name)
         traits.append("name_starts_vowel" if lo[0] in "aeiou" else "name_starts_consonant")
         traits.append("name_starts_a_m" if lo[0] <= "m" else "name_starts_n_z")
-        traits.append("name_ends_vowel" if lo[-1] in "aeiou" else "name_ends_consonant")
+        # Names ending in Y get neither ending card (Y sounds like a vowel but isn't one)
+        if lo[-1] != "y":
+            traits.append("name_ends_vowel" if lo[-1] in "aeiou" else "name_ends_consonant")
         traits.append("name_short" if len(lo) <= 5 else ("name_medium" if len(lo) <= 8 else "name_long"))
         if re.search(r"([a-z])\1", lo):
             traits.append("name_double_letter")
@@ -555,8 +557,8 @@ def card_def(card: str) -> tuple[str, str, str]:
         "gender_more_male": ("body", "Mostly Male", "More likely to be male than female"),
         "name_starts_vowel": ("name", "Starts with a Vowel", "Name begins with A, E, I, O, or U"),
         "name_starts_consonant": ("name", "Starts with a Consonant", "Name begins with a consonant"),
-        "name_ends_vowel": ("name", "Ends in a Vowel", "Name ends with A, E, I, O, or U"),
-        "name_ends_consonant": ("name", "Ends in a Consonant", "Name ends with a consonant"),
+        "name_ends_vowel": ("name", "Ends in a Vowel", "Name ends with A, E, I, O, or U <em>(excluding Y)</em>"),
+        "name_ends_consonant": ("name", "Ends in a Consonant", "Name ends with a consonant <em>(excluding Y)</em>"),
         "name_short": ("name", "Short Name", "Name has 5 letters or fewer"),
         "name_medium": ("name", "Medium-Length Name", "Name has between 6 and 8 letters"),
         "name_long": ("name", "Long Name", "Name has 9 or more letters"),

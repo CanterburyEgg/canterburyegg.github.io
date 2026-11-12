@@ -1851,6 +1851,19 @@ function boardSig(cats) {
     return [...cats].sort().join("|");
 }
 
+// A stored board is only usable if exactly its answer still fits every card
+function boardStillValid(cats, answer) {
+    const roster = DB.pokemon || DB.mammals;
+    let found = null;
+    for (const m of roster) {
+        if (cats.every(c => m.traits.includes(c))) {
+            if (found) return false;
+            found = m.name;
+        }
+    }
+    return found === answer;
+}
+
 function dailyOffCooldown(name, d) {
     const lastD = dailyLastUsedDay[name];
     return lastD === undefined || d - lastD >= DAILY_ANSWER_COOLDOWN;
@@ -1896,7 +1909,7 @@ function nextFreshBoard(entry, par, d) {
     if (!dailyRetired.has(retiredKey)) {
         for (const b of [entry, ...(entry.alt_boards || [])]) {
             const sig = boardSig(b.categories);
-            if (!usedSigs.has(sig) && !baseSignaturesSet.has(sig)) {
+            if (!usedSigs.has(sig) && !baseSignaturesSet.has(sig) && boardStillValid(b.categories, name)) {
                 return { ...entry, categories: b.categories, sample_solution: b.sample_solution };
             }
         }
@@ -2828,7 +2841,7 @@ function openInspector(catId) {
     const cat = catMap[catId];
     if (!cat) return;
     document.getElementById("insp-title").textContent = `${cat.name} (${cat.count})`;
-    document.getElementById("insp-desc").textContent = cat.desc;
+    document.getElementById("insp-desc").innerHTML = cat.desc;
     const chips = document.getElementById("insp-chips");
     chips.innerHTML = "";
     const guessedSet = new Set(strokes.map(s => s.mon.name));

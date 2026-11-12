@@ -363,8 +363,8 @@ CATEGORY_DEFS: list[dict[str, str]] = [
     {"id": "name_double_letter",     "group": "name",         "name": "Double Letter in Name",      "desc": "Common name contains two identical consecutive letters"},
     {"id": "name_starts_vowel",      "group": "name",         "name": "Starts with a Vowel",        "desc": "Common name begins with the letter A, E, I, O, or U"},
     {"id": "name_starts_consonant",  "group": "name",         "name": "Starts with a Consonant",    "desc": "Common name begins with a consonant letter"},
-    {"id": "name_ends_vowel",        "group": "name",         "name": "Ends in a Vowel",            "desc": "Common name ends with the letter A, E, I, O, or U"},
-    {"id": "name_ends_consonant",    "group": "name",         "name": "Ends in a Consonant",        "desc": "Common name ends with a consonant letter"},
+    {"id": "name_ends_vowel",        "group": "name",         "name": "Ends in a Vowel",            "desc": "Common name ends with the letter A, E, I, O, or U <em>(excluding Y)</em>"},
+    {"id": "name_ends_consonant",    "group": "name",         "name": "Ends in a Consonant",        "desc": "Common name ends with a consonant letter <em>(excluding Y)</em>"},
     {"id": "name_short_5",           "group": "name",         "name": "Short Name",                 "desc": "Common name has 5 letters or fewer in total"},
     {"id": "name_medium_6_11",       "group": "name",         "name": "Medium-Length Name",         "desc": "Common name has between 6 and 11 letters, excluding spaces and hyphens"},
     {"id": "name_long_12",           "group": "name",         "name": "Long Name",                  "desc": "Common name has 12 or more letters, excluding spaces and hyphens"},
@@ -1130,7 +1130,10 @@ def compute_mammal_traits(
             traits.append("name_starts_vowel")
         else:
             traits.append("name_starts_consonant")
-        if letters_only[-1] in "aeiou":
+        # Names ending in Y get neither ending card (Y sounds like a vowel but isn't one)
+        if letters_only[-1] == "y":
+            pass
+        elif letters_only[-1] in "aeiou":
             traits.append("name_ends_vowel")
         else:
             traits.append("name_ends_consonant")
