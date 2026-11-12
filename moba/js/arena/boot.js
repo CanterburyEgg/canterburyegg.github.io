@@ -150,17 +150,20 @@ async function bootArenaWithLoadingBar() {
     setTimeout(() => logHeroShot(), dh ? parseInt(dh[1], 10) * 1000 : (act ? 1000 : 1500));
   }
   // Dev: &botlog=N logs bot kit-cast counts every N seconds (plus any errors)
-  const blg = /[?&]botlog=(\d+)/.exec(location.search);
+  const blg = /[?&]botlog=([\d.]+)/.exec(location.search);
   if (blg) {
+    window.__dashDbg = [];
     window.addEventListener('error', (e) => console.log('BOTLOG error ' + e.message + ' @' + e.filename + ':' + e.lineno));
     let n = 0;
     const iv = setInterval(() => {
       n++;
-      const cb = phase1Engine && phase1Engine.devBots ? phase1Engine.devBots().find((b) => b.heroType === 'coyote') : null;
-      const info = cb ? { t: Math.round(phase1Engine.devMatchTime()), x: Math.round(cb.x), z: Math.round(cb.z), lv: cb.level, hp: Math.round(cb.hp), dead: cb.respawnTimer > 0 } : 'no coyote bot';
+      const bl = phase1Engine && phase1Engine.devBots ? phase1Engine.devBots() : [];
+      const info = { t: Math.round(phase1Engine ? phase1Engine.devMatchTime() : 0) };
+      bl.forEach((b) => { if (b.heroType === 'coyote' || b.heroType === 'brawler') info[b.id] = [Math.round(b.x), Math.round(b.z), 'L' + b.level, Math.round(b.hp), 'sh' + Math.round(b.shield || 0) + '/' + (b.shieldTimer || 0).toFixed(1) + ' rc' + (b.eRecast || 0).toFixed(1), b.respawnTimer > 0 ? 'DEAD' : '']; });
       console.log('BOTLOG ' + n + ' ' + JSON.stringify(window.__kitBotLog || {}) + ' ' + JSON.stringify(info));
-      if (n >= 8) { clearInterval(iv); console.log('BOTLOG done'); }
-    }, parseInt(blg[1], 10) * 1000);
+      if (window.__dashDbg && window.__dashDbg.length) { console.log('BOTLOG dash ' + JSON.stringify(window.__dashDbg)); window.__dashDbg = []; }
+      if (n >= 20) { clearInterval(iv); console.log("BOTLOG done"); }
+    }, parseFloat(blg[1]) * 1000);
   }
   // Dev: &devturret=N destroys the Imp's planted turret N seconds in
   const dtur = /[?&]devturret=(\d+)/.exec(location.search);

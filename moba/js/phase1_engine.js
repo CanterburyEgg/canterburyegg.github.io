@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true };
+    const KIT_BOTS = { coyote: true, brawler: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -1693,6 +1693,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
           b.animForceRestart = true;
         },
         hostiles: () => hostilesForTeam(b.team),
+        // Brawler R for bots: the engine's bot Pit Arena (walls, damage amp, projectile blocking already handled here)
+        pitArena: (dur) => {
+          b.arenaTimer = dur;
+          b.atkAnimTimer = 0.38;
+          b.animSlot = 'kick'; b.animTimeScale = 1.45; b.animStartTime = 0; b.animForceRestart = true;
+          spawnBotPitArena(b, b.x, b.z, dur);
+        },
         damage: (t, dmg, opts) => {
           opts = opts || {};
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
@@ -1702,6 +1709,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       };
       return b._actor;
+    }
+    // A shield soaks damage before HP; returns what's left over for HP
+    function absorbShield(u, dmg) {
+      if (!u.shield || u.shield <= 0) return dmg;
+      if (u.shield >= dmg) { u.shield -= dmg; return 0; }
+      const rem = dmg - u.shield;
+      u.shield = 0;
+      return rem;
     }
     function botDiffMult() { return botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0); }
 
@@ -1782,7 +1797,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       dmg = Math.max(1, Math.round(dmg));
-      u.hp -= dmg;
+      u.hp -= targetObj.kind === 'bot' ? absorbShield(u, dmg) : dmg; // enemy bot shields soak player damage first
       u.lastDamagedByPlayerAt = matchTime;
 
       // Physical/Spell Lifesteal Item Proc
@@ -3379,69 +3394,19 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
 
             // 2. PIT BRAWLER BOT (she/her: E: 1st Vault Dash -> 2nd Rebound Slide Dash + Shield, R: 3D Pit Arena Wall, Q: 0.23s Windup MMA Stun Kick)
-            else if (b.heroType === 'brawler') {
-              if (b.cdE <= 0 && bestDist <= 5.8 && (bestDist >= 2.2 || b.hp / b.maxHp < 0.65)) {
-                b.cdE = [10.0, 9.0, 8.0][rQE];
-                const lockedTarget = bestTarget;
-                const ang = Math.atan2(tx - b.x, tz - b.z);
-                const destX = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
-                const destZ = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
-                const dashDur = 0.24;
-                b.dashTimer = dashDur;
-                b.dashVx = (destX - b.x) / dashDur;
-                b.dashVz = (destZ - b.z) / dashDur;
-                playBotAction(b, 'jump', 1.75, 0.03, 0.38);
-                spawnShockRing(b.x, b.z, 0xf43f5e, 0.28, 1.6, 0.22);
-                b.dashOnEnd = () => {
-                  const arenaAmp = b.arenaTimer > 0 ? ([1.20, 1.25, 1.30][rUlt] + (isHard && b.level >= 10 ? 0.10 : 0)) : 1.0;
-                  const hitDmg = Math.round((58 + b.level * 10 + b.physAtk * 0.50) * arenaAmp * scaleMult);
-                  const shAmt = Math.round(([180, 240, 300][rQE] + b.level * 15) * (isHard && b.level >= 7 ? 1.35 : 1.0));
-                  b.shield = Math.max(b.shield || 0, shAmt);
-                  b.shieldTimer = 3.5;
-                  spawnShockRing(b.x, b.z, 0xfde047, 0.3, 2.1, 0.26);
-                  if (lockedTarget && lockedTarget.ref && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 2.9) {
-                    applyBotDamageToTarget(lockedTarget, hitDmg, b, 'physical');
-                    // Trigger 2nd Rebound Slide Dash through target (matching player Brawler E rebound!)
-                    const rebDur = 0.22;
-                    const rebX = THREE.MathUtils.clamp(b.x + Math.sin(ang) * 2.1, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
-                    const rebZ = THREE.MathUtils.clamp(b.z + Math.cos(ang) * 2.1, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
-                    b.dashTimer = rebDur;
-                    b.dashVx = (rebX - b.x) / rebDur;
-                    b.dashVz = (rebZ - b.z) / rebDur;
-                    playBotAction(b, 'slide', 2.35, 0.14, 0.26);
-                    b.dashOnEnd = () => {
-                      if (lockedTarget && lockedTarget.ref && lockedTarget.ref.hp > 0 && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 2.9) {
-                        applyBotDamageToTarget(lockedTarget, Math.round(hitDmg * 0.55), b, 'physical');
-                        spawnShockRing(b.x, b.z, 0xf43f5e, 0.25, 1.8, 0.22);
-                      }
-                    };
-                  }
-                  spawnFloat(b.x, 2.7, b.z, 'VAULT DASH! (+' + shAmt + ' SHIELD)', '#fde047');
-                };
+            else if (b.heroType === 'brawler' && kitBotReady('brawler')) {
+              // (Phase 2: the brain picks; the real Brawler kit casts)
+              const kit = window.MOBA_HEROES.brawler;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              if ((b.eRecast || 0) > 0 && bestDist <= 5.5) {
+                kit.castFor(actor, 'E'); // rebound slide through them
+              } else if (b.cdE <= 0 && bestDist <= 5.8 && (bestDist >= 2.2 || b.hp / b.maxHp < 0.65)) {
+                kit.castFor(actor, 'E');
               } else if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 3.6) {
-                b.cdR = [46.0, 40.0, 34.0][rUlt];
-                const arenaDur = (isHard && b.level >= 10) ? 6.5 : 5.5;
-                b.arenaTimer = arenaDur;
-                if (isHard && b.level >= 10) b.cdE = 0;
-                playBotAction(b, 'kick', 1.45, 0.0, 0.38);
-                spawnBotPitArena(b, b.x, b.z, arenaDur);
+                kit.castFor(actor, 'R');
               } else if (b.cdQ <= 0 && bestDist <= 2.5) {
-                b.cdQ = [7.5, 6.8, 6.0][rQE] - (isHard && b.level >= 3 ? 1.5 : 0);
-                const lockedTarget = bestTarget;
-                playBotAction(b, 'kick', 1.45, 0.0, 0.50);
-                // 0.23s kick apex windup before impact!
-                scheduleBotHit(b, 0.23, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.1) {
-                    const arenaAmp = b.arenaTimer > 0 ? ([1.20, 1.25, 1.30][rUlt] + (isHard && b.level >= 10 ? 0.10 : 0)) : 1.0;
-                    const qDmg = Math.round((85 + b.level * 14 + b.physAtk * 0.90) * arenaAmp * scaleMult);
-                    const stunDur = [1.0, 1.1, 1.2][rQE] + (isHard && b.level >= 3 ? 0.25 : 0);
-                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0xfbbf24, 0.25, 1.95, 0.25);
-                    applyBotDamageToTarget(lockedTarget, qDmg, b, 'physical');
-                    applyBotCcAndEffects(lockedTarget, { stunDur });
-                    spawnFloat(lockedTarget.ref.x, 2.7, lockedTarget.ref.z, 'MMA STUN KICK!', '#fde047');
-                  }
-                });
+                kit.castFor(actor, 'Q');
               }
             }
 
@@ -3648,6 +3613,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
                     applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
                   }
                 });
+              } else if (b.heroType === 'brawler' && kitBotReady('brawler')) {
+                b.aimTarget = lockedTarget;
+                const actor = botActor(b);
+                window.MOBA_HEROES.brawler.basicAttackFor(actor, actor.stats(), false);
               } else if (b.heroType === 'brawler') {
                 playBotAction(b, 'punch', 1.35, 0.0, 0.36);
                 scheduleBotHit(b, 0.16, () => {
@@ -3734,6 +3703,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (b.groundRing) b.groundRing.position.y = 0.03 - airborneY;
         b.pivot.rotation.y = b.facing;
         updateUnitSlowVisual(b, b.pivot, 0.85, dt);
+        // Shield bubble (same look as the player's)
+        if ((b.shield || 0) > 0 && !b.shieldBubble) {
+          b.shieldBubble = new THREE.Mesh(new THREE.SphereGeometry(1.25, 20, 14), new THREE.MeshBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.22, depthWrite: false }));
+          b.shieldBubble.position.y = 1.15;
+          b.pivot.add(b.shieldBubble);
+        }
+        if (b.shieldBubble) b.shieldBubble.visible = (b.shield || 0) > 0;
 
         // Panther Rogue Bot R: Nightprowl Translucent Twilight-Teal Stealth Shimmer + Gnash Bite Lunge!
         if (b.heroType === 'panther' && b.meshes && b.meshes.length > 0) {
@@ -3861,7 +3837,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       } else {
         const res = dmgType === 'fantasy' ? (u.fResist || u.armor || 0) : (u.armor || 0);
         const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + res))));
-        u.hp -= mitigated;
+        u.hp -= targetObj.kind === 'bot' ? absorbShield(u, mitigated) : mitigated;
         if (u.hp <= 0) {
           handleUnitDeath(targetObj);
         }

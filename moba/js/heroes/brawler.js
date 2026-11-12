@@ -236,7 +236,22 @@ H.brawler = {
 
   // LMB: alternating hook punches, or the Q-armed Crushing Kick (impact resolves in onStrikeImpact)
   onBasicAttack(st, qWasArmed) {
-    const isKick = qWasArmed;
+    return this.basicAttackFor(KitFx.player, st, qWasArmed);
+  },
+
+  // Same basic attack for any actor. Bots: punch, or the Q kick when the brain casts Q (no arming step for bots).
+  basicAttackFor(actor, st, qWasArmed) {
+    const isKick = !!qWasArmed;
+    if (!actor.isPlayer) {
+      const u = actor.unit;
+      const a = actor.aim();
+      u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+      const L = (window.__kitBotLog = window.__kitBotLog || {}); const k = isKick ? 'br_kick' : 'br_lmb'; L[k] = (L[k] || 0) + 1;
+      if (isKick) actor.play('kick', 0.06, true, 1.45, 0, 0.5);
+      else actor.play('punch', 0.05, true, 1.35, 0, 0.36);
+      u.brStrike = { isKick, isHaymaker: false, facing: u.facing, t: isKick ? 0.23 : 0.16 };
+      return;
+    }
 
     if (isKick) {
       hero.atkTimer = 1.04 / (1 + st.asPct * 0.5);
@@ -277,7 +292,12 @@ H.brawler = {
 
   // LMB hook punches (+ 7R Haymaker Cleave every 3rd) OR empowered Q Crushing Kick impact; siphons Move Speed
   onStrikeImpact(strike, ctx) {
+    return this.strikeImpactFor(KitFx.player, strike, ctx);
+  },
+
+  strikeImpactFor(actor, strike, ctx) {
     const { st, pProg, talents } = ctx;
+    const hero = actor.unit; // (local alias: the striker)
     const fx = hero.x + Math.sin(strike.facing) * 1.15;
     const fz = hero.z + Math.cos(strike.facing) * 1.15;
 
@@ -305,7 +325,7 @@ H.brawler = {
     const siphonStep = talents[3] === 'R' ? 0.04 : 0.02;
     const siphonCap = talents[3] === 'R' ? 0.12 : 0.08;
 
-    dummies.forEach((d) => {
+    if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
         damageDummy(d, baseStrikeDmg);
@@ -320,15 +340,18 @@ H.brawler = {
 
     // Hit 4v4 Hostile Targets (Enemy Bots, Enemy Minions, Jungle Camps + Boss, Structures!)
     if (phase1Engine) {
-      const arenaMult = (arena && Math.hypot(hero.x - arena.x, hero.z - arena.z) <= arena.r) ? (arena.amp || 1.25) : 1.0;
-      phase1Engine.getHostileTargets().forEach((t) => {
+      const arenaMult = actor.isPlayer
+        ? ((arena && Math.hypot(hero.x - arena.x, hero.z - arena.z) <= arena.r) ? (arena.amp || 1.25) : 1.0)
+        : ((hero.arenaTimer || 0) > 0 ? [1.20, 1.25, 1.30][KitFx.rUlt(pProg.level || 1)] : 1.0);
+      actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
-          const didHit = phase1Engine.dealPlayerDamageToUnit(t, baseStrikeDmg * arenaMult, {
+          const didHit = actor.damage(t, baseStrikeDmg * arenaMult, {
             isBasic: !strike.isKick,
             stunDur: strike.isKick ? stunDur : 0
           });
           if (didHit) {
-            hero.siphonBonus = Math.min(siphonCap, hero.siphonBonus + siphonStep);
+            hero.siphonBonus = Math.min(siphonCap, (hero.siphonBonus || 0) + siphonStep);
+            if (!actor.isPlayer) hero.siphonTimer = 5.0;
           }
         }
       });
@@ -337,6 +360,15 @@ H.brawler = {
 
   // Q Crushing Kick (arms next LMB), E Rebound Rush (2x dash), R The Pit Arena
   cast(slot, ctx) {
+    return this.castFor(KitFx.player, slot, ctx);
+  },
+
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
+    if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
@@ -397,14 +429,19 @@ H.brawler = {
 
   // E Rebound Rush: per-frame dash collision results (wall/arena rim/dummy/unit hit -> damage, shield, rebound)
   onDashStep(ctx) {
+    return this.dashImpactFor(KitFx.player, ctx);
+  },
+
+  dashImpactFor(actor, ctx) {
     const { st, pProg, talents, hitWall, hitArenaRim, hitDummy, hitHostile } = ctx;
+    const hero = actor.unit; // (local alias: the dasher)
     if (!hero.dashHit && (hitWall || hitDummy || hitHostile)) {
       hero.dashHit = true;
       const rimMult = hitArenaRim ? (talents[10] === 'R' ? 1.65 : 1.35) : 1.0;
       const dashDmg = Math.round((58 + (pProg.level || 1) * 10 + st.atk * 0.50) * rimMult);
       if (hitDummy) damageDummy(hitDummy, dashDmg);
       if (hitHostile && phase1Engine) {
-        phase1Engine.dealPlayerDamageToUnit(hitHostile, dashDmg);
+        actor.damage(hitHostile, dashDmg);
         if (hero.dashKind === 'first') {
           const ux = hero.x - hitHostile.x;
           const uz = hero.z - hitHostile.z;
@@ -417,15 +454,15 @@ H.brawler = {
       }
       if (hitArenaRim) {
         spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.35, 2.8, 0.32);
-        dummies.forEach((d) => {
+        if (actor.isPlayer) dummies.forEach((d) => {
           if (d !== hitDummy && (!d.isShooter || shooterEnabled) && Math.hypot(d.x - hero.x, d.z - hero.z) <= 2.8 + d.r) {
             damageDummy(d, dashDmg, '#fde047');
           }
         });
         if (phase1Engine) {
-          phase1Engine.getHostileTargets().forEach((t) => {
+          actor.hostiles().forEach((t) => {
             if ((!hitHostile || t.ref !== hitHostile.ref) && Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.8 + t.r) {
-              phase1Engine.dealPlayerDamageToUnit(t, dashDmg, { color: '#fde047' });
+              actor.damage(t, dashDmg, { color: '#fde047' });
             }
           });
         }
@@ -437,6 +474,7 @@ H.brawler = {
         hero.shield = Math.round(([180, 240, 300][rQE] + (pProg.level || 1) * 15) * shieldMult);
         hero.shieldTimer = 3.5;
         hero.eRecast = 3.0;
+        if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); const k = 'br_shield_t' + actor.team; L[k] = (L[k] || 0) + 1; }
         SFX.play(hitArenaRim ? 'arena' : 'punch');
         spawnShockRing(hero.x, hero.z, 0xfbbf24, 0.3, 1.8, 0.25);
         spawnFloat(
@@ -451,12 +489,91 @@ H.brawler = {
     if (hero.dashTimer <= 0 && hero.dashKind === 'second' && talents[7] === 'L') {
       spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.3, 2.4, 0.3);
       if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
+        actor.hostiles().forEach((t) => {
           if (Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.4 + t.r) {
-            phase1Engine.dealPlayerDamageToUnit(t, 95);
+            actor.damage(t, 95);
           }
         });
       }
+    }
+  },
+
+  // ---- Bots (Phase 2). Q fires the kick straight away; E = the same Rebound Rush with its own collision check here;
+  // R = the engine's bot Pit Arena (bot arenas already live in the engine with their own walls).
+  botCast(actor, slot, ctx) {
+    const { st, pProg, talents, rQE, rUlt } = ctx;
+    const hero = actor.unit;
+    const a = actor.aim();
+    hero.facing = Math.atan2(a.x - hero.x, a.z - hero.z);
+    const L = (window.__kitBotLog = window.__kitBotLog || {}); L['br_' + slot] = (L['br_' + slot] || 0) + 1;
+    if (slot === 'Q') {
+      if (hero.cdQ > 0) return;
+      hero.cdQ = [7.5, 6.8, 6.0][rQE] - (talents[3] === 'L' ? 1.5 : 0);
+      this.basicAttackFor(actor, st, true);
+    } else if (slot === 'E') {
+      const second = (hero.eRecast || 0) > 0;
+      if (!second && hero.cdE > 0) return;
+      if (second) hero.eRecast = 0;
+      else hero.cdE = [10.0, 9.0, 8.0][rQE];
+      hero.dashVx = Math.sin(hero.facing) * 14.2;
+      hero.dashVz = Math.cos(hero.facing) * 14.2;
+      hero.dashTimer = 0.36;
+      hero.dashKind = second ? 'second' : 'first';
+      hero.dashHit = false;
+      if (second) actor.play('slide', 0.05, true, 2.35, 0.14, 0.36);
+      else actor.play('jump', 0.05, true, 1.75, 0.03, 0.36);
+      spawnShockRing(hero.x, hero.z, 0xfde047, 0.25, 1.15, 0.22);
+      SFX.play('dash');
+    } else if (slot === 'R') {
+      if (pProg.level < 4 || hero.cdR > 0) return;
+      hero.cdR = [46.0, 40.0, 34.0][rUlt];
+      if (actor.pitArena) actor.pitArena(talents[10] === 'L' ? 7.0 : 5.5);
+      if (talents[10] === 'R') hero.cdE = 0;
+    }
+  },
+
+  // Per-caster timers for bots: strike windup, dash collision, rebound window
+  tickActor(actor, dt) {
+    if (actor.isPlayer) return; // the player's strike/dash run through loop.js
+    const u = actor.unit;
+    u.eRecast = Math.max(0, (u.eRecast || 0) - dt);
+    if (u.brStrike) {
+      if ((u.stunTimer || 0) > 0) u.brStrike = null;
+      else {
+        u.brStrike.t -= dt;
+        if (u.brStrike.t <= 0) {
+          const strike = u.brStrike;
+          u.brStrike = null;
+          const lvl = actor.level();
+          this.strikeImpactFor(actor, strike, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });
+        }
+      }
+    }
+    if ((u.dashTimer || 0) > 0 && u.dashKind) {
+      let hitHostile = null, hitWall = false;
+      // generous reach: unit separation holds bots ~1.2m apart edge to edge, so a tight check could never connect
+      const reach = (u.r || 0.55) + 0.8;
+      const hs = actor.hostiles();
+      for (let i = 0; i < hs.length; i++) {
+        const t = hs[i];
+        if (t.kind === 'structure') continue;
+        if (Math.hypot(t.x - u.x, t.z - u.z) <= reach + (t.r || 0.5)) { hitHostile = t; break; }
+      }
+      if (!hitHostile && phase1Engine && phase1Engine.getMapObstacles) {
+        const obs = phase1Engine.getMapObstacles();
+        for (let i = 0; i < obs.length; i++) {
+          const o = obs[i];
+          if (Math.hypot(o.x - u.x, o.z - u.z) <= reach + (o.r || 0.5)) { hitWall = true; break; }
+        }
+      }
+      if (window.__dashDbg) {
+        let dmin = 99;
+        hs.forEach((t) => { if (t.kind !== 'structure') dmin = Math.min(dmin, Math.hypot(t.x - u.x, t.z - u.z) - (t.r || 0.5)); });
+        window.__dashDbg.push([actor.team, u.dashKind, +u.dashTimer.toFixed(2), +dmin.toFixed(2), +reach.toFixed(2), !!hitHostile, hitWall, !!u.dashHit]);
+      }
+      const lvl = actor.level();
+      this.dashImpactFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), hitWall, hitArenaRim: false, hitDummy: null, hitHostile });
+      if (u.dashTimer <= 0) u.dashKind = null;
     }
   },
 
