@@ -28,6 +28,7 @@ export class StageRenderer {
     this.particles = [];
     this.shockwaves = [];
     this.laneBeams = new Float32Array(8);
+    this.ghostAlpha = [0, 0]; // fade level of the ghost S / L lanes
 
     this.resize();
   }
@@ -88,9 +89,9 @@ export class StageRenderer {
           color: 'hsla(42, 95%, 74%, ',
         });
       }
-    } else if (lane >= 0 && lane < totalLanes) {
+    } else if (lane >= 0 && lane < totalLanes + 2) {
       this.laneBeams[lane] = Math.min(1, 0.95 * mult);
-      const isLeft = lane < totalLanes / 2;
+      const isLeft = this._isLeftLane(lane, totalLanes);
       const uCenter = this._laneCenterU(lane, totalLanes);
       const col =
         judgment === 'perfect'
@@ -122,10 +123,24 @@ export class StageRenderer {
     const centerGap = 0.065; // Subtle visual split between Left Hand and Right Hand
     const usable = 2.0 - centerGap;
     const laneW = usable / totalLanes;
+    if (lane >= totalLanes) {
+      // Ghost lanes: slimmer lanes hovering just outside the deck (S far left, L far right)
+      const gw = laneW * 0.62;
+      const gap = 0.035;
+      const left = lane === totalLanes ? -1.0 - gap - gw : 1.0 + gap;
+      return { left, right: left + gw, center: left + gw * 0.5, width: gw };
+    }
     const half = totalLanes >> 1;
     let left = -1.0 + lane * laneW;
     if (lane >= half) left += centerGap;
     return { left, right: left + laneW, center: left + laneW * 0.5, width: laneW };
+  }
+
+  /** Left-hand lane? (ghost S counts as left hand, ghost L as right hand) */
+  _isLeftLane(lane, totalLanes) {
+    if (lane === totalLanes) return true;
+    if (lane === totalLanes + 1) return false;
+    return lane < totalLanes / 2;
   }
 
   _laneCenterU(lane, totalLanes) {
@@ -152,7 +167,10 @@ export class StageRenderer {
     const elevOffset = curveState.elevationBias * zCurve * 290 + hillWave * zNorm;
     const swayOffset = Math.sin(this.worldTravel * 0.24 + zNorm * 2.1) * (45 + 65 * curveState.intensity) * zCurve;
 
-    const deckHalfWidthPx = Math.min(w * 0.44, 390 + curveState.totalLanes * 22);
+    // (modes with ghost keys keep a little room outside the deck for the ghost lanes)
+    const deckHalfWidthPx = curveState.ghostMode
+      ? Math.min(w * 0.37, 430)
+      : Math.min(w * 0.44, 390 + curveState.totalLanes * 22);
     const strikeY = h * 0.815;
     const horizonBaseY = h * 0.30;
 
@@ -218,10 +236,27 @@ export class StageRenderer {
     const shakeX = this.cameraShake > 0.1 ? (Math.random() - 0.5) * this.cameraShake : 0;
     const shakeY = this.cameraShake > 0.1 ? (Math.random() - 0.5) * this.cameraShake : 0;
 
+    // Ghost lanes fade in shortly before a ghost note arrives and fade out once it has passed
+    const ghostMode = !!(mode && mode.ghostCodes && state.ghostEnabled);
+    const ghostTarget = [0, 0];
+    if (ghostMode) {
+      for (let i = 0; i < notes.length; i++) {
+        const n = notes[i];
+        if (n.time > songTime + approachTime + 0.6) break;
+        if (!n.ghost || n.time < songTime - 0.35) continue;
+        ghostTarget[n.ghost === 'S' ? 0 : 1] = 1;
+      }
+      for (let g = 0; g < 2; g++) if (pressedLanes[totalLanes + g]) ghostTarget[g] = Math.max(ghostTarget[g], 0.6);
+    }
+    for (let g = 0; g < 2; g++) {
+      this.ghostAlpha[g] += (ghostTarget[g] - this.ghostAlpha[g]) * Math.min(1, dt * 7);
+    }
+
     const curveState = {
       intensity: this.smoothedIntensity,
       elevationBias: this.smoothedSlope,
       totalLanes,
+      ghostMode,
       shakeX,
       shakeY,
     };
@@ -367,14 +402,52 @@ export class StageRenderer {
       ctx.fill();
     }
 
+    // Ghost lanes: faint dashed strips just outside the deck while a ghost note is near
+    if (curveState.ghostMode) {
+      for (let g = 0; g < 2; g++) {
+        const ga = this.ghostAlpha[g];
+        if (ga <= 0.02) continue;
+        const b = this._laneBoundsU(totalLanes + g, totalLanes);
+        const hue = g === 0 ? 198 : 41;
+        ctx.fillStyle = `hsla(${hue}, 60%, 70%, ${0.09 * ga})`;
+        ctx.beginPath();
+        const STEPS = 18;
+        for (let i = 0; i <= STEPS; i++) {
+          const p = this._project(b.left, i / STEPS, curveState);
+          if (i === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        }
+        for (let i = STEPS; i >= 0; i--) {
+          const p = this._project(b.right, i / STEPS, curveState);
+          ctx.lineTo(p.x, p.y);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.save();
+        ctx.setLineDash([6, 7]);
+        ctx.strokeStyle = `hsla(${hue}, 70%, 80%, ${0.38 * ga})`;
+        ctx.lineWidth = 1.2;
+        for (const u of [b.left, b.right]) {
+          ctx.beginPath();
+          for (let i = 0; i <= STEPS; i++) {
+            const p = this._project(u, i / STEPS, curveState);
+            if (i === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          }
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+    }
+
     // Active / pressed lane light wash + hit beams
-    for (let lane = 0; lane < totalLanes; lane++) {
+    for (let lane = 0; lane < totalLanes + (curveState.ghostMode ? 2 : 0); lane++) {
       const isDown = pressedLanes[lane];
       const beam = this.laneBeams[lane] || 0;
       if (!isDown && beam <= 0.01) continue;
 
       const b = this._laneBoundsU(lane, totalLanes);
-      const isLeft = lane < totalLanes / 2;
+      const isLeft = this._isLeftLane(lane, totalLanes);
       const hue = isLeft ? 198 : 41;
       const alpha = Math.min(0.42, (isDown ? 0.16 : 0) + beam * 0.28);
 
@@ -475,7 +548,7 @@ export class StageRenderer {
       const pad = b.width * 0.17;
       const uL = b.left + pad;
       const uR = b.right - pad;
-      const isLeft = n.lane < totalLanes / 2;
+      const isLeft = this._isLeftLane(n.lane, totalLanes);
       const hue = isLeft ? 198 : 41;
       const alpha = n.missed ? 0.22 : n.holding ? 0.72 : 0.48;
 
@@ -560,8 +633,18 @@ export class StageRenderer {
         const gemW = Math.max(6, pR.x - pL.x);
         const gemH = Math.max(4, 18 * pL.scale);
         const fade = Math.min(1, (1.03 - z) * 3.2);
-        const isLeft = n.lane < totalLanes / 2;
+        const isLeft = this._isLeftLane(n.lane, totalLanes);
 
+        if (n.ghost) {
+          // Ghost gem: translucent body with a bright glowing outline, so it reads as the "extra" fifth key
+          ctx.fillStyle = isLeft ? `hsla(198, 70%, 78%, ${0.42 * fade})` : `hsla(41, 80%, 74%, ${0.42 * fade})`;
+          this._roundRect(ctx, pL.x, pL.y - gemH * 0.5, gemW, gemH, Math.min(6, gemH * 0.4));
+          ctx.fill();
+          ctx.strokeStyle = `hsla(45, 100%, 95%, ${0.95 * fade})`;
+          ctx.lineWidth = Math.max(1.2, 2.4 * pL.scale);
+          ctx.stroke();
+          continue;
+        }
         ctx.fillStyle = isLeft
           ? `hsla(198, 76%, 72%, ${0.95 * fade})`
           : `hsla(41, 88%, 67%, ${0.95 * fade})`;
@@ -597,8 +680,14 @@ export class StageRenderer {
     ctx.lineTo(sR.x, sR.y);
     ctx.stroke();
 
-    // Individual Finger Keybed Pads
-    for (let lane = 0; lane < totalLanes; lane++) {
+    // Individual Finger Keybed Pads (ghost S / L pads fade in with their lanes)
+    const ghostOn = curveState.ghostMode;
+    for (let lane = 0; lane < totalLanes + (ghostOn ? 2 : 0); lane++) {
+      const ghostIdx = lane - totalLanes;
+      const ga = ghostIdx >= 0 ? this.ghostAlpha[ghostIdx] : 1;
+      if (ga <= 0.02) continue;
+      ctx.save();
+      ctx.globalAlpha = ga;
       const b = this._laneBoundsU(lane, totalLanes);
       const pL = this._project(b.left + b.width * 0.06, 0, curveState);
       const pR = this._project(b.right - b.width * 0.06, 0, curveState);
@@ -606,7 +695,7 @@ export class StageRenderer {
       const h = 30;
       const isDown = !!pressedLanes[lane];
       const pressY = isDown ? 4 : 0;
-      const isLeft = lane < totalLanes / 2;
+      const isLeft = this._isLeftLane(lane, totalLanes);
 
       ctx.fillStyle = isDown
         ? isLeft
@@ -628,7 +717,9 @@ export class StageRenderer {
       ctx.font = '700 13px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(labels[lane] || '', pL.x + w * 0.5, pL.y + 8 + pressY + h * 0.52);
+      const label = ghostIdx >= 0 ? (mode.ghostLabels || ['S', 'L'])[ghostIdx] : labels[lane];
+      ctx.fillText(label || '', pL.x + w * 0.5, pL.y + 8 + pressY + h * 0.52);
+      ctx.restore();
     }
 
     // Full-Width Spacebar Pedal underneath when enabled

@@ -8,9 +8,9 @@ import {
   hydrateSidecarFeatures,
   buildChart,
   ConcertAudioController,
-} from './audio-engine.js?v=cm1';
-import { StageRenderer } from './stage-renderer.js?v=cm1';
-import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm2';
+} from './audio-engine.js?v=cm27';
+import { StageRenderer } from './stage-renderer.js?v=cm27';
+import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm27';
 
 
 const DIFFICULTY_LABELS = { fewer: 'Easy', more: 'Hard' };
@@ -903,7 +903,7 @@ class ConcertMasterApp {
     this.sectionAccuracyBuckets = new Array(48).fill(null).map(() => ({ sum: 0, count: 0 }));
     this.recentHitDeltasMs = [];
     this.scanCursor = 0;
-    this.pressedLanes = new Array(this.activeChart.mode.lanes).fill(false);
+    this.pressedLanes = new Array(this.activeChart.mode.lanes + 2).fill(false); // (+2: ghost S / L keys)
     this.spacePressed = false;
 
     // Populate HUD headers
@@ -1123,7 +1123,7 @@ class ConcertMasterApp {
     if (this.screenState !== 'playing') return;
 
     const mode = KEY_MODES[this.keyModeId];
-    const laneIdx = mode.codes.indexOf(e.code);
+    const laneIdx = this._laneForCode(mode, e.code);
     const isSpaceKey = e.code === 'Space' && mode.hasSpace;
 
     if (laneIdx === -1 && !isSpaceKey) return;
@@ -1145,7 +1145,7 @@ class ConcertMasterApp {
       this.pressedLanes[laneIdx] = true;
       this.audio.playHitSound({
         isSpace: false,
-        lane: laneIdx,
+        lane: laneIdx === mode.lanes ? 0 : laneIdx > mode.lanes ? mode.lanes - 1 : laneIdx, // ghosts sound like the end keys
         totalLanes: mode.lanes,
         intensity: curIntensity,
       });
@@ -1153,9 +1153,20 @@ class ConcertMasterApp {
     }
   }
 
+  /**
+   * Lane index for a key: 0..lanes-1 for the normal keys; in modes with ghost keys (4 keys: S and L), the ghost keys
+   * are lanes `lanes` (S, far left) and `lanes + 1` (L, far right). -1 if the key isn't a lane key.
+   */
+  _laneForCode(mode, code) {
+    const idx = mode.codes.indexOf(code);
+    if (idx >= 0) return idx;
+    const g = mode.ghostCodes ? mode.ghostCodes.indexOf(code) : -1;
+    return g >= 0 && (this.activeDensity || this.density) === 'more' ? mode.lanes + g : -1;
+  }
+
   _onKeyUp(e) {
     const mode = KEY_MODES[this.keyModeId];
-    const laneIdx = mode.codes.indexOf(e.code);
+    const laneIdx = this._laneForCode(mode, e.code);
     if (laneIdx >= 0) {
       this.pressedLanes[laneIdx] = false;
       // Forgiving Hold release: stop holding cleanly without a miss penalty
@@ -1331,6 +1342,7 @@ class ConcertMasterApp {
       pressedLanes: this.pressedLanes,
       spacePressed: this.spacePressed,
       features: this.activeTrackData?.features || null,
+      ghostEnabled: (this.activeDensity || this.density) === 'more',
     });
 
     requestAnimationFrame((nextTs) => this._loop(nextTs));

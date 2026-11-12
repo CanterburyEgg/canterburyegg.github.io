@@ -240,3 +240,9 @@ canvas {
 .note-list li[data-j='great'] .k { color: hsl(198, 70%, 75%); }
 .note-list li[data-j='good'] .k { color: hsl(150, 60%, 65%); }
 .note-list li[data-j='miss'] .k { color: hsl(4, 80%, 66%); }
+
+/* Audio offset control (shared with the game's setting) */
+.offset { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.offset b { min-width: 52px; text-align: center; font-family: "JetBrains Mono", monospace; }
+.offset button { padding: 2px 8px; }
+.offset small { opacity: 0.7; }

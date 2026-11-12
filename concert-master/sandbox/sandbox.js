@@ -9,8 +9,10 @@
 // The engine is re-imported every time a clip's chart is built, so engine edits show up without reloading the page
 const { BUILTIN_REPERTOIRE } = await import(`../repertoire.js?t=${Date.now()}`);
 
-const LANE_KEYS = ['D', 'F', 'J', 'K'];
-const LANE_CODES = ['KeyD', 'KeyF', 'KeyJ', 'KeyK'];
+// Lane index -> key. 0..3 = D F J K; 4 = ghost S (drawn far left), 5 = ghost L (drawn far right)
+const LANE_KEYS = ['D', 'F', 'J', 'K', 'S', 'L'];
+const LANE_CODES = ['KeyD', 'KeyF', 'KeyJ', 'KeyK', 'KeyS', 'KeyL'];
+const GHOST_W = 0.6; // ghost columns are 60% as wide as a normal lane
 const LANE_HUES = [196, 156, 44, 12];
 const PAD = 1.0; // seconds of lead-in / lead-out around each clip
 const LEAD_IN = 2.0; // extra lead-in so the first notes can scroll down before you have to hit them
@@ -51,7 +53,37 @@ const prefs = (() => {
     return {};
   }
 })();
-const AUDIO_OFFSET = (Number(prefs.audioOffsetMs) || 0) / 1000;
+let AUDIO_OFFSET = (Number(prefs.audioOffsetMs) || 0) / 1000; // adjustable here; saved back to the game's settings
+const hitErrorsMs = []; // signed timing error of recent hits (+ = you tapped late)
+
+function setOffsetMs(ms) {
+  const clamped = Math.max(-200, Math.min(350, Math.round(ms)));
+  AUDIO_OFFSET = clamped / 1000;
+  try {
+    const key = 'concertmaster_prefs_v1';
+    const p = JSON.parse(localStorage.getItem(key) || '{}');
+    p.audioOffsetMs = clamped;
+    localStorage.setItem(key, JSON.stringify(p));
+  } catch (_e) {
+    /* storage unavailable: still applies for this session */
+  }
+  renderOffset();
+}
+
+function renderOffset() {
+  const el = document.getElementById('offset-val');
+  if (el) el.textContent = `${Math.round(AUDIO_OFFSET * 1000)} ms`;
+  const hint = document.getElementById('offset-hint');
+  if (hint) {
+    if (hitErrorsMs.length >= 8) {
+      const sorted = [...hitErrorsMs].sort((x, y) => x - y);
+      const med = sorted[Math.floor(sorted.length / 2)];
+      hint.textContent = `your last ${hitErrorsMs.length} hits average ${med > 0 ? '+' : ''}${med} ms ${med > 0 ? '(late)' : med < 0 ? '(early)' : ''}`;
+    } else {
+      hint.textContent = `play a clip to measure (${hitErrorsMs.length}/8 hits)`;
+    }
+  }
+}
 const LOOK_AHEAD = 1.96 - (Number(prefs.speedVal) || 5.5) * 0.11; // same approach time as the game
 const HIT_VOL = Math.max(0, Math.min(1, (prefs.hitsoundPct ?? 52) / 100));
 
@@ -67,7 +99,7 @@ const state = {
   oldNotes: [],
   newNotes: [],
   side: 'new', // which chart you're playing
-  pressed: [false, false, false, false],
+  pressed: [false, false, false, false, false, false], // D F J K + ghost S / L
   run: null, // { perfect, great, good, miss, combo, maxCombo }
   judgment: null, // { text, side, at }
   ctx: null,
@@ -78,6 +110,7 @@ const fmt = (t) => `${Math.floor(t / 60)}:${(Math.max(0, t) % 60).toFixed(2).pad
 const trackFor = (id) => BUILTIN_REPERTOIRE.find((t) => t.id === id);
 const resolveUrl = (u) => (/^https?:\/\//i.test(u) ? u : `../${u.replace(/^\.\//, '')}`);
 const activeNotes = () => (state.side === 'old' ? state.oldNotes : state.newNotes);
+const audioBlobs = {}; // track url -> Promise<object URL> (fully downloaded, so seeking always works)
 const songTime = () => state.audio.currentTime - AUDIO_OFFSET;
 
 function sameNote(a, b) {
@@ -89,11 +122,14 @@ function markDiffs(oldN, newN) {
   newN.forEach((n) => (n.diff = oldN.some((o) => sameNote(o, n)) ? null : 'added'));
 }
 
-async function currentChart(songId) {
-  if (state.charts.has(songId)) return state.charts.get(songId);
+// rv: optional rules version to force (clips.json "rulesVersion"), e.g. to preview a locked song on the unified rules
+async function currentChart(songId, rv) {
+  const cacheKey = rv ? `${songId}@v${rv}` : songId;
+  if (state.charts.has(cacheKey)) return state.charts.get(cacheKey);
   const track = trackFor(songId);
   const resp = await fetch(`${resolveUrl(track.sidecarUrl.split('?')[0])}?t=${Date.now()}`, { cache: 'no-store' });
   const sidecar = await resp.json();
+  if (rv) sidecar.rulesVersion = rv;
   const { hydrateSidecarFeatures, buildChart } = await import(`../audio-engine.js?t=${Date.now()}`);
   const chart = buildChart(hydrateSidecarFeatures(sidecar, null), { keyMode: '4k', density: 'more' });
   const notes = chart.notes.map((n) => ({
@@ -105,7 +141,7 @@ async function currentChart(songId) {
     isChordPartner: Boolean(n.isChordPartner),
     isPercussionSolo: Boolean(n.isPercussionSolo),
   }));
-  state.charts.set(songId, notes);
+  state.charts.set(cacheKey, notes);
   return notes;
 }
 
@@ -187,7 +223,7 @@ async function selectClip(i, autoplay) {
 
   const base = refSnapshot()[clip.song];
   state.oldNotes = base ? clipNotes(base.notes, clip) : [];
-  state.newNotes = clipNotes(await currentChart(clip.song), clip);
+  state.newNotes = clipNotes(await currentChart(clip.song, clip.rulesVersion), clip);
   markDiffs(state.oldNotes, state.newNotes);
   els.oldCount.textContent = base ? `· ${state.oldNotes.length} notes` : '· (not locked)';
   els.newCount.textContent = `· ${state.newNotes.length} notes`;
@@ -198,7 +234,16 @@ async function selectClip(i, autoplay) {
 
   const url = resolveUrl(track.url);
   if (state.audio.dataset.src !== url) {
-    state.audio.src = url;
+    // Load the whole file as a blob first: a plain static server may not answer range requests, and then the browser
+    // can't seek into a long track (e.g. What We Do's .ogg restarted from 0:00 for clips at 3:31 / 4:28)
+    if (!audioBlobs[url]) {
+      els.status.textContent = 'Loading audio…';
+      audioBlobs[url] = fetch(url)
+        .then((r) => r.blob())
+        .then((b) => URL.createObjectURL(b));
+    }
+    const blobUrl = await audioBlobs[url];
+    state.audio.src = blobUrl;
     state.audio.dataset.src = url;
   }
   seekToStart();
@@ -237,8 +282,9 @@ function hitSound(lane) {
   const osc = ctx.createOscillator();
   const g = ctx.createGain();
   osc.type = 'triangle';
-  osc.frequency.setValueAtTime([620, 740, 880, 1040][lane], t);
-  osc.frequency.exponentialRampToValueAtTime([310, 370, 440, 520][lane], t + 0.06);
+  const sl = lane === 4 ? 0 : lane === 5 ? 3 : lane; // ghosts sound like the end keys
+  osc.frequency.setValueAtTime([620, 740, 880, 1040][sl], t);
+  osc.frequency.exponentialRampToValueAtTime([310, 370, 440, 520][sl], t + 0.06);
   g.gain.setValueAtTime(0.0001, t);
   g.gain.exponentialRampToValueAtTime(0.22 * HIT_VOL, t + 0.004);
   g.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
@@ -276,6 +322,9 @@ function onLanePress(lane) {
   }
   if (!best) return;
   best.hit = true;
+  hitErrorsMs.push(Math.round((now - best.time) * 1000));
+  if (hitErrorsMs.length > 32) hitErrorsMs.shift();
+  renderOffset();
   if (best.type === 'hold') best.holding = true;
   record(bestAbs <= WIN.perfect ? 'perfect' : bestAbs <= WIN.great ? 'great' : 'good', best);
 }
@@ -312,17 +361,35 @@ function drawHighway(canvas, notes, now, isActive) {
 
   const strikeY = h * 0.84;
   const pxPerSec = strikeY / LOOK_AHEAD;
-  const laneW = w / 4;
+  const laneW = w / (4 + 2 * GHOST_W);
+  const gW = laneW * GHOST_W;
+  const laneX = (l) => (l === 4 ? 0 : l === 5 ? gW + 4 * laneW : gW + l * laneW);
+  const laneWidth = (l) => (l >= 4 ? gW : laneW);
   const yOf = (t) => strikeY - (t - now) * pxPerSec;
+  const hasGhost = notes.some((n) => n.lane >= 4);
 
-  for (let l = 0; l < 4; l++) {
+  for (const l of [4, 0, 1, 2, 3, 5]) {
     const lit = isActive && state.pressed[l];
-    ctx.fillStyle = lit ? `hsla(${LANE_HUES[l]}, 60%, 22%, 0.95)` : l % 2 === 0 ? 'hsla(222, 30%, 9%, 0.9)' : 'hsla(222, 30%, 7%, 0.9)';
-    ctx.fillRect(l * laneW, 0, laneW, h);
-    ctx.fillStyle = lit ? 'hsl(44, 95%, 80%)' : 'hsla(40, 30%, 85%, 0.28)';
+    const ghost = l >= 4;
+    const hueL = ghost ? (l === 4 ? LANE_HUES[0] : LANE_HUES[3]) : LANE_HUES[l];
+    ctx.fillStyle = lit
+      ? `hsla(${hueL}, 60%, 22%, 0.95)`
+      : ghost
+      ? `hsla(222, 30%, 5%, ${hasGhost ? 0.9 : 0.6})`
+      : l % 2 === 0
+      ? 'hsla(222, 30%, 9%, 0.9)'
+      : 'hsla(222, 30%, 7%, 0.9)';
+    ctx.fillRect(laneX(l), 0, laneWidth(l), h);
+    if (ghost) {
+      ctx.strokeStyle = `hsla(40, 30%, 85%, ${hasGhost ? 0.3 : 0.1})`;
+      ctx.setLineDash([4, 6]);
+      ctx.strokeRect(laneX(l) + 0.5, 0.5, laneWidth(l) - 1, h - 1);
+      ctx.setLineDash([]);
+    }
+    ctx.fillStyle = lit ? 'hsl(44, 95%, 80%)' : `hsla(40, 30%, 85%, ${ghost && !hasGhost ? 0.12 : 0.28})`;
     ctx.font = '700 13px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
-    ctx.fillText(LANE_KEYS[l], l * laneW + laneW / 2, h - 8);
+    ctx.fillText(LANE_KEYS[l], laneX(l) + laneWidth(l) / 2, h - 8);
   }
   // Clip boundaries (the audited window, without the lead-in/out padding)
   const clip = state.clips[state.idx];
@@ -342,8 +409,8 @@ function drawHighway(canvas, notes, now, isActive) {
   for (const n of notes) {
     if (n.endTime < now - LOOK_BEHIND || n.time > now + LOOK_AHEAD) continue;
     if (isActive && n.hit && n.type !== 'hold') continue; // hit taps vanish
-    const x = n.lane * laneW + laneW * 0.12;
-    const nw = laneW * 0.76;
+    const x = laneX(n.lane) + laneWidth(n.lane) * 0.12;
+    const nw = laneWidth(n.lane) * 0.76;
     // Unchanged notes are dull grey; changed notes are red on the baseline side and green on the current side
     const changed = Boolean(n.diff);
     const hue = n.diff === 'added' ? 140 : 2;
@@ -365,6 +432,14 @@ function drawHighway(canvas, notes, now, isActive) {
       ctx.strokeStyle = 'hsl(0, 0%, 100%)';
       ctx.lineWidth = 2;
       ctx.stroke();
+    }
+    if (n.lane >= 4) {
+      // ghost note: bright dashed outline
+      ctx.strokeStyle = 'hsla(45, 100%, 92%, 0.95)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([3, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
   }
 
@@ -433,7 +508,7 @@ async function countAllDiffs() {
     const base = refSnapshot()[c.song];
     if (!base) continue;
     const o = clipNotes(base.notes, c);
-    const n = clipNotes(await currentChart(c.song), c);
+    const n = clipNotes(await currentChart(c.song, c.rulesVersion), c);
     markDiffs(o, n);
     c.diffCount = o.filter((x) => x.diff).length + n.filter((x) => x.diff).length;
   }
@@ -461,7 +536,7 @@ async function init() {
   renderRef();
   renderClipList();
   renderSide();
-  els.status.textContent = `Play with D F J K · offset ${Math.round(AUDIO_OFFSET * 1000)}ms & scroll speed from your game settings · Grey = unchanged · Red (baseline) / Green (current) = changed · White outline = chord partner · Dashed lines = audited window`;
+  els.status.textContent = `Play with D F J K (+ ghost S/L) · scroll speed from your game settings · offset adjustable at the top ([ / ]) · Grey = unchanged · Red (baseline) / Green (current) = changed · White outline = chord partner · Dashed lines = audited window`;
   await countAllDiffs();
   await selectClip(0, false);
   requestAnimationFrame(loop);
@@ -477,6 +552,18 @@ els.sideOld.addEventListener('click', () => setSide('old'));
 els.refBaseline.addEventListener('click', () => setRef('baseline'));
 els.refCheckpoint.addEventListener('click', () => setRef('checkpoint'));
 els.sideNew.addEventListener('click', () => setSide('new'));
+
+document.getElementById('offset-minus')?.addEventListener('click', () => setOffsetMs(AUDIO_OFFSET * 1000 - 5));
+document.getElementById('offset-plus')?.addEventListener('click', () => setOffsetMs(AUDIO_OFFSET * 1000 + 5));
+document.getElementById('offset-auto')?.addEventListener('click', () => {
+  if (hitErrorsMs.length < 8) return;
+  const sorted = [...hitErrorsMs].sort((x, y) => x - y);
+  // tapping late means the sound reaches you late: raise the offset by that amount (same rule as the game's calibrator)
+  setOffsetMs(AUDIO_OFFSET * 1000 + sorted[Math.floor(sorted.length / 2)]);
+  hitErrorsMs.length = 0;
+  renderOffset();
+});
+renderOffset();
 
 window.addEventListener('keydown', (e) => {
   const lane = LANE_CODES.indexOf(e.code);
@@ -499,8 +586,11 @@ window.addEventListener('keydown', (e) => {
     setSide(state.side === 'old' ? 'new' : 'old');
   } else if (e.code === 'KeyC') {
     setRef(state.ref === 'checkpoint' ? 'baseline' : 'checkpoint');
-  } else if (e.code === 'KeyS') {
-    els.slow.click();
+  } else if (e.code === 'BracketLeft' || e.code === 'BracketRight') {
+    const step = (e.shiftKey ? 20 : 5) * (e.code === 'BracketRight' ? 1 : -1);
+    setOffsetMs(AUDIO_OFFSET * 1000 + step);
+  } else if (e.code === 'KeyM') {
+    els.slow.click(); // (S is the ghost key now)
   } else if (e.code === 'Escape') {
     state.audio.pause();
   }

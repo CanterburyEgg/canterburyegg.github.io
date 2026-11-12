@@ -37,7 +37,7 @@ COMPLETED_SONGS = [
     ("sound-of-guthix", "The Sound of Guthix (RuneScape 3)", ROOT_DIR / "audio" / "sound-of-guthix.cadenza.json"),
 ]
 
-KEY_LABELS_4K = {-1: "SPACE", 0: "D", 1: "F", 2: "J", 3: "K"}
+KEY_LABELS_4K = {-1: "SPACE", 0: "D", 1: "F", 2: "J", 3: "K", 4: "S(ghost)", 5: "L(ghost)"}
 
 # The ONLY supported audit mode: Hard (More Notes) on D F J K. All other key layouts / densities are deprecated.
 AUDIT_KEY_MODE = "4k"

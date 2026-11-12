@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="./sandbox.css?v=2" />
+  <link rel="stylesheet" href="./sandbox.css?v=3" />
 </head>
 <body>
   <aside class="clip-list">
@@ -19,8 +19,8 @@
     <p class="hint">Hard · D F J K &nbsp;|&nbsp; <b>Left</b> = baseline or last checkpoint · <b>Right</b> = current build</p>
     <div id="clips" role="listbox" aria-label="Audit clips"></div>
     <p class="hint keys">
-      <kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd> play &nbsp; <kbd>Space</kbd> start/replay &nbsp; <kbd>Tab</kbd> switch side · <kbd>C</kbd> baseline/checkpoint<br />
-      <kbd>↑</kbd><kbd>↓</kbd> clip &nbsp; <kbd>S</kbd> slow-mo &nbsp; <kbd>Esc</kbd> stop
+      <kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd> play (+ ghost <kbd>S</kbd> <kbd>L</kbd>) &nbsp; <kbd>Space</kbd> start/replay &nbsp; <kbd>Tab</kbd> switch side · <kbd>C</kbd> baseline/checkpoint<br />
+      <kbd>↑</kbd><kbd>↓</kbd> clip &nbsp; <kbd>M</kbd> slow-mo &nbsp; <kbd>[</kbd><kbd>]</kbd> offset &nbsp; <kbd>Esc</kbd> stop
     </p>
   </aside>
 
@@ -42,6 +42,11 @@
         </div>
         <button type="button" id="btn-play">▶ Start</button>
         <button type="button" id="btn-slow">0.5× Slow-mo: Off</button>
+        <span class="offset" title="Audio offset (shared with the game). [ / ] = ±5 ms, Shift = ±20 ms">
+          Offset <button type="button" id="offset-minus">−</button><b id="offset-val">0 ms</b><button type="button" id="offset-plus">+</button>
+          <button type="button" id="offset-auto" title="Set the offset from your recent hits (needs 8+)">Use my hits</button>
+          <small id="offset-hint"></small>
+        </span>
         <span id="clock" class="clock">0:00.00</span>
       </div>
     </header>
@@ -61,6 +66,6 @@
     <p id="status" class="status"></p>
   </main>
 
-  <script type="module" src="./sandbox.js?v=6"></script>
+  <script type="module" src="./sandbox.js?v=10"></script>
 </body>
 </html>
