@@ -44,7 +44,11 @@ function destroyTurret() {
   spawnShockRing(t.x, t.z, 0xfb923c, 0.3, 2.4, 0.4);
   SFX.play('arena');
   spawnFloat(t.x, 2.6, t.z, 'TURRET DESTROYED! SALVAGE THE SCRAP', '#fb923c');
-  // a little heap of wreckage: bent plates + the barrel's cap
+  scrap = { x: t.x, z: t.z, mesh: makeScrapMesh(t.x, t.z) };
+}
+
+// a little heap of wreckage: bent plates + the barrel's cap
+function makeScrapMesh(x, z) {
   const g = new THREE.Group();
   const iron = new THREE.MeshStandardMaterial({ color: 0x3f3f46, metalness: 0.6, roughness: 0.5 });
   const brass = new THREE.MeshStandardMaterial({ color: 0x9a7b3c, metalness: 0.6, roughness: 0.45 });
@@ -59,9 +63,132 @@ function destroyTurret() {
   wheel.rotation.x = Math.PI / 2 - 0.3;
   wheel.position.set(0.2, 0.08, -0.1);
   g.add(wheel);
-  g.position.set(t.x, 0, t.z);
+  g.position.set(x, 0, z);
   scene.add(g);
-  scrap = { x: t.x, z: t.z, mesh: g };
+  return g;
+}
+
+function cannonball(r) {
+  return new THREE.Mesh(new THREE.SphereGeometry(r, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
+}
+
+// One turret step for any owner: turn toward the nearest enemy in range and fire (player turrets also shoot dummies)
+function stepTurret(t, dt, actor) {
+  t.shootCd -= dt;
+  let best = null, bestD = 8.5;
+  if (actor.isPlayer) dummies.forEach((d) => {
+    if (d.isShooter && !shooterEnabled) return;
+    const dd = Math.hypot(d.x - t.x, d.z - t.z);
+    if (dd < bestD) { bestD = dd; best = d; }
+  });
+  if (phase1Engine) {
+    actor.hostiles().forEach((h) => {
+      if (h.kind === 'structure') return;
+      const dd = Math.hypot(h.x - t.x, h.z - t.z);
+      if (dd < bestD) { bestD = dd; best = h; }
+    });
+  }
+  if (best) {
+    const want = Math.atan2(best.x - t.x, best.z - t.z);
+    let df = want - t.facing;
+    while (df > Math.PI) df -= Math.PI * 2;
+    while (df < -Math.PI) df += Math.PI * 2;
+    t.facing += Math.max(-dt * 6, Math.min(dt * 6, df));
+    if (t.shootCd <= 0 && Math.abs(df) < 0.25) {
+      t.shootCd = 1.4;
+      t.kick = 1;
+      const st = actor.stats();
+      const fx = t.x + Math.sin(t.facing) * 1.3, fz = t.z + Math.cos(t.facing) * 1.3;
+      smoke(fx, fz, 0.9);
+      SFX.play('arena');
+      KitFx.spawnBolt(t.facing, Math.round(st.atk * 0.9), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor });
+    }
+  }
+  t.kick = Math.max(0, (t.kick || 0) - dt * 5);
+}
+
+// One Superball step for any caster; returns true when it's done
+function stepBall(b, dt, actor) {
+  const step = 17 * dt;
+  b.x += Math.sin(b.ang) * step;
+  b.z += Math.cos(b.ang) * step;
+  b.dist += step;
+  b.mesh.position.set(b.x, 1.0, b.z);
+  b.mesh.rotation.x += dt * 10;
+  if (actor.isPlayer) dummies.forEach((d) => {
+    if (d.isShooter && !shooterEnabled) return;
+    if (!b.hit.has('d' + d.id) && Math.hypot(d.x - b.x, d.z - b.z) <= 1.1 + d.r) {
+      b.hit.add('d' + d.id);
+      damageDummy(d, b.dmg, '#fb923c');
+      d.stunTimer = Math.max(d.stunTimer, 1.0);
+      spawnFloat(d.x, 2.8, d.z, 'KNOCKED UP!', '#fb923c');
+    }
+  });
+  if (phase1Engine) {
+    actor.hostiles().forEach((t, j) => {
+      if (t.kind === 'structure') return;
+      const key = t.kind + (t.ref && t.ref.id || j);
+      if (!b.hit.has(key) && Math.hypot(t.x - b.x, t.z - b.z) <= 1.1 + (t.r || 0.5)) {
+        b.hit.add(key);
+        actor.damage(t, b.dmg, { dmgType: 'physical', stunDur: 1.0, color: '#fb923c' });
+      }
+    });
+  }
+  if (b.dist > 26) {
+    scene.remove(b.mesh);
+    return true;
+  }
+  return false;
+}
+
+function makeSuperballMesh() {
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.6, 18, 14), new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.7, roughness: 0.35, emissive: 0x7c2d12, emissiveIntensity: 0.4 }));
+  scene.add(mesh);
+  return mesh;
+}
+
+// ---- Bot Imps (Phase 2): state lives on the bot unit (impTurret, impScrap, impPendingQ, impRecoil, impRocket)
+const botBalls = [];        // bots' superballs ({ ...ball, owner })
+const botTurrets = [];      // bots' planted turrets (also engine deployables, with the bot's team)
+let botTpl = null, botTplLoading = false; // { barrel, turret, wrench } prop templates cloned per bot
+function botCarrying(u) { return !u.impTurret && !u.impScrap; }
+
+function makeTurretPlate(team) {
+  const p = document.createElement('div');
+  p.className = 'plate-3d';
+  p.style.zIndex = '14';
+  const col = team === 0 ? 'rgba(56,189,248,0.6)' : 'rgba(244,63,94,0.6)';
+  p.innerHTML = '<div class="plate-tag" style="background:rgba(15,23,42,0.82);border:1px solid ' + col + ';padding:1px 5px;border-radius:3px;color:#fed7aa;">Turret</div><div class="plate-bar" style="width:56px;"><div class="plate-hp ' + (team === 0 ? 'ally' : 'enemy') + '"></div><div class="plate-sh"></div></div>';
+  labelLayer.appendChild(p);
+  return p;
+}
+
+function botRemoveTurret(u) {
+  const t = u.impTurret;
+  if (!t) return;
+  u.impTurret = null;
+  if (phase1Engine && phase1Engine.removeDeployable) phase1Engine.removeDeployable(t);
+  const i = botTurrets.indexOf(t);
+  if (i >= 0) botTurrets.splice(i, 1);
+  if (t.mesh) scene.remove(t.mesh);
+  if (t.plate) t.plate.remove();
+}
+
+function botClearScrap(u) {
+  if (!u.impScrap) return;
+  scene.remove(u.impScrap.mesh);
+  u.impScrap = null;
+}
+
+function botTurretDestroyed(u) {
+  const t = u.impTurret;
+  if (!t) return;
+  botRemoveTurret(u);
+  smoke(t.x, t.z, 2.6);
+  spawnShockRing(t.x, t.z, 0xfb923c, 0.3, 2.4, 0.4);
+  SFX.play('arena');
+  spawnFloat(t.x, 2.6, t.z, 'TURRET DESTROYED!', '#fb923c');
+  u.impScrap = { x: t.x, z: t.z, mesh: makeScrapMesh(t.x, t.z) };
 }
 
 function clearScrap(msg) {
@@ -277,6 +404,268 @@ H.imp = {
     }
   },
 
+  // ---- Phase 2 actor entry points (the player keeps onBasicAttack / cast above)
+  basicAttackFor(actor, st) {
+    if (actor.isPlayer) return this.onBasicAttack(st);
+    const u = actor.unit, a = actor.aim();
+    u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+    const L = (window.__kitBotLog = window.__kitBotLog || {}); L.imp_lmb = (L.imp_lmb || 0) + 1;
+    if (botCarrying(u)) {
+      u.impRecoil = 1;
+      SFX.play('arena');
+      const fx = u.x + Math.sin(u.facing) * 0.9, fz = u.z + Math.cos(u.facing) * 0.9;
+      smoke(fx, fz, 0.9);
+      KitFx.spawnBolt(u.facing, Math.round(st.atk * 1.15), { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor });
+    } else {
+      u.atkCd = (u.atkCd || 0) * (0.7 / 1.05); // wrench swings faster than the cannon fires
+      u.punchAnim = 0.3;
+      actor.play('punch', 0.05, true, 2.2, 0.35, 0.3);
+      u.impStrike = { t: 0.15, dmg: Math.round(st.atk * 0.85) };
+    }
+  },
+
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
+    if (actor.isPlayer) return this.cast(slot, ctx);
+    return this.botCast(actor, slot, ctx);
+  },
+
+  // Bots: no mana; same timings as the player's casts
+  botCast(actor, slot, ctx) {
+    const { st, pProg } = ctx;
+    const u = actor.unit;
+    const a = actor.aim();
+    const L = (window.__kitBotLog = window.__kitBotLog || {}); L['imp_' + slot] = (L['imp_' + slot] || 0) + 1;
+    if (slot === 'Q') {
+      if (u.cdQ > 0 || u.impPendingQ || !botCarrying(u)) return; // (pick-up / salvage are automatic, see tickActor)
+      u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+      u.cdQ = 3.0;
+      u.kickAnim = 0.8;
+      actor.play('kick', 0.06, true, 2.6, 4.6, 0.4);
+      u.impPendingQ = { t: 0.35, kind: 'plant', x: u.x + Math.sin(u.facing) * 1.6, z: u.z + Math.cos(u.facing) * 1.6, facing: u.facing };
+    } else if (slot === 'E') {
+      if (u.cdE > 0 || u.leapTimer > 0) return;
+      u.cdE = 8.5;
+      const longJump = botCarrying(u);
+      const maxD = longJump ? 9.0 : 4.5;
+      const dx = a.x - u.x, dz = a.z - u.z;
+      const d = Math.min(maxD, Math.hypot(dx, dz) || 0.01);
+      const ang = Math.atan2(dx, dz);
+      u.facing = ang;
+      u.leapSx = u.x; u.leapSz = u.z;
+      u.leapTx = u.x + Math.sin(ang) * d;
+      u.leapTz = u.z + Math.cos(ang) * d;
+      u.leapDur = longJump ? 0.75 : 0.42;
+      u.leapHeight = longJump ? 3.2 : 0.9;
+      u.leapTimer = u.leapDur;
+      u.impRocket = longJump;
+      u.leapOnLand = () => {
+        if (u.impRocket) { smoke(u.x, u.z, 2.4); SFX.play('arena'); }
+        else spawnShockRing(u.x, u.z, 0xd6b470, 0.2, 1.0, 0.25);
+        u.impRocket = false;
+        u.leapHeight = undefined;
+      };
+      if (longJump) {
+        smoke(u.x, u.z, 2.2);
+        SFX.play('arena');
+        actor.play('idle', 0.05, false, 0.001, 0, u.leapDur); // frozen carry pose in the air (barrel aimed down)
+      } else {
+        SFX.play('dash');
+        actor.play('jump', 0.05, true, 1.67, 0.3, u.leapDur);
+      }
+    } else if (slot === 'R') {
+      if ((pProg.level || 1) < 4 || u.cdR > 0 || u.impScrap) return;
+      u.cdR = 38;
+      const t = u.impTurret;
+      const from = t ? { x: t.x, z: t.z } : { x: u.x, z: u.z };
+      const ang = Math.atan2(a.x - from.x, a.z - from.z);
+      if (t) t.facing = ang;
+      else { u.impRecoil = 1.6; u.facing = ang; }
+      const b = {
+        mesh: makeSuperballMesh(), x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(),
+        dmg: Math.round([180, 260, 340][KitFx.rUlt(pProg.level || 1)] + st.atk * 0.9), owner: actor
+      };
+      botBalls.push(b);
+      smoke(b.x, b.z, 2.0);
+      SFX.play('arena');
+      spawnFloat(from.x, 3.0, from.z, 'SUPERBALL!', '#fb923c');
+    }
+  },
+
+  tickActor(actor, dt) {
+    if (actor.isPlayer) return;
+    const u = actor.unit;
+    u.kickAnim = Math.max(0, (u.kickAnim || 0) - dt);
+    u.punchAnim = Math.max(0, (u.punchAnim || 0) - dt);
+    u.impRecoil = Math.max(0, (u.impRecoil || 0) - dt * 6);
+    u.range = botCarrying(u) && !u.impPendingQ ? 7.5 : 1.95; // cannon at range, wrench up close
+    if ((u.stunTimer || 0) > 0) { u.impStrike = null; u.impPendingQ = null; }
+    // back home (respawn / retreat): a fresh cannon from the workshop
+    if (u.impScrap && Math.hypot(u.x - u.homeX, u.z - u.homeZ) < 9) botClearScrap(u);
+    if (u.impStrike && (u.impStrike.t -= dt) <= 0) {
+      const sk = u.impStrike;
+      u.impStrike = null;
+      KitFx.hitCone(2.0, 0.8, sk.dmg, { isBasic: true, color: '#fb923c', by: actor });
+      // Tinkerer: wrench hits on his own turret repair it
+      const t = u.impTurret;
+      if (t && t.hp < t.maxHp && Math.hypot(t.x - u.x, t.z - u.z) <= 2.0 + t.r) {
+        const heal = Math.round(t.maxHp * 0.12);
+        t.hp = Math.min(t.maxHp, t.hp + heal);
+        spawnFloat(t.x, 2.2, t.z, '+' + heal + ' REPAIRED', '#4ade80');
+        spawnShockRing(t.x, t.z, 0x4ade80, 0.3, 1.3, 0.25);
+      }
+    }
+    if (u.impPendingQ && (u.impPendingQ.t -= dt) <= 0) {
+      const q = u.impPendingQ;
+      u.impPendingQ = null;
+      if (q.kind === 'plant') {
+        const mhp = 520 + (u.level || 1) * 70;
+        const t = {
+          id: 'impturret_' + u.id, x: q.x, z: q.z, facing: q.facing, shootCd: 0.8, plantedAt: performance.now() / 1000,
+          hp: mhp, maxHp: mhp, armor: 25, r: 0.9, team: u.team, owner: actor,
+          onDestroyed: () => botTurretDestroyed(u)
+        };
+        u.impTurret = t;
+        botTurrets.push(t);
+        if (phase1Engine && phase1Engine.addDeployable) phase1Engine.addDeployable(t);
+        smoke(q.x, q.z, 2.2);
+        SFX.play('block');
+      } else if (q.kind === 'salvage') {
+        if (u.impScrap) smoke(u.impScrap.x, u.impScrap.z, 1.4);
+        botClearScrap(u);
+        SFX.play('block');
+      } else if (u.impTurret) {
+        smoke(u.impTurret.x, u.impTurret.z, 1.4);
+        botRemoveTurret(u);
+        SFX.play('block');
+      }
+    }
+    // Pick the cannon back up / salvage the scrap when standing at it and the fight there is over (or when fleeing past it)
+    u.impThink = (u.impThink || 0) - dt;
+    if (u.impThink <= 0 && !u.impPendingQ && u.cdQ <= 0 && u.leapTimer <= 0 && (u.stunTimer || 0) <= 0) {
+      u.impThink = 0.4;
+      const spot = u.impTurret || u.impScrap;
+      if (spot && Math.hypot(spot.x - u.x, spot.z - u.z) <= 2.2) {
+        const settled = !u.impTurret || performance.now() / 1000 - u.impTurret.plantedAt >= PICKUP_LOCKOUT;
+        const quiet = !actor.hostiles().some((h) => h.kind !== 'structure' && Math.hypot(h.x - spot.x, h.z - spot.z) <= 9);
+        const fleeing = u.hp / u.maxHp < 0.3;
+        if (settled && (quiet || fleeing)) {
+          u.cdQ = 1.5;
+          u.facing = Math.atan2(spot.x - u.x, spot.z - u.z);
+          u.kickAnim = 0.75;
+          actor.play('kick', 0.06, true, 3.2, 0.7, 0.75);
+          u.impPendingQ = { t: 0.72, kind: u.impTurret ? 'pickup' : 'salvage' };
+        }
+      }
+    }
+  },
+
+  // Bots: +22% unburdened (the engine multiplies bot speed by this)
+  botSpeedMult(b) { return botCarrying(b) ? 1 : 1.22; },
+  // Bots: carry idle/run with the cannon, the free set without it
+  botLocomotion(b) { return botCarrying(b) ? null : { idle: 'idleFree', move: 'runFree' }; },
+  // Bots with nothing to fight walk back to their turret (to pick it up) or nearby scrap (to salvage it)
+  botGoal(b) {
+    if (b.impTurret) return { x: b.impTurret.x, z: b.impTurret.z };
+    if (b.impScrap && Math.hypot(b.impScrap.x - b.x, b.impScrap.z - b.z) < 16) return { x: b.impScrap.x, z: b.impScrap.z };
+    return null;
+  },
+  // Bots: Superball when it lines up 2+ enemy heroes from wherever the cannon is, or finishes a weak one
+  botWantsSuperball(b, actor, target) {
+    const src = b.impTurret || b;
+    const tx = target.ref.x - src.x, tz = target.ref.z - src.z, len = Math.hypot(tx, tz);
+    if (len > 18 || len < 0.5) return false;
+    if (target.ref.hp / target.ref.maxHp < 0.45) return true;
+    const ux = tx / len, uz = tz / len;
+    let n = 0;
+    actor.hostiles().forEach((h) => {
+      if (h.kind !== 'bot' && h.kind !== 'player') return;
+      const px = h.x - src.x, pz = h.z - src.z, along = px * ux + pz * uz;
+      if (along > 0 && along < 24 && Math.abs(px * uz - pz * ux) <= 1.1 + (h.r || 0.5)) n++;
+    });
+    return n >= 2;
+  },
+
+  // Bots: carried barrel at the chest (straight down in a rocket jump), wrench in a fist when unburdened
+  botVisual(b) {
+    const src = window.IMP_MIXAMO;
+    if (!botTpl && !botTplLoading && src) {
+      botTplLoading = true;
+      Promise.all([
+        KitFx.loadPropGlb(src.barrelGlbB64 || src.cannonGlbB64, CARRY_SIZE),
+        KitFx.loadPropGlb(src.cannonGlbB64, TURRET_SIZE),
+        KitFx.loadPropGlb(src.wrenchGlbB64, WRENCH_SIZE)
+      ]).then(([c1, c2, w]) => {
+        if (w && w.children[0]) w.children[0].position.x -= WRENCH_SIZE * 0.5 - WRENCH_GRIP;
+        botTpl = { barrel: c1, turret: c2, wrench: w };
+      });
+    }
+    if (!botTpl || !b.bones) return;
+    if (!b.impProps) {
+      b.impProps = { barrel: botTpl.barrel && botTpl.barrel.clone(true), wrench: botTpl.wrench && botTpl.wrench.clone(true), puffT: 0 };
+      if (b.impProps.barrel) scene.add(b.impProps.barrel);
+      if (b.impProps.wrench) scene.add(b.impProps.wrench);
+    }
+    const P = b.impProps;
+    b.model.updateMatrixWorld(true);
+    const carryNow = botCarrying(b);
+    const srcB = { bones: b.bones, yaw: b.facing || 0 };
+    if (P.barrel) {
+      P.barrel.visible = b.pivot.visible && carryNow && !(b.impPendingQ && b.impPendingQ.kind === 'plant' && b.impPendingQ.t < 0.15);
+      if (P.barrel.visible) {
+        if (b.impRocket && b.leapTimer > 0) {
+          KitFx.placeAtBone(P.barrel, 'Spine2', { x: 0.02, y: -0.5, z: 0.22 }, { x: 0, y: Math.PI / 2, z: Math.PI / 2 - 0.12 }, srcB);
+          P.puffT -= 1 / 60;
+          if (P.puffT <= 0) {
+            P.puffT = 0.07;
+            const p = P.barrel.position;
+            const puff = new THREE.Mesh(PUFF_GEO || (PUFF_GEO = new THREE.SphereGeometry(0.22, 8, 6)), new THREE.MeshBasicMaterial({ color: 0xd6d3d1, transparent: true, opacity: 0.6, depthWrite: false }));
+            puff.position.set(p.x, p.y - 0.5, p.z);
+            scene.add(puff);
+            puffs.push({ m: puff, t: 0.5 });
+          }
+        } else {
+          KitFx.placeAtBone(P.barrel, 'Spine2', { x: 0.04, y: -0.2, z: 0.46 - (b.impRecoil || 0) * 0.12 }, { x: 0, y: Math.PI / 2, z: -0.06 }, srcB);
+        }
+      }
+    }
+    const fist = !carryNow;
+    KitFx.curlHand('Right', fist ? 1 : 0, b.bones);
+    if (P.wrench) {
+      P.wrench.visible = b.pivot.visible && fist;
+      if (P.wrench.visible) KitFx.seatInFist(P.wrench, 'Right', WRENCH_OFF, WRENCH_TWIST, b.bones);
+    }
+    // body recoil: a quick shove back along his facing
+    if ((b.impRecoil || 0) > 0) b.model.position.z -= b.impRecoil * 0.18;
+  },
+
+  botHide(b) {
+    if (!b.impProps) return;
+    if (b.impProps.barrel) b.impProps.barrel.visible = false;
+    if (b.impProps.wrench) b.impProps.wrench.visible = false;
+  },
+
+  // bot is dead: the scrap goes (he respawns with a fresh cannon); a still-standing turret stays planted
+  botDead(b) {
+    if (b.impScrap) botClearScrap(b);
+    b.impPendingQ = null;
+    b.impStrike = null;
+  },
+
+  // the engine is respawning its bots (new match): drop this bot's turret, scrap and props
+  botCleanup(b) {
+    botRemoveTurret(b);
+    botClearScrap(b);
+    if (b.impProps) {
+      if (b.impProps.barrel) scene.remove(b.impProps.barrel);
+      if (b.impProps.wrench) scene.remove(b.impProps.wrench);
+      b.impProps = null;
+    }
+  },
+
   onLeapLand() {
     if (hero.impRocket) {
       smoke(hero.x, hero.z, 2.4);
@@ -290,7 +679,8 @@ H.imp = {
 
   tickTimers(dt) {
     recoil = Math.max(0, recoil - dt * 6);
-    // back at base (recall / respawn): the workshop hands him a fresh cannon
+    // dead or back at base (recall / respawn): the workshop hands him a fresh cannon
+    if (scrap && activeHeroId === 'imp' && phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0) clearScrap();
     if (scrap && activeHeroId === 'imp' && window.MOBA_MAP) {
       const f = window.MOBA_MAP.BASE.fountain;
       if (Math.hypot(hero.x - f.x, hero.z - f.z) < 9) clearScrap('FRESH CANNON FROM THE WORKSHOP!');
@@ -303,7 +693,7 @@ H.imp = {
         if (q.kind === 'plant') {
           const mhp = turretMaxHp();
           turret = {
-            x: q.x, z: q.z, facing: q.facing, shootCd: 0.8, plantedAt: performance.now() / 1000,
+            x: q.x, z: q.z, facing: q.facing, shootCd: 0.8, plantedAt: performance.now() / 1000, id: 'impturret_player',
             hp: mhp, maxHp: mhp, armor: 25, r: 0.9, team: 0,
             onDestroyed: () => destroyTurret()
           };
@@ -326,72 +716,37 @@ H.imp = {
 
   updateWorld(dt) {
     // Turret: fire at the nearest enemy within range
-    if (turret && activeHeroId === 'imp') {
-      turret.shootCd -= dt;
-      let best = null, bestD = 8.5;
-      dummies.forEach((d) => {
-        if (d.isShooter && !shooterEnabled) return;
-        const dd = Math.hypot(d.x - turret.x, d.z - turret.z);
-        if (dd < bestD) { bestD = dd; best = d; }
-      });
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
-          if (t.kind === 'structure') return;
-          const dd = Math.hypot(t.x - turret.x, t.z - turret.z);
-          if (dd < bestD) { bestD = dd; best = t; }
-        });
-      }
-      if (best) {
-        const want = Math.atan2(best.x - turret.x, best.z - turret.z);
-        let df = want - turret.facing;
-        while (df > Math.PI) df -= Math.PI * 2;
-        while (df < -Math.PI) df += Math.PI * 2;
-        turret.facing += Math.max(-dt * 6, Math.min(dt * 6, df));
-        if (turret.shootCd <= 0 && Math.abs(df) < 0.25) {
-          turret.shootCd = 1.4;
-          turret.kick = 1;
-          const st = stats();
-          const fx = turret.x + Math.sin(turret.facing) * 1.3, fz = turret.z + Math.cos(turret.facing) * 1.3;
-          smoke(fx, fz, 0.9);
-          SFX.play('arena');
-          const ball = new THREE.Mesh(new THREE.SphereGeometry(0.22, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
-          KitFx.spawnBolt(turret.facing, Math.round(st.atk * 0.9), { mesh: ball, speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz });
-        }
-      }
-      turret.kick = Math.max(0, (turret.kick || 0) - dt * 5);
-    }
+    if (turret && activeHeroId === 'imp') stepTurret(turret, dt, KitFx.player);
     // Superball flight
-    if (superball) {
-      const b = superball;
-      const step = 17 * dt;
-      b.x += Math.sin(b.ang) * step;
-      b.z += Math.cos(b.ang) * step;
-      b.dist += step;
-      b.mesh.position.set(b.x, 1.0, b.z);
-      b.mesh.rotation.x += dt * 10;
-      dummies.forEach((d) => {
-        if (d.isShooter && !shooterEnabled) return;
-        if (!b.hit.has('d' + d.id) && Math.hypot(d.x - b.x, d.z - b.z) <= 1.1 + d.r) {
-          b.hit.add('d' + d.id);
-          damageDummy(d, b.dmg, '#fb923c');
-          d.stunTimer = Math.max(d.stunTimer, 1.0);
-          spawnFloat(d.x, 2.8, d.z, 'KNOCKED UP!', '#fb923c');
-        }
-      });
-      if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t, j) => {
-          if (t.kind === 'structure') return;
-          const key = t.kind + (t.ref && t.ref.id || j);
-          if (!b.hit.has(key) && Math.hypot(t.x - b.x, t.z - b.z) <= 1.1 + (t.r || 0.5)) {
-            b.hit.add(key);
-            phase1Engine.dealPlayerDamageToUnit(t, b.dmg, { dmgType: 'physical', stunDur: 1.0, color: '#fb923c' });
-          }
-        });
+    if (superball && stepBall(superball, dt, KitFx.player)) superball = null;
+    // bots' turrets (fog-hidden for Chaos), scrap and superballs
+    botTurrets.forEach((t) => {
+      stepTurret(t, dt, t.owner);
+      const vis = t.team === 0 || !phase1Engine || !phase1Engine.isVisibleToOrder || phase1Engine.isVisibleToOrder(t.x, t.z);
+      if (!t.mesh && botTpl && botTpl.turret) { t.mesh = botTpl.turret.clone(true); scene.add(t.mesh); }
+      if (t.mesh) {
+        const kick = (t.kick || 0) * 0.15;
+        t.mesh.visible = vis;
+        t.mesh.position.set(t.x - Math.sin(t.facing) * kick, TURRET_SIZE * 0.36, t.z - Math.cos(t.facing) * kick);
+        t.mesh.rotation.set(0, t.facing + Math.PI / 2, 0);
       }
-      if (b.dist > 26) {
-        scene.remove(b.mesh);
-        superball = null;
-      }
+      if (!t.plate) t.plate = makeTurretPlate(t.team);
+      const sp = projectToScreen(t.x, 2.1, t.z);
+      t.plate.style.display = vis && sp.visible ? 'flex' : 'none';
+      t.plate.style.left = sp.x + 'px';
+      t.plate.style.top = sp.y + 'px';
+      t.plate.querySelector('.plate-hp').style.width = Math.max(0, t.hp / t.maxHp * 100) + '%';
+    });
+    for (let i = botBalls.length - 1; i >= 0; i--) {
+      if (stepBall(botBalls[i], dt, botBalls[i].owner)) botBalls.splice(i, 1);
+    }
+    // rocket-jump exhaust puffs (player and bots)
+    for (let i = puffs.length - 1; i >= 0; i--) {
+      const pf = puffs[i];
+      pf.t -= dt;
+      pf.m.scale.setScalar(1 + (0.5 - pf.t) * 3);
+      pf.m.material.opacity = Math.max(0, pf.t * 1.2);
+      if (pf.t <= 0) { scene.remove(pf.m); pf.m.material.dispose(); puffs.splice(i, 1); }
     }
   },
 
@@ -433,13 +788,6 @@ H.imp = {
           KitFx.placeAtBone(cannonCarry, 'Spine2', { x: 0.04, y: -0.2, z: 0.46 - kick }, { x: 0, y: Math.PI / 2, z: -0.06 });
         }
       }
-    }
-    for (let i = puffs.length - 1; i >= 0; i--) {
-      const pf = puffs[i];
-      pf.t -= 1 / 60;
-      pf.m.scale.setScalar(1 + (0.5 - pf.t) * 3);
-      pf.m.material.opacity = Math.max(0, pf.t * 1.2);
-      if (pf.t <= 0) { scene.remove(pf.m); pf.m.material.dispose(); puffs.splice(i, 1); }
     }
     if (cannonTurret) {
       cannonTurret.visible = !!turret && activeHeroId === 'imp';

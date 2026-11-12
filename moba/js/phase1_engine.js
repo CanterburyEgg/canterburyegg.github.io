@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true, fairy: true, scientist: true };
+    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true, fairy: true, scientist: true, imp: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -1050,7 +1050,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       bot.actions = {};
       // the bot's own kit tweaks (pose overlays, hip clamps), not whatever hero the player is on
       const botKitTw = (window.MOBA_HEROES && window.MOBA_HEROES[bot.heroType] && window.MOBA_HEROES[bot.heroType].clipTweaks) || {};
-      ['idle', 'run', 'punch', 'kick', 'jump', 'slide', 'crawl'].forEach((slot) => {
+      ['idle', 'run', 'punch', 'kick', 'jump', 'slide', 'crawl', 'idleFree', 'runFree'].forEach((slot) => {
         if (tmpl.clips[slot]) {
           const prep = prepareClipForModel(tmpl.clips[slot], cloned, slot, botKitTw, tmpl.clips);
           if (prep.tracks.length > 0) {
@@ -1084,7 +1084,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
     function applyBotSpecStats(bot, heroType) {
       const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroType]) || DATA.HERO_SPECS.brawler;
-      const isRanged = heroType === 'coyote' || heroType === 'sorceress' || heroType === 'fairy';
+      const isRanged = heroType === 'coyote' || heroType === 'sorceress' || heroType === 'fairy' || heroType === 'imp'; // (Imp: while carrying; his kit swaps range by form)
       const lv = Math.max(0, (bot.level || 1) - 1);
       bot.heroType = heroType;
       bot.maxHp = Math.round(spec.baseHp + lv * spec.hpGrow);
@@ -1101,6 +1101,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
     function spawnBots() {
       bots.forEach((b) => {
+        const ck = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+        if (ck && ck.botCleanup) ck.botCleanup(b); // kit leftovers (an Imp's turret / scrap)
         mapGroup.remove(b.pivot);
         if (b.bowPivot) scene.remove(b.bowPivot);
         if (b.plate) b.plate.remove();
@@ -1661,6 +1663,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       structures.forEach((s) => {
         if (s.team === 1 && s.hp > 0) list.push({ kind: 'structure', ref: s, x: s.x, z: s.z, r: s.r });
       });
+      // Chaos deployables (an enemy Imp's turret)
+      deployables.forEach((d) => { if (d.hp > 0 && d.team === 1) list.push({ kind: 'deployable', ref: d, x: d.x, z: d.z, r: d.r || 0.8 }); });
       return list;
     }
 
@@ -1675,7 +1679,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       minions.forEach((m) => { if (m.team === 0 && m.hp > 0) list.push({ kind: 'minion', ref: m, x: m.x, z: m.z, r: m.r }); });
       camps.forEach((c) => { if (c.respawnTimer <= 0 && c.hp > 0) list.push({ kind: 'camp', ref: c, x: c.x, z: c.z, r: c.r }); });
       structures.forEach((st) => { if (st.team === 0 && st.hp > 0) list.push({ kind: 'structure', ref: st, x: st.x, z: st.z, r: st.r }); });
-      deployables.forEach((d) => { if (d.hp > 0) list.push({ kind: 'deployable', ref: d, x: d.x, z: d.z, r: d.r || 0.8 }); });
+      deployables.forEach((d) => { if (d.hp > 0 && (d.team || 0) === 0) list.push({ kind: 'deployable', ref: d, x: d.x, z: d.z, r: d.r || 0.8 }); });
       return list;
     }
     // CC/bleed from a bot-cast kit ability (mirrors applyBotCcAndEffects inside updateBots)
@@ -1780,6 +1784,19 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const u = targetObj.ref;
       if (!u || (u.hp !== undefined && u.hp <= 0)) return false;
 
+      // 0. Deployables (an enemy Imp's turret): plain armor-mitigated damage, destroyed at 0
+      if (targetObj.kind === 'deployable') {
+        const dd = Math.max(1, Math.round(rawDmg * (100 / (100 + (u.armor || 0)))));
+        u.hp -= dd;
+        spawnFloat(u.x, 2.2, u.z, String(dd), opts.color || '#fb7185');
+        if (u.hp <= 0) {
+          u.hp = 0;
+          const i = deployables.indexOf(u);
+          if (i >= 0) deployables.splice(i, 1);
+          if (u.onDestroyed) u.onDestroyed();
+        }
+        return true;
+      }
       // 1. Structure Invulnerability & Backdoor Protection Check!
       if (targetObj.kind === 'structure') {
         if (!isStructureVulnerable(u)) {
@@ -3069,6 +3086,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (b.respawnTimer > 0) {
           const hideKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
           if (hideKit && hideKit.botHide) hideKit.botHide(b);
+          if (hideKit && hideKit.botDead) hideKit.botDead(b); // per-frame while dead (the Imp drops his scrap)
           b.pendingHits = [];
           b.rChargeTimer = 0;
           b.gnashAnim = 0;
@@ -3202,7 +3220,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const u = 1 - (b.leapTimer / (b.leapDur || 0.42));
           b.x = b.leapSx + (b.leapTx - b.leapSx) * u;
           b.z = b.leapSz + (b.leapTz - b.leapSz) * u;
-          airborneY = Math.sin(u * Math.PI) * 1.65;
+          airborneY = Math.sin(u * Math.PI) * (b.leapHeight || 1.65);
           if (b.leapTimer <= 0 && b.leapOnLand) {
             const landFn = b.leapOnLand;
             b.leapOnLand = null;
@@ -3283,6 +3301,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 considerCandidate({ kind: 'structure', ref: es }, Math.hypot(es.x - b.x, es.z - b.z));
               }
             });
+            deployables.forEach((dp) => {
+              if (dp.hp > 0 && dp.team === 1) considerCandidate({ kind: 'deployable', ref: dp }, Math.hypot(dp.x - b.x, dp.z - b.z));
+            });
             if (b.lane === 'jungle' || (activePing && activePing.kind === 'boss')) {
               camps.forEach((c) => {
                 if (c.respawnTimer <= 0 && c.hp > 0 && c.state !== 'leashing') {
@@ -3310,7 +3331,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               }
             });
             deployables.forEach((dp) => {
-              if (dp.hp > 0) considerCandidate({ kind: 'deployable', ref: dp }, Math.hypot(dp.x - b.x, dp.z - b.z));
+              if (dp.hp > 0 && (dp.team || 0) === 0) considerCandidate({ kind: 'deployable', ref: dp }, Math.hypot(dp.x - b.x, dp.z - b.z));
             });
             if (b.lane === 'jungle') {
               camps.forEach((c) => {
@@ -3497,6 +3518,34 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 kit.castFor(actor, 'Q');
               }
             }
+
+            // 8. CANNON IMP BOT (solo): plant the turret when a fight starts (hero in range or a wave to push), rocket jump /
+            //    hop home when hurt, hop onto a weak hero when unburdened, Superball when it lines up 2+ heroes or a weak one.
+            //    (Picking the cannon back up / salvaging scrap happens in the kit's tickActor once the fight is over.)
+            else if (b.heroType === 'imp' && kitBotReady('imp')) {
+              const kit = window.MOBA_HEROES.imp;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              const carryingNow = !b.impTurret && !b.impScrap && !b.impPendingQ;
+              const hurt = b.hp / b.maxHp < 0.35;
+              const waveNear = bestTarget.kind === 'minion' &&
+                actor.hostiles().filter((t) => t.kind === 'minion' && Math.hypot(t.x - b.x, t.z - b.z) <= 8.5).length >= 3;
+              if (b.cdE <= 0 && hurt && isHeroTarget && bestDist <= 5.5) {
+                const ang = Math.atan2(b.homeX - b.x, b.homeZ - b.z);
+                b.aimTarget = null;
+                b.aimX = b.x + Math.sin(ang) * 9;
+                b.aimZ = b.z + Math.cos(ang) * 9;
+                kit.castFor(actor, 'E');
+                b.aimTarget = bestTarget;
+              } else if (b.level >= 4 && b.cdR <= 0 && !b.impScrap && isHeroTarget && kit.botWantsSuperball(b, actor, bestTarget)) {
+                kit.castFor(actor, 'R');
+              } else if (carryingNow && b.cdQ <= 0 && !hurt && ((isHeroTarget && bestDist <= 9.0) || waveNear)) {
+                kit.castFor(actor, 'Q');
+              } else if (!carryingNow && b.impTurret && b.cdE <= 0 && !hurt && isHeroTarget && bestDist >= 2.5 && bestDist <= 4.5 &&
+                         bestTarget.ref.hp / bestTarget.ref.maxHp < 0.5) {
+                kit.castFor(actor, 'E'); // short hop onto a weak hero
+              }
+            }
           }
 
           // =========================================================
@@ -3621,6 +3670,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
           } else if (bestTarget) {
             gx = bestTarget.ref.x;
             gz = bestTarget.ref.z;
+          } else if (kitBotReady(b.heroType) && window.MOBA_HEROES[b.heroType].botGoal && window.MOBA_HEROES[b.heroType].botGoal(b)) {
+            // nothing to fight: the kit can send the bot somewhere (the Imp walks back to his turret / scrap)
+            const kg = window.MOBA_HEROES[b.heroType].botGoal(b);
+            gx = kg.x;
+            gz = kg.z;
           } else if (b.lane === 'jungle') {
             // Hard Mode Panther Jungle Ganks: If a lane enemy Hero is < 75% HP or overextended, roam to gank them!
             let gankTarget = null;
@@ -3723,10 +3777,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
         if (b.mixer && vis) {
           const isProwlCrawl = b.heroType === 'panther' && (b.stealthTimer || 0) > 0 && !!b.actions.crawl;
-          const moveAct = isProwlCrawl ? b.actions.crawl : (b.actions.run || b.actions.idle);
+          // kit locomotion sets (the Imp runs/idles differently with and without his cannon)
+          const locoKit = kitBotReady(b.heroType) && window.MOBA_HEROES[b.heroType].botLocomotion ? window.MOBA_HEROES[b.heroType].botLocomotion(b) : null;
+          const idleAct = (locoKit && b.actions[locoKit.idle]) || b.actions.idle;
+          const runAct = (locoKit && b.actions[locoKit.move]) || b.actions.run;
+          const moveAct = isProwlCrawl ? b.actions.crawl : (runAct || idleAct);
           const wantAct = (b.stunTimer <= 0 && b.atkAnimTimer > 0)
-            ? (b.actions[b.animSlot || 'punch'] || b.actions.punch || b.actions.idle)
-            : (isMoving || isProwlCrawl ? moveAct : b.actions.idle);
+            ? (b.actions[b.animSlot || 'punch'] || b.actions.punch || idleAct)
+            : (isMoving || isProwlCrawl ? moveAct : idleAct);
           if (wantAct && (wantAct !== b.activeAction || b.animForceRestart)) {
             b.animForceRestart = false;
             if (b.activeAction && b.activeAction !== wantAct) b.activeAction.fadeOut(0.08);
@@ -3740,7 +3798,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             wantAct.fadeIn(0.08).play();
             b.activeAction = wantAct;
           }
-          if (b.activeAction && b.activeAction === b.actions.run) {
+          if (b.activeAction && b.activeAction === runAct) {
             b.activeAction.setEffectiveTimeScale(b.slowTimer > 0 ? 0.62 : 1.0);
           } else if (b.activeAction && b.activeAction === b.actions.crawl) {
             b.activeAction.setEffectiveTimeScale(isMoving ? 1.38 : 0.18);
@@ -4180,13 +4238,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
             const dp = Math.hypot(hero.x - m.x, hero.z - m.z);
             if (dp < bestScore) { bestScore = dp; bestActualD = dp; bestT = { kind: 'player', ref: hero }; }
           }
-          if (enemyTeam === 0) {
-            deployables.forEach((dq) => {
-              if (dq.hp <= 0) return;
-              const d = Math.hypot(dq.x - m.x, dq.z - m.z);
-              if (d < bestScore) { bestScore = d; bestActualD = d; bestT = { kind: 'deployable', ref: dq }; }
-            });
-          }
+          deployables.forEach((dq) => {
+            if (dq.hp <= 0 || (dq.team || 0) !== enemyTeam) return;
+            const d = Math.hypot(dq.x - m.x, dq.z - m.z);
+            if (d < bestScore) { bestScore = d; bestActualD = d; bestT = { kind: 'deployable', ref: dq }; }
+          });
         }
 
         if (bestT && bestActualD <= m.range + bestT.ref.r) {
@@ -4299,10 +4355,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 if (d <= minD) { minD = d; target = { kind: 'minion', ref: em }; }
               }
             });
-            // Priority 1.5: the Imp's turret and other player deployables
-            if (!target && enemyTeam === 0) {
+            // Priority 1.5: an enemy Imp's turret (deployables)
+            if (!target) {
               deployables.forEach((dq) => {
-                if (dq.hp <= 0) return;
+                if (dq.hp <= 0 || (dq.team || 0) !== enemyTeam) return;
                 const d = Math.hypot(dq.x - s.x, dq.z - s.z);
                 if (d <= minD) { minD = d; target = { kind: 'deployable', ref: dq }; }
               });
@@ -4776,6 +4832,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       devMatchTime: () => matchTime,
       addDeployable: (d) => { if (deployables.indexOf(d) < 0) deployables.push(d); },
       removeDeployable: (d) => { const i = deployables.indexOf(d); if (i >= 0) deployables.splice(i, 1); },
+      isVisibleToOrder: (x, z) => isPointVisibleToOrder(x, z),
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns
       setBotsEnabled: (on) => {
         bots.forEach((b) => {

@@ -53,7 +53,12 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
     kit.botVisual on bot.bones; bots now get their own kit's clipTweaks + pose overlays)
   - [x] Scientist (new brain: saw on within ~2.6m of a camp/hero edge and off when nobody's in reach (6s cap), injection when
     hurt, blade at a hero 4-10m away; saw gun prop on bots; kit.botSpeedMult / botHide hooks)
-  - [ ] Imp
+  - [x] Imp (new brain: plant the turret when a hero is within 9m or a wave of 3+ minions is near; rocket jump / hop home
+    when hurt; hop onto a weak hero when unburdened; Superball when it lines up 2+ heroes or the target is under 45%.
+    Pick-up / salvage happen automatically in tickActor once nothing hostile is within 9m of the turret (or when fleeing);
+    with nothing to fight the bot walks back to its turret (`botGoal`). Bot turrets are team-tagged deployables
+    (minions, towers, bots and the player all target the other team's), fog-hidden for Chaos. Engine hooks added:
+    `botGoal`, `botLocomotion`, `botCleanup`, `b.leapHeight`; KitFx placeAtBone / curlHand / seatInFist take a bot's bones)
   - [ ] Numbers pass: Scientist saw feels like it does almost no damage (~60 dps at Lv1 through armor) - player and bot alike
   - [ ] Investigate: brief hitch when a bot Fairy died (first-time shader compile of wings/dust materials?)
   - [ ] Delete the old bot-only ability copies (spawnBotCrossbowBolt, launchBotShrapnelGrenade, ...) once all 8 are on kits

@@ -192,13 +192,14 @@ K.loadPropGlb = function (b64, size) {
 
 // Place a world-space prop at a bone's world position with an offset in hero-facing space (right, up, forward)
 // and an extra rotation (Euler, applied after facing the hero's direction).
+// src (bots): { bones: bot.bones, yaw: bot.facing } - call bot.model.updateMatrixWorld(true) first.
 let _bp = null; // created lazily (THREE loads after the kits)
-K.placeAtBone = function (prop, boneName, off, rot) {
-  const b = K.bone(boneName);
+K.placeAtBone = function (prop, boneName, off, rot, src) {
+  const b = src ? src.bones[boneName] : K.bone(boneName);
   if (!b || !prop) return false;
   if (!_bp) _bp = new THREE.Vector3();
   b.getWorldPosition(_bp);
-  const yaw = heroPivot.rotation.y;
+  const yaw = src ? src.yaw : heroPivot.rotation.y;
   const fx = Math.sin(yaw), fz = Math.cos(yaw);
   const rx = Math.cos(yaw), rz = -Math.sin(yaw);
   prop.position.set(
@@ -244,10 +245,12 @@ K.swingBoneObj = function (b, axisW, angle) {
 const CURL = { 1: 1.25, 2: 1.5, 3: 0.95 };          // per-joint bend at amt=1 (radians)
 const THUMB_CURL = { 1: 0.25, 2: 0.55, 3: 0.45 };
 let _curlCache = { model: null, sides: {} };
-function handSetup(side) {
+// bones: optional canonical-name -> bone map (a bot's own skeleton, bot.bones); default = the player's hero
+function handSetup(side, bones) {
+  const B = bones ? (n) => bones[n] || null : K.bone;
   const P = side + 'Hand';
-  const hand = K.bone(P);
-  const mid1 = K.bone(P + 'Middle1'), idx1 = K.bone(P + 'Index1'), pky1 = K.bone(P + 'Pinky1');
+  const hand = B(P);
+  const mid1 = B(P + 'Middle1'), idx1 = B(P + 'Index1'), pky1 = B(P + 'Pinky1');
   if (!hand || !mid1 || !idx1 || !pky1) return null;
   hand.updateWorldMatrix(true, true);
   const wp = (b) => b.getWorldPosition(new THREE.Vector3());
@@ -260,9 +263,9 @@ function handSetup(side) {
   const joints = [];
   ['Index', 'Middle', 'Ring', 'Pinky', 'Thumb'].forEach((fing) => {
     for (let k = 1; k <= 3; k++) {
-      const b = K.bone(P + fing + k);
+      const b = B(P + fing + k);
       if (!b) continue;
-      const next = K.bone(P + fing + (k + 1));
+      const next = B(P + fing + (k + 1));
       const d = next ? wp(next).sub(wp(b)) : f.clone();
       if (d.lengthSq() < 1e-10) d.copy(f);
       const axisW = new THREE.Vector3().crossVectors(d.normalize(), n).normalize(); // rotating d about d x n moves it toward n
@@ -271,13 +274,18 @@ function handSetup(side) {
       joints.push({ b, bind: b.quaternion.clone(), axis: axisL, max: (fing === 'Thumb' ? THUMB_CURL : CURL)[k] });
     }
   });
-  return { hand, joints, f, s, n, amt: 0, q0inv: hand.getWorldQuaternion(new THREE.Quaternion()).invert() };
+  return { hand, joints, f, s, n, amt: 0, q0inv: hand.getWorldQuaternion(new THREE.Quaternion()).invert(), m1: B(P + 'Middle1'), m2: B(P + 'Middle2') };
+}
+function curlSides(bones) {
+  if (bones) return bones.__curl || (bones.__curl = {});
+  if (_curlCache.model !== currentModel) _curlCache = { model: currentModel, sides: {} };
+  return _curlCache.sides;
 }
 const _q = { a: null };
-K.curlHand = function (side, amt) {
-  if (_curlCache.model !== currentModel) _curlCache = { model: currentModel, sides: {} };
-  let h = _curlCache.sides[side];
-  if (h === undefined) h = _curlCache.sides[side] = handSetup(side);
+K.curlHand = function (side, amt, bones) {
+  const sides = curlSides(bones);
+  let h = sides[side];
+  if (h === undefined) h = sides[side] = handSetup(side, bones);
   if (!h) return null;
   if (amt <= 0 && h.amt <= 0) return h;
   if (!_q.a) _q.a = new THREE.Quaternion();
@@ -294,11 +302,10 @@ K.curlHand = function (side, amt) {
 // and its local +X runs along the fist from the index side to the pinky side (so a wrench whose handle end is +X sticks
 // its head out past the thumb). twist rotates it about that axis; off = {f, s, n} nudges along finger/side/palm dirs.
 let _g = null;
-K.seatInFist = function (prop, side, off, twist) {
-  const h = _curlCache.model === currentModel && _curlCache.sides[side];
+K.seatInFist = function (prop, side, off, twist, bones) {
+  const h = bones ? (bones.__curl && bones.__curl[side]) : (_curlCache.model === currentModel && _curlCache.sides[side]);
   if (!h || !prop) return false;
   if (!_g) _g = { qh: new THREE.Quaternion(), f: new THREE.Vector3(), s: new THREE.Vector3(), n: new THREE.Vector3(), p: new THREE.Vector3(), m: new THREE.Matrix4(), q: new THREE.Quaternion(), t: new THREE.Quaternion(), x: new THREE.Vector3(1, 0, 0) };
-  const P = side + 'Hand';
   // current hand frame = bind-time directions carried by the hand's rotation since setup
   h.hand.getWorldQuaternion(_g.qh);
   _g.q.copy(_g.qh).multiply(h.q0inv);
@@ -306,7 +313,7 @@ K.seatInFist = function (prop, side, off, twist) {
   _g.s.copy(h.s).applyQuaternion(_g.q);
   _g.n.copy(h.n).applyQuaternion(_g.q);
   // fist center: between the middle knuckle and its curled middle phalanx, a touch toward the palm
-  const m1 = K.bone(P + 'Middle1'), m2 = K.bone(P + 'Middle2');
+  const m1 = h.m1, m2 = h.m2;
   m1.getWorldPosition(_g.p);
   const a = _g.p.clone();
   if (m2) { m2.getWorldPosition(_g.p); a.add(_g.p).multiplyScalar(0.5); }
