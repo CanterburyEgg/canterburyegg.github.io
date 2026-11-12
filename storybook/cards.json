@@ -1,7 +1,7 @@
 {
   "version": 1,
   "game": "Storybook Card Game",
-  "updatedAt": "2026-11-08T09:01:06.662Z",
+  "updatedAt": "2026-11-08T09:23:10.418Z",
   "frameAssets": {
     "global": "",
     "R": "./assets/frame-R.jpg",
@@ -1252,13 +1252,13 @@
       "energyProvided": 0,
       "durability": null,
       "subtype": "SHRINE",
-      "rulesText": "At the start of your next turn, get {+1E}. (Then sacrifice this Shrine.)",
+      "rulesText": "{0AP}: You get {+1E} this turn. {6E}: You get {1AP} instead. (Then sacrifice this Shrine.)",
       "flavorText": "",
       "artUrl": "",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-08T08:54:59.640Z"
+      "updatedAt": "2026-11-08T09:23:10.418Z"
     },
     {
       "id": "card_mw7ljrzu_me7eo",
@@ -1318,13 +1318,13 @@
       "energyProvided": 0,
       "durability": null,
       "subtype": "SHRINE",
-      "rulesText": "{0AP}: Give yourself +1/+0 this turn. Heal 1 from yourself. (Then sacrifice this Shrine.)",
+      "rulesText": "{0AP}: Your opponent gets {-1E} until your next turn. (Then sacrifice this Shrine.)",
       "flavorText": "",
       "artUrl": "",
       "artPosY": 50,
       "artPrompt": "",
       "relatedCards": "",
-      "updatedAt": "2026-11-08T09:01:06.661Z"
+      "updatedAt": "2026-11-08T09:21:36.093Z"
     }
   ]
 }
