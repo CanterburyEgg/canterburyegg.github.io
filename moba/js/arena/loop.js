@@ -683,15 +683,32 @@ function tick(now) {
   wandPivot.visible = !playerDead && !!(heroKit() && heroKit().usesWandProp) && !window.SORCERESS_MIXAMO;
   shieldSphere.visible = !playerDead && hero.shield > 0;
 
-  // Update League Camera & Sun Shadow Follow
+  // Update League Camera & Sun Shadow Follow (Y unlocks: screen-edge panning; hold Space to snap back to the hero)
+  if (camLocked || keys.Space) {
+    camFocus.x = hero.x;
+    camFocus.z = hero.z;
+  } else {
+    const pan = 26 * (camDist / 21.5) * dt;
+    const edge = 0.94;
+    let px = 0, pz = 0;
+    if (document.hasFocus()) {
+      if (mouseNDC.x > edge) px += 1;
+      if (mouseNDC.x < -edge) px -= 1;
+      if (mouseNDC.y > edge) pz -= 1;
+      if (mouseNDC.y < -edge) pz += 1;
+    }
+    const B = (window.MOBA_MAP && window.MOBA_MAP.BOUNDS) || { minX: -80, maxX: 80, minZ: -55, maxZ: 55 };
+    camFocus.x = THREE.MathUtils.clamp(camFocus.x + px * pan, B.minX, B.maxX);
+    camFocus.z = THREE.MathUtils.clamp(camFocus.z + pz * pan, B.minZ, B.maxZ);
+  }
   const camY = Math.sin(CAM_PITCH) * camDist;
   const camZOff = Math.cos(CAM_PITCH) * camDist;
-  camera.position.set(hero.x, camY, hero.z + camZOff);
-  camera.lookAt(hero.x, 0.9, hero.z);
+  camera.position.set(camFocus.x, camY, camFocus.z + camZOff);
+  camera.lookAt(camFocus.x, 0.9, camFocus.z);
   camera.updateMatrixWorld();
 
-  sunLight.position.set(hero.x + 12, 24, hero.z + 10);
-  sunLight.target.position.set(hero.x, 0, hero.z);
+  sunLight.position.set(camFocus.x + 12, 24, camFocus.z + 10);
+  sunLight.target.position.set(camFocus.x, 0, camFocus.z);
   sunLight.target.updateMatrixWorld();
 
   // Update Phase 1 4v4 MOBA Engine (Bots, Minion Waves, Towers, Jungle Camps + Boss, LOS Fog & Minimap!)

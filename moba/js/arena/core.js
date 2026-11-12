@@ -35,6 +35,10 @@ scene.fog = new THREE.FogExp2(0x132219, 0.0075);
 const camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.5, 220);
 let camDist = 21.5; // Default MOBA Gameplay Zoom! (Scrollable 5.5 .. 35)
 const CAM_PITCH = THREE.MathUtils.degToRad(54);
+// Camera lock (Y toggles): locked follows the hero; unlocked pans with the mouse at the screen edge.
+// Holding Space snaps back onto the hero while unlocked.
+let camLocked = true;
+const camFocus = { x: 0, z: 0 };
 
 // Rich Summoner's Rift Sunlight + Sky Fill + Hero Rim Light
 const hemiLight = new THREE.HemisphereLight(0xcfe8ff, 0x2a4028, 1.15);

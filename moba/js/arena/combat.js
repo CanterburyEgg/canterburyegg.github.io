@@ -348,5 +348,10 @@ window.addEventListener('keydown', (e) => {
   if (e.code === 'KeyQ') castKey('Q');
   if (e.code === 'KeyE') castKey('E');
   if (e.code === 'KeyR') castKey('R');
+  if (e.code === 'KeyY') {
+    camLocked = !camLocked;
+    spawnFloat(hero.x, 2.8, hero.z, camLocked ? 'CAMERA LOCKED' : 'CAMERA UNLOCKED (MOUSE TO EDGE, HOLD SPACE = HERO)', '#e2e8f0');
+  }
+  if (e.code === 'Space') e.preventDefault(); // no page scrolling
 });
 window.addEventListener('keyup', (e) => { keys[e.code] = false; });
