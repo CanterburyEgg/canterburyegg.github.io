@@ -1030,6 +1030,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
             roughness: 0.78,
             metalness: 0.12
           });
+          if (tmpl.normalTex) {
+            ch.material.normalMap = tmpl.normalTex;
+            ch.material.normalScale.set(0.8, 0.8);
+          }
           meshes.push(ch);
         }
       });

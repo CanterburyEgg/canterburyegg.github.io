@@ -285,12 +285,19 @@ H.sorceress = {
   parseBundle(bundle, targetTmpl) {
     if (!bundle || targetTmpl.fbx) return targetTmpl.fbx;
     targetTmpl.tex = loadHeroDiffuseTexture(bundle.diffuseDataUrl);
+    // her Hunyuan model's strand/fold detail lives in a normal map (the flat-looking hair without it)
+    if (bundle.normalDataUrl) {
+      targetTmpl.normalTex = loadHeroDiffuseTexture(bundle.normalDataUrl);
+      targetTmpl.normalTex.colorSpace = THREE.NoColorSpace;
+    }
     const idleFbx = fbxLoader.parse(b64ToBuffer(bundle.idleFbxB64), '');
     idleFbx.traverse((ch) => {
       if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) {
         ch.geometry.computeVertexNormals();
       }
     });
+    // her package was split at every UV seam: smooth the shading back across the seams (see KitFx.smoothSeams)
+    idleFbx.traverse((ch) => { if (ch.isMesh && ch.geometry) KitFx.smoothSeams(ch.geometry, 60); });
     targetTmpl.fbx = idleFbx;
     if (idleFbx.animations[0]) targetTmpl.clips.idle = idleFbx.animations[0];
     const runFbx = fbxLoader.parse(b64ToBuffer(bundle.runFbxB64), '');

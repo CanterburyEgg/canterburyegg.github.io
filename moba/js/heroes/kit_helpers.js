@@ -34,6 +34,38 @@ K.player = {
   allies() { return phase1Engine && phase1Engine.getAlliedTargets ? phase1Engine.getAlliedTargets() : []; },
   damage(t, dmg, opts) { return phase1Engine ? phase1Engine.dealPlayerDamageToUnit(t, dmg, opts || {}) : false; }
 };
+// Smooth shading across UV seams on models whose mesh was split at every seam (the older Mixamo packages):
+// vertices at the same position average their normals (only with neighbours within maxAngleDeg, so real creases stay sharp).
+K.smoothSeams = function (geometry, maxAngleDeg = 60) {
+  const pos = geometry.attributes.position, nrm = geometry.attributes.normal;
+  if (!pos || !nrm) return;
+  const cosMax = Math.cos(maxAngleDeg * Math.PI / 180);
+  const groups = new Map();
+  const q = 1e4; // ~0.1 mm in model units
+  for (let i = 0; i < pos.count; i++) {
+    const key = Math.round(pos.getX(i) * q) + ',' + Math.round(pos.getY(i) * q) + ',' + Math.round(pos.getZ(i) * q);
+    let g = groups.get(key);
+    if (!g) groups.set(key, (g = []));
+    g.push(i);
+  }
+  const out = new Float32Array(nrm.count * 3);
+  for (let i = 0; i < nrm.count; i++) { out[i * 3] = nrm.getX(i); out[i * 3 + 1] = nrm.getY(i); out[i * 3 + 2] = nrm.getZ(i); }
+  groups.forEach((g) => {
+    if (g.length < 2) return;
+    g.forEach((i) => {
+      const nx = nrm.getX(i), ny = nrm.getY(i), nz = nrm.getZ(i);
+      let sx = 0, sy = 0, sz = 0;
+      g.forEach((k) => {
+        const kx = nrm.getX(k), ky = nrm.getY(k), kz = nrm.getZ(k);
+        if (nx * kx + ny * ky + nz * kz >= cosMax) { sx += kx; sy += ky; sz += kz; }
+      });
+      const l = Math.hypot(sx, sy, sz) || 1;
+      out[i * 3] = sx / l; out[i * 3 + 1] = sy / l; out[i * 3 + 2] = sz / l;
+    });
+  });
+  nrm.array.set(out);
+  nrm.needsUpdate = true;
+};
 // rank helpers shared by kits: Q/E ranks at 6/9, R ranks at 8/12
 K.rQE = (lvl) => (lvl >= 9 ? 2 : (lvl >= 6 ? 1 : 0));
 K.rUlt = (lvl) => (lvl >= 12 ? 2 : (lvl >= 8 ? 1 : 0));

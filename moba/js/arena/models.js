@@ -34,6 +34,7 @@ let mixer = null;
 let unlitHandPaintedMode = false;
 let loadedMeshes = [];
 let fallbackBrawlerTex = null; // Cached 2K diffuse texture for active hero
+let fallbackNormalTex = null;  // optional normal map for the active hero (kits set tmpl.normalTex)
 
 // Smooth Mixamo Multi-Clip Action State
 const rawClips = { idle: null, run: null, crawl: null, punch: null, punch2: null, kick: null, slide: null, jump: null };
@@ -449,7 +450,8 @@ function installModelObject(model, label, isFBX) {
       child.castShadow = true;
       child.receiveShadow = true;
       child.frustumCulled = false; // Prevent animated SkinnedMesh culling at screen edges!
-      if (child.geometry) {
+      // keep the model's own (smooth) normals: FBX geometry is non-indexed, so recomputing gives flat facets
+      if (child.geometry && !child.geometry.attributes.normal) {
         child.geometry.computeVertexNormals();
       }
 
@@ -479,6 +481,10 @@ function installModelObject(model, label, isFBX) {
           roughness: 0.78,
           metalness: 0.12
         });
+        if (fallbackNormalTex) {
+          child.material.normalMap = fallbackNormalTex;
+          child.material.normalScale.set(0.8, 0.8);
+        }
       }
       loadedMeshes.push(child);
     }
@@ -598,6 +604,7 @@ function switchHero(heroId) {
   const tmpl = heroTemplates[heroId] || heroTemplates.coyote;
   if (tmpl && tmpl.fbx) {
     fallbackBrawlerTex = tmpl.tex;
+    fallbackNormalTex = tmpl.normalTex || null;
     const cloned = SkeletonUtils.clone(tmpl.fbx);
     installModelObject(cloned, meta.modelLabel, true);
     // idle first (pose overlays sample it), then every other clip the kit provides
