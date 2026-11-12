@@ -61,8 +61,15 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
     `botGoal`, `botLocomotion`, `botCleanup`, `b.leapHeight`; KitFx placeAtBone / curlHand / seatInFist take a bot's bones)
   - [ ] Numbers pass: Scientist saw feels like it does almost no damage (~60 dps at Lv1 through armor) - player and bot alike
   - [ ] Investigate: brief hitch when a bot Fairy died (first-time shader compile of wings/dust materials?)
-  - [ ] Delete the old bot-only ability copies (spawnBotCrossbowBolt, launchBotShrapnelGrenade, ...) once all 8 are on kits
+  - [x] Delete the old bot-only ability copies (spawnBotCrossbowBolt, spawnBotAstralBolt, launchBotShrapnelGrenade,
+    spawnBotStarfallPillar, playBotAction/scheduleBotHit + the per-hero basic-attack fallbacks). Kept: the bot Monolith and
+    Pit Arena (the Sorceress/Brawler kits call them through the bot actor) and `__kitBotLog` (cheap; `&botlog` uses it)
   - Dev: `?chaoscarry=<hero>` swaps the enemy carry; `&simfast&botlog=N` runs a fast headless sim and logs bot kit casts.
+- [ ] **Positional sound (noted 2026-11-12, low priority)**: SFX play at full volume wherever they happen on the map.
+  Give `SFX.play` an optional world position: fade with distance from the camera focus (silent off-screen / in fog),
+  maybe pan left/right by screen side.
+- [x] **Camera unlock (2026-11-12)**: Y toggles the lock; unlocked pans when the mouse is at the screen edge, hold
+  Space to snap back onto the hero (`camLocked` / `camFocus` in core.js, camera block in loop.js).
 - [ ] **See-through walls (pinned 2026-11-10)**: when the player (or something they need to see) is behind a wall, tree
   or other tall map piece from the camera's point of view, fade that piece out so you can always see yourself.
 - [ ] **Spyglass prop**: replace the code-built stand-in on the lookout deck with a real model (next model batch).

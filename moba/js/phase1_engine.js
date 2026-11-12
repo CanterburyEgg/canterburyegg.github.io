@@ -2386,10 +2386,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
       hero.maxMp = st.maxMp;
       hero.mp = hero.maxMp;
 
-      botVfxMeshes.forEach((p) => scene.remove(p.grp));
-      botVfxMeshes.length = 0;
-      botGrenades.forEach((g) => { scene.remove(g.mesh); scene.remove(g.teleGrp); });
-      botGrenades.length = 0;
       botMonoliths.forEach((m) => scene.remove(m.grp));
       botMonoliths.length = 0;
       botArenas.forEach((a) => scene.remove(a.group));
@@ -2470,124 +2466,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       projectiles.push({ mesh: orb, target: targetUnit, dmg, spd, life: 2.2, dmgType, attackerObj, extraOpts });
     }
 
-    function spawnBotCrossbowBolt(b, targetUnit, dmg, bleedAdd = 1, isHeartseeker = false, angleOffset = 0) {
-      const boltGrp = new THREE.Group();
-      const len = isHeartseeker ? 1.55 : 0.85;
-      const rad = isHeartseeker ? 0.075 : 0.038;
-      const shaft = new THREE.Mesh(
-        new THREE.CylinderGeometry(rad * 0.65, rad, len, 8),
-        new THREE.MeshBasicMaterial({ color: isHeartseeker ? 0xfde047 : (b.team === 0 ? 0x38bdf8 : 0xf43f5e) })
-      );
-      shaft.rotation.x = Math.PI / 2;
-      boltGrp.add(shaft);
 
-      const tip = new THREE.Mesh(
-        new THREE.ConeGeometry(rad * 1.9, len * 0.35, 8),
-        new THREE.MeshBasicMaterial({ color: isHeartseeker ? 0xf43f5e : 0xfbbf24 })
-      );
-      tip.rotation.x = Math.PI / 2;
-      tip.position.z = len * 0.55;
-      boltGrp.add(tip);
 
-      const ang = b.facing + angleOffset;
-      const sx = b.x + Math.sin(ang) * 0.72 + Math.cos(ang) * (angleOffset * 1.8);
-      const sz = b.z + Math.cos(ang) * 0.72 - Math.sin(ang) * (angleOffset * 1.8);
-      boltGrp.rotation.y = ang;
-      spawnUnitProjectile(
-        sx,
-        sz,
-        targetUnit,
-        dmg,
-        0xfde047,
-        isHeartseeker ? 28.0 : 21.0,
-        'physical',
-        { kind: 'bot', ref: b },
-        boltGrp,
-        { orientAlongDir: true, bleedAdd }
-      );
-    }
-
-    function spawnBotAstralBolt(b, targetUnit, dmg) {
-      const boltGrp = new THREE.Group();
-      const core = new THREE.Mesh(
-        new THREE.OctahedronGeometry(0.16, 0),
-        new THREE.MeshBasicMaterial({ color: 0xe879f9 })
-      );
-      boltGrp.add(core);
-      const ring = new THREE.Mesh(
-        new THREE.TorusGeometry(0.22, 0.025, 8, 20),
-        new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
-      );
-      ring.rotation.x = Math.PI / 2;
-      boltGrp.add(ring);
-
-      let sx = b.x + Math.sin(b.facing) * 0.72;
-      let sz = b.z + Math.cos(b.facing) * 0.72;
-      if (b.model && b.rightHand) {
-        b.model.updateMatrixWorld(true);
-        b.rightHand.getWorldPosition(rhTmp);
-        sx = rhTmp.x;
-        sz = rhTmp.z;
-      }
-      spawnUnitProjectile(
-        sx,
-        sz,
-        targetUnit,
-        dmg,
-        0xe879f9,
-        19.5,
-        'fantasy',
-        { kind: 'bot', ref: b },
-        boltGrp,
-        { spinAstral: true }
-      );
-    }
-
-    const botGrenades = [];
-    function launchBotShrapnelGrenade(b, tx, tz, outerDmg, slowDur = 0) {
-      const outerR = 2.45;
-      const bullseyeR = 0.92;
-      const teleGrp = new THREE.Group();
-      const outerRing = new THREE.Mesh(
-        new THREE.RingGeometry(outerR - 0.08, outerR, 40),
-        new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.65 })
-      );
-      outerRing.rotation.x = -Math.PI / 2;
-      outerRing.position.y = 0.04;
-      teleGrp.add(outerRing);
-
-      const innerRing = new THREE.Mesh(
-        new THREE.RingGeometry(bullseyeR - 0.07, bullseyeR, 32),
-        new THREE.MeshBasicMaterial({ color: 0xf43f5e, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
-      );
-      innerRing.rotation.x = -Math.PI / 2;
-      innerRing.position.y = 0.05;
-      teleGrp.add(innerRing);
-
-      teleGrp.position.set(tx, 0, tz);
-      scene.add(teleGrp);
-
-      const gMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(0.18, 12, 10),
-        new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.35, metalness: 0.75, emissive: 0xf43f5e, emissiveIntensity: 0.6 })
-      );
-      const sx = b.x + Math.sin(b.facing) * 0.45;
-      const sz = b.z + Math.cos(b.facing) * 0.45;
-      gMesh.position.set(sx, 1.45, sz);
-      scene.add(gMesh);
-
-      botGrenades.push({
-        mesh: gMesh,
-        teleGrp,
-        sx, sz, tx, tz,
-        outerR, bullseyeR,
-        outerDmg,
-        slowDur,
-        casterBot: b,
-        t: 0,
-        dur: 0.48
-      });
-    }
 
     const botMonoliths = [];
     function spawnBotCataclysmMonolith(b, tx, tz, pulseDmg, collapseDmg) {
@@ -2695,48 +2575,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
       botArenas.push({ x, z, r: radius, life: dur, group, wall, team: b.team, casterBot: b, insideMap });
     }
 
-    const botVfxMeshes = [];
-    function spawnBotStarfallPillar(tx, tz, radius = 1.65, delay = 0.38, dmg = 0, isFromQ = true, slowDur = 0, casterBot = null) {
-      const grp = new THREE.Group();
-      const ring = new THREE.Mesh(
-        new THREE.RingGeometry(radius - 0.09, radius, 40),
-        new THREE.MeshBasicMaterial({ color: isFromQ ? 0xe879f9 : 0x38bdf8, side: THREE.DoubleSide, transparent: true, opacity: 0.85 })
-      );
-      ring.rotation.x = -Math.PI / 2;
-      ring.position.y = 0.04;
-      grp.add(ring);
-
-      const innerFill = new THREE.Mesh(
-        new THREE.CircleGeometry(radius * 0.96, 36),
-        new THREE.MeshBasicMaterial({ color: 0xa855f7, side: THREE.DoubleSide, transparent: true, opacity: 0.22, blending: THREE.AdditiveBlending, depthWrite: false })
-      );
-      innerFill.rotation.x = -Math.PI / 2;
-      innerFill.position.y = 0.03;
-      grp.add(innerFill);
-
-      const crystal = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.14, radius * 0.52, 3.1, 6),
-        new THREE.MeshBasicMaterial({ color: isFromQ ? 0xf472b6 : 0x38bdf8, transparent: true, opacity: 0.88, blending: THREE.AdditiveBlending })
-      );
-      crystal.position.y = 1.55;
-      crystal.scale.set(0.1, 0.01, 0.1);
-      crystal.visible = false;
-      grp.add(crystal);
-
-      grp.position.set(tx, 0, tz);
-      scene.add(grp);
-      botVfxMeshes.push({
-        grp, crystal, innerFill, ring,
-        x: tx, z: tz, r: radius,
-        delay,
-        erupted: false,
-        postLife: 0.28,
-        dmg,
-        isFromQ,
-        slowDur,
-        casterBot
-      });
-    }
 
     // Advance Knockback on a unit (including Player Hero!) and check for Bodyguard 3L "Into the Stonework" Wall-Stun!
     function stepUnitKnockback(u, dt, kind) {
@@ -2848,7 +2686,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     function updateBots(dt) {
-      const diffMult = botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0);
       const isEasy = botDifficulty === 'easy';
       const isHard = botDifficulty === 'hard';
       const activePing = pings.length > 0 ? pings[pings.length - 1] : null;
@@ -2888,110 +2725,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       }
 
-      // Update Bot Starfall Pillar telegraph windups & crystal eruptions (matching player Sorceress 0.38s windup -> 0.28s eruption!)
-      for (let i = botVfxMeshes.length - 1; i >= 0; i--) {
-        const p = botVfxMeshes[i];
-        if (!p.erupted) {
-          p.delay -= dt;
-          if (p.innerFill) {
-            p.innerFill.material.opacity = 0.20 + Math.min(0.45, (0.34 - Math.max(0, p.delay)) * 1.2);
-          }
-          if (p.delay <= 0) {
-            p.erupted = true;
-            if (p.crystal) {
-              p.crystal.visible = true;
-              p.crystal.scale.set(1, 1, 1);
-            }
-            spawnShockRing(p.x, p.z, p.isFromQ ? 0xe879f9 : 0x38bdf8, 0.25, p.r, 0.26);
-            if (p.dmg > 0 && p.casterBot) {
-              const cb = p.casterBot;
-              let hitHero = false;
-              if (cb.team === 1 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r + (hero.r || 0.52)) {
-                applyBotDamageToTarget({ kind: 'player', ref: hero }, p.dmg, cb, 'fantasy');
-                if (p.slowDur > 0) applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: p.slowDur });
-                hitHero = true;
-              }
-              bots.forEach((ob) => {
-                if (ob.team !== cb.team && ob.respawnTimer <= 0 && Math.hypot(ob.x - p.x, ob.z - p.z) <= p.r + ob.r) {
-                  applyBotDamageToTarget({ kind: 'bot', ref: ob }, p.dmg, cb, 'fantasy');
-                  if (p.slowDur > 0) applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: p.slowDur });
-                  hitHero = true;
-                }
-              });
-              minions.forEach((em) => {
-                if (em.team !== cb.team && em.hp > 0 && Math.hypot(em.x - p.x, em.z - p.z) <= p.r + em.r) {
-                  applyBotDamageToTarget({ kind: 'minion', ref: em }, p.dmg, cb, 'fantasy');
-                  if (p.slowDur > 0) applyBotCcAndEffects({ kind: 'minion', ref: em }, { slowDur: p.slowDur });
-                }
-              });
-              if (p.isFromQ && hitHero) {
-                cb.qTempoStacks = Math.min(cb.level >= 10 && isHard ? 4 : 3, (cb.qTempoStacks || 0) + 1);
-                cb.qTempoTimer = 5.0;
-              }
-            }
-          }
-        } else {
-          p.postLife -= dt;
-          const k = Math.max(0, p.postLife / 0.28);
-          if (p.crystal) {
-            p.crystal.scale.set(k, 1.0 + (1 - k) * 0.35, k);
-            p.crystal.material.opacity = 0.88 * k;
-          }
-          if (p.ring) p.ring.material.opacity = 0.85 * k;
-          if (p.postLife <= 0) {
-            scene.remove(p.grp);
-            botVfxMeshes.splice(i, 1);
-          }
-        }
-      }
 
       // Advance Player Hero Knockback (e.g. from Enemy Bodyguard's Q Haymaker!)
       if (playerProg.respawnTimer <= 0) {
         stepUnitKnockback(hero, dt, 'player');
       }
 
-      // Update Bot Shrapnel Grenades (0.48s parabolic arc + Dual Bullseye / Outer Telegraph Rings!)
-      for (let i = botGrenades.length - 1; i >= 0; i--) {
-        const g = botGrenades[i];
-        g.t += dt;
-        const u = Math.min(1, g.t / g.dur);
-        const gx = g.sx + (g.tx - g.sx) * u;
-        const gz = g.sz + (g.tz - g.sz) * u;
-        const gy = (1 - u) * 1.45 + Math.sin(u * Math.PI) * 3.1;
-        g.mesh.position.set(gx, gy, gz);
-        g.mesh.rotation.x += dt * 14;
-        g.mesh.rotation.z += dt * 10;
-        if (u >= 1) {
-          scene.remove(g.mesh);
-          scene.remove(g.teleGrp);
-          const cb = g.casterBot;
-          let anyBullseye = false;
-          if (cb) {
-            const checkHit = (targetObj, rad) => {
-              const d = Math.hypot(targetObj.ref.x - g.tx, targetObj.ref.z - g.tz);
-              if (d <= g.outerR + rad) {
-                const isBulls = d <= g.bullseyeR + rad * 0.45;
-                if (isBulls) anyBullseye = true;
-                const dmg = isBulls ? g.outerDmg * 2 : g.outerDmg;
-                applyBotDamageToTarget(targetObj, dmg, cb, 'physical');
-                applyBotCcAndEffects(targetObj, { bleedAdd: isBulls ? 4 : 2, slowDur: g.slowDur });
-              }
-            };
-            if (cb.team === 1 && playerProg.respawnTimer <= 0) {
-              checkHit({ kind: 'player', ref: hero }, hero.r || 0.52);
-            }
-            bots.forEach((ob) => {
-              if (ob.team !== cb.team && ob.respawnTimer <= 0) checkHit({ kind: 'bot', ref: ob }, ob.r);
-            });
-            minions.forEach((em) => {
-              if (em.team !== cb.team && em.hp > 0) checkHit({ kind: 'minion', ref: em }, em.r);
-            });
-          }
-          spawnShockRing(g.tx, g.tz, anyBullseye ? 0xf43f5e : 0xf59e0b, 0.25, g.outerR, 0.28);
-          spawnFloat(g.tx, 2.7, g.tz, anyBullseye ? 'BULLSEYE GRENADE (2x)!' : 'SHRAPNEL GRENADE!', '#fde047');
-          botGrenades.splice(i, 1);
-        }
-      }
 
       // Update Bot Cataclysm Monoliths (3D rotating obelisk + expanding 2.0m -> 4.5m ring + 0.5s pulses + 5.0s gravity collapse!)
       for (let i = botMonoliths.length - 1; i >= 0; i--) {
@@ -3068,26 +2807,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       }
 
-      function playBotAction(b, slot, timeScale = 1.0, startTime = 0, lockDur = 0.40) {
-        b.atkAnimTimer = lockDur;
-        b.animSlot = slot;
-        b.animTimeScale = timeScale;
-        b.animStartTime = startTime;
-        b.animForceRestart = true;
-      }
-
-      function scheduleBotHit(b, delay, fn) {
-        if (!b.pendingHits) b.pendingHits = [];
-        b.pendingHits.push({ timer: delay, fn });
-      }
-
       bots.forEach((b) => {
         if (!b.rigLoaded) attachRigToBot(b);
         if (b.respawnTimer > 0) {
           const hideKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
           if (hideKit && hideKit.botHide) hideKit.botHide(b);
           if (hideKit && hideKit.botDead) hideKit.botDead(b); // per-frame while dead (the Imp drops his scrap)
-          b.pendingHits = [];
           b.rChargeTimer = 0;
           b.gnashAnim = 0;
           b.stealthBlend = 0;
@@ -3110,10 +2835,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
           }
           return;
         }
-
-        const rQE = (b.level || 1) >= 9 ? 2 : ((b.level || 1) >= 6 ? 1 : 0);
-        const rUlt = (b.level || 1) >= 12 ? 2 : ((b.level || 1) >= 8 ? 1 : 0);
-        const scaleMult = (b.team === 1 ? diffMult : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
 
         b.atkCd = Math.max(0, b.atkCd - dt);
         b.skillCd = Math.max(0, b.skillCd - dt);
@@ -3141,22 +2862,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (b.shieldTimer && b.shieldTimer > 0) {
           b.shieldTimer -= dt;
           if (b.shieldTimer <= 0) b.shield = 0;
-        }
-
-        // Tick Scheduled Swing-Apex Windup Callbacks (canceled if stunned!)
-        if (b.pendingHits && b.pendingHits.length > 0) {
-          if (b.stunTimer > 0) {
-            b.pendingHits.length = 0;
-          } else {
-            for (let hi = b.pendingHits.length - 1; hi >= 0; hi--) {
-              b.pendingHits[hi].timer -= dt;
-              if (b.pendingHits[hi].timer <= 0) {
-                const fn = b.pendingHits[hi].fn;
-                b.pendingHits.splice(hi, 1);
-                fn();
-              }
-            }
-          }
         }
 
         // Phase 2: bots on real kits tick their kit timers (windups, charges) every frame
@@ -3581,85 +3286,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
               const baseInterval = spec ? spec.atkCd : 1.12;
               b.atkCd = baseInterval / (1 + (b.level - 1) * 0.035);
               const lockedTarget = bestTarget;
-              const lockedRad = (lockedTarget && lockedTarget.ref && lockedTarget.ref.r) ? lockedTarget.ref.r : 0;
-              let dmg = Math.round(b.atk * scaleMult);
 
-              if (b.heroType === 'bodyguard' && kitBotReady('bodyguard')) {
+              // every hero's bot basic attack comes from its kit (the brain only picks the target)
+              if (kitBotReady(b.heroType)) {
                 b.aimTarget = lockedTarget;
                 const actor = botActor(b);
-                window.MOBA_HEROES.bodyguard.basicAttackFor(actor, actor.stats());
-              } else if (b.heroType === 'bodyguard') {
-                playBotAction(b, 'punch', 2.15, 0.42, 0.48);
-                scheduleBotHit(b, 0.27, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= b.range + lockedRad + 1.2) {
-                    applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
-                  }
-                });
-              } else if (b.heroType === 'sorceress' && kitBotReady('sorceress')) {
-                b.aimTarget = lockedTarget;
-                const actor = botActor(b);
-                window.MOBA_HEROES.sorceress.basicAttackFor(actor, actor.stats());
-              } else if (b.heroType === 'sorceress') {
-                playBotAction(b, 'punch', 2.25, 0.22, 0.34);
-                scheduleBotHit(b, 0.22, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  spawnBotAstralBolt(b, lockedTarget, dmg);
-                });
-              } else if (b.heroType === 'panther' && kitBotReady('panther')) {
-                b.aimTarget = lockedTarget;
-                const actor = botActor(b);
-                window.MOBA_HEROES.panther.basicAttackFor(actor, actor.stats());
-              } else if (b.heroType === 'panther') {
-                b.stealthTimer = 0;
-                playBotAction(b, 'punch', 2.45, 0.82, 0.34);
-                scheduleBotHit(b, 0.16, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= b.range + lockedRad + 1.2) {
-                    if ((lockedTarget.ref.predatorMarks || 0) > 0) {
-                      lockedTarget.ref.predatorMarks--;
-                      const rankMult = [1.0, 1.25, 1.50][rQE];
-                      const markDmg = Math.round((34 + b.level * 7 + (b.fant || 24) * 0.80) * rankMult * scaleMult);
-                      applyBotDamageToTarget(lockedTarget, markDmg, b, 'fantasy');
-                      if (lockedTarget.ref.predatorMarks === 0 && isHard && b.level >= 7) {
-                        b.cdE = Math.max(0, b.cdE - 2.0);
-                        applyBotCcAndEffects(lockedTarget, { slowDur: 1.25 });
-                      }
-                    }
-                    applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
-                  }
-                });
-              } else if (b.heroType === 'brawler' && kitBotReady('brawler')) {
-                b.aimTarget = lockedTarget;
-                const actor = botActor(b);
-                window.MOBA_HEROES.brawler.basicAttackFor(actor, actor.stats(), false);
-              } else if (b.heroType === 'brawler') {
-                playBotAction(b, 'punch', 1.35, 0.0, 0.36);
-                scheduleBotHit(b, 0.16, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= b.range + lockedRad + 1.2) {
-                    b.siphonBonus = Math.min(0.12, (b.siphonBonus || 0) + 0.04);
-                    b.siphonTimer = 5.0;
-                    if (!isEasy && b.level >= 7) {
-                      b.basicCombo = ((b.basicCombo || 0) + 1) % 3;
-                      if (b.basicCombo === 0) {
-                        dmg += 36 + b.level * 4;
-                        b.hp = Math.min(b.maxHp, b.hp + 55 + b.level * 5);
-                        spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0xfde047, 0.25, 2.1, 0.24);
-                      }
-                    }
-                    applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
-                  }
-                });
-              } else if (b.heroType === 'coyote' && kitBotReady('coyote')) {
-                b.aimTarget = lockedTarget;
-                const actor = botActor(b);
-                window.MOBA_HEROES.coyote.basicAttackFor(actor, actor.stats());
-              } else if (kitBotReady(b.heroType)) {
-                // heroes that only ever had kit bots (Fairy, Scientist, Imp)
-                b.aimTarget = lockedTarget;
-                const actor = botActor(b);
-                window.MOBA_HEROES[b.heroType].basicAttackFor(actor, actor.stats());
+                window.MOBA_HEROES[b.heroType].basicAttackFor(actor, actor.stats(), false);
               }
             } else if (isHard && b.range > 4.0 && b.atkAnimTimer <= 0 && bestDist < 5.4 && bestTarget.kind !== 'structure') {
               // Hard Mode Ranged Orb-Walk Kiting: step backward toward allied fountain between basic attacks!
@@ -4840,7 +4472,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
             if (b.respawnTimer > 1e8) b.respawnTimer = 0.001; // respawns at home next frame
           } else {
             b.respawnTimer = 1e9;
-            b.pendingHits = [];
             b.pivot.visible = false;
             if (b.bowPivot) b.bowPivot.visible = false;
             if (b.plate) b.plate.style.display = 'none';
