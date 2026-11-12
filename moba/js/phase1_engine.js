@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true, brawler: true };
+    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -1693,6 +1693,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
           b.animForceRestart = true;
         },
         hostiles: () => hostilesForTeam(b.team),
+        // Sorceress R for bots: the engine's bot Cataclysm Monolith (pulses every 0.5s; collapse only when collapseDmg > 0)
+        monolith: (x, z, pulseDmg, collapseDmg) => {
+          const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
+          spawnShockRing(x, z, 0xe879f9, 2.0, 0.4, 0.50);
+          spawnBotCataclysmMonolith(b, x, z, Math.round(pulseDmg * scale), Math.round(collapseDmg * scale));
+        },
         // Brawler R for bots: the engine's bot Pit Arena (walls, damage amp, projectile blocking already handled here)
         pitArena: (dur) => {
           b.arenaTimer = dur;
@@ -2962,8 +2968,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           });
         }
         if (m.t >= m.dur) {
-          spawnShockRing(m.x, m.z, 0xfde047, m.curR, 0.25, 0.38);
-          if (cb) {
+          if (m.collapseDmg > 0) spawnShockRing(m.x, m.z, 0xfde047, m.curR, 0.25, 0.38);
+          if (cb && m.collapseDmg > 0) {
             const collapseUnit = (targetObj, rad) => {
               const u = targetObj.ref;
               const d = Math.hypot(u.x - m.x, u.z - m.z);
@@ -2985,7 +2991,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               if (em.team !== cb.team && em.hp > 0) collapseUnit({ kind: 'minion', ref: em }, em.r);
             });
           }
-          spawnFloat(m.x, 3.0, m.z, 'GRAVITY COLLAPSE!', '#fde047');
+          if (m.collapseDmg > 0) spawnFloat(m.x, 3.0, m.z, 'GRAVITY COLLAPSE!', '#fde047');
           scene.remove(m.grp);
           botMonoliths.splice(i, 1);
         }
@@ -3478,52 +3484,25 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
 
             // 4. ASTRAL SORCERESS BOT (E: Defensive/Offensive Rift Stride -> R: 0.50s Windup + 3D Cataclysm Monolith -> Q: 0.38s Telegraph Starfall Pillar)
-            else if (b.heroType === 'sorceress') {
-              if (b.cdE <= 0 && ((isHard && bestDist <= 4.2) || (!isHard && bestDist <= 7.5 && isHeroTarget))) {
-                b.cdE = [12.0, 10.5, 9.0][rQE];
-                const angToEnemy = Math.atan2(tx - b.x, tz - b.z);
-                let endX = b.x;
-                let endZ = b.z;
-                // Hard Sorceress dashes smoothly AWAY from close melee threats while firing 3 cascading pillars toward enemy!
-                if (isHard && bestDist <= 4.2) {
-                  endX = THREE.MathUtils.clamp(b.x - Math.sin(angToEnemy) * 3.8, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
-                  endZ = THREE.MathUtils.clamp(b.z - Math.cos(angToEnemy) * 3.8, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
-                  const dashDur = 0.24;
-                  b.dashTimer = dashDur;
-                  b.dashVx = (endX - b.x) / dashDur;
-                  b.dashVz = (endZ - b.z) / dashDur;
-                }
-                playBotAction(b, 'punch', 2.25, 0.22, 0.30);
-                spawnShockRing(b.x, b.z, 0x38bdf8, 0.25, 1.35, 0.24);
-                const lineAng = Math.atan2(tx - endX, tz - endZ);
-                const ePillarDmg = Math.round(([50, 80, 110][rQE] + (b.fant || 52) * 0.65) * scaleMult);
-                const eSlow = b.level >= 3 ? 1.5 : 0;
-                [1.8, 3.6, 5.4].forEach((stepDist, idx) => {
-                  const px = endX + Math.sin(lineAng) * stepDist;
-                  const pz = endZ + Math.cos(lineAng) * stepDist;
-                  spawnBotStarfallPillar(px, pz, 1.35, 0.18 + idx * 0.12, ePillarDmg, false, eSlow, b);
-                });
-                spawnFloat(b.x, 2.7, b.z, 'RIFT STRIDE!', '#38bdf8');
+            else if (b.heroType === 'sorceress' && kitBotReady('sorceress')) {
+              // (Phase 2: the brain picks ability + aim; the real Sorceress kit casts)
+              const kit = window.MOBA_HEROES.sorceress;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              const threatened = bestDist <= 4.2;
+              if (b.cdE <= 0 && (threatened || (bestDist <= 7.5 && isHeroTarget))) {
+                // Rift Stride toward a point: straight away from a close threat, otherwise a sidestep; homing bolts fly at the end
+                const away = Math.atan2(b.x - tx, b.z - tz);
+                const ang = threatened ? away : away + (Math.random() < 0.5 ? 1 : -1) * Math.PI / 2;
+                b.aimTarget = null;
+                b.aimX = b.x + Math.sin(ang) * 4;
+                b.aimZ = b.z + Math.cos(ang) * 4;
+                kit.castFor(actor, 'E');
+                b.aimTarget = bestTarget;
               } else if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 8.8) {
-                b.cdR = [46.0, 40.0, 34.0][rUlt];
-                playBotAction(b, 'kick', 2.20, 0.25, 0.72);
-                const mx = tx;
-                const mz = tz;
-                const pulseDmg = Math.round(([45, 70, 95][rUlt] + (b.fant || 52) * 0.38) * scaleMult);
-                const collapseDmg = Math.round(([130, 195, 260][rUlt] + (b.fant || 52) * 0.85) * scaleMult);
-                spawnShockRing(mx, mz, 0xe879f9, 2.0, 0.4, 0.50);
-                // 0.50s cast windup before the 3D Obelisk & Expanding Gravity Zone erupt!
-                scheduleBotHit(b, 0.50, () => {
-                  spawnBotCataclysmMonolith(b, mx, mz, pulseDmg, collapseDmg);
-                });
-              } else if (b.cdQ <= 0 && bestDist <= (isHard && b.level >= 3 ? 10.2 : 9.4)) {
-                const baseQCd = [5.2, 4.8, 4.4][rQE];
-                b.cdQ = Math.max(1.50, baseQCd - (b.qTempoStacks || 0) * 0.90);
-                // Match player Sorceress Q: 0.54s windup animation + 0.38s ground telegraph ring before the Starfall Pillar erupts!
-                playBotAction(b, 'punch', 2.25, 0.22, 0.54);
-                const qDmg = Math.round((60 + b.level * 12 + (b.fant || 52) * 0.92) * scaleMult);
-                const qRad = isHard && b.level >= 7 ? 2.0 : 1.65;
-                spawnBotStarfallPillar(tx, tz, qRad, 0.38, qDmg, true, 0, b);
+                kit.castFor(actor, 'R');
+              } else if (b.cdQ <= 0 && bestDist <= 9.4) {
+                kit.castFor(actor, 'Q');
               }
             }
 
@@ -3588,6 +3567,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
                     applyBotDamageToTarget(lockedTarget, dmg, b, 'physical');
                   }
                 });
+              } else if (b.heroType === 'sorceress' && kitBotReady('sorceress')) {
+                b.aimTarget = lockedTarget;
+                const actor = botActor(b);
+                window.MOBA_HEROES.sorceress.basicAttackFor(actor, actor.stats());
               } else if (b.heroType === 'sorceress') {
                 playBotAction(b, 'punch', 2.25, 0.22, 0.34);
                 scheduleBotHit(b, 0.22, () => {

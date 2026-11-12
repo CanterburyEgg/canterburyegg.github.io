@@ -300,6 +300,24 @@ function tick(now) {
   // Returns true when the bolt is finished.
   function stepOwnedBolt(b, dt) {
     const o = b.owner;
+    if (b.homeTo && b.homeTo.ref) {
+      // homing (Sorceress E): steer toward the one target, turning harder the longer it flies
+      b.age = (b.age || 0) + dt;
+      const ht = b.homeTo.ref;
+      if (ht && !(ht.hp !== undefined && ht.hp <= 0)) {
+        const want = Math.atan2(ht.x - b.mesh.position.x, ht.z - b.mesh.position.z);
+        const cur = Math.atan2(b.vx, b.vz);
+        let diff = want - cur;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        const turn = (10 + b.age * 40) * dt;
+        const ang = cur + THREE.MathUtils.clamp(diff, -turn, turn);
+        const spd = Math.hypot(b.vx, b.vz);
+        b.vx = Math.sin(ang) * spd;
+        b.vz = Math.cos(ang) * spd;
+        b.mesh.rotation.y = ang;
+      }
+    }
     b.mesh.position.x += b.vx * dt;
     b.mesh.position.z += b.vz * dt;
     b.life -= dt;
@@ -309,6 +327,7 @@ function tick(now) {
       if (!t || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) continue;
       const uid = t.kind + '_' + (t.ref.id || j);
       if (b.hitIds.has(uid)) continue;
+      if (b.homeTo && b.homeTo.ref && b.homeTo.ref !== t.ref) continue;
       const hitR = (t.r || 0.5) + (b.isHeartseeker ? 0.48 : 0.28);
       if (Math.hypot(b.mesh.position.x - t.x, b.mesh.position.z - t.z) > hitR) continue;
       b.hitIds.add(uid);
@@ -325,7 +344,7 @@ function tick(now) {
         }
       } else {
         o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical' });
-        spawnShockRing(t.x, t.z, 0xf43f5e, 0.15, 0.65, 0.16);
+        spawnShockRing(t.x, t.z, b.dmgType === 'fantasy' ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
         if (!b.pierce) { scene.remove(b.mesh); return true; }
       }
     }

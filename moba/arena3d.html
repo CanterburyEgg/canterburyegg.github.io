@@ -445,19 +445,16 @@
     </section>
   </main>
 
-  <script src="js/audio.js"></script>
-  <script src="js/heroes/kit_helpers.js"></script>
-  <script src="js/heroes/brawler.js"></script>
-  <script src="js/heroes/sorceress.js"></script>
-  <script src="js/heroes/coyote.js"></script>
-  <script src="js/heroes/bodyguard.js"></script>
-  <script src="js/heroes/panther.js"></script>
-  <script src="js/heroes/fairy.js"></script>
-  <script src="js/heroes/scientist.js"></script>
-  <script src="js/heroes/imp.js"></script>
-  <script src="js/map_layout.js"></script>
-  <script src="js/phase1_data.js"></script>
-  <script src="js/phase1_engine.js"></script>
+  <!-- Game code loads with a ?v=<timestamp> tag so the browser never serves a stale cached copy (big asset bundles still cache) -->
+  <script>
+    window.__BUILD_V = Date.now();
+    [
+      'js/audio.js', 'js/heroes/kit_helpers.js',
+      'js/heroes/brawler.js', 'js/heroes/sorceress.js', 'js/heroes/coyote.js', 'js/heroes/bodyguard.js',
+      'js/heroes/panther.js', 'js/heroes/fairy.js', 'js/heroes/scientist.js', 'js/heroes/imp.js',
+      'js/map_layout.js', 'js/phase1_data.js', 'js/phase1_engine.js'
+    ].forEach((f) => document.write('<script src="' + f + '?v=' + window.__BUILD_V + '"><\/script>'));
+  </script>
   <script type="module">
     import * as THREE from 'three';
     import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -474,7 +471,7 @@
     for (const f of ARENA_FILES) {
       await new Promise((resolve, reject) => {
         const el = document.createElement('script');
-        el.src = 'js/arena/' + f + '.js';
+        el.src = 'js/arena/' + f + '.js?v=' + window.__BUILD_V;
         el.async = false;
         el.onload = resolve;
         el.onerror = () => reject(new Error('Failed to load js/arena/' + f + '.js'));

@@ -12,15 +12,15 @@ let pendingRiftBolts = null;
 const RIFT = { range: 9.0, maxBolts: 3, spread: 0.55, speed: 21, life: 1.6 };
 
 // Up to RIFT.maxBolts nearest live enemies (dummies + engine units, no structures) within range of (x, z)
-function nearestRiftTargets(x, z) {
+function nearestRiftTargets(x, z, actor) {
   const found = [];
-  dummies.forEach((d) => {
+  if (!actor || actor.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
     const dist = Math.hypot(d.x - x, d.z - z) - d.r;
     if (dist <= RIFT.range) found.push({ dist, d });
   });
   if (phase1Engine) {
-    phase1Engine.getHostileTargets().forEach((t) => {
+    (actor || KitFx.player).hostiles().forEach((t) => {
       if (!t || t.kind === 'structure' || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) return;
       const dist = Math.hypot(t.x - x, t.z - z) - (t.r || 0);
       if (dist <= RIFT.range) found.push({ dist, ref: t.ref });
@@ -30,9 +30,20 @@ function nearestRiftTargets(x, z) {
   return found.slice(0, RIFT.maxBolts);
 }
 
+// Pending windups: the player keeps the shared globals (the self-test drain check reads them); bots keep theirs on the unit
+function pend(actor, key) {
+  if (actor.isPlayer) return key === 'bolt' ? pendingSorcBolt : key === 'ult' ? pendingSorcUlt : pendingRiftBolts;
+  return actor.unit['sorc_' + key];
+}
+function setPend(actor, key, v) {
+  if (!actor.isPlayer) { actor.unit['sorc_' + key] = v; return; }
+  if (key === 'bolt') pendingSorcBolt = v; else if (key === 'ult') pendingSorcUlt = v; else pendingRiftBolts = v;
+}
+
 // Spawn Sorceress LMB Astral Spark Bolt (Fantasy Damage!). opts (E Rift Stride bolts):
 // { homeTo: {d}|{ref}, slowDur, fromBody } -> homing, not a basic attack, only hits its target
-function spawnAstralBolt(angle, dmg, opts) {
+function spawnAstralBolt(actor, angle, dmg, opts) {
+  const hero = actor.unit; // (local alias: the caster)
   const boltGrp = new THREE.Group();
   const core = new THREE.Mesh(
     new THREE.OctahedronGeometry(0.16, 0),
@@ -54,13 +65,13 @@ function spawnAstralBolt(angle, dmg, opts) {
   let startX = hero.x + fwdX * 0.78 + rightPerpX;
   let startY = 1.44;
   let startZ = hero.z + fwdZ * 0.78 + rightPerpZ;
-  if (currentModel && rightHandBone && !(opts && opts.fromBody)) {
+  if (actor.isPlayer && currentModel && rightHandBone && !(opts && opts.fromBody)) {
     heroPivot.updateMatrixWorld(true);
     rightHandBone.getWorldPosition(rhWorld);
     startX = rhWorld.x + fwdX * 0.28;
     startY = THREE.MathUtils.clamp(rhWorld.y, 1.32, 1.60);
     startZ = rhWorld.z + fwdZ * 0.28;
-  } else if (opts && opts.fromBody) {
+  } else if ((opts && opts.fromBody) || !actor.isPlayer) {
     startX = hero.x + fwdX * 0.45;
     startY = 1.35;
     startZ = hero.z + fwdZ * 0.45;
@@ -84,12 +95,13 @@ function spawnAstralBolt(angle, dmg, opts) {
     homeTo: opts ? opts.homeTo : null,
     age: 0,
     isBasic: !opts,
+    owner: actor.isPlayer ? null : actor,
     slowDur: opts ? (opts.slowDur || 0) : 0
   });
 }
 
 // Spawn Sorceress 3D Starfall Pillar (Q)
-function spawnStarfallPillar(tx, tz, radius, delay, dmg, isFromQ, slowDur = 0) {
+function spawnStarfallPillar(actor, tx, tz, radius, delay, dmg, isFromQ, slowDur = 0) {
   const grp = new THREE.Group();
   const ring = new THREE.Mesh(
     new THREE.RingGeometry(radius - 0.09, radius, 40),
@@ -127,6 +139,7 @@ function spawnStarfallPillar(tx, tz, radius, delay, dmg, isFromQ, slowDur = 0) {
     postLife: 0.28,
     dmg,
     isFromQ,
+    owner: actor.isPlayer ? null : actor,
     slowDur
   });
 }
@@ -291,25 +304,47 @@ H.sorceress = {
 
   // LMB Astral Bolt: 0.22s left-hand windup, then the bolt (see tickTimers)
   onRangedAttack(st) {
-    if (pendingSorcBolt) {
+    return this.basicAttackFor(KitFx.player, st);
+  },
+
+  basicAttackFor(actor, st) {
+    const hero = actor.unit;
+    const prev = pend(actor, 'bolt');
+    if (prev) {
       SFX.play('chime');
-      spawnAstralBolt(pendingSorcBolt.facing, pendingSorcBolt.dmg);
-      pendingSorcBolt = null;
+      spawnAstralBolt(actor, prev.facing, prev.dmg);
+      setPend(actor, 'bolt', null);
     }
-    hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+    const aim = actor.aim();
+    hero.facing = Math.atan2(aim.x - hero.x, aim.z - hero.z);
     hero.atkTimer = 1.12 / (1 + st.asPct);
     // 0.44s commit window covers the 0.22s left-hand pullback windup + throw release!
     hero.punchAnim = 0.44;
-    if (actions.punch) {
-      fadeToAction(actions.punch, 0.04, true, 2.25, 0.24);
-    }
+    actor.play('punch', 0.04, true, 2.25, 0.24, 0.34);
+    if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L.so_lmb = (L.so_lmb || 0) + 1; }
     const sparkDmg = Math.round(st.atk * 0.40 + (st.fant || 0) * 0.55);
-    pendingSorcBolt = { facing: hero.facing, dmg: sparkDmg, t: 0.22 };
+    setPend(actor, 'bolt', { facing: hero.facing, dmg: sparkDmg, t: 0.22 });
   },
 
   // Q Starfall Pillar (Astral Tempo CDR), E Rift Stride + homing bolts, R Cataclysm Monolith
   cast(slot, ctx) {
+    return this.castFor(KitFx.player, slot, ctx);
+  },
+
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
+    const hero = actor.unit;
+    const wtfMode = actor.wtf;
+    const trySpendMana = (sl) => actor.spend(sl);
+    const aimWorld = actor.aim();
+    if (!actor.isPlayer) {
+      hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+      const L = (window.__kitBotLog = window.__kitBotLog || {}); L['so_' + slot] = (L['so_' + slot] || 0) + 1;
+    }
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
       if (!trySpendMana('Q')) return;
@@ -318,8 +353,10 @@ H.sorceress = {
       const effBaseCd = Math.max(1.65, baseQCd - (hero.qTempoStacks || 0) * 0.90);
       hero.cdQ = wtfMode ? 0.22 : Math.max(1.50, effBaseCd * cdrMult);
       hero.punchAnim = 0.54;
-      const qAct = actions.punch || actions.kick;
-      if (qAct) fadeToAction(qAct, 0.05, true, 2.25, 0.22);
+      if (actor.isPlayer) {
+        const qAct = actions.punch || actions.kick;
+        if (qAct) fadeToAction(qAct, 0.05, true, 2.25, 0.22);
+      } else actor.play('punch', 0.05, true, 2.25, 0.22, 0.54);
 
       const maxRange = talents[3] === 'L' ? 10.9 : 9.5;
       const radius = talents[7] === 'L' ? 2.0 : 1.65;
@@ -332,7 +369,7 @@ H.sorceress = {
 
       const baseDmg = 60 + (pProg.level || 1) * 12 + (st.fant || 0) * 0.92 + (talents[3] === 'L' ? 25 : 0);
       SFX.play('chime');
-      spawnStarfallPillar(tx, tz, radius, 0.38, Math.round(baseDmg), true, 0);
+      spawnStarfallPillar(actor, tx, tz, radius, 0.38, Math.round(baseDmg), true, 0);
     } else if (slot === 'E') {
       if (!wtfMode && hero.cdE > 0) return;
       if (!trySpendMana('E')) return;
@@ -340,12 +377,14 @@ H.sorceress = {
 
       // Dash in current WASD movement direction (or toward cursor if no WASD key is held)
       let mx = 0, mz = 0;
-      if (keys.KeyW || keys.ArrowUp) mz -= 1;
-      if (keys.KeyS || keys.ArrowDown) mz += 1;
-      if (keys.KeyA || keys.ArrowLeft) mx -= 1;
-      if (keys.KeyD || keys.ArrowRight) mx += 1;
+      if (actor.isPlayer) {
+        if (keys.KeyW || keys.ArrowUp) mz -= 1;
+        if (keys.KeyS || keys.ArrowDown) mz += 1;
+        if (keys.KeyA || keys.ArrowLeft) mx -= 1;
+        if (keys.KeyD || keys.ArrowRight) mx += 1;
+      }
       const ml = Math.hypot(mx, mz);
-      const dashAng = ml > 0.05 ? Math.atan2(mx, mz) : hero.facing;
+      const dashAng = ml > 0.05 ? Math.atan2(mx, mz) : hero.facing; // bots: toward the brain's aim point
       const dashDist = talents[7] === 'R' ? 5.25 : 4.2;
       const dashDur = 0.24;
       hero.dashVx = Math.sin(dashAng) * (dashDist / dashDur);
@@ -362,7 +401,8 @@ H.sorceress = {
       // When the dash ends: one homing Fantasy bolt at each of the (up to) 3 nearest enemies in range
       const eDmg = Math.round([50, 80, 110][rQE] + (st.fant || 0) * 0.65);
       const eSlow = talents[3] === 'R' ? 1.5 : 0;
-      pendingRiftBolts = { t: dashDur, dmg: eDmg, slowDur: eSlow };
+      setPend(actor, 'rift', { t: dashDur, dmg: eDmg, slowDur: eSlow });
+      if (!actor.isPlayer) actor.play('punch', 0.05, true, 2.25, 0.22, dashDur);
       spawnFloat(hero.x, 2.55, hero.z, 'RIFT STRIDE!', '#38bdf8');
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
@@ -374,8 +414,10 @@ H.sorceress = {
       hero.cdR = wtfMode ? 0.45 : [46.0, 40.0, 34.0][rUlt] * cdrMult;
       // 0.72s commit window covers the 0.50s 2H overhead windup + downward slam!
       hero.kickAnim = 0.72;
-      const rAct = actions.kick || actions.punch;
-      if (rAct) fadeToAction(rAct, 0.05, true, 2.2, 0.25);
+      if (actor.isPlayer) {
+        const rAct = actions.kick || actions.punch;
+        if (rAct) fadeToAction(rAct, 0.05, true, 2.2, 0.25);
+      } else actor.play('kick', 0.05, true, 2.2, 0.25, 0.72);
 
       const dx = aimWorld.x - hero.x;
       const dz = aimWorld.z - hero.z;
@@ -384,20 +426,33 @@ H.sorceress = {
       const tx = hero.x + (dx / dist) * clamped;
       const tz = hero.z + (dz / dist) * clamped;
       spawnShockRing(tx, tz, 0xe879f9, 2.0, 0.4, 0.50);
-      pendingSorcUlt = { tx, tz, t: 0.50 };
+      setPend(actor, 'ult', { tx, tz, t: 0.50 });
     }
     return;
   },
 
   // Runs every frame for every hero kit: LMB bolt release and R monolith slam after their windups
   tickTimers(dt) {
+    this.tickActor(KitFx.player, dt);
+  },
+
+  tickActor(actor, dt) {
+    const hero = actor.unit;
+    const live = actor.isPlayer ? activeHeroId === 'sorceress' : true;
+    if (!actor.isPlayer && (hero.stunTimer || 0) > 0) { setPend(actor, 'bolt', null); setPend(actor, 'ult', null); }
+    if (!actor.isPlayer) {
+      hero.punchAnim = Math.max(0, (hero.punchAnim || 0) - dt);
+      hero.kickAnim = Math.max(0, (hero.kickAnim || 0) - dt);
+      if ((hero.qTempoTimer || 0) > 0) { hero.qTempoTimer -= dt; if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0; }
+    }
+    const pendingRiftBolts = pend(actor, 'rift');
     if (pendingRiftBolts) {
       pendingRiftBolts.t -= dt;
       if (pendingRiftBolts.t <= 0) {
         const rb = pendingRiftBolts;
-        pendingRiftBolts = null;
-        if (activeHeroId === 'sorceress') {
-          const near = nearestRiftTargets(hero.x, hero.z);
+        setPend(actor, 'rift', null);
+        if (live) {
+          const near = nearestRiftTargets(hero.x, hero.z, actor);
           // Always 3 bolts when anyone's in range: 3 targets = 1 each, 2 targets = 2 on the closest + 1, 1 target = all 3
           const targets = near.length === 0 ? [] : near.length === 1 ? [near[0], near[0], near[0]]
             : near.length === 2 ? [near[0], near[0], near[1]] : near;
@@ -411,29 +466,35 @@ H.sorceress = {
             // Fan out a little, then curve in (spread: left / center / right)
             const fan = (idx - (targets.length - 1) / 2) * RIFT.spread;
             const ang = Math.atan2(tx - hero.x, tz - hero.z) + fan;
-            spawnAstralBolt(ang, rb.dmg, { homeTo: tg.d ? { d: tg.d } : { ref: tg.ref }, slowDur: rb.slowDur, fromBody: true });
+            spawnAstralBolt(actor, ang, rb.dmg, { homeTo: tg.d ? { d: tg.d } : { ref: tg.ref }, slowDur: rb.slowDur, fromBody: true });
           });
         }
       }
     }
-    if (pendingSorcBolt) {
-      pendingSorcBolt.t -= dt;
-      if (pendingSorcBolt.t <= 0) {
-        const b = pendingSorcBolt;
-        pendingSorcBolt = null;
-        if (activeHeroId === 'sorceress') {
+    const pb = pend(actor, 'bolt');
+    if (pb) {
+      pb.t -= dt;
+      if (pb.t <= 0) {
+        setPend(actor, 'bolt', null);
+        if (live) {
           SFX.play('chime');
-          spawnAstralBolt(b.facing, b.dmg);
+          spawnAstralBolt(actor, pb.facing, pb.dmg);
         }
       }
     }
-    if (pendingSorcUlt) {
-      pendingSorcUlt.t -= dt;
-      if (pendingSorcUlt.t <= 0) {
-        const u = pendingSorcUlt;
-        pendingSorcUlt = null;
-        if (activeHeroId === 'sorceress') {
-          spawnCataclysmMonolith(u.tx, u.tz);
+    const pu = pend(actor, 'ult');
+    if (pu) {
+      pu.t -= dt;
+      if (pu.t <= 0) {
+        setPend(actor, 'ult', null);
+        if (actor.isPlayer) {
+          if (live) spawnCataclysmMonolith(pu.tx, pu.tz);
+        } else if (actor.monolith) {
+          // bots: the engine's bot monolith (same pulse numbers; the collapse only with the 10L talent, like the player)
+          const st = actor.stats(), tal = actor.talents(), rU = KitFx.rUlt(actor.level());
+          const pulse = Math.round([45, 70, 95][rU] + (st.fant || 0) * 0.38);
+          const collapse = tal[10] === 'L' ? Math.round(85 + (st.fant || 0) * 0.55) : 0;
+          actor.monolith(pu.tx, pu.tz, pulse, collapse);
         }
       }
     }
@@ -458,10 +519,11 @@ H.sorceress = {
           let hitHeroOrBoss = false;
           let hitAny = false;
           // Talent 10R (4th Resonance): Pillars deal +20% damage to enemies inside Cataclysm Monolith!
-          const inMonoAmp = (sorcMonolith && talents[10] === 'R' && Math.hypot(p.x - sorcMonolith.x, p.z - sorcMonolith.z) <= sorcMonolith.curR + p.r) ? 1.20 : 1.0;
+          const inMonoAmp = (!p.owner && sorcMonolith && talents[10] === 'R' && Math.hypot(p.x - sorcMonolith.x, p.z - sorcMonolith.z) <= sorcMonolith.curR + p.r) ? 1.20 : 1.0;
           const finalPillarDmg = Math.round(p.dmg * inMonoAmp);
 
-          dummies.forEach((d) => {
+          const pa = p.owner || KitFx.player; // who cast this pillar
+          if (!p.owner) dummies.forEach((d) => {
             if (d.isShooter && !shooterEnabled) return;
             if (Math.hypot(d.x - p.x, d.z - p.z) <= p.r + d.r) {
               damageDummy(d, finalPillarDmg, '#e879f9');
@@ -470,17 +532,17 @@ H.sorceress = {
             }
           });
           if (phase1Engine) {
-            phase1Engine.getHostileTargets().forEach((t) => {
+            pa.hostiles().forEach((t) => {
               if (t.kind === 'structure') return;
               if (Math.hypot(t.x - p.x, t.z - p.z) <= p.r + t.r) {
-                const hit = phase1Engine.dealPlayerDamageToUnit(t, finalPillarDmg, {
+                const hit = pa.damage(t, finalPillarDmg, {
                   dmgType: 'fantasy',
                   slowDur: p.slowDur || 0,
                   color: '#e879f9'
                 });
                 if (hit) {
                   hitAny = true;
-                  if (t.kind === 'bot' || (t.kind === 'monster' && t.ref && t.ref.isBoss)) {
+                  if (t.kind === 'bot' || t.kind === 'player' || (t.kind === 'monster' && t.ref && t.ref.isBoss)) {
                     hitHeroOrBoss = true;
                   }
                 }
@@ -489,13 +551,15 @@ H.sorceress = {
           }
 
           if (p.isFromQ && hitAny) {
-            const maxStacks = talents[10] === 'R' ? 4 : 3;
+            const caster = pa.unit;
+            const ptal = p.owner ? pa.talents() : talents;
+            const maxStacks = ptal[10] === 'R' ? 4 : 3;
             const cap = hitHeroOrBoss ? maxStacks : Math.min(2, maxStacks);
-            if ((hero.qTempoStacks || 0) < cap) {
-              hero.qTempoStacks = (hero.qTempoStacks || 0) + 1;
+            if ((caster.qTempoStacks || 0) < cap) {
+              caster.qTempoStacks = (caster.qTempoStacks || 0) + 1;
             }
-            hero.qTempoTimer = 5.0;
-            spawnFloat(hero.x, 2.75, hero.z, 'STARFALL TEMPO ' + hero.qTempoStacks + 'x (-' + hero.qTempoStacks + 's Q CD)!', '#e879f9');
+            caster.qTempoTimer = 5.0;
+            if (!p.owner) spawnFloat(hero.x, 2.75, hero.z, 'STARFALL TEMPO ' + hero.qTempoStacks + 'x (-' + hero.qTempoStacks + 's Q CD)!', '#e879f9');
           }
         }
       } else {
