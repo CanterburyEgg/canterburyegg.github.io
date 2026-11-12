@@ -49,7 +49,10 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   - [x] Sorceress (bots: E dashes away from close threats or sidesteps, then the real homing bolts; R = engine bot monolith, collapse only with 10L)
   - [x] Bodyguard (bots: Q haymaker knockback + LMB resolve in tickActor; E = engine leap with the kit's landing slam; R taunt = half-length stun on the player)
   - [x] Panther (bots: Slash -> Gnash + LMB resolve in tickActor; E = engine leap with the kit's pounce + marks; R = 6s stealth like the player)
-  - [ ] Fairy  - [ ] Scientist  - [ ] Imp
+  - [x] Fairy (new brain: Lullaby on a crowd, hop away when hurt / onto a weak hero, Pop! at her target; bot visuals via
+    kit.botVisual on bot.bones; bots now get their own kit's clipTweaks + pose overlays)
+  - [ ] Scientist  - [ ] Imp
+  - [ ] Investigate: brief hitch when a bot Fairy died (first-time shader compile of wings/dust materials?)
   - [ ] Delete the old bot-only ability copies (spawnBotCrossbowBolt, launchBotShrapnelGrenade, ...) once all 8 are on kits
   - Dev: `?chaoscarry=<hero>` swaps the enemy carry; `&simfast&botlog=N` runs a fast headless sim and logs bot kit casts.
 - [ ] **See-through walls (pinned 2026-11-10)**: when the player (or something they need to see) is behind a wall, tree

@@ -30,6 +30,8 @@ K.player = {
   spend(slot) { return trySpendMana(slot); },
   play(slot, fade, oneShot, speed, start) { if (actions[slot]) fadeToAction(actions[slot], fade, oneShot, speed, start); },
   hostiles() { return phase1Engine ? phase1Engine.getHostileTargets() : []; },
+  // friendly units other than the caster (allied bots for the player)
+  allies() { return phase1Engine && phase1Engine.getAlliedTargets ? phase1Engine.getAlliedTargets() : []; },
   damage(t, dmg, opts) { return phase1Engine ? phase1Engine.dealPlayerDamageToUnit(t, dmg, opts || {}) : false; }
 };
 // rank helpers shared by kits: Q/E ranks at 6/9, R ranks at 8/12
@@ -40,7 +42,8 @@ K.rUlt = (lvl) => (lvl >= 12 ? 2 : (lvl >= 8 ? 1 : 0));
 // opts: dealPlayerDamageToUnit options (dmgType, slowDur, stunDur, knockbackDist, ...) + color; returns hit count.
 K.hitArea = function (x, z, r, dmg, opts = {}) {
   let hits = 0;
-  dummies.forEach((d) => {
+  const by = opts.by || K.player; // opts.by = casting actor (bots hit their own enemies, no dummies)
+  if (by.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
     if (Math.hypot(d.x - x, d.z - z) <= r + d.r) {
       damageDummy(d, dmg, opts.color || '#fb7185');
@@ -51,17 +54,18 @@ K.hitArea = function (x, z, r, dmg, opts = {}) {
     }
   });
   if (phase1Engine) {
-    phase1Engine.getHostileTargets().forEach((t) => {
+    by.hostiles().forEach((t) => {
       if (t.kind === 'structure' && !opts.structures) return;
       if (Math.hypot(t.x - x, t.z - z) <= r + (t.r || 0.5)) {
         const o = Object.assign({}, opts);
+        delete o.by;
         if (opts.pullTo) {
           o.knockbackDist = Math.max(0, Math.min(opts.pullDist || 3, Math.hypot(opts.pullTo.x - t.x, opts.pullTo.z - t.z) - 1.0));
           o.knockbackDirX = opts.pullTo.x - t.x;
           o.knockbackDirZ = opts.pullTo.z - t.z;
           delete o.pullTo;
         }
-        if (phase1Engine.dealPlayerDamageToUnit(t, dmg, o)) hits++;
+        if (by.damage(t, dmg, o)) hits++;
       }
     });
   }
@@ -108,9 +112,10 @@ K.knockDummy = function (d, dx, dz, dist) {
 // Fire a straight projectile through the shared heroBolts loop (loop.js handles flight + hits)
 // opts: { speed, life, pierce, dmgType ('physical'|'fantasy'), isBasic, slowDur, mesh, y, fromX, fromZ }
 K.spawnBolt = function (angle, dmg, opts = {}) {
+  const by = opts.by || K.player; // opts.by = casting actor; bot bolts hit that bot's enemies (loop.js owned bolts)
   const mesh = opts.mesh || new THREE.Mesh(new THREE.SphereGeometry(0.16, 10, 8), new THREE.MeshBasicMaterial({ color: opts.color || 0xffffff }));
-  const sx = opts.fromX !== undefined ? opts.fromX : hero.x + Math.sin(angle) * 0.7;
-  const sz = opts.fromZ !== undefined ? opts.fromZ : hero.z + Math.cos(angle) * 0.7;
+  const sx = opts.fromX !== undefined ? opts.fromX : by.unit.x + Math.sin(angle) * 0.7;
+  const sz = opts.fromZ !== undefined ? opts.fromZ : by.unit.z + Math.cos(angle) * 0.7;
   mesh.position.set(sx, opts.y || 1.3, sz);
   mesh.rotation.y = angle;
   scene.add(mesh);
@@ -118,7 +123,8 @@ K.spawnBolt = function (angle, dmg, opts = {}) {
   heroBolts.push({
     mesh, vx: Math.sin(angle) * spd, vz: Math.cos(angle) * spd, dmg,
     dmgType: opts.dmgType || 'physical', bleedAdd: 0, isHeartseeker: false, pierce: !!opts.pierce,
-    hitIds: new Set(), life: opts.life || 0.6, isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0
+    hitIds: new Set(), life: opts.life || 0.6, isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0,
+    owner: by.isPlayer ? null : by
   });
   return mesh;
 };
@@ -175,7 +181,10 @@ K.arcY = (u, h) => Math.sin(Math.PI * u) * h;
 // Uses the parent's last world matrix, so call currentModel.updateMatrixWorld(true) once per frame before a batch.
 let _sw = null;
 K.swingBone = function (name, axisW, angle) {
-  const b = K.bone(name);
+  K.swingBoneObj(K.bone(name), axisW, angle);
+};
+// Same on a bone object (bots pass bones from their own skeleton: bot.bones[name])
+K.swingBoneObj = function (b, axisW, angle) {
   if (!b || !b.parent) return;
   if (!_sw) _sw = { pq: new THREE.Quaternion(), d: new THREE.Quaternion(), a: new THREE.Vector3() };
   // If the mixer didn't write this bone since our last swing (no active clip drives it this frame), undo last frame's

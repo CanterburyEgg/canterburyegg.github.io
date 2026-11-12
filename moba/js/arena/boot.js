@@ -198,10 +198,13 @@ function logHeroShot() {
   const yaw = heroPivot.rotation.y;
   // &shotbone=<Bone>[&shotdist=m]: three close-ups (front / side / back-ish) around one bone, side by side
   const sb = /[?&]shotbone=([A-Za-z0-9]+)/.exec(location.search);
-  if (sb && heroBones[sb[1]]) {
+  // &shotbot=<bot id>: the same three close-ups, around a bot instead of the player
+  const sbot = /[?&]shotbot=([a-z_]+)/.exec(location.search);
+  const botT = sbot && phase1Engine ? phase1Engine.devBots().find((bb) => bb.id === sbot[1]) : null;
+  if ((sb && heroBones[sb[1]]) || botT) {
     const sd = /[?&]shotdist=([\d.]+)/.exec(location.search);
     const dist = sd ? parseFloat(sd[1]) : 0.9;
-    const p = heroBones[sb[1]].getWorldPosition(new THREE.Vector3());
+    const p = botT ? new THREE.Vector3(botT.x, 1.2, botT.z) : heroBones[sb[1]].getWorldPosition(new THREE.Vector3());
     const w = renderer.domElement.width, h = renderer.domElement.height;
     const out = document.createElement('canvas');
     out.width = w * 3; out.height = h;

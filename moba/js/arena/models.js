@@ -167,7 +167,8 @@ function classifyClipSlot(filename) {
 }
 
 // Retarget a Mixamo AnimationClip cleanly onto currentModel's bone names & lock horizontal Hips drift
-function prepareClipForModel(sourceClip, model, slot, tweaksOverride) {
+// overlayClips: raw clips to take pose overlays from (bots pass their template's clips; the player uses rawClips)
+function prepareClipForModel(sourceClip, model, slot, tweaksOverride, overlayClips) {
   const clipTw = tweaksOverride || ((heroKit() && heroKit().clipTweaks) || {});
   const nodeByCanon = {};
   let hipsBone = null;
@@ -249,8 +250,8 @@ function prepareClipForModel(sourceClip, model, slot, tweaksOverride) {
   // Pose overlay (kit.clipOverlay[slot] = { from: 'idle', bones: /regex on canonical bone name/ }):
   // those bones hold the first-frame pose of another clip, e.g. Fairy's dangling legs while casting,
   // or the Imp's Box Idle arms while his legs run.
-  const overlay = model === currentModel && clipTw.overlay && clipTw.overlay[slot];
-  const fromClip = overlay && rawClips[overlay.from];
+  const overlay = (model === currentModel || overlayClips) && clipTw.overlay && clipTw.overlay[slot];
+  const fromClip = overlay && (overlayClips || rawClips)[overlay.from];
   if (overlay && fromClip) {
     const bonesRe = overlay.bones;
     const isOver = (trName) => {

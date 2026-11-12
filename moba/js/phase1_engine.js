@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true };
+    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true, fairy: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -896,7 +896,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
       sorceress: 'Sorceress',
       brawler: 'Brawler',
       bodyguard: 'Bodyguard',
-      panther: 'Panther'
+      panther: 'Panther',
+      fairy: 'Fairy',
+      scientist: 'Scientist',
+      imp: 'Imp'
     };
 
     function buildBotRoster(playerHeroId) {
@@ -913,17 +916,24 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const cc = /[?&]chaoscarry=([a-z]+)/.exec(location.search);
       const chaosCarry = cc && HERO_LABELS[cc[1]] ? cc[1] : 'sorceress';
 
+      // Dev overrides: ?allysolo= / allyjg= / allysupp= / chaossolo= / chaosjg= / chaoscarry= / chaossupp= <heroId>
+      const ov = (key, def) => {
+        const m = new RegExp('[?&]' + key + '=([a-z]+)').exec(location.search);
+        return m && HERO_LABELS[m[1]] ? m[1] : def;
+      };
+      const oSolo = ov('allysolo', soloType), oJg = ov('allyjg', jgType), oSupp = ov('allysupp', duoType);
+      const cSolo = ov('chaossolo', 'brawler'), cJg = ov('chaosjg', 'panther'), cSupp = ov('chaossupp', 'bodyguard');
       return [
         // Team 0 (Order — 3 Allied Bots + Player = 4v4!)
-        { id: 'bot_o_solo', team: 0, name: 'Ally ' + HERO_LABELS[soloType] + ' (Solo)', heroType: soloType, lane: 'top', role: 'Solo', homeX: MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
-        { id: 'bot_o_jg',   team: 0, name: 'Ally ' + HERO_LABELS[jgType] + ' (Jungle)', heroType: jgType, lane: 'jungle', role: 'Jungle', homeX: MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
-        { id: 'bot_o_supp', team: 0, name: 'Ally ' + HERO_LABELS[duoType] + ' (Duo)', heroType: duoType, lane: 'bot', role: 'Support', homeX: MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
+        { id: 'bot_o_solo', team: 0, name: 'Ally ' + HERO_LABELS[oSolo] + ' (Solo)', heroType: oSolo, lane: 'top', role: 'Solo', homeX: MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
+        { id: 'bot_o_jg',   team: 0, name: 'Ally ' + HERO_LABELS[oJg] + ' (Jungle)', heroType: oJg, lane: 'jungle', role: 'Jungle', homeX: MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
+        { id: 'bot_o_supp', team: 0, name: 'Ally ' + HERO_LABELS[oSupp] + ' (Duo)', heroType: oSupp, lane: 'bot', role: 'Support', homeX: MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
 
-        // Team 1 (Chaos — 4 Enemy Bots featuring Panther in the Jungle!)
-        { id: 'bot_c_solo',  team: 1, name: 'Chaos Brawler (Solo)',     heroType: 'brawler',   lane: 'top',    role: 'Solo',    homeX: -MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
-        { id: 'bot_c_jg',    team: 1, name: 'Chaos Panther (Jungle)',   heroType: 'panther',   lane: 'jungle', role: 'Jungle',  homeX: -MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
+        // Team 1 (Chaos — 4 Enemy Bots)
+        { id: 'bot_c_solo',  team: 1, name: 'Chaos ' + HERO_LABELS[cSolo] + ' (Solo)', heroType: cSolo, lane: 'top', role: 'Solo', homeX: -MAP.BASE.botHomes[0].x, homeZ: MAP.BASE.botHomes[0].z },
+        { id: 'bot_c_jg',    team: 1, name: 'Chaos ' + HERO_LABELS[cJg] + ' (Jungle)', heroType: cJg, lane: 'jungle', role: 'Jungle', homeX: -MAP.BASE.botHomes[1].x, homeZ: MAP.BASE.botHomes[1].z },
         { id: 'bot_c_carry', team: 1, name: 'Chaos ' + HERO_LABELS[chaosCarry] + ' (Carry)', heroType: chaosCarry, lane: 'bot', role: 'Carry', homeX: -MAP.BASE.botHomes[2].x, homeZ: MAP.BASE.botHomes[2].z },
-        { id: 'bot_c_supp',  team: 1, name: 'Chaos Bodyguard (Supp)',   heroType: 'bodyguard', lane: 'bot',    role: 'Support', homeX: -MAP.BASE.botHomes[3].x, homeZ: MAP.BASE.botHomes[3].z }
+        { id: 'bot_c_supp',  team: 1, name: 'Chaos ' + HERO_LABELS[cSupp] + ' (Supp)', heroType: cSupp, lane: 'bot', role: 'Support', homeX: -MAP.BASE.botHomes[3].x, homeZ: MAP.BASE.botHomes[3].z }
       ];
     }
 
@@ -1001,8 +1011,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       let rh = null, lh = null;
       const meshes = [];
+      const bones = {}; // canonical Mixamo name -> bone (kits use it for procedural motion on bots)
       cloned.traverse((ch) => {
         if (ch.name) {
+          const cn = canonicalMixamoBone(ch.name);
+          if (cn && (ch.isBone || !bones[cn])) bones[cn] = ch;
           const c = ch.name.replace(/^.*?(mixamorig\d*:?|:)/i, '');
           if (c === 'RightHand' && (ch.isBone || !rh)) rh = ch;
           if (c === 'LeftHand' && (ch.isBone || !lh)) lh = ch;
@@ -1028,11 +1041,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
       bot.baseModelPos = cloned.position.clone();
       bot.rightHand = rh;
       bot.leftHand = lh;
+      bot.bones = bones;
       bot.mixer = new THREE.AnimationMixer(cloned);
       bot.actions = {};
+      // the bot's own kit tweaks (pose overlays, hip clamps), not whatever hero the player is on
+      const botKitTw = (window.MOBA_HEROES && window.MOBA_HEROES[bot.heroType] && window.MOBA_HEROES[bot.heroType].clipTweaks) || {};
       ['idle', 'run', 'punch', 'kick', 'jump', 'slide', 'crawl'].forEach((slot) => {
         if (tmpl.clips[slot]) {
-          const prep = prepareClipForModel(tmpl.clips[slot], cloned, slot);
+          const prep = prepareClipForModel(tmpl.clips[slot], cloned, slot, botKitTw, tmpl.clips);
           if (prep.tracks.length > 0) {
             bot.actions[slot] = bot.mixer.clipAction(prep);
           }
@@ -1064,7 +1080,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
     function applyBotSpecStats(bot, heroType) {
       const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroType]) || DATA.HERO_SPECS.brawler;
-      const isRanged = heroType === 'coyote' || heroType === 'sorceress';
+      const isRanged = heroType === 'coyote' || heroType === 'sorceress' || heroType === 'fairy';
       const lv = Math.max(0, (bot.level || 1) - 1);
       bot.heroType = heroType;
       bot.maxHp = Math.round(spec.baseHp + lv * spec.hpGrow);
@@ -1706,6 +1722,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
           b.animForceRestart = true;
         },
         hostiles: () => hostilesForTeam(b.team),
+        // friendly units other than this bot (the player counts for Order bots)
+        allies: () => {
+          const list = [];
+          if (b.team === 0 && playerProg.respawnTimer <= 0) list.push({ kind: 'player', ref: hero, x: hero.x, z: hero.z, r: hero.r || 0.52 });
+          bots.forEach((o) => { if (o !== b && o.team === b.team && o.respawnTimer <= 0) list.push({ kind: 'bot', ref: o, x: o.x, z: o.z, r: o.r }); });
+          return list;
+        },
         // Sorceress R for bots: the engine's bot Cataclysm Monolith (pulses every 0.5s; collapse only when collapseDmg > 0)
         monolith: (x, z, pulseDmg, collapseDmg) => {
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
@@ -3418,6 +3441,38 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 kit.castFor(actor, 'Q');
               }
             }
+
+            // 6. LITTLE FAIRY BOT (support): Lullaby on a crowd, Pixie Hop away when hurt (or onto a weak hero),
+            //    Pop! bubble onto her target (its dust heals allies standing in it)
+            else if (b.heroType === 'fairy' && kitBotReady('fairy')) {
+              const kit = window.MOBA_HEROES.fairy;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              const foes = actor.hostiles().filter((t) => t.kind !== 'structure' && Math.hypot(t.x - b.x, t.z - b.z) <= 4.2);
+              const foeHeroes = foes.filter((t) => t.kind === 'bot' || t.kind === 'player').length;
+              const charges = b.hopCharges === undefined ? 2 : b.hopCharges;
+              const hurt = b.hp / b.maxHp < 0.4;
+              if (b.level >= 4 && b.cdR <= 0 && (foeHeroes >= 2 || (foeHeroes >= 1 && foes.length >= 3))) {
+                kit.castFor(actor, 'R');
+              } else if (charges > 0 && hurt && bestDist <= 4.5) {
+                // escape: hop to the friendly unit farthest from the threat (within hop range)
+                let pick = null, far = -1;
+                actor.allies().forEach((a) => {
+                  const dSelf = Math.hypot(a.x - b.x, a.z - b.z);
+                  const dFoe = Math.hypot(a.x - tx, a.z - tz);
+                  if (dSelf <= 7.0 && dFoe > far) { far = dFoe; pick = a; }
+                });
+                if (pick && far > bestDist + 2) {
+                  b.aimTarget = null; b.aimX = pick.x; b.aimZ = pick.z;
+                  kit.castFor(actor, 'E');
+                  b.aimTarget = bestTarget;
+                }
+              } else if (charges > 1 && isHeroTarget && bestDist <= 7.0 && bestTarget.ref.hp / bestTarget.ref.maxHp < 0.5 && !hurt) {
+                kit.castFor(actor, 'E'); // pounce on a weak hero: HUSH stun + dust under them
+              } else if (b.cdQ <= 0 && bestDist <= 9.0) {
+                kit.castFor(actor, 'Q');
+              }
+            }
           }
 
           // =========================================================
@@ -3527,6 +3582,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 b.aimTarget = lockedTarget;
                 const actor = botActor(b);
                 window.MOBA_HEROES.coyote.basicAttackFor(actor, actor.stats());
+              } else if (kitBotReady(b.heroType)) {
+                // heroes that only ever had kit bots (Fairy, Scientist, Imp)
+                b.aimTarget = lockedTarget;
+                const actor = botActor(b);
+                window.MOBA_HEROES[b.heroType].basicAttackFor(actor, actor.stats());
               }
             } else if (isHard && b.range > 4.0 && b.atkAnimTimer <= 0 && bestDist < 5.4 && bestTarget.kind !== 'structure') {
               // Hard Mode Ranged Orb-Walk Kiting: step backward toward allied fountain between basic attacks!
@@ -3591,6 +3651,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (b.groundRing) b.groundRing.position.y = 0.03 - airborneY;
         b.pivot.rotation.y = b.facing;
         updateUnitSlowVisual(b, b.pivot, 0.85, dt);
+
         // Shield bubble (same look as the player's)
         if ((b.shield || 0) > 0 && !b.shieldBubble) {
           b.shieldBubble = new THREE.Mesh(new THREE.SphereGeometry(1.25, 20, 14), new THREE.MeshBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.22, depthWrite: false }));
@@ -3658,6 +3719,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
             b.activeAction.setEffectiveTimeScale(isMoving ? 1.38 : 0.18);
           }
           b.mixer.update(dt);
+          // kit procedural motion on the bot's own skeleton (after the mixer, like the player's postMixer)
+          const visKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+          if (visKit && visKit.botVisual) visKit.botVisual(b, dt, { moving: isMoving });
 
           if (b.bowPivot && b.rightHand && b.leftHand) {
             b.model.updateMatrixWorld(true);
