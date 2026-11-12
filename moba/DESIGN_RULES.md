@@ -21,6 +21,14 @@ The goal: each hero's 3-ability kit lets you live that character's dream and mak
 - Feel target: Attack = sustained, steady output that rewards autos and on-hit. Ability = burst, spikes on cooldowns.
 - Builds split into Attack items vs. Ability items. A hero's identity comes from which stat their kit leans on, so hybrids emerge naturally.
 - Implementation note: the code already tags damage with `isBasic`; the Physical/Fantasy `dmgType` and the armor/fResist pair get replaced.
+- **Stat details (locked 2026-11-12, /grill-me):**
+  - **Resist:** damage × 100 / (100 + Resist), so each point adds 1% effective HP and heals and shields stretch further. To keep Resist and HP distinct: **%-penetration** (ignore X% of the target's Resist) on some damage-dealer items, and a little **%-max-HP damage** on tank-busting kits and items.
+  - **Ability damage = base + Ability ratio only.** No Attack ratios on abilities, except those flagged "counts as a basic attack". Attack heroes' spells get solid base numbers that grow with rank and level. They fall off late unless the hero buys some Ability, which is how hybrids come about.
+  - **Every hero has base Attack and base Ability, both growing per level.** A hero's lean shows in its numbers. Leans: **Attack:** Coyote, Brawler, Imp. **Ability:** Sorceress, Fairy, Scientist. **Hybrid:** Panther. **Tank (low on both):** Bodyguard.
+  - **Haste** replaces % cooldown reduction: cooldown = base × 100 / (100 + Haste). Same curve as Resist, no hard cap. **Attack speed** is a % bonus with a soft cap of about 2.5 attacks/s.
+  - **Mana:** the default resource. It matters more for heroes who cast a lot (mages, some supports and junglers), where running dry is something to watch. A few heroes get custom resources later (e.g. the Scientist's fuel).
+  - **Sustain:** **Lifesteal** heals from Attack damage. **Spell Vamp** heals from Ability damage at a lower rate, and area hits heal at 1/3. Everyone has a small base HP regen.
+  - **Time-to-kill targets (Lv1 / Lv6 / Lv12):** damage vs damage **10 / 7.5 / 5 s**. Tank vs damage about **1.5×** that (15 / 11 / 7.5 s), with the tank losing slowly or barely winning. Tank vs tank: no target, but no stalemates past about 30 s.
 
 ## 3. Mobility budget (locked)
 - **Emergent, no fixed quota.** Every movement ability has to pass the test: **"does this kit really need it to live the dream?"** The default answer is no.

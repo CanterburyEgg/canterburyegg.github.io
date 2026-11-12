@@ -121,6 +121,31 @@ window.MOBA_PHASE1 = (function () {
     }
   ];
 
+  // ---- Test builds for the balance tools (?profile / ?duel) ----
+  // What each damage lean could afford at a level (about 0 / 2,500 / 9,000 gold at Lv1 / 6 / 12, max 4 items).
+  // Placeholder until the shop overhaul replaces the item list.
+  const HERO_LEAN = {
+    coyote: 'attack', brawler: 'attack', imp: 'attack',
+    sorceress: 'ability', fairy: 'support', scientist: 'ability',
+    panther: 'hybrid', bodyguard: 'tank'
+  };
+  const TEST_BUILDS = {
+    attack:  { 1: [], 6: ['serrated_dirk', 'executioner_bow', 'boots_swift'], 12: ['executioner_bow', 'titan_gauntlet', 'frost_bolter', 'repeating_spring'] },
+    ability: { 1: [], 6: ['cataclysm_crown', 'mana_pendant', 'boots_swift'], 12: ['cataclysm_crown', 'mana_pendant', 'astral_tome', 'boots_swift'] },
+    hybrid:  { 1: [], 6: ['serrated_dirk', 'cataclysm_crown', 'boots_swift'], 12: ['executioner_bow', 'cataclysm_crown', 'repeating_spring', 'boots_swift'] },
+    tank:    { 1: [], 6: ['coliseum_plate', 'aegis_cloak', 'boots_swift'], 12: ['titan_gauntlet', 'aegis_cloak', 'coliseum_plate', 'boots_swift'] },
+    support: { 1: [], 6: ['aegis_cloak', 'mana_pendant', 'boots_swift'], 12: ['aegis_cloak', 'mana_pendant', 'astral_tome', 'boots_swift'] }
+  };
+  // Item objects for a hero's test build at a level ('none' = no items; a lean name overrides the hero's own lean).
+  // Uses the nearest defined level at or below the requested one.
+  function testBuildItems(heroId, level, build) {
+    if (build === 'none') return [];
+    const lean = (build && build !== 'standard' && TEST_BUILDS[build]) ? build : (HERO_LEAN[heroId] || 'attack');
+    const byLvl = TEST_BUILDS[lean];
+    const lv = Object.keys(byLvl).map(Number).filter((k) => k <= (level || 1)).sort((a, b) => b - a)[0] || 1;
+    return byLvl[lv].map((id) => SHOP_ITEMS.find((it) => it.id === id)).filter(Boolean);
+  }
+
   // Heroes migrated to js/heroes/<id>.js register their own stats & talents (loaded before this file)
   Object.values(window.MOBA_HEROES || {}).forEach((k) => {
     if (k.spec) HERO_SPECS[k.id] = k.spec;
@@ -137,6 +162,9 @@ window.MOBA_PHASE1 = (function () {
     LEVEL_XP,
     HERO_TALENTS,
     HERO_SPECS,
-    SHOP_ITEMS
+    SHOP_ITEMS,
+    HERO_LEAN,
+    TEST_BUILDS,
+    testBuildItems
   };
 })();

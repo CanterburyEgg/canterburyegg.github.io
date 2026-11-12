@@ -12,7 +12,7 @@ let last = performance.now();
 function tick(now) {
   // Selftest uses a fixed 60 Hz step so results are identical on any machine / frame rate
   // Dev: ?simfast = fixed 0.05s steps and render only every 20th frame (headless bot testing)
-  const dt = window.__MOBA_TEST ? (1 / 60) : (SIMFAST ? 0.05 : Math.min(0.05, (now - last) / 1000));
+  const dt = window.__MOBA_TEST ? (window.__MOBA_TEST.dt || 1 / 60) : (SIMFAST ? 0.05 : Math.min(0.05, (now - last) / 1000));
   last = now;
 
   raycaster.setFromCamera(mouseNDC, camera);

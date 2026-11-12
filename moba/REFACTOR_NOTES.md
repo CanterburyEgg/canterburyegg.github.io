@@ -38,6 +38,15 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   `mixamo/*.fbx`, `props/`. IDs: `guardian`→`bodyguard`, `cannon`→`imp`. v1 assets deleted. `.glb/.zip/.fbx` under
   assets are git-ignored (on disk only; the game only loads `<id>_bundle.js`).
 - [ ] **Talent pass**: all 8 heroes, level by level (see DESIGN_RULES.md).
+- [ ] **Stat model (Attack / Ability / Resist, DESIGN_RULES.md §2)**: plan in three steps.
+  - [x] Step 1: balance tools on the current model. `computeUnitStats` (one stat function for the player, bots and
+    tools), test builds (`DATA.testBuildItems`), **Damage Profile** (`?profile[=hero]&levels=1,6,12&build=..&resist=40`,
+    js/profile.js) and **Duel Arena** (`?duel=a,b | all | support&level=6&trials=6&build=..`, js/duel.js). Add
+    `&norender` for headless runs. Baselines in `balance/2026-11-12_*`.
+  - [ ] Step 2: switch to the new model (single Resist, `src: attack|ability`, Haste, Lifesteal / Spell Vamp,
+    per-hero base Attack + Ability), hero by hero, with before/after tool runs.
+  - [ ] Step 3: tuning against the time-to-kill targets (includes the Scientist saw and Panther Q outliers, and the
+    Imp bot's turret play).
 - [ ] **Phase 2**: bots use the real hero kits, then implement the new kits from DESIGN_RULES.md.
   - Pattern (2026-11-11): kits take an **actor** (`KitFx.player` or `phase1Engine.botActor(bot)`, see kit_helpers.js).
     `cast(slot, ctx)` → `castFor(actor, slot, ctx?)`, basic attack → `basicAttackFor(actor, st)`, per-caster timers →

@@ -124,8 +124,11 @@ async function bootArenaWithLoadingBar() {
   requestAnimationFrame(tick);
 
   // Refactor safety net: ?selftest (all heroes) or ?selftest=<heroId> runs js/selftest.js
+  // Balance tools: ?profile runs js/profile.js (damage profile), ?duel runs js/duel.js (bot duels)
   if (window.__MOBA_TEST) {
-    loadScriptAsync('js/selftest.js');
+    if (/[?&]selftest/.test(location.search)) loadScriptAsync('js/selftest.js');
+    if (/[?&]profile/.test(location.search)) loadScriptAsync('js/profile.js');
+    if (/[?&]duel/.test(location.search)) loadScriptAsync('js/duel.js');
   }
   // Dev: ?mapshot logs a top-down render of the whole map to the console as base64 PNG chunks
   if (/[?&]mapshot/.test(location.search)) {
@@ -250,10 +253,10 @@ function logMapShot() {
 
 
 // =========================================================
-// SELFTEST HOOK (only exists when the URL contains ?selftest)
+// SELFTEST HOOK (only exists when the URL contains ?selftest, ?profile or ?duel)
 // Keep this API stable during the refactor so selftest.js never changes.
 // =========================================================
-if (/[?&]selftest/.test(location.search)) {
+if (/[?&](selftest|profile|duel)/.test(location.search)) {
   window.__MOBA_TEST = {
     aim: null,
     gameTime: 0, // seconds of simulated game time (sum of tick dt), frame-rate independent

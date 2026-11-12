@@ -32,6 +32,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     let teamKills = [0, 0];
     let bossBuffTimer = [0, 0]; // Team 0 / Team 1 +10% All-Stats Boss Buff remaining seconds
     let botDifficulty = 'normal'; // 'easy' | 'normal' | 'hard'
+    let duelMode = null;          // balance tool (?duel, js/duel.js): { cx, cz } = arena center; no waves, no retreating
     let gameOver = null; // null | { winnerTeam: 0 | 1, title: string }
 
     // Player Progression, Economy, Talents, Shop, Recall & Wards
@@ -1107,20 +1108,21 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     function applyBotSpecStats(bot, heroType) {
-      const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroType]) || DATA.HERO_SPECS.brawler;
       const isRanged = heroType === 'coyote' || heroType === 'sorceress' || heroType === 'fairy' || heroType === 'imp'; // (Imp: while carrying; his kit swaps range by form)
-      const lv = Math.max(0, (bot.level || 1) - 1);
       bot.heroType = heroType;
-      bot.maxHp = Math.round(spec.baseHp + lv * spec.hpGrow);
+      // same stat calculation as the player (spec + level + the bot's items, if any)
+      const st = computeUnitStats(heroType, bot.level || 1, bot.items);
+      bot.unitStats = st;
+      bot.maxHp = st.maxHp;
       bot.hp = Math.min(bot.hp || bot.maxHp, bot.maxHp);
-      bot.armor = Math.round(spec.baseArmor + lv * spec.armorGrow);
-      bot.fResist = Math.round(spec.baseFResist + lv * spec.fResistGrow);
-      bot.physAtk = Math.round(spec.baseAtk + lv * spec.atkGrow);
-      bot.fant = Math.round((spec.baseFant || 0) + lv * (spec.fantGrow || 0));
+      bot.armor = st.armor;
+      bot.fResist = st.fResist;
+      bot.physAtk = st.atk;
+      bot.fant = st.fant;
       bot.atk = heroType === 'sorceress' ? Math.round(bot.physAtk * 0.40 + bot.fant * 0.55) : bot.physAtk;
       bot.dmgType = heroType === 'sorceress' ? 'fantasy' : 'physical';
       bot.range = isRanged ? 8.2 : (heroType === 'panther' ? 2.15 : 1.95);
-      bot.spd = spec.baseSpd * 0.97;
+      bot.spd = DATA.HERO_SPECS[heroType].baseSpd * 0.97 * (1 + st.spdPct);
     }
 
     function spawnBots() {
@@ -1579,47 +1581,36 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     // Compute Player Total Stats (Base + Level + 4-Slot Items + Boss +10% All-Stats Buff + Talents + Passives!)
+    // One stat calculation for every hero unit (player, bots, the test tools): spec + level + items.
+    // Live-match effects (passives, talents, boss buff) are layered on top by getPlayerStats for the player.
+    function computeUnitStats(heroId, level, items) {
+      const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroId]) || DATA.HERO_SPECS.coyote;
+      const lvBonus = (level || 1) - 1;
+      const o = {
+        atk: Math.round(spec.baseAtk + lvBonus * spec.atkGrow),
+        fant: Math.round(spec.baseFant + lvBonus * spec.fantGrow),
+        maxHp: Math.round(spec.baseHp + lvBonus * spec.hpGrow),
+        maxMp: Math.round(spec.baseMp + lvBonus * spec.mpGrow),
+        mpRegen: spec.mpRegen + lvBonus * 0.45,
+        armor: Math.round(spec.baseArmor + lvBonus * spec.armorGrow),
+        fResist: Math.round(spec.baseFResist + lvBonus * spec.fResistGrow),
+        asPct: lvBonus * (heroId === 'coyote' ? 0.038 : 0.03),
+        spdPct: 0, lifesteal: 0, cdr: 0, slowOnHit: 0, cleaveProc: 0, executeAmp: 0, spellAmp: 0, allyAuraRes: 0
+      };
+      (items || []).forEach((it) => {
+        const st = it.stats || {};
+        ['atk', 'fant', 'maxHp', 'maxMp', 'mpRegen', 'armor', 'fResist', 'asPct', 'spdPct', 'lifesteal', 'cdr', 'cleaveProc', 'spellAmp', 'allyAuraRes']
+          .forEach((k) => { if (st[k]) o[k] += st[k]; });
+        if (st.slowOnHit) o.slowOnHit = Math.max(o.slowOnHit, st.slowOnHit);
+        if (st.executeAmp) o.executeAmp = Math.max(o.executeAmp, st.executeAmp);
+      });
+      return o;
+    }
+
     function getPlayerStats() {
       const heroId = getActiveHeroId();
-      const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroId]) || DATA.HERO_SPECS.coyote;
-      const lvBonus = playerProg.level - 1;
-
-      let atk = Math.round(spec.baseAtk + lvBonus * spec.atkGrow);
-      let fant = Math.round(spec.baseFant + lvBonus * spec.fantGrow);
-      let maxHp = Math.round(spec.baseHp + lvBonus * spec.hpGrow);
-      let maxMp = Math.round(spec.baseMp + lvBonus * spec.mpGrow);
-      let mpRegen = spec.mpRegen + lvBonus * 0.45;
-      let armor = Math.round(spec.baseArmor + lvBonus * spec.armorGrow);
-      let fResist = Math.round(spec.baseFResist + lvBonus * spec.fResistGrow);
-      let asPct = lvBonus * (heroId === 'coyote' ? 0.038 : 0.03);
-      let spdPct = 0;
-      let lifesteal = 0;
-      let cdr = 0;
-      let slowOnHit = 0;
-      let cleaveProc = 0;
-      let executeAmp = 0;
-      let spellAmp = 0;
-      let allyAuraRes = 0;
-
-      playerProg.items.forEach((it) => {
-        const st = it.stats;
-        if (st.atk) atk += st.atk;
-        if (st.fant) fant += st.fant;
-        if (st.maxHp) maxHp += st.maxHp;
-        if (st.maxMp) maxMp += st.maxMp;
-        if (st.mpRegen) mpRegen += st.mpRegen;
-        if (st.armor) armor += st.armor;
-        if (st.fResist) fResist += st.fResist;
-        if (st.asPct) asPct += st.asPct;
-        if (st.spdPct) spdPct += st.spdPct;
-        if (st.lifesteal) lifesteal += st.lifesteal;
-        if (st.cdr) cdr += st.cdr;
-        if (st.slowOnHit) slowOnHit = Math.max(slowOnHit, st.slowOnHit);
-        if (st.cleaveProc) cleaveProc += st.cleaveProc;
-        if (st.executeAmp) executeAmp = Math.max(executeAmp, st.executeAmp);
-        if (st.spellAmp) spellAmp += st.spellAmp;
-        if (st.allyAuraRes) allyAuraRes += st.allyAuraRes;
-      });
+      const base = computeUnitStats(heroId, playerProg.level, playerProg.items);
+      let { atk, fant, maxHp, maxMp, mpRegen, armor, fResist, asPct, spdPct, lifesteal, cdr, slowOnHit, cleaveProc, executeAmp, spellAmp, allyAuraRes } = base;
 
       // Bodyguard Passive ("Stand Behind Me!"): +14 Armor & Fantasy Resist per stack
       const guardStacks = computeBodyguardStacks();
@@ -3283,7 +3274,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           // MOVEMENT, HARD-MODE ORB-WALK KITING, JUNGLE GANKS & BASIC ATTACKS
           // =========================================================
           let gx = b.x, gz = b.z;
-          const lowHpRetreat = (b.tauntTimer <= 0) && ((b.hp / b.maxHp < (isHard ? 0.28 : 0.22)) || (b.team === 0 && activePing && activePing.kind === 'retreat'));
+          const lowHpRetreat = !duelMode && (b.tauntTimer <= 0) && ((b.hp / b.maxHp < (isHard ? 0.28 : 0.22)) || (b.team === 0 && activePing && activePing.kind === 'retreat'));
 
           // Hard Mode Tower Dive Safety: Don't walk under an active enemy Tower without allied minions unless executing < 22% HP target
           let unsafeTowerDive = false;
@@ -3333,6 +3324,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
             const kg = window.MOBA_HEROES[b.heroType].botGoal(b);
             gx = kg.x;
             gz = kg.z;
+          } else if (duelMode) {
+            gx = duelMode.cx; // duel: nobody in sight (stealth, knocked away): head back to the middle
+            gz = duelMode.cz;
           } else if (b.lane === 'jungle') {
             // Hard Mode Panther Jungle Ganks: If a lane enemy Hero is < 75% HP or overextended, roam to gank them!
             let gankTarget = null;
@@ -3818,7 +3812,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     function updateMinionsAndStructures(dt) {
       // 1. Minion Waves Spawn Timer
       waveTimer -= dt;
-      if (waveTimer <= 0) {
+      if (waveTimer <= 0 && !duelMode) {
         waveTimer = 24.0;
         spawnMinionWave();
       }
@@ -4471,6 +4465,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     return {
       update,
       getPlayerStats,
+      computeUnitStats,
       getHostileTargets,
       getAlliedTargets,
       dealPlayerDamageToUnit,
@@ -4481,6 +4476,52 @@ window.MOBA_PHASE1_ENGINE = (function () {
       addDeployable: (d) => { if (deployables.indexOf(d) < 0) deployables.push(d); },
       removeDeployable: (d) => { const i = deployables.indexOf(d); if (i >= 0) deployables.splice(i, 1); },
       isVisibleToOrder: (x, z) => isPointVisibleToOrder(x, z),
+      // ---- Balance tool hooks (js/duel.js) ----
+      // Enter duel mode: no waves (current minions removed), the player and every bot parked; js/duel.js brings bots in.
+      devDuelStart: (cx, cz) => {
+        duelMode = { cx, cz };
+        botDifficulty = 'normal';
+        minions.forEach((m) => { m.hp = 0; mapGroup.remove(m.mesh); releaseMinionRig(m.rig); if (m.plate) m.plate.remove(); });
+        minions.length = 0;
+        playerProg.respawnTimer = 1e9;
+        bots.forEach((b) => { b.respawnTimer = 1e9; b.pivot.visible = false; if (b.plate) b.plate.style.display = 'none'; });
+      },
+      // Turn a bot into heroType at a level with an item list (rebuilds its rig when the hero changes)
+      devDuelSetBot: (b, heroType, level, items) => {
+        const ck = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+        if (ck && ck.botCleanup) ck.botCleanup(b);
+        if (b.heroType !== heroType) {
+          if (b.model) b.pivot.remove(b.model);
+          if (b.bowPivot) { scene.remove(b.bowPivot); b.bowPivot = null; }
+          b.rigLoaded = false;
+          b.model = null;
+          b.name = (b.team === 0 ? 'Blue ' : 'Red ') + (HERO_LABELS[heroType] || heroType);
+        }
+        b.level = level;
+        b.xp = DATA.LEVEL_XP[level] || 0;
+        b.items = items || [];
+        applyBotSpecStats(b, heroType);
+        attachRigToBot(b);
+      },
+      // Put a bot back in the fight at (x, z): full HP, abilities ready, no leftover status or kit state
+      devDuelResetBot: (b, x, z, facing) => {
+        const ck = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+        if (ck && ck.botCleanup) ck.botCleanup(b);
+        if (ck && ck.botHide) ck.botHide(b);
+        applyBotSpecStats(b, b.heroType);
+        Object.assign(b, {
+          x, z, facing, respawnTimer: 0, hp: b.maxHp, shield: 0, shieldTimer: 0,
+          atkCd: 0, cdQ: 0, cdE: 0, cdR: 0, skillCd: 0, atkAnimTimer: 0,
+          stunTimer: 0, slowTimer: 0, tauntTimer: 0, stealthTimer: 0, knockbackTimer: 0, knockbackVx: 0, knockbackVz: 0,
+          bleedStacks: 0, bleedTimer: 0, leapTimer: 0, leapOnLand: null, leapHeight: undefined, dashTimer: 0, dashOnEnd: null,
+          rChargeTimer: 0, arenaTimer: 0, monoTimer: 0, eRecast: 0, aimTarget: null,
+          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, hopCharges: undefined,
+          impPendingQ: null, impStrike: null, impRocket: false, laneDone: false
+        });
+        b.pivot.visible = true;
+        b.pivot.position.set(x, 0, z);
+      },
+      devDuelEnd: () => { duelMode = null; },
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns
       setBotsEnabled: (on) => {
         bots.forEach((b) => {
