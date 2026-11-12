@@ -124,6 +124,19 @@ H.panther = {
 
   // LMB Twin Claws swing (impact resolves in onStrikeImpact)
   onBasicAttack(st) {
+    return this.basicAttackFor(KitFx.player, st);
+  },
+
+  basicAttackFor(actor, st) {
+    if (!actor.isPlayer) {
+      const u = actor.unit, a = actor.aim();
+      u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+      u.stealthTimer = 0;
+      actor.play('punch', 0.04, true, 2.45, 0.82, 0.36);
+      u.pnStrike = { isKick: false, isHaymaker: false, isFlurry: false, isBite: false, facing: u.facing, t: 0.16 };
+      const L = (window.__kitBotLog = window.__kitBotLog || {}); L.pn_lmb = (L.pn_lmb || 0) + 1;
+      return;
+    }
     if ((hero.stealthTimer || 0) > 0) {
       hero.stealthTimer = 0;
       hero.stealthExitTimer = 4.0;
@@ -140,7 +153,12 @@ H.panther = {
 
   // LMB Twin Claws OR Q Slash & Gnash impact (1st hit = Slash swipe, 2nd hit = Gnash bite)
   onStrikeImpact(strike, ctx) {
+    return this.strikeImpactFor(KitFx.player, strike, ctx);
+  },
+
+  strikeImpactFor(actor, strike, ctx) {
     const { st, pProg, talents } = ctx;
+    const hero = actor.unit; // (local alias: the striker)
     const reach = strike.isBite ? 1.28 : 1.15;
     const fx = hero.x + Math.sin(strike.facing) * reach;
     const fz = hero.z + Math.cos(strike.facing) * reach;
@@ -161,7 +179,7 @@ H.panther = {
       : 0;
     let didHitAny = false;
 
-    dummies.forEach((d) => {
+    if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
         didHitAny = true;
@@ -183,11 +201,11 @@ H.panther = {
     });
 
     if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t) => {
+      actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
           const u = t.ref;
           const lowHpAmp = (strike.isFlurry && talents[3] === 'R' && u && u.hp / u.maxHp < 0.40 && t.kind !== 'structure') ? 1.30 : 1.0;
-          const hit = phase1Engine.dealPlayerDamageToUnit(t, Math.round(baseClawDmg * lowHpAmp), {
+          const hit = actor.damage(t, Math.round(baseClawDmg * lowHpAmp), {
             isBasic: !strike.isFlurry,
             dmgType: 'physical',
             color: strike.isFlurry ? '#2dd4bf' : '#fb7185'
@@ -197,7 +215,7 @@ H.panther = {
             if (u && (u.predatorMarks || 0) > 0 && (u.predatorMarkTimer || 0) > 0 && u.hp > 0) {
               u.predatorMarks--;
               const isThirdMark = (u.predatorMarks === 0);
-              phase1Engine.dealPlayerDamageToUnit(t, markBonusDmg, {
+              actor.damage(t, markBonusDmg, {
                 dmgType: 'fantasy',
                 slowDur: (isThirdMark && talents[7] === 'L') ? 1.25 : 0,
                 color: '#fde047'
@@ -221,6 +239,15 @@ H.panther = {
 
   // Q Slash & Gnash, E Predator's Leap, R Nightprowl
   cast(slot, ctx) {
+    return this.castFor(KitFx.player, slot, ctx);
+  },
+
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
+    if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { pProg, talents, cdrMult, rQE, rUlt } = ctx;
     const stNow = phase1Engine ? phase1Engine.getPlayerStats() : { pantherUnseen: true };
     if (slot === 'Q') {
@@ -321,7 +348,12 @@ H.panther = {
 
   // E Predator's Leap landing pounce + 3 Predator Marks
   onLeapLand(ctx) {
+    return this.leapLandFor(KitFx.player, ctx);
+  },
+
+  leapLandFor(actor, ctx) {
     const { st, pProg, talents } = ctx;
+    const hero = actor.unit; // (local alias: the pouncer)
     // Panther E (Predator's Leap) Landing Pounce + 3 Predator Marks!
     const pounceR = 2.65;
     const pounceDmg = Math.round(55 + (pProg.level || 1) * 11 + (st.fant || 0) * 0.75);
@@ -330,7 +362,7 @@ H.panther = {
     spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.30, pounceR, 0.28);
     spawnShockRing(hero.x, hero.z, 0xa855f7, 0.18, pounceR * 0.7, 0.22);
 
-    dummies.forEach((d) => {
+    if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - hero.x, d.z - hero.z) <= pounceR + d.r) {
         damageDummy(d, pounceDmg, '#a855f7');
@@ -346,14 +378,14 @@ H.panther = {
       }
     });
     if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t) => {
+      actor.hostiles().forEach((t) => {
         if (t.kind === 'structure') return;
         if (Math.hypot(t.x - hero.x, t.z - hero.z) <= pounceR + t.r) {
           if (t.ref) {
             t.ref.predatorMarks = 3;
             t.ref.predatorMarkTimer = 5.0;
           }
-          phase1Engine.dealPlayerDamageToUnit(t, pounceDmg, {
+          actor.damage(t, pounceDmg, {
             dmgType: 'fantasy',
             slowDur: isThroatPounce ? 2.0 : 0,
             stunDur: isThroatPounce ? 0.8 : 0,
@@ -370,6 +402,81 @@ H.panther = {
       });
     }
     hero.leapFromStealth = false;
+  },
+
+  // ---- Bots (Phase 2): strikes + the Slash -> Gnash sequence resolve in tickActor; E = engine leap with the kit's pounce
+  botCast(actor, slot, ctx) {
+    const { st, pProg, talents, rQE, rUlt } = ctx;
+    const hero = actor.unit;
+    const a = actor.aim();
+    hero.facing = Math.atan2(a.x - hero.x, a.z - hero.z);
+    const L = (window.__kitBotLog = window.__kitBotLog || {}); L['pn_' + slot] = (L['pn_' + slot] || 0) + 1;
+    if (slot === 'Q') {
+      if (hero.cdQ > 0) return;
+      hero.cdQ = [5.8, 5.0, 4.2][rQE];
+      hero.stealthTimer = 0;
+      actor.play('punch', 0.04, true, 2.40, 0.85, 0.54);
+      hero.pnStrike = { isKick: false, isFlurry: true, isBite: false, facing: hero.facing, t: 0.13 };
+      hero.pnFlurryT = 0.21; // then the Gnash bite
+      SFX.play('dash');
+      spawnFloat(hero.x, 2.65, hero.z, 'SLASH!', '#2dd4bf');
+    } else if (slot === 'E') {
+      if (hero.cdE > 0 || hero.leapTimer > 0) return;
+      hero.cdE = [7.5, 6.2, 5.0][rQE];
+      const fromUnseen = (hero.stealthTimer || 0) > 0;
+      hero.leapFromStealth = fromUnseen;
+      hero.stealthTimer = 0;
+      const dx = a.x - hero.x, dz = a.z - hero.z;
+      const dist = Math.hypot(dx, dz) || 0.01;
+      const maxRange = fromUnseen ? 7.8 * 1.65 : 7.8;
+      const leapDist = Math.min(maxRange, Math.max(0, dist - 1.15)); // land on top of them, just short
+      hero.leapSx = hero.x;
+      hero.leapSz = hero.z;
+      hero.leapTx = hero.x + (dx / dist) * leapDist;
+      hero.leapTz = hero.z + (dz / dist) * leapDist;
+      hero.leapDur = 0.36;
+      hero.leapTimer = 0.36;
+      actor.play('jump', 0.04, true, 1.65, 0.0, 0.42);
+      SFX.play('dash');
+      spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.22, 1.2, 0.22);
+      if (fromUnseen) spawnFloat(hero.x, 2.75, hero.z, 'SHADOW POUNCE (+65% RANGE)!', '#2dd4bf');
+      hero.leapOnLand = () => {
+        const lvl = actor.level();
+        this.leapLandFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });
+      };
+    } else if (slot === 'R') {
+      if (pProg.level < 4 || hero.cdR > 0) return;
+      hero.cdR = [38.0, 32.0, 26.0][rUlt];
+      hero.stealthTimer = 6.0;
+      SFX.play('dash');
+      spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);
+      spawnShockRing(hero.x, hero.z, 0xa855f7, 0.2, 1.8, 0.26);
+      spawnFloat(hero.x, 2.9, hero.z, 'NIGHTPROWL!', '#2dd4bf');
+    }
+  },
+
+  tickActor(actor, dt) {
+    if (actor.isPlayer) return;
+    const u = actor.unit;
+    if ((u.stunTimer || 0) > 0) { u.pnStrike = null; u.pnFlurryT = 0; return; }
+    if ((u.pnFlurryT || 0) > 0) {
+      u.pnFlurryT -= dt;
+      if (u.pnFlurryT <= 0) {
+        const a = actor.aim();
+        u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+        u.gnashAnim = 0.22; // the engine's forward bite lunge
+        u.pnStrike = { isKick: false, isFlurry: true, isBite: true, facing: u.facing, t: 0.14 };
+      }
+    }
+    if (u.pnStrike) {
+      u.pnStrike.t -= dt;
+      if (u.pnStrike.t <= 0) {
+        const strike = u.pnStrike;
+        u.pnStrike = null;
+        const lvl = actor.level();
+        this.strikeImpactFor(actor, strike, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });
+      }
+    }
   },
 
   // Release the E leap clip right after landing so it doesn't linger

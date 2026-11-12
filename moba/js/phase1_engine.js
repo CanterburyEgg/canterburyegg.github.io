@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true };
+    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -3331,84 +3331,20 @@ window.MOBA_PHASE1_ENGINE = (function () {
             b.facing = Math.atan2(tx - b.x, tz - b.z);
 
             // 1. PANTHER ROGUE BOT (R: Nightprowl Stealth Shimmer -> E: Predator's Leap -> Q: 2-Hit Slash & Gnash Sequence)
-            if (b.heroType === 'panther') {
-              if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 10.5 && (bestDist > 3.2 || (isHard && b.cdE <= 0.5))) {
-                b.cdR = [38.0, 32.0, 26.0][rUlt];
-                b.stealthTimer = [2.5, 3.0, 3.5][rUlt];
-                spawnShockRing(b.x, b.z, 0x2dd4bf, 0.3, 2.2, 0.28);
-                spawnFloat(b.x, 2.75, b.z, b.name + ': NIGHTPROWL!', '#2dd4bf');
-              }
-              const leapMax = (b.stealthTimer > 0 || isHard) ? 9.5 : 7.5;
-              if (b.cdE <= 0 && bestDist <= leapMax && (bestDist >= 2.2 || isHeroTarget)) {
-                const fromStealth = b.stealthTimer > 0;
-                const lockedTarget = bestTarget;
-                b.stealthTimer = 0;
-                b.cdE = [7.5, 6.2, 5.0][rQE];
-                const ang = Math.atan2(tx - b.x, tz - b.z);
-                b.leapSx = b.x;
-                b.leapSz = b.z;
-                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
-                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
-                b.leapDur = 0.36;
-                b.leapTimer = 0.36;
-                playBotAction(b, 'jump', 1.65, 0.0, 0.42);
-                spawnShockRing(b.x, b.z, 0x2dd4bf, 0.22, 1.2, 0.22);
-                b.leapOnLand = () => {
-                  const pounceDmg = Math.round((55 + b.level * 11 + (b.fant || 24) * 0.75) * scaleMult);
-                  spawnShockRing(b.x, b.z, 0x2dd4bf, 0.28, 2.4, 0.26);
-                  if (lockedTarget && lockedTarget.ref && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.2) {
-                    applyBotDamageToTarget(lockedTarget, pounceDmg, b, 'fantasy');
-                    applyBotCcAndEffects(lockedTarget, {
-                      marks: 3,
-                      stunDur: (isHard && fromStealth && b.level >= 10) ? 0.8 : 0,
-                      slowDur: (fromStealth && b.level >= 10) ? 1.5 : 0
-                    });
-                  }
-                  spawnFloat(b.x, 2.7, b.z, fromStealth && isHard ? 'THROAT POUNCE! (3x MARK)' : 'POUNCE! (3x MARK)', '#2dd4bf');
-                };
-              } else if (b.cdQ <= 0 && bestDist <= 2.5) {
-                b.stealthTimer = 0;
-                b.cdQ = [5.8, 5.0, 4.2][rQE];
-                const lockedTarget = bestTarget;
-                const rankMult = [1.0, 1.25, 1.50][rQE];
-                const lowHpAmp = (isHard && bestTarget.ref.hp / bestTarget.ref.maxHp < 0.40) ? 1.30 : 1.0;
-                const slashDmg = Math.round((45 + b.level * 8 + b.physAtk * 0.80) * lowHpAmp * scaleMult);
-                const gnashDmg = Math.round((65 + b.level * 12 + b.physAtk * 1.10) * lowHpAmp * scaleMult);
-                const healAmt = Math.round((50 + b.level * 11) * rankMult * (isHard ? 1.35 : 1.0));
-                const consumeOneMark = () => {
-                  if (lockedTarget && lockedTarget.ref && (lockedTarget.ref.predatorMarks || 0) > 0) {
-                    lockedTarget.ref.predatorMarks--;
-                    const markDmg = Math.round((34 + b.level * 7 + (b.fant || 24) * 0.80) * rankMult * scaleMult);
-                    applyBotDamageToTarget(lockedTarget, markDmg, b, 'fantasy');
-                    if (lockedTarget.ref.predatorMarks === 0 && isHard && b.level >= 7) {
-                      b.cdE = Math.max(0, b.cdE - 2.0);
-                      applyBotCcAndEffects(lockedTarget, { slowDur: 1.25 });
-                    }
-                  }
-                };
-                playBotAction(b, 'punch', 2.40, 0.85, 0.48);
-                // 1st Hit: Claw Slash at 0.13s
-                scheduleBotHit(b, 0.13, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.0) {
-                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0x2dd4bf, 0.20, 1.45, 0.20);
-                    applyBotDamageToTarget(lockedTarget, slashDmg, b, 'physical');
-                    consumeOneMark();
-                    spawnFloat(lockedTarget.ref.x, 2.55, lockedTarget.ref.z, 'SLASH!', '#2dd4bf');
-                  }
-                });
-                // 2nd Hit: Gnash Bite Lunge at 0.34s (with procedural forward bite lunge + crimson bite ring + self-heal!)
-                scheduleBotHit(b, 0.34, () => {
-                  b.gnashAnim = 0.22;
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.1) {
-                    b.hp = Math.min(b.maxHp, b.hp + healAmt);
-                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0xf43f5e, 0.25, 1.85, 0.24);
-                    applyBotDamageToTarget(lockedTarget, gnashDmg, b, 'physical');
-                    consumeOneMark();
-                    spawnFloat(b.x, 2.75, b.z, 'GNASH! (+' + healAmt + ' HP)', '#f43f5e');
-                  }
-                });
+            if (b.heroType === 'panther' && kitBotReady('panther')) {
+              // (Phase 2: the brain picks ability + aim; the real Panther kit casts)
+              const kit = window.MOBA_HEROES.panther;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 10.5 && bestDist > 3.2 && (b.stealthTimer || 0) <= 0) {
+                kit.castFor(actor, 'R'); // slip into stealth, then pounce from it
+              } else {
+                const leapMax = (b.stealthTimer || 0) > 0 ? 7.8 * 1.65 : 7.8;
+                if (b.cdE <= 0 && bestDist <= leapMax && (bestDist >= 2.2 || isHeroTarget)) {
+                  kit.castFor(actor, 'E');
+                } else if (b.cdQ <= 0 && bestDist <= 2.5) {
+                  kit.castFor(actor, 'Q');
+                }
               }
             }
 
@@ -3542,6 +3478,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
                   if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
                   spawnBotAstralBolt(b, lockedTarget, dmg);
                 });
+              } else if (b.heroType === 'panther' && kitBotReady('panther')) {
+                b.aimTarget = lockedTarget;
+                const actor = botActor(b);
+                window.MOBA_HEROES.panther.basicAttackFor(actor, actor.stats());
               } else if (b.heroType === 'panther') {
                 b.stealthTimer = 0;
                 playBotAction(b, 'punch', 2.45, 0.82, 0.34);
