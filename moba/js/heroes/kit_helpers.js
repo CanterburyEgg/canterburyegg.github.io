@@ -74,16 +74,18 @@ K.hitArea = function (x, z, r, dmg, opts = {}) {
 
 // Damage inside a frontal cone from the hero (range, half-angle in radians)
 K.hitCone = function (range, halfAngle, dmg, opts = {}) {
-  const fx = Math.sin(hero.facing), fz = Math.cos(hero.facing);
+  const by = opts.by || K.player; // opts.by = casting actor (cone from that unit's facing; bots skip dummies)
+  const u = by.unit;
+  const fx = Math.sin(u.facing), fz = Math.cos(u.facing);
   const inCone = (x, z, r) => {
-    const dx = x - hero.x, dz = z - hero.z;
+    const dx = x - u.x, dz = z - u.z;
     const d = Math.hypot(dx, dz);
     if (d > range + r) return false;
     if (d < 0.6) return true;
     return (dx * fx + dz * fz) / d >= Math.cos(halfAngle);
   };
   let hits = 0;
-  dummies.forEach((d) => {
+  if (by.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
     if (inCone(d.x, d.z, d.r)) {
       damageDummy(d, dmg, opts.color || '#fb7185');
@@ -92,9 +94,11 @@ K.hitCone = function (range, halfAngle, dmg, opts = {}) {
     }
   });
   if (phase1Engine) {
-    phase1Engine.getHostileTargets().forEach((t) => {
+    const o = Object.assign({}, opts);
+    delete o.by;
+    by.hostiles().forEach((t) => {
       if (t.kind === 'structure' && !opts.structures) return;
-      if (inCone(t.x, t.z, t.r || 0.5) && phase1Engine.dealPlayerDamageToUnit(t, dmg, opts)) hits++;
+      if (inCone(t.x, t.z, t.r || 0.5) && by.damage(t, dmg, o)) hits++;
     });
   }
   return hits;

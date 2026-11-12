@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true, fairy: true };
+    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true, panther: true, fairy: true, scientist: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -3063,6 +3063,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       bots.forEach((b) => {
         if (!b.rigLoaded) attachRigToBot(b);
         if (b.respawnTimer > 0) {
+          const hideKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+          if (hideKit && hideKit.botHide) hideKit.botHide(b);
           b.pendingHits = [];
           b.rChargeTimer = 0;
           b.gnashAnim = 0;
@@ -3442,6 +3444,24 @@ window.MOBA_PHASE1_ENGINE = (function () {
               }
             }
 
+            // 7. SAW SCIENTIST BOT (jungle diver): rev the saw up close and shut it off when nobody's in reach,
+            //    drink the injection when hurt in a fight, hurl the boomerang blade at a hero out of reach (it pulls them back)
+            else if (b.heroType === 'scientist' && kitBotReady('scientist')) {
+              const kit = window.MOBA_HEROES.scientist;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              const edge = bestDist - ((bestTarget.ref && bestTarget.ref.r) || 0.5); // gap to their edge (camps are big)
+              if (b.sawOn && (edge > 3.4 || (b.sawT || 0) > 5.0)) {
+                kit.castFor(actor, 'Q'); // saw off
+              } else if (b.level >= 4 && b.cdR <= 0 && !b.scBlade && isHeroTarget && bestDist >= 4.0 && bestDist <= 10.0) {
+                kit.castFor(actor, 'R');
+              } else if (b.cdE <= 0 && b.hp / b.maxHp < 0.6 && bestDist <= 5.0) {
+                kit.castFor(actor, 'E');
+              } else if (!b.sawOn && b.cdQ <= 0 && edge <= 2.6 && (isHeroTarget || bestTarget.kind === 'camp')) {
+                kit.castFor(actor, 'Q'); // saw on
+              }
+            }
+
             // 6. LITTLE FAIRY BOT (support): Lullaby on a crowd, Pixie Hop away when hurt (or onto a weak hero),
             //    Pop! bubble onto her target (its dust heals allies standing in it)
             else if (b.heroType === 'fairy' && kitBotReady('fairy')) {
@@ -3637,7 +3657,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (distGoal > 0.6 && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
             isMoving = true;
             const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : 0);
-            const spd = b.spd * (1 + bonusSpd) * (b.slowTimer > 0 ? 0.68 : 1.0);
+            const spdKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
+            const kitSpdMult = (spdKit && spdKit.botSpeedMult && kitBotReady(b.heroType)) ? spdKit.botSpeedMult(b) : 1;
+            const spd = b.spd * (1 + bonusSpd) * (b.slowTimer > 0 ? 0.68 : 1.0) * kitSpdMult;
             const steered = steerUnitAroundStructures(b, dx / distGoal, dz / distGoal, bestTarget ? bestTarget.ref : null);
             b.x += steered.vx * spd * dt;
             b.z += steered.vz * spd * dt;
@@ -3692,6 +3714,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
         const vis = b.team === 0 || isPointVisibleToOrder(b.x, b.z);
         b.pivot.visible = vis;
+        if (!vis) { const hk = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType]; if (hk && hk.botHide) hk.botHide(b); }
         if (b.bowPivot) b.bowPivot.visible = vis;
 
         if (b.mixer && vis) {

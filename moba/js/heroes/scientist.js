@@ -9,10 +9,13 @@ const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 let sawGun = null;          // world-space prop following the right hand
 let gunBlade = null;        // { holder, spin } code-built blade mounted on the gun's hub
 let sawGunLoading = false;
-let blade = null;           // R boomerang blade { mesh, out, t, sx, sz, ang, hitOut:Set, hitBack:Set, dmg }
+let blade = null;           // the player's R boomerang blade { mesh, out, t, sx, sz, ang, hitOut:Set, hitBack:Set, dmg }
+const botBlades = [];       // bots' blades (same shape + owner); a bot's own blade is also on its unit as scBlade
+let sawTemplate = null, sawTemplateLoading = false; // saw gun prop for bots (cloned per bot)
 let sawTick = 0;
 const sparks = [];
 let SPARK_GEO = null, SPARK_MAT = null;
+let _hv = null;
 
 function makeBladeMesh() {
   const g = new THREE.Group();
@@ -101,6 +104,20 @@ H.scientist = {
   },
 
   onBasicAttack(st) {
+    return this.basicAttackFor(KitFx.player, st);
+  },
+
+  basicAttackFor(actor, st) {
+    if (!actor.isPlayer) {
+      const u = actor.unit, a = actor.aim();
+      if (u.sawOn) return;
+      u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+      u.punchAnim = 0.34;
+      actor.play('punch', 0.05, true, 2.0, 0.15, 0.34);
+      u.scStrike = { t: 0.1, dmg: Math.round(st.atk * 1.0) };
+      const L = (window.__kitBotLog = window.__kitBotLog || {}); L.sc_lmb = (L.sc_lmb || 0) + 1;
+      return;
+    }
     if (hero.sawOn) return; // the saw is busy
     hero.atkTimer = 0.9 / (1 + st.asPct);
     hero.punchAnim = 0.34;
@@ -114,6 +131,15 @@ H.scientist = {
   },
 
   cast(slot, ctx) {
+    return this.castFor(KitFx.player, slot, ctx);
+  },
+
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
+    if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { st, cdrMult, rQE, pProg } = ctx;
     if (slot === 'Q') {
       if (hero.sawOn) {
@@ -201,12 +227,150 @@ H.scientist = {
     }
   },
 
+  // ---- Bots (Phase 2): saw toggle (no mana for bots; the brain shuts it off), injection, boomerang blade
+  botCast(actor, slot, ctx) {
+    const { st, rQE, pProg } = ctx;
+    const hero = actor.unit;
+    const a = actor.aim();
+    hero.facing = Math.atan2(a.x - hero.x, a.z - hero.z);
+    const L = (window.__kitBotLog = window.__kitBotLog || {}); L['sc_' + slot] = (L['sc_' + slot] || 0) + 1;
+    if (slot === 'Q') {
+      if (hero.sawOn) { hero.sawOn = false; hero.cdQ = 1.0; return; }
+      if (hero.cdQ > 0 || hero.scBlade) return;
+      hero.sawOn = true;
+      hero.sawT = 0;
+      hero.sawTick = 0;
+      SFX.play('arena');
+      spawnFloat(hero.x, 2.6, hero.z, 'BZZZZT!', '#4ade80');
+    } else if (slot === 'E') {
+      if (hero.cdE > 0) return;
+      hero.cdE = 10;
+      hero.kickAnim = 0.65;
+      actor.play('kick', 0.06, true, 2.2, 0.6, 0.65);
+      hero.pendingInject = { t: 0.5, rQE };
+    } else if (slot === 'R') {
+      if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade) return;
+      hero.cdR = 40;
+      hero.sawOn = false;
+      hero.kickAnim = 0.45;
+      actor.play('slide', 0.06, true, 1.8, 0.5, 0.45);
+      const mesh = makeBladeMesh();
+      mesh.visible = false;
+      scene.add(mesh);
+      const b = {
+        delay: 0.24, mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
+        hitOut: new Set(), hitBack: new Set(), dmg: Math.round([120, 170, 220][KitFx.rUlt(pProg.level || 1)] + st.atk * 0.6),
+        owner: actor
+      };
+      hero.scBlade = b;
+      botBlades.push(b);
+      SFX.play('dash');
+    }
+  },
+
+  tickActor(actor, dt) {
+    if (actor.isPlayer) return;
+    const u = actor.unit;
+    u.kickAnim = Math.max(0, (u.kickAnim || 0) - dt);
+    u.punchAnim = Math.max(0, (u.punchAnim || 0) - dt);
+    u.eSpeedBuffTimer = Math.max(0, (u.eSpeedBuffTimer || 0) - dt);
+    if ((u.stunTimer || 0) > 0) { u.scStrike = null; u.pendingInject = null; u.sawOn = false; }
+    if (u.scStrike && (u.scStrike.t -= dt) <= 0) {
+      const sk = u.scStrike;
+      u.scStrike = null;
+      KitFx.hitCone(2.1, 0.7, sk.dmg, { isBasic: true, color: '#fb7185', by: actor });
+    }
+    if (u.pendingInject && (u.pendingInject.t -= dt) <= 0) {
+      const rQE = u.pendingInject.rQE;
+      u.pendingInject = null;
+      const cost = Math.round(u.hp * 0.06);
+      u.hp = Math.max(1, u.hp - cost);
+      spawnFloat(u.x, 2.4, u.z, '-' + cost, '#fb7185');
+      u.injectTimer = 4.0;
+      u.injectHealPerSec = (cost * 1.6 + 30 + [0, 20, 40][rQE]) / 4.0;
+      u.eSpeedBuffTimer = 2.0;
+      SFX.play('chime');
+      spawnShockRing(u.x, u.z, 0x4ade80, 0.2, 1.2, 0.3);
+    }
+    if ((u.injectTimer || 0) > 0) {
+      u.injectTimer -= dt;
+      u.hp = Math.min(u.maxHp, u.hp + (u.injectHealPerSec || 0) * dt);
+    }
+    if (u.sawOn && (u.sawT || 0) > 6) { u.sawOn = false; u.cdQ = 1.0; } // safety: bots never rev forever
+    if (u.sawOn) {
+      u.sawT = (u.sawT || 0) + dt;
+      u.sawTick = (u.sawTick || 0) - dt;
+      if (u.sawTick <= 0) {
+        u.sawTick = 0.35;
+        const a = actor.aim();
+        u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+        const st = actor.stats();
+        const dmg = Math.round(14 + (st.atk || 0) * 0.18 + (st.fant || 0) * 0.2);
+        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', by: actor });
+        if (hits > 0) SFX.play('punch');
+      }
+    }
+  },
+
+  // Bots: revved saw = 25% slower, injection = +25% burst (the engine multiplies bot speed by this)
+  botSpeedMult(b) {
+    return (b.sawOn ? 0.75 : 1) * ((b.eSpeedBuffTimer || 0) > 0 ? 1.25 : 1);
+  },
+
+  // Bots: the saw gun in the right hand, its blade hidden while the boomerang is out
+  botVisual(b) {
+    if (!sawTemplate && !sawTemplateLoading && window.SCIENTIST_MIXAMO) {
+      sawTemplateLoading = true;
+      KitFx.loadPropGlb(window.SCIENTIST_MIXAMO.sawGunGlbB64, 0.75).then((p) => { sawTemplate = p; });
+    }
+    if (!sawTemplate || !b.rightHand) return;
+    if (!b.scGun) {
+      b.scGun = sawTemplate.clone(true);
+      const spin = makeBladeMesh();
+      spin.scale.setScalar(0.34);
+      const tilt = new THREE.Group();
+      tilt.rotation.z = Math.PI / 2;
+      tilt.add(spin);
+      b.scGunBlade = { tilt, spin };
+      scene.add(b.scGun);
+      scene.add(tilt);
+    }
+    if (!_hv) _hv = new THREE.Vector3();
+    b.model.updateMatrixWorld(true);
+    b.rightHand.getWorldPosition(_hv);
+    const yaw = b.facing || 0, fx = Math.sin(yaw), fz = Math.cos(yaw), rx = Math.cos(yaw), rz = -Math.sin(yaw);
+    b.scGun.position.set(_hv.x + rx * 0.02 + fx * 0.12, _hv.y - 0.02, _hv.z + rz * 0.02 + fz * 0.12);
+    b.scGun.rotation.set(0, yaw - Math.PI / 2, b.sawOn ? Math.sin(performance.now() * 0.08) * 0.03 : 0, 'YXZ');
+    b.scGun.visible = b.pivot.visible;
+    const gb = b.scGunBlade;
+    gb.tilt.visible = b.pivot.visible && !b.scBlade;
+    gb.tilt.position.set(_hv.x + rx * 0.02 + fx * 0.52, _hv.y + 0.03, _hv.z + rz * 0.02 + fz * 0.52);
+    gb.tilt.rotation.set(0, yaw, Math.PI / 2, 'YXZ');
+    gb.spin.rotation.y += b.sawOn ? 0.9 : (b.punchAnim > 0 ? 0.5 : 0);
+    gb.spin.userData.ring.material.color.setHex(b.sawOn ? 0x4ade80 : 0x3f4a44);
+  },
+
+  botHide(b) {
+    if (b.scGun) b.scGun.visible = false;
+    if (b.scGunBlade) b.scGunBlade.tilt.visible = false;
+  },
+
   updateWorld(dt) {
+    // bots' boomerang blades
+    for (let i = botBlades.length - 1; i >= 0; i--) {
+      const b = botBlades[i];
+      if (this.stepBlade(b, dt, b.owner)) { botBlades.splice(i, 1); b.owner.unit.scBlade = null; }
+    }
     if (!blade) return;
-    const b = blade;
+    if (this.stepBlade(blade, dt, KitFx.player)) blade = null;
+  },
+
+  // One boomerang blade step for any caster; returns true when it's back (done)
+  stepBlade(b, dt, actor) {
+    const hero = actor.unit; // (local alias: the thrower)
     if (b.delay > 0) {
       b.delay -= dt;
-      if (b.delay > 0) return;
+      if (b.delay > 0) return false;
       b.mesh.visible = true;
       b.sx = hero.x; b.sz = hero.z; b.ang = hero.facing;
     }
@@ -222,10 +386,9 @@ H.scientist = {
       const tx = hero.x, tz = hero.z;
       const cx = b.mesh.position.x, cz = b.mesh.position.z;
       const dd = Math.hypot(tx - cx, tz - cz);
-      if (dd < 0.8 || b.t > 2.5) {
+      if (dd < 0.8 || b.t > 2.5 || (hero.hp !== undefined && hero.hp <= 0)) {
         scene.remove(b.mesh);
-        blade = null;
-        return;
+        return true;
       }
       x = cx + ((tx - cx) / dd) * b.spd * 1.1 * dt;
       z = cz + ((tz - cz) / dd) * b.spd * 1.1 * dt;
@@ -235,7 +398,7 @@ H.scientist = {
     // hits: once per target per leg (out: slow; back: pull toward him)
     const set = b.out ? b.hitOut : b.hitBack;
     const hitOne = (key, fn) => { if (!set.has(key)) { set.add(key); fn(); } };
-    dummies.forEach((d) => {
+    if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - x, d.z - z) <= 0.9 + d.r) hitOne('d' + d.id, () => {
         damageDummy(d, b.dmg, '#4ade80');
@@ -244,7 +407,7 @@ H.scientist = {
       });
     });
     if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t, j) => {
+      actor.hostiles().forEach((t, j) => {
         if (t.kind === 'structure') return;
         if (Math.hypot(t.x - x, t.z - z) <= 0.9 + (t.r || 0.5)) hitOne(t.kind + (t.ref && t.ref.id || j), () => {
           const opts = { dmgType: 'physical', color: '#4ade80' };
@@ -254,10 +417,11 @@ H.scientist = {
             opts.knockbackDirX = hero.x - t.x;
             opts.knockbackDirZ = hero.z - t.z;
           }
-          phase1Engine.dealPlayerDamageToUnit(t, b.dmg, opts);
+          actor.damage(t, b.dmg, opts);
         });
       });
     }
+    return false;
   },
 
   // Saw gun follows the right hand

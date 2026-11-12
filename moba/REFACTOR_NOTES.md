@@ -51,7 +51,10 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   - [x] Panther (bots: Slash -> Gnash + LMB resolve in tickActor; E = engine leap with the kit's pounce + marks; R = 6s stealth like the player)
   - [x] Fairy (new brain: Lullaby on a crowd, hop away when hurt / onto a weak hero, Pop! at her target; bot visuals via
     kit.botVisual on bot.bones; bots now get their own kit's clipTweaks + pose overlays)
-  - [ ] Scientist  - [ ] Imp
+  - [x] Scientist (new brain: saw on within ~2.6m of a camp/hero edge and off when nobody's in reach (6s cap), injection when
+    hurt, blade at a hero 4-10m away; saw gun prop on bots; kit.botSpeedMult / botHide hooks)
+  - [ ] Imp
+  - [ ] Numbers pass: Scientist saw feels like it does almost no damage (~60 dps at Lv1 through armor) - player and bot alike
   - [ ] Investigate: brief hitch when a bot Fairy died (first-time shader compile of wings/dust materials?)
   - [ ] Delete the old bot-only ability copies (spawnBotCrossbowBolt, launchBotShrapnelGrenade, ...) once all 8 are on kits
   - Dev: `?chaoscarry=<hero>` swaps the enemy carry; `&simfast&botlog=N` runs a fast headless sim and logs bot kit casts.
