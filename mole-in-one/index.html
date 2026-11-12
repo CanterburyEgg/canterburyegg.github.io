@@ -1470,7 +1470,7 @@ function loadSavedProgressFromStorage() {
             holeScores = parsed.holeScores || {};
             holeStates = parsed.holeStates || {};
             lastActiveView = parsed.lastActiveView || null;
-            if (parsed.scheduleEpoch !== DAILY_EPOCH_DAY) {
+            if (parsed.scheduleEpoch !== DAILY_SCHEDULE_ID) {
                 for (const store of [holeScores, holeStates]) {
                     for (const k of Object.keys(store)) {
                         if (k.startsWith("daily_")) delete store[k];
@@ -1489,7 +1489,7 @@ function saveProgressToStorage() {
         const payload = {
             holeScores,
             holeStates,
-            scheduleEpoch: DAILY_EPOCH_DAY,
+            scheduleEpoch: DAILY_SCHEDULE_ID,
             lastActiveView: {
                 mode: currentMode,
                 courseIdx: activeCourseIdx,
@@ -1766,27 +1766,33 @@ let calendarMonthOffset = 0; // 0 = current month, -1 = previous month, etc.
 let catSubsetPairsSet = new Set();
 const dailyBoardCache = {};
 
-// Rolling random daily draw state starting from Jan 1, 2024 (UTC day 19723):
-// - Every daily game randomly draws from all eligible non-course mammals for that day's Par
-// - Any mammal drawn is locked out for 6 months (182 days) across ALL Pars
-// - Any mammal with only 1 valid board (single_board: true) is locked out for 1 full year (365 days)
-// - When a multi-board mammal is eventually randomly drawn again 6+ months later, a brand-new
-//   category board is synthesized for it
+// Daily schedule, built day by day from the first daily hole:
+// - Each day randomly draws an answer that hasn't been an answer in the last 182 days
+// - Boards are brand new whenever possible: never a repeat of an earlier daily board or a course hole.
+//   An answer uses its base board first, then its pre-built alternates, then freshly generated boards
+// - Only when an answer has no unused board left for a Par may one of its old boards come back,
+//   and only if that board hasn't been shown in the last 365 days
 const DAILY_EPOCH_DAY = 20758; // November 1, 2026: the first daily hole
+const DAILY_ANSWER_COOLDOWN = 182;
+// Bump when the schedule logic changes: saved daily progress from an older schedule is dropped
+const DAILY_SCHEDULE_ID = `${DAILY_EPOCH_DAY}-unique-boards`;
 let dailyScheduleUpToDay = DAILY_EPOCH_DAY - 1;
-let dailyPickByDay = {};
+let dailyBoardByDay = {};
 let dailyLastUsedDay = {};
-let dailyLastWasSingle = {};
-let dailyAppearanceHistory = {};
+let dailyUsedSigs = {};      // answer name -> Set of board signatures already shown
+let dailyRetired = new Set(); // `${name}|${par}` with no unused board left (old boards may return yearly)
+let dailyBoardLastDay = {};   // answer name -> { board signature: { last: day shown, board } }
+const DAILY_BOARD_REPEAT_DAYS = 365;
 let dailyPar4NameSet = new Set();
 
 function resetDailyScheduleState() {
     for (const k of Object.keys(dailyBoardCache)) delete dailyBoardCache[k];
     dailyScheduleUpToDay = DAILY_EPOCH_DAY - 1;
-    dailyPickByDay = {};
+    dailyBoardByDay = {};
     dailyLastUsedDay = {};
-    dailyLastWasSingle = {};
-    dailyAppearanceHistory = {};
+    dailyUsedSigs = {};
+    dailyRetired = new Set();
+    dailyBoardLastDay = {};
     const pools = (DB && DB.daily_pools) || {};
     dailyPar4NameSet = new Set((pools.par4 || []).map(x => (x.hole_in_ones && x.hole_in_ones[0]) || ""));
 }
@@ -1798,6 +1804,16 @@ function makeDatePrng(seed) {
         a ^= a + Math.imul(a ^ (a >>> 7), a | 61);
         return ((a ^ (a >>> 14)) >>> 0) / 4294967296;
     };
+}
+
+function weightedPick(cards, k, rng) {
+    // Weighted sampling without replacement (rare cards have a small weight)
+    const keyed = cards.map(c => {
+        const w = (catMap[c] && catMap[c].weight) || 1;
+        return { c, key: Math.pow(rng(), 1 / w) };
+    });
+    keyed.sort((a, b) => b.key - a.key);
+    return keyed.slice(0, k).map(x => x.c);
 }
 
 function seededShuffle(arr, rng) {
@@ -1832,148 +1848,112 @@ function getDailySlotForDate(dateObj) {
     return { y, m, d, dow, dayIndex, targetPar, dateKey };
 }
 
+function boardSig(cats) {
+    return [...cats].sort().join("|");
+}
+
+function dailyOffCooldown(name, d) {
+    const lastD = dailyLastUsedDay[name];
+    return lastD === undefined || d - lastD >= DAILY_ANSWER_COOLDOWN;
+}
+
+// Generate a new board for this answer that has never been used before
+function generateFreshBoard(entry, par, d, usedSigs) {
+    const anchorName = entry.hole_in_ones[0];
+    const roster = DB.pokemon || DB.mammals;
+    const anchor = roster.find(x => x.name === anchorName);
+    if (!anchor) return null;
+    const rng = makeDatePrng(Math.imul(d, 2246822519) + Math.imul(usedSigs.size + 1, 3266489917));
+    const bioCats = DB.categories.filter(c => c.group !== "name").map(c => c.id);
+    const nameCats = DB.categories.filter(c => c.group === "name").map(c => c.id);
+    const mBio = anchor.traits.filter(t => bioCats.includes(t));
+    const mName = anchor.traits.filter(t => nameCats.includes(t));
+    const rawSplits = par === 2 ? [[5, 1], [4, 2]] : (par === 3 ? [[7, 2], [6, 3], [8, 1]] : [[9, 3], [8, 4], [10, 2], [7, 5]]);
+    for (const [nBio, nName] of seededShuffle(rawSplits, rng)) {
+        if (mBio.length < nBio || mName.length < nName) continue;
+        for (let attempt = 0; attempt < 120; attempt++) {
+            const cand = [
+                ...weightedPick(mBio, nBio, rng),
+                ...seededShuffle(mName, rng).slice(0, nName)
+            ];
+            const sig = boardSig(cand);
+            if (usedSigs.has(sig) || baseSignaturesSet.has(sig)) continue;
+            if (!areCategoriesOrthogonalClient(cand)) continue;
+            const solved = solveBoardParClient(cand, par);
+            if (solved && solved.hole_in_ones[0] === anchorName) {
+                return { ...entry, categories: seededShuffle(cand, rng), sample_solution: solved.sample_solution };
+            }
+        }
+    }
+    return null;
+}
+
+// The next board for this answer: a never-used one if possible (base board, alternates, then a
+// generated one); otherwise the old board shown longest ago, if that was at least a year ago.
+function nextFreshBoard(entry, par, d) {
+    const name = entry.hole_in_ones[0];
+    const usedSigs = dailyUsedSigs[name] || (dailyUsedSigs[name] = new Set());
+    const retiredKey = `${name}|${par}`;
+    if (!dailyRetired.has(retiredKey)) {
+        for (const b of [entry, ...(entry.alt_boards || [])]) {
+            const sig = boardSig(b.categories);
+            if (!usedSigs.has(sig) && !baseSignaturesSet.has(sig)) {
+                return { ...entry, categories: b.categories, sample_solution: b.sample_solution };
+            }
+        }
+        const fresh = generateFreshBoard(entry, par, d, usedSigs);
+        if (fresh) return fresh;
+        dailyRetired.add(retiredKey);
+    }
+    // Out of new boards: reuse the oldest board for this Par, but only after a full year
+    let oldest = null;
+    for (const shown of Object.values(dailyBoardLastDay[name] || {})) {
+        if (shown.board.par !== par) continue;
+        if (d - shown.last >= DAILY_BOARD_REPEAT_DAYS && (!oldest || shown.last < oldest.last)) oldest = shown;
+    }
+    return oldest ? { ...oldest.board } : null;
+}
+
 function ensureDailyScheduleUpTo(targetDayIndex) {
     const pools = (DB && DB.daily_pools) || {};
     const par4Pool = pools.par4 || [];
 
     for (let d = dailyScheduleUpToDay + 1; d <= targetDayIndex; d++) {
         const par = getTargetParForDayIndex(d);
-        const poolKey = par === 2 ? "par2" : (par === 3 ? "par3" : "par4");
-        const pool = pools[poolKey] || [];
+        const pool = pools[par === 2 ? "par2" : (par === 3 ? "par3" : "par4")] || [];
+        const usable = e => true; // answers out of new boards can still reuse a year-old board
 
-        // Keep at least 25 Par-4-capable mammals off cooldown for weekend Par 4 games
+        // Keep at least 25 Par-4-capable answers available for weekend Par 4 holes
         let reservePar4 = false;
         if (par !== 4 && par4Pool.length > 0) {
-            let availP4 = 0;
-            for (const x of par4Pool) {
-                const nm = x.hole_in_ones[0];
-                const lastD = dailyLastUsedDay[nm] !== undefined ? dailyLastUsedDay[nm] : -999999;
-                const cd = (x.single_board || dailyLastWasSingle[nm]) ? 365 : 182;
-                if (d - lastD >= cd) availP4++;
-            }
-            reservePar4 = (availP4 <= 25);
+            const availP4 = par4Pool.filter(x => dailyOffCooldown(x.hole_in_ones[0], d)
+                && !dailyRetired.has(`${x.hole_in_ones[0]}|4`)).length;
+            reservePar4 = availP4 <= 25;
         }
 
-        const eligible = [];
-        for (const entry of pool) {
-            const nm = (entry.hole_in_ones && entry.hole_in_ones[0]) || "";
-            if (!nm) continue;
-            const lastD = dailyLastUsedDay[nm] !== undefined ? dailyLastUsedDay[nm] : -999999;
-            const cooldownDays = (entry.single_board || dailyLastWasSingle[nm]) ? 365 : 182;
-            if (d - lastD < cooldownDays) continue;
+        let cands = pool.filter(e => usable(e) && dailyOffCooldown(e.hole_in_ones[0], d)
+            && !(reservePar4 && dailyPar4NameSet.has(e.hole_in_ones[0])));
+        if (cands.length === 0) cands = pool.filter(e => usable(e) && dailyOffCooldown(e.hole_in_ones[0], d));
+        if (cands.length === 0) cands = pool.filter(usable);
 
-            // Also ensure no individual board for this mammal can ever repeat within 365 days
-            const histKey = `${nm}|${par}`;
-            const prevForPar = dailyAppearanceHistory[histKey] || [];
-            const knownBoardsCount = 1 + ((entry.alt_boards && entry.alt_boards.length) || 0);
-            if (prevForPar.length >= knownBoardsCount) {
-                const boardLastUsedD = prevForPar[prevForPar.length - knownBoardsCount];
-                if (d - boardLastUsedD < 365) continue;
-            }
-
-            if (reservePar4 && dailyPar4NameSet.has(nm)) continue;
-            eligible.push(entry);
-        }
-
-        const cands = eligible.length > 0 ? eligible : pool;
         const rng = makeDatePrng(Math.imul(d, 2654435761));
-        const chosenEntry = cands[Math.floor(rng() * cands.length)];
-        const chosenName = (chosenEntry && chosenEntry.hole_in_ones && chosenEntry.hole_in_ones[0]) || "";
+        let board = null;
+        for (const entry of seededShuffle(cands, rng)) {
+            board = nextFreshBoard(entry, par, d);
+            if (board) break;
+        }
+        if (!board) continue; // nothing left anywhere (would take many decades)
 
-        const histKey = `${chosenName}|${par}`;
-        const prevList = dailyAppearanceHistory[histKey] || [];
-        const appearanceIdx = prevList.length;
-
-        dailyPickByDay[d] = {
-            entry: chosenEntry,
-            targetPar: par,
-            appearanceIdx,
-            prevDays: [...prevList]
-        };
-
-        prevList.push(d);
-        dailyAppearanceHistory[histKey] = prevList;
-        dailyLastUsedDay[chosenName] = d;
-        dailyLastWasSingle[chosenName] = Boolean(chosenEntry && chosenEntry.single_board);
+        const name = board.hole_in_ones[0];
+        dailyBoardByDay[d] = board;
+        dailyUsedSigs[name].add(boardSig(board.categories));
+        (dailyBoardLastDay[name] || (dailyBoardLastDay[name] = {}))[boardSig(board.categories)] = { last: d, board };
+        dailyLastUsedDay[name] = d;
     }
 
     if (targetDayIndex > dailyScheduleUpToDay) {
         dailyScheduleUpToDay = targetDayIndex;
     }
-}
-
-function synthesizeBoardForScheduledPick(dayIndex) {
-    const pick = dailyPickByDay[dayIndex];
-    if (!pick || !pick.entry) return null;
-    const { entry: baseTemplate, targetPar, appearanceIdx, prevDays } = pick;
-
-    // First time this mammal is drawn for this Par (or if it only has a single valid board,
-    // which is gated to <= once per 365 days), use its verified base template
-    if (appearanceIdx === 0 || baseTemplate.single_board) {
-        return baseTemplate;
-    }
-
-    const altBoards = baseTemplate.alt_boards || [];
-    // If we have a pre-verified distinct board for this repeat appearance, use it directly!
-    if (appearanceIdx <= altBoards.length) {
-        const alt = altBoards[appearanceIdx - 1];
-        return {
-            ...baseTemplate,
-            categories: alt.categories,
-            sample_solution: alt.sample_solution
-        };
-    }
-
-    // Collect signatures used within the last 365 days so we never repeat a board within a year
-    const forbiddenSigs = new Set();
-    for (const prevD of prevDays) {
-        if (prevD === dayIndex || dayIndex - prevD >= 365) continue;
-        const prevBoard = synthesizeBoardForScheduledPick(prevD);
-        if (prevBoard && prevBoard.categories) {
-            forbiddenSigs.add([...prevBoard.categories].sort().join("|"));
-        }
-    }
-
-    const anchorName = (baseTemplate.hole_in_ones && baseTemplate.hole_in_ones[0]) || "";
-    const anchorMammal = DB.mammals.find(x => x.name === anchorName);
-    if (anchorMammal) {
-        const rng = makeDatePrng(Math.imul(dayIndex, 2246822519) + Math.imul(appearanceIdx, 3266489917));
-        const bioCats = DB.categories.filter(c => c.group !== "name").map(c => c.id);
-        const nameCats = DB.categories.filter(c => c.group === "name").map(c => c.id);
-        const mBio = anchorMammal.traits.filter(t => bioCats.includes(t));
-        const mName = anchorMammal.traits.filter(t => nameCats.includes(t));
-        const rawSplits = targetPar === 2 ? [[5, 1], [4, 2]] : (targetPar === 3 ? [[7, 2], [6, 3], [8, 1]] : [[9, 3], [8, 4], [10, 2], [7, 5]]);
-        const splits = seededShuffle(rawSplits, rng);
-
-        for (const [nBio, nName] of splits) {
-            if (mBio.length < nBio || mName.length < nName) continue;
-            for (let attempt = 0; attempt < 90; attempt++) {
-                const cand = [
-                    ...seededShuffle(mBio, rng).slice(0, nBio),
-                    ...seededShuffle(mName, rng).slice(0, nName)
-                ];
-                const sig = [...cand].sort().join("|");
-                if (forbiddenSigs.has(sig) || baseSignaturesSet.has(sig)) continue;
-                if (!areCategoriesOrthogonalClient(cand)) continue;
-                const solved = solveBoardParClient(cand, targetPar);
-                if (solved && solved.hole_in_ones[0] === anchorName) {
-                    return {
-                        ...baseTemplate,
-                        categories: seededShuffle(cand, rng),
-                        sample_solution: solved.sample_solution
-                    };
-                }
-            }
-        }
-    }
-
-    const allKnown = [baseTemplate, ...altBoards];
-    const chosenKnown = allKnown[appearanceIdx % allKnown.length];
-    return {
-        ...baseTemplate,
-        categories: chosenKnown.categories,
-        sample_solution: chosenKnown.sample_solution
-    };
 }
 
 function getDailyBoardForDate(dateObj) {
@@ -1983,7 +1963,7 @@ function getDailyBoardForDate(dateObj) {
     }
 
     ensureDailyScheduleUpTo(Math.max(DAILY_EPOCH_DAY, dayIndex));
-    const chosenBoard = synthesizeBoardForScheduledPick(Math.max(DAILY_EPOCH_DAY, dayIndex));
+    const chosenBoard = dailyBoardByDay[Math.max(DAILY_EPOCH_DAY, dayIndex)];
 
     const dateLabel = `${DAY_NAMES_FULL[dow]}, ${MONTH_NAMES_SHORT[m]} ${d}`;
     const result = {
