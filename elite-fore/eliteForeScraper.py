@@ -9,7 +9,7 @@ Usage:
   python3 elite-fore/eliteForeScraper.py --fetch    # one-time download of the CSVs (needs network)
   python3 elite-fore/eliteForeScraper.py --counts   # print how many Pokémon fit each card
   python3 elite-fore/eliteForeScraper.py --stuck    # list Pokémon that can never be a unique answer
-  python3 elite-fore/eliteForeScraper.py --build    # build courses + daily pools, write elite_fore.json and sync index.html
+  python3 elite-fore/eliteForeScraper.py --build    # build courses + daily pools and write elite_fore.json (the page loads it)
 """
 
 from __future__ import annotations
@@ -50,7 +50,6 @@ ENGLISH = "9"
 MIN_CARD_SIZE = 40
 CORE_FRACTION = 0.40
 OUT_JSON_PATH = POKE_DIR / "elite_fore.json"
-HTML_PATH = POKE_DIR / "index.html"
 MAX_FACTS_PER_POKEMON = 8
 FACT_FIXES_PATH = POKE_DIR / "pokedex_fixes.json"
 CUT_CARD_PREFIXES = ("shape_",)
@@ -1001,17 +1000,8 @@ def write_outputs(roster: list[dict[str, Any]], game: dict[str, Any]) -> None:
         "daily_pools": game["daily_pools"],
         "boards": all_base,
     }
-    OUT_JSON_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
+    OUT_JSON_PATH.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"Saved {OUT_JSON_PATH} ({OUT_JSON_PATH.stat().st_size:,} bytes)")
-    if HTML_PATH.exists():
-        html = HTML_PATH.read_text(encoding="utf-8")
-        marker = re.compile(r"/\* __ELITE_FORE_DATA_START__ \*/.*?/\* __ELITE_FORE_DATA_END__ \*/", re.S)
-        block = ("/* __ELITE_FORE_DATA_START__ */\n"
-                 f"const EMBEDDED_POKEMON_DATA = {json.dumps(payload, ensure_ascii=False, separators=(',', ':'))};\n"
-                 "/* __ELITE_FORE_DATA_END__ */")
-        if marker.search(html):
-            HTML_PATH.write_text(marker.sub(lambda _: block, html), encoding="utf-8")
-            print(f"Synced data into {HTML_PATH}")
 
 
 def main() -> None:

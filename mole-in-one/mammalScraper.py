@@ -1992,50 +1992,28 @@ def main() -> None:
     # Flatten all base course holes into `boards` for backward compatibility
     all_base_boards = [h for c in courses for h in c["holes"]]
 
+    # Compact payload the page loads with fetch(): mammals packed as
+    # [name, category indexes, views, aliases, facts]
+    cat_idx = {c["id"]: i for i, c in enumerate(CATEGORY_DEFS)}
     payload = {
         "categories": CATEGORY_DEFS,
-        "mammals": mammals,
+        "mammals_packed": [
+            [
+                m["name"],
+                [cat_idx[t] for t in m["traits"] if t in cat_idx],
+                m.get("views_60d", 500),
+                m.get("aliases", []),
+                m.get("facts", []),
+            ]
+            for m in mammals
+        ],
         "courses": courses,
         "daily_pools": daily_pools,
         "boards": all_base_boards,
     }
     OUT_JSON_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_JSON_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    OUT_JSON_PATH.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(f"\nSaved to {OUT_JSON_PATH}")
-
-    # Also sync compact embedded data into index.html so all mammals work over file://
-    html_path = MAMMAL_DIR / "index.html"
-    if html_path.exists():
-        cat_idx = {c["id"]: i for i, c in enumerate(CATEGORY_DEFS)}
-        compact_payload = {
-            "categories": CATEGORY_DEFS,
-            "mammals_packed": [
-                [
-                    m["name"],
-                    [cat_idx[t] for t in m["traits"] if t in cat_idx],
-                    m.get("views_60d", 500),
-                    m.get("aliases", []),
-                    m.get("facts", []),
-                ]
-                for m in mammals
-            ],
-            "courses": courses,
-            "daily_pools": daily_pools,
-            "boards": all_base_boards,
-        }
-        html_text = html_path.read_text(encoding="utf-8")
-        marker_re = re.compile(
-            r"/\* __MOLE_IN_ONE_DATA_START__ \*/.*?/\* __MOLE_IN_ONE_DATA_END__ \*/",
-            re.S,
-        )
-        replacement_block = (
-            "/* __MOLE_IN_ONE_DATA_START__ */\n"
-            f"const EMBEDDED_MAMMAL_DATA = {json.dumps(compact_payload, ensure_ascii=False, separators=(',', ':'))};\n"
-            "/* __MOLE_IN_ONE_DATA_END__ */"
-        )
-        if marker_re.search(html_text):
-            html_path.write_text(marker_re.sub(lambda _: replacement_block, html_text), encoding="utf-8")
-            print(f"Synced {len(mammals):,} mammals, 3 courses, and daily pools into {html_path}")
 
 
 if __name__ == "__main__":
