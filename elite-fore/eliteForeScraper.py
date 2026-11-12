@@ -618,7 +618,8 @@ def name_the_pokemon(text: str, name: str) -> str | None:
         return text  # e.g. "With their taillights lit, Volbeat fly..." reads naturally
 
     # "This Pokémon ..." / "This friendly Pokémon ..." opener
-    m = re.match(r"^This ((?:[\w\-]+ ){0,3})Pokémon(’s|'s)?\b", first)
+    # Adjectives only: "This friendly Pokémon", never "This is a ferocious Pokémon"
+    m = re.match(r"^This ((?:(?!(?:is|was|are|were|has|had|can|will|may|does|did)\b)[\w\-]+ ){0,3})Pokémon(’s|'s)?\b", first)
     if m:
         adjectives, poss = m.group(1).strip(), m.group(2)
         if poss:
@@ -677,6 +678,14 @@ MANUAL_FACTS: dict[str, list[str]] = {
 }
 
 
+def remove_em_dashes(text: str) -> str:
+    """No em-dashes in game text: a dash between words becomes a comma."""
+    t = re.sub(r"\s*[—–]\s*", ", ", text)
+    t = re.sub(r",\s*,", ",", t)
+    t = re.sub(r",\s*([.!?])", r"\1", t)
+    return t
+
+
 def build_fun_facts(roster: list[dict[str, Any]]) -> dict[int, list[str]]:
     # Hand-reviewed corrections: {cleaned original entry: corrected entry}. Kept in a file so they
     # survive rebuilds; covers cases the automatic rewrite gets wrong (e.g. "When it gets dark").
@@ -699,6 +708,7 @@ def build_fun_facts(roster: list[dict[str, Any]]) -> dict[int, list[str]]:
                 t = fact_fixes[cleaned]
             if t is None:
                 continue
+            t = remove_em_dashes(t)
             key = re.sub(r"[^a-z]", "", t.lower())
             if key in seen or len(t) < 25:
                 continue
