@@ -159,7 +159,7 @@ async function bootArenaWithLoadingBar() {
       n++;
       const bl = phase1Engine && phase1Engine.devBots ? phase1Engine.devBots() : [];
       const info = { t: Math.round(phase1Engine ? phase1Engine.devMatchTime() : 0) };
-      bl.forEach((b) => { if (b.heroType === 'coyote' || b.heroType === 'brawler') info[b.id] = [Math.round(b.x), Math.round(b.z), 'L' + b.level, Math.round(b.hp), 'sh' + Math.round(b.shield || 0) + '/' + (b.shieldTimer || 0).toFixed(1) + ' rc' + (b.eRecast || 0).toFixed(1), b.respawnTimer > 0 ? 'DEAD' : '']; });
+      bl.forEach((b) => { info[b.id] = [Math.round(b.x), Math.round(b.z), 'L' + b.level, Math.round(b.hp), 'sh' + Math.round(b.shield || 0) + '/' + (b.shieldTimer || 0).toFixed(1) + ' rc' + (b.eRecast || 0).toFixed(1), b.respawnTimer > 0 ? 'DEAD' : '']; });
       console.log('BOTLOG ' + n + ' ' + JSON.stringify(window.__kitBotLog || {}) + ' ' + JSON.stringify(info));
       if (window.__dashDbg && window.__dashDbg.length) { console.log('BOTLOG dash ' + JSON.stringify(window.__dashDbg)); window.__dashDbg = []; }
       if (n >= 20) { clearInterval(iv); console.log("BOTLOG done"); }

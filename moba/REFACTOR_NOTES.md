@@ -47,7 +47,8 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   - [x] Coyote (player selftest rows identical; bots now use the player formulas, so they hit harder than the old bot copy)
   - [x] Brawler (bots: Q fires the kick at once, E has its own dash collision, R uses the engine's bot Pit Arena)
   - [x] Sorceress (bots: E dashes away from close threats or sidesteps, then the real homing bolts; R = engine bot monolith, collapse only with 10L)
-  - [ ] Bodyguard  - [ ] Panther  - [ ] Fairy  - [ ] Scientist  - [ ] Imp
+  - [x] Bodyguard (bots: Q haymaker knockback + LMB resolve in tickActor; E = engine leap with the kit's landing slam; R taunt = half-length stun on the player)
+  - [ ] Panther  - [ ] Fairy  - [ ] Scientist  - [ ] Imp
   - [ ] Delete the old bot-only ability copies (spawnBotCrossbowBolt, launchBotShrapnelGrenade, ...) once all 8 are on kits
   - Dev: `?chaoscarry=<hero>` swaps the enemy carry; `&simfast&botlog=N` runs a fast headless sim and logs bot kit casts.
 - [ ] **See-through walls (pinned 2026-11-10)**: when the player (or something they need to see) is behind a wall, tree

@@ -180,6 +180,18 @@ H.bodyguard = {
 
   // LMB Brass Knuckles hook punch (impact resolves in onStrikeImpact)
   onBasicAttack(st) {
+    return this.basicAttackFor(KitFx.player, st);
+  },
+
+  basicAttackFor(actor, st) {
+    if (!actor.isPlayer) {
+      const u = actor.unit, a = actor.aim();
+      u.facing = Math.atan2(a.x - u.x, a.z - u.z);
+      actor.play('punch', 0.05, true, 2.15, 0.42, 0.5);
+      u.bgStrike = { isKick: false, isHaymaker: false, facing: u.facing, t: 0.27 };
+      const L = (window.__kitBotLog = window.__kitBotLog || {}); L.bg_lmb = (L.bg_lmb || 0) + 1;
+      return;
+    }
     hero.atkTimer = 1.30 / (1 + st.asPct);
     // Hook Punch.fbx (2.17s): skip the 0.42s off-hand guard shift and start right as the right shoulder cocks back;
     // at 2.15x speed, the Right-Hand Hook Punch impacts at t = 0.27s (clipTime = 1.00s) and finishes follow-through at 0.50s!
@@ -192,7 +204,12 @@ H.bodyguard = {
 
   // LMB Brass Knuckles OR Q Bouncer Haymaker knockback impact
   onStrikeImpact(strike, ctx) {
+    return this.strikeImpactFor(KitFx.player, strike, ctx);
+  },
+
+  strikeImpactFor(actor, strike, ctx) {
     const { st, pProg, talents } = ctx;
+    const hero = actor.unit; // (local alias: the striker)
     const reach = strike.isHaymaker ? 1.45 : 1.18;
     const fx = hero.x + Math.sin(strike.facing) * reach;
     const fz = hero.z + Math.cos(strike.facing) * reach;
@@ -206,7 +223,7 @@ H.bodyguard = {
     const kbDist = strike.isHaymaker ? 3.8 : 0;
     const wallStun = strike.isHaymaker && talents[3] === 'L';
 
-    dummies.forEach((d) => {
+    if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
         damageDummy(d, dmg, strike.isHaymaker ? '#38bdf8' : '#fb7185');
@@ -231,7 +248,7 @@ H.bodyguard = {
     });
 
     if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t) => {
+      actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
           let dirX = t.x - hero.x;
           let dirZ = t.z - hero.z;
@@ -239,7 +256,7 @@ H.bodyguard = {
             dirX = Math.sin(strike.facing);
             dirZ = Math.cos(strike.facing);
           }
-          phase1Engine.dealPlayerDamageToUnit(t, dmg, {
+          actor.damage(t, dmg, {
             isBasic: !strike.isHaymaker,
             dmgType: 'physical',
             knockbackDist: kbDist,
@@ -257,7 +274,16 @@ H.bodyguard = {
 
   // Q Bouncer Haymaker, E Crowd Dive, R Eyes On Me!
   cast(slot, ctx) {
+    return this.castFor(KitFx.player, slot, ctx);
+  },
+
+  castFor(actor, slot, ctx) {
+    if (!ctx) {
+      const lvl = actor.level();
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+    }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
+    if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     if (slot === 'Q') {
       if (hero.leapTimer > 0) return;
       if (!wtfMode && hero.cdQ > 0) return;
@@ -300,13 +326,22 @@ H.bodyguard = {
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.45 : [44.0, 38.0, 32.0][rUlt] * cdrMult;
+      this.eyesOnMe(KitFx.player, ctx);
+    }
+    return;
+  },
 
+  // R Eyes On Me! for any actor: taunt + damage around her, shield scaled by how many enemies she caught
+  eyesOnMe(actor, ctx) {
+    const { st, pProg, talents, rUlt } = ctx;
+    const hero = actor.unit;
+    {
       const rRad = talents[10] === 'L' ? 6.0 : 4.8;
       const rDmg = Math.round(75 + (pProg.level || 1) * 14 + st.atk * 0.50);
       const tauntDur = [1.5, 1.75, 2.0][rUlt];
       let enemyScore = 0;
 
-      dummies.forEach((d) => {
+      if (actor.isPlayer) dummies.forEach((d) => {
         if (d.isShooter && !shooterEnabled) return;
         if (Math.hypot(d.x - hero.x, d.z - hero.z) <= rRad + d.r) {
           damageDummy(d, rDmg, '#fde047');
@@ -315,15 +350,15 @@ H.bodyguard = {
         }
       });
       if (phase1Engine) {
-        phase1Engine.getHostileTargets().forEach((t) => {
+        actor.hostiles().forEach((t) => {
           if (t.kind === 'structure') return;
           if (Math.hypot(t.x - hero.x, t.z - hero.z) <= rRad + t.r) {
-            const hit = phase1Engine.dealPlayerDamageToUnit(t, rDmg, {
+            const hit = actor.damage(t, rDmg, {
               dmgType: 'physical',
               tauntDur,
               color: '#fde047'
             });
-            if (hit) enemyScore += (t.kind === 'bot' ? 2 : 1);
+            if (hit) enemyScore += (t.kind === 'bot' || t.kind === 'player' ? 2 : 1);
           }
         });
       }
@@ -335,8 +370,10 @@ H.bodyguard = {
         hero.peakPhysiqueTimer = 6.0;
       }
       hero.kickAnim = 0.72;
-      const tauntAct = actions.slide || actions.kick;
-      if (tauntAct) fadeToAction(tauntAct, 0.05, true, 1.55, 0.10);
+      if (actor.isPlayer) {
+        const tauntAct = actions.slide || actions.kick;
+        if (tauntAct) fadeToAction(tauntAct, 0.05, true, 1.55, 0.10);
+      } else actor.play('slide', 0.05, true, 1.55, 0.10, 0.65);
       SFX.play('arena');
       spawnShockRing(hero.x, hero.z, 0xfbbf24, 0.5, rRad, 0.38);
       spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.3, rRad * 0.75, 0.28);
@@ -347,7 +384,12 @@ H.bodyguard = {
 
   // E Crowd Dive landing slam (+ 7R Heroic Rescue shields)
   onLeapLand(ctx) {
+    return this.leapLandFor(KitFx.player, ctx);
+  },
+
+  leapLandFor(actor, ctx) {
     const { st, pProg, talents } = ctx;
+    const hero = actor.unit; // (local alias: the lander)
     // Bodyguard E (Crowd Dive) Landing Slam!
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const slamR = 2.85;
@@ -356,7 +398,7 @@ H.bodyguard = {
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.35, slamR, 0.32);
 
-    dummies.forEach((d) => {
+    if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - hero.x, d.z - hero.z) <= slamR + d.r) {
         damageDummy(d, slamDmg, '#38bdf8');
@@ -365,10 +407,10 @@ H.bodyguard = {
       }
     });
     if (phase1Engine) {
-      phase1Engine.getHostileTargets().forEach((t) => {
+      actor.hostiles().forEach((t) => {
         if (t.kind === 'structure') return;
         if (Math.hypot(t.x - hero.x, t.z - hero.z) <= slamR + t.r) {
-          phase1Engine.dealPlayerDamageToUnit(t, slamDmg, {
+          actor.damage(t, slamDmg, {
             dmgType: 'physical',
             slowDur: slamSlow,
             color: '#38bdf8'
@@ -392,6 +434,64 @@ H.bodyguard = {
           });
         }
         spawnFloat(hero.x, 2.85, hero.z, 'HEROIC RESCUE! (+' + rescueSh + ' SHIELD' + (shieldedAllies > 0 ? ' TO ALLIES' : '') + ')', '#fde047');
+      }
+    }
+  },
+
+  // ---- Bots (Phase 2): Q/LMB strikes resolve in tickActor; E uses the engine's bot leap with the kit's landing slam
+  botCast(actor, slot, ctx) {
+    const { st, pProg, talents, rQE, rUlt } = ctx;
+    const hero = actor.unit;
+    const a = actor.aim();
+    hero.facing = Math.atan2(a.x - hero.x, a.z - hero.z);
+    const L = (window.__kitBotLog = window.__kitBotLog || {}); L['bg_' + slot] = (L['bg_' + slot] || 0) + 1;
+    if (slot === 'Q') {
+      if (hero.cdQ > 0 || hero.leapTimer > 0) return;
+      hero.cdQ = [7.5, 6.5, 5.5][rQE];
+      actor.play('kick', 0.05, true, 1.65, 0, 0.4);
+      hero.bgStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24 };
+      spawnFloat(hero.x, 2.6, hero.z, 'BOUNCER HAYMAKER!', '#38bdf8');
+    } else if (slot === 'E') {
+      if (hero.cdE > 0 || hero.leapTimer > 0) return;
+      hero.cdE = [11.0, 9.5, 8.0][rQE];
+      const maxLeap = talents[7] === 'L' ? 9.75 : 7.8;
+      const dx = a.x - hero.x, dz = a.z - hero.z;
+      const dist = Math.hypot(dx, dz) || 0.01;
+      const clamped = Math.max(0, Math.min(maxLeap, dist - 1.15)); // land just short of the target
+      hero.leapSx = hero.x;
+      hero.leapSz = hero.z;
+      hero.leapTx = hero.x + (dx / dist) * clamped;
+      hero.leapTz = hero.z + (dz / dist) * clamped;
+      hero.leapDur = 0.42;
+      hero.leapTimer = 0.42;
+      actor.play('jump', 0.05, true, 2.55, 0.52, 0.54);
+      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.3, 1.4, 0.24);
+      spawnFloat(hero.x, 2.7, hero.z, 'CROWD DIVE!', '#38bdf8');
+      hero.leapOnLand = () => {
+        const lvl = actor.level();
+        this.leapLandFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });
+      };
+    } else if (slot === 'R') {
+      if (pProg.level < 4 || hero.cdR > 0) return;
+      hero.cdR = [44.0, 38.0, 32.0][rUlt];
+      this.eyesOnMe(actor, ctx);
+    }
+  },
+
+  tickActor(actor, dt) {
+    if (actor.isPlayer) return;
+    const u = actor.unit;
+    u.kickAnim = Math.max(0, (u.kickAnim || 0) - dt);
+    if (u.bgStrike) {
+      if ((u.stunTimer || 0) > 0) u.bgStrike = null;
+      else {
+        u.bgStrike.t -= dt;
+        if (u.bgStrike.t <= 0) {
+          const strike = u.bgStrike;
+          u.bgStrike = null;
+          const lvl = actor.level();
+          this.strikeImpactFor(actor, strike, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });
+        }
       }
     }
   },

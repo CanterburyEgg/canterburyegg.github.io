@@ -63,7 +63,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Enemy bots, minions and towers target them; damage goes through applyBotDamageToTarget like any unit.
     const deployables = [];
     // Phase 2: heroes whose bots run the real kit (brain picks ability + aim; kit casts). Others keep the old bot code.
-    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true };
+    const KIT_BOTS = { coyote: true, brawler: true, sorceress: true, bodyguard: true };
     // A converted kit must actually expose the actor API (guards against a stale cached kit file freezing the game)
     function kitBotReady(type) {
       const k = KIT_BOTS[type] && window.MOBA_HEROES && window.MOBA_HEROES[type];
@@ -1667,6 +1667,19 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (opts.bleedAdd > 0 && u !== hero) {
         u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
         u.bleedTimer = 5.5;
+      }
+      if (opts.tauntDur > 0) {
+        // bots get the real taunt; the player can't be force-walked yet, so a taunt on the player is a half-length stun
+        if (u === hero) u.stunTimer = Math.max(u.stunTimer || 0, opts.tauntDur * 0.5);
+        else u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
+      }
+      if (opts.knockbackDist > 0) {
+        const kl = Math.hypot(opts.knockbackDirX || 0, opts.knockbackDirZ || 0) || 1;
+        u.knockbackVx = ((opts.knockbackDirX || 0) / kl) * (opts.knockbackDist / 0.25);
+        u.knockbackVz = ((opts.knockbackDirZ || 0) / kl) * (opts.knockbackDist / 0.25);
+        u.knockbackTimer = 0.25;
+        u.knockbackWallStun = !!opts.wallStun;
+        u.knockbackBotLvl = opts.casterLevel || 4;
       }
     }
     function botActor(b) {
@@ -3417,69 +3430,17 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
 
             // 3. COLISEUM BODYGUARD BOT (E: Crowd Dive + Rescue Shield -> R: AoE Taunt -> Q: 0.24s Windup Haymaker Knockback)
-            else if (b.heroType === 'bodyguard') {
-              if (b.cdE <= 0 && bestDist <= (isHard && b.level >= 7 ? 9.5 : 7.8) && (bestDist >= 2.5 || allyToPeel)) {
-                b.cdE = [11.0, 9.5, 8.0][rQE];
-                const lockedTarget = bestTarget;
-                const isPeelDive = !!allyToPeel;
-                const ang = Math.atan2(tx - b.x, tz - b.z);
-                b.leapSx = b.x;
-                b.leapSz = b.z;
-                b.leapTx = THREE.MathUtils.clamp(tx - Math.sin(ang) * 1.15, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
-                b.leapTz = THREE.MathUtils.clamp(tz - Math.cos(ang) * 1.15, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
-                b.leapDur = 0.42;
-                b.leapTimer = 0.42;
-                // Jump Attack.fbx: start at 0.52s (takeoff) at 2.55x so clipTime reaches 1.60s (ground slam) right as leapTimer hits 0!
-                playBotAction(b, 'jump', 2.55, 0.52, 0.54);
-                spawnShockRing(b.x, b.z, 0x38bdf8, 0.3, 1.4, 0.24);
-                spawnFloat(b.x, 2.75, b.z, isPeelDive ? 'PEEL DIVE!' : 'CROWD DIVE!', '#38bdf8');
-                b.leapOnLand = () => {
-                  const eDmg = Math.round((55 + b.level * 10 + b.physAtk * 0.70) * scaleMult);
-                  const slowDur = [1.8, 2.1, 2.4][rQE] + (isHard && b.level >= 7 ? 0.5 : 0);
-                  spawnShockRing(b.x, b.z, 0x38bdf8, 0.35, 2.85, 0.32);
-                  if (lockedTarget && lockedTarget.ref && Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.5) {
-                    applyBotDamageToTarget(lockedTarget, eDmg, b, 'physical');
-                    applyBotCcAndEffects(lockedTarget, { slowDur });
-                  }
-                  // Grant Heroic Rescue Shield to self & nearby allied Carry (including Player!)
-                  if (b.level >= 7) {
-                    const shVal = 140 + b.level * 20;
-                    b.shield = Math.max(b.shield || 0, shVal);
-                    b.shieldTimer = 3.5;
-                    if (b.team === 0 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - b.x, hero.z - b.z) <= 4.2) {
-                      hero.shield = Math.max(hero.shield || 0, shVal);
-                      hero.shieldTimer = Math.max(hero.shieldTimer || 0, 3.5);
-                      spawnFloat(hero.x, 2.8, hero.z, 'ALLY RESCUE SHIELD! (+' + shVal + ')', '#38bdf8');
-                    }
-                  }
-                };
+            else if (b.heroType === 'bodyguard' && kitBotReady('bodyguard')) {
+              // (Phase 2: the brain picks ability + aim; the real Bodyguard kit casts)
+              const kit = window.MOBA_HEROES.bodyguard;
+              const actor = botActor(b);
+              b.aimTarget = bestTarget;
+              if (b.cdE <= 0 && bestDist <= 7.8 && (bestDist >= 2.5 || allyToPeel)) {
+                kit.castFor(actor, 'E');
               } else if (b.level >= 4 && b.cdR <= 0 && isHeroTarget && bestDist <= 4.6) {
-                b.cdR = [44.0, 38.0, 32.0][rUlt];
-                playBotAction(b, 'slide', 1.55, 0.10, 0.65);
-                const rDmg = Math.round((75 + b.level * 14 + b.physAtk * 0.50) * scaleMult);
-                const tauntDur = [1.5, 1.75, 2.0][rUlt];
-                const shVal = 180 + b.level * 25 + 130;
-                b.shield = Math.max(b.shield || 0, shVal);
-                b.shieldTimer = 4.5;
-                spawnShockRing(b.x, b.z, 0xfde047, 0.4, 4.8, 0.35);
-                applyBotDamageToTarget(bestTarget, rDmg, b, 'physical');
-                applyBotCcAndEffects(bestTarget, { tauntDur, stunDur: tauntDur * 0.5 });
-                spawnFloat(b.x, 2.85, b.z, 'EYES ON ME! (+' + shVal + ' SHIELD)', '#fde047');
+                kit.castFor(actor, 'R');
               } else if (b.cdQ <= 0 && bestDist <= 2.4) {
-                b.cdQ = [7.5, 6.5, 5.5][rQE];
-                const lockedTarget = bestTarget;
-                playBotAction(b, 'kick', 1.65, 0.0, 0.40);
-                // 0.24s Haymaker swing apex windup before knockback!
-                scheduleBotHit(b, 0.24, () => {
-                  if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
-                  if (Math.hypot(lockedTarget.ref.x - b.x, lockedTarget.ref.z - b.z) <= 3.1) {
-                    const qDmg = Math.round(([70, 110, 150][rQE] + b.physAtk * 0.80) * scaleMult);
-                    spawnShockRing(lockedTarget.ref.x, lockedTarget.ref.z, 0x38bdf8, 0.28, 2.1, 0.25);
-                    applyBotDamageToTarget(lockedTarget, qDmg, b, 'physical');
-                    applyBotCcAndEffects(lockedTarget, { kbDist: 3.4, fromBot: b, wallStun: b.level >= 3 });
-                    spawnFloat(lockedTarget.ref.x, 2.7, lockedTarget.ref.z, 'HAYMAKER KNOCKBACK!', '#38bdf8');
-                  }
-                });
+                kit.castFor(actor, 'Q');
               }
             }
 
@@ -3559,7 +3520,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
               const lockedRad = (lockedTarget && lockedTarget.ref && lockedTarget.ref.r) ? lockedTarget.ref.r : 0;
               let dmg = Math.round(b.atk * scaleMult);
 
-              if (b.heroType === 'bodyguard') {
+              if (b.heroType === 'bodyguard' && kitBotReady('bodyguard')) {
+                b.aimTarget = lockedTarget;
+                const actor = botActor(b);
+                window.MOBA_HEROES.bodyguard.basicAttackFor(actor, actor.stats());
+              } else if (b.heroType === 'bodyguard') {
                 playBotAction(b, 'punch', 2.15, 0.42, 0.48);
                 scheduleBotHit(b, 0.27, () => {
                   if (!lockedTarget || !lockedTarget.ref || lockedTarget.ref.hp <= 0) return;
@@ -4750,6 +4715,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       updateSpyglass(dt);
+      // the player gets the same slowed visual as bots/minions
+      if (typeof heroPivot !== 'undefined') updateUnitSlowVisual(hero, heroPivot, 0.85, dt);
       updateFog(dt);
 
       // Pooled minion rigs are only visible during the loading-screen shader warm-up; never draw them in play
