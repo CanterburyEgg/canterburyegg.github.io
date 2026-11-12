@@ -575,6 +575,30 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
     // Sequential MOBA Lane Structure Vulnerability Rule:
     // T1 is always vulnerable; T2 requires lane T1 dead; Barracks requires lane T2 dead; Ancient requires >=1 Barracks dead!
+    // Where a lane unit (bot or minion) walks when it has nothing to fight: the next lane waypoint, and once it's through
+    // the last one (just inside the enemy gate) on to the enemy Hearth, so pushes don't stall in a huddle inside the gate.
+    // first waypoint a bot heads for out of its base (the one just past its own gate)
+    function laneStartIdx(team, lane) {
+      const wps = DATA.LANE_WAYPOINTS[lane];
+      if (!wps) return 1;
+      return team === 0 ? 1 : wps.length - 2;
+    }
+    function laneGoal(u) {
+      const wps = DATA.LANE_WAYPOINTS[u.lane];
+      if (!u.laneDone) {
+        const wp = wps[u.wpIdx] || wps[3];
+        if (Math.hypot(wp.x - u.x, wp.z - u.z) > 3.2) return { x: wp.x, z: wp.z, done: false };
+        const last = u.team === 0 ? wps.length - 1 : 0;
+        if (u.wpIdx === last) u.laneDone = true;
+        else {
+          u.wpIdx += u.team === 0 ? 1 : -1;
+          return { x: wps[u.wpIdx].x, z: wps[u.wpIdx].z, done: false };
+        }
+      }
+      const core = MAP.BASE.core;
+      return { x: u.team === 0 ? -core.x : core.x, z: core.z, done: true };
+    }
+
     function isStructureVulnerable(s) {
       if (!s || s.hp <= 0) return false;
       if (s.tier === 1) return true;
@@ -1189,7 +1213,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           knockbackTimer: 0,
           knockbackWallStun: false,
           lastDamagedByPlayerAt: -99,
-          wpIdx: cfg.team === 0 ? 1 : 5,
+          wpIdx: laneStartIdx(cfg.team, cfg.lane),
           campIdx: 0,
           pivot,
           groundRing: ring,
@@ -2830,6 +2854,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
             b.leapOnLand = null;
             b.dashTimer = 0;
             b.dashOnEnd = null;
+            b.wpIdx = laneStartIdx(b.team, b.lane); // walk the lane again from the start
+            b.laneDone = false;
             b.pivot.visible = true;
             if (b.bowPivot) b.bowPivot.visible = true;
           }
@@ -3329,14 +3355,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
               gz = -18;
             }
           } else {
-            const wps = DATA.LANE_WAYPOINTS[b.lane];
-            const wp = wps[b.wpIdx] || wps[3];
-            gx = wp.x;
-            gz = wp.z;
-            if (Math.hypot(gx - b.x, gz - b.z) <= 3.2) {
-              if (b.team === 0 && b.wpIdx < wps.length - 1) b.wpIdx++;
-              if (b.team === 1 && b.wpIdx > 0) b.wpIdx--;
-            }
+            const lg = laneGoal(b);
+            gx = lg.x;
+            gz = lg.z;
           }
 
           const navPt = MAP.navNextPoint(b.x, b.z, gx, gz);
@@ -3893,14 +3914,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
           let gx = bestT ? bestT.ref.x : m.x;
           let gz = bestT ? (bestT.ref.z + (m.formZ || 0) * 0.32) : m.z;
           if (!bestT) {
-            const wps = DATA.LANE_WAYPOINTS[m.lane];
-            const wp = wps[m.wpIdx] || wps[3];
-            gx = wp.x;
-            gz = wp.z + (m.formZ || 0);
-            if (Math.hypot(wp.x - m.x, wp.z - m.z) <= 3.2) {
-              if (m.team === 0 && m.wpIdx < wps.length - 1) m.wpIdx++;
-              if (m.team === 1 && m.wpIdx > 0) m.wpIdx--;
-            }
+            const lg = laneGoal(m);
+            gx = lg.x;
+            gz = lg.z + (lg.done ? 0 : (m.formZ || 0));
           }
           const navPt = MAP.navNextPoint(m.x, m.z, gx, gz);
           const dx = navPt.x - m.x;
