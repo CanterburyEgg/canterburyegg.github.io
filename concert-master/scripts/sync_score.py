@@ -1205,6 +1205,18 @@ def conduct_lead_melody_from_score(staves: list[dict], score_duration: float) ->
                         )
                         else []
                     )
+                    # ...or st_a's part simply stops: its last note ends inside the window and it plays nothing for a
+                    # second afterwards, while st_b keeps a line going in the silence (e.g. What We Do 4:53: the band's
+                    # held chord releases and the marimba carries on alone). Follow st_b from the release.
+                    if (
+                        not b_in_gap
+                        and last_a is not None
+                        and last_a["end"] < a_t1 - 0.02
+                        and not a_after_last
+                    ):
+                        b_rest = [n["start"] for n in staves[st_b]["notes"] if last_a["end"] - 0.02 <= n["start"] < a_t1]
+                        if len(b_rest) >= 3:
+                            b_in_gap = b_rest
                     if b_in_gap:
                         first_b_gap = min(b_in_gap)
                         runs[r_i][2] = first_b_gap - 0.005
@@ -1244,6 +1256,17 @@ def conduct_lead_melody_from_score(staves: list[dict], score_duration: float) ->
                             if first_b > a_t1 + min_ext_gap:
                                 runs[r_i][2] = first_b - 0.015
                                 runs[r_i + 1][1] = first_b - 0.015
+
+    # A run that hands over to silence keeps a note its part starts right at the hand-over (within the first window):
+    # the window scoring can rest through a long held note, but the note is still the line (e.g. Guthix 0:57, the pan
+    # flutes' second held note, struck as their first hold releases, before the Choir enters at 1:00)
+    for r_i, (st_idx, seg_t0, seg_t1) in enumerate(runs):
+        nxt_t0 = runs[r_i + 1][1] if r_i + 1 < len(runs) else score_duration
+        if nxt_t0 - seg_t1 < win_dt - 1e-4:
+            continue
+        starts = [n["start"] for n in staves[st_idx]["notes"] if seg_t1 - 1e-4 <= n["start"] < seg_t1 + 0.05]
+        if starts:
+            runs[r_i][2] = max(starts) + 0.01
 
     lead_notes = []
     for st_idx, seg_t0, seg_t1 in runs:
@@ -1313,39 +1336,62 @@ def conduct_lead_melody_from_score(staves: list[dict], score_duration: float) ->
 
     lead_notes.sort(key=lambda x: x["start"])
 
-    # Complete 9-hit staggered band pyramid rises (e.g. Sevens mm.26-28 at 0:30 and mm.62-64 at 1:25):
-    # Whenever the upper brass section enters with the 5-note rising pyramid [65, 70, 72, 75, 77] at step `d_step` (~0.375s),
-    # ensure the 4 lower/middle wind pyramid entrances [53, 58, 60, 63] in the preceding bar [t_tpt - 4*d_step .. t_tpt]
-    # are all articulated across the band!
-    pyr_anchors = []
-    for k in range(len(lead_notes) - 4):
-        seq_m = [lead_notes[k + j]["midi"] for j in range(5)]
-        d_step = float(lead_notes[k + 1]["start"] - lead_notes[k]["start"])
-        if seq_m == [65, 70, 72, 75, 77] and 0.33 <= d_step <= 0.42:
-            pyr_anchors.append((float(lead_notes[k]["start"]), d_step, lead_notes[k]))
-
-    if pyr_anchors:
-        for t_tpt, d_step, ref_n in pyr_anchors:
-            t_bar0 = t_tpt - 4.0 * d_step
-            lead_notes = [n for n in lead_notes if not (t_bar0 - 0.08 <= float(n["start"]) < t_tpt - 0.03)]
-            lower_pyr = [
-                (53, "Bb Tenor Sax"),
-                (58, "Bb Tenor Sax"),
-                (60, "F Horn 1, 2"),
-                (63, "Eb Alto Sax 1, 2"),
-            ]
-            for idx_p, (p_midi, p_staff) in enumerate(lower_pyr):
-                p_s0 = round(t_bar0 + idx_p * d_step, 4)
-                p_s1 = round(p_s0 + d_step - 0.01, 4)
-                lead_notes.append(
-                    dict(
-                        ref_n,
-                        start=p_s0,
-                        end=p_s1,
-                        midi=p_midi,
-                        staff=p_staff,
-                    )
-                )
+    # Relay lines (a "pyramid"): a line that climbs (or falls) in even steps while passing from section to section, each
+    # section entering on the next note and holding it, is heard as one line: the chart plays every step, whoever has it
+    # (Sevens 0:30 & 1:25: 53 58 60 63 in the low & middle winds, then 65 70 72 75 77 in the trumpets, a step every
+    # 0.375s). 7+ steps, at one even pacing (0.25-0.6s), each a small step (7 semitones or less) the same way, no single
+    # part playing it all, and 3+ of its notes held on by the section that entered with them.
+    relay_atts = sorted(((float(m["start"]), int(m["midi"]), st["name"], m) for st in staves if not any(k in st["name"].lower() for k in ("mallet", "xylo", "glock", "chime", "marimba", "vibra", "bell", "timp", "perc", "drum")) for m in st["notes"]), key=lambda x: x[0])
+    relay_times = np.array([a[0] for a in relay_atts]) if relay_atts else np.zeros(0)
+    def _atts_at(t):
+        i0 = int(np.searchsorted(relay_times, t - 0.04))
+        out = []
+        while i0 < len(relay_atts) and relay_atts[i0][0] <= t + 0.04:
+            out.append(relay_atts[i0])
+            i0 += 1
+        return out
+    relays = []
+    used_t = -1.0
+    for a0 in relay_atts:
+        if a0[0] <= used_t:
+            continue
+        for direction in (1, -1):
+            nxt1 = [a for a in relay_atts if 0.25 <= a[0] - a0[0] <= 0.6 and 0 < direction * (a[1] - a0[1]) <= 7]
+            if not nxt1:
+                continue
+            step = min(a[0] for a in nxt1) - a0[0]
+            chain = [a0]
+            while True:
+                cands = [a for a in _atts_at(chain[-1][0] + step) if 0 < direction * (a[1] - chain[-1][1]) <= 7]
+                if not cands:
+                    break
+                chain.append(min(cands, key=lambda a: direction * (a[1] - chain[-1][1])))
+            if len(chain) < 7:
+                continue
+            pitches_c = [c[1] for c in chain]
+            whole = [nm for nm in {c[2] for c in chain} if all(any(abs(float(m["start"]) - c[0]) < 0.04 and int(m["midi"]) == c[1] for m in next(st["notes"] for st in staves if st["name"] == nm)) for c in chain)]
+            if whole:
+                continue
+            # (a pyramid STACKS: at least 3 of its notes are held on by the section that entered with them, 4+ steps,
+            # building a chord; a run handed between sections without holding is just a run, left to the conductor)
+            held_c = sum(1 for c in chain if any(abs(a[0] - c[0]) < 0.04 and a[1] == c[1] and float(a[3]["end"]) - float(a[3]["start"]) >= 4 * step for a in _atts_at(c[0])))
+            if held_c < 3:
+                continue
+            relays.append(chain)
+            used_t = chain[-1][0]
+            break
+    for chain in relays:
+        t0, t1 = chain[0][0], chain[-1][0]
+        print(f"    -> relay line {t0:.2f}-{t1:.2f}s (score): " + " ".join(str(c[1]) for c in chain))
+        lead_notes = [n for n in lead_notes if not (t0 - 0.04 <= float(n["start"]) <= t1 + 0.04)]
+        for ln in lead_notes:
+            if float(ln["start"]) < t0 and float(ln["end"]) > t0:
+                ln["end"] = t0
+        for j, c in enumerate(chain):
+            m = c[3]
+            end = float(chain[j + 1][0]) - 0.01 if j + 1 < len(chain) else float(m["end"])
+            lead_notes.append(dict(m, staff=c[2], end=end))
+    if relays:
         lead_notes.sort(key=lambda x: x["start"])
 
     # Ride mm.118-138 (133.93s - 155.36s score time / ~2:17.5 - 2:39.8 audio time):
@@ -1517,67 +1563,74 @@ def conduct_lead_melody_from_score(staves: list[dict], score_duration: float) ->
             print(f"    -> rhythmic ostinato x{len(run_c)} at {float(lead_notes[run_c[0][0]]['start']):.2f}s (score)")
         run_c = [c] if c is not None else []
 
-    # What We Do structural voice handoffs:
-    # - mm.17-20 (52.44s - 63.11s): Flute 2 entrance (46 notes)
-    # - mm.21-36 (63.11s - 137.78s): Flute 1 consistent eighth notes (336 notes)
-    # - mm.37-40 (137.78s - 148.44s): Flute 1 triplet melody (72 notes)
-    # - mm.41-44 (148.44s - 159.11s): Piccolo triplet melody (60 notes)
-    # - mm.45-48 (159.11s - 169.78s): Flute 1 lower-octave triplet melody (72 notes)
-    # - mm.65-75 (212.44s - 240.89s): Trombone 1, 2 / low-brass sustained background melody (15 notes)
-    # - mm.85-100 (264.89s - 293.33s): Bagpipes / F Horn 1, 2 climax melody through the final held chord (29 notes)
-    # - mm.101-104 (293.33s - 299.60s): Marimba 1 solo triplet outro (42 notes)
-    wwd_fl2 = [
-        n for n in st_by_name.get("Flute 2", []) if 52.40 <= float(n["start"]) < 63.08
-    ]
-    wwd_fl1 = [
-        n for n in st_by_name.get("Flute 1", []) if 63.08 <= float(n["start"]) < 148.42
-    ]
-    wwd_picc = [
-        n for n in st_by_name.get("Piccolo", []) if 148.42 <= float(n["start"]) < 159.08
-    ]
-    wwd_fl1_low = [
-        n for n in st_by_name.get("Flute 1", []) if 159.08 <= float(n["start"]) < 169.75
-    ]
+    # The tune over the bells: when the conductor is following a mallet / dulcimer part, but one wind or string part plays
+    # clearly more than every other wind or string part for a long stretch (8s+, 1.3x the next, 12+ notes per 4s), that
+    # part is the tune and the bells are accompaniment (What We Do 0:52 flute 2 over the dulcimer, 2:28 the piccolo over
+    # the marimba), as long as it also out-plays every bell part.
+    is_bellish = lambda nm_x: is_perc_name(nm_x) or "dulcimer" in nm_x.lower() or "harp" in nm_x.lower() or "celesta" in nm_x.lower()
+    tune_win = []
+    t_w = 0.0
+    while t_w + win_s <= t_end_s:
+        counts = sorted(((sum(1 for m in ns if t_w <= float(m["start"]) < t_w + win_s), nm2) for nm2, ns in solo_by_name.items() if not is_bellish(nm2)), reverse=True)
+        leads_w = [n for n in lead_notes if t_w <= float(n["start"]) < t_w + win_s]
+        on_bells = leads_w and sum(1 for n in leads_w if is_bellish(str(n.get("staff", "")))) >= 0.6 * len(leads_w)
+        # (and it has to out-play the bells too: where a bell part is the busiest thing going, the bells ARE the tune,
+        # e.g. What We Do's dulcimer and marimba sections)
+        bell_max = max((sum(1 for m in ns if t_w <= float(m["start"]) < t_w + win_s) for nm2, ns in solo_by_name.items() if is_bellish(nm2)), default=0)
+        ok_w = len(counts) >= 1 and counts[0][0] >= 12 and (len(counts) == 1 or counts[0][0] >= 1.3 * counts[1][0]) and counts[0][0] >= 1.2 * bell_max and on_bells
+        tune_win.append((t_w, counts[0][1] if ok_w else None))
+        t_w += step_s
+    tune_spans = []
+    for t_w, nm_s in tune_win:
+        if nm_s and tune_spans and tune_spans[-1][2] == nm_s and t_w <= tune_spans[-1][1]:
+            tune_spans[-1][1] = t_w + win_s
+        elif nm_s:
+            tune_spans.append([t_w, t_w + win_s, nm_s])
+    for t0, t1, nm_s in tune_spans:
+        ns_s = [m for m in solo_by_name[nm_s] if t0 <= float(m["start"]) < t1]
+        if t1 - t0 < 8.0 or not ns_s:
+            continue
+        s0, s1 = min(float(m["start"]) for m in ns_s), max(float(m["start"]) for m in ns_s)
+        earlier = sorted((m for m in solo_by_name[nm_s] if float(m["start"]) < s0), key=lambda m: float(m["start"]), reverse=True)
+        for m in earlier:
+            if s0 - float(m["start"]) > 2.0:
+                break
+            s0 = float(m["start"])
+            ns_s.append(m)
+        # (it only takes over from the bells: a wind / string line the chart already follows in the stretch stays)
+        cut = min((float(n["start"]) for n in lead_notes if s0 < float(n["start"]) <= s1 + 0.02 and not is_bellish(str(n.get("staff", "")))), default=None)
+        if cut is not None:
+            s1 = cut - 0.03
+            ns_s = [m for m in ns_s if float(m["start"]) <= s1]
+        print(f"    -> tune over the bells {s0:.2f}-{s1:.2f}s (score): {nm_s} takes the lead")
+        lead_notes = [n for n in lead_notes if not (s0 - 0.02 <= float(n["start"]) <= s1 + 0.02)]
+        for ln in lead_notes:
+            if float(ln["start"]) < s0 and float(ln["end"]) > s0:
+                ln["end"] = s0
+        lead_notes.extend(dict(m, staff=nm_s) for m in ns_s)
+    lead_notes.sort(key=lambda x: x["start"])
+
+    # What We Do (song-specific, parked with the Ride chorale for the end of the audit): two slow tunes under busy parts
+    # that the ear follows anyway, mm.65-75 (212.44s - 240.89s) the trombones' sustained melody under the marimba /
+    # piccolo / flute ostinati, and mm.85-100 (264.89s - 293.33s) the bagpipes' climax melody. (The flute 2 / flute 1 /
+    # piccolo sections and the marimba outro are now found by the general rules.)
     wwd_brass = [
         n for n in st_by_name.get("Trombone 1, 2", []) if 212.40 <= float(n["start"]) < 240.85
     ]
     wwd_bagpipes = [
         n for n in st_by_name.get("Bagpipes", []) if 264.85 <= float(n["start"]) < 293.30
     ]
-    wwd_outro = [
-        n for n in st_by_name.get("Marimba 1", []) if float(n["start"]) >= 293.30
-    ]
-    if (
-        len(wwd_fl2) == 46
-        and len(wwd_fl1) == 408
-        and len(wwd_picc) == 60
-        and len(wwd_fl1_low) == 72
-        and len(wwd_brass) == 15
-        and len(wwd_bagpipes) == 29
-        and len(wwd_outro) == 42
-        and "Dulcimer" in st_by_name
-    ):
+    if len(wwd_brass) == 15 and len(wwd_bagpipes) == 29 and "Dulcimer" in st_by_name:
         lead_notes = [
             n
             for n in lead_notes
-            if not (52.40 <= float(n["start"]) < 169.75)
-            and not (212.40 <= float(n["start"]) < 240.85)
-            and not (float(n["start"]) >= 264.85)
+            if not (212.40 <= float(n["start"]) < 240.85)
+            and not (264.85 <= float(n["start"]) < 293.30)
         ]
-        for n in wwd_fl2:
-            lead_notes.append(dict(n, staff="Flute 2", is_legato_suspension=True))
-        for n in wwd_fl1:
-            lead_notes.append(dict(n, staff="Flute 1", is_legato_suspension=True))
-        for n in wwd_picc:
-            lead_notes.append(dict(n, staff="Piccolo", is_legato_suspension=True))
-        for n in wwd_fl1_low:
-            lead_notes.append(dict(n, staff="Flute 1", is_legato_suspension=True))
         for n in wwd_brass:
             lead_notes.append(dict(n, staff="Trombone 1, 2", is_legato_suspension=True))
         for n in wwd_bagpipes:
             lead_notes.append(dict(n, staff="Bagpipes", is_legato_suspension=True))
-        for n in wwd_outro:
-            lead_notes.append(dict(n, staff="Marimba 1", is_legato_suspension=True))
         lead_notes.sort(key=lambda x: x["start"])
 
     # Handoff onto a lone harmony note: when the conductor switches staff at a note where the staff it was following
@@ -2278,6 +2331,9 @@ def banded_dtw(feat_s: np.ndarray, feat_a: np.ndarray, center_a_for_s: np.ndarra
     return np.array(path_s, dtype=np.int32), np.array(path_a, dtype=np.int32)
 
 
+RIGID_CLOCK = {"rate": 0.0, "off": 0.0}  # set by align_score_to_audio: how well the recording follows the score clock
+
+
 def align_score_to_audio(all_staves: list[dict], drum_notes: list[dict], audio_22k: np.ndarray):
     """
     Computes a drift-free, rubato-tracking warping function W(t_score) -> t_audio at 11.61ms precision,
@@ -2507,7 +2563,8 @@ def align_score_to_audio(all_staves: list[dict], drum_notes: list[dict], audio_2
     # on an audio onset at one constant latency), highly repetitive intros (identical drum bars) can make DTW collapse
     # whole sections tens of seconds early. If DTW strays > 1.0s from that rigid clock, trust the rigid clock instead!
     audio_dur_s = len(audio_22k) / 22050.0
-    if abs(audio_dur_s - (score_dur - 1.2)) <= 4.0:
+    RIGID_CLOCK["rate"], RIGID_CLOCK["off"] = 0.0, 0.0
+    if True:
         pk_frames = librosa.util.peak_pick(a_ons_raw, pre_max=3, post_max=3, pre_avg=5, post_avg=5, delta=0.8, wait=5)
         pk_secs = np.asarray(pk_frames, dtype=np.float64) * dt
         att_secs = np.array(sorted({round(float(n["start"]), 3) for st in all_staves for n in st["notes"]}), dtype=np.float64)
@@ -2519,6 +2576,14 @@ def align_score_to_audio(all_staves: list[dict], drum_notes: list[dict], audio_2
                 rate = float(np.mean(d_r <= 0.035))
                 if rate > best_rate:
                     best_rate, best_off = rate, float(off)
+            # (refine the latency to the nearest 0.5ms around the best 5ms step)
+            for off in np.arange(best_off - 0.005, best_off + 0.0051, 0.0005):
+                idx_r = np.clip(np.searchsorted(pk_secs, att_secs + off), 1, len(pk_secs) - 1)
+                d_r = np.minimum(np.abs(pk_secs[idx_r] - att_secs - off), np.abs(pk_secs[idx_r - 1] - att_secs - off))
+                rate = float(np.mean(d_r <= 0.035))
+                if rate > best_rate:
+                    best_rate, best_off = rate, float(off)
+            RIGID_CLOCK["rate"], RIGID_CLOCK["off"] = best_rate, best_off
             s_probe = np.arange(0.0, score_dur - 1.2, 0.5)
             max_dev = float(np.max(np.abs(warp_fn(s_probe) - (s_probe + best_off)))) if len(s_probe) else 0.0
             if best_rate >= 0.40 and max_dev > 1.0:
@@ -2639,6 +2704,17 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
     print(f"  [1/4] Parsing score ({score_path.suffix}) & consolidating instrument staves...")
     raw_staves = load_any_score(score_path)
     staves, drum_notes = consolidate_and_harmonize_staves(raw_staves)
+    # Notes the score reader drops from a part (<song>_corrections.json "missing_notes", score seconds, confirmed by ear):
+    # added to that part before anything reads the score.
+    corr_notes = Path(__file__).with_name(f"{score_path.stem.lower()}_corrections.json")
+    if corr_notes.exists():
+        for mn in json.loads(corr_notes.read_text(encoding="utf-8")).get("missing_notes", []):
+            st_m = next((st for st in staves if st["name"] == mn["staff"]), None)
+            if st_m is None:
+                continue
+            tmpl = min(st_m["notes"], key=lambda x: abs(float(x["start"]) - float(mn["start"])), default={})
+            st_m["notes"].append(dict(tmpl, start=float(mn["start"]), end=float(mn["end"]), midi=int(mn["midi"])))
+            st_m["notes"].sort(key=lambda x: float(x["start"]))
     score_dur = max(n["end"] for st in staves for n in st["notes"])
     print(f"    -> {len(staves)} melodic staves, {len(drum_notes)} percussion events, score_dur={score_dur:.1f}s")
 
@@ -2652,24 +2728,6 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
     #    key, see chord_hits below), so the late re-attack and the quiet lone-horn B-flat pickup are dropped.
     #  - mm.~124-end (5:36-): the high voice (flutes) until the low instruments' final walk-down (bassoons & co.).
     arabesque_top_hold = None
-    # Guthix (by ear): the pan flutes' second held note at 0:45 and 0:57 sounds a step DOWN from the first (D, not E /
-    # D-flat... the part is written a semitone up), so it reads J F-hold; the alto flute's 2:21 & 3:57 held 72 stays on J
-    # after 74 75 (J K J-hold), and the high 79 that follows takes K (pinned for every repeat).
-    if score_path.stem.lower() == "sound-of-guthix":
-        fixed_l = []
-        for n in lead_score_notes:
-            st_n, m_n = float(n["start"]), int(n["midi"])
-            if m_n == 74 and (abs(st_n - 140.62) < 0.05 or abs(st_n - 236.62) < 0.05):
-                n = dict(n, lane_hint=2)
-            elif m_n == 72 and (abs(st_n - 141.0) < 0.03 or abs(st_n - 237.0) < 0.03):
-                n = dict(n, lane_hint=2)
-            elif m_n == 79 and (abs(st_n - 142.5) < 0.03 or abs(st_n - 238.5) < 0.03):
-                n = dict(n, lane_hint=3)
-            # ...and from that K the line walks down 77 70 65 = J F D, so 75 74 72 can climb back in on J F D
-            elif (m_n, round(st_n % 96.0, 1)) in ((77, 48.0), (70, 49.5), (65, 50.2), (65, 50.3)) and 140.0 < st_n < 243.0:
-                n = dict(n, lane_hint={77: 2, 70: 1, 65: 0}[m_n])
-            fixed_l.append(n)
-        lead_score_notes = fixed_l
     if score_path.stem.lower() == "arabesque":
 
         def _splice(staff_key, s0, s1):
@@ -2718,286 +2776,292 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
                 if p0 <= float(n["start"]) < p1 and int(n["midi"]) in mp:
                     n["local_hint"] = mp[int(n["midi"])]
 
-    # The Sound of Guthix intro (mm.1-20, 0s-60s): play the Drum Set 1 quarter-note taps (4 per 12/8 bar),
-    # hand off to the sustained Pan Flute 1 holds while they sound (mm.15-16 at 42s, mm.19-20 at 54s),
-    # and return to the drum taps in between, up until the beat switches up at m.21 (60s, Choir + Warm Pad).
-    raw_by_name = {re.sub(r"\s+", " ", st["name"]).strip(): st for st in raw_staves}
-    gx_intro_end = -1.0
-    st_names = {st["name"] for st in staves}
-    gx_drums = [n for n in raw_by_name.get("Drum Set 1", {}).get("notes", []) if float(n["start"]) < 59.95]
-    gx_pan = [n for n in next((st["notes"] for st in staves if st["name"] == "Pan Flute 1"), []) if 41.95 <= float(n["start"]) < 59.95]
-    if {"Pan Flute 1", "Choir", "Warm Pad 1"} <= st_names and len(gx_drums) >= 60 and len(gx_pan) >= 4:
-        hold_windows = []
-        for n in gx_pan:
-            if not hold_windows or float(n["start"]) - hold_windows[-1][1] > 0.05:
-                hold_windows.append([float(n["start"]), float(n["end"])])
-            else:
-                hold_windows[-1][1] = max(hold_windows[-1][1], float(n["end"]))
-        # Fold each 16th-note grace pickup into its sustained hold so the hold lands right on the downbeat
-        intro = []
-        gx_pan_sorted = sorted(gx_pan, key=lambda x: x["start"])
-        k_p = 0
-        while k_p < len(gx_pan_sorted):
-            n = gx_pan_sorted[k_p]
-            nxt = gx_pan_sorted[k_p + 1] if k_p + 1 < len(gx_pan_sorted) else None
-            if (
-                nxt is not None
-                and float(n["end"]) - float(n["start"]) <= 0.15
-                and abs(float(nxt["start"]) - float(n["end"])) <= 0.02
-                and float(nxt["end"]) - float(nxt["start"]) >= 1.0
-            ):
-                intro.append(dict(nxt, start=float(n["start"]), staff="Pan Flute 1", is_legato_suspension=True))
-                k_p += 2
-                continue
-            intro.append(dict(n, staff="Pan Flute 1", is_legato_suspension=True))
-            k_p += 1
-        # Howl FX long tones (whole dotted-bar swells at m.5, m.9, m.13, m.17 = 12s, 24s, 36s, 48s; the FX staves are
-        # single-line whole notes our PDF parser skips): hold each swell until the next bar's drum hits come back in.
-        for t_howl in (12.0, 24.0, 36.0, 48.0):
-            if any(w0 - 0.05 <= t_howl < w1 for w0, w1 in hold_windows):
-                continue
-            if not any(abs(float(n["start"]) - t_howl) <= 0.02 for n in gx_drums):
-                continue
-            intro.append(
+    # Parts the score reader misses (<song>_corrections.json "missing_parts", score seconds): e.g. Guthix's Howl FX
+    # swells, written on single-line FX staves the PDF parser skips. They join the lead like any written note.
+    corr_early = Path(__file__).with_name(f"{score_path.stem.lower()}_corrections.json")
+    if corr_early.exists():
+        for mp in json.loads(corr_early.read_text(encoding="utf-8")).get("missing_parts", []):
+            lead_score_notes.append(
                 {
-                    "start": t_howl,
-                    "end": t_howl + 2.85,
-                    "midi": 59,
-                    "vel": 90,
-                    "staff": "Howl FX",
+                    "start": float(mp["start"]),
+                    "end": float(mp["end"]),
+                    "midi": int(mp["midi"]),
+                    "vel": int(mp.get("vel", 90)),
+                    "staff": mp["staff"],
                     "is_legato_suspension": True,
                 }
             )
-            hold_windows.append([t_howl, t_howl + 3.0])
-        k_tap = 0
-        # From m.13 (36s) the advanced Drum Set 2 groove takes over the drum sections (q, 16th, dotted-q | q, 16th, 8th, 8th, 8th)
-        gx_drums2 = [
-            n for n in raw_by_name.get("Drum Set 2", {}).get("notes", []) if 35.95 <= float(n["start"]) < 59.95
-        ]
-        gx_tap_src = [n for n in gx_drums if float(n["start"]) < 35.95] + (
-            gx_drums2 if len(gx_drums2) >= 20 else [n for n in gx_drums if float(n["start"]) >= 35.95]
-        )
-        prev_bar = -1
-        for n in sorted(gx_tap_src, key=lambda x: x["start"]):
-            s_t = float(n["start"])
-            if any(w0 - 0.05 <= s_t < w1 - 0.05 for w0, w1 in hold_windows):
-                continue
-            bar_idx = int((s_t + 0.01) // 3.0)
-            if bar_idx != prev_bar:
-                k_tap = 0  # every drum bar starts on the left hand so each bar repeats the same hand pattern
-                prev_bar = bar_idx
-            # Tag as a percussion tap so the runtime rocks the 4 quarter-note taps across the inner F-J keys
-            # (even/odd placeholder pitch = left/right; kept far below the melody so the next hold reads as a fresh entrance)
-            intro.append(
-                dict(
-                    n,
-                    staff="Drum Set 1" if s_t < 35.95 else "Drum Set 2",
-                    midi=36 if k_tap % 2 == 0 else 37,
-                    end=s_t + min(0.40, float(n["end"]) - s_t),
-                    vel=max(int(n.get("vel", 80)), 80),
-                    is_legato_suspension=True,
-                    is_perc_tap=True,
-                )
-            )
-            k_tap += 1
-        gx_intro_end = 59.95
-        lead_score_notes = sorted(
-            [n for n in lead_score_notes if float(n["start"]) >= 59.95] + intro, key=lambda x: x["start"]
-        )
+        # "merge" entries (score seconds): a sustain the score reader splits into separate notes (e.g. a misread
+        # accidental mid-tie) -> that part's notes starting in [start, end) become one held note on `midi`.
+        for mg in json.loads(corr_early.read_text(encoding="utf-8")).get("merge", []):
+            m0, m1 = float(mg["start"]), float(mg["end"])
+            parts = [n for n in lead_score_notes if n.get("staff") == mg["staff"] and m0 - 0.02 <= float(n["start"]) < m1]
+            if parts:
+                first = min(parts, key=lambda x: float(x["start"]))
+                lead_score_notes = [n for n in lead_score_notes if not any(n is q for q in parts)]
+                lead_score_notes.append(dict(first, end=max(float(q["end"]) for q in parts), midi=int(mg["midi"])))
+        lead_score_notes.sort(key=lambda x: float(x["start"]))
 
-        # Choir phrases (m.21+): keep each short half-bar Choir note (e.g. the 1:05 Bb) as a held note, and when the
-        # Warm Pad plays its 3-note downwalk under a sustained Choir hold (e.g. m.24 at 1:10.5), cut the Choir hold
-        # and play the downwalk instead.
-        pad1 = sorted(next((st["notes"] for st in staves if st["name"] == "Warm Pad 1"), []), key=lambda x: x["start"])
-        pad_groups = []
-        for n in pad1:
-            if float(n["end"]) - float(n["start"]) > 0.55 or float(n["start"]) < 59.95:
+    # Grace notes into holds: a very short note (<= 0.15s) running straight into a long hold (1s+) in the same part is
+    # the hold's ornament, so the hold starts on it (e.g. Guthix 0:42 / 0:54, the pan flute's grace into each hold).
+    folded = []
+    k_g = 0
+    while k_g < len(lead_score_notes):
+        n = lead_score_notes[k_g]
+        nxt = lead_score_notes[k_g + 1] if k_g + 1 < len(lead_score_notes) else None
+        prev_end = max((float(x["end"]) for x in folded), default=-10.0)
+        # (only at a phrase start, after a 1s+ rest: mid-phrase acciaccaturas stay their own quick notes)
+        if (
+            nxt is not None
+            and nxt.get("staff") == n.get("staff")
+            and float(n["start"]) - prev_end >= 1.0
+            and float(n["end"]) - float(n["start"]) <= 0.15
+            and abs(float(nxt["start"]) - float(n["end"])) <= 0.02
+            and float(nxt["end"]) - float(nxt["start"]) >= 1.0
+        ):
+            folded.append(dict(nxt, start=float(n["start"]), is_legato_suspension=True))
+            k_g += 2
+            continue
+        folded.append(n)
+        k_g += 1
+    lead_score_notes = folded
+
+    # Drum-led passages: where no pitched part leads for 2.5s+ but an (unpitched) drum part plays, the drum part's
+    # written hits ARE the tune: play them as taps (the runtime rocks them across the inner keys), following whichever
+    # drum part entered most recently (e.g. Guthix intro: Drum Set 1's beats, then Drum Set 2's groove from 0:36).
+    # While the drums lead, recorded hits that don't line up with a written one are dropped (see the impacts below).
+    drum_led_spans = []
+    drum_passages = []
+    drum_staves = [
+        st for st in raw_staves
+        if st.get("is_drum") and not any(k in st["name"].lower() for k in ("timp", "mallet", "bell", "glock", "xylo", "chime", "vib", "marimba"))
+    ]
+    if drum_staves:
+        def _entrances(notes):
+            ts = sorted(float(n["start"]) for n in notes)
+            return [t for k, t in enumerate(ts) if k == 0 or t - ts[k - 1] >= 2.0]
+
+        drum_info = [(st, sorted(st["notes"], key=lambda x: float(x["start"])), _entrances(st["notes"])) for st in drum_staves]
+        sounding = sorted((float(n["start"]), float(n["end"])) for n in lead_score_notes)
+        gaps = []
+        t_free = 0.0
+        for s0, s1 in sounding:
+            if s0 - t_free >= 2.5:
+                gaps.append((t_free, s0))
+            t_free = max(t_free, s1)
+        if score_dur - t_free >= 2.5:
+            gaps.append((t_free, score_dur))
+        taps = []
+        for g0, g1 in gaps:
+            hits = []
+            for st, notes, ents in drum_info:
+                for n in notes:
+                    t = float(n["start"])
+                    if g0 - 0.05 <= t < g1 - 0.05:
+                        ent = max((e for e in ents if e <= t + 1e-6), default=-1.0)
+                        hits.append((t, ent, st["name"], n))
+            if len(hits) < 4:
                 continue
-            if pad_groups and float(n["start"]) - float(pad_groups[-1][-1]["end"]) <= 0.02:
-                pad_groups[-1].append(n)
-            else:
-                pad_groups.append([n])
-        for grp in pad_groups:
-            # Fold 32nd-note grace pickups (dur < 0.15) into the following walk note (keeping the grace pitch so the
-            # walk stays a clean 3-step descent, e.g. m.36 at 1:47: Ab -> [G grace] Bb -> Eb plays as Ab -> G -> Eb)
-            walk = []
-            for k_g, n in enumerate(grp):
-                if float(n["end"]) - float(n["start"]) < 0.15 and k_g + 1 < len(grp):
+            chosen = []
+            for t, ent, nm, n in sorted(hits, key=lambda x: x[0]):
+                # the most recent entrance among drum parts still playing (a note within 1.5s) leads
+                live = [h for h in hits if abs(h[0] - t) <= 1.5]
+                lead_ent = max(h[1] for h in live)
+                if ent != lead_ent or (chosen and t - chosen[-1][0] < 0.02):
                     continue
-                prev_g = grp[k_g - 1] if k_g > 0 else None
-                if prev_g is not None and float(prev_g["end"]) - float(prev_g["start"]) < 0.15:
-                    walk.append(dict(n, start=float(prev_g["start"]), midi=prev_g["midi"], staff="Warm Pad 1", is_legato_suspension=True))
-                else:
-                    walk.append(dict(n, staff="Warm Pad 1", is_legato_suspension=True))
-            if len(walk) < 3:
+                chosen.append((t, nm, n))
+            # (a steady part: at least one hit a second on average; scattered accents in a rest don't count)
+            if len(chosen) < 4 or len(chosen) / max(0.1, g1 - g0) < 1.0:
                 continue
-            for w in walk:
-                w["end"] = float(w["start"]) + 0.32  # crisp walk taps (never a stray hold on the last step)
-                w["is_pad_walk"] = True
-                w["vel"] = 85  # light walk taps: never trigger a cross-hand accent chord
-            g0 = float(walk[0]["start"])
-            host = next(
-                (
-                    h for h in lead_score_notes
-                    if h["staff"] == "Choir" and float(h["start"]) < g0 - 0.3 and float(h["end"]) > g0 + 0.3
-                ),
-                None,
-            )
-            if host is None:
-                continue
-            host["end"] = g0
-            lead_score_notes.extend(walk)
-        # Repair split Choir sustains: when the Warm Pad holds ONE chord across two back-to-back Choir notes a half/whole
-        # step apart (m.53 at 2:37: G#4 + A4 parse vs. the A4 4-beat sustain every other repeat), it's a misread accidental
-        # mid-tie -> fuse into one held note on the longer note's pitch.
-        pad1_long = [n for n in pad1 if float(n["end"]) - float(n["start"]) >= 2.0]
-        fused = []
-        for h in sorted(lead_score_notes, key=lambda x: x["start"]):
-            prev = fused[-1] if fused else None
-            if (
-                prev is not None
-                and prev["staff"] == "Choir"
-                and h["staff"] == "Choir"
-                and float(prev["start"]) >= 59.95
-                and abs(float(h["start"]) - float(prev["end"])) <= 0.02
-                and 1 <= abs(int(h["midi"]) - int(prev["midi"])) <= 2
-                and any(
-                    abs(float(p["start"]) - float(prev["start"])) <= 0.02 and float(p["end"]) >= float(h["end"]) - 0.30
-                    for p in pad1_long
-                )
-            ):
-                longer = h if float(h["end"]) - float(h["start"]) >= float(prev["end"]) - float(prev["start"]) else prev
-                fused[-1] = dict(prev, end=float(h["end"]), midi=longer["midi"])
-                continue
-            fused.append(h)
-        lead_score_notes = fused
-
-        for h in lead_score_notes:
-            if h["staff"] == "Choir" and 0.45 <= float(h["end"]) - float(h["start"]) <= 0.55:
-                h["keep_hold"] = True
-        lead_score_notes.sort(key=lambda x: x["start"])
-
-        # Celesta bell figures (m.29+ at 1:26.25, every 2 bars) take over from the Choir while they ring during the
-        # Choir sections; the Choir picks back up as soon as each bell figure finishes.
-        cel1 = sorted(
-            [n for n in next((st["notes"] for st in staves if st["name"] == "Celesta 1"), []) if float(n["start"]) >= 59.95],
-            key=lambda x: x["start"],
-        )
-        cel_groups = []
-        cel2 = sorted(
-            [n for n in next((st["notes"] for st in staves if st["name"] == "Celesta 2"), []) if float(n["start"]) >= 59.95],
-            key=lambda x: x["start"],
-        )
-        for n in cel1:
-            if cel_groups and float(n["start"]) - float(cel_groups[-1][-1]["start"]) <= 1.0:
-                cel_groups[-1].append(n)
-            else:
-                cel_groups.append([n])
-        for grp in cel_groups:
-            if len(grp) < 5:
-                continue
-            g0 = float(grp[0]["start"])
-            g1 = float(grp[-1]["start"])
-            in_choir = any(
-                h["staff"] == "Choir" and float(h["start"]) < g1 and float(h["end"]) > g0 for h in lead_score_notes
-            )
-            if not in_choir:
-                continue
-            kept = []
-            for h in lead_score_notes:
-                h_s, h_e = float(h["start"]), float(h["end"])
-                if g0 - 0.02 <= h_s <= g1 + 0.05:
-                    continue
-                if h_s < g0 - 0.02 < h_e:
-                    h = dict(h, end=g0)
-                kept.append(h)
-            # Drop the low celesta bass "bongs" (< C4) so the figure stays a clean treble bell line, then plan its keys
-            # by contour: start on F, repeat = same key, step down = one key left, step up = one key right
-            # (two keys on a leap >= a 5th), clamped to D..K (G G D | D' C' G' F' [G D] = F F D J F K J [F D]).
-            # Celesta 2 echoes the figure a dotted-quarter later: weave in every echo note that doesn't collide with a
-            # Celesta 1 note, up until the next Choir/walk note takes over.
-            cel1_hi = [
-                # Snap to the 16th-note grid (0.125s at dotted-q = 80): the PDF parse drifts a few beats in some bars
-                dict(n, start=round(float(n["start"]) / 0.125) * 0.125)
-                for n in grp
-                if int(n["midi"]) >= 60
-            ]
-            next_lead_t = min((float(h["start"]) for h in kept if float(h["start"]) > g1 + 0.05), default=1e9)
-            # Celesta 2 is a strict canon of Celesta 1 a dotted-quarter (0.75s) later; restore any canon note the PDF
-            # parse dropped (e.g. the high G at 1:28.13 in the first echo) from its Celesta 1 source.
-            cel2_win = [
-                dict(n, start=round(float(n["start"]) / 0.125) * 0.125)
-                for n in cel2
-                if g0 < float(n["start"]) <= g1 + 1.0
-            ]
-            if cel2_win:
-                for c in cel1_hi:
-                    t_e = float(c["start"]) + 0.75
-                    if float(cel2_win[0]["start"]) - 0.05 <= t_e <= float(cel2_win[-1]["start"]) + 0.05 and not any(
-                        abs(float(n["start"]) - t_e) <= 0.09 for n in cel2_win
-                    ):
-                        cel2_win.append(dict(c, start=t_e, end=t_e + (float(c["end"]) - float(c["start"]))))
-            echo = [
-                n for n in cel2_win
-                if g0 < float(n["start"]) < next_lead_t - 0.10
-                and float(n["start"]) <= g1 + 1.0
-                and int(n["midi"]) >= 60
-                and all(abs(float(n["start"]) - float(c["start"])) > 0.06 for c in cel1_hi)
-            ]
-            bells = []
-            lane_b = None
-            prev_m = None
-            for n in sorted(cel1_hi + echo, key=lambda x: x["start"]):
-                m_b = int(n["midi"])
-                if lane_b is None:
-                    lane_b = 1
-                elif m_b > prev_m:
-                    lane_b = min(3, lane_b + (2 if m_b - prev_m >= 7 else 1))
-                elif m_b < prev_m:
-                    lane_b = max(0, lane_b - 1)
-                bells.append(
+            drum_led_spans.append((g0, g1))
+            k_tap = 0
+            prev_t = -10.0
+            for t, nm, n in chosen:
+                if t - prev_t >= 1.0:
+                    k_tap = 0  # each group of hits after a rest starts on the left hand
+                taps.append(
                     dict(
                         n,
-                        staff="Celesta 1",
+                        staff=nm,
+                        midi=36 if k_tap % 2 == 0 else 37,
+                        end=t + min(0.40, float(n["end"]) - t),
+                        vel=max(int(n.get("vel", 80)), 80),
                         is_legato_suspension=True,
-                        is_bell=True,
-                        lane_hint=lane_b,
-                        vel=85,
-                        end=min(float(n["end"]), float(n["start"]) + 0.30),
+                        is_perc_tap=True,
                     )
                 )
-                prev_m = m_b
-            lead_score_notes = sorted(kept + bells, key=lambda x: x["start"])
+                k_tap += 1
+                prev_t = t
+        if taps:
+            lead_score_notes = sorted(lead_score_notes + taps, key=lambda x: float(x["start"]))
+        # The whole drum-led passage: it carries on across short pitched interludes (< 10s) between drum sections, and
+        # through the parts heard inside it until a new part takes the lead (e.g. Guthix: the pan-flute holds between
+        # and after the drum bars, up to the Choir at 1:00)
+        for g0, g1 in sorted(drum_led_spans):
+            if drum_passages and g0 - drum_passages[-1][1] < 10.0:
+                drum_passages[-1][1] = g1
+            else:
+                drum_passages.append([g0, g1])
+        for psg in drum_passages:
+            family = lambda nm: re.sub(r"[\s\d,]+$", "", str(nm or ""))  # Pan Flute 1 / Pan Flute 3 = one instrument
+            heard = {family(n.get("staff")) for n in lead_score_notes if psg[0] <= float(n["start"]) < psg[1] and not n.get("is_perc_tap")}
+            for n in sorted(lead_score_notes, key=lambda x: float(x["start"])):
+                if float(n["start"]) < psg[1] or n.get("is_perc_tap"):
+                    continue
+                if family(n.get("staff")) not in heard:
+                    break
+                psg[1] = max(psg[1], float(n["end"]))
 
-        # Authentic climbs for the slow Choir phrases: every climb starts at the bottom (D) and steps up one key per
-        # rising note (67-69-70 = D-F-J), any drop resets to D, and each Warm Pad downwalk sweeps down from the top
-        # (K-J-F, stopping on F so the next phrase's D is never a repeated key).
-        prev_ch = None
-        for h in lead_score_notes:
-            if float(h["start"]) < 59.95:
+    # Fills under long holds: while the lead sits on a long hold (2.5s+), another part plays a short connected line of
+    # 3-4 quick notes moving one way (e.g. Guthix's Warm Pad downwalk under each 4-beat Choir hold, 1:10.5) -> cut
+    # the hold where the line starts and play the line as light taps. 32nd-note grace pickups fold into the next step.
+    if True:
+        fills_added = []
+        for st in staves:
+            if st.get("is_drum"):
                 continue
-            if h.get("is_pad_walk"):
-                prev_ch = None
-                continue
-            if h.get("is_bell"):
-                continue  # bell figures are transparent: the Choir climb resumes right where it left off
-            if h["staff"] != "Choir" or float(h["end"]) - float(h["start"]) < 0.45 or int(h["midi"]) < 55:
-                prev_ch = None
-                continue
-            if prev_ch is not None and int(h["midi"]) > int(prev_ch["midi"]) and prev_ch["lane_hint"] < 3:
-                h["lane_hint"] = prev_ch["lane_hint"] + 1
-            elif prev_ch is not None and int(h["midi"]) == int(prev_ch["midi"]):
-                h["lane_hint"] = prev_ch["lane_hint"]
-            else:
-                h["lane_hint"] = 0
-            prev_ch = h
-        k_w = 0
-        for h in lead_score_notes:
-            if h.get("is_pad_walk"):
-                h["lane_hint"] = (3, 2, 1)[min(2, k_w)]
-                k_w = k_w + 1 if k_w < 2 else 0
-            else:
-                k_w = 0
+            onsets = {}
+            for n in st["notes"]:
+                k_on = round(float(n["start"]), 3)
+                if k_on not in onsets or int(n["midi"]) > int(onsets[k_on]["midi"]):
+                    onsets[k_on] = n
+            seq = [onsets[k] for k in sorted(onsets)]
+            groups = []
+            for n in seq:
+                if float(n["end"]) - float(n["start"]) > 0.55:
+                    groups.append(None)
+                    continue
+                if groups and groups[-1] and float(n["start"]) - float(groups[-1][-1]["end"]) <= 0.02:
+                    groups[-1].append(n)
+                else:
+                    groups.append([n])
+            for grp in [g for g in groups if g]:
+                walk = []
+                for k_g, n in enumerate(grp):
+                    if float(n["end"]) - float(n["start"]) < 0.15 and k_g + 1 < len(grp):
+                        continue
+                    prev_g = grp[k_g - 1] if k_g > 0 else None
+                    if prev_g is not None and float(prev_g["end"]) - float(prev_g["start"]) < 0.15:
+                        walk.append(dict(n, start=float(prev_g["start"]), midi=prev_g["midi"], staff=st["name"], is_legato_suspension=True))
+                    else:
+                        walk.append(dict(n, staff=st["name"], is_legato_suspension=True))
+                if not 3 <= len(walk) <= 4:
+                    continue
+                steps = [int(b["midi"]) - int(a["midi"]) for a, b in zip(walk, walk[1:])]
+                if not (all(d < 0 for d in steps) or all(d > 0 for d in steps)) or max(abs(d) for d in steps) > 4:
+                    continue
+                g0, g1 = float(walk[0]["start"]), float(walk[-1]["end"])
+                host = next(
+                    (
+                        h for h in lead_score_notes
+                        if h.get("staff") != st["name"] and float(h["end"]) - float(h["start"]) >= 2.5
+                        and float(h["start"]) < g0 - 0.3 and float(h["end"]) > g0 + 0.3
+                    ),
+                    None,
+                )
+                if host is None or any(
+                    h is not host and g0 - 0.02 <= float(h["start"]) < g1 for h in lead_score_notes
+                ):
+                    continue
+                down = steps[0] < 0
+                for k_w, w in enumerate(walk):
+                    # (a fill is its own little line: it sweeps from the edge key in its direction, K-J-F down / D-F-J up)
+                    w["lane_hint"] = 3 - k_w if down else k_w
+                    w["end"] = float(w["start"]) + 0.32  # crisp taps (never a stray hold on the last step)
+                    w["vel"] = 85  # light taps: never trigger a cross-hand accent chord
+                host["end"] = g0
+                fills_added.extend(walk)
+        if fills_added:
+            lead_score_notes = sorted(lead_score_notes + fills_added, key=lambda x: float(x["start"]))
+
+    # Figures over long holds: while the lead sits on a long hold (2.5s+), one instrument (all its parts together, e.g.
+    # Celesta 1 + Celesta 2 playing in canon) rings a figure of 5+ notes (each within 1s of the last), e.g. Guthix's
+    # bell figures over the Choir at 1:26 -> cut the hold where the figure starts and play the figure as light taps,
+    # until the next lead note. Where two parts strike together the top note plays; a note an octave or more below
+    # both its neighbours is the bass under the figure, not part of it.
+    if True:
+        fam_of = lambda nm: re.sub(r"[\s\d,]+$", "", str(nm or ""))
+        figs_added = []
+        for fam in sorted({fam_of(st["name"]) for st in staves if not st.get("is_drum")}):
+            fnotes = sorted(
+                (dict(n, staff=st["name"]) for st in staves if not st.get("is_drum") and fam_of(st["name"]) == fam for n in st["notes"]),
+                key=lambda x: float(x["start"]),
+            )
+            groups = []
+            for n in fnotes:
+                if groups and float(n["start"]) - float(groups[-1][-1]["start"]) <= 1.0:
+                    groups[-1].append(n)
+                else:
+                    groups.append([n])
+            for grp in groups:
+                # each part's own line first: a note an octave or more below its neighbours in that part is the bass
+                # under the figure, not part of it; then where parts strike together the part that led off plays
+                lines = {}
+                for n in grp:
+                    lines.setdefault(n["staff"], []).append(n)
+                lead_part = grp[0]["staff"]
+                keep = []
+                for nm_l, ln in lines.items():
+                    for k, n in enumerate(ln):
+                        nb = [ln[j] for j in (k - 1, k + 1) if 0 <= j < len(ln)]
+                        if nb and all(int(n["midi"]) <= int(x["midi"]) - 12 for x in nb):
+                            continue
+                        keep.append(n)
+                keep.sort(key=lambda x: (float(x["start"]), x["staff"] != lead_part))
+                col = []
+                for n in keep:
+                    if col and abs(float(n["start"]) - float(col[-1]["start"])) <= 0.06:
+                        if n["staff"] == lead_part and col[-1]["staff"] != lead_part:
+                            col[-1] = n
+                        continue
+                    col.append(n)
+                if len(col) < 5:
+                    continue
+                g0 = float(col[0]["start"])
+                held = lambda h: float(h["end"]) - float(h["start"]) >= 1.0 and fam_of(h.get("staff")) != fam
+                host = next(
+                    (h for h in lead_score_notes if held(h) and float(h["start"]) < g0 - 0.3 and float(h["end"]) > g0 + 0.3),
+                    None,
+                )
+                if host is None:
+                    continue
+                # (the figure runs until the lead plays something other than a sustained note; the held notes it passes
+                # over drop out)
+                nxt_t = min(
+                    (float(h["start"]) for h in lead_score_notes if h is not host and float(h["start"]) > g0 - 0.02 and not held(h)),
+                    default=1e9,
+                )
+                fig = [n for n in col if float(n["start"]) < nxt_t - 0.10]
+                if len(fig) < 5:
+                    continue
+                f_end = float(fig[-1]["start"])
+                # (a figure that rings OVER the sustained line: it starts above the held notes it covers and mostly stays
+                # there, and lasts 1.5s+ -- not a quick run, and not an accompaniment pattern weaving around the melody)
+                covered = [host] + [h for h in lead_score_notes if h is not host and held(h) and g0 - 0.02 <= float(h["start"]) <= f_end + 0.05]
+                top_held = max(int(h["midi"]) for h in covered)
+                mids = sorted(int(n["midi"]) for n in fig)
+                if f_end - g0 < 1.5 or int(fig[0]["midi"]) <= top_held or mids[len(mids) // 2] <= top_held:
+                    continue
+                lead_score_notes = [h for h in lead_score_notes if not (h is not host and g0 - 0.02 <= float(h["start"]) <= f_end + 0.05)]
+                host["end"] = g0
+                # (the figure's keys follow its contour, like a fill: start on F, a repeat keeps its key, a step down one
+                # key left, a step up one key right -- two on a leap of a 5th or more -- kept within D..K)
+                lane_f, prev_m = None, None
+                for n in fig:
+                    m_f = int(n["midi"])
+                    if lane_f is None:
+                        lane_f = 1
+                    elif m_f > prev_m:
+                        lane_f = min(3, lane_f + (2 if m_f - prev_m >= 7 else 1))
+                    elif m_f < prev_m:
+                        lane_f = max(0, lane_f - 1)
+                    prev_m = m_f
+                    figs_added.append(
+                        dict(n, is_legato_suspension=True, vel=85, lane_hint=lane_f, end=min(float(n["end"]), float(n["start"]) + 0.30))
+                    )
+        if figs_added:
+            lead_score_notes = sorted(lead_score_notes + figs_added, key=lambda x: float(x["start"]))
+
     staff_counts = Counter(n["staff"] for n in lead_score_notes)
     top_staves = ", ".join(f"{k}({v})" for k, v in staff_counts.most_common(6))
     print(f"    -> Selected {len(lead_score_notes)} lead score notes | Top voices: {top_staves}")
@@ -3655,6 +3719,19 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
         fused_ties.append(wn)
     warped = fused_ties
 
+    def _short_between_holds(k):
+        # A short note sitting between two notes of its own part that are each at least twice as long (e.g. Guthix
+        # 1:05's half-beat Choir Bb between a 4-beat and a 2-beat hold) is part of a sustained line, not a walking step.
+        me = warped[k]
+        prv = next((warped[j] for j in range(k - 1, -1, -1) if warped[j].get("staff") == me.get("staff")), None)
+        nxt = next((warped[j] for j in range(k + 1, len(warped)) if warped[j].get("staff") == me.get("staff")), None)
+        return (
+            prv is not None and nxt is not None
+            and float(nxt["start"]) - float(me["start"]) < 0.78
+            and prv["score_dur"] >= 2 * me["score_dur"]
+            and nxt["score_dur"] >= 2 * me["score_dur"]
+        )
+
     for k in range(len(warped) - 1):
         if warped[k]["end"] > warped[k + 1]["start"] - 0.015:
             warped[k]["end"] = max(warped[k]["start"] + 0.035, warped[k + 1]["start"] - 0.015)
@@ -3671,6 +3748,7 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
         elif (
             0.45 <= warped[k]["score_dur"] <= 0.64
             and not warped[k].get("keep_hold")
+            and not _short_between_holds(k)
             and warped[k]["dur"] < 0.72
             and (warped[k + 1]["start"] - warped[k]["start"]) < 0.78
         ):
@@ -3962,13 +4040,13 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
             raw_impacts.append([round(float(wn_h["start"]), 4), 1.35, 9.9])
 
     # Deduplicate impacts within 150ms keeping strongest
-    if gx_intro_end > 0:
-        # Guthix intro: the Drum Set 1 taps ARE the chart, so drop off-grid Drum Set 2 impacts that would break the F-J rock
-        intro_tap_t = [float(wn["start"]) for wn in warped if wn.get("is_perc_tap")]
-        t_intro_audio = float(warp_fn(gx_intro_end))
+    if drum_passages:
+        # While the drums lead, the written drum taps ARE the chart: drop recorded hits that don't line up with one
+        tap_t = [float(wn["start"]) for wn in warped if wn.get("is_perc_tap")]
+        spans_a = [(float(warp_fn(g0)), float(warp_fn(g1))) for g0, g1 in drum_passages]
         raw_impacts = [
             imp for imp in raw_impacts
-            if imp[0] >= t_intro_audio or any(abs(imp[0] - t_k) <= 0.06 for t_k in intro_tap_t)
+            if not any(a0 - 0.1 <= imp[0] < a1 for a0, a1 in spans_a) or any(abs(imp[0] - t_k) <= 0.06 for t_k in tap_t)
         ]
     impacts = []
     for ta, st_val, sharp in sorted(raw_impacts, key=lambda x: x[0]):
@@ -4150,7 +4228,7 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
     # Uneven quick figures (Arabesque; What We Do's steady flute 16ths at a tighter 1.5x, e.g. 2:43): 3-12 quick notes written evenly (score gaps <= 0.2s, within 1.5x of each other)
     # that came out of the warp bunched (audio gaps more than 2.5x apart) get re-spaced by the written rhythm between
     # their first and last notes' clear audio attacks (0:56 flute turn 84 85 84; 3:26 horn figure 58 56 55 53 55 56 58 61).
-    uneven_ratio = {"arabesque": 2.5, "what-we-do": 1.5}.get(score_path.stem.lower())
+    uneven_ratio = 2.5  # (one setting for every song; the sequenced tracks go onto their written times afterwards anyway)
     if uneven_ratio and len(warped) == len(melody_out):
         k_a = 0
         nm = len(melody_out)
@@ -4236,7 +4314,15 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
     # Sequenced tracks (the score IS the clock: What We Do's audio follows its score at exactly 1.0000x, residual jitter
     # only from the warp): every note goes to its written time plus the track's offset, so metronomic passages are
     # exactly even (flute triplets, harp pairs). Notes restored from an approved chart keep their times.
-    score_clock = {"what-we-do": 0.0036, "sound-of-guthix": 0.030}.get(score_path.stem.lower())
+    # (detected, not listed per song: a recording whose attacks land on the score's own clock at one constant latency
+    # for 35%+ of the score's attacks is sequenced, e.g. What We Do 68%, Guthix 42%, against 5-15% for the live band
+    # recordings; its offset is the median gap between where the warp puts the score's attacks and where they're written)
+    score_clock = None
+    if RIGID_CLOCK["rate"] >= 0.35 and len(warped) == len(melody_out):
+        # (measured on every attack in the score, not just the chart's notes, so it doesn't move when the chart follows
+        # a different part)
+        _all_s = np.array(sorted({float(m["start"]) for st in staves for m in st["notes"]}))
+        score_clock = round(float(np.median(warp_fn(_all_s) - _all_s)), 4)
     if score_clock is not None and len(warped) == len(melody_out):
         for k_c2 in range(len(melody_out)):
             if str(warped[k_c2].get("staff", "")).startswith("Restored"):
@@ -4254,17 +4340,15 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
                 melody_out[k_c2][1] = round(max(float(melody_out[k_c2][0]) + 0.04, nxt - 0.015), 4)
         print(f"    -> score clock: {len(melody_out)} notes on their written times (+{score_clock:.4f}s)")
 
-    if score_path.stem.lower() == "sound-of-guthix":
-        # (the intro pan-flute holds are built late, so their pitch fix lands here: 0:45 64 -> 62, 0:57 52 -> 50)
-        for r in melody_out:
-            if abs(float(r[0]) - 45.03) < 0.06 and int(r[2]) == 64:
-                r[2] = 62
-            elif abs(float(r[0]) - 57.03) < 0.06 and int(r[2]) == 52:
-                r[2] = 50
-            # both held pairs read the same way: J, then F-hold a step down
-            for t_p, l_p in ((42.03, 2), (45.03, 1), (54.03, 2), (57.03, 1)):
-                if abs(float(r[0]) - t_p) < 0.06 and len(r) == 6:
-                    r.append(20 + l_p)
+    # Score errata (<song>_corrections.json): notes the printed score gets wrong, confirmed against the recording
+    # (e.g. Guthix's intro pan-flute holds at 0:45 / 0:57 fall to D where the score has E). Each entry names the note
+    # by its final audio time and written pitch, and the pitch the recording actually plays.
+    corrections_path = Path(__file__).with_name(f"{score_path.stem.lower()}_corrections.json")
+    if corrections_path.exists():
+        for fix in json.loads(corrections_path.read_text(encoding="utf-8")).get("pitch", []):
+            for r in melody_out:
+                if abs(float(r[0]) - float(fix["time"])) < 0.06 and int(r[2]) == int(fix["from"]):
+                    r[2] = int(fix["to"])
 
     # one-off key pins by time ([final audio time, lane], from the song's _restore.json): e.g. What We Do 4:53.34's 88
     # starts its pattern on J; the 2:50 harp stretch plays like the 0:18 one

@@ -823,7 +823,8 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
 
   for (let i = 0; i < rawMel.length; i++) {
     const [tStart, tEnd, midi, conf, _tier, act] = rawMel[i];
-    if (tStart < 0.01 || tStart > duration - 0.35) continue;
+    // (a note right on the song's first beat counts: play() starts 1.5s early, so there's time to see it coming)
+    if (tStart < 0 || tStart > duration - 0.35) continue;
     const nextStart = i + 1 < rawMel.length ? rawMel[i + 1][0] : duration - 0.2;
 
     // Rolling melodic phrase pitch range (±10 melody notes within ±5.0s, bounded by register/voice handoffs!)
@@ -1093,6 +1094,9 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
   if (lanes === 4 && !hasSpace) applyLeapPairSplits(notes, lanes);
   if (lanes === 4 && !hasSpace) applyPhraseEndDirections(notes, lanes);
   if (lanes === 4 && !hasSpace) applyPhrasePlans(notes, lanes);
+  if (lanes === 4 && !hasSpace) applyCompactFigures(notes, lanes);
+  if (lanes === 4 && !hasSpace) applyHeldLines(notes, lanes);
+  if (lanes === 4 && !hasSpace) applyHeldKeyFamilies(notes, lanes, isDense ? features.chordHits || [] : []);
   if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
@@ -1884,13 +1888,12 @@ function applyStepAndAntiJackhammer(
  */
 function applyRepeatedPatternConsistency(notes, lanes) {
   const MIN_LEN = 3; // shortest phrase treated as a repeat (3 notes: e.g. Sevens 1:09 80-79-77 turn)
-  const MAX_BACK = 360; // how far back (in melody notes) to search for an earlier occurrence
   const prim = notes.filter((n) => !n.isChordPartner);
   const n = prim.length;
   if (n < MIN_LEN * 2) return;
   const ioi = (k) => (k + 1 < n ? prim[k + 1].time - prim[k].time : 99);
-  // (the v4 "looser swing" match was retired in the one-rule-set audit: What We Do's 2:50 harp stretch is pinned to its 0:18
-  // statement instead, and the loose links were dragging short fragments of other songs onto the wrong keys)
+  // (the v4 "looser swing" match was retired in the one-rule-set audit: the loose links were dragging short fragments
+  // of other songs onto the wrong keys. What We Do's 2:50 harp links to its 0:18 statement as an exact repeat.)
   const rhythmMatch = (a, b) => Math.abs(a - b) <= Math.max(0.07, 0.35 * Math.min(a, b));
   // Notes "match" if same pitch and the gap to the following note is rhythmically the same (the phrase's last note only
   // needs the same pitch). The earlier occurrence must END before the repeat starts (no overlapping self-matches).
@@ -1932,28 +1935,59 @@ function applyRepeatedPatternConsistency(notes, lanes) {
     const rb = find(b);
     if (ra !== rb) parent[Math.max(ra, rb)] = Math.min(ra, rb);
   };
-  const matches = [];
-  let i = 1;
-  while (i < n) {
-    let bestJ = -1;
-    let bestLen = 0;
-    for (let j = i - 1; j >= Math.max(0, i - MAX_BACK); j--) {
-      if (prim[j].midi !== prim[i].midi) continue;
-      const len = extend(j, i);
-      if (len >= MIN_LEN) {
-        bestLen = len;
-        bestJ = j;
-        break; // nearest earlier occurrence; chains of repeats link transitively
+  // Link every repeat to its nearest earlier occurrence. A short fragment (3-4 notes) may not glue two different
+  // longer repeated figures together: if both copies sit inside figures that already repeat at length (8+ notes),
+  // the shared notes are a coincidence between different phrases (What We Do 0:52 flute 2's 79-81-67 vs the intro
+  // harp's), so the search keeps looking further back instead.
+  const LONG_FIG = 8;
+  const findMatches = (reject) => {
+    const out = [];
+    let i = 1;
+    while (i < n) {
+      let bestJ = -1;
+      let bestLen = 0;
+      for (let j = i - 1; j >= 0; j--) {
+        if (prim[j].midi !== prim[i].midi) continue;
+        const len = extend(j, i);
+        if (len >= MIN_LEN && !(reject && reject(j, i, len))) {
+          bestLen = len;
+          bestJ = j;
+          break; // nearest earlier occurrence; chains of repeats link transitively
+        }
+      }
+      if (bestLen >= MIN_LEN) {
+        out.push([bestJ, i, bestLen]);
+        i += bestLen;
+      } else {
+        i++;
       }
     }
-    if (bestLen >= MIN_LEN) {
-      for (let k = 0; k < bestLen; k++) union(bestJ + k, i + k);
-      matches.push([bestJ, i, bestLen]);
-      i += bestLen;
-    } else {
-      i++;
+    return out;
+  };
+  let matches = findMatches(null);
+  if (LONG_FIG) {
+    const inLong = new Uint8Array(n);
+    const fig = Array.from({ length: n }, (_, k) => k); // which long figure each note belongs to
+    const ffind = (x) => {
+      while (fig[x] !== x) x = fig[x] = fig[fig[x]];
+      return x;
+    };
+    for (const [j, i2, len] of matches) {
+      if (len < LONG_FIG) continue;
+      for (let k = 0; k < len; k++) {
+        inLong[j + k] = inLong[i2 + k] = 1;
+        fig[ffind(j + k)] = ffind(j);
+        fig[ffind(i2 + k)] = ffind(j);
+      }
     }
+    const coincidence = (j, i2, len) => {
+      if (len >= 5) return false;
+      for (let k = 0; k < len; k++) if (!inLong[j + k] || !inLong[i2 + k]) return false;
+      return ffind(j) !== ffind(i2);
+    };
+    if (matches.some(([j, i2, len]) => coincidence(j, i2, len))) matches = findMatches(coincidence);
   }
+  for (const [j, i2, len] of matches) for (let k = 0; k < len; k++) union(j + k, i2 + k);
 
   // Each class plays the key most of its occurrences naturally landed on (latest wins ties); fixed lanes win.
   const classes = new Map();
@@ -2893,6 +2927,62 @@ function applyLeapPairSplits(notes, lanes) {
 }
 
 /**
+ * Compact figures: "don't jump keys if you don't need to". A quick figure (5+ notes, each under 0.3s apart) that uses
+ * no more different pitches than there are keys is laid out with its pitches in order across the keys, so it never jumps
+ * back across the keyboard inside itself; if a jump is needed it comes before the figure (with any repeats of its first
+ * note leading in). Ride 0:22: 73 | 73 72 70 72 70 68 70 = K | K J F J F D F, not F | F K J K J F J.
+ */
+function applyCompactFigures(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const n = prim.length;
+  const hard = (a, la, b, lb) => {
+    if (b.time - a.time >= 0.6) return 0;
+    if (a.midi === b.midi) return la === lb ? 0 : 1;
+    if (la === lb) return 1.5;
+    return Math.sign(lb - la) === Math.sign(b.midi - a.midi) ? 0 : 1;
+  };
+  let a = 0;
+  while (a < n) {
+    let b = a;
+    while (b + 1 < n && prim[b + 1].time - prim[b].time < 0.3) b++;
+    const bEnd = b;
+    // (a drum-like repeated-note run joined on at either end keeps its own rocking keys)
+    while (b > a && prim[b].altRun) b--;
+    let aa = a;
+    while (aa < b && prim[aa].altRun) aa++;
+    const fig = prim.slice(aa, b + 1);
+    if (fig.length >= 5 && !fig.some((x) => x.fixedLane || x.localPin || x.ghost || x.altRun || x.type === 'hold')) {
+      const pitches = [...new Set(fig.map((x) => x.midi))].sort((p, q) => p - q);
+      let inner = 0;
+      for (let k = 1; k < fig.length; k++) inner += hard(fig[k - 1], fig[k - 1].lane, fig[k], fig[k].lane);
+      if (pitches.length >= 2 && pitches.length <= lanes && inner >= 1) {
+        // repeats of the first note just before (a breath apart at most) come along
+        let s0 = aa;
+        while (s0 > 0 && prim[s0 - 1].midi === prim[aa].midi && prim[s0].time - prim[s0 - 1].time < 0.5 && !prim[s0 - 1].fixedLane && !prim[s0 - 1].ghost) s0--;
+        const seg = prim.slice(s0, b + 1);
+        const before = s0 > 0 ? prim[s0 - 1] : null;
+        const after = b + 1 < n ? prim[b + 1] : null;
+        let best = null;
+        for (let off = 0; off + pitches.length <= lanes; off++) {
+          const lane = (x) => off + pitches.indexOf(x.midi);
+          let c = 0;
+          if (before) c += hard(before, before.lane, seg[0], lane(seg[0]));
+          if (after) c += hard(seg[seg.length - 1], lane(seg[seg.length - 1]), after, after.lane);
+          c += seg.reduce((acc, x) => acc + (lane(x) === x.lane ? 0 : 0.01), 0);
+          if (!best || c < best.c - 1e-9) best = { c, off };
+        }
+        // only if it's no worse at the edges than the jump it removes inside
+        let edgeNow = 0;
+        if (before) edgeNow += hard(before, before.lane, seg[0], seg[0].lane);
+        if (after) edgeNow += hard(seg[seg.length - 1], seg[seg.length - 1].lane, after, after.lane);
+        if (best && Math.floor(best.c) <= edgeNow + inner - 1) seg.forEach((x) => (x.lane = best.off + pitches.indexOf(x.midi)));
+      }
+    }
+    a = bEnd + 1;
+  }
+}
+
+/**
  * Phrase plans: a long phrase that repeats (8+ notes, same pitches in the same rhythm, 2+ statements) is laid out as
  * ONE unit, all statements on the same keys. If it needs more keys than there are, its key "break" goes where the
  * phrase's figure comes back (a phrase restart) rather than in the middle of a line. E.g. Ride's clarinet
@@ -3157,6 +3247,190 @@ function applyPhraseEndDirections(notes, lanes) {
 }
 
 /**
+ * Slow held lines: a chain of 3+ different notes, each held right up to the next (legato, the release within 0.25s of
+ * the next attack), all moving one way, reads as one line even though the notes are far apart, so its keys walk the
+ * same way (e.g. Guthix 2:22 alto flute 79 77 70 65 held = K J F D, not J F J F). The line takes consecutive keys,
+ * placed so it joins the notes around it the right way, as close to its current keys as possible.
+ */
+function applyHeldLines(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
+  let a = 0;
+  while (a < prim.length - 1) {
+    const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
+    let b = a;
+    while (
+      b + 1 < prim.length &&
+      dir !== 0 &&
+      prim[b].type === 'hold' &&
+      prim[b + 1].time - prim[b].time >= 0.6 &&
+      Math.abs(prim[b + 1].time - end(prim[b])) <= 0.25 &&
+      Math.sign(prim[b + 1].midi - prim[b].midi) === dir
+    )
+      b++;
+    // (a short last note that kicks off a quick figure belongs to that figure, e.g. Sevens 2:35's riff 75 68 68 75)
+    if (b > a && prim[b].type !== 'hold' && b + 1 < prim.length && prim[b + 1].time - prim[b].time < 0.3) b--;
+    const len = b - a + 1;
+    const line = prim.slice(a, b + 1);
+    if (len >= 3 && len <= lanes && !line.some((x) => x.fixedLane || x.localPin || x.ghost || x.altRun)) {
+      // (a re-anchor, top key -> bottom key on a climb or bottom -> top on a fall, is the normal way a line continues)
+      const reAnchor = (la, lb) => (dir > 0 && la === lanes - 1 && lb === 0) || (dir < 0 && la === 0 && lb === lanes - 1);
+      const ok = line.every((x, q) => q === 0 || Math.sign(x.lane - line[q - 1].lane) === dir || reAnchor(line[q - 1].lane, x.lane));
+      if (!ok) {
+        const before = a > 0 ? prim[a - 1] : null;
+        const after = b + 1 < prim.length ? prim[b + 1] : null;
+        const joins = (x, lx, y, ly) =>
+          !x || !y || y.time - end(x) > 0.6 || x.midi === y.midi ? 0 : ly === lx ? 1.5 : Math.sign(ly - lx) === Math.sign(y.midi - x.midi) ? 0 : 1;
+        let best = null;
+        let bestCost = Infinity;
+        for (let s0 = 0; s0 + len <= lanes; s0++) {
+          const ls = line.map((_, q) => (dir > 0 ? s0 + q : s0 + len - 1 - q));
+          const cost =
+            10 * (joins(before, before && before.lane, line[0], ls[0]) + joins(line[len - 1], ls[len - 1], after, after && after.lane)) +
+            line.reduce((acc, x, q) => acc + (x.lane === ls[q] ? 0 : 1), 0);
+          if (cost < bestCost) {
+            bestCost = cost;
+            best = ls;
+          }
+        }
+        // only when the line can join the notes around it cleanly (else keep what the earlier rules worked out)
+        const bestJoins = joins(before, before && before.lane, line[0], best[0]) + joins(line[len - 1], best[len - 1], after, after && after.lane);
+        // ...and never splits a note from the same pitch played again moment later (same notes, same keys: e.g.
+        // Arabesque 5:31's 82 79 66 is followed by 67 66, so the 66 keeps the key it shares with the next 66)
+        const splitsRepeat = line.some((x, q) =>
+          prim.some((y) => !line.includes(y) && y.midi === x.midi && Math.abs(y.time - x.time) <= 2.0 && y.lane === x.lane && y.lane !== best[q])
+        );
+        if (bestJoins === 0 && !splitsRepeat) line.forEach((x, q) => (x.lane = best[q]));
+      }
+    }
+    a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * Repeated slow phrases (held-key families): a slow singing phrase (2+ held notes, each 0.45s+, legato into the next,
+ * no leap over an octave) that comes back within a few bars plays on the same keys every time, e.g. Guthix's Choir
+ * 67 69 70 67 69 (otherwise the layout drifts: 67 on F, then D, then J). Phrases that share pitches form a family; if
+ * the family fits on the keys (one key per pitch, low to high) and isn't already consistent, every phrase in it takes
+ * one shared key map: the one whose joins to the notes around the phrases read best (a wrong-way step costs 1, a
+ * different note on the same key 1.5), then the fewest moved notes, then the lowest keys.
+ */
+function applyHeldKeyFamilies(notes, lanes, chordHits = []) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const WIN = 15;
+  const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
+  const ok = (x) => x.type === 'hold' && end(x) - x.time >= 0.45 && !x.fixedLane && !x.localPin && !x.ghost && !x.altRun;
+  // phrases: index ranges [a, b] into prim
+  const phrases = [];
+  let a = 0;
+  while (a < prim.length) {
+    if (!ok(prim[a])) {
+      a++;
+      continue;
+    }
+    let b = a;
+    while (
+      b + 1 < prim.length &&
+      ok(prim[b + 1]) &&
+      Math.abs(prim[b + 1].time - end(prim[b])) <= 0.25 &&
+      Math.abs(prim[b + 1].midi - prim[b].midi) <= 12
+    )
+      b++;
+    if (b > a) phrases.push([a, b]);
+    a = b + 1;
+  }
+  // families: phrases sharing a pitch, each starting within WIN of the family's last phrase
+  const fams = [];
+  for (const ph of phrases) {
+    const ps = new Set(prim.slice(ph[0], ph[1] + 1).map((x) => x.midi));
+    // (a phrase joins a family only as the same tune coming back, whole or in part: its pitches all belong to the
+    // family's, or the family's all to it; e.g. Guthix 1:57's alto flute line, which shares a 67, starts its own)
+    const f = fams.find(
+      (F) => prim[ph[0]].time - F.last <= WIN && ([...ps].every((m) => F.pitches.has(m)) || [...F.pitches].every((m) => ps.has(m)))
+    );
+    if (f) {
+      f.phrases.push(ph);
+      ps.forEach((m) => f.pitches.add(m));
+      f.last = end(prim[ph[1]]);
+    } else fams.push({ phrases: [ph], pitches: ps, last: end(prim[ph[1]]) });
+  }
+  const isChord = (x) => chordHits.some((h) => Math.abs(h[0] - x.time) < 0.03);
+  const joinCost = (x, lx, y, ly) =>
+    !x || !y || y.time - end(x) > 0.6 ? 0 : x.midi === y.midi ? (lx === ly ? 0 : 1.5) : lx === ly ? 1.5 : Math.sign(ly - lx) === Math.sign(y.midi - x.midi) ? 0 : 1;
+  for (const F of fams) {
+    if (F.phrases.length < 2) continue;
+    // (only a phrase that really comes back: two of its phrases play the same 3+ notes in the same order)
+    const seqs = F.phrases.filter(([p, q]) => q - p >= 2).map(([p, q]) => prim.slice(p, q + 1).map((x) => x.midi).join(','));
+    if (new Set(seqs).size === seqs.length) continue;
+    const pitches = [...F.pitches].sort((u, v) => u - v);
+    const n = pitches.length;
+    if (n > lanes) continue;
+    const members = F.phrases.flatMap(([p, q]) => prim.slice(p, q + 1));
+    const seen = new Map();
+    let consistent = true;
+    for (const x of members) {
+      if (seen.has(x.midi) && seen.get(x.midi) !== x.lane) consistent = false;
+      seen.set(x.midi, x.lane);
+    }
+    const order = pitches.map((m) => seen.get(m));
+    if (consistent && order.every((l, k) => k === 0 || l > order[k - 1])) continue;
+    let best = null;
+    let bestCost = Infinity;
+    for (let s0 = 0; s0 + n <= lanes; s0++) {
+      const map = new Map(pitches.map((m, k) => [m, s0 + k]));
+      let cost = 0;
+      for (const [p, q] of F.phrases) {
+        const before = p > 0 ? prim[p - 1] : null;
+        const after = q + 1 < prim.length ? prim[q + 1] : null;
+        cost += 10 * (joinCost(before, before && before.lane, prim[p], map.get(prim[p].midi)) + joinCost(prim[q], map.get(prim[q].midi), after, after && after.lane));
+        for (let k = p; k <= q; k++) {
+          cost += prim[k].lane === map.get(prim[k].midi) ? 0 : 0.1;
+          // a chord the melody climbs into needs a key above it so the pair can climb too: on the top key its partner
+          // would have to sit below, and the chord would look the same as the one before (counts as a wrong-way step)
+          if (k > p && prim[k].midi > prim[k - 1].midi && map.get(prim[k].midi) === lanes - 1 && isChord(prim[k]) && isChord(prim[k - 1])) cost += 10;
+        }
+      }
+      if (cost < bestCost - 1e-9) {
+        bestCost = cost;
+        best = map;
+      }
+    }
+    for (const x of members) x.lane = best.get(x.midi);
+    F.applied = true;
+  }
+  // Shorter chord phrases in the same passage that move the same way as part of a family's phrase (same ups and downs,
+  // note for note) take that part's keys, e.g. Guthix 1:36's 65 66 climbs like the Choir's 67 69 -> D F, and 3:05's
+  // 70 65 66 like 70 67 69 -> J D F. Only if every note is a chord, and no join to the notes around goes from clean to bad.
+  const templates = fams.filter((F) => F.applied).flatMap((F) => F.phrases.map((ph) => [ph[0], ph[1], F]));
+  const inApplied = new Set(templates.flatMap(([p, q]) => prim.slice(p, q + 1)));
+  const signs = (p, q) => prim.slice(p + 1, q + 1).map((x, k) => Math.sign(x.midi - prim[p + k].midi)).join(',');
+  for (const [p, q] of phrases) {
+    if (inApplied.has(prim[p]) || !prim.slice(p, q + 1).every(isChord)) continue;
+    const len = q - p + 1;
+    const sig = signs(p, q);
+    const tpl = templates
+      // (any phrase of a family still going: its last phrase ended within WIN of this one)
+      .filter(([tp, tq, TF]) => tq < p && TF.phrases.some(([, fq]) => fq < p && prim[p].time - end(prim[fq]) <= WIN) && tq - tp + 1 >= len)
+      .sort((u, v) => v[0] - u[0])[0];
+    if (!tpl) continue;
+    let w = -1;
+    for (let k = tpl[0]; k + len - 1 <= tpl[1]; k++) if (signs(k, k + len - 1) === sig && prim.slice(k, k + len).every(isChord)) { w = k; break; }
+    if (w < 0) continue;
+    const L = prim.slice(w, w + len).map((x) => x.lane);
+    const before = p > 0 ? prim[p - 1] : null;
+    const after = q + 1 < prim.length ? prim[q + 1] : null;
+    // (a note with its own fixed key, e.g. a fill's last tap, doesn't hold the phrase back: the family itself joins it
+    // the same way)
+    const worse = (c0, c1) => c0 === 0 && c1 > 0;
+    const free = (x) => x && !x.fixedLane;
+    if (free(before) && worse(joinCost(before, before.lane, prim[p], prim[p].lane), joinCost(before, before.lane, prim[p], L[0]))) continue;
+    if (free(after) && worse(joinCost(prim[q], prim[q].lane, after, after.lane), joinCost(prim[q], L[len - 1], after, after.lane))) continue;
+    if (L.some((l, k) => k > 0 && (l === L[k - 1] || Math.sign(l - L[k - 1]) !== Math.sign(prim[p + k].midi - prim[p + k - 1].midi)))) continue;
+    prim.slice(p, q + 1).forEach((x, k) => (x.lane = L[k]));
+  }
+}
+
+/**
  * Quick neighbour turns (x y x within 0.4s, y a step away, e.g. Arabesque 1:57 79 80 79, 1:28 77 76 77): both x's
  * play one key and y the key right next to it on its side, then the notes after the turn are re-planned from there.
  * (Otherwise the same pitch can land on two keys a split second apart: F79 K80 J79.)
@@ -3287,6 +3561,7 @@ function addEnsembleChordHits(notes, hits, lanes) {
   const added = [];
   let passageLane = null; // passage hits: the same note keeps one key all the way through (no rocking)
   const chordMemo = new Map(); // "midi:hostLane" -> partner lane
+  const moveMemo = new Map(); // "prevHostLane:prevPartnerLane:dir:hostLane" -> partner lane
   for (const [t, up, dn, inPassage, holdEnd, forcedLane] of hits) {
     const i = prim.findIndex((x) => Math.abs(x.time - t) < 0.03);
     if (i < 0) continue;
@@ -3364,9 +3639,42 @@ function addEnsembleChordHits(notes, hits, lanes) {
         firstPick = top;
       }
     }
+    // chord to chord: when the melody moves straight from one chord into the next, the pair of keys moves with it (its
+    // low key and its high key never step the opposite way), e.g. Guthix 1:00 F67+K74 -> J69+K, not D+J69
+    const prevPartner = prev && host.time - Math.max(prev.time, prev.endTime || prev.time) < 0.6 && prev.midi !== host.midi
+      ? added.find((x) => Math.abs(x.time - prev.time) < 0.03)
+      : null;
+    const pairOk = (l) => {
+      if (!prevPartner) return true;
+      const dir = Math.sign(host.midi - prev.midi);
+      const lo0 = Math.min(prev.lane, prevPartner.lane), hi0 = Math.max(prev.lane, prevPartner.lane);
+      const lo1 = Math.min(host.lane, l), hi1 = Math.max(host.lane, l);
+      return Math.sign(lo1 - lo0) !== -dir && Math.sign(hi1 - hi0) !== -dir;
+    };
+    if (memoLane !== undefined && !pairOk(memoLane) && cands.some((l) => ok(l) && pairOk(l))) memoLane = undefined;
+    // the same chord move as before (same keys, melody stepping the same way onto the same key) plays the same way
+    // again, e.g. Guthix 1:36 D+J -> F66 takes K like the Choir's D+J -> F69+K
+    const moveKey = prevPartner ? `${prev.lane}:${prevPartner.lane}:${Math.sign(host.midi - prev.midi)}:${host.lane}` : null;
+    if (moveKey && moveMemo.has(moveKey) && forcedLane == null) {
+      const ml = moveMemo.get(moveKey);
+      if (ml !== host.lane && ok(ml)) memoLane = ml;
+    }
+    // (if the only key that moves with the melody is the next note's key, a held chord's partner lets go 0.2s before
+    // that note instead, as with a remembered chord)
+    if (prevPartner && memoLane === undefined && firstPick === undefined && host.type === 'hold' && !holdEnd && !cands.some((l) => ok(l) && pairOk(l))) {
+      const l2 = cands.find(
+        (l) => pairOk(l) && !(prev && prev.lane === l && host.time - Math.max(prev.time, prev.endTime || prev.time) < 0.6) &&
+          next && next.lane === l && next.time - 0.2 - host.time >= 0.5
+      );
+      if (l2 !== undefined) {
+        firstPick = l2;
+        partnerEnd = Math.min(hostEnd, next.time - 0.2);
+      }
+    }
     const lane =
-      forcedLane !== undefined && forcedLane !== null ? forcedLane : memoLane !== undefined ? memoLane : firstPick !== undefined ? firstPick : same && ok(last.lane) ? last.lane : cands.find(ok);
+      forcedLane !== undefined && forcedLane !== null ? forcedLane : memoLane !== undefined ? memoLane : firstPick !== undefined ? firstPick : same && ok(last.lane) ? last.lane : (cands.find((l) => ok(l) && pairOk(l)) ?? cands.find(ok));
     if (lane !== undefined && !chordMemo.has(memoKey)) chordMemo.set(memoKey, lane);
+    if (lane !== undefined && moveKey && !moveMemo.has(moveKey)) moveMemo.set(moveKey, lane);
     if (lane === undefined) continue;
     added.push({
       id: Math.max(...notes.map((x) => x.id || 0), ...added.map((x) => x.id)) + 1,

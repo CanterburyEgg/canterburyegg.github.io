@@ -1,0 +1,86 @@
+{
+  "_about": "Score errata: places where the printed score disagrees with the recording (or the score reader misses a part), confirmed by ear. 'pitch' entries change one melody note's pitch (matched by its final audio time, within 0.06s, and its written pitch), applied after the score clock. 'missing_parts' entries add notes the PDF reader can't see (score seconds), joined into the lead before the key layout. 'merge' entries join one part's notes starting in [start, end) (score seconds) into a single held note on 'midi' (a sustain the score reader splits). 'missing_notes' entries add a note the score reader drops from a part (score seconds), before anything reads the score.",
+  "pitch": [
+    {
+      "time": 45.03,
+      "from": 64,
+      "to": 62,
+      "why": "Intro pan flute, 2nd held note: the score has E (up a half step from the E-flat before it); the recording plays D, a step DOWN (D about 2x the E in the recording; quiet passage). Approved by ear Nov 12."
+    },
+    {
+      "time": 57.03,
+      "from": 52,
+      "to": 50,
+      "why": "Same figure an octave lower: score E, recording D (D about 10x the E in the recording). Approved by ear Nov 12."
+    }
+  ],
+  "missing_parts": [
+    {
+      "staff": "Howl FX",
+      "start": 12.0,
+      "end": 14.85,
+      "midi": 59,
+      "why": "Howl FX swell (a whole dotted bar at mm.5/9/13/17), written on a single-line FX staff the PDF parser skips; held until the next bar's drums come back in. The pitch is a placeholder (unpitched effect). Approved Nov 12."
+    },
+    {
+      "staff": "Howl FX",
+      "start": 24.0,
+      "end": 26.85,
+      "midi": 59,
+      "why": "Howl FX swell (a whole dotted bar at mm.5/9/13/17), written on a single-line FX staff the PDF parser skips; held until the next bar's drums come back in. The pitch is a placeholder (unpitched effect). Approved Nov 12."
+    },
+    {
+      "staff": "Howl FX",
+      "start": 36.0,
+      "end": 38.85,
+      "midi": 59,
+      "why": "Howl FX swell (a whole dotted bar at mm.5/9/13/17), written on a single-line FX staff the PDF parser skips; held until the next bar's drums come back in. The pitch is a placeholder (unpitched effect). Approved Nov 12."
+    },
+    {
+      "staff": "Howl FX",
+      "start": 48.0,
+      "end": 50.85,
+      "midi": 59,
+      "why": "Howl FX swell (a whole dotted bar at mm.5/9/13/17), written on a single-line FX staff the PDF parser skips; held until the next bar's drums come back in. The pitch is a placeholder (unpitched effect). Approved Nov 12."
+    }
+  ],
+  "merge": [
+    {
+      "staff": "Choir",
+      "start": 157.125,
+      "end": 161.24,
+      "midi": 69,
+      "why": "m.53 (2:37): the score reader gives G#4 (1.9 s) then A4 (2.2 s), but the recording holds one unchanging note for the full 4 beats, as at every other repeat of this passage (the Warm Pad also holds one chord throughout). A misread accidental mid-tie. Confirmed by ear Nov 12."
+    }
+  ],
+  "missing_notes": [
+    {
+      "staff": "Celesta 2",
+      "start": 88.125,
+      "end": 88.375,
+      "midi": 91,
+      "why": "Celesta 2 plays Celesta 1's bell figure as a strict canon a dotted quarter (0.75 s) later; in this figure the parsed Celesta 2 part has no high G where the canon puts it (Celesta 1's G at 87.375). The other repeats of the figure have it, and it is audible in the recording. Confirmed by ear Nov 12."
+    },
+    {
+      "staff": "Celesta 2",
+      "start": 100.125,
+      "end": 100.375,
+      "midi": 91,
+      "why": "Celesta 2 plays Celesta 1's bell figure as a strict canon a dotted quarter (0.75 s) later; in this figure the parsed Celesta 2 part has no high G where the canon puts it (Celesta 1's G at 99.375). The other repeats of the figure have it, and it is audible in the recording. Confirmed by ear Nov 12."
+    },
+    {
+      "staff": "Celesta 2",
+      "start": 184.125,
+      "end": 184.375,
+      "midi": 91,
+      "why": "Celesta 2 plays Celesta 1's bell figure as a strict canon a dotted quarter (0.75 s) later; in this figure the parsed Celesta 2 part has no high G where the canon puts it (Celesta 1's G at 183.375). The other repeats of the figure have it, and it is audible in the recording. Confirmed by ear Nov 12."
+    },
+    {
+      "staff": "Celesta 2",
+      "start": 196.125,
+      "end": 196.375,
+      "midi": 91,
+      "why": "Celesta 2 plays Celesta 1's bell figure as a strict canon a dotted quarter (0.75 s) later; in this figure the parsed Celesta 2 part has no high G where the canon puts it (Celesta 1's G at 195.375). The other repeats of the figure have it, and it is audible in the recording. Confirmed by ear Nov 12."
+    }
+  ]
+}
