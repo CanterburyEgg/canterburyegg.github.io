@@ -78,6 +78,8 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
     spawnBotStarfallPillar, playBotAction/scheduleBotHit + the per-hero basic-attack fallbacks). Kept: the bot Monolith and
     Pit Arena (the Sorceress/Brawler kits call them through the bot actor) and `__kitBotLog` (cheap; `&botlog` uses it)
   - Dev: `?chaoscarry=<hero>` swaps the enemy carry; `&simfast&botlog=N` runs a fast headless sim and logs bot kit casts.
+- [ ] **Stun indicator (noted 2026-11-12)**: a small overhead effect while a unit is stunned (spinning stars circling the
+  head), on the player, bots, minions and camps. Later, matching icons for the other CC types (sleep Zzz, fear, silence).
 - [ ] **Positional sound (noted 2026-11-12, low priority)**: SFX play at full volume wherever they happen on the map.
   Give `SFX.play` an optional world position: fade with distance from the camera focus (silent off-screen / in fog),
   maybe pan left/right by screen side.
