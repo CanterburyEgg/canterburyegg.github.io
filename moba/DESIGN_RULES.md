@@ -29,6 +29,16 @@ The goal: each hero's 3-ability kit lets you live that character's dream and mak
   - **Mana:** the default resource. It matters more for heroes who cast a lot (mages, some supports and junglers), where running dry is something to watch. A few heroes get custom resources later (e.g. the Scientist's fuel).
   - **Sustain:** **Lifesteal** heals from Attack damage. **Spell Vamp** heals from Ability damage at a lower rate, and area hits heal at 1/3. Everyone has a small base HP regen.
   - **Time-to-kill targets (Lv1 / Lv6 / Lv12):** damage vs damage **10 / 7.5 / 5 s**. Tank vs damage about **1.5×** that (15 / 11 / 7.5 s), with the tank losing slowly or barely winning. Tank vs tank: no target, but no stalemates past about 30 s.
+- **Stat list and shop structure (locked 2026-11-13, /grill-me):**
+  - **Core stats** (heroes have them; basic shop components give them): **HP, Mana, Attack, Ability, Resist, Attack speed, Haste.**
+  - **Move speed: boots only.** One basic Boots (+Move speed), upgrading into tier-2 boots that add more Move speed plus one flavor: **Resist, Attack speed, Haste, or extra Move speed** (Boots of Swiftness style). No HP / Mana / Attack / Ability boots; a Mana boot only if a fifth is ever needed. One pair of boots max.
+  - **No Critical Strike.** Attack builds spike through attack speed, penetration and on-hit passives, which keeps damage predictable.
+  - **Shop tree:** tier 1 = the 7 core components. Tier 2 = every pair: **21 mixed (X+Y)** plus **7 doubles (X+X)**. A double carries an **innate specialty stat** and later upgrades into **two branched epic items** with extra passives. Tier 3 = about 42 epics. No trimming: the size is design and build space, and the trees stay intuitive.
+  - **Double (X+X) specialties:** HP+HP: **HP regen**. Mana+Mana: **Mana regen**. Attack+Attack: **Lifesteal** (branches e.g. overheal becomes a shield / Attack penetration). Ability+Ability: **Spell Vamp** (branches: Ability penetration / to decide in the shop work). Resist+Resist: **Tenacity** (shorter crowd control). Attack speed+Attack speed: **on-hit bonus damage**. Haste+Haste: **Ultimate Haste** (Haste for R only).
+  - **Penetration is split:** Attack penetration and Ability penetration are separate stats, each on its own double's branch.
+  - **Heal & Shield power:** not a stat; a named passive on one or two support epics.
+  - **Regen:** heroes have small base HP and Mana regen; items give more only through the doubles and third-tier passives.
+  - **Level-up growth:** HP, Mana, Attack, Ability, Resist, Attack speed, HP regen and Mana regen grow per level. Haste (starts at 0), Move speed and every specialty stat (Lifesteal, penetration, Tenacity, ...) never grow; they come only from items and passives.
 
 ## 3. Mobility budget (locked)
 - **Emergent, no fixed quota.** Every movement ability has to pass the test: **"does this kit really need it to live the dream?"** The default answer is no.

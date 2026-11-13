@@ -43,10 +43,7 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
     tools), test builds (`DATA.testBuildItems`), **Damage Profile** (`?profile[=hero]&levels=1,6,12&build=..&resist=40`,
     js/profile.js) and **Duel Arena** (`?duel=a,b | all | support&level=6&trials=6&build=..`, js/duel.js). Add
     `&norender` for headless runs. Baselines in `balance/2026-11-12_*`.
-  - [ ] **Next session, before step 2:** agree on the full stat list: every stat a hero has, and which ones items can
-    give (the shop's base items are built from it). That decides each hero's base stats. Starting candidates: HP, HP regen,
-    Mana, Mana regen, Attack, Ability, Resist, Attack speed, Haste, Move speed, Lifesteal, Spell Vamp, %-Penetration,
-    plus whether Crit, Tenacity, Shield/Heal power, Range or %-max-HP damage are stats or item passives.
+  - [x] **Stat list agreed (2026-11-13)**: see DESIGN_RULES.md §2 "Stat list and shop structure".
   - [ ] Step 2: switch to the new model (single Resist, `src: attack|ability`, Haste, Lifesteal / Spell Vamp,
     per-hero base Attack + Ability), hero by hero, with before/after tool runs.
   - [ ] Step 3: tuning against the time-to-kill targets (includes the Scientist saw and Panther Q outliers, and the
