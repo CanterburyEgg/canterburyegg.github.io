@@ -14,6 +14,8 @@ from types import SimpleNamespace
 from .core import pick_lead
 
 PREP_PASSES = ['repair_split_dyads', 'rhythm_consensus', 'fix_oboe_lick', 'fix_trombone']
+# lead-level rules run by sync_score right after the conductor (also for single-staff scores)
+AFTER_PICK_PASSES = ['low_unison_walk', 'top_held_brass', 'held_over_reattack', 'corrections_move_notes', 'corrections_missing_parts', 'grace_into_holds', 'drum_led_passages', 'fills_under_holds', 'figures_over_holds']
 POST_PASSES = ['arabesque_tutti_splices', 'relay_lines', 'ride_chorale', 'solos', 'handoff_phrase_start', 'rhythmic_ostinato', 'tune_over_bells', 'what_we_do_tunes', 'doubling_helpers', 'run_completion', 'run_under_hold', 'lone_harmony_handoff', 'embellished_doubling', 'screaming_top_note', 'section_entrance', 'unison_split', 'held_landing', 'moving_line_over_held_chords', 'coda_bridge_hold', 'trim_overlaps']
 
 
@@ -65,3 +67,10 @@ def conduct(staves: list[dict], score_duration: float) -> list[dict]:
         print(f"    [pass] {'core':30s} {last[0]}")
     _run(POST_PASSES, ctx, skip, win, last)
     return ctx.lead_notes
+
+
+def run_after_pick(ctx) -> None:
+    """Run AFTER_PICK_PASSES on ctx (needs staves, raw_staves, score_duration, score_path, lead_notes)."""
+    skip = {x.strip() for x in os.environ.get("CM_SKIP", "").split(",") if x.strip()}
+    win = _trace_window()
+    _run(AFTER_PICK_PASSES, ctx, skip, win, [_snap(ctx.lead_notes, win)])
