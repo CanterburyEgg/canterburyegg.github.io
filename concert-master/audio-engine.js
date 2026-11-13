@@ -1097,6 +1097,7 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
   if (lanes === 4 && !hasSpace) applyCompactFigures(notes, lanes);
   if (lanes === 4 && !hasSpace) applyHeldLines(notes, lanes);
   if (lanes === 4 && !hasSpace) applyHeldKeyFamilies(notes, lanes, isDense ? features.chordHits || [] : []);
+  if (lanes === 4 && !hasSpace) applyGapShiftDoubles(notes, lanes);
   if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
@@ -1199,8 +1200,30 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
     }
   }
 
+  alignChordHoldEnds(notes);
   notes.sort((a, b) => a.time - b.time || a.lane - b.lane);
   return { mode, density, notes };
+}
+
+// Chord holds that start together let go together (Arabesque 4:56: F82 + J86 ended 0.11s apart): every hold in the
+// chord ends at the earliest end (that one usually stops early so its key can be pressed again), unless another note
+// starts between the ends (a voice really moving on while the other holds).
+function alignChordHoldEnds(notes) {
+  const holds = notes.filter((n) => n.lane >= 0 && n.type === 'hold' && !n.isPercussionSolo).sort((a, b) => a.time - b.time);
+  for (let i = 0; i < holds.length; i++) {
+    const grp = [holds[i]];
+    for (let j = i + 1; j < holds.length && holds[j].time - holds[i].time < 0.03; j++) grp.push(holds[j]);
+    if (grp.length < 2) continue;
+    const e0 = Math.min(...grp.map((n) => n.endTime));
+    const e1 = Math.max(...grp.map((n) => n.endTime));
+    if (e1 - e0 < 0.01) continue;
+    if (notes.some((n) => n.lane >= 0 && !grp.includes(n) && n.time >= e0 - 0.01 && n.time < e1)) continue;
+    for (const n of grp) {
+      n.endTime = e0;
+      n.duration = e0 - n.time;
+    }
+    i += grp.length - 1;
+  }
 }
 
 /**
@@ -3263,7 +3286,7 @@ function applyHeldLines(notes, lanes) {
       b + 1 < prim.length &&
       dir !== 0 &&
       prim[b].type === 'hold' &&
-      prim[b + 1].time - prim[b].time >= 0.6 &&
+      prim[b + 1].time - prim[b].time >= 0.5 &&
       Math.abs(prim[b + 1].time - end(prim[b])) <= 0.25 &&
       Math.sign(prim[b + 1].midi - prim[b].midi) === dir
     )
@@ -3272,6 +3295,47 @@ function applyHeldLines(notes, lanes) {
     if (b > a && prim[b].type !== 'hold' && b + 1 < prim.length && prim[b + 1].time - prim[b].time < 0.3) b--;
     const len = b - a + 1;
     const line = prim.slice(a, b + 1);
+    // (one note longer than the keys, landing on a long final hold: the walk takes every key from the edge it's heading
+    // away from and the landing wraps, e.g. Arabesque 5:45's low walk-down 48 46 45 42 + held 41 = K J F D + K; a leap
+    // over an octave into the walk is a different voice handing over, so the walk counts from there. The note before
+    // it, if it sits on the walk's first key, moves one key over so that key isn't struck twice for two notes.)
+    let w0 = 0;
+    for (let q = 1; q < len; q++) if (Math.abs(line[q].midi - line[q - 1].midi) > 12) w0 = q;
+    const walk = line.slice(w0);
+    if (
+      walk.length === lanes + 1 &&
+      walk[lanes].type === 'hold' &&
+      end(walk[lanes]) - walk[lanes].time >= 1.5 &&
+      !walk.some((x) => x.fixedLane || x.localPin || x.ghost || x.altRun)
+    ) {
+      const ls = walk.map((_, q) => (dir > 0 ? q % lanes : lanes - 1 - (q % lanes)));
+      const okW = walk.every((x, q) => q === 0 || Math.sign(x.lane - walk[q - 1].lane) === dir || (q === lanes && x.lane === ls[q]));
+      if (!okW) {
+        walk.forEach((x, q) => (x.lane = ls[q]));
+        const bf = a + w0 > 0 ? prim[a + w0 - 1] : null;
+        if (bf && !bf.fixedLane && !bf.localPin && bf.lane === ls[0] && bf.midi !== walk[0].midi && walk[0].time - end(bf) < 0.25) {
+          // the note before (and the climb or fall it ends, if it's one: consecutive keys, one way) shifts one key away
+          // from the walk's first key, keeping its own shape (Arabesque 5:38: the trumpets' held 81 82 84 on F J K
+          // move to D F J so the walk can start on K)
+          let r0 = a + w0 - 1;
+          while (
+            r0 > 0 &&
+            !prim[r0 - 1].fixedLane &&
+            !prim[r0 - 1].localPin &&
+            Math.abs(prim[r0].lane - prim[r0 - 1].lane) === 1 &&
+            Math.sign(prim[r0].lane - prim[r0 - 1].lane) === Math.sign(prim[r0].midi - prim[r0 - 1].midi) &&
+            Math.abs(prim[r0].midi - prim[r0 - 1].midi) <= 12 &&
+            prim[r0].time - end(prim[r0 - 1]) < 0.3
+          )
+            r0--;
+          const run = prim.slice(r0, a + w0);
+          const step = ls[0] === lanes - 1 ? -1 : 1;
+          const pre = r0 > 0 ? prim[r0 - 1] : null;
+          const fits = run.every((x) => x.lane + step >= 0 && x.lane + step < lanes) && !(pre && pre.lane === run[0].lane + step && pre.midi !== run[0].midi && run[0].time - end(pre) < 0.3);
+          if (fits) run.forEach((x) => (x.lane += step));
+        }
+      }
+    }
     if (len >= 3 && len <= lanes && !line.some((x) => x.fixedLane || x.localPin || x.ghost || x.altRun)) {
       // (a re-anchor, top key -> bottom key on a climb or bottom -> top on a fall, is the normal way a line continues)
       const reAnchor = (la, lb) => (dir > 0 && la === lanes - 1 && lb === 0) || (dir < 0 && la === 0 && lb === lanes - 1);
@@ -3304,6 +3368,44 @@ function applyHeldLines(notes, lanes) {
       }
     }
     a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * Close the gap instead of doubling up: when two different notes land on the same key back to back, and the notes
+ * leading into the first of them step one key at a time from a spot where the line skipped a key, that stretch shifts
+ * one key toward the skipped key (Arabesque 5:36: horns 63 62 60 then the trumpets' 81 = K F D D -> K J F D). Notes of
+ * the same pitch just before the stretch (within 2s, on the old key) move with it, so the same notes keep the same keys.
+ */
+function applyGapShiftDoubles(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
+  const locked = (x) => x.fixedLane || x.localPin || x.ghost;
+  for (let i = 1; i + 1 < prim.length; i++) {
+    const p = prim[i];
+    const q = prim[i + 1];
+    if (p.lane !== q.lane || p.midi === q.midi || q.time - end(p) > 0.8) continue;
+    // walk back over single-key steps (one way) to the skipped key
+    let j = i;
+    let d = 0;
+    while (j > 0) {
+      const dl = prim[j - 1].lane - prim[j].lane;
+      if (Math.abs(dl) !== 1 || (d && Math.sign(dl) !== d) || prim[j].time - end(prim[j - 1]) > 0.8) break;
+      d = Math.sign(dl);
+      j--;
+    }
+    if (!d || j === 0) continue;
+    const dg = prim[j - 1].lane - prim[j].lane;
+    if (dg !== 2 * d || prim[j].time - end(prim[j - 1]) > 0.8) continue;
+    const seg = prim.slice(j, i + 1);
+    if (seg.some(locked)) continue;
+    const moved = new Map(seg.map((x) => [x, x.lane]));
+    // same pitch just before the stretch, on the old key, comes along
+    for (let k = j - 1; k >= 0 && seg[0].time - prim[k].time <= 2.0; k--) {
+      const twin = seg.find((x) => x.midi === prim[k].midi && moved.get(x) === prim[k].lane);
+      if (twin && !locked(prim[k])) moved.set(prim[k], prim[k].lane);
+    }
+    for (const x of moved.keys()) x.lane += d;
   }
 }
 

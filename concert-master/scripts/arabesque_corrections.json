@@ -1,0 +1,27 @@
+{
+  "_about": "Score errata and by-ear choices, confirmed against the recording (score seconds). 'move_notes' moves a lead note the score writes at the wrong moment ('to' = where the recording plays it; the lead's previous note ends there, cut short or ringing on up to it). 'layer_notes' adds a part's note as a second hold over the held lead note it lands on.",
+  "move_notes": [
+    {
+      "staff": "Bb Clarinet 1, 2",
+      "start": 160.445,
+      "midi": 82,
+      "to": 160.081,
+      "why": "2:37: the score writes the clarinets' 82 a quarter-beat after the half-bar; the recording changes notes ON the half-bar, with the trumpets (user, by ear, Nov 12: the held 82 was half a beat late; the 82's pitch energy rises ~2:37.3)."
+    },
+    {
+      "staff": "F Horn 1, 2",
+      "start": 271.899,
+      "midi": 70,
+      "to": 271.42,
+      "why": "4:36: the horns move UP 69 -> 70 about half a beat before the written 70 lands; the rip's top note rings until then, a half note (user, by ear)."
+    }
+  ],
+  "layer_notes": [
+    {
+      "staff": "C Trumpet 1, 2",
+      "start": 162.263,
+      "midi": 85,
+      "why": "2:39: the trumpets' high 85 comes in ON TOP of the band's held chord; the held note keeps going and the 85 is a second hold (user, by ear)."
+    }
+  ]
+}

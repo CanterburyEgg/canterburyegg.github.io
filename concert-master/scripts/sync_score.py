@@ -2721,60 +2721,147 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
     print("  [2/4] Conducting Lead-Melody voice handoffs across score staves...")
     lead_score_notes = conduct_lead_melody_from_score(staves, score_dur)
 
-    # Arabesque (song-specific, by ear): take the line the ear actually follows in three spots (score seconds):
-    #  - m.~82 (2:35-2:40): over the full-band hold, the TRUMPETS move (82 84 80 85, one per bar-half); the clarinets'
-    #    84-82-84 lands late against what you hear, so the trumpets take over after the opening attack.
-    #  - m.~104 (4:35): after the oboe rip, the horns' held A starts WITH the rip's top note (played as a held partner
-    #    key, see chord_hits below), so the late re-attack and the quiet lone-horn B-flat pickup are dropped.
-    #  - mm.~124-end (5:36-): the high voice (flutes) until the low instruments' final walk-down (bassoons & co.).
-    arabesque_top_hold = None
-    if score_path.stem.lower() == "arabesque":
+    _NOT_PITCHED = ("perc", "timp", "drum", "mallet", "bells", "glock", "xylo", "chime", "vib", "marimba")
+    _BRASS_NM = ("trumpet", "horn", "trombone", "euph", "tuba", "flugel", "cornet", "baritone")
+    pitched_st = [st for st in staves if not any(x in st["name"].lower() for x in _NOT_PITCHED)]
 
-        def _splice(staff_key, s0, s1):
-            src = next((st for st in staves if staff_key in st["name"].lower()), None)
-            new = [dict(n, staff=src["name"], is_spliced=True) for n in src["notes"] if s0 <= float(n["start"]) < s1] if src else []
-            kept = [n for n in lead_score_notes if not (s0 <= float(n["start"]) < s1)]
-            if new:
-                first = min(float(n["start"]) for n in new)
+    # Low unison walk: when 5+ low parts (at or below G3, octave doublings count) strike together on every note of a
+    # stepwise line (5+ notes, all one way, steps of 4 semitones or less, each held into the next) that ends on a held
+    # landing, the whole bottom of the band is walking and the ear follows it (Arabesque 5:45: bass clarinet, bassoons,
+    # bass trombone, cello + tuba & basses an octave down walk 48 46 45 42 -> 41 while the horns shuffle 69 70 69 66 69).
+    low_att = {}
+    low_list = sorted(((float(n["start"]), st, n) for st in pitched_st for n in st["notes"] if int(n["midi"]) <= 55), key=lambda x: x[0])
+    k_cur, t_cur = None, -9.0
+    for t_l, st, n in low_list:
+        if t_l - t_cur > 0.03:
+            k_cur, t_cur = round(t_l / 0.02), t_l
+        low_att.setdefault(k_cur, []).append((st, n))
+    walk_keys = sorted(k for k, v in low_att.items() if len({id(st) for st, _ in v}) >= 5)
+    def _walk_pitch(k):
+        # the line's pitch = the low note the most parts strike (3+), the higher one on a tie
+        v = low_att[k]
+        cnt = {}
+        for _, n in v:
+            cnt[int(n["midi"])] = cnt.get(int(n["midi"]), 0) + 1
+        m, c = max(cnt.items(), key=lambda kv: (kv[1], kv[0]))
+        return m if c >= 3 else None
+
+    i_w = 0
+    while i_w < len(walk_keys):
+        seq = [walk_keys[i_w]]
+        p0 = _walk_pitch(walk_keys[i_w])
+        pitches = [p0]
+        dir_w = 0
+        j_w = i_w + 1
+        while j_w < len(walk_keys) and p0 is not None:
+            k_prev, k_new = seq[-1], walk_keys[j_w]
+            p_new = _walk_pitch(k_new)
+            if p_new is None or p_new == pitches[-1] or abs(p_new - pitches[-1]) > 4:
+                break
+            d_new = 1 if p_new > pitches[-1] else -1
+            if dir_w and d_new != dir_w:
+                break
+            # every part on the line holds into the next note (legato), and the next note comes within 1.2s
+            prev_line = [n for _, n in low_att[k_prev] if (int(n["midi"]) - pitches[-1]) % 12 == 0]
+            if (k_new - k_prev) * 0.02 > 1.2 or any(float(n["end"]) < k_new * 0.02 - 0.05 for n in prev_line):
+                break
+            dir_w = d_new
+            seq.append(k_new)
+            pitches.append(p_new)
+            j_w += 1
+        last_line = [n for _, n in low_att[seq[-1]] if pitches[-1] is not None and (int(n["midi"]) - pitches[-1]) % 12 == 0]
+        landing = len(seq) >= 2 and max((float(n["end"]) - float(n["start"]) for n in last_line), default=0) >= 1.5
+        if len(seq) >= 5 and landing:
+            # take the line from the part that plays it at the line's own octave with the most notes in the span
+            w_s0, w_s1 = seq[0] * 0.02 - 0.01, max(float(n["end"]) for n in last_line)
+            cands = {}
+            for k in seq:
+                for st, n in low_att[k]:
+                    if int(n["midi"]) == pitches[seq.index(k)]:
+                        cands.setdefault(st["name"], []).append(n)
+            src_nm = max(cands, key=lambda nm: (len(cands[nm]), nm))
+            src = cands[src_nm]
+            if len(src) == len(seq):
+                kept = [n for n in lead_score_notes if not (w_s0 <= float(n["start"]) < w_s1 - 0.01)]
                 for n in kept:
-                    if float(n["start"]) < first < float(n["end"]):
-                        n["end"] = first
-            return sorted(kept + new, key=lambda x: float(x["start"]))
+                    if float(n["start"]) < w_s0 < float(n["end"]):
+                        n["end"] = w_s0 + 0.01
+                lead_score_notes = sorted(kept + [dict(n, staff=src_nm, is_low_walk=True, is_spliced=True) for n in src], key=lambda x: float(x["start"]))
+                print(f"    -> low unison walk {pitches} at {w_s0:.2f}s ({src_nm})")
+            i_w = j_w
+        else:
+            i_w += 1
 
-        lead_score_notes = _splice("trumpet", 158.9, 163.3)
-        # 2:35.6: the clarinets' quiet pickup 72 between the two big held chords has no audible attack: drop it
-        lead_score_notes = [n for n in lead_score_notes if not (abs(float(n["start"]) - 158.6785) < 0.02 and int(n["midi"]) == 72)]
-        # 4:35: the rip's top note holds until the horns come in (S D F J K-hold, then the horns' A); the quiet
-        # lone-horn B-flat pickup after it has no audible attack, so it goes
-        # (what you hear: the rip's top note rings for a half note, then the horns move UP 69 -> 70, about half a beat
-        # before the written 70 lands on the warp; so: K-hold (half), then the horns' 70 held (half) on J, and the
-        # horns' A re-attack in between is dropped)
-        out_l = []
-        for n in lead_score_notes:
-            st_n = float(n["start"])
-            if abs(st_n - 270.2629) < 0.01:
-                out_l.append(dict(n, end=271.42, is_forced_hold=True, keep_hold=True, is_scalar_lick=False))
-            elif abs(st_n - 270.8084) < 0.01:
+    # Top of the held brass: when the lead is an inner brass part on long held notes (1s+) and, at each of 2+ of those
+    # notes in a row, a brass part above it strikes a different, higher held note at the same moment, the top of the
+    # brass is what rings out (Arabesque 5:38: the trumpets climb 81 82 84 over the horns' 67 70 70).
+    def _top_brass(n):
+        best = None
+        for st in pitched_st:
+            if st["name"] == n.get("staff") or not any(b in st["name"].lower() for b in _BRASS_NM):
                 continue
-            elif 271.85 <= st_n < 272.3:
-                out_l.append(dict(n, start=271.42, end=272.40, is_forced_hold=True, keep_hold=True, local_hint=2))
-            else:
-                out_l.append(n)
-        lead_score_notes = out_l
-        # 5:36-end: the high voice in the quarter-note figure (piccolo 98 98 99 98 96), the flutes' held notes, then the
-        # low instruments' quarter-note walk-down
-        lead_score_notes = _splice("piccolo", 332.3, 334.8)
-        lead_score_notes = _splice("flute", 334.8, 341.59)
-        lead_score_notes = _splice("bassoon", 341.59, 349.5)
-        # pinned keys for the spliced ending (one-off pins): piccolo 98 99 98 96 = J K J F, flutes 93 = D, 86 = J,
-        # walk-down 48 46 45 42 = K J F D and its fifth step 41 (held) wraps to K (slow notes: no ghost)
-        pins = {(332.3, 334.8): {98: 2, 99: 3, 96: 1}, (334.8, 341.59): {93: 0, 86: 2}, (341.59, 349.5): {48: 3, 46: 2, 45: 1, 42: 0, 41: 3}}
-        for n in lead_score_notes:
-            if not n.get("is_spliced"):
+            for q in st["notes"]:
+                if abs(float(q["start"]) - float(n["start"])) < 0.02 and float(q["end"]) - float(q["start"]) >= 1.0 and int(q["midi"]) > int(n["midi"]):
+                    if best is None or int(q["midi"]) > int(best[1]["midi"]):
+                        best = (st["name"], q)
+        return best
+
+    tb = []
+    for idx, n in enumerate(lead_score_notes):
+        is_br = any(b in str(n.get("staff", "")).lower() for b in _BRASS_NM)
+        tb.append(_top_brass(n) if is_br and float(n["end"]) - float(n["start"]) >= 1.0 and not n.get("is_low_walk") else None)
+    idx = 0
+    out_tb = []
+    while idx < len(lead_score_notes):
+        j_t = idx
+        while j_t < len(lead_score_notes) and tb[j_t] is not None and tb[j_t][0] == (tb[idx][0] if tb[idx] else None):
+            j_t += 1
+        if j_t - idx >= 2:
+            for k in range(idx, j_t):
+                out_tb.append(dict(tb[k][1], staff=tb[k][0], is_spliced=True))
+            print(f"    -> top of the held brass: {tb[idx][0]} {[int(tb[k][1]['midi']) for k in range(idx, j_t)]} at {float(lead_score_notes[idx]['start']):.2f}s")
+            idx = j_t
+        else:
+            out_tb.append(lead_score_notes[idx])
+            idx += 1
+    lead_score_notes = out_tb
+
+    # Held-over re-attacks: when the lead jumps to a part that has been holding this same pitch since the previous lead
+    # note was struck (they came in together), the written re-attack isn't heard: the part is already sounding, under the
+    # lead. The re-attack is skipped and the previous lead note rings on over it (Arabesque 4:35: the horns' A, held from
+    # the oboe rip's top note, then written again; the rip's top note rings on). Only for a part UNDER the lead: a unison
+    # re-strike is a repeated note you hear, and a part above a low line (Arabesque 5:35: piccolo over the low line) is
+    # the next voice coming in.
+    by_nm_r = {st["name"]: st for st in staves}
+    kept_r = []
+    for n in lead_score_notes:
+        prev_r = kept_r[-1] if kept_r else None
+        st_r = by_nm_r.get(n.get("staff"))
+        if prev_r is not None and st_r is not None and prev_r.get("staff") != n.get("staff") and int(n["midi"]) < int(prev_r["midi"]):
+            held = any(
+                q is not n and int(q["midi"]) == int(n["midi"]) and abs(float(q["end"]) - float(n["start"])) < 0.02
+                and abs(float(q["start"]) - float(prev_r["start"])) < 0.02
+                for q in st_r["notes"]
+            )
+            if held:
+                prev_r["end"] = max(float(prev_r["end"]), float(n["end"]))
                 continue
-            for (p0, p1), mp in pins.items():
-                if p0 <= float(n["start"]) < p1 and int(n["midi"]) in mp:
-                    n["local_hint"] = mp[int(n["midi"])]
+        kept_r.append(n)
+    lead_score_notes = kept_r
+
+    # Lead notes the score writes at the wrong moment (<song>_corrections.json "move_notes", score seconds, by ear):
+    # 'to' = where the recording plays it; the lead's previous note ends there (cut short, or ringing on up to it).
+    # Applied to the lead after it is picked, so the shorter neighbour doesn't change the pick.
+    corr_drop = Path(__file__).with_name(f"{score_path.stem.lower()}_corrections.json")
+    if corr_drop.exists():
+        for mv in json.loads(corr_drop.read_text(encoding="utf-8")).get("move_notes", []):
+            for n_m in lead_score_notes:
+                if n_m.get("staff") == mv["staff"] and abs(float(n_m["start"]) - float(mv["start"])) < 0.02 and int(n_m["midi"]) == int(mv["midi"]):
+                    n_m["start"] = float(mv["to"])
+                    prev_l = [n_p for n_p in lead_score_notes if n_p is not n_m and float(n_p["start"]) < float(mv["to"])]
+                    if prev_l:
+                        max(prev_l, key=lambda x: float(x["start"]))["end"] = float(mv["to"])
+            lead_score_notes.sort(key=lambda x: float(x["start"]))
 
     # Parts the score reader misses (<song>_corrections.json "missing_parts", score seconds): e.g. Guthix's Howl FX
     # swells, written on single-line FX staves the PDF parser skips. They join the lead like any written note.
@@ -3552,6 +3639,7 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
                     "is_perc_tap": bool(n.get("is_perc_tap", False)),
                     "keep_hold": bool(n.get("keep_hold", False)),
                     "is_spliced": bool(n.get("is_spliced", False)),
+                    "is_low_walk": bool(n.get("is_low_walk", False)),
                     "is_forced_hold": bool(n.get("is_forced_hold", False)),
                     "lane_hint": n.get("lane_hint"),
                     "local_hint": n.get("local_hint"),
@@ -4161,8 +4249,9 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
         warped = [p[1] for p in pairs]
         print(f"    -> restored {len(rest['notes'])} approved notes in {len(wins)} windows")
 
-    # Song-specific spliced lines (see the Arabesque block): their written rhythm came from a different staff than the
-    # one the warp followed, so each note snaps to the clear audio attack within 0.2s (Arabesque 5:45 walk-down).
+    # Spliced lines (a rule took the lead from a different part than the conductor's, e.g. the low unison walk or the top
+    # of the held brass): their written rhythm came from a different staff than the one the warp followed, so each note
+    # snaps to the clear audio attack within 0.25s (Arabesque 5:45 walk-down).
     for k_sp in range(min(len(melody_out), len(warped))):
         if not warped[k_sp].get("is_spliced"):
             continue
@@ -4182,23 +4271,26 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
             nxt = float(melody_out[k_sp + 1][0])
             if float(melody_out[k_sp][1]) > nxt - 0.015:
                 melody_out[k_sp][1] = round(max(float(melody_out[k_sp][0]) + 0.04, nxt - 0.015), 4)
-            # a legato low walk (bassoons & co.) holds each step right up to the next one, so every step reads the same
-            if warped[k_sp].get("is_spliced") and "bassoon" in str(warped[k_sp].get("staff", "")).lower() and nxt - float(melody_out[k_sp][0]) < 1.0:
+            # a legato low walk holds each step right up to the next one, so every step reads the same
+            if warped[k_sp].get("is_low_walk") and nxt - float(melody_out[k_sp][0]) < 1.0:
                 melody_out[k_sp][1] = round(nxt - 0.03, 4)
 
     # Repeated-note figures (3+ strikes of one pitch, e.g. Arabesque 2:02 "da, da-da-da" and 4:30 81 81 81 81): anchor
     # the first and last strikes on their clear audio attacks (within 0.12s) and space the ones between by the written
     # rhythm, so the quick strikes come out even instead of bunching.
-    def _peak_near(t, w=0.12, thr=2.0):
+    def _peak_near(t, w=0.12, thr=2.0, true_peak=False):
         f_c = int(round(t / dt))
         lo_f, hi_f = max(1, f_c - int(round(w / dt))), min(len(a_ons_raw) - 1, f_c + int(round(w / dt)) + 1)
         if hi_f <= lo_f:
             return None
         f_pk = lo_f + int(np.argmax(a_ons_raw[lo_f:hi_f]))
+        # true_peak: a real attack peaks inside the window; a max on the window's edge is the slope of a neighbouring hit
+        if true_peak and (float(a_ons_raw[f_pk - 1]) > float(a_ons_raw[f_pk]) or (f_pk + 1 < len(a_ons_raw) and float(a_ons_raw[f_pk + 1]) > float(a_ons_raw[f_pk]))):
+            return None
         loc = float(np.median(a_ons_raw[max(0, f_pk - 35) : f_pk + 35])) + 0.12
         return f_pk * dt if float(a_ons_raw[f_pk]) >= thr * loc else None
 
-    if score_path.stem.lower() == "arabesque" and len(warped) == len(melody_out):
+    if len(warped) == len(melody_out):
         k_a = 0
         while k_a < len(melody_out):
             k_b = k_a
@@ -4209,7 +4301,7 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
             ):
                 k_b += 1
             if k_b - k_a >= 2 and not any(str(warped[k].get("staff", "")).startswith("Restored") for k in range(k_a, k_b + 1)):
-                t_a, t_b = _peak_near(float(melody_out[k_a][0])), _peak_near(float(melody_out[k_b][0]))
+                t_a, t_b = _peak_near(float(melody_out[k_a][0]), true_peak=True), _peak_near(float(melody_out[k_b][0]), true_peak=True)
                 s_a, s_b = float(warped[k_a]["score_start"]), float(warped[k_b]["score_start"])
                 if t_a is not None and t_b is not None and t_b > t_a + 0.1 and s_b > s_a:
                     new_t = [t_a + (float(warped[k]["score_start"]) - s_a) * (t_b - t_a) / (s_b - s_a) for k in range(k_a, k_b + 1)]
@@ -4359,23 +4451,6 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
                     del r[6:]
                     r.append(20 + int(lane_pin))
 
-    # Short holds must be heard: a note under 1s that would become a hold (room after it) but whose sound dies away
-    # (the mix falls below 35% of its attack peak before 60% of the note) is played short: a tap (Arabesque 3:31: the
-    # horns' last 65 is a quarter note that stops after ~0.3s).
-    for k_s in range(len(melody_out) if score_path.stem.lower() == "arabesque" else 0):  # (Arabesque only, by ear so far)
-        s_t0, s_t1 = float(melody_out[k_s][0]), float(melody_out[k_s][1])
-        if not (0.48 <= s_t1 - s_t0 < 1.0):
-            continue
-        f0 = int(round(s_t0 / dt))
-        f_pk = mix_rms[f0 : f0 + max(2, int(round(0.15 / dt)))]
-        if k_s < len(warped) and warped[k_s].get("is_forced_hold"):
-            continue
-        f_mid = int(round((s_t0 + 0.75 * (s_t1 - s_t0)) / dt))
-        if len(f_pk) == 0 or f_mid + 3 >= len(mix_rms):
-            continue
-        if float(np.mean(mix_rms[f_mid - 2 : f_mid + 3])) < 0.4 * float(np.max(f_pk)):
-            melody_out[k_s][1] = round(s_t0 + 0.3, 4)
-
     # Offset chords: when a low section (>= 3 staves, at or below F3, >= 2.0s long, entering together) comes in UNDER a
     # held melody note, after it started (e.g. Sevens m.131 at 3:42: low brass & reeds swell in under the trumpets'
     # held A-flat), emit the entry as a chord note so the chart adds a second hold on the other hand.
@@ -4411,18 +4486,25 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
                 chord_notes.append([round(c_t0, 4), round(m_t1, 4), int(max(e["midi"] for e in ens))])
             break
 
-    # Arabesque 2:39 (by ear): the trumpets' 85 comes in ON TOP of the held 80, so the 80 keeps holding on the left hand
-    # and the 85 layers in as a second hold on the right (like the Sevens 3:42 entry) instead of replacing it.
-    if score_path.stem.lower() == "arabesque" and len(warped) == len(melody_out):
-        k85 = next((k for k in range(1, len(melody_out)) if int(melody_out[k][2]) == 85 and 159.3 <= float(melody_out[k][0]) <= 159.9 and int(melody_out[k - 1][2]) == 80), None)
-        if k85 is not None:
-            t85, e85 = float(melody_out[k85][0]), float(melody_out[k85][1])
-            melody_out[k85 - 1][1] = round(e85, 4)
-            if len(melody_out[k85 - 1]) == 6:
-                melody_out[k85 - 1].append(20)  # the held 80 stays on D (left hand), as played (one-off pin)
-            del melody_out[k85]
-            del warped[k85]
-            chord_notes.append([round(t85, 4), round(e85, 4), 85])
+    # Layered entries (<song>_corrections.json "layer_notes", score seconds, by ear): a part's note that comes in ON TOP
+    # of a held lead note (e.g. Arabesque 2:39: the trumpets' high 85 over the band's held chord) is added as a second
+    # hold on the other hand, like the offset chords above, instead of replacing the held note.
+    if corrections_path.exists() and len(warped) == len(melody_out):
+        for ly in json.loads(corrections_path.read_text(encoding="utf-8")).get("layer_notes", []):
+            s_ly = float(ly["start"])
+            for k_c in range(len(melody_out)):
+                ss_c = float(warped[k_c]["score_start"])
+                if not (ss_c < s_ly < ss_c + float(warped[k_c]["score_dur"])):
+                    continue
+                m_t0, m_t1 = float(melody_out[k_c][0]), float(melody_out[k_c][1])
+                if k_c + 1 < len(warped):
+                    s_b, a_b = float(warped[k_c + 1]["score_start"]), float(melody_out[k_c + 1][0])
+                    c_t0 = m_t0 + (s_ly - ss_c) * (a_b - m_t0) / max(1e-6, s_b - ss_c)
+                else:
+                    c_t0 = m_t0 + (s_ly - ss_c)
+                if m_t0 + 0.15 < c_t0 < m_t1 - 0.3:
+                    chord_notes.append([round(c_t0, 4), round(m_t1, 4), int(ly["midi"])])
+                break
 
     # Ensemble hits: a melody note the band attacks together as a real chord (>= 8 staves, >= 2 of them brass, >= 3
     # pitch classes) that stands out from what came just before it (the busiest attack in the previous second has at
@@ -4537,15 +4619,20 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
         dn = [p for p in pitches if p < m_h and (m_h - p) % 12]
         chord_hits.append([round(t_h, 4), min(up) if up else m_h + 7, max(dn) if dn else m_h - 5, 1])
     chord_hits.sort(key=lambda h: h[0])
-    if arabesque_top_hold:
-        # Arabesque 4:35: the rip's top note + the horns' held A under it = [J-hold + K]: [time, up, dn, passage flag,
-        # partner hold end, forced partner key]
-        s_top, s_end, m_part = arabesque_top_hold
-        k_top = next((k for k in range(n_hit) if abs(float(warped[k]["score_start"]) - s_top) < 0.02), None)
-        if k_top is not None:
-            t_top = float(melody_out[k_top][0])
-            chord_hits.append([round(t_top, 4), m_part, m_part, 0, round(float(warp_fn(s_end)), 4), 2])
-            chord_hits.sort(key=lambda h: h[0])
+    # Low slides into a band hit: a short lead note (< 0.4s) an octave or more below the notes either side of it, running
+    # straight into a full-band chord hit, is the accompaniment's pickup, not the tune: the ear hears the hit (Arabesque
+    # 2:35.6: the clarinets' and horns' 72 under the big chord at 2:35.96).
+    hit_t = [h[0] for h in chord_hits if len(h) == 3]
+    for k_d in range(len(melody_out) - 2, 0, -1):
+        a_d, b_d, c_d = melody_out[k_d - 1], melody_out[k_d], melody_out[k_d + 1]
+        if (
+            float(b_d[1]) - float(b_d[0]) < 0.4
+            and int(b_d[2]) <= int(a_d[2]) - 12
+            and int(b_d[2]) <= int(c_d[2]) - 12
+            and float(c_d[0]) - float(b_d[1]) < 0.15
+            and any(abs(t - float(c_d[0])) < 0.03 for t in hit_t)
+        ):
+            del melody_out[k_d]
     if chord_hits:
         print(f"    -> {len(chord_hits)} ensemble chord hits")
 

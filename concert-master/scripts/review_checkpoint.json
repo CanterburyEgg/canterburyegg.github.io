@@ -1,11 +1,11 @@
 {
   "_meta": {
-    "label": "Guthix: bell figures by general rule; Guthix-only code gone (cm37)",
-    "saved_at": "2026-11-12T17:46:46"
+    "label": "Arabesque ending by general rules: low walk, top brass, walk wrap, gap shift; splices+pins gone (cm42)",
+    "saved_at": "2026-11-12T20:27:27"
   },
   "arabesque": {
     "title": "Arabesque (Samuel R. Hazo)",
-    "sidecar_sha256": "fd5f75700dc7855da469a4825a51448d6ec513afe17ab01f47c657e481dd3d1f",
+    "sidecar_sha256": "b2ae821fae57078a528d9fcba1eb0f830c84a6d722b956eeca5cfcb458791e84",
     "mode": "4k:more",
     "notes": [
       {
@@ -37,9 +37,9 @@
       },
       {
         "time": 9.9149,
-        "endTime": 9.9149,
-        "type": "tap",
-        "lane": 1,
+        "endTime": 10.5525,
+        "type": "hold",
+        "lane": 0,
         "midi": 77,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -4446,43 +4446,43 @@
         "isChordPartner": false
       },
       {
-        "time": 155.9684,
-        "endTime": 156.9519,
+        "time": 155.9568,
+        "endTime": 157.051,
         "type": "hold",
         "lane": 1,
+        "midi": 84,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 155.9568,
+        "endTime": 157.051,
+        "type": "hold",
+        "lane": 3,
+        "midi": 92,
+        "isPercussionSolo": false,
+        "isChordPartner": true
+      },
+      {
+        "time": 157.141,
+        "endTime": 158.2237,
+        "type": "hold",
+        "lane": 0,
         "midi": 82,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 155.9684,
-        "endTime": 156.9519,
-        "type": "hold",
-        "lane": 3,
-        "midi": 84,
-        "isPercussionSolo": false,
-        "isChordPartner": true
-      },
-      {
-        "time": 157.0946,
-        "endTime": 158.212,
-        "type": "hold",
-        "lane": 2,
-        "midi": 84,
-        "isPercussionSolo": false,
-        "isChordPartner": false
-      },
-      {
-        "time": 158.302,
+        "time": 158.3137,
         "endTime": 160.7198,
         "type": "hold",
-        "lane": 0,
-        "midi": 80,
+        "lane": 1,
+        "midi": 84,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 159.5907,
+        "time": 159.5448,
         "endTime": 160.7198,
         "type": "hold",
         "lane": 3,
@@ -6319,8 +6319,8 @@
       },
       {
         "time": 211.1274,
-        "endTime": 211.1274,
-        "type": "tap",
+        "endTime": 211.7139,
+        "type": "hold",
         "lane": 2,
         "midi": 65,
         "isPercussionSolo": false,
@@ -8226,7 +8226,7 @@
         "isChordPartner": false
       },
       {
-        "time": 275.3422,
+        "time": 275.3594,
         "endTime": 276.4132,
         "type": "hold",
         "lane": 3,
@@ -8920,9 +8920,9 @@
       },
       {
         "time": 296.8198,
-        "endTime": 298.6547,
+        "endTime": 298.5448,
         "type": "hold",
-        "lane": 3,
+        "lane": 2,
         "midi": 86,
         "isPercussionSolo": false,
         "isChordPartner": true
@@ -9541,7 +9541,7 @@
       },
       {
         "time": 335.0639,
-        "endTime": 336.2162,
+        "endTime": 336.193,
         "type": "hold",
         "lane": 0,
         "midi": 62,
@@ -9549,29 +9549,29 @@
         "isChordPartner": false
       },
       {
-        "time": 336.3062,
-        "endTime": 336.3062,
+        "time": 336.283,
+        "endTime": 336.283,
         "type": "tap",
         "lane": 2,
-        "midi": 98,
+        "midi": 62,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 336.8171,
-        "endTime": 336.8171,
+        "time": 336.8751,
+        "endTime": 336.8751,
         "type": "tap",
         "lane": 3,
-        "midi": 99,
+        "midi": 63,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 337.4208,
-        "endTime": 337.4208,
+        "time": 337.3859,
+        "endTime": 337.3859,
         "type": "tap",
         "lane": 2,
-        "midi": 98,
+        "midi": 62,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
@@ -9580,34 +9580,43 @@
         "endTime": 337.9084,
         "type": "tap",
         "lane": 1,
-        "midi": 96,
+        "midi": 60,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
         "time": 338.4889,
-        "endTime": 341.6202,
+        "endTime": 341.6265,
         "type": "hold",
         "lane": 0,
-        "midi": 93,
+        "midi": 81,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
         "time": 341.7165,
-        "endTime": 344.9883,
+        "endTime": 343.734,
         "type": "hold",
         "lane": 1,
         "midi": 82,
         "isPercussionSolo": false,
-        "isChordPartner": true
+        "isChordPartner": false
       },
       {
         "time": 341.7165,
-        "endTime": 344.9883,
+        "endTime": 343.734,
         "type": "hold",
         "lane": 2,
         "midi": 86,
+        "isPercussionSolo": false,
+        "isChordPartner": true
+      },
+      {
+        "time": 343.934,
+        "endTime": 344.9934,
+        "type": "hold",
+        "lane": 2,
+        "midi": 84,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
@@ -9649,7 +9658,7 @@
       },
       {
         "time": 347.5098,
-        "endTime": 350.6242,
+        "endTime": 350.6474,
         "type": "hold",
         "lane": 3,
         "midi": 41,
@@ -9657,11 +9666,11 @@
         "isChordPartner": false
       },
       {
-        "time": 350.7142,
-        "endTime": 350.7142,
+        "time": 350.7374,
+        "endTime": 350.7374,
         "type": "tap",
         "lane": 2,
-        "midi": 43,
+        "midi": 67,
         "isPercussionSolo": false,
         "isChordPartner": false
       }
@@ -9669,7 +9678,7 @@
   },
   "sevens": {
     "title": "Sevens (Samuel R. Hazo)",
-    "sidecar_sha256": "6f1ec29b7a304df374ee8787518bf568a89bbb9f5e70014beab81cf78f422f6b",
+    "sidecar_sha256": "9dcaed769d83e927c3d4f02e871b17194cc15c53af041915da7f5e741f9e82f2",
     "mode": "4k:more",
     "notes": [
       {
@@ -9682,8 +9691,8 @@
         "isChordPartner": false
       },
       {
-        "time": 0.5428,
-        "endTime": 0.5428,
+        "time": 0.5379,
+        "endTime": 0.5379,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9691,8 +9700,8 @@
         "isChordPartner": false
       },
       {
-        "time": 0.7837,
-        "endTime": 0.7837,
+        "time": 0.774,
+        "endTime": 0.774,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9700,8 +9709,8 @@
         "isChordPartner": false
       },
       {
-        "time": 1.0246,
-        "endTime": 1.0246,
+        "time": 1.0101,
+        "endTime": 1.0101,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9781,8 +9790,8 @@
         "isChordPartner": false
       },
       {
-        "time": 2.5078,
-        "endTime": 2.5078,
+        "time": 2.4845,
+        "endTime": 2.4845,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9790,8 +9799,8 @@
         "isChordPartner": false
       },
       {
-        "time": 2.7516,
-        "endTime": 2.7516,
+        "time": 2.7322,
+        "endTime": 2.7322,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9799,8 +9808,8 @@
         "isChordPartner": false
       },
       {
-        "time": 2.9954,
-        "endTime": 2.9954,
+        "time": 2.9799,
+        "endTime": 2.9799,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9808,8 +9817,8 @@
         "isChordPartner": false
       },
       {
-        "time": 3.2392,
-        "endTime": 3.2392,
+        "time": 3.2276,
+        "endTime": 3.2276,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9898,8 +9907,8 @@
         "isChordPartner": false
       },
       {
-        "time": 4.9691,
-        "endTime": 4.9691,
+        "time": 4.9884,
+        "endTime": 4.9884,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9907,8 +9916,8 @@
         "isChordPartner": false
       },
       {
-        "time": 5.2013,
-        "endTime": 5.2013,
+        "time": 5.24,
+        "endTime": 5.24,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9916,8 +9925,8 @@
         "isChordPartner": false
       },
       {
-        "time": 5.4335,
-        "endTime": 5.4335,
+        "time": 5.4915,
+        "endTime": 5.4915,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9997,8 +10006,8 @@
         "isChordPartner": false
       },
       {
-        "time": 7.0008,
-        "endTime": 7.0008,
+        "time": 6.9892,
+        "endTime": 6.9892,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10006,8 +10015,8 @@
         "isChordPartner": false
       },
       {
-        "time": 7.2475,
-        "endTime": 7.2475,
+        "time": 7.2369,
+        "endTime": 7.2369,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10015,8 +10024,8 @@
         "isChordPartner": false
       },
       {
-        "time": 7.4943,
-        "endTime": 7.4943,
+        "time": 7.4846,
+        "endTime": 7.4846,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10024,8 +10033,8 @@
         "isChordPartner": false
       },
       {
-        "time": 7.741,
-        "endTime": 7.741,
+        "time": 7.7322,
+        "endTime": 7.7322,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10213,8 +10222,8 @@
         "isChordPartner": false
       },
       {
-        "time": 11.5171,
-        "endTime": 11.5171,
+        "time": 11.5055,
+        "endTime": 11.5055,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10222,8 +10231,8 @@
         "isChordPartner": false
       },
       {
-        "time": 11.7638,
-        "endTime": 11.7638,
+        "time": 11.7532,
+        "endTime": 11.7532,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10231,8 +10240,8 @@
         "isChordPartner": false
       },
       {
-        "time": 12.0105,
-        "endTime": 12.0105,
+        "time": 12.0008,
+        "endTime": 12.0008,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10240,8 +10249,8 @@
         "isChordPartner": false
       },
       {
-        "time": 12.2572,
-        "endTime": 12.2572,
+        "time": 12.2485,
+        "endTime": 12.2485,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10330,8 +10339,8 @@
         "isChordPartner": false
       },
       {
-        "time": 14.0161,
-        "endTime": 14.0161,
+        "time": 14.0171,
+        "endTime": 14.0171,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10339,8 +10348,8 @@
         "isChordPartner": false
       },
       {
-        "time": 14.2629,
-        "endTime": 14.2629,
+        "time": 14.2648,
+        "endTime": 14.2648,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10348,8 +10357,8 @@
         "isChordPartner": false
       },
       {
-        "time": 14.5096,
-        "endTime": 14.5096,
+        "time": 14.5125,
+        "endTime": 14.5125,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -10537,8 +10546,8 @@
         "isChordPartner": false
       },
       {
-        "time": 18.3205,
-        "endTime": 18.3205,
+        "time": 18.2741,
+        "endTime": 18.2741,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10546,8 +10555,8 @@
         "isChordPartner": false
       },
       {
-        "time": 18.5566,
-        "endTime": 18.5566,
+        "time": 18.5218,
+        "endTime": 18.5218,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10555,8 +10564,8 @@
         "isChordPartner": false
       },
       {
-        "time": 18.7927,
-        "endTime": 18.7927,
+        "time": 18.7695,
+        "endTime": 18.7695,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10564,8 +10573,8 @@
         "isChordPartner": false
       },
       {
-        "time": 19.0288,
-        "endTime": 19.0288,
+        "time": 19.0171,
+        "endTime": 19.0171,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10618,8 +10627,8 @@
         "isChordPartner": false
       },
       {
-        "time": 21.4581,
-        "endTime": 21.4581,
+        "time": 21.4591,
+        "endTime": 21.4591,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10627,8 +10636,8 @@
         "isChordPartner": false
       },
       {
-        "time": 21.7165,
-        "endTime": 21.7165,
+        "time": 21.7184,
+        "endTime": 21.7184,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10636,8 +10645,8 @@
         "isChordPartner": false
       },
       {
-        "time": 21.9748,
-        "endTime": 21.9748,
+        "time": 21.9777,
+        "endTime": 21.9777,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10717,8 +10726,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.5102,
-        "endTime": 23.5102,
+        "time": 23.4986,
+        "endTime": 23.4986,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10726,8 +10735,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.7569,
-        "endTime": 23.7569,
+        "time": 23.7579,
+        "endTime": 23.7579,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10735,8 +10744,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.0037,
-        "endTime": 24.0037,
+        "time": 24.0172,
+        "endTime": 24.0172,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10744,8 +10753,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.2504,
-        "endTime": 24.2504,
+        "time": 24.2765,
+        "endTime": 24.2765,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10834,8 +10843,8 @@
         "isChordPartner": false
       },
       {
-        "time": 26.0179,
-        "endTime": 26.0179,
+        "time": 26.0141,
+        "endTime": 26.0141,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10843,8 +10852,8 @@
         "isChordPartner": false
       },
       {
-        "time": 26.2734,
-        "endTime": 26.2734,
+        "time": 26.2656,
+        "endTime": 26.2656,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -10852,8 +10861,8 @@
         "isChordPartner": false
       },
       {
-        "time": 26.5288,
-        "endTime": 26.5288,
+        "time": 26.5172,
+        "endTime": 26.5172,
         "type": "tap",
         "lane": 2,
         "midi": 77,
@@ -13255,8 +13264,8 @@
         "isChordPartner": false
       },
       {
-        "time": 128.1974,
-        "endTime": 128.1974,
+        "time": 128.3019,
+        "endTime": 128.3019,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13264,8 +13273,8 @@
         "isChordPartner": false
       },
       {
-        "time": 128.476,
-        "endTime": 128.476,
+        "time": 128.5224,
+        "endTime": 128.5224,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13273,8 +13282,8 @@
         "isChordPartner": false
       },
       {
-        "time": 128.7546,
-        "endTime": 128.7546,
+        "time": 128.743,
+        "endTime": 128.743,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13282,8 +13291,8 @@
         "isChordPartner": false
       },
       {
-        "time": 129.0101,
-        "endTime": 129.0101,
+        "time": 128.9636,
+        "endTime": 128.9636,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13471,8 +13480,8 @@
         "isChordPartner": false
       },
       {
-        "time": 135.9877,
-        "endTime": 135.9877,
+        "time": 136.0457,
+        "endTime": 136.0457,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13480,8 +13489,8 @@
         "isChordPartner": false
       },
       {
-        "time": 136.2199,
-        "endTime": 136.2199,
+        "time": 136.2702,
+        "endTime": 136.2702,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13489,8 +13498,8 @@
         "isChordPartner": false
       },
       {
-        "time": 136.4637,
-        "endTime": 136.4637,
+        "time": 136.4946,
+        "endTime": 136.4946,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -13849,8 +13858,8 @@
         "isChordPartner": false
       },
       {
-        "time": 148.5148,
-        "endTime": 148.5148,
+        "time": 148.5342,
+        "endTime": 148.5342,
         "type": "tap",
         "lane": 0,
         "midi": 72,
@@ -13876,8 +13885,8 @@
         "isChordPartner": false
       },
       {
-        "time": 150.0241,
-        "endTime": 150.0241,
+        "time": 150.0125,
+        "endTime": 150.0125,
         "type": "tap",
         "lane": 1,
         "midi": 77,
@@ -13903,8 +13912,8 @@
         "isChordPartner": false
       },
       {
-        "time": 151.4289,
-        "endTime": 151.4289,
+        "time": 151.4212,
+        "endTime": 151.4212,
         "type": "tap",
         "lane": 2,
         "midi": 79,
@@ -13912,7 +13921,7 @@
         "isChordPartner": false
       },
       {
-        "time": 151.7076,
+        "time": 151.6844,
         "endTime": 152.6509,
         "type": "hold",
         "lane": 2,
@@ -14011,8 +14020,8 @@
         "isChordPartner": false
       },
       {
-        "time": 156.0497,
-        "endTime": 156.0497,
+        "time": 156.1078,
+        "endTime": 156.1078,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14020,8 +14029,8 @@
         "isChordPartner": false
       },
       {
-        "time": 156.1658,
-        "endTime": 156.1658,
+        "time": 156.2277,
+        "endTime": 156.2277,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14029,8 +14038,8 @@
         "isChordPartner": false
       },
       {
-        "time": 156.34,
-        "endTime": 156.34,
+        "time": 156.3477,
+        "endTime": 156.3477,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14038,8 +14047,8 @@
         "isChordPartner": false
       },
       {
-        "time": 156.5373,
-        "endTime": 156.5373,
+        "time": 156.5876,
+        "endTime": 156.5876,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14047,8 +14056,8 @@
         "isChordPartner": false
       },
       {
-        "time": 156.6659,
-        "endTime": 156.6659,
+        "time": 156.7076,
+        "endTime": 156.7076,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14056,8 +14065,8 @@
         "isChordPartner": false
       },
       {
-        "time": 156.8392,
-        "endTime": 156.8392,
+        "time": 156.8276,
+        "endTime": 156.8276,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14065,8 +14074,8 @@
         "isChordPartner": false
       },
       {
-        "time": 157.0249,
-        "endTime": 157.0249,
+        "time": 157.0675,
+        "endTime": 157.0675,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14119,8 +14128,8 @@
         "isChordPartner": false
       },
       {
-        "time": 159.3585,
-        "endTime": 159.3585,
+        "time": 159.3673,
+        "endTime": 159.3673,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14128,8 +14137,8 @@
         "isChordPartner": false
       },
       {
-        "time": 159.4772,
-        "endTime": 159.4772,
+        "time": 159.4863,
+        "endTime": 159.4863,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14137,8 +14146,8 @@
         "isChordPartner": false
       },
       {
-        "time": 159.5959,
-        "endTime": 159.5959,
+        "time": 159.6053,
+        "endTime": 159.6053,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14146,8 +14155,8 @@
         "isChordPartner": false
       },
       {
-        "time": 159.7146,
-        "endTime": 159.7146,
+        "time": 159.7243,
+        "endTime": 159.7243,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14155,8 +14164,8 @@
         "isChordPartner": false
       },
       {
-        "time": 159.8333,
-        "endTime": 159.8333,
+        "time": 159.8433,
+        "endTime": 159.8433,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14164,8 +14173,8 @@
         "isChordPartner": false
       },
       {
-        "time": 159.9519,
-        "endTime": 159.9519,
+        "time": 159.9623,
+        "endTime": 159.9623,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14173,8 +14182,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.0706,
-        "endTime": 160.0706,
+        "time": 160.0813,
+        "endTime": 160.0813,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14182,8 +14191,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.1893,
-        "endTime": 160.1893,
+        "time": 160.2003,
+        "endTime": 160.2003,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14191,8 +14200,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.308,
-        "endTime": 160.308,
+        "time": 160.3193,
+        "endTime": 160.3193,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14200,8 +14209,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.4267,
-        "endTime": 160.4267,
+        "time": 160.4383,
+        "endTime": 160.4383,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14209,8 +14218,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.6821,
-        "endTime": 160.6821,
+        "time": 160.6763,
+        "endTime": 160.6763,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14218,8 +14227,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.8001,
-        "endTime": 160.8001,
+        "time": 160.7953,
+        "endTime": 160.7953,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14227,8 +14236,8 @@
         "isChordPartner": false
       },
       {
-        "time": 160.9182,
-        "endTime": 160.9182,
+        "time": 160.9143,
+        "endTime": 160.9143,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14236,8 +14245,8 @@
         "isChordPartner": false
       },
       {
-        "time": 161.0362,
-        "endTime": 161.0362,
+        "time": 161.0333,
+        "endTime": 161.0333,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14245,8 +14254,8 @@
         "isChordPartner": false
       },
       {
-        "time": 161.1542,
-        "endTime": 161.1542,
+        "time": 161.1523,
+        "endTime": 161.1523,
         "type": "tap",
         "lane": 0,
         "midi": 45,
@@ -14254,8 +14263,8 @@
         "isChordPartner": false
       },
       {
-        "time": 161.2723,
-        "endTime": 161.2723,
+        "time": 161.2713,
+        "endTime": 161.2713,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14272,8 +14281,8 @@
         "isChordPartner": false
       },
       {
-        "time": 161.6573,
-        "endTime": 161.6573,
+        "time": 161.6283,
+        "endTime": 161.6283,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14308,8 +14317,8 @@
         "isChordPartner": false
       },
       {
-        "time": 163.1666,
-        "endTime": 163.1666,
+        "time": 163.2369,
+        "endTime": 163.2369,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14317,8 +14326,8 @@
         "isChordPartner": false
       },
       {
-        "time": 163.3021,
-        "endTime": 163.3021,
+        "time": 163.357,
+        "endTime": 163.357,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14326,8 +14335,8 @@
         "isChordPartner": false
       },
       {
-        "time": 163.4375,
-        "endTime": 163.4375,
+        "time": 163.4772,
+        "endTime": 163.4772,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14335,8 +14344,8 @@
         "isChordPartner": false
       },
       {
-        "time": 163.573,
-        "endTime": 163.573,
+        "time": 163.5974,
+        "endTime": 163.5974,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14344,8 +14353,8 @@
         "isChordPartner": false
       },
       {
-        "time": 163.84,
-        "endTime": 163.84,
+        "time": 163.8377,
+        "endTime": 163.8377,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14353,8 +14362,8 @@
         "isChordPartner": false
       },
       {
-        "time": 163.9503,
-        "endTime": 163.9503,
+        "time": 163.9578,
+        "endTime": 163.9578,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14362,8 +14371,8 @@
         "isChordPartner": false
       },
       {
-        "time": 164.0606,
-        "endTime": 164.0606,
+        "time": 164.078,
+        "endTime": 164.078,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14371,8 +14380,8 @@
         "isChordPartner": false
       },
       {
-        "time": 164.2637,
-        "endTime": 164.2637,
+        "time": 164.3183,
+        "endTime": 164.3183,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14380,8 +14389,8 @@
         "isChordPartner": false
       },
       {
-        "time": 164.3847,
-        "endTime": 164.3847,
+        "time": 164.4385,
+        "endTime": 164.4385,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14389,8 +14398,8 @@
         "isChordPartner": false
       },
       {
-        "time": 164.5366,
-        "endTime": 164.5366,
+        "time": 164.5587,
+        "endTime": 164.5587,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14398,8 +14407,8 @@
         "isChordPartner": false
       },
       {
-        "time": 164.8036,
-        "endTime": 164.8036,
+        "time": 164.799,
+        "endTime": 164.799,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14407,8 +14416,8 @@
         "isChordPartner": false
       },
       {
-        "time": 164.9081,
-        "endTime": 164.9081,
+        "time": 164.9191,
+        "endTime": 164.9191,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14452,8 +14461,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.1024,
-        "endTime": 167.1024,
+        "time": 167.0995,
+        "endTime": 167.0995,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14461,8 +14470,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.2198,
-        "endTime": 167.2198,
+        "time": 167.2185,
+        "endTime": 167.2185,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14470,8 +14479,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.3372,
-        "endTime": 167.3372,
+        "time": 167.3375,
+        "endTime": 167.3375,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14479,8 +14488,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.4546,
-        "endTime": 167.4546,
+        "time": 167.4565,
+        "endTime": 167.4565,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14488,8 +14497,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.572,
-        "endTime": 167.572,
+        "time": 167.5755,
+        "endTime": 167.5755,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14497,8 +14506,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.6893,
-        "endTime": 167.6893,
+        "time": 167.6945,
+        "endTime": 167.6945,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14506,8 +14515,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.8067,
-        "endTime": 167.8067,
+        "time": 167.8135,
+        "endTime": 167.8135,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14515,8 +14524,8 @@
         "isChordPartner": false
       },
       {
-        "time": 167.9241,
-        "endTime": 167.9241,
+        "time": 167.9325,
+        "endTime": 167.9325,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14524,8 +14533,8 @@
         "isChordPartner": false
       },
       {
-        "time": 168.0415,
-        "endTime": 168.0415,
+        "time": 168.0515,
+        "endTime": 168.0515,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14533,8 +14542,8 @@
         "isChordPartner": false
       },
       {
-        "time": 168.1589,
-        "endTime": 168.1589,
+        "time": 168.1705,
+        "endTime": 168.1705,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14551,8 +14560,8 @@
         "isChordPartner": false
       },
       {
-        "time": 168.8052,
-        "endTime": 168.8052,
+        "time": 168.8129,
+        "endTime": 168.8129,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14560,8 +14569,8 @@
         "isChordPartner": false
       },
       {
-        "time": 168.9638,
-        "endTime": 168.9638,
+        "time": 168.9793,
+        "endTime": 168.9793,
         "type": "tap",
         "lane": 1,
         "midi": 45,
@@ -14569,8 +14578,8 @@
         "isChordPartner": false
       },
       {
-        "time": 169.1225,
-        "endTime": 169.1225,
+        "time": 169.1458,
+        "endTime": 169.1458,
         "type": "tap",
         "lane": 2,
         "midi": 45,
@@ -14992,8 +15001,8 @@
         "isChordPartner": false
       },
       {
-        "time": 188.1745,
-        "endTime": 188.1745,
+        "time": 188.2442,
+        "endTime": 188.2442,
         "type": "tap",
         "lane": 0,
         "midi": 75,
@@ -15001,8 +15010,8 @@
         "isChordPartner": false
       },
       {
-        "time": 188.3829,
-        "endTime": 188.3829,
+        "time": 188.488,
+        "endTime": 188.488,
         "type": "tap",
         "lane": 0,
         "midi": 75,
@@ -16147,7 +16156,7 @@
   },
   "ride": {
     "title": "Ride (Samuel R. Hazo)",
-    "sidecar_sha256": "00e9af0fc8e8ce44500930fdcdb3128b6a13d5a6bcf2fd41a20dbb03d1f4b2e9",
+    "sidecar_sha256": "c7466ca1b3ae2a05871c60932feefa6c5fc9828ff354da914dfb0d9a407bfb46",
     "mode": "4k:more",
     "notes": [
       {
@@ -16556,8 +16565,8 @@
         "isChordPartner": false
       },
       {
-        "time": 9.288,
-        "endTime": 9.288,
+        "time": 9.2764,
+        "endTime": 9.2764,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -16862,8 +16871,8 @@
         "isChordPartner": false
       },
       {
-        "time": 17.3453,
-        "endTime": 17.3453,
+        "time": 17.3801,
+        "endTime": 17.3801,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -16871,8 +16880,8 @@
         "isChordPartner": false
       },
       {
-        "time": 17.74,
-        "endTime": 17.74,
+        "time": 17.7342,
+        "endTime": 17.7342,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -16880,8 +16889,8 @@
         "isChordPartner": false
       },
       {
-        "time": 18.0535,
-        "endTime": 18.0535,
+        "time": 18.0883,
+        "endTime": 18.0883,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -16925,8 +16934,8 @@
         "isChordPartner": false
       },
       {
-        "time": 19.7602,
-        "endTime": 19.7602,
+        "time": 19.7486,
+        "endTime": 19.7486,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -17105,8 +17114,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.1836,
-        "endTime": 24.1836,
+        "time": 24.2682,
+        "endTime": 24.2682,
         "type": "tap",
         "lane": 1,
         "midi": 70,
@@ -17114,8 +17123,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.2765,
-        "endTime": 24.2765,
+        "time": 24.3677,
+        "endTime": 24.3677,
         "type": "tap",
         "lane": 2,
         "midi": 70,
@@ -17123,19 +17132,10 @@
         "isChordPartner": false
       },
       {
-        "time": 24.3693,
-        "endTime": 24.3693,
+        "time": 24.4672,
+        "endTime": 24.4672,
         "type": "tap",
         "lane": 1,
-        "midi": 70,
-        "isPercussionSolo": false,
-        "isChordPartner": false
-      },
-      {
-        "time": 24.4622,
-        "endTime": 24.4622,
-        "type": "tap",
-        "lane": 2,
         "midi": 70,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -17146,6 +17146,15 @@
         "type": "tap",
         "lane": 3,
         "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 24.5667,
+        "endTime": 24.5667,
+        "type": "tap",
+        "lane": 2,
+        "midi": 70,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
@@ -22058,7 +22067,7 @@
   },
   "what-we-do": {
     "title": "What We Do (RuneScape 3)",
-    "sidecar_sha256": "229f091cd7a793b50fc1cb7006103839453967783c70955b77270654bf771124",
+    "sidecar_sha256": "7ed1344bbee60196445dbcec8961219983b170840a99e9a305e38a922e2229ce",
     "mode": "4k:more",
     "notes": [
       {
@@ -33815,7 +33824,7 @@
       },
       {
         "time": 67.155,
-        "endTime": 70.425,
+        "endTime": 70.33,
         "type": "hold",
         "lane": 1,
         "midi": 69,
@@ -33932,7 +33941,7 @@
       },
       {
         "time": 79.155,
-        "endTime": 82.4319,
+        "endTime": 82.33,
         "type": "hold",
         "lane": 1,
         "midi": 69,
@@ -35210,7 +35219,7 @@
       },
       {
         "time": 161.28,
-        "endTime": 161.8439,
+        "endTime": 161.83,
         "type": "hold",
         "lane": 3,
         "midi": 77,
@@ -35237,7 +35246,7 @@
       },
       {
         "time": 163.155,
-        "endTime": 166.4221,
+        "endTime": 166.33,
         "type": "hold",
         "lane": 1,
         "midi": 69,
@@ -35354,7 +35363,7 @@
       },
       {
         "time": 175.155,
-        "endTime": 178.4174,
+        "endTime": 178.33,
         "type": "hold",
         "lane": 1,
         "midi": 69,
