@@ -44,8 +44,15 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
     js/profile.js) and **Duel Arena** (`?duel=a,b | all | support&level=6&trials=6&build=..`, js/duel.js). Add
     `&norender` for headless runs. Baselines in `balance/2026-11-12_*`.
   - [x] **Stat list agreed (2026-11-13)**: see DESIGN_RULES.md §2 "Stat list and shop structure".
-  - [ ] Step 2: switch to the new model (single Resist, `src: attack|ability`, Haste, Lifesteal / Spell Vamp,
-    per-hero base Attack + Ability), hero by hero, with before/after tool runs.
+  - [ ] Step 2: switch to the new model, hero by hero, with before/after tool runs.
+    - [x] 2a engine (2026-11-13): `computeUnitStats` returns attack / ability / resist / haste / hpRegen / lifesteal /
+      spellVamp (old names kept as aliases: atk, fant, armor = fResist = resist, cdr from Haste). One `unitResist()`
+      for every mitigation; damage is Attack if `opts.src === 'attack'` or `isBasic`, else Ability (Spell Amp and Spell
+      Vamp apply to Ability damage; `opts.aoe` heals at 1/3). Bots get base HP regen. Old specs' armor/fResist average
+      into one Resist. Placeholder items converted (15% CDR = 18 Haste). HUD shows ATK / ABL / RES.
+    - [ ] 2b heroes, 2-3 at a time: spec to baseAttack / baseAbility / baseResist (+ growth, hpRegen, asGrow), every
+      formula to the scaling rules (abilities = base + Ability ratio; basics and "counts as basic" = Attack), tag damage
+      with `src`, bot casts use Haste, tooltips updated. Then the aliases go.
   - [ ] Step 3: tuning against the time-to-kill targets (includes the Scientist saw and Panther Q outliers, and the
     Imp bot's turret play).
 - [ ] **Phase 2**: bots use the real hero kits, then implement the new kits from DESIGN_RULES.md.
@@ -100,6 +107,9 @@ triangles each with `glb_decimate.py`). New Glimmer Wisp camp per side at (±16,
 - [ ] **Quadruped rig (wolf, boar, later the Behemoth):** Mixamo can't do four legs. Options: a quadruped auto-rigger,
   or a code rig: auto-skin the mesh to a simple skeleton (spine, 4 legs × 2 bones, head, tail) with a script, then
   a procedural gait in code.
+- [ ] **Camp redesign (noted 2026-11-13)**: camps become groups of monsters (the engine has one unit per camp today).
+  Four camps per side: **Golems** (one big + one small), **Boar + Wolf** together, **Wisps** (a family of 4 small + 1 big),
+  and a new **buff camp** (added after the other three).
 - [ ] **Facing / look pass** during the jungle visual overhaul (which way each model faces, tree size vs. sight lines;
   trees are candidates for the see-through-walls trick).
 - Tripo props (separate from the Hunyuan credits): spyglass, then ballista / minion weapons.

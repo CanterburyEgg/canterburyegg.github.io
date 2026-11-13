@@ -34,6 +34,8 @@ window.MOBA_PHASE1 = (function () {
   };
 
   // 4-Slot Base Shop Items (Physical, Fantasy, Mana & Tank Support — Zero Active Keys!)
+  // Placeholder items converted straight to the new stats (atk -> attack, fant -> ability, armor/fResist -> resist,
+  // 15% CDR -> 18 Haste) until the shop overhaul (DESIGN_RULES.md §2 'Stat list and shop structure').
   const SHOP_ITEMS = [
     {
       id: 'boots_swift',
@@ -46,78 +48,78 @@ window.MOBA_PHASE1 = (function () {
       id: 'serrated_dirk',
       name: 'Serrated Brass Dirk',
       cost: 550,
-      stats: { atk: 24, asPct: 0.12 },
-      desc: '+24 Physical ATK, +12% Attack Speed'
+      stats: { attack: 24, asPct: 0.12 },
+      desc: '+24 Attack, +12% Attack Speed'
     },
     {
       id: 'astral_tome',
       name: "Starweaver's Codex",
       cost: 550,
-      stats: { fant: 34, maxMp: 180, mpRegen: 4.0 },
-      desc: '+34 Fantasy Power, +180 Max Mana, +4 MP/s Regen'
+      stats: { ability: 34, maxMp: 180, mpRegen: 4.0 },
+      desc: '+34 Ability, +180 Max Mana, +4 MP/s Regen'
     },
     {
       id: 'vamp_fang',
       name: 'Crimson Leech Fang',
       cost: 650,
-      stats: { atk: 22, lifesteal: 0.14 },
-      desc: '+22 ATK, +14% Lifesteal on Attacks & Abilities'
+      stats: { attack: 22, lifesteal: 0.14, spellVamp: 0.07 },
+      desc: '+22 Attack, +14% Lifesteal, +7% Spell Vamp'
     },
     {
       id: 'coliseum_plate',
       name: 'Coliseum Iron Greaves',
       cost: 650,
-      stats: { maxHp: 340, armor: 22 },
-      desc: '+340 Max HP, +22 Armor (Reduces Physical Damage taken)'
+      stats: { maxHp: 340, resist: 22 },
+      desc: '+340 Max HP, +22 Resist'
     },
     {
       id: 'aegis_cloak',
       name: 'Spellbreaker Mantle',
       cost: 700,
-      stats: { maxHp: 320, fResist: 28, armor: 14, allyAuraRes: 12 },
-      desc: '+320 HP, +28 Fantasy Resist, +14 Armor • Aura: Nearby allies gain +12 Resists'
+      stats: { maxHp: 320, resist: 32, allyAuraRes: 12 },
+      desc: '+320 HP, +32 Resist • Aura: Nearby allies gain +12 Resist'
     },
     {
       id: 'mana_pendant',
       name: 'Soulstone Chalice',
       cost: 750,
-      stats: { fant: 42, maxMp: 220, cdr: 0.15, mpRegen: 5.0 },
-      desc: '+42 Fantasy Power, +220 Max Mana, +15% Cooldown Reduction'
+      stats: { ability: 42, maxMp: 220, haste: 18, mpRegen: 5.0 },
+      desc: '+42 Ability, +220 Max Mana, +18 Haste'
     },
     {
       id: 'repeating_spring',
       name: 'Clockwork Crank-Spring',
       cost: 800,
-      stats: { atk: 26, asPct: 0.25, cdr: 0.15 },
-      desc: '+26 ATK, +25% Attack Speed, +15% Cooldown Reduction'
+      stats: { attack: 26, asPct: 0.25, haste: 18 },
+      desc: '+26 Attack, +25% Attack Speed, +18 Haste'
     },
     {
       id: 'frost_bolter',
       name: 'Frostbite Broadheads',
       cost: 900,
-      stats: { atk: 32, maxHp: 220, slowOnHit: 0.22 },
-      desc: '+32 ATK, +220 HP • Passive Proc: Basic Attacks slow by 22% for 1.5s'
+      stats: { attack: 32, maxHp: 220, slowOnHit: 0.22 },
+      desc: '+32 Attack, +220 HP • Passive: Basic Attacks slow by 22% for 1.5s'
     },
     {
       id: 'titan_gauntlet',
       name: "Pit Champion's Cestus",
       cost: 950,
-      stats: { atk: 35, maxHp: 380, cleaveProc: 75 },
-      desc: '+35 ATK, +380 HP • Passive Proc: Attacks shockwave 2.4m for +75 Physical dmg'
+      stats: { attack: 35, maxHp: 380, cleaveProc: 75 },
+      desc: '+35 Attack, +380 HP • Passive: Attacks shockwave 2.4m for +75 damage'
     },
     {
       id: 'cataclysm_crown',
       name: 'Crown of the Astral Archon',
       cost: 1100,
-      stats: { fant: 68, maxHp: 240, spellAmp: 0.18 },
-      desc: '+68 Fantasy Power, +240 HP • Passive Proc: Fantasy spells deal +18% bonus dmg'
+      stats: { ability: 68, maxHp: 240, spellAmp: 0.18 },
+      desc: '+68 Ability, +240 HP • Passive: Abilities deal +18% damage'
     },
     {
       id: 'executioner_bow',
       name: 'Heartseeker Repeater',
       cost: 1150,
-      stats: { atk: 54, asPct: 0.20, executeAmp: 0.25 },
-      desc: '+54 ATK, +20% AS • Passive Proc: +25% damage vs targets below 45% HP'
+      stats: { attack: 54, asPct: 0.20, executeAmp: 0.25 },
+      desc: '+54 Attack, +20% AS • Passive: +25% damage vs targets below 45% HP'
     }
   ];
 

@@ -188,7 +188,7 @@
         prog.items.length = 0;
         DATA.testBuildItems(heroId, lvl, build).forEach((it) => prog.items.push(it));
         const st = eng.getPlayerStats();
-        const row = { hero: heroId, level: lvl, build, items: prog.items.map((it) => it.id), maxHp: st.maxHp, armor: st.armor, fResist: st.fResist, atk: st.atk, fant: st.fant };
+        const row = { hero: heroId, level: lvl, build, items: prog.items.map((it) => it.id), maxHp: st.maxHp, resist: st.resist, attack: st.attack, ability: st.ability };
         for (const slot of ['LMB', 'Q', 'E', 'R']) {
           if (slot === 'R' && lvl < 4) { row.R = { dmg: 0, hits: 0, cd: 0, capped: false }; continue; }
           row[slot] = await measure(heroId, slot);
@@ -199,8 +199,7 @@
         row.burst = Math.round(mit(sumTo(3), RESIST));            // first 3s of the rotation
         row.dps10 = Math.round(mit(sumTo(10), RESIST) / 10);       // first 10s of the rotation
         row.dpsLate = Math.round(mit(sumTo(20) - sumTo(10), RESIST) / 10); // seconds 10-20 (after the opening burst)
-        row.ehpAtk = Math.round(st.maxHp * (1 + st.armor / 100));
-        row.ehpAbl = Math.round(st.maxHp * (1 + st.fResist / 100));
+        row.ehp = Math.round(st.maxHp * (1 + st.resist / 100));
         rows.push(row);
         const slim = Object.assign({}, row); delete slim.timeline;
         console.log('PROFILE ROW ' + JSON.stringify(slim));
@@ -216,12 +215,12 @@
     const L = [];
     L.push('# Damage profile (build: ' + build + ', target Resist ' + RESIST + ', ' + WINDOW + 's window, mana ignored, no talents)');
     L.push('');
-    L.push('| Hero | Lv | HP | Atk/Abl | Arm/Res | Burst 3s | DPS 0-10s | DPS 10-20s | EHP vs Atk/Abl | LMB | Q | E | R |');
+    L.push('| Hero | Lv | HP | Attack/Ability | Resist | Burst 3s | DPS 0-10s | DPS 10-20s | Effective HP | LMB | Q | E | R |');
     L.push('|---|---|---|---|---|---|---|---|---|---|---|---|---|');
     const cell = (s) => s.dmg + (s.cd ? ' / ' + s.cd.toFixed(1) + 's' : '') + (s.capped ? '*' : '');
     rows.forEach((r) => {
-      L.push('| ' + r.hero + ' | ' + r.level + ' | ' + r.maxHp + ' | ' + r.atk + '/' + r.fant + ' | ' + r.armor + '/' + r.fResist + ' | ' + r.burst + ' | ' + r.dps10 + ' | ' + r.dpsLate +
-        ' | ' + r.ehpAtk + '/' + r.ehpAbl + ' | ' + cell(r.LMB) + ' | ' + cell(r.Q) + ' | ' + cell(r.E) + ' | ' + cell(r.R) + ' |');
+      L.push('| ' + r.hero + ' | ' + r.level + ' | ' + r.maxHp + ' | ' + r.attack + '/' + r.ability + ' | ' + r.resist + ' | ' + r.burst + ' | ' + r.dps10 + ' | ' + r.dpsLate +
+        ' | ' + r.ehp + ' | ' + cell(r.LMB) + ' | ' + cell(r.Q) + ' | ' + cell(r.E) + ' | ' + cell(r.R) + ' |');
     });
     L.push('');
     L.push('Burst and DPS come from a ' + ROT + 's rotation (autos + abilities on cooldown) against Resist ' + RESIST + '. Slot cells: one cast\'s raw damage / cooldown. * = still dealing damage when cut off at ' + SLOT_MAX + 's (zone, turret, toggle).');
@@ -237,7 +236,7 @@
       at.forEach((a) => {
         L.push('| ' + a.hero + ' | ' + at.map((d) => {
           if (d === a) return '-';
-          const t = ttkFromTimeline(a.timeline, d.maxHp, (d.armor + d.fResist) / 2);
+          const t = ttkFromTimeline(a.timeline, d.maxHp, d.resist);
           return t === Infinity ? '>' + ROT : t.toFixed(1);
         }).join(' | ') + ' |');
       });

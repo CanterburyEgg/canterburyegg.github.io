@@ -771,9 +771,9 @@ function tick(now) {
   const rSlowHud = hero.rChargeTimer > 0 ? 0.50 : 1.0;
   const eSlipHud = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
   document.getElementById('hud3d-lvl').textContent = pProg.level || 1;
-  document.getElementById('hud3d-atk').textContent = 'ATK ' + st.atk;
-  document.getElementById('hud3d-fant').textContent = 'FANT ' + (st.fant || 0);
-  document.getElementById('hud3d-def').textContent = 'ARM ' + (st.armor || 18) + '•RES ' + (st.fResist || 18);
+  document.getElementById('hud3d-atk').textContent = 'ATK ' + st.attack;
+  document.getElementById('hud3d-fant').textContent = 'ABL ' + (st.ability || 0);
+  document.getElementById('hud3d-def').textContent = 'RES ' + (st.resist || 0) + (st.haste ? ' • HASTE ' + st.haste : '');
   document.getElementById('hud3d-spd').textContent = 'SPD ' + Math.round(baseSpdHud * (1 + hero.siphonBonus + eSlipHud + (st.spdPct || 0)) * rSlowHud);
 
   document.getElementById('hp3d-fill').style.width = Math.max(0, (hero.hp / hero.maxHp) * 100) + '%';

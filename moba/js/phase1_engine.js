@@ -1206,8 +1206,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
       bot.unitStats = st;
       bot.maxHp = st.maxHp;
       bot.hp = Math.min(bot.hp || bot.maxHp, bot.maxHp);
-      bot.armor = st.armor;
-      bot.fResist = st.fResist;
+      bot.resist = st.resist;
+      bot.armor = st.resist;   // (legacy alias)
+      bot.fResist = st.resist; // (legacy alias)
+      bot.hpRegen = st.hpRegen;
       bot.physAtk = st.atk;
       bot.fant = st.fant;
       bot.atk = heroType === 'sorceress' ? Math.round(bot.physAtk * 0.40 + bot.fant * 0.55) : bot.physAtk;
@@ -1259,8 +1261,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           gold: 500,
           hp: 1500,
           maxHp: 1500,
-          armor: 22,
-          fResist: 22,
+          resist: 22,
           bonusResAura: 0,
           atk: 55,
           dmgType: 'physical',
@@ -1539,8 +1540,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               r: 0.42 * sc,
               hp: maxHp,
               maxHp,
-              armor: isSuper ? 28 : (isRanged ? 6 : 12),
-              fResist: isSuper ? 24 : (isRanged ? 6 : 10),
+              resist: isSuper ? 26 : (isRanged ? 6 : 11),
               atk: isSuper ? 48 : (isRanged ? 24 : 18),
               range: isRanged ? 6.2 : 1.75,
               spd: 4.5,
@@ -1630,7 +1630,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
     }
 
-    // Compute Shirtless Bodyguard Passive ("Stand Behind Me!"): +14 Armor & Fantasy Resist per Ally-Enemy threat line screened
+    // Compute Shirtless Bodyguard Passive ("Stand Behind Me!"): +14 Resist per Ally-Enemy threat line screened
     function computeBodyguardStacks() {
       const heroId = getActiveHeroId();
       bots.forEach((b) => { b.bonusResAura = 0; });
@@ -1674,40 +1674,61 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // Compute Player Total Stats (Base + Level + 4-Slot Items + Boss +10% All-Stats Buff + Talents + Passives!)
     // One stat calculation for every hero unit (player, bots, the test tools): spec + level + items.
     // Live-match effects (passives, talents, boss buff) are layered on top by getPlayerStats for the player.
+    // Stat model (DESIGN_RULES.md §2): Attack, Ability, one Resist, Haste (cooldown = base x 100/(100+Haste)),
+    // Lifesteal (from Attack damage) + Spell Vamp (from Ability damage), base HP/Mana regen.
+    // Legacy names stay as aliases until every kit is converted: atk = attack, fant = ability,
+    // armor = fResist = resist, cdr = the cooldown reduction Haste works out to.
     function computeUnitStats(heroId, level, items) {
       const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[heroId]) || DATA.HERO_SPECS.coyote;
       const lvBonus = (level || 1) - 1;
+      // old specs list armor + fantasy resist separately: one Resist = their average until the hero is converted
+      const baseRes = spec.baseResist !== undefined ? spec.baseResist : ((spec.baseArmor || 0) + (spec.baseFResist || 0)) / 2;
+      const resGrow = spec.resistGrow !== undefined ? spec.resistGrow : ((spec.armorGrow || 0) + (spec.fResistGrow || 0)) / 2;
       const o = {
-        atk: Math.round(spec.baseAtk + lvBonus * spec.atkGrow),
-        fant: Math.round(spec.baseFant + lvBonus * spec.fantGrow),
+        attack: Math.round((spec.baseAttack !== undefined ? spec.baseAttack : spec.baseAtk) + lvBonus * (spec.attackGrow !== undefined ? spec.attackGrow : spec.atkGrow)),
+        ability: Math.round((spec.baseAbility !== undefined ? spec.baseAbility : (spec.baseFant || 0)) + lvBonus * (spec.abilityGrow !== undefined ? spec.abilityGrow : (spec.fantGrow || 0))),
         maxHp: Math.round(spec.baseHp + lvBonus * spec.hpGrow),
         maxMp: Math.round(spec.baseMp + lvBonus * spec.mpGrow),
         mpRegen: spec.mpRegen + lvBonus * 0.45,
-        armor: Math.round(spec.baseArmor + lvBonus * spec.armorGrow),
-        fResist: Math.round(spec.baseFResist + lvBonus * spec.fResistGrow),
-        asPct: lvBonus * (heroId === 'coyote' ? 0.038 : 0.03),
-        spdPct: 0, lifesteal: 0, cdr: 0, slowOnHit: 0, cleaveProc: 0, executeAmp: 0, spellAmp: 0, allyAuraRes: 0
+        hpRegen: (spec.hpRegen !== undefined ? spec.hpRegen : 6.1) + lvBonus * 0.6,
+        resist: Math.round(baseRes + lvBonus * resGrow),
+        asPct: lvBonus * (spec.asGrow !== undefined ? spec.asGrow : (heroId === 'coyote' ? 0.038 : 0.03)),
+        haste: 0, spdPct: 0, lifesteal: 0, spellVamp: 0, slowOnHit: 0, cleaveProc: 0, executeAmp: 0, spellAmp: 0, allyAuraRes: 0
       };
       (items || []).forEach((it) => {
         const st = it.stats || {};
-        ['atk', 'fant', 'maxHp', 'maxMp', 'mpRegen', 'armor', 'fResist', 'asPct', 'spdPct', 'lifesteal', 'cdr', 'cleaveProc', 'spellAmp', 'allyAuraRes']
+        ['attack', 'ability', 'resist', 'haste', 'maxHp', 'maxMp', 'mpRegen', 'hpRegen', 'asPct', 'spdPct', 'lifesteal', 'spellVamp', 'cleaveProc', 'spellAmp', 'allyAuraRes']
           .forEach((k) => { if (st[k]) o[k] += st[k]; });
         if (st.slowOnHit) o.slowOnHit = Math.max(o.slowOnHit, st.slowOnHit);
         if (st.executeAmp) o.executeAmp = Math.max(o.executeAmp, st.executeAmp);
       });
+      return withStatAliases(o);
+    }
+    // legacy names for kits/UI that still read the old stats (removed once every kit is converted)
+    function withStatAliases(o) {
+      o.atk = o.attack;
+      o.fant = o.ability;
+      o.armor = o.resist;
+      o.fResist = o.resist;
+      o.cdr = 1 - 100 / (100 + Math.max(0, o.haste));
       return o;
+    }
+    // damage after Resist (one Resist reduces both Attack and Ability damage)
+    function unitResist(u) {
+      if (!u) return 0;
+      if (u.resist !== undefined) return u.resist;
+      return u.armor || 0;
     }
 
     function getPlayerStats() {
       const heroId = getActiveHeroId();
       const base = computeUnitStats(heroId, playerProg.level, playerProg.items);
-      let { atk, fant, maxHp, maxMp, mpRegen, armor, fResist, asPct, spdPct, lifesteal, cdr, slowOnHit, cleaveProc, executeAmp, spellAmp, allyAuraRes } = base;
+      let { attack, ability, maxHp, maxMp, mpRegen, hpRegen, resist, haste, asPct, spdPct, lifesteal, spellVamp, slowOnHit, cleaveProc, executeAmp, spellAmp, allyAuraRes } = base;
 
-      // Bodyguard Passive ("Stand Behind Me!"): +14 Armor & Fantasy Resist per stack
+      // Bodyguard Passive ("Stand Behind Me!"): +14 Resist per stack
       const guardStacks = computeBodyguardStacks();
       if (heroId === 'bodyguard' && guardStacks > 0) {
-        armor += guardStacks * 14;
-        fResist += guardStacks * 14;
+        resist += guardStacks * 14;
       }
 
       // Coyote 3L Talent: Bloodhound Stride (+4% MS per active Bleed stack on nearby enemies)
@@ -1732,23 +1753,22 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // Central Boss +10% All-Stats Buff!
       if (bossBuffTimer[0] > 0) {
-        atk = Math.round(atk * 1.10);
-        fant = Math.round(fant * 1.10);
+        attack = Math.round(attack * 1.10);
+        ability = Math.round(ability * 1.10);
         maxHp = Math.round(maxHp * 1.10);
         maxMp = Math.round(maxMp * 1.10);
-        armor = Math.round(armor * 1.10);
-        fResist = Math.round(fResist * 1.10);
+        resist = Math.round(resist * 1.10);
         spdPct += 0.10;
       }
 
       const maxBleed = (heroId === 'coyote' && playerProg.talents[7] === 'R') ? 5 : 4;
       const qeRank = playerProg.level >= 9 ? 3 : (playerProg.level >= 6 ? 2 : 1);
       const ultRank = playerProg.level >= 12 ? 3 : (playerProg.level >= 8 ? 2 : (playerProg.level >= 4 ? 1 : 0));
-      return {
-        atk, fant, maxHp, maxMp, mpRegen, armor, fResist,
-        asPct, spdPct, lifesteal, cdr, slowOnHit, cleaveProc,
+      return withStatAliases({
+        attack, ability, maxHp, maxMp, mpRegen, hpRegen, resist, haste,
+        asPct, spdPct, lifesteal, spellVamp, slowOnHit, cleaveProc,
         executeAmp, spellAmp, allyAuraRes, maxBleed, guardStacks, pantherUnseen, qeRank, ultRank
-      };
+      });
     }
 
     // =========================================================
@@ -1820,7 +1840,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         isPlayer: false,
         level: () => b.level || 1,
         talents: () => ({}),
-        stats: () => ({ atk: b.physAtk || b.atk || 52, fant: b.fant || 0, asPct: ((b.level || 1) - 1) * 0.035 }),
+        stats: () => b.unitStats || withStatAliases({ attack: b.physAtk || b.atk || 52, ability: b.fant || 0, resist: b.resist || 0, haste: 0, asPct: ((b.level || 1) - 1) * 0.035 }),
         aim: () => {
           const t = b.aimTarget && b.aimTarget.ref;
           if (t && (t.hp === undefined || t.hp > 0)) return { x: t.x, z: t.z };
@@ -1892,7 +1912,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // 0. Deployables (an enemy Imp's turret): plain armor-mitigated damage, destroyed at 0
       if (targetObj.kind === 'deployable') {
-        const dd = Math.max(1, Math.round(rawDmg * (100 / (100 + (u.armor || 0)))));
+        const dd = Math.max(1, Math.round(rawDmg * (100 / (100 + unitResist(u)))));
         u.hp -= dd;
         spawnFloat(u.x, 2.2, u.z, String(dd), opts.color || '#fb7185');
         if (u.hp <= 0) {
@@ -1938,19 +1958,19 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (u.leashRing) u.leashRing.visible = true;
       }
 
-      const dmgType = opts.dmgType || 'physical';
+      const dmgType = opts.dmgType || 'physical'; // (legacy tag: now only picks the number color)
+      // Damage source (DESIGN_RULES §2): basic attacks and "counts as a basic attack" abilities deal Attack damage,
+      // everything else is Ability damage. Kits can say so explicitly with opts.src = 'attack' | 'ability'.
+      const isAttackDmg = opts.src ? opts.src === 'attack' : !!opts.isBasic;
       let dmg = rawDmg;
 
-      // Fantasy Spell Amp Item Proc (Crown of the Astral Archon: +18% bonus Fantasy spell dmg)
-      if (dmgType === 'fantasy' && !opts.isBasic && st.spellAmp > 0) {
+      // Spell Amp item proc (Crown of the Astral Archon: +18% Ability damage)
+      if (!isAttackDmg && st.spellAmp > 0) {
         dmg *= (1 + st.spellAmp);
       }
 
-      // Armor vs. Fantasy Resist Mitigation on Target
-      const targetResist = dmgType === 'fantasy'
-        ? (u.fResist !== undefined ? u.fResist : (u.armor || 16))
-        : (u.armor || 0);
-      dmg *= 100 / (100 + Math.max(0, targetResist));
+      // One Resist reduces both sources
+      dmg *= 100 / (100 + Math.max(0, unitResist(u)));
 
       // Backdoor Protection on Enemy Structures (65% damage reduction if no Order minions within 11.5m!)
       if (targetObj.kind === 'structure') {
@@ -1969,9 +1989,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
       u.hp -= targetObj.kind === 'bot' ? absorbShield(u, dmg) : dmg; // enemy bot shields soak player damage first
       u.lastDamagedByPlayerAt = matchTime;
 
-      // Physical/Spell Lifesteal Item Proc
-      if (st.lifesteal > 0 && hero.hp < hero.maxHp) {
-        hero.hp = Math.min(hero.maxHp, hero.hp + Math.round(dmg * st.lifesteal));
+      // Lifesteal (Attack damage) / Spell Vamp (Ability damage; area hits heal at 1/3)
+      const vamp = isAttackDmg ? st.lifesteal : st.spellVamp * (opts.aoe ? 1 / 3 : 1);
+      if (vamp > 0 && hero.hp < hero.maxHp) {
+        hero.hp = Math.min(hero.maxHp, hero.hp + Math.round(dmg * vamp));
       }
 
       // Bleed Stacks (Coyote Passive)
@@ -2027,7 +2048,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         spawnShockRing(u.x, u.z, 0xfbbf24, 0.2, 2.3, 0.2);
         getHostileTargets().forEach((other) => {
           if (other.ref !== u && other.kind !== 'structure' && other.ref.hp > 0 && Math.hypot(other.x - u.x, other.z - u.z) <= 2.4) {
-            const cleaveDmg = Math.max(1, Math.round(st.cleaveProc * (100 / (100 + (other.ref.armor || 0)))));
+            const cleaveDmg = Math.max(1, Math.round(st.cleaveProc * (100 / (100 + unitResist(other.ref)))));
             other.ref.hp -= cleaveDmg;
             other.ref.lastDamagedByPlayerAt = matchTime;
             if (other.ref.plate) {
@@ -2740,8 +2761,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const st = getPlayerStats();
       if (unit === hero) {
         if (playerProg.respawnTimer > 0) return;
-        const resist = dmgType === 'fantasy' ? st.fResist : st.armor;
-        const mitigated = Math.round(rawDmg * (100 / (100 + Math.max(0, resist))));
+        const mitigated = Math.round(rawDmg * (100 / (100 + Math.max(0, st.resist))));
         playerProg.recallTimer = 0; // Interrupt recall on taking damage!
         if (spyglass.channel > 0) { spyglass.channel = 0; spawnFloat(hero.x, 2.5, hero.z, 'SPYGLASS INTERRUPTED', '#fb7185'); }
 
@@ -2770,7 +2790,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       } else {
         const allyAura = (st.allyAuraRes > 0 && Math.hypot(unit.x - hero.x, unit.z - hero.z) <= 7.5) ? st.allyAuraRes : 0;
-        const baseRes = dmgType === 'fantasy' ? (unit.fResist || 20) : (unit.armor || 20);
+        const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
         const totalRes = baseRes + (unit.bonusResAura || 0) + allyAura;
         const mitigated = Math.max(1, Math.round(rawDmg * (100 / (100 + totalRes))));
         if (unit.shield && unit.shield > 0) {
@@ -3025,6 +3045,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (homeDist <= 7.5 && b.hp < b.maxHp) {
           b.hp = Math.min(b.maxHp, b.hp + 220 * dt);
         }
+        if (b.hp < b.maxHp) b.hp = Math.min(b.maxHp, b.hp + (b.hpRegen || 0) * dt); // base HP regen (same as the player's)
 
         let isMoving = false;
         let airborneY = 0;
@@ -3595,7 +3616,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       if (targetObj.kind === 'deployable') {
         if (u.hp <= 0) return;
-        const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + (u.armor || 0)))));
+        const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + unitResist(u)))));
         u.hp -= mitigated;
         if (u.onDamaged) u.onDamaged(mitigated);
         if (u.hp <= 0) {
@@ -3610,7 +3631,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (targetObj.kind === 'player' || (targetObj.kind === 'bot' && u.team === 0)) {
         damageOrderHeroOrBot(u, dmg, dmgType, atkRef);
       } else {
-        const res = dmgType === 'fantasy' ? (u.fResist || u.armor || 0) : (u.armor || 0);
+        const res = unitResist(u);
         const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + res))));
         u.hp -= targetObj.kind === 'bot' ? absorbShield(u, mitigated) : mitigated;
         if (u.hp <= 0) {
@@ -4500,7 +4521,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (ctx.isWtfMode()) {
           hero.mp = hero.maxMp;
         } else {
-          hero.hp = Math.min(hero.maxHp, hero.hp + (5.5 + playerProg.level * 0.6) * dt);
+          hero.hp = Math.min(hero.maxHp, hero.hp + st.hpRegen * dt);
           hero.mp = Math.min(hero.maxMp, hero.mp + st.mpRegen * dt);
         }
 
