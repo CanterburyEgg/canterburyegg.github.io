@@ -1008,6 +1008,20 @@
             box-shadow: 0 10px 0 var(--sage-shadow), 0 25px 50px rgba(51, 31, 31, 0.25);
             text-align: center;
         }
+        .howto-box { max-width: 520px; text-align: left; }
+        .howto-box h2 { text-align: center; }
+        .howto-steps {
+            margin: 14px 0 18px;
+            padding-left: 22px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: var(--ink-soft);
+        }
+        .howto-steps li { margin-bottom: 9px; }
+        .howto-steps b { color: var(--ink); }
+        .howto-close { display: block; margin: 0 auto; }
+
         .picker-box h2 {
             font-family: 'Fredoka', sans-serif;
             margin-top: 0;
@@ -1344,6 +1358,9 @@
                     </button>
                 </div>
             </div>
+            <button class="nav-pill-btn" id="how-to-btn" onclick="openHowTo()" title="How to Play">
+                <span>How to Play</span>
+            </button>
         </div>
         <div class="top-actions">
             <button class="nav-pill-btn" id="calendar-trigger" onclick="openPicker()" title="Daily Hole Archive Calendar">
@@ -1422,6 +1439,22 @@
             <button class="secondary-btn danger" id="give-up-btn" onclick="giveUpHole()">Show Hole-in-One</button>
             <button class="secondary-btn" id="next-hole-btn" onclick="nextCourse()">Next Hole &rarr;</button>
         </div>
+    </div>
+</div>
+
+<!-- How to Play Modal -->
+<div id="howto-modal" class="modal hidden" onclick="closeHowTo()">
+    <div class="picker-box howto-box" onclick="event.stopPropagation()">
+        <h2>How to Play</h2>
+        <ol class="howto-steps">
+            <li>Each hole is a set of category cards. Your goal is to cover every card using as few Pokémon as possible.</li>
+            <li>Type a Pokémon and hit <b>Swing!</b> It covers every card it fits, and each guess counts as one swing.</li>
+            <li>Clear all the cards to finish the hole. Par is how many swings it should take: on a Par 2, two well-chosen Pokémon can do it.</li>
+            <li>Exactly one Pokémon fits every card on the board. Find it and you've hit a <b>Hole-in-One</b>.</li>
+            <li>Stuck? <b>Show Hole-in-One</b> reveals the answer and ends the hole.</li>
+            <li>There's a new daily hole every day at midnight Pacific. Play past days from the <b>Calendar</b>, or take on the three <b>Courses</b>.</li>
+        </ol>
+        <button class="secondary-btn howto-close" onclick="closeHowTo()">Got it</button>
     </div>
 </div>
 
@@ -2836,6 +2869,15 @@ function openPicker() {
 function closePicker() {
     document.getElementById("picker-modal").classList.add("hidden");
 }
+function openHowTo() {
+    document.getElementById("howto-modal").classList.remove("hidden");
+}
+function closeHowTo() {
+    document.getElementById("howto-modal").classList.add("hidden");
+}
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeHowTo();
+});
 
 function openInspector(catId) {
     const cat = catMap[catId];
