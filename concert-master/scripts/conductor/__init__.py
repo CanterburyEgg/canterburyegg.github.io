@@ -15,8 +15,8 @@ from .core import pick_lead
 
 PREP_PASSES = ['repair_split_dyads', 'rhythm_consensus', 'fix_oboe_lick', 'fix_trombone']
 # lead-level rules run by sync_score right after the conductor (also for single-staff scores)
-AFTER_PICK_PASSES = ['low_unison_walk', 'top_held_brass', 'held_over_reattack', 'corrections_move_notes', 'corrections_missing_parts', 'grace_into_holds', 'drum_led_passages', 'fills_under_holds', 'figures_over_holds']
-POST_PASSES = ['arabesque_tutti_splices', 'relay_lines', 'ride_chorale', 'solos', 'handoff_phrase_start', 'rhythmic_ostinato', 'tune_over_bells', 'what_we_do_tunes', 'doubling_helpers', 'run_completion', 'run_under_hold', 'lone_harmony_handoff', 'embellished_doubling', 'screaming_top_note', 'section_entrance', 'unison_split', 'held_landing', 'moving_line_over_held_chords', 'coda_bridge_hold', 'trim_overlaps']
+AFTER_PICK_PASSES = ['low_unison_walk', 'top_held_brass', 'held_over_reattack', 'corrections_move_notes', 'corrections_lead_part', 'corrections_missing_parts', 'grace_into_holds', 'drum_led_passages', 'fills_under_holds', 'figures_over_holds']
+POST_PASSES = ['relay_lines', 'ride_chorale', 'solos', 'handoff_phrase_start', 'rhythmic_ostinato', 'tune_over_bells', 'what_we_do_tunes', 'doubling_helpers', 'run_completion', 'run_under_hold', 'lone_harmony_handoff', 'embellished_doubling', 'screaming_top_note', 'section_entrance', 'unison_split', 'held_landing', 'moving_line_over_held_chords', 'coda_bridge_hold', 'trim_overlaps']
 
 
 def _trace_window():
@@ -61,6 +61,7 @@ def conduct(staves: list[dict], score_duration: float) -> list[dict]:
     last = [None]
     ctx = SimpleNamespace(staves=staves, score_duration=score_duration, lead_notes=None)
     _run(PREP_PASSES, ctx, skip, win, last)
+    ctx.st_by_name = {st["name"]: st["notes"] for st in ctx.staves}  # shared name -> notes index (after score prep)
     ctx.lead_notes = pick_lead(ctx.staves, ctx.score_duration)
     if win is not None:
         last[0] = _snap(ctx.lead_notes, win)

@@ -68,12 +68,53 @@ def run(ctx):
                 ):
                     continue
                 down = steps[0] < 0
+                # (a fill that runs straight into a held note one more step the same way lands there: the landing stays a
+                # hold, e.g. Arabesque 4:50, the horns' 63 65 67 69 -> held 70 under the woodwinds' long note)
+                landing = next(
+                    (
+                        q for q in seq
+                        if abs(float(q["start"]) - float(walk[-1]["end"])) <= 0.02 and float(q["end"]) - float(q["start"]) > 0.55
+                        and 0 < (int(q["midi"]) - int(walk[-1]["midi"])) * (-1 if down else 1) <= 4
+                    ),
+                    None,
+                )
+                if landing is not None and any(
+                    h is not host and float(landing["start"]) - 0.02 <= float(h["start"]) < min(float(landing["end"]), float(host["end"])) - 0.02
+                    for h in lead_score_notes
+                ):
+                    landing = None
+                # (...and the fill's part came in together with the held note and leads straight into the fill: Arabesque
+                # 4:49, the horns' downbeat 67 into the lick)
+                lead_in = next(
+                    (
+                        q for q in seq
+                        if abs(float(q["end"]) - g0) <= 0.02 and abs(float(q["start"]) - float(host["start"])) <= 0.05
+                        and float(q["end"]) - float(q["start"]) > 0.15
+                    ),
+                    None,
+                ) if landing is not None else None
+                # (landing + entry together only: the part takes over the whole held note -- it comes in with it, plays the
+                # fill and lands inside the held note, holding to its end; otherwise it's a plain fill)
+                if (
+                    lead_in is None or landing is None
+                    or float(landing["start"]) > float(host["end"]) - 0.3
+                    or abs(float(landing["end"]) - float(host["end"])) > 0.05
+                ):
+                    landing = lead_in = None
                 for k_w, w in enumerate(walk):
-                    # (a fill is its own little line: it sweeps from the edge key in its direction, K-J-F down / D-F-J up)
-                    w["lane_hint"] = 3 - k_w if down else k_w
+                    # (a fill is its own little line: it sweeps from the edge key in its direction, K-J-F down / D-F-J up;
+                    # a fill with a landing is a run into a held note, laid out like any run)
+                    if landing is None:
+                        w["lane_hint"] = 3 - k_w if down else k_w
                     w["end"] = float(w["start"]) + 0.32  # crisp taps (never a stray hold on the last step)
                     w["vel"] = 85  # light taps: never trigger a cross-hand accent chord
-                host["end"] = g0
+                if landing is not None:
+                    walk.append(dict(landing, staff=st["name"], is_legato_suspension=True, vel=85, end=min(float(landing["end"]), float(host["end"]))))
+                if lead_in is not None:
+                    walk.insert(0, dict(lead_in, staff=st["name"], is_legato_suspension=True))
+                    lead_score_notes = [h for h in lead_score_notes if h is not host]
+                else:
+                    host["end"] = g0
                 fills_added.extend(walk)
         if fills_added:
             lead_score_notes = sorted(lead_score_notes + fills_added, key=lambda x: float(x["start"]))

@@ -1098,6 +1098,7 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
   if (lanes === 4 && !hasSpace) applyHeldLines(notes, lanes);
   if (lanes === 4 && !hasSpace) applyHeldKeyFamilies(notes, lanes, isDense ? features.chordHits || [] : []);
   if (lanes === 4 && !hasSpace) applyGapShiftDoubles(notes, lanes);
+  if (lanes === 4 && !hasSpace) applyRunSkipClose(notes, lanes);
   if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
@@ -2681,8 +2682,9 @@ function assignGhostLanes(notes, lanes) {
     // not a ghost run)
     const quick = gaps.length > 0 && mid < 0.2 && gaps[gaps.length - 1] <= 0.3;
     const run = prim.slice(s0, b + 1);
-    // a scale-like run (steps of a 3rd or less, not leaps: Ride 2:11's fall stays on four keys)...
-    const stepwise = run.every((x, j) => j === 0 || Math.abs(x.midi - run[j - 1].midi) <= 3);
+    // a scale-like run (steps of a 3rd or less -- a major 3rd only with clean joins, below -- not leaps: Ride 2:11's fall
+    // stays on four keys)...
+    const stepwise = run.every((x, j) => j === 0 || Math.abs(x.midi - run[j - 1].midi) <= 4);
     // ...that stands on its own, not five notes partway through a long flurry
     let pa = s0;
     while (pa > 0 && prim[pa].time - prim[pa - 1].time < 0.2) pa--;
@@ -2720,6 +2722,16 @@ function assignGhostLanes(notes, lanes) {
       if (seq && run.some((x, j) => seq[j] >= lanes && x.type === 'hold')) {
         const flip = dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0];
         seq = run.some((x, j) => flip[j] >= lanes && x.type === 'hold') ? null : flip;
+      }
+      // (a run with a major-3rd step -- e.g. Arabesque 5:07's horns 58 60 62 63 67 -- only when it joins the notes around
+      // it cleanly: no wrong-way step or same key from the note just before, no same key into the note just after)
+      if (seq && run.some((x, j) => j > 0 && Math.abs(x.midi - run[j - 1].midi) === 4)) {
+        const pv = s0 > 0 && run[0].time - prim[s0 - 1].time < 0.3 ? prim[s0 - 1] : null;
+        const nx = b + 1 < n && prim[b + 1].time - run[run.length - 1].time < 0.3 ? prim[b + 1] : null;
+        const kp = (l) => (l === S ? -1 : l === L ? lanes : l);
+        const badIn = pv && pv.midi !== run[0].midi && (kp(pv.lane) === kp(seq[0]) || Math.sign(kp(seq[0]) - kp(pv.lane)) !== Math.sign(run[0].midi - pv.midi));
+        const badOut = nx && nx.midi !== run[run.length - 1].midi && kp(nx.lane) === kp(seq[seq.length - 1]);
+        if (badIn || badOut) seq = null;
       }
       if (seq) {
         prevGhost = run.map((x) => [x, x.lane]);
@@ -3368,6 +3380,31 @@ function applyHeldLines(notes, lanes) {
       }
     }
     a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * No skipped key after a turn: when a quick run climbs (or falls) out of a neighbour turn (X Y X, kept on the same keys)
+ * and its first step out jumps two keys, the rest of the run (4+ notes, 0.15s or less apart, small steps, one way)
+ * shifts back one key so every step takes the next key (Arabesque 4:45: 62 63 66 67 69 = D F K D F -> D F J K D, after a turn put both 63s on F).
+ */
+function applyRunSkipClose(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const locked = (x) => x.fixedLane || x.localPin || x.ghost;
+  for (let i = 1; i + 1 < prim.length; i++) {
+    const a = prim[i - 1];
+    const b = prim[i];
+    const dm = Math.sign(b.midi - a.midi);
+    if (!dm || Math.abs(b.midi - a.midi) > 4 || b.time - a.time > 0.15 || b.lane - a.lane !== 2 * dm) continue;
+    // (only right after a neighbour turn, X Y X, whose same-notes-same-keys layout left the climb a key behind)
+    if (i < 3 || prim[i - 3].midi !== a.midi || prim[i - 3].lane !== a.lane || a.time - prim[i - 3].time > 0.3) continue;
+    // the rest of the run: same direction, quick, small steps
+    let j = i;
+    while (j + 1 < prim.length && Math.sign(prim[j + 1].midi - prim[j].midi) === dm && Math.abs(prim[j + 1].midi - prim[j].midi) <= 4 && prim[j + 1].time - prim[j].time <= 0.15) j++;
+    const rest = prim.slice(i, j + 1);
+    if (rest.length < 4 || rest.some(locked)) continue;
+    rest.forEach((x) => (x.lane = (x.lane - dm + lanes) % lanes));
+    i = j;
   }
 }
 

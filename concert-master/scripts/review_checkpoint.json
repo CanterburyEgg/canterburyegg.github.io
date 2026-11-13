@@ -1,11 +1,11 @@
 {
   "_meta": {
-    "label": "Arabesque ending by general rules: low walk, top brass, walk wrap, gap shift; splices+pins gone (cm42)",
-    "saved_at": "2026-11-12T20:27:27"
+    "label": "Arabesque mm.108-114 by rules (fills takeover, run-skip after turn, major-3rd ghost runs) + 2 by-ear entries; splice/pacing code gone (cm43)",
+    "saved_at": "2026-11-13T14:33:55"
   },
   "arabesque": {
     "title": "Arabesque (Samuel R. Hazo)",
-    "sidecar_sha256": "b2ae821fae57078a528d9fcba1eb0f830c84a6d722b956eeca5cfcb458791e84",
+    "sidecar_sha256": "81a3e241270c4444c87cff5f9034c6de0220748ce5b0919c5643c678d745efd8",
     "mode": "4k:more",
     "notes": [
       {
@@ -3081,7 +3081,7 @@
         "time": 127.6053,
         "endTime": 127.6053,
         "type": "tap",
-        "lane": 3,
+        "lane": 5,
         "midi": 80,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -3090,7 +3090,7 @@
         "time": 127.6981,
         "endTime": 127.6981,
         "type": "tap",
-        "lane": 2,
+        "lane": 3,
         "midi": 79,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -3099,7 +3099,7 @@
         "time": 127.791,
         "endTime": 127.791,
         "type": "tap",
-        "lane": 0,
+        "lane": 2,
         "midi": 77,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6834,7 +6834,7 @@
         "time": 238.3993,
         "endTime": 238.3993,
         "type": "tap",
-        "lane": 1,
+        "lane": 0,
         "midi": 75,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6843,7 +6843,7 @@
         "time": 238.5966,
         "endTime": 238.5966,
         "type": "tap",
-        "lane": 2,
+        "lane": 1,
         "midi": 78,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6852,7 +6852,7 @@
         "time": 238.6779,
         "endTime": 238.6779,
         "type": "tap",
-        "lane": 3,
+        "lane": 2,
         "midi": 79,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6861,7 +6861,7 @@
         "time": 238.7476,
         "endTime": 238.7476,
         "type": "tap",
-        "lane": 0,
+        "lane": 3,
         "midi": 81,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6870,7 +6870,7 @@
         "time": 238.8708,
         "endTime": 238.8708,
         "type": "tap",
-        "lane": 1,
+        "lane": 0,
         "midi": 82,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6879,7 +6879,7 @@
         "time": 238.9682,
         "endTime": 238.9682,
         "type": "tap",
-        "lane": 2,
+        "lane": 1,
         "midi": 84,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -6888,7 +6888,7 @@
         "time": 239.1423,
         "endTime": 239.9906,
         "type": "hold",
-        "lane": 3,
+        "lane": 2,
         "midi": 86,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7860,7 +7860,7 @@
         "time": 265.555,
         "endTime": 265.555,
         "type": "tap",
-        "lane": 3,
+        "lane": 2,
         "midi": 81,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7869,7 +7869,7 @@
         "time": 265.8917,
         "endTime": 265.8917,
         "type": "tap",
-        "lane": 2,
+        "lane": 0,
         "midi": 79,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7878,7 +7878,7 @@
         "time": 266.1123,
         "endTime": 266.1123,
         "type": "tap",
-        "lane": 1,
+        "lane": 2,
         "midi": 78,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7887,7 +7887,7 @@
         "time": 266.3793,
         "endTime": 266.3793,
         "type": "tap",
-        "lane": 1,
+        "lane": 2,
         "midi": 78,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7914,7 +7914,7 @@
         "time": 266.8321,
         "endTime": 266.8321,
         "type": "tap",
-        "lane": 3,
+        "lane": 5,
         "midi": 82,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7923,7 +7923,7 @@
         "time": 266.893,
         "endTime": 266.893,
         "type": "tap",
-        "lane": 2,
+        "lane": 3,
         "midi": 81,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7932,7 +7932,7 @@
         "time": 266.9714,
         "endTime": 266.9714,
         "type": "tap",
-        "lane": 1,
+        "lane": 2,
         "midi": 79,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -7941,7 +7941,7 @@
         "time": 267.0875,
         "endTime": 267.0875,
         "type": "tap",
-        "lane": 3,
+        "lane": 1,
         "midi": 75,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8670,7 +8670,7 @@
         "time": 285.1998,
         "endTime": 285.1998,
         "type": "tap",
-        "lane": 3,
+        "lane": 2,
         "midi": 66,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8679,7 +8679,7 @@
         "time": 285.268,
         "endTime": 285.268,
         "type": "tap",
-        "lane": 0,
+        "lane": 3,
         "midi": 67,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8688,7 +8688,7 @@
         "time": 285.3362,
         "endTime": 285.3362,
         "type": "tap",
-        "lane": 1,
+        "lane": 0,
         "midi": 69,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8697,7 +8697,7 @@
         "time": 285.4044,
         "endTime": 285.4044,
         "type": "tap",
-        "lane": 2,
+        "lane": 1,
         "midi": 70,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8706,7 +8706,7 @@
         "time": 285.4726,
         "endTime": 285.4726,
         "type": "tap",
-        "lane": 3,
+        "lane": 2,
         "midi": 72,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8715,7 +8715,7 @@
         "time": 285.5407,
         "endTime": 285.5407,
         "type": "tap",
-        "lane": 0,
+        "lane": 3,
         "midi": 74,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8724,7 +8724,7 @@
         "time": 285.6089,
         "endTime": 285.6089,
         "type": "tap",
-        "lane": 1,
+        "lane": 0,
         "midi": 75,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -8733,14 +8733,14 @@
         "time": 285.7099,
         "endTime": 285.7099,
         "type": "tap",
-        "lane": 2,
+        "lane": 1,
         "midi": 77,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 286.2617,
-        "endTime": 286.2617,
+        "time": 286.2324,
+        "endTime": 286.2324,
         "type": "tap",
         "lane": 4,
         "midi": 70,
@@ -8748,8 +8748,8 @@
         "isChordPartner": false
       },
       {
-        "time": 286.3948,
-        "endTime": 286.3948,
+        "time": 286.3717,
+        "endTime": 286.3717,
         "type": "tap",
         "lane": 0,
         "midi": 72,
@@ -8766,8 +8766,8 @@
         "isChordPartner": false
       },
       {
-        "time": 286.5436,
-        "endTime": 286.5436,
+        "time": 286.5342,
+        "endTime": 286.5342,
         "type": "tap",
         "lane": 2,
         "midi": 75,
@@ -8775,8 +8775,8 @@
         "isChordPartner": false
       },
       {
-        "time": 286.6213,
-        "endTime": 286.6213,
+        "time": 286.6271,
+        "endTime": 286.6271,
         "type": "tap",
         "lane": 3,
         "midi": 78,
@@ -8793,8 +8793,8 @@
         "isChordPartner": false
       },
       {
-        "time": 286.7594,
-        "endTime": 286.7594,
+        "time": 286.7664,
+        "endTime": 286.7664,
         "type": "tap",
         "lane": 1,
         "midi": 81,
@@ -8821,7 +8821,7 @@
       },
       {
         "time": 288.833,
-        "endTime": 289.43,
+        "endTime": 289.3591,
         "type": "hold",
         "lane": 3,
         "midi": 82,
@@ -8829,8 +8829,8 @@
         "isChordPartner": false
       },
       {
-        "time": 289.52,
-        "endTime": 290.158,
+        "time": 289.4491,
+        "endTime": 290.0584,
         "type": "hold",
         "lane": 2,
         "midi": 67,
@@ -8838,8 +8838,8 @@
         "isChordPartner": false
       },
       {
-        "time": 290.2484,
-        "endTime": 290.2484,
+        "time": 290.1484,
+        "endTime": 290.1484,
         "type": "tap",
         "lane": 4,
         "midi": 63,
@@ -8847,8 +8847,8 @@
         "isChordPartner": false
       },
       {
-        "time": 290.4357,
-        "endTime": 290.4357,
+        "time": 290.3232,
+        "endTime": 290.3232,
         "type": "tap",
         "lane": 0,
         "midi": 65,
@@ -8856,8 +8856,8 @@
         "isChordPartner": false
       },
       {
-        "time": 290.623,
-        "endTime": 290.623,
+        "time": 290.4981,
+        "endTime": 290.4981,
         "type": "tap",
         "lane": 1,
         "midi": 67,
@@ -8865,8 +8865,8 @@
         "isChordPartner": false
       },
       {
-        "time": 290.8103,
-        "endTime": 290.8103,
+        "time": 290.6729,
+        "endTime": 290.6729,
         "type": "tap",
         "lane": 2,
         "midi": 69,
@@ -8874,8 +8874,8 @@
         "isChordPartner": false
       },
       {
-        "time": 290.9976,
-        "endTime": 292.5045,
+        "time": 290.8477,
+        "endTime": 292.1733,
         "type": "hold",
         "lane": 3,
         "midi": 70,
@@ -8883,8 +8883,8 @@
         "isChordPartner": false
       },
       {
-        "time": 292.5959,
-        "endTime": 295.55,
+        "time": 292.6,
+        "endTime": 296.7075,
         "type": "hold",
         "lane": 1,
         "midi": 79,
@@ -8892,80 +8892,62 @@
         "isChordPartner": true
       },
       {
-        "time": 292.5959,
-        "endTime": 295.55,
+        "time": 292.6,
+        "endTime": 296.7075,
         "type": "hold",
-        "lane": 2,
+        "lane": 3,
         "midi": 84,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 295.64,
-        "endTime": 296.7288,
+        "time": 296.7975,
+        "endTime": 298.4954,
         "type": "hold",
         "lane": 0,
-        "midi": 81,
+        "midi": 74,
         "isPercussionSolo": false,
-        "isChordPartner": false
+        "isChordPartner": true
       },
       {
-        "time": 296.8198,
-        "endTime": 298.5448,
+        "time": 296.7975,
+        "endTime": 298.4954,
         "type": "hold",
-        "lane": 1,
+        "lane": 2,
         "midi": 82,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 296.8198,
-        "endTime": 298.5448,
-        "type": "hold",
-        "lane": 2,
-        "midi": 86,
-        "isPercussionSolo": false,
-        "isChordPartner": true
-      },
-      {
-        "time": 298.7448,
-        "endTime": 299.5921,
-        "type": "hold",
-        "lane": 0,
-        "midi": 81,
-        "isPercussionSolo": false,
-        "isChordPartner": false
-      },
-      {
-        "time": 298.7448,
-        "endTime": 299.5921,
+        "time": 298.5854,
+        "endTime": 300.4459,
         "type": "hold",
         "lane": 1,
-        "midi": 84,
+        "midi": 81,
         "isPercussionSolo": false,
         "isChordPartner": true
       },
       {
-        "time": 299.6821,
-        "endTime": 300.4698,
+        "time": 298.5854,
+        "endTime": 300.4459,
         "type": "hold",
-        "lane": 2,
+        "lane": 3,
         "midi": 84,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 300.5598,
-        "endTime": 301.3075,
+        "time": 300.5359,
+        "endTime": 301.3166,
         "type": "hold",
-        "lane": 3,
+        "lane": 0,
         "midi": 77,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 301.4375,
-        "endTime": 301.4375,
+        "time": 301.4066,
+        "endTime": 301.4066,
         "type": "tap",
         "lane": 4,
         "midi": 70,
@@ -8973,8 +8955,8 @@
         "isChordPartner": false
       },
       {
-        "time": 301.5606,
-        "endTime": 301.5606,
+        "time": 301.5111,
+        "endTime": 301.5111,
         "type": "tap",
         "lane": 0,
         "midi": 72,
@@ -8982,8 +8964,8 @@
         "isChordPartner": false
       },
       {
-        "time": 301.6841,
-        "endTime": 301.6841,
+        "time": 301.6272,
+        "endTime": 301.6272,
         "type": "tap",
         "lane": 1,
         "midi": 74,
@@ -8991,8 +8973,8 @@
         "isChordPartner": false
       },
       {
-        "time": 301.8076,
-        "endTime": 301.8076,
+        "time": 301.7665,
+        "endTime": 301.7665,
         "type": "tap",
         "lane": 2,
         "midi": 75,
@@ -9000,8 +8982,8 @@
         "isChordPartner": false
       },
       {
-        "time": 301.9311,
-        "endTime": 301.9311,
+        "time": 301.8594,
+        "endTime": 301.8594,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -9009,8 +8991,8 @@
         "isChordPartner": false
       },
       {
-        "time": 302.0546,
-        "endTime": 302.0546,
+        "time": 301.9755,
+        "endTime": 301.9755,
         "type": "tap",
         "lane": 0,
         "midi": 74,
@@ -9018,8 +9000,8 @@
         "isChordPartner": false
       },
       {
-        "time": 302.1781,
-        "endTime": 302.1781,
+        "time": 302.138,
+        "endTime": 302.138,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9027,8 +9009,8 @@
         "isChordPartner": false
       },
       {
-        "time": 302.3016,
-        "endTime": 302.3016,
+        "time": 302.2774,
+        "endTime": 302.2774,
         "type": "tap",
         "lane": 2,
         "midi": 78,
@@ -9036,8 +9018,8 @@
         "isChordPartner": false
       },
       {
-        "time": 302.4254,
-        "endTime": 302.4254,
+        "time": 302.3702,
+        "endTime": 302.3702,
         "type": "tap",
         "lane": 3,
         "midi": 79,
@@ -9045,8 +9027,8 @@
         "isChordPartner": false
       },
       {
-        "time": 302.9544,
-        "endTime": 302.9544,
+        "time": 302.8346,
+        "endTime": 302.8346,
         "type": "tap",
         "lane": 2,
         "midi": 78,
@@ -9054,8 +9036,8 @@
         "isChordPartner": false
       },
       {
-        "time": 303.5321,
-        "endTime": 303.5321,
+        "time": 303.2642,
+        "endTime": 303.2642,
         "type": "tap",
         "lane": 1,
         "midi": 75,
@@ -9063,8 +9045,8 @@
         "isChordPartner": false
       },
       {
-        "time": 303.951,
-        "endTime": 303.951,
+        "time": 303.7983,
+        "endTime": 303.7983,
         "type": "tap",
         "lane": 4,
         "midi": 74,
@@ -9072,8 +9054,8 @@
         "isChordPartner": false
       },
       {
-        "time": 304.0657,
-        "endTime": 304.0657,
+        "time": 303.9956,
+        "endTime": 303.9956,
         "type": "tap",
         "lane": 0,
         "midi": 75,
@@ -9081,8 +9063,8 @@
         "isChordPartner": false
       },
       {
-        "time": 304.1804,
-        "endTime": 304.1804,
+        "time": 304.1117,
+        "endTime": 304.1117,
         "type": "tap",
         "lane": 1,
         "midi": 78,
@@ -9090,8 +9072,8 @@
         "isChordPartner": false
       },
       {
-        "time": 304.2951,
-        "endTime": 304.2951,
+        "time": 304.2395,
+        "endTime": 304.2395,
         "type": "tap",
         "lane": 2,
         "midi": 79,
@@ -9207,47 +9189,47 @@
         "isChordPartner": false
       },
       {
-        "time": 310.1929,
-        "endTime": 310.1929,
+        "time": 310.1838,
+        "endTime": 310.1838,
         "type": "tap",
         "lane": 3,
-        "midi": 81,
+        "midi": 65,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 310.6849,
-        "endTime": 310.6849,
+        "time": 310.6946,
+        "endTime": 310.6946,
         "type": "tap",
         "lane": 2,
-        "midi": 79,
+        "midi": 63,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 311.2043,
-        "endTime": 311.2043,
+        "time": 311.2983,
+        "endTime": 311.2983,
         "type": "tap",
         "lane": 1,
-        "midi": 77,
+        "midi": 62,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 311.6762,
-        "endTime": 311.6762,
+        "time": 311.6698,
+        "endTime": 311.6698,
         "type": "tap",
         "lane": 0,
-        "midi": 74,
+        "midi": 60,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
       {
-        "time": 312.1534,
+        "time": 312.1226,
         "endTime": 313.0079,
         "type": "hold",
-        "lane": 2,
-        "midi": 78,
+        "lane": 1,
+        "midi": 65,
         "isPercussionSolo": false,
         "isChordPartner": false
       },
@@ -9595,7 +9577,7 @@
       },
       {
         "time": 341.7165,
-        "endTime": 343.734,
+        "endTime": 343.844,
         "type": "hold",
         "lane": 1,
         "midi": 82,
@@ -9604,9 +9586,9 @@
       },
       {
         "time": 341.7165,
-        "endTime": 343.734,
+        "endTime": 343.844,
         "type": "hold",
-        "lane": 2,
+        "lane": 3,
         "midi": 86,
         "isPercussionSolo": false,
         "isChordPartner": true
@@ -22067,7 +22049,7 @@
   },
   "what-we-do": {
     "title": "What We Do (RuneScape 3)",
-    "sidecar_sha256": "7ed1344bbee60196445dbcec8961219983b170840a99e9a305e38a922e2229ce",
+    "sidecar_sha256": "8bcc28ce397aed0eeee015a0922a00290d286f8b2c9ee275f2ca21971b63f56e",
     "mode": "4k:more",
     "notes": [
       {
