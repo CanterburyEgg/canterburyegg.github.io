@@ -96,7 +96,9 @@ window.MOBA_MAP = (function () {
     const half = [
       { key: 'north', name: 'Razorback Pack', x: -34, z: -27, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
       { key: 'mid', name: 'Stone Golem', x: -29, z: -5, maxHp: 1400, armor: 22, atk: 56, gold: 165, xp: 195, respawnDur: 45 },
-      { key: 'south', name: 'Bramble Stalkers', x: -37, z: 15, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 }
+      { key: 'south', name: 'Bramble Stalkers', x: -37, z: 15, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
+      // small camp filling the open ground between the middle path and the southern camp (floating thorn lanterns)
+      { key: 'wisp', name: 'Glimmer Wisps', x: -16, z: 30, maxHp: 700, armor: 10, atk: 30, gold: 85, xp: 105, respawnDur: 35 }
     ];
     const out = [];
     [0, 1].forEach((team) => {

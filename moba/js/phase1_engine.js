@@ -276,8 +276,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
       sg.tint.material.opacity = sg.revealT > 0 ? 0.12 * Math.min(1, sg.revealT / 0.8) : 0;
     }
 
+    const DEV_REVEAL = /[?&]reveal/.test(location.search); // dev: no fog of war (screenshots)
     function isPointVisibleToOrder(tx, tz) {
-      if (!matchMode) return true;
+      if (!matchMode || DEV_REVEAL) return true;
       // 1. Order Fountain / Base vision
       if (Math.hypot(tx - MAP.BASE.fountain.x, tz - MAP.BASE.fountain.z) <= 24) return true;
 
@@ -457,6 +458,93 @@ window.MOBA_PHASE1_ENGINE = (function () {
       holder.add(obj);
       holder.userData.height = size.y * k;
       return holder;
+    }
+
+    // ---- Jungle models (assets/map/jungle_bundle.js -> window.MOBA_JUNGLE_TEMPLATES, parsed in boot.js) ----
+    // Hunyuan exports differ in which axis is up and which way they face: rotX stands a model up, yaw turns it to face
+    // local +z (the direction the engine points units). height = world height of the fitted model.
+    const JUNGLE_FIT = {
+      tree:  { height: 4.8, rotX: 0, yaw: 0 },
+      golem: { height: 2.5, rotX: 0, yaw: 0 },
+      boar:  { height: 1.35, rotX: 0, yaw: 0 },
+      wolf:  { height: 1.3, rotX: 0, yaw: -Math.PI / 2 },   // modeled facing +x
+      wisp:  { height: 1.15, rotX: 0, yaw: 0, hover: 0.75 }
+    };
+    const CAMP_MODEL = { north: 'boar', mid: 'golem', south: 'wolf', wisp: 'wisp' }; // camp key -> model (boss: later)
+    const treeHolders = [];  // { o (obstacle), grp } so trees can swap to the real model when it finishes loading
+
+    function fitJungleModel(id, scale) {
+      const tmpl = window.MOBA_JUNGLE_TEMPLATES && window.MOBA_JUNGLE_TEMPLATES[id];
+      const fit = JUNGLE_FIT[id];
+      if (!tmpl || !fit) return null;
+      const inner = tmpl.clone(true);
+      const turn = new THREE.Group();
+      inner.rotation.set(fit.rotX || 0, 0, fit.rotZ || 0);
+      turn.add(inner);
+      turn.rotation.y = fit.yaw;
+      const holder = new THREE.Group();
+      holder.add(turn);
+      holder.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(holder);
+      const size = box.getSize(new THREE.Vector3());
+      const k = (fit.height * (scale || 1)) / Math.max(0.001, size.y);
+      const c = box.getCenter(new THREE.Vector3());
+      turn.position.set(-c.x, -box.min.y, -c.z);
+      const outer = new THREE.Group();
+      outer.add(holder);
+      holder.scale.setScalar(k);
+      holder.position.y = fit.hover || 0;
+      inner.traverse((ch) => { if (ch.isMesh) { ch.castShadow = true; ch.receiveShadow = true; } });
+      outer.userData.fit = fit;
+      outer.userData.body = holder; // animated part (bob, lunge)
+      return outer;
+    }
+
+    // Swap trees and camp monsters to their models (called at map build and again when the bundle finishes loading)
+    function applyJungleModels() {
+      if (!window.MOBA_JUNGLE_TEMPLATES) return;
+      treeHolders.forEach((t) => {
+        if (t.grp.userData.modeled) return;
+        const m = fitJungleModel('tree', t.o.scale || 1);
+        if (!m) return;
+        while (t.grp.children.length) t.grp.remove(t.grp.children[0]);
+        m.rotation.y = ((t.o.x * 12.9898 + t.o.z * 78.233) % 6.283); // stable per-tree turn so the forest isn't uniform
+        t.grp.add(m);
+        t.grp.userData.modeled = true;
+      });
+      camps.forEach((c) => {
+        const id = CAMP_MODEL[c.key];
+        if (!id || c.model || !c.mobGrp) return;
+        const m = fitJungleModel(id, 1);
+        if (!m) return;
+        [c.body, c.head].forEach((p) => { if (p) c.mobGrp.remove(p); });
+        c.mobGrp.add(m);
+        c.model = m;
+      });
+    }
+
+    // Code-driven motion for the unrigged camp monsters: breathing at rest, a trot bob while moving, a lunge on attack
+    function animateCampModel(c, dt, moved) {
+      const m = c.model;
+      if (!m) return;
+      const body = m.userData.body, fit = m.userData.fit;
+      c.animT = (c.animT || 0) + dt;
+      const t = c.animT;
+      const lungeU = c.atkCd > 0.9 ? (1.15 - c.atkCd) / 0.25 : 1; // 0..1 over the first 0.25s after a swing
+      const lunge = lungeU < 1 ? Math.sin(lungeU * Math.PI) : 0;
+      if (fit.hover) {
+        // wisps float and slowly turn about their own axis
+        body.position.y = fit.hover + Math.sin(t * 2.2) * 0.14;
+        body.rotation.y = Math.sin(t * 0.7) * 0.35;
+        body.position.z = lunge * 0.5;
+        return;
+      }
+      const trot = moved ? Math.abs(Math.sin(t * 11)) : 0;
+      body.position.y = trot * 0.09;
+      body.position.z = lunge * 0.45;
+      body.rotation.x = lunge * 0.18 + (moved ? 0.05 : 0);
+      body.rotation.z = moved ? Math.sin(t * 11) * 0.04 : 0;
+      body.scale.y = body.scale.x * (1 + (moved ? 0 : Math.sin(t * 2.4) * 0.015));
     }
 
     function buildStructureMesh(s) {
@@ -675,6 +763,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       c.mesh = grp;
       c.mobGrp = mobGrp;
       c.body = body;
+      c.head = head;
       c.origMat = bodyMat;
       c.hp = c.maxHp;
       c.respawnTimer = 0;
@@ -896,6 +985,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           tGrp.add(c2);
           tGrp.position.set(o.x, 0, o.z);
           mapGroup.add(tGrp);
+          treeHolders.push({ o, grp: tGrp });
         }
       });
 
@@ -910,6 +1000,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         camps.push(c);
         buildCampMesh(c);
       });
+      applyJungleModels(); // (if the jungle bundle already loaded; otherwise notifyJungleModelsReady does it)
     }
 
     // =========================================================
@@ -4142,6 +4233,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (c.hp < c.maxHp) c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.15 * dt);
         }
 
+        const movedNow = Math.hypot(c.x - (c._px === undefined ? c.x : c._px), c.z - (c._pz === undefined ? c.z : c._pz)) > 0.001;
+        c._px = c.x; c._pz = c.z;
+        animateCampModel(c, dt, movedNow);
         const vis = isPointVisibleToOrder(c.x, c.z);
         c.mobGrp.visible = vis;
         updateUnitSlowVisual(c, c.mobGrp, c.isBoss ? 1.35 : 0.82, dt);
@@ -4539,6 +4633,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       notifyTemplatesReady: () => bots.forEach((b) => attachRigToBot(b)),
       notifyMinionTemplatesReady: () => prewarmMinionRigs(),
       // Map models finished loading (boot.js): rebuild structure visuals with them, keeping game state
+      notifyJungleModelsReady: () => applyJungleModels(),
       notifyMapModelsReady: () => {
         structures.forEach((s) => {
           if (s.mesh) mapGroup.remove(s.mesh);

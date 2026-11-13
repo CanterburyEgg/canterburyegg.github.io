@@ -23,6 +23,15 @@ async function loadMapModels() {
   window.MOBA_MAP_TEMPLATES = tmpl;
   if (phase1Engine && phase1Engine.notifyMapModelsReady) phase1Engine.notifyMapModelsReady();
 
+  // Jungle models (trees + camp monsters): assets/map/jungle_bundle.js -> window.MOBA_JUNGLE_TEMPLATES -> engine swaps them in
+  if (!window.MOBA_JUNGLE_MODELS) await loadScriptAsync('assets/map/jungle_bundle.js');
+  const jm = window.MOBA_JUNGLE_MODELS;
+  if (jm) {
+    const [tree, golem, boar, wolf, wisp] = await Promise.all([jm.treeGlbB64, jm.golemGlbB64, jm.boarGlbB64, jm.wolfGlbB64, jm.wispGlbB64].map(parseGlb));
+    window.MOBA_JUNGLE_TEMPLATES = { tree, golem, boar, wolf, wisp };
+    if (phase1Engine && phase1Engine.notifyJungleModelsReady) phase1Engine.notifyJungleModelsReady();
+  }
+
   // Armor minions (regular + super): skinned idle model + clips
   if (!window.MOBA_MINION_BUNDLE) await loadScriptAsync('assets/map/minion_bundle.js');
   const mb = window.MOBA_MINION_BUNDLE;
@@ -198,16 +207,18 @@ async function bootArenaWithLoadingBar() {
 function logHeroShot() {
   console.log('HERODBG ' + JSON.stringify({ kickAnim: hero.kickAnim, oneShot: oneShotActive, act: activeAction && activeAction.getClip().name, t: activeAction && +activeAction.time.toFixed(2), ts: activeAction && activeAction.getEffectiveTimeScale(), cdQ: hero.cdQ }));
   const cam = new THREE.PerspectiveCamera(35, renderer.domElement.width / renderer.domElement.height, 0.1, 200);
-  const yaw = heroPivot.rotation.y;
+  const yaw = /[?&]shotat=/.test(location.search) ? 0 : heroPivot.rotation.y; // shotat: views measured from +z (first ~ front of a +z-facing unit)
   // &shotbone=<Bone>[&shotdist=m]: three close-ups (front / side / back-ish) around one bone, side by side
   const sb = /[?&]shotbone=([A-Za-z0-9]+)/.exec(location.search);
   // &shotbot=<bot id>: the same three close-ups, around a bot instead of the player
   const sbot = /[?&]shotbot=([a-z_]+)/.exec(location.search);
   const botT = sbot && phase1Engine ? phase1Engine.devBots().find((bb) => bb.id === sbot[1]) : null;
-  if ((sb && heroBones[sb[1]]) || botT) {
+  // &shotat=x,z: the same three close-ups around a map point (pair with &reveal to see through fog of war)
+  const sat = /[?&]shotat=([-\d.]+),([-\d.]+)/.exec(location.search);
+  if ((sb && heroBones[sb[1]]) || botT || sat) {
     const sd = /[?&]shotdist=([\d.]+)/.exec(location.search);
     const dist = sd ? parseFloat(sd[1]) : 0.9;
-    const p = botT ? new THREE.Vector3(botT.x, 1.2, botT.z) : heroBones[sb[1]].getWorldPosition(new THREE.Vector3());
+    const p = sat ? new THREE.Vector3(parseFloat(sat[1]), 1.2, parseFloat(sat[2])) : (botT ? new THREE.Vector3(botT.x, 1.2, botT.z) : heroBones[sb[1]].getWorldPosition(new THREE.Vector3()));
     const w = renderer.domElement.width, h = renderer.domElement.height;
     const out = document.createElement('canvas');
     out.width = w * 3; out.height = h;

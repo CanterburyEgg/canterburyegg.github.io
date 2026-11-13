@@ -95,12 +95,14 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   Give it HP plus an overhead bar, make it targetable by bots, minions and towers, and when it's destroyed the Imp has
   to salvage the scrap to get his cannon back (DESIGN_RULES.md). Wrench hits repair it.
 
-## Next model batch (5 Hunyuan credits, planned 2026-11-11)
-Jungle camps are still primitive stand-ins and they're everywhere, so they're the biggest visual gap.
-1. **Moss golem** (humanoid, so Mixamo rigs it as usual)
-2. **Signature jungle tree** (static; replaces the blob trees, the jungle's main look)
-3. **Thorn-wolf** (four-legged)
-4. **Boar** (four-legged)
-5. **Spare**: a redo if one comes out badly, otherwise a second tree or rock variant
-Wolf and boar are four-legged like the Behemoth, so one quadruped rig solution (auto-rigger or code rig) covers all three.
-Tripo props (separate from the Hunyuan credits): spyglass, then ballista / minion weapons.
+## Model batch 2026-11-12 (done: textured and in game)
+Trees, moss golem, boar, thorn wolf and glimmer wisp are in `assets/map/jungle_bundle.js` (trees reduced to about 30k
+triangles each with `glb_decimate.py`). New Glimmer Wisp camp per side at (±16, 30). Camp monsters move in code only
+(breathing, trot bob, attack lunge); their legs don't move yet.
+- [ ] **Golem:** Mixamo rig (user, 2026-11-13), then idle / walk / attack clips like the minions.
+- [ ] **Quadruped rig (wolf, boar, later the Behemoth):** Mixamo can't do four legs. Options: a quadruped auto-rigger,
+  or a code rig: auto-skin the mesh to a simple skeleton (spine, 4 legs × 2 bones, head, tail) with a script, then
+  a procedural gait in code.
+- [ ] **Facing / look pass** during the jungle visual overhaul (which way each model faces, tree size vs. sight lines;
+  trees are candidates for the see-through-walls trick).
+- Tripo props (separate from the Hunyuan credits): spyglass, then ballista / minion weapons.
