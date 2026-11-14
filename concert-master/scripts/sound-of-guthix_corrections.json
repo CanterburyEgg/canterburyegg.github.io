@@ -1,5 +1,5 @@
 {
-  "_about": "Score errata: places where the printed score disagrees with the recording (or the score reader misses a part), confirmed by ear. 'pitch' entries change one melody note's pitch (matched by its final audio time, within 0.06s, and its written pitch), applied after the score clock. 'missing_parts' entries add notes the PDF reader can't see (score seconds), joined into the lead before the key layout. 'merge' entries join one part's notes starting in [start, end) (score seconds) into a single held note on 'midi' (a sustain the score reader splits). 'missing_notes' entries add a note the score reader drops from a part (score seconds), before anything reads the score.",
+  "_about": "Score errata: places where the printed score disagrees with the recording (or the score reader misses a part), confirmed by ear. 'pitch' entries change one melody note's pitch (matched by its final audio time, within 0.06s, and its written pitch), applied after the score clock. 'missing_parts' entries add notes the PDF reader can't see (score seconds), joined into the lead before the key layout. 'merge' entries join one part's notes starting in [start, end) (score seconds) into a single held note on 'midi' (a sustain the score reader splits). 'missing_notes' entries add a note the score reader drops from a part (score seconds), before anything reads the score. 'chord_passages' (audio seconds): stretches where every note the band attacks together is a chord (mode 'all': every note; 'holds': only held notes).",
   "pitch": [
     {
       "time": 45.03,
@@ -81,6 +81,20 @@
       "end": 196.375,
       "midi": 91,
       "why": "Celesta 2 plays Celesta 1's bell figure as a strict canon a dotted quarter (0.75 s) later; in this figure the parsed Celesta 2 part has no high G where the canon puts it (Celesta 1's G at 195.375). The other repeats of the figure have it, and it is audible in the recording. Confirmed by ear Nov 12."
+    }
+  ],
+  "chord_passages": [
+    {
+      "start": 59.9,
+      "end": 104.0,
+      "mode": "holds",
+      "why": "1:00-1:44: the choir's held notes are sung chords (user, by ear)."
+    },
+    {
+      "start": 155.9,
+      "end": 200.0,
+      "mode": "holds",
+      "why": "2:36-3:20: the choir's held notes are sung chords (user, by ear)."
     }
   ]
 }

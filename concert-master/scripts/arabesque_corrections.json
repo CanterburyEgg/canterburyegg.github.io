@@ -1,5 +1,5 @@
 {
-  "_about": "Score errata and by-ear choices, confirmed against the recording (score seconds). 'pitch' changes one melody note's pitch (matched by its final audio time within 0.06s and its written pitch). 'move_notes' moves a lead note the score writes at the wrong moment ('to' = where the recording plays it; the lead's previous note ends there, cut short or ringing on up to it). 'layer_notes' adds a part's note as a second hold over the held lead note it lands on. 'lead_part' makes the lead follow one part in [start, end) (score seconds). 'audio_moves' places a lead note (matched by score_start + midi) at an audio time.",
+  "_about": "Score errata and by-ear choices, confirmed against the recording (score seconds). 'pitch' changes one melody note's pitch (matched by its final audio time within 0.06s and its written pitch). 'move_notes' moves a lead note the score writes at the wrong moment ('to' = where the recording plays it; the lead's previous note ends there, cut short or ringing on up to it). 'layer_notes' adds a part's note as a second hold over the held lead note it lands on. 'lead_part' makes the lead follow one part in [start, end) (score seconds). 'audio_moves' places a lead note (matched by score_start + midi) at an audio time. 'chord_passages' (audio seconds): stretches where every note the band attacks together is a chord (mode 'all': every note; 'holds': only held notes).",
   "move_notes": [
     {
       "staff": "Bb Clarinet 1, 2",
@@ -52,6 +52,18 @@
       "from": 84,
       "to": 86,
       "why": "4:32: the oboes' figure is 86 87 86 84 like at 4:28 (J K J F); the score reads the first note as 84, but the recording's 86 is about twice the 84 there (user heard it, Nov 13)."
+    }
+  ],
+  "chord_passages": [
+    {
+      "start": 129.0,
+      "end": 138.4,
+      "why": "2:09-2:18: the brass & low reeds hammer the same F-C pattern together; the ear hears band chords (user, by ear)."
+    },
+    {
+      "start": 277.5,
+      "end": 282.0,
+      "why": "4:37-4:42: the same band chord pattern (horns + trumpets) after the rip (user, by ear)."
     }
   ]
 }

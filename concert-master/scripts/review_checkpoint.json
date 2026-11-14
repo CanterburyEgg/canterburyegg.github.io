@@ -1,11 +1,11 @@
 {
   "_meta": {
-    "label": "Engine: quick runs cycle cleanly (sequences kept), flurries turn one key with ghost keys (Arabesque 2:30) (cm47)",
-    "saved_at": "2026-11-13T20:06:52"
+    "label": "No song-specific code: Ride chorale & WWD tunes -> lead_part data, chord passages -> corrections data, brass lock -> brass-led rule",
+    "saved_at": "2026-11-14T13:36:52"
   },
   "arabesque": {
     "title": "Arabesque (Samuel R. Hazo)",
-    "sidecar_sha256": "18a017fd6d571d54a0b0935ee6ee0b6fa48e7cdeff8e3162516c8c37461f7d49",
+    "sidecar_sha256": "4b641a7d1ab86e212a3b2b9486f28ab16e34072fbaa5bbdb04f5a2518b14a597",
     "mode": "4k:more",
     "notes": [
       {
@@ -16138,7 +16138,7 @@
   },
   "ride": {
     "title": "Ride (Samuel R. Hazo)",
-    "sidecar_sha256": "9ba16441bba6fbdcf16d92b3bcd627dc721bc637c1b4e221fbfd31d8fbcc8049",
+    "sidecar_sha256": "00af61f0fc72a103d104ac6edf323b3d5782a7f5bc233bbf647c85544fe2c2fb",
     "mode": "4k:more",
     "notes": [
       {
@@ -20553,7 +20553,7 @@
       },
       {
         "time": 135.651,
-        "endTime": 137.3282,
+        "endTime": 137.3437,
         "type": "hold",
         "lane": 0,
         "midi": 53,
@@ -33171,7 +33171,7 @@
   },
   "sound-of-guthix": {
     "title": "The Sound of Guthix (RuneScape 3)",
-    "sidecar_sha256": "f809da9c3c8e79885a7ceb6ba1a481ca50f7e97d524e9abd64ae77b92b6bfc15",
+    "sidecar_sha256": "9da64094063ea022a12052e017ea0d8a52107a9cbcd746ab149a862e964f2ac2",
     "mode": "4k:more",
     "notes": [
       {

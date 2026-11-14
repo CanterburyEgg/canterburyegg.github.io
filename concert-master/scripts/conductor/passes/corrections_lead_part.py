@@ -6,6 +6,8 @@ from pathlib import Path
 
 
 def run(ctx):
+    if ctx.score_path is None:
+        return
     corr = Path(__file__).resolve().parents[2] / f"{ctx.score_path.stem.lower()}_corrections.json"
     if not corr.exists():
         return
@@ -15,7 +17,12 @@ def run(ctx):
         src = next((st for st in ctx.staves if st["name"] == lp["staff"]), None)
         if src is None:
             continue
-        new = [dict(n, staff=src["name"]) for n in src["notes"] if s0 <= float(n["start"]) < s1]
+        # ("as": the part the ear hears, when the notes are read from a part that doubles it -- e.g. Ride's horn chorale,
+        # taken from the oboes' concert-pitch copy -- so the borrowed notes count as one line for the later rules)
+        new = [dict(n, staff=lp.get("as", src["name"])) for n in src["notes"] if s0 <= float(n["start"]) < s1]
+        # ("legato": a slow sung line -- each note is timed as a legato suspension, held into the next)
+        if lp.get("legato"):
+            new = [dict(n, is_legato_suspension=True) for n in new]
         if not new:
             continue
         kept = [n for n in lead if not (s0 <= float(n["start"]) < s1)]

@@ -620,9 +620,9 @@ from timing import run_all as _run_timing  # noqa: E402
 from conductor.core import instrument_role_prior  # noqa: E402,F401
 
 
-def conduct_lead_melody_from_score(staves: list[dict], score_duration: float) -> list[dict]:
+def conduct_lead_melody_from_score(staves: list[dict], score_duration: float, score_path=None) -> list[dict]:
     """Pick the lead line from the score (see scripts/conductor/: core picker + ordered passes)."""
-    return _conduct(staves, score_duration)
+    return _conduct(staves, score_duration, score_path)
 
 
 # ==============================================================================
@@ -1316,7 +1316,7 @@ def process_pair(audio_path: Path, score_path: Path, out_path: Path | None = Non
     print(f"    -> {len(staves)} melodic staves, {len(drum_notes)} percussion events, score_dur={score_dur:.1f}s")
 
     print("  [2/4] Conducting Lead-Melody voice handoffs across score staves...")
-    lead_score_notes = conduct_lead_melody_from_score(staves, score_dur)
+    lead_score_notes = conduct_lead_melody_from_score(staves, score_dur, score_path)
 
     _ctx = _SimpleNamespace(
         staves=staves, raw_staves=raw_staves, score_duration=score_dur, score_path=score_path, lead_notes=lead_score_notes, drum_passages=[]

@@ -1,0 +1,56 @@
+{
+  "_about": "Ride score errata and by-ear choices (score seconds). 'lead_part' makes the lead follow one part in [start, end); optional 'as' names the part the ear hears when the notes are read from a part that doubles it.",
+  "lead_part": [
+    {
+      "staff": "Oboe 1, 2",
+      "start": 133.9,
+      "end": 140.7,
+      "why": "Ride 2:17-2:40 (mm.118-138): the horn chorale's tune is doubled in concert pitch by the oboes / clarinet 1; the score reader's horn and alto-sax transposition is off, so the rules pick the bass and the high fanfare instead (user approved this chart earlier; to be re-confirmed by ear). Phrases 1-2 of the chorale.",
+      "as": "F Horn 1, 2"
+    },
+    {
+      "staff": "Bb Soprano Sax",
+      "start": 140.7,
+      "end": 142.49,
+      "why": "Ride 2:24 (m.125): the fff horn / soprano sax 7-note turn, in the chorale's register.",
+      "as": "F Horn 1, 2"
+    },
+    {
+      "staff": "Trumpet 1, 2",
+      "start": 142.49,
+      "end": 145.0,
+      "why": "Ride 2:26 (m.126): the chorale's phrase 3, read from the trumpets' line in the horns' register.",
+      "as": "F Horn 1, 2"
+    },
+    {
+      "staff": "Trumpet 1, 2",
+      "start": 145.0,
+      "end": 151.0,
+      "why": "Ride 2:29-2:34 (mm.127-134): the trumpet fanfare and hits."
+    },
+    {
+      "staff": "Oboe 1, 2",
+      "start": 151.05,
+      "end": 152.1,
+      "why": "Ride 2:35 (m.135): call-and-response: the woodwinds' call."
+    },
+    {
+      "staff": "Trumpet 1, 2",
+      "start": 152.1,
+      "end": 153.2,
+      "why": "Ride 2:36 (m.136): the trumpets' answer."
+    },
+    {
+      "staff": "Oboe 1, 2",
+      "start": 153.2,
+      "end": 154.25,
+      "why": "Ride 2:37 (m.137): the woodwinds' call."
+    },
+    {
+      "staff": "Trumpet 1, 2",
+      "start": 154.25,
+      "end": 155.35,
+      "why": "Ride 2:38 (m.138): the trumpets' answer."
+    }
+  ]
+}

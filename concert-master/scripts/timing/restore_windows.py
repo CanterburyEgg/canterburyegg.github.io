@@ -1,4 +1,4 @@
-"""Arabesque: windows where the user preferred the chart approved before the 2026-11 rebuild (1:00 accelerating
+"""Restore windows (<song>_restore.json, data): notes restored verbatim from an approved chart (e.g. Arabesque 1:00 accelerating
 
 (Moved verbatim from sync_score.process_pair: a post-warp timing rule; runs on the shared namespace.)
 """
@@ -27,7 +27,8 @@ def run(ns):
     warped = ns.get('warped', MISSING)
     wins = ns.get('wins', MISSING)
 
-    # Arabesque: windows where the user preferred the chart approved before the 2026-11 rebuild (1:00 accelerating
+    # Restore windows (<song>_restore.json, data): windows where the user preferred the chart approved before the 2026-11
+    # rebuild, e.g. Arabesque's (1:00 accelerating
     # figure, 1:09 & 2:40 low line, 2:14 horns, 2:30 woodwind lick landing, 3:27 horn figure) take those notes verbatim.
     restore_path = Path(__file__).with_name(f"{score_path.stem.lower()}_restore.json")
     if restore_path.exists() and len(warped) == len(melody_out):

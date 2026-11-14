@@ -15,8 +15,8 @@ from .core import pick_lead
 
 PREP_PASSES = ['repair_split_dyads', 'rhythm_consensus', 'trills_to_holds', 'perc_pulse_notes']
 # lead-level rules run by sync_score right after the conductor (also for single-staff scores)
-AFTER_PICK_PASSES = ['low_unison_walk', 'top_held_brass', 'held_over_reattack', 'corrections_move_notes', 'corrections_lead_part', 'corrections_missing_parts', 'grace_into_holds', 'drum_led_passages', 'fills_under_holds', 'figures_over_holds']
-POST_PASSES = ['relay_lines', 'ride_chorale', 'solos', 'handoff_phrase_start', 'rhythmic_ostinato', 'tune_over_bells', 'what_we_do_tunes', 'doubling_helpers', 'run_completion', 'run_under_hold', 'rip_under_hold', 'lone_harmony_handoff', 'embellished_doubling', 'screaming_top_note', 'section_entrance', 'unison_split', 'held_landing', 'moving_line_over_held_chords', 'coda_bridge_hold', 'trim_overlaps']
+AFTER_PICK_PASSES = ['low_unison_walk', 'top_held_brass', 'held_over_reattack', 'corrections_move_notes', 'corrections_missing_parts', 'grace_into_holds', 'drum_led_passages', 'fills_under_holds', 'figures_over_holds']
+POST_PASSES = ['relay_lines', 'solos', 'handoff_phrase_start', 'rhythmic_ostinato', 'tune_over_bells', 'corrections_lead_part', 'doubling_helpers', 'run_completion', 'run_under_hold', 'rip_under_hold', 'lone_harmony_handoff', 'embellished_doubling', 'screaming_top_note', 'section_entrance', 'unison_split', 'held_landing', 'moving_line_over_held_chords', 'coda_bridge_hold', 'trim_overlaps']
 
 
 def _trace_window():
@@ -44,7 +44,7 @@ def _run(names, ctx, skip, win, last):
             last[0] = s
 
 
-def conduct(staves: list[dict], score_duration: float) -> list[dict]:
+def conduct(staves: list[dict], score_duration: float, score_path=None) -> list[dict]:
     """
     Phrase-Level Viterbi Conductor across Score Staves:
       - Rewards Unison/Octave Orchestration Doubling (how composers spotlight the main theme!)
@@ -62,7 +62,7 @@ def conduct(staves: list[dict], score_duration: float) -> list[dict]:
     # the conductor works on its own copy of the score: its passes edit notes in place, and the caller still aligns
     # the original score to the audio
     staves = [dict(st, notes=[dict(n) for n in st["notes"]]) for st in staves]
-    ctx = SimpleNamespace(staves=staves, score_duration=score_duration, lead_notes=None)
+    ctx = SimpleNamespace(staves=staves, score_duration=score_duration, lead_notes=None, score_path=score_path)
     _run(PREP_PASSES, ctx, skip, win, last)
     ctx.st_by_name = {st["name"]: st["notes"] for st in ctx.staves}  # shared name -> notes index (after score prep)
     ctx.lead_notes = pick_lead(ctx.staves, ctx.score_duration)

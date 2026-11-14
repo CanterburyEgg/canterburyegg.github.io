@@ -19,11 +19,11 @@ def instrument_role_prior(name: str) -> float:
         return 0.72
     if ("flugel" in ln or "trumpet" in ln) and "2, 3" in ln:
         return 0.80
-    if any(k in ln for k in ["2nd", "3rd", "iii", "iv", "v ", "vi", "viola", "second", "marimba 2", "warm pad 2", "strings ii"]):
+    if any(k in ln for k in ["2nd", "3rd", "iii", "iv", "v ", "vi", "viola", "second", "marimba 2", "pad 2", "strings ii"]):
         if "horn" in ln and ("i " in ln or "1" in ln):
             return 1.24
         return 0.45
-    if "warm pad 1" in ln or "strings i" in ln:
+    if "pad" in ln or "strings i" in ln:  # (synth pads / string section 1: background colour)
         return 0.65
     if any(k in ln for k in ["dulcimer", "choir", "celesta 1", "marimba 1", "xylophone"]):
         return 1.15
@@ -35,6 +35,13 @@ def instrument_role_prior(name: str) -> float:
 
 
 def pick_lead(staves: list[dict], score_duration: float) -> list[dict]:
+    # brass-led score: a principal brass part (Trumpet 1 / Flugelhorn 1 / cornet) is among the three busiest melodic parts
+    _unpitched = ("perc", "timp", "drum", "mallet", "glock", "xylo", "bells", "chime", "vib", "marimba")
+    _busy = sorted(
+        ((sum(1 for a, b in zip(st["notes"], st["notes"][1:]) if a["midi"] != b["midi"]), st["name"].lower()) for st in staves if not any(k in st["name"].lower() for k in _unpitched)),
+        reverse=True,
+    )[:3]
+    brass_led = any(any(k in nm for k in ("trumpet 1", "flugel horn 1", "cornet")) for _, nm in _busy)
     V = len(staves)
     win_dt = 1.0
     W = max(1, int(np.ceil(score_duration / win_dt)))
@@ -170,10 +177,12 @@ def pick_lead(staves: list[dict], score_duration: float) -> list[dict]:
             score_vw = priors[v] * reg * ostinato_mult * contour_mult * doubling_mult * cov_factor * vel_factor
             emit[w, v] = score_vw
 
-        # When a lead Trumpet / Flugelhorn staff has an active moving non-trill melody in window w
-        # (while Soprano/Tenor Sax or French Horns hold >= 1.05s chord pads or sustained trills),
-        # keep the conductor locked onto the moving brass melody!
-        if any("flugel" in st["name"].lower() for st in staves):
+        # Principal brass melody lock: when a principal brass part (Trumpet 1 / Flugelhorn 1 / cornet) has an active moving
+        # non-trill melody in window w (while saxes, horns or 2nd/3rd parts hold >= 1.05s chord pads or sustained trills),
+        # keep the conductor locked onto the moving brass melody -- in a brass-led score only: one whose principal brass part
+        # is among its three busiest melodic parts (Sevens; not Arabesque or Ride, where the woodwinds lead). A Trumpet 1
+        # ostinato (repeating the pitches of the windows either side) outranks the flugelhorn's line.
+        if brass_led:
             moving_lead_brass = []
             for u in range(V):
                 uname = staves[u]["name"].lower()
@@ -197,7 +206,8 @@ def pick_lead(staves: list[dict], score_duration: float) -> list[dict]:
                 tpt1_ostinato = any(
                     "trumpet 1" in staves[u]["name"].lower()
                     and u_cnt >= 3
-                    and {n["midi"] for n in win_notes[u][w]} <= {75, 77, 79, 84}
+                    # (an ostinato: the trumpet's pitches here are ones it also plays in the windows either side)
+                    and w > 0 and {n["midi"] for n in win_notes[u][w]} <= {n["midi"] for n in win_notes[u][w - 1]} | {n["midi"] for n in win_notes[u][min(W - 1, w + 1)]}
                     for u, u_cnt, _ in moving_lead_brass
                 )
                 active_lead_set = set()

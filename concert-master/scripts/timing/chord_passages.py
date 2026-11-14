@@ -53,16 +53,19 @@ def run(ns):
     w_f = ns.get('w_f', MISSING)
     warped = ns.get('warped', MISSING)
 
-    # Ensemble passages (song-specific, chosen by ear): stretches where the whole band plays one rhythmic shape together
-    # (Arabesque 2:09-2:18: the brass & low reeds hammer the same F-C pattern). Every note the band attacks together
-    # (>= 6 staves, >= 2 brass) is a chord, flagged so the chart plays the same chord on the same keys every time.
-    # (a third field "all": every note in the passage is a chord, e.g. What We Do's opening marimba chord hits, which the
-    # score only gives as single notes)
-    passages = {
-        "arabesque": [(129.0, 138.4), (277.5, 282.0)],
-        "what-we-do": [(0.0, 18.6, "all")],
-        "sound-of-guthix": [(59.9, 104.0, "holds"), (155.9, 200.0, "holds")],  # the choir's held notes are sung chords
-    }.get(score_path.stem.lower(), [])
+    # Ensemble passages (<song>_corrections.json "chord_passages", audio seconds, chosen by ear): stretches where the
+    # whole band plays one rhythmic shape together (Arabesque 2:09-2:18: the brass & low reeds hammer the same F-C
+    # pattern). Every note the band attacks together (>= 6 staves, >= 2 brass) is a chord, flagged so the chart plays the
+    # same chord on the same keys every time. mode "all": every note in the passage is a chord (What We Do's opening
+    # marimba chord hits, which the score only gives as single notes); mode "holds": only its held notes (Guthix's choir).
+    import json as _json
+    from pathlib import Path as _Path
+
+    _corr = _Path(__file__).resolve().parents[1] / f"{score_path.stem.lower()}_corrections.json"
+    passages = []
+    if _corr.exists():
+        for cp in _json.loads(_corr.read_text(encoding="utf-8")).get("chord_passages", []):
+            passages.append((float(cp["start"]), float(cp["end"])) + ((cp["mode"],) if cp.get("mode") else ()))
     # "all" passages are struck chords (mallets): each beat strike snaps to the nearest clear audio attack within 0.08s,
     # and quick strikes between two beats (What We Do intro triplets) are spaced by the written rhythm between them
     in_all = [] if score_clock is not None else [k for k in range(n_hit) if any(p[0] <= float(melody_out[k][0]) <= p[1] and len(p) > 2 and p[2] == "all" for p in passages)]
