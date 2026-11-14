@@ -234,9 +234,9 @@ H.fairy = {
     r: 'Lullaby',
     banner: '<b>Passive</b> Fairy Dust (heals allies) &bull; <b>Q</b> Pop! Bubble lob &bull; <b>E</b> Pixie Hop (2 charges) &bull; <b>R</b> Lullaby Dreamdust &bull; <b>P</b> Shop',
     tooltips: {
-      P: { title: 'Passive • Fairy Dust', meta: 'Innate Heal Zones', body: 'Every <b>Q</b> pop leaves a patch of Fairy Dust for 3.5s that <b>heals allies standing inside</b>. During <b>R</b> it becomes Dreamdust.' },
+      P: { title: 'Passive • Fairy Dust', meta: 'Innate Heal Zones', body: 'Every <b>Q</b> pop leaves a patch of Fairy Dust for 3.5s that <b>heals allies standing inside</b> (12 (+2/Lv) + 12% Ability per second). During <b>R</b> it becomes Dreamdust.' },
       LMB: { title: 'LMB • Glimmer Dart', meta: '0 MP • 0.86s Base ATK', body: 'A light ranged poke for <b>Attack damage</b>.' },
-      Q: { title: 'Q • Pop! Bubble', meta: '50 MP • 6.5s CD', body: 'Lob a slow bubble to a spot. It pops over an area: enemies take <b>Ability damage + a 2s slow</b>, allies get a <b>shield</b>, and it leaves Fairy Dust.' },
+      Q: { title: 'Q • Pop! Bubble', meta: '50 MP • 6.5s CD', body: 'Lob a slow bubble to a spot. It pops over an area: enemies take <b>150 / 230 / 320 (+12/Lv) + 100% Ability</b> and a 2s slow, allies get a <b>shield</b> (70 (+10/Lv) + 50% Ability), and it leaves Fairy Dust.' },
       E: { title: 'E • Pixie Hop', meta: '30 MP • 2 charges (10s each)', body: 'Blink to the <b>unit nearest the cursor</b> within 7m (enemy: minor damage + a brief silence; ally: reposition). Can\'t hop to the same unit until that charge recharges.' },
       R: { title: 'R • Lullaby', meta: '100 MP • 48s CD (Lv 4)', body: 'Twirl and burst a <b>4m Dreamdust ring</b>. For 10s all her dust is Dreamdust: enemies inside <b>fall asleep for 2s</b>.' }
     }

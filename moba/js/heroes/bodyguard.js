@@ -100,7 +100,7 @@ H.bodyguard = {
   talents: {
     3: {
       L: { id: '3L', name: 'Into the Stonework', desc: 'Q Haymaker knocking an enemy into a Wall, Tree, or Tower Stuns for 1.0s' },
-      R: { id: '3R', name: 'Broad Shoulders', desc: 'Allies behind you receive 50% (+7/stack) of your Passive Armor & Resist' }
+      R: { id: '3R', name: 'Broad Shoulders', desc: 'Allies behind you receive 50% (+7/stack) of your Passive Resist' }
     },
     7: {
       L: { id: '7L', name: 'Sky Drop', desc: 'E Crowd Dive leap range +25% and Slow increased from 35% to 50%' },
@@ -108,7 +108,7 @@ H.bodyguard = {
     },
     10: {
       L: { id: '10L', name: 'Thorns of Brass', desc: 'R Eyes On Me! radius +25% and reflects 25% of damage taken while Shield holds' },
-      R: { id: '10R', name: 'Peak Physique', desc: 'Casting R grants doubled max Passive resists (+84 Armor & Resist) for 6s' }
+      R: { id: '10R', name: 'Peak Physique', desc: 'Casting R grants doubled max Passive resists (+84 Resist) for 6s' }
     }
   },
 
@@ -124,35 +124,35 @@ H.bodyguard = {
     q: 'Haymaker',
     e: 'Crowd Dive',
     r: 'Eyes On Me!',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Stand Behind Me! (+Armor/Res screening Allies) &bull; <b>Q</b> Knockback Haymaker &bull; <b>E</b> Crowd Dive Leap &bull; <b>R</b> AoE Taunt + Shield &bull; <b>P</b> Shop',
+    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Stand Behind Me! (+Resist screening Allies) &bull; <b>Q</b> Knockback Haymaker &bull; <b>E</b> Crowd Dive Leap &bull; <b>R</b> AoE Taunt + Shield &bull; <b>P</b> Shop',
     tooltips: {
       P: {
         title: 'Passive • Stand Behind Me!',
         meta: 'Innate Vanguard Aura',
-        body: 'Positioning yourself between nearby enemies and an allied Hero grants up to <b>3 stacks of Guard (+14 Armor & +14 Fantasy Resist per stack, up to +42)</b>.',
+        body: 'Positioning yourself between nearby enemies and an allied Hero grants up to <b>3 stacks of Guard (+14 Resist per stack, up to +42)</b>.',
         talentLevels: [3, 10]
       },
       LMB: {
         title: 'LMB • Brass Knuckles',
         meta: '0 MP • 1.30s Base ATK',
-        body: 'Delivers a heavy close-range hook punch dealing <b>100% Physical ATK</b> in a wide frontal arc.'
+        body: 'Delivers a heavy close-range hook punch dealing <b>100% Attack</b> in a wide frontal arc.'
       },
       Q: {
         title: 'Q • Bouncer Haymaker',
         meta: '45 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Unleashes a massive uppercut that deals <b>Physical Damage</b> and <b>knocks enemies back 3.8m</b>. (With Lv3 Talent, knocking foes into walls/trees Stuns for 1.0s!)',
+        body: 'Unleashes a massive uppercut that deals <b>150 / 230 / 310 (+10/Lv) + 80% Ability</b> and <b>knocks enemies back 3.8m</b>. (With Lv3 Talent, knocking foes into walls/trees Stuns for 1.0s!)',
         talentLevels: [3]
       },
       E: {
         title: 'E • Crowd Dive',
         meta: '55 MP • 11.0s / 9.5s / 8.0s CD (Lv 1/6/9)',
-        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>Physical Damage</b> and <b>Slow enemies by 35% for 1.8s / 2.1s / 2.4s</b>.',
+        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>120 / 185 / 250 (+9/Lv) + 70% Ability</b> and <b>Slow enemies by 35% for 1.8s / 2.1s / 2.4s</b>.',
         talentLevels: [7]
       },
       R: {
         title: 'R • Eyes On Me!',
         meta: '90 MP • 44s / 38s / 32s CD (Lv 4/8/12)',
-        body: 'Roars a thunderous battle-cry that deals AoE Physical Damage, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.',
+        body: 'Roars a thunderous battle-cry that deals <b>170 / 270 / 370 + 90% Ability</b> around him, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.',
         talentLevels: [10]
       }
     }

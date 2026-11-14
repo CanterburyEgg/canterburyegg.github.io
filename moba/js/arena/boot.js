@@ -32,6 +32,25 @@ async function loadMapModels() {
     if (phase1Engine && phase1Engine.notifyJungleModelsReady) phase1Engine.notifyJungleModelsReady();
   }
 
+  // Moss golem rig (Mixamo idle + walk / punch / swipe / roar / death): replaces the static golem in its camps
+  if (!window.MOBA_GOLEM_BUNDLE) await loadScriptAsync('assets/map/golem_bundle.js');
+  const gb = window.MOBA_GOLEM_BUNDLE;
+  if (gb) {
+    try {
+      const fbx = (b64) => fbxLoader.parse(b64ToBuffer(b64), '');
+      const clip = (b64) => { const f = fbx(b64); return f.animations[0] || null; };
+      const base = fbx(gb.idle);
+      base.traverse((ch) => { if (ch.isMesh && ch.geometry && !ch.geometry.attributes.normal) ch.geometry.computeVertexNormals(); });
+      window.MOBA_GOLEM_TEMPLATE = {
+        fbx: base, tex: loadHeroDiffuseTexture(gb.tex),
+        clips: { idle: base.animations[0], walk: clip(gb.walk), punch: clip(gb.punch), swipe: clip(gb.swipe), roar: clip(gb.roar), death: clip(gb.death) }
+      };
+      if (phase1Engine && phase1Engine.notifyJungleModelsReady) phase1Engine.notifyJungleModelsReady();
+    } catch (e) {
+      console.warn('Golem bundle failed to parse; keeping the static golem', e);
+    }
+  }
+
   // Armor minions (regular + super): skinned idle model + clips
   if (!window.MOBA_MINION_BUNDLE) await loadScriptAsync('assets/map/minion_bundle.js');
   const mb = window.MOBA_MINION_BUNDLE;

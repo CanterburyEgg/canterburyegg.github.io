@@ -94,9 +94,9 @@ H.scientist = {
     tooltips: {
       P: { title: 'Passive • Saw Fuel', meta: 'Unique Resource (coming soon)', body: 'Will replace mana: fuel charges when he <b>takes damage</b> or lands basic attacks, and refills slowly while the saw is off. For now the saw drains mana.' },
       LMB: { title: 'LMB • Surgical Strike', meta: '0 MP • 0.90s Base ATK', body: 'A close-range stab for <b>Attack damage</b>.' },
-      Q: { title: 'Q • Rev the Saw', meta: 'Toggle • drains MP/s', body: 'Rev the saw in front of him: it hits a short frontal cone every 0.35s for <b>Ability damage</b>. He moves 25% slower and can\'t basic attack while it runs. Shuts off when out of mana or toggled off.' },
+      Q: { title: 'Q • Rev the Saw', meta: 'Toggle • drains MP/s', body: 'Rev the saw in front of him: it hits a short frontal cone every 0.35s for <b>36 / 48 / 60 (+6/Lv) + 15% Ability</b>. He moves 25% slower and can\'t basic attack while it runs. Shuts off when out of mana or toggled off.' },
       E: { title: 'E • Adrenal Injection', meta: 'Costs HP • 10s CD', body: 'Inject: <b>lose 6% of current HP</b>, gain a burst of move speed, and heal back <b>more than you lost</b> over 4s.' },
-      R: { title: 'R • Boomerang Blade', meta: '70 MP • 40s CD (Lv 4)', body: 'Hurl the sawblade out and back: damages and <b>slows</b> going out, then damages and <b>pulls</b> enemies toward him on the return. The saw can\'t rev while the blade is away.' }
+      R: { title: 'R • Boomerang Blade', meta: '70 MP • 40s CD (Lv 4)', body: 'Hurl the sawblade out and back (<b>150 / 240 / 330 (+6/Lv) + 80% Ability</b> per pass): damages and <b>slows</b> going out, then damages and <b>pulls</b> enemies toward him on the return. The saw can\'t rev while the blade is away.' }
     }
   },
 

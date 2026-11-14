@@ -51,7 +51,7 @@ H.panther = {
     },
     7: {
       L: { id: '7L', name: 'Hamstring Mark', desc: 'Consuming the 3rd E Predator Mark Slows by 50% (1.25s) and refunds 2s off E CD' },
-      R: { id: '7R', name: 'Arcane Claws', desc: 'E Predator Mark bonus damage increased by +35% (Fantasy damage)' }
+      R: { id: '7R', name: 'Arcane Claws', desc: 'E Predator Mark bonus damage increased by +35%' }
     },
     10: {
       L: { id: '10L', name: 'Apex Reset', desc: 'Hero takedowns within 4s of exiting R Stealth refresh E and grant 2.5s Stealth' },
@@ -65,7 +65,7 @@ H.panther = {
     glyph: 'X',
     color: '#2dd4bf',
     name: 'Panther Rogue (3D)',
-    role: 'Jungle • Melee Physical Stealth Assassin',
+    role: 'Jungle • Melee Stealth Assassin (Hybrid)',
     passive: 'Shadow Stalker',
     lmb: 'Twin Claws',
     q: 'Slash&Gnash',
@@ -82,19 +82,19 @@ H.panther = {
       LMB: {
         title: 'LMB • Twin Claws',
         meta: '0 MP • 0.78s Base ATK',
-        body: 'Rapid Physical claw swipes for <b>100% Physical ATK</b> that consume active <b>E: Predator Marks</b> for bonus Fantasy burst damage.',
+        body: 'Rapid claw swipes for <b>100% Attack</b> that consume active <b>E: Predator Marks</b> for bonus Ability damage.',
         talentLevels: [7]
       },
       Q: {
         title: 'Q • Slash & Gnash',
         meta: '45 MP • 5.8s / 5.0s / 4.2s CD (Lv 1/6/9)',
-        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; both hits deal Physical Damage, <b>heal you</b>, and each consumes an active <b>Predator Mark</b>!',
+        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; Slash <b>30 / 45 / 60 + 70% Attack</b>, Gnash <b>45 / 65 / 85 + 90% Attack</b> (counts as a basic attack); both <b>heal you</b>, and each consumes an active <b>Predator Mark</b>!',
         talentLevels: [3, 7]
       },
       E: {
         title: "E • Predator's Leap",
         meta: '50 MP • 7.5s / 6.2s / 5.0s CD (Lv 1/6/9)',
-        body: 'Pounces to the target spot (<b>+65% range while Unseen or in R Stealth!</b>), dealing AoE Fantasy Damage and applying <b>3 Predator Marks</b> for 5.0s so your next 3 hits deal bonus Fantasy burst.',
+        body: 'Pounces to the target spot (<b>+65% range while Unseen or in R Stealth!</b>), dealing <b>110 / 165 / 220 (+9/Lv) + 90% Ability</b> in an area and applying <b>3 Predator Marks</b> for 5.0s so your next 3 hits deal bonus Ability damage.',
         talentLevels: [7, 10]
       },
       R: {

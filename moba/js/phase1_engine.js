@@ -514,19 +514,89 @@ window.MOBA_PHASE1_ENGINE = (function () {
       });
       camps.forEach((c) => {
         const id = CAMP_MODEL[c.key];
-        if (!id || c.model || !c.mobGrp) return;
-        const m = fitJungleModel(id, 1);
+        if (!id || !c.mobGrp || c.rig) return;
+        // the golem gets its Mixamo rig once golem_bundle.js is parsed (replacing the static model if that came first)
+        const rig = id === 'golem' ? createGolemRig() : null;
+        if (!rig && c.model) return;
+        const m = rig ? rig.holder : fitJungleModel(id, 1);
         if (!m) return;
-        [c.body, c.head].forEach((p) => { if (p) c.mobGrp.remove(p); });
+        [c.body, c.head, c.model].forEach((p) => { if (p) c.mobGrp.remove(p); });
         c.mobGrp.add(m);
         c.model = m;
+        if (rig) c.rig = rig;
       });
+    }
+
+    // Moss golem rig (window.MOBA_GOLEM_TEMPLATE from boot.js): skinned clone + its own mixer; clips prepared once.
+    let golemClips = null;
+    function createGolemRig() {
+      const T = window.MOBA_GOLEM_TEMPLATE;
+      if (!T || !T.fbx) return null;
+      const model = SkeletonUtils.clone(T.fbx);
+      model.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(model);
+      const sz = box.getSize(new THREE.Vector3());
+      model.scale.multiplyScalar(JUNGLE_FIT.golem.height / Math.max(0.01, sz.y));
+      model.updateMatrixWorld(true);
+      const box2 = new THREE.Box3().setFromObject(model);
+      const ctr = box2.getCenter(new THREE.Vector3());
+      model.position.set(-ctr.x, -box2.min.y, -ctr.z);
+      const mat = new THREE.MeshStandardMaterial({ map: T.tex, roughness: 0.85, metalness: 0.05 });
+      model.traverse((ch) => { if (ch.isMesh) { ch.material = mat; ch.castShadow = true; ch.receiveShadow = true; ch.frustumCulled = false; } });
+      if (!golemClips) {
+        golemClips = {};
+        [['idle', 'idle'], ['walk', 'run'], ['punch', 'punch'], ['swipe', 'punch'], ['roar', 'punch'], ['death', 'punch']].forEach(([name, as]) => {
+          if (!T.clips[name]) return;
+          const prep = prepareClipForModel(T.clips[name], model, as, {});
+          if (prep.tracks.length) golemClips[name] = prep;
+        });
+      }
+      const mixer = new THREE.AnimationMixer(model);
+      const acts = {};
+      Object.keys(golemClips).forEach((n) => { acts[n] = mixer.clipAction(golemClips[n]); });
+      ['punch', 'swipe', 'roar', 'death'].forEach((n) => { if (acts[n]) { acts[n].setLoop(THREE.LoopOnce); acts[n].clampWhenFinished = true; } });
+      if (acts.idle) acts.idle.play();
+      const holder = new THREE.Group();
+      holder.add(model);
+      holder.userData.fit = JUNGLE_FIT.golem;
+      holder.userData.body = holder;
+      return { holder, model, mixer, acts, active: acts.idle || null, swingN: 0 };
+    }
+    function playGolemAct(rig, name, fade, speed) {
+      const next = rig.acts[name];
+      if (!next) return;
+      if (rig.active === next && next.loop === THREE.LoopRepeat) return;
+      next.reset();
+      next.setEffectiveTimeScale(speed || 1);
+      next.play();
+      if (rig.active && rig.active !== next) rig.active.crossFadeTo(next, fade, false);
+      rig.active = next;
     }
 
     // Code-driven motion for the unrigged camp monsters: breathing at rest, a trot bob while moving, a lunge on attack
     function animateCampModel(c, dt, moved) {
       const m = c.model;
       if (!m) return;
+      if (c.rig) {
+        // rigged camp monster: walk while moving, a swing right after each attack (alternating punch / swipe), idle otherwise
+        const rig = c.rig;
+        const swung = c.atkCd > (c._prevAtkCd || 0) + 0.5; // the attack timer just reset = it swung this frame
+        c._prevAtkCd = c.atkCd;
+        if (swung) {
+          rig.swingN++;
+          // fit the whole swing inside the attack rhythm, and stay planted for all of it (no sliding mid-swing)
+          const name = rig.swingN % 2 ? 'punch' : 'swipe';
+          const act = rig.acts[name];
+          const dur = act ? act.getClip().duration : 0.9;
+          const speed = Math.max(1, dur / 0.95);
+          playGolemAct(rig, name, 0.1, speed);
+          c.swingLock = dur / speed;
+        } else if (!(rig.active && rig.active.loop === THREE.LoopOnce && rig.active.isRunning())) {
+          playGolemAct(rig, moved ? 'walk' : 'idle', 0.2, moved ? 1.3 : 1);
+        }
+        rig.mixer.update(dt);
+        return;
+      }
       const body = m.userData.body, fit = m.userData.fit;
       c.animT = (c.animT || 0) + dt;
       const t = c.animT;
@@ -1460,6 +1530,37 @@ window.MOBA_PHASE1_ENGINE = (function () {
       rig.active = next;
     }
     const dyingMinions = [];
+    // Corpses (minions, rigged camp monsters): stay down CORPSE_TIME seconds, fading out over the last CORPSE_FADE
+    const CORPSE_TIME = 5.0, CORPSE_FADE = 1.2;
+    // Fade a rig's meshes. sharedMat: the material is shared (minions), so the fading body gets its own copy and the
+    // shared one is put back at full opacity.
+    function setRigOpacity(model, a, sharedMat) {
+      model.traverse((ch) => {
+        if (!ch.isMesh) return;
+        if (a >= 1) {
+          if (ch.userData.fadeMat) { ch.material = ch.userData.baseMat; }
+          else if (ch.material.transparent) { ch.material.transparent = false; ch.material.opacity = 1; ch.material.depthWrite = true; ch.material.needsUpdate = true; }
+          return;
+        }
+        if (sharedMat) {
+          if (!ch.userData.fadeMat) {
+            const base = ch.material;
+            const f = base.clone();
+            f.onBeforeCompile = base.onBeforeCompile; // keep the team-glow shader patch
+            f.customProgramCacheKey = base.customProgramCacheKey;
+            f.transparent = true;
+            ch.userData.baseMat = base;
+            ch.userData.fadeMat = f;
+          }
+          ch.material = ch.userData.fadeMat;
+        } else if (!ch.material.transparent) {
+          ch.material.transparent = true;
+          ch.material.needsUpdate = true;
+        }
+        ch.material.opacity = Math.max(0, a);
+        ch.material.depthWrite = a > 0.6;
+      });
+    }
 
     function spawnMinionWave() {
       waveCount++;
@@ -2101,7 +2202,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.hp = 0;
         if (u.rig && u.rig.acts.death && u.mesh.visible && !u._dead) {
           playMinionAct(u, 'death', 0.1);
-          dyingMinions.push({ mesh: u.mesh, rig: u.rig, t: 1.9 });
+          dyingMinions.push({ mesh: u.mesh, rig: u.rig, t: CORPSE_TIME });
         } else {
           mapGroup.remove(u.mesh);
           releaseMinionRig(u.rig);
@@ -2122,8 +2223,15 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.bleedStacks = 0;
         u.x = u.homeX;
         u.z = u.homeZ;
-        u.mobGrp.position.set(0, 0, 0);
-        u.mobGrp.visible = false;
+        if (u.rig && u.rig.acts.death) {
+          // rigged monsters play their death clip first; the respawn countdown hides them when it's done
+          playGolemAct(u.rig, 'death', 0.1, 1.3);
+          u.dyingT = CORPSE_TIME;
+          if (u.plate) u.plate.style.display = 'none';
+        } else {
+          u.mobGrp.position.set(0, 0, 0);
+          u.mobGrp.visible = false;
+        }
         if (u.leashRing) u.leashRing.visible = false;
         u.plate.style.display = 'none';
         checkSorceressSoulSiphon(u, u.isBoss);
@@ -4051,8 +4159,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const dm = dyingMinions[i];
         dm.t -= dt;
         dm.rig.mixer.update(dt);
-        if (dm.t < 0.4) dm.mesh.position.y -= dt * 1.2; // sink into the ground
+        if (dm.t < CORPSE_FADE) setRigOpacity(dm.rig.model, dm.t / CORPSE_FADE, true); // body lies there, then fades
         if (dm.t <= 0) {
+          setRigOpacity(dm.rig.model, 1, true);
           mapGroup.remove(dm.mesh);
           releaseMinionRig(dm.rig);
           dyingMinions.splice(i, 1);
@@ -4155,6 +4264,17 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const bleedTickCamp = coyoteBleedTick(); // Coyote's Attack-scaled Bleed (see coyote.js dmg)
       camps.forEach((c) => {
         if (c.respawnTimer > 0) {
+          if ((c.dyingT || 0) > 0) {
+            c.dyingT -= dt;
+            c.rig.mixer.update(dt);
+            setRigOpacity(c.rig.model, Math.min(1, c.dyingT / CORPSE_FADE)); // body lies there, then fades
+            if (c.dyingT <= 0) {
+              c.mobGrp.visible = false;
+              c.mobGrp.position.set(0, 0, 0);
+              setRigOpacity(c.rig.model, 1);
+              playGolemAct(c.rig, 'idle', 0.01, 1);
+            }
+          }
           c.respawnTimer -= dt;
           if (c.respawnTimer <= 0) {
             c.hp = c.maxHp;
@@ -4170,6 +4290,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           return;
         }
         c.atkCd = Math.max(0, c.atkCd - dt);
+        c.swingLock = Math.max(0, (c.swingLock || 0) - dt);
         c.stunTimer = Math.max(0, (c.stunTimer || 0) - dt);
         c.slowTimer = Math.max(0, (c.slowTimer || 0) - dt);
         c.tauntTimer = Math.max(0, (c.tauntTimer || 0) - dt);
@@ -4218,8 +4339,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
             if (distT <= c.atkRange + (t.r || 0.5)) {
               if (c.atkCd <= 0) {
                 c.atkCd = 1.15;
+                c.swingLock = 0.6; // stay planted while the swing plays (no sliding mid-attack)
                 damageOrderHeroOrBot(t, c.atk, 'physical', { kind: 'camp', ref: c });
               }
+            } else if ((c.swingLock || 0) > 0) {
+              // finishing a swing: hold position
             } else {
               const spd = c.spd * (c.slowTimer > 0 ? 0.72 : 1.0);
               const navPt = MAP.navNextPoint(c.x, c.z, t.x, t.z);

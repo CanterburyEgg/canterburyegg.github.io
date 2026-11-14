@@ -216,7 +216,7 @@ H.sorceress = {
   spec: {
     id: 'sorceress',
     name: 'Astral Sorceress',
-    role: 'Carry • Ranged Late-Game Fantasy Mage',
+    role: 'Carry • Ranged Late-Game Mage (Ability)',
     glyph: 'S',
     color: '#38bdf8',
     height: 2.05,
@@ -253,7 +253,7 @@ H.sorceress = {
     glyph: 'S',
     color: '#e879f9',
     name: 'Astral Sorceress (3D)',
-    role: 'Carry • Ranged Fantasy Burst & Zone Mage',
+    role: 'Carry • Ranged Burst & Zone Mage (Ability)',
     passive: 'Soul Siphon',
     lmb: 'Astral Bolt',
     q: 'Star Pillar',
@@ -270,24 +270,24 @@ H.sorceress = {
       LMB: {
         title: 'LMB • Astral Bolt',
         meta: '0 MP • 1.12s Base ATK',
-        body: 'Hurls a luminous bolt of starlight from her hand dealing <b>Physical + Fantasy Damage</b> at long range.'
+        body: 'Hurls a luminous bolt of starlight from her hand dealing <b>100% Attack</b> at long range.'
       },
       Q: {
         title: 'Q • Starfall Pillar',
         meta: '38 MP • 5.2s / 4.8s / 4.4s Base CD (Lv 1/6/9)',
-        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>heavy Fantasy Damage</b> in an area. Hitting an enemy grants <b>+1 Astral Tempo stack (-0.9s Q CD, 1.50s floor)</b>.',
+        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>280 / 380 / 480 (+12/Lv) + 110% Ability</b> in an area. Hitting an enemy grants <b>+1 Astral Tempo stack (-0.9s Q CD, 1.50s floor)</b>.',
         talentLevels: [3, 7, 10]
       },
       E: {
         title: 'E • Rift Stride',
         meta: '60 MP • 12.0s / 10.5s / 9.0s CD (Lv 1/6/9)',
-        body: 'Dashes in your movement direction, then fires <b>3 homing Fantasy bolts</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 bolts on the closest; 1 enemy: all 3).',
+        body: 'Dashes in your movement direction, then fires <b>3 homing bolts (100 / 140 / 180 (+8/Lv) + 60% Ability each)</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 bolts on the closest; 1 enemy: all 3).',
         talentLevels: [3, 7]
       },
       R: {
         title: 'R • Cataclysm Monolith',
         meta: '100 MP • 46s / 40s / 34s CD (Lv 4/8/12)',
-        body: 'After a 0.50s 2H overhead windup, slams down an expanding <b>Astral Monolith</b> zone for 5.0s that continuously <b>Slows enemies</b> and pulses <b>Fantasy Damage</b>.',
+        body: 'After a 0.50s 2H overhead windup, slams down an expanding <b>Astral Monolith</b> zone for 5.0s that continuously <b>Slows enemies</b> and pulses <b>40 / 60 / 80 + 25% Ability</b> every 0.5s.',
         talentLevels: [10]
       }
     }
