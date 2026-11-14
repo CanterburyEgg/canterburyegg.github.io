@@ -190,8 +190,8 @@ H.fairy = {
     dart: (st) => Math.round(st.attack),
     bubble: (st, lvl, rQE) => Math.round([150, 230, 320][rQE] + 12 * ((lvl || 1) - 1) + st.ability * 1.0),
     hop: (st, lvl) => Math.round(50 + 7 * ((lvl || 1) - 1) + st.ability * 0.5),
-    dustHealPerSec: (st, lvl) => 12 + 2 * ((lvl || 1) - 1) + st.ability * 0.12,
-    bubbleShield: (st, lvl) => Math.round(70 + 10 * ((lvl || 1) - 1) + st.ability * 0.5)
+    dustHealPerSec: (st, lvl) => 25 + 4 * ((lvl || 1) - 1) + st.ability * 0.2,
+    bubbleShield: (st, lvl) => Math.round(120 + 15 * ((lvl || 1) - 1) + st.ability * 0.8)
   },
 
   spec: {
@@ -234,9 +234,9 @@ H.fairy = {
     r: 'Lullaby',
     banner: '<b>Passive</b> Fairy Dust (heals allies) &bull; <b>Q</b> Pop! Bubble lob &bull; <b>E</b> Pixie Hop (2 charges) &bull; <b>R</b> Lullaby Dreamdust &bull; <b>P</b> Shop',
     tooltips: {
-      P: { title: 'Passive • Fairy Dust', meta: 'Innate Heal Zones', body: 'Every <b>Q</b> pop leaves a patch of Fairy Dust for 3.5s that <b>heals allies standing inside</b> (12 (+2/Lv) + 12% Ability per second). During <b>R</b> it becomes Dreamdust.' },
+      P: { title: 'Passive • Fairy Dust', meta: 'Innate Heal Zones', body: 'Every <b>Q</b> pop leaves a patch of Fairy Dust for 3.5s that <b>heals allies standing inside</b> (25 (+4/Lv) + 20% Ability per second). During <b>R</b> it becomes Dreamdust.' },
       LMB: { title: 'LMB • Glimmer Dart', meta: '0 MP • 0.86s Base ATK', body: 'A light ranged poke for <b>Attack damage</b>.' },
-      Q: { title: 'Q • Pop! Bubble', meta: '50 MP • 6.5s CD', body: 'Lob a slow bubble to a spot. It pops over an area: enemies take <b>150 / 230 / 320 (+12/Lv) + 100% Ability</b> and a 2s slow, allies get a <b>shield</b> (70 (+10/Lv) + 50% Ability), and it leaves Fairy Dust.' },
+      Q: { title: 'Q • Pop! Bubble', meta: '50 MP • 6.5s CD', body: 'Lob a slow bubble to a spot. It pops over an area: enemies take <b>150 / 230 / 320 (+12/Lv) + 100% Ability</b> and a 2s slow, allies inside get a <b>shield</b> (120 (+15/Lv) + 80% Ability), and it leaves Fairy Dust.' },
       E: { title: 'E • Pixie Hop', meta: '30 MP • 2 charges (10s each)', body: 'Blink to the <b>unit nearest the cursor</b> within 7m (enemy: minor damage + a brief silence; ally: reposition). Can\'t hop to the same unit until that charge recharges.' },
       R: { title: 'R • Lullaby', meta: '100 MP • 48s CD (Lv 4)', body: 'Twirl and burst a <b>4m Dreamdust ring</b>. For 10s all her dust is Dreamdust: enemies inside <b>fall asleep for 2s</b>.' }
     }
@@ -431,13 +431,19 @@ H.fairy = {
         SFX.play('chime');
         spawnShockRing(b.tx, b.tz, 0xa7f3d0, 0.3, 2.6, 0.3);
         KitFx.hitArea(b.tx, b.tz, 2.5, b.dmg, { dmgType: 'fantasy', slowDur: 2.0, color: '#a7f3d0', by: b.owner || KitFx.player });
-        const caster = b.owner ? b.owner.unit : hero;
-        if (Math.hypot(caster.x - b.tx, caster.z - b.tz) <= 2.5) {
-          const ca = b.owner || KitFx.player;
-          caster.shield = Math.max(caster.shield || 0, H.fairy.dmg.bubbleShield(ca.stats(), ca.level()));
-          caster.shieldTimer = 3.0;
-          spawnFloat(caster.x, 2.6, caster.z, 'BUBBLE SHIELD', '#a7f3d0');
-        }
+        // allies inside the pop (and the Fairy herself) get a shield (DESIGN_RULES: "allies inside get a shield")
+        const ca = b.owner || KitFx.player;
+        const caster = ca.unit;
+        const sh = H.fairy.dmg.bubbleShield(ca.stats(), ca.level());
+        const shieldUnit = (u) => {
+          if (!u || (u.hp !== undefined && u.hp <= 0)) return;
+          if (Math.hypot(u.x - b.tx, u.z - b.tz) > 2.5 + (u.r || 0.5) * 0.5) return;
+          u.shield = Math.max(u.shield || 0, sh);
+          u.shieldTimer = 3.0;
+          spawnFloat(u.x, 2.6, u.z, 'BUBBLE SHIELD', '#a7f3d0');
+        };
+        shieldUnit(caster);
+        if (phase1Engine) ca.allies().forEach((a) => shieldUnit(a.ref));
         spawnDust(b.tx, b.tz, 2.5, 3.5, false, b.owner);
       }
     }

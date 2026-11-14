@@ -3424,12 +3424,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
               const actor = botActor(b);
               b.aimTarget = bestTarget;
               const edge = bestDist - ((bestTarget.ref && bestTarget.ref.r) || 0.5); // gap to their edge (camps are big)
-              if (b.sawOn && (edge > 3.4 || (b.sawT || 0) > 5.0)) {
-                kit.castFor(actor, 'Q'); // saw off
+              if (b.sawOn && (edge > 4.8 || (b.sawT || 0) > 5.5)) {
+                kit.castFor(actor, 'Q'); // saw off (it stays on through short gaps; toggling wastes it)
               } else if (b.level >= 4 && b.cdR <= 0 && !b.scBlade && isHeroTarget && bestDist >= 4.0 && bestDist <= 10.0) {
                 kit.castFor(actor, 'R');
-              } else if (b.cdE <= 0 && b.hp / b.maxHp < 0.6 && bestDist <= 5.0) {
-                kit.castFor(actor, 'E');
+              } else if (b.cdE <= 0 && ((b.hp / b.maxHp < 0.6 && bestDist <= 5.0) || (isHeroTarget && edge >= 2.2 && edge <= 7.0))) {
+                kit.castFor(actor, 'E'); // heal when hurt, or the speed burst to catch a hero who's kiting him
               } else if (!b.sawOn && b.cdQ <= 0 && edge <= 2.6 && (isHeroTarget || bestTarget.kind === 'camp')) {
                 kit.castFor(actor, 'Q'); // saw on
               }

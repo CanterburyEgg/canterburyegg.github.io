@@ -73,9 +73,9 @@ H.bodyguard = {
   // burst are Ability damage.
   dmg: {
     punch: (st) => Math.round(st.attack),
-    haymaker: (st, lvl, rQE) => Math.round([150, 230, 310][rQE] + 10 * ((lvl || 1) - 1) + st.ability * 0.8),
-    slam: (st, lvl, rQE) => Math.round([120, 185, 250][rQE] + 9 * ((lvl || 1) - 1) + st.ability * 0.7),
-    taunt: (st, rUlt) => Math.round([170, 270, 370][rUlt] + st.ability * 0.9)
+    haymaker: (st, lvl, rQE) => Math.round([125, 195, 265][rQE] + 9 * ((lvl || 1) - 1) + st.ability * 0.7),
+    slam: (st, lvl, rQE) => Math.round([100, 155, 210][rQE] + 8 * ((lvl || 1) - 1) + st.ability * 0.6),
+    taunt: (st, rUlt) => Math.round([140, 225, 310][rUlt] + st.ability * 0.8)
   },
 
   spec: {
@@ -85,12 +85,12 @@ H.bodyguard = {
     glyph: 'B',
     color: '#eab308',
     height: 2.38,
-    baseHp: 1760, hpGrow: 140,
+    baseHp: 1700, hpGrow: 122,
     baseMp: 300, mpGrow: 26, mpRegen: 5.5,
     // Stat model (DESIGN_RULES §2): tank, low on both (~107 / 190 / 372 dps = 2/3 of the budget, no items)
     baseAttack: 70, attackGrow: 7.5,
     baseAbility: 20, abilityGrow: 3.0,
-    baseResist: 28, resistGrow: 3.6,
+    baseResist: 26, resistGrow: 3.2,
     asGrow: 0.03,
     baseSpd: 6.05,
     atkCd: 1.30,
@@ -140,19 +140,19 @@ H.bodyguard = {
       Q: {
         title: 'Q • Bouncer Haymaker',
         meta: '45 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Unleashes a massive uppercut that deals <b>150 / 230 / 310 (+10/Lv) + 80% Ability</b> and <b>knocks enemies back 3.8m</b>. (With Lv3 Talent, knocking foes into walls/trees Stuns for 1.0s!)',
+        body: 'Unleashes a massive uppercut that deals <b>125 / 195 / 265 (+9/Lv) + 70% Ability</b> and <b>knocks enemies back 3.8m</b>. (With Lv3 Talent, knocking foes into walls/trees Stuns for 1.0s!)',
         talentLevels: [3]
       },
       E: {
         title: 'E • Crowd Dive',
         meta: '55 MP • 11.0s / 9.5s / 8.0s CD (Lv 1/6/9)',
-        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>120 / 185 / 250 (+9/Lv) + 70% Ability</b> and <b>Slow enemies by 35% for 1.8s / 2.1s / 2.4s</b>.',
+        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>100 / 155 / 210 (+8/Lv) + 60% Ability</b> and <b>Slow enemies by 35% for 1.8s / 2.1s / 2.4s</b>.',
         talentLevels: [7]
       },
       R: {
         title: 'R • Eyes On Me!',
         meta: '90 MP • 44s / 38s / 32s CD (Lv 4/8/12)',
-        body: 'Roars a thunderous battle-cry that deals <b>170 / 270 / 370 + 90% Ability</b> around him, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.',
+        body: 'Roars a thunderous battle-cry that deals <b>140 / 225 / 310 + 80% Ability</b> around him, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.',
         talentLevels: [10]
       }
     }
@@ -373,7 +373,7 @@ H.bodyguard = {
         });
       }
 
-      hero.shield = Math.round(180 + (pProg.level || 1) * 25 + enemyScore * 65);
+      hero.shield = Math.round(140 + (pProg.level || 1) * 20 + enemyScore * 50);
       hero.shieldTimer = 4.5;
       hero.rShieldTimer = 4.5;
       if (talents[10] === 'R') {

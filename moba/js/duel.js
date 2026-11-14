@@ -67,6 +67,7 @@
     const total = matchups.length * TRIALS;
     for (const [teamA, teamB] of matchups) {
       const res = { a: teamA, b: teamB, winsA: 0, winsB: 0, draws: 0, times: [], hpLeft: [] };
+      const logBefore = Object.assign({}, window.__kitBotLog || {}); // kit cast counters, to report what the bots used
       for (let t = 0; t < TRIALS; t++) {
         n++;
         statusEl.textContent = 'trial ' + n + '/' + total + ': ' + teamA.join('+') + ' vs ' + teamB.join('+');
@@ -111,10 +112,13 @@
         inPlay.forEach((b) => { b.respawnTimer = 1e9; b.pivot.visible = false; if (b.plate) b.plate.style.display = 'none'; });
         await waitGame(0.6); // let projectiles and zones from the last round die out
       }
+      const logAfter = window.__kitBotLog || {};
+      res.casts = {};
+      Object.keys(logAfter).forEach((k) => { const d = (logAfter[k] || 0) - (logBefore[k] || 0); if (d) res.casts[k] = d; });
       res.avgTime = res.times.length ? res.times.reduce((x, y) => x + y, 0) / res.times.length : null;
       res.avgHpLeft = res.hpLeft.length ? res.hpLeft.reduce((x, y) => x + y, 0) / res.hpLeft.length : null;
       rows.push(res);
-      console.log('DUEL ROW ' + JSON.stringify({ a: res.a, b: res.b, winsA: res.winsA, winsB: res.winsB, draws: res.draws, avgTime: res.avgTime, avgHpLeft: res.avgHpLeft }));
+      console.log('DUEL ROW ' + JSON.stringify({ a: res.a, b: res.b, winsA: res.winsA, winsB: res.winsB, draws: res.draws, avgTime: res.avgTime, avgHpLeft: res.avgHpLeft, casts: res.casts }));
     }
     eng.devDuelEnd();
     report(rows);

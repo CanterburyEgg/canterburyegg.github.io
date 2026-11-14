@@ -49,7 +49,7 @@ H.scientist = {
   // Ability damage.
   dmg: {
     stab: (st) => Math.round(st.attack),
-    sawTick: (st, lvl, rQE) => Math.round([36, 48, 60][rQE] + 6 * ((lvl || 1) - 1) + st.ability * 0.15), // every 0.35s
+    sawTick: (st, lvl, rQE) => Math.round([44, 58, 72][rQE] + 7 * ((lvl || 1) - 1) + st.ability * 0.18), // every 0.35s
     blade: (st, lvl, rUlt) => Math.round([150, 240, 330][rUlt] + 6 * ((lvl || 1) - 1) + st.ability * 0.8) // each pass
   },
 
@@ -60,7 +60,7 @@ H.scientist = {
     glyph: 'W',
     color: '#10b981',
     height: 1.9,
-    baseHp: 1460, hpGrow: 120,
+    baseHp: 1560, hpGrow: 128,
     baseMp: 310, mpGrow: 26, mpRegen: 5.0,
     // Stat model (DESIGN_RULES §2): Ability-leaning diver; the saw is his damage (~136 / 242 / 474 dps, 85% bruiser budget)
     baseAttack: 52, attackGrow: 6.0,
@@ -94,7 +94,7 @@ H.scientist = {
     tooltips: {
       P: { title: 'Passive • Saw Fuel', meta: 'Unique Resource (coming soon)', body: 'Will replace mana: fuel charges when he <b>takes damage</b> or lands basic attacks, and refills slowly while the saw is off. For now the saw drains mana.' },
       LMB: { title: 'LMB • Surgical Strike', meta: '0 MP • 0.90s Base ATK', body: 'A close-range stab for <b>Attack damage</b>.' },
-      Q: { title: 'Q • Rev the Saw', meta: 'Toggle • drains MP/s', body: 'Rev the saw in front of him: it hits a short frontal cone every 0.35s for <b>36 / 48 / 60 (+6/Lv) + 15% Ability</b>. He moves 25% slower and can\'t basic attack while it runs. Shuts off when out of mana or toggled off.' },
+      Q: { title: 'Q • Rev the Saw', meta: 'Toggle • drains MP/s', body: 'Rev the saw in front of him: it hits a short frontal cone every 0.35s for <b>44 / 58 / 72 (+7/Lv) + 18% Ability</b>. He moves 25% slower and can\'t basic attack while it runs. Shuts off when out of mana or toggled off.' },
       E: { title: 'E • Adrenal Injection', meta: 'Costs HP • 10s CD', body: 'Inject: <b>lose 6% of current HP</b>, gain a burst of move speed, and heal back <b>more than you lost</b> over 4s.' },
       R: { title: 'R • Boomerang Blade', meta: '70 MP • 40s CD (Lv 4)', body: 'Hurl the sawblade out and back (<b>150 / 240 / 330 (+6/Lv) + 80% Ability</b> per pass): damages and <b>slows</b> going out, then damages and <b>pulls</b> enemies toward him on the return. The saw can\'t rev while the blade is away.' }
     }
