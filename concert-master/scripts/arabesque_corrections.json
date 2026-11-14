@@ -1,5 +1,5 @@
 {
-  "_about": "Score errata and by-ear choices, confirmed against the recording (score seconds). 'move_notes' moves a lead note the score writes at the wrong moment ('to' = where the recording plays it; the lead's previous note ends there, cut short or ringing on up to it). 'layer_notes' adds a part's note as a second hold over the held lead note it lands on. 'lead_part' makes the lead follow one part in [start, end) (score seconds). 'audio_moves' places a lead note (matched by score_start + midi) at an audio time.",
+  "_about": "Score errata and by-ear choices, confirmed against the recording (score seconds). 'pitch' changes one melody note's pitch (matched by its final audio time within 0.06s and its written pitch). 'move_notes' moves a lead note the score writes at the wrong moment ('to' = where the recording plays it; the lead's previous note ends there, cut short or ringing on up to it). 'layer_notes' adds a part's note as a second hold over the held lead note it lands on. 'lead_part' makes the lead follow one part in [start, end) (score seconds). 'audio_moves' places a lead note (matched by score_start + midi) at an audio time.",
   "move_notes": [
     {
       "staff": "Bb Clarinet 1, 2",
@@ -38,6 +38,20 @@
       "midi": 84,
       "to": 292.6,
       "why": "4:52: the band's chord swells in after the molto rit. (no sharp attack; the mix dips ~4:52.5 and swells from 4:52.6); the alignment lands it 0.4s early (user, by ear, Nov 13; 4:52.60 was the approved hand-timed beat)."
+    },
+    {
+      "score_start": 264.672,
+      "midi": 84,
+      "to": 269.61,
+      "why": "4:29: the oboes' three 84s are written 16th-16th-8th but played evenly (user, by ear, Nov 13); the middle strike goes halfway between the first and last."
+    }
+  ],
+  "pitch": [
+    {
+      "time": 272.41,
+      "from": 84,
+      "to": 86,
+      "why": "4:32: the oboes' figure is 86 87 86 84 like at 4:28 (J K J F); the score reads the first note as 84, but the recording's 86 is about twice the 84 there (user heard it, Nov 13)."
     }
   ]
 }

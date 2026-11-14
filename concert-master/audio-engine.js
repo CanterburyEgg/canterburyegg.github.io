@@ -1100,6 +1100,7 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
   if (lanes === 4 && !hasSpace) applyGapShiftDoubles(notes, lanes);
   if (lanes === 4 && !hasSpace) applyRunSkipClose(notes, lanes);
   if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
+  if (lanes === 4 && !hasSpace) applyHalfStepNoLeap(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
   if (isDense) addEnsembleChordHits(notes, features.chordHits || [], lanes);
@@ -3380,6 +3381,30 @@ function applyHeldLines(notes, lanes) {
       }
     }
     a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * A half-step neighbour never jumps across the keyboard: a note a half step from the note just before it (0.4s or less
+ * apart) that sits on the far edge key from it (K -> D or D -> K) moves to the key next door, as long as that doesn't
+ * put it on the same key as the next note or make the next step go the wrong way (Arabesque 0:37: K85, then the 84
+ * hold on D -> J).
+ */
+function applyHalfStepNoLeap(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
+  for (let i = 1; i < prim.length; i++) {
+    const a = prim[i - 1];
+    const b = prim[i];
+    if (b.fixedLane || b.localPin || b.ghost || Math.abs(b.midi - a.midi) !== 1 || b.time - a.time > 0.4) continue;
+    if (Math.abs(b.lane - a.lane) !== lanes - 1) continue;
+    const nl = a.lane + Math.sign(b.midi - a.midi);
+    if (nl < 0 || nl >= lanes) continue;
+    const c = i + 1 < prim.length && prim[i + 1].time - end(b) < 0.6 ? prim[i + 1] : null;
+    if (c && c.midi !== b.midi && c.lane === nl) continue;
+    if (c && c.midi === b.midi && c.lane === b.lane) continue; // (same note again next: it keeps its key)
+    if (c && c.midi !== b.midi && c.lane < lanes && Math.sign(c.lane - nl) !== Math.sign(c.midi - b.midi)) continue;
+    b.lane = nl;
   }
 }
 
