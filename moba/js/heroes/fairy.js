@@ -184,6 +184,16 @@ H.fairy = {
     }
   },
 
+  // All of the Fairy's numbers in one place. The dart is Attack damage; the bubble and hop are Ability damage; dust heals
+  // and the bubble shield scale with Ability.
+  dmg: {
+    dart: (st) => Math.round(st.attack),
+    bubble: (st, lvl, rQE) => Math.round([150, 230, 320][rQE] + 12 * ((lvl || 1) - 1) + st.ability * 1.0),
+    hop: (st, lvl) => Math.round(50 + 7 * ((lvl || 1) - 1) + st.ability * 0.5),
+    dustHealPerSec: (st, lvl) => 12 + 2 * ((lvl || 1) - 1) + st.ability * 0.12,
+    bubbleShield: (st, lvl) => Math.round(70 + 10 * ((lvl || 1) - 1) + st.ability * 0.5)
+  },
+
   spec: {
     id: 'fairy',
     name: 'Little Fairy',
@@ -193,10 +203,12 @@ H.fairy = {
     height: 1.15,
     baseHp: 1080, hpGrow: 88,
     baseMp: 440, mpGrow: 40, mpRegen: 7.5,
-    baseAtk: 30, atkGrow: 1.8,
-    baseFant: 40, fantGrow: 5.6,
-    baseArmor: 14, armorGrow: 2.0,
-    baseFResist: 24, fResistGrow: 2.4,
+    // Stat model (DESIGN_RULES §2): Ability support (~96 / 171 / 335 dps, about 60% of the budget, no items);
+    // her heals and shields scale with Ability too
+    baseAttack: 45, attackGrow: 4.0,
+    baseAbility: 45, abilityGrow: 8.0,
+    baseResist: 19, resistGrow: 2.2,
+    asGrow: 0.03,
     baseSpd: 6.2,
     atkCd: 0.86,
     mpCosts: { Q: 50, E: 30, R: 100 }
@@ -244,15 +256,15 @@ H.fairy = {
       const u = actor.unit, a = actor.aim();
       u.facing = Math.atan2(a.x - u.x, a.z - u.z);
       actor.play('punch', 0.05, true, 1.6, 0.2, 0.32);
-      u.fairyDart = { t: 0.16, facing: u.facing, dmg: Math.round(st.atk * 1.0) };
+      u.fairyDart = { t: 0.16, facing: u.facing, dmg: H.fairy.dmg.dart(st) };
       const L = (window.__kitBotLog = window.__kitBotLog || {}); L.fy_lmb = (L.fy_lmb || 0) + 1;
       return;
     }
     hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-    hero.atkTimer = 0.86 / (1 + st.asPct);
+    hero.atkTimer = H.fairy.spec.atkCd / (1 + st.asPct);
     hero.punchAnim = 0.32;
     if (actions.punch) fadeToAction(actions.punch, 0.05, true, 1.6, 0.2); // point extends at clip 0.45s -> ~0.16s
-    const dmg = Math.round(st.atk * 1.0);
+    const dmg = H.fairy.dmg.dart(st);
     const facing = hero.facing;
     setTimeout(() => {
       if (activeHeroId !== 'fairy') return;
@@ -298,7 +310,7 @@ H.fairy = {
       scene.add(mesh);
       bubbles.push({
         mesh, sx: hero.x, sz: hero.z, tx: hero.x + Math.sin(ang) * dist, tz: hero.z + Math.cos(ang) * dist,
-        delay: 0.34, t: 0, dur: 0.6, dmg: Math.round([60, 90, 120][rQE] + (st.fant || 0) * 0.6), owner
+        delay: 0.34, t: 0, dur: 0.6, dmg: H.fairy.dmg.bubble(st, pProg.level, rQE), owner
       });
     } else if (slot === 'E') {
       hero.hopCharges = hero.hopCharges === undefined ? 2 : hero.hopCharges;
@@ -323,7 +335,7 @@ H.fairy = {
       spawnDust(target.x, target.z, 2.5, 3.5, false, owner);
       SFX.play('dash');
       if (target.enemy) {
-        const dmg = Math.round(30 + (st.fant || 0) * 0.3);
+        const dmg = H.fairy.dmg.hop(st, pProg.level);
         if (target.dummy) {
           damageDummy(target.dummy, dmg, '#86efac');
         } else if (target.unit && phase1Engine) {
@@ -421,7 +433,8 @@ H.fairy = {
         KitFx.hitArea(b.tx, b.tz, 2.5, b.dmg, { dmgType: 'fantasy', slowDur: 2.0, color: '#a7f3d0', by: b.owner || KitFx.player });
         const caster = b.owner ? b.owner.unit : hero;
         if (Math.hypot(caster.x - b.tx, caster.z - b.tz) <= 2.5) {
-          caster.shield = Math.max(caster.shield || 0, 90);
+          const ca = b.owner || KitFx.player;
+          caster.shield = Math.max(caster.shield || 0, H.fairy.dmg.bubbleShield(ca.stats(), ca.level()));
           caster.shieldTimer = 3.0;
           spawnFloat(caster.x, 2.6, caster.z, 'BUBBLE SHIELD', '#a7f3d0');
         }
@@ -435,19 +448,21 @@ H.fairy = {
       p.disc.color.setHex(p.dream ? 0xc4b5fd : 0x86efac);
       p.disc.opacity = 0.32 * Math.min(1, p.t / 0.6);
       p.grp.children.forEach((c) => { if (c.userData.sparkle) c.position.y = 0.3 + Math.sin(performance.now() * 0.002 + c.userData.phase) * 0.3 + 0.5; });
-      // Heal the Fairy and her allies standing inside (her own team's, whoever cast it)
+      // Heal the Fairy and her allies standing inside (her own team's, whoever cast it); scales with the caster's Ability
       const po = p.owner;
+      const pa = po || KitFx.player;
+      const heal = H.fairy.dmg.dustHealPerSec(pa.stats(), pa.level()) * dt;
       if (!po && activeHeroId === 'fairy' && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r) {
-        hero.hp = Math.min(hero.maxHp, hero.hp + 18 * dt);
+        hero.hp = Math.min(hero.maxHp, hero.hp + heal);
       }
       if (po && po.unit.hp > 0 && Math.hypot(po.unit.x - p.x, po.unit.z - p.z) <= p.r) {
-        po.unit.hp = Math.min(po.unit.maxHp, po.unit.hp + 18 * dt);
+        po.unit.hp = Math.min(po.unit.maxHp, po.unit.hp + heal);
       }
       if (phase1Engine) {
         (po || KitFx.player).allies().forEach((a) => {
           const b = a.ref;
           if (b.hp > 0 && b.hp < b.maxHp && Math.hypot(a.x - p.x, a.z - p.z) <= p.r + (a.r || 0.5) * 0.5) {
-            b.hp = Math.min(b.maxHp, b.hp + 18 * dt);
+            b.hp = Math.min(b.maxHp, b.hp + heal);
           }
         });
       }

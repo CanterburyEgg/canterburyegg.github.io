@@ -69,6 +69,15 @@ H.bodyguard = {
   clipTweaks: { jumpClampHips: true },
   pillLabels: { kick: 'Haymaker', dash: 'Leap' }, // dev toolbar animation-slot pills
 
+  // All of the Bodyguard's damage numbers in one place. Punches are Attack damage; the Q haymaker, E slam and R taunt
+  // burst are Ability damage.
+  dmg: {
+    punch: (st) => Math.round(st.attack),
+    haymaker: (st, lvl, rQE) => Math.round([150, 230, 310][rQE] + 10 * ((lvl || 1) - 1) + st.ability * 0.8),
+    slam: (st, lvl, rQE) => Math.round([120, 185, 250][rQE] + 9 * ((lvl || 1) - 1) + st.ability * 0.7),
+    taunt: (st, rUlt) => Math.round([170, 270, 370][rUlt] + st.ability * 0.9)
+  },
+
   spec: {
     id: 'bodyguard',
     name: 'Coliseum Bodyguard',
@@ -78,10 +87,11 @@ H.bodyguard = {
     height: 2.38,
     baseHp: 1760, hpGrow: 140,
     baseMp: 300, mpGrow: 26, mpRegen: 5.5,
-    baseAtk: 50, atkGrow: 5.0,
-    baseFant: 0, fantGrow: 0,
-    baseArmor: 28, armorGrow: 3.4,
-    baseFResist: 25, fResistGrow: 3.0,
+    // Stat model (DESIGN_RULES §2): tank, low on both (~107 / 190 / 372 dps = 2/3 of the budget, no items)
+    baseAttack: 70, attackGrow: 7.5,
+    baseAbility: 20, abilityGrow: 3.0,
+    baseResist: 28, resistGrow: 3.6,
+    asGrow: 0.03,
     baseSpd: 6.05,
     atkCd: 1.30,
     mpCosts: { Q: 45, E: 55, R: 90 }
@@ -192,7 +202,7 @@ H.bodyguard = {
       const L = (window.__kitBotLog = window.__kitBotLog || {}); L.bg_lmb = (L.bg_lmb || 0) + 1;
       return;
     }
-    hero.atkTimer = 1.30 / (1 + st.asPct);
+    hero.atkTimer = H.bodyguard.spec.atkCd / (1 + st.asPct);
     // Hook Punch.fbx (2.17s): skip the 0.42s off-hand guard shift and start right as the right shoulder cocks back;
     // at 2.15x speed, the Right-Hand Hook Punch impacts at t = 0.27s (clipTime = 1.00s) and finishes follow-through at 0.50s!
     hero.punchAnim = 0.50;
@@ -218,8 +228,8 @@ H.bodyguard = {
 
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const dmg = strike.isHaymaker
-      ? Math.round([70, 110, 150][rQE] + st.atk * 0.80)
-      : Math.round(st.atk * 1.00);
+      ? H.bodyguard.dmg.haymaker(st, pProg.level, rQE)
+      : H.bodyguard.dmg.punch(st);
     const kbDist = strike.isHaymaker ? 3.8 : 0;
     const wallStun = strike.isHaymaker && talents[3] === 'L';
 
@@ -337,7 +347,7 @@ H.bodyguard = {
     const hero = actor.unit;
     {
       const rRad = talents[10] === 'L' ? 6.0 : 4.8;
-      const rDmg = Math.round(75 + (pProg.level || 1) * 14 + st.atk * 0.50);
+      const rDmg = H.bodyguard.dmg.taunt(st, rUlt);
       const tauntDur = [1.5, 1.75, 2.0][rUlt];
       let enemyScore = 0;
 
@@ -393,7 +403,7 @@ H.bodyguard = {
     // Bodyguard E (Crowd Dive) Landing Slam!
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const slamR = 2.85;
-    const slamDmg = Math.round(55 + (pProg.level || 1) * 10 + st.atk * 0.70);
+    const slamDmg = H.bodyguard.dmg.slam(st, pProg.level, rQE);
     const slamSlow = [1.8, 2.1, 2.4][rQE] + (talents[7] === 'L' ? 0.5 : 0);
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.35, slamR, 0.32);

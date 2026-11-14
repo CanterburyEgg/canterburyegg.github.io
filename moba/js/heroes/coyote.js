@@ -158,7 +158,7 @@ H.coyote = {
     baseHp: 1380, hpGrow: 114,
     baseMp: 310, mpGrow: 26, mpRegen: 5.5,
     // Stat model (DESIGN_RULES §2): Attack-leaning carry. Budget (Damage Profile, no items): ~160 / 285 / 558 dps
-    baseAttack: 56, attackGrow: 10.5,
+    baseAttack: 72, attackGrow: 13.0,
     baseAbility: 10, abilityGrow: 2,
     baseResist: 19, resistGrow: 2.5,
     asGrow: 0.055,
@@ -171,11 +171,11 @@ H.coyote = {
   // the engine). Basics, Q bolts and Bleed are Attack damage; the grenade and Heartseeker are Ability damage.
   dmg: {
     lmb: (st) => Math.round(st.attack),
-    bleedTick: (st) => 3 + 0.08 * st.attack,                                         // per stack, every 0.65s (max 4)
+    bleedTick: (st) => 4 + 0.10 * st.attack,                                         // per stack, every 0.65s (max 4)
     qBolt: (st, rQE) => Math.round([25, 40, 55][rQE] + st.attack * 0.55),            // x3 bolts, counts as a basic attack
-    grenadeOuter: (st, lvl, rQE) => Math.round([80, 140, 215][rQE] + 7 * ((lvl || 1) - 1) + st.ability * 0.6), // bullseye x2
-    heartseeker: (st, rUlt) => Math.round([260, 420, 580][rUlt] + st.ability * 1.0), // x charge power
-    popPerStack: (st, rUlt) => Math.round([60, 100, 140][rUlt] + st.ability * 0.3)   // per Bleed stack detonated
+    grenadeOuter: (st, lvl, rQE) => Math.round([110, 195, 300][rQE] + 10 * ((lvl || 1) - 1) + st.ability * 0.6), // bullseye x2
+    heartseeker: (st, rUlt) => Math.round([360, 580, 800][rUlt] + st.ability * 1.0), // x charge power
+    popPerStack: (st, rUlt) => Math.round([80, 140, 200][rUlt] + st.ability * 0.3)   // per Bleed stack detonated
   },
 
   talents: {

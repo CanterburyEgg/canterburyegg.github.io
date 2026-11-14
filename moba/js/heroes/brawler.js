@@ -144,7 +144,7 @@ H.brawler = {
   dmg: {
     punch: (st) => Math.round(st.attack),
     haymakerBonus: (st, lvl) => Math.round(20 + 3 * ((lvl || 1) - 1) + st.attack * 0.25), // 7R every 3rd punch
-    kick: (st, rQE) => Math.round([60, 90, 120][rQE] + st.attack * 2.0),
+    kick: (st, rQE) => Math.round([110, 140, 170][rQE] + st.attack * 2.0),
     dash: (st, lvl, rQE) => Math.round([80, 120, 160][rQE] + 7 * ((lvl || 1) - 1) + st.ability * 0.5),
     slam7L: (st, lvl) => Math.round(50 + 6 * ((lvl || 1) - 1) + st.ability * 0.4),
     shield: (lvl, rQE) => Math.round([180, 240, 300][rQE] + (lvl || 1) * 15)

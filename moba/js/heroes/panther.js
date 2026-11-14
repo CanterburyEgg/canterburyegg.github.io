@@ -15,6 +15,16 @@ H.panther = {
   hudSpeed: 342,   // SPD number shown in the HUD
   clipTweaks: { crawlStabilizeHead: true, crawlBound: true, jumpClampHips: true },
 
+  // All of the Panther's damage numbers in one place. Swipes and the Q slash + gnash (counts as a basic attack) are
+  // Attack damage; the E pounce and Predator Mark procs are Ability damage.
+  dmg: {
+    swipe: (st) => Math.round(st.attack),
+    qSlash: (st, rQE) => Math.round([30, 45, 60][rQE] + st.attack * 0.7),
+    qBite: (st, rQE) => Math.round([45, 65, 85][rQE] + st.attack * 0.9),
+    mark: (st, lvl) => Math.round(20 + 4 * (lvl || 1) + st.ability * 0.5),          // x rank mult
+    pounce: (st, lvl, rQE) => Math.round([110, 165, 220][rQE] + 9 * ((lvl || 1) - 1) + st.ability * 0.9)
+  },
+
   spec: {
     id: 'panther',
     name: 'Panther Rogue',
@@ -24,10 +34,11 @@ H.panther = {
     height: 2.15,
     baseHp: 1380, hpGrow: 118,
     baseMp: 300, mpGrow: 25, mpRegen: 5.5,
-    baseAtk: 56, atkGrow: 7.5,
-    baseFant: 24, fantGrow: 5.2,
-    baseArmor: 20, armorGrow: 2.8,
-    baseFResist: 20, fResistGrow: 2.6,
+    // Stat model (DESIGN_RULES §2): hybrid assassin (~160 / 285 / 558 dps budget, no items)
+    baseAttack: 58, attackGrow: 8.0,
+    baseAbility: 30, abilityGrow: 6.0,
+    baseResist: 20, resistGrow: 2.7,
+    asGrow: 0.03,
     baseSpd: 6.55,
     atkCd: 0.78,
     mpCosts: { Q: 45, E: 50, R: 80 }
@@ -142,7 +153,7 @@ H.panther = {
       hero.stealthExitTimer = 4.0;
       spawnFloat(hero.x, 2.75, hero.z, 'AMBUSH FROM STEALTH!', '#2dd4bf');
     }
-    hero.atkTimer = 0.78 / (1 + st.asPct);
+    hero.atkTimer = H.panther.spec.atkCd / (1 + st.asPct);
     hero.punchAnim = 0.36;
     if (actions.punch) {
       // Mutant Swiping.fbx: skip the 0.00s-0.82s slow windup and start right at 0.82s as the claw sweeps across!
@@ -171,9 +182,9 @@ H.panther = {
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const rankMult = [1.0, 1.25, 1.50][rQE];
     const baseClawDmg = strike.isFlurry
-      ? Math.round(strike.isBite ? (62 + (pProg.level || 1) * 11 + st.atk * 1.05) : (48 + (pProg.level || 1) * 9 + st.atk * 0.85))
-      : Math.round(st.atk);
-    const markBonusDmg = Math.round((34 + (pProg.level || 1) * 7 + (st.fant || 24) * 0.80) * rankMult * (talents[7] === 'R' ? 1.35 : 1.0));
+      ? (strike.isBite ? H.panther.dmg.qBite(st, rQE) : H.panther.dmg.qSlash(st, rQE))
+      : H.panther.dmg.swipe(st);
+    const markBonusDmg = Math.round(H.panther.dmg.mark(st, pProg.level) * rankMult * (talents[7] === 'R' ? 1.35 : 1.0));
     const healPerHit = strike.isFlurry
       ? Math.round((strike.isBite ? (28 + (pProg.level || 1) * 6) : (22 + (pProg.level || 1) * 5)) * rankMult * (talents[3] === 'R' ? 1.35 : 1.0))
       : 0;
@@ -206,7 +217,7 @@ H.panther = {
           const u = t.ref;
           const lowHpAmp = (strike.isFlurry && talents[3] === 'R' && u && u.hp / u.maxHp < 0.40 && t.kind !== 'structure') ? 1.30 : 1.0;
           const hit = actor.damage(t, Math.round(baseClawDmg * lowHpAmp), {
-            isBasic: !strike.isFlurry,
+            isBasic: true, src: 'attack', // swipes, and the Q flurry (counts as a basic attack)
             dmgType: 'physical',
             color: strike.isFlurry ? '#2dd4bf' : '#fb7185'
           });
@@ -216,7 +227,7 @@ H.panther = {
               u.predatorMarks--;
               const isThirdMark = (u.predatorMarks === 0);
               actor.damage(t, markBonusDmg, {
-                dmgType: 'fantasy',
+                dmgType: 'fantasy', src: 'ability',
                 slowDur: (isThirdMark && talents[7] === 'L') ? 1.25 : 0,
                 color: '#fde047'
               });
@@ -356,7 +367,7 @@ H.panther = {
     const hero = actor.unit; // (local alias: the pouncer)
     // Panther E (Predator's Leap) Landing Pounce + 3 Predator Marks!
     const pounceR = 2.65;
-    const pounceDmg = Math.round(55 + (pProg.level || 1) * 11 + (st.fant || 0) * 0.75);
+    const pounceDmg = H.panther.dmg.pounce(st, pProg.level, KitFx.rQE(pProg.level || 1));
     const isThroatPounce = hero.leapFromStealth && talents[10] === 'R';
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.30, pounceR, 0.28);

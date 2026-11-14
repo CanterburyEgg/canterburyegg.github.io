@@ -95,6 +95,7 @@ function spawnAstralBolt(actor, angle, dmg, opts) {
     homeTo: opts ? opts.homeTo : null,
     age: 0,
     isBasic: !opts,
+    src: opts ? 'ability' : 'attack', // her bolt is a basic attack; Rift bolts are Ability damage
     owner: actor.isPlayer ? null : actor,
     slowDur: opts ? (opts.slowDur || 0) : 0
   });
@@ -202,6 +203,16 @@ H.sorceress = {
   usesWandProp: true, // procedural star wand (only shown if her Mixamo bundle is missing)
   pillLabels: { punch: '1H Cast', kick: '2H Area', dash: 'Rig', dashReady: () => !!(actions.idle && actions.run) }, // dev toolbar pills
 
+  // All of the Sorceress's damage numbers in one place. Her bolt is plain Attack damage (DESIGN_RULES: no more
+  // Physical+Fantasy mix); Starfall, the Rift bolts and the Monolith are Ability damage.
+  dmg: {
+    bolt: (st) => Math.round(st.attack),
+    starfall: (st, lvl, rQE) => Math.round([280, 380, 480][rQE] + 12 * ((lvl || 1) - 1) + st.ability * 1.1),
+    riftBolt: (st, lvl, rQE) => Math.round([100, 140, 180][rQE] + 8 * ((lvl || 1) - 1) + st.ability * 0.6), // x up to 3
+    monolithPulse: (st, rUlt) => Math.round([40, 60, 80][rUlt] + st.ability * 0.25),                         // every 0.5s
+    collapse: (st) => Math.round(100 + st.ability * 0.5)                                                    // 10L talent
+  },
+
   spec: {
     id: 'sorceress',
     name: 'Astral Sorceress',
@@ -211,10 +222,11 @@ H.sorceress = {
     height: 2.05,
     baseHp: 1260, hpGrow: 100,
     baseMp: 440, mpGrow: 40, mpRegen: 7.5,
-    baseAtk: 36, atkGrow: 2.5,
-    baseFant: 52, fantGrow: 8.8,
-    baseArmor: 15, armorGrow: 2.2,
-    baseFResist: 24, fResistGrow: 2.6,
+    // Stat model (DESIGN_RULES §2): Ability-leaning burst mage (~160 / 285 / 558 dps budget, no items, front-loaded)
+    baseAttack: 50, attackGrow: 4.0,
+    baseAbility: 50, abilityGrow: 9.0,
+    baseResist: 19, resistGrow: 2.4,
+    asGrow: 0.03,
     baseSpd: 6.00,
     atkCd: 1.12,
     mpCosts: { Q: 38, E: 60, R: 100 }
@@ -324,12 +336,12 @@ H.sorceress = {
     }
     const aim = actor.aim();
     hero.facing = Math.atan2(aim.x - hero.x, aim.z - hero.z);
-    hero.atkTimer = 1.12 / (1 + st.asPct);
+    hero.atkTimer = H.sorceress.spec.atkCd / (1 + st.asPct);
     // 0.44s commit window covers the 0.22s left-hand pullback windup + throw release!
     hero.punchAnim = 0.44;
     actor.play('punch', 0.04, true, 2.25, 0.24, 0.34);
     if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L.so_lmb = (L.so_lmb || 0) + 1; }
-    const sparkDmg = Math.round(st.atk * 0.40 + (st.fant || 0) * 0.55);
+    const sparkDmg = H.sorceress.dmg.bolt(st);
     setPend(actor, 'bolt', { facing: hero.facing, dmg: sparkDmg, t: 0.22 });
   },
 
@@ -374,7 +386,7 @@ H.sorceress = {
       const tx = hero.x + (dx / dist) * clamped;
       const tz = hero.z + (dz / dist) * clamped;
 
-      const baseDmg = 60 + (pProg.level || 1) * 12 + (st.fant || 0) * 0.92 + (talents[3] === 'L' ? 25 : 0);
+      const baseDmg = H.sorceress.dmg.starfall(st, pProg.level, rQE) + (talents[3] === 'L' ? 25 : 0);
       SFX.play('chime');
       spawnStarfallPillar(actor, tx, tz, radius, 0.38, Math.round(baseDmg), true, 0);
     } else if (slot === 'E') {
@@ -406,7 +418,7 @@ H.sorceress = {
       spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.25, 1.35, 0.24);
 
       // When the dash ends: one homing Fantasy bolt at each of the (up to) 3 nearest enemies in range
-      const eDmg = Math.round([50, 80, 110][rQE] + (st.fant || 0) * 0.65);
+      const eDmg = H.sorceress.dmg.riftBolt(st, pProg.level, rQE);
       const eSlow = talents[3] === 'R' ? 1.5 : 0;
       setPend(actor, 'rift', { t: dashDur, dmg: eDmg, slowDur: eSlow });
       if (!actor.isPlayer) actor.play('punch', 0.05, true, 2.25, 0.22, dashDur);
@@ -499,8 +511,8 @@ H.sorceress = {
         } else if (actor.monolith) {
           // bots: the engine's bot monolith (same pulse numbers; the collapse only with the 10L talent, like the player)
           const st = actor.stats(), tal = actor.talents(), rU = KitFx.rUlt(actor.level());
-          const pulse = Math.round([45, 70, 95][rU] + (st.fant || 0) * 0.38);
-          const collapse = tal[10] === 'L' ? Math.round(85 + (st.fant || 0) * 0.55) : 0;
+          const pulse = H.sorceress.dmg.monolithPulse(st, rU);
+          const collapse = tal[10] === 'L' ? H.sorceress.dmg.collapse(st) : 0;
           actor.monolith(pu.tx, pu.tz, pulse, collapse);
         }
       }
@@ -595,7 +607,7 @@ H.sorceress = {
       if (sorcMonolith.tickTimer <= 0) {
         sorcMonolith.tickTimer = 0.5;
         const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-        const tickDmg = Math.round([45, 70, 95][rUlt] + (st.fant || 0) * 0.38);
+        const tickDmg = H.sorceress.dmg.monolithPulse(st, rUlt);
         spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0xa855f7, 0.4, sorcMonolith.curR, 0.28);
 
         dummies.forEach((d) => {
@@ -621,7 +633,7 @@ H.sorceress = {
       // Talent 10L (Gravity Collapse): At max size (t >= 4.2s), pulls enemies inward & deals bonus burst!
       if (!sorcMonolith.collapsed && sorcMonolith.t >= 4.2 && talents[10] === 'L') {
         sorcMonolith.collapsed = true;
-        const collapseDmg = Math.round(85 + (st.fant || 0) * 0.55);
+        const collapseDmg = H.sorceress.dmg.collapse(st);
         SFX.play('arena');
         spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0x38bdf8, sorcMonolith.curR, 0.4, 0.34);
         spawnFloat(sorcMonolith.x, 3.1, sorcMonolith.z, 'GRAVITY COLLAPSE!', '#38bdf8');

@@ -45,6 +45,14 @@ H.scientist = {
   hudSpeed: 336,
   pillLabels: { punch: 'Stab', kick: 'Drink', dash: 'Throw', dashReady: () => !!actions.slide },
 
+  // All of the Scientist's damage numbers in one place. The stab is Attack damage; the saw and the boomerang blade are
+  // Ability damage.
+  dmg: {
+    stab: (st) => Math.round(st.attack),
+    sawTick: (st, lvl, rQE) => Math.round([36, 48, 60][rQE] + 6 * ((lvl || 1) - 1) + st.ability * 0.15), // every 0.35s
+    blade: (st, lvl, rUlt) => Math.round([150, 240, 330][rUlt] + 6 * ((lvl || 1) - 1) + st.ability * 0.8) // each pass
+  },
+
   spec: {
     id: 'scientist',
     name: 'Saw Scientist',
@@ -54,10 +62,11 @@ H.scientist = {
     height: 1.9,
     baseHp: 1460, hpGrow: 120,
     baseMp: 310, mpGrow: 26, mpRegen: 5.0,
-    baseAtk: 50, atkGrow: 5.5,
-    baseFant: 30, fantGrow: 4.0,
-    baseArmor: 23, armorGrow: 3.0,
-    baseFResist: 22, fResistGrow: 2.5,
+    // Stat model (DESIGN_RULES §2): Ability-leaning diver; the saw is his damage (~136 / 242 / 474 dps, 85% bruiser budget)
+    baseAttack: 52, attackGrow: 6.0,
+    baseAbility: 40, abilityGrow: 7.0,
+    baseResist: 23, resistGrow: 2.8,
+    asGrow: 0.03,
     baseSpd: 6.1,
     atkCd: 0.9,
     mpCosts: { Q: 10, E: 0, R: 70 }
@@ -114,19 +123,19 @@ H.scientist = {
       u.facing = Math.atan2(a.x - u.x, a.z - u.z);
       u.punchAnim = 0.34;
       actor.play('punch', 0.05, true, 2.0, 0.15, 0.34);
-      u.scStrike = { t: 0.1, dmg: Math.round(st.atk * 1.0) };
+      u.scStrike = { t: 0.1, dmg: H.scientist.dmg.stab(st) };
       const L = (window.__kitBotLog = window.__kitBotLog || {}); L.sc_lmb = (L.sc_lmb || 0) + 1;
       return;
     }
     if (hero.sawOn) return; // the saw is busy
-    hero.atkTimer = 0.9 / (1 + st.asPct);
+    hero.atkTimer = H.scientist.spec.atkCd / (1 + st.asPct);
     hero.punchAnim = 0.34;
     if (actions.punch) fadeToAction(actions.punch, 0.05, true, 2.0, 0.15); // jab extends at clip 0.35s -> ~0.10s
     pendingStrike = { isKick: false, facing: hero.facing, t: 0.1 };
   },
 
   onStrikeImpact(strike, ctx) {
-    const dmg = Math.round(ctx.st.atk * 1.0);
+    const dmg = H.scientist.dmg.stab(ctx.st);
     KitFx.hitCone(2.1, 0.7, dmg, { isBasic: true, color: '#fb7185' });
   },
 
@@ -179,7 +188,7 @@ H.scientist = {
       blade = {
         delay: 0.24, // release frame of the throw (clip 0.93s)
         mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
-        hitOut: new Set(), hitBack: new Set(), dmg: Math.round([120, 170, 220][Math.min(2, (pProg.level || 1) >= 12 ? 2 : (pProg.level || 1) >= 8 ? 1 : 0)] + st.atk * 0.6)
+        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1))
       };
       SFX.play('dash');
     }
@@ -220,8 +229,9 @@ H.scientist = {
         sawTick = 0.35;
         hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
         const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 50, fant: 30 };
-        const dmg = Math.round(14 + (st.atk || 0) * 0.18 + (st.fant || 0) * 0.2);
-        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80' });
+        const pl = phase1Engine ? (phase1Engine.getPlayerProg().level || 1) : 1;
+        const dmg = H.scientist.dmg.sawTick(st, pl, KitFx.rQE(pl));
+        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', src: 'ability', aoe: true });
         if (hits > 0) SFX.play('punch');
       }
     }
@@ -259,7 +269,7 @@ H.scientist = {
       scene.add(mesh);
       const b = {
         delay: 0.24, mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
-        hitOut: new Set(), hitBack: new Set(), dmg: Math.round([120, 170, 220][KitFx.rUlt(pProg.level || 1)] + st.atk * 0.6),
+        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1)),
         owner: actor
       };
       hero.scBlade = b;
@@ -305,8 +315,8 @@ H.scientist = {
         const a = actor.aim();
         u.facing = Math.atan2(a.x - u.x, a.z - u.z);
         const st = actor.stats();
-        const dmg = Math.round(14 + (st.atk || 0) * 0.18 + (st.fant || 0) * 0.2);
-        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', by: actor });
+        const dmg = H.scientist.dmg.sawTick(st, actor.level(), KitFx.rQE(actor.level()));
+        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', by: actor, src: 'ability', aoe: true });
         if (hits > 0) SFX.play('punch');
       }
     }

@@ -56,7 +56,11 @@
   let events = [];
   let lastEventAt = 0;
   let timeline = null;     // [{t, dmg}] during a rotation
-  T.onDummyDamage = (d, dmg) => { events.push(dmg); lastEventAt = gameNow(); if (timeline) timeline.push({ t: gameNow(), dmg }); };
+  // single-target numbers: only the dummy being aimed at counts (area hits on the other dummies would inflate area abilities)
+  T.onDummyDamage = (d, dmg) => {
+    if (d !== target) return;
+    events.push(dmg); lastEventAt = gameNow(); if (timeline) timeline.push({ t: gameNow(), dmg });
+  };
 
   // ---- UI ----
   const panel = document.createElement('div');

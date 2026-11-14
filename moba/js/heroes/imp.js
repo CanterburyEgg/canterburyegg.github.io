@@ -226,10 +226,10 @@ H.imp = {
   // All of the Imp's damage numbers in one place. Cannon shots, wrench swings and turret shots (they count as his basic
   // attacks) are Attack damage; Superball is Ability damage.
   dmg: {
-    cannon: (st) => Math.round(st.attack * 1.25),
-    wrench: (st) => Math.round(st.attack * 1.0),
-    turretShot: (st) => Math.round(15 + st.attack * 1.0),
-    superball: (st, lvl, rUlt) => Math.round([200, 300, 400][rUlt] + 6 * ((lvl || 1) - 1) + st.ability * 1.0)
+    cannon: (st) => Math.round(st.attack * 1.5),
+    wrench: (st) => Math.round(st.attack * 1.2),
+    turretShot: (st) => Math.round(20 + st.attack * 1.1),
+    superball: (st, lvl, rUlt) => Math.round([260, 390, 520][rUlt] + 8 * ((lvl || 1) - 1) + st.ability * 1.2)
   },
 
   spec: {
@@ -242,7 +242,7 @@ H.imp = {
     baseHp: 1340, hpGrow: 110,
     baseMp: 310, mpGrow: 26, mpRegen: 5.0,
     // Stat model (DESIGN_RULES §2): Attack-leaning siege carry (~160 / 285 / 558 dps budget, no items)
-    baseAttack: 70, attackGrow: 11.0,
+    baseAttack: 80, attackGrow: 13.0,
     baseAbility: 15, abilityGrow: 2.5,
     baseResist: 20, resistGrow: 2.5,
     asGrow: 0.03,
