@@ -8,9 +8,9 @@ import {
   hydrateSidecarFeatures,
   buildChart,
   ConcertAudioController,
-} from './audio-engine.js?v=cm48';
-import { StageRenderer } from './stage-renderer.js?v=cm48';
-import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm48';
+} from './audio-engine.js?v=cm49';
+import { StageRenderer } from './stage-renderer.js?v=cm49';
+import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm49';
 
 
 const DIFFICULTY_LABELS = { fewer: 'Easy', more: 'Hard' };
@@ -66,7 +66,6 @@ class ConcertMasterApp {
 
     // Live gameplay state
     this.pressedLanes = new Array(8).fill(false);
-    this.spacePressed = false;
     this.scanCursor = 0;
 
     // Score & accuracy state
@@ -904,7 +903,6 @@ class ConcertMasterApp {
     this.recentHitDeltasMs = [];
     this.scanCursor = 0;
     this.pressedLanes = new Array(this.activeChart.mode.lanes + 2).fill(false); // (+2: ghost S / L keys)
-    this.spacePressed = false;
 
     // Populate HUD headers
     document.getElementById('hud-title').textContent = title;
@@ -1124,33 +1122,19 @@ class ConcertMasterApp {
 
     const mode = KEY_MODES[this.keyModeId];
     const laneIdx = this._laneForCode(mode, e.code);
-    const isSpaceKey = e.code === 'Space' && mode.hasSpace;
-
-    if (laneIdx === -1 && !isSpaceKey) return;
+    if (laneIdx === -1) return;
     e.preventDefault();
 
     const judgedTime = this._getJudgedSongTime();
     const curIntensity = this._getIntensityAt(judgedTime);
 
-    if (isSpaceKey) {
-      this.spacePressed = true;
-      this.audio.playHitSound({
-        isSpace: true,
-        lane: -1,
-        totalLanes: mode.lanes,
-        intensity: Math.max(0.65, curIntensity),
-      });
-      this._judgeInput({ isSpace: true, lane: -1, judgedTime });
-    } else if (laneIdx >= 0) {
-      this.pressedLanes[laneIdx] = true;
-      this.audio.playHitSound({
-        isSpace: false,
-        lane: laneIdx === mode.lanes ? 0 : laneIdx > mode.lanes ? mode.lanes - 1 : laneIdx, // ghosts sound like the end keys
-        totalLanes: mode.lanes,
-        intensity: curIntensity,
-      });
-      this._judgeInput({ isSpace: false, lane: laneIdx, judgedTime });
-    }
+    this.pressedLanes[laneIdx] = true;
+    this.audio.playHitSound({
+      lane: laneIdx === mode.lanes ? 0 : laneIdx > mode.lanes ? mode.lanes - 1 : laneIdx, // ghosts sound like the end keys
+      totalLanes: mode.lanes,
+      intensity: curIntensity,
+    });
+    this._judgeInput({ lane: laneIdx, judgedTime });
   }
 
   /**
@@ -1181,12 +1165,10 @@ class ConcertMasterApp {
           if (n.time > this._getJudgedSongTime() + 1.0) break;
         }
       }
-    } else if (e.code === 'Space') {
-      this.spacePressed = false;
     }
   }
 
-  _judgeInput({ isSpace, lane, judgedTime }) {
+  _judgeInput({ lane, judgedTime }) {
     if (!this.activeChart) return;
     const notes = this.activeChart.notes;
 
@@ -1199,7 +1181,7 @@ class ConcertMasterApp {
       const diff = n.time - judgedTime;
       if (diff > TIMING_WINDOWS.good) break;
 
-      const matchesChannel = isSpace ? n.type === 'space' : n.type !== 'space' && n.lane === lane;
+      const matchesChannel = n.lane === lane;
       if (!matchesChannel) continue;
 
       const absDiff = Math.abs(diff);
@@ -1241,7 +1223,6 @@ class ConcertMasterApp {
 
     this._recordJudgment(judgment, weight, basePts, bestNote.time);
     this.stage.triggerHitEffect({
-      isSpace,
       lane,
       totalLanes: this.activeChart.mode.lanes,
       judgment,
@@ -1340,7 +1321,6 @@ class ConcertMasterApp {
       mode,
       notes: this.screenState === 'playing' || this.screenState === 'paused' ? this.activeChart?.notes || [] : [],
       pressedLanes: this.pressedLanes,
-      spacePressed: this.spacePressed,
       features: this.activeTrackData?.features || null,
       ghostEnabled: (this.activeDensity || this.density) === 'more',
     });
@@ -1375,7 +1355,6 @@ class ConcertMasterApp {
           if (this.stats.combo > this.stats.maxCombo) this.stats.maxCombo = this.stats.combo;
           this.stats.score += 250;
           this.stage.triggerHitEffect({
-            isSpace: false,
             lane: n.lane,
             totalLanes,
             judgment: 'perfect',

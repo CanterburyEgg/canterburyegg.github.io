@@ -18,7 +18,6 @@ export const KEY_MODES = {
     name: '4 Keys',
     sub: 'D F · J K',
     lanes: 4,
-    hasSpace: false,
     codes: ['KeyD', 'KeyF', 'KeyJ', 'KeyK'],
     labels: ['D', 'F', 'J', 'K'],
     // Ghost keys: S (lane index 4, far left) and L (lane index 5, far right) for quick runs
@@ -2459,7 +2458,7 @@ function repairLaneDirections(prim, notes, lanes, voted, find, matches) {
 function assignGhostLanes(notes, lanes) {
   const S = lanes;
   const L = lanes + 1;
-  const prim = notes.filter((n) => !n.isChordPartner && n.lane >= 0 && n.lane < lanes && n.type !== 'space');
+  const prim = notes.filter((n) => !n.isChordPartner && n.lane >= 0 && n.lane < lanes);
   const n = prim.length;
   let lastGhostRunEnd = -1; // index of the last note of the previous ghost run
   let prevGhost = null; // [note, original lane] pairs of the previous ghost run
@@ -2650,7 +2649,7 @@ function replanAfter(prim, e, lanes) {
  * inward, and what follows is re-planned (Arabesque 4:30: 81 81 81 81, 82, 81, 79 = F F F F J F D, not D D D D F F D).
  */
 function applyEdgeRepeatRuns(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const n = prim.length;
   let s = 0;
   while (s < n) {
@@ -2681,7 +2680,7 @@ function applyEdgeRepeatRuns(notes, lanes) {
  * 71 73 = J K J F D F J), or F D F then J K ... going up. The notes after the turn are re-planned from there.
  */
 function applyTurnLeadIns(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let k = 1; k + 3 < prim.length; k++) {
     const x = prim[k - 1];
     const y = prim[k];
@@ -2730,7 +2729,7 @@ function applyTurnLeadIns(notes, lanes) {
  * 76 78 80 = F J K D F J K.
  */
 function applyLongRunEdges(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const n = prim.length;
   let a = 0;
   while (a < n - 1) {
@@ -2774,7 +2773,7 @@ function applyLongRunEdges(notes, lanes) {
  * as K J F D. (A plain stepwise run that bottoms out on two notes on one key is left alone, e.g. What We Do 2:17's flute.)
  */
 function applyLeapPairSplits(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let k = 1; k + 1 < prim.length; k++) {
     const p = prim[k - 1];
     const a = prim[k];
@@ -2811,7 +2810,7 @@ function applyLeapPairSplits(notes, lanes) {
  * note leading in). Ride 0:22: 73 | 73 72 70 72 70 68 70 = K | K J F J F D F, not F | F K J K J F J.
  */
 function applyCompactFigures(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const n = prim.length;
   const hard = (a, la, b, lb) => {
     if (b.time - a.time >= 0.6) return 0;
@@ -2868,7 +2867,7 @@ function applyCompactFigures(notes, lanes) {
  * give, and the natural place is where 74 75 74 starts again. Only used when it reads better than the current keys.
  */
 function applyPhrasePlans(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const n = prim.length;
   if (n < 16) return;
   const MIN = 8;
@@ -3104,7 +3103,7 @@ function applyPhrasePlans(notes, lanes) {
  * to the nearest key that reads right (What We Do 0:54 & 1:00 flute: 76 79 81 = F J K, not F J F).
  */
 function applyPhraseEndDirections(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let k = 1; k < prim.length; k++) {
     const p = prim[k - 1];
     const x = prim[k];
@@ -3131,7 +3130,7 @@ function applyPhraseEndDirections(notes, lanes) {
  * placed so it joins the notes around it the right way, as close to its current keys as possible.
  */
 function applyHeldLines(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
   let a = 0;
   while (a < prim.length - 1) {
@@ -3237,7 +3236,7 @@ function applyHeldLines(notes, lanes) {
 function applyFlurryTurns(notes, lanes) {
   const S = lanes;
   const L = lanes + 1;
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
   const n = prim.length;
   const pos = (l) => (l === S ? -1 : l === L ? lanes : l);
   let a = 0;
@@ -3314,7 +3313,7 @@ function applyFlurryTurns(notes, lanes) {
  * pattern (a sequence: J F D | J F D) keeps it.
  */
 function applyCleanRunCycles(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
   const n = prim.length;
   const bad = (a, la, b, lb) => {
     if (b.time - a.time >= 0.6 || a.lane >= lanes || b.lane >= lanes) return 0;
@@ -3375,7 +3374,7 @@ function applyCleanRunCycles(notes, lanes) {
  * hold on D -> J).
  */
 function applyHalfStepNoLeap(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
   for (let i = 1; i < prim.length; i++) {
     const a = prim[i - 1];
@@ -3398,7 +3397,7 @@ function applyHalfStepNoLeap(notes, lanes) {
  * shifts back one key so every step takes the next key (Arabesque 4:45: 62 63 66 67 69 = D F K D F -> D F J K D, after a turn put both 63s on F).
  */
 function applyRunSkipClose(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const locked = (x) => x.fixedLane || x.localPin || x.ghost;
   for (let i = 1; i + 1 < prim.length; i++) {
     const a = prim[i - 1];
@@ -3424,7 +3423,7 @@ function applyRunSkipClose(notes, lanes) {
  * the same pitch just before the stretch (within 2s, on the old key) move with it, so the same notes keep the same keys.
  */
 function applyGapShiftDoubles(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
   const locked = (x) => x.fixedLane || x.localPin || x.ghost;
   for (let i = 1; i + 1 < prim.length; i++) {
@@ -3464,7 +3463,7 @@ function applyGapShiftDoubles(notes, lanes) {
  * different note on the same key 1.5), then the fewest moved notes, then the lowest keys.
  */
 function applyHeldKeyFamilies(notes, lanes, chordHits = []) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const WIN = 15;
   const end = (x) => (x.endTime && x.endTime > x.time ? x.endTime : x.time);
   const ok = (x) => x.type === 'hold' && end(x) - x.time >= 0.45 && !x.fixedLane && !x.localPin && !x.ghost && !x.altRun;
@@ -3584,7 +3583,7 @@ function applyHeldKeyFamilies(notes, lanes, chordHits = []) {
  * (Otherwise the same pitch can land on two keys a split second apart: F79 K80 J79.)
  */
 function applyNeighbourTurns(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let k = 1; k + 1 < prim.length; k++) {
     const x = prim[k - 1];
     const y = prim[k];
@@ -3653,7 +3652,7 @@ function applyNeighbourTurns(notes, lanes) {
  * 5:10: 79, then 81 79 77 74 = D K J F D), as long as that still reads the right way from the notes either side.
  */
 function applyFourNoteWalks(notes, lanes) {
-  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && x.type !== 'space' && !x.isPercussionSolo);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   const n = prim.length;
   const step = (i) => prim[i + 1].midi - prim[i].midi;
   // (slow climbs count too, with steps up to a 5th: Arabesque 0:45 flute 79 84 85 91, about a second apart = D F J K)
@@ -3705,7 +3704,7 @@ function applyFourNoteWalks(notes, lanes) {
  */
 function addEnsembleChordHits(notes, hits, lanes) {
   if (!hits.length) return;
-  const prim = notes.filter((n) => !n.isChordPartner && n.lane >= 0 && n.lane < lanes && n.type !== 'space' && !n.isPercussionSolo);
+  const prim = notes.filter((n) => !n.isChordPartner && n.lane >= 0 && n.lane < lanes && !n.isPercussionSolo);
   const added = [];
   let passageLane = null; // passage hits: the same note keeps one key all the way through (no rocking)
   const chordMemo = new Map(); // "midi:hostLane" -> partner lane
@@ -4296,60 +4295,44 @@ export class ConcertAudioController {
     return est;
   }
 
-  playHitSound({ isSpace = false, lane = 0, totalLanes = 6, intensity = 0.5 }) {
+  playHitSound({ lane = 0, totalLanes = 4, intensity = 0.5 }) {
     if (!this.ctx || this.hitsoundVolume <= 0.005) return;
 
     const now = this.ctx.currentTime;
     const dynamicScale = 0.45 + 0.55 * Math.max(0, Math.min(1, intensity));
     const gainLevel = this.hitsoundVolume * dynamicScale;
 
-    if (isSpace) {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(118, now);
-      osc.frequency.exponentialRampToValueAtTime(41, now + 0.068);
+    const osc = this.ctx.createOscillator();
+    const oscGain = this.ctx.createGain();
+    const bodyFreq = 235 + (lane / Math.max(1, totalLanes - 1)) * 45;
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(bodyFreq, now);
+    osc.frequency.exponentialRampToValueAtTime(78, now + 0.022);
 
-      gain.gain.setValueAtTime(gainLevel * 0.52, now);
-      gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.075);
+    oscGain.gain.setValueAtTime(gainLevel * 0.28, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.026);
 
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.08);
-    } else {
-      const osc = this.ctx.createOscillator();
-      const oscGain = this.ctx.createGain();
-      const bodyFreq = 235 + (lane / Math.max(1, totalLanes - 1)) * 45;
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(bodyFreq, now);
-      osc.frequency.exponentialRampToValueAtTime(78, now + 0.022);
+    osc.connect(oscGain);
+    oscGain.connect(this.ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.03);
 
-      oscGain.gain.setValueAtTime(gainLevel * 0.28, now);
-      oscGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.026);
+    if (this.noiseBuffer) {
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = this.noiseBuffer;
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1050;
+      filter.Q.value = 1.8;
 
-      osc.connect(oscGain);
-      oscGain.connect(this.ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.03);
+      const nGain = this.ctx.createGain();
+      nGain.gain.setValueAtTime(gainLevel * 0.24, now);
+      nGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.018);
 
-      if (this.noiseBuffer) {
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = this.noiseBuffer;
-        const filter = this.ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 1050;
-        filter.Q.value = 1.8;
-
-        const nGain = this.ctx.createGain();
-        nGain.gain.setValueAtTime(gainLevel * 0.24, now);
-        nGain.gain.exponentialRampToValueAtTime(0.0008, now + 0.018);
-
-        noise.connect(filter);
-        filter.connect(nGain);
-        nGain.connect(this.ctx.destination);
-        noise.start(now);
-      }
+      noise.connect(filter);
+      filter.connect(nGain);
+      nGain.connect(this.ctx.destination);
+      noise.start(now);
     }
   }
 

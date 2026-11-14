@@ -20,7 +20,6 @@ export class StageRenderer {
     this.smoothedIntensity = 0.2;
     this.smoothedSlope = 0;
     this.cameraShake = 0;
-    this.spaceFlash = 0;
 
     // Starfield & floating concert-hall acoustic arches
     this.stars = this._initStars(190);
@@ -66,30 +65,9 @@ export class StageRenderer {
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
   }
 
-  triggerHitEffect({ isSpace, lane, totalLanes, judgment }) {
+  triggerHitEffect({ lane, totalLanes, judgment }) {
     const mult = judgment === 'perfect' ? 1.0 : judgment === 'great' ? 0.7 : 0.4;
-    if (isSpace) {
-      this.cameraShake = Math.min(14, this.cameraShake + 8.5 * mult);
-      this.spaceFlash = Math.min(1, this.spaceFlash + 0.85 * mult);
-      this.shockwaves.push({
-        progress: 0,
-        alpha: 0.9 * mult,
-      });
-      // Burst across full strike bar
-      for (let i = 0; i < 24; i++) {
-        this.particles.push({
-          u: (Math.random() - 0.5) * 2.1,
-          vx: (Math.random() - 0.5) * 260,
-          vy: -Math.random() * 260 - 70,
-          xOff: 0,
-          yOff: 0,
-          life: 1,
-          decay: 1.9 + Math.random() * 1.2,
-          size: 2.5 + Math.random() * 3.2,
-          color: 'hsla(42, 95%, 74%, ',
-        });
-      }
-    } else if (lane >= 0 && lane < totalLanes + 2) {
+    if (lane >= 0 && lane < totalLanes + 2) {
       this.laneBeams[lane] = Math.min(1, 0.95 * mult);
       const isLeft = this._isLeftLane(lane, totalLanes);
       const uCenter = this._laneCenterU(lane, totalLanes);
@@ -193,12 +171,10 @@ export class StageRenderer {
       mode,
       notes = [],
       pressedLanes = [],
-      spacePressed = false,
       features = null,
     } = state;
 
     const totalLanes = mode ? mode.lanes : 6;
-    const hasSpace = mode ? !!mode.hasSpace : false;
 
     // Sample current & upcoming macro intensity for Audiosurf coaster feel
     let curIntensity = 0.22;
@@ -228,7 +204,6 @@ export class StageRenderer {
 
     // Decay transient effects
     this.cameraShake = Math.max(0, this.cameraShake - dt * 38);
-    this.spaceFlash = Math.max(0, this.spaceFlash - dt * 4.5);
     for (let i = 0; i < 8; i++) {
       this.laneBeams[i] = Math.max(0, this.laneBeams[i] - dt * 5.2);
     }
@@ -276,7 +251,7 @@ export class StageRenderer {
     }
 
     // 5. Strike Line Keybed Pads & Shockwaves
-    this._drawStrikeKeybed(ctx, mode, pressedLanes, spacePressed, hasSpace, curveState);
+    this._drawStrikeKeybed(ctx, mode, pressedLanes, curveState);
     this._drawParticlesAndShockwaves(ctx, dt, curveState);
   }
 
@@ -478,24 +453,6 @@ export class StageRenderer {
       }
     }
 
-    // Spacebar shockwave flash across deck
-    if (this.spaceFlash > 0.01) {
-      const pNearL = this._project(-1.02, 0, curveState);
-      const pNearR = this._project(1.02, 0, curveState);
-      const pFarL = this._project(-1.02, 0.55, curveState);
-      const pFarR = this._project(1.02, 0.55, curveState);
-      const flashGrad = ctx.createLinearGradient(0, pNearL.y, 0, pFarL.y);
-      flashGrad.addColorStop(0, `hsla(42, 95%, 70%, ${this.spaceFlash * 0.34})`);
-      flashGrad.addColorStop(1, 'hsla(42, 95%, 70%, 0)');
-      ctx.fillStyle = flashGrad;
-      ctx.beginPath();
-      ctx.moveTo(pFarL.x, pFarL.y);
-      ctx.lineTo(pFarR.x, pFarR.y);
-      ctx.lineTo(pNearR.x, pNearR.y);
-      ctx.lineTo(pNearL.x, pNearL.y);
-      ctx.closePath();
-      ctx.fill();
-    }
   }
 
   _strokeHighwayLine(ctx, u, steps, curveState, isStrong) {
@@ -521,7 +478,7 @@ export class StageRenderer {
     for (let i = 0; i < notes.length; i++) {
       const n = notes[i];
       if (n.completed) continue;
-      if (n.type === 'tap' || n.type === 'space') {
+      if (n.type === 'tap') {
         if (n.hit) continue;
         if (n.time > maxVisibleTime) break; // sorted by start time!
         if (n.time < minVisibleTime) continue;
@@ -590,83 +547,65 @@ export class StageRenderer {
       const z = (n.time - songTime) / approachTime;
       if (z < -0.1 || z > 1.0) continue;
 
-      if (n.type === 'space') {
-        // Full-width molten brass Spacebar Shockwave Bar
-        const pL = this._project(-1.01, z, curveState);
-        const pR = this._project(1.01, z, curveState);
-        const barH = Math.max(4, 15 * pL.scale);
-        const fade = Math.min(1, (1.03 - z) * 3.2);
-
-        const grad = ctx.createLinearGradient(pL.x, pL.y, pR.x, pR.y);
-        grad.addColorStop(0, `hsla(32, 92%, 58%, ${0.88 * fade})`);
-        grad.addColorStop(0.5, `hsla(45, 98%, 82%, ${0.98 * fade})`);
-        grad.addColorStop(1, `hsla(32, 92%, 58%, ${0.88 * fade})`);
-
-        ctx.fillStyle = grad;
-        this._roundRect(ctx, pL.x, pL.y - barH * 0.5, pR.x - pL.x, barH, barH * 0.45);
-        ctx.fill();
-      } else {
-        // Check if adjacent visible note has identical timestamp -> draw subtle harmonic chord tie!
-        if (i > 0) {
-          const sibling = visible[i - 1];
-          if (
-            sibling.type !== 'space' &&
-            !sibling.hit &&
-            Math.abs(sibling.time - n.time) < 0.008
-          ) {
-            const c1 = this._project(this._laneCenterU(n.lane, totalLanes), z, curveState);
-            const c2 = this._project(this._laneCenterU(sibling.lane, totalLanes), z, curveState);
-            ctx.strokeStyle = `hsla(43, 88%, 78%, ${Math.min(0.75, (1.02 - z) * 2.5)})`;
-            ctx.lineWidth = Math.max(1.2, 3.2 * c1.scale);
-            ctx.beginPath();
-            ctx.moveTo(c1.x, c1.y);
-            ctx.lineTo(c2.x, c2.y);
-            ctx.stroke();
-          }
-        }
-
-        // Finger Gem (cool celestial silver-blue on Left Hand, warm champagne brass on Right Hand)
-        const b = this._laneBoundsU(n.lane, totalLanes);
-        const pad = b.width * 0.08;
-        const pL = this._project(b.left + pad, z, curveState);
-        const pR = this._project(b.right - pad, z, curveState);
-        const gemW = Math.max(6, pR.x - pL.x);
-        const gemH = Math.max(4, 18 * pL.scale);
-        const fade = Math.min(1, (1.03 - z) * 3.2);
-        const isLeft = this._isLeftLane(n.lane, totalLanes);
-
-        if (n.ghost) {
-          // Ghost gem: translucent body with a bright glowing outline, so it reads as the "extra" fifth key
-          ctx.fillStyle = isLeft ? `hsla(198, 70%, 78%, ${0.42 * fade})` : `hsla(41, 80%, 74%, ${0.42 * fade})`;
-          this._roundRect(ctx, pL.x, pL.y - gemH * 0.5, gemW, gemH, Math.min(6, gemH * 0.4));
-          ctx.fill();
-          ctx.strokeStyle = `hsla(45, 100%, 95%, ${0.95 * fade})`;
-          ctx.lineWidth = Math.max(1.2, 2.4 * pL.scale);
+      // Check if adjacent visible note has identical timestamp -> draw subtle harmonic chord tie!
+      if (i > 0) {
+        const sibling = visible[i - 1];
+        if (
+          !sibling.hit &&
+          Math.abs(sibling.time - n.time) < 0.008
+        ) {
+          const c1 = this._project(this._laneCenterU(n.lane, totalLanes), z, curveState);
+          const c2 = this._project(this._laneCenterU(sibling.lane, totalLanes), z, curveState);
+          ctx.strokeStyle = `hsla(43, 88%, 78%, ${Math.min(0.75, (1.02 - z) * 2.5)})`;
+          ctx.lineWidth = Math.max(1.2, 3.2 * c1.scale);
+          ctx.beginPath();
+          ctx.moveTo(c1.x, c1.y);
+          ctx.lineTo(c2.x, c2.y);
           ctx.stroke();
-          continue;
         }
-        ctx.fillStyle = isLeft
-          ? `hsla(198, 76%, 72%, ${0.95 * fade})`
-          : `hsla(41, 88%, 67%, ${0.95 * fade})`;
+      }
+
+      // Finger Gem (cool celestial silver-blue on Left Hand, warm champagne brass on Right Hand)
+      const b = this._laneBoundsU(n.lane, totalLanes);
+      const pad = b.width * 0.08;
+      const pL = this._project(b.left + pad, z, curveState);
+      const pR = this._project(b.right - pad, z, curveState);
+      const gemW = Math.max(6, pR.x - pL.x);
+      const gemH = Math.max(4, 18 * pL.scale);
+      const fade = Math.min(1, (1.03 - z) * 3.2);
+      const isLeft = this._isLeftLane(n.lane, totalLanes);
+
+      if (n.ghost) {
+        // Ghost gem: translucent body with a bright glowing outline, so it reads as the "extra" fifth key
+        ctx.fillStyle = isLeft ? `hsla(198, 70%, 78%, ${0.42 * fade})` : `hsla(41, 80%, 74%, ${0.42 * fade})`;
         this._roundRect(ctx, pL.x, pL.y - gemH * 0.5, gemW, gemH, Math.min(6, gemH * 0.4));
         ctx.fill();
-
-        // Crisp specular highlight bar across gem top
-        ctx.fillStyle = `hsla(45, 100%, 96%, ${0.72 * fade})`;
-        this._roundRect(
-          ctx,
-          pL.x + gemW * 0.12,
-          pL.y - gemH * 0.3,
-          gemW * 0.76,
-          Math.max(1.5, gemH * 0.24),
-          2
-        );
-        ctx.fill();
+        ctx.strokeStyle = `hsla(45, 100%, 95%, ${0.95 * fade})`;
+        ctx.lineWidth = Math.max(1.2, 2.4 * pL.scale);
+        ctx.stroke();
+        continue;
       }
+      ctx.fillStyle = isLeft
+        ? `hsla(198, 76%, 72%, ${0.95 * fade})`
+        : `hsla(41, 88%, 67%, ${0.95 * fade})`;
+      this._roundRect(ctx, pL.x, pL.y - gemH * 0.5, gemW, gemH, Math.min(6, gemH * 0.4));
+      ctx.fill();
+
+      // Crisp specular highlight bar across gem top
+      ctx.fillStyle = `hsla(45, 100%, 96%, ${0.72 * fade})`;
+      this._roundRect(
+        ctx,
+        pL.x + gemW * 0.12,
+        pL.y - gemH * 0.3,
+        gemW * 0.76,
+        Math.max(1.5, gemH * 0.24),
+        2
+      );
+      ctx.fill();
     }
   }
 
-  _drawStrikeKeybed(ctx, mode, pressedLanes, spacePressed, hasSpace, curveState) {
+  _drawStrikeKeybed(ctx, mode, pressedLanes, curveState) {
     const totalLanes = mode ? mode.lanes : 6;
     const labels = mode ? mode.labels : ['S', 'D', 'F', 'J', 'K', 'L'];
 
@@ -720,33 +659,6 @@ export class StageRenderer {
       const label = ghostIdx >= 0 ? (mode.ghostLabels || ['S', 'L'])[ghostIdx] : labels[lane];
       ctx.fillText(label || '', pL.x + w * 0.5, pL.y + 8 + pressY + h * 0.52);
       ctx.restore();
-    }
-
-    // Full-Width Spacebar Pedal underneath when enabled
-    if (hasSpace) {
-      const pL = this._project(-0.68, 0, curveState);
-      const pR = this._project(0.68, 0, curveState);
-      const barW = pR.x - pL.x;
-      const barY = pL.y + 46 + (spacePressed ? 3 : 0);
-      const barH = 20;
-
-      ctx.fillStyle = spacePressed
-        ? 'hsla(36, 92%, 62%, 0.92)'
-        : 'hsla(222, 24%, 10%, 0.82)';
-      ctx.strokeStyle = spacePressed
-        ? 'hsla(45, 100%, 92%, 0.95)'
-        : 'hsla(36, 68%, 60%, 0.38)';
-      ctx.lineWidth = 1.3;
-
-      this._roundRect(ctx, pL.x, barY, barW, barH, 5);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = spacePressed ? 'hsl(222, 32%, 8%)' : 'hsla(40, 30%, 82%, 0.72)';
-      ctx.font = '600 10px "JetBrains Mono", monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('SPACE · TUTTI / IMPACT', pL.x + barW * 0.5, barY + barH * 0.54);
     }
   }
 
