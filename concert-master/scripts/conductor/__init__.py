@@ -59,6 +59,9 @@ def conduct(staves: list[dict], score_duration: float) -> list[dict]:
     skip = {x.strip() for x in os.environ.get("CM_SKIP", "").split(",") if x.strip()}
     win = _trace_window()
     last = [None]
+    # the conductor works on its own copy of the score: its passes edit notes in place, and the caller still aligns
+    # the original score to the audio
+    staves = [dict(st, notes=[dict(n) for n in st["notes"]]) for st in staves]
     ctx = SimpleNamespace(staves=staves, score_duration=score_duration, lead_notes=None)
     _run(PREP_PASSES, ctx, skip, win, last)
     ctx.st_by_name = {st["name"]: st["notes"] for st in ctx.staves}  # shared name -> notes index (after score prep)
