@@ -45,8 +45,14 @@ def run(ns):
             prev_end = melody_out[best_k - 1][1] + 0.015 if best_k > 0 else 0.10
             min_next_buf = 0.125 if "timp" in warped[best_k]["staff"].lower() else 0.045
             next_start = melody_out[best_k + 1][0] - min_next_buf if best_k + 1 < len(melody_out) else duration
+            # (a note evenly spaced between its neighbours keeps its time -- the impact comes to it: Ride 0:39, an even
+            # eighth-note run 73 75 77 had its 75 pulled 0.09s late onto a spacebar hit)
+            gp_c = mn_t - melody_out[best_k - 1][0] if best_k > 0 else 9.0
+            gn_c = melody_out[best_k + 1][0] - mn_t if best_k + 1 < len(melody_out) else 9.0
+            even_c = max(gp_c, gn_c) < 0.45 and abs(gp_c - gn_c) <= 0.15 * max(gp_c, gn_c)
             if (
-                not warped[best_k].get("is_scalar_lick")
+                not even_c
+                and not warped[best_k].get("is_scalar_lick")
                 and not warped[best_k].get("is_legato_suspension")
                 and not (228.0 <= mn_t <= 238.0)
                 and mix_rms[f_ta] > mix_rms[f_mn] * 1.25

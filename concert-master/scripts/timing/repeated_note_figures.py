@@ -55,7 +55,10 @@ def run(ns):
                 s_a, s_b = float(warped[k_a]["score_start"]), float(warped[k_b]["score_start"])
                 if t_a is not None and t_b is not None and t_b > t_a + 0.1 and s_b > s_a:
                     new_t = [t_a + (float(warped[k]["score_start"]) - s_a) * (t_b - t_a) / (s_b - s_a) for k in range(k_a, k_b + 1)]
-                    if all(abs(nt - float(melody_out[k_a + j][0])) <= 0.13 for j, nt in enumerate(new_t)):
+                    # (the figure stays between its neighbours: Ride 0:24, the last 70 had been pushed past the 73 after it)
+                    t_prev = float(melody_out[k_a - 1][0]) if k_a > 0 else -1.0
+                    t_next = float(melody_out[k_b + 1][0]) if k_b + 1 < len(melody_out) else 1e9
+                    if all(abs(nt - float(melody_out[k_a + j][0])) <= 0.13 for j, nt in enumerate(new_t)) and new_t[0] > t_prev + 0.03 and new_t[-1] < t_next - 0.03:
                         for j, nt in enumerate(new_t):
                             k = k_a + j
                             d = float(melody_out[k][1]) - float(melody_out[k][0])
