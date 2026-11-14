@@ -1101,6 +1101,8 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
   if (lanes === 4 && !hasSpace) applyRunSkipClose(notes, lanes);
   if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
   if (lanes === 4 && !hasSpace) applyHalfStepNoLeap(notes, lanes);
+  if (lanes === 4 && !hasSpace) applyCleanRunCycles(notes, lanes);
+  if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) applyFlurryTurns(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
   if (isDense) addEnsembleChordHits(notes, features.chordHits || [], lanes);
@@ -3381,6 +3383,148 @@ function applyHeldLines(notes, lanes) {
       }
     }
     a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * Flurries turn cleanly: in a flurry of quick runs going up and down (16+ notes, each 0.12s or less after the last, steps
+ * of a major 3rd or less, 3+ turnarounds, runs of 4+ notes, gaps of 0.2s or less), every run cycles through the keys
+ * its way (the S / L ghost keys count as a fifth key at either end), and every
+ * turnaround steps just one key the new way -- never a wrap (K->D, D->K) on the two notes either side of a turn, which
+ * is what makes a K D K so hard to read at speed. A run may end on (or start from) a ghost key to make its turn
+ * (Arabesque 2:30: 8 down, 9 up, 7 down, 9 up, 7 down, 8 up = K J F D K J F D | F J K L D F J K L | ...).
+ */
+function applyFlurryTurns(notes, lanes) {
+  const S = lanes;
+  const L = lanes + 1;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.type !== 'space' && !x.isPercussionSolo);
+  const n = prim.length;
+  const pos = (l) => (l === S ? -1 : l === L ? lanes : l);
+  let a = 0;
+  while (a < n - 1) {
+    let b = a;
+    while (b + 1 < n && prim[b + 1].time - prim[b].time <= 0.2 && prim[b + 1].midi !== prim[b].midi && Math.abs(prim[b + 1].midi - prim[b].midi) <= 4) b++;
+    const fl = prim.slice(a, b + 1);
+    const m = fl.length;
+    // runs: split where the direction turns
+    const dirs = fl.map((x, q) => (q ? Math.sign(x.midi - fl[q - 1].midi) : 0));
+    const runStart = fl.map((_, q) => q === 0 || (q > 1 && dirs[q] !== dirs[q - 1]));
+    const starts = runStart.reduce((acc, v, q) => (v ? [...acc, q] : acc), []);
+    const lens = starts.map((s0, k) => (k + 1 < starts.length ? starts[k + 1] : m) - s0);
+    if (m >= 16 && starts.length >= 4 && lens.slice(1, -1).every((l) => l >= 4) && !fl.some((x) => x.fixedLane || x.localPin || x.type === 'hold' && x !== fl[m - 1])) {
+      const runOf = fl.map((_, q) => starts.filter((s0) => s0 <= q).length - 1);
+      const idxIn = fl.map((_, q) => q - starts[runOf[q]]);
+      const lenOf = (q) => lens[runOf[q]];
+      const edge = (q) => idxIn[q] === 0 || idxIn[q] === lenOf(q) - 1;
+      const near = (q) => idxIn[q] <= 1 || idxIn[q] >= lenOf(q) - 2;
+      const opts = () => [0, 1, 2, 3, S, L];
+      const step = (q, la, lb) => {
+        const d = Math.sign(fl[q].midi - fl[q - 1].midi);
+        const pa = pos(la);
+        const pb = pos(lb);
+        if (pa === pb) return 10;
+        if (Math.sign(pb - pa) === d) return Math.abs(pb - pa) === 1 ? 0 : 2 * (Math.abs(pb - pa) - 1);
+        // (a wrap: from the top -- K or the L ghost -- back to D on a climb, from the bottom -- D or the S ghost -- back to
+        // K on a fall)
+        const wrap = (d > 0 && pa >= lanes - 1 && pb === 0) || (d < 0 && pa <= 0 && pb === lanes - 1);
+        if (wrap) return near(q) || near(q - 1) ? 6 : 0.5;
+        return 10;
+      };
+      // DP over the flurry; the note before it joins as usual, ghost keys cost a little
+      const before = a > 0 && fl[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+      let dp = new Map();
+      for (const l of opts(0)) {
+        let c = (l >= lanes ? 0.3 : 0) + (l === fl[0].lane ? 0 : 0.05);
+        if (before) {
+          const d = Math.sign(fl[0].midi - before.midi);
+          const pd = pos(l) - pos(before.lane);
+          c += !d ? (pd ? 1 : 0) : pd === 0 ? 3 : Math.sign(pd) === d ? 0 : 1;
+        }
+        dp.set(l, { c, path: [l] });
+      }
+      for (let q = 1; q < m; q++) {
+        const nd = new Map();
+        for (const l of opts(q)) {
+          let best = null;
+          for (const [pl, v] of dp) {
+            const c = v.c + step(q, pl, l) + (l >= lanes ? 0.3 : 0) + (l === fl[q].lane ? 0 : 0.05);
+            if (!best || c < best.c) best = { c, path: v.path };
+          }
+          nd.set(l, { c: best.c, path: [...best.path, l] });
+        }
+        dp = nd;
+      }
+      const best = [...dp.values()].reduce((x, y) => (y.c < x.c ? y : x));
+      fl.forEach((x, q) => {
+        const l = best.path[q];
+        x.lane = l;
+        if (l >= lanes) x.ghost = l === S ? 'S' : 'L';
+        else delete x.ghost;
+      });
+    }
+    a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * Quick runs cycle cleanly: a quick run going one way (6+ notes, each 0.2s or less after the last, steps of a major 3rd
+ * or less, no ghost or pinned notes) whose keys step the wrong way or repeat a key somewhere inside is laid out as a clean
+ * cycle instead (each note the next key its way, wrapping at the edge: D F J K D F J K), turned so it joins the notes
+ * before and after it best (Ride 0:27: D70 F72 J73 K75 J77 K78 -> J K D F J K). A run laid out as a repeating key
+ * pattern (a sequence: J F D | J F D) keeps it.
+ */
+function applyCleanRunCycles(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.type !== 'space' && !x.isPercussionSolo);
+  const n = prim.length;
+  const bad = (a, la, b, lb) => {
+    if (b.time - a.time >= 0.6 || a.lane >= lanes || b.lane >= lanes) return 0;
+    if (a.midi === b.midi) return la === lb ? 0 : 1;
+    if (la === lb) return 1.5;
+    if (Math.sign(b.midi - a.midi) === Math.sign(lb - la)) return Math.abs(lb - la) > 1 && Math.abs(b.midi - a.midi) <= 2 ? 0.3 : 0;
+    const wrap = (b.midi > a.midi && la === lanes - 1 && lb === 0) || (b.midi < a.midi && la === 0 && lb === lanes - 1);
+    return wrap ? 0.2 : 1;
+  };
+  let i = 0;
+  while (i < n - 1) {
+    const dir = Math.sign(prim[i + 1].midi - prim[i].midi);
+    let j = i;
+    while (
+      j + 1 < n && dir &&
+      Math.sign(prim[j + 1].midi - prim[j].midi) === dir &&
+      Math.abs(prim[j + 1].midi - prim[j].midi) <= 4 &&
+      prim[j + 1].time - prim[j].time <= 0.2
+    )
+      j++;
+    const run = prim.slice(i, j + 1);
+    if (run.length >= 6 && !run.some((x) => x.ghost || x.fixedLane || x.localPin || x.altRun || x.lane >= lanes)) {
+      const inside = run.reduce((acc, x, q) => acc + (q ? bad(run[q - 1], run[q - 1].lane, x, x.lane) : 0), 0);
+      // (a run already laid out as a repeating key pattern -- a sequence, e.g. Arabesque 1:57 / 0:40's flute falls
+      // 80 79 77 | 76 73 72 = J F D | J F D -- keeps it: each group restarts on the same key)
+      const periodic = [2, 3].some((p) => run.length >= 2 * p && run.every((x, q) => q < p || x.lane === run[q - p].lane) && run.slice(0, p).every((x, q) => q === 0 || Math.sign(x.lane - run[q - 1].lane) === dir));
+      if (inside > 0.25 && !periodic) {
+        const pv = i > 0 ? prim[i - 1] : null;
+        const nx = j + 1 < n ? prim[j + 1] : null;
+        const cost = (ls) =>
+          (pv ? bad(pv, pv.lane, run[0], ls[0]) : 0) +
+          ls.reduce((acc, l, q) => acc + (q ? bad(run[q - 1], ls[q - 1], run[q], l) : 0), 0) +
+          (nx ? bad(run[run.length - 1], ls[ls.length - 1], nx, nx.lane) : 0) +
+          0.01 * ls.reduce((acc, l, q) => acc + (l === run[q].lane ? 0 : 1), 0);
+        let best = null;
+        for (let s0 = 0; s0 < lanes; s0++) {
+          // (the run's last note may step off the cycle: it's where the next phrase takes over)
+          for (let ll = 0; ll < lanes; ll++) {
+            const ls = run.map((_, q) => (((s0 + dir * q) % lanes) + lanes) % lanes);
+            const onCycle = ls[ls.length - 1] === ll;
+            ls[ls.length - 1] = ll;
+            const c = cost(ls) + (onCycle ? 0 : 0.05);
+            if (!best || c < best.c) best = { c, ls };
+          }
+        }
+        const now = cost(run.map((x) => x.lane));
+        if (best.c < now - 0.1) run.forEach((x, q) => (x.lane = best.ls[q]));
+      }
+    }
+    i = Math.max(i + 1, j);
   }
 }
 

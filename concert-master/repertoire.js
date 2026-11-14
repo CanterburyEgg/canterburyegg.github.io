@@ -11,7 +11,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'The Sound of Guthix',
     ensemble: 'RuneScape 3 · Orchestral Soundtrack',
     url: './audio/sound-of-guthix.ogg',
-    sidecarUrl: './audio/sound-of-guthix.cadenza.json?v=cm46',
+    sidecarUrl: './audio/sound-of-guthix.cadenza.json?v=cm47',
     previewStart: null,
   },
   {
@@ -20,7 +20,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Sevens',
     ensemble: 'Symphonic Wind Ensemble · Reference Recording',
     url: 'https://s3.amazonaws.com/halleonard-audio/04002326.mp3',
-    sidecarUrl: './audio/sevens.cadenza.json?v=cm46',
+    sidecarUrl: './audio/sevens.cadenza.json?v=cm47',
     previewStart: null,
   },
   {
@@ -29,7 +29,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Ride',
     ensemble: 'Symphonic Wind Ensemble · Reference Recording',
     url: 'https://s3.amazonaws.com/halleonard-audio/48007049.mp3',
-    sidecarUrl: './audio/ride.cadenza.json?v=cm46',
+    sidecarUrl: './audio/ride.cadenza.json?v=cm47',
     previewStart: null,
   },
   {
@@ -38,7 +38,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'What We Do',
     ensemble: 'RuneScape 3 · Orchestral Soundtrack',
     url: './audio/what-we-do.ogg',
-    sidecarUrl: './audio/what-we-do.cadenza.json?v=cm46',
+    sidecarUrl: './audio/what-we-do.cadenza.json?v=cm47',
     previewStart: null,
   },
   {
@@ -47,7 +47,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Arabesque',
     ensemble: 'Symphonic Wind Ensemble · Reference Recording',
     url: 'https://s3.amazonaws.com/halleonard-audio/04002784.mp3',
-    sidecarUrl: './audio/arabesque.cadenza.json?v=cm46',
+    sidecarUrl: './audio/arabesque.cadenza.json?v=cm47',
     previewStart: null,
   },
   {
@@ -56,7 +56,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Jupiter, the Bringer of Jollity',
     ensemble: 'United States Air Force Band · Wind Ensemble',
     url: './audio/jupiter.mp3',
-    sidecarUrl: './audio/jupiter.cadenza.json?v=cm46',
+    sidecarUrl: './audio/jupiter.cadenza.json?v=cm47',
     previewStart: null,
     wip: true,
   },
@@ -66,7 +66,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Symphony No. 4',
     ensemble: 'Wind Ensemble & Organ · Complete Performance',
     url: './audio/maslanka-symphony-4.mp3',
-    sidecarUrl: './audio/maslanka-symphony-4.cadenza.json?v=cm46',
+    sidecarUrl: './audio/maslanka-symphony-4.cadenza.json?v=cm47',
     previewStart: null,
     wip: true,
   },
