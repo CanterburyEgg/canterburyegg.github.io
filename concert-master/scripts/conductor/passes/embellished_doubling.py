@@ -33,7 +33,10 @@ def run(ctx):
                 same_prev = [
                     c for c in c_notes if abs(float(c["start"]) - float(prev_ln["start"])) <= 0.02 and c["midi"] == prev_ln["midi"]
                 ]
-                inside = [c for c in c_notes if l_s + 0.02 < float(c["start"]) < l_e - 0.05]
+                # (only the part of the lick before the lead's next note: later notes would duplicate what the lead
+                # already plays, e.g. a rip the lead's own part takes after the hold)
+                next_s = float(lead_notes[idx_e + 1]["start"]) if idx_e + 1 < len(lead_notes) else 1e9
+                inside = [c for c in c_notes if l_s + 0.02 < float(c["start"]) < min(l_e - 0.05, next_s - 0.02)]
                 if not same_start or not same_prev or len(inside) < 2:
                     continue
                 lick = same_start[:1] + inside
