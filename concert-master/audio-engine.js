@@ -21,36 +21,9 @@ export const KEY_MODES = {
     hasSpace: false,
     codes: ['KeyD', 'KeyF', 'KeyJ', 'KeyK'],
     labels: ['D', 'F', 'J', 'K'],
-    // Ghost keys: S (lane index 4, far left) and L (lane index 5, far right) appear only for quick five-note runs
+    // Ghost keys: S (lane index 4, far left) and L (lane index 5, far right) for quick runs
     ghostCodes: ['KeyS', 'KeyL'],
     ghostLabels: ['S', 'L'],
-  },
-  '4k-space': {
-    id: '4k-space',
-    name: '4 Keys + Space',
-    sub: 'D F · J K + Space',
-    lanes: 4,
-    hasSpace: true,
-    codes: ['KeyD', 'KeyF', 'KeyJ', 'KeyK'],
-    labels: ['D', 'F', 'J', 'K'],
-  },
-  '6k-space': {
-    id: '6k-space',
-    name: '6 Keys + Space',
-    sub: 'S D F · J K L + Space',
-    lanes: 6,
-    hasSpace: true,
-    codes: ['KeyS', 'KeyD', 'KeyF', 'KeyJ', 'KeyK', 'KeyL'],
-    labels: ['S', 'D', 'F', 'J', 'K', 'L'],
-  },
-  '8k-space': {
-    id: '8k-space',
-    name: '8 Keys + Space',
-    sub: 'A S D F · J K L ; + Space',
-    lanes: 8,
-    hasSpace: true,
-    codes: ['KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon'],
-    labels: ['A', 'S', 'D', 'F', 'J', 'K', 'L', ';'],
   },
 };
 
@@ -795,10 +768,9 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
 // One rule set for every chart (the per-song rule versions v2-v5 were folded together in the Nov 2026 reconciliation
 // audit; a sidecar's rulesVersion field is ignored).
 
-function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewer' } = {}) {
-  const mode = KEY_MODES[keyMode] || KEY_MODES['6k-space'];
+function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } = {}) {
+  const mode = KEY_MODES[keyMode] || KEY_MODES['4k'];
   const lanes = mode.lanes;
-  const hasSpace = mode.hasSpace;
   const isDense = density === 'more';
   const duration = features.duration;
 
@@ -891,7 +863,7 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
     let downStepsAfterPeak = 0;
     const dropStartIdx = i - downStepsBehind;
     if (
-      downStepsBehind + downStepsAhead === (lanes === 8 ? 5 : lanes - 1) &&
+      downStepsBehind + downStepsAhead === (lanes - 1) &&
       dropStartIdx > 0 &&
       rawMel[dropStartIdx][0] - rawMel[dropStartIdx - 1][0] < 0.25 &&
       rawMel[dropStartIdx][2] - rawMel[dropStartIdx - 1][2] <= -5
@@ -933,8 +905,8 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
               rawMel[i - 1][1] - rawMel[i - 1][0] >= 1.2,
           });
     if (plannedRunLanes[i] !== undefined && dtPrev < 0.32 && lane === prevLane) {
-      const minL = lanes === 8 ? 1 : 0;
-      const maxL = lanes === 8 ? 6 : lanes - 1;
+      const minL = 0;
+      const maxL = lanes - 1;
       if (lane === minL + 1 && dp <= 0) lane = minL;
       else if (lane === maxL - 1 && dp >= 0) lane = maxL;
     }
@@ -946,8 +918,8 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
     // inward ON the repeat so the climb reads cleanly (e.g. Sevens 2:53: 53 53 56 60 = K F J K, not K K D K)
     let edgeReset = false;
     {
-      const minE = lanes === 8 ? 1 : 0;
-      const maxE = lanes === 8 ? 6 : lanes - 1;
+      const minE = 0;
+      const maxE = lanes - 1;
       if (i > 0 && dp === 0 && dtPrev >= 0.32 && plannedRunLanes[i] === undefined) {
         if (prevLane === maxE && upStepsAhead >= 2) {
           lane = Math.max(minE, maxE - upStepsAhead);
@@ -1086,31 +1058,28 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
   // Ghost keys (Hard, 4 keys): a quick run of exactly five different notes gets a fifth key so it never has to jump
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
-  if (lanes === 4 && !hasSpace) applyFourNoteWalks(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyNeighbourTurns(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyEdgeRepeatRuns(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyTurnLeadIns(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyLongRunEdges(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyLeapPairSplits(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyPhraseEndDirections(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyPhrasePlans(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyCompactFigures(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyHeldLines(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyHeldKeyFamilies(notes, lanes, isDense ? features.chordHits || [] : []);
-  if (lanes === 4 && !hasSpace) applyGapShiftDoubles(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyRunSkipClose(notes, lanes);
-  if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyHalfStepNoLeap(notes, lanes);
-  if (lanes === 4 && !hasSpace) applyCleanRunCycles(notes, lanes);
-  if (isDense && lanes === 4 && !hasSpace && mode.ghostCodes && features.ghostNotes !== false) applyFlurryTurns(notes, lanes);
+  applyFourNoteWalks(notes, lanes);
+  applyNeighbourTurns(notes, lanes);
+  applyEdgeRepeatRuns(notes, lanes);
+  applyTurnLeadIns(notes, lanes);
+  applyLongRunEdges(notes, lanes);
+  applyLeapPairSplits(notes, lanes);
+  applyPhraseEndDirections(notes, lanes);
+  applyPhrasePlans(notes, lanes);
+  applyCompactFigures(notes, lanes);
+  applyHeldLines(notes, lanes);
+  applyHeldKeyFamilies(notes, lanes, isDense ? features.chordHits || [] : []);
+  applyGapShiftDoubles(notes, lanes);
+  applyRunSkipClose(notes, lanes);
+  if (isDense && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
+  applyHalfStepNoLeap(notes, lanes);
+  applyCleanRunCycles(notes, lanes);
+  if (isDense && features.ghostNotes !== false) applyFlurryTurns(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
   if (isDense) addEnsembleChordHits(notes, features.chordHits || [], lanes);
 
-  // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J) or Spacebar Shockwave Bars
-  const minImpStrength = isDense ? 0.42 : 0.58;
-  const spaceCooldown = isDense ? 0.38 : 0.62;
-  let lastSpace = -10;
+  // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)
   let lastPercSolo = -10;
   let percToggle = 0;
 
@@ -1137,11 +1106,6 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
     const inten = features.macroIntensity[fIdx] || 0.5;
 
     // Pure percussion solo groove (e.g. darbuka/clap groove while winds rest): play on inner home-row keys!
-    // Isolated lone cannon-shot impacts (no neighbor impact within 1.25s) use the Spacebar Shockwave in +Space modes.
-    const prevImpDist = i > 0 ? impTime - features.impacts[i - 1][0] : 999;
-    const nextImpDist = i + 1 < features.impacts.length ? features.impacts[i + 1][0] - impTime : 999;
-    const isPercGroove = Math.min(prevImpDist, nextImpDist) <= 1.25;
-
     // A cluster of impacts within 0.4s: only the sharpest real transient becomes a tap (Arabesque 2:26: the hit after the
     // woodwind rip), and a very sharp one may sit a little closer to the melody
     const sharp = features.impacts[i][2] || 0;
@@ -1151,7 +1115,6 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
     if (
       !outshone &&
       nearestMelDist >= melGap &&
-      (isPercGroove || !hasSpace) &&
       impStr >= (isDense ? 0.40 : 0.48) &&
       impTime - lastPercSolo >= 0.16
     ) {
@@ -1174,33 +1137,6 @@ function buildChartFromSidecar(features, { keyMode = '6k-space', density = 'fewe
         completed: false,
       });
       lastPercSolo = impTime;
-      continue;
-    }
-
-    if (impStr < minImpStrength || impTime - lastSpace < spaceCooldown) continue;
-
-    if (hasSpace) {
-      let aligned = impTime;
-      for (let j = 0; j < notes.length; j++) {
-        if (Math.abs(notes[j].time - impTime) <= 0.042) {
-          aligned = notes[j].time;
-          break;
-        }
-      }
-      notes.push({
-        id: nextId++,
-        type: 'space',
-        lane: -1,
-        time: aligned,
-        endTime: aligned,
-        duration: 0,
-        intensity: inten,
-        hit: false,
-        missed: false,
-        holding: false,
-        completed: false,
-      });
-      lastSpace = aligned;
     }
   }
 
@@ -1235,13 +1171,12 @@ function alignChordHoldEnds(notes) {
  *   - Automatically delegates to Neural ML Sidecar data when present!
  *   - Otherwise uses in-browser Viterbi melody stream + percussion fallback.
  */
-export function buildChart(features, { keyMode = '6k-space', density = 'fewer' } = {}) {
+export function buildChart(features, { keyMode = '4k', density = 'fewer' } = {}) {
   if (features.isNeuralSidecar) {
     return buildChartFromSidecar(features, { keyMode, density });
   }
-  const mode = KEY_MODES[keyMode] || KEY_MODES['6k-space'];
+  const mode = KEY_MODES[keyMode] || KEY_MODES['4k'];
   const lanes = mode.lanes;
-  const hasSpace = mode.hasSpace;
   const isDense = density === 'more';
 
   const {
@@ -1552,76 +1487,6 @@ export function buildChart(features, { keyMode = '6k-space', density = 'fewer' }
     prevTime = cur.time;
   }
 
-  // 3. Impact Channel -> Spacebar Shockwave Bars (major bass-drum / timpani / tutti crashes)
-  const impSamples = [];
-  for (let f = 4; f < numFrames; f += 4) {
-    if (impactFlux[f] > 0.02) impSamples.push(impactFlux[f]);
-  }
-  impSamples.sort((a, b) => a - b);
-  const globalImpP88 = impSamples.length > 20 ? impSamples[Math.floor(impSamples.length * 0.88)] : 0.45;
-  const phraseHalf = Math.max(20, Math.round(8.0 / frameDt));
-  const impPhraseMean = rollingMean(impactFlux, phraseHalf);
-
-  let lastSpaceTime = -10;
-  for (let f = 4; f < numFrames - 4; f++) {
-    const t = f * frameDt + windowCenterSec;
-    if (t < 0.25 || t > duration - 0.40) continue;
-    if (rms[f] < noiseGateRms * 2.0) continue;
-
-    // Never drop a random Spacebar slam in the middle of an active Finger Hold Ribbon!
-    let insideActiveHold = false;
-    for (let j = 0; j < notes.length; j++) {
-      const n = notes[j];
-      if (n.type === 'hold' && t > n.time + 0.06 && t < n.endTime - 0.05) {
-        insideActiveHold = true;
-        break;
-      }
-    }
-    if (insideActiveHold) continue;
-
-    const val = impactFlux[f];
-    if (val <= impactFlux[f - 1] || val < impactFlux[f + 1]) continue;
-    if (val < impactFlux[f - 2] || val < impactFlux[f + 2]) continue;
-
-    const act = activityCurve[f];
-    const inten = macroIntensity[f];
-
-    if (act < 0.42 && inten < 0.58) continue;
-    if (inten < 0.36) continue;
-
-    const impFloor = Math.max(
-      globalImpP88 * (isDense ? 1.10 : 1.40),
-      impPhraseMean[f] * (isDense ? 2.2 : 2.75)
-    );
-    if (val < impFloor) continue;
-
-    const spaceCooldown = act < 0.42 ? 1.30 : isDense ? 0.42 : 0.68;
-    if (t - lastSpaceTime < spaceCooldown) continue;
-
-    if (hasSpace) {
-      let alignedTime = t;
-      for (let j = 0; j < notes.length; j++) {
-        if (Math.abs(notes[j].time - t) <= 0.045) {
-          alignedTime = notes[j].time;
-          break;
-        }
-      }
-      notes.push({
-        id: nextId++,
-        type: 'space',
-        lane: -1,
-        time: alignedTime,
-        endTime: alignedTime,
-        duration: 0,
-        intensity: inten,
-        hit: false,
-        missed: false,
-        holding: false,
-        completed: false,
-      });
-      lastSpaceTime = alignedTime;
-    }
-  }
 
   notes.sort((a, b) => a.time - b.time || a.lane - b.lane);
   return {
@@ -1632,8 +1497,8 @@ export function buildChart(features, { keyMode = '6k-space', density = 'fewer' }
 }
 
 function precomputeScalarRunLanes(rawMel, lanes) {
-  const minL = lanes === 8 ? 1 : 0;
-  const maxL = lanes === 8 ? 6 : lanes - 1;
+  const minL = 0;
+  const maxL = lanes - 1;
   const span = maxL - minL + 1;
   const planned = {};
 
@@ -1729,31 +1594,6 @@ function selectErgonomicLane({
   sameLaneStreak = 1,
   isLegatoHoldStep = false,
 }) {
-  if (lanes === 8) {
-    const canUsePinky = dtPrev >= 0.16 && prevLane !== 0 && prevLane !== 7;
-    if (canUsePinky && pNorm <= 0.10 && downStepsAhead === 0) return 0;
-    if (canUsePinky && pNorm >= 0.90 && upStepsAhead === 0) return 7;
-
-    let inner = 1 + Math.round(Math.max(0, Math.min(1, (pNorm - 0.08) / 0.84)) * 5);
-    inner = applyStepAndAntiJackhammer(
-      inner,
-      dp,
-      dtPrev,
-      prevLane,
-      prev2Lane,
-      isNeighborReturn,
-      upStepsAhead,
-      upStepsBehind,
-      downStepsAhead,
-      downStepsBehind,
-      downStepsAfterPeak,
-      sameLaneStreak,
-      1,
-      6,
-      isLegatoHoldStep
-    );
-    return inner;
-  }
 
   const minL = 0;
   const maxL = lanes - 1;
@@ -4068,11 +3908,9 @@ function pickCrossHandPartner(primaryLane, lanes) {
   const half = lanes >> 1;
   if (primaryLane < half) {
     const mirrored = lanes - 1 - primaryLane;
-    if (lanes === 8 && mirrored === 7 && primaryLane !== 0) return 6;
     return mirrored;
   } else {
     const mirrored = lanes - 1 - primaryLane;
-    if (lanes === 8 && mirrored === 0 && primaryLane !== 7) return 1;
     return mirrored;
   }
 }

@@ -198,7 +198,7 @@ export class StageRenderer {
     } = state;
 
     const totalLanes = mode ? mode.lanes : 6;
-    const hasSpace = mode ? mode.hasSpace : true;
+    const hasSpace = mode ? !!mode.hasSpace : false;
 
     // Sample current & upcoming macro intensity for Audiosurf coaster feel
     let curIntensity = 0.22;
