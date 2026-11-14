@@ -13,7 +13,7 @@ from types import SimpleNamespace
 
 from .core import pick_lead
 
-PREP_PASSES = ['repair_split_dyads', 'rhythm_consensus', 'trills_to_holds']
+PREP_PASSES = ['repair_split_dyads', 'rhythm_consensus', 'trills_to_holds', 'perc_pulse_notes']
 # lead-level rules run by sync_score right after the conductor (also for single-staff scores)
 AFTER_PICK_PASSES = ['low_unison_walk', 'top_held_brass', 'held_over_reattack', 'corrections_move_notes', 'corrections_lead_part', 'corrections_missing_parts', 'grace_into_holds', 'drum_led_passages', 'fills_under_holds', 'figures_over_holds']
 POST_PASSES = ['relay_lines', 'ride_chorale', 'solos', 'handoff_phrase_start', 'rhythmic_ostinato', 'tune_over_bells', 'what_we_do_tunes', 'doubling_helpers', 'run_completion', 'run_under_hold', 'rip_under_hold', 'lone_harmony_handoff', 'embellished_doubling', 'screaming_top_note', 'section_entrance', 'unison_split', 'held_landing', 'moving_line_over_held_chords', 'coda_bridge_hold', 'trim_overlaps']

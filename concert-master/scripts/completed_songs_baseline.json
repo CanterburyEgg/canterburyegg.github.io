@@ -1,7 +1,7 @@
 {
   "arabesque": {
     "title": "Arabesque (Samuel R. Hazo)",
-    "sidecar_sha256": "05e04240f1370f9a6d61a5a27054ab5282e96dfe6bf501c61c71e78b0bcdd5b3",
+    "sidecar_sha256": "425fbd149a54cbcfccb095237439d3984a4433eab62b1513726e047e02e15fdd",
     "mode": "4k:more",
     "notes": [
       {
@@ -3371,8 +3371,8 @@
         "isChordPartner": true
       },
       {
-        "time": 133.8498,
-        "endTime": 133.8498,
+        "time": 133.8592,
+        "endTime": 133.8592,
         "type": "tap",
         "lane": 0,
         "midi": 65,
@@ -3380,8 +3380,8 @@
         "isChordPartner": false
       },
       {
-        "time": 133.8498,
-        "endTime": 133.8498,
+        "time": 133.8592,
+        "endTime": 133.8592,
         "type": "tap",
         "lane": 2,
         "midi": 72,
@@ -3389,8 +3389,8 @@
         "isChordPartner": true
       },
       {
-        "time": 134.1268,
-        "endTime": 134.1268,
+        "time": 134.1455,
+        "endTime": 134.1455,
         "type": "tap",
         "lane": 0,
         "midi": 65,
@@ -3398,8 +3398,8 @@
         "isChordPartner": false
       },
       {
-        "time": 134.1268,
-        "endTime": 134.1268,
+        "time": 134.1455,
+        "endTime": 134.1455,
         "type": "tap",
         "lane": 2,
         "midi": 72,
@@ -3407,8 +3407,8 @@
         "isChordPartner": true
       },
       {
-        "time": 134.4039,
-        "endTime": 134.4039,
+        "time": 134.4319,
+        "endTime": 134.4319,
         "type": "tap",
         "lane": 0,
         "midi": 65,
@@ -3416,8 +3416,8 @@
         "isChordPartner": false
       },
       {
-        "time": 134.4039,
-        "endTime": 134.4039,
+        "time": 134.4319,
+        "endTime": 134.4319,
         "type": "tap",
         "lane": 2,
         "midi": 72,
@@ -3497,8 +3497,8 @@
         "isChordPartner": true
       },
       {
-        "time": 136.127,
-        "endTime": 136.127,
+        "time": 136.1502,
+        "endTime": 136.1502,
         "type": "tap",
         "lane": 0,
         "midi": 65,
@@ -3506,8 +3506,8 @@
         "isChordPartner": false
       },
       {
-        "time": 136.127,
-        "endTime": 136.127,
+        "time": 136.1502,
+        "endTime": 136.1502,
         "type": "tap",
         "lane": 2,
         "midi": 72,
@@ -3515,8 +3515,8 @@
         "isChordPartner": true
       },
       {
-        "time": 136.3824,
-        "endTime": 136.3824,
+        "time": 136.4405,
+        "endTime": 136.4405,
         "type": "tap",
         "lane": 0,
         "midi": 65,
@@ -3524,8 +3524,8 @@
         "isChordPartner": false
       },
       {
-        "time": 136.3824,
-        "endTime": 136.3824,
+        "time": 136.4405,
+        "endTime": 136.4405,
         "type": "tap",
         "lane": 2,
         "midi": 72,
@@ -4478,7 +4478,7 @@
         "isChordPartner": false
       },
       {
-        "time": 159.5448,
+        "time": 159.5619,
         "endTime": 160.7198,
         "type": "hold",
         "lane": 3,
