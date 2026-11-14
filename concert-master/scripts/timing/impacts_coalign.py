@@ -54,7 +54,6 @@ def run(ns):
                 not even_c
                 and not warped[best_k].get("is_scalar_lick")
                 and not warped[best_k].get("is_legato_suspension")
-                and not (228.0 <= mn_t <= 238.0)
                 and mix_rms[f_ta] > mix_rms[f_mn] * 1.25
                 and prev_end <= ta <= next_start
                 and ta < melody_out[best_k][1] - 0.04
