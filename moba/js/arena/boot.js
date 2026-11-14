@@ -135,9 +135,9 @@ async function bootArenaWithLoadingBar() {
   // Refactor safety net: ?selftest (all heroes) or ?selftest=<heroId> runs js/selftest.js
   // Balance tools: ?profile runs js/profile.js (damage profile), ?duel runs js/duel.js (bot duels)
   if (window.__MOBA_TEST) {
-    if (/[?&]selftest/.test(location.search)) loadScriptAsync('js/selftest.js');
-    if (/[?&]profile/.test(location.search)) loadScriptAsync('js/profile.js');
-    if (/[?&]duel/.test(location.search)) loadScriptAsync('js/duel.js');
+    if (/[?&]selftest/.test(location.search)) loadScriptAsync('js/selftest.js?v=' + Date.now());
+    if (/[?&]profile/.test(location.search)) loadScriptAsync('js/profile.js?v=' + Date.now());
+    if (/[?&]duel/.test(location.search)) loadScriptAsync('js/duel.js?v=' + Date.now());
   }
   // Dev: ?mapshot logs a top-down render of the whole map to the console as base64 PNG chunks
   if (/[?&]mapshot/.test(location.search)) {

@@ -1894,6 +1894,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
       u.shield = 0;
       return rem;
     }
+    // Coyote Bleed damage per stack per tick (her kit's Attack-scaled formula; Lv7 Deep Serration +25%)
+    function coyoteBleedTick() {
+      const k = window.MOBA_HEROES && window.MOBA_HEROES.coyote;
+      const base = k && k.dmg ? k.dmg.bleedTick(getPlayerStats()) : (10 + playerProg.level * 2.0);
+      return base * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+    }
     function botDiffMult() { return botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0); }
 
     function getAlliedTargets() {
@@ -2815,7 +2821,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const isEasy = botDifficulty === 'easy';
       const isHard = botDifficulty === 'hard';
       const activePing = pings.length > 0 ? pings[pings.length - 1] : null;
-      const bleedTickRate = (10 + playerProg.level * 2.0) * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+      const bleedTickRate = coyoteBleedTick(); // Coyote's Attack-scaled Bleed (see coyote.js dmg)
 
       // Helper to apply CC / Bleed / Marks from a Bot ability onto a target (Player, Bot, Minion, or Camp)
       function applyBotCcAndEffects(targetObj, opts = {}) {
@@ -3930,7 +3936,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       // 2. Update Minion AI, Bleed DoT & Movement
-      const bleedTickMinion = (10 + playerProg.level * 2.0) * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+      const bleedTickMinion = coyoteBleedTick(); // Coyote's Attack-scaled Bleed (see coyote.js dmg)
       for (let i = minions.length - 1; i >= 0; i--) {
         const m = minions[i];
         if (!m) continue;
@@ -4146,7 +4152,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       });
 
       // 4. Update Neutral Jungle Camps & Central Boss (Active Chase, Melee Attack & Leash Reset!)
-      const bleedTickCamp = (10 + playerProg.level * 2.0) * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+      const bleedTickCamp = coyoteBleedTick(); // Coyote's Attack-scaled Bleed (see coyote.js dmg)
       camps.forEach((c) => {
         if (c.respawnTimer > 0) {
           c.respawnTimer -= dt;

@@ -20,7 +20,8 @@
   const allHeroes = Object.values(window.MOBA_HEROES || {}).filter((k) => k.spec)
     .sort((a, b) => ((a.roster && a.roster.order) || 99) - ((b.roster && b.roster.order) || 99)).map((k) => k.id);
   const pick = qs.get('profile');
-  const heroes = pick && allHeroes.includes(pick) ? [pick] : allHeroes;
+  const picked = (pick || '').split(',').filter((h) => allHeroes.includes(h));
+  const heroes = picked.length ? picked : allHeroes; // ?profile=coyote or ?profile=coyote,imp
   const levels = (qs.get('levels') || '1,6,12').split(',').map(Number).filter((n) => n >= 1 && n <= 12);
   const build = qs.get('build') || 'standard';
   const RESIST = Number(qs.get('resist') || 40);

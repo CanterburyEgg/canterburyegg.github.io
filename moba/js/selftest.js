@@ -2,7 +2,8 @@
 // Open arena3d.html?selftest (all heroes) or arena3d.html?selftest=panther (one hero).
 // For every hero x config x ability it casts at the training dummies and records
 // damage dealt, hit count, cooldown set, and mana spent, then diffs against a saved baseline.
-// Only talks to window.__MOBA_TEST (defined in arena3d.html) so this file never needs to change.
+// Only talks to window.__MOBA_TEST (defined in boot.js). (2026-11-13: Fairy, Scientist and Imp added; their persistent
+// casts are capped at PERSIST_MAX and cleaned up, which leaves the original five heroes' rows unchanged.)
 (function () {
   'use strict';
   const T = window.__MOBA_TEST;
@@ -12,8 +13,12 @@
   const hero = A.hero;
   const STORAGE_KEY = 'mobaSelftestBaseline_v1';
 
-  const ALL_HEROES = ['coyote', 'brawler', 'sorceress', 'bodyguard', 'panther'];
-  const RANGED = { coyote: true, sorceress: true };
+  const ALL_HEROES = ['coyote', 'brawler', 'sorceress', 'bodyguard', 'panther', 'fairy', 'scientist', 'imp'];
+  const RANGED = { coyote: true, sorceress: true, fairy: true, imp: true };
+  // Heroes whose casts leave something running (Imp's turret keeps shooting, Scientist's saw keeps revving): watch them
+  // for at most PERSIST_MAX seconds of game time, then clear the kit state so the next row starts clean.
+  const PERSISTENT = { imp: true, scientist: true };
+  const PERSIST_MAX = 6;
   const CONFIGS = [
     { name: 'Lv1', level: 1, talents: {} },
     { name: 'Lv12-L', level: 12, talents: { 3: 'L', 7: 'L', 10: 'L' } },
@@ -97,6 +102,7 @@
     hero.qTempoStacks = 0; hero.qTempoTimer = 0; hero.eSpeedBuffTimer = 0; hero.leapTimer = 0;
     hero.stealthTimer = 0; hero.stealthExitTimer = 0; hero.unseenLingerTimer = 0;
     hero.qFlurryRemaining = 0; hero.qFlurryTimer = 0; hero.gnashAnim = 0;
+    hero.sawOn = false; delete hero.hopCharges;
     const dist = RANGED[heroId] ? 6.0 : 1.6;
     hero.x = target.homeX; hero.z = target.homeZ + dist;
     hero.facing = Math.PI; // facing -z toward the dummy
@@ -135,11 +141,15 @@
       hero.atkTimer = 0;
       A.tryAttack();
     }
-    const timedOut = await waitQuiet(startAt, 1.2, 15);
+    const timedOut = await waitQuiet(startAt, 1.2, PERSISTENT[heroId] ? PERSIST_MAX : 15);
+    if (PERSISTENT[heroId]) {
+      const k = window.MOBA_HEROES && window.MOBA_HEROES[heroId];
+      if (k && k.onSwitchedAway) k.onSwitchedAway(); // pick the turret up / stop the saw
+    }
     const dmg = dummyEvents.reduce((a, b) => a + b, 0);
     const unit = unitEvents.reduce((a, b) => a + b, 0);
     return 'dmg=' + dmg + ' hits=' + dummyEvents.length + ' unit=' + unit +
-      ' cd=' + (cd || 0).toFixed(2) + ' mp=' + mp + (timedOut ? ' TIMEOUT' : '');
+      ' cd=' + (cd || 0).toFixed(2) + ' mp=' + mp + (timedOut && !PERSISTENT[heroId] ? ' TIMEOUT' : '');
   }
 
   async function run() {

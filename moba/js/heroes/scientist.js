@@ -137,7 +137,7 @@ H.scientist = {
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { st, cdrMult, rQE, pProg } = ctx;
@@ -244,13 +244,13 @@ H.scientist = {
       spawnFloat(hero.x, 2.6, hero.z, 'BZZZZT!', '#4ade80');
     } else if (slot === 'E') {
       if (hero.cdE > 0) return;
-      hero.cdE = 10;
+      hero.cdE = 10 * (ctx.cdrMult || 1);
       hero.kickAnim = 0.65;
       actor.play('kick', 0.06, true, 2.2, 0.6, 0.65);
       hero.pendingInject = { t: 0.5, rQE };
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade) return;
-      hero.cdR = 40;
+      hero.cdR = 40 * (ctx.cdrMult || 1);
       hero.sawOn = false;
       hero.kickAnim = 0.45;
       actor.play('slide', 0.06, true, 1.8, 0.5, 0.45);

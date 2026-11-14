@@ -47,6 +47,7 @@ function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = 
     vz: Math.cos(angle) * spd,
     dmg,
     dmgType: 'physical',
+    src: isPiercingHeartseeker ? 'ability' : 'attack', // basics + Q bolts are Attack damage; Heartseeker is Ability
     bleedAdd,
     isHeartseeker: isPiercingHeartseeker,
     pierce: isPiercingHeartseeker || forcePierce,
@@ -81,7 +82,7 @@ function fireHeartseekerRelease(actor) {
   SFX.play('arena');
   spawnShockRing(hero.x + Math.sin(hero.facing) * 0.8, hero.z + Math.cos(hero.facing) * 0.8, 0xf43f5e, 0.2, 1.6, 0.26);
   const st = actor.stats();
-  spawnCrossbowBolt(actor, hero.facing, Math.round((130 + st.atk * 0.85) * power), 1, true, true, range, popScale);
+  spawnCrossbowBolt(actor, hero.facing, Math.round(H.coyote.dmg.heartseeker(st, KitFx.rUlt(actor.level())) * power), 1, true, true, range, popScale);
   if (isPerfect) {
     spawnFloat(hero.x, 2.75, hero.z, 'PERFECT SHOT! (+25% BLEED POP)', '#fde047');
   } else {
@@ -150,19 +151,31 @@ H.coyote = {
   spec: {
     id: 'coyote',
     name: 'Coyote Crossbowman',
-    role: 'Carry • Ranged Physical Bleed Marksman',
+    role: 'Carry • Ranged Bleed Marksman (Attack)',
     glyph: 'C',
     color: '#f59e0b',
     height: 1.98,
     baseHp: 1380, hpGrow: 114,
     baseMp: 310, mpGrow: 26, mpRegen: 5.5,
-    baseAtk: 56, atkGrow: 7.2,
-    baseFant: 0, fantGrow: 0,
-    baseArmor: 19, armorGrow: 2.8,
-    baseFResist: 19, fResistGrow: 2.2,
+    // Stat model (DESIGN_RULES §2): Attack-leaning carry. Budget (Damage Profile, no items): ~160 / 285 / 558 dps
+    baseAttack: 56, attackGrow: 10.5,
+    baseAbility: 10, abilityGrow: 2,
+    baseResist: 19, resistGrow: 2.5,
+    asGrow: 0.055,
     baseSpd: 6.10,
-    atkCd: 1.05,
+    atkCd: 1.0,
     mpCosts: { Q: 40, E: 55, R: 90 }
+  },
+
+  // All of Coyote's damage numbers in one place (used by the kit, the shared bolt code in loop.js and bleed ticks in
+  // the engine). Basics, Q bolts and Bleed are Attack damage; the grenade and Heartseeker are Ability damage.
+  dmg: {
+    lmb: (st) => Math.round(st.attack),
+    bleedTick: (st) => 3 + 0.08 * st.attack,                                         // per stack, every 0.65s (max 4)
+    qBolt: (st, rQE) => Math.round([25, 40, 55][rQE] + st.attack * 0.55),            // x3 bolts, counts as a basic attack
+    grenadeOuter: (st, lvl, rQE) => Math.round([80, 140, 215][rQE] + 7 * ((lvl || 1) - 1) + st.ability * 0.6), // bullseye x2
+    heartseeker: (st, rUlt) => Math.round([260, 420, 580][rUlt] + st.ability * 1.0), // x charge power
+    popPerStack: (st, rUlt) => Math.round([60, 100, 140][rUlt] + st.ability * 0.3)   // per Bleed stack detonated
   },
 
   talents: {
@@ -186,7 +199,7 @@ H.coyote = {
     glyph: 'C',
     color: '#f59e0b',
     name: 'Coyote Crossbowman (3D)',
-    role: 'Carry • Ranged Physical Bleed Marksman',
+    role: 'Carry • Ranged Bleed Marksman (Attack)',
     passive: 'Serrated Bolts',
     lmb: 'Bleed Bolt',
     q: '3-Bolt Fan',
@@ -197,30 +210,30 @@ H.coyote = {
       P: {
         title: 'Passive • Serrated Broadheads',
         meta: 'Innate Bleed',
-        body: 'Crossbow bolts apply <b>Serrated Bleed</b> for 4.5s (stacks up to <b>4x</b>; 5x with Lv7 Talent), dealing physical damage over time and priming targets for <b>R: Heartseeker</b> detonation.',
+        body: 'Crossbow bolts apply <b>Serrated Bleed</b> for 4.5s (stacks up to <b>4x</b>; 5x with Lv7 Talent), dealing <b>Attack damage over time</b> (3 + 8% Attack per stack per tick) and priming targets for <b>R: Heartseeker</b> detonation.',
         talentLevels: [3, 7]
       },
       LMB: {
         title: 'LMB • Repeating Crossbow',
-        meta: '0 MP • 1.05s Base ATK',
-        body: 'Fires a high-velocity quarrel for <b>100% Physical ATK</b> and applies <b>1 stack of Serrated Bleed</b>.'
+        meta: '0 MP • 1.0s Base ATK',
+        body: 'Fires a high-velocity quarrel for <b>100% Attack</b> and applies <b>1 stack of Serrated Bleed</b>.'
       },
       Q: {
         title: 'Q • 3-Bolt Fan Volley',
         meta: '40 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Fires a tight spread of <b>3 serrated bolts</b> in a cone, each dealing <b>Physical Damage</b> and applying <b>1 stack of Bleed</b>.',
+        body: 'Fires a tight spread of <b>3 serrated bolts</b> in a cone, each dealing <b>25 / 40 / 55 + 55% Attack</b> and applying <b>1 stack of Bleed</b>. Counts as a basic attack.',
         talentLevels: [3, 10]
       },
       E: {
         title: 'E • Shrapnel Grenade',
         meta: '55 MP • 11.0s / 9.8s / 8.5s CD (Lv 1/6/9)',
-        body: 'Lobs an explosive black-powder grenade to the target zone. Enemies caught in the <b>inner Bullseye</b> take <b>2x Physical Damage</b> and <b>+2 Bleed stacks</b> (outer ring applies 1 stack).',
+        body: 'Lobs an explosive black-powder grenade to the target zone. Enemies caught in the <b>inner Bullseye</b> take <b>2x damage</b> and <b>+4 Bleed stacks</b> (outer ring: 80 / 140 / 215 (+7/Lv) + 60% Ability and +2 stacks).',
         talentLevels: [7]
       },
       R: {
         title: 'R • Heartseeker Piercer',
         meta: '90 MP • 42s / 36s / 30s CD (Lv 4/8/12)',
-        body: 'Channel for up to 2.0s, aiming a long-range sniper laser that pierces all enemies and <b>detonates all active Bleed stacks</b> for massive bonus physical burst. Damage and range grow with the charge; press <b>R</b> again to fire a weaker Quick Shot early, or hold the full 2.0s for a <b>Perfect Shot (+25% Bleed detonation)</b>.',
+        body: 'Channel for up to 2.0s, aiming a long-range sniper laser that pierces all enemies and deals <b>260 / 420 / 580 + 100% Ability</b> and <b>detonates all active Bleed stacks</b> (60 / 100 / 140 + 30% Ability each). Damage and range grow with the charge; press <b>R</b> again to fire a weaker Quick Shot early, or hold the full 2.0s for a <b>Perfect Shot (+25% Bleed detonation)</b>.',
         talentLevels: [10]
       }
     }
@@ -291,11 +304,11 @@ H.coyote = {
     if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L.lmb = (L.lmb || 0) + 1; }
     const aim = actor.aim();
     hero.facing = Math.atan2(aim.x - hero.x, aim.z - hero.z);
-    hero.atkTimer = 1.05 / (1 + st.asPct);
+    hero.atkTimer = H.coyote.spec.atkCd / (1 + st.asPct);
     hero.punchAnim = 0.22;
     actor.play('punch', 0.04, true, 0.95, 0, 0.36);
     SFX.play('punch');
-    spawnCrossbowBolt(actor, hero.facing, st.atk, 1, false, false);
+    spawnCrossbowBolt(actor, hero.facing, H.coyote.dmg.lmb(st), 1, false, false);
   },
 
   // Q Triple-Notch fan volley, E Briar Bomb grenade, R Heartseeker Quarrel (2s charge, recast to fire early)
@@ -307,7 +320,7 @@ H.coyote = {
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     const hero = actor.unit;
@@ -327,7 +340,7 @@ H.coyote = {
       SFX.play('punch');
       const angles = talents[10] === 'R' ? [-0.22, -0.11, 0, 0.11, 0.22] : [-0.14, 0, 0.14];
       const pierceQ = talents[10] === 'R';
-      const boltDmg = Math.round([25, 45, 65][rQE] + st.atk * 0.85);
+      const boltDmg = H.coyote.dmg.qBolt(st, rQE);
       angles.forEach((off) => {
         spawnCrossbowBolt(actor, hero.facing + off, boltDmg, 1, false, pierceQ);
       });
@@ -444,7 +457,7 @@ H.coyote = {
         spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
         const ost = o.stats(), otal = o.talents();
         const oRank = KitFx.rQE(o.level());
-        const outerDmg = Math.round([70, 105, 140][oRank] + ost.atk * 0.48);
+        const outerDmg = H.coyote.dmg.grenadeOuter(ost, o.level(), oRank);
         const grenSlow = otal[7] === 'L' ? 2.5 : 0;
         o.hostiles().forEach((t) => {
           if (t.kind === 'structure') return;
@@ -460,7 +473,7 @@ H.coyote = {
         spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
         spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
         const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-        const outerDmg = Math.round([70, 105, 140][rQE] + st.atk * 0.48);
+        const outerDmg = H.coyote.dmg.grenadeOuter(st, pProg.level || 1, rQE);
         const bullDmg = outerDmg * 2;
         const grenSlow = talents[7] === 'L' ? 2.5 : 0;
 

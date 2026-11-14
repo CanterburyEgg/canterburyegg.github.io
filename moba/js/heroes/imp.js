@@ -101,7 +101,7 @@ function stepTurret(t, dt, actor) {
       const fx = t.x + Math.sin(t.facing) * 1.3, fz = t.z + Math.cos(t.facing) * 1.3;
       smoke(fx, fz, 0.9);
       SFX.play('arena');
-      KitFx.spawnBolt(t.facing, Math.round(st.atk * 0.9), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor });
+      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor });
     }
   }
   t.kick = Math.max(0, (t.kick || 0) - dt * 5);
@@ -223,6 +223,15 @@ H.imp = {
     overlay: { run: { from: 'idle', bones: UPPER_BODY } }
   },
 
+  // All of the Imp's damage numbers in one place. Cannon shots, wrench swings and turret shots (they count as his basic
+  // attacks) are Attack damage; Superball is Ability damage.
+  dmg: {
+    cannon: (st) => Math.round(st.attack * 1.25),
+    wrench: (st) => Math.round(st.attack * 1.0),
+    turretShot: (st) => Math.round(15 + st.attack * 1.0),
+    superball: (st, lvl, rUlt) => Math.round([200, 300, 400][rUlt] + 6 * ((lvl || 1) - 1) + st.ability * 1.0)
+  },
+
   spec: {
     id: 'imp',
     name: 'Cannon Imp',
@@ -232,10 +241,11 @@ H.imp = {
     height: 1.35,
     baseHp: 1340, hpGrow: 110,
     baseMp: 310, mpGrow: 26, mpRegen: 5.0,
-    baseAtk: 55, atkGrow: 6.0,
-    baseFant: 20, fantGrow: 3.0,
-    baseArmor: 20, armorGrow: 2.7,
-    baseFResist: 20, fResistGrow: 2.2,
+    // Stat model (DESIGN_RULES §2): Attack-leaning siege carry (~160 / 285 / 558 dps budget, no items)
+    baseAttack: 70, attackGrow: 11.0,
+    baseAbility: 15, abilityGrow: 2.5,
+    baseResist: 20, resistGrow: 2.5,
+    asGrow: 0.03,
     baseSpd: 5.9,
     atkCd: 1.05,
     mpCosts: { Q: 20, E: 50, R: 85 }
@@ -283,7 +293,7 @@ H.imp = {
   onBasicAttack(st) {
     hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
     if (carrying()) {
-      hero.atkTimer = 1.05 / (1 + st.asPct);
+      hero.atkTimer = H.imp.spec.atkCd / (1 + st.asPct);
       hero.punchAnim = 0.25;
       recoil = 1;
       SFX.play('arena');
@@ -291,7 +301,7 @@ H.imp = {
       const fx = hero.x + Math.sin(ang) * 0.9, fz = hero.z + Math.cos(ang) * 0.9;
       smoke(fx, fz, 0.9);
       const ball = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
-      KitFx.spawnBolt(ang, Math.round(st.atk * 1.15), { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz });
+      KitFx.spawnBolt(ang, H.imp.dmg.cannon(st), { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz });
     } else {
       hero.atkTimer = 0.7 / (1 + st.asPct);
       hero.punchAnim = 0.3;
@@ -301,7 +311,7 @@ H.imp = {
   },
 
   onStrikeImpact(strike, ctx) {
-    KitFx.hitCone(2.0, 0.8, Math.round(ctx.st.atk * 0.85), { isBasic: true, color: '#fb923c' });
+    KitFx.hitCone(2.0, 0.8, H.imp.dmg.wrench(ctx.st), { isBasic: true, color: '#fb923c' });
     // Tinkerer: wrench hits on his own turret repair it
     if (turret && turret.hp < turret.maxHp) {
       const dx = turret.x - hero.x, dz = turret.z - hero.z, d = Math.hypot(dx, dz);
@@ -397,7 +407,7 @@ H.imp = {
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.6, 18, 14), new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.7, roughness: 0.35, emissive: 0x7c2d12, emissiveIntensity: 0.4 }));
       scene.add(mesh);
       const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-      superball = { mesh, x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(), dmg: Math.round([180, 260, 340][rUlt] + st.atk * 0.9) };
+      superball = { mesh, x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(), dmg: H.imp.dmg.superball(st, pProg.level, rUlt) };
       smoke(superball.x, superball.z, 2.0);
       SFX.play('arena');
       spawnFloat(from.x, 3.0, from.z, 'SUPERBALL!', '#fb923c');
@@ -415,19 +425,19 @@ H.imp = {
       SFX.play('arena');
       const fx = u.x + Math.sin(u.facing) * 0.9, fz = u.z + Math.cos(u.facing) * 0.9;
       smoke(fx, fz, 0.9);
-      KitFx.spawnBolt(u.facing, Math.round(st.atk * 1.15), { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor });
+      KitFx.spawnBolt(u.facing, H.imp.dmg.cannon(st), { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor });
     } else {
       u.atkCd = (u.atkCd || 0) * (0.7 / 1.05); // wrench swings faster than the cannon fires
       u.punchAnim = 0.3;
       actor.play('punch', 0.05, true, 2.2, 0.35, 0.3);
-      u.impStrike = { t: 0.15, dmg: Math.round(st.atk * 0.85) };
+      u.impStrike = { t: 0.15, dmg: H.imp.dmg.wrench(st) };
     }
   },
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     if (actor.isPlayer) return this.cast(slot, ctx);
     return this.botCast(actor, slot, ctx);
@@ -442,13 +452,13 @@ H.imp = {
     if (slot === 'Q') {
       if (u.cdQ > 0 || u.impPendingQ || !botCarrying(u)) return; // (pick-up / salvage are automatic, see tickActor)
       u.facing = Math.atan2(a.x - u.x, a.z - u.z);
-      u.cdQ = 3.0;
+      u.cdQ = 3.0 * (ctx.cdrMult || 1);
       u.kickAnim = 0.8;
       actor.play('kick', 0.06, true, 2.6, 4.6, 0.4);
       u.impPendingQ = { t: 0.35, kind: 'plant', x: u.x + Math.sin(u.facing) * 1.6, z: u.z + Math.cos(u.facing) * 1.6, facing: u.facing };
     } else if (slot === 'E') {
       if (u.cdE > 0 || u.leapTimer > 0) return;
-      u.cdE = 8.5;
+      u.cdE = 8.5 * (ctx.cdrMult || 1);
       const longJump = botCarrying(u);
       const maxD = longJump ? 9.0 : 4.5;
       const dx = a.x - u.x, dz = a.z - u.z;
@@ -478,7 +488,7 @@ H.imp = {
       }
     } else if (slot === 'R') {
       if ((pProg.level || 1) < 4 || u.cdR > 0 || u.impScrap) return;
-      u.cdR = 38;
+      u.cdR = 38 * (ctx.cdrMult || 1);
       const t = u.impTurret;
       const from = t ? { x: t.x, z: t.z } : { x: u.x, z: u.z };
       const ang = Math.atan2(a.x - from.x, a.z - from.z);
@@ -486,7 +496,7 @@ H.imp = {
       else { u.impRecoil = 1.6; u.facing = ang; }
       const b = {
         mesh: makeSuperballMesh(), x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(),
-        dmg: Math.round([180, 260, 340][KitFx.rUlt(pProg.level || 1)] + st.atk * 0.9), owner: actor
+        dmg: H.imp.dmg.superball(st, pProg.level, KitFx.rUlt(pProg.level || 1)), owner: actor
       };
       botBalls.push(b);
       smoke(b.x, b.z, 2.0);

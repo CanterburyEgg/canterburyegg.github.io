@@ -269,7 +269,7 @@ H.fairy = {
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     const { st, cdrMult, rQE, pProg } = ctx;
     const hero = actor.unit;

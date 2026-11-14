@@ -129,13 +129,25 @@ H.brawler = {
     height: 2.25,
     baseHp: 1660, hpGrow: 132,
     baseMp: 280, mpGrow: 24, mpRegen: 5.0,
-    baseAtk: 64, atkGrow: 7.8,
-    baseFant: 0, fantGrow: 0,
-    baseArmor: 30, armorGrow: 3.6,
-    baseFResist: 25, fResistGrow: 2.8,
+    // Stat model (DESIGN_RULES §2): Attack-leaning bruiser, ~85% of the damage budget (~136 / 242 / 474 dps, no items)
+    baseAttack: 76, attackGrow: 11.0,
+    baseAbility: 10, abilityGrow: 2,
+    baseResist: 26, resistGrow: 3.0,
+    asGrow: 0.04,
     baseSpd: 5.88,
     atkCd: 1.04,
     mpCosts: { Q: 40, E: 50, R: 95 }
+  },
+
+  // All of the Brawler's damage numbers in one place. Punches and the Q kick (counts as a basic attack) are Attack
+  // damage; the E dash and the 7L slam are Ability damage.
+  dmg: {
+    punch: (st) => Math.round(st.attack),
+    haymakerBonus: (st, lvl) => Math.round(20 + 3 * ((lvl || 1) - 1) + st.attack * 0.25), // 7R every 3rd punch
+    kick: (st, rQE) => Math.round([60, 90, 120][rQE] + st.attack * 2.0),
+    dash: (st, lvl, rQE) => Math.round([80, 120, 160][rQE] + 7 * ((lvl || 1) - 1) + st.ability * 0.5),
+    slam7L: (st, lvl) => Math.round(50 + 6 * ((lvl || 1) - 1) + st.ability * 0.4),
+    shield: (lvl, rQE) => Math.round([180, 240, 300][rQE] + (lvl || 1) * 15)
   },
 
   talents: {
@@ -159,7 +171,7 @@ H.brawler = {
     glyph: 'P',
     color: '#f43f5e',
     name: 'Pit Brawler (3D)',
-    role: 'Solo • Melee Physical Coliseum Bruiser',
+    role: 'Solo • Melee Coliseum Bruiser (Attack)',
     passive: 'Combo Siphon',
     lmb: 'Punch',
     q: 'Stun Kick',
@@ -177,19 +189,19 @@ H.brawler = {
       LMB: {
         title: 'LMB • Heavy Knuckle Combo',
         meta: '0 MP • 1.04s Base ATK',
-        body: 'She strikes enemies in front of her for <b>100% Physical ATK</b>, alternating between rapid jabs and heavy cross hooks.',
+        body: 'She strikes enemies in front of her for <b>100% Attack</b>, alternating between rapid jabs and heavy cross hooks.',
         talentLevels: [3, 7]
       },
       Q: {
         title: 'Q • MMA Roundhouse Kick',
         meta: '40 MP • 7.5s / 6.8s / 6.0s CD (Lv 1/6/9)',
-        body: 'Empowers her next basic attack (or fires immediately if an enemy is in range) to unleash a spinning roundhouse kick that deals <b>85 (+14/Lv + 90% ATK) Physical Damage</b> and <b>Stuns for 1.0s / 1.1s / 1.2s</b>.',
+        body: 'Empowers her next basic attack (or fires immediately if an enemy is in range) to unleash a spinning roundhouse kick that deals <b>60 / 90 / 120 + 200% Attack</b> (counts as a basic attack) and <b>Stuns for 1.0s / 1.1s / 1.2s</b>.',
         talentLevels: [3]
       },
       E: {
         title: 'E • 2x Cage Vault Dash',
         meta: '50 MP • 10.0s / 9.0s / 8.0s CD (Lv 1/6/9)',
-        body: 'She lunges forward with a <b>Flying Kick</b>. Colliding with an enemy or wall/pillar grants a <b>Shield</b> and unlocks a <b>2nd Recast (Running Slide)</b> within 3.0s.',
+        body: 'She lunges forward with a <b>Flying Kick</b> for <b>80 / 120 / 160 (+7/Lv) + 50% Ability</b>. Colliding with an enemy or wall/pillar grants a <b>Shield</b> and unlocks a <b>2nd Recast (Running Slide)</b> within 3.0s.',
         talentLevels: [7]
       },
       R: {
@@ -254,7 +266,7 @@ H.brawler = {
     }
 
     if (isKick) {
-      hero.atkTimer = 1.04 / (1 + st.asPct * 0.5);
+      hero.atkTimer = H.brawler.spec.atkCd / (1 + st.asPct * 0.5);
       // Full 0.76s commit window so moving during Q Kick finishes the roundhouse & leg plant before blending to run!
       hero.kickAnim = 0.76;
       const kickAct = actions.kick || actions.punch;
@@ -264,7 +276,7 @@ H.brawler = {
       }
       pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23 };
     } else {
-      hero.atkTimer = 1.04 / (1 + st.asPct);
+      hero.atkTimer = H.brawler.spec.atkCd / (1 + st.asPct);
       hero.punchAnim = 0.48;
 
       // Every swing switches hands (right hook, left hook, ...); resets to the right hook after ~2s without attacking
@@ -319,8 +331,8 @@ H.brawler = {
 
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const baseStrikeDmg = strike.isKick
-      ? Math.round(85 + (pProg.level || 1) * 14 + st.atk * 0.90)
-      : Math.round(st.atk + (isHaymaker ? 36 + (pProg.level || 1) * 4 : 0));
+      ? H.brawler.dmg.kick(st, rQE)
+      : H.brawler.dmg.punch(st) + (isHaymaker ? H.brawler.dmg.haymakerBonus(st, pProg.level) : 0);
     const stunDur = [1.0, 1.1, 1.2][rQE] + (talents[3] === 'L' ? 0.25 : 0);
     const siphonStep = talents[3] === 'R' ? 0.04 : 0.02;
     const siphonCap = talents[3] === 'R' ? 0.12 : 0.08;
@@ -346,7 +358,7 @@ H.brawler = {
       actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
           const didHit = actor.damage(t, baseStrikeDmg * arenaMult, {
-            isBasic: !strike.isKick,
+            isBasic: true, src: 'attack', // punches, and the kick (counts as a basic attack)
             stunDur: strike.isKick ? stunDur : 0
           });
           if (didHit) {
@@ -366,7 +378,7 @@ H.brawler = {
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
@@ -438,10 +450,10 @@ H.brawler = {
     if (!hero.dashHit && (hitWall || hitDummy || hitHostile)) {
       hero.dashHit = true;
       const rimMult = hitArenaRim ? (talents[10] === 'R' ? 1.65 : 1.35) : 1.0;
-      const dashDmg = Math.round((58 + (pProg.level || 1) * 10 + st.atk * 0.50) * rimMult);
+      const dashDmg = Math.round(H.brawler.dmg.dash(st, pProg.level, KitFx.rQE(pProg.level || 1)) * rimMult);
       if (hitDummy) damageDummy(hitDummy, dashDmg);
       if (hitHostile && phase1Engine) {
-        actor.damage(hitHostile, dashDmg);
+        actor.damage(hitHostile, dashDmg, { src: 'ability' });
         if (hero.dashKind === 'first') {
           const ux = hero.x - hitHostile.x;
           const uz = hero.z - hitHostile.z;
@@ -462,7 +474,7 @@ H.brawler = {
         if (phase1Engine) {
           actor.hostiles().forEach((t) => {
             if ((!hitHostile || t.ref !== hitHostile.ref) && Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.8 + t.r) {
-              actor.damage(t, dashDmg, { color: '#fde047' });
+              actor.damage(t, dashDmg, { color: '#fde047', src: 'ability', aoe: true });
             }
           });
         }
@@ -471,7 +483,7 @@ H.brawler = {
         hero.dashTimer = 0;
         const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
         const shieldMult = (talents[7] === 'L' ? 1.35 : 1.0) * (hitArenaRim ? 1.35 : 1.0);
-        hero.shield = Math.round(([180, 240, 300][rQE] + (pProg.level || 1) * 15) * shieldMult);
+        hero.shield = Math.round(H.brawler.dmg.shield(pProg.level, rQE) * shieldMult);
         hero.shieldTimer = 3.5;
         hero.eRecast = 3.0;
         if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); const k = 'br_shield_t' + actor.team; L[k] = (L[k] || 0) + 1; }
@@ -491,7 +503,7 @@ H.brawler = {
       if (phase1Engine) {
         actor.hostiles().forEach((t) => {
           if (Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.4 + t.r) {
-            actor.damage(t, 95);
+            actor.damage(t, H.brawler.dmg.slam7L(st, pProg.level), { src: 'ability', aoe: true });
           }
         });
       }
@@ -508,13 +520,13 @@ H.brawler = {
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L['br_' + slot] = (L['br_' + slot] || 0) + 1;
     if (slot === 'Q') {
       if (hero.cdQ > 0) return;
-      hero.cdQ = [7.5, 6.8, 6.0][rQE] - (talents[3] === 'L' ? 1.5 : 0);
+      hero.cdQ = ([7.5, 6.8, 6.0][rQE] - (talents[3] === 'L' ? 1.5 : 0)) * (ctx.cdrMult || 1);
       this.basicAttackFor(actor, st, true);
     } else if (slot === 'E') {
       const second = (hero.eRecast || 0) > 0;
       if (!second && hero.cdE > 0) return;
       if (second) hero.eRecast = 0;
-      else hero.cdE = [10.0, 9.0, 8.0][rQE];
+      else hero.cdE = [10.0, 9.0, 8.0][rQE] * (ctx.cdrMult || 1);
       hero.dashVx = Math.sin(hero.facing) * 14.2;
       hero.dashVz = Math.cos(hero.facing) * 14.2;
       hero.dashTimer = 0.36;
@@ -526,7 +538,7 @@ H.brawler = {
       SFX.play('dash');
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
-      hero.cdR = [46.0, 40.0, 34.0][rUlt];
+      hero.cdR = [46.0, 40.0, 34.0][rUlt] * (ctx.cdrMult || 1);
       if (actor.pitArena) actor.pitArena(talents[10] === 'L' ? 7.0 : 5.5);
       if (talents[10] === 'R') hero.cdE = 0;
     }

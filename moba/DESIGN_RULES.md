@@ -39,6 +39,10 @@ The goal: each hero's 3-ability kit lets you live that character's dream and mak
   - **Heal & Shield power:** not a stat; a named passive on one or two support epics.
   - **Regen:** heroes have small base HP and Mana regen; items give more only through the doubles and third-tier passives.
   - **Level-up growth:** HP, Mana, Attack, Ability, Resist, Attack speed, HP regen and Mana regen grow per level. Haste (starts at 0), Move speed and every specialty stat (Lifesteal, penetration, Tenacity, ...) never grow; they come only from items and passives.
+- **Damage budget (locked 2026-11-13):** each hero is built to a shared budget derived from the time-to-kill targets, not from the old numbers.
+  - A damage dealer's rotation (autos + abilities on cooldown, measured by the Damage Profile) must deal about **160 / 380 / 930 raw damage per second at Lv1 / 6 / 12** against a typical target (~1,350 HP / 20 Resist, ~2,100 / 35, ~3,100 / 50). Tanks: about 2/3 of that damage with about 1.5× the effective HP.
+  - **Kit vs items:** the hero's own stats and kit provide **100% / ~75% / ~60%** of the budget at Lv1 / 6 / 12; items provide the rest. The shop redesign builds items to fill that share; until then the converted placeholder items stand in for it.
+  - **Shape by lean:** Attack heroes take about 60% of their damage from basic attacks (steady). Ability heroes front-load it, about 60% in the first 3 s (burst). Hybrids sit in between.
 
 ## 3. Mobility budget (locked)
 - **Emergent, no fixed quota.** Every movement ability has to pass the test: **"does this kit really need it to live the dream?"** The default answer is no.

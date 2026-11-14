@@ -215,6 +215,15 @@ if (window.MOBA_PHASE1_ENGINE) {
 switchHero('coyote');
 document.getElementById('btn-wtf-3d').classList.toggle('toggled', wtfMode);
 
+// Coyote Bleed: damage per stack per tick (her Attack-scaled formula; Lv7 Deep Serration talent +25%)
+function bleedTickDmg() {
+  const st = phase1Engine ? phase1Engine.getPlayerStats() : { attack: 55 };
+  const k = window.MOBA_HEROES && window.MOBA_HEROES.coyote;
+  const base = k && k.dmg ? k.dmg.bleedTick(st) : 12;
+  const tal = phase1Engine ? phase1Engine.getPlayerProg().talents : {};
+  return base * (tal && tal[7] === 'R' ? 1.25 : 1.0);
+}
+
 function applyBleedStacks(d, count) {
   d.bleedStacks = Math.min(4, d.bleedStacks + count);
   d.bleedTimer = 5.5;

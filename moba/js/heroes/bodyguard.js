@@ -280,7 +280,7 @@ H.bodyguard = {
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
@@ -447,13 +447,13 @@ H.bodyguard = {
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L['bg_' + slot] = (L['bg_' + slot] || 0) + 1;
     if (slot === 'Q') {
       if (hero.cdQ > 0 || hero.leapTimer > 0) return;
-      hero.cdQ = [7.5, 6.5, 5.5][rQE];
+      hero.cdQ = [7.5, 6.5, 5.5][rQE] * (ctx.cdrMult || 1);
       actor.play('kick', 0.05, true, 1.65, 0, 0.4);
       hero.bgStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24 };
       spawnFloat(hero.x, 2.6, hero.z, 'BOUNCER HAYMAKER!', '#38bdf8');
     } else if (slot === 'E') {
       if (hero.cdE > 0 || hero.leapTimer > 0) return;
-      hero.cdE = [11.0, 9.5, 8.0][rQE];
+      hero.cdE = [11.0, 9.5, 8.0][rQE] * (ctx.cdrMult || 1);
       const maxLeap = talents[7] === 'L' ? 9.75 : 7.8;
       const dx = a.x - hero.x, dz = a.z - hero.z;
       const dist = Math.hypot(dx, dz) || 0.01;
@@ -473,7 +473,7 @@ H.bodyguard = {
       };
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
-      hero.cdR = [44.0, 38.0, 32.0][rUlt];
+      hero.cdR = [44.0, 38.0, 32.0][rUlt] * (ctx.cdrMult || 1);
       this.eyesOnMe(actor, ctx);
     }
   },

@@ -245,7 +245,7 @@ H.panther = {
   castFor(actor, slot, ctx) {
     if (!ctx) {
       const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1, rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
     }
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { pProg, talents, cdrMult, rQE, rUlt } = ctx;
@@ -413,7 +413,7 @@ H.panther = {
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L['pn_' + slot] = (L['pn_' + slot] || 0) + 1;
     if (slot === 'Q') {
       if (hero.cdQ > 0) return;
-      hero.cdQ = [5.8, 5.0, 4.2][rQE];
+      hero.cdQ = [5.8, 5.0, 4.2][rQE] * (ctx.cdrMult || 1);
       hero.stealthTimer = 0;
       actor.play('punch', 0.04, true, 2.40, 0.85, 0.54);
       hero.pnStrike = { isKick: false, isFlurry: true, isBite: false, facing: hero.facing, t: 0.13 };
@@ -422,7 +422,7 @@ H.panther = {
       spawnFloat(hero.x, 2.65, hero.z, 'SLASH!', '#2dd4bf');
     } else if (slot === 'E') {
       if (hero.cdE > 0 || hero.leapTimer > 0) return;
-      hero.cdE = [7.5, 6.2, 5.0][rQE];
+      hero.cdE = [7.5, 6.2, 5.0][rQE] * (ctx.cdrMult || 1);
       const fromUnseen = (hero.stealthTimer || 0) > 0;
       hero.leapFromStealth = fromUnseen;
       hero.stealthTimer = 0;
@@ -446,7 +446,7 @@ H.panther = {
       };
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
-      hero.cdR = [38.0, 32.0, 26.0][rUlt];
+      hero.cdR = [38.0, 32.0, 26.0][rUlt] * (ctx.cdrMult || 1);
       hero.stealthTimer = 6.0;
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);
