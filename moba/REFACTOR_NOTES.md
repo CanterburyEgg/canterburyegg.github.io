@@ -99,6 +99,16 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   Give it HP plus an overhead bar, make it targetable by bots, minions and towers, and when it's destroyed the Imp has
   to salvage the scrap to get his cannon back (DESIGN_RULES.md). Wrench hits repair it.
 
+## Model batch 2026-11-13 (meshes done; texture 2026-11-14)
+Untextured meshes in `assets/map/<id>/<id>_untextured.glb`:
+- **Sunhorn Stag** (buff camp monster, four-legged; shares the quadruped rig), **Gatehouse** (replaces the code-built
+  gate flank tower; scale it wider), **Jungle boulder** (plants pressed into one side; fine after texturing),
+  **Fallen log** (long line-of-sight blocker).
+- **Conifer:** v1 came out flat (`jungle_conifer_untextured_v1_flat.glb`, unused). Redo the mesh 2026-11-14 from
+  `jungle_conifer_concept_v2.png` (one solid cone of round tiers), texture it 2026-11-15.
+- Credits 2026-11-14: textures for stag, gatehouse, boulder, log + the new conifer mesh.
+- Saved for the jungle visual overhaul: `standing_stones/standing_stones_concept.png` (landmark, e.g. buff camp / boss pit).
+
 ## Model batch 2026-11-12 (done: textured and in game)
 Trees, moss golem, boar, thorn wolf and glimmer wisp are in `assets/map/jungle_bundle.js` (trees reduced to about 30k
 triangles each with `glb_decimate.py`). New Glimmer Wisp camp per side at (±16, 30). Camp monsters move in code only
