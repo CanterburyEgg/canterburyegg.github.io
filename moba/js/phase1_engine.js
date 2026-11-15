@@ -324,29 +324,143 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return false;
     }
 
-    // Check if the Player is currently spotted by any Enemy (Team 1 Chaos) unit or structure (for Panther's P: Shadow Stalker!)
-    function isPlayerSeenByChaos() {
-      if ((hero.stealthTimer || 0) > 0) return false;
-      if (!matchMode) return false;
-      if (Math.hypot(hero.x + MAP.BASE.fountain.x, hero.z - MAP.BASE.fountain.z) <= 22) return true;
+    // ---- Shared "unseen" / vision system (DESIGN_RULES §3: Panther passive + E fear, Coyote trap + hidden R laser) ----
+    // isPointVisibleToTeam(x, z, team): can that team see this spot? (Order = the fog-of-war rules above; Chaos mirrors them)
+    // isUnitSeenBy(u, team):  stealthed units are hidden from the other team unless one of its units is within
+    //                          STEALTH_REVEAL_R (then they shimmer); everything else follows the fog.
+    // isUnseen(u):            not seen by u's enemies (the player's UNSEEN indicator, Panther speed, Coyote laser, ...)
+    const STEALTH_REVEAL_R = 3.0;
+    const unitTeam = (u) => (u === hero ? 0 : (u.team || 0));
+    function isPointVisibleToChaos(tx, tz) {
+      if (!matchMode) return false; // training: nobody is watching the player
+      if (Math.hypot(tx + MAP.BASE.fountain.x, tz - MAP.BASE.fountain.z) <= 24) return true;
       for (let i = 0; i < bots.length; i++) {
         const b = bots[i];
         if (b.team !== 1 || b.respawnTimer > 0) continue;
-        const d = Math.hypot(hero.x - b.x, hero.z - b.z);
-        if (d <= 15.0 && !segmentBlockedByObstacle(b.x, b.z, hero.x, hero.z)) return true;
+        const d = Math.hypot(tx - b.x, tz - b.z);
+        if (d <= 3.2) return true;
+        if (d <= 16.0 && !segmentBlockedByObstacle(b.x, b.z, tx, tz)) return true;
       }
       for (let i = 0; i < structures.length; i++) {
         const s = structures[i];
         if (s.team !== 1 || s.hp <= 0) continue;
-        if (Math.hypot(hero.x - s.x, hero.z - s.z) <= 13.5) return true;
+        if (Math.hypot(tx - s.x, tz - s.z) <= 14.5) return true;
       }
       for (let i = 0; i < minions.length; i++) {
         const m = minions[i];
         if (m.team !== 1 || m.hp <= 0) continue;
-        const d = Math.hypot(hero.x - m.x, hero.z - m.z);
-        if (d <= 9.5 && !segmentBlockedByObstacle(m.x, m.z, hero.x, hero.z)) return true;
+        const d = Math.hypot(tx - m.x, tz - m.z);
+        if (d <= 10.5 && !segmentBlockedByObstacle(m.x, m.z, tx, tz)) return true;
       }
       return false;
+    }
+    function isPointVisibleToTeam(tx, tz, team) {
+      return team === 0 ? isPointVisibleToOrder(tx, tz) : isPointVisibleToChaos(tx, tz);
+    }
+    // a stealthed unit shimmers for `team` when any of that team's units stands within STEALTH_REVEAL_R
+    function stealthRevealedTo(u, team) {
+      const R = STEALTH_REVEAL_R + (u.r || 0.5);
+      if (team === 0 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - u.x, hero.z - u.z) <= R) return true;
+      for (let i = 0; i < bots.length; i++) {
+        const b = bots[i];
+        if (b.team === team && b !== u && b.respawnTimer <= 0 && Math.hypot(b.x - u.x, b.z - u.z) <= R) return true;
+      }
+      for (let i = 0; i < minions.length; i++) {
+        const m = minions[i];
+        if (m.team === team && m.hp > 0 && Math.hypot(m.x - u.x, m.z - u.z) <= R) return true;
+      }
+      return false;
+    }
+    // stealthed and nobody of `team` close enough to see the shimmer (can't be targeted by that team's AI)
+    function stealthHiddenFrom(u, team) {
+      if (!((u.stealthTimer || 0) > 0)) return false;
+      if (team === 0 && DEV_REVEAL) return false;
+      return !stealthRevealedTo(u, team);
+    }
+    function isUnitSeenBy(u, team) {
+      if (!u) return false;
+      if ((u.stealthTimer || 0) > 0) return !stealthHiddenFrom(u, team);
+      return isPointVisibleToTeam(u.x, u.z, team);
+    }
+    function isUnseen(u) { return !isUnitSeenBy(u, 1 - unitTeam(u)); }
+    // kept for older callers: the player spotted by Chaos
+    function isPlayerSeenByChaos() { return isUnitSeenBy(hero, 1); }
+    // dev: which Chaos source sees a unit (for ?visdebug and tests)
+    function whoSeesForChaos(u) {
+      if ((u.stealthTimer || 0) > 0) return stealthHiddenFrom(u, 1) ? '' : 'stealth reveal (3m)';
+      if (!matchMode) return '';
+      const tx = u.x, tz = u.z;
+      if (Math.hypot(tx + MAP.BASE.fountain.x, tz - MAP.BASE.fountain.z) <= 24) return 'chaos fountain';
+      for (const b of bots) {
+        if (b.team !== 1 || b.respawnTimer > 0) continue;
+        const d = Math.hypot(tx - b.x, tz - b.z);
+        if (d <= 3.2 || (d <= 16.0 && !segmentBlockedByObstacle(b.x, b.z, tx, tz))) return 'bot ' + (b.id || b.heroType) + ' ' + d.toFixed(1) + 'm';
+      }
+      for (const st of structures) {
+        if (st.team !== 1 || st.hp <= 0) continue;
+        const d = Math.hypot(tx - st.x, tz - st.z);
+        if (d <= 14.5) return 'structure ' + (st.id || st.kind || '') + ' ' + d.toFixed(1) + 'm';
+      }
+      for (const m of minions) {
+        if (m.team !== 1 || m.hp <= 0) continue;
+        const d = Math.hypot(tx - m.x, tz - m.z);
+        if (d <= 10.5 && !segmentBlockedByObstacle(m.x, m.z, tx, tz)) return 'minion ' + d.toFixed(1) + 'm';
+      }
+      return '';
+    }
+    const VIS_DEBUG = /[?&]visdebug/.test(location.search);
+    // ?visdebug&vistest: hop the player around the jungle and log what sees him at each spot
+    let visT = 0, visIdx = 0;
+    let visDomT = 0, visDomN = 0;
+    const VIS_POINTS = [[-30, -12], [-24, 14], [-42, 2], [-12, 24], [-18, -24], [-36, 22], [-50, -20]];
+    function visDebugLog(dt, seer) {
+      if (!/[?&]vistest/.test(location.search)) return;
+      visT += dt;
+      if (visT < 1.0) return;
+      visT = 0;
+      if (visIdx > 0) console.log('VISTEST ' + hero.x.toFixed(1) + ',' + hero.z.toFixed(1) + ' unseen=' + hero.isUnseen + ' seer=' + (seer || '-'));
+      if (visIdx >= VIS_POINTS.length) { if (visIdx === VIS_POINTS.length) console.log('VISTEST done'); visIdx++; return; }
+      hero.x = VIS_POINTS[visIdx][0]; hero.z = VIS_POINTS[visIdx][1];
+      visIdx++;
+    }
+    // Player "UNSEEN" indicator: a soft dark-violet vignette + eye tag while no enemy can see you
+    let unseenEl = null, unseenFade = 0;
+    function updateUnseenIndicator(dt) {
+      if (!unseenEl) {
+        unseenEl = document.createElement('div');
+        unseenEl.id = 'unseen-indicator';
+        unseenEl.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:50;opacity:0;' +
+          'background:radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(30,16,60,0.55) 100%);';
+        const tag = document.createElement('div');
+        tag.textContent = '\u{1F441} UNSEEN';
+        tag.style.cssText = 'position:absolute;top:26%;left:50%;transform:translateX(-50%);padding:3px 12px;border-radius:12px;' +
+          'background:rgba(30,16,60,0.75);color:#c4b5fd;font:bold 13px sans-serif;letter-spacing:2px;border:1px solid rgba(196,181,253,0.4);';
+        unseenEl.appendChild(tag);
+        document.body.appendChild(unseenEl);
+      }
+      if (VIS_DEBUG) {
+        const tag = unseenEl.firstChild;
+        const seer = hero.isUnseen ? '' : whoSeesForChaos(hero);
+        tag.textContent = hero.isUnseen ? '\u{1F441} UNSEEN' : ('SEEN BY: ' + (seer || (matchMode ? '?' : 'no match')));
+        unseenEl.style.opacity = '1';
+        unseenEl.style.background = hero.isUnseen ? unseenEl.dataset.bg || '' : 'none';
+        if (!unseenEl.dataset.bg) unseenEl.dataset.bg = 'radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(30,16,60,0.55) 100%)';
+        visDebugLog(dt, seer);
+        visDomT = (visDomT || 0) + dt;
+        if (/[?&]visdom/.test(location.search) && visDomT > 2 && visDomN < 4) {
+          visDomT = 0; visDomN++;
+          const r = tag.getBoundingClientRect();
+          const top = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+          console.log('VISTEST dom inBody=' + document.body.contains(unseenEl) + ' op=' + getComputedStyle(unseenEl).opacity + ' disp=' + getComputedStyle(unseenEl).display +
+            ' rect=' + Math.round(r.left) + ',' + Math.round(r.top) + ',' + Math.round(r.width) + 'x' + Math.round(r.height) + ' text=' + tag.textContent +
+            ' topEl=' + (top ? (top.tagName + '#' + top.id + '.' + top.className) : 'null') + ' match=' + matchMode);
+          if (visDomN === 4) console.log('VISTEST done');
+        }
+        return;
+      }
+      const want = hero.isUnseen ? 1 : 0;
+      unseenFade += Math.sign(want - unseenFade) * Math.min(Math.abs(want - unseenFade), dt / 0.25);
+      unseenEl.style.opacity = unseenFade.toFixed(3);
     }
 
     // =========================================================
@@ -1843,7 +1957,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Panther Passive ("Shadow Stalker"): +28% Move Speed (+38% with 3L Duskwalker) while Unseen by enemies (or lingering for 2.2s/3.5s after being spotted!)
       let pantherUnseen = false;
       if (heroId === 'panther' && playerProg.respawnTimer <= 0) {
-        if (!isPlayerSeenByChaos()) {
+        if (!isUnitSeenBy(hero, 1)) {
           hero.unseenLingerTimer = playerProg.talents[3] === 'L' ? 3.5 : 2.2;
         }
         if ((hero.stealthTimer || 0) > 0 || (hero.unseenLingerTimer || 0) > 0) {
@@ -1901,7 +2015,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (team === 0) return getHostileTargets();
       const list = [];
       if (!matchMode) return list;
-      if (playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0) list.push({ kind: 'player', ref: hero, x: hero.x, z: hero.z, r: hero.r || 0.52 });
+      if (playerProg.respawnTimer <= 0 && !stealthHiddenFrom(hero, 1)) list.push({ kind: 'player', ref: hero, x: hero.x, z: hero.z, r: hero.r || 0.52 });
       bots.forEach((b) => { if (b.team === 0 && b.respawnTimer <= 0) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r }); });
       minions.forEach((m) => { if (m.team === 0 && m.hp > 0) list.push({ kind: 'minion', ref: m, x: m.x, z: m.z, r: m.r }); });
       camps.forEach((c) => { if (c.respawnTimer <= 0 && c.hp > 0) list.push({ kind: 'camp', ref: c, x: c.x, z: c.z, r: c.r }); });
@@ -3096,6 +3210,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
         b.tauntTimer = Math.max(0, (b.tauntTimer || 0) - dt);
         CC.tick(b, dt);
         b.stealthTimer = Math.max(0, (b.stealthTimer || 0) - dt);
+        // shared unseen state (vision system); Panther's passive keeps its speed 2.2s after she's spotted
+        b.isUnseen = matchMode && b.respawnTimer <= 0 && isUnseen(b);
+        if (b.heroType === 'panther') b.unseenLingerTimer = b.isUnseen ? 2.2 : Math.max(0, (b.unseenLingerTimer || 0) - dt);
         b.arenaTimer = Math.max(0, (b.arenaTimer || 0) - dt);
         if ((b.qTempoTimer || 0) > 0) {
           b.qTempoTimer -= dt;
@@ -3255,7 +3372,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             bestTarget = { kind: taunter === hero ? 'player' : 'bot', ref: taunter };
           } else if (b.team === 0) {
             bots.forEach((eb) => {
-              if (eb.team === 1 && eb.respawnTimer <= 0 && (eb.stealthTimer || 0) <= 0) {
+              if (eb.team === 1 && eb.respawnTimer <= 0 && !stealthHiddenFrom(eb, 0)) {
                 considerCandidate({ kind: 'bot', ref: eb }, Math.hypot(eb.x - b.x, eb.z - b.z));
               }
             });
@@ -3280,11 +3397,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
               });
             }
           } else {
-            if (playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0) {
+            if (playerProg.respawnTimer <= 0 && !stealthHiddenFrom(hero, 1)) {
               considerCandidate({ kind: 'player', ref: hero }, Math.hypot(hero.x - b.x, hero.z - b.z));
             }
             bots.forEach((ab) => {
-              if (ab.team === 0 && ab.respawnTimer <= 0 && (ab.stealthTimer || 0) <= 0) {
+              if (ab.team === 0 && ab.respawnTimer <= 0 && !stealthHiddenFrom(ab, 1)) {
                 considerCandidate({ kind: 'bot', ref: ab }, Math.hypot(ab.x - b.x, ab.z - b.z));
               }
             });
@@ -3321,7 +3438,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               const al = allies[aIdx];
               if (Math.hypot(al.x - b.x, al.z - b.z) > 10.5) continue;
               // Find closest enemy hero attacking this ally
-              if (b.team === 1 && playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0 && Math.hypot(hero.x - al.x, hero.z - al.z) <= 3.6) {
+              if (b.team === 1 && playerProg.respawnTimer <= 0 && !stealthHiddenFrom(hero, 1) && Math.hypot(hero.x - al.x, hero.z - al.z) <= 3.6) {
                 allyToPeel = al;
                 bestTarget = { kind: 'player', ref: hero };
                 bestDist = Math.hypot(hero.x - b.x, hero.z - b.z);
@@ -3607,7 +3724,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const isKitingStep = isHard && b.range > 4.0 && bestTarget && bestDist < 5.4;
           if (distGoal > 0.6 && CC.canMove(b) && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
             isMoving = true;
-            const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : 0);
+            const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : (b.heroType === 'panther' && (b.unseenLingerTimer || 0) > 0 ? 0.28 : 0));
             const spdKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
             const kitSpdMult = (spdKit && spdKit.botSpeedMult && kitBotReady(b.heroType)) ? spdKit.botSpeedMult(b) : 1;
             const spd = b.spd * (1 + bonusSpd) * (b.slowTimer > 0 ? 0.68 : 1.0) * kitSpdMult;
@@ -3664,7 +3781,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           }
         }
 
-        const vis = b.team === 0 || isPointVisibleToOrder(b.x, b.z);
+        const vis = b.team === 0 || isUnitSeenBy(b, 0);
         b.pivot.visible = vis;
         if (!vis) { const hk = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType]; if (hk && hk.botHide) hk.botHide(b); }
         if (b.bowPivot) b.bowPivot.visible = vis;
@@ -4597,7 +4714,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Draw Bots
       bots.forEach((b) => {
         if (b.respawnTimer > 0) return;
-        if (b.team === 1 && !isPointVisibleToOrder(b.x, b.z)) return;
+        if (b.team === 1 && !isUnitSeenBy(b, 0)) return;
         c.fillStyle = b.team === 0 ? '#22d3ee' : '#f43f5e';
         c.beginPath();
         c.arc(toX(b.x), toY(b.z), 4.0, 0, Math.PI * 2);
@@ -4766,6 +4883,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
       addDeployable: (d) => { if (deployables.indexOf(d) < 0) deployables.push(d); },
       removeDeployable: (d) => { const i = deployables.indexOf(d); if (i >= 0) deployables.splice(i, 1); },
       isVisibleToOrder: (x, z) => isPointVisibleToOrder(x, z),
+      isVisibleToTeam: (x, z, team) => isPointVisibleToTeam(x, z, team),
+      // called every frame from loop.js (also outside matches, so ?visdebug shows in training)
+      tickUnseen: (dt) => { hero.isUnseen = matchMode && !gameOver && playerProg.respawnTimer <= 0 && isUnseen(hero); updateUnseenIndicator(dt); },
+      isUnitSeenBy: (u, team) => isUnitSeenBy(u, team),
+      isUnseen: (u) => isUnseen(u),
       // ---- Balance tool hooks (js/duel.js) ----
       // Enter duel mode: no waves (current minions removed), the player and every bot parked; js/duel.js brings bots in.
       devDuelStart: (cx, cz) => {

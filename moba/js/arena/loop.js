@@ -33,6 +33,7 @@ function tick(now) {
   hero.stealthTimer = Math.max(0, (hero.stealthTimer || 0) - dt);
   hero.stealthExitTimer = Math.max(0, (hero.stealthExitTimer || 0) - dt);
   hero.unseenLingerTimer = Math.max(0, (hero.unseenLingerTimer || 0) - dt);
+  if (phase1Engine && phase1Engine.tickUnseen) phase1Engine.tickUnseen(dt);
   if (hero.qTempoTimer > 0) {
     hero.qTempoTimer -= dt;
     if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0;

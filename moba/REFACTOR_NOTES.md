@@ -85,6 +85,12 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
 - [x] **Stun indicator (noted 2026-11-12, done 2026-11-14)**: `js/cc.js` shows spinning stars for stun / knock-up and
   icons for sleep (Zz), fear (!!), taunt (!), root (#) and silence (...) over every unit, plus plate tags. Same file holds
   the shared CC rules (apply / tick / wake / canMove / canAttack / canCast / forced fear + taunt movement).
+- [x] **Unseen / vision system (done 2026-11-14)**: `isPointVisibleToTeam` / `isUnitSeenBy` / `isUnseen` in
+  phase1_engine.js work for any unit and either team; stealth is hidden except within 3 m of an enemy (shimmer);
+  `hero.isUnseen` / `b.isUnseen` each frame. Dev: `?visdebug` shows what sees you, `&vistest` probes jungle spots,
+  `&visdom` logs the indicator's DOM state.
+- [ ] **UNSEEN indicator only where it matters (noted 2026-11-14, UI pass)**: today every hero gets the vignette + tag.
+  Show it only for heroes whose kit uses it (Panther, Coyote); others look the same seen or not.
 - [ ] **Positional sound (noted 2026-11-12, low priority)**: SFX play at full volume wherever they happen on the map.
   Give `SFX.play` an optional world position: fade with distance from the camera focus (silent off-screen / in fog),
   maybe pan left/right by screen side.
