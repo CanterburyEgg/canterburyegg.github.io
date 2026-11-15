@@ -278,7 +278,8 @@ function trySpendMana(slot) {
   const cost = (specs && specs.mpCosts && specs.mpCosts[slot]) || 0;
   if ((hero.mp || 0) < cost) {
     SFX.play('block');
-    spawnFloat(hero.x, 2.6, hero.z, 'NOT ENOUGH MANA (' + cost + ' MP)!', '#38bdf8');
+    const res = specs && specs.resource;
+    spawnFloat(hero.x, 2.6, hero.z, res ? ('NOT ENOUGH ' + res.name + ' (' + cost + ')!') : ('NOT ENOUGH MANA (' + cost + ' MP)!'), res ? res.colors[1] : '#38bdf8');
     return false;
   }
   hero.mp = Math.max(0, (hero.mp || 0) - cost);

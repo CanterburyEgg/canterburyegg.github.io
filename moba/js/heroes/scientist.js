@@ -1,7 +1,8 @@
 // Saw Scientist: Jungle • Reckless mad-surgeon brawler. See DESIGN_RULES.md.
 // First playable pass: real model + clips + saw gun prop, stand-in versions of the designed kit
 // (stab LMB, Rev the Saw toggle channel, Adrenal Injection, Boomerang Blade out-and-back with a pull).
-// Saw Fuel isn't built yet: Q drains mana as a stand-in. Talents are placeholders until the talent pass.
+// Saw Fuel (spec.resource) replaces mana: the player's lives in hero.mp (so the HUD bar / costs work), a bot's in b.fuel.
+// Talents are placeholders until the talent pass.
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -16,6 +17,36 @@ let sawTick = 0;
 const sparks = [];
 let SPARK_GEO = null, SPARK_MAT = null;
 let _hv = null;
+
+// ---- Saw Fuel ----
+// Fills when he takes damage (1 fuel per 1% of max HP lost, his own injection included) and refills slowly while the
+// saw is off; the saw drains while it runs (no start cost); R costs 40.
+const FUEL = { max: 100, drain: 9, refill: 4, perHpPct: 1.0 };
+const fuelOf = (u) => (u.fuel === undefined ? FUEL.max : u.fuel);
+function addFuel(h, amt) { h.mp = Math.min(h.maxMp || FUEL.max, (h.mp || 0) + amt); }
+// damage taken since last frame (heals and respawns don't count)
+function hpLost(u) {
+  const lost = u._fuelHp !== undefined ? Math.max(0, u._fuelHp - u.hp) : 0;
+  u._fuelHp = u.hp;
+  return lost;
+}
+// player: fuel lives in hero.mp
+function fuelTick(h, dt) {
+  const lost = hpLost(h);
+  if (lost > 0) addFuel(h, (lost / Math.max(1, h.maxHp)) * 100 * FUEL.perHpPct);
+  if (wtfMode) return;
+  if (h.sawOn) h.mp = Math.max(0, (h.mp || 0) - FUEL.drain * dt);
+  else addFuel(h, FUEL.refill * dt);
+}
+// bots: fuel lives in b.fuel (bots have no mana)
+function botFuelTick(u, dt) {
+  if (u.respawnTimer > 0) { u.fuel = FUEL.max; u._fuelHp = undefined; return; }
+  let f = fuelOf(u);
+  const lost = hpLost(u);
+  if (lost > 0) f += (lost / Math.max(1, u.maxHp)) * 100 * FUEL.perHpPct;
+  f += (u.sawOn ? -FUEL.drain : FUEL.refill) * dt;
+  u.fuel = Math.max(0, Math.min(FUEL.max, f));
+}
 
 function makeBladeMesh() {
   const g = new THREE.Group();
@@ -69,7 +100,9 @@ H.scientist = {
     asGrow: 0.03,
     baseSpd: 6.1,
     atkCd: 0.9,
-    mpCosts: { Q: 10, E: 0, R: 70 }
+    mpCosts: { Q: 0, E: 0, R: 40 }, // costs in fuel (the saw has no start cost; it drains while running)
+    // Saw Fuel replaces mana (DESIGN_RULES §3): see FUEL below for how it fills and drains
+    resource: { name: 'FUEL', max: 100, colors: ['#c2410c', '#fb923c'] }
   },
 
   talents: {
@@ -92,11 +125,11 @@ H.scientist = {
     r: 'Boomerang Blade',
     banner: '<b>Q</b> Rev the Saw (toggle) &bull; <b>E</b> Adrenal Injection (costs HP) &bull; <b>R</b> Boomerang Blade &bull; <b>P</b> Shop',
     tooltips: {
-      P: { title: 'Passive • Saw Fuel', meta: 'Unique Resource (coming soon)', body: 'Will replace mana: fuel charges when he <b>takes damage</b> or lands basic attacks, and refills slowly while the saw is off. For now the saw drains mana.' },
+      P: { title: 'Passive • Saw Fuel', meta: 'Unique Resource (replaces mana)', body: 'A <b>100 fuel</b> tank instead of mana. It fills when he <b>takes damage</b> (1 fuel per 1% max HP lost, his own injection included) and refills slowly (<b>4/s</b>) while the saw is off. Mana items do nothing for him.' },
       LMB: { title: 'LMB • Surgical Strike', meta: '0 MP • 0.90s Base ATK', body: 'A close-range stab for <b>Attack damage</b>.' },
-      Q: { title: 'Q • Rev the Saw', meta: 'Toggle • drains MP/s', body: 'Rev the saw in front of him: it hits a short frontal cone every 0.35s for <b>44 / 58 / 72 (+7/Lv) + 18% Ability</b>. He moves 25% slower and can\'t basic attack while it runs. Shuts off when out of mana or toggled off.' },
+      Q: { title: 'Q • Rev the Saw', meta: 'Toggle • drains 9 fuel/s', body: 'Rev the saw in front of him: it hits a short frontal cone every 0.35s for <b>44 / 58 / 72 (+7/Lv) + 18% Ability</b>. He moves 25% slower and can\'t basic attack while it runs. Shuts off when out of fuel or toggled off.' },
       E: { title: 'E • Adrenal Injection', meta: 'Costs HP • 10s CD', body: 'Inject: <b>lose 6% of current HP</b>, gain a burst of move speed, and heal back <b>more than you lost</b> over 4s.' },
-      R: { title: 'R • Boomerang Blade', meta: '70 MP • 40s CD (Lv 4)', body: 'Hurl the sawblade out and back (<b>150 / 240 / 330 (+6/Lv) + 80% Ability</b> per pass): damages and <b>slows</b> going out, then damages and <b>pulls</b> enemies toward him on the return. The saw can\'t rev while the blade is away.' }
+      R: { title: 'R • Boomerang Blade', meta: '40 fuel • 40s CD (Lv 4)', body: 'Hurl the sawblade out and back (<b>150 / 240 / 330 (+6/Lv) + 80% Ability</b> per pass): damages and <b>slows</b> going out, then damages and <b>pulls</b> enemies toward him on the return. The saw can\'t rev while the blade is away.' }
     }
   },
 
@@ -159,7 +192,7 @@ H.scientist = {
       }
       if (!wtfMode && hero.cdQ > 0) return;
       if (blade) { spawnFloat(hero.x, 2.6, hero.z, 'BLADE IS OUT!', '#fb7185'); return; }
-      if (!trySpendMana('Q')) return;
+      if (!wtfMode && (hero.mp || 0) < 1) { SFX.play('block'); spawnFloat(hero.x, 2.6, hero.z, 'OUT OF FUEL!', '#fb923c'); return; }
       hero.sawOn = true;
       sawTick = 0;
       SFX.play('arena');
@@ -217,8 +250,8 @@ H.scientist = {
       if (activeHeroId === 'scientist') hero.hp = Math.min(hero.maxHp, hero.hp + (hero.injectHealPerSec || 0) * dt);
     }
     if (activeHeroId !== 'scientist') { hero.sawOn = false; return; }
+    fuelTick(hero, dt);
     if (hero.sawOn) {
-      hero.mp = Math.max(0, hero.mp - 9 * dt);
       if (hero.mp <= 0 && !wtfMode) {
         hero.sawOn = false;
         hero.cdQ = 1.0;
@@ -246,7 +279,7 @@ H.scientist = {
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L['sc_' + slot] = (L['sc_' + slot] || 0) + 1;
     if (slot === 'Q') {
       if (hero.sawOn) { hero.sawOn = false; hero.cdQ = 1.0; return; }
-      if (hero.cdQ > 0 || hero.scBlade) return;
+      if (hero.cdQ > 0 || hero.scBlade || fuelOf(hero) < 1) return;
       hero.sawOn = true;
       hero.sawT = 0;
       hero.sawTick = 0;
@@ -259,7 +292,8 @@ H.scientist = {
       actor.play('kick', 0.06, true, 2.2, 0.6, 0.65);
       hero.pendingInject = { t: 0.5, rQE };
     } else if (slot === 'R') {
-      if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade) return;
+      if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade || fuelOf(hero) < H.scientist.spec.mpCosts.R) return;
+      hero.fuel = fuelOf(hero) - H.scientist.spec.mpCosts.R;
       hero.cdR = 40 * (ctx.cdrMult || 1);
       hero.sawOn = false;
       hero.kickAnim = 0.45;
@@ -306,7 +340,8 @@ H.scientist = {
       u.injectTimer -= dt;
       u.hp = Math.min(u.maxHp, u.hp + (u.injectHealPerSec || 0) * dt);
     }
-    if (u.sawOn && (u.sawT || 0) > 6) { u.sawOn = false; u.cdQ = 1.0; } // safety: bots never rev forever
+    botFuelTick(u, dt);
+    if (u.sawOn && ((u.sawT || 0) > 6 || fuelOf(u) <= 0)) { u.sawOn = false; u.cdQ = 1.0; } // out of fuel (or the 6s safety cap)
     if (u.sawOn) {
       u.sawT = (u.sawT || 0) + dt;
       u.sawTick = (u.sawTick || 0) - dt;

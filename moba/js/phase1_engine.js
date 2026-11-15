@@ -1820,7 +1820,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         hero.maxHp = st.maxHp;
         hero.maxMp = st.maxMp;
         hero.hp = Math.min(hero.maxHp, hero.hp + 180);
-        hero.mp = Math.min(hero.maxMp, (hero.mp || 0) + 95);
+        if (!heroResource()) hero.mp = Math.min(hero.maxMp, (hero.mp || 0) + 95); // own resources don't refill on level-up
         SFX.play('chime');
         spawnShockRing(hero.x, hero.z, 0xfde047, 0.3, 2.2, 0.4);
         spawnFloat(hero.x, 2.9, hero.z, 'LEVEL UP! LV ' + playerProg.level, '#fde047');
@@ -1917,6 +1917,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (st.slowOnHit) o.slowOnHit = Math.max(o.slowOnHit, st.slowOnHit);
         if (st.executeAmp) o.executeAmp = Math.max(o.executeAmp, st.executeAmp);
       });
+      // Per-hero resource (spec.resource, e.g. the Scientist's fuel) replaces mana: fixed pool, no natural regen
+      // (the kit refills it), and mana items do nothing for that hero.
+      if (spec.resource) { o.maxMp = spec.resource.max; o.mpRegen = 0; }
       return withStatAliases(o);
     }
     // legacy names for kits/UI that still read the old stats (removed once every kit is converted)
@@ -1935,6 +1938,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return u.armor || 0;
     }
 
+    // the active hero's own resource spec ({ name, max, colors }) or null for mana
+    function heroResource() {
+      const spec = DATA.HERO_SPECS && DATA.HERO_SPECS[getActiveHeroId()];
+      return (spec && spec.resource) || null;
+    }
     function getPlayerStats() {
       const heroId = getActiveHeroId();
       const base = computeUnitStats(heroId, playerProg.level, playerProg.items);
@@ -3562,13 +3570,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
               const actor = botActor(b);
               b.aimTarget = bestTarget;
               const edge = bestDist - ((bestTarget.ref && bestTarget.ref.r) || 0.5); // gap to their edge (camps are big)
+              const fuel = b.fuel === undefined ? 100 : b.fuel; // Saw Fuel (scientist.js): rev with 25+ in the tank, blade costs 40
               if (b.sawOn && (edge > 4.8 || (b.sawT || 0) > 5.5)) {
                 kit.castFor(actor, 'Q'); // saw off (it stays on through short gaps; toggling wastes it)
-              } else if (b.level >= 4 && b.cdR <= 0 && !b.scBlade && isHeroTarget && bestDist >= 4.0 && bestDist <= 10.0) {
+              } else if (b.level >= 4 && b.cdR <= 0 && !b.scBlade && fuel >= 40 && isHeroTarget && bestDist >= 4.0 && bestDist <= 10.0) {
                 kit.castFor(actor, 'R');
               } else if (b.cdE <= 0 && ((b.hp / b.maxHp < 0.6 && bestDist <= 5.0) || (isHeroTarget && edge >= 2.2 && edge <= 7.0))) {
                 kit.castFor(actor, 'E'); // heal when hurt, or the speed burst to catch a hero who's kiting him
-              } else if (!b.sawOn && b.cdQ <= 0 && edge <= 2.6 && (isHeroTarget || bestTarget.kind === 'camp')) {
+              } else if (!b.sawOn && b.cdQ <= 0 && fuel >= 25 && edge <= 2.6 && (isHeroTarget || bestTarget.kind === 'camp')) {
                 kit.castFor(actor, 'Q'); // saw on
               }
             }
@@ -4928,7 +4937,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           stunTimer: 0, slowTimer: 0, tauntTimer: 0, stealthTimer: 0, knockbackTimer: 0, knockbackVx: 0, knockbackVz: 0,
           bleedStacks: 0, bleedTimer: 0, leapTimer: 0, leapOnLand: null, leapHeight: undefined, dashTimer: 0, dashOnEnd: null,
           rChargeTimer: 0, arenaTimer: 0, monoTimer: 0, eRecast: 0, aimTarget: null,
-          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null,
+          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null, fuel: undefined, _fuelHp: undefined,
           impPendingQ: null, impStrike: null, impRocket: false, laneDone: false
         });
         CC.clear(b);

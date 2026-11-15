@@ -745,6 +745,10 @@ function tick(now) {
   const mpPlateBar = heroPlate.querySelector('.plate-mp');
   if (mpPlateBar) {
     mpPlateBar.style.width = Math.max(0, ((hero.mp || 0) / Math.max(1, hero.maxMp || 1)) * 100) + '%';
+    // per-hero resource colours (spec.resource), same as the big bar
+    const plRes = window.MOBA_PHASE1 && window.MOBA_PHASE1.HERO_SPECS[activeHeroId] && window.MOBA_PHASE1.HERO_SPECS[activeHeroId].resource;
+    const plGrad = plRes ? 'linear-gradient(90deg,' + plRes.colors[0] + ',' + plRes.colors[1] + ')' : '';
+    if (mpPlateBar.dataset.grad !== plGrad) { mpPlateBar.dataset.grad = plGrad; mpPlateBar.style.background = plGrad; }
   }
   const kitHud = heroKit();
   const kitTag = (kitHud && kitHud.hudTag) ? kitHud.hudTag(st) : '';
@@ -799,7 +803,12 @@ function tick(now) {
   const maxMp = Math.max(1, hero.maxMp || st.maxMp || 310);
   const curMp = Math.round(hero.mp !== undefined ? hero.mp : maxMp);
   document.getElementById('mp3d-fill').style.width = Math.max(0, (curMp / maxMp) * 100) + '%';
-  document.getElementById('mp3d-txt').textContent = curMp + ' / ' + maxMp + ' MP';
+  // per-hero resource (spec.resource) relabels and recolours the mana bar
+  const resSpec = window.MOBA_PHASE1 && window.MOBA_PHASE1.HERO_SPECS[activeHeroId] && window.MOBA_PHASE1.HERO_SPECS[activeHeroId].resource;
+  document.getElementById('mp3d-txt').textContent = curMp + ' / ' + maxMp + (resSpec ? ' ' + resSpec.name : ' MP');
+  const mpFill = document.getElementById('mp3d-fill');
+  const mpGrad = resSpec ? 'linear-gradient(90deg,' + resSpec.colors[0] + ',' + resSpec.colors[1] + ')' : 'linear-gradient(90deg,#0284c7,#38bdf8)';
+  if (mpFill.dataset.grad !== mpGrad) { mpFill.dataset.grad = mpGrad; mpFill.style.background = mpGrad; }
 
   document.getElementById('lbl3d-q').textContent = hero.cdQ > 0.05 ? hero.cdQ.toFixed(1) + 's' : meta.q;
   document.getElementById('lbl3d-e').textContent = hero.cdE > 0.05 && hero.eRecast <= 0 ? hero.cdE.toFixed(1) + 's' : meta.e;
