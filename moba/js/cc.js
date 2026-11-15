@@ -10,9 +10,9 @@
 //   Silence   can move and attack; can't cast
 //   Fear      forced to run away from the source; can't attack or cast
 //   Taunt     forced to walk at and attack the taunter; can't cast
-//   Slow      reduced move speed
+//   Slow      reduced move speed (CC.slow / slowMult: opts.slowPct sets the strength, default 32%)
 // Apply with CC.apply(unit, opts, src): opts.stunDur / slowDur / rootDur / silenceDur / fearDur / knockupDur /
-// sleepDur / tauntDur; src = { x, z, unit } is the caster (fear runs from it, taunt walks at it).
+// sleepDur / tauntDur (+ slowPct); src = { x, z, unit } is the caster (fear runs from it, taunt walks at it).
 (function () {
   'use strict';
   const max = (a, b) => Math.max(a || 0, b || 0);
@@ -20,7 +20,7 @@
     apply(u, opts, src) {
       if (!u || !opts) return;
       if (opts.stunDur > 0) u.stunTimer = max(u.stunTimer, opts.stunDur);
-      if (opts.slowDur > 0) u.slowTimer = max(u.slowTimer, opts.slowDur);
+      if (opts.slowDur > 0) CC.slow(u, opts.slowDur, opts.slowPct);
       if (opts.rootDur > 0) u.rootTimer = max(u.rootTimer, opts.rootDur);
       if (opts.silenceDur > 0) u.silenceTimer = max(u.silenceTimer, opts.silenceDur);
       if (opts.knockupDur > 0) {
@@ -37,6 +37,20 @@
         u.tauntTimer = max(u.tauntTimer, opts.tauntDur);
         u.tauntBy = src.unit || null;
       }
+    },
+    // Slow with a strength (slowPct 0.25 = 25% slower). Without one it's the old standard slow (32%; minions and camps
+    // read it as their own 28%). While a slow is running the stronger strength wins; the timer is shared.
+    slow(u, dur, pct) {
+      if (!u || !(dur > 0)) return;
+      const p = pct > 0 ? pct : 0;
+      const eff = (x) => (x > 0 ? x : 0.32); // 0 = the standard slow
+      u.slowPct = (u.slowTimer > 0 && eff(u.slowPct) > eff(p)) ? u.slowPct : p;
+      u.slowTimer = max(u.slowTimer, dur);
+    },
+    // move-speed multiplier from slows (defPct = this unit type's standard slow when none was given)
+    slowMult(u, defPct = 0.32) {
+      if (!u || !(u.slowTimer > 0)) return 1;
+      return 1 - (u.slowPct > 0 ? u.slowPct : defPct);
     },
     // the timers this file owns (stun / slow / taunt keep ticking where they always did)
     tick(u, dt) {

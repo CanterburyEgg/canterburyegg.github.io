@@ -101,7 +101,7 @@ Almost every distribution question (mobility, CC, shields and speed, what talent
 - **LMB (crossbow, applies bleed):** keep.
 - **Mobility:** none. His safety comes from range, positioning, the trap and the grenade slow. If testing shows he's helpless, add a small conditional tool (e.g. a backward hop on a close-range grenade), never a free dash.
 - **Q → Bear Trap (replaces Fan Volley).** The volley wanted him close and R wants him far; the trap stacks bleed while he stays back. Thrown to a spot within ~6m, it arms after 0.5s and then turns **invisible to enemies**. The first enemy to step on it is **rooted for 1.0s and takes 2 bleed stacks**. Up to **2 charges**; a trap lasts ~30s. Works as peel (drop it at your feet) and as an ambush (trap a bush, then snipe). This is the roster's first root.
-- **E (Shrapnel Grenade):** keep. **The slow becomes baseline** (25%, 45% on a bullseye); a talent can improve the bullseye slow later. A bullseye still adds +2 bleed.
+- **E (Shrapnel Grenade):** keep. **The slow becomes baseline** (25%, 45% on a bullseye); a talent can improve the bullseye slow later. Bleed: outer ring +1, bullseye +3 (decided 2026-11-14).
 - **R (Heartseeker):** keep the charged snipe that detonates bleed. **New: the aiming laser is invisible to enemies while Coyote is unseen** (brush or fog), so a snipe from hiding is a true surprise.
 - Dependency: needs a shared "unseen / vision" system (Panther's passive uses it too).
 

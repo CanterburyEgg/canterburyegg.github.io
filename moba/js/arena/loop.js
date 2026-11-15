@@ -262,7 +262,7 @@ function tick(now) {
     if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
       isMoving = true;
       const baseSpd = (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
-      const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * ((hero.slowTimer || 0) > 0 ? 0.68 : 1.0);
+      const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * CC.slowMult(hero);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
       const kitSpd = heroKit() && heroKit().speedMult ? heroKit().speedMult() : 1;
       const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow * kitSpd;

@@ -47,7 +47,7 @@ function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = 
     vz: Math.cos(angle) * spd,
     dmg,
     dmgType: 'physical',
-    src: isPiercingHeartseeker ? 'ability' : 'attack', // basics + Q bolts are Attack damage; Heartseeker is Ability
+    src: isPiercingHeartseeker ? 'ability' : 'attack', // basics are Attack damage; Heartseeker is Ability
     bleedAdd,
     isHeartseeker: isPiercingHeartseeker,
     pierce: isPiercingHeartseeker || forcePierce,
@@ -64,6 +64,130 @@ function getPendingGrenade(actor) { return actor.isPlayer ? pendingGrenadeThrow 
 function setPendingGrenade(actor, g) { if (actor.isPlayer) pendingGrenadeThrow = g; else actor.unit.coyPendingGrenade = g; }
 
 const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBonus: 1.25 };
+
+// ---- Q: Bear Trap (DESIGN_RULES Coyote) ----
+// Thrown to a spot within TRAP.range; arms after TRAP.arm s, then it's invisible to enemies (they see a faint shimmer
+// within 3m, like other stealth). The first enemy hero to step on it is rooted and takes bleed. 2 charges (KitFx.charges).
+const TRAP = { range: 6.0, arm: 0.5, life: 30, root: 1.0, bleed: 2, trigR: 0.65, maxActive: 3, recharge: [12, 11, 10], reveal: 3.0 };
+KitFx.charges.slotFor.trap = 'Q';
+const traps = [];
+function makeTrapMesh() {
+  const g = new THREE.Group();
+  const iron = new THREE.MeshStandardMaterial({ color: 0x4b5563, metalness: 0.7, roughness: 0.45, transparent: true });
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.26, 0.05, 14), iron);
+  base.position.y = 0.03;
+  g.add(base);
+  const jaws = [];
+  for (let side = -1; side <= 1; side += 2) {
+    const jaw = new THREE.Group();
+    const arc = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.035, 6, 18, Math.PI), iron);
+    arc.rotation.x = Math.PI / 2;
+    jaw.add(arc);
+    for (let k = 1; k < 8; k++) {
+      const a = (k / 8) * Math.PI;
+      const tooth = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.11, 5), iron);
+      tooth.position.set(Math.cos(a) * 0.42, 0.06, Math.sin(a) * 0.42);
+      jaw.add(tooth);
+    }
+    jaw.rotation.y = side > 0 ? 0 : Math.PI;
+    jaw.position.y = 0.05;
+    jaw.userData.side = side;
+    g.add(jaw);
+    jaws.push(jaw);
+  }
+  g.userData.jaws = jaws;
+  g.userData.mat = iron;
+  return g;
+}
+function throwTrap(actor, tx, tz) {
+  const u = actor.unit;
+  const team = actor.isPlayer ? 0 : (actor.team || 0);
+  const owner = actor.isPlayer ? null : actor;
+  // oldest trap goes when this caster already has the max out
+  const mine = traps.filter((t) => t.owner === owner && t.state !== 'snapped');
+  if (mine.length >= TRAP.maxActive) removeTrap(traps.indexOf(mine[0]));
+  const mesh = makeTrapMesh();
+  mesh.position.set(u.x, 1.2, u.z);
+  scene.add(mesh);
+  traps.push({ owner, team, sx: u.x, sz: u.z, tx, tz, x: tx, z: tz, t: 0, dur: 0.35, armT: TRAP.arm, life: TRAP.life, snapT: 0, state: 'flying', mesh });
+  SFX.play('dash');
+}
+function removeTrap(i) {
+  if (i < 0) return;
+  scene.remove(traps[i].mesh);
+  traps.splice(i, 1);
+}
+function snapTrap(tr) {
+  tr.state = 'snapped';
+  tr.snapT = 0.6;
+  SFX.play('punch');
+  spawnShockRing(tr.x, tr.z, 0xf43f5e, 0.15, 1.0, 0.22);
+  spawnFloat(tr.x, 2.5, tr.z, 'TRAPPED!', '#f43f5e');
+}
+function updateTraps(dt) {
+  for (let i = traps.length - 1; i >= 0; i--) {
+    const tr = traps[i];
+    const m = tr.mesh;
+    if (tr.state === 'flying') {
+      tr.t += dt;
+      const k = Math.min(1, tr.t / tr.dur);
+      m.position.set(tr.sx + (tr.tx - tr.sx) * k, (1 - k) * 1.2 + Math.sin(k * Math.PI) * 1.4, tr.sz + (tr.tz - tr.sz) * k);
+      m.rotation.y += dt * 9;
+      if (k >= 1) { tr.state = 'arming'; m.position.set(tr.x, 0, tr.z); }
+    } else if (tr.state === 'arming') {
+      tr.armT -= dt;
+      if (tr.armT <= 0) tr.state = 'armed';
+    } else if (tr.state === 'armed') {
+      tr.life -= dt;
+      if (tr.life <= 0) { removeTrap(i); continue; }
+      const victim = findTrapVictim(tr);
+      if (victim) springTrap(tr, victim);
+    } else if (tr.state === 'snapped') {
+      tr.snapT -= dt;
+      m.userData.jaws.forEach((j) => { j.rotation.z = THREE.MathUtils.lerp(j.rotation.z, j.userData.side * 1.25, 0.5); });
+      if (tr.snapT <= 0) { removeTrap(i); continue; }
+    }
+    // who sees it: its own team always; enemies only while it's in the air / arming (and in their vision),
+    // then just a faint shimmer if the player is within TRAP.reveal of an armed enemy trap
+    let op = 1;
+    if (tr.team !== 0) {
+      const inVision = !phase1Engine || !phase1Engine.isVisibleToOrder || phase1Engine.isVisibleToOrder(tr.x, tr.z);
+      if (tr.state === 'armed') op = Math.hypot(hero.x - tr.x, hero.z - tr.z) <= TRAP.reveal ? 0.25 : 0;
+      else op = inVision ? 1 : 0;
+    } else if (tr.state === 'armed') op = 0.55;
+    m.visible = op > 0;
+    m.userData.mat.opacity = op;
+  }
+}
+// first enemy hero standing on an armed trap (the player's traps also catch training dummies)
+function findTrapVictim(tr) {
+  const R = TRAP.trigR;
+  if (!tr.owner) {
+    for (const d of dummies) {
+      if (d.isShooter && !shooterEnabled) continue;
+      if (Math.hypot(d.x - tr.x, d.z - tr.z) <= R + d.r) return { dummy: d };
+    }
+    if (phase1Engine) {
+      const t = phase1Engine.getHostileTargets().find((h) => h.kind === 'bot' && Math.hypot(h.x - tr.x, h.z - tr.z) <= R + (h.r || 0.5));
+      if (t) return { unit: t };
+    }
+    return null;
+  }
+  const t = tr.owner.hostiles().find((h) => (h.kind === 'bot' || h.kind === 'player') && Math.hypot(h.x - tr.x, h.z - tr.z) <= R + (h.r || 0.5));
+  return t ? { unit: t } : null;
+}
+function springTrap(tr, v) {
+  snapTrap(tr);
+  if (v.dummy) {
+    CC.apply(v.dummy, { rootDur: TRAP.root }, { x: tr.x, z: tr.z });
+    applyBleedStacks(v.dummy, TRAP.bleed);
+    v.dummy.hitFlash = 0.09;
+    return;
+  }
+  const opts = { rootDur: TRAP.root, bleedAdd: TRAP.bleed, color: '#f43f5e' };
+  if (tr.owner) tr.owner.damage(v.unit, 0, opts);
+  else if (phase1Engine) phase1Engine.dealPlayerDamageToUnit(v.unit, 0, opts);
+}
 
 function fireHeartseekerRelease(actor) {
   const hero = actor.unit; // (local alias: the caster)
@@ -89,6 +213,9 @@ function fireHeartseekerRelease(actor) {
     spawnFloat(hero.x, 2.75, hero.z, 'QUICK SHOT (' + Math.round(power * 100) + '%)', '#fb7185');
   }
 }
+
+// E: bleed + baseline slow (outer ring / bullseye)
+const GRENADE = { bleedOuter: 1, bleedBull: 3, slowDur: 2.0, slowOuter: 0.25, slowBull: 0.45 };
 
 function launchShrapnelGrenade(actor, tx, tz) {
   const hero = actor.unit; // (local alias: the caster)
@@ -168,29 +295,19 @@ H.coyote = {
   },
 
   // All of Coyote's damage numbers in one place (used by the kit, the shared bolt code in loop.js and bleed ticks in
-  // the engine). Basics, Q bolts and Bleed are Attack damage; the grenade and Heartseeker are Ability damage.
+  // the engine). Basics and Bleed are Attack damage; the grenade and Heartseeker are Ability damage. The Q trap only roots + bleeds.
   dmg: {
     lmb: (st) => Math.round(st.attack),
     bleedTick: (st) => 4 + 0.09 * st.attack,                                         // per stack, every 0.65s (max 4)
-    qBolt: (st, rQE) => Math.round([25, 40, 55][rQE] + st.attack * 0.55),            // x3 bolts, counts as a basic attack
     grenadeOuter: (st, lvl, rQE) => Math.round([110, 195, 300][rQE] + 10 * ((lvl || 1) - 1) + st.ability * 0.6), // bullseye x2
     heartseeker: (st, rUlt) => Math.round([360, 580, 800][rUlt] + st.ability * 1.0), // x charge power
     popPerStack: (st, rUlt) => Math.round([80, 140, 200][rUlt] + st.ability * 0.3)   // per Bleed stack detonated
   },
 
   talents: {
-    3: {
-      L: { id: '3L', name: 'Bloodhound Stride', desc: '+4% Move Speed per active Bleed stack on nearby enemies' },
-      R: { id: '3R', name: 'Hair-Trigger Crank', desc: 'Q Fan Volley reload time reduced from 1.10s to 0.80s' }
-    },
-    7: {
-      L: { id: '7L', name: 'Concussive Shrapnel', desc: 'E Grenade slows by 25% (45% on Bullseye) for 2.5s' },
-      R: { id: '7R', name: 'Deep Serration', desc: 'Max Bleed stacks increased from 4 to 5 (+25% Bleed & R damage)' }
-    },
-    10: {
-      L: { id: '10L', name: "Executioner's Tempo", desc: 'Detonating 4+ Bleed stacks with R refunds 50% of R cooldown' },
-      R: { id: '10R', name: 'Piercing Broadheads', desc: 'Q Fan Volley fires 5 bolts that pierce all enemies' }
-    }
+    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
   },
 
   ui: {
@@ -202,16 +319,15 @@ H.coyote = {
     role: 'Carry • Ranged Bleed Marksman (Attack)',
     passive: 'Serrated Bolts',
     lmb: 'Bleed Bolt',
-    q: '3-Bolt Fan',
+    q: 'Bear Trap',
     e: 'Grenade',
     r: 'Heartseeker',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>LMB</b> Bleed Bolt &bull; <b>Q</b> Fan Volley &bull; <b>E</b> Shrapnel Grenade (2x Bullseye) &bull; <b>R</b> Heartseeker &bull; <b>P</b> Shop &bull; <b>F</b> Ward &bull; <b>B</b> Recall',
+    banner: '<b>1/2/3/4</b> Hero &bull; <b>LMB</b> Bleed Bolt &bull; <b>Q</b> Bear Trap &bull; <b>E</b> Shrapnel Grenade (2x Bullseye) &bull; <b>R</b> Heartseeker &bull; <b>P</b> Shop &bull; <b>F</b> Ward &bull; <b>B</b> Recall',
     tooltips: {
       P: {
         title: 'Passive • Serrated Broadheads',
         meta: 'Innate Bleed',
-        body: 'Crossbow bolts apply <b>Serrated Bleed</b> for 4.5s (stacks up to <b>4x</b>; 5x with Lv7 Talent), dealing <b>Attack damage over time</b> (4 + 9% Attack per stack per tick) and priming targets for <b>R: Heartseeker</b> detonation.',
-        talentLevels: [3, 7]
+        body: 'Crossbow bolts apply <b>Serrated Bleed</b> for 4.5s (stacks up to <b>4x</b>), dealing <b>Attack damage over time</b> (4 + 9% Attack per stack per tick) and priming targets for <b>R: Heartseeker</b> detonation.'
       },
       LMB: {
         title: 'LMB • Repeating Crossbow',
@@ -219,22 +335,19 @@ H.coyote = {
         body: 'Fires a high-velocity quarrel for <b>100% Attack</b> and applies <b>1 stack of Serrated Bleed</b>.'
       },
       Q: {
-        title: 'Q • 3-Bolt Fan Volley',
-        meta: '40 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Fires a tight spread of <b>3 serrated bolts</b> in a cone, each dealing <b>25 / 40 / 55 + 55% Attack</b> and applying <b>1 stack of Bleed</b>. Counts as a basic attack.',
-        talentLevels: [3, 10]
+        title: 'Q • Bear Trap',
+        meta: '40 MP • 2 charges (12s / 11s / 10s each, Lv 1/6/9)',
+        body: 'Toss a bear trap to a spot within <b>6m</b>. It arms after <b>0.5s</b> and then turns <b>invisible to enemies</b> (they spot a faint shimmer up close). The first enemy hero to step on it is <b>rooted for 1s</b> and takes <b>2 Bleed stacks</b>. Traps last 30s; up to 3 out at once.'
       },
       E: {
         title: 'E • Shrapnel Grenade',
         meta: '55 MP • 11.0s / 9.8s / 8.5s CD (Lv 1/6/9)',
-        body: 'Lobs an explosive black-powder grenade to the target zone. Enemies caught in the <b>inner Bullseye</b> take <b>2x damage</b> and <b>+4 Bleed stacks</b> (outer ring: 80 / 140 / 215 (+7/Lv) + 60% Ability and +2 stacks).',
-        talentLevels: [7]
+        body: 'Lobs an explosive black-powder grenade to the target zone. Everyone hit takes <b>110 / 195 / 300 (+10/Lv) + 60% Ability</b>, <b>+1 Bleed stack</b> and is <b>slowed 25% for 2s</b>. The <b>inner Bullseye</b> deals <b>2x damage</b>, adds <b>3 Bleed stacks</b> instead and slows <b>45%</b>.'
       },
       R: {
         title: 'R • Heartseeker Piercer',
         meta: '90 MP • 42s / 36s / 30s CD (Lv 4/8/12)',
-        body: 'Channel for up to 2.0s, aiming a long-range sniper laser that pierces all enemies and deals <b>260 / 420 / 580 + 100% Ability</b> and <b>detonates all active Bleed stacks</b> (60 / 100 / 140 + 30% Ability each). Damage and range grow with the charge; press <b>R</b> again to fire a weaker Quick Shot early, or hold the full 2.0s for a <b>Perfect Shot (+25% Bleed detonation)</b>.',
-        talentLevels: [10]
+        body: 'Channel for up to 2.0s, aiming a long-range sniper laser that pierces all enemies and deals <b>260 / 420 / 580 + 100% Ability</b> and <b>detonates all active Bleed stacks</b> (60 / 100 / 140 + 30% Ability each). Damage and range grow with the charge; press <b>R</b> again to fire a weaker Quick Shot early, or hold the full 2.0s for a <b>Perfect Shot (+25% Bleed detonation)</b>.'
       }
     }
   },
@@ -330,21 +443,19 @@ H.coyote = {
     if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L[slot] = (L[slot] || 0) + 1; }
     if (!actor.isPlayer) hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
     if (slot === 'Q') {
+      // Bear Trap: 2 charges, thrown to a spot within TRAP.range
       if (hero.rChargeTimer > 0 || hero.grenadeAnim > 0) return;
-      if (!wtfMode && hero.cdQ > 0) return;
+      if (!wtfMode && KitFx.charges.count(hero, 'trap', 2) <= 0) return;
       if (!trySpendMana('Q')) return;
-      hero.cdQ = wtfMode ? 0.25 : [7.5, 6.5, 5.5][rQE] * cdrMult;
-      hero.atkTimer = (talents[3] === 'R' ? 0.80 : 1.10) / (1 + (st.asPct || 0) * 0.5);
+      if (!wtfMode) KitFx.charges.use(hero, 'trap', 2, TRAP.recharge[rQE] * cdrMult);
+      else hero.cdQ = 0.25;
+      const dx = aimWorld.x - hero.x, dz = aimWorld.z - hero.z;
+      const dist = Math.hypot(dx, dz) || 0.01;
+      const reach = Math.min(TRAP.range, dist);
+      hero.facing = Math.atan2(dx, dz);
       hero.punchAnim = 0.24;
-      actor.play('punch', 0.04, true, 0.95, 0, 0.28);
-      SFX.play('punch');
-      const angles = talents[10] === 'R' ? [-0.22, -0.11, 0, 0.11, 0.22] : [-0.14, 0, 0.14];
-      const pierceQ = talents[10] === 'R';
-      const boltDmg = H.coyote.dmg.qBolt(st, rQE);
-      angles.forEach((off) => {
-        spawnCrossbowBolt(actor, hero.facing + off, boltDmg, 1, false, pierceQ);
-      });
-      spawnFloat(hero.x, 2.4, hero.z, pierceQ ? '5-BOLT PIERCE VOLLEY!' : 'FAN VOLLEY!', '#fde047');
+      actor.play('kick', 0.05, true, 2.4, 1.28, 0.3);
+      throwTrap(actor, hero.x + (dx / dist) * reach, hero.z + (dz / dist) * reach);
     } else if (slot === 'E') {
       if (hero.rChargeTimer > 0) return;
       if (!wtfMode && hero.cdE > 0) return;
@@ -423,6 +534,8 @@ H.coyote = {
       laserSightMesh.rotation.z = hero.facing + Math.PI;
       const chargePct = 1 - (hero.rChargeTimer / 2.0);
       laserSightMesh.scale.x = 0.7 + chargePct * 1.6;
+      // enemies can't see the laser while she's unseen: show that by dimming it
+      laserSightMesh.material.opacity = hero.isUnseen ? 0.25 : 0.65;
       muzzleOrb.visible = true;
       muzzleOrb.scale.setScalar(0.6 + chargePct * 1.1 + Math.sin(now * 0.03) * 0.15);
       if (hero.rChargeTimer <= 0) {
@@ -436,7 +549,8 @@ H.coyote = {
 
   // Runs every frame for every hero kit: arcing E grenades (bullseye 2x + Bleed)
   updateWorld(dt, ctx) {
-    const { st, pProg, talents } = ctx;
+    const { st, pProg } = ctx;
+    updateTraps(dt);
     // Update Coyote Arcing 3D Shrapnel Grenades
     for (let i = heroGrenades.length - 1; i >= 0; i--) {
       const g = heroGrenades[i];
@@ -458,12 +572,11 @@ H.coyote = {
         const ost = o.stats(), otal = o.talents();
         const oRank = KitFx.rQE(o.level());
         const outerDmg = H.coyote.dmg.grenadeOuter(ost, o.level(), oRank);
-        const grenSlow = otal[7] === 'L' ? 2.5 : 0;
         o.hostiles().forEach((t) => {
           if (t.kind === 'structure') return;
           const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
-          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: 4, slowDur: grenSlow, color: '#fde047' });
-          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: 2, slowDur: grenSlow });
+          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047' });
+          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter });
         });
         scene.remove(g.mesh);
         scene.remove(g.teleGrp);
@@ -475,19 +588,18 @@ H.coyote = {
         const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
         const outerDmg = H.coyote.dmg.grenadeOuter(st, pProg.level || 1, rQE);
         const bullDmg = outerDmg * 2;
-        const grenSlow = talents[7] === 'L' ? 2.5 : 0;
-
         dummies.forEach((d) => {
           if (d.isShooter && !shooterEnabled) return;
           const dist = Math.hypot(d.x - g.tx, d.z - g.tz);
           if (dist <= g.bullseyeR + d.r * 0.45) {
             damageDummy(d, bullDmg, '#fde047');
-            applyBleedStacks(d, 4);
-            spawnFloat(d.x, 2.8, d.z, 'BULLSEYE 2X! (4 BLEEDS)', '#fde047');
+            applyBleedStacks(d, GRENADE.bleedBull);
+            CC.slow(d, GRENADE.slowDur, GRENADE.slowBull);
+            spawnFloat(d.x, 2.8, d.z, 'BULLSEYE 2X!', '#fde047');
           } else if (dist <= g.outerR + d.r) {
             damageDummy(d, outerDmg);
-            applyBleedStacks(d, 2);
-            spawnFloat(d.x, 2.65, d.z, '+2 BLEED', '#fb7185');
+            applyBleedStacks(d, GRENADE.bleedOuter);
+            CC.slow(d, GRENADE.slowDur, GRENADE.slowOuter);
           }
         });
 
@@ -496,10 +608,10 @@ H.coyote = {
             if (t.kind === 'structure') return;
             const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
             if (realDist <= g.bullseyeR + t.r * 0.45) {
-              const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: 4, slowDur: grenSlow, color: '#fde047' });
-              if (didHit) spawnFloat(t.x, 2.8, t.z, 'BULLSEYE 2X! (4 BLEEDS)', '#fde047');
+              const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047' });
+              if (didHit) spawnFloat(t.x, 2.8, t.z, 'BULLSEYE 2X!', '#fde047');
             } else if (realDist <= g.outerR + t.r) {
-              phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: 2, slowDur: grenSlow });
+              phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter });
             }
           });
         }
@@ -509,6 +621,11 @@ H.coyote = {
         heroGrenades.splice(i, 1);
       }
     }
+  },
+
+  // switching heroes (and the test tools) clear the player's traps
+  onSwitchedAway() {
+    for (let i = traps.length - 1; i >= 0; i--) if (!traps[i].owner) removeTrap(i);
   },
 
   // Stop the Toss Grenade clip cleanly at 2.25s so it never loops back toward frame 0

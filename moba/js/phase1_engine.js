@@ -1974,14 +1974,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         resist += guardStacks * GUARD_RES;
       }
 
-      // Coyote 3L Talent: Bloodhound Stride (+4% MS per active Bleed stack on nearby enemies)
-      if (heroId === 'coyote' && playerProg.talents[3] === 'L') {
-        let nearBleeds = 0;
-        bots.forEach((b) => { if (b.team === 1 && b.bleedStacks > 0 && Math.hypot(b.x - hero.x, b.z - hero.z) <= 14) nearBleeds += b.bleedStacks; });
-        camps.forEach((c) => { if (c.bleedStacks > 0 && Math.hypot(c.x - hero.x, c.z - hero.z) <= 14) nearBleeds += c.bleedStacks; });
-        spdPct += Math.min(0.20, nearBleeds * 0.04);
-      }
-
       // Panther Passive ("Shadow Stalker"): +28% Move Speed (+38% with 3L Duskwalker) while Unseen by enemies (or lingering for 2.2s/3.5s after being spotted!)
       let pantherUnseen = false;
       if (heroId === 'panther' && playerProg.respawnTimer <= 0) {
@@ -2004,7 +1996,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         spdPct += 0.10;
       }
 
-      const maxBleed = (heroId === 'coyote' && playerProg.talents[7] === 'R') ? 5 : 4;
+      const maxBleed = 4;
       const qeRank = playerProg.level >= 9 ? 3 : (playerProg.level >= 6 ? 2 : 1);
       const ultRank = playerProg.level >= 12 ? 3 : (playerProg.level >= 8 ? 2 : (playerProg.level >= 4 ? 1 : 0));
       return withStatAliases({
@@ -2132,11 +2124,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
       u.shield = 0;
       return rem;
     }
-    // Coyote Bleed damage per stack per tick (her kit's Attack-scaled formula; Lv7 Deep Serration +25%)
+    // Coyote Bleed damage per stack per tick (her kit's Attack-scaled formula)
     function coyoteBleedTick() {
       const k = window.MOBA_HEROES && window.MOBA_HEROES.coyote;
       const base = k && k.dmg ? k.dmg.bleedTick(getPlayerStats()) : (10 + playerProg.level * 2.0);
-      return base * (playerProg.talents[7] === 'R' ? 1.25 : 1.0);
+      return base;
     }
     function botDiffMult() { return botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0); }
 
@@ -2229,7 +2221,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         dmg *= (1 + st.executeAmp);
       }
 
-      dmg = Math.max(1, Math.round(dmg));
+      dmg = rawDmg > 0 ? Math.max(1, Math.round(dmg)) : 0; // 0 = effects only (e.g. a trap's root + bleed)
       u.hp -= targetObj.kind === 'bot' ? absorbShield(u, dmg) : dmg; // enemy bot shields soak player damage first
       u.lastDamagedByPlayerAt = matchTime;
 
@@ -2247,7 +2239,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // Slow-on-Hit Item Proc or Ability Slow
       if ((st.slowOnHit > 0 || opts.slowDur) && targetObj.kind !== 'structure') {
-        u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur || 1.5);
+        CC.slow(u, opts.slowDur || 1.5, opts.slowPct);
       }
 
       // Direct hits wake sleepers; every other CC type goes through the shared module (js/cc.js)
@@ -2320,7 +2312,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (hpEl) hpEl.style.width = Math.max(0, (u.hp / u.maxHp) * 100) + '%';
       }
       const defaultCol = dmgType === 'fantasy' ? '#38bdf8' : '#fb7185';
-      spawnFloat(u.x, 2.2, u.z, String(dmg), opts.color || defaultCol);
+      if (dmg > 0) spawnFloat(u.x, 2.2, u.z, String(dmg), opts.color || defaultCol);
 
       // Check Unit Death & Rewards!
       if (u.hp <= 0) {
@@ -3051,7 +3043,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const allyAura = (st.allyAuraRes > 0 && Math.hypot(unit.x - hero.x, unit.z - hero.z) <= 7.5) ? st.allyAuraRes : 0;
         const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
         const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES + allyAura;
-        const mitigated = Math.max(1, Math.round(rawDmg * (100 / (100 + totalRes))));
+        const mitigated = rawDmg > 0 ? Math.max(1, Math.round(rawDmg * (100 / (100 + totalRes)))) : 0;
         if (unit.shield && unit.shield > 0) {
           if (unit.shield >= mitigated) {
             unit.shield -= mitigated;
@@ -3084,9 +3076,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (opts.stunDur && opts.stunDur > 0) {
           u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
         }
-        if (opts.slowDur && opts.slowDur > 0) {
-          u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur);
-        }
+        if (opts.slowDur && opts.slowDur > 0) CC.slow(u, opts.slowDur, opts.slowPct);
         if (opts.tauntDur && opts.tauntDur > 0 && u !== hero) {
           u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
         }
@@ -3343,7 +3333,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         } else if ((b.fearTimer || 0) > 0 && CC.forcedMove(b)) {
           // feared: run straight away from the source (no attacks or casts)
           const fm = CC.forcedMove(b);
-          const fspd = b.spd * (b.slowTimer > 0 ? 0.68 : 1.0);
+          const fspd = b.spd * CC.slowMult(b);
           const fst = steerUnitAroundStructures(b, fm.x, fm.z, null);
           b.x = THREE.MathUtils.clamp(b.x + fst.vx * fspd * dt, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
           b.z = THREE.MathUtils.clamp(b.z + fst.vz * fspd * dt, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
@@ -3567,7 +3557,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               }
             }
 
-            // 5. COYOTE CROSSBOWMAN BOT (E: 0.22s Windup + 0.48s Arcing Shrapnel Grenade, Q: 3-Bolt Spread Fan Volley, R: 1.10s Laser Sight Charge -> Giant Heartseeker Bolt)
+            // 5. COYOTE CROSSBOWMAN BOT (E: arcing Shrapnel Grenade, Q: Bear Trap, R: laser-sight charge -> Heartseeker Bolt)
             // (Phase 2: the brain only picks the ability and the aim; the real Coyote kit does the rest)
             else if (b.heroType === 'coyote' && kitBotReady('coyote')) {
               const kit = window.MOBA_HEROES.coyote;
@@ -3578,8 +3568,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 spawnFloat(b.x, 2.75, b.z, b.name + ': LOCKING HEARTSEEKER...', '#f43f5e');
               } else if (b.cdE <= 0 && bestDist <= 9.8 && isHeroTarget) {
                 kit.castFor(actor, 'E');
-              } else if (b.cdQ <= 0 && bestDist <= 8.4) {
-                kit.castFor(actor, 'Q');
+              } else if (b.cdQ <= 0 && isHeroTarget && bestDist <= 6.5) {
+                kit.castFor(actor, 'Q'); // Bear Trap at the hero's feet (it arms in 0.5s; peel if they're diving him)
               }
             }
 
@@ -3757,7 +3747,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : (b.heroType === 'panther' && (b.unseenLingerTimer || 0) > 0 ? 0.28 : 0));
             const spdKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
             const kitSpdMult = (spdKit && spdKit.botSpeedMult && kitBotReady(b.heroType)) ? spdKit.botSpeedMult(b) : 1;
-            const spd = b.spd * (1 + bonusSpd) * (b.slowTimer > 0 ? 0.68 : 1.0) * kitSpdMult;
+            const spd = b.spd * (1 + bonusSpd) * CC.slowMult(b) * kitSpdMult;
             const steered = steerUnitAroundStructures(b, dx / distGoal, dz / distGoal, bestTarget ? bestTarget.ref : null);
             b.x += steered.vx * spd * dt;
             b.z += steered.vz * spd * dt;
@@ -3899,7 +3889,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       if (targetObj.kind === 'deployable') {
         if (u.hp <= 0) return;
-        const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + unitResist(u)))));
+        const mitigated = dmg > 0 ? Math.max(1, Math.round(dmg * (100 / (100 + unitResist(u))))) : 0;
         u.hp -= mitigated;
         if (u.onDamaged) u.onDamaged(mitigated);
         if (u.hp <= 0) {
@@ -4322,7 +4312,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const dx = navPt.x - m.x;
           const dz = navPt.z - m.z;
           const d = Math.hypot(dx, dz) || 0.01;
-          const spd = m.spd * (m.slowTimer > 0 ? 0.72 : 1.0);
+          const spd = m.spd * CC.slowMult(m, 0.28);
           const steered = steerUnitAroundStructures(m, dx / d, dz / d, bestT ? bestT.ref : null);
           const canWalk = CC.canMove(m); // rooted minions stay put
           m.x += steered.vx * spd * dt * (canWalk ? 1 : 0);
@@ -4535,7 +4525,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             } else if ((c.swingLock || 0) > 0) {
               // finishing a swing: hold position
             } else {
-              const spd = c.spd * (c.slowTimer > 0 ? 0.72 : 1.0) * (CC.canMove(c) ? 1 : 0); // rooted: stays put
+              const spd = c.spd * CC.slowMult(c, 0.28) * (CC.canMove(c) ? 1 : 0); // rooted: stays put
               const navPt = MAP.navNextPoint(c.x, c.z, t.x, t.z);
               const ndx = navPt.x - c.x, ndz = navPt.z - c.z;
               const nd = Math.hypot(ndx, ndz) || 0.01;
