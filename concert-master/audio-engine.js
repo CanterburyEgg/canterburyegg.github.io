@@ -1058,29 +1058,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
   ghostEdgeOK = isDense && features.ghostNotes !== false;
-  applyFourNoteWalks(notes, lanes);
-  applyNeighbourTurns(notes, lanes);
-  applyEdgeRepeatRuns(notes, lanes);
-  applyTurnLeadIns(notes, lanes);
-  applyLongRunEdges(notes, lanes);
-  applyLeapPairSplits(notes, lanes);
-  applyPhraseEndDirections(notes, lanes);
-  applyPhrasePlans(notes, lanes);
-  applyCompactFigures(notes, lanes);
-  applyHeldLines(notes, lanes);
-  applyHeldKeyFamilies(notes, lanes, isDense ? features.chordHits || [] : []);
-  applyGapShiftDoubles(notes, lanes);
-  applyRunSkipClose(notes, lanes);
-  if (isDense && features.ghostNotes !== false) assignGhostLanes(notes, lanes);
-  applyHalfStepNoLeap(notes, lanes);
-  applyCleanRunCycles(notes, lanes);
-  if (isDense && features.ghostNotes !== false) applyFlurryTurns(notes, lanes);
-  applyWalkOffGhost(notes, lanes);
-  applyTurnRoomBeyond(notes, lanes);
-  if (isDense && features.ghostNotes !== false) applySixNoteRips(notes, lanes);
-
-  // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
-  if (isDense) addEnsembleChordHits(notes, features.chordHits || [], lanes);
+  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [] });
 
   // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)
   let lastPercSolo = -10;
@@ -1174,6 +1152,59 @@ function alignChordHoldEnds(notes) {
  *   - Automatically delegates to Neural ML Sidecar data when present!
  *   - Otherwise uses in-browser Viterbi melody stream + percussion fallback.
  */
+/**
+ * Key-layout rules, in the order they run (after the first layout and the "same notes, same keys" vote). Each entry:
+ * [name, rule(notes, lanes, ctx), when] -- `when` is 'hard' (Hard only) or 'ghosts' (Hard, and the song allows ghost
+ * keys); omitted = always. Debug (like the Python passes' CM_SKIP / CM_PASS_TRACE): set globalThis.CM_LAYOUT =
+ * { skip: ['name', ...], trace: [lo, hi] } to skip rules by name, or print the keys in [lo, hi] seconds after every rule
+ * that changes them.
+ */
+const LAYOUT_RULES = [
+  ['fourNoteWalks', (n, l) => applyFourNoteWalks(n, l)],
+  ['neighbourTurns', (n, l) => applyNeighbourTurns(n, l)],
+  ['edgeRepeatRuns', (n, l) => applyEdgeRepeatRuns(n, l)],
+  ['turnLeadIns', (n, l) => applyTurnLeadIns(n, l)],
+  ['longRunEdges', (n, l) => applyLongRunEdges(n, l)],
+  ['leapPairSplits', (n, l) => applyLeapPairSplits(n, l)],
+  ['phraseEndDirections', (n, l) => applyPhraseEndDirections(n, l)],
+  ['phrasePlans', (n, l) => applyPhrasePlans(n, l)],
+  ['compactFigures', (n, l) => applyCompactFigures(n, l)],
+  ['heldLines', (n, l) => applyHeldLines(n, l)],
+  ['heldKeyFamilies', (n, l, c) => applyHeldKeyFamilies(n, l, c.isDense ? c.chordHits : [])],
+  ['gapShiftDoubles', (n, l) => applyGapShiftDoubles(n, l)],
+  ['runSkipClose', (n, l) => applyRunSkipClose(n, l)],
+  ['ghostLanes', (n, l) => assignGhostLanes(n, l), 'ghosts'],
+  ['halfStepNoLeap', (n, l) => applyHalfStepNoLeap(n, l)],
+  ['cleanRunCycles', (n, l) => applyCleanRunCycles(n, l)],
+  ['flurryTurns', (n, l) => applyFlurryTurns(n, l), 'ghosts'],
+  ['walkOffGhost', (n, l) => applyWalkOffGhost(n, l)],
+  ['turnRoomBeyond', (n, l) => applyTurnRoomBeyond(n, l)],
+  ['sixNoteRips', (n, l) => applySixNoteRips(n, l), 'ghosts'],
+  ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
+];
+
+function runLayoutRules(notes, lanes, ctx) {
+  const opts = (typeof globalThis !== 'undefined' && globalThis.CM_LAYOUT) || {};
+  const skip = new Set(opts.skip || []);
+  const out = typeof print === 'function' ? print : (...a) => console.log(...a);
+  const snap = () =>
+    opts.trace
+      ? notes.filter((x) => x.time >= opts.trace[0] && x.time <= opts.trace[1] && x.lane >= 0 && !x.isChordPartner)
+          .map((x) => 'DFJKSL'[x.lane] + x.midi + (x.type === 'hold' ? 'h' : '')).join(' ')
+      : null;
+  let last = snap();
+  if (opts.trace) out('layout start'.padEnd(26) + last);
+  for (const [name, rule, when] of LAYOUT_RULES) {
+    if (skip.has(name) || (when === 'hard' && !ctx.isDense) || (when === 'ghosts' && !ctx.ghosts)) continue;
+    rule(notes, lanes, ctx);
+    if (opts.trace) {
+      const s = snap();
+      if (s !== last) out(name.padEnd(26) + s);
+      last = s;
+    }
+  }
+}
+
 export function buildChart(features, { keyMode = '4k', density = 'fewer' } = {}) {
   if (features.isNeuralSidecar) {
     return buildChartFromSidecar(features, { keyMode, density });
