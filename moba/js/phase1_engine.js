@@ -1846,7 +1846,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     // Bodyguard Passive ("Stand Behind Me!", DESIGN_RULES Bodyguard): standing between an enemy hero and an allied hero
-    // builds Guard stacks (+GUARD_RES Resist each, max GUARD_MAX). Stacks build and decay ONE at a time (GUARD_STEP s each),
+    // builds Guard stacks (+GUARD_RES Resist each, max GUARD_MAX; any ally-enemy screen builds toward max). Stacks build and decay ONE at a time (GUARD_STEP s each),
     // so diving out with E+Q keeps them for a few seconds, then he has to get back to a guarding spot to recharge.
     // Works for the player and for bot Bodyguards (ticked in update / updateBots; read by getPlayerStats / unitResist).
     const GUARD_MAX = 3, GUARD_RES = 14, GUARD_STEP = 1.5;
@@ -1875,7 +1875,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!alive) { g.guardStacks = 0; g.guardT = 0; g.guardAlly = null; return; }
       const sc = guardScreening(g, team);
       g.guardAlly = sc.ally;
-      const target = Math.min(GUARD_MAX, sc.count);
+      // screening anyone at all builds toward max (held position = more stacks); screening nobody fades them
+      const target = sc.count > 0 ? GUARD_MAX : 0;
       const cur = g.guardStacks || 0;
       if (target === cur) { g.guardT = 0; return; }
       g.guardT = (g.guardT || 0) + dt;

@@ -89,7 +89,7 @@ Almost every distribution question (mobility, CC, shields and speed, what talent
 # Hero audits (baseline kits; talents come in one pass after all 8, level by level)
 
 ## Bodyguard ✅
-- **Passive (Stand Behind Me!):** keep. Standing between enemies and an ally builds Guard stacks of +Resist (max 3). **Stacks build one at a time and decay one at a time (~1 per 1.5s)** instead of vanishing, so the E+Q dive isn't suicide, but he has to return to a guarding spot to recharge. Add visuals: a faint tether to the guarded ally and a shield icon per stack. Fix the HUD pip bug.
+- **Passive (Stand Behind Me!):** keep. Standing between enemies and an ally builds Guard stacks of +Resist (max 3; screening any one ally from any one enemy keeps building to max, decided 2026-11-14). **Stacks build one at a time and decay one at a time (~1 per 1.5s)** instead of vanishing, so the E+Q dive isn't suicide, but he has to return to a guarding spot to recharge. Add visuals: a faint tether to the guarded ally and a shield icon per stack. Fix the HUD pip bug.
 - **LMB (Brass Knuckles):** keep.
 - **Q (Haymaker):** keep the knockback straight away from him (it feels very good). **Baseline: knocking an enemy into a wall, tree or tower stuns for 0.5s.** A talent can extend that stun.
 - **E (Crowd Dive):** keep the leap. The leap-over-then-knock-back play is excellent. **Landing: 0.25s knock-up followed by a short slow** (replaces the 35%/1.8s slow).

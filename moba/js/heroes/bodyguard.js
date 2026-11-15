@@ -125,7 +125,7 @@ H.bodyguard = {
       P: {
         title: 'Passive • Stand Behind Me!',
         meta: 'Innate Vanguard Aura',
-        body: 'Standing between an enemy hero and an allied hero builds <b>Guard</b> (+14 Resist per stack, max 3 = +42). Stacks build <b>one at a time</b> and fade <b>one at a time</b> (1 per 1.5s), so a dive keeps them for a few seconds. A faint tether shows who you\'re guarding.'
+        body: 'While you stand between an enemy hero and an allied hero you build <b>Guard</b> (+14 Resist per stack, max 3 = +42). Stacks build <b>one at a time</b> and fade <b>one at a time</b> (1 per 1.5s), so a dive keeps them for a few seconds. A faint tether shows who you\'re guarding.'
       },
       LMB: {
         title: 'LMB • Brass Knuckles',
