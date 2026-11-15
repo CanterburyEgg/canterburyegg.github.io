@@ -102,7 +102,7 @@
     hero.qTempoStacks = 0; hero.qTempoTimer = 0; hero.eSpeedBuffTimer = 0; hero.leapTimer = 0;
     hero.stealthTimer = 0; hero.stealthExitTimer = 0; hero.unseenLingerTimer = 0;
     hero.qFlurryRemaining = 0; hero.qFlurryTimer = 0; hero.gnashAnim = 0;
-    hero.sawOn = false; delete hero.hopCharges;
+    hero.sawOn = false; KitFx.charges.reset(hero);
     const dist = RANGED[heroId] ? 6.0 : 1.6;
     hero.x = target.homeX; hero.z = target.homeZ + dist;
     hero.facing = Math.PI; // facing -z toward the dummy

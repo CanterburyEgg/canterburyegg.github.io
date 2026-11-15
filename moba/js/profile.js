@@ -87,7 +87,7 @@
     hero.shield = 0; hero.atkTimer = 0; hero.cdQ = 0; hero.cdE = 0; hero.cdR = 0;
     hero.qArmed = false; hero.eRecast = 0; hero.dashTimer = 0; hero.leapTimer = 0; hero.rChargeTimer = 0;
     hero.stealthTimer = 0; hero.sawOn = false;
-    delete hero.hopCharges;
+    KitFx.charges.reset(hero);
     const dist = RANGED[heroId] ? 6.0 : 1.6;
     hero.x = target.homeX; hero.z = target.homeZ + dist;
     hero.facing = Math.PI;

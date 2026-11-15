@@ -70,6 +70,65 @@ K.smoothSeams = function (geometry, maxAngleDeg = 60) {
 K.rQE = (lvl) => (lvl >= 9 ? 2 : (lvl >= 6 ? 1 : 0));
 K.rUlt = (lvl) => (lvl >= 12 ? 2 : (lvl >= 8 ? 1 : 0));
 
+// ---- Charge abilities (shared): N charges; every spent charge recharges on its own timer, all at the same time ----
+// K.charges.use(u, key, max, rechargeTime, tag)  spend one (false if none left); tag rides along with that charge's timer
+// K.charges.count(u, key, max)  charges ready now (max until first use)
+// K.charges.tagged(u, key, tag) is a spent charge carrying this tag still waiting/recharging? (Fairy: can't hop the same unit)
+// K.charges.tick(u, dt)          recharge every key on the unit (loop.js for the player, the engine for bots); keeps
+//                                u.cdQ / cdE / cdR = 0 while a charge is ready, else the soonest recharge (HUD + bot AI)
+// Kits register the slot (KitFx.charges.slotFor.hop = 'E') so cd sync + the HUD count land on the right button.
+K.charges = {
+  slotFor: {}, // key -> ability slot ('Q' | 'E' | 'R'), registered by the kit: KitFx.charges.slotFor.hop = 'E'
+  state(u, key, max) {
+    u.charges = u.charges || {};
+    let c = u.charges[key];
+    if (!c) c = u.charges[key] = { n: max, max, timers: [], slot: K.charges.slotFor[key] || null };
+    if (max !== undefined && c.max !== max) { c.n = Math.min(max, c.n + Math.max(0, max - c.max)); c.max = max; }
+    return c;
+  },
+  count(u, key, max) { return K.charges.state(u, key, max).n; },
+  use(u, key, max, rechargeTime, tag) {
+    const c = K.charges.state(u, key, max);
+    if (c.n <= 0) return false;
+    c.n--;
+    c.timers.push({ t: rechargeTime, dur: rechargeTime, tag: tag === undefined ? null : tag });
+    K.charges.syncCd(u, c);
+    return true;
+  },
+  tagged(u, key, tag) {
+    const c = u.charges && u.charges[key];
+    return !!c && c.timers.some((tm) => tm.tag === tag);
+  },
+  // seconds until the next charge comes back (0 if none recharging)
+  nextIn(u, key) {
+    const c = u.charges && u.charges[key];
+    const tm = K.charges.soonest(u, key);
+    return tm ? Math.max(0, tm.t) : 0;
+  },
+  // the spent charge closest to coming back (HUD timer / bar)
+  soonest(u, key) {
+    const c = u.charges && u.charges[key];
+    if (!c || !c.timers.length) return null;
+    return c.timers.reduce((a, b) => (b.t < a.t ? b : a));
+  },
+  syncCd(u, c) {
+    if (!c.slot) return;
+    u['cd' + c.slot] = c.n > 0 ? 0 : (c.timers.length ? Math.max(0, Math.min(...c.timers.map((tm) => tm.t))) : 0);
+  },
+  tick(u, dt) {
+    if (!u || !u.charges) return;
+    for (const key in u.charges) {
+      const c = u.charges[key];
+      for (let i = c.timers.length - 1; i >= 0; i--) {
+        c.timers[i].t -= dt;
+        if (c.timers[i].t <= 0) { c.timers.splice(i, 1); c.n = Math.min(c.max, c.n + 1); }
+      }
+      K.charges.syncCd(u, c);
+    }
+  },
+  reset(u) { if (u) u.charges = null; }
+};
+
 // Damage everything (dummies + engine units, no structures unless opts.structures) inside a circle.
 // opts: dealPlayerDamageToUnit options (dmgType, slowDur, stunDur, knockbackDist, ...) + color; returns hit count.
 K.hitArea = function (x, z, r, dmg, opts = {}) {

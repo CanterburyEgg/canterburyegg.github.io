@@ -9,6 +9,8 @@ const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 const HOVER = 0.75;      // meters above the ground
 const HOP_RANGE = 7.0;
 const HOP_CHARGE_CD = 10.0;
+const HOP_MAX = 2;
+KitFx.charges.slotFor.hop = 'E';
 const dustPatches = [];  // { grp, x, z, r, t, dream, owner } (owner: bot actor, or null = the player)
 const bubbles = [];      // in-flight Pop! bubbles { mesh, sx, sz, tx, tz, t, dur, dmg, delay, owner }
 let lullabyTimer = 0;    // the player's Lullaby (bots keep theirs on their unit as fairyLullaby)
@@ -41,22 +43,26 @@ function makeWings() {
   return g;
 }
 
-function nearestUnitTo(x, z, maxDist, includeAllies, actor) {
+// skip(ref) = true leaves a unit out (Pixie Hop: units still locked by a recharging charge)
+function nearestUnitTo(x, z, maxDist, includeAllies, actor, skip) {
   let best = null, bestD = maxDist;
   const by = actor || KitFx.player;
   if (by.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
+    if (skip && skip(d)) return;
     const dd = Math.hypot(d.x - x, d.z - z);
     if (dd < bestD) { bestD = dd; best = { x: d.x, z: d.z, enemy: true, dummy: d }; }
   });
   if (phase1Engine) {
     by.hostiles().forEach((t) => {
       if (t.kind === 'structure') return;
+      if (skip && skip(t.ref)) return;
       const dd = Math.hypot(t.x - x, t.z - z);
       if (dd < bestD) { bestD = dd; best = { x: t.x, z: t.z, enemy: true, unit: t }; }
     });
     if (includeAllies) {
       by.allies().forEach((t) => {
+        if (skip && skip(t.ref)) return;
         const dd = Math.hypot(t.x - x, t.z - z);
         if (dd < bestD) { bestD = dd; best = { x: t.x, z: t.z, enemy: false, unit: t }; }
       });
@@ -313,19 +319,21 @@ H.fairy = {
         delay: 0.34, t: 0, dur: 0.6, dmg: H.fairy.dmg.bubble(st, pProg.level, rQE), owner
       });
     } else if (slot === 'E') {
-      hero.hopCharges = hero.hopCharges === undefined ? 2 : hero.hopCharges;
-      if (!wtfMode && hero.hopCharges <= 0) return;
+      if (!wtfMode && KitFx.charges.count(hero, 'hop', HOP_MAX) <= 0) return;
+      // can't hop the same unit again until the charge spent on it has recharged. The unit under the cursor is the
+      // pick: if it's locked the hop fails instead of jumping to the next unit over.
       const target = nearestUnitTo(aimWorld.x, aimWorld.z, 3.0, true, actor);
+      const tRef = target && (target.unit ? target.unit.ref : target.dummy);
+      if (target && !wtfMode && KitFx.charges.tagged(hero, 'hop', tRef)) {
+        if (actor.isPlayer) spawnFloat(target.x, 2.8, target.z, 'ALREADY HOPPED', '#fb7185');
+        return;
+      }
       if (!target || Math.hypot(target.x - hero.x, target.z - hero.z) > HOP_RANGE + 0.5) {
         spawnFloat(hero.x, 2.8, hero.z, 'NO UNIT IN RANGE', '#fb7185');
         return;
       }
       if (!trySpendMana('E')) return;
-      if (!wtfMode) {
-        hero.hopCharges--;
-        hero.hopRecharge = hero.hopRecharge || [];
-        hero.hopRecharge.push(HOP_CHARGE_CD * cdrMult);
-      }
+      if (!wtfMode) KitFx.charges.use(hero, 'hop', HOP_MAX, HOP_CHARGE_CD * cdrMult, target.unit ? target.unit.ref : (target.dummy || null));
       spawnShockRing(hero.x, hero.z, 0x86efac, 0.2, 1.3, 0.25);
       const ang = Math.atan2(target.x - hero.x, target.z - hero.z);
       hero.x = target.x - Math.sin(ang) * 1.1;
@@ -343,7 +351,6 @@ H.fairy = {
         }
         spawnFloat(target.x, 2.6, target.z, 'HUSH!', '#86efac');
       }
-      hero.cdE = hero.hopCharges > 0 ? 0 : Math.min(...(hero.hopRecharge || [0]));
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
@@ -371,17 +378,7 @@ H.fairy = {
   },
 
   tickTimers(dt) {
-    // Pixie Hop charges recharge separately
-    if (hero.hopRecharge && hero.hopRecharge.length) {
-      for (let i = hero.hopRecharge.length - 1; i >= 0; i--) {
-        hero.hopRecharge[i] -= dt;
-        if (hero.hopRecharge[i] <= 0) {
-          hero.hopRecharge.splice(i, 1);
-          hero.hopCharges = Math.min(2, (hero.hopCharges || 0) + 1);
-        }
-      }
-      if (activeHeroId === 'fairy') hero.cdE = hero.hopCharges > 0 ? 0 : Math.max(0, Math.min(...hero.hopRecharge));
-    }
+    // Pixie Hop charges recharge in KitFx.charges.tick (loop.js / engine)
     lullabyTimer = Math.max(0, lullabyTimer - dt);
   },
 
@@ -391,12 +388,6 @@ H.fairy = {
     const u = actor.unit;
     u.kickAnim = Math.max(0, (u.kickAnim || 0) - dt);
     u.fairyLullaby = Math.max(0, (u.fairyLullaby || 0) - dt);
-    if (u.hopRecharge && u.hopRecharge.length) {
-      for (let i = u.hopRecharge.length - 1; i >= 0; i--) {
-        u.hopRecharge[i] -= dt;
-        if (u.hopRecharge[i] <= 0) { u.hopRecharge.splice(i, 1); u.hopCharges = Math.min(2, (u.hopCharges || 0) + 1); }
-      }
-    }
     if (u.fairyDart) {
       if ((u.stunTimer || 0) > 0) u.fairyDart = null;
       else if ((u.fairyDart.t -= dt) <= 0) {
@@ -538,7 +529,8 @@ H.fairy = {
   },
 
   hudTag() {
-    return hero.hopCharges !== undefined && hero.hopCharges < 2 ? ' [HOP ' + hero.hopCharges + '/2]' : '';
+    const n = KitFx.charges.count(hero, 'hop', HOP_MAX);
+    return n < HOP_MAX ? ' [HOP ' + n + '/' + HOP_MAX + ']' : '';
   },
   passivePip() { return ''; }
 };

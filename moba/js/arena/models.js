@@ -634,6 +634,7 @@ function switchHero(heroId) {
   hero.peakPhysiqueTimer = 0;
   hero.atkTimer = 0;
   hero.cdQ = 0; hero.cdE = 0; hero.cdR = 0;
+  KitFx.charges.reset(hero);
   hero.qArmed = false; hero.eRecast = 0; hero.dashTimer = 0;
   hero.punchAnim = 0; hero.kickAnim = 0; hero.grenadeAnim = 0;
   hero.rChargeTimer = 0;

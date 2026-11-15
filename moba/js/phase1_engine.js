@@ -3210,6 +3210,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         b.tauntTimer = Math.max(0, (b.tauntTimer || 0) - dt);
         CC.tick(b, dt);
         b.stealthTimer = Math.max(0, (b.stealthTimer || 0) - dt);
+        KitFx.charges.tick(b, dt);
         // shared unseen state (vision system); Panther's passive keeps its speed 2.2s after she's spotted
         b.isUnseen = matchMode && b.respawnTimer <= 0 && isUnseen(b);
         if (b.heroType === 'panther') b.unseenLingerTimer = b.isUnseen ? 2.2 : Math.max(0, (b.unseenLingerTimer || 0) - dt);
@@ -3580,7 +3581,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               b.aimTarget = bestTarget;
               const foes = actor.hostiles().filter((t) => t.kind !== 'structure' && Math.hypot(t.x - b.x, t.z - b.z) <= 4.2);
               const foeHeroes = foes.filter((t) => t.kind === 'bot' || t.kind === 'player').length;
-              const charges = b.hopCharges === undefined ? 2 : b.hopCharges;
+              const charges = KitFx.charges.count(b, 'hop', 2);
               const hurt = b.hp / b.maxHp < 0.4;
               if (b.level >= 4 && b.cdR <= 0 && (foeHeroes >= 2 || (foeHeroes >= 1 && foes.length >= 3))) {
                 kit.castFor(actor, 'R');
@@ -4927,7 +4928,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           stunTimer: 0, slowTimer: 0, tauntTimer: 0, stealthTimer: 0, knockbackTimer: 0, knockbackVx: 0, knockbackVz: 0,
           bleedStacks: 0, bleedTimer: 0, leapTimer: 0, leapOnLand: null, leapHeight: undefined, dashTimer: 0, dashOnEnd: null,
           rChargeTimer: 0, arenaTimer: 0, monoTimer: 0, eRecast: 0, aimTarget: null,
-          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, hopCharges: undefined,
+          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null,
           impPendingQ: null, impStrike: null, impRocket: false, laneDone: false
         });
         CC.clear(b);

@@ -34,6 +34,7 @@ function tick(now) {
   hero.stealthExitTimer = Math.max(0, (hero.stealthExitTimer || 0) - dt);
   hero.unseenLingerTimer = Math.max(0, (hero.unseenLingerTimer || 0) - dt);
   if (phase1Engine && phase1Engine.tickUnseen) phase1Engine.tickUnseen(dt);
+  KitFx.charges.tick(hero, dt);
   if (hero.qTempoTimer > 0) {
     hero.qTempoTimer -= dt;
     if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0;
@@ -806,6 +807,8 @@ function tick(now) {
     (!wtfMode && (pProg.level || 1) < 4) ? 'LV 4 REQ'
     : (hero.cdR > 0.05 && hero.rChargeTimer <= 0 ? Math.ceil(hero.cdR) + 's' : meta.r);
 
+  updateChargeBadges(meta); // after the cooldown labels: charge slots show their recharge even with a charge ready
+
   const passPip = document.getElementById('pip3d-passive');
   if (passPip) {
     let pText = '';
@@ -848,4 +851,42 @@ function tick(now) {
   }
 
   requestAnimationFrame(tick);
+}
+
+// Charge abilities on the HUD (KitFx.charges): a count badge on the button, the recharge time in the label whenever
+// a spent charge is recharging (even while another charge is ready), and a thin bar filling as it comes back.
+function updateChargeBadges(meta) {
+  ['Q', 'E', 'R'].forEach((slot) => {
+    const sl = slot.toLowerCase();
+    const btn = document.getElementById('s3d-' + sl);
+    if (!btn) return;
+    let badge = document.getElementById('chg3d-' + sl);
+    let bar = document.getElementById('chgbar3d-' + sl);
+    let c = null;
+    if (hero.charges) for (const k in hero.charges) if (hero.charges[k].slot === slot) c = hero.charges[k];
+    if (!c) { if (badge) badge.style.display = 'none'; if (bar) bar.style.display = 'none'; return; }
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.id = 'chg3d-' + sl;
+      badge.style.cssText = 'position:absolute;right:-6px;top:-6px;min-width:16px;height:16px;padding:0 3px;border-radius:8px;' +
+        'background:rgba(15,23,42,0.85);border:1px solid #fde047;color:#fde047;font:bold 11px/16px sans-serif;text-align:center;z-index:3;pointer-events:none;';
+      btn.appendChild(badge);
+      bar = document.createElement('div');
+      bar.id = 'chgbar3d-' + sl;
+      bar.style.cssText = 'position:absolute;left:3px;bottom:2px;height:3px;border-radius:2px;background:#fde047;z-index:3;pointer-events:none;';
+      btn.appendChild(bar);
+    }
+    badge.style.display = 'block';
+    badge.textContent = String(c.n);
+    badge.style.opacity = c.n > 0 ? '1' : '0.55';
+    const tm = KitFx.charges.soonest(hero, Object.keys(hero.charges).find((k) => hero.charges[k] === c));
+    bar.style.display = tm ? 'block' : 'none';
+    if (tm) {
+      const frac = Math.max(0, Math.min(1, 1 - tm.t / (tm.dur || tm.t || 1)));
+      bar.style.width = Math.round(frac * (btn.clientWidth - 6)) + 'px';
+      bar.style.opacity = c.n > 0 ? '0.9' : '0.6';
+      const lbl = document.getElementById('lbl3d-' + sl);
+      if (lbl) lbl.textContent = tm.t.toFixed(1) + 's';
+    }
+  });
 }
