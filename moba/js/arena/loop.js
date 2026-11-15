@@ -112,14 +112,13 @@ function tick(now) {
           hitWall = true;
         }
       });
-      if (hitWall && d.kbWallStun) {
-        d.kbWallStun = false;
+      if (hitWall && d.kbWallStun > 0) {
+        d.stunTimer = Math.max(d.stunTimer, d.kbWallStun);
+        d.kbWallStun = 0;
         d.kbTimer = 0;
-        d.stunTimer = Math.max(d.stunTimer, 1.0);
         SFX.play('arena');
         spawnShockRing(d.x, d.z, 0xfde047, 0.25, 1.7, 0.28);
-        spawnFloat(d.x, 2.85, d.z, 'WALL STUN! (1.0s)', '#fde047');
-        damageDummy(d, 65 + (pProg.level || 1) * 12, '#fde047');
+        spawnFloat(d.x, 2.85, d.z, 'WALL STUN!', '#fde047');
       }
       d.mesh.position.set(d.x, 0, d.z);
     } else if (d.resetDelay > 0) {

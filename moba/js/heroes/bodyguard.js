@@ -59,6 +59,11 @@ function lockGuardianHeadSkinWeights(fbxRoot) {
   });
 }
 
+// Kit numbers (DESIGN_RULES Bodyguard)
+const WALL_STUN = 0.5;      // Q: stun when the knockback slams them into a wall / tree / tower
+const SLAM_KNOCKUP = 0.25;  // E landing: knock-up
+const SLAM_SLOW = 1.0;      // E landing: slow after the knock-up
+
 H.bodyguard = {
   id: 'bodyguard',
   roster: { order: 4, emoji: '🛡️', short: 'Bodyguard' },
@@ -98,18 +103,9 @@ H.bodyguard = {
   },
 
   talents: {
-    3: {
-      L: { id: '3L', name: 'Into the Stonework', desc: 'Q Haymaker knocking an enemy into a Wall, Tree, or Tower Stuns for 1.0s' },
-      R: { id: '3R', name: 'Broad Shoulders', desc: 'Allies behind you receive 50% (+7/stack) of your Passive Resist' }
-    },
-    7: {
-      L: { id: '7L', name: 'Sky Drop', desc: 'E Crowd Dive leap range +25% and Slow increased from 35% to 50%' },
-      R: { id: '7R', name: 'Heroic Rescue', desc: 'Allies inside E landing zone gain a Shield and have Slows cleansed' }
-    },
-    10: {
-      L: { id: '10L', name: 'Thorns of Brass', desc: 'R Eyes On Me! radius +25% and reflects 25% of damage taken while Shield holds' },
-      R: { id: '10R', name: 'Peak Physique', desc: 'Casting R grants doubled max Passive resists (+84 Resist) for 6s' }
-    }
+    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
   },
 
   ui: {
@@ -129,8 +125,7 @@ H.bodyguard = {
       P: {
         title: 'Passive • Stand Behind Me!',
         meta: 'Innate Vanguard Aura',
-        body: 'Positioning yourself between nearby enemies and an allied Hero grants up to <b>3 stacks of Guard (+14 Resist per stack, up to +42)</b>.',
-        talentLevels: [3, 10]
+        body: 'Standing between an enemy hero and an allied hero builds <b>Guard</b> (+14 Resist per stack, max 3 = +42). Stacks build <b>one at a time</b> and fade <b>one at a time</b> (1 per 1.5s), so a dive keeps them for a few seconds. A faint tether shows who you\'re guarding.'
       },
       LMB: {
         title: 'LMB • Brass Knuckles',
@@ -140,20 +135,17 @@ H.bodyguard = {
       Q: {
         title: 'Q • Bouncer Haymaker',
         meta: '45 MP • 7.5s / 6.5s / 5.5s CD (Lv 1/6/9)',
-        body: 'Unleashes a massive uppercut that deals <b>125 / 195 / 265 (+9/Lv) + 70% Ability</b> and <b>knocks enemies back 3.8m</b>. (With Lv3 Talent, knocking foes into walls/trees Stuns for 1.0s!)',
-        talentLevels: [3]
+        body: 'Unleashes a massive uppercut that deals <b>125 / 195 / 265 (+9/Lv) + 70% Ability</b> and <b>knocks enemies back 3.8m</b>. Knocking someone into a <b>wall, tree or tower stuns them for 0.5s</b>.'
       },
       E: {
         title: 'E • Crowd Dive',
         meta: '55 MP • 11.0s / 9.5s / 8.0s CD (Lv 1/6/9)',
-        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>100 / 155 / 210 (+8/Lv) + 60% Ability</b> and <b>Slow enemies by 35% for 1.8s / 2.1s / 2.4s</b>.',
-        talentLevels: [7]
+        body: 'Leaps high through the air to the target location, slamming the ground on impact to deal <b>100 / 155 / 210 (+8/Lv) + 60% Ability</b>, <b>knocking enemies up for 0.25s</b> and then <b>slowing them for 1s</b>.'
       },
       R: {
         title: 'R • Eyes On Me!',
         meta: '90 MP • 44s / 38s / 32s CD (Lv 4/8/12)',
-        body: 'Roars a thunderous battle-cry that deals <b>140 / 225 / 310 + 80% Ability</b> around him, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.',
-        talentLevels: [10]
+        body: 'Roars a thunderous battle-cry that deals <b>140 / 225 / 310 + 80% Ability</b> around him, <b>Taunts all nearby enemies for 1.5s / 1.75s / 2.0s</b>, and grants a massive <b>Barrier Shield</b> scaling with each enemy hit.'
       }
     }
   },
@@ -231,7 +223,7 @@ H.bodyguard = {
       ? H.bodyguard.dmg.haymaker(st, pProg.level, rQE)
       : H.bodyguard.dmg.punch(st);
     const kbDist = strike.isHaymaker ? 3.8 : 0;
-    const wallStun = strike.isHaymaker && talents[3] === 'L';
+    const wallStun = strike.isHaymaker ? WALL_STUN : 0; // Q: knocked into a wall / tree / tower = stunned
 
     if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
@@ -311,7 +303,7 @@ H.bodyguard = {
       if (!trySpendMana('E')) return;
       hero.cdE = wtfMode ? 0.30 : [11.0, 9.5, 8.0][rQE] * cdrMult;
 
-      const maxLeap = talents[7] === 'L' ? 9.75 : 7.8;
+      const maxLeap = 7.8;
       const dx = aimWorld.x - hero.x;
       const dz = aimWorld.z - hero.z;
       const dist = Math.hypot(dx, dz) || 0.01;
@@ -346,7 +338,7 @@ H.bodyguard = {
     const { st, pProg, talents, rUlt } = ctx;
     const hero = actor.unit;
     {
-      const rRad = talents[10] === 'L' ? 6.0 : 4.8;
+      const rRad = 4.8;
       const rDmg = H.bodyguard.dmg.taunt(st, rUlt);
       const tauntDur = [1.5, 1.75, 2.0][rUlt];
       let enemyScore = 0;
@@ -376,9 +368,6 @@ H.bodyguard = {
       hero.shield = Math.round(140 + (pProg.level || 1) * 20 + enemyScore * 50);
       hero.shieldTimer = 4.5;
       hero.rShieldTimer = 4.5;
-      if (talents[10] === 'R') {
-        hero.peakPhysiqueTimer = 6.0;
-      }
       hero.kickAnim = 0.72;
       if (actor.isPlayer) {
         const tauntAct = actions.slide || actions.kick;
@@ -404,7 +393,7 @@ H.bodyguard = {
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const slamR = 2.85;
     const slamDmg = H.bodyguard.dmg.slam(st, pProg.level, rQE);
-    const slamSlow = [1.8, 2.1, 2.4][rQE] + (talents[7] === 'L' ? 0.5 : 0);
+    // landing: a short knock-up, then a short slow (the slow runs past the knock-up)
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.35, slamR, 0.32);
 
@@ -412,8 +401,7 @@ H.bodyguard = {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - hero.x, d.z - hero.z) <= slamR + d.r) {
         damageDummy(d, slamDmg, '#38bdf8');
-        d.slowTimer = Math.max(d.slowTimer || 0, slamSlow);
-        spawnFloat(d.x, 2.65, d.z, talents[7] === 'L' ? '50% SLOW!' : '35% SLOW!', '#38bdf8');
+        CC.apply(d, { knockupDur: SLAM_KNOCKUP, slowDur: SLAM_KNOCKUP + SLAM_SLOW }, { x: hero.x, z: hero.z, unit: hero });
       }
     });
     if (phase1Engine) {
@@ -422,29 +410,12 @@ H.bodyguard = {
         if (Math.hypot(t.x - hero.x, t.z - hero.z) <= slamR + t.r) {
           actor.damage(t, slamDmg, {
             dmgType: 'physical',
-            slowDur: slamSlow,
+            knockupDur: SLAM_KNOCKUP,
+            slowDur: SLAM_KNOCKUP + SLAM_SLOW,
             color: '#38bdf8'
           });
         }
       });
-      // Talent 7R (Heroic Rescue): Shield self + nearby Allied Bots & cleanse slows!
-      if (talents[7] === 'R') {
-        const rescueSh = 140 + (pProg.level || 1) * 20;
-        hero.shield = Math.max(hero.shield, rescueSh);
-        hero.shieldTimer = 3.5;
-        let shieldedAllies = 0;
-        if (phase1Engine.getAlliedTargets) {
-          phase1Engine.getAlliedTargets().forEach((ally) => {
-            if (Math.hypot(ally.x - hero.x, ally.z - hero.z) <= 3.4) {
-              ally.shield = Math.max(ally.shield || 0, rescueSh);
-              ally.shieldTimer = 3.5;
-              ally.slowTimer = 0;
-              shieldedAllies++;
-            }
-          });
-        }
-        spawnFloat(hero.x, 2.85, hero.z, 'HEROIC RESCUE! (+' + rescueSh + ' SHIELD' + (shieldedAllies > 0 ? ' TO ALLIES' : '') + ')', '#fde047');
-      }
     }
   },
 
@@ -464,7 +435,7 @@ H.bodyguard = {
     } else if (slot === 'E') {
       if (hero.cdE > 0 || hero.leapTimer > 0) return;
       hero.cdE = [11.0, 9.5, 8.0][rQE] * (ctx.cdrMult || 1);
-      const maxLeap = talents[7] === 'L' ? 9.75 : 7.8;
+      const maxLeap = 7.8;
       const dx = a.x - hero.x, dz = a.z - hero.z;
       const dist = Math.hypot(dx, dz) || 0.01;
       const clamped = Math.max(0, Math.min(maxLeap, dist - 1.15)); // land just short of the target
@@ -515,13 +486,14 @@ H.bodyguard = {
   },
 
   // Overhead plate tag
+  // (st.guardStacks: the stats used to say bgStacks, which never existed, so the pip never showed)
   hudTag(st) {
-    return (st.bgStacks || 0) > 0 ? ' [GUARD x' + st.bgStacks + ']' : '';
+    return (st.guardStacks || 0) > 0 ? ' ' + '🛡️'.repeat(st.guardStacks) : '';
   },
 
   // Passive slot pip text ('' hides it)
   passivePip(st) {
-    return (st.bgStacks || 0) > 0 ? st.bgStacks + 'x' : '';
+    return (st.guardStacks || 0) > 0 ? st.guardStacks + 'x' : '';
   },
 
   rEmpowered() {

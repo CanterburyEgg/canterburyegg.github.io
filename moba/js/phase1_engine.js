@@ -1845,45 +1845,63 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
     }
 
-    // Compute Shirtless Bodyguard Passive ("Stand Behind Me!"): +14 Resist per Ally-Enemy threat line screened
-    function computeBodyguardStacks() {
-      const heroId = getActiveHeroId();
-      bots.forEach((b) => { b.bonusResAura = 0; });
-      if (heroId !== 'bodyguard' || playerProg.respawnTimer > 0) {
-        hero.guardStacks = 0;
-        return 0;
-      }
-      if (hero.peakPhysiqueTimer > 0) {
-        hero.guardStacks = 6;
-        return 6;
-      }
-      let stacks = 0;
-      const allies = bots.filter((b) => b.team === 0 && b.respawnTimer <= 0);
-      const enemies = bots.filter((b) => b.team === 1 && b.respawnTimer <= 0);
+    // Bodyguard Passive ("Stand Behind Me!", DESIGN_RULES Bodyguard): standing between an enemy hero and an allied hero
+    // builds Guard stacks (+GUARD_RES Resist each, max GUARD_MAX). Stacks build and decay ONE at a time (GUARD_STEP s each),
+    // so diving out with E+Q keeps them for a few seconds, then he has to get back to a guarding spot to recharge.
+    // Works for the player and for bot Bodyguards (ticked in update / updateBots; read by getPlayerStats / unitResist).
+    const GUARD_MAX = 3, GUARD_RES = 14, GUARD_STEP = 1.5;
+    function guardScreening(g, team) {
+      const allies = bots.filter((b) => b.team === team && b !== g && b.respawnTimer <= 0);
+      if (team === 0 && g !== hero && playerProg.respawnTimer <= 0) allies.push(hero);
+      const enemies = bots.filter((b) => b.team !== team && b.respawnTimer <= 0);
+      if (team === 1 && playerProg.respawnTimer <= 0) enemies.push(hero);
+      let count = 0, ally = null, allyBest = 0;
       allies.forEach((al) => {
-        let protectedAlly = false;
+        let n = 0;
         enemies.forEach((en) => {
           if (Math.hypot(en.x - al.x, en.z - al.z) > 19.0) return;
-          const sx = en.x - al.x;
-          const sz = en.z - al.z;
+          const sx = en.x - al.x, sz = en.z - al.z;
           const lenSq = sx * sx + sz * sz;
           if (lenSq < 0.1) return;
-          const t = ((hero.x - al.x) * sx + (hero.z - al.z) * sz) / lenSq;
-          if (t > 0.08 && t < 0.94) {
-            const px = al.x + t * sx;
-            const pz = al.z + t * sz;
-            if (Math.hypot(hero.x - px, hero.z - pz) <= 2.9) {
-              stacks++;
-              protectedAlly = true;
-            }
-          }
+          const t = ((g.x - al.x) * sx + (g.z - al.z) * sz) / lenSq;
+          if (t > 0.08 && t < 0.94 && Math.hypot(g.x - (al.x + t * sx), g.z - (al.z + t * sz)) <= 2.9) n++;
         });
-        if (protectedAlly && playerProg.talents[3] === 'R') {
-          al.bonusResAura = Math.min(6, stacks) * 7;
-        }
+        count += n;
+        if (n > allyBest) { allyBest = n; ally = al; }
       });
-      hero.guardStacks = Math.min(6, stacks);
-      return hero.guardStacks;
+      return { count, ally };
+    }
+    function tickGuardStacks(g, team, dt, alive) {
+      if (!alive) { g.guardStacks = 0; g.guardT = 0; g.guardAlly = null; return; }
+      const sc = guardScreening(g, team);
+      g.guardAlly = sc.ally;
+      const target = Math.min(GUARD_MAX, sc.count);
+      const cur = g.guardStacks || 0;
+      if (target === cur) { g.guardT = 0; return; }
+      g.guardT = (g.guardT || 0) + dt;
+      if (g.guardT >= GUARD_STEP) { g.guardT = 0; g.guardStacks = cur + (target > cur ? 1 : -1); }
+    }
+    function computeBodyguardStacks() {
+      if (getActiveHeroId() !== 'bodyguard' || playerProg.respawnTimer > 0) return 0;
+      return hero.guardStacks || 0;
+    }
+    // faint tether to the guarded ally while he's screening them
+    function updateGuardTether(g, visible) {
+      const show = visible && !!g.guardAlly && (g.guardStacks || 0) > 0;
+      if (!g._guardTether) {
+        if (!show) return;
+        const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+        g._guardTether = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: 0xfde047, transparent: true, opacity: 0.35, depthWrite: false }));
+        g._guardTether.frustumCulled = false;
+        scene.add(g._guardTether);
+      }
+      g._guardTether.visible = show;
+      if (!show) return;
+      const pos = g._guardTether.geometry.attributes.position;
+      pos.setXYZ(0, g.x, 1.1, g.z);
+      pos.setXYZ(1, g.guardAlly.x, 1.1, g.guardAlly.z);
+      pos.needsUpdate = true;
+      g._guardTether.material.opacity = 0.18 + 0.08 * g.guardStacks;
     }
 
     // Compute Player Total Stats (Base + Level + 4-Slot Items + Boss +10% All-Stats Buff + Talents + Passives!)
@@ -1934,8 +1952,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // damage after Resist (one Resist reduces both Attack and Ability damage)
     function unitResist(u) {
       if (!u) return 0;
-      if (u.resist !== undefined) return u.resist;
-      return u.armor || 0;
+      const guard = (u.guardStacks || 0) * GUARD_RES; // bot Bodyguard passive (the player's is in getPlayerStats)
+      if (u.resist !== undefined) return u.resist + (u === hero ? 0 : guard);
+      return (u.armor || 0) + (u === hero ? 0 : guard);
     }
 
     // the active hero's own resource spec ({ name, max, colors }) or null for mana
@@ -1951,7 +1970,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Bodyguard Passive ("Stand Behind Me!"): +14 Resist per stack
       const guardStacks = computeBodyguardStacks();
       if (heroId === 'bodyguard' && guardStacks > 0) {
-        resist += guardStacks * 14;
+        resist += guardStacks * GUARD_RES;
       }
 
       // Coyote 3L Talent: Bloodhound Stride (+4% MS per active Bleed stack on nearby enemies)
@@ -2046,7 +2065,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.knockbackVx = ((opts.knockbackDirX || 0) / kl) * (opts.knockbackDist / 0.25);
         u.knockbackVz = ((opts.knockbackDirZ || 0) / kl) * (opts.knockbackDist / 0.25);
         u.knockbackTimer = 0.25;
-        u.knockbackWallStun = !!opts.wallStun;
+        u.knockbackWallStun = +opts.wallStun || 0; // seconds of stun if the knockback hits a wall
         u.knockbackBotLvl = opts.casterLevel || 4;
       }
     }
@@ -2269,7 +2288,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.knockbackVx = (dirX / kLen) * (opts.knockbackDist / kDur);
         u.knockbackVz = (dirZ / kLen) * (opts.knockbackDist / kDur);
         u.knockbackTimer = kDur;
-        u.knockbackWallStun = !!opts.wallStun;
+        u.knockbackWallStun = +opts.wallStun || 0; // seconds of stun if the knockback hits a wall
         if (opts.knockbackDist > 0) {
           spawnFloat(u.x, 2.55, u.z, 'KNOCKBACK!', '#38bdf8');
         }
@@ -2943,7 +2962,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
 
-    // Advance Knockback on a unit (including Player Hero!) and check for Bodyguard 3L "Into the Stonework" Wall-Stun!
+    // Advance Knockback on a unit (including the player) and apply a wall stun (Bodyguard Q) if it slams into a wall/tree/tower
     function stepUnitKnockback(u, dt, kind) {
       if (!u || !u.knockbackTimer || u.knockbackTimer <= 0) return false;
       const stepDt = Math.min(dt, u.knockbackTimer);
@@ -2981,18 +3000,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
         hitWall = true;
       }
 
-      if (hitWall && u.knockbackWallStun) {
-        u.knockbackWallStun = false;
+      if (hitWall && u.knockbackWallStun > 0) {
+        const wallStunDur = u.knockbackWallStun;
+        u.knockbackWallStun = 0;
         u.knockbackTimer = 0;
-        u.stunTimer = Math.max(u.stunTimer || 0, 1.0);
+        u.stunTimer = Math.max(u.stunTimer || 0, wallStunDur);
         SFX.play('arena');
         spawnShockRing(u.x, u.z, 0xfde047, 0.25, 1.7, 0.28);
-        spawnFloat(u.x, 2.85, u.z, 'WALL STUN! (1.0s)', '#fde047');
-        if (u === hero) {
-          damageOrderHeroOrBot(hero, 65 + (u.knockbackBotLvl || 4) * 12, 'physical');
-        } else {
-          dealPlayerDamageToUnit({ kind, ref: u }, 65 + playerProg.level * 12, { dmgType: 'physical', color: '#fde047', isDoT: true });
-        }
+        spawnFloat(u.x, 2.85, u.z, 'WALL STUN!', '#fde047');
       }
       return true;
     }
@@ -3034,7 +3049,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       } else {
         const allyAura = (st.allyAuraRes > 0 && Math.hypot(unit.x - hero.x, unit.z - hero.z) <= 7.5) ? st.allyAuraRes : 0;
         const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
-        const totalRes = baseRes + (unit.bonusResAura || 0) + allyAura;
+        const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES + allyAura;
         const mitigated = Math.max(1, Math.round(rawDmg * (100 / (100 + totalRes))));
         if (unit.shield && unit.shield > 0) {
           if (unit.shield >= mitigated) {
@@ -3089,7 +3104,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           u.knockbackVx = (kx / kl) * (opts.kbDist / 0.25);
           u.knockbackVz = (kz / kl) * (opts.kbDist / 0.25);
           u.knockbackTimer = 0.25;
-          u.knockbackWallStun = !!opts.wallStun;
+          u.knockbackWallStun = +opts.wallStun || 0; // seconds of stun if the knockback hits a wall
           u.knockbackBotLvl = opts.fromBot.level || 4;
         }
       }
@@ -3219,6 +3234,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
         CC.tick(b, dt);
         b.stealthTimer = Math.max(0, (b.stealthTimer || 0) - dt);
         KitFx.charges.tick(b, dt);
+        if (b.heroType === 'bodyguard') {
+          tickGuardStacks(b, b.team, dt, b.respawnTimer <= 0);
+          updateGuardTether(b, b.respawnTimer <= 0 && (b.team === 0 || isUnitSeenBy(b, 0)));
+        }
         // shared unseen state (vision system); Panther's passive keeps its speed 2.2s after she's spotted
         b.isUnseen = matchMode && b.respawnTimer <= 0 && isUnseen(b);
         if (b.heroType === 'panther') b.unseenLingerTimer = b.isUnseen ? 2.2 : Math.max(0, (b.unseenLingerTimer || 0) - dt);
@@ -3853,6 +3872,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (shEl) shEl.style.width = Math.max(0, ((b.shield || 0) / b.maxHp) * 100) + '%';
           b.plate.querySelector('.plate-tag').textContent =
             'Lv' + b.level + ' ' + b.name +
+            ((b.guardStacks || 0) > 0 ? ' ' + '🛡️'.repeat(b.guardStacks) : '') +
             CC.tags(b) +
             (b.slowTimer > 0 ? ' [❄️ SLOWED]' : '') +
             ((b.predatorMarks || 0) > 0 && (b.predatorMarkTimer || 0) > 0 ? ' [🐾x' + b.predatorMarks + ']' : '') +
@@ -4863,6 +4883,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // the player gets the same slowed visual as bots/minions
       if (typeof heroPivot !== 'undefined') updateUnitSlowVisual(hero, heroPivot, 0.85, dt);
       if (typeof heroPivot !== 'undefined') CC.updateIcon(hero, heroPivot, 2.3, dt);
+      tickGuardStacks(hero, 0, dt, getActiveHeroId() === 'bodyguard' && playerProg.respawnTimer <= 0);
+      updateGuardTether(hero, getActiveHeroId() === 'bodyguard');
       updateFog(dt);
 
       // Pooled minion rigs are only visible during the loading-screen shader warm-up; never draw them in play
@@ -4937,7 +4959,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           stunTimer: 0, slowTimer: 0, tauntTimer: 0, stealthTimer: 0, knockbackTimer: 0, knockbackVx: 0, knockbackVz: 0,
           bleedStacks: 0, bleedTimer: 0, leapTimer: 0, leapOnLand: null, leapHeight: undefined, dashTimer: 0, dashOnEnd: null,
           rChargeTimer: 0, arenaTimer: 0, monoTimer: 0, eRecast: 0, aimTarget: null,
-          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null, fuel: undefined, _fuelHp: undefined,
+          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null, fuel: undefined, _fuelHp: undefined, guardStacks: 0, guardT: 0,
           impPendingQ: null, impStrike: null, impRocket: false, laneDone: false
         });
         CC.clear(b);
