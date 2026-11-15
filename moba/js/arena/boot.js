@@ -5,8 +5,10 @@
 
 // Map structure models: assets/map/map_bundle.js (base64 GLBs) -> window.MOBA_MAP_TEMPLATES -> engine rebuilds structures.
 // Missing bundle or a parse error just leaves the old primitive structures in place.
+// Bump when a map/jungle/golem/minion bundle changes, so browsers (localhost server) don't keep serving the old copy
+const MAP_BUNDLE_VER = '2026-11-15a';
 async function loadMapModels() {
-  if (!window.MOBA_MAP_MODELS) await loadScriptAsync('assets/map/map_bundle.js');
+  if (!window.MOBA_MAP_MODELS) await loadScriptAsync('assets/map/map_bundle.js?v=' + MAP_BUNDLE_VER);
   const src = window.MOBA_MAP_MODELS;
   if (!src) return;
   const parseGlb = (b64) => new Promise((resolve) => {
@@ -17,23 +19,26 @@ async function loadMapModels() {
     }
   });
   const tmpl = {};
-  const [tower, hearth] = await Promise.all([parseGlb(src.towerGlbB64), parseGlb(src.hearthGlbB64)]);
+  const [tower, hearth, gatehouse] = await Promise.all([parseGlb(src.towerGlbB64), parseGlb(src.hearthGlbB64), src.gatehouseGlbB64 ? parseGlb(src.gatehouseGlbB64) : null]);
   if (tower) tmpl.tower = tower;
   if (hearth) tmpl.hearth = hearth;
+  if (gatehouse) tmpl.gatehouse = gatehouse;
   window.MOBA_MAP_TEMPLATES = tmpl;
   if (phase1Engine && phase1Engine.notifyMapModelsReady) phase1Engine.notifyMapModelsReady();
 
   // Jungle models (trees + camp monsters): assets/map/jungle_bundle.js -> window.MOBA_JUNGLE_TEMPLATES -> engine swaps them in
-  if (!window.MOBA_JUNGLE_MODELS) await loadScriptAsync('assets/map/jungle_bundle.js');
+  if (!window.MOBA_JUNGLE_MODELS) await loadScriptAsync('assets/map/jungle_bundle.js?v=' + MAP_BUNDLE_VER);
   const jm = window.MOBA_JUNGLE_MODELS;
   if (jm) {
-    const [tree, golem, boar, wolf, wisp] = await Promise.all([jm.treeGlbB64, jm.golemGlbB64, jm.boarGlbB64, jm.wolfGlbB64, jm.wispGlbB64].map(parseGlb));
-    window.MOBA_JUNGLE_TEMPLATES = { tree, golem, boar, wolf, wisp };
+    const opt = (b64) => (b64 ? parseGlb(b64) : Promise.resolve(null));
+    const [tree, golem, boar, wolf, wisp, boulder, log, stag] = await Promise.all(
+      [jm.treeGlbB64, jm.golemGlbB64, jm.boarGlbB64, jm.wolfGlbB64, jm.wispGlbB64, jm.boulderGlbB64, jm.logGlbB64, jm.stagGlbB64].map(opt));
+    window.MOBA_JUNGLE_TEMPLATES = { tree, golem, boar, wolf, wisp, boulder, log, stag };
     if (phase1Engine && phase1Engine.notifyJungleModelsReady) phase1Engine.notifyJungleModelsReady();
   }
 
   // Moss golem rig (Mixamo idle + walk / punch / swipe / roar / death): replaces the static golem in its camps
-  if (!window.MOBA_GOLEM_BUNDLE) await loadScriptAsync('assets/map/golem_bundle.js');
+  if (!window.MOBA_GOLEM_BUNDLE) await loadScriptAsync('assets/map/golem_bundle.js?v=' + MAP_BUNDLE_VER);
   const gb = window.MOBA_GOLEM_BUNDLE;
   if (gb) {
     try {
@@ -52,7 +57,7 @@ async function loadMapModels() {
   }
 
   // Armor minions (regular + super): skinned idle model + clips
-  if (!window.MOBA_MINION_BUNDLE) await loadScriptAsync('assets/map/minion_bundle.js');
+  if (!window.MOBA_MINION_BUNDLE) await loadScriptAsync('assets/map/minion_bundle.js?v=' + MAP_BUNDLE_VER);
   const mb = window.MOBA_MINION_BUNDLE;
   if (mb) {
     try {
@@ -142,6 +147,20 @@ async function bootArenaWithLoadingBar() {
   camera.lookAt(hero.x, 0.9, hero.z);
   camera.updateMatrixWorld();
   renderer.compile(scene, camera);
+  // compile() builds shaders but textures only upload the first time their mesh is on screen (a hitch when you first
+  // walk up to a stag / gatehouse / boulder): push every texture in the scene to the GPU now, behind the curtain
+  if (renderer.initTexture) {
+    const seen = new Set();
+    scene.traverse((o) => {
+      if (!o.material) return;
+      (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => {
+        ['map', 'normalMap', 'emissiveMap', 'alphaMap'].forEach((k) => {
+          const t = m && m[k];
+          if (t && !seen.has(t)) { seen.add(t); renderer.initTexture(t); }
+        });
+      });
+    });
+  }
   renderer.render(scene, camera);
 
   setProgress(100, 'Entering the Coliseum!');

@@ -96,7 +96,9 @@ window.MOBA_MAP = (function () {
     const half = [
       { key: 'north', name: 'Razorback Pack', x: -34, z: -27, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
       { key: 'mid', name: 'Stone Golem', x: -29, z: -5, maxHp: 1400, armor: 22, atk: 56, gold: 165, xp: 195, respawnDur: 45 },
-      { key: 'south', name: 'Bramble Stalkers', x: -37, z: 15, maxHp: 1100, armor: 16, atk: 46, gold: 135, xp: 165, respawnDur: 40 },
+      // buff camp (Sunhorn Stag): sits where the thorn wolves were (the wolves join the boars when camps become groups).
+      // Its League-style blue/red buff is still to design (REFACTOR_NOTES backlog); for now it's a tougher camp.
+      { key: 'buff', name: 'Sunhorn Stag', x: -37, z: 15, maxHp: 1500, armor: 22, atk: 52, gold: 150, xp: 185, respawnDur: 60 },
       // small camp filling the open ground between the middle path and the southern camp (floating thorn lanterns)
       { key: 'wisp', name: 'Glimmer Wisps', x: -16, z: 30, maxHp: 700, armor: 10, atk: 30, gold: 85, xp: 105, respawnDur: 35 }
     ];
@@ -259,11 +261,31 @@ window.MOBA_MAP = (function () {
       if (half.some((o) => Math.hypot(o.x - x, o.z - z) < o.r + r + 2.2)) continue;
       half.push(isPillar ? { kind: 'pillar', x, z, r } : { kind: 'tree', x, z, r, scale: s });
     }
-    // valley edge trees along the south border, and along the top lane's south shoulder over the slopes
+    // Fallen logs: long line-of-sight blockers, each a chain of 3 collision circles along its length (own seed, so the
+    // trees and pillars above stay exactly where they were). The first circle carries the model placement (log*).
+    let seed2 = 4242;
+    const rnd2 = () => { seed2 = (seed2 * 16807) % 2147483647; return (seed2 - 1) / 2147483646; };
+    const LOG_LEN = 5.2, LOG_R = 0.8, LOG_STEP = 1.7;
+    let logs = 0, logTries = 0;
+    while (logs < 3 && logTries < 3000) {
+      logTries++;
+      const cx = -50 + rnd2() * 44;
+      const cz = TOP_Z + 4 + rnd2() * (BOUNDS.maxZ - TOP_Z - 6);
+      const yaw = rnd2() * Math.PI;
+      const pts = [-1, 0, 1].map((k) => ({ x: cx + Math.sin(yaw) * LOG_STEP * k, z: cz + Math.cos(yaw) * LOG_STEP * k }));
+      if (pts.some((p) => keepOut(p.x, p.z, LOG_R + 0.6))) continue;
+      if (pts.some((p) => half.some((o) => Math.hypot(o.x - p.x, o.z - p.z) < o.r + LOG_R + 2.2))) continue;
+      pts.forEach((p, k) => half.push(Object.assign({ kind: 'log', x: p.x, z: p.z, r: LOG_R },
+        k === 1 ? { logX: cx, logZ: cz, logYaw: yaw, logLen: LOG_LEN } : {})));
+      logs++;
+    }
+    // mirrored to the other side
     const out = [];
     half.forEach((o) => {
       out.push(o);
-      out.push(Object.assign({}, o, { x: -o.x }));
+      const m = Object.assign({}, o, { x: -o.x });
+      if (o.logYaw !== undefined) { m.logX = -o.logX; m.logYaw = -o.logYaw; }
+      out.push(m);
     });
     return out;
   }

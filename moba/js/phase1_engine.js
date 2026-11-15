@@ -582,10 +582,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
       golem: { height: 2.5, rotX: 0, yaw: 0 },
       boar:  { height: 1.35, rotX: 0, yaw: 0 },
       wolf:  { height: 1.3, rotX: 0, yaw: -Math.PI / 2 },   // modeled facing +x
-      wisp:  { height: 1.15, rotX: 0, yaw: 0, hover: 0.75 }
+      wisp:  { height: 1.15, rotX: 0, yaw: 0, hover: 0.75 },
+      boulder: { height: 2.7, rotX: 0, yaw: 0 },          // replaces the stone pillars (r 1.3)
+      log:   { height: 1.55, rotX: 0, yaw: 0 },            // fallen log, long axis = model +x (~5.2m long at this height)
+      stag:  { height: 2.6, rotX: 0, yaw: 0 }
     };
-    const CAMP_MODEL = { north: 'boar', mid: 'golem', south: 'wolf', wisp: 'wisp' }; // camp key -> model (boss: later)
+    const CAMP_MODEL = { north: 'boar', mid: 'golem', buff: 'stag', wisp: 'wisp' }; // camp key -> model (boss: later; wolf returns with group camps)
     const treeHolders = [];  // { o (obstacle), grp } so trees can swap to the real model when it finishes loading
+    const rockHolders = [];  // { o, grp, id: 'boulder' | 'log' } pillars + fallen logs, same idea
 
     function fitJungleModel(id, scale) {
       const tmpl = window.MOBA_JUNGLE_TEMPLATES && window.MOBA_JUNGLE_TEMPLATES[id];
@@ -623,6 +627,16 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (!m) return;
         while (t.grp.children.length) t.grp.remove(t.grp.children[0]);
         m.rotation.y = ((t.o.x * 12.9898 + t.o.z * 78.233) % 6.283); // stable per-tree turn so the forest isn't uniform
+        t.grp.add(m);
+        t.grp.userData.modeled = true;
+      });
+      rockHolders.forEach((t) => {
+        if (t.grp.userData.modeled) return;
+        const m = fitJungleModel(t.id, 1);
+        if (!m) return;
+        while (t.grp.children.length) t.grp.remove(t.grp.children[0]);
+        // boulders: stable per-spot turn; logs: long axis (model +x) along the log's direction
+        m.rotation.y = t.id === 'log' ? t.o.logYaw - Math.PI / 2 : ((t.o.x * 12.9898 + t.o.z * 78.233) % 6.283);
         t.grp.add(m);
         t.grp.userData.modeled = true;
       });
@@ -798,6 +812,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
         rRing.rotation.x = -Math.PI / 2;
         rRing.position.y = 0.03;
         grp.add(rRing);
+      } else if (s.kind === 'barracks' && mapTmpl.gatehouse) {
+        // Gatehouse model (a bit wider than its collision circle so it reads as the gate's big flank tower)
+        const model = fitMapModel(mapTmpl.gatehouse, s.r * 2 + 1.0);
+        grp.add(model);
       } else if (s.kind === 'barracks') {
         // Gatehouse: the targetable flank tower of a castle gate
         const body = new THREE.Mesh(new THREE.CylinderGeometry(s.r, s.r * 1.08, 5.0, 14), stoneBaseMat);
@@ -1147,11 +1165,30 @@ window.MOBA_PHASE1_ENGINE = (function () {
       mapObstacles.forEach((o) => {
         if (o.kind === 'wall') return; // drawn by buildCastleWorks
         if (o.kind === 'pillar') {
+          // stand-in cylinder until the boulder model loads (applyJungleModels)
+          const g = new THREE.Group();
           const m = new THREE.Mesh(new THREE.CylinderGeometry(o.r * 0.85, o.r, 3.4, 9), stoneBaseMat);
-          m.position.set(o.x, 1.7, o.z);
+          m.position.y = 1.7;
           m.castShadow = true;
           m.receiveShadow = true;
-          mapGroup.add(m);
+          g.add(m);
+          g.position.set(o.x, 0, o.z);
+          mapGroup.add(g);
+          rockHolders.push({ o, grp: g, id: 'boulder' });
+        } else if (o.kind === 'log') {
+          // fallen log: one model per log (on its middle circle); stand-in is a plain cylinder
+          if (o.logYaw === undefined) return;
+          const g = new THREE.Group();
+          const m = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.75, o.logLen, 10), trunkMat);
+          m.rotation.x = Math.PI / 2;
+          m.position.y = 0.7;
+          m.rotation.order = 'YXZ';
+          m.rotation.y = o.logYaw;
+          m.castShadow = true;
+          g.add(m);
+          g.position.set(o.logX, 0, o.logZ);
+          mapGroup.add(g);
+          rockHolders.push({ o, grp: g, id: 'log' });
         } else {
           const s = o.scale || 1.0;
           const tGrp = new THREE.Group();
@@ -4571,7 +4608,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         c.mobGrp.visible = vis;
         updateUnitSlowVisual(c, c.mobGrp, c.isBoss ? 1.35 : 0.82, dt);
         c.mobGrp.position.y = CC.lift(c);
-        CC.updateIcon(c, c.mobGrp, c.isBoss ? 3.8 : (c.key === 'mid' ? 2.6 : 1.7), dt);
+        CC.updateIcon(c, c.mobGrp, c.isBoss ? 3.8 : (c.key === 'mid' || c.key === 'buff' ? 2.6 : 1.7), dt);
         if (vis) {
           const sp = projectToScreen(c.x, c.isBoss ? 4.2 : 2.3, c.z);
           c.plate.style.display = sp.visible ? 'flex' : 'none';

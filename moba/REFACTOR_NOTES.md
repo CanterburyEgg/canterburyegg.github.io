@@ -106,6 +106,12 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   Give it HP plus an overhead bar, make it targetable by bots, minions and towers, and when it's destroyed the Imp has
   to salvage the scrap to get his cannon back (DESIGN_RULES.md). Wrench hits repair it.
 
+## Model batch 2026-11-15
+- **In game:** gatehouse (the gate flank tower), boulders (replace the stone pillars), fallen logs (3 per side, new line-of-sight
+  blockers), Sunhorn Stag (buff camp where the wolves were). `MAP_BUNDLE_VER` in boot.js: bump it when a bundle changes.
+- **Concepts for new meshes:** `pebble_golem/` (small golem for the golem camp), `wisplet/` (small wisps for the wisp family),
+  `ruined_wall/` (another line-of-sight blocker). Conifer mesh redo from `jungle_conifer_concept_v2.png`.
+
 ## Model batch 2026-11-13 (meshes done; texture 2026-11-14)
 Untextured meshes in `assets/map/<id>/<id>_untextured.glb`:
 - **Sunhorn Stag** (buff camp monster, four-legged; shares the quadruped rig), **Gatehouse** (replaces the code-built
@@ -127,6 +133,11 @@ triangles each with `glb_decimate.py`). New Glimmer Wisp camp per side at (±16,
 - [ ] **Camp redesign (noted 2026-11-13)**: camps become groups of monsters (the engine has one unit per camp today).
   Four camps per side: **Golems** (one big + one small), **Boar + Wolf** together, **Wisps** (a family of 4 small + 1 big),
   and a new **buff camp** (added after the other three).
+- [ ] **Buff camp buff (noted 2026-11-15)**: the Sunhorn Stag camp (where the wolves were) should grant a League-style
+  blue/red buff to whoever kills it; what the buff does is still to design. The stag stands still until the quadruped rig.
+- [ ] **Thorn wolf** is out of the jungle for now (its spot went to the stag); it comes back alongside the boar when camps
+  become groups.
 - [ ] **Facing / look pass** during the jungle visual overhaul (which way each model faces, tree size vs. sight lines;
   trees are candidates for the see-through-walls trick).
-- Tripo props (separate from the Hunyuan credits): spyglass, then ballista / minion weapons.
+- Tripo props (separate from the Hunyuan credits): spyglass; **minion weapons: a sword for the sword minions and a bow
+  for the bow minions** (noted 2026-11-15); then the ballista.
