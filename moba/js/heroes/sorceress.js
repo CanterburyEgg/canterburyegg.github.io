@@ -613,7 +613,7 @@ H.sorceress = {
         dummies.forEach((d) => {
           if (d.isShooter && !shooterEnabled) return;
           if (Math.hypot(d.x - sorcMonolith.x, d.z - sorcMonolith.z) <= sorcMonolith.curR + d.r) {
-            damageDummy(d, tickDmg, '#e879f9');
+            damageDummy(d, tickDmg, '#e879f9', true);
           }
         });
         if (phase1Engine) {
@@ -623,7 +623,8 @@ H.sorceress = {
               phase1Engine.dealPlayerDamageToUnit(t, tickDmg, {
                 dmgType: 'fantasy',
                 slowDur: 0.65,
-                color: '#e879f9'
+                color: '#e879f9',
+                isDoT: true
               });
             }
           });

@@ -78,9 +78,8 @@ K.hitArea = function (x, z, r, dmg, opts = {}) {
   if (by.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
     if (Math.hypot(d.x - x, d.z - z) <= r + d.r) {
-      damageDummy(d, dmg, opts.color || '#fb7185');
-      if (opts.stunDur) d.stunTimer = Math.max(d.stunTimer, opts.stunDur);
-      if (opts.slowDur) d.slowTimer = Math.max(d.slowTimer || 0, opts.slowDur);
+      damageDummy(d, dmg, opts.color || '#fb7185', !!opts.isDoT);
+      CC.apply(d, opts, { x, z, unit: by.unit });
       if (opts.pullTo) K.knockDummy(d, opts.pullTo.x - d.x, opts.pullTo.z - d.z, Math.min(opts.pullDist || 3, Math.hypot(opts.pullTo.x - d.x, opts.pullTo.z - d.z) - 1.0));
       hits++;
     }
@@ -120,8 +119,8 @@ K.hitCone = function (range, halfAngle, dmg, opts = {}) {
   if (by.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
     if (inCone(d.x, d.z, d.r)) {
-      damageDummy(d, dmg, opts.color || '#fb7185');
-      if (opts.slowDur) d.slowTimer = Math.max(d.slowTimer || 0, opts.slowDur);
+      damageDummy(d, dmg, opts.color || '#fb7185', !!opts.isDoT);
+      CC.apply(d, opts, { x: u.x, z: u.z, unit: u });
       hits++;
     }
   });

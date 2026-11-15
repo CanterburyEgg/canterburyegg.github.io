@@ -1,6 +1,6 @@
 // Little Fairy: Support • Ranged Enchanter (guardian angel + trickster). See DESIGN_RULES.md.
 // First playable pass: real model + clips, hover/lean/wings in code, stand-in versions of the designed kit
-// (Glimmer Dart, Pop! Bubble lob + Fairy Dust heal, 2-charge Pixie Hop, Lullaby Dreamdust ring that sleeps = stuns).
+// (Glimmer Dart, Pop! Bubble lob + Fairy Dust heal, 2-charge Pixie Hop, Lullaby Dreamdust ring that puts enemies to sleep).
 // Talents are placeholders until the roster-wide talent pass.
 (function () {
 'use strict';
@@ -472,12 +472,12 @@ H.fairy = {
           }
         });
       }
-      // Dreamdust: enemies inside fall asleep (stun stand-in; damage would wake them once sleep exists)
+      // Dreamdust: enemies inside fall asleep (real sleep: a direct hit wakes them; isDoT so the 0-damage dust tick itself doesn't)
       if (p.dream) {
         p.sleepTick = (p.sleepTick || 0) - dt;
         if (p.sleepTick <= 0) {
           p.sleepTick = 0.5;
-          KitFx.hitArea(p.x, p.z, p.r, 0, { stunDur: 2.0, color: '#c4b5fd', by: p.owner || KitFx.player });
+          KitFx.hitArea(p.x, p.z, p.r, 0, { sleepDur: 2.0, isDoT: true, color: '#c4b5fd', by: p.owner || KitFx.player });
         }
       }
       if (p.t <= 0) {

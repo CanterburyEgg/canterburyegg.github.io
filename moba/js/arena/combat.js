@@ -233,7 +233,8 @@ function applyBleedStacks(d, count) {
   }
 }
 
-function damageDummy(d, raw, customColor = '#fb7185') {
+function damageDummy(d, raw, customColor = '#fb7185', isDoT = false) {
+  CC.wake(d, isDoT);
   let dmg = raw;
   if (arena && Math.hypot(d.x - arena.x, d.z - arena.z) <= arena.r) dmg *= (arena.amp || 1.25);
   dmg = Math.round(dmg);
@@ -299,7 +300,7 @@ function fireStrikeImpact(strike) {
 
 function tryAttack() {
   if (phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0) return;
-  if ((hero.stunTimer || 0) > 0) return; // stunned: no attacks
+  if (!CC.canAttack(hero)) return; // stunned / asleep / feared: no attacks
   if (hero.atkTimer > 0 || hero.dashTimer > 0 || hero.leapTimer > 0 || hero.grenadeAnim > 0 || hero.rChargeTimer > 0) return;
   const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 55, fant: 40, asPct: 0 };
 
@@ -328,7 +329,7 @@ let activeDashClipKind = null; // 'slide' | 'jump' | null
 
 function castKey(slot) {
   if (phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0) return;
-  if ((hero.stunTimer || 0) > 0) return; // stunned: no abilities
+  if (!CC.canCast(hero)) return; // stunned / silenced / feared / taunted: no abilities
   SFX.unlock();
   hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
   const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 55, fant: 42, cdr: 0 };

@@ -87,7 +87,7 @@ function tick(now) {
       d.bleedTickTimer -= dt;
       if (d.bleedTickTimer <= 0) {
         d.bleedTickTimer = 0.65;
-        damageDummy(d, Math.round(d.bleedStacks * bleedTickDmg()), '#f43f5e');
+        damageDummy(d, Math.round(d.bleedStacks * bleedTickDmg()), '#f43f5e', true);
       }
       if (d.bleedTimer <= 0) {
         d.bleedStacks = 0;
@@ -132,6 +132,9 @@ function tick(now) {
       d.mesh.position.set(d.x, 0, d.z);
     }
     d.stunTimer = Math.max(0, d.stunTimer - dt);
+    CC.tick(d, dt);
+    d.mesh.position.y = CC.lift(d);
+    CC.updateIcon(d, d.mesh, 2.2, dt);
     d.slowTimer = Math.max(0, (d.slowTimer || 0) - dt);
     if ((d.predatorMarkTimer || 0) > 0) {
       d.predatorMarkTimer = Math.max(0, d.predatorMarkTimer - dt);
@@ -240,13 +243,21 @@ function tick(now) {
   } else {
     hero.stunTimer = Math.max(0, (hero.stunTimer || 0) - dt);
     hero.slowTimer = Math.max(0, (hero.slowTimer || 0) - dt);
+    hero.tauntTimer = Math.max(0, (hero.tauntTimer || 0) - dt);
+    CC.tick(hero, dt);
     let mx = 0, mz = 0;
     if (keys.KeyW || keys.ArrowUp) mz -= 1;
     if (keys.KeyS || keys.ArrowDown) mz += 1;
     if (keys.KeyA || keys.ArrowLeft) mx -= 1;
     if (keys.KeyD || keys.ArrowRight) mx += 1;
+    // feared: run from the source; taunted: walk at the taunter (stop at melee range so the basic attack can land)
+    const forced = CC.forcedMove(hero);
+    if (forced) {
+      mx = forced.x; mz = forced.z;
+      if (forced.kind === 'taunt' && forced.dist < hero.r + (hero.tauntBy.r || 0.5) + 0.6) mx = mz = 0;
+    }
     const ml = Math.hypot(mx, mz);
-    const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || (hero.stunTimer || 0) > 0;
+    const inAttackLock = hero.punchAnim > 0 || hero.kickAnim > 0 || hero.grenadeAnim > 0 || (hero.knockbackTimer || 0) > 0 || !CC.canMove(hero);
     if (ml > 0.05 && !inAttackLock && (!phase1Engine || phase1Engine.getPlayerProg().respawnTimer <= 0)) {
       isMoving = true;
       const baseSpd = (heroKit() && heroKit().moveSpeed) ? heroKit().moveSpeed : 5.88;
@@ -751,7 +762,7 @@ function tick(now) {
     const bleedStr = d.bleedStacks > 0 ? ' [BLEED x' + d.bleedStacks + ']' : '';
     const markStr = (d.predatorMarks || 0) > 0 ? ' [🐾x' + d.predatorMarks + ']' : '';
     const slowStr = d.slowTimer > 0 ? ' [❄️ SLOWED]' : '';
-    d.plate.querySelector('.plate-tag').textContent = (d.stunTimer > 0 ? '⚡ STUNNED' : d.name) + slowStr + bleedStr + markStr;
+    d.plate.querySelector('.plate-tag').textContent = (d.name + CC.tags(d)) + slowStr + bleedStr + markStr;
   });
 
   for (let i = floatTexts.length - 1; i >= 0; i--) {

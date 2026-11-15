@@ -1910,19 +1910,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return list;
     }
     // CC/bleed from a bot-cast kit ability (mirrors applyBotCcAndEffects inside updateBots)
-    function applyActorEffects(targetObj, opts) {
+    function applyActorEffects(targetObj, opts, casterBot) {
       const u = targetObj.ref;
       if (!u || targetObj.kind === 'structure' || targetObj.kind === 'deployable') return;
-      if (opts.stunDur > 0) u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
-      if (opts.slowDur > 0) u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur);
+      // every CC type goes through the shared module (js/cc.js); fear runs from / taunt walks at the caster
+      CC.apply(u, opts, casterBot ? { x: casterBot.x, z: casterBot.z, unit: casterBot } : null);
       if (opts.bleedAdd > 0 && u !== hero) {
         u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
         u.bleedTimer = 5.5;
-      }
-      if (opts.tauntDur > 0) {
-        // bots get the real taunt; the player can't be force-walked yet, so a taunt on the player is a half-length stun
-        if (u === hero) u.stunTimer = Math.max(u.stunTimer || 0, opts.tauntDur * 0.5);
-        else u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
       }
       if (opts.knockbackDist > 0) {
         const kl = Math.hypot(opts.knockbackDirX || 0, opts.knockbackDirZ || 0) || 1;
@@ -1980,8 +1975,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         damage: (t, dmg, opts) => {
           opts = opts || {};
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
-          applyBotDamageToTarget(t, Math.round(dmg * scale), b, opts.dmgType || 'physical');
-          applyActorEffects(t, opts);
+          applyBotDamageToTarget(t, Math.round(dmg * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT);
+          applyActorEffects(t, opts, b);
           return true;
         }
       };
@@ -2113,6 +2108,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.slowTimer = Math.max(u.slowTimer || 0, opts.slowDur || 1.5);
       }
 
+      // Direct hits wake sleepers; every other CC type goes through the shared module (js/cc.js)
+      if (targetObj.kind !== 'structure') {
+        CC.wake(u, opts.isDoT);
+        CC.apply(u, { rootDur: opts.rootDur, silenceDur: opts.silenceDur, fearDur: opts.fearDur, knockupDur: opts.knockupDur, sleepDur: opts.sleepDur },
+          { x: opts.ccFromX !== undefined ? opts.ccFromX : hero.x, z: opts.ccFromZ !== undefined ? opts.ccFromZ : hero.z, unit: hero });
+      }
+
       // Stun (Brawler Q Kick / Wall Stun)
       if (opts.stunDur && targetObj.kind !== 'structure') {
         u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
@@ -2122,6 +2124,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Taunt (Bodyguard R Eyes On Me!)
       if (opts.tauntDur && targetObj.kind !== 'structure') {
         u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
+        u.tauntBy = hero;
         spawnFloat(u.x, 2.65, u.z, 'TAUNTED!', '#fde047');
       }
 
@@ -2248,6 +2251,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.bleedStacks = 0;
         u.tauntTimer = 0;
         u.knockbackTimer = 0;
+        CC.clear(u);
         u.pivot.visible = false;
         if (u.bowPivot) u.bowPivot.visible = false;
         u.plate.style.display = 'none';
@@ -2871,8 +2875,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return true;
     }
 
-    function damageOrderHeroOrBot(unit, rawDmg, dmgType = 'physical', attackerObj = null) {
+    function damageOrderHeroOrBot(unit, rawDmg, dmgType = 'physical', attackerObj = null, isDoT = false) {
       const st = getPlayerStats();
+      CC.wake(unit, isDoT);
       if (unit === hero) {
         if (playerProg.respawnTimer > 0) return;
         const mitigated = Math.round(rawDmg * (100 / (100 + Math.max(0, st.resist))));
@@ -2897,6 +2902,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           playerProg.deaths++;
           teamKills[1]++;
           playerProg.respawnTimer = 6.0 + playerProg.level * 1.2;
+          CC.clear(hero);
+          hero.stunTimer = 0; hero.slowTimer = 0; hero.tauntTimer = 0;
           spawnFloat(hero.x, 2.8, hero.z, 'SLAIN! RESPAWNING IN ' + Math.round(playerProg.respawnTimer) + 's', '#fb7185');
           hero.x = MAP.BASE.heroSpawn.x;
           hero.z = MAP.BASE.heroSpawn.z;
@@ -2988,18 +2995,18 @@ window.MOBA_PHASE1_ENGINE = (function () {
           m.tickTimer = 0.50;
           spawnShockRing(m.x, m.z, 0xd946ef, m.curR * 0.35, m.curR, 0.24);
           if (cb.team === 1 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - m.x, hero.z - m.z) <= m.curR + (hero.r || 0.52)) {
-            applyBotDamageToTarget({ kind: 'player', ref: hero }, m.pulseDmg, cb, 'fantasy');
+            applyBotDamageToTarget({ kind: 'player', ref: hero }, m.pulseDmg, cb, 'fantasy', null, true); // zone pulse = damage over time (doesn't wake sleepers)
             applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: 0.65 });
           }
           bots.forEach((ob) => {
             if (ob.team !== cb.team && ob.respawnTimer <= 0 && Math.hypot(ob.x - m.x, ob.z - m.z) <= m.curR + ob.r) {
-              applyBotDamageToTarget({ kind: 'bot', ref: ob }, m.pulseDmg, cb, 'fantasy');
+              applyBotDamageToTarget({ kind: 'bot', ref: ob }, m.pulseDmg, cb, 'fantasy', null, true); // zone pulse = damage over time (doesn't wake sleepers)
               applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: 0.65 });
             }
           });
           minions.forEach((em) => {
             if (em.team !== cb.team && em.hp > 0 && Math.hypot(em.x - m.x, em.z - m.z) <= m.curR + em.r) {
-              applyBotDamageToTarget({ kind: 'minion', ref: em }, m.pulseDmg, cb, 'fantasy');
+              applyBotDamageToTarget({ kind: 'minion', ref: em }, m.pulseDmg, cb, 'fantasy', null, true); // zone pulse = damage over time (doesn't wake sleepers)
             }
           });
         }
@@ -3087,6 +3094,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         b.slowTimer = Math.max(0, b.slowTimer - dt);
         b.stunTimer = Math.max(0, b.stunTimer - dt);
         b.tauntTimer = Math.max(0, (b.tauntTimer || 0) - dt);
+        CC.tick(b, dt);
         b.stealthTimer = Math.max(0, (b.stealthTimer || 0) - dt);
         b.arenaTimer = Math.max(0, (b.arenaTimer || 0) - dt);
         if ((b.qTempoTimer || 0) > 0) {
@@ -3186,7 +3194,16 @@ window.MOBA_PHASE1_ENGINE = (function () {
           }
         } else if (stepUnitKnockback(b, dt, 'bot')) {
           if (b.respawnTimer > 0) return;
-        } else if (b.stunTimer <= 0 && (b.rChargeTimer || 0) <= 0) {
+        } else if ((b.fearTimer || 0) > 0 && CC.forcedMove(b)) {
+          // feared: run straight away from the source (no attacks or casts)
+          const fm = CC.forcedMove(b);
+          const fspd = b.spd * (b.slowTimer > 0 ? 0.68 : 1.0);
+          const fst = steerUnitAroundStructures(b, fm.x, fm.z, null);
+          b.x = THREE.MathUtils.clamp(b.x + fst.vx * fspd * dt, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
+          b.z = THREE.MathUtils.clamp(b.z + fst.vz * fspd * dt, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
+          b.facing = Math.atan2(fst.vx, fst.vz);
+          isMoving = true;
+        } else if (!CC.helpless(b) && (b.rChargeTimer || 0) <= 0) {
           // =========================================================
           // TARGET ACQUISITION (Easy/Medium = Closest; Hard = Tactical Priority & Peel!)
           // =========================================================
@@ -3230,9 +3247,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
           };
 
-          if (b.team === 1 && b.tauntTimer > 0 && playerProg.respawnTimer <= 0 && (hero.stealthTimer || 0) <= 0) {
-            bestDist = Math.hypot(hero.x - b.x, hero.z - b.z);
-            bestTarget = { kind: 'player', ref: hero };
+          const taunter = b.tauntTimer > 0 ? (b.tauntBy || (b.team === 1 ? hero : null)) : null;
+          const taunterUp = taunter && (taunter === hero ? playerProg.respawnTimer <= 0 : !(taunter.respawnTimer > 0));
+          if (taunterUp) {
+            // taunted: forced to go at the taunter and attack it (player or bot)
+            bestDist = Math.hypot(taunter.x - b.x, taunter.z - b.z);
+            bestTarget = { kind: taunter === hero ? 'player' : 'bot', ref: taunter };
           } else if (b.team === 0) {
             bots.forEach((eb) => {
               if (eb.team === 1 && eb.respawnTimer <= 0 && (eb.stealthTimer || 0) <= 0) {
@@ -3323,7 +3343,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           // SPELL CASTING: MEDIUM (Simple Spells) & HARD (Tactical Combos)
           // Easy Mode strictly uses Basic Attacks (AAs) ONLY!
           // =========================================================
-          if (!isEasy && bestTarget && bestTarget.kind !== 'structure' && b.atkAnimTimer <= 0) {
+          if (!isEasy && bestTarget && bestTarget.kind !== 'structure' && b.atkAnimTimer <= 0 && CC.canCast(b)) {
             const tx = bestTarget.ref.x;
             const tz = bestTarget.ref.z;
             b.facing = Math.atan2(tx - b.x, tz - b.z);
@@ -3522,7 +3542,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           } else if (b.team === 0 && activePing && (activePing.kind === 'attack' || activePing.kind === 'group' || activePing.kind === 'boss')) {
             gx = activePing.x;
             gz = activePing.z;
-          } else if (bestTarget && bestDist <= b.range + targetRad + 0.38 && b.leapTimer <= 0 && b.dashTimer <= 0 && b.atkAnimTimer <= 0) {
+          } else if (bestTarget && bestDist <= b.range + targetRad + 0.38 && b.leapTimer <= 0 && b.dashTimer <= 0 && b.atkAnimTimer <= 0 && CC.canAttack(b)) {
             b.facing = Math.atan2(bestTarget.ref.x - b.x, bestTarget.ref.z - b.z);
             if (b.atkCd <= 0) {
               const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[b.heroType]) || null;
@@ -3585,7 +3605,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const dz = navPt.z - b.z;
           const distGoal = Math.hypot(dx, dz);
           const isKitingStep = isHard && b.range > 4.0 && bestTarget && bestDist < 5.4;
-          if (distGoal > 0.6 && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
+          if (distGoal > 0.6 && CC.canMove(b) && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
             isMoving = true;
             const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : 0);
             const spdKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
@@ -3600,8 +3620,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
         // Update 3D Transform & Mixamo Animation State (Always runs even when stunned so HP bar & animations stay live!)
         b.airborneY = airborneY;
-        b.pivot.position.set(b.x, airborneY, b.z);
-        if (b.groundRing) b.groundRing.position.y = 0.03 - airborneY;
+        b.pivot.position.set(b.x, airborneY + CC.lift(b), b.z);
+        CC.updateIcon(b, b.pivot, 2.3, dt);
+        if (b.groundRing) b.groundRing.position.y = 0.03 - airborneY - CC.lift(b);
         b.pivot.rotation.y = b.facing;
         updateUnitSlowVisual(b, b.pivot, 0.85, dt);
 
@@ -3705,8 +3726,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (shEl) shEl.style.width = Math.max(0, ((b.shield || 0) / b.maxHp) * 100) + '%';
           b.plate.querySelector('.plate-tag').textContent =
             'Lv' + b.level + ' ' + b.name +
-            (b.stunTimer > 0 ? ' [⚡ STUNNED]' : '') +
-            (b.tauntTimer > 0 ? ' [💢 TAUNTED]' : '') +
+            CC.tags(b) +
             (b.slowTimer > 0 ? ' [❄️ SLOWED]' : '') +
             ((b.predatorMarks || 0) > 0 && (b.predatorMarkTimer || 0) > 0 ? ' [🐾x' + b.predatorMarks + ']' : '') +
             (b.bleedStacks > 0 ? ' [🩸x' + b.bleedStacks + ']' : '');
@@ -3716,9 +3736,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
       });
     }
 
-    function applyBotDamageToTarget(targetObj, dmg, attackerBot = null, dmgType = 'physical', attackerObj = null) {
+    function applyBotDamageToTarget(targetObj, dmg, attackerBot = null, dmgType = 'physical', attackerObj = null, isDoT = false) {
       if (!targetObj || !targetObj.ref) return;
       const u = targetObj.ref;
+      CC.wake(u, isDoT); // direct hits wake sleepers (damage over time doesn't)
       if (targetObj.kind === 'structure' && !isStructureVulnerable(u)) return;
       if (targetObj.kind === 'camp') {
         if (u.state === 'leashing') return;
@@ -3743,7 +3764,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       const atkRef = attackerObj || (attackerBot ? { kind: 'bot', ref: attackerBot } : null);
       if (targetObj.kind === 'player' || (targetObj.kind === 'bot' && u.team === 0)) {
-        damageOrderHeroOrBot(u, dmg, dmgType, atkRef);
+        damageOrderHeroOrBot(u, dmg, dmgType, atkRef, isDoT);
       } else {
         const res = unitResist(u);
         const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + res))));
@@ -4056,6 +4077,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         m.slowTimer = Math.max(0, (m.slowTimer || 0) - dt);
         m.stunTimer = Math.max(0, (m.stunTimer || 0) - dt);
         m.tauntTimer = Math.max(0, (m.tauntTimer || 0) - dt);
+        CC.tick(m, dt);
 
         if (m.bleedTimer > 0 && m.bleedStacks > 0) {
           m.bleedTimer -= dt;
@@ -4072,7 +4094,17 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
 
         if (stepUnitKnockback(m, dt, 'minion')) continue;
-        if (m.stunTimer > 0) continue;
+        if (CC.helpless(m)) continue;
+        const mfm = CC.forcedMove(m);
+        if (mfm && mfm.kind === 'fear') {
+          // feared: run away from the source
+          const fs = steerUnitAroundStructures(m, mfm.x, mfm.z, null);
+          m.x += fs.vx * m.spd * dt;
+          m.z += fs.vz * m.spd * dt;
+          m.mesh.rotation.y = Math.atan2(fs.vx, fs.vz);
+          m.moving = true;
+          continue;
+        }
 
         // Find nearest enemy minion (preferring lateral slot match so wave spreads cleanly!), structure, or hero within 8.5m
         let bestT = null;
@@ -4144,10 +4176,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const d = Math.hypot(dx, dz) || 0.01;
           const spd = m.spd * (m.slowTimer > 0 ? 0.72 : 1.0);
           const steered = steerUnitAroundStructures(m, dx / d, dz / d, bestT ? bestT.ref : null);
-          m.x += steered.vx * spd * dt;
-          m.z += steered.vz * spd * dt;
+          const canWalk = CC.canMove(m); // rooted minions stay put
+          m.x += steered.vx * spd * dt * (canWalk ? 1 : 0);
+          m.z += steered.vz * spd * dt * (canWalk ? 1 : 0);
           m.mesh.rotation.y = Math.atan2(steered.vx, steered.vz);
-          m.moving = true;
+          m.moving = canWalk;
         }
       }
 
@@ -4176,7 +4209,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           handleUnitDeath({ kind: 'minion', ref: m });
           continue;
         }
-        m.mesh.position.set(m.x, 0, m.z);
+        m.mesh.position.set(m.x, CC.lift(m), m.z);
+        CC.updateIcon(m, m.mesh, 1.6, dt);
         if (m.rig) {
           m.attackAnimT = Math.max(0, (m.attackAnimT || 0) - dt);
           if (m.attackAnimT <= 0) playMinionAct(m, m.moving ? 'walk' : 'idle');
@@ -4294,6 +4328,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         c.stunTimer = Math.max(0, (c.stunTimer || 0) - dt);
         c.slowTimer = Math.max(0, (c.slowTimer || 0) - dt);
         c.tauntTimer = Math.max(0, (c.tauntTimer || 0) - dt);
+        CC.tick(c, dt);
 
         if (c.bleedTimer > 0 && c.bleedStacks > 0 && c.state !== 'leashing') {
           c.bleedTimer -= dt;
@@ -4331,7 +4366,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
             c.bleedStacks = 0;
             c.bleedTimer = 0;
             spawnFloat(c.x, 2.6, c.z, 'LEASHED! RESETTING', '#fde047');
-          } else if (c.stunTimer <= 0) {
+          } else if (CC.forcedMove(c) && CC.forcedMove(c).kind === 'fear') {
+            // feared: run away from the source
+            const fm = CC.forcedMove(c);
+            c.x += fm.x * c.spd * dt;
+            c.z += fm.z * c.spd * dt;
+            c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
+            c.mobGrp.rotation.y = Math.atan2(fm.x, fm.z);
+          } else if (!CC.helpless(c)) {
             const dx = t.x - c.x;
             const dz = t.z - c.z;
             const distT = Math.hypot(dx, dz) || 0.01;
@@ -4345,7 +4387,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             } else if ((c.swingLock || 0) > 0) {
               // finishing a swing: hold position
             } else {
-              const spd = c.spd * (c.slowTimer > 0 ? 0.72 : 1.0);
+              const spd = c.spd * (c.slowTimer > 0 ? 0.72 : 1.0) * (CC.canMove(c) ? 1 : 0); // rooted: stays put
               const navPt = MAP.navNextPoint(c.x, c.z, t.x, t.z);
               const ndx = navPt.x - c.x, ndz = navPt.z - c.z;
               const nd = Math.hypot(ndx, ndz) || 0.01;
@@ -4390,6 +4432,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const vis = isPointVisibleToOrder(c.x, c.z);
         c.mobGrp.visible = vis;
         updateUnitSlowVisual(c, c.mobGrp, c.isBoss ? 1.35 : 0.82, dt);
+        c.mobGrp.position.y = CC.lift(c);
+        CC.updateIcon(c, c.mobGrp, c.isBoss ? 3.8 : (c.key === 'mid' ? 2.6 : 1.7), dt);
         if (vis) {
           const sp = projectToScreen(c.x, c.isBoss ? 4.2 : 2.3, c.z);
           c.plate.style.display = sp.visible ? 'flex' : 'none';
@@ -4398,7 +4442,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           c.plate.querySelector('.plate-hp').style.width = Math.max(0, (c.hp / c.maxHp) * 100) + '%';
           c.plate.querySelector('.plate-tag').textContent =
             c.name +
-            (c.stunTimer > 0 ? ' [⚡ STUNNED]' : '') +
+            CC.tags(c) +
             (c.slowTimer > 0 ? ' [❄️ SLOWED]' : '') +
             (c.state === 'leashing' ? ' [LEASHING]' : '') +
             (c.bleedStacks > 0 ? ' [🩸x' + c.bleedStacks + ']' : '');
@@ -4691,6 +4735,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       updateSpyglass(dt);
       // the player gets the same slowed visual as bots/minions
       if (typeof heroPivot !== 'undefined') updateUnitSlowVisual(hero, heroPivot, 0.85, dt);
+      if (typeof heroPivot !== 'undefined') CC.updateIcon(hero, heroPivot, 2.3, dt);
       updateFog(dt);
 
       // Pooled minion rigs are only visible during the loading-screen shader warm-up; never draw them in play
@@ -4763,6 +4808,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, hopCharges: undefined,
           impPendingQ: null, impStrike: null, impRocket: false, laneDone: false
         });
+        CC.clear(b);
         b.pivot.visible = true;
         b.pivot.position.set(x, 0, z);
       },
