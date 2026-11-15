@@ -528,7 +528,21 @@ def consolidate_and_harmonize_staves(raw_staves: list[dict]) -> tuple[list[dict]
                 best_ratio = ratio
                 best_sh = sh
 
-        if best_sh != 0 and best_ratio >= 3.0:
+        # A misread transposition affects the whole part, so the shift must match better in most of the
+        # places the part plays -- not just win on total weight (one long final chord whose tones happen
+        # to line up after a shift can outweigh the rest of the song).
+        wins = active = 0
+        if best_sh != 0:
+            shifted = np.roll(c, best_sh, axis=0)
+            for b in range(0, n_bins, 20):
+                z = float(np.sum(c[:, b:b + 20] * ref_chroma[:, b:b + 20]))
+                s_ = float(np.sum(shifted[:, b:b + 20] * ref_chroma[:, b:b + 20]))
+                if z + s_ > 1e-6:
+                    active += 1
+                    wins += s_ > z
+        if best_sh != 0 and best_ratio >= 3.0 and wins * 3 < active * 2:
+            print(f"    [Concert-Pitch Fix] Keeping '{st['name']}' as written: {best_sh:+d} wins only {wins}/{active} windows (match={best_ratio:.1f}x)")
+        elif best_sh != 0 and best_ratio >= 3.0:
             print(f"    [Concert-Pitch Fix] Transposing '{st['name']}' by {best_sh:+d} semitones (match={best_ratio:.1f}x)")
             for n in st["notes"]:
                 n["midi"] += best_sh

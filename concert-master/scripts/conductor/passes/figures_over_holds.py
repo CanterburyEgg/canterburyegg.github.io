@@ -84,6 +84,19 @@ def run(ctx):
                 mids = sorted(int(n["midi"]) for n in fig)
                 if f_end - g0 < 1.5 or int(fig[0]["midi"]) <= top_held or mids[len(mids) // 2] <= top_held:
                     continue
+                # (one instrument's figure: when two or more other instruments play it too, it's the band's tune and
+                # the hold is the accompaniment -- Ride 0:00, the whole band's 72 72 72 72 75 72 over the horns' 60)
+                fig_on = [(float(n["start"]), int(n["midi"]) % 12) for n in fig]
+                doubled_by = sum(
+                    1 for fam2 in {fam_of(st["name"]) for st in staves if not st.get("is_drum")} - {fam}
+                    if sum(
+                        1 for t_f, pc_f in fig_on
+                        if any(abs(float(m["start"]) - t_f) <= 0.02 and int(m["midi"]) % 12 == pc_f
+                               for st in staves if fam_of(st["name"]) == fam2 for m in st["notes"])
+                    ) >= 0.8 * len(fig_on)
+                )
+                if doubled_by >= 2:
+                    continue
                 lead_score_notes = [h for h in lead_score_notes if not (h is not host and g0 - 0.02 <= float(h["start"]) <= f_end + 0.05)]
                 host["end"] = g0
                 # (the figure's keys follow its contour, like a fill: start on F, a repeat keeps its key, a step down one

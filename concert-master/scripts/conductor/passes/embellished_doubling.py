@@ -37,7 +37,7 @@ def run(ctx):
                 # already plays, e.g. a rip the lead's own part takes after the hold)
                 next_s = float(lead_notes[idx_e + 1]["start"]) if idx_e + 1 < len(lead_notes) else 1e9
                 inside = [c for c in c_notes if l_s + 0.02 < float(c["start"]) < min(l_e - 0.05, next_s - 0.02)]
-                if not same_start or not same_prev or len(inside) < 2:
+                if not same_start or not same_prev or not inside:
                     continue
                 lick = same_start[:1] + inside
                 # the lick must be doubled (same rhythm, same notes up to octaves) by at least two other staves
@@ -50,7 +50,19 @@ def run(ctx):
                         for c in lick
                     ):
                         confirm += 1
-                if confirm >= 2:
+                # (a one-note neighbour lick -- 67 68 through the held 67 -- needs more of the band behind it: Ride 2:38,
+                # trumpets, soprano sax, flutes, clarinet 1 and the mallets play 67 68 67 while the oboes hold)
+                if confirm >= (2 if len(inside) >= 2 else 4):
+                    # (...and more of the band plays the lick than holds the note: when the lead's own section mostly
+                    # holds, the lick is an inner part underneath -- stay with the held note, Ride 0:26 where the
+                    # woodwinds hold 70 over the saxes' and horns' 70 70 70 70 73 70)
+                    holders = sum(
+                        1 for st2 in staves
+                        if any(abs(float(c2["start"]) - l_s) <= 0.02 and c2["midi"] % 12 == ln["midi"] % 12
+                               and float(c2["end"]) >= l_s + 0.8 * (l_e - l_s) for c2 in st2["notes"])
+                    )
+                    if confirm + 1 <= holders:
+                        continue
                     replaced = [dict(c, staff=st["name"], embellished_doubling=True) for c in lick]
                     replaced[-1]["end"] = min(float(replaced[-1]["end"]), l_e)
                     break

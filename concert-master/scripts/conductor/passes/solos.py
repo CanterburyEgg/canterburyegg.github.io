@@ -1,4 +1,4 @@
-"""Solos: one part far busier than the rest for 8s+.
+"""Solos: one part far busier than the rest for 8s+ (finds them; solo_ends_with_band trims, solos_take_lead applies).
 
 (Moved verbatim from sync_score.conduct_lead_melody_from_score.)
 """
@@ -42,6 +42,7 @@ def run(ctx):
             solo_spans[-1][1] = t_w + win_s
         elif nm_s:
             solo_spans.append([t_w, t_w + win_s, nm_s])
+    solos = []
     for t0, t1, nm_s in solo_spans:
         ns_s = [m for m in solo_by_name[nm_s] if t0 <= float(m["start"]) < t1]
         if t1 - t0 < 8.0 or not ns_s:
@@ -59,13 +60,9 @@ def run(ctx):
             s0 = float(m["start"])
             ns_s.append(m)
         print(f"    -> solo {s0:.2f}-{s1:.2f}s (score): {nm_s} takes the lead")
-        lead_notes = [n for n in lead_notes if not (s0 - 0.02 <= float(n["start"]) <= s1 + 0.02)]
-        for ln in lead_notes:
-            if float(ln["start"]) < s0 and float(ln["end"]) > s0:
-                ln["end"] = s0
-        # (a solo's quick notes are licks, snapped tight; its long notes are landings, held)
-        lead_notes.extend(dict(m, staff=nm_s, is_scalar_lick=(float(m["end"]) - float(m["start"]) <= 0.14), is_ostinato_landing=(float(m["end"]) - float(m["start"]) >= 0.65)) for m in ns_s)
-    lead_notes.sort(key=lambda x: x["start"])
+        ns_s.sort(key=lambda m: float(m["start"]))
+        solos.append({"s0": s0, "s1": s1, "staff": nm_s, "notes": ns_s})
+    ctx.solos = solos  # (taken by solos_take_lead, after solo_ends_with_band trims them)
 
     ctx.staves = staves
     ctx.lead_notes = lead_notes

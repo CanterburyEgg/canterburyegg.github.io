@@ -29,7 +29,10 @@ def run(ctx):
         while k_e + 1 < len(lead_notes) and float(lead_notes[k_e + 1]["end"]) - float(lead_notes[k_e + 1]["start"]) >= 1.2 and float(lead_notes[k_e + 1]["start"]) - float(lead_notes[k_e]["end"]) < 0.3:
             k_e += 1
         t0, t1 = float(lead_notes[k_m]["start"]), float(lead_notes[k_e]["end"])
-        if t1 - t0 >= 3.0:
+        # (the lead has to really be just holding: a tune moving under the hold -- other lead notes attacking inside it,
+        # like Ride's 2:16 chorale under the euphonium's long note -- means the lead is not idle)
+        moving_inside = any(t0 + 0.02 < float(n["start"]) < t1 - 0.3 and float(n["end"]) - float(n["start"]) < 1.0 for n in lead_notes[k_e + 1:])
+        if t1 - t0 >= 3.0 and not moving_inside:
             n_lead = k_e - k_m + 1
             holders = sum(1 for nm2, ns in all_by_name.items() if sum(min(t1, float(m["end"])) - max(t0, float(m["start"])) for m in ns if float(m["end"]) - float(m["start"]) >= 1.2 and float(m["end"]) > t0 and float(m["start"]) < t1) >= 0.6 * (t1 - t0))
             busiest = max(all_by_name.items(), key=lambda kv: sum(1 for m in kv[1] if t0 - 0.02 <= float(m["start"]) < t1), default=None)

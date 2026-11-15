@@ -1057,6 +1057,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // Ghost keys (Hard, 4 keys): a quick run of exactly five different notes gets a fifth key so it never has to jump
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
+  ghostEdgeOK = isDense && features.ghostNotes !== false;
   applyFourNoteWalks(notes, lanes);
   applyNeighbourTurns(notes, lanes);
   applyEdgeRepeatRuns(notes, lanes);
@@ -1074,6 +1075,9 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   applyHalfStepNoLeap(notes, lanes);
   applyCleanRunCycles(notes, lanes);
   if (isDense && features.ghostNotes !== false) applyFlurryTurns(notes, lanes);
+  applyWalkOffGhost(notes, lanes);
+  applyTurnRoomBeyond(notes, lanes);
+  if (isDense && features.ghostNotes !== false) applySixNoteRips(notes, lanes);
 
   // Ensemble hits (Hard): the band attacks a melody note together as a chord, so it gets a second key on the other hand
   if (isDense) addEnsembleChordHits(notes, features.chordHits || [], lanes);
@@ -2360,10 +2364,14 @@ function repairLaneDirections(prim, notes, lanes, voted, find, matches) {
     if (a.midi !== b.midi) return la === lb && b.time - a.time < 0.6 && Math.abs(b.midi - mid) > Math.abs(a.midi - mid) && Math.abs(b.midi - a.midi) <= 7 ? SOFT : 0;
     return la !== lb && !a.altRun && !b.altRun && !b.edgeReset ? SOFT : 0;
   };
+  // (a leap of a 5th or more into the start of a repeated figure is a new phrase that already plays like its twins:
+  // same notes, same keys beats the join, e.g. Ride 2:39, the trumpets' 4th answer 67 68 67 65 right after the
+  // woodwinds' 79 80 79 77)
+  const repeatStart = new Set(matches.map(([, i]) => i));
   const phraseReplan = () => {
     let k4 = 1;
     while (k4 < n) {
-      if (pairCost(k4) < 0.85) {
+      if (pairCost(k4) < 0.85 || (repeatStart.has(k4) && Math.abs(prim[k4].midi - prim[k4 - 1].midi) >= 7)) {
         k4++;
         continue;
       }
@@ -2598,7 +2606,10 @@ function assignGhostLanes(notes, lanes) {
  * so they read right from prim[e]'s key: wrong-way steps, different notes on one key and one-key bounces cost; the nearer
  * key wins a tie on the first step, and bouncing back right away costs more than a wrap a few notes later.
  */
-function replanAfter(prim, e, lanes) {
+// (Hard only: re-planned quick notes may finish on a ghost key -- see replanAfter)
+let ghostEdgeOK = false;
+
+function replanAfter(prim, e, lanes, gapLim = 0.6) {
   const S = lanes;
   const L = lanes + 1;
   const n = prim.length;
@@ -2614,7 +2625,8 @@ function replanAfter(prim, e, lanes) {
   };
   const win = [];
   for (let q = e + 1; q < n && win.length < 6; q++) {
-    if (prim[q].time - prim[q - 1].time >= 0.6 || prim[q].ghost || prim[q].fixedLane) break;
+    // (a run of quick repeats rocks between two keys -- F J F J -- and keeps that: one key can't be struck that fast)
+    if (prim[q].time - prim[q - 1].time >= gapLim || prim[q].ghost || prim[q].fixedLane || prim[q].altRun) break;
     win.push(q);
   }
   if (!win.length) return;
@@ -2623,15 +2635,28 @@ function replanAfter(prim, e, lanes) {
   let prevNote = prim[e];
   for (const q of win) {
     const nd = new Map();
-    for (let l = 0; l < lanes; l++) {
+    // (a quick run that runs out of keys at the edge may finish on the ghost key past it -- its last note before a
+    // breath or a leap: Ride 1:21's 68 66 68 66 63 61 -> J F J F D S, then the leap up to 75)
+    const nq = q + 1 < n ? prim[q + 1] : null;
+    // (the run really ends there: the next note leaps away, a 4th or more -- a fall that carries on, like Arabesque
+    // 1:57's flute sequence 80 79 77 | 76 73 72, or a dip that just turns back up, like Ride 1:38's 79 77 79, keeps its
+    // own layout)
+    const runEnd = !nq || Math.abs(nq.midi - prim[q].midi) >= 5;
+    const quickIn = prim[q].time - prim[q - 1].time <= 0.12;
+    const cands = [...Array(lanes).keys()];
+    if (ghostEdgeOK && runEnd && quickIn && prim[q].midi !== prim[q - 1].midi) cands.push(prim[q].midi < prim[q - 1].midi ? S : L);
+    for (const l of cands) {
       let best = null;
       for (const [pl, v] of dp) {
-        const jump = q === win[0] ? 0.15 * Math.abs(pos(l) - pos(pl)) : 0;
+        // (the ghost only continues a step off the edge key next to it)
+        if (l === S && pl !== 0) continue;
+        if (l === L && pl !== lanes - 1) continue;
+        const jump = (q === win[0] ? 0.15 * Math.abs(pos(l) - pos(pl)) : 0) + (l >= lanes ? 0.3 : 0);
         const w = win.indexOf(q) < 3 ? 1.5 : 1;
         const c = v.cost + w * clash(prevNote, pl, prim[q], l) + (l === prim[q].lane ? 0 : 0.1) + jump;
         if (!best || c < best.cost) best = { cost: c, path: [...v.path, l] };
       }
-      nd.set(l, best);
+      if (best) nd.set(l, best);
     }
     dp = nd;
     prevNote = prim[q];
@@ -2641,7 +2666,15 @@ function replanAfter(prim, e, lanes) {
     const c = v.cost + (after ? clash(prevNote, l, after, after.lane) : 0);
     if (!best || c < best.cost) best = { cost: c, path: v.path };
   }
-  win.forEach((q, j) => (prim[q].lane = best.path[j]));
+  let ghostAt = -1;
+  win.forEach((q, j) => {
+    const l = best.path[j];
+    prim[q].lane = l;
+    if (l >= lanes) {
+      prim[q].ghost = l === S ? 'S' : 'L';
+      ghostAt = q;
+    } else if (prim[q].ghost) delete prim[q].ghost;
+  });
 }
 
 /**
@@ -3306,7 +3339,150 @@ function applyFlurryTurns(notes, lanes) {
 }
 
 /**
- * Quick runs cycle cleanly: a quick run going one way (6+ notes, each 0.2s or less after the last, steps of a major 3rd
+ * A walk off a ghost key: when a run finishes on a ghost key (S below D, L above K) and the line then walks straight
+ * back the other way -- 3 or 4 notes stepping one way (a 3rd or less each, under 0.7s apart) -- the walk starts on the
+ * key next to the ghost and takes the next key each step (Ride 1:21: S61, then the walk-up 71 73 75 77 = D F J K).
+ */
+function applyWalkOffGhost(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  for (let k = 0; k + 3 < prim.length; k++) {
+    const g = prim[k];
+    if (!g.ghost) continue;
+    const dir = g.ghost === 'S' ? 1 : -1;
+    let m = 0;
+    while (
+      m < 4 && k + m + 1 < prim.length &&
+      !prim[k + m + 1].ghost && !prim[k + m + 1].fixedLane && !prim[k + m + 1].localPin &&
+      Math.sign(prim[k + m + 1].midi - (m ? prim[k + m].midi : g.midi)) === dir &&
+      (m === 0 || Math.abs(prim[k + m + 1].midi - prim[k + m].midi) <= 4) &&
+      prim[k + m + 1].time - prim[k + m].time < 0.7
+    )
+      m++;
+    if (m < 3) continue;
+    for (let q = 1; q <= m; q++) prim[k + q].lane = dir > 0 ? q - 1 : lanes - q;
+    k += m;
+  }
+}
+
+/**
+ * A turn with a note beyond it keeps the edge key free: a neighbour turn x y x (in its own time, up to 0.8s) that the line
+ * then passes going up (the next note goes above y, within 0.8s) sits on F J F so the next note can take the K, and the line rising into the turn steps up to it from below -- D F J, then the reset to F (Ride
+ * 2:00: 67 70 72 74 75 74 77 = D F J F J F K; a J K J turn would leave the 77 on the 75's key).
+ */
+function applyTurnRoomBeyond(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const locked = (q) => q.fixedLane || q.altRun || q.localPin || q.ghost;
+  const templates = [];
+  for (let k = 1; k + 2 < prim.length; k++) {
+    const x = prim[k - 1];
+    const y = prim[k];
+    const z = prim[k + 1];
+    const n1 = prim[k + 2];
+    if (x.midi !== z.midi || y.midi === x.midi || Math.abs(y.midi - x.midi) > 2) continue;
+    if (z.time - x.time >= 0.8 || n1.time - z.time >= 0.8) continue;
+    const up = y.midi > x.midi;
+    // (an upper-neighbour turn on a rising line only: going down, the line has room on its own)
+    if (!up) continue;
+    const beyond = n1.midi > y.midi;
+    if ([x, y, z].some(locked) || (beyond && locked(n1))) continue;
+    const edge = up ? lanes - 1 : 0;
+    // only when the turn as laid out leaves no room: its far note already sits on the edge key
+    if (y.lane !== edge) continue;
+    const xl = up ? 1 : lanes - 2;
+    const yl = up ? 2 : lanes - 3;
+    // the line rising (falling) into the turn: up to 3 notes stepping the same way, under 0.8s apart
+    const lead = [];
+    for (let b = k - 2; b >= 0 && lead.length < 3; b--) {
+      const nb = prim[b + 1];
+      const q = prim[b];
+      if (locked(q) || nb.time - q.time >= 0.8 || Math.sign(nb.midi - q.midi) !== (up ? 1 : -1)) break;
+      lead.push(q);
+    }
+    if (!lead.length) continue;
+    // (it re-lays when the next note passes the turn, or when the line rising into it already steps the wrong way)
+    const seq = [...lead].reverse().concat([x]);
+    // (a one-key bounce the wrong way, J -> F on a rising step: the worst-reading kind)
+    const wrongWay = seq.some((q, j) => j > 0 && Math.abs(q.lane - seq[j - 1].lane) === 1 && Math.sign(q.lane - seq[j - 1].lane) !== Math.sign(q.midi - seq[j - 1].midi));
+    // (...the latter only for a turn in its own slow time, 0.45s+ across -- quick turns are ornaments in their line)
+    if (!beyond && !(wrongWay && z.time - x.time >= 0.45)) continue;
+    // (a turn the line then falls away from -- two more notes going down -- keeps J K J, room for the fall below it;
+    // the climb into it steps F, D, then wraps from K for a third note when the note before that is lower: Ride 1:48.6,
+    // 67 69 70 72 74 75 74 70 67 = F K D F J K J F D, not the F J F turn that would leave 74 70 on one key)
+    const n2 = prim[k + 3];
+    const falls = !beyond && n1.midi < x.midi && n2 && n2.midi < n1.midi && n2.time - n1.time < 0.8;
+    if (falls) {
+      const lanesF = [1, 0, lanes - 1].slice(0, lead.length);
+      const top = lead[lead.length - 1];
+      const before = prim[prim.indexOf(top) - 1];
+      if (lead.length === 3 && !(before && before.midi < top.midi && !locked(before))) continue;
+      x.lane = lanes - 2;
+      y.lane = lanes - 1;
+      z.lane = lanes - 2;
+      lead.forEach((q, j) => (q.lane = lanesF[j]));
+      continue;
+    }
+    x.lane = xl;
+    y.lane = yl;
+    z.lane = xl;
+    if (beyond) n1.lane = edge;
+    lead.forEach((q, j) => (q.lane = up ? lanes - 2 - j : 1 + j));
+    templates.push({ tpl: [...lead].reverse().concat([x, y, z]).map((q) => [q.midi, q.lane]), nextUp: n1.midi > z.midi });
+  }
+  // (same notes, same keys: other statements of the re-laid phrase -- its first 5+ notes, the same pitches in a row,
+  // under 0.8s apart -- take its keys, e.g. Ride 1:51 and the sax lick at 1:52.9 copy 2:00's D F J F J F)
+  for (const { tpl, nextUp } of templates) {
+    for (let s0 = 0; s0 + 4 < prim.length; s0++) {
+      let m = 0;
+      while (m < tpl.length && s0 + m < prim.length && prim[s0 + m].midi === tpl[m][0] && !locked(prim[s0 + m]) &&
+        (m === 0 || prim[s0 + m].time - prim[s0 + m - 1].time < 0.8)) m++;
+      if (m < 5) continue;
+      // (only where the phrase carries on the same way after: a copy that then falls away needs its own layout)
+      const after = prim[s0 + m];
+      if (m === tpl.length && after && after.time - prim[s0 + m - 1].time < 0.8 && (after.midi > prim[s0 + m - 1].midi) !== nextUp) continue;
+      const after2 = prim[s0 + m + 1];
+      if (m === tpl.length && after && after2 && after.midi < prim[s0 + m - 1].midi && after2.midi < after.midi && after2.time - after.time < 0.8) continue;
+      for (let q = 0; q < m; q++) prim[s0 + q].lane = tpl[q][1];
+      s0 += m - 1;
+    }
+  }
+}
+
+/**
+ * Six-note rips (Hard): a quick rip of exactly six different notes going one way -- five quick steps (0.12s or less)
+ * then a last step of a whole tone or less within 0.45s onto a note that rings -- uses both ghost keys: S D F J K L (Ride
+ * 3:02: 62 63 65 67 69 -> 70 held).
+ */
+function applySixNoteRips(notes, lanes) {
+  const S = lanes;
+  const L = lanes + 1;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  for (let a = 0; a + 5 < prim.length; a++) {
+    const run = prim.slice(a, a + 6);
+    // (rips go up: a six-note fall keeps its own layout, e.g. Arabesque 0:40's flute sequence)
+    const dir = Math.sign(run[1].midi - run[0].midi);
+    if (dir <= 0) continue;
+    const ok = run.every((x, j) => j === 0 || (Math.sign(x.midi - run[j - 1].midi) === dir && Math.abs(x.midi - run[j - 1].midi) <= 4 &&
+      x.time - run[j - 1].time <= (j < 5 ? 0.12 : 0.45))) && Math.abs(run[5].midi - run[4].midi) <= 2;
+    // (a rip up to a note that rings: 0.25s+ before the next note)
+    const ringing = !prim[a + 6] || prim[a + 6].time - run[5].time >= 0.25;
+    if (!ok || !ringing || run.some((x) => x.fixedLane || x.localPin)) continue;
+    // (exactly six: not part of a longer run)
+    const pv = prim[a - 1];
+    const nx = prim[a + 6];
+    if (pv && Math.sign(run[0].midi - pv.midi) === dir && run[0].time - pv.time <= 0.12) continue;
+    if (nx && Math.sign(nx.midi - run[5].midi) === dir && nx.time - run[5].time <= 0.12) continue;
+    const seq = dir > 0 ? [S, 0, 1, 2, 3, L] : [L, 3, 2, 1, 0, S];
+    run.forEach((x, j) => {
+      x.lane = seq[j];
+      if (seq[j] >= lanes) x.ghost = seq[j] === S ? 'S' : 'L';
+      else delete x.ghost;
+    });
+    a += 5;
+  }
+}
+
+/**
+ * Quick runs cycle cleanly: a quick run going one way (6+ notes, each 0.25s or less after the last, steps of a major 3rd
  * or less, no ghost or pinned notes) whose keys step the wrong way or repeat a key somewhere inside is laid out as a clean
  * cycle instead (each note the next key its way, wrapping at the edge: D F J K D F J K), turned so it joins the notes
  * before and after it best (Ride 0:27: D70 F72 J73 K75 J77 K78 -> J K D F J K). A run laid out as a repeating key
@@ -3331,7 +3507,7 @@ function applyCleanRunCycles(notes, lanes) {
       j + 1 < n && dir &&
       Math.sign(prim[j + 1].midi - prim[j].midi) === dir &&
       Math.abs(prim[j + 1].midi - prim[j].midi) <= 4 &&
-      prim[j + 1].time - prim[j].time <= 0.2
+      prim[j + 1].time - prim[j].time <= 0.25
     )
       j++;
     const run = prim.slice(i, j + 1);

@@ -458,12 +458,21 @@ def pick_lead(staves: list[dict], score_duration: float) -> list[dict]:
                         # Pickup into the new phrase: st_a is just holding a note across the boundary while st_b
                         # plays a short lead-in just before it (e.g. Sevens m.127 at 2:23: the trumpet's 77 pickup
                         # under the flugels' held 75). Start st_b at its pickup so the lead-in isn't dropped.
+                        # (a slightly longer pickup, up to 0.45s, still counts when it runs straight into st_b's next
+                        # note across the boundary, e.g. Ride 2:17: the chorale's 0.36s pickup under the euphonium)
+                        b_starts = [bn["start"] for bn in staves[st_b]["notes"]]
                         b_pickup = (
                             [
                                 n["start"]
                                 for n in staves[st_b]["notes"]
                                 if max(last_a["start"] + 0.30, a_t1 - 0.40) <= n["start"] < a_t1 - 0.02
-                                and (n["end"] - n["start"]) <= 0.30
+                                and (
+                                    (n["end"] - n["start"]) <= 0.30
+                                    or (
+                                        (n["end"] - n["start"]) <= 0.45
+                                        and any(a_t1 - 0.02 <= bs and abs(bs - n["end"]) <= 0.02 for bs in b_starts)
+                                    )
+                                )
                             ]
                             if (
                                 last_a is not None
