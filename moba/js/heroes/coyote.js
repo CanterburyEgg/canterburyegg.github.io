@@ -623,6 +623,9 @@ H.coyote = {
     }
   },
 
+  // the test tools clear leftovers between rows
+  clearState() { this.onSwitchedAway(); },
+
   // switching heroes (and the test tools) clear the player's traps
   onSwitchedAway() {
     for (let i = traps.length - 1; i >= 0; i--) if (!traps[i].owner) removeTrap(i);

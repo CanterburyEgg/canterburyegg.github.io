@@ -103,6 +103,7 @@
     hero.stealthTimer = 0; hero.stealthExitTimer = 0; hero.unseenLingerTimer = 0;
     hero.qFlurryRemaining = 0; hero.qFlurryTimer = 0; hero.gnashAnim = 0;
     hero.sawOn = false; KitFx.charges.reset(hero);
+    { const kc = window.MOBA_HEROES[heroId]; if (kc && kc.clearState) kc.clearState(); } // marks, traps, ... from the last row
     const dist = RANGED[heroId] ? 6.0 : 1.6;
     hero.x = target.homeX; hero.z = target.homeZ + dist;
     hero.facing = Math.PI; // facing -z toward the dummy

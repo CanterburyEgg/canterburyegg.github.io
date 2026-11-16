@@ -1,15 +1,19 @@
 // Astral Sorceress: Carry • Ranged Fantasy
 // Hero kit: data (stats, talents, UI text) + player ability code moved verbatim from js/arena/*.js and phase1_data.js.
 // Functions run in the shared global scope of js/arena/*.js (hero, actions, fadeToAction, damageDummy, heroBolts, ...).
-// Still shared until Phase 2: Astral Bolt flight/collision (heroBolts loop in loop.js), Soul Siphon (phase1_engine.js),
-// Rift Stride dash movement (loop.js), and the sorcPillars / sorcMonolith / pendingSorc* state (combat.js).
+// Still shared until Phase 2: Astral Bolt flight/collision (heroBolts loop in loop.js), Rift Stride dash movement
+// (loop.js), and the sorcPillars / sorcMonolith / pendingSorc* state (combat.js).
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
 // E Rift Stride: bolts fire when the dash ends (kit-local; isBusy() tells the self-test to wait)
 let pendingRiftBolts = null;
-const RIFT = { range: 9.0, maxBolts: 3, spread: 0.55, speed: 21, life: 1.6 };
+// E: 2 charges (KitFx.charges), each a short step; every step fires the homing bolts at RIFT.boltPct damage
+const RIFT = { range: 9.0, maxBolts: 3, spread: 0.55, speed: 21, life: 1.6, step: 2.5, stepDur: 0.15, boltPct: 0.6, recharge: [9.0, 8.5, 8.0] };
+KitFx.charges.slotFor.rift = 'E';
+// Q: hitting a hero refunds this share of Q's cooldown
+const Q_REFUND = 0.4;
 
 // Up to RIFT.maxBolts nearest live enemies (dummies + engine units, no structures) within range of (x, z)
 function nearestRiftTargets(x, z, actor) {
@@ -28,6 +32,66 @@ function nearestRiftTargets(x, z, actor) {
   }
   found.sort((a, b) => a.dist - b.dist);
   return found.slice(0, RIFT.maxBolts);
+}
+
+// ---- Passive: Starmark (DESIGN_RULES Sorceress) ----
+// Any ability hit (Q pillar, E bolts, R pulses) puts / refreshes ONE mark on the target; her next basic attack that
+// hits a marked target pops it for bonus Ability damage. One mark per target per caster, no stacks.
+const STARMARK = { dur: 4.0 };
+const marks = []; // { u (unit or dummy), by (caster unit), t, sprite }
+let starTex = null;
+function starSprite() {
+  if (!starTex) {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const g = c.getContext('2d');
+    g.translate(32, 32);
+    g.beginPath();
+    for (let i = 0; i < 8; i++) {
+      const r = i % 2 ? 9 : 27, a = -Math.PI / 2 + i * Math.PI / 4;
+      g.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+    }
+    g.closePath();
+    g.fillStyle = '#f5d0fe'; g.fill();
+    g.lineWidth = 4; g.strokeStyle = '#a21caf'; g.stroke();
+    starTex = new THREE.CanvasTexture(c);
+    starTex.colorSpace = THREE.SRGBColorSpace;
+  }
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: starTex, depthTest: false, transparent: true }));
+  sp.scale.setScalar(0.55);
+  sp.renderOrder = 998;
+  return sp;
+}
+function markTarget(by, u) {
+  if (!u || !by) return;
+  let m = marks.find((k) => k.u === u && k.by === by);
+  if (!m) {
+    m = { u, by, t: 0, sprite: starSprite() };
+    scene.add(m.sprite);
+    marks.push(m);
+  }
+  m.t = STARMARK.dur;
+}
+function dropMark(i) { scene.remove(marks[i].sprite); marks.splice(i, 1); }
+function tickMarks(dt) {
+  for (let i = marks.length - 1; i >= 0; i--) {
+    const m = marks[i];
+    m.t -= dt;
+    if (m.t <= 0 || (m.u.hp !== undefined && m.u.hp <= 0 && !m.u.isDummy)) { dropMark(i); continue; }
+    m.sprite.position.set(m.u.x, 2.75 + Math.sin(m.t * 5) * 0.06, m.u.z);
+    m.sprite.material.rotation += dt * 2;
+    m.sprite.visible = !m.u.pivot || m.u.pivot.visible;
+  }
+}
+// basic-attack hit: pop this caster's mark on the target (t = engine target object; null for a dummy)
+function popMark(actor, u, t) {
+  const i = marks.findIndex((k) => k.u === u && k.by === actor.unit);
+  if (i < 0) return;
+  dropMark(i);
+  const dmg = H.sorceress.dmg.starmark(actor.stats(), actor.level());
+  spawnShockRing(u.x, u.z, 0xf0abfc, 0.2, 1.0, 0.22);
+  if (!t) { damageDummy(u, dmg, '#f0abfc'); spawnFloat(u.x, 2.9, u.z, 'STARMARK!', '#f0abfc'); return; }
+  actor.damage(t, dmg, { dmgType: 'fantasy', src: 'ability', color: '#f0abfc' });
 }
 
 // Pending windups: the player keeps the shared globals (the self-test drain check reads them); bots keep theirs on the unit
@@ -97,7 +161,9 @@ function spawnAstralBolt(actor, angle, dmg, opts) {
     isBasic: !opts,
     src: opts ? 'ability' : 'attack', // her bolt is a basic attack; Rift bolts are Ability damage
     owner: actor.isPlayer ? null : actor,
-    slowDur: opts ? (opts.slowDur || 0) : 0
+    slowDur: opts ? (opts.slowDur || 0) : 0,
+    // Starmark: Rift bolts (abilities) mark what they hit; her basic bolt pops a mark
+    onHit: opts ? (x, z, u) => markTarget(hero, u) : (x, z, u, t) => popMark(actor, u, t)
   });
 }
 
@@ -210,7 +276,8 @@ H.sorceress = {
     starfall: (st, lvl, rQE) => Math.round([280, 380, 480][rQE] + 12 * ((lvl || 1) - 1) + st.ability * 1.1),
     riftBolt: (st, lvl, rQE) => Math.round([100, 140, 180][rQE] + 8 * ((lvl || 1) - 1) + st.ability * 0.6), // x up to 3
     monolithPulse: (st, rUlt) => Math.round([40, 60, 80][rUlt] + st.ability * 0.25),                         // every 0.5s
-    collapse: (st) => Math.round(100 + st.ability * 0.5)                                                    // 10L talent
+    collapse: (st) => Math.round(100 + st.ability * 0.5),                                                   // (old 10L talent; unused)
+    starmark: (st, lvl) => Math.round(30 + 6 * ((lvl || 1) - 1) + st.ability * 0.45)                       // passive pop
   },
 
   spec: {
@@ -229,22 +296,13 @@ H.sorceress = {
     asGrow: 0.03,
     baseSpd: 6.00,
     atkCd: 1.12,
-    mpCosts: { Q: 38, E: 60, R: 100 }
+    mpCosts: { Q: 38, E: 40, R: 100 } // E: per step
   },
 
   talents: {
-    3: {
-      L: { id: '3L', name: 'Far Sight', desc: 'Q Starfall Pillar cast range increased by +15% (9.5m -> 11.0m)' },
-      R: { id: '3R', name: 'Chilling Wake', desc: "E Rift Stride's bolts slow hit enemies by 25% for 1.5s" }
-    },
-    7: {
-      L: { id: '7L', name: 'Wide Conduit', desc: 'Q Starfall Pillar explosion radius increased by +20%' },
-      R: { id: '7R', name: 'Astral Slipstream', desc: 'E dash distance +25% and grants +25% Move Speed for 1.5s' }
-    },
-    10: {
-      L: { id: '10L', name: 'Gravity Collapse', desc: 'R Cataclysm Monolith pulls enemies inward upon reaching max size' },
-      R: { id: '10R', name: '4th Resonance', desc: 'Max Q cooldown stacks 3 -> 4 vs Heroes, and Q deals +20% dmg inside R' }
-    }
+    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
   },
 
   ui: {
@@ -254,18 +312,17 @@ H.sorceress = {
     color: '#e879f9',
     name: 'Astral Sorceress (3D)',
     role: 'Carry • Ranged Burst & Zone Mage (Ability)',
-    passive: 'Soul Siphon',
+    passive: 'Starmark',
     lmb: 'Astral Bolt',
     q: 'Star Pillar',
     e: 'Rift Stride',
     r: 'Monolith',
-    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Soul Siphon (+MP on Kills) &bull; <b>Q</b> Starfall Pillar (-0.9s CD/Hit) &bull; <b>E</b> Rift Stride + 3 Homing Bolts &bull; <b>R</b> Cataclysm Monolith &bull; <b>P</b> Shop',
+    banner: '<b>1/2/3/4</b> Hero &bull; <b>Passive</b> Starmark (abilities mark, basics pop) &bull; <b>Q</b> Starfall Pillar &bull; <b>E</b> Rift Stride (2 steps) + Homing Bolts &bull; <b>R</b> Cataclysm Monolith &bull; <b>P</b> Shop',
     tooltips: {
       P: {
-        title: 'Passive • Soul Siphon & Astral Tempo',
-        meta: 'Innate Mana & CDR',
-        body: 'Killing any unit siphons <b>36 (+6/Lv) Mana (3x on Hero takedowns)</b>. Hitting enemies with <b>Q: Starfall Pillar</b> grants <b>Astral Tempo</b> stacks (up to 3x), reducing Q cooldown by <b>-0.9s per stack (1.50s min floor)</b>.',
-        talentLevels: [10]
+        title: 'Passive • Starmark',
+        meta: 'Cast, then attack',
+        body: 'Any of her <b>ability hits</b> puts a <b>Starmark</b> on the target (one mark, refreshed by each hit, lasts 4s). Her next <b>basic attack</b> on a marked target pops it for <b>30 (+6/Lv) + 45% Ability</b> bonus damage.'
       },
       LMB: {
         title: 'LMB • Astral Bolt',
@@ -275,20 +332,17 @@ H.sorceress = {
       Q: {
         title: 'Q • Starfall Pillar',
         meta: '38 MP • 5.2s / 4.8s / 4.4s Base CD (Lv 1/6/9)',
-        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>280 / 380 / 480 (+12/Lv) + 110% Ability</b> in an area. Hitting an enemy grants <b>+1 Astral Tempo stack (-0.9s Q CD, 1.50s floor)</b>.',
-        talentLevels: [3, 7, 10]
+        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>280 / 380 / 480 (+12/Lv) + 110% Ability</b> in an area. Hitting an enemy <b>hero refunds 40%</b> of Q\'s cooldown.'
       },
       E: {
         title: 'E • Rift Stride',
-        meta: '60 MP • 12.0s / 10.5s / 9.0s CD (Lv 1/6/9)',
-        body: 'Dashes in your movement direction, then fires <b>3 homing bolts (100 / 140 / 180 (+8/Lv) + 60% Ability each)</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 bolts on the closest; 1 enemy: all 3).',
-        talentLevels: [3, 7]
+        meta: '40 MP per step • 2 charges (9s / 8.5s / 8s each, Lv 1/6/9)',
+        body: 'A short <b>2.5m step</b> toward the cursor, then <b>3 homing bolts (60 / 84 / 108 (+5/Lv) + 36% Ability each)</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 on the closest; 1 enemy: all 3). Two charges: double-step to escape, or dance in and out.'
       },
       R: {
         title: 'R • Cataclysm Monolith',
         meta: '100 MP • 46s / 40s / 34s CD (Lv 4/8/12)',
-        body: 'After a 0.50s 2H overhead windup, slams down an expanding <b>Astral Monolith</b> zone for 5.0s that continuously <b>Slows enemies</b> and pulses <b>40 / 60 / 80 + 25% Ability</b> every 0.5s.',
-        talentLevels: [10]
+        body: 'After a 0.50s 2H overhead windup, slams down an expanding <b>Astral Monolith</b> zone for 5.0s that continuously <b>Slows enemies</b> and pulses <b>40 / 60 / 80 + 25% Ability</b> every 0.5s.'
       }
     }
   },
@@ -367,18 +421,15 @@ H.sorceress = {
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
       if (!trySpendMana('Q')) return;
-      // Each Tempo stack reduces Q base cooldown (5.2s/4.8s/4.4s) by 0.90s (capped at a 1.50s minimum floor!)
-      const baseQCd = [5.2, 4.8, 4.4][rQE];
-      const effBaseCd = Math.max(1.65, baseQCd - (hero.qTempoStacks || 0) * 0.90);
-      hero.cdQ = wtfMode ? 0.22 : Math.max(1.50, effBaseCd * cdrMult);
+      hero.cdQ = wtfMode ? 0.22 : [5.2, 4.8, 4.4][rQE] * cdrMult; // (a hero hit refunds Q_REFUND of it on eruption)
       hero.punchAnim = 0.54;
       if (actor.isPlayer) {
         const qAct = actions.punch || actions.kick;
         if (qAct) fadeToAction(qAct, 0.05, true, 2.25, 0.22);
       } else actor.play('punch', 0.05, true, 2.25, 0.22, 0.54);
 
-      const maxRange = talents[3] === 'L' ? 10.9 : 9.5;
-      const radius = talents[7] === 'L' ? 2.0 : 1.65;
+      const maxRange = 9.5;
+      const radius = 1.65;
       const dx = aimWorld.x - hero.x;
       const dz = aimWorld.z - hero.z;
       const dist = Math.hypot(dx, dz) || 0.01;
@@ -386,43 +437,33 @@ H.sorceress = {
       const tx = hero.x + (dx / dist) * clamped;
       const tz = hero.z + (dz / dist) * clamped;
 
-      const baseDmg = H.sorceress.dmg.starfall(st, pProg.level, rQE) + (talents[3] === 'L' ? 25 : 0);
+      const baseDmg = H.sorceress.dmg.starfall(st, pProg.level, rQE);
       SFX.play('chime');
       spawnStarfallPillar(actor, tx, tz, radius, 0.38, Math.round(baseDmg), true, 0);
     } else if (slot === 'E') {
-      if (!wtfMode && hero.cdE > 0) return;
+      if ((hero.dashTimer || 0) > 0 || pend(actor, 'rift')) return; // one step at a time
+      if (!wtfMode && KitFx.charges.count(hero, 'rift', 2) <= 0) return;
       if (!trySpendMana('E')) return;
-      hero.cdE = wtfMode ? 0.30 : [12.0, 10.5, 9.0][rQE] * cdrMult;
+      if (!wtfMode) KitFx.charges.use(hero, 'rift', 2, RIFT.recharge[rQE] * cdrMult);
+      else hero.cdE = 0.3;
 
-      // Dash in current WASD movement direction (or toward cursor if no WASD key is held)
-      let mx = 0, mz = 0;
-      if (actor.isPlayer) {
-        if (keys.KeyW || keys.ArrowUp) mz -= 1;
-        if (keys.KeyS || keys.ArrowDown) mz += 1;
-        if (keys.KeyA || keys.ArrowLeft) mx -= 1;
-        if (keys.KeyD || keys.ArrowRight) mx += 1;
-      }
-      const ml = Math.hypot(mx, mz);
-      const dashAng = ml > 0.05 ? Math.atan2(mx, mz) : hero.facing; // bots: toward the brain's aim point
-      const dashDist = talents[7] === 'R' ? 5.25 : 4.2;
-      const dashDur = 0.24;
+      // Step toward the cursor (bots: toward the brain's aim point)
+      const dashAng = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
+      hero.facing = dashAng;
+      const dashDist = RIFT.step;
+      const dashDur = RIFT.stepDur;
       hero.dashVx = Math.sin(dashAng) * (dashDist / dashDur);
       hero.dashVz = Math.cos(dashAng) * (dashDist / dashDur);
       hero.dashTimer = dashDur;
       hero.dashKind = 'sorc_rift';
       hero.dashHit = true; // Don't stop on units during Rift Stride
-      if (talents[7] === 'R') {
-        hero.eSpeedBuffTimer = 1.5;
-      }
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.25, 1.35, 0.24);
 
       // When the dash ends: one homing Fantasy bolt at each of the (up to) 3 nearest enemies in range
-      const eDmg = H.sorceress.dmg.riftBolt(st, pProg.level, rQE);
-      const eSlow = talents[3] === 'R' ? 1.5 : 0;
-      setPend(actor, 'rift', { t: dashDur, dmg: eDmg, slowDur: eSlow });
+      const eDmg = Math.round(H.sorceress.dmg.riftBolt(st, pProg.level, rQE) * RIFT.boltPct);
+      setPend(actor, 'rift', { t: dashDur, dmg: eDmg, slowDur: 0 });
       if (!actor.isPlayer) actor.play('punch', 0.05, true, 2.25, 0.22, dashDur);
-      spawnFloat(hero.x, 2.55, hero.z, 'RIFT STRIDE!', '#38bdf8');
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
@@ -462,7 +503,6 @@ H.sorceress = {
     if (!actor.isPlayer) {
       hero.punchAnim = Math.max(0, (hero.punchAnim || 0) - dt);
       hero.kickAnim = Math.max(0, (hero.kickAnim || 0) - dt);
-      if ((hero.qTempoTimer || 0) > 0) { hero.qTempoTimer -= dt; if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0; }
     }
     const pendingRiftBolts = pend(actor, 'rift');
     if (pendingRiftBolts) {
@@ -510,9 +550,9 @@ H.sorceress = {
           if (live) spawnCataclysmMonolith(pu.tx, pu.tz);
         } else if (actor.monolith) {
           // bots: the engine's bot monolith (same pulse numbers; the collapse only with the 10L talent, like the player)
-          const st = actor.stats(), tal = actor.talents(), rU = KitFx.rUlt(actor.level());
+          const st = actor.stats(), rU = KitFx.rUlt(actor.level());
           const pulse = H.sorceress.dmg.monolithPulse(st, rU);
-          const collapse = tal[10] === 'L' ? H.sorceress.dmg.collapse(st) : 0;
+          const collapse = 0; // (the end-of-zone pull is a talent candidate)
           actor.monolith(pu.tx, pu.tz, pulse, collapse);
         }
       }
@@ -521,7 +561,8 @@ H.sorceress = {
 
   // Runs every frame for every hero kit: Starfall Pillars erupting and the expanding Cataclysm Monolith
   updateWorld(dt, ctx) {
-    const { st, pProg, talents, now } = ctx;
+    const { st, pProg, now } = ctx;
+    tickMarks(dt);
     // Update Sorceress 3D Starfall Pillars (Q)
     for (let i = sorcPillars.length - 1; i >= 0; i--) {
       const p = sorcPillars[i];
@@ -537,15 +578,14 @@ H.sorceress = {
 
           let hitHeroOrBoss = false;
           let hitAny = false;
-          // Talent 10R (4th Resonance): Pillars deal +20% damage to enemies inside Cataclysm Monolith!
-          const inMonoAmp = (!p.owner && sorcMonolith && talents[10] === 'R' && Math.hypot(p.x - sorcMonolith.x, p.z - sorcMonolith.z) <= sorcMonolith.curR + p.r) ? 1.20 : 1.0;
-          const finalPillarDmg = Math.round(p.dmg * inMonoAmp);
+          const finalPillarDmg = p.dmg;
 
           const pa = p.owner || KitFx.player; // who cast this pillar
           if (!p.owner) dummies.forEach((d) => {
             if (d.isShooter && !shooterEnabled) return;
             if (Math.hypot(d.x - p.x, d.z - p.z) <= p.r + d.r) {
               damageDummy(d, finalPillarDmg, '#e879f9');
+              if (p.isFromQ) markTarget(pa.unit, d);
               hitHeroOrBoss = true;
               hitAny = true;
             }
@@ -561,7 +601,8 @@ H.sorceress = {
                 });
                 if (hit) {
                   hitAny = true;
-                  if (t.kind === 'bot' || t.kind === 'player' || (t.kind === 'monster' && t.ref && t.ref.isBoss)) {
+                  if (p.isFromQ) markTarget(pa.unit, t.ref);
+                  if (t.kind === 'bot' || t.kind === 'player') {
                     hitHeroOrBoss = true;
                   }
                 }
@@ -569,16 +610,11 @@ H.sorceress = {
             });
           }
 
-          if (p.isFromQ && hitAny) {
+          // hitting a hero (or a training dummy) refunds part of Q's cooldown
+          if (p.isFromQ && hitHeroOrBoss) {
             const caster = pa.unit;
-            const ptal = p.owner ? pa.talents() : talents;
-            const maxStacks = ptal[10] === 'R' ? 4 : 3;
-            const cap = hitHeroOrBoss ? maxStacks : Math.min(2, maxStacks);
-            if ((caster.qTempoStacks || 0) < cap) {
-              caster.qTempoStacks = (caster.qTempoStacks || 0) + 1;
-            }
-            caster.qTempoTimer = 5.0;
-            if (!p.owner) spawnFloat(hero.x, 2.75, hero.z, 'STARFALL TEMPO ' + hero.qTempoStacks + 'x (-' + hero.qTempoStacks + 's Q CD)!', '#e879f9');
+            const rq = KitFx.rQE(pa.level());
+            caster.cdQ = Math.max(0, (caster.cdQ || 0) - [5.2, 4.8, 4.4][rq] * Q_REFUND);
           }
         }
       } else {
@@ -614,25 +650,26 @@ H.sorceress = {
           if (d.isShooter && !shooterEnabled) return;
           if (Math.hypot(d.x - sorcMonolith.x, d.z - sorcMonolith.z) <= sorcMonolith.curR + d.r) {
             damageDummy(d, tickDmg, '#e879f9', true);
+            markTarget(hero, d);
           }
         });
         if (phase1Engine) {
           phase1Engine.getHostileTargets().forEach((t) => {
             if (t.kind === 'structure') return;
             if (Math.hypot(t.x - sorcMonolith.x, t.z - sorcMonolith.z) <= sorcMonolith.curR + t.r) {
-              phase1Engine.dealPlayerDamageToUnit(t, tickDmg, {
+              if (phase1Engine.dealPlayerDamageToUnit(t, tickDmg, {
                 dmgType: 'fantasy',
                 slowDur: 0.65,
                 color: '#e879f9',
                 isDoT: true
-              });
+              })) markTarget(hero, t.ref);
             }
           });
         }
       }
 
-      // Talent 10L (Gravity Collapse): At max size (t >= 4.2s), pulls enemies inward & deals bonus burst!
-      if (!sorcMonolith.collapsed && sorcMonolith.t >= 4.2 && talents[10] === 'L') {
+      // (old 10L Gravity Collapse: the end-of-zone pull is a talent candidate; off for now)
+      if (false) {
         sorcMonolith.collapsed = true;
         const collapseDmg = H.sorceress.dmg.collapse(st);
         SFX.play('arena');
@@ -687,23 +724,16 @@ H.sorceress = {
   },
 
   // Overhead plate tag
-  hudTag(st) {
-    return (hero.qTempoStacks || 0) > 0 ? ' [TEMPO x' + hero.qTempoStacks + ']' : '';
-  },
+  hudTag(st) { return ''; },
 
-  // Passive slot pip text ('' hides it)
+  // Passive slot pip: how many targets carry her Starmark right now
   passivePip(st) {
-    return (hero.qTempoStacks || 0) > 0 ? hero.qTempoStacks + 'x' : '';
+    const n = marks.filter((m) => m.by === hero).length;
+    return n > 0 ? n + '✦' : '';
   },
 
-  // Q slot stack pip (Astral Tempo)
-  showQStacks() {
-    return (hero.qTempoStacks || 0) > 0;
-  },
-
-  qEmpowered() {
-    return (hero.qTempoStacks || 0) > 0;
-  },
+  // her next basic attack has a mark to pop
+  qEmpowered() { return false; },
 
   rEmpowered() {
     return !!sorcMonolith;
@@ -712,6 +742,14 @@ H.sorceress = {
   // Self-test: still has something scheduled
   isBusy() {
     return !!pendingRiftBolts;
+  },
+
+  // the test tools clear leftovers between rows
+  clearState() { this.onSwitchedAway(); },
+
+  // switching heroes / the test tools: clear the player's marks
+  onSwitchedAway() {
+    for (let i = marks.length - 1; i >= 0; i--) if (marks[i].by === hero) dropMark(i);
   }
 };
 })();

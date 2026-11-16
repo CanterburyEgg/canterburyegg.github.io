@@ -223,7 +223,7 @@ K.spawnBolt = function (angle, dmg, opts = {}) {
     dmgType: opts.dmgType || 'physical', bleedAdd: 0, isHeartseeker: false, pierce: !!opts.pierce,
     hitIds: new Set(), life: opts.life || 0.6, isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0,
     owner: by.isPlayer ? null : by,
-    onHit: opts.onHit || null // onHit(x, z, hitRefOrDummy) after it damages something (e.g. Imp splash shells)
+    onHit: opts.onHit || null // onHit(x, z, hitRefOrDummy, targetObj|undefined) after it damages something (e.g. Imp splash shells)
   });
   return mesh;
 };

@@ -98,6 +98,7 @@
   function cleanupKit(heroId) {
     const k = window.MOBA_HEROES[heroId];
     if (k && k.onSwitchedAway) k.onSwitchedAway();
+    if (k && k.clearState) k.clearState();
   }
 
   async function waitQuiet(startAt) {

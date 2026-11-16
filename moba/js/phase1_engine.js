@@ -2358,16 +2358,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return true;
     }
 
-    // Sorceress Passive ("Soul Siphon"): Enemies dying within 2.5s of taking damage from you restore 36 (+6/Lv) Mana (3x on Heroes!)
-    function checkSorceressSoulSiphon(u, isHeroVictim) {
-      if (getActiveHeroId() !== 'sorceress') return;
-      if (!u || matchTime - (u.lastDamagedByPlayerAt || -99) > 2.5) return;
-      const baseMana = 36 + playerProg.level * 6;
-      const gain = isHeroVictim ? baseMana * 3 : baseMana;
-      hero.mp = Math.min(hero.maxMp || 440, (hero.mp || 0) + gain);
-      spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.25, 1.45, 0.25);
-      spawnFloat(hero.x, 2.75, hero.z, 'SOUL SIPHON +' + gain + ' MP!', '#38bdf8');
-    }
 
     function handleUnitDeath(targetObj) {
       const u = targetObj.ref;
@@ -2386,7 +2376,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (idx >= 0) minions.splice(idx, 1);
         if (!u._dead) {
           u._dead = true;
-          if (u.team === 1) checkSorceressSoulSiphon(u, false);
           grantProximityReward(u.team, u.x, u.z, u.kind === 'super' ? 68 : 34, u.kind === 'super' ? 85 : 46);
         }
       } else if (targetObj.kind === 'camp') {
@@ -2408,7 +2397,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
         if (u.leashRing) u.leashRing.visible = false;
         u.plate.style.display = 'none';
-        checkSorceressSoulSiphon(u, u.isBoss);
         addPlayerGoldAndXp(u.gold, u.xp, u.x, u.z);
         if (u.isBoss) {
           bossBuffTimer[0] = 90.0; // +10% All-Stats Buff for 90s!
@@ -2429,7 +2417,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (u.team === 1) {
           teamKills[0]++;
           playerProg.kills++;
-          checkSorceressSoulSiphon(u, true);
           // Panther 10L Talent ("Apex Reset"): Hero takedowns within 4s of exiting R Stealth refresh E and grant 2.5s Stealth!
           if (getActiveHeroId() === 'panther' && playerProg.talents[10] === 'L' && ((hero.stealthTimer || 0) > 0 || (hero.stealthExitTimer || 0) > 0)) {
             hero.cdE = 0;
@@ -3270,10 +3257,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         b.isUnseen = matchMode && b.respawnTimer <= 0 && isUnseen(b);
         if (b.heroType === 'panther') b.unseenLingerTimer = b.isUnseen ? 2.2 : Math.max(0, (b.unseenLingerTimer || 0) - dt);
         b.arenaTimer = Math.max(0, (b.arenaTimer || 0) - dt);
-        if ((b.qTempoTimer || 0) > 0) {
-          b.qTempoTimer -= dt;
-          if (b.qTempoTimer <= 0) b.qTempoStacks = 0;
-        }
         if ((b.siphonTimer || 0) > 0) {
           b.siphonTimer -= dt;
           if (b.siphonTimer <= 0) b.siphonBonus = 0;

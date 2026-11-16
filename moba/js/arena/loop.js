@@ -35,10 +35,6 @@ function tick(now) {
   hero.unseenLingerTimer = Math.max(0, (hero.unseenLingerTimer || 0) - dt);
   if (phase1Engine && phase1Engine.tickUnseen) phase1Engine.tickUnseen(dt);
   KitFx.charges.tick(hero, dt);
-  if (hero.qTempoTimer > 0) {
-    hero.qTempoTimer -= dt;
-    if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0;
-  }
 
   if ((hero.qFlurryRemaining || 0) > 0) {
     hero.qFlurryTimer = (hero.qFlurryTimer || 0) - dt;
@@ -357,7 +353,7 @@ function tick(now) {
       } else {
         o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical', src: b.src });
         spawnShockRing(t.x, t.z, b.dmgType === 'fantasy' ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
-        if (b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref);
+        if (b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref, t);
         if (!b.pierce) { scene.remove(b.mesh); return true; }
       }
     }
@@ -461,7 +457,7 @@ function tick(now) {
               src: b.src
             });
             if (didHit) spawnShockRing(t.x, t.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
-            if (didHit && b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref);
+            if (didHit && b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref, t);
             if (!b.pierce) {
               scene.remove(b.mesh);
               heroBolts.splice(i, 1);
