@@ -18,7 +18,7 @@ function tick(now) {
   raycaster.setFromCamera(mouseNDC, camera);
   raycaster.ray.intersectPlane(groundPlane, aimWorld);
   if (window.__MOBA_TEST && window.__MOBA_TEST.aim) aimWorld.set(window.__MOBA_TEST.aim.x, 0, window.__MOBA_TEST.aim.z);
-  if (window.__MOBA_TEST) window.__MOBA_TEST.gameTime += dt;
+  if (window.__MOBA_TEST) { window.__MOBA_TEST.gameTime += dt; window.__MOBA_TEST._frame(); } // test waits resume after this frame
 
   hero.atkTimer = Math.max(0, hero.atkTimer - dt);
   hero.comboResetTimer = Math.max(0, (hero.comboResetTimer || 0) - dt);

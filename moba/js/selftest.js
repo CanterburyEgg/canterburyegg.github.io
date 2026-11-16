@@ -29,7 +29,7 @@
   const param = new URLSearchParams(location.search).get('selftest');
   const heroes = param && ALL_HEROES.includes(param) ? [param] : ALL_HEROES;
 
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const sleep = () => T.nextFrame(); // frame-exact: every wait resumes right after a game frame (no wall-clock timers)
   const gameNow = () => T.gameTime || 0;
   // Wait for N seconds of *game* time (frame-rate independent; slow machines just take longer).
   async function waitGame(sec) {

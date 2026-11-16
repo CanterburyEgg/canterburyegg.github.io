@@ -31,7 +31,7 @@
   const SLOT_MAX = 8;      // max game seconds to watch one cast (zones, turrets, toggles get cut off here)
   const ROT = 20;          // rotation length (s): autos + every ability as it comes off cooldown
 
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const sleep = () => T.nextFrame(); // frame-exact: every wait resumes right after a game frame (no wall-clock timers)
   const gameNow = () => T.gameTime || 0;
   async function waitGame(sec) { const until = gameNow() + sec; while (gameNow() < until) await sleep(20); }
   const target = A.dummies[1] || A.dummies[0];

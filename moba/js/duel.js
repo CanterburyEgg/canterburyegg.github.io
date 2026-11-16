@@ -44,7 +44,7 @@
     else if (p.length === 4) { mode = '2v2'; matchups.push([[p[0], p[1]], [p[2], p[3]]]); }
   }
 
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const sleep = () => T.nextFrame(); // frame-exact: every wait resumes right after a game frame (no wall-clock timers)
   const gameNow = () => T.gameTime || 0;
   async function waitGame(sec) { const until = gameNow() + sec; while (gameNow() < until) await sleep(15); }
 

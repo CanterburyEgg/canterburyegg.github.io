@@ -311,6 +311,15 @@ if (/[?&](selftest|profile|duel)/.test(location.search)) {
     gameTime: 0, // seconds of simulated game time (sum of tick dt), frame-rate independent
     noRender: /[?&]norender/.test(location.search), // headless runs: skip drawing, keep logic
     onDummyDamage: null,
+    // Frame-exact waiting for the test tools: loop.js calls _frame() once per game frame, and anything awaiting
+    // nextFrame() continues right after that frame (never on a wall-clock timer), so background load can't shift results.
+    _waiters: [],
+    _frame() {
+      const w = this._waiters;
+      this._waiters = [];
+      w.forEach((r) => r());
+    },
+    nextFrame() { return new Promise((r) => this._waiters.push(r)); },
     api: {
       hero,
       dummies,
