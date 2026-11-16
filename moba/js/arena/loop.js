@@ -346,7 +346,7 @@ function tick(now) {
       if (b.isHeartseeker) {
         const stacks = t.ref.bleedStacks || 0;
         const rU = KitFx.rUlt(o.level());
-        const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(o.stats(), rU) * (o.talents()[7] === 'R' ? 1.25 : 1.0)) * (b.popScale || 1));
+        const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(o.stats(), rU) * 1.0) * (b.popScale || 1));
         o.damage(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185', src: 'ability' });
         if (stacks > 0) {
           t.ref.bleedStacks = 0;
@@ -357,6 +357,7 @@ function tick(now) {
       } else {
         o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical', src: b.src });
         spawnShockRing(t.x, t.z, b.dmgType === 'fantasy' ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
+        if (b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref);
         if (!b.pierce) { scene.remove(b.mesh); return true; }
       }
     }
@@ -406,7 +407,7 @@ function tick(now) {
         if (b.isHeartseeker) {
           const stacks = d.bleedStacks;
           const pst = phase1Engine ? phase1Engine.getPlayerStats() : { ability: 0 };
-          const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(pst, KitFx.rUlt(pProg.level || 1)) * (talents[7] === 'R' ? 1.25 : 1.0)) * (b.popScale || 1));
+          const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(pst, KitFx.rUlt(pProg.level || 1)) * 1.0) * (b.popScale || 1));
           damageDummy(d, b.dmg + popDmg, stacks > 0 ? '#fde047' : '#fb7185');
           if (stacks > 0) {
             d.bleedStacks = 0;
@@ -419,6 +420,7 @@ function tick(now) {
           damageDummy(d, b.dmg, isFant ? '#e879f9' : '#fb7185');
           if (b.bleedAdd > 0) applyBleedStacks(d, b.bleedAdd);
           spawnShockRing(d.x, d.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
+          if (b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, d);
           if (!b.pierce) {
             scene.remove(b.mesh);
             heroBolts.splice(i, 1);
@@ -442,17 +444,13 @@ function tick(now) {
           if (b.isHeartseeker) {
             const stacks = t.ref.bleedStacks || 0;
             const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-            const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(phase1Engine.getPlayerStats(), rUlt) * (talents[7] === 'R' ? 1.25 : 1.0)) * (b.popScale || 1));
+            const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(phase1Engine.getPlayerStats(), rUlt) * 1.0) * (b.popScale || 1));
             const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185', src: 'ability' });
             if (didHit && stacks > 0) {
               t.ref.bleedStacks = 0;
               t.ref.bleedTimer = 0;
               spawnShockRing(t.x, t.z, 0xf43f5e, 0.35, 2.2, 0.32);
               spawnFloat(t.x, 2.85, t.z, 'BLEED DETONATED (' + stacks + 'x)!', '#fde047');
-              if (stacks >= 4 && talents[10] === 'L') {
-                hero.cdR *= 0.5;
-                spawnFloat(hero.x, 2.9, hero.z, 'EXECUTIONER: 50% R REFUND!', '#38bdf8');
-              }
             }
           } else {
             const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg, {
@@ -463,6 +461,7 @@ function tick(now) {
               src: b.src
             });
             if (didHit) spawnShockRing(t.x, t.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
+            if (didHit && b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref);
             if (!b.pierce) {
               scene.remove(b.mesh);
               heroBolts.splice(i, 1);
@@ -559,7 +558,7 @@ function tick(now) {
   }
 
   // Animate Hero Pivot & Skeletal Mixer
-  heroPivot.position.set(hero.x, airborneY, hero.z);
+  heroPivot.position.set(hero.x, airborneY + CC.lift(hero), hero.z); // (+ knock-up height)
   let diff = hero.facing - heroPivot.rotation.y;
   while (diff > Math.PI) diff -= Math.PI * 2;
   while (diff < -Math.PI) diff += Math.PI * 2;

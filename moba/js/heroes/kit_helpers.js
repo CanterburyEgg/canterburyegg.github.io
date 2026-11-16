@@ -130,12 +130,14 @@ K.charges = {
 };
 
 // Damage everything (dummies + engine units, no structures unless opts.structures) inside a circle.
-// opts: dealPlayerDamageToUnit options (dmgType, slowDur, stunDur, knockbackDist, ...) + color; returns hit count.
+// opts: dealPlayerDamageToUnit options (dmgType, slowDur, stunDur, knockbackDist, ...) + color + exclude (a unit/dummy
+// to skip, e.g. the one a splash shell already hit); returns hit count.
 K.hitArea = function (x, z, r, dmg, opts = {}) {
   let hits = 0;
   const by = opts.by || K.player; // opts.by = casting actor (bots hit their own enemies, no dummies)
   if (by.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
+    if (opts.exclude && opts.exclude === d) return;
     if (Math.hypot(d.x - x, d.z - z) <= r + d.r) {
       damageDummy(d, dmg, opts.color || '#fb7185', !!opts.isDoT);
       CC.apply(d, opts, { x, z, unit: by.unit });
@@ -146,9 +148,11 @@ K.hitArea = function (x, z, r, dmg, opts = {}) {
   if (phase1Engine) {
     by.hostiles().forEach((t) => {
       if (t.kind === 'structure' && !opts.structures) return;
+      if (opts.exclude && opts.exclude === t.ref) return;
       if (Math.hypot(t.x - x, t.z - z) <= r + (t.r || 0.5)) {
         const o = Object.assign({}, opts);
         delete o.by;
+        delete o.exclude;
         if (opts.pullTo) {
           o.knockbackDist = Math.max(0, Math.min(opts.pullDist || 3, Math.hypot(opts.pullTo.x - t.x, opts.pullTo.z - t.z) - 1.0));
           o.knockbackDirX = opts.pullTo.x - t.x;
@@ -218,7 +222,8 @@ K.spawnBolt = function (angle, dmg, opts = {}) {
     mesh, vx: Math.sin(angle) * spd, vz: Math.cos(angle) * spd, dmg,
     dmgType: opts.dmgType || 'physical', bleedAdd: 0, isHeartseeker: false, pierce: !!opts.pierce,
     hitIds: new Set(), life: opts.life || 0.6, isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0,
-    owner: by.isPlayer ? null : by
+    owner: by.isPlayer ? null : by,
+    onHit: opts.onHit || null // onHit(x, z, hitRefOrDummy) after it damages something (e.g. Imp splash shells)
   });
   return mesh;
 };

@@ -4220,7 +4220,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Sync Bot 3D pivots & nameplates after separation
       bots.forEach((b) => {
         if (b.respawnTimer > 0) return;
-        const ay = b.airborneY || 0;
+        const ay = (b.airborneY || 0) + CC.lift(b); // (knock-up height too, or this re-sync flattens it)
         b.pivot.position.set(b.x, ay, b.z);
         if (b.groundRing) b.groundRing.position.y = 0.03 - ay;
         if (b.pivot.visible) {

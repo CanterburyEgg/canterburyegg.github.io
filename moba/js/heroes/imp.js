@@ -107,6 +107,16 @@ function stepTurret(t, dt, actor) {
   t.kick = Math.max(0, (t.kick || 0) - dt * 5);
 }
 
+// Carrying form: cannon shells splash. Whatever the shell hits takes the full shot; enemies within SPLASH.r of the impact
+// take SPLASH.pct of it (Attack damage, counts as area damage for sustain). Turret shots don't splash.
+const SPLASH = { r: 1.6, pct: 0.5 };
+function splashShell(actor, dmg) {
+  return (x, z, hit) => {
+    spawnShockRing(x, z, 0xfb923c, 0.2, SPLASH.r, 0.22);
+    KitFx.hitArea(x, z, SPLASH.r, Math.round(dmg * SPLASH.pct), { by: actor, exclude: hit, src: 'attack', isBasic: false, aoe: true, color: '#fdba74' });
+  };
+}
+
 // One Superball step for any caster; returns true when it's done
 function stepBall(b, dt, actor) {
   const step = 17 * dt;
@@ -120,8 +130,7 @@ function stepBall(b, dt, actor) {
     if (!b.hit.has('d' + d.id) && Math.hypot(d.x - b.x, d.z - b.z) <= 1.1 + d.r) {
       b.hit.add('d' + d.id);
       damageDummy(d, b.dmg, '#fb923c');
-      d.stunTimer = Math.max(d.stunTimer, 1.0);
-      spawnFloat(d.x, 2.8, d.z, 'KNOCKED UP!', '#fb923c');
+      CC.apply(d, { knockupDur: 1.0 }, { x: b.x, z: b.z });
     }
   });
   if (phase1Engine) {
@@ -130,7 +139,7 @@ function stepBall(b, dt, actor) {
       const key = t.kind + (t.ref && t.ref.id || j);
       if (!b.hit.has(key) && Math.hypot(t.x - b.x, t.z - b.z) <= 1.1 + (t.r || 0.5)) {
         b.hit.add(key);
-        actor.damage(t, b.dmg, { dmgType: 'physical', stunDur: 1.0, color: '#fb923c' });
+        actor.damage(t, b.dmg, { dmgType: 'physical', knockupDur: 1.0, color: '#fb923c' });
       }
     });
   }
@@ -271,7 +280,7 @@ H.imp = {
     r: 'Superball',
     banner: '<b>Q</b> Plant / pick up the cannon &bull; <b>E</b> Rocket jump (carrying) or hop &bull; <b>R</b> Superball &bull; <b>P</b> Shop',
     tooltips: {
-      P: { title: 'Passive • Two Forms', meta: 'Carrying vs. Unburdened', body: 'Carrying: slow, long-range cannon shots. Unburdened: <b>+22% move speed</b> and fast wrench swings. <b>Wrench hits repair your turret.</b>' },
+      P: { title: 'Passive • Two Forms', meta: 'Carrying vs. Unburdened', body: 'Carrying: slow, long-range cannon shots that <b>splash</b> (50% to enemies within 1.6m of the impact). Unburdened: <b>+22% move speed</b> and fast wrench swings. <b>Wrench hits repair your turret.</b>' },
       LMB: { title: 'LMB • Siege Shot / Wrench', meta: '0 MP • 1.05s Base ATK', body: 'Carrying: fire a cannonball for <b>Attack damage</b>. Unburdened: a quick wrench swing.' },
       Q: { title: 'Q • Anchor Turret', meta: '20 MP • 3s CD', body: 'Plant the cannon as a <b>turret</b> with its own HP that fires at nearby enemies. Press Q next to it to pick it back up (after 1.5s). If it is destroyed it leaves <b>scrap</b>: Q on it to salvage, or head home for a fresh cannon.' },
       E: { title: 'E • Blast Hop', meta: '50 MP • 8.5s CD', body: 'Carrying: the cannon blasts downward for a <b>long rocket jump</b>. Unburdened: a <b>short nimble hop</b>.' },
@@ -301,7 +310,7 @@ H.imp = {
       const fx = hero.x + Math.sin(ang) * 0.9, fz = hero.z + Math.cos(ang) * 0.9;
       smoke(fx, fz, 0.9);
       const ball = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
-      KitFx.spawnBolt(ang, H.imp.dmg.cannon(st), { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz });
+      KitFx.spawnBolt(ang, H.imp.dmg.cannon(st), { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, onHit: splashShell(KitFx.player, H.imp.dmg.cannon(st)) });
     } else {
       hero.atkTimer = 0.7 / (1 + st.asPct);
       hero.punchAnim = 0.3;
@@ -425,7 +434,7 @@ H.imp = {
       SFX.play('arena');
       const fx = u.x + Math.sin(u.facing) * 0.9, fz = u.z + Math.cos(u.facing) * 0.9;
       smoke(fx, fz, 0.9);
-      KitFx.spawnBolt(u.facing, H.imp.dmg.cannon(st), { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor });
+      KitFx.spawnBolt(u.facing, H.imp.dmg.cannon(st), { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor, onHit: splashShell(actor, H.imp.dmg.cannon(st)) });
     } else {
       u.atkCd = (u.atkCd || 0) * (0.7 / 1.05); // wrench swings faster than the cannon fires
       u.punchAnim = 0.3;
