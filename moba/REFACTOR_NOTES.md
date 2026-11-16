@@ -91,6 +91,8 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   `&visdom` logs the indicator's DOM state.
 - [ ] **UNSEEN indicator only where it matters (noted 2026-11-14, UI pass)**: today every hero gets the vignette + tag.
   Show it only for heroes whose kit uses it (Panther, Coyote); others look the same seen or not.
+- [ ] **Fairy run pose (noted 2026-11-15)**: her arms sit too far back while she moves (run/fly clip). Pull them forward
+  (a per-bone offset on the shoulders/upper arms during locomotion, or a different clip).
 - [ ] **Global pace pass (noted 2026-11-15)**: everything moves a little too fast: heroes run too quickly, minions walk
   too quickly, jungle monsters move too quickly. Do one pass over all move speeds together (hero moveSpeed / baseSpd,
   minion spd, camp spd, plus anything tied to them: dash/leap distances, projectile speeds vs. dodgeability, chase and

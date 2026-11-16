@@ -10,6 +10,7 @@ const HOVER = 0.75;      // meters above the ground
 const HOP_RANGE = 7.0;
 const HOP_CHARGE_CD = 10.0;
 const HOP_MAX = 2;
+const HOP_SILENCE = 1.0;
 KitFx.charges.slotFor.hop = 'E';
 const dustPatches = [];  // { grp, x, z, r, t, dream, owner } (owner: bot actor, or null = the player)
 const bubbles = [];      // in-flight Pop! bubbles { mesh, sx, sz, tx, tz, t, dur, dmg, delay, owner }
@@ -243,7 +244,7 @@ H.fairy = {
       P: { title: 'Passive • Fairy Dust', meta: 'Innate Heal Zones', body: 'Every <b>Q</b> pop leaves a patch of Fairy Dust for 3.5s that <b>heals allies standing inside</b> (25 (+4/Lv) + 20% Ability per second). During <b>R</b> it becomes Dreamdust.' },
       LMB: { title: 'LMB • Glimmer Dart', meta: '0 MP • 0.86s Base ATK', body: 'A light ranged poke for <b>Attack damage</b>.' },
       Q: { title: 'Q • Pop! Bubble', meta: '50 MP • 6.5s CD', body: 'Lob a slow bubble to a spot. It pops over an area: enemies take <b>150 / 230 / 320 (+12/Lv) + 100% Ability</b> and a 2s slow, allies inside get a <b>shield</b> (120 (+15/Lv) + 80% Ability), and it leaves Fairy Dust.' },
-      E: { title: 'E • Pixie Hop', meta: '30 MP • 2 charges (10s each)', body: 'Blink to the <b>unit nearest the cursor</b> within 7m (enemy: minor damage + a brief silence; ally: reposition). Can\'t hop to the same unit until that charge recharges.' },
+      E: { title: 'E • Pixie Hop', meta: '30 MP • 2 charges (10s each)', body: 'Blink to the <b>unit nearest the cursor</b> within 7m (enemy: minor damage + a <b>1s silence</b>; ally: reposition). Can\'t hop to the same unit until that charge recharges.' },
       R: { title: 'R • Lullaby', meta: '100 MP • 48s CD (Lv 4)', body: 'Twirl and burst a <b>4m Dreamdust ring</b>. For 10s all her dust is Dreamdust: enemies inside <b>fall asleep for 2s</b>.' }
     }
   },
@@ -344,10 +345,12 @@ H.fairy = {
       SFX.play('dash');
       if (target.enemy) {
         const dmg = H.fairy.dmg.hop(st, pProg.level);
+        // enemy: minor Ability damage + a real 1s silence (can move and attack, can't cast)
         if (target.dummy) {
           damageDummy(target.dummy, dmg, '#86efac');
+          CC.apply(target.dummy, { silenceDur: HOP_SILENCE }, { x: hero.x, z: hero.z, unit: hero });
         } else if (target.unit && phase1Engine) {
-          actor.damage(target.unit, dmg, { dmgType: 'fantasy', stunDur: 0.4, color: '#86efac' });
+          actor.damage(target.unit, dmg, { dmgType: 'fantasy', src: 'ability', silenceDur: HOP_SILENCE, color: '#86efac' });
         }
         spawnFloat(target.x, 2.6, target.z, 'HUSH!', '#86efac');
       }
