@@ -47,13 +47,18 @@ def run(ctx):
             out.append(n)
             continue
         _, name, line = best
+        # (nothing to do when the lead already plays that line -- relayed from a doubling part, say: Sevens 0:31)
+        if sum(any(abs(float(y["start"]) - float(x["start"])) <= 0.02 and int(y["midi"]) == int(x["midi"]) for y in lead) for x in line[:3]) >= 2:
+            out.append(n)
+            continue
         t0 = float(line[0]["start"])
         out.append(dict(n, end=t0 - 0.01))
-        out.extend(dict(x, staff=name) for x in line)
+        out.extend(dict(x, staff=name, _entry=True) for x in line)
         spans.append((t0, float(line[-1]["end"]) - 0.02, name))
         changed += 1
     # (the entering line carries on to its own end: other lead notes starting inside it give way)
-    out = [x for x in out if not any(a <= float(x["start"]) < b and x.get("staff") != nm for a, b, nm in spans)]
+    out = [x for x in out if x.get("_entry") or not any(a <= float(x["start"]) < b for a, b, nm in spans)]
+    out = [{k: v for k, v in x.items() if k != "_entry"} for x in out]
     if changed:
         print(f"    -> entry during a hold: {changed} rising entr(ies) take over from a held lead note")
     out.sort(key=lambda x: float(x["start"]))

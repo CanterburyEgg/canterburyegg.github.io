@@ -49,6 +49,28 @@ def run(ns):
             idx = list(range(a, b + 1))
             pk = [peak_near(float(mo[k][0])) for k in idx]
             got = [(k, p) for k, p in zip(idx, pk) if p is not None]
+            # (a run that drifts away from the attacks -- the warp slowing where the band doesn't, Jupiter 5:55: the
+            # trumpets' 69 72 74 triplets came out with a ritardando nobody plays -- is followed attack by attack from its
+            # first note at the run's own early pace instead)
+            if len(got) < 0.8 * len(idx) or True:
+                p0 = peak_near(float(mo[a][0]))
+                if p0 is not None:
+                    pace0 = (float(mo[min(a + 3, b)][0]) - float(mo[a][0])) / (ss[min(a + 3, b)] - ss[a])
+                    chain, cur, ok_n = [(a, p0)], p0, 0
+                    for k in idx[1:]:
+                        exp = cur + pace0 * (ss[k] - ss[chain[-1][0]])
+                        f0, f1 = max(2, int(round((exp - 0.07) / dt))), min(len(a_ons) - 3, int(round((exp + 0.07) / dt)))
+                        if f1 <= f0:
+                            break
+                        f = f0 + int(np.argmax(a_ons[f0:f1 + 1]))
+                        if a_ons[f] >= 1.5 * float(np.median(a_ons[max(0, f - 40): f + 40])):
+                            cur = f * dt
+                            chain.append((k, cur))
+                            ok_n += 1
+                    if len(chain) >= 0.8 * len(idx):
+                        drift = max(abs(float(mo[k][0]) - p) for k, p in chain)
+                        if drift >= 0.12 and (len(got) < 0.8 * len(idx) or drift > 0.2):
+                            got = chain
             if len(got) >= 0.8 * len(idx):
                 pts = np.array([p for _, p in got])
                 sc = np.array([ss[k] for k, _ in got])
@@ -58,7 +80,7 @@ def run(ns):
                 offs = [p - float(mo[k][0]) for k, p in got]
                 # (only a run that's out of shape against them -- some notes early, some late, 0.08s+ apart -- not one that
                 # sits a touch to one side all the way along)
-                if float(np.max(np.abs(resid))) <= 0.03 and abs(float(np.median(offs))) >= 0.04 and max(offs) - min(offs) >= 0.08:
+                if float(np.max(np.abs(resid))) <= 0.03 and ((abs(float(np.median(offs))) >= 0.04 and max(offs) - min(offs) >= 0.08) or max(offs) - min(offs) >= 0.2):
                     for k in idx:
                         t = round(float(np.polyval(fit, ss[k])), 4)
                         end = float(mo[k][1])

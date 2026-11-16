@@ -1,4 +1,7 @@
 [
-  {"song": "jupiter", "start": 280.5, "end": 288, "label": "4:43-4:47 - F after the hold on the beat", "issue": "D79-hold, then F79 J82 K84-hold at 4:43.75 / 4:44.24 / 4:44.73 (the F was 0.18s early, uneven), then J84 K87 J86-hold."},
-  {"song": "jupiter", "start": 240, "end": 303, "label": "Jupiter 4:00-5:03 full run", "issue": "Everything from this minute."}
+  {"song": "jupiter", "start": 326, "end": 331, "label": "5:28 - the big swell held", "issue": "K100-hold (the chord's top) instead of the clarinets' 83 76 71 eighth-note cycle."},
+  {"song": "jupiter", "start": 330, "end": 334.5, "label": "5:32 - four-note walk down K J F D", "issue": "K79 J77 F72 K76 J74 | K72 J71 F69 D67 (the 67 from the 2nd violins), then the horns' D55 F60 J65 (note: D67 -> D55 back to back - see message)."},
+  {"song": "jupiter", "start": 344.5, "end": 349.5, "label": "5:45 - bassoon walk-up in the gap", "issue": "Trumpets' D62 J67 K72-hold, then the bassoons' D50 F55 J60 K62, then the oboes."},
+  {"song": "jupiter", "start": 354.5, "end": 363, "label": "5:55-6:00 - no more ritardando", "issue": "The trumpets' 69 72 74 triplets now steady at the band's pace (0.22s), ending 6:00.37 (was 6:01.09)."},
+  {"song": "jupiter", "start": 300, "end": 363, "label": "Jupiter 5:00-6:03 full run", "issue": "Everything from this minute."}
 ]

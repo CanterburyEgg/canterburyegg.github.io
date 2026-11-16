@@ -1284,6 +1284,7 @@ const LAYOUT_RULES = [
   ['climbFitsKeys', (n, l) => applyClimbFitsKeys(n, l)],
   ['figureGrows', (n, l) => applyFigureGrows(n, l)],
   ['reentryMakesRoom', (n, l) => applyReentryMakesRoom(n, l)],
+  ['fourWalkDown', (n, l) => applyFourWalkDown(n, l)],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
 
@@ -4365,6 +4366,38 @@ function applyReentryMakesRoom(notes, lanes) {
     const up = nx.midi > x.midi;
     if ((up && x.lane !== lanes - 1) || (!up && x.lane !== 0)) continue;
     x.lane = up ? lanes - 2 : 1;
+  }
+}
+
+/**
+ * Four-note walk down is K J F D: an even walk of exactly four notes stepping down (steps of a 3rd or less, under
+ * 0.4s apart) plays K J F D even when the note before it would like another start -- a walk down that starts mid-hand
+ * and wraps (Jupiter 5:32: 72 71 69 67 came out F D K -) reads worse than one step back into it. The note after it
+ * must still read right from D.
+ */
+function applyFourWalkDown(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  for (let a = 0; a + 3 < n; a++) {
+    const run = prim.slice(a, a + 4);
+    const steps = run.slice(1).map((x, j) => run[j].midi - x.midi);
+    const gaps = run.slice(1).map((x, j) => x.time - run[j].time);
+    if (steps.some((s) => s < 1 || s > 4) || Math.min(...gaps) < 0.15 || Math.max(...gaps) >= 0.4 || Math.max(...gaps) > 1.6 * Math.min(...gaps) + 0.03) continue;
+    // exactly four: the walk doesn't carry on down either side
+    const pv = a > 0 ? prim[a - 1] : null;
+    const nx = a + 4 < n ? prim[a + 4] : null;
+    if (pv && pv.midi > run[0].midi && pv.midi - run[0].midi <= 4 && run[0].time - pv.time < 0.4) continue;
+    if (nx && nx.midi < run[3].midi && run[3].midi - nx.midi <= 4 && nx.time - run[3].time < 0.4) continue;
+    if (run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost)) continue;
+    if (run.every((x, j) => x.lane === 3 - j)) continue;
+    // (only a walk the layout bent round: a step inside it goes the wrong way)
+    if (!run.some((x, j) => j && x.lane > run[j - 1].lane)) continue;
+    // (a new part coming in after it may restart anywhere, like any section start)
+    if (nx && !nx.partEntry && nx.time - run[3].time < 0.6 && nx.midi !== run[3].midi && (nx.lane === 0 || nx.midi < run[3].midi)) continue;
+    if (pv && pv.time - run[0].time > -0.6 && pv.lane === 3 && pv.midi !== run[0].midi) continue;
+    run.forEach((x, j) => (x.lane = 3 - j));
+    a += 3;
   }
 }
 
