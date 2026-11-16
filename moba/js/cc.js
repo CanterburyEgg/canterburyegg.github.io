@@ -8,7 +8,7 @@
 //   Sleep     helpless until it ends or a DIRECT hit lands (damage over time doesn't wake; CC.wake on direct hits)
 //   Root      can't move; can attack and cast
 //   Silence   can move and attack; can't cast
-//   Fear      forced to run away from the source; can't attack or cast
+//   Fear      forced to run away from the source at CC.FEAR_SPEED of their speed; can't attack or cast
 //   Taunt     forced to walk at and attack the taunter; can't cast
 //   Slow      reduced move speed (CC.slow / slowMult: opts.slowPct sets the strength, default 32%)
 // Apply with CC.apply(unit, opts, src): opts.stunDur / slowDur / rootDur / silenceDur / fearDur / knockupDur /
@@ -47,6 +47,8 @@
       u.slowPct = (u.slowTimer > 0 && eff(u.slowPct) > eff(p)) ? u.slowPct : p;
       u.slowTimer = max(u.slowTimer, dur);
     },
+    // feared units stumble away slower than they walk
+    FEAR_SPEED: 0.6,
     // move-speed multiplier from slows (defPct = this unit type's standard slow when none was given)
     slowMult(u, defPct = 0.32) {
       if (!u || !(u.slowTimer > 0)) return 1;

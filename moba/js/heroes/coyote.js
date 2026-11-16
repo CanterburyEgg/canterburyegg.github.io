@@ -67,8 +67,8 @@ const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBo
 
 // ---- Q: Bear Trap (DESIGN_RULES Coyote) ----
 // Thrown to a spot within TRAP.range; arms after TRAP.arm s, then it's invisible to enemies (they see a faint shimmer
-// within 3m, like other stealth). The first enemy hero to step on it is rooted and takes bleed. 2 charges (KitFx.charges).
-const TRAP = { range: 6.0, arm: 0.5, life: 30, root: 1.0, bleed: 2, trigR: 0.65, maxActive: 3, recharge: [12, 11, 10], reveal: 3.0 };
+// within 2.25m, like other stealth). The first enemy hero to step on it is rooted and takes bleed. 2 charges (KitFx.charges).
+const TRAP = { range: 6.0, arm: 0.5, life: 30, root: 1.0, bleed: 2, trigR: 0.65, maxActive: 3, recharge: [12, 11, 10], reveal: 2.25 }; // reveal = the shared stealth reveal radius
 KitFx.charges.slotFor.trap = 'Q';
 const traps = [];
 function makeTrapMesh() {

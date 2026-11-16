@@ -133,10 +133,6 @@ function tick(now) {
     d.mesh.position.y = CC.lift(d);
     CC.updateIcon(d, d.mesh, 2.2, dt);
     d.slowTimer = Math.max(0, (d.slowTimer || 0) - dt);
-    if ((d.predatorMarkTimer || 0) > 0) {
-      d.predatorMarkTimer = Math.max(0, d.predatorMarkTimer - dt);
-      if (d.predatorMarkTimer <= 0) d.predatorMarks = 0;
-    }
     if (d.slowFxGrp) {
       d.slowFxGrp.visible = d.slowTimer > 0;
       if (d.slowTimer > 0) d.slowFxGrp.rotation.y -= dt * 3.2;
@@ -261,7 +257,7 @@ function tick(now) {
       const rSlow = (hero.rChargeTimer > 0 ? 0.50 : 1.0) * CC.slowMult(hero);
       const eSlipstream = (hero.eSpeedBuffTimer || 0) > 0 ? 0.25 : 0;
       const kitSpd = heroKit() && heroKit().speedMult ? heroKit().speedMult() : 1;
-      const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow * kitSpd;
+      const spd = baseSpd * (1 + hero.siphonBonus + eSlipstream + (st.spdPct || 0)) * rSlow * kitSpd * ((hero.fearTimer || 0) > 0 ? CC.FEAR_SPEED : 1);
       hero.x += (mx / ml) * spd * dt;
       hero.z += (mz / ml) * spd * dt;
       if (hero.rChargeTimer <= 0) {
@@ -760,7 +756,7 @@ function tick(now) {
     d.plate.style.top = p.y + 'px';
     d.plate.querySelector('.plate-hp').style.width = ((d.hp / d.maxHp) * 100) + '%';
     const bleedStr = d.bleedStacks > 0 ? ' [BLEED x' + d.bleedStacks + ']' : '';
-    const markStr = (d.predatorMarks || 0) > 0 ? ' [🐾x' + d.predatorMarks + ']' : '';
+    const markStr = '';
     const slowStr = d.slowTimer > 0 ? ' [❄️ SLOWED]' : '';
     d.plate.querySelector('.plate-tag').textContent = (d.name + CC.tags(d)) + slowStr + bleedStr + markStr;
   });

@@ -6,6 +6,13 @@
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 
+// E: fear on landing when she leapt while unseen (the roster's only fear)
+const POUNCE_FEAR = 0.9;
+// E's unseen bonuses (fear + range) last this long after she's spotted (the passive's speed lingers 2.2s)
+const POUNCE_LINGER = 1.2;
+const UNSEEN_LINGER = 2.2;
+const pounceUnseen = (u) => (u.stealthTimer || 0) > 0 || (u.unseenLingerTimer || 0) >= UNSEEN_LINGER - POUNCE_LINGER;
+
 H.panther = {
   id: 'panther',
   roster: { order: 5, emoji: '🐾', short: 'Panther' },
@@ -16,13 +23,12 @@ H.panther = {
   clipTweaks: { crawlStabilizeHead: true, crawlBound: true, jumpClampHips: true },
 
   // All of the Panther's damage numbers in one place. Swipes and the Q slash + gnash (counts as a basic attack) are
-  // Attack damage; the E pounce and Predator Mark procs are Ability damage.
+  // Attack damage; the E pounce is big Ability damage (it absorbed the old Predator Marks' damage).
   dmg: {
     swipe: (st) => Math.round(st.attack),
     qSlash: (st, rQE) => Math.round([30, 45, 60][rQE] + st.attack * 0.7),
     qBite: (st, rQE) => Math.round([45, 65, 85][rQE] + st.attack * 0.9),
-    mark: (st, lvl) => Math.round(20 + 4 * (lvl || 1) + st.ability * 0.5),          // x rank mult
-    pounce: (st, lvl, rQE) => Math.round([110, 165, 220][rQE] + 9 * ((lvl || 1) - 1) + st.ability * 0.9)
+    pounce: (st, lvl, rQE) => Math.round([200, 290, 380][rQE] + 12 * ((lvl || 1) - 1) + st.ability * 1.4)
   },
 
   spec: {
@@ -45,18 +51,9 @@ H.panther = {
   },
 
   talents: {
-    3: {
-      L: { id: '3L', name: 'Duskwalker', desc: 'Unseen Move Speed rises to +38% and lingers +1.3s longer after being spotted' },
-      R: { id: '3R', name: 'Bloodfangs', desc: 'Q Slash & Gnash healing +35% and deals +30% bonus damage to enemies below 40% HP' }
-    },
-    7: {
-      L: { id: '7L', name: 'Hamstring Mark', desc: 'Consuming the 3rd E Predator Mark Slows by 50% (1.25s) and refunds 2s off E CD' },
-      R: { id: '7R', name: 'Arcane Claws', desc: 'E Predator Mark bonus damage increased by +35%' }
-    },
-    10: {
-      L: { id: '10L', name: 'Apex Reset', desc: 'Hero takedowns within 4s of exiting R Stealth refresh E and grant 2.5s Stealth' },
-      R: { id: '10R', name: 'Throat Pounce', desc: 'Leaping with E from R Stealth applies a 40% Slow + 0.8s Silence/Stun on landing' }
-    }
+    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
   },
 
   ui: {
@@ -69,39 +66,34 @@ H.panther = {
     passive: 'Shadow Stalker',
     lmb: 'Twin Claws',
     q: 'Slash&Gnash',
-    e: 'Mark Leap',
+    e: 'Pounce',
     r: 'Nightprowl',
     banner: '<b>1/2/3/4/5</b> Hero &bull; <b>Passive</b> Shadow Stalker (+28% Unseen MS) &bull; <b>Q</b> Slash &amp; Gnash (Swipe + Bite) &bull; <b>E</b> Predator&#39;s Leap &bull; <b>R</b> Nightprowl Stealth (All-Fours Prowl!) &bull; <b>P</b> Shop',
     tooltips: {
       P: {
         title: 'Passive • Shadow Stalker',
         meta: 'Innate Unseen Speed',
-        body: 'Gain <b>+28% Move Speed</b> while Unseen by enemies (behind LOS trees/pillars, out of enemy vision, or during <b>R: Nightprowl</b> Stealth), lingering for 2.2s after being spotted.',
-        talentLevels: [3]
+        body: 'Gain <b>+28% Move Speed</b> while Unseen by enemies (behind LOS trees/pillars, out of enemy vision, or during <b>R: Nightprowl</b> Stealth), lingering for 2.2s after being spotted. While unseen (and for 1.2s after being spotted), <b>E</b> gets +65% range and <b>fears</b> what it lands on.'
       },
       LMB: {
         title: 'LMB • Twin Claws',
         meta: '0 MP • 0.78s Base ATK',
-        body: 'Rapid claw swipes for <b>100% Attack</b> that consume active <b>E: Predator Marks</b> for bonus Ability damage.',
-        talentLevels: [7]
+        body: 'Rapid claw swipes for <b>100% Attack</b>.'
       },
       Q: {
         title: 'Q • Slash & Gnash',
         meta: '45 MP • 5.8s / 5.0s / 4.2s CD (Lv 1/6/9)',
-        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; Slash <b>30 / 45 / 60 + 70% Attack</b>, Gnash <b>45 / 65 / 85 + 90% Attack</b> (counts as a basic attack); both <b>heal you</b>, and each consumes an active <b>Predator Mark</b>!',
-        talentLevels: [3, 7]
+        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; Slash <b>30 / 45 / 60 + 70% Attack</b>, Gnash <b>45 / 65 / 85 + 90% Attack</b> (counts as a basic attack); both <b>heal you</b>.'
       },
       E: {
         title: "E • Predator's Leap",
         meta: '50 MP • 7.5s / 6.2s / 5.0s CD (Lv 1/6/9)',
-        body: 'Pounces to the target spot (<b>+65% range while Unseen or in R Stealth!</b>), dealing <b>110 / 165 / 220 (+9/Lv) + 90% Ability</b> in an area and applying <b>3 Predator Marks</b> for 5.0s so your next 3 hits deal bonus Ability damage.',
-        talentLevels: [7, 10]
+        body: 'Pounces to the target spot (<b>+65% range while Unseen or in R Stealth!</b>), dealing <b>200 / 290 / 380 (+12/Lv) + 140% Ability</b> in an area. <b>If she leapt while unseen</b> (out of enemy sight or in R Stealth), enemy heroes hit are <b>feared for 0.9s</b>. Minions and jungle monsters are <b>always</b> feared.'
       },
       R: {
         title: 'R • Nightprowl',
         meta: '80 MP • 38s / 32s / 26s CD (Lv 4/8/12)',
-        body: 'Drops onto all fours and enters <b>Stealth for up to 6.0s</b>, immediately activating <b>Shadow Stalker (+28% MS)</b> and boosting <b>E: Predator&#39;s Leap range by +65%</b>.',
-        talentLevels: [3, 10]
+        body: 'Drops onto all fours and enters <b>Stealth for up to 6.0s</b>, immediately activating <b>Shadow Stalker (+28% MS)</b> and boosting <b>E: Predator&#39;s Leap range by +65%</b> (and its fear).'
       }
     }
   },
@@ -184,9 +176,8 @@ H.panther = {
     const baseClawDmg = strike.isFlurry
       ? (strike.isBite ? H.panther.dmg.qBite(st, rQE) : H.panther.dmg.qSlash(st, rQE))
       : H.panther.dmg.swipe(st);
-    const markBonusDmg = Math.round(H.panther.dmg.mark(st, pProg.level) * rankMult * (talents[7] === 'R' ? 1.35 : 1.0));
     const healPerHit = strike.isFlurry
-      ? Math.round((strike.isBite ? (28 + (pProg.level || 1) * 6) : (22 + (pProg.level || 1) * 5)) * rankMult * (talents[3] === 'R' ? 1.35 : 1.0))
+      ? Math.round((strike.isBite ? (28 + (pProg.level || 1) * 6) : (22 + (pProg.level || 1) * 5)) * rankMult)
       : 0;
     let didHitAny = false;
 
@@ -194,20 +185,7 @@ H.panther = {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
         didHitAny = true;
-        const lowHpAmp = (strike.isFlurry && talents[3] === 'R' && d.hp / d.maxHp < 0.40) ? 1.30 : 1.0;
-        damageDummy(d, Math.round(baseClawDmg * lowHpAmp), strike.isFlurry ? '#2dd4bf' : '#fb7185');
-        if ((d.predatorMarks || 0) > 0 && (d.predatorMarkTimer || 0) > 0) {
-          d.predatorMarks--;
-          damageDummy(d, markBonusDmg, '#fde047');
-          spawnShockRing(d.x, d.z, 0x2dd4bf, 0.2, 1.35, 0.22);
-          if (d.predatorMarks === 0 && talents[7] === 'L') {
-            d.slowTimer = Math.max(d.slowTimer || 0, 1.25);
-            hero.cdE = Math.max(0, hero.cdE - 2.0);
-            spawnFloat(d.x, 2.8, d.z, 'HAMSTRING MARK! (50% SLOW & -2s E CD)', '#2dd4bf');
-          } else {
-            spawnFloat(d.x, 2.7, d.z, 'MARK PROC! +' + markBonusDmg, '#fde047');
-          }
-        }
+        damageDummy(d, baseClawDmg, strike.isFlurry ? '#2dd4bf' : '#fb7185');
       }
     });
 
@@ -215,28 +193,12 @@ H.panther = {
       actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
           const u = t.ref;
-          const lowHpAmp = (strike.isFlurry && talents[3] === 'R' && u && u.hp / u.maxHp < 0.40 && t.kind !== 'structure') ? 1.30 : 1.0;
-          const hit = actor.damage(t, Math.round(baseClawDmg * lowHpAmp), {
+          const hit = actor.damage(t, baseClawDmg, {
             isBasic: true, src: 'attack', // swipes, and the Q flurry (counts as a basic attack)
             dmgType: 'physical',
             color: strike.isFlurry ? '#2dd4bf' : '#fb7185'
           });
-          if (hit) {
-            didHitAny = true;
-            if (u && (u.predatorMarks || 0) > 0 && (u.predatorMarkTimer || 0) > 0 && u.hp > 0) {
-              u.predatorMarks--;
-              const isThirdMark = (u.predatorMarks === 0);
-              actor.damage(t, markBonusDmg, {
-                dmgType: 'fantasy', src: 'ability',
-                slowDur: (isThirdMark && talents[7] === 'L') ? 1.25 : 0,
-                color: '#fde047'
-              });
-              if (isThirdMark && talents[7] === 'L') {
-                hero.cdE = Math.max(0, hero.cdE - 2.0);
-                spawnFloat(t.x, 2.8, t.z, 'HAMSTRING MARK! (50% SLOW & -2s E CD)', '#2dd4bf');
-              }
-            }
-          }
+          if (hit) didHitAny = true;
         }
       });
     }
@@ -292,7 +254,7 @@ H.panther = {
       if (!wtfMode && hero.cdE > 0) return;
       if (!trySpendMana('E')) return;
       hero.cdE = wtfMode ? 0.25 : [7.5, 6.2, 5.0][rQE] * cdrMult;
-      const fromUnseen = (hero.stealthTimer || 0) > 0 || (stNow && stNow.pantherUnseen);
+      const fromUnseen = pounceUnseen(hero);
       hero.leapFromStealth = fromUnseen;
       if ((hero.stealthTimer || 0) > 0) {
         hero.stealthTimer = 0;
@@ -317,9 +279,7 @@ H.panther = {
       }
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.22, 1.2, 0.22);
-      if (fromUnseen) {
-        spawnFloat(hero.x, 2.75, hero.z, 'SHADOW POUNCE (+65% RANGE)!', '#2dd4bf');
-      }
+      if (fromUnseen) spawnFloat(hero.x, 2.75, hero.z, 'SHADOW POUNCE!', '#2dd4bf');
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
@@ -329,7 +289,7 @@ H.panther = {
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.4 : [38.0, 32.0, 26.0][rUlt] * cdrMult;
       hero.stealthTimer = 6.0;
-      hero.unseenLingerTimer = talents[3] === 'L' ? 3.5 : 2.2;
+      hero.unseenLingerTimer = 2.2;
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);
       spawnShockRing(hero.x, hero.z, 0xa855f7, 0.2, 1.8, 0.26);
@@ -357,7 +317,7 @@ H.panther = {
     };
   },
 
-  // E Predator's Leap landing pounce + 3 Predator Marks
+  // E Predator's Leap landing pounce (+ fear if she leapt while unseen)
   onLeapLand(ctx) {
     return this.leapLandFor(KitFx.player, ctx);
   },
@@ -365,10 +325,10 @@ H.panther = {
   leapLandFor(actor, ctx) {
     const { st, pProg, talents } = ctx;
     const hero = actor.unit; // (local alias: the pouncer)
-    // Panther E (Predator's Leap) Landing Pounce + 3 Predator Marks!
     const pounceR = 2.65;
     const pounceDmg = H.panther.dmg.pounce(st, pProg.level, KitFx.rQE(pProg.level || 1));
-    const isThroatPounce = hero.leapFromStealth && talents[10] === 'R';
+    const fear = hero.leapFromStealth ? POUNCE_FEAR : 0; // leapt while unseen (fog / out of sight / R stealth)
+    const src = { x: hero.x, z: hero.z, unit: hero };
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.30, pounceR, 0.28);
     spawnShockRing(hero.x, hero.z, 0xa855f7, 0.18, pounceR * 0.7, 0.22);
@@ -377,38 +337,21 @@ H.panther = {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - hero.x, d.z - hero.z) <= pounceR + d.r) {
         damageDummy(d, pounceDmg, '#a855f7');
-        d.predatorMarks = 3;
-        d.predatorMarkTimer = 5.0;
-        if (isThroatPounce) {
-          d.slowTimer = Math.max(d.slowTimer || 0, 2.0);
-          d.stunTimer = Math.max(d.stunTimer || 0, 0.8);
-          spawnFloat(d.x, 2.85, d.z, 'THROAT POUNCE! SILENCED & 40% SLOW + 3 MARKS!', '#fde047');
-        } else {
-          spawnFloat(d.x, 2.65, d.z, '3x PREDATOR MARK!', '#2dd4bf');
-        }
+        if (fear) { CC.apply(d, { fearDur: fear }, src); spawnFloat(d.x, 2.85, d.z, 'FEARED!', '#a78bfa'); }
       }
     });
     if (phase1Engine) {
       actor.hostiles().forEach((t) => {
         if (t.kind === 'structure') return;
         if (Math.hypot(t.x - hero.x, t.z - hero.z) <= pounceR + t.r) {
-          if (t.ref) {
-            t.ref.predatorMarks = 3;
-            t.ref.predatorMarkTimer = 5.0;
-          }
-          actor.damage(t, pounceDmg, {
-            dmgType: 'fantasy',
-            slowDur: isThroatPounce ? 2.0 : 0,
-            stunDur: isThroatPounce ? 0.8 : 0,
+          // minions and jungle monsters are always feared; heroes only when she leapt while unseen
+          const fearThis = (t.kind === 'minion' || (t.kind === 'camp' && !(t.ref && t.ref.isBoss))) ? POUNCE_FEAR : fear; // (not the boss)
+          const hit = actor.damage(t, pounceDmg, {
+            dmgType: 'fantasy', src: 'ability',
+            fearDur: fearThis, ccFromX: hero.x, ccFromZ: hero.z,
             color: '#a855f7'
           });
-          spawnFloat(
-            t.x,
-            2.75,
-            t.z,
-            isThroatPounce ? 'THROAT POUNCE! SILENCED & 3 MARKS!' : '3x PREDATOR MARK!',
-            isThroatPounce ? '#fde047' : '#2dd4bf'
-          );
+          if (hit && fearThis) spawnFloat(t.x, 2.85, t.z, 'FEARED!', '#a78bfa');
         }
       });
     }
@@ -434,7 +377,7 @@ H.panther = {
     } else if (slot === 'E') {
       if (hero.cdE > 0 || hero.leapTimer > 0) return;
       hero.cdE = [7.5, 6.2, 5.0][rQE] * (ctx.cdrMult || 1);
-      const fromUnseen = (hero.stealthTimer || 0) > 0;
+      const fromUnseen = pounceUnseen(hero);
       hero.leapFromStealth = fromUnseen;
       hero.stealthTimer = 0;
       const dx = a.x - hero.x, dz = a.z - hero.z;
@@ -450,7 +393,7 @@ H.panther = {
       actor.play('jump', 0.04, true, 1.65, 0.0, 0.42);
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.22, 1.2, 0.22);
-      if (fromUnseen) spawnFloat(hero.x, 2.75, hero.z, 'SHADOW POUNCE (+65% RANGE)!', '#2dd4bf');
+      if (fromUnseen) spawnFloat(hero.x, 2.75, hero.z, 'SHADOW POUNCE!', '#2dd4bf');
       hero.leapOnLand = () => {
         const lvl = actor.level();
         this.leapLandFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });

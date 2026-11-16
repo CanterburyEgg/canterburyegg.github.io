@@ -329,7 +329,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // isUnitSeenBy(u, team):  stealthed units are hidden from the other team unless one of its units is within
     //                          STEALTH_REVEAL_R (then they shimmer); everything else follows the fog.
     // isUnseen(u):            not seen by u's enemies (the player's UNSEEN indicator, Panther speed, Coyote laser, ...)
-    const STEALTH_REVEAL_R = 3.0;
+    const STEALTH_REVEAL_R = 2.25; // (3m felt too wide)
     const unitTeam = (u) => (u === hero ? 0 : (u.team || 0));
     function isPointVisibleToChaos(tx, tz) {
       if (!matchMode) return false; // training: nobody is watching the player
@@ -387,7 +387,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     function isPlayerSeenByChaos() { return isUnitSeenBy(hero, 1); }
     // dev: which Chaos source sees a unit (for ?visdebug and tests)
     function whoSeesForChaos(u) {
-      if ((u.stealthTimer || 0) > 0) return stealthHiddenFrom(u, 1) ? '' : 'stealth reveal (3m)';
+      if ((u.stealthTimer || 0) > 0) return stealthHiddenFrom(u, 1) ? '' : 'stealth reveal (' + STEALTH_REVEAL_R + 'm)';
       if (!matchMode) return '';
       const tx = u.x, tz = u.z;
       if (Math.hypot(tx + MAP.BASE.fountain.x, tz - MAP.BASE.fountain.z) <= 24) return 'chaos fountain';
@@ -422,6 +422,32 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (visIdx >= VIS_POINTS.length) { if (visIdx === VIS_POINTS.length) console.log('VISTEST done'); visIdx++; return; }
       hero.x = VIS_POINTS[visIdx][0]; hero.z = VIS_POINTS[visIdx][1];
       visIdx++;
+    }
+    // While the player is stealthed: a ring at the reveal radius around her feet (faint teal), turning red and pulsing
+    // when an enemy unit is inside it (= they can see her shimmer and the whole enemy team can target her)
+    let revealRing = null;
+    function updateRevealRing(dt) {
+      const on = (hero.stealthTimer || 0) > 0 && playerProg.respawnTimer <= 0;
+      if (!revealRing) {
+        if (!on) return;
+        revealRing = new THREE.Mesh(new THREE.RingGeometry(0.94, 1.0, 48),
+          new THREE.MeshBasicMaterial({ color: 0x2dd4bf, transparent: true, opacity: 0.35, side: THREE.DoubleSide, depthWrite: false }));
+        revealRing.rotation.x = -Math.PI / 2;
+        scene.add(revealRing);
+      }
+      revealRing.visible = on;
+      if (!on) return;
+      const R = STEALTH_REVEAL_R + (hero.r || 0.5);
+      revealRing.scale.setScalar(R);
+      revealRing.position.set(hero.x, 0.06, hero.z);
+      revealRing.userData.t = (revealRing.userData.t || 0) + dt;
+      if (hero.stealthRevealed) {
+        revealRing.material.color.setHex(0xef4444);
+        revealRing.material.opacity = 0.55 + 0.3 * Math.sin(revealRing.userData.t * 12);
+      } else {
+        revealRing.material.color.setHex(0x2dd4bf);
+        revealRing.material.opacity = 0.3;
+      }
     }
     // Player "UNSEEN" indicator: a soft dark-violet vignette + eye tag while no enemy can see you
     let unseenEl = null, unseenFade = 0;
@@ -458,7 +484,15 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
         return;
       }
-      const want = hero.isUnseen ? 1 : 0;
+      // stealthed but revealed: keep the tag up, in red, so she knows her stealth is broken
+      const tag = unseenEl.firstChild;
+      const revealed = !!hero.stealthRevealed;
+      tag.textContent = revealed ? '\u{1F441} REVEALED' : '\u{1F441} UNSEEN';
+      tag.style.color = revealed ? '#fecaca' : '#c4b5fd';
+      tag.style.background = revealed ? 'rgba(127,29,29,0.85)' : 'rgba(30,16,60,0.75)';
+      tag.style.borderColor = revealed ? 'rgba(248,113,113,0.7)' : 'rgba(196,181,253,0.4)';
+      unseenEl.style.background = revealed ? 'none' : 'radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(30,16,60,0.55) 100%)';
+      const want = (hero.isUnseen || revealed) ? 1 : 0;
       unseenFade += Math.sign(want - unseenFade) * Math.min(Math.abs(want - unseenFade), dt / 0.25);
       unseenEl.style.opacity = unseenFade.toFixed(3);
     }
@@ -2011,15 +2045,15 @@ window.MOBA_PHASE1_ENGINE = (function () {
         resist += guardStacks * GUARD_RES;
       }
 
-      // Panther Passive ("Shadow Stalker"): +28% Move Speed (+38% with 3L Duskwalker) while Unseen by enemies (or lingering for 2.2s/3.5s after being spotted!)
+      // Panther Passive ("Shadow Stalker"): +28% Move Speed while unseen by enemies (lingering 2.2s after being spotted)
       let pantherUnseen = false;
       if (heroId === 'panther' && playerProg.respawnTimer <= 0) {
         if (!isUnitSeenBy(hero, 1)) {
-          hero.unseenLingerTimer = playerProg.talents[3] === 'L' ? 3.5 : 2.2;
+          hero.unseenLingerTimer = 2.2;
         }
         if ((hero.stealthTimer || 0) > 0 || (hero.unseenLingerTimer || 0) > 0) {
           pantherUnseen = true;
-          spdPct += (playerProg.talents[3] === 'L' ? 0.38 : 0.28);
+          spdPct += 0.28;
         }
       }
 
@@ -2418,12 +2452,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
           teamKills[0]++;
           playerProg.kills++;
           // Panther 10L Talent ("Apex Reset"): Hero takedowns within 4s of exiting R Stealth refresh E and grant 2.5s Stealth!
-          if (getActiveHeroId() === 'panther' && playerProg.talents[10] === 'L' && ((hero.stealthTimer || 0) > 0 || (hero.stealthExitTimer || 0) > 0)) {
-            hero.cdE = 0;
-            hero.stealthTimer = Math.max(hero.stealthTimer || 0, 2.5);
-            spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.3, 2.2, 0.32);
-            spawnFloat(hero.x, 3.0, hero.z, 'APEX RESET! E REFRESHED + 2.5s STEALTH!', '#2dd4bf');
-          }
           addPlayerGoldAndXp(240 + u.level * 20, 260 + u.level * 25, u.x, u.z);
           spawnFloat(u.x, 2.9, u.z, 'ENEMY HERO SLAIN! +260g', '#fde047');
         } else {
@@ -3038,10 +3066,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         playerProg.recallTimer = 0; // Interrupt recall on taking damage!
         if (spyglass.channel > 0) { spyglass.channel = 0; spawnFloat(hero.x, 2.5, hero.z, 'SPYGLASS INTERRUPTED', '#fb7185'); }
 
-        // Bodyguard 10L Talent ("Thorns of Brass"): Reflect 25% of incoming damage while R Shield holds!
-        if (getActiveHeroId() === 'bodyguard' && hero.rShieldTimer > 0 && hero.shield > 0 && playerProg.talents[10] === 'L' && attackerObj && attackerObj.ref) {
-          dealPlayerDamageToUnit(attackerObj, rawDmg * 0.25, { dmgType: 'physical', color: '#fde047', isDoT: true });
-        }
 
         if (hero.shield >= mitigated) {
           hero.shield -= mitigated;
@@ -3107,10 +3131,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (opts.bleedAdd && opts.bleedAdd > 0 && u !== hero) {
           u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
           u.bleedTimer = 5.5;
-        }
-        if (opts.marks && opts.marks > 0) {
-          u.predatorMarks = opts.marks;
-          u.predatorMarkTimer = 5.0;
         }
         if (opts.kbDist && opts.kbDist > 0 && opts.fromBot) {
           let kx = u.x - opts.fromBot.x;
@@ -3261,10 +3281,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
           b.siphonTimer -= dt;
           if (b.siphonTimer <= 0) b.siphonBonus = 0;
         }
-        if ((b.predatorMarkTimer || 0) > 0) {
-          b.predatorMarkTimer -= dt;
-          if (b.predatorMarkTimer <= 0) b.predatorMarks = 0;
-        }
         if (b.shieldTimer && b.shieldTimer > 0) {
           b.shieldTimer -= dt;
           if (b.shieldTimer <= 0) b.shield = 0;
@@ -3353,7 +3369,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         } else if ((b.fearTimer || 0) > 0 && CC.forcedMove(b)) {
           // feared: run straight away from the source (no attacks or casts)
           const fm = CC.forcedMove(b);
-          const fspd = b.spd * CC.slowMult(b);
+          const fspd = b.spd * CC.slowMult(b) * CC.FEAR_SPEED;
           const fst = steerUnitAroundStructures(b, fm.x, fm.z, null);
           b.x = THREE.MathUtils.clamp(b.x + fst.vx * fspd * dt, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
           b.z = THREE.MathUtils.clamp(b.z + fst.vz * fspd * dt, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
@@ -3886,7 +3902,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
             ((b.guardStacks || 0) > 0 ? ' ' + '🛡️'.repeat(b.guardStacks) : '') +
             CC.tags(b) +
             (b.slowTimer > 0 ? ' [❄️ SLOWED]' : '') +
-            ((b.predatorMarks || 0) > 0 && (b.predatorMarkTimer || 0) > 0 ? ' [🐾x' + b.predatorMarks + ']' : '') +
             (b.bleedStacks > 0 ? ' [🩸x' + b.bleedStacks + ']' : '');
         } else {
           b.plate.style.display = 'none';
@@ -4257,8 +4272,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (mfm && mfm.kind === 'fear') {
           // feared: run away from the source
           const fs = steerUnitAroundStructures(m, mfm.x, mfm.z, null);
-          m.x += fs.vx * m.spd * dt;
-          m.z += fs.vz * m.spd * dt;
+          m.x += fs.vx * m.spd * CC.FEAR_SPEED * dt;
+          m.z += fs.vz * m.spd * CC.FEAR_SPEED * dt;
           m.mesh.rotation.y = Math.atan2(fs.vx, fs.vz);
           m.moving = true;
           continue;
@@ -4527,8 +4542,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           } else if (CC.forcedMove(c) && CC.forcedMove(c).kind === 'fear') {
             // feared: run away from the source
             const fm = CC.forcedMove(c);
-            c.x += fm.x * c.spd * dt;
-            c.z += fm.z * c.spd * dt;
+            c.x += fm.x * c.spd * CC.FEAR_SPEED * dt;
+            c.z += fm.z * c.spd * CC.FEAR_SPEED * dt;
             c.mobGrp.position.set(c.x - c.homeX, 0, c.z - c.homeZ);
             c.mobGrp.rotation.y = Math.atan2(fm.x, fm.z);
           } else if (!CC.helpless(c)) {
@@ -4928,7 +4943,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
       isVisibleToOrder: (x, z) => isPointVisibleToOrder(x, z),
       isVisibleToTeam: (x, z, team) => isPointVisibleToTeam(x, z, team),
       // called every frame from loop.js (also outside matches, so ?visdebug shows in training)
-      tickUnseen: (dt) => { hero.isUnseen = matchMode && !gameOver && playerProg.respawnTimer <= 0 && isUnseen(hero); updateUnseenIndicator(dt); },
+      tickUnseen: (dt) => {
+        hero.isUnseen = matchMode && !gameOver && playerProg.respawnTimer <= 0 && isUnseen(hero);
+        // stealthed but an enemy is close enough to see the shimmer
+        hero.stealthRevealed = (hero.stealthTimer || 0) > 0 && matchMode && playerProg.respawnTimer <= 0 && stealthRevealedTo(hero, 1);
+        updateUnseenIndicator(dt);
+        updateRevealRing(dt);
+      },
       isUnitSeenBy: (u, team) => isUnitSeenBy(u, team),
       isUnseen: (u) => isUnseen(u),
       // ---- Balance tool hooks (js/duel.js) ----
