@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import itertools
 import json
 import re
 import sys
@@ -343,8 +344,19 @@ def build_roster() -> tuple[list[dict[str, Any]], dict[str, Any]]:
         if len(children) >= 2:
             traits.append("evo_branching")
 
-        traits.append("height_under_1m" if height_m < 1 else ("height_1_2m" if height_m <= 2 else "height_over_2m"))
-        traits.append("weight_under_10kg" if weight_kg < 10 else ("weight_10_100kg" if weight_kg <= 100 else "weight_over_100kg"))
+        # Size borders are lenient: a Pokémon exactly on a line (1 m, 2 m, 10 kg, 100 kg) counts for both sides
+        if height_m <= 1:
+            traits.append("height_under_1m")
+        if 1 <= height_m <= 2:
+            traits.append("height_1_2m")
+        if height_m >= 2:
+            traits.append("height_over_2m")
+        if weight_kg <= 10:
+            traits.append("weight_under_10kg")
+        if 10 <= weight_kg <= 100:
+            traits.append("weight_10_100kg")
+        if weight_kg >= 100:
+            traits.append("weight_over_100kg")
 
         if srow["shape_id"]:
             traits.append(f"shape_{shapes[srow['shape_id']]}")
@@ -433,6 +445,9 @@ def card_conflict_groups(cards: set[str]) -> list[set[str]]:
         {"line_2", "line_3", "evo_none"} & cards,
         {"gender_more_female", "gender_more_male"} & cards,
         {"starter", "gender_more_male"} & cards,
+        # Border Pokémon have two size cards; a board still shows at most one height and one weight card
+        {"height_under_1m", "height_1_2m", "height_over_2m"} & cards,
+        {"weight_under_10kg", "weight_10_100kg", "weight_over_100kg"} & cards,
     ]
 
 
@@ -527,7 +542,7 @@ def card_def(card: str) -> tuple[str, str, str]:
     fixed = {
         "form_regional": ("origin", "Has a Regional Form", "Has an Alolan, Galarian, Hisuian, or Paldean regional variant"),
         "form_mega": ("origin", "Can Mega Evolve", "Has at least one Mega Evolution"),
-        "form_gmax_or_zmove": ("origin", "Gigantamax or Signature Z-Move", "Has a Gigantamax form or an exclusive Z-Move of its own"),
+        "form_gmax_or_zmove": ("origin", "Gigantamax or Z-Move", "Has a Gigantamax form or an exclusive Z-Move of its own"),
         "legendary_mythical": ("origin", "Legendary or Mythical", "Officially classified as a Legendary or Mythical Pokémon"),
         "starter": ("origin", "Starter Pokémon", "Any stage of a starter you can choose at the beginning of a main-series game"),
         "evo_cross_gen": ("origin", "Cross-Generation Line", "Its evolution line includes a Pokémon introduced in a different generation"),
@@ -544,12 +559,12 @@ def card_def(card: str) -> tuple[str, str, str]:
         "evo_prev_type_change": ("evolution", "Changed Type on Evolving", "Evolves from a Pokémon with different types"),
         "line_2": ("evolution", "Two-Stage Line", "Part of an evolution line with exactly two stages"),
         "line_3": ("evolution", "Three-Stage Line", "Part of an evolution line with three stages"),
-        "height_under_1m": ("body", "Under 1 Meter", "Officially stands less than 1 meter or 3 feet 3 inches tall"),
-        "height_1_2m": ("body", "1 to 2 Meters", "Officially stands between 1 and 2 meters tall"),
-        "height_over_2m": ("body", "Over 2 Meters", "Officially stands taller than 2 meters or 6 feet 7 inches"),
-        "weight_under_10kg": ("body", "Under 10 Kilograms", "Officially weighs less than 10 kilograms or 22 pounds"),
-        "weight_10_100kg": ("body", "10 to 100 Kilograms", "Officially weighs between 10 and 100 kilograms"),
-        "weight_over_100kg": ("body", "Over 100 Kilograms", "Officially weighs more than 100 kilograms or 220 pounds"),
+        "height_under_1m": ("body", "1 Meter or Shorter", "Officially stands no taller than 1 meter or 3 feet 3 inches"),
+        "height_1_2m": ("body", "1 to 2 Meters", "Officially stands between 1 and 2 meters tall (inclusive)"),
+        "height_over_2m": ("body", "2 Meters or Taller", "Officially stands at least 2 meters or 6 feet 7 inches tall"),
+        "weight_under_10kg": ("body", "10 Kilograms or Less", "Officially weighs no more than 10 kilograms or 22 pounds"),
+        "weight_10_100kg": ("body", "10 to 100 Kilograms", "Officially weighs between 10 and 100 kilograms (inclusive)"),
+        "weight_over_100kg": ("body", "100 Kilograms or More", "Officially weighs at least 100 kilograms or 220 pounds"),
         "gender_none": ("body", "Genderless", "Has no gender"),
         "gender_single": ("body", "Single Gender", "Is always male or always female"),
         "gender_differences": ("body", "Gender Differences", "Males and females look visibly different"),
@@ -979,7 +994,311 @@ def build_game(roster: list[dict[str, Any]]) -> dict[str, Any]:
         daily_pools[f"par{par}"] = pool
         print(f"  Par {par} daily pool: {len(pool)} Pokémon", flush=True)
 
+    # Sundays: double-card Par 3 boards; courses use 9-card Par 2s and double-card Par 3s
+    convert_courses(builder, rng, courses, seen)
+    daily_pools["double3"] = build_double_pool(builder, rng, seen, SUNDAY_POOL_SIZE)
+    print(f"  Sunday double-card pool: {len(daily_pools['double3'])} boards", flush=True)
+
     return {"cards": cards, "courses": courses, "daily_pools": daily_pools}
+
+
+# ---------------------------------------------------------------------------
+# Double-card boards (Sundays, and Indigo Plateau's toughest holes)
+# ---------------------------------------------------------------------------
+# 9 cards: the first three are DOUBLE cards (each needs two different Pokémon), then six single
+# cards. Exactly one PAIR of Pokémon clears the board in two guesses ("HOLE-IN-TWO!"): both fit
+# all three doubles and between them they cover all six singles. Par is 3.
+
+DOUBLE_CARDS = 3
+DOUBLE_SINGLES = 6
+DOUBLE_MAX_NAME_SINGLES = 2
+# No two Eevee-family Pokémon can be the pair on one board
+EEVEE_FAMILY = {"Eevee", "Vaporeon", "Jolteon", "Flareon", "Espeon", "Umbreon", "Leafeon", "Glaceon", "Sylveon"}
+
+
+def _double_card_ok(card: str) -> bool:
+    return not card.startswith("color_")  # no Pokédex color cards on double-card boards
+
+
+def _double_set_ok(builder: "BoardBuilder", cats: list[str]) -> bool:
+    """Double-card boards split their single cards between two Pokémon, so they need two extra rules:
+    no two cards that no Pokémon has together (Single/Dual-Type, Starts with a Vowel/Consonant,
+    two- vs three-stage line, ...), and at most one "Learns ..." card."""
+    if sum(1 for c in cats if c.startswith("move_")) > 1:
+        return False
+    for i, a in enumerate(cats):
+        for b in cats[i + 1:]:
+            if not (builder.bits[a] & builder.bits[b]):
+                return False
+    return True
+
+
+def _members(bits: int) -> list[int]:
+    out, i = [], 0
+    while bits:
+        if bits & 1:
+            out.append(i)
+        bits >>= 1
+        i += 1
+    return out
+
+
+def _cover_bits(builder: "BoardBuilder", i: int, cats: list[str]) -> int:
+    return sum(1 << k for k, c in enumerate(cats) if (builder.bits[c] >> i) & 1)
+
+
+def make_double_board(builder: "BoardBuilder", rng: "random.Random", anchor: int,
+                      partner_pool: set[int] | None = None) -> dict[str, Any] | None:
+    """One double-card board whose unique 2-guess pair includes `anchor`, or None."""
+    roster = builder.roster
+    mine = [t for t in roster[anchor]["traits"] if t in builder.cards and _double_card_ok(t)]
+    bio = [t for t in mine if t not in builder.name_cards]
+    if len(bio) < DOUBLE_CARDS:
+        return None
+    doubles = builder.weighted_sample(bio, DOUBLE_CARDS)
+    if not builder.orthogonal(doubles) or not _double_set_ok(builder, doubles):
+        return None
+    both = builder.bits[doubles[0]] & builder.bits[doubles[1]] & builder.bits[doubles[2]]
+    pool_x = _members(both)
+    if not (4 <= len(pool_x) <= 80):
+        return None
+    partners = [i for i in pool_x if i != anchor and (partner_pool is None or i in partner_pool)
+                and not {roster[anchor]["name"], roster[i]["name"]} <= EEVEE_FAMILY]
+    if not partners:
+        return None
+    b = rng.choice(partners)
+    ta = {t for t in roster[anchor]["traits"] if t in builder.cards and _double_card_ok(t)}
+    tb = {t for t in roster[b]["traits"] if t in builder.cards and _double_card_ok(t)}
+    # Every single card belongs to exactly one of the pair, never both
+    only_a = [t for t in ta - tb if t not in doubles]
+    only_b = [t for t in tb - ta if t not in doubles]
+    if not only_a or not only_b:
+        return None
+    singles = [rng.choice(only_a), rng.choice(only_b)]  # both Pokémon are needed
+    rest = [t for t in only_a + only_b if t not in singles]
+    rng.shuffle(rest)
+    for t in rest:
+        if len(singles) == DOUBLE_SINGLES:
+            break
+        if builder.orthogonal(doubles + singles + [t]) and _double_set_ok(builder, doubles + singles + [t]):
+            singles.append(t)
+    cats = doubles + singles
+    if len(singles) < DOUBLE_SINGLES or not builder.orthogonal(cats) or not _double_set_ok(builder, cats):
+        return None
+    if sum(1 for s in singles if s in builder.name_cards) > DOUBLE_MAX_NAME_SINGLES:
+        return None
+    # Exactly one pair among Pokémon that fit all three doubles covers every single
+    s_bits = [builder.bits[s] for s in singles]
+    pairs = []
+    for p, q in itertools.combinations(pool_x, 2):
+        if all(((sb >> p) & 1) or ((sb >> q) & 1) for sb in s_bits):
+            pairs.append((p, q))
+            if len(pairs) > 1:
+                return None
+    if pairs != [tuple(sorted((anchor, b)))]:
+        return None
+    # Par 3 is reachable without the answer pair: two other Pokémon that fit all doubles,
+    # plus any third Pokémon covering the singles they miss
+    full = (1 << DOUBLE_SINGLES) - 1
+    single_cover = [_cover_bits(builder, i, singles) for i in range(len(roster))]
+    sample = None
+    for p, q in itertools.combinations(pool_x, 2):
+        if {p, q} == {anchor, b}:
+            continue
+        need = full & ~(single_cover[p] | single_cover[q])
+        for r in range(len(roster)):
+            if r in (p, q) or {anchor, b} <= {p, q, r}:
+                continue  # the route can't secretly contain the answer pair
+            if (single_cover[r] & need) == need:
+                sample = [roster[p]["name"], roster[q]["name"], roster[r]["name"]]
+                break
+        if sample:
+            break
+    if not sample:
+        return None
+    rng.shuffle(singles)
+    return {
+        "par": 3, "boxes": 9, "kind": "double",
+        "categories": doubles + singles, "doubles": doubles,
+        "hole_in_ones": sorted([roster[anchor]["name"], roster[b]["name"]]),
+        "sample_solution": sample,
+    }
+
+
+def build_double_pool(builder: "BoardBuilder", rng: "random.Random", seen: set[tuple[str, ...]],
+                      count: int) -> list[dict[str, Any]]:
+    roster = builder.roster
+    pool: list[dict[str, Any]] = []
+    order = list(range(len(roster)))
+    rounds = 0
+    while len(pool) < count and rounds < 60:
+        rounds += 1
+        rng.shuffle(order)
+        for a in order:
+            if len(pool) >= count:
+                break
+            for _ in range(6):
+                board = make_double_board(builder, rng, a)
+                if board:
+                    sig = tuple(sorted(board["categories"]))
+                    if sig not in seen:
+                        seen.add(sig)
+                        pool.append(board)
+                    break
+    for i, b in enumerate(pool):
+        b["id"] = f"S-{i + 1}"
+    return pool
+
+
+def pair_solution(builder: "BoardBuilder", cats: list[str], answer: str) -> list[str] | None:
+    """Two Pokémon other than the answer that clear these cards (proves a 9-card Par 2 is fair)."""
+    full = (1 << len(cats)) - 1
+    masks: dict[int, int] = {}
+    for i, p in enumerate(builder.roster):
+        if p["name"] == answer:
+            continue
+        m = _cover_bits(builder, i, cats)
+        if m and m not in masks:
+            masks[m] = i
+    keys = sorted(masks, key=lambda m: -bin(m).count("1"))
+    for x, a in enumerate(keys):
+        for b in keys[x:]:
+            if a | b == full and masks[a] != masks[b]:
+                return [builder.roster[masks[a]]["name"], builder.roster[masks[b]]["name"]]
+    return None
+
+
+def convert_courses(builder: "BoardBuilder", rng: "random.Random", courses: list[dict[str, Any]],
+                    seen: set[tuple[str, ...]]) -> None:
+    """9-card holes become Par 2; Par 4 holes become double-card Par 3 holes (iconic pairs)."""
+    by_name = {p["name"]: i for i, p in enumerate(builder.roster)}
+    iconic = {by_name[n] for n in ICONIC_POKEMON if n in by_name}
+    used = {n for c in courses for h in c["holes"] for n in h["hole_in_ones"]}
+    for course in courses:
+        for h in course["holes"]:
+            if h.get("kind") == "double":
+                continue
+            if h["par"] == 3:
+                sol = pair_solution(builder, h["categories"], h["hole_in_ones"][0])
+                if not sol:
+                    sys.exit(f"{course['name']} hole {h['id']}: no 2-guess solution for Par 2")
+                h["par"] = 2
+                h["sample_solution"] = sol
+            elif h["par"] == 4:
+                # Both Pokémon in the pair must be iconic and unused anywhere else on the courses
+                free = {i for i in iconic if builder.roster[i]["name"] not in used}
+                anchors = sorted(free)
+                rng.shuffle(anchors)
+                new = None
+                for a in anchors:
+                    for _ in range(40):
+                        new = make_double_board(builder, rng, a, partner_pool=free - {a})
+                        if new and tuple(sorted(new["categories"])) not in seen:
+                            break
+                        new = None
+                    if new:
+                        break
+                if not new:
+                    sys.exit(f"{course['name']} hole {h['id']}: couldn't build a double-card hole")
+                seen.add(tuple(sorted(new["categories"])))
+                used.update(new["hole_in_ones"])
+                hole_id = h["id"]
+                h.clear()
+                h.update({**new, "id": hole_id})
+        course["total_par"] = sum(x["par"] for x in course["holes"])
+        n2 = sum(1 for x in course["holes"] if x.get("kind") != "double")
+        n3 = len(course["holes"]) - n2
+        course["subtitle"] = f"{n2} Par 2s & {n3} Double Par 3s" if n3 else f"{n2} Holes of Par 2"
+
+
+SUNDAY_POOL_SIZE = 1500
+
+
+def regenerate_double_boards() -> None:
+    """Rebuild the Sunday pool and the courses' double-card holes in elite_fore.json, leaving
+    every other board alone."""
+    import random
+
+    data = json.loads(OUT_JSON_PATH.read_text(encoding="utf-8"))
+    roster, _ = build_roster()
+    cat_ids = [c["id"] for c in data["categories"]]
+    shipped = {row[0]: {cat_ids[i] for i in row[1]} for row in data["pokemon_packed"]}
+    for p in roster:
+        p["traits"] = sorted(shipped[p["name"]])
+    rng = random.Random(2026111602)
+    builder = BoardBuilder(roster, set(cat_ids), rng)
+    by_name = {p["name"]: i for i, p in enumerate(roster)}
+    iconic = {by_name[n] for n in ICONIC_POKEMON if n in by_name}
+    seen = set()
+    for c in data["courses"]:
+        for h in c["holes"]:
+            if h.get("kind") != "double":
+                seen.add(tuple(sorted(h["categories"])))
+    for key, pool in data["daily_pools"].items():
+        if key == "double3":
+            continue
+        for b in pool:
+            seen.add(tuple(sorted(b["categories"])))
+            for alt in b.get("alt_boards", []):
+                seen.add(tuple(sorted(alt["categories"])))
+    for course in data["courses"]:
+        for h in course["holes"]:
+            if h.get("kind") != "double":
+                continue
+            used = {n for c in data["courses"] for hh in c["holes"] if hh is not h for n in hh["hole_in_ones"]}
+            free = {i for i in iconic if roster[i]["name"] not in used}
+            anchors = sorted(free)
+            rng.shuffle(anchors)
+            new = None
+            for a in anchors:
+                for _ in range(40):
+                    new = make_double_board(builder, rng, a, partner_pool=free - {a})
+                    if new and tuple(sorted(new["categories"])) not in seen:
+                        break
+                    new = None
+                if new:
+                    break
+            if not new:
+                sys.exit(f"{course['name']} hole {h['id']}: couldn't build a double-card hole")
+            seen.add(tuple(sorted(new["categories"])))
+            hole_id = h["id"]
+            h.clear()
+            h.update({**new, "id": hole_id})
+    data["boards"] = [h for c in data["courses"] for h in c["holes"]]
+    data["daily_pools"]["double3"] = build_double_pool(builder, rng, seen, SUNDAY_POOL_SIZE)
+    OUT_JSON_PATH.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"  Rebuilt {sum(1 for c in data['courses'] for h in c['holes'] if h.get('kind') == 'double')} course "
+          f"double holes and {len(data['daily_pools']['double3'])} Sunday boards")
+
+
+def add_sundays_to_existing_data() -> None:
+    """Patch elite_fore.json in place: add the Sunday double-card pool and convert the courses,
+    without touching any existing daily board (so already-played days stay the same)."""
+    import random
+
+    data = json.loads(OUT_JSON_PATH.read_text(encoding="utf-8"))
+    roster, _ = build_roster()
+    cat_ids = [c["id"] for c in data["categories"]]
+    # Use the traits exactly as shipped in the data file
+    shipped = {row[0]: {cat_ids[i] for i in row[1]} for row in data["pokemon_packed"]}
+    for p in roster:
+        p["traits"] = sorted(shipped[p["name"]])
+    cards = set(cat_ids)
+    rng = random.Random(2026112003)
+    builder = BoardBuilder(roster, cards, rng)
+    seen = {tuple(sorted(h["categories"])) for c in data["courses"] for h in c["holes"]}
+    for pool in data["daily_pools"].values():
+        for b in pool:
+            seen.add(tuple(sorted(b["categories"])))
+            for alt in b.get("alt_boards", []):
+                seen.add(tuple(sorted(alt["categories"])))
+    convert_courses(builder, rng, data["courses"], seen)
+    data["boards"] = [h for c in data["courses"] for h in c["holes"]]
+    data["daily_pools"]["double3"] = build_double_pool(builder, rng, seen, SUNDAY_POOL_SIZE)
+    OUT_JSON_PATH.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    for c in data["courses"]:
+        print(f"  {c['name']}: {[h['par'] for h in c['holes']]} total par {c['total_par']} ({c['subtitle']})")
+    print(f"  Sunday double-card pool: {len(data['daily_pools']['double3'])} boards")
 
 
 def write_outputs(roster: list[dict[str, Any]], game: dict[str, Any]) -> None:
@@ -1012,9 +1331,15 @@ def main() -> None:
     ap.add_argument("--counts", action="store_true")
     ap.add_argument("--stuck", action="store_true")
     ap.add_argument("--build", action="store_true")
+    ap.add_argument("--sundays", action="store_true", help="add Sunday boards + convert courses in the existing data file")
+    ap.add_argument("--redo-doubles", action="store_true", help="rebuild only the double-card boards in the existing data file")
     args = ap.parse_args()
     if args.fetch:
         fetch_csvs()
+    if args.sundays:
+        add_sundays_to_existing_data()
+    if args.redo_doubles:
+        regenerate_double_boards()
     if args.counts or args.stuck or args.build:
         roster, meta = build_roster()
     if args.build:

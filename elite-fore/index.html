@@ -425,6 +425,17 @@
         .cup-pip.filled::after {
             background: rgba(255, 255, 255, 0.35);
         }
+        /* x2 pips look like any other pip; after the first Pokémon they sit exactly halfway
+           between empty and full (size, fill, border and lip) */
+        .cup-pip.double.half {
+            background: linear-gradient(180deg, #efb5b5 0%, #d69e9e 100%);
+            border-color: #d66666;
+            box-shadow: 0 2px 0 #d66666;
+            transform: scale(1.05);
+        }
+        .cup-pip.double.half::after {
+            background: rgba(233, 196, 196, 0.3);
+        }
 
         /* Plump Pill Input Row + Autocomplete Suggestions */
         .input-wrapper {
@@ -873,6 +884,41 @@
             margin-top: 16px;
         }
 
+        .double-badge {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            color: #ffffff;
+            background: var(--fairway);
+            border: 1.5px solid var(--fairway-dark);
+        }
+        .cat-card.double { border-style: dashed; }
+        /* x2 cards: badge sits under the category so it lines up with the two Pokémon chips */
+        .cat-card.double .cat-top { align-items: flex-start; }
+        .cat-badge-cluster.stacked {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .cat-hit-bubbles.stacked {
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+        .cat-card.double.cleared { border-style: solid; }
+        .cat-card.half {
+            background: linear-gradient(180deg, #ffffff 0%, var(--fairway-light) 100%);
+            border-color: var(--fairway-border);
+        }
+
+        .opt-row.opt-pair {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
         .top-answers { margin-top: 14px; }
         .top-answers > summary {
             cursor: pointer;
@@ -1136,16 +1182,53 @@
         .game-num-btn.active small { color: #f9e3e3; }
 
         .mon-list-modal {
-            max-width: 600px;
+            max-width: 780px;
             text-align: left;
+            position: relative;
         }
-        .mon-chips {
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--sage-border);
+            background: #ffffff;
+            color: var(--ink-soft);
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1;
+            cursor: pointer;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            border-color: var(--fairway);
+            color: var(--fairway-dark);
+        }
+        #insp-title { padding-right: 40px; }  /* keep long titles clear of the close button */
+        html.modal-open, body.modal-open {
+            overflow: hidden;
+        }
+        /* Four even columns; in a fit-content grid, 1fr columns all grow to the widest chip */
+        .mon-chips {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto;
             gap: 8px;
             max-height: 360px;
             overflow-y: auto;
             padding: 6px 2px;
+            /* reserve room for the scrollbar so it never sits on top of the chips */
+            scrollbar-gutter: stable;
+            padding-right: 12px;
+        }
+        @media (max-width: 640px) {
+            .mon-chips { grid-template-columns: repeat(2, 1fr); }
         }
         .mon-chip {
             background: #ffffff;
@@ -1156,6 +1239,15 @@
             font-size: 0.82rem;
             font-weight: 800;
             color: var(--ink);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        /* Sprite stays on the left; the name is centered in the chip (the right margin balances the sprite) */
+        .mon-chip .chip-name {
+            flex: 1;
+            text-align: center;
+            margin-right: 22px;
         }
         .mon-chip.guessed {
             background: var(--fairway-light);
@@ -1435,7 +1527,6 @@
 
         <div class="controls-row">
             <button class="secondary-btn" id="prev-hole-btn" onclick="prevCourse()">&larr; Previous Hole</button>
-            <button class="secondary-btn" onclick="resetCurrentCourse(true)">&#8635; Reset Hole</button>
             <button class="secondary-btn danger" id="give-up-btn" onclick="giveUpHole()">Show Hole-in-One</button>
             <button class="secondary-btn" id="next-hole-btn" onclick="nextCourse()">Next Hole &rarr;</button>
         </div>
@@ -1452,6 +1543,7 @@
             <li>Clear all the cards to finish the hole. Par is how many swings it should take: on a Par 2, two well-chosen Pokémon can do it.</li>
             <li>Exactly one Pokémon fits every card on the board. Find it and you've hit a <b>Hole-in-One</b>.</li>
             <li>Stuck? <b>Show Hole-in-One</b> reveals the answer and ends the hole.</li>
+            <li>Sundays are special: the top row has <b>×2</b> cards, and each one needs two different Pokémon. No single Pokémon can clear the board, but exactly one pair can, for a <b>HOLE-IN-TWO</b>.</li>
             <li>There's a new daily hole every day at midnight Pacific. Play past days from the <b>Calendar</b>, or take on the three <b>Courses</b>.</li>
         </ol>
         <button class="secondary-btn howto-close" onclick="closeHowTo()">Got it</button>
@@ -1477,6 +1569,7 @@
 <!-- Category Pokémon Inspector Modal -->
 <div id="inspector-modal" class="modal hidden" onclick="closeInspector()">
     <div class="picker-box mon-list-modal" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeInspector()" aria-label="Close">&times;</button>
         <h2 id="insp-title" style="font-size:1.25rem; margin-bottom:4px;">Category</h2>
         <div id="insp-desc" style="color:var(--ink-soft); font-weight:700; font-size:0.86rem; margin-bottom:14px;"></div>
         <div class="mon-chips" id="insp-chips"></div>
@@ -1497,6 +1590,30 @@ let holeStates = {};        // key: `${courseId}_${holeIdx}` or `daily_${dateKey
 let lastActiveView = null;  // { mode, courseIdx, holeIdx, dailyOffset, savedDateKey }
 let strokes = [];           // [{ mon, hitCats, newCats }]
 let clearedCats = new Set();
+let catHits = {};           // card -> how many guesses have filled it (double cards need 2)
+
+function cardNeed(catId) {
+    return (currentBoard && currentBoard.doubles && currentBoard.doubles.includes(catId)) ? 2 : 1;
+}
+
+function isDoubleBoard() {
+    return !!(currentBoard && currentBoard.kind === "double");
+}
+
+// Cards this Pokémon fits, and the ones it would newly fill (a double card takes two different Pokémon)
+function strokeCats(mon) {
+    const hitCats = currentBoard.categories.filter(cid => mon.traits.includes(cid));
+    const newCats = hitCats.filter(cid => (catHits[cid] || 0) < cardNeed(cid));
+    return { hitCats, newCats };
+}
+
+function recordStroke(st) {
+    strokes.push(st);
+    for (const cid of st.newCats) {
+        catHits[cid] = (catHits[cid] || 0) + 1;
+        if (catHits[cid] >= cardNeed(cid)) clearedCats.add(cid);
+    }
+}
 let holeFinished = false;
 let currentHoleGaveUp = false;
 let baseSignaturesSet = new Set();
@@ -1529,6 +1646,18 @@ function loadSavedProgressFromStorage() {
             holeScores = parsed.holeScores || {};
             holeStates = parsed.holeStates || {};
             lastActiveView = parsed.lastActiveView || null;
+            if (!parsed.coursesV6) {
+                // Course holes whose boards changed (double-card holes; two holes repaired when size
+                // borders became lenient): drop old progress on them
+                const changed = new Set(["course_1_1", "course_2_4"]);
+                (DB.courses || []).forEach(c => c.holes.forEach((hole, i) => {
+                    if (hole.kind === "double") changed.add(`${c.id}_${i}`);
+                }));
+                for (const k of changed) {
+                    delete holeStates[k];
+                    delete holeScores[k];
+                }
+            }
             if (parsed.scheduleEpoch !== DAILY_SCHEDULE_ID) {
                 for (const store of [holeScores, holeStates]) {
                     for (const k of Object.keys(store)) {
@@ -1549,6 +1678,7 @@ function saveProgressToStorage() {
             holeScores,
             holeStates,
             scheduleEpoch: DAILY_SCHEDULE_ID,
+            coursesV6: true,
             lastActiveView: {
                 mode: currentMode,
                 courseIdx: activeCourseIdx,
@@ -1624,7 +1754,7 @@ function scorePokemonOnCurrentBoard(m) {
     for (const c of activeCats) {
         if (m.traits.includes(c)) {
             totalHits++;
-            if (!clearedCats.has(c)) newHits++;
+            if ((catHits[c] || 0) < cardNeed(c)) newHits++;
         }
     }
     return { newHits, totalHits, views: m.views_60d || 0 };
@@ -1770,6 +1900,12 @@ function initDatabase(data) {
         }
     }
 
+    // Course menu badges show each course's current total par
+    (DB.courses || []).forEach((c, i) => {
+        const badge = document.getElementById(`course-badge-${i}`);
+        if (badge) badge.textContent = `Par ${c.total_par}`;
+    });
+
     // Reset rolling daily schedule state
     resetDailyScheduleState();
 
@@ -1816,6 +1952,8 @@ let dailyRetired = new Set(); // `${name}|${par}` with no unused board left (old
 let dailyBoardLastDay = {};   // answer name -> { board signature: { last: day shown, board } }
 const DAILY_BOARD_REPEAT_DAYS = 365;
 let dailyPar4NameSet = new Set();
+let sundayUsedSigs = new Set();
+let sundayLastUsed = {};
 
 function resetDailyScheduleState() {
     for (const k of Object.keys(dailyBoardCache)) delete dailyBoardCache[k];
@@ -1825,6 +1963,8 @@ function resetDailyScheduleState() {
     dailyUsedSigs = {};
     dailyRetired = new Set();
     dailyBoardLastDay = {};
+    sundayUsedSigs = new Set();
+    sundayLastUsed = {};
     const pools = (DB && DB.daily_pools) || {};
     dailyPar4NameSet = new Set((pools.par4 || []).map(x => (x.hole_in_ones && x.hole_in_ones[0]) || ""));
 }
@@ -1869,19 +2009,54 @@ function getTargetParForDayIndex(dayIndex) {
     return (wkndSlot === par4Slot) ? 4 : 3;
 }
 
+// From this day on: Mon-Thu 6-card Par 2, Fri/Sat 9-card Par 2, Sun double-card Par 3.
+// Earlier days keep the original rotation so already-played boards never change.
+const SCHEDULE_V2_START = 20777; // Friday, November 20, 2026
+
+function getDailySlotForDayIndex(d) {
+    if (d < SCHEDULE_V2_START) {
+        const par = getTargetParForDayIndex(d);
+        return { poolKey: `par${par}`, poolPar: par, par, kind: "normal" };
+    }
+    const dow = ((d + 4) % 7 + 7) % 7; // 0=Sun ... 6=Sat
+    if (dow === 0) return { poolKey: "double3", poolPar: 3, par: 3, kind: "double" };
+    if (dow === 5 || dow === 6) return { poolKey: "par3", poolPar: 3, par: 2, kind: "normal" };
+    return { poolKey: "par2", poolPar: 2, par: 2, kind: "normal" };
+}
+
 function getDailySlotForDate(dateObj) {
     const y = dateObj.getFullYear();
     const m = dateObj.getMonth();
     const d = dateObj.getDate();
     const dow = dateObj.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
     const dayIndex = Math.floor(Date.UTC(y, m, d) / 86400000);
-    const targetPar = getTargetParForDayIndex(dayIndex);
+    const targetPar = getDailySlotForDayIndex(dayIndex).par;
     const dateKey = `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
     return { y, m, d, dow, dayIndex, targetPar, dateKey };
 }
 
 function boardSig(cats) {
     return [...cats].sort().join("|");
+}
+
+// True if some two Pokémon other than the answer can clear these cards (a fair Par 2)
+function pairClears(cats, answer) {
+    const full = (1 << cats.length) - 1;
+    const masks = new Set();
+    for (const m of (DB.pokemon || DB.mammals)) {
+        if (m.name === answer) continue;
+        let mask = 0;
+        cats.forEach((c, i) => { if (m.traits.includes(c)) mask |= (1 << i); });
+        if (mask === full) return true;
+        if (mask) masks.add(mask);
+    }
+    const list = [...masks];
+    for (let i = 0; i < list.length; i++) {
+        for (let j = i + 1; j < list.length; j++) {
+            if ((list[i] | list[j]) === full) return true;
+        }
+    }
+    return false;
 }
 
 // A stored board is only usable if exactly its answer still fits every card
@@ -1903,7 +2078,7 @@ function dailyOffCooldown(name, d) {
 }
 
 // Generate a new board for this answer that has never been used before
-function generateFreshBoard(entry, par, d, usedSigs) {
+function generateFreshBoard(entry, par, d, usedSigs, solvePar = par) {
     const anchorName = entry.hole_in_ones[0];
     const roster = DB.pokemon || DB.mammals;
     const anchor = roster.find(x => x.name === anchorName);
@@ -1924,7 +2099,7 @@ function generateFreshBoard(entry, par, d, usedSigs) {
             const sig = boardSig(cand);
             if (usedSigs.has(sig) || baseSignaturesSet.has(sig)) continue;
             if (!areCategoriesOrthogonalClient(cand)) continue;
-            const solved = solveBoardParClient(cand, par);
+            const solved = solveBoardParClient(cand, solvePar);
             if (solved && solved.hole_in_ones[0] === anchorName) {
                 return { ...entry, categories: seededShuffle(cand, rng), sample_solution: solved.sample_solution };
             }
@@ -1935,18 +2110,19 @@ function generateFreshBoard(entry, par, d, usedSigs) {
 
 // The next board for this answer: a never-used one if possible (base board, alternates, then a
 // generated one); otherwise the old board shown longest ago, if that was at least a year ago.
-function nextFreshBoard(entry, par, d) {
+function nextFreshBoard(entry, par, d, solvePar = par) {
     const name = entry.hole_in_ones[0];
     const usedSigs = dailyUsedSigs[name] || (dailyUsedSigs[name] = new Set());
     const retiredKey = `${name}|${par}`;
     if (!dailyRetired.has(retiredKey)) {
         for (const b of [entry, ...(entry.alt_boards || [])]) {
             const sig = boardSig(b.categories);
-            if (!usedSigs.has(sig) && !baseSignaturesSet.has(sig) && boardStillValid(b.categories, name)) {
+            if (!usedSigs.has(sig) && !baseSignaturesSet.has(sig) && boardStillValid(b.categories, name)
+                && (solvePar >= par || pairClears(b.categories, name))) {
                 return { ...entry, categories: b.categories, sample_solution: b.sample_solution };
             }
         }
-        const fresh = generateFreshBoard(entry, par, d, usedSigs);
+        const fresh = generateFreshBoard(entry, par, d, usedSigs, solvePar);
         if (fresh) return fresh;
         dailyRetired.add(retiredKey);
     }
@@ -1959,13 +2135,33 @@ function nextFreshBoard(entry, par, d) {
     return oldest ? { ...oldest.board } : null;
 }
 
+// Sundays draw from their own pool of double-card boards, with their own history
+function scheduleSundayBoard(d, pools) {
+    const pool = pools.double3 || [];
+    const offCooldown = b => b.hole_in_ones.every(n =>
+        sundayLastUsed[n] === undefined || d - sundayLastUsed[n] >= DAILY_ANSWER_COOLDOWN);
+    let cands = pool.filter(b => !sundayUsedSigs.has(boardSig(b.categories)) && offCooldown(b));
+    if (cands.length === 0) cands = pool.filter(b => !sundayUsedSigs.has(boardSig(b.categories)));
+    if (cands.length === 0) return;
+    const rng = makeDatePrng(Math.imul(d, 2654435761) ^ 0x5bd1e995);
+    const board = seededShuffle(cands, rng)[0];
+    dailyBoardByDay[d] = board;
+    sundayUsedSigs.add(boardSig(board.categories));
+    board.hole_in_ones.forEach(n => { sundayLastUsed[n] = d; });
+}
+
 function ensureDailyScheduleUpTo(targetDayIndex) {
     const pools = (DB && DB.daily_pools) || {};
     const par4Pool = pools.par4 || [];
 
     for (let d = dailyScheduleUpToDay + 1; d <= targetDayIndex; d++) {
-        const par = getTargetParForDayIndex(d);
-        const pool = pools[par === 2 ? "par2" : (par === 3 ? "par3" : "par4")] || [];
+        const slot = getDailySlotForDayIndex(d);
+        if (slot.kind === "double") {
+            scheduleSundayBoard(d, pools);
+            continue;
+        }
+        const par = slot.poolPar;
+        const pool = pools[slot.poolKey] || [];
         const usable = e => true; // answers out of new boards can still reuse a year-old board
 
         // Keep at least 25 Par-4-capable answers available for weekend Par 4 holes
@@ -1984,13 +2180,13 @@ function ensureDailyScheduleUpTo(targetDayIndex) {
         const rng = makeDatePrng(Math.imul(d, 2654435761));
         let board = null;
         for (const entry of seededShuffle(cands, rng)) {
-            board = nextFreshBoard(entry, par, d);
+            board = nextFreshBoard(entry, par, d, slot.par);
             if (board) break;
         }
         if (!board) continue; // nothing left anywhere (would take many decades)
 
         const name = board.hole_in_ones[0];
-        dailyBoardByDay[d] = board;
+        dailyBoardByDay[d] = slot.par !== board.par ? { ...board, par: slot.par } : board;
         dailyUsedSigs[name].add(boardSig(board.categories));
         (dailyBoardLastDay[name] || (dailyBoardLastDay[name] = {}))[boardSig(board.categories)] = { last: d, board };
         dailyLastUsedDay[name] = d;
@@ -2267,6 +2463,7 @@ function resetCurrentCourse(forceClear = false) {
 
     strokes = [];
     clearedCats = new Set();
+    catHits = {};
     holeFinished = false;
     currentHoleGaveUp = false;
 
@@ -2285,10 +2482,13 @@ function resetCurrentCourse(forceClear = false) {
     document.getElementById("main-input").value = "";
     document.getElementById("swing-btn").disabled = false;
     document.getElementById("give-up-btn").classList.remove("hidden");
+    document.getElementById("give-up-btn").textContent = isDoubleBoard() ? "Show Hole-in-Two" : "Show Hole-in-One";
     document.getElementById("result-panel").classList.add("hidden");
     const sugBar = document.getElementById("suggestions-bar");
     if (sugBar) sugBar.innerHTML = "";
-    setFeedback("Guess a Pokémon that fits in one or more of the categories below!", "fb-prompt");
+    setFeedback(isDoubleBoard()
+        ? "Guess a Pokémon that fits in one or more of the categories below! ×2 categories need two different Pokémon to clear."
+        : "Guess a Pokémon that fits in one or more of the categories below!", "fb-prompt");
 
     // Restore saved hole state if present and not force-clearing
     const savedState = (!forceClear && holeKey) ? holeStates[holeKey] : null;
@@ -2296,10 +2496,8 @@ function resetCurrentCourse(forceClear = false) {
         for (const mName of savedState.pokemonNames) {
             const mon = DB.pokemon.find(m => m.name === mName);
             if (!mon) continue;
-            const hitCats = currentBoard.categories.filter(cid => mon.traits.includes(cid));
-            const newCats = hitCats.filter(cid => !clearedCats.has(cid));
-            strokes.push({ mon, hitCats, newCats });
-            newCats.forEach(cid => clearedCats.add(cid));
+            const { hitCats, newCats } = strokeCats(mon);
+            recordStroke({ mon, hitCats, newCats });
         }
         if (savedState.feedbackMsg) {
             const fbMon = savedState.feedbackMon ? DB.pokemon.find(m => m.name === savedState.feedbackMon) : null;
@@ -2350,10 +2548,14 @@ function renderScorecard() {
     const cupStrip = document.getElementById("cup-strip");
     if (cupStrip && currentBoard) {
         cupStrip.innerHTML = "";
+        // One pip per card; x2 cards get a dashed pip that half-fills after the first Pokémon
         for (const catId of currentBoard.categories) {
+            const need = cardNeed(catId);
+            const hits = catHits[catId] || 0;
             const pip = document.createElement("span");
-            const done = clearedCats.has(catId);
-            pip.className = "cup-pip" + (done ? " filled" : "");
+            pip.className = "cup-pip"
+                + (need === 2 ? " double" : "")
+                + (hits >= need ? " filled" : (hits > 0 ? " half" : ""));
             cupStrip.appendChild(pip);
         }
     }
@@ -2366,28 +2568,31 @@ function renderBoard(newlyHitCatIds = []) {
     for (const catId of currentBoard.categories) {
         const cat = catMap[catId];
         const isCleared = clearedCats.has(catId);
+        const need = cardNeed(catId);
+        const isHalf = need === 2 && (catHits[catId] || 0) === 1;
         const card = document.createElement("div");
         const flashClass = newlyHitCatIds.includes(catId) ? " flash-hit" : "";
         const clickClass = holeFinished ? " clickable" : "";
-        card.className = `cat-card${isCleared ? " cleared" : ""}${flashClass}${clickClass}`;
+        card.className = `cat-card${isCleared ? " cleared" : ""}${isHalf ? " half" : ""}${need === 2 ? " double" : ""}${flashClass}${clickClass}`;
 
         if (holeFinished) {
             card.onclick = () => openInspector(catId);
         }
 
-        const firstHitStroke = strokes.find(s => s.hitCats.includes(catId));
-        const hitsHtml = firstHitStroke
-            ? `<span class="hit-chip" title="${firstHitStroke.mon.name}">${spriteImg(firstHitStroke.mon, "chip-sprite")}${firstHitStroke.mon.name}</span>`
-            : "";
+        const fillers = strokes.filter(s => s.newCats.includes(catId)).slice(0, need);
+        const hitsHtml = fillers
+            .map(st => `<span class="hit-chip" title="${st.mon.name}">${spriteImg(st.mon, "chip-sprite")}${st.mon.name}</span>`)
+            .join("");
 
 
         card.innerHTML = `
             <div>
                 <div class="cat-top">
-                    <div class="cat-badge-cluster">
+                    <div class="cat-badge-cluster${need === 2 ? " stacked" : ""}">
                         <span class="group-badge group-${cat.group}">${cat.group}</span>
+                        ${need === 2 ? `<span class="double-badge" title="Needs two different Pokémon">×2</span>` : ""}
                     </div>
-                    ${hitsHtml ? `<div class="cat-hit-bubbles">${hitsHtml}</div>` : ""}
+                    ${hitsHtml ? `<div class="cat-hit-bubbles${need === 2 ? " stacked" : ""}">${hitsHtml}</div>` : ""}
                 </div>
                 <h3 class="cat-title">${cat.name}</h3>
                 <div class="cat-desc">${cat.desc}</div>
@@ -2447,8 +2652,7 @@ function submitPokemon() {
     }
 
     const totalCats = currentBoard.categories.length;
-    const hitCats = currentBoard.categories.filter(cid => mon.traits.includes(cid));
-    const newCats = hitCats.filter(cid => !clearedCats.has(cid));
+    const { hitCats, newCats } = strokeCats(mon);
 
     if (newCats.length === 0) {
         if (hitCats.length === 0) {
@@ -2461,8 +2665,7 @@ function submitPokemon() {
         return;
     }
 
-    strokes.push({ mon, hitCats, newCats });
-    newCats.forEach(cid => clearedCats.add(cid));
+    recordStroke({ mon, hitCats, newCats });
     input.value = "";
     updateSuggestions();
 
@@ -2474,7 +2677,7 @@ function submitPokemon() {
     saveCurrentHoleState();
 
     if (clearedCats.size === totalCats) {
-        launchConfettiBurst(strokes.length === 1);
+        launchConfettiBurst(strokes.length === (isDoubleBoard() ? 2 : 1));
         finishHole(false);
     }
 }
@@ -2508,7 +2711,8 @@ function finishHole(gaveUp, skipSave = false) {
         // Most swings possible is one per card (12 on a Par 4), so the worst score is +8
         const BOGEYS = ["Bogey", "Double Bogey", "Triple Bogey", "Quadruple Bogey", "Quintuple Bogey",
                         "Sextuple Bogey", "Septuple Bogey", "Octuple Bogey"];
-        if (s === 1) { rating = "HOLE-IN-ONE!"; color = "var(--gold)"; }
+        if (isDoubleBoard() && s === 2) { rating = "HOLE-IN-TWO!"; color = "var(--gold)"; }
+        else if (s === 1) { rating = "HOLE-IN-ONE!"; color = "var(--gold)"; }
         else if (diff <= -2) { rating = "Eagle!"; color = "var(--gold)"; }
         else if (diff === -1) { rating = "Birdie!"; color = "var(--gold)"; }
         else if (diff === 0) { rating = "Par"; color = "var(--fairway-dark)"; }
@@ -2548,12 +2752,16 @@ function finishHole(gaveUp, skipSave = false) {
     }
 
     hioList.sort((a, b) => a.name.localeCompare(b.name));
+    if (isDoubleBoard()) topOthers.length = 0;  // the answer is a pair; "top answers" don't apply
     topOthers.sort((a, b) => b.count - a.count || a.mon.name.localeCompare(b.mon.name));
 
     let rowsHtml = "";
 
     // YOUR ANSWERS: always shown, each guess with the cards it fits on this board
-    rowsHtml += `<div class="optimal-title">YOUR ANSWERS</div>`;
+    // A perfect hole (hole-in-one, or hole-in-two on x2 boards): your answers turn gold and
+    // the separate answer section is skipped, since you already found it
+    const perfectHole = !gaveUp && s === (isDoubleBoard() ? 2 : 1);
+    rowsHtml += `<div class="optimal-title">${strokes.length === 1 ? "YOUR ANSWER" : "YOUR ANSWERS"}</div>`;
     if (strokes.length === 0) {
         rowsHtml += `<div class="opt-row"><span class="opt-cats">No swings taken</span></div>`;
     }
@@ -2564,13 +2772,31 @@ function finishHole(gaveUp, skipSave = false) {
             .join(" • ");
         rowsHtml += `
             <div class="opt-row">
-                <span class="opt-mon">${spriteImg(st.mon, "opt-sprite")}${st.mon.name}</span>
+                <span class="opt-mon${perfectHole ? " gold-hio" : ""}">${spriteImg(st.mon, "opt-sprite")}${st.mon.name}</span>
                 <span class="opt-cats">${catsHtml}</span>
             </div>
         `;
     }
 
-    if (hioList.length > 0) {
+    if (perfectHole) {
+        // nothing more to reveal
+    } else if (isDoubleBoard()) {
+        const pair = currentBoard.hole_in_ones.map(n => DB.pokemon.find(m => m.name === n)).filter(Boolean);
+        rowsHtml += `<div class="optimal-title" style="margin-top: 14px;">HOLE-IN-TWO</div>`;
+        // One row per Pokémon in the pair, with the cards it fills on this board underneath
+        for (const m of pair) {
+            const catsHtml = currentBoard.categories
+                .filter(cid => m.traits.includes(cid))
+                .map(cid => catMap[cid].name)
+                .join(" • ");
+            rowsHtml += `
+                <div class="opt-row">
+                    <span class="opt-mon gold-hio">${spriteImg(m, "opt-sprite")}${m.name}</span>
+                    <span class="opt-cats">${catsHtml}</span>
+                </div>
+            `;
+        }
+    } else if (hioList.length > 0) {
         rowsHtml += `<div class="optimal-title" style="margin-top: 14px;">HOLE-IN-ONE</div>`;
         for (const m of hioList) {
             rowsHtml += `
@@ -2612,7 +2838,8 @@ function finishHole(gaveUp, skipSave = false) {
 const SHARE_GAME_TITLE = "Elite Fore";
 const SHARE_SQUARE = "🟥";
 const SHARE_EMPTY = "⬜";
-const SHARE_REPEAT = "🟧";  // fits the card, but an earlier swing already cleared it
+const SHARE_REPEAT = "🟧";  // fits the card, but earlier swings already filled it
+const SHARE_DOUBLE = "🟪";  // this swing filled one of the two slots on a ×2 card
 const SHARE_URL = "https://canterburyegg.github.io/elite-fore/";
 
 function buildShareText() {
@@ -2632,7 +2859,7 @@ function buildShareText() {
         const cleared = new Set(st.newCats);
         const fits = new Set(st.hitCats);
         return currentBoard.categories
-            .map(c => cleared.has(c) ? SHARE_SQUARE : (fits.has(c) ? SHARE_REPEAT : SHARE_EMPTY))
+            .map(c => cleared.has(c) ? (cardNeed(c) === 2 ? SHARE_DOUBLE : SHARE_SQUARE) : (fits.has(c) ? SHARE_REPEAT : SHARE_EMPTY))
             .join("");
     });
     const lines = [`${SHARE_GAME_TITLE} · ${where} · Par ${par}`, "", score, ...rows, "", SHARE_URL];
@@ -2863,26 +3090,41 @@ function startFreePlay(targetPar = 2) {
     }
 }
 
+// While any popup is open, the page behind it can't scroll
+function syncScrollLock() {
+    const anyOpen = ["picker-modal", "howto-modal", "inspector-modal"]
+        .some(id => !document.getElementById(id).classList.contains("hidden"));
+    document.documentElement.classList.toggle("modal-open", anyOpen);
+    document.body.classList.toggle("modal-open", anyOpen);
+}
 function openPicker() {
     document.getElementById("picker-modal").classList.remove("hidden");
+    syncScrollLock();
 }
 function closePicker() {
     document.getElementById("picker-modal").classList.add("hidden");
+    syncScrollLock();
 }
 function openHowTo() {
     document.getElementById("howto-modal").classList.remove("hidden");
+    syncScrollLock();
 }
 function closeHowTo() {
     document.getElementById("howto-modal").classList.add("hidden");
+    syncScrollLock();
 }
 document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeHowTo();
+    if (e.key === "Escape") {
+        closeHowTo();
+        closeInspector();
+        closePicker();
+    }
 });
 
 function openInspector(catId) {
     const cat = catMap[catId];
     if (!cat) return;
-    document.getElementById("insp-title").textContent = `${cat.name} (${cat.count})`;
+    document.getElementById("insp-title").textContent = cat.name;
     document.getElementById("insp-desc").innerHTML = cat.desc;
     const chips = document.getElementById("insp-chips");
     chips.innerHTML = "";
@@ -2891,13 +3133,16 @@ function openInspector(catId) {
     for (const m of sortedMons) {
         const sp = document.createElement("span");
         sp.className = "mon-chip" + (guessedSet.has(m.name) ? " guessed" : "");
-        sp.innerHTML = spriteImg(m, "list-sprite") + m.name + (guessedSet.has(m.name) ? " ✓" : "");
+        sp.innerHTML = spriteImg(m, "list-sprite") + `<span class="chip-name">${m.name}${guessedSet.has(m.name) ? " ✓" : ""}</span>`;
         chips.appendChild(sp);
     }
     document.getElementById("inspector-modal").classList.remove("hidden");
+    chips.scrollTop = 0;  // always open at the top of the list, not where the last card was scrolled
+    syncScrollLock();
 }
 function closeInspector() {
     document.getElementById("inspector-modal").classList.add("hidden");
+    syncScrollLock();
 }
 
 document.getElementById("main-input").addEventListener("input", () => {

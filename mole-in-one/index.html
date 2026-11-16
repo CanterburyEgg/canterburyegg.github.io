@@ -1428,7 +1428,6 @@
 
         <div class="controls-row">
             <button class="secondary-btn" id="prev-hole-btn" onclick="prevCourse()">&larr; Previous Hole</button>
-            <button class="secondary-btn" onclick="resetCurrentCourse(true)">&#8635; Reset Hole</button>
             <button class="secondary-btn danger" id="give-up-btn" onclick="giveUpHole()">Show Mole-in-One</button>
             <button class="secondary-btn" id="next-hole-btn" onclick="nextCourse()">Next Hole &rarr;</button>
         </div>
@@ -2608,7 +2607,9 @@ function finishHole(gaveUp, skipSave = false) {
     let rowsHtml = "";
 
     // YOUR ANSWERS: always shown, each guess with the cards it fits on this board
-    rowsHtml += `<div class="optimal-title">YOUR ANSWERS</div>`;
+    // A perfect hole (Mole-in-One): your answer turns gold and the separate answer section is skipped
+    const perfectHole = !gaveUp && s === 1;
+    rowsHtml += `<div class="optimal-title">${strokes.length === 1 ? "YOUR ANSWER" : "YOUR ANSWERS"}</div>`;
     if (strokes.length === 0) {
         rowsHtml += `<div class="opt-row"><span class="opt-cats">No swings taken</span></div>`;
     }
@@ -2619,13 +2620,13 @@ function finishHole(gaveUp, skipSave = false) {
             .join(" • ");
         rowsHtml += `
             <div class="opt-row">
-                <span class="opt-mammal">${st.mammal.name}</span>
+                <span class="opt-mammal${perfectHole ? " gold-hio" : ""}">${st.mammal.name}</span>
                 <span class="opt-cats">${catsHtml}</span>
             </div>
         `;
     }
 
-    if (hioList.length > 0) {
+    if (hioList.length > 0 && !perfectHole) {
         rowsHtml += `<div class="optimal-title" style="margin-top: 14px;">MOLE-IN-ONE</div>`;
         for (const m of hioList) {
             rowsHtml += `
