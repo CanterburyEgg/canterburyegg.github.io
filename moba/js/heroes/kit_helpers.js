@@ -67,6 +67,9 @@ K.smoothSeams = function (geometry, maxAngleDeg = 60) {
   nrm.needsUpdate = true;
 };
 // rank helpers shared by kits: Q/E ranks at 6/9, R ranks at 8/12
+// game clock (seconds of simulated time, advanced by loop.js every frame): use for kit cooldowns instead of
+// performance.now() so the test tools (fixed steps, any speed) stay exact
+K.time = 0;
 K.rQE = (lvl) => (lvl >= 9 ? 2 : (lvl >= 6 ? 1 : 0));
 K.rUlt = (lvl) => (lvl >= 12 ? 2 : (lvl >= 8 ? 1 : 0));
 

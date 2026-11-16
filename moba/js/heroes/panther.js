@@ -26,8 +26,8 @@ H.panther = {
   // Attack damage; the E pounce is big Ability damage (it absorbed the old Predator Marks' damage).
   dmg: {
     swipe: (st) => Math.round(st.attack),
-    qSlash: (st, rQE) => Math.round([30, 45, 60][rQE] + st.attack * 0.7),
-    qBite: (st, rQE) => Math.round([45, 65, 85][rQE] + st.attack * 0.9),
+    qSlash: (st, rQE) => Math.round([30, 45, 60][rQE] + st.attack * 1.0),   // burst: leap -> Q -> Q again to finish
+    qBite: (st, rQE) => Math.round([45, 65, 85][rQE] + st.attack * 1.3),
     pounce: (st, lvl, rQE) => Math.round([200, 290, 380][rQE] + 12 * ((lvl || 1) - 1) + st.ability * 1.4)
   },
 
@@ -82,8 +82,8 @@ H.panther = {
       },
       Q: {
         title: 'Q • Slash & Gnash',
-        meta: '45 MP • 5.8s / 5.0s / 4.2s CD (Lv 1/6/9)',
-        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; Slash <b>30 / 45 / 60 + 70% Attack</b>, Gnash <b>45 / 65 / 85 + 90% Attack</b> (counts as a basic attack); both <b>heal you</b>.'
+        meta: '45 MP • 4.5s / 3.8s / 3.2s CD (Lv 1/6/9)',
+        body: 'Unleashes a wide <b>Claw Swipe (Slash)</b> followed immediately by a lunging <b>Feline Bite (Gnash)</b>; Slash <b>30 / 45 / 60 + 100% Attack</b>, Gnash <b>45 / 65 / 85 + 130% Attack</b> (counts as a basic attack); both <b>heal you</b>.'
       },
       E: {
         title: "E • Predator's Leap",
@@ -226,7 +226,7 @@ H.panther = {
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
       if (!trySpendMana('Q')) return;
-      hero.cdQ = wtfMode ? 0.15 : [5.8, 5.0, 4.2][rQE] * cdrMult;
+      hero.cdQ = wtfMode ? 0.15 : [4.5, 3.8, 3.2][rQE] * cdrMult;
       if ((hero.stealthTimer || 0) > 0) {
         hero.stealthTimer = 0;
         hero.stealthExitTimer = 4.0;
@@ -367,7 +367,7 @@ H.panther = {
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L['pn_' + slot] = (L['pn_' + slot] || 0) + 1;
     if (slot === 'Q') {
       if (hero.cdQ > 0) return;
-      hero.cdQ = [5.8, 5.0, 4.2][rQE] * (ctx.cdrMult || 1);
+      hero.cdQ = [4.5, 3.8, 3.2][rQE] * (ctx.cdrMult || 1);
       hero.stealthTimer = 0;
       actor.play('punch', 0.04, true, 2.40, 0.85, 0.54);
       hero.pnStrike = { isKick: false, isFlurry: true, isBite: false, facing: hero.facing, t: 0.13 };

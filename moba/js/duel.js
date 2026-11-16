@@ -17,6 +17,7 @@
   if (!eng || !eng.devDuelStart) return;
 
   const qs = new URLSearchParams(location.search);
+  const TURRET_DUEL = qs.has('turretduel');
   const SUPPORTS = ['fairy', 'bodyguard'];
   const allHeroes = Object.values(window.MOBA_HEROES || {}).filter((k) => k.spec)
     .sort((a, b) => ((a.roster && a.roster.order) || 99) - ((b.roster && b.roster.order) || 99)).map((k) => k.id);
@@ -84,6 +85,8 @@
           const px = CENTER.x + Math.sin(axis) * side * gap / 2 + Math.cos(axis) * lat + (Math.random() - 0.5);
           const pz = CENTER.z + Math.cos(axis) * side * gap / 2 - Math.sin(axis) * lat + (Math.random() - 0.5);
           eng.devDuelResetBot(b, px, pz, Math.atan2(CENTER.x - px, CENTER.z - pz));
+          // clear last round's leftovers (an Imp's turret even if this bot is now another hero)
+          Object.values(window.MOBA_HEROES || {}).forEach((k) => { if (k.botRoundReset) k.botRoundReset(b); });
           b.atkAnimTimer = Math.random() * 0.4;
           b.cdQ = Math.random() * 1.2;
           b.cdE = Math.random() * 1.2;
@@ -91,6 +94,12 @@
         });
         place(blue, blueHeroes, -1);
         place(red, redHeroes, 1);
+        // &turretduel: an Imp starts the round planting his turret where he stands (his lane form)
+        if (TURRET_DUEL) inPlay.forEach((b) => {
+          if (b.heroType !== 'imp' || !window.MOBA_HEROES.imp) return;
+          b.cdQ = 0;
+          window.MOBA_HEROES.imp.castFor(eng.devBotActor(b), 'Q');
+        });
         const start = gameNow();
         let winner = null;
         while (gameNow() - start < ROUND_MAX) {
@@ -127,7 +136,7 @@
   function report(rows) {
     const L = [];
     const name = (team) => team.join(' + ');
-    L.push('# Duel Arena (' + mode + ', Lv' + level + ', build: ' + build + ', ' + TRIALS + ' trials per matchup, sides swapped each trial)');
+    L.push('# Duel Arena (' + mode + ', Lv' + level + ', build: ' + build + ', ' + TRIALS + ' trials per matchup, sides swapped each trial' + (TURRET_DUEL ? ', Imp starts with his turret planted' : '') + ')');
     L.push('');
     L.push('| A | B | A wins | B wins | draws | A win % | avg time to kill (s) | winner HP left |');
     L.push('|---|---|---|---|---|---|---|---|');

@@ -571,7 +571,7 @@ H.imp = {
         const settled = !u.impTurret || performance.now() / 1000 - u.impTurret.plantedAt >= PICKUP_LOCKOUT;
         const quiet = !actor.hostiles().some((h) => h.kind !== 'structure' && Math.hypot(h.x - spot.x, h.z - spot.z) <= 9);
         const fleeing = u.hp / u.maxHp < 0.3;
-        if (settled && (quiet || fleeing)) {
+        if (settled && (quiet || fleeing || u.impWantPickup)) { // (team fight: grab the cannon)
           u.cdQ = 1.5;
           u.facing = Math.atan2(spot.x - u.x, spot.z - u.z);
           u.kickAnim = 0.75;
@@ -672,6 +672,16 @@ H.imp = {
     if (b.impScrap) botClearScrap(b);
     b.impPendingQ = null;
     b.impStrike = null;
+  },
+
+  // the duel tool resets a bot between rounds: drop its turret and scrap (keep the props)
+  botRoundReset(b) {
+    botRemoveTurret(b);
+    botClearScrap(b);
+    b.impPendingQ = null;
+    b.impStrike = null;
+    b.impLeashTo = null;
+    b.impWantPickup = false;
   },
 
   // the engine is respawning its bots (new match): drop this bot's turret, scrap and props

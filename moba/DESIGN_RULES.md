@@ -124,7 +124,7 @@ Almost every distribution question (mobility, CC, shields and speed, what talent
 ## Astral Sorceress ✅
 - **Passive → Starmark (Lux-style; replaces Soul Siphon + Astral Tempo).** Any ability hit applies or refreshes **one mark**; her next **basic attack pops it for bonus Ability damage**. One mark, no stacks (stacks would overlap Coyote's bleed). The cast-then-auto rhythm makes her a natural hybrid.
 - **LMB (Astral Bolt):** keep; now plain Attack damage (no Physical+Fantasy mix).
-- **Q (Starfall Pillar):** keep the delayed (0.38s) AoE pillar. **Hitting a hero refunds part of Q's cooldown** (replaces the stacking Tempo).
+- **Q (Starfall Pillar):** keep the delayed (0.38s) AoE pillar. **Hits refund part of Q's cooldown, scaling with stacks: 10% → 20% → 30%** (one stack per hit; minions can only build it to 1, jungle monsters to 2, heroes to 3; stacks fade 5s after the last hit). Decided 2026-11-15.
 - **E (Rift Stride) → short step with 2 charges.** Each step is **~2.5m**, each charge **recharges separately (~9s)**. **Every step fires the homing bolts** with the same split (3 targets / 2+1 / all 3 on one) at **~60% of the current per-bolt damage**. Double-step to escape, or dance in and out of a scrappy fight.
 - **R (Cataclysm Monolith):** keep as is: an expanding AoE "don't stand here" zone that slows and pulses Ability damage. The end-of-zone pull can be a talent at any level.
 - Flag for Panther's audit: her E "Predator Marks" is also "mark, then pop with hits", so differentiate it.
@@ -133,7 +133,7 @@ Almost every distribution question (mobility, CC, shields and speed, what talent
 - **Passive (Shadow Stalker):** keep. +28% move speed while unseen, lingering 2.2s after she's spotted. Add a clear **"UNSEEN" indicator** (a dark vignette or eye icon) so the player knows when the E bonus range and fear are live.
 - **Stealth reveal radius:** enemies within **~3m** see her shimmer (applies to R and to all stealth in general).
 - **LMB (Twin Claws):** keep (the Predator Mark interaction is removed).
-- **Q (Slash & Gnash):** keep as is. A double auto with built-in sustain ("counts as a basic attack"), mainly for jungling, and part of the auto → Q → auto combo from the shadows.
+- **Q (Slash & Gnash):** keep, tuned as a burst tool (2026-11-15: higher Attack ratios, ~4.5 / 3.8 / 3.2s cooldown, so leap → Q → Q again finishes; a talent can add more damage). A double auto with built-in sustain ("counts as a basic attack"), mainly for jungling, and part of the auto → Q → auto combo from the shadows.
 - **E (Predator's Leap) → pounce bonus (Predator Marks removed, since they overlapped Sorceress's Starmark).** The leap deals **big Ability damage on landing**. **If she leapt while unseen** (fog, brush or R stealth), the target is **briefly feared**. Keeps the +65% range while unseen. This is the roster's only Fear.
 - **R (Nightprowl):** keep as is (stealth up to 6s; turns on the passive speed and E range). Its climax is now R → long-range pounce → fear → Q combo. "Vanish after a kill" (old 10L Apex Reset) stays a talent candidate.
 - Panther 10R's ambiguous "Silence/Stun" gets resolved in the talent pass.

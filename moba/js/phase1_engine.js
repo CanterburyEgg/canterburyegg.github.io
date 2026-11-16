@@ -3660,7 +3660,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
               }
             }
 
-            // 8. CANNON IMP BOT (solo): plant the turret when a fight starts (hero in range or a wave to push), rocket jump /
+            // 8. CANNON IMP BOT (solo): plant the turret in lane (wave to push / defending his tower) and fight in its cover;
+            //    carry the cannon for team fights, roams and lone 1v1s; rocket jump /
             //    hop home when hurt, hop onto a weak hero when unburdened, Superball when it lines up 2+ heroes or a weak one.
             //    (Picking the cannon back up / salvaging scrap happens in the kit's tickActor once the fight is over.)
             else if (b.heroType === 'imp' && kitBotReady('imp')) {
@@ -3671,6 +3672,15 @@ window.MOBA_PHASE1_ENGINE = (function () {
               const hurt = b.hp / b.maxHp < 0.35;
               const waveNear = bestTarget.kind === 'minion' &&
                 actor.hostiles().filter((t) => t.kind === 'minion' && Math.hypot(t.x - b.x, t.z - b.z) <= 8.5).length >= 3;
+              // Two forms: PLANTED in lane (a wave to push, or defending near his own tower), fighting inside the
+              // turret's cover; CARRYING in team fights (2+ enemy heroes close), roaming and lone 1v1s.
+              const enemyHeroesNear = actor.hostiles().filter((t) => (t.kind === 'bot' || t.kind === 'player') && Math.hypot(t.x - b.x, t.z - b.z) <= 9).length;
+              const teamfight = enemyHeroesNear >= 2;
+              const ownTowerNear = structures.some((st) => st.team === b.team && st.hp > 0 && st.kind === 'tower' && Math.hypot(st.x - b.x, st.z - b.z) <= 12);
+              const laneSpot = !duelMode && (waveNear || (ownTowerNear && isHeroTarget && bestDist <= 9));
+              b.impWantPickup = !!b.impTurret && teamfight;
+              // planted: don't chase out of the turret's cover (target more than IMP_LEASH from it -> hold near it)
+              b.impLeashTo = (b.impTurret && !teamfight && Math.hypot(bestTarget.ref.x - b.impTurret.x, bestTarget.ref.z - b.impTurret.z) > 10) ? b.impTurret : null;
               if (b.cdE <= 0 && hurt && isHeroTarget && bestDist <= 5.5) {
                 const ang = Math.atan2(b.homeX - b.x, b.homeZ - b.z);
                 b.aimTarget = null;
@@ -3680,7 +3690,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
                 b.aimTarget = bestTarget;
               } else if (b.level >= 4 && b.cdR <= 0 && !b.impScrap && isHeroTarget && kit.botWantsSuperball(b, actor, bestTarget)) {
                 kit.castFor(actor, 'R');
-              } else if (carryingNow && b.cdQ <= 0 && !hurt && ((isHeroTarget && bestDist <= 9.0) || waveNear)) {
+              } else if (carryingNow && b.cdQ <= 0 && !hurt && !teamfight && laneSpot) {
                 kit.castFor(actor, 'Q');
               } else if (!carryingNow && b.impTurret && b.cdE <= 0 && !hurt && isHeroTarget && bestDist >= 2.5 && bestDist <= 4.5 &&
                          bestTarget.ref.hp / bestTarget.ref.maxHp < 0.5) {
@@ -3735,6 +3745,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
               gx = THREE.MathUtils.clamp(b.x + Math.sin(awayAng) * 3.0 + (b.homeX - b.x) * 0.08, MAP.BOUNDS.minX, MAP.BOUNDS.maxX);
               gz = THREE.MathUtils.clamp(b.z + Math.cos(awayAng) * 3.0, MAP.BOUNDS.minZ, MAP.BOUNDS.maxZ);
             }
+          } else if (bestTarget && b.impLeashTo && b.impTurret) {
+            gx = b.impLeashTo.x; // planted Imp: hold near the turret instead of chasing out of its cover
+            gz = b.impLeashTo.z;
           } else if (bestTarget) {
             gx = bestTarget.ref.x;
             gz = bestTarget.ref.z;
@@ -5010,6 +5023,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         b.pivot.position.set(x, 0, z);
       },
       devDuelEnd: () => { duelMode = null; },
+      devBotActor: (b) => botActor(b),
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns
       setBotsEnabled: (on) => {
         bots.forEach((b) => {

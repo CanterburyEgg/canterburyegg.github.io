@@ -93,6 +93,12 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   Show it only for heroes whose kit uses it (Panther, Coyote); others look the same seen or not.
 - [ ] **Fairy run pose (noted 2026-11-15)**: her arms sit too far back while she moves (run/fly clip). Pull them forward
   (a per-bone offset on the shoulders/upper arms during locomotion, or a different clip).
+- [ ] **Game menus (planned 2026-11-15; AFTER the shop overhaul and the talent pass, which finish the gameplay loop)**:
+  main menu (Play / Practice / Settings / Gallery), hero select (portraits, role, kit blurbs from the tooltips; bot
+  difficulty + bot heroes), pause / Esc menu (resume, settings, surrender / quit), settings (volume, camera, quality),
+  end-of-match screen (result, K/D, gold, play again), and a **character gallery with splash art and interactive 3D
+  models** (orbit / zoom, play each animation). Splash art AND portraits = new stylized 2D art per hero (painterly, much more attractive than model renders;
+  matched to each hero's look so they read as the same character).
 - [ ] **Global pace pass (noted 2026-11-15)**: everything moves a little too fast: heroes run too quickly, minions walk
   too quickly, jungle monsters move too quickly. Do one pass over all move speeds together (hero moveSpeed / baseSpd,
   minion spd, camp spd, plus anything tied to them: dash/leap distances, projectile speeds vs. dodgeability, chase and

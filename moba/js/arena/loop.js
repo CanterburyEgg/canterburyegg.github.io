@@ -14,6 +14,7 @@ function tick(now) {
   // Dev: ?simfast = fixed 0.05s steps and render only every 20th frame (headless bot testing)
   const dt = window.__MOBA_TEST ? (window.__MOBA_TEST.dt || 1 / 60) : (SIMFAST ? 0.05 : Math.min(0.05, (now - last) / 1000));
   last = now;
+  KitFx.time += dt;
 
   raycaster.setFromCamera(mouseNDC, camera);
   raycaster.ray.intersectPlane(groundPlane, aimWorld);

@@ -94,7 +94,7 @@ function dontTurnReady(by, u) {
   const vx = u._vx || 0, vz = u._vz || 0;
   const dx = u.x - by.x, dz = u.z - by.z, d = Math.hypot(dx, dz) || 0.01;
   if ((vx * dx + vz * dz) / d < DTYB.away) return false;
-  const now = performance.now() / 1000;
+  const now = KitFx.time;
   let m = dtybReady.get(u);
   if (!m) dtybReady.set(u, (m = new Map()));
   if ((m.get(by) || 0) > now) return false;

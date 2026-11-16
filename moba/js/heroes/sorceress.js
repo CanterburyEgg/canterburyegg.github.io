@@ -10,10 +10,11 @@ const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
 // E Rift Stride: bolts fire when the dash ends (kit-local; isBusy() tells the self-test to wait)
 let pendingRiftBolts = null;
 // E: 2 charges (KitFx.charges), each a short step; every step fires the homing bolts at RIFT.boltPct damage
-const RIFT = { range: 9.0, maxBolts: 3, spread: 0.55, speed: 21, life: 1.6, step: 2.5, stepDur: 0.15, boltPct: 0.6, recharge: [9.0, 8.5, 8.0] };
+const RIFT = { range: 9.0, maxBolts: 3, spread: 0.55, speed: 21, life: 1.6, step: 2.5, stepDur: 0.15, boltPct: 0.5, recharge: [9.0, 8.5, 8.0] };
 KitFx.charges.slotFor.rift = 'E';
-// Q: hitting a hero refunds this share of Q's cooldown
-const Q_REFUND = 0.4;
+// Q: each pillar hit adds a stack (max by what it hit: minion 1, jungle monster 2, hero 3) and refunds 10% of Q's
+// cooldown per stack; stacks fall off 5s after the last hit
+const Q_REFUND = { perStack: 0.10, holdSec: 5.0 };
 
 // Up to RIFT.maxBolts nearest live enemies (dummies + engine units, no structures) within range of (x, z)
 function nearestRiftTargets(x, z, actor) {
@@ -37,7 +38,8 @@ function nearestRiftTargets(x, z, actor) {
 // ---- Passive: Starmark (DESIGN_RULES Sorceress) ----
 // Any ability hit (Q pillar, E bolts, R pulses) puts / refreshes ONE mark on the target; her next basic attack that
 // hits a marked target pops it for bonus Ability damage. One mark per target per caster, no stacks.
-const STARMARK = { dur: 4.0 };
+const STARMARK = { dur: 4.0, popCd: 3.0 }; // popCd: a target can only be popped once per 3s (per caster)
+const popReady = new WeakMap(); // target -> Map(caster -> game time it can be popped again)
 const marks = []; // { u (unit or dummy), by (caster unit), t, sprite }
 let starTex = null;
 function starSprite() {
@@ -87,6 +89,11 @@ function tickMarks(dt) {
 function popMark(actor, u, t) {
   const i = marks.findIndex((k) => k.u === u && k.by === actor.unit);
   if (i < 0) return;
+  // per-target pop cooldown: the mark stays (and keeps refreshing) until this target can be popped again
+  let pm = popReady.get(u);
+  if (!pm) popReady.set(u, (pm = new Map()));
+  if ((pm.get(actor.unit) || 0) > KitFx.time) return;
+  pm.set(actor.unit, KitFx.time + STARMARK.popCd);
   dropMark(i);
   const dmg = H.sorceress.dmg.starmark(actor.stats(), actor.level());
   spawnShockRing(u.x, u.z, 0xf0abfc, 0.2, 1.0, 0.22);
@@ -277,7 +284,7 @@ H.sorceress = {
     riftBolt: (st, lvl, rQE) => Math.round([100, 140, 180][rQE] + 8 * ((lvl || 1) - 1) + st.ability * 0.6), // x up to 3
     monolithPulse: (st, rUlt) => Math.round([40, 60, 80][rUlt] + st.ability * 0.25),                         // every 0.5s
     collapse: (st) => Math.round(100 + st.ability * 0.5),                                                   // (old 10L talent; unused)
-    starmark: (st, lvl) => Math.round(30 + 6 * ((lvl || 1) - 1) + st.ability * 0.45)                       // passive pop
+    starmark: (st, lvl) => Math.round(20 + 4 * ((lvl || 1) - 1) + st.ability * 0.30)                       // passive pop
   },
 
   spec: {
@@ -322,7 +329,7 @@ H.sorceress = {
       P: {
         title: 'Passive • Starmark',
         meta: 'Cast, then attack',
-        body: 'Any of her <b>ability hits</b> puts a <b>Starmark</b> on the target (one mark, refreshed by each hit, lasts 4s). Her next <b>basic attack</b> on a marked target pops it for <b>30 (+6/Lv) + 45% Ability</b> bonus damage.'
+        body: 'Any of her <b>ability hits</b> puts a <b>Starmark</b> on the target (one mark, refreshed by each hit, lasts 4s). Her next <b>basic attack</b> on a marked target pops it for <b>20 (+4/Lv) + 30% Ability</b> bonus damage (at most once every 3s per target).'
       },
       LMB: {
         title: 'LMB • Astral Bolt',
@@ -332,12 +339,12 @@ H.sorceress = {
       Q: {
         title: 'Q • Starfall Pillar',
         meta: '38 MP • 5.2s / 4.8s / 4.4s Base CD (Lv 1/6/9)',
-        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>280 / 380 / 480 (+12/Lv) + 110% Ability</b> in an area. Hitting an enemy <b>hero refunds 40%</b> of Q\'s cooldown.'
+        body: 'Calls down a delayed pillar of cosmic fire at the cursor after 0.38s, dealing <b>280 / 380 / 480 (+12/Lv) + 110% Ability</b> in an area. Each hit adds a stack that <b>refunds 10% / 20% / 30%</b> of Q\'s cooldown (stacks up to 1 on minions, 2 on jungle monsters, 3 on heroes; they fade 5s after your last hit).'
       },
       E: {
         title: 'E • Rift Stride',
         meta: '40 MP per step • 2 charges (9s / 8.5s / 8s each, Lv 1/6/9)',
-        body: 'A short <b>2.5m step</b> toward the cursor, then <b>3 homing bolts (60 / 84 / 108 (+5/Lv) + 36% Ability each)</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 on the closest; 1 enemy: all 3). Two charges: double-step to escape, or dance in and out.'
+        body: 'A short <b>2.5m step</b> toward the cursor, then <b>3 homing bolts (50 / 70 / 90 (+4/Lv) + 30% Ability each)</b> split across the <b>3 nearest enemies</b> within 9m (2 enemies: 2 on the closest; 1 enemy: all 3). Two charges: double-step to escape, or dance in and out.'
       },
       R: {
         title: 'R • Cataclysm Monolith',
@@ -421,7 +428,7 @@ H.sorceress = {
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
       if (!trySpendMana('Q')) return;
-      hero.cdQ = wtfMode ? 0.22 : [5.2, 4.8, 4.4][rQE] * cdrMult; // (a hero hit refunds Q_REFUND of it on eruption)
+      hero.cdQ = wtfMode ? 0.22 : [5.2, 4.8, 4.4][rQE] * cdrMult; // (pillar hits refund part of it on eruption)
       hero.punchAnim = 0.54;
       if (actor.isPlayer) {
         const qAct = actions.punch || actions.kick;
@@ -499,6 +506,7 @@ H.sorceress = {
   tickActor(actor, dt) {
     const hero = actor.unit;
     const live = actor.isPlayer ? activeHeroId === 'sorceress' : true;
+    if ((hero.qTempoTimer || 0) > 0) { hero.qTempoTimer -= dt; if (hero.qTempoTimer <= 0) hero.qTempoStacks = 0; }
     if (!actor.isPlayer && (hero.stunTimer || 0) > 0) { setPend(actor, 'bolt', null); setPend(actor, 'ult', null); }
     if (!actor.isPlayer) {
       hero.punchAnim = Math.max(0, (hero.punchAnim || 0) - dt);
@@ -578,6 +586,7 @@ H.sorceress = {
 
           let hitHeroOrBoss = false;
           let hitAny = false;
+          let stackCap = 0; // best thing it hit: minion 1, jungle monster 2, hero (or training dummy) 3
           const finalPillarDmg = p.dmg;
 
           const pa = p.owner || KitFx.player; // who cast this pillar
@@ -586,6 +595,7 @@ H.sorceress = {
             if (Math.hypot(d.x - p.x, d.z - p.z) <= p.r + d.r) {
               damageDummy(d, finalPillarDmg, '#e879f9');
               if (p.isFromQ) markTarget(pa.unit, d);
+              stackCap = 3;
               hitHeroOrBoss = true;
               hitAny = true;
             }
@@ -602,6 +612,7 @@ H.sorceress = {
                 if (hit) {
                   hitAny = true;
                   if (p.isFromQ) markTarget(pa.unit, t.ref);
+                  stackCap = Math.max(stackCap, (t.kind === 'bot' || t.kind === 'player') ? 3 : (t.kind === 'camp' ? 2 : (t.kind === 'minion' ? 1 : 0)));
                   if (t.kind === 'bot' || t.kind === 'player') {
                     hitHeroOrBoss = true;
                   }
@@ -610,11 +621,14 @@ H.sorceress = {
             });
           }
 
-          // hitting a hero (or a training dummy) refunds part of Q's cooldown
-          if (p.isFromQ && hitHeroOrBoss) {
+          // stacking cooldown refund: +1 stack per hit (capped by what it hit), 10% of Q's base cooldown per stack
+          if (p.isFromQ && stackCap > 0) {
             const caster = pa.unit;
             const rq = KitFx.rQE(pa.level());
-            caster.cdQ = Math.max(0, (caster.cdQ || 0) - [5.2, 4.8, 4.4][rq] * Q_REFUND);
+            const prev = (caster.qTempoTimer || 0) > 0 ? (caster.qTempoStacks || 0) : 0;
+            caster.qTempoStacks = prev < stackCap ? prev + 1 : prev; // a weaker target can't build past its cap (stacks already earned stay)
+            caster.qTempoTimer = Q_REFUND.holdSec;
+            caster.cdQ = Math.max(0, (caster.cdQ || 0) - [5.2, 4.8, 4.4][rq] * Q_REFUND.perStack * caster.qTempoStacks);
           }
         }
       } else {
@@ -732,7 +746,8 @@ H.sorceress = {
     return n > 0 ? n + '✦' : '';
   },
 
-  // her next basic attack has a mark to pop
+  // Q slot: refund stacks (10% / 20% / 30%)
+  showQStacks() { return (hero.qTempoStacks || 0) > 0 && (hero.qTempoTimer || 0) > 0; },
   qEmpowered() { return false; },
 
   rEmpowered() {
