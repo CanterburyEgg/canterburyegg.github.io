@@ -7,6 +7,13 @@
       "end": 91.9,
       "midi": 76,
       "why": "1:25 (score 90.53-91.94): the orchestral oboe re-strikes 76 76 and drops to 64, but the band's woodwinds strike the 76 at 90.24, strike it once more and hold through the bar. The recording can't settle it alone (the bass walk attacks on every beat). Confirmed by ear Nov 15: D76, then D76 held."
+    },
+    {
+      "staff": "Violins I",
+      "start": 334.5,
+      "end": 338.0,
+      "midi": 89,
+      "why": "4:52 (score 334.59): the band's final chord of the tune rings until the woodwind entries; the orchestral violins re-strike 89 in quarters (the tag the band doesn't play). One held note (user, by ear, Nov 16)."
     }
   ],
   "lead_part": [
@@ -15,6 +22,12 @@
       "start": 97.0,
       "end": 99.0,
       "why": "1:31-1:33 (score 97.0-99.0): between phrases the orchestral first violins walk down 76 72 69 67 under the flutes' running figure. In the band it's a faint clarinet line, background between the main phrases, so nothing plays until the oboe's 72 pickup starts the next phrase. Confirmed by ear Nov 15."
+    },
+    {
+      "staff": "Violins I",
+      "start": 198.7,
+      "end": 198.9,
+      "why": "3:03.6 (score 198.81): the band's short chord ending the fast section; the rules pick the timpani's 43 under it, but the ear hears the top (clarinets / first violins, 79). A general 'timpani isn't the line' rule would change Arabesque's approved timpani hits at 2:40, so it's a correction (Nov 16)."
     }
   ],
   "audio_moves": [
@@ -35,6 +48,55 @@
       "midi": 78,
       "to": 82.46,
       "why": "See 87.07."
+    },
+    {
+      "score_start": 324.21,
+      "midi": 79,
+      "to": 283.75,
+      "why": "4:43.6 (score 324.21-325.36): the violins' 79 82 84 after their held 79 came out uneven and the 79 0.18s early. The recording's attacks at 283.75 / 284.24 / 284.73 match the local pace (0.88x written, as the next held 84 shows) (user, by ear, Nov 16)."
+    },
+    {
+      "score_start": 324.78,
+      "midi": 82,
+      "to": 284.24,
+      "why": "See 324.21."
+    },
+    {
+      "score_start": 325.36,
+      "midi": 84,
+      "to": 284.73,
+      "why": "See 324.21."
+    }
+  ],
+  "time_map": [
+    {
+      "score_from": 338.05,
+      "score_to": 366.5,
+      "audio_from": 295.08,
+      "audio_to": 303.79,
+      "why": "4:55-5:04 (score 338-366.5): the band takes the woodwinds' one-two-three entries about three times faster than the score's tempo marking, and the warp crumpled them. One steady line through the entries' top notes in the recording: 343.71->296.81, 346.71->297.73, 349.71->298.62, 356.46->300.71, 359.46->301.64, 361.71->302.34, 364.71->303.24 (0.306s per written second), so every entry is evenly spaced. Nov 16."
+    },
+    {
+      "score_from": 366.5,
+      "score_to": 386.46,
+      "audio_from": 303.79,
+      "audio_to": 309.75,
+      "why": "5:04-5:10: the rest of the passage, meeting the alignment again at 386.46 (309.75)."
+    }
+  ],
+  "rests": [
+    {
+      "start": 334.65,
+      "end": 338.2,
+      "why": "4:52-4:55 (score 334.6-338.2): after the band's last chord of the tune (334.59, kept as a held chord) the orchestral score has a quarter-note tag (flutes 89 87, clarinets 75 77 70 ..., then the clarinets' held 77); in the band recording only that chord dies away until the woodwind entries (user, by ear, Nov 16)."
+    }
+  ],
+  "chord_passages": [
+    {
+      "start": 291.9,
+      "end": 292.4,
+      "mode": "holds",
+      "why": "4:52.15: the band's final chord of the tune (every part strikes it), held as a chord (user, by ear, Nov 16)."
     }
   ]
 }

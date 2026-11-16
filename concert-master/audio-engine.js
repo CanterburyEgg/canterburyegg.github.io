@@ -1283,6 +1283,7 @@ const LAYOUT_RULES = [
   ['repeatAltOnlyQuick', (n, l) => applyRepeatAltOnlyQuick(n, l)],
   ['climbFitsKeys', (n, l) => applyClimbFitsKeys(n, l)],
   ['figureGrows', (n, l) => applyFigureGrows(n, l)],
+  ['reentryMakesRoom', (n, l) => applyReentryMakesRoom(n, l)],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
 
@@ -4285,20 +4286,23 @@ function applyClimbFitsKeys(notes, lanes) {
   const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
   for (let a = 0; a < n; a++) {
     let b = a;
-    while (b + 1 < n && prim[b + 1].midi > prim[b].midi && prim[b + 1].time - prim[b].time < 0.6) b++;
+    while (b + 1 < n && prim[b + 1].midi > prim[b].midi && prim[b + 1].time - prim[b].time < 0.6 && !prim[b + 1].partEntry) b++;
     const distinct = b - a + 1;
     if (distinct < 3 || distinct > 4) continue;
     let c = b;
     while (c + 1 < n && prim[c + 1].midi === prim[b].midi && prim[c + 1].time - prim[c].time < 0.6) c++;
     const run = prim.slice(a, c + 1);
     if (run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost || x.lane >= lanes)) continue;
-    // only when the climb really ran out of room: two different notes on one key
-    if (!run.some((x, j) => j && x.midi !== run[j - 1].midi && x.lane === run[j - 1].lane)) continue;
+    // only when the climb really ran out of room: two different notes on one key -- or, for a new part's entry, a
+    // climb that wraps round (Jupiter 5:02: the piccolo's 88 92 98 came out K D J; it plays F J K)
+    const entryWrap = run[0].partEntry && run.some((x, j) => j && x.midi !== run[j - 1].midi && x.lane < run[j - 1].lane);
+    if (!entryWrap && !run.some((x, j) => j && x.midi !== run[j - 1].midi && x.lane === run[j - 1].lane)) continue;
     const want = run.map((x, j) => Math.min(j, distinct - 1) + (lanes - distinct));
     const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
     const nx = c + 1 < n && prim[c + 1].time - run[run.length - 1].time < 0.6 ? prim[c + 1] : null;
-    if (pv && !reads(pv, run[0], pv.lane, want[0])) continue;
-    if (nx && !reads(run[run.length - 1], nx, want[want.length - 1], nx.lane)) continue;
+    // (a new part's first note may step back from the note before it, like any section start -- not onto its key)
+    if (pv && !reads(pv, run[0], pv.lane, want[0]) && !(run[0].partEntry && pv.lane !== want[0])) continue;
+    if (nx && !reads(run[run.length - 1], nx, want[want.length - 1], nx.lane) && !(nx.partEntry && nx.lane !== want[want.length - 1])) continue;
     run.forEach((x, j) => (x.lane = want[j]));
     a = c;
   }
@@ -4342,6 +4346,25 @@ function applyFigureGrows(notes, lanes) {
       prim.slice(a + 1, last + 1).some((x, j) => !reads(prim[a + j], x, prim[a + j].lane, x.lane));
     if (bad) prim.slice(a, last).forEach((x, j) => (x.lane = saved[j]));
     a = last + K - 1;
+  }
+}
+
+/**
+ * Re-entry makes room: a note struck again right after it was held on an edge key, when the line then carries on past
+ * that edge (Jupiter 4:45: K84-hold, 84, 87 came out K84 K87, two different notes on K), steps one key in so the line
+ * fits: K84-hold | J84 K87. A one-key step back on the re-entry, like the other phrase restarts.
+ */
+function applyReentryMakesRoom(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  for (let k = 1; k + 1 < prim.length; k++) {
+    const p = prim[k - 1];
+    const x = prim[k];
+    const nx = prim[k + 1];
+    if (p.type !== 'hold' || x.midi !== p.midi || x.lane !== p.lane || x.fixedLane || x.localPin || x.altRun) continue;
+    if (nx.time - x.time >= 0.6 || nx.lane !== x.lane || nx.midi === x.midi) continue;
+    const up = nx.midi > x.midi;
+    if ((up && x.lane !== lanes - 1) || (!up && x.lane !== 0)) continue;
+    x.lane = up ? lanes - 2 : 1;
   }
 }
 

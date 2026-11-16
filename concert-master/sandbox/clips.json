@@ -1,4 +1,4 @@
 [
-  {"song": "jupiter", "start": 79, "end": 84.8, "label": "1:21.7 - J F D moved onto the beat", "issue": "J85 F81 D78 now at 1:21.98 / 1:22.22 / 1:22.46 (were a full eighth early). The D is a tap now: only 0.64s until the next figure."},
-  {"song": "jupiter", "start": 0, "end": 183, "label": "Jupiter 0:00-3:03 full run (sign-off)", "issue": "Everything so far."}
+  {"song": "jupiter", "start": 280.5, "end": 288, "label": "4:43-4:47 - F after the hold on the beat", "issue": "D79-hold, then F79 J82 K84-hold at 4:43.75 / 4:44.24 / 4:44.73 (the F was 0.18s early, uneven), then J84 K87 J86-hold."},
+  {"song": "jupiter", "start": 240, "end": 303, "label": "Jupiter 4:00-5:03 full run", "issue": "Everything from this minute."}
 ]

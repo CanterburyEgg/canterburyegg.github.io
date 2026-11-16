@@ -41,6 +41,7 @@ def run(ns):
         if (
             fused_ties
             and not wn.get("is_coda_fanfare_tap")
+            and not wn.get("keep_restrike")  # (reentry_starts_phrase)
             and not (wn is warped[-1] and wn["score_gap_prev"] >= 0.08)
             and wn["midi"] == fused_ties[-1]["midi"]
             and fused_ties[-1]["score_dur"] >= 0.68
