@@ -1,0 +1,40 @@
+{
+  "_about": "Jupiter (USAF Band wind-ensemble recording, charted from the orchestral MusicXML). Places where the band arrangement differs from the orchestral score, confirmed by ear. Same entry types as the other songs' corrections files (score seconds).",
+  "merge": [
+    {
+      "staff": "Oboe",
+      "start": 90.5,
+      "end": 91.9,
+      "midi": 76,
+      "why": "1:25 (score 90.53-91.94): the orchestral oboe re-strikes 76 76 and drops to 64, but the band's woodwinds strike the 76 at 90.24, strike it once more and hold through the bar. The recording can't settle it alone (the bass walk attacks on every beat). Confirmed by ear Nov 15: D76, then D76 held."
+    }
+  ],
+  "lead_part": [
+    {
+      "staff": "Oboe",
+      "start": 97.0,
+      "end": 99.0,
+      "why": "1:31-1:33 (score 97.0-99.0): between phrases the orchestral first violins walk down 76 72 69 67 under the flutes' running figure. In the band it's a faint clarinet line, background between the main phrases, so nothing plays until the oboe's 72 pickup starts the next phrase. Confirmed by ear Nov 15."
+    }
+  ],
+  "audio_moves": [
+    {
+      "score_start": 87.07,
+      "midi": 85,
+      "to": 81.98,
+      "why": "1:21.7 (score 87.07-87.65): the woodwinds' 85 81 78 after the held 78 came out a full eighth early -- the alignment latched onto a weak attack. The recording's strong attacks (with the band's 52 on the downbeat) are at 81.98 / 82.22 / 82.46 (user, by ear, Nov 16)."
+    },
+    {
+      "score_start": 87.36,
+      "midi": 81,
+      "to": 82.22,
+      "why": "See 87.07."
+    },
+    {
+      "score_start": 87.65,
+      "midi": 78,
+      "to": 82.46,
+      "why": "See 87.07."
+    }
+  ]
+}

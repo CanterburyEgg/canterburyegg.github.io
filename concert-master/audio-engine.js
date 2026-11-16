@@ -973,6 +973,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
       fixedLane: rawMel[i].length > 6 && rawMel[i][6] >= 1, // score-planned lane (hint / percussion tap)
       localHint: rawMel[i].length > 6 && rawMel[i][6] >= 20 && rawMel[i][6] < 30, // one-off pin: never votes
       localPin: rawMel[i].length > 6 && rawMel[i][6] >= 30, // usual-fingering pin: votes, never forces
+      partEntry: rawMel[i].length > 7 && rawMel[i][7] === 1, // the lead moves to a new part here (score)
       unpinnedLane,
       edgeReset,
       hit: false,
@@ -1153,6 +1154,98 @@ function alignChordHoldEnds(notes) {
  *   - Otherwise uses in-browser Viterbi melody stream + percussion fallback.
  */
 /**
+ * A figure stated three or more times in a row plays the same every time: a short figure (3-5 notes, under 1.5s) that
+ * comes round 3+ times close together (each within 3s of the last) takes the keys most of its statements have, as long
+ * as that doesn't step the wrong way or double up a key with the notes either side. It fixes a statement that a
+ * same-note link to the phrase before pulled off the others (Jupiter 0:35.7: the trumpets' 67 71 77 three times = D F J each time, though the clarinets' 67
+ * just before sits on F).
+ */
+function applyRepeatedFigureMajority(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const used = new Uint8Array(n);
+  const clash = (a, b) =>
+    b.time - a.time < 0.6 && a.midi !== b.midi &&
+    (a.lane === b.lane || (Math.sign(b.lane - a.lane) !== Math.sign(b.midi - a.midi) &&
+      !((a.lane === lanes - 1 && b.lane === 0 && b.midi > a.midi) || (a.lane === 0 && b.lane === lanes - 1 && b.midi < a.midi))));
+  for (let k = 5; k >= 3; k--) {
+    for (let i = 0; i + k <= n; i++) {
+      if (used[i]) continue;
+      const fig = prim.slice(i, i + k);
+      if (fig.some((x, q) => used[i + q] || x.fixedLane || x.localPin || x.ghost || (q && x.time - fig[q - 1].time >= 0.6)) || fig[k - 1].time - fig[0].time >= 1.5) continue;
+      if (new Set(fig.map((x) => x.midi)).size < 2) continue;
+      const occ = [i];
+      for (let j = i + k; j + k <= n; j++) {
+        const last = prim[occ[occ.length - 1]];
+        if (prim[j].time - last.time > 3) break;
+        if (prim.slice(j, j + k).every((x, q) => x.midi === fig[q].midi && !used[j + q] && !x.fixedLane && !x.localPin && !x.ghost)) {
+          occ.push(j);
+          j += k - 1;
+        }
+      }
+      if (occ.length < 3) continue;
+      const lay = (j) => prim.slice(j, j + k).map((x) => x.lane).join(',');
+      const votes = {};
+      for (const j of occ) votes[lay(j)] = (votes[lay(j)] || 0) + 1;
+      const [best, cnt] = Object.entries(votes).sort((x, y) => y[1] - x[1])[0];
+      if (cnt * 2 <= occ.length) continue;
+      const bl = best.split(',').map(Number);
+      for (const j of occ) {
+        // (only a statement pulled off the others by a same-note link to the note just before it: that note has the
+        // statement's first pitch, within 0.6s, on the key the statement starts on)
+        const pv = j > 0 ? prim[j - 1] : null;
+        // ...and the statement is a new part coming in, not the same line carrying on (Arabesque 2:55's 60 | 60 61 60 58)
+        const pulled = pv && pv.midi === prim[j].midi && prim[j].time - pv.time < 0.6 && pv.lane === prim[j].lane && prim[j].partEntry;
+        if (lay(j) !== best && pulled) {
+          const saved = prim.slice(j, j + k).map((x) => x.lane);
+          prim.slice(j, j + k).forEach((x, q) => (x.lane = bl[q]));
+          const before = j > 0 ? prim[j - 1] : null;
+          const after = j + k < n ? prim[j + k] : null;
+          if ((before && clash(before, prim[j])) || (after && clash(prim[j + k - 1], after))) prim.slice(j, j + k).forEach((x, q) => (x.lane = saved[q]));
+        }
+        for (let q = 0; q < k; q++) used[j + q] = 1;
+      }
+    }
+  }
+}
+
+/**
+ * Back-to-back repeat: a 3-5-note figure played twice in a row, same pitches and rhythm (Jupiter 0:50.4 / 0:51.3, the
+ * theme's 71 74 76 twice), plays on the same keys both times -- the second statement copies the first, unless that
+ * would step the wrong way or share a key with a different pitch next to it.
+ */
+function applyBackToBackRepeat(notes, lanes) {
+  // (ghost-key notes stay in the list, so a figure with a ghost note between its statements isn't back-to-back: Ride
+  // 1:20.3's 69 68 66 S63 69 68 66 run)
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const clash = (a, b) =>
+    b.time - a.time < 0.6 && a.midi !== b.midi &&
+    (a.lane === b.lane || (Math.sign(b.lane - a.lane) !== Math.sign(b.midi - a.midi) &&
+      !((a.lane === lanes - 1 && b.lane === 0 && b.midi > a.midi) || (a.lane === 0 && b.lane === lanes - 1 && b.midi < a.midi))));
+  const bad = (x) => x.fixedLane || x.localPin || x.ghost || x.altRun || x.lane >= lanes;
+  for (let k = 5; k >= 3; k--) {
+    for (let i = 0; i + 2 * k <= n; i++) {
+      const A = prim.slice(i, i + k);
+      const B = prim.slice(i + k, i + 2 * k);
+      if (A.concat(B).some(bad) || new Set(A.map((x) => x.midi)).size < k) continue;
+      if (!B.every((x, q) => x.midi === A[q].midi)) continue;
+      if (A[k - 1].time - A[0].time >= 1.5 || A.some((x, q) => q && x.time - A[q - 1].time >= 0.6)) continue;
+      const span = A[k - 1].time - A[0].time;
+      const rhythm = A.slice(1).every((x, q) => Math.abs((x.time - A[q].time) - (B[q + 1].time - B[q].time)) <= 0.3 * (x.time - A[q].time) + 0.03);
+      if (!rhythm || B[0].time - A[k - 1].time > Math.max(0.8, span)) continue;
+      if (B.every((x, q) => x.lane === A[q].lane)) continue;
+      const saved = B.map((x) => x.lane);
+      B.forEach((x, q) => (x.lane = A[q].lane));
+      const before = prim[i + k - 1];
+      const after = i + 2 * k < n ? prim[i + 2 * k] : null;
+      if (clash(before, B[0]) || (after && clash(B[k - 1], after))) B.forEach((x, q) => (x.lane = saved[q]));
+      else i += 2 * k - 1;
+    }
+  }
+}
+
+/**
  * Key-layout rules, in the order they run (after the first layout and the "same notes, same keys" vote). Each entry:
  * [name, rule(notes, lanes, ctx), when] -- `when` is 'hard' (Hard only) or 'ghosts' (Hard, and the song allows ghost
  * keys); omitted = always. Debug (like the Python passes' CM_SKIP / CM_PASS_TRACE): set globalThis.CM_LAYOUT =
@@ -1161,6 +1254,7 @@ function alignChordHoldEnds(notes) {
  */
 const LAYOUT_RULES = [
   ['fourNoteWalks', (n, l) => applyFourNoteWalks(n, l)],
+  ['walkRepeatClimb', (n, l) => applyWalkRepeatClimb(n, l)],
   ['neighbourTurns', (n, l) => applyNeighbourTurns(n, l)],
   ['edgeRepeatRuns', (n, l) => applyEdgeRepeatRuns(n, l)],
   ['turnLeadIns', (n, l) => applyTurnLeadIns(n, l)],
@@ -1180,6 +1274,15 @@ const LAYOUT_RULES = [
   ['walkOffGhost', (n, l) => applyWalkOffGhost(n, l)],
   ['turnRoomBeyond', (n, l) => applyTurnRoomBeyond(n, l)],
   ['sixNoteRips', (n, l) => applySixNoteRips(n, l), 'ghosts'],
+  ['fiveNoteClimbGhost', (n, l) => applyFiveNoteClimbGhost(n, l), 'ghosts'],
+  ['repeatedFigureMajority', (n, l) => applyRepeatedFigureMajority(n, l)],
+  ['backToBackRepeat', (n, l) => applyBackToBackRepeat(n, l)],
+  ['fourPitchPhrases', (n, l) => applyFourPitchPhrases(n, l)],
+  ['fivePitchTurnGhost', (n, l) => applyFivePitchTurnGhost(n, l), 'ghosts'],
+  ['entryAboveK', (n, l) => applyEntryAboveK(n, l)],
+  ['repeatAltOnlyQuick', (n, l) => applyRepeatAltOnlyQuick(n, l)],
+  ['climbFitsKeys', (n, l) => applyClimbFitsKeys(n, l)],
+  ['figureGrows', (n, l) => applyFigureGrows(n, l)],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
 
@@ -3900,6 +4003,345 @@ function applyFourNoteWalks(notes, lanes) {
       }
     }
     a = Math.max(a + 1, b);
+  }
+}
+
+/**
+ * Walk, then climb again from the top note: an even four-note walk up whose top note is struck again and the line then
+ * keeps climbing (Jupiter 0:49.4: 59 64 69 71, then 71 74 76 as the theme comes in). Staying on K would leave nowhere to
+ * climb, and wrapping mid-walk (F J K D) puts a wrong-way step inside it, so the walk takes D F J K and the repeated
+ * note starts the new climb from D (D F J K | D F J).
+ */
+function applyWalkRepeatClimb(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const pinned = (x) => x.fixedLane || x.altRun || x.localPin;
+  for (let a = 0; a + 5 < n; a++) {
+    const walk = prim.slice(a, a + 4);
+    const steps = walk.slice(1).map((x, j) => x.midi - walk[j].midi);
+    const gaps = walk.slice(1).map((x, j) => x.time - walk[j].time);
+    if (steps.some((s) => s < 1 || s > 7) || Math.max(...gaps) > 1.3) continue;
+    if (Math.max(...gaps) > 1.6 * Math.min(...gaps) + 0.03) continue;
+    const rep = prim[a + 4];
+    if (rep.midi !== walk[3].midi || rep.time - walk[3].time > 1.6 * Math.max(...gaps) + 0.03) continue;
+    // the climb after the repeat: rising, linked notes (up to the three keys left after D)
+    const climb = [rep];
+    for (let k = a + 5; k < n && climb.length < 4; k++) {
+      const s = prim[k].midi - climb[climb.length - 1].midi;
+      if (s < 1 || s > 7 || prim[k].time - climb[climb.length - 1].time > 0.8) break;
+      climb.push(prim[k]);
+    }
+    if (climb.length < 3) continue;
+    const prev = a > 0 && walk[0].time - prim[a - 1].time < 0.8 ? prim[a - 1] : null;
+    if (prev && !(prev.midi > walk[0].midi || prev.lane < 0)) continue;
+    const after = prim[a + 4 + climb.length];
+    const all = walk.concat(climb);
+    if (all.some(pinned)) continue;
+    const want = [0, 1, 2, 3, ...climb.map((_, j) => j)];
+    if (after && after.time - climb[climb.length - 1].time < 0.8) {
+      const lq = want[want.length - 1];
+      const ok = after.midi === climb[climb.length - 1].midi ? after.lane === lq : Math.sign(after.midi - climb[climb.length - 1].midi) === Math.sign(after.lane - lq);
+      if (!ok) continue;
+    }
+    all.forEach((x, j) => (x.lane = want[j]));
+    a += 3;
+  }
+}
+
+/**
+ * Five-note climb on a ghost key: an even five-note run (steps of a 3rd or less, up to ~0.3s apart -- slower than the
+ * quick runs `assignGhostLanes` takes) that four keys can't hold without two different notes sharing a key (Jupiter
+ * 1:08: the horns' 66 67 69 71 74 came out D F J K K) takes the ghost key at its far start: S D F J K going up,
+ * L K J F D going down. Taps only, and it must join the notes either side the right way.
+ */
+function applyFiveNoteClimbGhost(notes, lanes) {
+  const S = lanes;
+  const L = lanes + 1;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => (l === S ? -1 : l === L ? lanes : l);
+  for (let a = 0; a + 4 < n; a++) {
+    const run = prim.slice(a, a + 5);
+    const steps = run.slice(1).map((x, j) => x.midi - run[j].midi);
+    const dir = Math.sign(steps[0]);
+    if (!dir || steps.some((s) => Math.sign(s) !== dir || Math.abs(s) > 4)) continue;
+    const gaps = run.slice(1).map((x, j) => x.time - run[j].time);
+    if (Math.max(...gaps) > 0.3 || Math.max(...gaps) > 1.4 * Math.min(...gaps) + 0.02) continue;
+    // a longer run in the same direction isn't five notes
+    const pv = a > 0 ? prim[a - 1] : null;
+    const nx = a + 5 < n ? prim[a + 5] : null;
+    if (pv && Math.sign(run[0].midi - pv.midi) === dir && run[0].time - pv.time < 0.4) continue;
+    if (nx && Math.sign(nx.midi - run[4].midi) === dir && nx.time - run[4].time < 0.4) continue;
+    if (run.some((x) => x.fixedLane || x.altRun || x.ghost || x.lane >= lanes)) continue;
+    // only when four keys fail it: two neighbouring notes of the run share a key
+    if (!run.some((x, j) => j && x.lane === run[j - 1].lane)) continue;
+    const seq = dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0];
+    if (run.some((x, j) => seq[j] >= lanes && x.type === 'hold')) continue;
+    const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+    if (pv && run[0].time - pv.time < 0.6 && !reads(pv, run[0], pv.lane, seq[0])) continue;
+    if (nx && nx.time - run[4].time < 0.6 && !reads(run[4], nx, seq[4], nx.lane)) continue;
+    run.forEach((x, j) => {
+      x.lane = seq[j];
+      if (seq[j] >= lanes) x.ghost = seq[j] === S ? 'S' : 'L';
+    });
+    a += 4;
+  }
+}
+
+/**
+ * Four-pitch phrases: a phrase that moves among just four pitches (6+ notes, no breath longer than 0.8s, Jupiter 1:44's
+ * horn tune 67 62 64 65 64 62 67 62 64 and its return at 1:52 an octave up) plays them in pitch order on D F J K, so the
+ * same note is always the same key and every step reads the right way (K D F J F D K D F). Only when the layout it has
+ * breaks that; it must join the note after it the right way, and the note before it too unless the phrase is a new
+ * part coming in.
+ */
+function applyFourPitchPhrases(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => (l === lanes ? -1 : l === lanes + 1 ? lanes : l);
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+  let a = 0;
+  while (a < n) {
+    const set = new Set([prim[a].midi]);
+    let b = a;
+    while (b + 1 < n && prim[b + 1].time - prim[b].time < 0.8 && !prim[b + 1].partEntry && (set.has(prim[b + 1].midi) || set.size < 4)) {
+      set.add(prim[b + 1].midi);
+      b++;
+    }
+    const run = prim.slice(a, b + 1);
+    // (an even line of taps at a singing pace -- 0.3s+ apart, not quick turns like Ride 0:13's 73 72 73 72 70 -- with no
+    // note struck twice in a row: Ride 0:18's 77 77 77 73 70 around a held 79 stays as locked)
+    const gaps = run.slice(1).map((x, j) => x.time - run[j].time).sort((x, y) => x - y);
+    const med = gaps[gaps.length >> 1] || 0;
+    const ok =
+      run.length >= 6 && set.size === 4 && med >= 0.3 &&
+      gaps[0] >= 0.6 * med && gaps[gaps.length - 1] <= 1.6 * med &&
+      !run.some((x, j) => (j && x.midi === run[j - 1].midi) || (j < run.length - 1 && x.type === 'hold')) &&
+      !run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost || x.lane >= lanes) &&
+      (run.some((x, j) => j && !reads(run[j - 1], x, run[j - 1].lane, x.lane)) ||
+        run.some((x) => run.some((y) => y.midi === x.midi && y.lane !== x.lane)) ||
+        // (or it reads right but skips keys out of pitch order -- Jupiter 2:10's horn tune came out J D J K J D, while
+        // its other statements are K D F J F D; a new part's first note may still cheat, below)
+        (run[0].partEntry && run.slice(1).some((x) => x.lane !== [...set].sort((p, q) => p - q).indexOf(x.midi))));
+    if (ok) {
+      const order = [...set].sort((x, y) => x - y);
+      const want = run.map((x) => order.indexOf(x.midi));
+      const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+      const nx = b + 1 < n && prim[b + 1].time - run[run.length - 1].time < 0.6 ? prim[b + 1] : null;
+      let inOk = !pv || reads(pv, run[0], pv.lane, want[0]);
+      // a new part coming in may start its first note on another key, one that reads right from the note before it and
+      // into its second note (Jupiter 1:44: the trumpets' K74, then the horns' 67 on J, not a second K)
+      if (!inOk && run[0].partEntry && run[1].midi !== run[0].midi) {
+        const near = (l) => run.slice(1, 5).findIndex((y) => y.midi !== run[0].midi && want[run.indexOf(y)] === l);
+        const alt = [0, 1, 2, 3]
+          .filter((l) => reads(pv, run[0], pv.lane, l) && reads(run[0], run[1], l, want[1]))
+          .sort((x, y) => (near(y) < 0 ? 9 : near(y)) - (near(x) < 0 ? 9 : near(x)) || Math.abs(x - want[0]) - Math.abs(y - want[0]))[0];
+        if (alt !== undefined) {
+          want[0] = alt;
+          inOk = true;
+        }
+      }
+      const outOk = !nx || reads(run[run.length - 1], nx, want[want.length - 1], nx.lane);
+      if (inOk && outOk) {
+        run.forEach((x, j) => (x.lane = want[j]));
+        a = b + 1;
+        continue;
+      }
+    }
+    a++;
+  }
+}
+
+/**
+ * Five-pitch turn phrases on a ghost key: a phrase with quick three-note turns in it that moves among exactly five
+ * pitches (Jupiter 1:48: 67 62 64 | 65 67 69 | 67-69-67 | 65 | 64-65-64 | 62, and 1:56 an octave up) can't climb and
+ * turn on four keys without stepping the wrong way, so it plays its pitches in order on D F J K and the top one on the
+ * L ghost key: K D F | J K L | K L K | J | F J F | D. Only when one of its turns comes out on two keys, and only if the
+ * top note is always a tap. The note after it may restart lower down after a longer note (0.3s+), like any new phrase.
+ */
+function applyFivePitchTurnGhost(notes, lanes) {
+  if (lanes !== 4) return;
+  const L = lanes + 1;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => (l === lanes ? -1 : l === L ? lanes : l);
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+  let a = 0;
+  while (a < n) {
+    const set = new Set([prim[a].midi]);
+    let b = a;
+    while (b + 1 < n && prim[b + 1].time - prim[b].time < 0.8 && !prim[b + 1].partEntry && (set.has(prim[b + 1].midi) || set.size < 5)) {
+      set.add(prim[b + 1].midi);
+      b++;
+    }
+    const run = prim.slice(a, b + 1);
+    const turn = run.some((x, j) => j + 2 < run.length && run[j + 2].midi === x.midi && run[j + 1].midi !== x.midi &&
+      Math.abs(run[j + 1].midi - x.midi) <= 2 && run[j + 2].time - x.time <= 0.36);
+    const order = [...set].sort((x, y) => x - y);
+    // (turns set in a singing tune -- 3+ gaps of 0.3s or more between its notes -- not a quick flurry: Ride 1:37's
+    // 82 84 82 81 82 81 79 run stays as locked)
+    const slowGaps = run.filter((x, j) => j && x.time - run[j - 1].time >= 0.3).length;
+    const ok =
+      set.size === 5 && run.length >= 8 && turn && slowGaps >= 3 &&
+      !run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost || x.lane >= lanes) &&
+      !run.some((x) => x.midi === order[4] && x.type === 'hold') &&
+      // (only when one of its turns doesn't go out and back on one key -- Jupiter's F67 K69 J67. Turns that already do,
+      // like Ride 1:50's J74 K75 J74 or Arabesque 1:41's J85 K87 J85, stay as locked)
+      run.some((x, j) => j + 2 < run.length && run[j + 2].midi === x.midi && run[j + 1].midi !== x.midi &&
+        run[j + 2].time - x.time <= 0.36 && run[j + 2].lane !== x.lane);
+    if (ok) {
+      const want = run.map((x) => { const r = order.indexOf(x.midi); return r === 4 ? L : r; });
+      const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+      const nx = b + 1 < n && prim[b + 1].time - run[run.length - 1].time < 0.6 ? prim[b + 1] : null;
+      const inOk = !pv || reads(pv, run[0], pv.lane, want[0]);
+      const last = run[run.length - 1];
+      const outOk = !nx || reads(last, nx, want[want.length - 1], nx.lane) ||
+        (nx.time - last.time >= 0.25 && nx.midi !== last.midi && kp(nx.lane) !== kp(want[want.length - 1]));
+      if (inOk && outOk) {
+        run.forEach((x, j) => {
+          x.lane = want[j];
+          if (want[j] === L) x.ghost = 'L';
+        });
+        a = b + 1;
+        continue;
+      }
+    }
+    a++;
+  }
+}
+
+/**
+ * Entry above a K: when a phrase climbs to K (or would, but was bent back to stay clear of the next note -- J59 D60)
+ * and a new part comes straight in on a higher note, the climb finishes on K and the new part's first note "cheats" one
+ * key back to J: a wrong-way step, but it's the start of the next section, and better than two different notes on K
+ * (Jupiter 1:52: F57 D55 F57 J59 K60 | J79 D74 F76 J77, not K60 K79 or J59 D60; same as 1:44's K74 | J67; 2:32's
+ * K60 | J78-hold). The note after the entry, if it's close, must be lower and read right from J.
+ */
+function applyEntryAboveK(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  for (let k = 2; k + 1 < prim.length; k++) {
+    const e = prim[k];
+    const p = prim[k - 1];
+    const pp = prim[k - 2];
+    const nx = prim[k + 1];
+    if (!e.partEntry || e.ghost || e.fixedLane || e.localPin || p.fixedLane || p.localPin) continue;
+    if (e.time - p.time >= 0.6 || e.midi <= p.midi) continue;
+    // (the note after the entry, if close, must be lower and read right from J; a held entry needs room after it)
+    const close = nx.time - e.time < 0.6;
+    if (close && (e.type === 'hold' || nx.midi >= e.midi || nx.lane >= 2)) continue;
+    if (p.lane >= lanes || pp.lane >= lanes) continue;
+    // the climb into p: rising from pp; p belongs on the key after pp's (or already sits on K)
+    const climbing = p.midi > pp.midi && p.time - pp.time < 0.6;
+    const bent = climbing && pp.lane === 2 && p.lane < pp.lane;
+    if (!(bent || (p.lane === 3 && e.lane === 3))) continue;
+    p.lane = 3;
+    e.lane = 2;
+  }
+}
+
+/**
+ * Repeated notes flip keys only when quick: in a run of one repeated pitch that mixes slow strikes with quick bursts
+ * (Jupiter 2:35's trumpet fanfare on 73: quarters and eighths, then a burst of four 16ths), the keys only alternate
+ * inside the quick bursts (notes under 0.145s apart, the "hammer-on"); every slower strike goes back to the run's own
+ * key. Runs that are quick all the way through keep alternating as before.
+ */
+function applyRepeatAltOnlyQuick(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  let s = 0;
+  while (s < n) {
+    let e = s;
+    while (e + 1 < n && prim[e + 1].altRun && prim[s].altRun && prim[e + 1].midi === prim[s].midi && prim[e + 1].time - prim[e].time < 0.5) e++;
+    if (e - s >= 3) {
+      const run = prim.slice(s, e + 1);
+      const gaps = run.slice(1).map((x, j) => x.time - run[j].time);
+      const slow = gaps.filter((g) => g >= 0.2).length;
+      // (mostly slow strikes with a quick burst or two in them -- a run that's mostly quick, like Sevens 2:36's mallet
+      // 45s, keeps alternating all the way, as locked)
+      if (slow >= 3 && slow * 2 >= gaps.length && gaps.some((g) => g < 0.145)) {
+        const base = run[0].lane;
+        const partner = run.find((x) => x.lane !== base)?.lane ?? (base >= lanes / 2 ? base - 1 : base + 1);
+        for (let j = 1; j < run.length; j++) run[j].lane = gaps[j - 1] < 0.145 && run[j - 1].lane === base ? partner : base;
+      }
+    }
+    s = e + 1;
+  }
+}
+
+/**
+ * Climb fits the keys: a short climb of 3-4 different notes (each a step up, under 0.6s apart, maybe ending on a
+ * repeated top note) that runs out of room and puts two of its notes on one key (Jupiter 2:48: 60 63 67 67 came out
+ * J K K K, because its 60 kept the key of the 60 a beat earlier) is laid so its top lands on K: F J K (K) or D F J K
+ * (K). The note before it, if close, must still read right; one of the same pitch 0.8s+ back doesn't hold it.
+ */
+function applyClimbFitsKeys(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => (l === lanes ? -1 : l === lanes + 1 ? lanes : l);
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+  for (let a = 0; a < n; a++) {
+    let b = a;
+    while (b + 1 < n && prim[b + 1].midi > prim[b].midi && prim[b + 1].time - prim[b].time < 0.6) b++;
+    const distinct = b - a + 1;
+    if (distinct < 3 || distinct > 4) continue;
+    let c = b;
+    while (c + 1 < n && prim[c + 1].midi === prim[b].midi && prim[c + 1].time - prim[c].time < 0.6) c++;
+    const run = prim.slice(a, c + 1);
+    if (run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost || x.lane >= lanes)) continue;
+    // only when the climb really ran out of room: two different notes on one key
+    if (!run.some((x, j) => j && x.midi !== run[j - 1].midi && x.lane === run[j - 1].lane)) continue;
+    const want = run.map((x, j) => Math.min(j, distinct - 1) + (lanes - distinct));
+    const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+    const nx = c + 1 < n && prim[c + 1].time - run[run.length - 1].time < 0.6 ? prim[c + 1] : null;
+    if (pv && !reads(pv, run[0], pv.lane, want[0])) continue;
+    if (nx && !reads(run[run.length - 1], nx, want[want.length - 1], nx.lane)) continue;
+    run.forEach((x, j) => (x.lane = want[j]));
+    a = c;
+  }
+}
+
+/**
+ * Figure grows: a short figure (3 notes) played two or more times in a row and then once more with extra notes on the
+ * end (Jupiter 0:28: the horns' 55 60 65 | 55 60 65 | 55 60 65 67) keeps the keys the long statement needs from the
+ * start, so it doesn't change shape when it grows: D F J | D F J | D F J K, not D J K | D J K | D F J K. Only if the
+ * short statements still read right into each other and from the note before.
+ */
+function applyFigureGrows(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => l;
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+  const K = 3;
+  for (let a = 0; a + 3 * K < n; a++) {
+    const fig = prim.slice(a, a + K);
+    if (new Set(fig.map((x) => x.midi)).size < K || fig.some((x, j) => j && x.time - fig[j - 1].time >= 0.6)) continue;
+    const same = (s) => prim.slice(s, s + K).every((x, j) => x.midi === fig[j].midi);
+    const starts = [a];
+    let s = a + K;
+    while (s + K <= n && same(s) && prim[s].time - prim[s - 1].time < 1.0) {
+      starts.push(s);
+      s += K;
+    }
+    const last = starts[starts.length - 1];
+    // the last statement carries on: its next note follows straight on, continuing the same direction
+    const ext = prim[last + K];
+    const dir = Math.sign(fig[K - 1].midi - fig[0].midi);
+    if (starts.length < 3 || !ext || ext.time - prim[last + K - 1].time >= 0.6 || Math.sign(ext.midi - fig[K - 1].midi) !== dir) continue;
+    const want = prim.slice(last, last + K).map((x) => x.lane);
+    const earlier = starts.slice(0, -1);
+    if (earlier.every((st) => prim.slice(st, st + K).every((x, j) => x.lane === want[j]))) continue;
+    if (prim.slice(a, last + K).some((x) => x.fixedLane || x.localPin || x.ghost || x.altRun)) continue;
+    const saved = prim.slice(a, last).map((x) => x.lane);
+    earlier.forEach((st) => prim.slice(st, st + K).forEach((x, j) => (x.lane = want[j])));
+    const pv = a > 0 && prim[a].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+    const bad = (pv && !reads(pv, prim[a], pv.lane, prim[a].lane)) ||
+      prim.slice(a + 1, last + 1).some((x, j) => !reads(prim[a + j], x, prim[a + j].lane, x.lane));
+    if (bad) prim.slice(a, last).forEach((x, j) => (x.lane = saved[j]));
+    a = last + K - 1;
   }
 }
 

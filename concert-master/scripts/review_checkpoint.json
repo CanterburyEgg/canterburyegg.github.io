@@ -1,11 +1,11 @@
 {
   "_meta": {
-    "label": "cm50 lock: Ride re-audit after pitch fix (rules only)",
-    "saved_at": "2026-11-14T19:47:24"
+    "label": "Jupiter 0:00-3:03 approved",
+    "saved_at": "2026-11-16T12:09:42"
   },
   "arabesque": {
     "title": "Arabesque (Samuel R. Hazo)",
-    "sidecar_sha256": "d0465007c6e97ff6e63a932dac63b5c6ec88c39747816e1f0efcdbd350229b43",
+    "sidecar_sha256": "e4981cdb61b797f30e259eb15b156d1fc773f7aed4e8cb2abbde7003ec36d936",
     "mode": "4k:more",
     "notes": [
       {
@@ -9660,7 +9660,7 @@
   },
   "sevens": {
     "title": "Sevens (Samuel R. Hazo)",
-    "sidecar_sha256": "4a312bad299bc82f0cecdcd5e8157f2edec14cd6c951503051a6201097b9ecf3",
+    "sidecar_sha256": "9b22f821e1395508673a72a97d16796c5c62fa9da6e3a2387ac87c1ff049d7b5",
     "mode": "4k:more",
     "notes": [
       {
@@ -16138,7 +16138,7 @@
   },
   "ride": {
     "title": "Ride (Samuel R. Hazo)",
-    "sidecar_sha256": "61aee7a0d62b43ced39d34c43893c6d47207ab39a43141bf5b1c66951dd99269",
+    "sidecar_sha256": "90613177ac35005b9dde739644bf0a674c3df875aadd161cd7455b19f25d51ce",
     "mode": "4k:more",
     "notes": [
       {
@@ -22157,7 +22157,7 @@
   },
   "what-we-do": {
     "title": "What We Do (RuneScape 3)",
-    "sidecar_sha256": "77328b452074d2c8aa22df4eed3eb6022c8df8f56ce2a980f235280958d32788",
+    "sidecar_sha256": "14559df54a4546a6596de0325b810dc1efda69d7c67d1a54f58dcb15e0e7c74d",
     "mode": "4k:more",
     "notes": [
       {
@@ -33279,7 +33279,7 @@
   },
   "sound-of-guthix": {
     "title": "The Sound of Guthix (RuneScape 3)",
-    "sidecar_sha256": "96b052f69c3e1092e9149cd713e3a9ee3e90f23e9e14f6d5aa70193bc5f765ea",
+    "sidecar_sha256": "edd7cfa3d5f72fcfcf0e48249f194504fd971525476932a0465662c66f66fd7a",
     "mode": "4k:more",
     "notes": [
       {

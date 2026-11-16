@@ -120,6 +120,11 @@ def run(ns):
             # pinned here only, not copied to other statements: 30..33 if it is the phrase's usual fingering (other
             # statements may follow it), 20..23 if it is a one-off exception (others ignore it)
             out_row.append((30 if wn.get("local_hint_votes") else 20) + int(wn["local_hint"]))
+        # (field 7: the lead changes part here -- a new instrument's entry; field 6 is 0 when there's no hint)
+        if idx_w > 0 and wn.get("staff") and warped[idx_w - 1].get("staff") and wn.get("staff") != warped[idx_w - 1].get("staff"):
+            if len(out_row) == 6:
+                out_row.append(0)
+            out_row.append(1)
         melody_out.append(out_row)
 
     if act is not MISSING:

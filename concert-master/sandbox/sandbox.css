@@ -98,18 +98,27 @@ kbd {
 
 .clip-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 16px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
 }
 
 .clip-song { margin: 0; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
 .clip-title { margin: 2px 0; font-size: 1.4rem; }
-.clip-issue { margin: 0; font-size: 0.8rem; color: var(--muted); }
+.clip-issue {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+  /* (long notes stay to two lines; the full text is on hover) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-.controls { display: flex; align-items: center; gap: 10px; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 
 .controls button {
   font: inherit;

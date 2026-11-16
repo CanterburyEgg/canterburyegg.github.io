@@ -1,3 +1,4 @@
 [
-  {"song": "ride", "start": 100.0, "end": 104.5, "label": "Ride 1:40-1:44", "issue": "K79(hold) back on its attack at 101.02 (was 101.09; same as the old chart). J74 K75 J74 stay at 102.12 / 102.46 / 102.81."}
+  {"song": "jupiter", "start": 79, "end": 84.8, "label": "1:21.7 - J F D moved onto the beat", "issue": "J85 F81 D78 now at 1:21.98 / 1:22.22 / 1:22.46 (were a full eighth early). The D is a tap now: only 0.64s until the next figure."},
+  {"song": "jupiter", "start": 0, "end": 183, "label": "Jupiter 0:00-3:03 full run (sign-off)", "issue": "Everything so far."}
 ]

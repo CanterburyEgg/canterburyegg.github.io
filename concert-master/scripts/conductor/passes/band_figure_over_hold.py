@@ -9,6 +9,7 @@ ends; a figure that starts after the hold's attack keeps the held note until it 
 """
 
 from ..core import instrument_role_prior
+from ._ostinato import is_ostinato
 
 
 def run(ctx):
@@ -40,6 +41,10 @@ def run(ctx):
         ref = {round(float(n["start"]), 2) for n in movers[0][1]}
         same = [m for m in movers if len({round(float(n["start"]), 2) for n in m[1]} & ref) >= 0.8 * len(ref)]
         if len(same) <= holders or len(same) < 4:
+            continue
+        # (an ostinato going round under the held note is the accompaniment, not a figure: Jupiter 0:11, the running
+        # strings and woodwinds under the trumpets' held 76)
+        if is_ostinato(same[0][1]):
             continue
         hm = int(h["midi"])
         # (a figure that sits at or below the held note -- even its highest copy -- is accompaniment under the tune: the

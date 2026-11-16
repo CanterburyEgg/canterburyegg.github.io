@@ -27,6 +27,7 @@ const els = {
   issue: document.getElementById('clip-issue'),
   clock: document.getElementById('clock'),
   play: document.getElementById('btn-play'),
+  pause: document.getElementById('btn-pause'),
   slow: document.getElementById('btn-slow'),
   sideOld: document.getElementById('btn-side-old'),
   refBaseline: document.getElementById('btn-ref-baseline'),
@@ -220,6 +221,7 @@ async function selectClip(i, autoplay) {
   els.song.textContent = `${track.title} · ${track.composer}`;
   els.title.textContent = `${fmt(clip.start)} – ${fmt(clip.end)} · ${clip.label}`;
   els.issue.textContent = clip.issue || '';
+  els.issue.title = clip.issue || '';
 
   const base = refSnapshot()[clip.song];
   state.oldNotes = base ? clipNotes(base.notes, clip) : [];
@@ -246,7 +248,10 @@ async function selectClip(i, autoplay) {
     state.audio.src = blobUrl;
     state.audio.dataset.src = url;
   }
+  state.userPaused = false;
+  state.audio.pause();
   seekToStart();
+  renderPause();
   if (autoplay) play();
 }
 
@@ -263,8 +268,31 @@ function play() {
   ensureCtx();
   resetPlayState();
   seekToStart();
+  state.userPaused = false;
   state.audio.playbackRate = state.slow ? 0.5 : 1;
   state.audio.play().catch((e) => (els.status.textContent = `Audio blocked: ${e.message}`));
+  renderPause();
+}
+
+// Pause keeps your place (and your score so far); resume picks up from there. Start always restarts the clip.
+function togglePause() {
+  if (state.idx < 0) return;
+  const clip = state.clips[state.idx];
+  if (!state.audio.paused) {
+    state.audio.pause();
+    state.userPaused = true;
+  } else if (state.userPaused && songTime() < clip.end + PAD) {
+    state.userPaused = false;
+    state.audio.playbackRate = state.slow ? 0.5 : 1;
+    state.audio.play().catch((e) => (els.status.textContent = `Audio blocked: ${e.message}`));
+  }
+  renderPause();
+}
+
+function renderPause() {
+  const playing = !state.audio.paused;
+  els.pause.disabled = !playing && !state.userPaused;
+  els.pause.textContent = state.userPaused ? '▶ Resume' : '⏸ Pause';
 }
 
 // ---------------------------------------------------------------- playing
@@ -536,13 +564,16 @@ async function init() {
   renderRef();
   renderClipList();
   renderSide();
-  els.status.textContent = `Play with D F J K (+ ghost S/L) · scroll speed from your game settings · offset adjustable at the top ([ / ]) · Grey = unchanged · Red (baseline) / Green (current) = changed · White outline = chord partner · Dashed lines = audited window`;
+  els.status.textContent = `Play with D F J K (+ ghost S/L) · Space = start over · P or Esc = pause / resume · scroll speed from your game settings · offset adjustable at the top ([ / ]) · Grey = unchanged · Red (baseline) / Green (current) = changed · White outline = chord partner · Dashed lines = audited window`;
   await countAllDiffs();
   await selectClip(0, false);
   requestAnimationFrame(loop);
 }
 
 els.play.addEventListener('click', play);
+els.pause.addEventListener('click', togglePause);
+state.audio.addEventListener('pause', renderPause);
+state.audio.addEventListener('play', renderPause);
 els.slow.addEventListener('click', () => {
   state.slow = !state.slow;
   els.slow.textContent = `0.5× Slow-mo: ${state.slow ? 'On' : 'Off'}`;
@@ -591,8 +622,8 @@ window.addEventListener('keydown', (e) => {
     setOffsetMs(AUDIO_OFFSET * 1000 + step);
   } else if (e.code === 'KeyM') {
     els.slow.click(); // (S is the ghost key now)
-  } else if (e.code === 'Escape') {
-    state.audio.pause();
+  } else if (e.code === 'KeyP' || e.code === 'Escape') {
+    togglePause();
   }
 });
 window.addEventListener('keyup', (e) => {

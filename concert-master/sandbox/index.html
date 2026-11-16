@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="./sandbox.css?v=3" />
+  <link rel="stylesheet" href="./sandbox.css?v=4" />
 </head>
 <body>
   <aside class="clip-list">
@@ -20,7 +20,7 @@
     <div id="clips" role="listbox" aria-label="Audit clips"></div>
     <p class="hint keys">
       <kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd> play (+ ghost <kbd>S</kbd> <kbd>L</kbd>) &nbsp; <kbd>Space</kbd> start/replay &nbsp; <kbd>Tab</kbd> switch side · <kbd>C</kbd> baseline/checkpoint<br />
-      <kbd>↑</kbd><kbd>↓</kbd> clip &nbsp; <kbd>M</kbd> slow-mo &nbsp; <kbd>[</kbd><kbd>]</kbd> offset &nbsp; <kbd>Esc</kbd> stop
+      <kbd>↑</kbd><kbd>↓</kbd> clip &nbsp; <kbd>M</kbd> slow-mo &nbsp; <kbd>[</kbd><kbd>]</kbd> offset &nbsp; <kbd>P</kbd>/<kbd>Esc</kbd> pause · resume
     </p>
   </aside>
 
@@ -41,6 +41,7 @@
           <button type="button" id="btn-side-new">Play current</button>
         </div>
         <button type="button" id="btn-play">▶ Start</button>
+        <button type="button" id="btn-pause" title="Pause / resume where you are (P)" disabled>⏸ Pause</button>
         <button type="button" id="btn-slow">0.5× Slow-mo: Off</button>
         <span class="offset" title="Audio offset (shared with the game). [ / ] = ±5 ms, Shift = ±20 ms">
           Offset <button type="button" id="offset-minus">−</button><b id="offset-val">0 ms</b><button type="button" id="offset-plus">+</button>
@@ -66,6 +67,6 @@
     <p id="status" class="status"></p>
   </main>
 
-  <script type="module" src="./sandbox.js?v=10"></script>
+  <script type="module" src="./sandbox.js?v=11"></script>
 </body>
 </html>
