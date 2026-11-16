@@ -74,19 +74,32 @@ function buildArena3D(x, z) {
   hero.wasInsideArena = true;
   const pLvl = phase1Engine ? (phase1Engine.getPlayerProg().level || 4) : 4;
   const rUlt = pLvl >= 12 ? 2 : (pLvl >= 8 ? 1 : 0);
-  const baseArenaAmp = [1.20, 1.25, 1.30][rUlt] + (talents[10] === 'L' ? 0.10 : 0);
-  const arenaDur = talents[10] === 'L' ? 7.0 : 5.5;
+  const baseArenaAmp = [1.20, 1.25, 1.30][rUlt];
+  const arenaDur = 5.5;
   arena = { x, z, r: radius, life: arenaDur, group, wall, amp: baseArenaAmp };
   if (phase1Engine && phase1Engine.onArenaSpawned) {
     phase1Engine.onArenaSpawned(arena);
   }
-  // Brawler 10R Talent (Gladiator's Rush): Casting R immediately resets E cooldown!
-  if (talents[10] === 'R') {
-    hero.cdE = 0;
-  }
   SFX.play('arena');
   spawnShockRing(x, z, 0xf43f5e, 0.8, radius, 0.35);
   spawnFloat(x, 2.8, z, 'WELCOME TO THE PIT!', '#fb7185');
+}
+
+// ---- Passive: "Don't Turn Your Back" (DESIGN_RULES Brawler) ----
+// Her first basic attack (or Q kick) on an enemy moving AWAY from her deals bonus damage and a crippling slow, then
+// that target has its own cooldown. "Moving away" = its speed away from her (engine-tracked _vx/_vz) above DTYB.away.
+const DTYB = { away: 1.2, slowDur: 1.0, slowPct: 0.4, cd: 6.0 };
+const dtybReady = new WeakMap(); // target -> Map(caster -> time it's ready again)
+function dontTurnReady(by, u) {
+  const vx = u._vx || 0, vz = u._vz || 0;
+  const dx = u.x - by.x, dz = u.z - by.z, d = Math.hypot(dx, dz) || 0.01;
+  if ((vx * dx + vz * dz) / d < DTYB.away) return false;
+  const now = performance.now() / 1000;
+  let m = dtybReady.get(u);
+  if (!m) dtybReady.set(u, (m = new Map()));
+  if ((m.get(by) || 0) > now) return false;
+  m.set(by, now + DTYB.cd);
+  return true;
 }
 
 // E dash clips: 1st dash = flying kick (jump), rebound 2nd dash = running slide
@@ -140,29 +153,19 @@ H.brawler = {
   },
 
   // All of the Brawler's damage numbers in one place. Punches and the Q kick (counts as a basic attack) are Attack
-  // damage; the E dash and the 7L slam are Ability damage.
+  // damage (so is the passive's bonus hit); the E dash is Ability damage.
   dmg: {
     punch: (st) => Math.round(st.attack),
-    haymakerBonus: (st, lvl) => Math.round(20 + 3 * ((lvl || 1) - 1) + st.attack * 0.25), // 7R every 3rd punch
+    dontTurn: (st, lvl) => Math.round(40 + 8 * ((lvl || 1) - 1) + st.attack * 0.6),        // passive bonus hit
     kick: (st, rQE) => Math.round([110, 140, 170][rQE] + st.attack * 2.0),
     dash: (st, lvl, rQE) => Math.round([80, 120, 160][rQE] + 7 * ((lvl || 1) - 1) + st.ability * 0.5),
-    slam7L: (st, lvl) => Math.round(50 + 6 * ((lvl || 1) - 1) + st.ability * 0.4),
     shield: (lvl, rQE) => Math.round([180, 240, 300][rQE] + (lvl || 1) * 15)
   },
 
   talents: {
-    3: {
-      L: { id: '3L', name: 'Low Blow', desc: '-1.5s Q MMA Stun Kick cooldown & +0.25s Stun' },
-      R: { id: '3R', name: 'Relentless Siphon', desc: 'Her punches siphon 4% Move Speed per hit (up to 12%) for 6s' }
-    },
-    7: {
-      L: { id: '7L', name: 'Heavy Impact', desc: '+35% E Rebound Shield & her 2nd Jump Vault slams a 2.4m AoE' },
-      R: { id: '7R', name: 'Haymaker Cleave', desc: 'Every 3rd punch cleaves nearby foes & heals her for +55 (+5/Lv) HP' }
-    },
-    10: {
-      L: { id: '10L', name: 'Bloodsport Champion', desc: '+1.5s R Pit Arena duration & +10% extra Arena bonus damage' },
-      R: { id: '10R', name: 'Cage Fighter', desc: 'Casting R resets E cooldown & Arena wall rebounds deal +65% bonus dmg' }
-    }
+    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
+    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
   },
 
   ui: {
@@ -172,7 +175,7 @@ H.brawler = {
     color: '#f43f5e',
     name: 'Pit Brawler (3D)',
     role: 'Solo • Melee Coliseum Bruiser (Attack)',
-    passive: 'Combo Siphon',
+    passive: "Don't Turn",
     lmb: 'Punch',
     q: 'Stun Kick',
     e: '2x Dash',
@@ -180,35 +183,30 @@ H.brawler = {
     banner: '<b>1/2/3/4</b> Hero &bull; <b>LMB</b> Punch &bull; <b>Q+LMB</b> Stun Kick &bull; <b>E</b> 2x Vault Dash &bull; <b>R</b> Pit Arena &bull; <b>P</b> Shop &bull; <b>F</b> Ward &bull; <b>B</b> Recall',
     tooltips: {
       P: {
-        title: 'Passive • Coliseum Rhythm',
-        meta: 'Innate Combo & Siphon',
+        title: "Passive • Don't Turn Your Back",
+        meta: '6s per target',
         metaColor: '#fb7185',
-        body: 'She chains rapid <b>left/right hook combinations</b> in melee combat, siphoning Move Speed. Wall-rebounding with <b>E: Vault Dash</b> grants her a <b>Coliseum Barrier Shield</b> and unlocks a second recast dash.',
-        talentLevels: [3, 7]
+        body: 'Her first basic attack (or Q kick) on an enemy <b>moving away from her</b> deals <b>40 (+8/Lv) + 60% Attack</b> bonus damage and <b>slows them 40% for 1s</b>. Then that target is safe from it for 6s.'
       },
       LMB: {
         title: 'LMB • Heavy Knuckle Combo',
         meta: '0 MP • 1.04s Base ATK',
-        body: 'She strikes enemies in front of her for <b>100% Attack</b>, alternating between rapid jabs and heavy cross hooks.',
-        talentLevels: [3, 7]
+        body: 'She strikes enemies in front of her for <b>100% Attack</b>, alternating between rapid jabs and heavy cross hooks.'
       },
       Q: {
         title: 'Q • MMA Roundhouse Kick',
         meta: '40 MP • 7.5s / 6.8s / 6.0s CD (Lv 1/6/9)',
-        body: 'Empowers her next basic attack (or fires immediately if an enemy is in range) to unleash a spinning roundhouse kick that deals <b>60 / 90 / 120 + 200% Attack</b> (counts as a basic attack) and <b>Stuns for 1.0s / 1.1s / 1.2s</b>.',
-        talentLevels: [3]
+        body: 'Empowers her next basic attack (or fires immediately if an enemy is in range) to unleash a spinning roundhouse kick that deals <b>60 / 90 / 120 + 200% Attack</b> (counts as a basic attack) and <b>Stuns for 1.0s / 1.1s / 1.2s</b>.'
       },
       E: {
         title: 'E • 2x Cage Vault Dash',
         meta: '50 MP • 10.0s / 9.0s / 8.0s CD (Lv 1/6/9)',
-        body: 'She lunges forward with a <b>Flying Kick</b> for <b>80 / 120 / 160 (+7/Lv) + 50% Ability</b>. Colliding with an enemy or wall/pillar grants a <b>Shield</b> and unlocks a <b>2nd Recast (Running Slide)</b> within 3.0s.',
-        talentLevels: [7]
+        body: 'She lunges forward with a <b>Flying Kick</b> for <b>80 / 120 / 160 (+7/Lv) + 50% Ability</b>. Colliding with an enemy or wall/pillar grants a <b>Shield</b> and unlocks a <b>2nd Recast (Running Slide)</b> within 3.0s.'
       },
       R: {
         title: 'R • Bloodsport Pit Arena',
         meta: '95 MP • 46s / 40s / 34s CD (Lv 4/8/12)',
-        body: 'She slams the ground to erect an octagonal ring of <b>Coliseum Stone Walls</b> for 5.0s (+20% / 25% / 30% damage inside), trapping enemies (and herself) and creating rebound surfaces for <b>E: Vault Dash</b>. <b>Recast R to drop the Pit early.</b>',
-        talentLevels: [10]
+        body: 'She slams the ground to erect an octagonal ring of <b>Coliseum Stone Walls</b> for 5.0s (+20% / 25% / 30% damage inside), trapping enemies (and herself; <b>her allies walk in and out freely</b>) and creating rebound surfaces for <b>E: Vault Dash</b>. <b>Recast R to drop the Pit early.</b>'
       }
     }
   },
@@ -302,7 +300,7 @@ H.brawler = {
     }
   },
 
-  // LMB hook punches (+ 7R Haymaker Cleave every 3rd) OR empowered Q Crushing Kick impact; siphons Move Speed
+  // LMB hook punches OR empowered Q Crushing Kick impact (+ the Don't Turn Your Back bonus)
   onStrikeImpact(strike, ctx) {
     return this.strikeImpactFor(KitFx.player, strike, ctx);
   },
@@ -313,36 +311,23 @@ H.brawler = {
     const fx = hero.x + Math.sin(strike.facing) * 1.15;
     const fz = hero.z + Math.cos(strike.facing) * 1.15;
 
-    // Brawler 7R Talent (Haymaker Cleave): Every 3rd basic punch unleashes a 2.3m shockwave (+36+4/Lv dmg & heals 55+5/Lv HP)!
-    let isHaymaker = false;
-    const haymakerHeal = 55 + (pProg.level || 1) * 5;
-    if (!strike.isKick && talents[7] === 'R') {
-      // Own counter so the left/right combo can't scramble the "every 3rd punch" count
-      hero.haymakerCount = ((hero.haymakerCount || 0) + 1) % 3;
-      if (hero.haymakerCount === 0) {
-        isHaymaker = true;
-        hero.hp = Math.min(hero.maxHp, hero.hp + haymakerHeal);
-        spawnShockRing(fx, fz, 0xfde047, 0.3, 2.35, 0.28);
-        spawnFloat(hero.x, 2.6, hero.z, 'HAYMAKER CLEAVE! (+' + haymakerHeal + ' HP)', '#4ade80');
-      }
-    }
-    const hitRadius = strike.isKick ? 1.95 : (isHaymaker ? 2.35 : 1.52);
+    const hitRadius = strike.isKick ? 1.95 : 1.52;
     spawnShockRing(fx, fz, strike.isKick ? 0xfbbf24 : 0xf43f5e, 0.25, hitRadius, 0.24);
 
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-    const baseStrikeDmg = strike.isKick
-      ? H.brawler.dmg.kick(st, rQE)
-      : H.brawler.dmg.punch(st) + (isHaymaker ? H.brawler.dmg.haymakerBonus(st, pProg.level) : 0);
-    const stunDur = [1.0, 1.1, 1.2][rQE] + (talents[3] === 'L' ? 0.25 : 0);
-    const siphonStep = talents[3] === 'R' ? 0.04 : 0.02;
-    const siphonCap = talents[3] === 'R' ? 0.12 : 0.08;
+    const baseStrikeDmg = strike.isKick ? H.brawler.dmg.kick(st, rQE) : H.brawler.dmg.punch(st);
+    const stunDur = [1.0, 1.1, 1.2][rQE];
+    const dtyb = H.brawler.dmg.dontTurn(st, pProg.level);
 
     if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
         damageDummy(d, baseStrikeDmg);
-        d.siphoned = Math.min(siphonCap, d.siphoned + siphonStep);
-        d.siphonTimer = 4.0;
+        if (dontTurnReady(hero, d)) {
+          damageDummy(d, dtyb, '#fde047');
+          CC.slow(d, DTYB.slowDur, DTYB.slowPct);
+          spawnFloat(d.x, 2.85, d.z, "DON'T TURN YOUR BACK!", '#fde047');
+        }
         if (strike.isKick) {
           d.stunTimer = stunDur;
           spawnFloat(d.x, 2.7, d.z, 'STUNNED!', '#fde047');
@@ -361,9 +346,11 @@ H.brawler = {
             isBasic: true, src: 'attack', // punches, and the kick (counts as a basic attack)
             stunDur: strike.isKick ? stunDur : 0
           });
-          if (didHit) {
-            hero.siphonBonus = Math.min(siphonCap, (hero.siphonBonus || 0) + siphonStep);
-            if (!actor.isPlayer) hero.siphonTimer = 5.0;
+          // Passive: the first hit on someone running away from her = bonus damage + a crippling slow
+          if (didHit && t.kind !== 'structure' && t.ref && dontTurnReady(hero, t.ref)) {
+            actor.damage(t, dtyb * arenaMult, { src: 'attack', slowDur: DTYB.slowDur, slowPct: DTYB.slowPct, color: '#fde047' });
+            spawnFloat(t.x, 2.85, t.z, "DON'T TURN YOUR BACK!", '#fde047');
+            spawnShockRing(t.x, t.z, 0xfde047, 0.2, 1.1, 0.22);
           }
         }
       });
@@ -385,7 +372,7 @@ H.brawler = {
     if (slot === 'Q') {
       if (!wtfMode && hero.cdQ > 0) return;
       if (!trySpendMana('Q')) return;
-      const baseQCd = [7.5, 6.8, 6.0][rQE] - (talents[3] === 'L' ? 1.5 : 0);
+      const baseQCd = [7.5, 6.8, 6.0][rQE];
       hero.cdQ = wtfMode ? 0.15 : baseQCd * cdrMult;
       hero.qArmed = true;
       hero.atkTimer = 0;
@@ -449,7 +436,7 @@ H.brawler = {
     const hero = actor.unit; // (local alias: the dasher)
     if (!hero.dashHit && (hitWall || hitDummy || hitHostile)) {
       hero.dashHit = true;
-      const rimMult = hitArenaRim ? (talents[10] === 'R' ? 1.65 : 1.35) : 1.0;
+      const rimMult = hitArenaRim ? 1.35 : 1.0;
       const dashDmg = Math.round(H.brawler.dmg.dash(st, pProg.level, KitFx.rQE(pProg.level || 1)) * rimMult);
       if (hitDummy) damageDummy(hitDummy, dashDmg);
       if (hitHostile && phase1Engine) {
@@ -482,7 +469,7 @@ H.brawler = {
       if (hero.dashKind === 'first') {
         hero.dashTimer = 0;
         const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-        const shieldMult = (talents[7] === 'L' ? 1.35 : 1.0) * (hitArenaRim ? 1.35 : 1.0);
+        const shieldMult = hitArenaRim ? 1.35 : 1.0;
         hero.shield = Math.round(H.brawler.dmg.shield(pProg.level, rQE) * shieldMult);
         hero.shieldTimer = 3.5;
         hero.eRecast = 3.0;
@@ -498,16 +485,6 @@ H.brawler = {
         );
       }
     }
-    if (hero.dashTimer <= 0 && hero.dashKind === 'second' && talents[7] === 'L') {
-      spawnShockRing(hero.x, hero.z, 0xf43f5e, 0.3, 2.4, 0.3);
-      if (phase1Engine) {
-        actor.hostiles().forEach((t) => {
-          if (Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.4 + t.r) {
-            actor.damage(t, H.brawler.dmg.slam7L(st, pProg.level), { src: 'ability', aoe: true });
-          }
-        });
-      }
-    }
   },
 
   // ---- Bots (Phase 2). Q fires the kick straight away; E = the same Rebound Rush with its own collision check here;
@@ -520,7 +497,7 @@ H.brawler = {
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L['br_' + slot] = (L['br_' + slot] || 0) + 1;
     if (slot === 'Q') {
       if (hero.cdQ > 0) return;
-      hero.cdQ = ([7.5, 6.8, 6.0][rQE] - (talents[3] === 'L' ? 1.5 : 0)) * (ctx.cdrMult || 1);
+      hero.cdQ = [7.5, 6.8, 6.0][rQE] * (ctx.cdrMult || 1);
       this.basicAttackFor(actor, st, true);
     } else if (slot === 'E') {
       const second = (hero.eRecast || 0) > 0;
@@ -539,8 +516,7 @@ H.brawler = {
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
       hero.cdR = [46.0, 40.0, 34.0][rUlt] * (ctx.cdrMult || 1);
-      if (actor.pitArena) actor.pitArena(talents[10] === 'L' ? 7.0 : 5.5);
-      if (talents[10] === 'R') hero.cdE = 0;
+      if (actor.pitArena) actor.pitArena(5.5);
     }
   },
 
@@ -590,9 +566,7 @@ H.brawler = {
   },
 
   // Passive slot pip text ('' hides it)
-  passivePip(st) {
-    return hero.siphonBonus > 0 ? '+' + Math.round(hero.siphonBonus * 100) + '%' : '';
-  },
+  passivePip(st) { return ''; },
 
   // R slot glows while the Pit is up (recast to drop it)
   rEmpowered() {

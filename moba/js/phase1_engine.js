@@ -3966,7 +3966,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     function clampUnitToArena(u, ar, uTeam = 1) {
       if (!ar || !u) return;
       const arTeam = ar.team !== undefined ? ar.team : 0;
-      if (uTeam === arTeam) return;
+      if (uTeam === arTeam && u !== ar.casterBot) return; // her allies walk in and out freely; she stays in
       let wasIn;
       if (ar.insideMap) {
         if (!ar.insideMap.has(u)) {
@@ -4805,6 +4805,17 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!matchMode || gameOver) return;
 
       matchTime += dt;
+      // per-frame velocity of every unit (_vx/_vz; e.g. Brawler's "Don't Turn Your Back" checks who's running away)
+      if (dt > 0) {
+        const trackVel = (u) => {
+          if (u._px !== undefined) { u._vx = (u.x - u._px) / dt; u._vz = (u.z - u._pz) / dt; }
+          u._px = u.x; u._pz = u.z;
+        };
+        trackVel(hero);
+        bots.forEach(trackVel);
+        minions.forEach(trackVel);
+        camps.forEach(trackVel);
+      }
       const mins = String(Math.floor(matchTime / 60)).padStart(2, '0');
       const secs = String(Math.floor(matchTime % 60)).padStart(2, '0');
       const clk = document.getElementById('p1-clock');
