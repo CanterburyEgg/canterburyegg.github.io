@@ -760,6 +760,8 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     impacts: sidecar.impacts || [],
     chordNotes: sidecar.chordNotes || [], // score chords entering under a held melody note: [start, end, midi]
     ghostNotes: sidecar.ghostNotes, // false = this song never uses ghost keys (e.g. Sevens, by taste)
+    // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
+    exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
     chordHits: sidecar.chordHits || [], // ensemble chord hits on a melody note: [time, chord tone above, chord tone below]
   };
 }
@@ -1059,7 +1061,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
   ghostEdgeOK = isDense && features.ghostNotes !== false;
-  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [] });
+  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore });
 
   // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)
   let lastPercSolo = -10;
@@ -1285,6 +1287,9 @@ const LAYOUT_RULES = [
   ['figureGrows', (n, l) => applyFigureGrows(n, l)],
   ['reentryMakesRoom', (n, l) => applyReentryMakesRoom(n, l)],
   ['fourWalkDown', (n, l) => applyFourWalkDown(n, l)],
+  ['figureIntoHoldRepeats', (n, l) => applyFigureIntoHoldRepeats(n, l)],
+  ['threeNoBacktrack', (n, l) => applyThreeNoBacktrack(n, l)],
+  ['linesKeepDirection', (n, l, c) => { if (c.exactScore) applyLinesKeepDirection(n, l, c.ghosts); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
 
@@ -4054,8 +4059,8 @@ function applyWalkRepeatClimb(notes, lanes) {
 /**
  * Five-note climb on a ghost key: an even five-note run (steps of a 3rd or less, up to ~0.3s apart -- slower than the
  * quick runs `assignGhostLanes` takes) that four keys can't hold without two different notes sharing a key (Jupiter
- * 1:08: the horns' 66 67 69 71 74 came out D F J K K) takes the ghost key at its far start: S D F J K going up,
- * L K J F D going down. Taps only, and it must join the notes either side the right way.
+ * 1:08: the horns' 66 67 69 71 74 came out D F J K K) takes the ghost key at its far start when it's quick (S D F J K
+ * going up, L K J F D going down) and steps back once at the start at a walking pace (F D F J K / J K J F D; user, Nov 17). Taps only, and it must join the notes either side the right way.
  */
 function applyFiveNoteClimbGhost(notes, lanes) {
   const S = lanes;
@@ -4078,7 +4083,9 @@ function applyFiveNoteClimbGhost(notes, lanes) {
     if (run.some((x) => x.fixedLane || x.altRun || x.ghost || x.lane >= lanes)) continue;
     // only when four keys fail it: two neighbouring notes of the run share a key
     if (!run.some((x, j) => j && x.lane === run[j - 1].lane)) continue;
-    const seq = dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0];
+    // (at a walking pace -- median gap 0.18s+ -- it steps back once at the start instead: F D F J K / J K J F D)
+    const medG = [...gaps].sort((x, y) => x - y)[2];
+    const seq = medG >= 0.18 ? (dir > 0 ? [1, 0, 1, 2, 3] : [2, 3, 2, 1, 0]) : dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0];
     if (run.some((x, j) => seq[j] >= lanes && x.type === 'hold')) continue;
     const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
     if (pv && run[0].time - pv.time < 0.6 && !reads(pv, run[0], pv.lane, seq[0])) continue;
@@ -4398,6 +4405,125 @@ function applyFourWalkDown(notes, lanes) {
     if (pv && pv.time - run[0].time > -0.6 && pv.lane === 3 && pv.midi !== run[0].midi) continue;
     run.forEach((x, j) => (x.lane = 3 - j));
     a += 3;
+  }
+}
+
+/**
+ * Figure into a hold repeats its keys: a short figure (3 notes) ending on a held note, played again a few seconds later
+ * with the same notes and rhythm (Jupiter 6:02 / 6:06: the horns' 57 60 62-hold, D F J the first time, D F D the
+ * second), takes the first statement's keys. The step after the hold may go back a key -- a phrase restarting -- but
+ * the figure must still read right from the note before it.
+ */
+function applyFigureIntoHoldRepeats(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => l;
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+  for (let i = 0; i + 2 < n; i++) {
+    const fig = prim.slice(i, i + 3);
+    if (fig[2].type !== 'hold' || fig[0].type === 'hold' || fig[1].type === 'hold') continue;
+    for (let j = i + 3; j + 2 < n && prim[j].time - fig[0].time < 8; j++) {
+      const rep = prim.slice(j, j + 3);
+      if (!rep.every((x, q) => x.midi === fig[q].midi) || rep[2].type !== 'hold') continue;
+      const r1 = fig[1].time - fig[0].time, r2 = fig[2].time - fig[1].time;
+      if (Math.abs((rep[1].time - rep[0].time) - r1) > 0.25 * r1 + 0.03 || Math.abs((rep[2].time - rep[1].time) - r2) > 0.25 * r2 + 0.03) continue;
+      if (rep.every((x, q) => x.lane === fig[q].lane) || rep.some((x) => x.fixedLane || x.localPin || x.altRun || x.ghost)) continue;
+      const pv = j > 0 && rep[0].time - prim[j - 1].time < 0.6 ? prim[j - 1] : null;
+      if (pv && !reads(pv, rep[0], pv.lane, fig[0].lane)) continue;
+      // (the note after the hold: same pitch keeps its key; otherwise it may step back but not land on the hold's key)
+      const nx = j + 3 < n ? prim[j + 3] : null;
+      if (nx && nx.midi !== rep[2].midi && nx.lane === fig[2].lane && nx.time - rep[2].time < 1.2) continue;
+      rep.forEach((x, q) => (x.lane = fig[q].lane));
+      break;
+    }
+  }
+}
+
+/**
+ * Three notes one way, three keys one way: a quick three-note figure that climbs (or falls) all the way (Jupiter 6:38:
+ * the horns' 57 62 67) whose third note was pulled back onto an earlier key (D F D, to match the next part's 67) keeps
+ * going instead: D F J. Only when the next key along is free, the figure stands alone (a gap or a new part after it),
+ * and it then still reads into the note after it, a new part's first note excepted.
+ */
+function applyThreeNoBacktrack(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  for (let a = 0; a + 2 < n; a++) {
+    const [p, q, r] = prim.slice(a, a + 3);
+    if (r.time - p.time > 0.9 || [p, q, r].some((x) => x.fixedLane || x.localPin || x.altRun || x.ghost)) continue;
+    const d1 = Math.sign(q.midi - p.midi), d2 = Math.sign(r.midi - q.midi);
+    if (!d1 || d1 !== d2 || Math.sign(q.lane - p.lane) !== d1) continue;
+    if (Math.sign(r.lane - q.lane) === d1) continue;
+    const want = q.lane + d1;
+    if (want < 0 || want >= lanes) continue;
+    // (the figure's own: before and after it, a gap or a different part)
+    const before = a > 0 ? prim[a - 1] : null;
+    const after = a + 3 < n ? prim[a + 3] : null;
+    if (before && p.time - before.time < 0.4 && Math.sign(p.midi - before.midi) === d1) continue;
+    if (after && !after.partEntry && after.time - r.time < 0.4) continue;
+    r.lane = want;
+    a += 2;
+  }
+}
+
+/**
+ * Lines keep direction (exact scores): a quick line of 3-5 notes all moving one way plays on keys moving the same way.
+ * Where a step inside the line goes back on the keys (Jupiter 6:07: 64 65 67 69 came out F J F J; 6:55: 57 58 60 62 as
+ * F J F J), and that step isn't a phrase restart -- after a longer note (a gap 1.5x the line's pace) or on a new part's
+ * first note, like the approved restarts at 1:51 and the walk-downs that start on K -- the line is laid in order: up to
+ * four different notes on D F J K (K J F D going down), starting where it joins the notes either side the right way;
+ * five going one way on S D F J K / L K J F D when the song uses ghost keys. If nothing fits, it's left as it was.
+ */
+function applyLinesKeepDirection(notes, lanes, ghosts) {
+  if (lanes !== 4) return;
+  const S = lanes;
+  const L = lanes + 1;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const kp = (l) => (l === S ? -1 : l === L ? lanes : l);
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? kp(lp) === kp(lq) : kp(lp) !== kp(lq) && Math.sign(kp(lq) - kp(lp)) === Math.sign(q.midi - p.midi);
+  const wrapOK = (p, q) => (kp(p.lane) === lanes - 1 && kp(q.lane) === 0 && q.midi > p.midi) || (kp(p.lane) === 0 && kp(q.lane) === lanes - 1 && q.midi < p.midi);
+  const bad = (x) => x.fixedLane || x.localPin || x.altRun || x.ghost;
+  for (let a = 0; a + 2 < n; a++) {
+    // the longest one-way quick line from a (up to 5 notes)
+    const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
+    if (!dir) continue;
+    let b = a + 1;
+    while (b + 1 < n && b - a < 4 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir && Math.abs(prim[b + 1].midi - prim[b].midi) <= 4) b++;
+    const run = prim.slice(a, b + 1);
+    if (run.length < 3 || run.some((x, j) => j && Math.abs(x.midi - run[j - 1].midi) > 4) || run.some(bad) || run.some((x) => x.lane >= lanes)) continue;
+    const gaps = run.slice(1).map((x, j) => x.time - run[j].time);
+    // (quick, though not always even: 0:55's 55 57 58 60 62 mixes eighths and sixteenths)
+    if (Math.max(...gaps) >= 0.4 || Math.max(...gaps) > 3.5 * Math.min(...gaps) + 0.03) continue;
+    const pace = Math.min(...gaps);
+    // a step back inside it that isn't a wrap or a restart
+    const backs = run.map((x, j) => j && !reads(run[j - 1], x, run[j - 1].lane, x.lane) && !wrapOK(run[j - 1], x)
+      && !(x.partEntry) && !(gaps[j - 1] >= 1.5 * pace && gaps[j - 1] >= 0.3)).slice(1);
+    if (!backs.some(Boolean)) continue;
+    const k = run.length;
+    const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+    const nx = b + 1 < n && prim[b + 1].time - run[k - 1].time < 0.6 ? prim[b + 1] : null;
+    let options = [];
+    if (k <= 4) {
+      for (let st = 0; st + k <= lanes; st++) options.push(run.map((_, j) => (dir > 0 ? st + j : lanes - 1 - st - j)));
+    } else if (k === 5) {
+      // (five at a walking pace -- median gap 0.18s+ -- step back once at the start instead of a ghost key: F D F J K
+      // up, J K J F D down; a quick run takes the ghost: S D F J K / L K J F D)
+      const med = [...gaps].sort((x, y) => x - y)[gaps.length >> 1];
+      if (med >= 0.18) options.push(dir > 0 ? [1, 0, 1, 2, 3] : [2, 3, 2, 1, 0]);
+      else if (ghosts) options.push(dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0]);
+    }
+    const fits = (o) => (!pv || run[0].partEntry || reads(pv, run[0], pv.lane, o[0])) && (!nx || nx.partEntry || reads(run[k - 1], nx, o[k - 1], nx.lane));
+    options = options.filter(fits);
+    if (!options.length) continue;
+    // (closest to where the line already sits)
+    options.sort((o1, o2) => o1.reduce((s_, l, j) => s_ + Math.abs(kp(l) - kp(run[j].lane)), 0) - o2.reduce((s_, l, j) => s_ + Math.abs(kp(l) - kp(run[j].lane)), 0));
+    const o = options[0];
+    run.forEach((x, j) => {
+      x.lane = o[j];
+      if (o[j] >= lanes) x.ghost = o[j] === S ? 'S' : 'L';
+    });
+    a = b - 1;
   }
 }
 

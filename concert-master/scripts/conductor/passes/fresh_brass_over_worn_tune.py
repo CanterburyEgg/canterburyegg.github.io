@@ -37,7 +37,9 @@ def run(ctx):
             if len(starts) >= 2:
                 for q in range(a, a + N):
                     worn[q] = True
-    staves = [st for st in ctx.staves if not st.get("is_drum") and any(b in st["name"].lower() for b in BRASS)]
+    # (the English horn is a woodwind, whatever its name says)
+    staves = [st for st in ctx.staves if not st.get("is_drum") and any(b in st["name"].lower() for b in BRASS)
+              and "english" not in st["name"].lower()]
     out, i, changed = [], 0, False
     while i < len(lead):
         if not worn[i]:

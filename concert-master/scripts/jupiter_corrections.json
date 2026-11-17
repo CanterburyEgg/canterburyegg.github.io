@@ -14,6 +14,13 @@
       "end": 338.0,
       "midi": 89,
       "why": "4:52 (score 334.59): the band's final chord of the tune rings until the woodwind entries; the orchestral violins re-strike 89 in quarters (the tag the band doesn't play). One held note (user, by ear, Nov 16)."
+    },
+    {
+      "staff": "B♭ Clarinet",
+      "start": 456.1,
+      "end": 457.0,
+      "midi": 67,
+      "why": "6:17 (score 456.18-457.1): the woodwinds re-strike 67 in quarters under the flutes' held note; you hear one held note with the flutes (user, by ear, Nov 16)."
     }
   ],
   "lead_part": [
@@ -40,6 +47,30 @@
       "start": 425.85,
       "end": 426.8,
       "why": "5:45 (score 425.89): in the silence between the trumpets' calls the bassoons (with low strings) walk up 50 55 60 62 into the oboes (user, by ear, Nov 16)."
+    },
+    {
+      "staff": "B♭ Clarinet",
+      "start": 452.4,
+      "end": 453.8,
+      "why": "6:12-6:13 (score 452.43-453.8): the woodwinds' scale flourish 50 ... 86 is what you hear; the horns' and violas' 50s under it read as stray taps (user, by ear, Nov 16)."
+    },
+    {
+      "staff": "Horn in F",
+      "start": 475.35,
+      "end": 477.25,
+      "why": "6:35 (score 475.39-477.27): the horns' moving 55 60 65 | 57 62 67 is the melody; the woodwinds just hold 79 / 74 above it (user, by ear, Nov 16)."
+    },
+    {
+      "staff": "Horn in F",
+      "start": 490.85,
+      "end": 498.85,
+      "why": "6:50-6:57 (score 490.89-498.8): the horns' line 67 69 70 69 67 | 67 69 62 64 ... is the main line; the woodwinds' arpeggio flourishes over it can't be heard in the band (user, by ear, Nov 16)."
+    },
+    {
+      "staff": "C Trumpet",
+      "start": 499.2,
+      "end": 501.2,
+      "why": "7:00 (score 499.23): the trumpets' call 67 72 77 69 74 79 (answered by the woodwinds at 501.23) is the interesting part, over the low unison 60 55 57 58 line (user, by ear, Nov 16)."
     }
   ],
   "audio_moves": [
@@ -101,6 +132,13 @@
       "audio_from": 356.66,
       "audio_to": 360.4,
       "why": "5:56-6:00 (score 436-440): the trumpets' 69 72 74 triplets keep a steady pace in the band (attacks every ~0.22s, 356.68 ... 360.40); the score's slight ritardando and the warp made the chart slow down where nobody does (user, by ear, Nov 16)."
+    },
+    {
+      "score_from": 452.43,
+      "score_to": 453.83,
+      "audio_from": 372.68,
+      "audio_to": 374.05,
+      "why": "6:12.7-6:14 (score 452.43-453.83): the woodwinds' scale flourish 50 ... 86 came out with its first dozen notes stacked on one instant; laid out evenly from its first note to the piccolo/oboe entry that follows it (Nov 16)."
     }
   ],
   "rests": [
@@ -130,6 +168,15 @@
       "end": 411.34,
       "midi": 67,
       "why": "5:32 (score 411.1): the trumpets' walk down 72 71 69 stops, but the second violins (with them) finish it on 67 -- the four-note walk down you hear (user, by ear, Nov 16)."
+    }
+  ],
+  "thin": [
+    {
+      "staff": "B♭ Clarinet",
+      "start": 452.4,
+      "end": 453.8,
+      "every": 2,
+      "why": "6:12 (score 452.43-453.8): the woodwinds' 22-note scale 50 ... 86 (about 16 notes a second) is too dense to tap; every other note keeps the rising sweep (user's choice, Nov 16)."
     }
   ]
 }

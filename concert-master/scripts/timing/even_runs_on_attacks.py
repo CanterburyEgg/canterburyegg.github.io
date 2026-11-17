@@ -58,8 +58,11 @@ def run(ns):
                     pace0 = (float(mo[min(a + 3, b)][0]) - float(mo[a][0])) / (ss[min(a + 3, b)] - ss[a])
                     chain, cur, ok_n = [(a, p0)], p0, 0
                     for k in idx[1:]:
-                        exp = cur + pace0 * (ss[k] - ss[chain[-1][0]])
-                        f0, f1 = max(2, int(round((exp - 0.07) / dt))), min(len(a_ons) - 3, int(round((exp + 0.07) / dt)))
+                        step = pace0 * (ss[k] - ss[chain[-1][0]])
+                        exp = cur + step
+                        # (never at or before the last attack taken: each note gets its own, at least half a step on)
+                        lo = max(exp - 0.07, cur + 0.5 * step)
+                        f0, f1 = max(2, int(round(lo / dt))), min(len(a_ons) - 3, int(round((exp + 0.07) / dt)))
                         if f1 <= f0:
                             break
                         f = f0 + int(np.argmax(a_ons[f0:f1 + 1]))
@@ -76,6 +79,9 @@ def run(ns):
                 sc = np.array([ss[k] for k, _ in got])
                 # the attacks themselves keep an even pace (a straight line through them fits within 0.03s)
                 fit = np.polyfit(sc, pts, 1)
+                if fit[0] <= 0.1:
+                    a = b
+                    continue
                 resid = pts - np.polyval(fit, sc)
                 offs = [p - float(mo[k][0]) for k, p in got]
                 # (only a run that's out of shape against them -- some notes early, some late, 0.08s+ apart -- not one that
