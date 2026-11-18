@@ -33,110 +33,23 @@ window.MOBA_PHASE1 = (function () {
   const HERO_SPECS = {
   };
 
-  // 4-Slot Base Shop Items (Physical, Fantasy, Mana & Tank Support — Zero Active Keys!)
-  // Placeholder items converted straight to the new stats (atk -> attack, fant -> ability, armor/fResist -> resist,
-  // 15% CDR -> 18 Haste) until the shop overhaul (DESIGN_RULES.md §2 'Stat list and shop structure').
-  const SHOP_ITEMS = [
-    {
-      id: 'boots_swift',
-      name: 'Desert Strider Boots',
-      cost: 450,
-      stats: { spdPct: 0.12, maxHp: 120 },
-      desc: '+12% Move Speed, +120 Max HP'
-    },
-    {
-      id: 'serrated_dirk',
-      name: 'Serrated Brass Dirk',
-      cost: 550,
-      stats: { attack: 24, asPct: 0.12 },
-      desc: '+24 Attack, +12% Attack Speed'
-    },
-    {
-      id: 'astral_tome',
-      name: "Starweaver's Codex",
-      cost: 550,
-      stats: { ability: 34, maxMp: 180, mpRegen: 4.0 },
-      desc: '+34 Ability, +180 Max Mana, +4 MP/s Regen'
-    },
-    {
-      id: 'vamp_fang',
-      name: 'Crimson Leech Fang',
-      cost: 650,
-      stats: { attack: 22, lifesteal: 0.14, spellVamp: 0.07 },
-      desc: '+22 Attack, +14% Lifesteal, +7% Spell Vamp'
-    },
-    {
-      id: 'coliseum_plate',
-      name: 'Coliseum Iron Greaves',
-      cost: 650,
-      stats: { maxHp: 340, resist: 22 },
-      desc: '+340 Max HP, +22 Resist'
-    },
-    {
-      id: 'aegis_cloak',
-      name: 'Spellbreaker Mantle',
-      cost: 700,
-      stats: { maxHp: 320, resist: 32, allyAuraRes: 12 },
-      desc: '+320 HP, +32 Resist • Aura: Nearby allies gain +12 Resist'
-    },
-    {
-      id: 'mana_pendant',
-      name: 'Soulstone Chalice',
-      cost: 750,
-      stats: { ability: 42, maxMp: 220, haste: 18, mpRegen: 5.0 },
-      desc: '+42 Ability, +220 Max Mana, +18 Haste'
-    },
-    {
-      id: 'repeating_spring',
-      name: 'Clockwork Crank-Spring',
-      cost: 800,
-      stats: { attack: 26, asPct: 0.25, haste: 18 },
-      desc: '+26 Attack, +25% Attack Speed, +18 Haste'
-    },
-    {
-      id: 'frost_bolter',
-      name: 'Frostbite Broadheads',
-      cost: 900,
-      stats: { attack: 32, maxHp: 220, slowOnHit: 0.22 },
-      desc: '+32 Attack, +220 HP • Passive: Basic Attacks slow by 22% for 1.5s'
-    },
-    {
-      id: 'titan_gauntlet',
-      name: "Pit Champion's Cestus",
-      cost: 950,
-      stats: { attack: 35, maxHp: 380, cleaveProc: 75 },
-      desc: '+35 Attack, +380 HP • Passive: Attacks shockwave 2.4m for +75 damage'
-    },
-    {
-      id: 'cataclysm_crown',
-      name: 'Crown of the Astral Archon',
-      cost: 1100,
-      stats: { ability: 68, maxHp: 240, spellAmp: 0.18 },
-      desc: '+68 Ability, +240 HP • Passive: Abilities deal +18% damage'
-    },
-    {
-      id: 'executioner_bow',
-      name: 'Heartseeker Repeater',
-      cost: 1150,
-      stats: { attack: 54, asPct: 0.20, executeAmp: 0.25 },
-      desc: '+54 Attack, +20% AS • Passive: +25% damage vs targets below 45% HP'
-    }
-  ];
+  // Shop items: js/items.js (window.MOBA_ITEMS; SHOP_PLAN.md) — 7 components, 28 tier-2 items, 56 epics, 5 boots
+  const SHOP_ITEMS = window.MOBA_ITEMS.items;
 
   // ---- Test builds for the balance tools (?profile / ?duel) ----
-  // What each damage lean could afford at a level (about 0 / 2,500 / 9,000 gold at Lv1 / 6 / 12, max 4 items).
-  // Placeholder until the shop overhaul replaces the item list.
+  // What each damage lean could afford at a level (about 0 / 2,500 / 9,000 gold at Lv1 / 6 / 12, 4 slots):
+  // Lv6 = a tier-2 item + tier-2 boots + a component; Lv12 = 3 epics (one per line) + tier-2 boots.
   const HERO_LEAN = {
     coyote: 'attack', brawler: 'attack', imp: 'attack',
     sorceress: 'ability', fairy: 'support', scientist: 'ability',
     panther: 'hybrid', bodyguard: 'tank'
   };
   const TEST_BUILDS = {
-    attack:  { 1: [], 6: ['serrated_dirk', 'executioner_bow', 'boots_swift'], 12: ['executioner_bow', 'titan_gauntlet', 'frost_bolter', 'repeating_spring'] },
-    ability: { 1: [], 6: ['cataclysm_crown', 'mana_pendant', 'boots_swift'], 12: ['cataclysm_crown', 'mana_pendant', 'astral_tome', 'boots_swift'] },
-    hybrid:  { 1: [], 6: ['serrated_dirk', 'cataclysm_crown', 'boots_swift'], 12: ['executioner_bow', 'cataclysm_crown', 'repeating_spring', 'boots_swift'] },
-    tank:    { 1: [], 6: ['coliseum_plate', 'aegis_cloak', 'boots_swift'], 12: ['titan_gauntlet', 'aegis_cloak', 'coliseum_plate', 'boots_swift'] },
-    support: { 1: [], 6: ['aegis_cloak', 'mana_pendant', 'boots_swift'], 12: ['aegis_cloak', 'mana_pendant', 'astral_tome', 'boots_swift'] }
+    attack:  { 1: [], 6: ['bloodletters_knife', 'fencers_slippers', 'kestrel_feather'], 12: ['misericorde', 'whirling_glaive', 'hornets_nest', 'fencers_slippers'] },
+    ability: { 1: [], 6: ['arcane_journal', 'monks_sandals', 'inkwell'], 12: ['magnum_opus', 'supernova', 'tuning_fork', 'monks_sandals'] },
+    hybrid:  { 1: [], 6: ['sigiled_saber', 'fencers_slippers', 'hatchet'], 12: ['twin_scales', 'tempered_edge', 'hex_needle', 'fencers_slippers'] },
+    tank:    { 1: [], 6: ['quilted_gambeson', 'insulated_sabatons', 'garnet_brooch'], 12: ['chameleon_hide', 'old_grizzlys_hide', 'tortoise_shell', 'insulated_sabatons'] },
+    support: { 1: [], 6: ['amber_phial', 'monks_sandals', 'dewdrop_vial'], 12: ['wellspring', 'temple_censer', 'calm_waters', 'monks_sandals'] }
   };
   // Item objects for a hero's test build at a level ('none' = no items; a lean name overrides the hero's own lean).
   // Uses the nearest defined level at or below the requested one.

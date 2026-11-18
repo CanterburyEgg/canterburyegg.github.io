@@ -48,7 +48,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       recallTimer: 0,
       wardCharges: 2,
       wardRechargeTimer: 0,
-      items: [], // max 4 item objects from DATA.SHOP_ITEMS
+      items: [], // max 4 item objects from DATA.SHOP_ITEMS (js/items.js)
       talents: { 3: null, 6: null, 10: null }, // 'L' | 'R'
       punchCounter: 0 // For Brawler 6R Haymaker Cleave (every 3rd punch)
     };
@@ -2017,14 +2017,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
         hpRegen: (spec.hpRegen !== undefined ? spec.hpRegen : 6.1) + lvBonus * 0.6,
         resist: Math.round(baseRes + lvBonus * resGrow),
         asPct: lvBonus * (spec.asGrow !== undefined ? spec.asGrow : (heroId === 'coyote' ? 0.038 : 0.03)),
-        haste: 0, spdPct: 0, lifesteal: 0, spellVamp: 0, slowOnHit: 0, cleaveProc: 0, executeAmp: 0, spellAmp: 0, allyAuraRes: 0
+        haste: 0, spdPct: 0, lifesteal: 0, spellVamp: 0, onHit: 0, penResist: 0, ultHaste: 0, tenacity: 0
       };
       (items || []).forEach((it) => {
         const st = it.stats || {};
-        ['attack', 'ability', 'resist', 'haste', 'maxHp', 'maxMp', 'mpRegen', 'hpRegen', 'asPct', 'spdPct', 'lifesteal', 'spellVamp', 'cleaveProc', 'spellAmp', 'allyAuraRes']
+        ['attack', 'ability', 'resist', 'haste', 'maxHp', 'maxMp', 'mpRegen', 'hpRegen', 'asPct', 'spdPct', 'lifesteal', 'spellVamp', 'onHit', 'penResist', 'ultHaste']
           .forEach((k) => { if (st[k]) o[k] += st[k]; });
-        if (st.slowOnHit) o.slowOnHit = Math.max(o.slowOnHit, st.slowOnHit);
-        if (st.executeAmp) o.executeAmp = Math.max(o.executeAmp, st.executeAmp);
+        // Tenacity from several sources multiplies (25% + 25% = 44%, never 100%)
+        if (st.tenacity) o.tenacity = 1 - (1 - o.tenacity) * (1 - st.tenacity);
       });
       // Per-hero resource (spec.resource, e.g. the Scientist's fuel) replaces mana: fixed pool, no natural regen
       // (the kit refills it), and mana items do nothing for that hero.
@@ -2056,7 +2056,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
     function getPlayerStats() {
       const heroId = getActiveHeroId();
       const base = computeUnitStats(heroId, playerProg.level, playerProg.items);
-      let { attack, ability, maxHp, maxMp, mpRegen, hpRegen, resist, haste, asPct, spdPct, lifesteal, spellVamp, slowOnHit, cleaveProc, executeAmp, spellAmp, allyAuraRes } = base;
+      let { attack, ability, maxHp, maxMp, mpRegen, hpRegen, resist, haste, asPct, spdPct, lifesteal, spellVamp, onHit, penResist, ultHaste, tenacity } = base;
 
       // Bodyguard Passive ("Stand Behind Me!"): +14 Resist per stack
       const guardStacks = computeBodyguardStacks();
@@ -2091,8 +2091,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const ultRank = playerProg.level >= 12 ? 3 : (playerProg.level >= 8 ? 2 : (playerProg.level >= 4 ? 1 : 0));
       return withStatAliases({
         attack, ability, maxHp, maxMp, mpRegen, hpRegen, resist, haste,
-        asPct, spdPct, lifesteal, spellVamp, slowOnHit, cleaveProc,
-        executeAmp, spellAmp, allyAuraRes, maxBleed, guardStacks, pantherUnseen, qeRank, ultRank
+        asPct, spdPct, lifesteal, spellVamp, onHit, penResist, ultHaste, tenacity,
+        maxBleed, guardStacks, pantherUnseen, qeRank, ultRank
       });
     }
 
@@ -2293,11 +2293,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const isAttackDmg = info.src === 'attack';
       let dmg = rawDmg;
 
-      // Spell Amp item proc (Crown of the Astral Archon: +18% Ability damage)
-      if (!isAttackDmg && st.spellAmp > 0) {
-        dmg *= (1 + st.spellAmp);
-      }
-
       // One Resist reduces both sources
       dmg = Combat.mitigate(dmg, unitResist(u), info, u);
 
@@ -2307,11 +2302,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (!hasAlliedWave) {
           dmg *= 0.35;
         }
-      }
-
-      // Execute Amp Item Proc (+25% dmg vs targets <45% HP)
-      if (st.executeAmp > 0 && u.hp / u.maxHp < 0.45 && targetObj.kind !== 'structure') {
-        dmg *= (1 + st.executeAmp);
       }
 
       dmg = rawDmg > 0 ? Math.max(1, Math.round(dmg)) : 0; // 0 = effects only (e.g. a trap's root + bleed)
@@ -2330,8 +2320,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.bleedTimer = 5.5;
       }
 
-      // Slow-on-Hit Item Proc or Ability Slow
-      if ((st.slowOnHit > 0 || opts.slowDur) && targetObj.kind !== 'structure') {
+      // Ability slow
+      if (opts.slowDur && targetObj.kind !== 'structure') {
         CC.slow(u, opts.slowDur || 1.5, opts.slowPct);
       }
 
@@ -2378,26 +2368,6 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (opts.knockbackDist > 0) {
           spawnFloat(u.x, 2.55, u.z, 'KNOCKBACK!', '#38bdf8');
         }
-      }
-
-      // Cleave Item Proc (Pit Champion's Cestus) — properly routes lethal cleave through handleUnitDeath!
-      if (opts.isBasic && st.cleaveProc > 0) {
-        spawnShockRing(u.x, u.z, 0xfbbf24, 0.2, 2.3, 0.2);
-        getHostileTargets().forEach((other) => {
-          if (other.ref !== u && other.kind !== 'structure' && other.ref.hp > 0 && Math.hypot(other.x - u.x, other.z - u.z) <= 2.4) {
-            const cleaveDmg = Math.max(1, Math.round(st.cleaveProc * (100 / (100 + unitResist(other.ref)))));
-            other.ref.hp -= cleaveDmg;
-            other.ref.lastDamagedByPlayerAt = matchTime;
-            if (other.ref.plate) {
-              const hpEl = other.ref.plate.querySelector('.plate-hp');
-              if (hpEl) hpEl.style.width = Math.max(0, (other.ref.hp / other.ref.maxHp) * 100) + '%';
-            }
-            spawnFloat(other.x, 2.0, other.z, String(cleaveDmg), '#fbbf24');
-            if (other.ref.hp <= 0) {
-              handleUnitDeath(other);
-            }
-          }
-        });
       }
 
       if (u.plate) {
@@ -2707,28 +2677,43 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return Math.hypot(hero.x - MAP.BASE.fountain.x, hero.z - MAP.BASE.fountain.z) <= 9.5 || ctx.isWtfMode();
     }
 
+    // feedback line inside the shop (floating text near the hero can sit behind the shop panel)
+    function shopMsg(text, color) {
+      const el = document.getElementById('p1-shop-status');
+      if (el) { el.textContent = text; el.style.color = color || '#94a3b8'; }
+    }
     function buyShopItem(itemId) {
       const item = DATA.SHOP_ITEMS.find((it) => it.id === itemId);
       if (!item) return;
       if (!isNearOrderFountain()) {
         spawnFloat(hero.x, 2.6, hero.z, 'RECALL TO FOUNTAIN (B) TO BUY!', '#fb7185');
+        shopMsg('Recall to the fountain (B) to buy.', '#fb7185');
         return;
       }
-      if (playerProg.items.length >= 4) {
+      // recipe pricing: parts you already hold count toward the price and are used up (js/items.js costGiven)
+      const price = window.MOBA_ITEMS.costGiven(item.id, playerProg.items.map((it) => it.id));
+      if (playerProg.items.length - price.used.length >= 4) {
         spawnFloat(hero.x, 2.6, hero.z, '4 ITEM SLOTS FULL!', '#fb7185');
+        shopMsg('All 4 item slots are full.', '#fb7185');
         return;
       }
-      if (playerProg.gold < item.cost) {
-        spawnFloat(hero.x, 2.6, hero.z, 'NEED ' + item.cost + ' GOLD!', '#fb7185');
+      if (playerProg.gold < price.owed) {
+        spawnFloat(hero.x, 2.6, hero.z, 'NEED ' + price.owed + ' GOLD!', '#fb7185');
+        shopMsg('Need ' + price.owed + ' gold for ' + item.name + '.', '#fb7185');
         return;
       }
-      playerProg.gold -= item.cost;
+      playerProg.gold -= price.owed;
+      price.used.forEach((id) => {
+        const k = playerProg.items.findIndex((it) => it.id === id);
+        if (k >= 0) playerProg.items.splice(k, 1);
+      });
       playerProg.items.push(item);
       const st = getPlayerStats();
       hero.maxHp = st.maxHp;
       hero.hp = Math.min(hero.maxHp, hero.hp + (item.stats.maxHp || 0));
       SFX.play('chime');
       spawnFloat(hero.x, 2.7, hero.z, 'EQUIPPED: ' + item.name, '#fde047');
+      shopMsg('Bought ' + item.name + '.', '#fde047');
       refreshShopAndHudUI();
     }
 
@@ -2756,19 +2741,32 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const grid = document.getElementById('p1-shop-grid');
       if (grid) {
         const canBuyHere = isNearOrderFountain();
-        grid.innerHTML = DATA.SHOP_ITEMS.map((it) => {
-          const afford = playerProg.gold >= it.cost && playerProg.items.length < 4 && canBuyHere;
+        const ownedIds = playerProg.items.map((o) => o.id);
+        const html = DATA.SHOP_ITEMS.map((it) => {
+          const price = window.MOBA_ITEMS.costGiven(it.id, ownedIds);
+          const afford = playerProg.gold >= price.owed && playerProg.items.length - price.used.length < 4 && canBuyHere;
           return `<div style="padding:8px 10px;background:rgba(20,29,42,0.92);border:1px solid ${afford ? 'rgba(250,204,21,0.5)' : 'rgba(255,255,255,0.1)'};border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
             <div>
-              <div style="font-size:12px;font-weight:800;color:#f8fafc;">${it.name} <span style="color:#fde047;">(${it.cost}g)</span></div>
+              <div style="font-size:12px;font-weight:800;color:#f8fafc;">${it.name} <span style="color:#fde047;">(${price.owed}g)</span></div>
               <div style="font-size:10px;color:#94a3b8;margin-top:2px;">${it.desc}</div>
             </div>
             <button type="button" data-buy="${it.id}" class="sb-btn" style="padding:4px 9px;font-size:11px;opacity:${afford ? '1' : '0.45'};">Buy</button>
           </div>`;
         }).join('');
-        grid.querySelectorAll('[data-buy]').forEach((btn) => {
-          btn.addEventListener('click', () => buyShopItem(btn.getAttribute('data-buy')));
-        });
+        // only rebuild when something changed (the gold trickle refreshes every second; rebuilding would reset the
+        // scroll position and swallow clicks that straddle a rebuild)
+        if (grid._html !== html) { grid._html = html; grid.innerHTML = html; }
+        // one delegated listener; buy on pointerdown so a rebuild between press and release can't eat the click
+        if (!grid._wired) {
+          grid._wired = true;
+          grid.addEventListener('pointerdown', (e) => {
+            const btn = e.target.closest && e.target.closest('[data-buy]');
+            if (!btn || e.button !== 0) return;
+            e.preventDefault();
+            e.stopPropagation();
+            buyShopItem(btn.getAttribute('data-buy'));
+          });
+        }
       }
     }
 
@@ -3113,9 +3111,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           refreshShopAndHudUI();
         }
       } else {
-        const allyAura = (st.allyAuraRes > 0 && Math.hypot(unit.x - hero.x, unit.z - hero.z) <= 7.5) ? st.allyAuraRes : 0;
         const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
-        const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES + allyAura;
+        const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES;
         const mitigated = rawDmg > 0 ? Math.max(1, Math.round(Combat.mitigate(rawDmg, totalRes, info, unit))) : 0;
         if (unit.shield && unit.shield > 0) {
           if (unit.shield >= mitigated) {

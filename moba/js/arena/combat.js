@@ -262,6 +262,8 @@ renderer.domElement.addEventListener('mousedown', (e) => {
 });
 window.addEventListener('mouseup', () => { mouseDown = false; });
 window.addEventListener('wheel', (e) => {
+  // scrolling a UI panel (shop list, etc.) shouldn't zoom the camera
+  if (e.target !== renderer.domElement && e.target.closest && e.target.closest('#p1-shop-modal, [data-no-cam-wheel]')) return;
   camDist = THREE.MathUtils.clamp(camDist + e.deltaY * 0.014, 5.2, 35);
   document.getElementById('btn-cam-moba').classList.toggle('toggled', camDist > 13);
   document.getElementById('btn-cam-close').classList.toggle('toggled', camDist <= 13);
