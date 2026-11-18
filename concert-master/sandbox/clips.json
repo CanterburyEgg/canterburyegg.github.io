@@ -1,7 +1,4 @@
 [
-  {"song": "jupiter", "start": 66.5, "end": 70, "label": "PREVIEW 1:08 - F D F J K climb", "issue": "The horns' 66 67 69 71 74 as F D F J K (was S D F J K). Approved spot - tell me which you prefer."},
-  {"song": "jupiter", "start": 365.5, "end": 369.5, "label": "PREVIEW 6:07 - F D F J K climb", "issue": "J62-hold, then F64 D65 F67 J69 K72."},
-  {"song": "jupiter", "start": 413, "end": 418.6, "label": "PREVIEW 6:55 - F D F J K climb", "issue": "F55 D57 F58 J60 K62, then the turn."},
-  {"song": "jupiter", "start": 374, "end": 380.5, "label": "6:15 / 6:18 - repeated notes (unchanged)", "issue": "F67 J69 J69 K71 and D72 D72 F74 J76 K79: the recording agrees with the score - 69 twice, 72 twice."},
-  {"song": "jupiter", "start": 360, "end": 423, "label": "Jupiter 6:00-7:03 full run", "issue": "Everything from this minute."}
+  {"song": "jupiter", "start": 448, "end": 459, "label": "7:28-7:38 - your averaged pins applied", "issue": "13 notes pinned (mean of 3 passes). The F+K chord is now 7:34.88. Clear the song's pins in Pin mode first, so the old taps don't preview on top."},
+  {"song": "jupiter", "start": 420, "end": 471, "label": "Jupiter 7:00-end full run", "issue": "The last minute."}
 ]

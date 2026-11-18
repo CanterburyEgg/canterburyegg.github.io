@@ -24,6 +24,8 @@ def run(ns):
 
     # Enforce strict monotonic ordering and fuse un-articulated MIDI barline ties on identical pitch
     warped.sort(key=lambda x: x["start"])
+    _sp = ns.get("score_path")
+    _exact = _sp is not None and str(_sp).lower().endswith((".mxl", ".musicxml", ".xml"))
     fused_ties = []
     for wn in warped:
         if fused_ties and wn["start"] - fused_ties[-1]["start"] < 0.048:
@@ -42,6 +44,10 @@ def run(ns):
             fused_ties
             and not wn.get("is_coda_fanfare_tap")
             and not wn.get("keep_restrike")  # (reentry_starts_phrase)
+            # (an exact score's separate, written-apart strike in the same part is a re-strike, not a tie: Jupiter
+            # 7:33's trumpets 75 | 75 | 75 a beat each. The audio check below ran at the warp's time, before the
+            # song's time map moves the line onto the recording's attacks.)
+            and not (_exact and wn["staff"] == fused_ties[-1]["staff"] and wn["score_gap_prev"] >= 0.08)
             and not (wn is warped[-1] and wn["score_gap_prev"] >= 0.08)
             and wn["midi"] == fused_ties[-1]["midi"]
             and fused_ties[-1]["score_dur"] >= 0.68

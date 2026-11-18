@@ -1290,6 +1290,7 @@ const LAYOUT_RULES = [
   ['figureIntoHoldRepeats', (n, l) => applyFigureIntoHoldRepeats(n, l)],
   ['threeNoBacktrack', (n, l) => applyThreeNoBacktrack(n, l)],
   ['linesKeepDirection', (n, l, c) => { if (c.exactScore) applyLinesKeepDirection(n, l, c.ghosts); }],
+  ['slowEntryClimbRises', (n, l, c) => { if (c.exactScore) applySlowEntryClimbRises(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
 
@@ -4474,6 +4475,41 @@ function applyThreeNoBacktrack(notes, lanes) {
  * four different notes on D F J K (K J F D going down), starting where it joins the notes either side the right way;
  * five going one way on S D F J K / L K J F D when the song uses ghost keys. If nothing fits, it's left as it was.
  */
+/**
+ * Slow entry climbs rise: a new part that comes in climbing at a broad pace (half notes, up to 1.2s apart -- Jupiter
+ * 7:44: the trumpets' 72 77 82 after the fanfare) gets keys that climb with it. `climbFitsKeys` only looks at quick
+ * climbs (< 0.6s), so a slow one that started high came out K J K, the second note stepping back. Laid from the lowest
+ * keys that still read from the note before (an entry may step back, just not onto that note's key) and into the note
+ * after. Exact scores only.
+ */
+function applySlowEntryClimbRises(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  const reads = (p, q, lp, lq) => p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(lq - lp) === Math.sign(q.midi - p.midi);
+  for (let a = 0; a < n; a++) {
+    if (!prim[a].partEntry) continue;
+    let b = a;
+    while (b + 1 < n && b - a < 3 && prim[b + 1].midi > prim[b].midi && prim[b + 1].time - prim[b].time < 1.2 && !prim[b + 1].partEntry) b++;
+    const run = prim.slice(a, b + 1);
+    const k = run.length;
+    if (k < 3 || run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost || x.lane >= lanes)) continue;
+    // (only the broad ones -- quick climbs belong to climbFitsKeys -- and only when the keys step back somewhere)
+    if (!run.slice(1).some((x, j) => x.time - run[j].time >= 0.6)) continue;
+    if (!run.slice(1).some((x, j) => x.lane <= run[j].lane)) continue;
+    const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+    const nx = b + 1 < n && prim[b + 1].time - run[k - 1].time < 1.2 ? prim[b + 1] : null;
+    const options = [];
+    for (let st = 0; st + k <= lanes; st++) options.push(run.map((_, j) => st + j));
+    const ok = options.filter((o) => (!pv || reads(pv, run[0], pv.lane, o[0]) || pv.lane !== o[0])
+      && (!nx || nx.partEntry || reads(run[k - 1], nx, o[k - 1], nx.lane)));
+    if (!ok.length) continue;
+    const o = ok[ok.length - 1]; // (highest that fits: closest to where it sat)
+    run.forEach((x, j) => (x.lane = o[j]));
+    a = b;
+  }
+}
+
 function applyLinesKeepDirection(notes, lanes, ghosts) {
   if (lanes !== 4) return;
   const S = lanes;

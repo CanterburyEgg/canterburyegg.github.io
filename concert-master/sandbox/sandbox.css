@@ -255,3 +255,13 @@ canvas {
 .offset b { min-width: 52px; text-align: center; font-family: "JetBrains Mono", monospace; }
 .offset button { padding: 2px 8px; }
 .offset small { opacity: 0.7; }
+
+/* Pin mode */
+.pin-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 8px 12px; margin: 0 0 8px; border: 1px solid hsla(285, 70%, 60%, 0.5); border-radius: 8px; background: hsla(285, 40%, 14%, 0.6); font-size: 13px; }
+.pin-bar[hidden] { display: none; }
+.pin-bar #pin-sel { font-weight: 700; color: hsl(52, 100%, 70%); }
+.pin-bar .pin-help { color: var(--muted); }
+.pin-bar textarea { width: 100%; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+#btn-pin.active { outline: 2px solid hsl(285, 90%, 72%); }
+.note-list li.sel { background: hsla(52, 100%, 50%, 0.18); color: var(--ivory); }
+.note-list li .pin { color: hsl(285, 90%, 78%); font-weight: 700; margin-left: 6px; }

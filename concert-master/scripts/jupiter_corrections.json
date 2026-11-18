@@ -109,6 +109,97 @@
       "midi": 84,
       "to": 284.73,
       "why": "See 324.21."
+    },
+    {
+      "score_start": 532.9423,
+      "midi": 68,
+      "to": 450.6056,
+      "keep_length": true,
+      "why": "7:30.61 (score 532.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 533.4423,
+      "midi": 71,
+      "to": 451.0272,
+      "keep_length": true,
+      "why": "7:31.03 (score 533.4423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 533.9423,
+      "midi": 70,
+      "to": 451.4764,
+      "keep_length": true,
+      "why": "7:31.48 (score 533.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 534.6923,
+      "midi": 66,
+      "to": 452.0843,
+      "keep_length": true,
+      "why": "7:32.08 (score 534.6923): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 534.9423,
+      "midi": 71,
+      "to": 452.2951,
+      "keep_length": true,
+      "why": "7:32.30 (score 534.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 535.4423,
+      "midi": 73,
+      "to": 452.7279,
+      "keep_length": true,
+      "why": "7:32.73 (score 535.4423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 535.9423,
+      "midi": 75,
+      "to": 453.1583,
+      "keep_length": true,
+      "why": "7:33.16 (score 535.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 536.9423,
+      "midi": 75,
+      "to": 453.9853,
+      "keep_length": true,
+      "why": "7:33.99 (score 536.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 537.9423,
+      "midi": 75,
+      "to": 454.8802,
+      "keep_length": true,
+      "why": "7:34.88 (score 537.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 539.9423,
+      "midi": 74,
+      "to": 456.1757,
+      "keep_length": true,
+      "why": "7:36.18 (score 539.9423): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 541.6566,
+      "midi": 73,
+      "to": 457.1354,
+      "keep_length": true,
+      "why": "7:37.14 (score 541.6566): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 542.3709,
+      "midi": 74,
+      "to": 457.5715,
+      "keep_length": true,
+      "why": "7:37.57 (score 542.3709): pinned by ear in the sandbox (user, Nov 17)."
+    },
+    {
+      "score_start": 543.0852,
+      "midi": 79,
+      "to": 457.989,
+      "keep_length": true,
+      "why": "7:37.99 (score 543.0852): pinned by ear in the sandbox (user, Nov 17)."
     }
   ],
   "time_map": [
@@ -139,6 +230,48 @@
       "audio_from": 372.68,
       "audio_to": 374.05,
       "why": "6:12.7-6:14 (score 452.43-453.83): the woodwinds' scale flourish 50 ... 86 came out with its first dozen notes stacked on one instant; laid out evenly from its first note to the piccolo/oboe entry that follows it (Nov 16)."
+    },
+    {
+      "score_from": 546.27,
+      "score_to": 549.09,
+      "audio_from": 461.05,
+      "audio_to": 463.95,
+      "why": "7:41-7:44 (score 546.27-549.09): the brass/timpani fanfare on C. Its attacks in the recording run 461.05 ... 463.71 (last stroke), and the trumpets' half-note build starts at 463.95; the warp let the last stroke drift to 464.2, crowding the first half note (user, Nov 17: 'weird pattern')."
+    },
+    {
+      "score_from": 549.09,
+      "score_to": 553.71,
+      "audio_from": 463.95,
+      "audio_to": 468.43,
+      "why": "7:44-7:50 (score 549.09-553.71): the trumpets' half notes 72 77 82 | 74 79 into the final chord. The recording's attacks (and pitches) are 463.95 (72), 464.7 (77), 465.43 (82), 466.54 (74), 466.91 (79), final chord 468.43 -- the written rhythm at a steady pace. The earlier map started them half a second late, which squeezed them into an uneven pattern (user, Nov 17: 'the end should be half notes'). The final chord is a hit (user, Nov 17)."
+    },
+    {
+      "score_from": 528.94,
+      "score_to": 529.94,
+      "audio_from": 446.97,
+      "audio_to": 448.07,
+      "why": "7:27-7:28.6 (score 528.94-530.94): the low line's last D J D (44 46 44) and the 42 under the trumpets' entry. The recording's low notes come in at 446.97 (32/44), 447.47 (34/46), 448.07 (32/44), 448.6 (30/42); the warp had them about 0.15s late (user, Nov 17: 'the last DJD in the low melody is late by a little bit')."
+    },
+    {
+      "score_from": 529.94,
+      "score_to": 530.94,
+      "audio_from": 448.07,
+      "audio_to": 448.6,
+      "why": "7:28.07-7:28.6 (score 529.94-530.94): the low line's held 44 (448.07) into the bass's 42 under the trumpets' entry (448.6); see the entry before."
+    },
+    {
+      "score_from": 530.94,
+      "score_to": 531.94,
+      "audio_from": 448.6,
+      "audio_to": 449.7,
+      "why": "7:28.6-7:29.7 (score 530.94-531.94): the trumpets' pickups 63 66 into their held 68. The held note lands with the bass's 39 at 449.7 (user, by ear, Nov 17: 'around 7:29.71'); the pickups start with the bass's 42 at 448.6."
+    },
+    {
+      "score_from": 531.94,
+      "score_to": 539.94,
+      "audio_from": 449.7,
+      "audio_to": 457.0,
+      "why": "7:29.7-7:37 (score 531.94-539.94): the trumpets' broad melody from the held 68 (449.7, user) to the 74 at 457.0, a steady 0.91s per written second (matches a pitch fit of the trumpet line against the recording)."
     }
   ],
   "rests": [
@@ -178,5 +311,7 @@
       "every": 2,
       "why": "6:12 (score 452.43-453.8): the woodwinds' 22-note scale 50 ... 86 (about 16 notes a second) is too dense to tap; every other note keeps the rising sweep (user's choice, Nov 16)."
     }
-  ]
+  ],
+  "song_end": 470.6,
+  "song_end_why": "The band's last chord (7:48.4) dies away by about 7:50; the file runs on in silence to 8:00 (user, Nov 17)."
 }

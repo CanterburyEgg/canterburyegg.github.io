@@ -104,6 +104,18 @@ const state = {
   run: null, // { perfect, great, good, miss, combo, maxCombo }
   judgment: null, // { text, side, at }
   ctx: null,
+  // Pin mode: you set a note's time by ear. Pins are kept per song in localStorage and previewed on the current build
+  pinMode: false,
+  ticks: false, // tick on every current-build note (with pins applied) so you can check them against the music
+  sel: -1, // index into newNotes of the note the next tap pins
+  pins: (() => {
+    try {
+      return JSON.parse(localStorage.getItem('cm_sandbox_pins_v1') || '[]');
+    } catch (_e) {
+      return [];
+    }
+  })(), // [{ song, at, midi, key, to }] -- at = the note's time in the build, to = where you tapped it
+  lastTickNow: null,
 };
 state.audio.preload = 'auto';
 
@@ -152,6 +164,160 @@ function clipNotes(all, clip) {
     .map((n) => ({ ...n }));
 }
 
+// ---------------------------------------------------------------- pin mode
+
+const PIN_TOL = 0.004; // a pin belongs to the build note at its 'at' time (same pitch)
+
+function savePins() {
+  try {
+    localStorage.setItem('cm_sandbox_pins_v1', JSON.stringify(state.pins));
+  } catch (_e) {
+    /* storage unavailable: pins last for this session */
+  }
+}
+
+const songPins = () => {
+  const clip = state.clips[state.idx];
+  return clip ? state.pins.filter((p) => p.song === clip.song) : [];
+};
+
+// Move pinned notes (and the chord partner struck with them) to where you tapped them. Each note remembers its build
+// time in .at, so pins can be re-applied or cleared without rebuilding the chart.
+function applyPins(notes, song) {
+  for (const n of notes) {
+    if (n.at === undefined) n.at = n.time;
+    const len = n.endTime - n.time;
+    n.time = n.at;
+    n.endTime = n.at + len;
+    n.pinned = false;
+  }
+  for (const p of state.pins.filter((q) => q.song === song)) {
+    const prim = notes.find((n) => !n.isChordPartner && n.midi === p.midi && Math.abs(n.at - p.at) <= PIN_TOL);
+    if (!prim) continue;
+    const d = p.to - p.at;
+    for (const n of notes) {
+      if (n === prim || (n.isChordPartner && Math.abs(n.at - p.at) <= PIN_TOL)) {
+        n.time = n.at + d;
+        n.endTime += d;
+        n.pinned = true;
+      }
+    }
+  }
+}
+
+function primaryIdx(from, dir) {
+  const ns = state.newNotes;
+  const cur = ns[from];
+  for (let i = from + dir; i >= 0 && i < ns.length; i += dir) {
+    if (ns[i].isChordPartner) continue;
+    if (cur && Math.abs(ns[i].at - cur.at) <= PIN_TOL) continue; // (same moment: a chord's other note)
+    return i;
+  }
+  return from;
+}
+
+function selectNote(i) {
+  const n = state.newNotes[i];
+  if (!n || n.isChordPartner) return;
+  state.sel = i;
+  renderPinBar();
+  renderList(els.listNew, state.newNotes);
+}
+
+function pinSelected(t) {
+  const n = state.newNotes[state.sel];
+  if (!n) return;
+  const clip = state.clips[state.idx];
+  state.pins = state.pins.filter((p) => !(p.song === clip.song && p.midi === n.midi && Math.abs(p.at - n.at) <= PIN_TOL));
+  state.pins.push({ song: clip.song, at: +n.at.toFixed(4), midi: n.midi, key: LANE_KEYS[n.lane], to: +t.toFixed(4) });
+  savePins();
+  applyPins(state.newNotes, clip.song);
+  state.sel = primaryIdx(state.sel, 1); // (next note: tap a whole phrase in one pass)
+  renderPinBar();
+  renderList(els.listNew, state.newNotes);
+}
+
+function unpinSelected() {
+  const n = state.newNotes[state.sel];
+  if (!n) return;
+  const clip = state.clips[state.idx];
+  state.pins = state.pins.filter((p) => !(p.song === clip.song && p.midi === n.midi && Math.abs(p.at - n.at) <= PIN_TOL));
+  savePins();
+  applyPins(state.newNotes, clip.song);
+  renderPinBar();
+  renderList(els.listNew, state.newNotes);
+}
+
+function playFromSelected() {
+  const n = state.newNotes[state.sel];
+  if (!n) return play();
+  ensureCtx();
+  resetPlayState();
+  state.audio.currentTime = Math.max(0, n.at - 2.0 + AUDIO_OFFSET);
+  state.userPaused = false;
+  state.audio.playbackRate = state.slow ? 0.5 : 1;
+  state.audio.play().catch((e) => (els.status.textContent = `Audio blocked: ${e.message}`));
+  renderPause();
+}
+
+function pinsText() {
+  const ps = songPins().sort((a, b) => a.at - b.at);
+  const lines = ps.map(({ song, at, midi, key, to }) => JSON.stringify({ song, at, midi, key, to }));
+  return `{"pins": [\n${lines.join(',\n')}\n]}`;
+}
+
+function renderPinBar() {
+  const bar = document.getElementById('pin-bar');
+  if (!bar) return;
+  bar.hidden = !state.pinMode;
+  document.getElementById('btn-pin').classList.toggle('active', state.pinMode);
+  document.getElementById('btn-ticks').textContent = `Ticks: ${state.ticks ? 'On' : 'Off'}`;
+  const n = state.newNotes[state.sel];
+  const pin = n && songPins().find((p) => p.midi === n.midi && Math.abs(p.at - n.at) <= PIN_TOL);
+  document.getElementById('pin-sel').textContent = n
+    ? `Next tap pins: ${LANE_KEYS[n.lane]} midi ${n.midi} at ${fmt(n.at)}${pin ? ` (pinned → ${fmt(pin.to)})` : ''}`
+    : 'Click a note in the Current build list to pick where to start';
+  document.getElementById('pin-count').textContent = `${songPins().length} pin(s) in this song`;
+}
+
+async function copyPins() {
+  const txt = pinsText();
+  try {
+    await navigator.clipboard.writeText(txt);
+    els.status.textContent = `Copied ${songPins().length} pin(s) -- paste them into the chat.`;
+  } catch (_e) {
+    const ta = document.getElementById('pin-out');
+    ta.hidden = false;
+    ta.value = txt;
+    ta.select();
+    els.status.textContent = 'Clipboard blocked: the pins are in the box, copy them from there.';
+  }
+}
+
+function clearPins() {
+  const clip = state.clips[state.idx];
+  if (!clip || !confirm(`Clear all ${songPins().length} pin(s) for this song?`)) return;
+  state.pins = state.pins.filter((p) => p.song !== clip.song);
+  savePins();
+  applyPins(state.newNotes, clip.song);
+  renderPinBar();
+  renderList(els.listNew, state.newNotes);
+}
+
+// Tick on each current-build note as it passes (pins applied), to check the chart against the music by ear
+function stepTicks(now) {
+  const prev = state.lastTickNow;
+  state.lastTickNow = state.audio.paused ? null : now;
+  if (!state.ticks || prev === null || state.audio.paused || now < prev || now - prev > 0.25) return;
+  const seen = new Set();
+  for (const n of state.newNotes) {
+    if (n.time > prev && n.time <= now && !seen.has(n.time.toFixed(3))) {
+      seen.add(n.time.toFixed(3));
+      hitSound(n.lane);
+    }
+  }
+}
+
 function resetPlayState() {
   for (const n of [...state.oldNotes, ...state.newNotes]) {
     n.hit = false;
@@ -187,7 +353,10 @@ function renderList(el, notes) {
     .map((n, i) => {
       const key = n.isChordPartner ? `+${LANE_KEYS[n.lane]}` : LANE_KEYS[n.lane];
       const kind = n.type === 'hold' ? `hold ${(n.endTime - n.time).toFixed(2)}s` : 'tap';
-      return `<li data-i="${i}" class="${n.diff || ''}"><span class="k">${key}</span>${fmt(n.time)} · ${kind} · midi ${n.midi}</li>`;
+      const isNew = el === els.listNew;
+      const sel = isNew && state.pinMode && i === state.sel ? ' sel' : '';
+      const pin = isNew && n.pinned ? ` <b class="pin">📌 ${fmt(n.at)} → ${fmt(n.time)}</b>` : '';
+      return `<li data-i="${i}" class="${n.diff || ''}${sel}"><span class="k">${key}</span>${fmt(isNew && n.at !== undefined ? n.at : n.time)} · ${kind} · midi ${n.midi}${pin}</li>`;
     })
     .join('');
 }
@@ -227,6 +396,9 @@ async function selectClip(i, autoplay) {
   state.oldNotes = base ? clipNotes(base.notes, clip) : [];
   state.newNotes = clipNotes(await currentChart(clip.song, clip.rulesVersion), clip);
   markDiffs(state.oldNotes, state.newNotes);
+  applyPins(state.newNotes, clip.song);
+  state.sel = state.pinMode ? primaryIdx(-1, 1) : -1;
+  renderPinBar();
   els.oldCount.textContent = base ? `· ${state.oldNotes.length} notes` : '· (not locked)';
   els.newCount.textContent = `· ${state.newNotes.length} notes`;
   renderList(els.listOld, state.oldNotes);
@@ -461,6 +633,18 @@ function drawHighway(canvas, notes, now, isActive) {
       ctx.lineWidth = 2;
       ctx.stroke();
     }
+    if (n.pinned) {
+      ctx.strokeStyle = 'hsl(285, 90%, 72%)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+    if (state.pinMode && notes === state.newNotes && notes[state.sel] === n) {
+      ctx.strokeStyle = 'hsl(52, 100%, 60%)';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([5, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
     if (n.lane >= 4) {
       // ghost note: bright dashed outline
       ctx.strokeStyle = 'hsla(45, 100%, 92%, 0.95)';
@@ -501,6 +685,7 @@ function loop() {
     const now = songTime();
     if (!state.audio.paused && now >= clip.end + PAD) state.audio.pause();
     stepMisses();
+    stepTicks(now);
     els.clock.textContent = fmt(now);
     drawHighway(els.cvOld, state.oldNotes, now, state.side === 'old');
     drawHighway(els.cvNew, state.newNotes, now, state.side === 'new');
@@ -596,6 +781,26 @@ document.getElementById('offset-auto')?.addEventListener('click', () => {
 });
 renderOffset();
 
+function togglePinMode() {
+  state.pinMode = !state.pinMode;
+  if (state.pinMode && state.sel < 0) state.sel = primaryIdx(-1, 1);
+  if (state.pinMode && state.side !== 'new') setSide('new');
+  renderPinBar();
+  renderList(els.listNew, state.newNotes);
+}
+document.getElementById('btn-pin').addEventListener('click', togglePinMode);
+document.getElementById('btn-ticks').addEventListener('click', () => {
+  state.ticks = !state.ticks;
+  renderPinBar();
+});
+document.getElementById('btn-pin-copy').addEventListener('click', copyPins);
+document.getElementById('btn-pin-clear').addEventListener('click', clearPins);
+els.listNew.addEventListener('click', (e) => {
+  const li = e.target.closest('li');
+  if (!li || !state.pinMode) return;
+  selectNote(Number(li.dataset.i));
+});
+
 window.addEventListener('keydown', (e) => {
   const lane = LANE_CODES.indexOf(e.code);
   if (lane >= 0) {
@@ -606,6 +811,34 @@ window.addEventListener('keydown', (e) => {
     return;
   }
   if (e.repeat) return;
+  if (state.pinMode && e.code === 'KeyT') {
+    e.preventDefault();
+    if (!state.audio.paused) pinSelected(songTime());
+    return;
+  }
+  if (state.pinMode && (e.code === 'ArrowLeft' || e.code === 'ArrowRight')) {
+    e.preventDefault();
+    selectNote(primaryIdx(state.sel, e.code === 'ArrowRight' ? 1 : -1));
+    return;
+  }
+  if (state.pinMode && e.code === 'KeyB') {
+    playFromSelected();
+    return;
+  }
+  if (state.pinMode && e.code === 'Backspace') {
+    e.preventDefault();
+    unpinSelected();
+    return;
+  }
+  if (e.code === 'KeyN') {
+    togglePinMode();
+    return;
+  }
+  if (e.code === 'KeyY') {
+    state.ticks = !state.ticks;
+    renderPinBar();
+    return;
+  }
   if (e.code === 'ArrowDown' || e.code === 'ArrowUp') {
     e.preventDefault();
     selectClip(state.idx + (e.code === 'ArrowDown' ? 1 : -1), true);

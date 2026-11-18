@@ -26,6 +26,9 @@ def run(ns):
             d = max(0.05, k_ * float(warped[k].get("score_dur", 0.25)))
             mo[k][0] = round(t, 4)
             mo[k][1] = round(t + d, 4)
+        # ('last_note_end': the stretch's last note rings until then -- a final chord the band holds)
+        if idx and tm.get("last_note_end") is not None:
+            mo[idx[-1]][1] = round(float(tm["last_note_end"]), 4)
         for k in range(1, len(mo)):
             if float(mo[k - 1][1]) > float(mo[k][0]) - 0.015:
                 mo[k - 1][1] = round(max(float(mo[k - 1][0]) + 0.04, float(mo[k][0]) - 0.015), 4)

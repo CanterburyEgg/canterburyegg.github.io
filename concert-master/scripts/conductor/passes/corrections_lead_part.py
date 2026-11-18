@@ -11,8 +11,12 @@ def run(ctx):
     corr = Path(__file__).resolve().parents[2] / f"{ctx.score_path.stem.lower()}_corrections.json"
     if not corr.exists():
         return
+    apply(ctx, json.loads(corr.read_text(encoding="utf-8")).get("lead_part", []))
+
+
+def apply(ctx, entries):
     lead = ctx.lead_notes
-    for lp in json.loads(corr.read_text(encoding="utf-8")).get("lead_part", []):
+    for lp in entries:
         s0, s1 = float(lp["start"]), float(lp["end"])
         src = next((st for st in ctx.staves if st["name"] == lp["staff"]), None)
         if src is None:

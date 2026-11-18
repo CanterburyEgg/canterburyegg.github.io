@@ -1,6 +1,7 @@
 """<song>_corrections.json 'audio_moves' (by ear): a lead note the alignment places at the wrong moment in the recording
 (e.g. a chord that swells in after a molto rit., with no sharp attack to align to). Matched by its score start (within
-0.02s) and written pitch; 'to' is its audio time. The note before it releases just before."""
+0.02s) and written pitch; 'to' is its audio time. The note before it releases just before. With
+'keep_length': true the note keeps its length instead of keeping its end."""
 import json
 from pathlib import Path
 
@@ -15,6 +16,8 @@ def run(ns):
             if abs(float(warped[k]["score_start"]) - float(mv["score_start"])) < 0.02 and int(melody_out[k][2]) == int(mv["midi"]):
                 t_new = float(mv["to"])
                 end = float(melody_out[k][1])
+                if mv.get("keep_length"):  # (moved earlier: same length, so a tap stays a tap)
+                    end = t_new + end - float(melody_out[k][0])
                 melody_out[k][0] = round(t_new, 4)
                 melody_out[k][1] = round(max(end, t_new + 0.04), 4)
                 warped[k]["start"] = t_new

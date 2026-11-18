@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="./sandbox.css?v=4" />
+  <link rel="stylesheet" href="./sandbox.css?v=5" />
 </head>
 <body>
   <aside class="clip-list">
@@ -49,8 +49,18 @@
           <small id="offset-hint"></small>
         </span>
         <span id="clock" class="clock">0:00.00</span>
+        <button type="button" id="btn-pin" title="Pin mode: set note times by ear (N)">📌 Pin mode</button>
       </div>
     </header>
+    <div id="pin-bar" class="pin-bar" hidden>
+      <span id="pin-sel"></span>
+      <span class="pin-help">Click a note in the Current build list (or <kbd>←</kbd><kbd>→</kbd>) · <kbd>B</kbd> play from 2s before it · <kbd>T</kbd> on the beat you hear it (then it moves to the next note) · <kbd>Backspace</kbd> unpin · <kbd>M</kbd> slow-mo</span>
+      <button type="button" id="btn-ticks" title="Tick on every note so you can check the timing (Y)">Ticks: Off</button>
+      <span id="pin-count"></span>
+      <button type="button" id="btn-pin-copy">Copy pins</button>
+      <button type="button" id="btn-pin-clear">Clear song's pins</button>
+      <textarea id="pin-out" rows="4" hidden readonly></textarea>
+    </div>
 
     <div class="highways">
       <section class="side" id="side-old">
@@ -67,6 +77,6 @@
     <p id="status" class="status"></p>
   </main>
 
-  <script type="module" src="./sandbox.js?v=11"></script>
+  <script type="module" src="./sandbox.js?v=12"></script>
 </body>
 </html>
