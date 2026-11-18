@@ -7,6 +7,7 @@
 window.MOBA_PHASE1_ENGINE = (function () {
   const DATA = window.MOBA_PHASE1;
   const MAP = window.MOBA_MAP;
+  const Combat = window.MOBA_COMBAT; // shared damage / heal / hit events (js/combat_core.js)
 
   function createEngine(ctx) {
     const {
@@ -2198,7 +2199,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         damage: (t, dmg, opts) => {
           opts = opts || {};
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
-          applyBotDamageToTarget(t, Math.round(dmg * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT);
+          applyBotDamageToTarget(t, Math.round(dmg * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT, Combat.hitInfo(b, opts));
           applyActorEffects(t, opts, b);
           return true;
         }
@@ -2235,9 +2236,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const u = targetObj.ref;
       if (!u || (u.hp !== undefined && u.hp <= 0)) return false;
 
+      // what kind of hit this is (Attack / Ability, basic, DoT, area): items and passives read it (js/combat_core.js)
+      const info = Combat.hitInfo(hero, opts);
+
       // 0. Deployables (an enemy Imp's turret): plain armor-mitigated damage, destroyed at 0
       if (targetObj.kind === 'deployable') {
-        const dd = Math.max(1, Math.round(rawDmg * (100 / (100 + unitResist(u)))));
+        const dd = Math.max(1, Math.round(Combat.mitigate(rawDmg, unitResist(u), info, u)));
         u.hp -= dd;
         spawnFloat(u.x, 2.2, u.z, String(dd), opts.color || '#fb7185');
         if (u.hp <= 0) {
@@ -2286,7 +2290,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const dmgType = opts.dmgType || 'physical'; // (legacy tag: now only picks the number color)
       // Damage source (DESIGN_RULES §2): basic attacks and "counts as a basic attack" abilities deal Attack damage,
       // everything else is Ability damage. Kits can say so explicitly with opts.src = 'attack' | 'ability'.
-      const isAttackDmg = opts.src ? opts.src === 'attack' : !!opts.isBasic;
+      const isAttackDmg = info.src === 'attack';
       let dmg = rawDmg;
 
       // Spell Amp item proc (Crown of the Astral Archon: +18% Ability damage)
@@ -2295,7 +2299,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       // One Resist reduces both sources
-      dmg *= 100 / (100 + Math.max(0, unitResist(u)));
+      dmg = Combat.mitigate(dmg, unitResist(u), info, u);
 
       // Backdoor Protection on Enemy Structures (65% damage reduction if no Order minions within 11.5m!)
       if (targetObj.kind === 'structure') {
@@ -2317,7 +2321,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Lifesteal (Attack damage) / Spell Vamp (Ability damage; area hits heal at 1/3)
       const vamp = isAttackDmg ? st.lifesteal : st.spellVamp * (opts.aoe ? 1 / 3 : 1);
       if (vamp > 0 && hero.hp < hero.maxHp) {
-        hero.hp = Math.min(hero.maxHp, hero.hp + Math.round(dmg * vamp));
+        Combat.heal(hero, Math.round(dmg * vamp), info);
       }
 
       // Bleed Stacks (Coyote Passive)
@@ -2402,6 +2406,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       const defaultCol = dmgType === 'fantasy' ? '#38bdf8' : '#fb7185';
       if (dmg > 0) spawnFloat(u.x, 2.2, u.z, String(dmg), opts.color || defaultCol);
+      Combat.emit('hit', { attacker: hero, target: u, targetObj, raw: rawDmg, dealt: dmg, info });
 
       // Check Unit Death & Rewards!
       if (u.hp <= 0) {
@@ -3075,12 +3080,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return true;
     }
 
-    function damageOrderHeroOrBot(unit, rawDmg, dmgType = 'physical', attackerObj = null, isDoT = false) {
+    function damageOrderHeroOrBot(unit, rawDmg, dmgType = 'physical', attackerObj = null, isDoT = false, info = null) {
       const st = getPlayerStats();
       CC.wake(unit, isDoT);
+      if (!info) info = Combat.unitHitInfo(attackerObj && attackerObj.ref, isDoT);
       if (unit === hero) {
         if (playerProg.respawnTimer > 0) return;
-        const mitigated = Math.round(rawDmg * (100 / (100 + Math.max(0, st.resist))));
+        const mitigated = Math.round(Combat.mitigate(rawDmg, st.resist, info, hero));
         playerProg.recallTimer = 0; // Interrupt recall on taking damage!
         if (spyglass.channel > 0) { spyglass.channel = 0; spawnFloat(hero.x, 2.5, hero.z, 'SPYGLASS INTERRUPTED', '#fb7185'); }
 
@@ -3093,6 +3099,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           hero.rShieldTimer = 0;
           hero.hp -= rem;
         }
+        Combat.emit('hit', { attacker: info.attacker, target: hero, targetObj: { kind: 'player', ref: hero }, raw: rawDmg, dealt: mitigated, info });
         if (hero.hp <= 0) {
           hero.hp = 0;
           playerProg.deaths++;
@@ -3109,10 +3116,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const allyAura = (st.allyAuraRes > 0 && Math.hypot(unit.x - hero.x, unit.z - hero.z) <= 7.5) ? st.allyAuraRes : 0;
         const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
         const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES + allyAura;
-        const mitigated = rawDmg > 0 ? Math.max(1, Math.round(rawDmg * (100 / (100 + totalRes)))) : 0;
+        const mitigated = rawDmg > 0 ? Math.max(1, Math.round(Combat.mitigate(rawDmg, totalRes, info, unit))) : 0;
         if (unit.shield && unit.shield > 0) {
           if (unit.shield >= mitigated) {
             unit.shield -= mitigated;
+            Combat.emit('hit', { attacker: info.attacker, target: unit, targetObj: { kind: 'bot', ref: unit }, raw: rawDmg, dealt: mitigated, info });
             return;
           } else {
             const rem = mitigated - unit.shield;
@@ -3122,6 +3130,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         } else {
           unit.hp -= mitigated;
         }
+        Combat.emit('hit', { attacker: info.attacker, target: unit, targetObj: { kind: 'bot', ref: unit }, raw: rawDmg, dealt: mitigated, info });
         if (unit.hp <= 0) {
           handleUnitDeath({ kind: 'bot', ref: unit });
         }
@@ -3357,7 +3366,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (homeDist <= 7.5 && b.hp < b.maxHp) {
           b.hp = Math.min(b.maxHp, b.hp + 220 * dt);
         }
-        if (b.hp < b.maxHp) b.hp = Math.min(b.maxHp, b.hp + (b.hpRegen || 0) * dt); // base HP regen (same as the player's)
+        if (b.hp < b.maxHp) Combat.heal(b, (b.hpRegen || 0) * dt); // base HP regen (same as the player's)
 
         let isMoving = false;
         let airborneY = 0;
@@ -3940,9 +3949,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
       });
     }
 
-    function applyBotDamageToTarget(targetObj, dmg, attackerBot = null, dmgType = 'physical', attackerObj = null, isDoT = false) {
+    function applyBotDamageToTarget(targetObj, dmg, attackerBot = null, dmgType = 'physical', attackerObj = null, isDoT = false, info = null) {
       if (!targetObj || !targetObj.ref) return;
       const u = targetObj.ref;
+      if (!info) info = attackerBot ? Combat.hitInfo(attackerBot, { isDoT }) : Combat.unitHitInfo(attackerObj && attackerObj.ref, isDoT);
       CC.wake(u, isDoT); // direct hits wake sleepers (damage over time doesn't)
       if (targetObj.kind === 'structure' && !isStructureVulnerable(u)) return;
       if (targetObj.kind === 'camp') {
@@ -3955,7 +3965,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       if (targetObj.kind === 'deployable') {
         if (u.hp <= 0) return;
-        const mitigated = dmg > 0 ? Math.max(1, Math.round(dmg * (100 / (100 + unitResist(u))))) : 0;
+        const mitigated = dmg > 0 ? Math.max(1, Math.round(Combat.mitigate(dmg, unitResist(u), info, u))) : 0;
         u.hp -= mitigated;
         if (u.onDamaged) u.onDamaged(mitigated);
         if (u.hp <= 0) {
@@ -3968,11 +3978,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       const atkRef = attackerObj || (attackerBot ? { kind: 'bot', ref: attackerBot } : null);
       if (targetObj.kind === 'player' || (targetObj.kind === 'bot' && u.team === 0)) {
-        damageOrderHeroOrBot(u, dmg, dmgType, atkRef, isDoT);
+        damageOrderHeroOrBot(u, dmg, dmgType, atkRef, isDoT, info);
       } else {
         const res = unitResist(u);
-        const mitigated = Math.max(1, Math.round(dmg * (100 / (100 + res))));
+        const mitigated = Math.max(1, Math.round(Combat.mitigate(dmg, res, info, u)));
         u.hp -= targetObj.kind === 'bot' ? absorbShield(u, mitigated) : mitigated;
+        Combat.emit('hit', { attacker: info.attacker, target: u, targetObj, raw: dmg, dealt: mitigated, info });
         if (u.hp <= 0) {
           handleUnitDeath(targetObj);
         }
@@ -4910,7 +4921,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (ctx.isWtfMode()) {
           hero.mp = hero.maxMp;
         } else {
-          hero.hp = Math.min(hero.maxHp, hero.hp + st.hpRegen * dt);
+          Combat.heal(hero, st.hpRegen * dt);
           hero.mp = Math.min(hero.maxMp, hero.mp + st.mpRegen * dt);
         }
 

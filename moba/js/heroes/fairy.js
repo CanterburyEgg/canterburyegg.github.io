@@ -453,16 +453,16 @@ H.fairy = {
       const pa = po || KitFx.player;
       const heal = H.fairy.dmg.dustHealPerSec(pa.stats(), pa.level()) * dt;
       if (!po && activeHeroId === 'fairy' && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r) {
-        hero.hp = Math.min(hero.maxHp, hero.hp + heal);
+        MOBA_COMBAT.heal(hero, heal);
       }
       if (po && po.unit.hp > 0 && Math.hypot(po.unit.x - p.x, po.unit.z - p.z) <= p.r) {
-        po.unit.hp = Math.min(po.unit.maxHp, po.unit.hp + heal);
+        MOBA_COMBAT.heal(po.unit, heal);
       }
       if (phase1Engine) {
         (po || KitFx.player).allies().forEach((a) => {
           const b = a.ref;
           if (b.hp > 0 && b.hp < b.maxHp && Math.hypot(a.x - p.x, a.z - p.z) <= p.r + (a.r || 0.5) * 0.5) {
-            b.hp = Math.min(b.maxHp, b.hp + heal);
+            MOBA_COMBAT.heal(b, heal);
           }
         });
       }

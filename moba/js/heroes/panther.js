@@ -204,7 +204,7 @@ H.panther = {
     }
 
     if (didHitAny && healPerHit > 0) {
-      hero.hp = Math.min(hero.maxHp, hero.hp + healPerHit);
+      MOBA_COMBAT.heal(hero, healPerHit);
       spawnFloat(hero.x, 2.65, hero.z, '+' + healPerHit + ' HP', '#4ade80');
     }
     return;

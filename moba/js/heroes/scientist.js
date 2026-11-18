@@ -247,7 +247,7 @@ H.scientist = {
     }
     if (hero.injectTimer > 0) {
       hero.injectTimer -= dt;
-      if (activeHeroId === 'scientist') hero.hp = Math.min(hero.maxHp, hero.hp + (hero.injectHealPerSec || 0) * dt);
+      if (activeHeroId === 'scientist') MOBA_COMBAT.heal(hero, (hero.injectHealPerSec || 0) * dt);
     }
     if (activeHeroId !== 'scientist') { hero.sawOn = false; return; }
     fuelTick(hero, dt);
@@ -338,7 +338,7 @@ H.scientist = {
     }
     if ((u.injectTimer || 0) > 0) {
       u.injectTimer -= dt;
-      u.hp = Math.min(u.maxHp, u.hp + (u.injectHealPerSec || 0) * dt);
+      MOBA_COMBAT.heal(u, (u.injectHealPerSec || 0) * dt);
     }
     botFuelTick(u, dt);
     if (u.sawOn && ((u.sawT || 0) > 6 || fuelOf(u) <= 0)) { u.sawOn = false; u.cdQ = 1.0; } // out of fuel (or the 6s safety cap)
