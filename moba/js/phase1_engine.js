@@ -2038,6 +2038,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       o.armor = o.resist;
       o.fResist = o.resist;
       o.cdr = 1 - 100 / (100 + Math.max(0, o.haste));
+      o.ultCdr = 1 - 100 / (100 + Math.max(0, o.haste) + Math.max(0, o.ultHaste || 0)); // Ultimate Haste stacks with Haste for R
       return o;
     }
     // damage after Resist (one Resist reduces both Attack and Ability damage)
@@ -2047,6 +2048,22 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (u.resist !== undefined) return u.resist + (u === hero ? 0 : guard);
       return (u.armor || 0) + (u === hero ? 0 : guard);
     }
+
+    // Current stats of a hero unit for the shared combat core (pen resistance, tenacity, ...): player or bot
+    function unitStatsOf(u) {
+      if (!u) return null;
+      if (u === hero) return getPlayerStats();
+      return u.unitStats || null;
+    }
+    Combat.statsOf = unitStatsOf;
+    CC.tenacityOf = (u) => { const st = unitStatsOf(u); return (st && st.tenacity) || 0; };
+    // Lifesteal / Spell Vamp for bots (the player's is in dealPlayerDamageToUnit); area hits heal at 1/3
+    Combat.on('hit', (e) => {
+      const a = e.attacker;
+      if (!a || a === hero || !a.unitStats || !(e.dealt > 0) || !(a.hp > 0)) return;
+      const vamp = e.info.src === 'attack' ? a.unitStats.lifesteal : a.unitStats.spellVamp * (e.info.aoe ? 1 / 3 : 1);
+      if (vamp > 0) Combat.heal(a, Math.round(e.dealt * vamp), e.info);
+    });
 
     // the active hero's own resource spec ({ name, max, colors }) or null for mana
     function heroResource() {
@@ -2199,7 +2216,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         damage: (t, dmg, opts) => {
           opts = opts || {};
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
-          applyBotDamageToTarget(t, Math.round(dmg * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT, Combat.hitInfo(b, opts));
+          const onHit = opts.isBasic && dmg > 0 ? ((b.unitStats && b.unitStats.onHit) || 0) : 0; // On-hit: flat Attack damage on basic attacks
+          applyBotDamageToTarget(t, Math.round((dmg + onHit) * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT, Combat.hitInfo(b, opts));
           applyActorEffects(t, opts, b);
           return true;
         }
@@ -2291,7 +2309,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Damage source (DESIGN_RULES §2): basic attacks and "counts as a basic attack" abilities deal Attack damage,
       // everything else is Ability damage. Kits can say so explicitly with opts.src = 'attack' | 'ability'.
       const isAttackDmg = info.src === 'attack';
-      let dmg = rawDmg;
+      // On-hit (Attack speed double): flat Attack damage on basic attacks
+      let dmg = rawDmg > 0 && info.isBasic && st.onHit > 0 ? rawDmg + st.onHit : rawDmg;
 
       // One Resist reduces both sources
       dmg = Combat.mitigate(dmg, unitResist(u), info, u);
@@ -2334,13 +2353,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // Stun (Brawler Q Kick / Wall Stun)
       if (opts.stunDur && targetObj.kind !== 'structure') {
-        u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
+        u.stunTimer = Math.max(u.stunTimer || 0, CC.dur(u, opts.stunDur));
         spawnFloat(u.x, 2.6, u.z, 'STUNNED!', '#fde047');
       }
 
       // Taunt (Bodyguard R Eyes On Me!)
       if (opts.tauntDur && targetObj.kind !== 'structure') {
-        u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
+        u.tauntTimer = Math.max(u.tauntTimer || 0, CC.dur(u, opts.tauntDur));
         u.tauntBy = hero;
         spawnFloat(u.x, 2.65, u.z, 'TAUNTED!', '#fde047');
       }
@@ -3070,7 +3089,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const wallStunDur = u.knockbackWallStun;
         u.knockbackWallStun = 0;
         u.knockbackTimer = 0;
-        u.stunTimer = Math.max(u.stunTimer || 0, wallStunDur);
+        u.stunTimer = Math.max(u.stunTimer || 0, CC.dur(u, wallStunDur));
         SFX.play('arena');
         spawnShockRing(u.x, u.z, 0xfde047, 0.25, 1.7, 0.28);
         spawnFloat(u.x, 2.85, u.z, 'WALL STUN!', '#fde047');
@@ -3146,11 +3165,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const u = targetObj.ref;
         if (targetObj.kind === 'structure') return;
         if (opts.stunDur && opts.stunDur > 0) {
-          u.stunTimer = Math.max(u.stunTimer || 0, opts.stunDur);
+          u.stunTimer = Math.max(u.stunTimer || 0, CC.dur(u, opts.stunDur));
         }
         if (opts.slowDur && opts.slowDur > 0) CC.slow(u, opts.slowDur, opts.slowPct);
         if (opts.tauntDur && opts.tauntDur > 0 && u !== hero) {
-          u.tauntTimer = Math.max(u.tauntTimer || 0, opts.tauntDur);
+          u.tauntTimer = Math.max(u.tauntTimer || 0, CC.dur(u, opts.tauntDur));
         }
         if (opts.bleedAdd && opts.bleedAdd > 0 && u !== hero) {
           u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
@@ -3754,7 +3773,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             if (b.atkCd <= 0) {
               const spec = (DATA.HERO_SPECS && DATA.HERO_SPECS[b.heroType]) || null;
               const baseInterval = spec ? spec.atkCd : 1.12;
-              b.atkCd = baseInterval / (1 + (b.level - 1) * 0.035);
+              b.atkCd = Combat.atkInterval(baseInterval, b.unitStats || { asPct: (b.level - 1) * 0.035 });
               const lockedTarget = bestTarget;
 
               // every hero's bot basic attack comes from its kit (the brain only picks the target)

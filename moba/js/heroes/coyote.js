@@ -417,7 +417,7 @@ H.coyote = {
     if (!actor.isPlayer) { const L = (window.__kitBotLog = window.__kitBotLog || {}); L.lmb = (L.lmb || 0) + 1; }
     const aim = actor.aim();
     hero.facing = Math.atan2(aim.x - hero.x, aim.z - hero.z);
-    hero.atkTimer = H.coyote.spec.atkCd / (1 + st.asPct);
+    hero.atkTimer = KitFx.atkInterval(H.coyote.spec.atkCd, st);
     hero.punchAnim = 0.22;
     actor.play('punch', 0.04, true, 0.95, 0, 0.36);
     SFX.play('punch');
@@ -432,8 +432,7 @@ H.coyote = {
   // ctx is optional for bots: built from the actor (no talents yet, no CDR items)
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     const hero = actor.unit;
@@ -482,7 +481,7 @@ H.coyote = {
       }
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.5 : [42.0, 36.0, 30.0][rUlt] * cdrMult;
+      hero.cdR = wtfMode ? 0.5 : [42.0, 36.0, 30.0][rUlt] * (ctx.ultCdrMult || cdrMult);
       hero.rChargeTimer = 2.0;
       SFX.play('chime');
       spawnFloat(hero.x, 2.55, hero.z, 'CHARGING HEARTSEEKER!', '#fb7185');

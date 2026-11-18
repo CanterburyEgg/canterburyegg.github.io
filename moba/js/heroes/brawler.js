@@ -264,7 +264,7 @@ H.brawler = {
     }
 
     if (isKick) {
-      hero.atkTimer = H.brawler.spec.atkCd / (1 + st.asPct * 0.5);
+      hero.atkTimer = KitFx.atkInterval(H.brawler.spec.atkCd, st, 0.5);
       // Full 0.76s commit window so moving during Q Kick finishes the roundhouse & leg plant before blending to run!
       hero.kickAnim = 0.76;
       const kickAct = actions.kick || actions.punch;
@@ -274,7 +274,7 @@ H.brawler = {
       }
       pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23 };
     } else {
-      hero.atkTimer = H.brawler.spec.atkCd / (1 + st.asPct);
+      hero.atkTimer = KitFx.atkInterval(H.brawler.spec.atkCd, st);
       hero.punchAnim = 0.48;
 
       // Every swing switches hands (right hook, left hook, ...); resets to the right hook after ~2s without attacking
@@ -364,8 +364,7 @@ H.brawler = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
@@ -421,7 +420,7 @@ H.brawler = {
       }
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.4 : [46.0, 40.0, 34.0][rUlt] * cdrMult;
+      hero.cdR = wtfMode ? 0.4 : [46.0, 40.0, 34.0][rUlt] * (ctx.ultCdrMult || cdrMult);
       buildArena3D(hero.x, hero.z);
     }
   },
@@ -515,7 +514,7 @@ H.brawler = {
       SFX.play('dash');
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
-      hero.cdR = [46.0, 40.0, 34.0][rUlt] * (ctx.cdrMult || 1);
+      hero.cdR = [46.0, 40.0, 34.0][rUlt] * (ctx.ultCdrMult || ctx.cdrMult || 1);
       if (actor.pitArena) actor.pitArena(5.5);
     }
   },

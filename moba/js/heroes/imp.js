@@ -302,7 +302,7 @@ H.imp = {
   onBasicAttack(st) {
     hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
     if (carrying()) {
-      hero.atkTimer = H.imp.spec.atkCd / (1 + st.asPct);
+      hero.atkTimer = KitFx.atkInterval(H.imp.spec.atkCd, st);
       hero.punchAnim = 0.25;
       recoil = 1;
       SFX.play('arena');
@@ -312,7 +312,7 @@ H.imp = {
       const ball = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
       KitFx.spawnBolt(ang, H.imp.dmg.cannon(st), { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, onHit: splashShell(KitFx.player, H.imp.dmg.cannon(st)) });
     } else {
-      hero.atkTimer = 0.7 / (1 + st.asPct);
+      hero.atkTimer = KitFx.atkInterval(0.7, st);
       hero.punchAnim = 0.3;
       if (actions.punch) fadeToAction(actions.punch, 0.05, true, 2.2, 0.35);
       pendingStrike = { isKick: false, facing: hero.facing, t: 0.15 };
@@ -408,7 +408,7 @@ H.imp = {
         return;
       }
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.5 : 38 * cdrMult;
+      hero.cdR = wtfMode ? 0.5 : 38 * (ctx.ultCdrMult || cdrMult);
       const from = carrying() ? { x: hero.x, z: hero.z } : { x: turret.x, z: turret.z };
       const ang = Math.atan2(aimWorld.x - from.x, aimWorld.z - from.z);
       if (!carrying()) turret.facing = ang;
@@ -445,8 +445,7 @@ H.imp = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     if (actor.isPlayer) return this.cast(slot, ctx);
     return this.botCast(actor, slot, ctx);
@@ -497,7 +496,7 @@ H.imp = {
       }
     } else if (slot === 'R') {
       if ((pProg.level || 1) < 4 || u.cdR > 0 || u.impScrap) return;
-      u.cdR = 38 * (ctx.cdrMult || 1);
+      u.cdR = 38 * (ctx.ultCdrMult || ctx.cdrMult || 1);
       const t = u.impTurret;
       const from = t ? { x: t.x, z: t.z } : { x: u.x, z: u.z };
       const ang = Math.atan2(a.x - from.x, a.z - from.z);

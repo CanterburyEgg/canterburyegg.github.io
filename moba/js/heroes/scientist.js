@@ -161,7 +161,7 @@ H.scientist = {
       return;
     }
     if (hero.sawOn) return; // the saw is busy
-    hero.atkTimer = H.scientist.spec.atkCd / (1 + st.asPct);
+    hero.atkTimer = KitFx.atkInterval(H.scientist.spec.atkCd, st);
     hero.punchAnim = 0.34;
     if (actions.punch) fadeToAction(actions.punch, 0.05, true, 2.0, 0.15); // jab extends at clip 0.35s -> ~0.10s
     pendingStrike = { isKick: false, facing: hero.facing, t: 0.1 };
@@ -178,8 +178,7 @@ H.scientist = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { st, cdrMult, rQE, pProg } = ctx;
@@ -211,7 +210,7 @@ H.scientist = {
       if (!wtfMode && hero.cdR > 0) return;
       if (blade) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.5 : 40 * cdrMult;
+      hero.cdR = wtfMode ? 0.5 : 40 * (ctx.ultCdrMult || cdrMult);
       hero.sawOn = false;
       hero.kickAnim = 0.45;
       if (actions.slide) fadeToAction(actions.slide, 0.06, true, 1.8, 0.5);
@@ -294,7 +293,7 @@ H.scientist = {
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade || fuelOf(hero) < H.scientist.spec.mpCosts.R) return;
       hero.fuel = fuelOf(hero) - H.scientist.spec.mpCosts.R;
-      hero.cdR = 40 * (ctx.cdrMult || 1);
+      hero.cdR = 40 * (ctx.ultCdrMult || ctx.cdrMult || 1);
       hero.sawOn = false;
       hero.kickAnim = 0.45;
       actor.play('slide', 0.06, true, 1.8, 0.5, 0.45);

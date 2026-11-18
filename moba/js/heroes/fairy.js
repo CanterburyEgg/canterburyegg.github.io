@@ -268,7 +268,7 @@ H.fairy = {
       return;
     }
     hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-    hero.atkTimer = H.fairy.spec.atkCd / (1 + st.asPct);
+    hero.atkTimer = KitFx.atkInterval(H.fairy.spec.atkCd, st);
     hero.punchAnim = 0.32;
     if (actions.punch) fadeToAction(actions.punch, 0.05, true, 1.6, 0.2); // point extends at clip 0.45s -> ~0.16s
     const dmg = H.fairy.dmg.dart(st);
@@ -287,8 +287,7 @@ H.fairy = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     const { st, cdrMult, rQE, pProg } = ctx;
     const hero = actor.unit;
@@ -361,7 +360,7 @@ H.fairy = {
       }
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.5 : 48 * cdrMult;
+      hero.cdR = wtfMode ? 0.5 : 48 * (ctx.ultCdrMult || cdrMult);
       hero.kickAnim = 0.75;
       actor.play('slide', 0.06, true, 1.6, 1.25, 0.75); // just the second spin (clip ~1.25-2.5s)
       if (owner) hero.fairyLullaby = 10; else lullabyTimer = 10;

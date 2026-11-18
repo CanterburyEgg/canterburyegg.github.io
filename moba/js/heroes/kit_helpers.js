@@ -129,12 +129,45 @@ K.charges = {
       K.charges.syncCd(u, c);
     }
   },
-  reset(u) { if (u) u.charges = null; }
+  reset(u) { if (u) u.charges = null; },
+  // cut every recharging timer of the unit's charge abilities (opts: { seconds, pct, ult }); R charges only with ult
+  reduce(u, opts) {
+    if (!u || !u.charges) return;
+    for (const key in u.charges) {
+      const c = u.charges[key];
+      if (c.slot === 'R' && !opts.ult) continue;
+      c.timers.forEach((tm) => {
+        if (opts.pct) tm.t *= 1 - opts.pct;
+        if (opts.seconds) tm.t = Math.max(0, tm.t - opts.seconds);
+      });
+    }
+  }
 };
 
 // Damage everything (dummies + engine units, no structures unless opts.structures) inside a circle.
 // opts: dealPlayerDamageToUnit options (dmgType, slowDur, stunDur, knockbackDist, ...) + color + exclude (a unit/dummy
 // to skip, e.g. the one a splash shell already hit); returns hit count.
+// Cast context for an actor (bots build it here; the player's comes from js/arena/combat.js the same way):
+// cdrMult = basic ability cooldown multiplier (Haste), ultCdrMult = R's (Haste + Ultimate Haste)
+K.castCtx = function (actor) {
+  const lvl = actor.level();
+  const st = actor.stats();
+  return { st, pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (st.cdr || 0), ultCdrMult: 1 - (st.ultCdr || st.cdr || 0), rQE: K.rQE(lvl), rUlt: K.rUlt(lvl) };
+};
+// seconds between this actor's basic attacks (attack speed cap: js/combat_core.js)
+K.atkInterval = function (baseCd, st, asScale) { return window.MOBA_COMBAT.atkInterval(baseCd, st, asScale); };
+// Cut an actor's running cooldowns: opts { seconds, pct, ult (include R) } (Reset, Essence, Battle rhythm, Shrug off)
+K.reduceCooldowns = function (unit, opts) {
+  if (!unit || !opts) return;
+  const slots = opts.ult ? ['cdQ', 'cdE', 'cdR'] : ['cdQ', 'cdE'];
+  slots.forEach((k) => {
+    if (!(unit[k] > 0)) return;
+    if (opts.pct) unit[k] *= 1 - opts.pct;
+    if (opts.seconds) unit[k] = Math.max(0, unit[k] - opts.seconds);
+  });
+  if (K.charges && K.charges.reduce) K.charges.reduce(unit, opts);
+};
+
 K.hitArea = function (x, z, r, dmg, opts = {}) {
   let hits = 0;
   const by = opts.by || K.player; // opts.by = casting actor (bots hit their own enemies, no dummies)

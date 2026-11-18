@@ -397,7 +397,7 @@ H.sorceress = {
     }
     const aim = actor.aim();
     hero.facing = Math.atan2(aim.x - hero.x, aim.z - hero.z);
-    hero.atkTimer = H.sorceress.spec.atkCd / (1 + st.asPct);
+    hero.atkTimer = KitFx.atkInterval(H.sorceress.spec.atkCd, st);
     // 0.44s commit window covers the 0.22s left-hand pullback windup + throw release!
     hero.punchAnim = 0.44;
     actor.play('punch', 0.04, true, 2.25, 0.24, 0.34);
@@ -413,8 +413,7 @@ H.sorceress = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     const hero = actor.unit;
@@ -478,7 +477,7 @@ H.sorceress = {
       }
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.45 : [46.0, 40.0, 34.0][rUlt] * cdrMult;
+      hero.cdR = wtfMode ? 0.45 : [46.0, 40.0, 34.0][rUlt] * (ctx.ultCdrMult || cdrMult);
       // 0.72s commit window covers the 0.50s 2H overhead windup + downward slam!
       hero.kickAnim = 0.72;
       if (actor.isPlayer) {

@@ -194,7 +194,7 @@ H.bodyguard = {
       const L = (window.__kitBotLog = window.__kitBotLog || {}); L.bg_lmb = (L.bg_lmb || 0) + 1;
       return;
     }
-    hero.atkTimer = H.bodyguard.spec.atkCd / (1 + st.asPct);
+    hero.atkTimer = KitFx.atkInterval(H.bodyguard.spec.atkCd, st);
     // Hook Punch.fbx (2.17s): skip the 0.42s off-hand guard shift and start right as the right shoulder cocks back;
     // at 2.15x speed, the Right-Hand Hook Punch impacts at t = 0.27s (clipTime = 1.00s) and finishes follow-through at 0.50s!
     hero.punchAnim = 0.50;
@@ -281,8 +281,7 @@ H.bodyguard = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     const { st, pProg, talents, cdrMult, rQE, rUlt } = ctx;
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
@@ -327,7 +326,7 @@ H.bodyguard = {
       }
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.45 : [44.0, 38.0, 32.0][rUlt] * cdrMult;
+      hero.cdR = wtfMode ? 0.45 : [44.0, 38.0, 32.0][rUlt] * (ctx.ultCdrMult || cdrMult);
       this.eyesOnMe(KitFx.player, ctx);
     }
     return;
@@ -454,7 +453,7 @@ H.bodyguard = {
       };
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
-      hero.cdR = [44.0, 38.0, 32.0][rUlt] * (ctx.cdrMult || 1);
+      hero.cdR = [44.0, 38.0, 32.0][rUlt] * (ctx.ultCdrMult || ctx.cdrMult || 1);
       this.eyesOnMe(actor, ctx);
     }
   },

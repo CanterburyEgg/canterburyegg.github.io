@@ -17,24 +17,27 @@
   'use strict';
   const max = (a, b) => Math.max(a || 0, b || 0);
   const CC = {
+    // Tenacity (0..1) shortens every CC except knock-ups, slows included (SHOP_PLAN; the engine sets tenacityOf)
+    tenacityOf(u) { return 0; },
+    dur(u, d) { const t = CC.tenacityOf(u) || 0; return t > 0 ? d * (1 - Math.min(0.95, t)) : d; },
     apply(u, opts, src) {
       if (!u || !opts) return;
-      if (opts.stunDur > 0) u.stunTimer = max(u.stunTimer, opts.stunDur);
+      if (opts.stunDur > 0) u.stunTimer = max(u.stunTimer, CC.dur(u, opts.stunDur));
       if (opts.slowDur > 0) CC.slow(u, opts.slowDur, opts.slowPct);
-      if (opts.rootDur > 0) u.rootTimer = max(u.rootTimer, opts.rootDur);
-      if (opts.silenceDur > 0) u.silenceTimer = max(u.silenceTimer, opts.silenceDur);
+      if (opts.rootDur > 0) u.rootTimer = max(u.rootTimer, CC.dur(u, opts.rootDur));
+      if (opts.silenceDur > 0) u.silenceTimer = max(u.silenceTimer, CC.dur(u, opts.silenceDur));
       if (opts.knockupDur > 0) {
         u.knockupTimer = max(u.knockupTimer, opts.knockupDur);
         u.knockupDur = Math.max(u.knockupTimer, u.knockupDur || 0);
         u.stunTimer = max(u.stunTimer, opts.knockupDur);
       }
-      if (opts.sleepDur > 0) { u.sleepTimer = max(u.sleepTimer, opts.sleepDur); u.sleepGrace = 0.1; }
+      if (opts.sleepDur > 0) { u.sleepTimer = max(u.sleepTimer, CC.dur(u, opts.sleepDur)); u.sleepGrace = 0.1; }
       if (opts.fearDur > 0 && src) {
-        u.fearTimer = max(u.fearTimer, opts.fearDur);
+        u.fearTimer = max(u.fearTimer, CC.dur(u, opts.fearDur));
         u.fearFromX = src.x; u.fearFromZ = src.z;
       }
       if (opts.tauntDur > 0 && src) {
-        u.tauntTimer = max(u.tauntTimer, opts.tauntDur);
+        u.tauntTimer = max(u.tauntTimer, CC.dur(u, opts.tauntDur));
         u.tauntBy = src.unit || null;
       }
     },
@@ -45,7 +48,7 @@
       const p = pct > 0 ? pct : 0;
       const eff = (x) => (x > 0 ? x : 0.32); // 0 = the standard slow
       u.slowPct = (u.slowTimer > 0 && eff(u.slowPct) > eff(p)) ? u.slowPct : p;
-      u.slowTimer = max(u.slowTimer, dur);
+      u.slowTimer = max(u.slowTimer, CC.dur(u, dur));
     },
     // feared units stumble away slower than they walk
     FEAR_SPEED: 0.6,

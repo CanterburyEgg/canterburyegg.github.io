@@ -145,7 +145,7 @@ H.panther = {
       hero.stealthExitTimer = 4.0;
       spawnFloat(hero.x, 2.75, hero.z, 'AMBUSH FROM STEALTH!', '#2dd4bf');
     }
-    hero.atkTimer = H.panther.spec.atkCd / (1 + st.asPct);
+    hero.atkTimer = KitFx.atkInterval(H.panther.spec.atkCd, st);
     hero.punchAnim = 0.36;
     if (actions.punch) {
       // Mutant Swiping.fbx: skip the 0.00s-0.82s slow windup and start right at 0.82s as the claw sweeps across!
@@ -217,8 +217,7 @@ H.panther = {
 
   castFor(actor, slot, ctx) {
     if (!ctx) {
-      const lvl = actor.level();
-      ctx = { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (actor.stats().cdr || 0), rQE: KitFx.rQE(lvl), rUlt: KitFx.rUlt(lvl) };
+      ctx = KitFx.castCtx(actor);
     }
     if (!actor.isPlayer) return this.botCast(actor, slot, ctx);
     const { pProg, talents, cdrMult, rQE, rUlt } = ctx;
@@ -287,7 +286,7 @@ H.panther = {
       }
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.4 : [38.0, 32.0, 26.0][rUlt] * cdrMult;
+      hero.cdR = wtfMode ? 0.4 : [38.0, 32.0, 26.0][rUlt] * (ctx.ultCdrMult || cdrMult);
       hero.stealthTimer = 6.0;
       hero.unseenLingerTimer = 2.2;
       SFX.play('dash');
@@ -400,7 +399,7 @@ H.panther = {
       };
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
-      hero.cdR = [38.0, 32.0, 26.0][rUlt] * (ctx.cdrMult || 1);
+      hero.cdR = [38.0, 32.0, 26.0][rUlt] * (ctx.ultCdrMult || ctx.cdrMult || 1);
       hero.stealthTimer = 6.0;
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);

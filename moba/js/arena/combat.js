@@ -345,7 +345,7 @@ function castKey(slot) {
   // Heroes migrated to js/heroes/<id>.js
   const kitCast = heroKit();
   if (kitCast && kitCast.cast) {
-    kitCast.cast(slot, { st, pProg, talents, cdrMult, rQE, rUlt });
+    kitCast.cast(slot, { st, pProg, talents, cdrMult, ultCdrMult: 1 - (st.ultCdr || st.cdr || 0), rQE, rUlt });
     return;
   }
 }
