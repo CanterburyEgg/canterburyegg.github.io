@@ -1102,7 +1102,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
     prevTime = tStart;
   }
 
-  applyRepeatedPatternConsistency(notes, lanes);
+  applyRepeatedPatternConsistency(notes, lanes, features.exactScore ? 60 : 0);
 
   // Score chords that enter UNDER a held melody note (e.g. Sevens 3:42: the low brass come in under the trumpets'
   // held A-flat): a second hold on the other hand, starting when they enter and ending with the melody hold.
@@ -1421,6 +1421,9 @@ const LAYOUT_RULES = [
   ['slowEntryClimbRises', (n, l, c) => { if (c.exactScore) applySlowEntryClimbRises(n, l); }],
   ['quickBurstsLandHome', (n, l, c) => { if (c.exactScore) applyQuickBurstsLandHome(n, l); }],
   ['twoNoteSwingKeys', (n, l, c) => { if (c.exactScore) applyTwoNoteSwingKeys(n, l, c.chordHits); }],
+  ['slowRepeatsKeepKey', (n, l, c) => { if (c.exactScore) applySlowRepeatsKeepKey(n, l); }],
+  ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l); }],
+  ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
@@ -2029,7 +2032,7 @@ function applyStepAndAntiJackhammer(
  * every repeat. Score-planned lanes (hints / percussion taps) always win.
  * Then repeated single pitches are normalised (see normalizeRepeatedPitchRuns) and chord partners re-derived.
  */
-function applyRepeatedPatternConsistency(notes, lanes) {
+function applyRepeatedPatternConsistency(notes, lanes, linkWindow = 0) {
   const MIN_LEN = 3; // shortest phrase treated as a repeat (3 notes: e.g. Sevens 1:09 80-79-77 turn)
   const prim = notes.filter((n) => !n.isChordPartner);
   const n = prim.length;
@@ -2090,6 +2093,10 @@ function applyRepeatedPatternConsistency(notes, lanes) {
       let bestJ = -1;
       let bestLen = 0;
       for (let j = i - 1; j >= 0; j--) {
+        // (linkWindow, exact scores: a repeat links only to a statement within the last minute, so a passage's keys
+        // can't be moved by something minutes later -- Mars 0:57's approved chords moved when notes changed at 2:30;
+        // user, Nov 18. The PDF charts keep their song-wide links as locked)
+        if (linkWindow && prim[i].time - prim[j].time > linkWindow) break;
         if (prim[j].midi !== prim[i].midi) continue;
         const len = extend(j, i);
         if (len >= MIN_LEN && !(reject && reject(j, i, len))) {
@@ -2155,6 +2162,7 @@ function applyRepeatedPatternConsistency(notes, lanes) {
       // a one-off pin votes with the key it would have had unpinned, so it doesn't sway the other statements
       const voteLane = (k) => (prim[k].localHint && prim[k].unpinnedLane !== null ? prim[k].unpinnedLane : prim[k].lane);
       for (const k of members) votes.set(voteLane(k), (votes.get(voteLane(k)) || 0) + 1);
+
       // Ties go to the LATEST occurrence: by then the passage has settled into its fingering (e.g. Sevens 1:29 vs 1:33)
       let best = -1;
       for (const k of members) {
@@ -2164,6 +2172,30 @@ function applyRepeatedPatternConsistency(notes, lanes) {
           lane = voteLane(k);
         }
       }
+    }
+    if (linkWindow && fixed === undefined) {
+      // (exact scores: each statement takes the majority of the statements within a minute of it -- chains of repeats
+      // can't carry a change from minutes later back to an approved passage)
+      const voteLane = (k) => (prim[k].localHint && prim[k].unpinnedLane !== null ? prim[k].unpinnedLane : prim[k].lane);
+      const own = members.map((k) => {
+        const near = members.filter((m) => Math.abs(prim[m].time - prim[k].time) <= linkWindow);
+        const v = new Map();
+        for (const m of near) v.set(voteLane(m), (v.get(voteLane(m)) || 0) + 1);
+        let best = -1;
+        let ln;
+        for (const m of near) {
+          const c = v.get(voteLane(m));
+          if (c >= best) {
+            best = c;
+            ln = voteLane(m);
+          }
+        }
+        return ln;
+      });
+      members.forEach((k, q) => {
+        if (!prim[k].fixedLane) prim[k].lane = own[q];
+      });
+      continue;
     }
     for (const k of members) if (!prim[k].fixedLane) prim[k].lane = lane;
   }
@@ -4778,6 +4810,101 @@ function applyTwoNoteSwingKeys(notes, lanes, chordHits) {
   }
 }
 
+/**
+ * Slow repeats keep their key: a note struck again and again at an unhurried pace (each repeat 0.2s+ after the last --
+ * Mars 2:22: the 82s every 0.43s) stays on one key; only quick bursts alternate (user, Nov 18: "why is this alternating
+ * notes? it's not nearly fast enough to trigger our jackhammer rule"). The key is the run's own one that reads right
+ * from the note before it and into the note after it (the first note's key if both do). Exact scores only.
+ */
+function applySlowRepeatsKeepKey(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const reads = (p, q, lp, lq) => (p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(lq - lp) === Math.sign(q.midi - p.midi));
+  for (let a = 0; a < n; ) {
+    let b = a;
+    // (a strike in a quick burst -- one under 0.2s from its neighbour -- belongs to the burst, not the run)
+    const startsBurst = (k) => (k + 1 < n && prim[k + 1].midi === prim[k].midi && prim[k + 1].time - prim[k].time < 0.2) ||
+      (k > 0 && prim[k - 1].midi === prim[k].midi && prim[k].time - prim[k - 1].time < 0.2);
+    if (startsBurst(a)) {
+      a++;
+      continue;
+    }
+    while (b + 1 < n && prim[b + 1].midi === prim[a].midi && prim[b + 1].time - prim[b].time >= 0.2 && prim[b + 1].time - prim[b].time < 1.2 && !startsBurst(b + 1)) b++;
+    const run = prim.slice(a, b + 1);
+    const usedLanes = [...new Set(run.map((x) => x.lane))];
+    if (run.length >= 3 && usedLanes.length > 1 && !run.some((x) => x.fixedLane || x.localPin || x.ghost)) {
+      const pv = a > 0 && run[0].time - prim[a - 1].time < 1.5 ? prim[a - 1] : null;
+      const nx = b + 1 < n && prim[b + 1].time - run[run.length - 1].time < 1.5 ? prim[b + 1] : null;
+      const fits = (l) => (!pv || reads(pv, run[0], pv.lane, l)) && (!nx || reads(run[run.length - 1], nx, l, nx.lane));
+      const others = [0, 1, 2, 3].filter((l) => !usedLanes.includes(l)).sort((x, y) => Math.abs(x - run[0].lane) - Math.abs(y - run[0].lane));
+      const pick = [run[0].lane, ...usedLanes, ...others].find(fits);
+      if (pick !== undefined) run.forEach((x) => (x.lane = pick));
+    }
+    a = b + 1;
+  }
+}
+
+/**
+ * No doubled key in a step: two different notes close together (under 0.7s apart, a 5th or less) never share a key
+ * (Mars 2:17: the cor anglais' 70 71 | 72 73 | 75 70 came out D F | F J | K D, the 71 and 72 both on F; user, Nov 18:
+ * "something that doesn't double the note"). The second note moves on a key the way the line goes (and the next note
+ * follows if it now doubles). At the edge, a note that starts a new pair (0.5s+ after the last) cheats back one key
+ * instead: D F | J K | J D, the 75 a new group's start. Exact scores only.
+ */
+function applyNoDoubledKeyInSteps(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  for (let i = 1; i < prim.length; i++) {
+    const p = prim[i - 1];
+    const q = prim[i];
+    if (p.midi === q.midi || p.lane !== q.lane || q.time - p.time >= 0.7 || Math.abs(q.midi - p.midi) > 7) continue;
+    if (q.fixedLane || q.localPin || q.ghost) continue;
+    const dir = Math.sign(q.midi - p.midi);
+    const want = q.lane + dir;
+    if (want >= 0 && want < lanes) q.lane = want;
+    else if (q.time - p.time >= 0.5) q.lane = q.lane - dir;
+    else if (!p.fixedLane && !p.localPin && !p.ghost) {
+      // (no room past the edge: the note before steps back from it instead, and the one before that if it now doubles
+      // -- Jupiter 0:34: 72 71 | 65 came out F72 D71 D65; it plays J72 F71 D65)
+      p.lane -= dir;
+      for (let k = i - 1; k >= 1 && i - k <= 3; k--) {
+        const a = prim[k - 1];
+        const b = prim[k];
+        if (a.midi === b.midi || a.lane !== b.lane || b.time - a.time >= 0.7 || a.fixedLane || a.localPin || a.ghost) break;
+        const nl = a.lane - dir;
+        if (nl < 0 || nl >= lanes) break;
+        a.lane = nl;
+      }
+    }
+  }
+}
+
+/**
+ * Very quick rips on four keys: in a song that doesn't use the ghost keys (ghostNotes: false -- Mars), a rip of 5-7 notes going one way (its landing
+ * note included), each under 0.1s apart, plays as four -- its first note and its last three, on D F J K up (K J F D
+ * down; Mars 2:41: 70 72 74 75 77 79 -> 80 plays 70 77 79 80) -- instead of
+ * wrapping round the keys (user, Nov 18: "if there's a VERY quick rip of five, let's cheat and make it four (DFJK)").
+ * The dropped notes are taken off the chart. Exact scores only.
+ */
+function applyQuickRipsFourKeys(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  for (let a = 0; a + 4 < prim.length; ) {
+    const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
+    let b = a;
+    while (b + 1 < prim.length && dir && prim[b + 1].time - prim[b].time < 0.1 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir) b++;
+    const midRun = a > 0 && prim[a].time - prim[a - 1].time < 0.1 && Math.sign(prim[a].midi - prim[a - 1].midi) === dir;
+    if (!midRun && b - a + 1 >= 5 && b - a + 1 <= 7 && !prim.slice(a, b + 1).some((x) => x.type === 'hold' && x !== prim[b])) {
+      const run = prim.slice(a, b + 1);
+      const keep = [run[0], ...run.slice(-3)];
+      run.forEach((x) => {
+        if (!keep.includes(x)) notes.splice(notes.indexOf(x), 1);
+      });
+      keep.forEach((x, j) => (x.lane = dir > 0 ? j : lanes - 1 - j));
+      a = b + 1;
+    } else a++;
+  }
+}
+
 function applyLinesKeepDirection(notes, lanes, ghosts) {
   if (lanes !== 4) return;
   const S = lanes;
@@ -4814,7 +4941,11 @@ function applyLinesKeepDirection(notes, lanes, ghosts) {
       // (five at a walking pace -- median gap 0.18s+ -- step back once at the start instead of a ghost key: F D F J K
       // up, J K J F D down; a quick run takes the ghost: S D F J K / L K J F D)
       const med = [...gaps].sort((x, y) => x - y)[gaps.length >> 1];
-      if (med >= 0.18) options.push(dir > 0 ? [1, 0, 1, 2, 3] : [2, 3, 2, 1, 0]);
+      // (two slower notes, then a quick three -- Jupiter 6:55's 55 57 | 58 60 62, 7:10's 67 69 | 70 72 74: the pair on
+      // its own keys and the flourish starting afresh, F J | F J K up (J F | J F D down); user, Nov 18)
+      const leadIn = gaps[0] >= 1.8 * Math.max(gaps[2], gaps[3]) && gaps[1] >= 1.8 * Math.max(gaps[2], gaps[3]);
+      if (leadIn) options.push(dir > 0 ? [1, 2, 1, 2, 3] : [2, 1, 2, 1, 0]);
+      else if (med >= 0.18) options.push(dir > 0 ? [1, 0, 1, 2, 3] : [2, 3, 2, 1, 0]);
       else if (ghosts) options.push(dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0]);
     }
     const fits = (o) => (!pv || run[0].partEntry || reads(pv, run[0], pv.lane, o[0])) && (!nx || nx.partEntry || reads(run[k - 1], nx, o[k - 1], nx.lane));

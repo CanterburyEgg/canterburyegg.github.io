@@ -19,18 +19,19 @@
   ],
   "lead_part": [
     {
-      "staff": "Tenor Trombone 1",
-      "start": 97.9,
-      "end": 101.95,
+      "staff": "Trumpet 1 in C",
+      "start": 167.95,
+      "end": 178.0,
       "late": true,
-      "why": "1:45-1:50 (score 98-102): the trombones' tune 56 55 54 55 56 58 60 62 63 62 leads, not the trumpets' ostinato on 72 over it (user, Nov 18: 'just be playing the brass melody as it's handed off, with the ostinato only coming back into play if it's truly the only thing being played'). The trumpets' figure counts as a brass melody for the brass-over-decoration rule (8+ strikes on one note in a rhythm, like Jupiter 7:41's fanfare); telling an accompanying ostinato from a fanfare changed the locked songs, so this is by ear."
+      "why": "3:02-3:13 (score 168-178): the trumpets take up the figure the euphoniums started two beats earlier (72 72 72 | 72 71 72 72 71 72 | 75 72 72 75 ...): the trumpets are the line on top, and every repeated note is struck (user, Nov 18: 'missing a lot of the start notes after holds, where the first note is the same as the held note'). The theme-returns rule was handing these bars to the horns' held 68, and the held-over-reattack rule then swallowed the repeats."
     },
     {
-      "staff": "Horn 1 in F",
-      "start": 101.95,
-      "end": 113.15,
+      "staff": "Flute 1",
+      "start": 149.95,
+      "end": 150.75,
       "late": true,
-      "why": "1:50-2:02 (score 102-113.2): the horns take the tune over (68 67 66 67 68 70 72 ..., then 67 66 67 64 66 69 ...), again over the trumpets' ostinato on 72. See 98."
+      "why": "2:42.9-2:43.5 (score 150-150.8): the woodwinds' 83 (doubled by the first violins) starts the phrase 83 80 80 83 85 88 ...; the rules pick the fourth horn's 66 66 under it -- a chord-filling part, not a repeated note, so the tune-over-repeated-notes rule doesn't apply (user, Nov 18: 'locking onto the low brass background')."
     }
-  ]
+  ],
+  "ghost_notes": false
 }

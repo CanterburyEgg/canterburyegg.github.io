@@ -44,6 +44,8 @@ def run(ns):
         payload["chordNotes"] = chord_notes
     if chord_hits:
         payload["chordHits"] = chord_hits
+    if ns.get("ghost_notes") is False:
+        payload["ghostNotes"] = False  # (corrections_no_ghosts)
     if ns.get("counter_notes"):
         payload["counterNotes"] = ns["counter_notes"]  # (counter_notes: the left hand's line in a two-hands passage)
     if ns.get("beat_levels") is not None:

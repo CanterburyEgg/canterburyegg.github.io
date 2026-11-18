@@ -37681,7 +37681,7 @@
         "time": 33.2161,
         "endTime": 33.2161,
         "type": "tap",
-        "lane": 2,
+        "lane": 3,
         "midi": 76,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -46798,7 +46798,7 @@
         "time": 415.4267,
         "endTime": 415.4267,
         "type": "tap",
-        "lane": 0,
+        "lane": 2,
         "midi": 57,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -47347,7 +47347,7 @@
         "time": 429.0666,
         "endTime": 429.0666,
         "type": "tap",
-        "lane": 0,
+        "lane": 1,
         "midi": 74,
         "isPercussionSolo": false,
         "isChordPartner": false
@@ -47392,7 +47392,7 @@
         "time": 430.6496,
         "endTime": 430.6496,
         "type": "tap",
-        "lane": 0,
+        "lane": 2,
         "midi": 69,
         "isPercussionSolo": false,
         "isChordPartner": false
