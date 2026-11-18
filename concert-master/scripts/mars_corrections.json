@@ -1,0 +1,11 @@
+{
+  "time_map": [
+    {
+      "score_from": 0.0,
+      "score_to": 10.0,
+      "audio_from": 0.58,
+      "audio_to": 11.46,
+      "why": "0:00.6-0:11.5 (score 0-10, bars 1-5): the quiet col legno opening. The alignment only locks on at bar 6; before that it started the ostinato 0.9s late and wandered (user, Nov 17: 'the start is VERY inconsistent, and not lining up'). The recording's bar downbeats come every 2.17s from the first attack at 0.58 (onsets 0.58, 2.75, 4.95, 7.11, 9.29, 11.49), the written rhythm at a steady tempo."
+    }
+  ]
+}

@@ -25,13 +25,18 @@ def run(ns):
 
     def harmony(k):
         s0, d, m = float(warped[k]["score_start"]), float(warped[k]["score_dur"]), int(mo[k][2])
+        # (a tune note cut short where the next line picks up inside it -- Mars 0:52's trumpet 75, cut at the
+        # euphoniums' 60 -- still has its chord: the harmony struck with it may run on past the cut)
+        nxt = float(warped[k + 1]["score_start"]) if k + 1 < n else 1e9
+        cut = nxt - (s0 + d) < 0.05
         out = []
         for st in parts:
             if st["name"] == warped[k].get("staff"):
                 continue
             for x in st["notes"]:
                 xd = float(x["end"]) - float(x["start"])
-                if abs(float(x["start"]) - s0) <= 0.03 and abs(xd - d) <= 0.3 * d + 0.03 and (int(x["midi"]) - m) % 12:
+                fits = abs(xd - d) <= 0.3 * d + 0.03 or (cut and d < xd <= 1.6 * d)
+                if abs(float(x["start"]) - s0) <= 0.03 and fits and (int(x["midi"]) - m) % 12:
                     out.append(int(x["midi"]))
                     break
         return out

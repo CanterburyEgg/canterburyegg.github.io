@@ -1365,6 +1365,7 @@ const LAYOUT_RULES = [
   ['threeNoBacktrack', (n, l) => applyThreeNoBacktrack(n, l)],
   ['linesKeepDirection', (n, l, c) => { if (c.exactScore) applyLinesKeepDirection(n, l, c.ghosts); }],
   ['slowEntryClimbRises', (n, l, c) => { if (c.exactScore) applySlowEntryClimbRises(n, l); }],
+  ['quickBurstsLandHome', (n, l, c) => { if (c.exactScore) applyQuickBurstsLandHome(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
@@ -4611,6 +4612,69 @@ function applyEasyRoomToClimb(notes, lanes) {
       q.lane = qWant;
     }
     p.lane = want;
+  }
+}
+
+/**
+ * Quick bursts land home: in a stretch of one repeated pitch (Mars' ostinato on G: a triplet, then quarters and
+ * eighths), every strike that isn't part of a quick burst (notes under 0.18s apart) sits on the run's home key, and a
+ * burst alternates so it lands back on home: the triplet plays F D F, then the next strike D (user, Nov 17: "the
+ * triplets should alternate and go down (FDFD). Everything else should stay on D"). Home is the lower of the run's
+ * keys (the upper one at K); the burst's other key is the one above it. Exact scores only.
+ */
+function applyQuickBurstsLandHome(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const QUICK = 0.18;
+  const runs = [];
+  for (let s = 0; s < n; ) {
+    let e = s;
+    while (e + 1 < n && prim[e + 1].midi === prim[s].midi && prim[e + 1].time - prim[e].time < 0.5) e++;
+    const run = prim.slice(s, e + 1);
+    s = e + 1;
+    if (run.length < 5 || run.some((x) => x.fixedLane || x.localPin || x.ghost || x.type === 'hold')) continue;
+    const gaps = run.slice(1).map((x, j) => x.time - run[j].time);
+    // (a mix: some quick bursts, and slower strikes too -- 3+ of them)
+    if (!gaps.some((g) => g < QUICK) || gaps.filter((g) => g >= QUICK).length < 3) continue;
+    // (an ostinato: the same rhythm over and over -- the gaps repeat with a period of 3-12 strikes)
+    let periodic = false;
+    for (let per = 3; per <= 12 && gaps.length - per >= 3; per++) {
+      let ok = 0;
+      for (let j = 0; j + per < gaps.length; j++) if (Math.abs(gaps[j] - gaps[j + per]) < 0.06) ok++;
+      if (ok >= 0.85 * (gaps.length - per)) periodic = true;
+    }
+    runs.push({ run, gaps, periodic });
+  }
+  // (...or a short stretch of a rhythm that goes round elsewhere on the same note -- Mars 0:12's bar and a half of the
+  // ostinato between the theme's entries. A one-off fanfare in an irregular rhythm, Jupiter 2:37 / 7:41, keeps its keys)
+  const inside = (a, b) => {
+    for (let o = 0; o + a.length <= b.length; o++) if (a.every((g, j) => Math.abs(g - b[o + j]) < 0.06)) return true;
+    return false;
+  };
+  for (const r of runs) {
+    if (!r.periodic && r.gaps.length >= 6) {
+      r.periodic = runs.some((o) => o !== r && o.periodic && o.run[0].midi === r.run[0].midi && inside(r.gaps, o.gaps));
+    }
+  }
+  for (const { run, gaps, periodic } of runs) {
+    if (!periodic) continue;
+    const used = [...new Set(run.map((x) => x.lane))].sort((a, b) => a - b);
+    const home = used[0] === lanes - 1 ? lanes - 1 : used[0];
+    const partner = home === lanes - 1 ? home - 1 : home + 1;
+    // (a burst: the strikes followed quickly by the next one; the strike they lead into -- the triplet's quarter --
+    // lands home, and the burst alternates back from it: F D F | D)
+    for (let j = 0; j < run.length; ) {
+      if (!(j < gaps.length && gaps[j] < QUICK)) {
+        run[j].lane = home;
+        j++;
+        continue;
+      }
+      let k = j;
+      while (k < gaps.length && gaps[k] < QUICK) k++; // run[k] is the landing
+      run[k].lane = home;
+      for (let q = k - 1, alt = true; q >= j; q--, alt = !alt) run[q].lane = alt ? partner : home;
+      j = k + 1;
+    }
   }
 }
 
