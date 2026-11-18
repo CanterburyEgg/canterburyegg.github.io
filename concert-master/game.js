@@ -8,9 +8,9 @@ import {
   hydrateSidecarFeatures,
   buildChart,
   ConcertAudioController,
-} from './audio-engine.js?v=cm59';
-import { StageRenderer } from './stage-renderer.js?v=cm59';
-import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm59';
+} from './audio-engine.js?v=cm62';
+import { StageRenderer } from './stage-renderer.js?v=cm62';
+import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm62';
 
 
 const DIFFICULTY_LABELS = { fewer: 'Easy', more: 'Hard' };
@@ -30,6 +30,9 @@ const TIMING_WINDOWS = {
   good: 0.138,    // ±138ms
   missAfter: 0.145,
 };
+// Easy is more forgiving: every window 1.4x wider (good = +-193ms)
+const EASY_WINDOW_SCALE = 1.4;
+const EASY_TIMING_WINDOWS = Object.fromEntries(Object.entries(TIMING_WINDOWS).map(([k, v]) => [k, v * EASY_WINDOW_SCALE]));
 
 class ConcertMasterApp {
   constructor() {
@@ -418,6 +421,11 @@ class ConcertMasterApp {
     return songs;
   }
 
+  // timing windows for the chart being played (Easy's are wider)
+  _win() {
+    return this.activeChart && this.activeChart.density === 'fewer' ? EASY_TIMING_WINDOWS : TIMING_WINDOWS;
+  }
+
   _ratingFor(trackId) {
     const r = this.ratings[trackId];
     return r && r.hard ? r.hard.rating : null;
@@ -687,7 +695,7 @@ class ConcertMasterApp {
           }
           if (!blob && Math.abs(el.currentTime - start) > 3) {
             el.pause();
-            fetch(track.url)
+            fetch(track.url, { cache: 'no-store' })
               .then((r) => r.blob())
               .then((b) => {
                 this.previewBlobUrls.set(track.id, URL.createObjectURL(b));
@@ -1217,13 +1225,13 @@ class ConcertMasterApp {
       const n = notes[i];
       if (n.hit || n.missed || n.completed) continue;
       const diff = n.time - judgedTime;
-      if (diff > TIMING_WINDOWS.good) break;
+      if (diff > this._win().good) break;
 
       const matchesChannel = n.lane === lane;
       if (!matchesChannel) continue;
 
       const absDiff = Math.abs(diff);
-      if (absDiff <= TIMING_WINDOWS.good && absDiff < bestAbsDiff) {
+      if (absDiff <= this._win().good && absDiff < bestAbsDiff) {
         bestAbsDiff = absDiff;
         bestNote = n;
       }
@@ -1234,11 +1242,11 @@ class ConcertMasterApp {
     let judgment = 'good';
     let weight = 0.4;
     let basePts = 350;
-    if (bestAbsDiff <= TIMING_WINDOWS.perfect) {
+    if (bestAbsDiff <= this._win().perfect) {
       judgment = 'perfect';
       weight = 1.0;
       basePts = 1000;
-    } else if (bestAbsDiff <= TIMING_WINDOWS.great) {
+    } else if (bestAbsDiff <= this._win().great) {
       judgment = 'great';
       weight = 0.75;
       basePts = 700;
@@ -1410,7 +1418,7 @@ class ConcertMasterApp {
       }
 
       // Check unhit notes passing the miss threshold
-      if (!n.hit && !n.missed && !n.completed && judgedTime - n.time > TIMING_WINDOWS.missAfter) {
+      if (!n.hit && !n.missed && !n.completed && judgedTime - n.time > this._win().missAfter) {
         n.missed = true;
         if (n.type !== 'hold') n.completed = true;
         this._recordJudgment('miss', 0, 0, n.time);

@@ -1,4 +1,4 @@
 [
-  {"song": "jupiter", "start": 448, "end": 459, "label": "7:28-7:38 - your averaged pins applied", "issue": "13 notes pinned (mean of 3 passes). The F+K chord is now 7:34.88. Clear the song's pins in Pin mode first, so the old taps don't preview on top."},
-  {"song": "jupiter", "start": 420, "end": 471, "label": "Jupiter 7:00-end full run", "issue": "The last minute."}
+  {"song": "arabesque", "start": 141, "end": 148, "label": "Easy: Arabesque 2:21-2:28 flourish", "issue": "Press E. The flourish now plays its landing: J84-hold, then K87 at the top of the run (was J82 at its start)."},
+  {"song": "jupiter", "start": 1, "end": 16, "label": "Easy: Jupiter opening", "issue": "First note F64 at 0:02.00 -- which downbeat is missing?"}
 ]

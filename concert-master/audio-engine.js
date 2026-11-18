@@ -765,7 +765,78 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
     exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
     chordHits: sidecar.chordHits || [], // ensemble chord hits on a melody note: [time, chord tone above, chord tone below]
+    // how strong each melody note's place in the bar is (0 downbeat, 1 beat, 2 half beat, 3 smaller, -1 unknown), for Easy
+    beatLevels: Array.isArray(sidecar.beatLevels) && sidecar.beatLevels.length === (sidecar.melodyNotes || []).length ? sidecar.beatLevels : null,
   };
+}
+
+/**
+ * Easy charts: the melody on the beat. From Hard's melody keep
+ *  - every note on a beat or a downbeat (Sevens' opening 75 75 75 75 77-75-73 | 75 75 77-75-73 plays T.T.T.. T.T..);
+ *  - half-beat notes only where the music is slow enough (0.45s+ from the kept notes either side);
+ *  - a note that starts a phrase (after a rest), and any long note (1s+), wherever it falls;
+ * then never two notes closer than 0.3s (the weaker beat goes). Holds shorter than 1s become taps.
+ * A score with no bar grid falls back to time alone: a note at most every 0.42s, phrase starts and long notes kept.
+ */
+const EASY_HOLD_MIN = 1.0;
+function selectEasyMelody(rows, levels) {
+  const n = rows.length;
+  const dur = (i) => rows[i][1] - rows[i][0];
+  const phraseStart = (i) => i === 0 || (rows[i][0] - rows[i - 1][1] >= 0.3 && rows[i][0] - rows[i - 1][0] >= 0.5);
+  const keep = new Array(n).fill(false);
+  const lv = (i) => (levels ? levels[i] : -1);
+  let lastT = -9;
+  for (let i = 0; i < n; i++) {
+    const l = lv(i);
+    if (l === 0 || l === 1 || dur(i) >= EASY_HOLD_MIN || phraseStart(i)) keep[i] = true;
+    else if (l < 0 && rows[i][0] - lastT >= 0.42) keep[i] = true; // (no grid here: by time)
+    if (keep[i]) lastT = rows[i][0];
+  }
+  // half-beat notes where it's slow enough
+  for (let i = 0; i < n; i++) {
+    if (keep[i] || lv(i) !== 2) continue;
+    let p = i - 1;
+    while (p >= 0 && !keep[p]) p--;
+    let q = i + 1;
+    while (q < n && !keep[q]) q++;
+    if ((p < 0 || rows[i][0] - rows[p][0] >= 0.45) && (q >= n || rows[q][0] - rows[i][0] >= 0.45)) keep[i] = true;
+  }
+  // a flourish -- 4+ quick notes one way (each under 0.15s apart) that lands, with 0.3s+ before the next note or a long
+  // last note -- is played as its landing, not its start (Arabesque 2:25: D82 F84 J85 K87 -> the K87). A short turn
+  // that carries straight on (Sevens' 77-75-73 into the next 75) keeps its first note.
+  for (let a = 0; a + 3 < n; ) {
+    const dir = Math.sign(rows[a + 1][2] - rows[a][2]);
+    let b = a;
+    while (b + 1 < n && rows[b + 1][0] - rows[b][0] < 0.15 && dir && Math.sign(rows[b + 1][2] - rows[b][2]) === dir) b++;
+    const lands = b + 1 >= n || rows[b + 1][0] - rows[b][0] >= 0.3 || dur(b) >= 0.3;
+    if (b - a >= 3 && lands) {
+      for (let j = a; j < b; j++) keep[j] = false;
+      keep[b] = true;
+      a = b + 1;
+    } else a++;
+  }
+  // no two notes closer than 0.3s: the weaker place in the bar goes (a long note or phrase start counts as a beat)
+  const strength = (i) => (dur(i) >= EASY_HOLD_MIN || phraseStart(i) ? Math.min(1, Math.max(0, lv(i))) : lv(i) < 0 ? 2 : lv(i));
+  let prev = -1;
+  for (let i = 0; i < n; i++) {
+    if (!keep[i]) continue;
+    if (prev >= 0 && rows[i][0] - rows[prev][0] < 0.3) {
+      if (strength(i) < strength(prev)) {
+        keep[prev] = false;
+        prev = i;
+      } else keep[i] = false;
+      continue;
+    }
+    prev = i;
+  }
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    if (!keep[i]) continue;
+    const r = rows[i].slice();
+    if (r[1] - r[0] < EASY_HOLD_MIN) r[1] = r[0] + Math.min(r[1] - r[0], 0.3); // (a short hold is a tap on Easy)
+    out.push(r);
+  }
+  return out;
 }
 
 // One rule set for every chart (the per-song rule versions v2-v5 were folded together in the Nov 2026 reconciliation
@@ -778,7 +849,8 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   const duration = features.duration;
 
   // Filter neural melody notes by tier (tier 1 = core melody; tier 2 = fast 16th runs/ornaments)
-  const rawMel = features.melodyNotes.filter((n) => (isDense ? n[4] <= 2 : n[4] === 1));
+  // (Easy: the melody on the beat -- selectEasyMelody)
+  const rawMel = isDense ? features.melodyNotes.filter((n) => n[4] <= 2) : selectEasyMelody(features.melodyNotes, features.beatLevels);
 
   const notes = [];
   let prevLane = Math.floor(lanes / 2);
@@ -1033,7 +1105,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
 
   // Score chords that enter UNDER a held melody note (e.g. Sevens 3:42: the low brass come in under the trumpets'
   // held A-flat): a second hold on the other hand, starting when they enter and ending with the melody hold.
-  for (const [cStart, cEnd, cMidi] of features.chordNotes || []) {
+  for (const [cStart, cEnd, cMidi] of isDense ? features.chordNotes || [] : []) { // (no chords on Easy)
     const host = notes.find((n) => !n.isChordPartner && n.type === 'hold' && n.time <= cStart && n.endTime > cStart + 0.3);
     if (!host) continue;
     const below = cMidi < host.midi;
@@ -1293,6 +1365,7 @@ const LAYOUT_RULES = [
   ['threeNoBacktrack', (n, l) => applyThreeNoBacktrack(n, l)],
   ['linesKeepDirection', (n, l, c) => { if (c.exactScore) applyLinesKeepDirection(n, l, c.ghosts); }],
   ['slowEntryClimbRises', (n, l, c) => { if (c.exactScore) applySlowEntryClimbRises(n, l); }],
+  ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
 
@@ -4509,6 +4582,35 @@ function applySlowEntryClimbRises(notes, lanes) {
     const o = ok[ok.length - 1]; // (highest that fits: closest to where it sat)
     run.forEach((x, j) => (x.lane = o[j]));
     a = b;
+  }
+}
+
+/**
+ * Easy: room to keep going. Easy keeps fewer notes, so a note can end up on K (or D) with the next note going further
+ * the same way and nowhere to go (Arabesque 2:23 on Easy: F82 K84-hold J87, the 87 stepping back). Move the stuck note
+ * one key in, if it still reads right from the note before it: F82 J84-hold K87. Easy only.
+ */
+function applyEasyRoomToClimb(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const reads = (p, q, lp, lq) => (p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(lq - lp) === Math.sign(q.midi - p.midi));
+  for (let i = 1; i < prim.length; i++) {
+    const p = prim[i - 1];
+    const q = prim[i];
+    if (q.midi === p.midi || reads(p, q, p.lane, q.lane)) continue;
+    const up = q.midi > p.midi;
+    if (p.lane !== (up ? lanes - 1 : 0)) continue;
+    const want = p.lane + (up ? -1 : 1);
+    const pp = i >= 2 ? prim[i - 2] : null;
+    if (pp && q.time - pp.time < 3 && !reads(pp, p, pp.lane, want)) continue;
+    if (!reads(p, q, want, q.lane)) {
+      // (the stuck note moves in; the next one takes the end key)
+      const qWant = up ? lanes - 1 : 0;
+      const qq = prim[i + 1];
+      if (qq && qq.time - q.time < 3 && !reads(q, qq, qWant, qq.lane)) continue;
+      q.lane = qWant;
+    }
+    p.lane = want;
   }
 }
 

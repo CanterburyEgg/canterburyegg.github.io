@@ -41,6 +41,8 @@ import scipy.ndimage
 import scipy.signal
 import soundfile as sf
 
+import meter_grid  # (the score's bar / beat grid, for Easy charts)
+
 
 # ==============================================================================
 # 1. AUDIO LOADER
@@ -314,6 +316,8 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
 
     tempo_events = [(0.0, 2.0)]  # (quarters, quarters_per_sec)
     parts_raw = []
+    meter_grid.reset()
+    first_part = True
 
     for part in root.findall("part"):
         pid = part.attrib.get("id", "")
@@ -327,14 +331,23 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
         q_pos = 0.0
         pnotes = []
 
+        bars = []  # (q_start, num, den) -- the bar grid, from the first part
+        ts = (4, 4)
         for meas in part.findall("measure"):
             last_chord_start = q_pos
+            bar_q0 = q_pos
             for elem in meas:
                 tag = elem.tag.split("}")[-1]
                 if tag == "attributes":
                     div_txt = elem.findtext("divisions")
                     if div_txt:
                         divisions = max(1e-4, float(div_txt))
+                    tm = elem.find("time")
+                    if tm is not None and tm.findtext("beats") and tm.findtext("beat-type"):
+                        try:
+                            ts = (int(tm.findtext("beats").split("+")[0]), int(tm.findtext("beat-type")))
+                        except ValueError:
+                            pass
                     tr_el = elem.find("transpose")
                     if tr_el is not None:
                         ch = int(tr_el.findtext("chromatic", "0"))
@@ -381,7 +394,13 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
                     pnotes.append(
                         (note_start, note_start + dur_q, midi_p, 88, "start" in ties, "stop" in ties, is_trill)
                     )
+            bars.append((bar_q0, ts[0], ts[1]))
 
+        if first_part:
+            first_part = False
+            for bi, (bq0, num, den) in enumerate(bars):
+                bq1 = bars[bi + 1][0] if bi + 1 < len(bars) else bq0 + num * 4.0 / den
+                meter_grid.record_q(bq0, bq1 - bq0, num, den)
         parts_raw.append((pname, is_drum, pnotes))
 
     tempo_events.sort(key=lambda x: x[0])
@@ -402,6 +421,7 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
     q_knots.append(q_knots[-1] + 100000.0)
     t_knots.append(cur_t + 100000.0 / dedup[-1][1])
     q_to_sec = scipy.interpolate.interp1d(q_knots, t_knots, kind="linear", fill_value="extrapolate")
+    meter_grid.finalize(q_to_sec)
 
     staves_out = []
     for pname, is_drum, snotes in parts_raw:
@@ -427,6 +447,7 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
 
 
 def load_any_score(score_path: Path) -> list[dict]:
+    meter_grid.reset()  # (each parser that knows its bars records them; others leave Easy to thin by time)
     ext = score_path.suffix.lower()
     if ext in (".mid", ".midi"):
         return parse_midi_score(score_path)

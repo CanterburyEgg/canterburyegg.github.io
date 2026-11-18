@@ -22,6 +22,8 @@ from pathlib import Path
 import numpy as np
 import scipy.interpolate
 
+import meter_grid  # (the score's bar / beat grid, for Easy charts)
+
 
 # Diatonic C-major scale semitones from C0 (step 0 = C0 -> MIDI 12)
 _DIATONIC_SEMI = [0, 2, 4, 5, 7, 9, 11]
@@ -506,6 +508,7 @@ def _parse_flat_json_score(flat_json_path: Path) -> list[dict]:
     meas_sec_per_q = [60.0 / 120.0] * n_measures
 
     cur_q_per_bar = 4.0
+    cur_ts = (4, 4)
     cur_bpm = 120.0
     cur_t = 0.0
     for m_idx in range(n_measures):
@@ -520,6 +523,10 @@ def _parse_flat_json_score(flat_json_path: Path) -> list[dict]:
                 tm = a.get("time") or a.get("$adagio-time")
                 if tm and "beats" in tm and "beat-type" in tm:
                     cur_q_per_bar = float(tm["beats"]) * (4.0 / float(tm["beat-type"]))
+                    try:
+                        cur_ts = (int(str(tm["beats"]).split("+")[0]), int(tm["beat-type"]))
+                    except ValueError:
+                        pass
             dirs = m.get("direction", [])
             if isinstance(dirs, dict):
                 dirs = [dirs]
@@ -532,6 +539,7 @@ def _parse_flat_json_score(flat_json_path: Path) -> list[dict]:
         sec_per_q = 60.0 / cur_bpm
         meas_start_sec[m_idx] = cur_t
         meas_sec_per_q[m_idx] = sec_per_q
+        meter_grid.record_sec(cur_t, cur_t + cur_q_per_bar * sec_per_q, cur_ts[0], cur_ts[1])
         cur_t += cur_q_per_bar * sec_per_q
 
     step_to_pc = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
@@ -684,6 +692,7 @@ def parse_finale_pdf_score(pdf_path: Path) -> list[dict]:
     Compiles a Finale/SMuFL or Sibelius/Opus vector PDF full score into standard Cadenza staves:
       [{"name": str, "program": int, "is_drum": bool, "notes": [{"start", "end", "midi", "vel", "trill"}]}]
     """
+    meter_grid.reset()
     flat_sidecar = pdf_path.with_suffix(".flat.json")
     if flat_sidecar.exists():
         return _parse_flat_json_score(flat_sidecar)
@@ -720,6 +729,7 @@ def parse_finale_pdf_score(pdf_path: Path) -> list[dict]:
     last_bar_events: dict[tuple[str, int], list] = {}  # (staff_name, bar_idx) -> events for `%` repeat!
 
     cur_beats_per_bar = 4.0
+    cur_ts = (4, 4)  # (the bar grid for Easy charts)
     cur_q_per_sec = 50.0 / 60.0  # Arabesque opens "Mysteriously (q = 50)"
     tempo_events = [(0.0, cur_q_per_sec)]
     global_q_cursor = 0.0
@@ -973,6 +983,7 @@ def parse_finale_pdf_score(pdf_path: Path) -> list[dict]:
                     den_d = int("".join(str(d[2]) for d in lower_d))
                     if den_d > 0:
                         cur_beats_per_bar = num_d * (4.0 / den_d)
+                        cur_ts = (num_d, den_d)
 
             # Check mid-page system key-signature change right at barline bx0 (e.g. Page 14 m.78!)
             if m_i > 0:
@@ -1332,6 +1343,7 @@ def parse_finale_pdf_score(pdf_path: Path) -> list[dict]:
 
                 last_bar_events[(cname, global_meas_idx)] = bar_saved
 
+            meter_grid.record_q(global_q_cursor, cur_beats_per_bar * fermata_scale, cur_ts[0], cur_ts[1])
             global_q_cursor += meas_span_q
 
     # Build monotonic quarter -> seconds piecewise linear tempo curve
@@ -1353,6 +1365,7 @@ def parse_finale_pdf_score(pdf_path: Path) -> list[dict]:
     q_knots.append(q_knots[-1] + 100000.0)
     t_knots.append(cur_t + 100000.0 / dedup[-1][1])
     q_to_sec = scipy.interpolate.interp1d(q_knots, t_knots, kind="linear", fill_value="extrapolate")
+    meter_grid.finalize(q_to_sec)
 
     # Convert quarter positions to seconds & fuse long pedal whole-note drones / trills!
     staves_out = []
@@ -1976,6 +1989,15 @@ def _parse_musescore_pdf(pdf_path: Path) -> list[dict]:
         else:
             play_order.append(m_cursor)
             m_cursor += 1
+
+    # (the bar grid for Easy charts: 6/4 with 4/4 bars for What We Do, 12/8 for Guthix)
+    default_ts = (12, 8) if is_guthix else (6, 4) if is_what_we_do else (4, 4)
+    q_bar = 0.0
+    for m_num in play_order:
+        b_bar = meas_beats.get(m_num, default_beats_per_bar)
+        ts = (4, 4) if abs(b_bar - 4.0) < 1e-6 else default_ts if abs(b_bar - default_beats_per_bar) < 1e-6 else (int(round(b_bar)), 4)
+        meter_grid.record_sec(q_bar * sec_per_q, (q_bar + b_bar) * sec_per_q, ts[0], ts[1])
+        q_bar += b_bar
 
     # 4. Stitch measures into global seconds timeline & fuse tied notes!
     staves_out = []

@@ -18,7 +18,9 @@ const PAD = 1.0; // seconds of lead-in / lead-out around each clip
 const LEAD_IN = 2.0; // extra lead-in so the first notes can scroll down before you have to hit them
 const LOOK_BEHIND = 0.45;
 const MATCH_TOL = 0.006; // a note "matches" across charts if same key & type within 6ms
-const WIN = { perfect: 0.048, great: 0.095, good: 0.138, missAfter: 0.145 }; // same as the game
+const WIN_HARD = { perfect: 0.048, great: 0.095, good: 0.138, missAfter: 0.145 }; // same as the game
+const WIN_EASY = Object.fromEntries(Object.entries(WIN_HARD).map(([k, v]) => [k, v * 1.4])); // (Easy: 1.4x, as in game.js)
+let WIN = WIN_HARD;
 
 const els = {
   clips: document.getElementById('clips'),
@@ -116,6 +118,7 @@ const state = {
     }
   })(), // [{ song, at, midi, key, to }] -- at = the note's time in the build, to = where you tapped it
   lastTickNow: null,
+  easy: false, // the current-build side shows Easy (E); the left side stays the Hard reference
 };
 state.audio.preload = 'auto';
 
@@ -137,14 +140,14 @@ function markDiffs(oldN, newN) {
 
 // rv: optional rules version to force (clips.json "rulesVersion"), e.g. to preview a locked song on the unified rules
 async function currentChart(songId, rv) {
-  const cacheKey = rv ? `${songId}@v${rv}` : songId;
+  const cacheKey = `${rv ? `${songId}@v${rv}` : songId}|${state.easy ? 'easy' : 'hard'}`;
   if (state.charts.has(cacheKey)) return state.charts.get(cacheKey);
   const track = trackFor(songId);
   const resp = await fetch(`${resolveUrl(track.sidecarUrl.split('?')[0])}?t=${Date.now()}`, { cache: 'no-store' });
   const sidecar = await resp.json();
   if (rv) sidecar.rulesVersion = rv;
   const { hydrateSidecarFeatures, buildChart } = await import(`../audio-engine.js?t=${Date.now()}`);
-  const chart = buildChart(hydrateSidecarFeatures(sidecar, null), { keyMode: '4k', density: 'more' });
+  const chart = buildChart(hydrateSidecarFeatures(sidecar, null), { keyMode: '4k', density: state.easy ? 'fewer' : 'more' });
   const notes = chart.notes.map((n) => ({
     time: n.time,
     endTime: n.endTime,
@@ -412,9 +415,13 @@ async function selectClip(i, autoplay) {
     // can't seek into a long track (e.g. What We Do's .ogg restarted from 0:00 for clips at 3:31 / 4:28)
     if (!audioBlobs[url]) {
       els.status.textContent = 'Loading audio…';
-      audioBlobs[url] = fetch(url)
+      // (Hal Leonard's S3 files do allow cross-site fetches, but only answer with the CORS header when asked -- a copy
+      // the browser cached from the game's menu preview, fetched without asking, would be refused here. So: no cache.
+      // And if a fetch still fails, the <audio> element can play the stream directly; S3 answers range requests.)
+      audioBlobs[url] = fetch(url, { cache: 'no-store' })
         .then((r) => r.blob())
-        .then((b) => URL.createObjectURL(b));
+        .then((b) => URL.createObjectURL(b))
+        .catch(() => url);
     }
     const blobUrl = await audioBlobs[url];
     state.audio.src = blobUrl;
@@ -788,6 +795,14 @@ function togglePinMode() {
   renderPinBar();
   renderList(els.listNew, state.newNotes);
 }
+async function toggleEasy() {
+  state.easy = !state.easy;
+  WIN = state.easy ? WIN_EASY : WIN_HARD;
+  document.getElementById('btn-easy').textContent = `Current: ${state.easy ? 'Easy' : 'Hard'}`;
+  await countAllDiffs();
+  await selectClip(state.idx < 0 ? 0 : state.idx, false);
+}
+document.getElementById('btn-easy').addEventListener('click', toggleEasy);
 document.getElementById('btn-pin').addEventListener('click', togglePinMode);
 document.getElementById('btn-ticks').addEventListener('click', () => {
   state.ticks = !state.ticks;
@@ -832,6 +847,10 @@ window.addEventListener('keydown', (e) => {
   }
   if (e.code === 'KeyN') {
     togglePinMode();
+    return;
+  }
+  if (e.code === 'KeyE') {
+    toggleEasy();
     return;
   }
   if (e.code === 'KeyY') {
