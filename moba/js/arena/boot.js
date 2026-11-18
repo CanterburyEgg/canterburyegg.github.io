@@ -6,7 +6,7 @@
 // Map structure models: assets/map/map_bundle.js (base64 GLBs) -> window.MOBA_MAP_TEMPLATES -> engine rebuilds structures.
 // Missing bundle or a parse error just leaves the old primitive structures in place.
 // Bump when a map/jungle/golem/minion bundle changes, so browsers (localhost server) don't keep serving the old copy
-const MAP_BUNDLE_VER = '2026-11-15a';
+const MAP_BUNDLE_VER = '2026-11-16a';
 async function loadMapModels() {
   if (!window.MOBA_MAP_MODELS) await loadScriptAsync('assets/map/map_bundle.js?v=' + MAP_BUNDLE_VER);
   const src = window.MOBA_MAP_MODELS;
@@ -31,9 +31,10 @@ async function loadMapModels() {
   const jm = window.MOBA_JUNGLE_MODELS;
   if (jm) {
     const opt = (b64) => (b64 ? parseGlb(b64) : Promise.resolve(null));
-    const [tree, golem, boar, wolf, wisp, boulder, log, stag] = await Promise.all(
-      [jm.treeGlbB64, jm.golemGlbB64, jm.boarGlbB64, jm.wolfGlbB64, jm.wispGlbB64, jm.boulderGlbB64, jm.logGlbB64, jm.stagGlbB64].map(opt));
-    window.MOBA_JUNGLE_TEMPLATES = { tree, golem, boar, wolf, wisp, boulder, log, stag };
+    const [tree, golem, boar, wolf, wisp, boulder, log, stag, conifer, ruinWall, stones] = await Promise.all(
+      [jm.treeGlbB64, jm.golemGlbB64, jm.boarGlbB64, jm.wolfGlbB64, jm.wispGlbB64, jm.boulderGlbB64, jm.logGlbB64, jm.stagGlbB64,
+        jm.coniferGlbB64, jm.ruinWallGlbB64, jm.stonesGlbB64].map(opt));
+    window.MOBA_JUNGLE_TEMPLATES = { tree, golem, boar, wolf, wisp, boulder, log, stag, conifer, ruinWall, stones };
     if (phase1Engine && phase1Engine.notifyJungleModelsReady) phase1Engine.notifyJungleModelsReady();
   }
 

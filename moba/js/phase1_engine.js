@@ -619,7 +619,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
       wisp:  { height: 1.15, rotX: 0, yaw: 0, hover: 0.75 },
       boulder: { height: 2.7, rotX: 0, yaw: 0 },          // replaces the stone pillars (r 1.3)
       log:   { height: 1.55, rotX: 0, yaw: 0 },            // fallen log, long axis = model +x (~5.2m long at this height)
-      stag:  { height: 2.6, rotX: 0, yaw: 0 }
+      stag:  { height: 2.6, rotX: 0, yaw: 0 },
+      conifer: { height: 5.0, rotX: 0, yaw: 0 },          // second tree type (mixed in with the broadleaf trees)
+      ruinWall: { height: 2.6, rotX: 0, yaw: 0 },         // long axis = model +x (~4.8m at this height)
+      stones: { height: 2.9, rotX: 0, yaw: 0, sink: 0.12 } // on a round base plate (sunk so its top is at ground level)
     };
     const CAMP_MODEL = { north: 'boar', mid: 'golem', buff: 'stag', wisp: 'wisp' }; // camp key -> model (boss: later; wolf returns with group camps)
     const treeHolders = [];  // { o (obstacle), grp } so trees can swap to the real model when it finishes loading
@@ -645,7 +648,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const outer = new THREE.Group();
       outer.add(holder);
       holder.scale.setScalar(k);
-      holder.position.y = fit.hover || 0;
+      holder.position.y = (fit.hover || 0) - (fit.sink || 0) * fit.height * (scale || 1);
       inner.traverse((ch) => { if (ch.isMesh) { ch.castShadow = true; ch.receiveShadow = true; } });
       outer.userData.fit = fit;
       outer.userData.body = holder; // animated part (bob, lunge)
@@ -657,7 +660,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!window.MOBA_JUNGLE_TEMPLATES) return;
       treeHolders.forEach((t) => {
         if (t.grp.userData.modeled) return;
-        const m = fitJungleModel('tree', t.o.scale || 1);
+        // about a third of the trees are conifers (stable per spot)
+        const conifer = window.MOBA_JUNGLE_TEMPLATES.conifer && (Math.abs(Math.round(t.o.x * 7.31 + t.o.z * 3.17)) % 3 === 0);
+        const m = fitJungleModel(conifer ? 'conifer' : 'tree', t.o.scale || 1);
         if (!m) return;
         while (t.grp.children.length) t.grp.remove(t.grp.children[0]);
         m.rotation.y = ((t.o.x * 12.9898 + t.o.z * 78.233) % 6.283); // stable per-tree turn so the forest isn't uniform
@@ -670,7 +675,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (!m) return;
         while (t.grp.children.length) t.grp.remove(t.grp.children[0]);
         // boulders: stable per-spot turn; logs: long axis (model +x) along the log's direction
-        m.rotation.y = t.id === 'log' ? t.o.logYaw - Math.PI / 2 : ((t.o.x * 12.9898 + t.o.z * 78.233) % 6.283);
+        m.rotation.y = (t.id === 'log' || t.id === 'ruinWall') ? t.o.logYaw - Math.PI / 2 : (t.id === 'stones' ? t.o.logYaw : ((t.o.x * 12.9898 + t.o.z * 78.233) % 6.283));
+        if (t.id === 'ruinWall') m.scale.z = 1.5; // the mesh is thin: give the wall more depth
         t.grp.add(m);
         t.grp.userData.modeled = true;
       });
@@ -1209,6 +1215,18 @@ window.MOBA_PHASE1_ENGINE = (function () {
           g.position.set(o.x, 0, o.z);
           mapGroup.add(g);
           rockHolders.push({ o, grp: g, id: 'boulder' });
+        } else if (o.kind === 'ruin' || o.kind === 'stones') {
+          // ruined wall (one model on its middle circle) / standing stones landmark; stand-ins until the models load
+          if (o.logYaw === undefined) return;
+          const g = new THREE.Group();
+          const m = new THREE.Mesh(o.kind === 'ruin' ? new THREE.BoxGeometry(0.8, 2.4, o.logLen) : new THREE.CylinderGeometry(o.r, o.r, 0.4, 12), stoneBaseMat);
+          m.position.y = o.kind === 'ruin' ? 1.2 : 0.2;
+          m.rotation.y = o.kind === 'ruin' ? o.logYaw : 0;
+          m.castShadow = true;
+          g.add(m);
+          g.position.set(o.logX, 0, o.logZ);
+          mapGroup.add(g);
+          rockHolders.push({ o, grp: g, id: o.kind === 'ruin' ? 'ruinWall' : 'stones' });
         } else if (o.kind === 'log') {
           // fallen log: one model per log (on its middle circle); stand-in is a plain cylinder
           if (o.logYaw === undefined) return;

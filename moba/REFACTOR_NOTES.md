@@ -121,8 +121,10 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
 ## Model batch 2026-11-15
 - **In game:** gatehouse (the gate flank tower), boulders (replace the stone pillars), fallen logs (3 per side, new line-of-sight
   blockers), Sunhorn Stag (buff camp where the wolves were). `MAP_BUNDLE_VER` in boot.js: bump it when a bundle changes.
-- **Concepts for new meshes:** `pebble_golem/` (small golem for the golem camp), `wisplet/` (small wisps for the wisp family),
-  `ruined_wall/` (another line-of-sight blocker). Conifer mesh redo from `jungle_conifer_concept_v2.png`.
+- **Meshes done 2026-11-16 (texture next):** `jungle_conifer_untextured.glb` (the round v2 conifer), `pebble_golem/`
+  (small golem; arms sit tight to the body, may rig a little stiff), `wisplet/`, `ruined_wall/` (thin: scale its depth up
+  when placing), `standing_stones/` (came on a round diorama base plate: when placing, stand it upright and sink the plate
+  so its top is at ground level; keep its rocks / needles as ground clutter).
 
 ## Model batch 2026-11-13 (meshes done; texture 2026-11-14)
 Untextured meshes in `assets/map/<id>/<id>_untextured.glb`:

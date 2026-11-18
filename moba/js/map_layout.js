@@ -279,6 +279,36 @@ window.MOBA_MAP = (function () {
         k === 1 ? { logX: cx, logZ: cz, logYaw: yaw, logLen: LOG_LEN } : {})));
       logs++;
     }
+    // Ruined walls: more long line-of-sight blockers (chain of 3 circles, like the logs; own seed)
+    let seed3 = 9001;
+    const rnd3 = () => { seed3 = (seed3 * 16807) % 2147483647; return (seed3 - 1) / 2147483646; };
+    const WALL_LEN = 4.8, WALL_R = 0.75, WALL_STEP = 1.6;
+    let walls = 0, wallTries = 0;
+    while (walls < 2 && wallTries < 3000) {
+      wallTries++;
+      const cx = -50 + rnd3() * 44;
+      const cz = TOP_Z + 4 + rnd3() * (BOUNDS.maxZ - TOP_Z - 6);
+      const yaw = rnd3() * Math.PI;
+      const pts = [-1, 0, 1].map((k) => ({ x: cx + Math.sin(yaw) * WALL_STEP * k, z: cz + Math.cos(yaw) * WALL_STEP * k }));
+      if (pts.some((p) => keepOut(p.x, p.z, WALL_R + 0.6))) continue;
+      if (pts.some((p) => half.some((o) => Math.hypot(o.x - p.x, o.z - p.z) < o.r + WALL_R + 2.2))) continue;
+      pts.forEach((p, k) => half.push(Object.assign({ kind: 'ruin', x: p.x, z: p.z, r: WALL_R },
+        k === 1 ? { logX: cx, logZ: cz, logYaw: yaw, logLen: WALL_LEN } : {})));
+      walls++;
+    }
+    // Standing stones landmark beside the buff camp (one per side): the nearest free spot ~9m from the camp
+    const buffCamp = buildJungleCamps().find((c) => c.key === 'buff' && c.x < 0);
+    if (buffCamp) {
+      const STONES_R = 1.9;
+      for (let i = 0; i < 24; i++) {
+        const ang = (i / 24) * Math.PI * 2, dist = 9.5 + (i % 3) * 1.5;
+        const x = buffCamp.x + Math.sin(ang) * dist, z = buffCamp.z + Math.cos(ang) * dist;
+        if (x > -6 || keepOut(x, z, STONES_R)) continue;
+        if (half.some((o) => Math.hypot(o.x - x, o.z - z) < o.r + STONES_R + 1.5)) continue;
+        half.push({ kind: 'stones', x, z, r: STONES_R, logX: x, logZ: z, logYaw: ang });
+        break;
+      }
+    }
     // mirrored to the other side
     const out = [];
     half.forEach((o) => {
