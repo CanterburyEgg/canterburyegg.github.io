@@ -8,14 +8,20 @@ import {
   hydrateSidecarFeatures,
   buildChart,
   ConcertAudioController,
-} from './audio-engine.js?v=cm56';
-import { StageRenderer } from './stage-renderer.js?v=cm56';
-import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm56';
+} from './audio-engine.js?v=cm59';
+import { StageRenderer } from './stage-renderer.js?v=cm59';
+import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm59';
 
 
 const DIFFICULTY_LABELS = { fewer: 'Easy', more: 'Hard' };
 const MENU_SCREENS = ['title', 'menu', 'select', 'settings'];
-const PREVIEW_LENGTH = 15; // seconds of looping preview on Song Select
+const PREVIEW_LENGTH = 15; // seconds of looping preview on Song Select (the most exciting 15s of the piece)
+const PREVIEW_EDGE = 30; // ...never from the first or last 30s
+const PREVIEW_LEAD_SILENCE = 1500; // ms of silence before a preview starts
+const PREVIEW_GAP_SILENCE = 3500; // ms of silence between the preview fading out and fading back in
+const PREVIEW_FADE_IN = 1500; // ms
+const PREVIEW_FADE_OUT = 2000; // ms (inside the 15s)
+const PREVIEW_VOLUME = 0.55;
 
 // Generous, crisp timing windows tuned for acoustic band/classical transients
 const TIMING_WINDOWS = {
@@ -606,8 +612,13 @@ class ConcertMasterApp {
         if (i >= 0 && i < density.length) density[i] += 1;
       }
       const win = Math.round(PREVIEW_LENGTH * hz);
-      const lo = Math.round(5 * hz);
-      const hi = Math.max(lo + 1, Math.round((dur - PREVIEW_LENGTH - 2) * hz));
+      // (not the first or last 30s; a piece too short for that falls back to its middle)
+      let lo = Math.round(PREVIEW_EDGE * hz);
+      let hi = Math.round((dur - PREVIEW_EDGE - PREVIEW_LENGTH) * hz);
+      if (hi <= lo) {
+        lo = Math.max(0, Math.round(((dur - PREVIEW_LENGTH) / 2) * hz));
+        hi = lo + 1;
+      }
       let sumI = 0;
       let sumD = 0;
       for (let i = lo; i < lo + win && i < inten.length; i++) {
@@ -626,8 +637,8 @@ class ConcertMasterApp {
         sumD += density[i + win] - density[i];
       }
       start = bestIdx / hz;
+      this.previewWindowCache.set(track.id, start); // (only once the sidecar is in: until then, a provisional 30s)
     }
-    this.previewWindowCache.set(track.id, start);
     return start;
   }
 
@@ -637,9 +648,9 @@ class ConcertMasterApp {
       this._stopPreview();
       return;
     }
-    if (this.previewTrackId === track.id && this.previewEl && !this.previewEl.paused) return;
+    if (this.previewTrackId === track.id && this.previewEl && (!this.previewEl.paused || this.previewLooping)) return;
     this._fadePreviewTo(0, 220, () => {
-      this.previewTimer = setTimeout(() => this._startPreview(track), 260);
+      this.previewTimer = setTimeout(() => this._startPreview(track), PREVIEW_LEAD_SILENCE);
     });
   }
 
@@ -656,8 +667,12 @@ class ConcertMasterApp {
     this.previewStart = start;
     this.previewLooping = false;
     el.volume = 0;
-    const absUrl = new URL(track.url, window.location.href).href;
-    if (el.src !== absUrl) el.src = track.url;
+    // (a file the server can't seek into -- no range requests, e.g. What We Do's .ogg -- plays from 0:00 instead; such
+    // tracks are fetched whole once and previewed from that copy, which always seeks)
+    if (!this.previewBlobUrls) this.previewBlobUrls = new Map();
+    const blob = this.previewBlobUrls.get(track.id);
+    const want = blob || new URL(track.url, window.location.href).href;
+    if (el.src !== want) el.src = blob || track.url;
     const begin = () => {
       try {
         el.currentTime = start;
@@ -666,8 +681,22 @@ class ConcertMasterApp {
       }
       el.play()
         .then(() => {
-          if (this.screenState === 'select' && this.previewTrackId === track.id) this._fadePreviewTo(0.55, 900);
-          else el.pause();
+          if (this.screenState !== 'select' || this.previewTrackId !== track.id) {
+            el.pause();
+            return;
+          }
+          if (!blob && Math.abs(el.currentTime - start) > 3) {
+            el.pause();
+            fetch(track.url)
+              .then((r) => r.blob())
+              .then((b) => {
+                this.previewBlobUrls.set(track.id, URL.createObjectURL(b));
+                if (this.screenState === 'select' && this.previewTrackId === track.id) this._startPreview(track);
+              })
+              .catch(() => {});
+            return;
+          }
+          this._fadePreviewTo(PREVIEW_VOLUME, PREVIEW_FADE_IN);
         })
         .catch(() => {});
     };
@@ -678,12 +707,21 @@ class ConcertMasterApp {
   _onPreviewTick() {
     const el = this.previewEl;
     if (!el || el.paused || this.previewLooping) return;
-    if (el.currentTime >= this.previewStart + PREVIEW_LENGTH - 1.0) {
+    if (el.currentTime >= this.previewStart + PREVIEW_LENGTH - PREVIEW_FADE_OUT / 1000) {
+      // fade out over the window's last 2s, then 5s of silence, then fade back in from the top
       this.previewLooping = true;
-      this._fadePreviewTo(0, 900, () => {
+      const id = this.previewTrackId;
+      this._fadePreviewTo(0, PREVIEW_FADE_OUT, () => {
+        el.pause();
         el.currentTime = this.previewStart;
-        this.previewLooping = false;
-        if (this.screenState === 'select') this._fadePreviewTo(0.55, 900);
+        clearTimeout(this.previewTimer);
+        this.previewTimer = setTimeout(() => {
+          this.previewLooping = false;
+          if (this.screenState !== 'select' || this.previewTrackId !== id) return;
+          el.play()
+            .then(() => this._fadePreviewTo(PREVIEW_VOLUME, PREVIEW_FADE_IN))
+            .catch(() => {});
+        }, PREVIEW_GAP_SILENCE);
       });
     }
   }
