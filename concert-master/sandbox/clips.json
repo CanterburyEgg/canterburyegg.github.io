@@ -1,4 +1,5 @@
 [
-  {"song": "mars", "start": 49, "end": 62, "label": "Mars 0:49-1:02 - euphonium half note at 0:53.9", "issue": "Trumpets' 76 75 (with their chords), then the euphonium/horn line picked up at its half note 60 (F, 0:53.86), 58 65 63 72 70 ..."},
-  {"song": "mars", "start": 0, "end": 62, "label": "Mars 0:00-1:02 full", "issue": "First minute."}
+  {"song": "mars", "start": 60, "end": 122, "label": "Mars 1:00-2:02", "issue": "The big chords 1:00-1:16, the D55/F67 hits 1:16-1:24, the woodwind/string line from 1:31, and the ostinato on 72 from 1:46 (check its keys: some bars alternate K/J, some J/F)."},
+  {"song": "what-we-do", "start": 200, "end": 215, "label": "What We Do from the RuneScape Wiki", "issue": "Audio now streams from runescape.wiki; should line up exactly as before."},
+  {"song": "sound-of-guthix", "start": 180, "end": 195, "label": "Sound of Guthix from the RuneScape Wiki", "issue": "Audio now streams from runescape.wiki; should line up exactly as before."}
 ]

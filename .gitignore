@@ -11,6 +11,11 @@ concert-master/audio/sevens.mp3
 concert-master/audio/ride.mp3
 concert-master/audio/maslanka-symphony-4.mp3
 concert-master/audio/wine-dark-sea*.mp3
+# (RuneScape tracks stream from the RuneScape Wiki; local copies are backups for charting)
+concert-master/audio/what-we-do.ogg
+concert-master/audio/sound-of-guthix.ogg
+concert-master/audio/gnome-village-2.ogg
+concert-master/audio/chompy-hunt.ogg
 concert-master/scores/arabesque.*
 concert-master/scores/sevens.*
 concert-master/scores/ride.*
