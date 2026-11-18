@@ -44,6 +44,8 @@ def run(ns):
         payload["chordNotes"] = chord_notes
     if chord_hits:
         payload["chordHits"] = chord_hits
+    if ns.get("song_end") is not None:
+        payload["songEnd"] = round(float(ns["song_end"]), 3)  # (corrections_song_end: the game stops here)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, separators=(",", ":"))
 

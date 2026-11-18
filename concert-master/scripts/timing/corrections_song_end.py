@@ -16,3 +16,4 @@ def run(ns):
     end = json.loads(corr.read_text(encoding="utf-8")).get("song_end")
     if end is not None and ns.get("duration") is not None and float(end) < float(ns["duration"]):
         ns["duration"] = float(end)
+        ns["song_end"] = float(end)  # (written as the sidecar's songEnd: the game ends there even though the file runs on)

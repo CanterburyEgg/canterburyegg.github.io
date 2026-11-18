@@ -742,7 +742,9 @@ function computeMacroIntensity(rms, frameDt) {
  * compatible with StageRenderer, HUD elevation scrubber, and buildChart() in <3ms!
  */
 export function hydrateSidecarFeatures(sidecar, audioBuffer) {
-  const duration = audioBuffer ? audioBuffer.duration : sidecar.duration;
+  // (a sidecar's songEnd -- the chart's own song_end correction -- ends the song before trailing silence in the file)
+  const fileDur = audioBuffer ? audioBuffer.duration : sidecar.duration;
+  const duration = sidecar.songEnd > 0 ? Math.min(fileDur, sidecar.songEnd) : fileDur;
   const macroArr = Float32Array.from(sidecar.macroIntensity || []);
   const macroHz = sidecar.macroHz || 10;
   const numFrames = Math.max(1, macroArr.length);
