@@ -12,6 +12,7 @@ Plays each song's real chart through the live `audio-engine.js` (via macOS JavaS
      2 * log2(1 + longest unbroken stream seconds / 10)  (stream = consecutive notes < 0.36s apart).
 
 Final score -> rating:  < 4.5 = 0 (Warm-up)  |  4.5-8 = 1  |  8-11 = 2  |  11-14.5 = 3  |  14.5-18 = 4  |  >= 18 = 5 (extra-hard)
+Ghost floor: a chart with any ghost-key (S/L) notes rates at least 3.
 
 Usage:
   python3 concert-master/scripts/rate_difficulty.py          # rate every song and write concert-master/ratings.json
@@ -49,6 +50,15 @@ def score_to_rating(score: float) -> int:
         if score < limit:
             return rating
     return 5
+
+
+GHOST_FLOOR = 3
+
+
+def ghost_floor(rating: int, lanes) -> int:
+    """A chart that uses the ghost keys (S / L) rates at least 3: ratings 0-2 are four keys only, so the first song
+    that asks for S/L is also a step up the ladder (user, Nov 17 -- Jupiter scores like a 2 but has 15 ghost notes)."""
+    return max(rating, GHOST_FLOOR) if any(ln >= 4 for ln in lanes) else rating
 
 
 def strain_curve(times, lanes, holds):
@@ -110,7 +120,7 @@ def rate_chart(sidecar: Path, density: str) -> dict:
     score = 0.55 * burst + 0.45 * endurance
     return {
         "score": round(score, 2),
-        "rating": score_to_rating(score),
+        "rating": ghost_floor(score_to_rating(score), lanes),
         "burst": round(burst, 2),
         "endurance": round(endurance, 2),
         "notes": int(len(t)),

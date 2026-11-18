@@ -1,113 +1,113 @@
 {
   "sound-of-guthix": {
     "hard": {
-      "score": 3.02,
+      "score": 3.03,
       "rating": 0,
-      "burst": 2.72,
-      "endurance": 3.39,
+      "burst": 2.73,
+      "endurance": 3.4,
       "notes": 338
     },
     "easy": {
-      "score": 3.02,
+      "score": 3.0,
       "rating": 0,
-      "burst": 2.72,
-      "endurance": 3.39,
-      "notes": 338
+      "burst": 2.7,
+      "endurance": 3.36,
+      "notes": 337
     }
   },
   "sevens": {
     "hard": {
-      "score": 10.16,
+      "score": 10.0,
       "rating": 2,
-      "burst": 8.46,
-      "endurance": 12.25,
-      "notes": 723
+      "burst": 8.19,
+      "endurance": 12.23,
+      "notes": 715
     },
     "easy": {
-      "score": 10.16,
+      "score": 10.0,
       "rating": 2,
-      "burst": 8.45,
-      "endurance": 12.25,
-      "notes": 718
+      "burst": 8.18,
+      "endurance": 12.23,
+      "notes": 710
     }
   },
   "ride": {
     "hard": {
-      "score": 12.77,
+      "score": 12.76,
       "rating": 3,
-      "burst": 11.79,
-      "endurance": 13.97,
-      "notes": 647
+      "burst": 11.84,
+      "endurance": 13.88,
+      "notes": 663
     },
     "easy": {
-      "score": 10.38,
+      "score": 10.85,
       "rating": 2,
-      "burst": 10.12,
-      "endurance": 10.69,
-      "notes": 592
+      "burst": 10.53,
+      "endurance": 11.25,
+      "notes": 614
     }
   },
   "what-we-do": {
     "hard": {
-      "score": 13.31,
+      "score": 14.03,
       "rating": 3,
-      "burst": 8.07,
-      "endurance": 19.71,
+      "burst": 8.37,
+      "endurance": 20.96,
       "notes": 1185
     },
     "easy": {
-      "score": 13.31,
+      "score": 14.03,
       "rating": 3,
-      "burst": 8.07,
-      "endurance": 19.71,
+      "burst": 8.37,
+      "endurance": 20.96,
       "notes": 1185
     }
   },
   "arabesque": {
     "hard": {
-      "score": 16.11,
+      "score": 16.48,
       "rating": 4,
-      "burst": 15.28,
-      "endurance": 17.11,
-      "notes": 1029
+      "burst": 15.63,
+      "endurance": 17.51,
+      "notes": 1024
     },
     "easy": {
-      "score": 15.18,
+      "score": 15.51,
       "rating": 4,
-      "burst": 14.54,
-      "endurance": 15.96,
-      "notes": 993
+      "burst": 14.64,
+      "endurance": 16.58,
+      "notes": 988
     }
   },
   "jupiter": {
     "hard": {
-      "score": 19.65,
-      "rating": 5,
-      "burst": 20.26,
-      "endurance": 18.91,
-      "notes": 1340
+      "score": 9.16,
+      "rating": 3,
+      "burst": 8.72,
+      "endurance": 9.71,
+      "notes": 1264
     },
     "easy": {
-      "score": 10.99,
+      "score": 8.65,
       "rating": 2,
-      "burst": 9.61,
-      "endurance": 12.67,
-      "notes": 1274
+      "burst": 8.21,
+      "endurance": 9.18,
+      "notes": 1249
     }
   },
   "maslanka4": {
     "hard": {
-      "score": 6.65,
-      "rating": 1,
-      "burst": 5.52,
-      "endurance": 8.04,
+      "score": 7.47,
+      "rating": 3,
+      "burst": 6.27,
+      "endurance": 8.94,
       "notes": 2766
     },
     "easy": {
-      "score": 4.75,
+      "score": 5.56,
       "rating": 1,
-      "burst": 3.51,
-      "endurance": 6.26,
+      "burst": 4.36,
+      "endurance": 7.04,
       "notes": 2368
     }
   }
