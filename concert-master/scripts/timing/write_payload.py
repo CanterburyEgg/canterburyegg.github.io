@@ -44,6 +44,8 @@ def run(ns):
         payload["chordNotes"] = chord_notes
     if chord_hits:
         payload["chordHits"] = chord_hits
+    if ns.get("counter_notes"):
+        payload["counterNotes"] = ns["counter_notes"]  # (counter_notes: the left hand's line in a two-hands passage)
     if ns.get("beat_levels") is not None:
         payload["beatLevels"] = ns["beat_levels"]  # (beat_levels: index-aligned with melodyNotes, for Easy)
     if ns.get("song_end") is not None:

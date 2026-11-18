@@ -765,6 +765,7 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
     exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
     chordHits: sidecar.chordHits || [], // ensemble chord hits on a melody note: [time, chord tone above, chord tone below]
+    counterNotes: sidecar.counterNotes || [], // a second line for the other hand (two_hands corrections): [start, end, midi]
     // how strong each melody note's place in the bar is (0 downbeat, 1 beat, 2 half beat, 3 smaller, -1 unknown), for Easy
     beatLevels: Array.isArray(sidecar.beatLevels) && sidecar.beatLevels.length === (sidecar.melodyNotes || []).length ? sidecar.beatLevels : null,
   };
@@ -1136,6 +1137,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
   ghostEdgeOK = isDense && features.ghostNotes !== false;
   runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore });
+  if (isDense) addCounterLine(notes, features.counterNotes || [], lanes);
 
   // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)
   let lastPercSolo = -10;
@@ -1201,6 +1203,58 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   alignChordHoldEnds(notes);
   notes.sort((a, b) => a.time - b.time || a.lane - b.lane);
   return { mode, density, notes };
+}
+
+/**
+ * Two hands (a call and response from the score, `counterNotes`): the second line goes on the other hand from the lead
+ * -- the left hand under a right-hand lead (Mars 1:12: the trumpets' 78 on the right,
+ * the euphoniums' 67 on the left, each held while the other answers). On that hand its higher note takes the inner key
+ * (F, or J on the right), a lower one the outer (D / K). Hard only.
+ */
+function addCounterLine(notes, counter, lanes) {
+  if (!counter.length || lanes !== 4) return;
+  const prim = notes.filter((n) => !n.isChordPartner && n.lane >= 0 && n.lane < lanes && !n.isPercussionSolo);
+  const pitches = [...new Set(counter.map((c) => c[2]))].sort((a, b) => a - b);
+  const topP = pitches[pitches.length - 1];
+  // (the passage: from the first answer to the last; inside it the lead stays on one hand -- the right, above the
+  // counter line; the left, below it -- each pitch on its own key, the highest on the outer key; and the two lines
+  // replace the band chords there, two hands being busy enough)
+  const c0 = Math.min(...counter.map((c) => c[0])) - 1.0;
+  const c1 = Math.max(...counter.map((c) => c[1])) + 0.3;
+  const inSpan = prim.filter((n) => n.time >= c0 && n.time <= c1);
+  const leadAbove = inSpan.length && inSpan.reduce((a, n) => a + n.midi, 0) / inSpan.length >= pitches.reduce((a, p) => a + p, 0) / pitches.length;
+  const lp = [...new Set(inSpan.map((n) => n.midi))].sort((a, b) => a - b);
+  for (const n of inSpan) {
+    const r = lp.length - 1 - lp.indexOf(n.midi); // 0 = highest
+    n.lane = leadAbove ? Math.max(2, 3 - r) : Math.min(1, r === 0 ? 0 : 1);
+  }
+  for (let i = notes.length - 1; i >= 0; i--) {
+    const x = notes[i];
+    if (x.isChordPartner && !x.isCounterLine && x.time >= c0 && x.time <= c1) notes.splice(i, 1);
+  }
+  let id = Math.max(0, ...notes.map((x) => x.id || 0));
+  for (const [t0, t1, midi] of counter) {
+    const leftHand = leadAbove;
+    const lane = leftHand ? (midi === topP ? 1 : 0) : midi === topP ? 2 : 3;
+    const dur = t1 - t0;
+    notes.push({
+      id: ++id,
+      type: dur >= 0.45 ? 'hold' : 'tap',
+      lane,
+      midi,
+      time: t0,
+      endTime: dur >= 0.45 ? t1 : t0,
+      duration: dur >= 0.45 ? dur : 0,
+      intensity: (inSpan[0] && inSpan[0].intensity) || 0.5,
+      isChordPartner: true,
+      isCounterLine: true,
+      hit: false,
+      missed: false,
+      holding: false,
+      completed: false,
+    });
+  }
+  notes.sort((a, b) => a.time - b.time);
 }
 
 // Chord holds that start together let go together (Arabesque 4:56: F82 + J86 ended 0.11s apart): every hold in the
@@ -1366,6 +1420,7 @@ const LAYOUT_RULES = [
   ['linesKeepDirection', (n, l, c) => { if (c.exactScore) applyLinesKeepDirection(n, l, c.ghosts); }],
   ['slowEntryClimbRises', (n, l, c) => { if (c.exactScore) applySlowEntryClimbRises(n, l); }],
   ['quickBurstsLandHome', (n, l, c) => { if (c.exactScore) applyQuickBurstsLandHome(n, l); }],
+  ['twoNoteSwingKeys', (n, l, c) => { if (c.exactScore) applyTwoNoteSwingKeys(n, l, c.chordHits); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
@@ -4645,15 +4700,15 @@ function applyQuickBurstsLandHome(notes, lanes) {
     }
     runs.push({ run, gaps, periodic });
   }
-  // (...or a short stretch of a rhythm that goes round elsewhere on the same note -- Mars 0:12's bar and a half of the
-  // ostinato between the theme's entries. A one-off fanfare in an irregular rhythm, Jupiter 2:37 / 7:41, keeps its keys)
+  // (...or a short stretch of a rhythm that goes round elsewhere, on any note -- Mars 0:12's bar and a half of the
+  // ostinato between the theme's entries, 1:29's bar of it on 84. A one-off fanfare in an irregular rhythm, Jupiter 2:37 / 7:41, keeps its keys)
   const inside = (a, b) => {
     for (let o = 0; o + a.length <= b.length; o++) if (a.every((g, j) => Math.abs(g - b[o + j]) < 0.06)) return true;
     return false;
   };
   for (const r of runs) {
     if (!r.periodic && r.gaps.length >= 6) {
-      r.periodic = runs.some((o) => o !== r && o.periodic && o.run[0].midi === r.run[0].midi && inside(r.gaps, o.gaps));
+      r.periodic = runs.some((o) => o !== r && o.periodic && inside(r.gaps, o.gaps));
     }
   }
   for (const { run, gaps, periodic } of runs) {
@@ -4675,6 +4730,51 @@ function applyQuickBurstsLandHome(notes, lanes) {
       for (let q = k - 1, alt = true; q >= j; q--, alt = !alt) run[q].lane = alt ? partner : home;
       j = k + 1;
     }
+  }
+}
+
+/**
+ * Two-note swings keep their keys: a phrase that swings back and forth between the same two notes (Mars 1:00-1:16:
+ * the horns' 68 71 68 71 ..., each with its band chord) plays them on the same two keys every time, the first
+ * statement's (user, Nov 18: "the chords in this passage are the same, back and forth, but here they switch key
+ * presses"). 4+ notes, only the two pitches, each next note within 4s, most of them band chord hits; the note before and after must still read
+ * right (or be 1.5s+ away). Exact scores only.
+ */
+function applyTwoNoteSwingKeys(notes, lanes, chordHits) {
+  const hitAt = (t) => (chordHits || []).some((h) => Math.abs(h[0] - t) < 0.02);
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const n = prim.length;
+  const reads = (p, q, lp, lq) => (p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(lq - lp) === Math.sign(q.midi - p.midi));
+  for (let a = 0; a + 3 < n; ) {
+    const lo = Math.min(prim[a].midi, prim[a + 1].midi);
+    const hi = Math.max(prim[a].midi, prim[a + 1].midi);
+    if (lo === hi) {
+      a++;
+      continue;
+    }
+    let b = a + 1;
+    while (b + 1 < n && (prim[b + 1].midi === lo || prim[b + 1].midi === hi) && prim[b + 1].time - prim[b].time < 4) b++;
+    const run = prim.slice(a, b + 1);
+    const swaps = run.slice(1).filter((x, j) => x.midi !== run[j].midi).length;
+    // (the band's chord swing: most of its notes are chord hits -- a plain two-note figure in a tune keeps its keys)
+    const chorded = run.filter((x) => hitAt(x.time)).length >= 0.75 * run.length;
+    if (run.length < 4 || swaps < 3 || !chorded || run.some((x) => x.fixedLane || x.localPin || x.ghost)) {
+      a++;
+      continue;
+    }
+    const first = run.find((x) => x.midi === lo).lane;
+    const second = run.find((x) => x.midi === hi).lane;
+    if (!(first < second)) {
+      a = b + 1;
+      continue;
+    }
+    const laneOf = (x) => (x.midi === lo ? first : second);
+    const pv = a > 0 ? prim[a - 1] : null;
+    const nx = b + 1 < n ? prim[b + 1] : null;
+    const pvOk = !pv || run[0].time - pv.time >= 1.5 || reads(pv, run[0], pv.lane, laneOf(run[0]));
+    const nxOk = !nx || nx.time - run[run.length - 1].time >= 1.5 || reads(run[run.length - 1], nx, laneOf(run[run.length - 1]), nx.lane);
+    if (pvOk && nxOk) run.forEach((x) => (x.lane = laneOf(x)));
+    a = b + 1;
   }
 }
 

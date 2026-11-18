@@ -1,5 +1,3 @@
 [
-  {"song": "mars", "start": 60, "end": 122, "label": "Mars 1:00-2:02", "issue": "The big chords 1:00-1:16, the D55/F67 hits 1:16-1:24, the woodwind/string line from 1:31, and the ostinato on 72 from 1:46 (check its keys: some bars alternate K/J, some J/F)."},
-  {"song": "what-we-do", "start": 200, "end": 215, "label": "What We Do from the RuneScape Wiki", "issue": "Audio now streams from runescape.wiki; should line up exactly as before."},
-  {"song": "sound-of-guthix", "start": 180, "end": 195, "label": "Sound of Guthix from the RuneScape Wiki", "issue": "Audio now streams from runescape.wiki; should line up exactly as before."}
+  {"song": "mars", "start": 87, "end": 96, "label": "1:27-1:36 - pin the brass entry", "issue": "Pin mode (N): click D56 at 1:31.14, B, then T on each brass note you hear (56 55 54 55 56 58 ...). A couple of passes, Copy pins, paste."}
 ]

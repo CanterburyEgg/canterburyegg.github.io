@@ -7,5 +7,30 @@
       "audio_to": 11.46,
       "why": "0:00.6-0:11.5 (score 0-10, bars 1-5): the quiet col legno opening. The alignment only locks on at bar 6; before that it started the ostinato 0.9s late and wandered (user, Nov 17: 'the start is VERY inconsistent, and not lining up'). The recording's bar downbeats come every 2.17s from the first attack at 0.58 (onsets 0.58, 2.75, 4.95, 7.11, 9.29, 11.49), the written rhythm at a steady tempo."
     }
+  ],
+  "two_hands": [
+    {
+      "start": 67.0,
+      "end": 78.0,
+      "right": "Trumpet 1 in C",
+      "left": "Tenor Tuba in B♭",
+      "why": "1:11-1:24 (score 67-78): the trumpets' 78 and the euphoniums' 67 (with the horns from 69.2) trade back and forth over the horns' held 71. Played with both hands: right = trumpet, left = euphonium/horn, each note held while the other answers (user, Nov 18). The rules can't tell a call and response from two parts doubling."
+    }
+  ],
+  "lead_part": [
+    {
+      "staff": "Tenor Trombone 1",
+      "start": 97.9,
+      "end": 101.95,
+      "late": true,
+      "why": "1:45-1:50 (score 98-102): the trombones' tune 56 55 54 55 56 58 60 62 63 62 leads, not the trumpets' ostinato on 72 over it (user, Nov 18: 'just be playing the brass melody as it's handed off, with the ostinato only coming back into play if it's truly the only thing being played'). The trumpets' figure counts as a brass melody for the brass-over-decoration rule (8+ strikes on one note in a rhythm, like Jupiter 7:41's fanfare); telling an accompanying ostinato from a fanfare changed the locked songs, so this is by ear."
+    },
+    {
+      "staff": "Horn 1 in F",
+      "start": 101.95,
+      "end": 113.15,
+      "late": true,
+      "why": "1:50-2:02 (score 102-113.2): the horns take the tune over (68 67 66 67 68 70 72 ..., then 67 66 67 64 66 69 ...), again over the trumpets' ostinato on 72. See 98."
+    }
   ]
 }
