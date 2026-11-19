@@ -117,6 +117,10 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
 - [ ] **Imp turret health (noted 2026-11-11)**: the planted cannon has no HP or health bar yet, so enemies can't hit it.
   Give it HP plus an overhead bar, make it targetable by bots, minions and towers, and when it's destroyed the Imp has
   to salvage the scrap to get his cannon back (DESIGN_RULES.md). Wrench hits repair it.
+- [ ] **Shop UI aesthetic pass (noted 2026-11-18)**: the tiered shop (js/shop_ui.js) works but doesn't look or feel
+  good yet. Needs aesthetic direction from the user first (layout, sizing, colours, how the build tree reads).
+- [ ] **Item icon image pass (noted 2026-11-18)**: icons for all 96 shop items (7 components, 28 tier 2, 56 epics,
+  5 boots; names in SHOP_PLAN.md) for the shop tiles, inventory slots and HUD.
 
 ## Model batch 2026-11-15
 - **In game:** gatehouse (the gate flank tower), boulders (replace the stone pillars), fallen logs (3 per side, new line-of-sight

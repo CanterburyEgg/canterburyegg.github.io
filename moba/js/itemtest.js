@@ -40,7 +40,7 @@
 
   // ---- freeze the match (only what the checks do changes state), remember everything we touch ----
   const prog = eng.getPlayerProg();
-  const saved = { update: eng.update, level: prog.level, items: prog.items.slice(), heroId: A.getActiveHeroId(), hp: hero.hp, mp: hero.mp, x: hero.x, z: hero.z };
+  const saved = { update: eng.update, gold: prog.gold, level: prog.level, items: prog.items.slice(), heroId: A.getActiveHeroId(), hp: hero.hp, mp: hero.mp, x: hero.x, z: hero.z };
   eng.update = function () {};
   const target = A.dummies[1] || A.dummies[0];
 
@@ -696,6 +696,53 @@
     check("Longshot (Hawk's Reach): ranged heroes only", I.byId.hawks_reach.rangedOnly === true, 'rangedOnly ' + I.byId.hawks_reach.rangedOnly);
   }
 
+  async function runShop() {
+    section('12. Shop (recipe pricing, buying rules, sell, undo)');
+    const SH = window.MOBA_SHOP_UI;
+    const F = window.MOBA_MAP.BASE.fountain;
+    A.switchHero('coyote'); await waitGame(0.2);
+    setPlayer(12, []); SH.reset();
+    hero.x = F.x; hero.z = F.z;
+    prog.gold = 20000;
+    const ids = () => prog.items.map((o) => o.id).join(', ') || '(none)';
+    let g = prog.gold;
+    SH.buy('hatchet');
+    check('Buy a component (Hatchet 350g)', g - prog.gold === 350 && ids() === 'hatchet', ids() + ', paid ' + (g - prog.gold));
+    g = prog.gold; SH.buy('bloodletters_knife');
+    check("Recipe pricing: Bloodletter's Knife with a Hatchet in hand costs 600g and uses it up", g - prog.gold === 600 && ids() === 'bloodletters_knife', ids() + ', paid ' + (g - prog.gold));
+    g = prog.gold; SH.buy('misericorde');
+    check('Epic from its tier-2 item: 1,650g (both Hatchets bought on the way)', g - prog.gold === 1650 && ids() === 'misericorde', ids() + ', paid ' + (g - prog.gold));
+    g = prog.gold; SH.buy('gluttonous_carver');
+    check('Only one epic per line (Gluttonous Carver refused)', g === prog.gold && ids() === 'misericorde', ids());
+    g = prog.gold; SH.buy('bloodletters_knife');
+    check('Tier-2 of a line you already finished is refused', g === prog.gold, ids());
+    g = prog.gold; SH.sell(0);
+    check('Sell refunds 70% (Misericorde: 1,820g)', prog.gold - g === 1820 && ids() === '(none)', '+' + (prog.gold - g));
+    g = prog.gold; SH.undo();
+    check('Undo a sale: item back, refund taken back', ids() === 'misericorde' && g - prog.gold === 1820, ids());
+    g = prog.gold; SH.undo();
+    check('Undo a purchase: full refund and the parts come back', ids() === 'bloodletters_knife' && prog.gold - g === 1650, ids() + ', +' + (prog.gold - g));
+    SH.tick(); hero.x = F.x + 30; SH.tick(); hero.x = F.x; SH.tick();
+    check('Leaving the fountain locks purchases in (no more undo)', SH.undoCount() === 0, 'undo stack ' + SH.undoCount());
+    prog.items = []; SH.reset();
+    SH.buy('footwraps'); SH.buy('fencers_slippers');
+    const b1 = ids(); g = prog.gold; SH.buy('footwraps');
+    check('Boots: upgrade replaces the basic pair; a second pair is refused', b1 === 'fencers_slippers' && g === prog.gold, b1);
+    prog.items = []; SH.reset();
+    ['hatchet', 'inkwell', 'metronome', 'iron_collar'].forEach((id) => SH.buy(id));
+    g = prog.gold; SH.buy('garnet_brooch');
+    check('4 item slots', prog.items.length === 4 && g === prog.gold, prog.items.length + ' items');
+    prog.items = []; SH.reset();
+    A.switchHero('brawler'); await waitGame(0.2);
+    g = prog.gold; SH.buy('hawks_reach');
+    check("Longshot (Hawk's Reach) refused for a melee hero", g === prog.gold && prog.items.length === 0, ids());
+    A.switchHero('coyote'); await waitGame(0.2);
+    prog.items = []; SH.reset();
+    setPlayer(12, ['hornets_nest', 'whirling_glaive', 'fencers_slippers']);
+    check('Attack speed at the cap shows (max)', window.MOBA_COMBAT.atkCapped(window.MOBA_PHASE1.HERO_SPECS.coyote.atkCd, eng.getPlayerStats()), 'capped');
+    prog.items = []; SH.reset(); prog.gold = saved.gold;
+  }
+
   function restore() {
     restoreBots();
     prog.level = saved.level;
@@ -715,7 +762,7 @@
     // let the match finish booting
     while (!(eng.devBots && eng.devBots().length)) await sleep();
     await waitGame(1.0);
-    try { await run(); await runBatch1(); await runBatch2(); await runBatch3to6(); await runFixes(); } catch (e) { check('test crashed', false, String(e && e.stack || e)); }
+    try { await run(); await runBatch1(); await runBatch2(); await runBatch3to6(); await runFixes(); await runShop(); } catch (e) { check('test crashed', false, String(e && e.stack || e)); }
     restore();
     const fails = results.filter((r) => !r.ok).length;
     statusEl.textContent = fails ? fails + ' FAILED of ' + results.length : 'all ' + results.length + ' passed';

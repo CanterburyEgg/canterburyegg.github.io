@@ -268,5 +268,35 @@ window.MOBA_ITEMS = (function () {
     return { owed, used };
   }
 
-  return { items, byId, LINES, STAT, COST, costGiven, statText };
+  // ---- Buying rules (SHOP_PLAN 'Uniqueness'; the shop UI and bot buying both use these) ----
+  // owned: item objects you hold. ctx: { ranged } (Longshot is ranged-only). Returns null if allowed, else a reason.
+  const SLOTS = 4;
+  function buyBlock(itemId, owned, ctx) {
+    const it = byId[itemId];
+    if (!it) return 'Unknown item';
+    if (it.rangedOnly && !(ctx && ctx.ranged)) return 'Ranged heroes only';
+    const ids = owned.map((o) => o.id);
+    const price = costGiven(itemId, ids);
+    const after = owned.filter((o) => { const k = price.used.indexOf(o.id); if (k >= 0) { price.used[k] = null; return false; } return true; });
+    if (it.boots) {
+      // one pair of boots: basic boots only if you hold none; tier-2 boots replace your basic pair
+      if (after.some((o) => o.boots)) return 'You already have boots';
+    } else if (it.tier === 2) {
+      if (after.some((o) => o.id === it.id)) return 'You already have ' + it.name;
+      const ep = after.find((o) => o.tier === 3 && o.line === it.line);
+      if (ep) return 'You already have ' + ep.name + ' from this line';
+    } else if (it.tier === 3) {
+      const ep = after.find((o) => o.tier === 3 && o.line === it.line);
+      if (ep) return 'Only one epic per line (you have ' + ep.name + ')';
+    }
+    if (after.length + 1 > SLOTS) return 'All 4 item slots are full';
+    return null;
+  }
+  // what selling an item gives back (70%)
+  const SELL_PCT = 0.7;
+  const sellValue = (it) => Math.round(it.cost * SELL_PCT);
+  // which items an item builds into
+  const buildsInto = (id) => items.filter((o) => o.from.indexOf(id) >= 0);
+
+  return { items, byId, LINES, STAT, COST, SLOTS, SELL_PCT, costGiven, statText, buyBlock, sellValue, buildsInto };
 })();

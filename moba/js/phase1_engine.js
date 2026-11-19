@@ -2754,20 +2754,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         </div>
 
         <!-- 4-Slot Base Item Shop Drawer -->
-        <div id="p1-shop-modal" style="display:none;position:absolute;top:105px;left:50%;transform:translateX(-50%);width:620px;background:rgba(11,17,26,0.97);border:1px solid rgba(251,191,36,0.55);border-radius:10px;padding:14px;z-index:35;color:#f8fafc;box-shadow:0 16px 40px rgba(0,0,0,0.8);">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-            <div>
-              <span style="font-size:14px;font-weight:800;color:#fde047;">FOUNTAIN ARMORY (4-SLOT PASSIVE &amp; PROC ITEMS)</span>
-              <div style="font-size:11px;color:#94a3b8;" id="p1-shop-status">Stand on Allied Fountain (or enable 0 CD Mode) to purchase items.</div>
-            </div>
-            <button type="button" id="p1-shop-close" class="sb-btn" style="padding:3px 9px;">✕ Close (P)</button>
-          </div>
-          <div style="margin-bottom:10px;display:flex;gap:8px;align-items:center;">
-            <span style="font-size:11px;font-weight:700;color:#cbd5e1;">YOUR 4 SLOTS:</span>
-            <div id="p1-inv-row" style="display:flex;gap:6px;flex:1;"></div>
-          </div>
-          <div id="p1-shop-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:280px;overflow-y:auto;"></div>
-        </div>
+        <div id="p1-shop-modal" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);width:940px;max-width:96vw;background:rgba(11,17,26,0.97);border:1px solid rgba(251,191,36,0.55);border-radius:10px;padding:12px 14px;z-index:35;color:#f8fafc;box-shadow:0 16px 40px rgba(0,0,0,0.8);"></div>
 
         <!-- Bottom-Right Interactive 2D Minimap & Tactical Bot Pings -->
         <div id="p1-minimap-box" style="position:absolute;right:14px;bottom:14px;background:rgba(9,14,22,0.94);border:1px solid rgba(251,191,36,0.45);border-radius:8px;padding:8px;z-index:24;box-shadow:0 8px 24px rgba(0,0,0,0.65);">
@@ -2823,7 +2810,27 @@ window.MOBA_PHASE1_ENGINE = (function () {
       document.getElementById('p1-btn-gold').addEventListener('click', () => {
         addPlayerGoldAndXp(500, 0, hero.x, hero.z);
       });
-      document.getElementById('p1-shop-close').addEventListener('click', toggleShopModal);
+      // Tiered shop UI (js/shop_ui.js)
+      window.MOBA_SHOP_UI.mount(document.getElementById('p1-shop-modal'), {
+        prog: () => playerProg,
+        atFountain: () => isNearOrderFountain(),
+        isRanged: () => isRangedHero(getActiveHeroId()),
+        stats: () => getPlayerStats(),
+        baseAtkCd: () => (DATA.HERO_SPECS[getActiveHeroId()] || {}).atkCd || 1,
+        float: (text, color) => spawnFloat(hero.x, 2.7, hero.z, text, color),
+        close: () => toggleShopModal(),
+        // items changed: new max HP / Mana (a bought item's HP is added to your current HP too)
+        itemsChanged: (bought) => {
+          const st = getPlayerStats();
+          const addHp = bought ? (st.maxHp - hero.maxHp) : 0;
+          hero.maxHp = st.maxHp;
+          hero.hp = Math.min(hero.maxHp, hero.hp + Math.max(0, addHp));
+          hero.maxMp = st.maxMp;
+          hero.mp = Math.min(hero.maxMp, hero.mp);
+          SFX.play('chime');
+          refreshShopAndHudUI();
+        }
+      });
       document.getElementById('p1-bot-diff').addEventListener('change', (e) => { botDifficulty = e.target.value; });
       document.getElementById('p1-btn-restart').addEventListener('click', resetMatch);
 
@@ -2840,6 +2847,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       refreshShopAndHudUI();
       refreshTalentModalUI();
+      if (/[?&]shopopen/.test(location.search)) setTimeout(() => { playerProg.gold = 5000; toggleShopModal(); }, 300); // dev: screenshot the shop
     }
 
     function toggleShopModal() {
@@ -2859,44 +2867,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const el = document.getElementById('p1-shop-status');
       if (el) { el.textContent = text; el.style.color = color || '#94a3b8'; }
     }
-    function buyShopItem(itemId) {
-      const item = DATA.SHOP_ITEMS.find((it) => it.id === itemId);
-      if (!item) return;
-      if (!isNearOrderFountain()) {
-        spawnFloat(hero.x, 2.6, hero.z, 'RECALL TO FOUNTAIN (B) TO BUY!', '#fb7185');
-        shopMsg('Recall to the fountain (B) to buy.', '#fb7185');
-        return;
-      }
-      // recipe pricing: parts you already hold count toward the price and are used up (js/items.js costGiven)
-      if (item.rangedOnly && !isRangedHero(getActiveHeroId())) {
-        shopMsg(item.name + ' is for ranged heroes only.', '#fb7185');
-        return;
-      }
-      const price = window.MOBA_ITEMS.costGiven(item.id, playerProg.items.map((it) => it.id));
-      if (playerProg.items.length - price.used.length >= 4) {
-        spawnFloat(hero.x, 2.6, hero.z, '4 ITEM SLOTS FULL!', '#fb7185');
-        shopMsg('All 4 item slots are full.', '#fb7185');
-        return;
-      }
-      if (playerProg.gold < price.owed) {
-        spawnFloat(hero.x, 2.6, hero.z, 'NEED ' + price.owed + ' GOLD!', '#fb7185');
-        shopMsg('Need ' + price.owed + ' gold for ' + item.name + '.', '#fb7185');
-        return;
-      }
-      playerProg.gold -= price.owed;
-      price.used.forEach((id) => {
-        const k = playerProg.items.findIndex((it) => it.id === id);
-        if (k >= 0) playerProg.items.splice(k, 1);
-      });
-      playerProg.items.push(item);
-      const st = getPlayerStats();
-      hero.maxHp = st.maxHp;
-      hero.hp = Math.min(hero.maxHp, hero.hp + (item.stats.maxHp || 0));
-      SFX.play('chime');
-      spawnFloat(hero.x, 2.7, hero.z, 'EQUIPPED: ' + item.name, '#fde047');
-      shopMsg('Bought ' + item.name + '.', '#fde047');
-      refreshShopAndHudUI();
-    }
+    function buyShopItem(itemId) { return window.MOBA_SHOP_UI.buy(itemId); }
 
     function refreshShopAndHudUI() {
       const gEl = document.getElementById('p1-gold');
@@ -2909,46 +2880,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       document.getElementById('p1-score-c').textContent = String(teamKills[1]);
       document.getElementById('p1-btn-ward').textContent = '👁️ Ward (F): ' + playerProg.wardCharges;
 
-      const invRow = document.getElementById('p1-inv-row');
-      if (invRow) {
-        invRow.innerHTML = [0, 1, 2, 3].map((idx) => {
-          const it = playerProg.items[idx];
-          return `<div style="flex:1;padding:5px 8px;background:rgba(30,41,59,0.85);border:1px solid ${it ? '#fbbf24' : 'rgba(255,255,255,0.15)'};border-radius:5px;font-size:10.5px;color:${it ? '#fde047' : '#64748b'};font-weight:700;">
-            ${it ? it.name : 'Empty Slot #' + (idx + 1)}
-          </div>`;
-        }).join('');
-      }
-
-      const grid = document.getElementById('p1-shop-grid');
-      if (grid) {
-        const canBuyHere = isNearOrderFountain();
-        const ownedIds = playerProg.items.map((o) => o.id);
-        const html = DATA.SHOP_ITEMS.map((it) => {
-          const price = window.MOBA_ITEMS.costGiven(it.id, ownedIds);
-          const afford = playerProg.gold >= price.owed && playerProg.items.length - price.used.length < 4 && canBuyHere;
-          return `<div style="padding:8px 10px;background:rgba(20,29,42,0.92);border:1px solid ${afford ? 'rgba(250,204,21,0.5)' : 'rgba(255,255,255,0.1)'};border-radius:6px;display:flex;justify-content:space-between;align-items:center;gap:8px;">
-            <div>
-              <div style="font-size:12px;font-weight:800;color:#f8fafc;">${it.name} <span style="color:#fde047;">(${price.owed}g)</span></div>
-              <div style="font-size:10px;color:#94a3b8;margin-top:2px;">${it.desc}</div>
-            </div>
-            <button type="button" data-buy="${it.id}" class="sb-btn" style="padding:4px 9px;font-size:11px;opacity:${afford ? '1' : '0.45'};">Buy</button>
-          </div>`;
-        }).join('');
-        // only rebuild when something changed (the gold trickle refreshes every second; rebuilding would reset the
-        // scroll position and swallow clicks that straddle a rebuild)
-        if (grid._html !== html) { grid._html = html; grid.innerHTML = html; }
-        // one delegated listener; buy on pointerdown so a rebuild between press and release can't eat the click
-        if (!grid._wired) {
-          grid._wired = true;
-          grid.addEventListener('pointerdown', (e) => {
-            const btn = e.target.closest && e.target.closest('[data-buy]');
-            if (!btn || e.button !== 0) return;
-            e.preventDefault();
-            e.stopPropagation();
-            buyShopItem(btn.getAttribute('data-buy'));
-          });
-        }
-      }
+      window.MOBA_SHOP_UI.refresh();
     }
 
     function refreshTalentModalUI() {
@@ -3009,6 +2941,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       playerProg.recallTimer = 0;
       playerProg.wardCharges = 2;
       playerProg.items = [];
+      window.MOBA_SHOP_UI.reset();
       playerProg.talents = { 3: null, 7: null, 10: null };
 
       hero.x = MAP.BASE.heroSpawn.x;
@@ -5051,6 +4984,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       matchTime += dt;
       IP.tick(dt); // item passives (regen, shields, timers)
+      window.MOBA_SHOP_UI.tick(); // leaving the fountain ends the shop's undo window
       // per-frame velocity of every unit (_vx/_vz; e.g. Brawler's "Don't Turn Your Back" checks who's running away)
       if (dt > 0) {
         const trackVel = (u) => {
