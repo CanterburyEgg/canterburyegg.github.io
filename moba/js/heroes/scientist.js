@@ -193,6 +193,7 @@ H.scientist = {
       if (blade) { spawnFloat(hero.x, 2.6, hero.z, 'BLADE IS OUT!', '#fb7185'); return; }
       if (!wtfMode && (hero.mp || 0) < 1) { SFX.play('block'); spawnFloat(hero.x, 2.6, hero.z, 'OUT OF FUEL!', '#fb923c'); return; }
       hero.sawOn = true;
+      hero.sawCastId = KitFx.castId(); // saw ticks run later (every 0.35s)
       sawTick = 0;
       SFX.play('arena');
       spawnFloat(hero.x, 2.6, hero.z, 'BZZZZT!', '#4ade80');
@@ -220,7 +221,7 @@ H.scientist = {
       blade = {
         delay: 0.24, // release frame of the throw (clip 0.93s)
         mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
-        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1))
+        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1)), castId: KitFx.castId()
       };
       SFX.play('dash');
     }
@@ -263,7 +264,7 @@ H.scientist = {
         const st = phase1Engine ? phase1Engine.getPlayerStats() : { atk: 50, fant: 30 };
         const pl = phase1Engine ? (phase1Engine.getPlayerProg().level || 1) : 1;
         const dmg = H.scientist.dmg.sawTick(st, pl, KitFx.rQE(pl));
-        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', src: 'ability', aoe: true });
+        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', src: 'ability', aoe: true, castId: hero.sawCastId });
         if (hits > 0) SFX.play('punch');
       }
     }
@@ -280,6 +281,7 @@ H.scientist = {
       if (hero.sawOn) { hero.sawOn = false; hero.cdQ = 1.0; return; }
       if (hero.cdQ > 0 || hero.scBlade || fuelOf(hero) < 1) return;
       hero.sawOn = true;
+      hero.sawCastId = KitFx.castId(); // saw ticks run later (every 0.35s)
       hero.sawT = 0;
       hero.sawTick = 0;
       SFX.play('arena');
@@ -302,7 +304,7 @@ H.scientist = {
       scene.add(mesh);
       const b = {
         delay: 0.24, mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
-        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1)),
+        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1)), castId: KitFx.castId(),
         owner: actor
       };
       hero.scBlade = b;
@@ -350,7 +352,7 @@ H.scientist = {
         u.facing = Math.atan2(a.x - u.x, a.z - u.z);
         const st = actor.stats();
         const dmg = H.scientist.dmg.sawTick(st, actor.level(), KitFx.rQE(actor.level()));
-        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', by: actor, src: 'ability', aoe: true });
+        const hits = KitFx.hitCone(2.5, 0.55, dmg, { dmgType: 'fantasy', color: '#4ade80', by: actor, src: 'ability', aoe: true, castId: u.sawCastId });
         if (hits > 0) SFX.play('punch');
       }
     }
@@ -454,7 +456,7 @@ H.scientist = {
       actor.hostiles().forEach((t, j) => {
         if (t.kind === 'structure') return;
         if (Math.hypot(t.x - x, t.z - z) <= 0.9 + (t.r || 0.5)) hitOne(t.kind + (t.ref && t.ref.id || j), () => {
-          const opts = { dmgType: 'physical', color: '#4ade80' };
+          const opts = { dmgType: 'physical', color: '#4ade80', castId: b.castId };
           if (b.out) opts.slowDur = 1.5;
           else {
             opts.knockbackDist = Math.max(0, Math.min(4, Math.hypot(hero.x - t.x, hero.z - t.z) - 1.2));

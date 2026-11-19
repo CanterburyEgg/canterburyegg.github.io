@@ -154,6 +154,10 @@ K.castCtx = function (actor) {
   const st = actor.stats();
   return { st, pProg: { level: lvl }, talents: actor.talents(), cdrMult: 1 - (st.cdr || 0), ultCdrMult: 1 - (st.ultCdr || st.cdr || 0), rQE: K.rQE(lvl), rUlt: K.rUlt(lvl) };
 };
+// Id of the cast that's running right now (0 outside a cast). Kits store it on anything that deals damage later
+// (projectiles, zones, pending strikes) and pass it back as opts.castId, so item passives know which cast a hit
+// came from ("once per cast" passives: Tempered Edge, Overcharge, Accumulation, Spell cadence, Equilibrium).
+K.castId = function () { const c = window.MOBA_COMBAT.currentCast; return c ? c.id : 0; };
 // seconds between this actor's basic attacks (attack speed cap: js/combat_core.js)
 K.atkInterval = function (baseCd, st, asScale) { return window.MOBA_COMBAT.atkInterval(baseCd, st, asScale); };
 // Cut an actor's running cooldowns: opts { seconds, pct, ult (include R) } (Reset, Essence, Battle rhythm, Shrug off)
@@ -257,8 +261,9 @@ K.spawnBolt = function (angle, dmg, opts = {}) {
   heroBolts.push({
     mesh, vx: Math.sin(angle) * spd, vz: Math.cos(angle) * spd, dmg,
     dmgType: opts.dmgType || 'physical', bleedAdd: 0, isHeartseeker: false, pierce: !!opts.pierce,
-    hitIds: new Set(), life: opts.life || 0.6, isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0,
+    hitIds: new Set(), life: (opts.life || 0.6) * (opts.isBasic !== false ? 1 + ((by.stats().rangePct) || 0) : 1), isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0, // Longshot: basic attack bolts fly farther
     owner: by.isPlayer ? null : by,
+    castId: opts.castId || K.castId(), // the cast this bolt came from (0 for basics fired outside a cast)
     onHit: opts.onHit || null // onHit(x, z, hitRefOrDummy, targetObj|undefined) after it damages something (e.g. Imp splash shells)
   });
   return mesh;

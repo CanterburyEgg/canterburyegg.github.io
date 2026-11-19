@@ -174,7 +174,7 @@ H.panther = {
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const rankMult = [1.0, 1.25, 1.50][rQE];
     const baseClawDmg = strike.isFlurry
-      ? (strike.isBite ? H.panther.dmg.qBite(st, rQE) : H.panther.dmg.qSlash(st, rQE))
+      ? (strike.isBite ? H.panther.dmg.qBite(strike.st || st, rQE) : H.panther.dmg.qSlash(strike.st || st, rQE)) // (Q: stats from cast time)
       : H.panther.dmg.swipe(st);
     const healPerHit = strike.isFlurry
       ? Math.round((strike.isBite ? (28 + (pProg.level || 1) * 6) : (22 + (pProg.level || 1) * 5)) * rankMult)
@@ -196,7 +196,8 @@ H.panther = {
           const hit = actor.damage(t, baseClawDmg, {
             isBasic: true, src: 'attack', // swipes, and the Q flurry (counts as a basic attack)
             dmgType: 'physical',
-            color: strike.isFlurry ? '#2dd4bf' : '#fb7185'
+            color: strike.isFlurry ? '#2dd4bf' : '#fb7185',
+            castId: strike.castId // Q Slash / Gnash strikes carry their cast; swipes leave it unset
           });
           if (hit) didHitAny = true;
         }
@@ -233,6 +234,8 @@ H.panther = {
       hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
       hero.punchAnim = 0.54;
       hero.qFlurryRemaining = 1; // 2nd Hit: The Feline Bite ("Gnash")!
+      hero.qCastId = KitFx.castId(); // the Gnash bite (onFlurryEnd) comes later
+      hero.qSt = ctx.st;
       hero.qFlurryTimer = 0.21;
       hero.gnashAnim = 0;
       if (actions.punch) {
@@ -245,7 +248,9 @@ H.panther = {
         isFlurry: true,
         isBite: false,
         facing: hero.facing,
-        t: 0.13
+        t: 0.13,
+        castId: KitFx.castId(),
+        st: ctx.st
       };
       SFX.play('dash');
       spawnFloat(hero.x, 2.65, hero.z, 'SLASH!', '#2dd4bf');
@@ -271,6 +276,8 @@ H.panther = {
       hero.leapTz = THREE.MathUtils.clamp(hero.z + (dz / dist) * leapDist, -46, 46);
       hero.leapDur = 0.36;
       hero.leapTimer = 0.36;
+      hero.leapCastId = KitFx.castId(); // the landing pounce (leapLandFor) belongs to this cast
+      hero.leapSt = ctx.st; // ...and uses the stats from cast time
       hero.kickAnim = 0.42;
       if (actions.jump) {
         oneShotActive = true;
@@ -312,7 +319,9 @@ H.panther = {
       isFlurry: true,
       isBite: true,
       facing: hero.facing,
-      t: 0.14
+      t: 0.14,
+      castId: hero.qCastId,
+      st: hero.qSt
     };
   },
 
@@ -325,7 +334,7 @@ H.panther = {
     const { st, pProg, talents } = ctx;
     const hero = actor.unit; // (local alias: the pouncer)
     const pounceR = 2.65;
-    const pounceDmg = H.panther.dmg.pounce(st, pProg.level, KitFx.rQE(pProg.level || 1));
+    const pounceDmg = H.panther.dmg.pounce(hero.leapSt || st, pProg.level, KitFx.rQE(pProg.level || 1));
     const fear = hero.leapFromStealth ? POUNCE_FEAR : 0; // leapt while unseen (fog / out of sight / R stealth)
     const src = { x: hero.x, z: hero.z, unit: hero };
     SFX.play('arena');
@@ -348,6 +357,7 @@ H.panther = {
           const hit = actor.damage(t, pounceDmg, {
             dmgType: 'fantasy', src: 'ability',
             fearDur: fearThis, ccFromX: hero.x, ccFromZ: hero.z,
+            castId: hero.leapCastId,
             color: '#a855f7'
           });
           if (hit && fearThis) spawnFloat(t.x, 2.85, t.z, 'FEARED!', '#a78bfa');
@@ -369,8 +379,10 @@ H.panther = {
       hero.cdQ = [4.5, 3.8, 3.2][rQE] * (ctx.cdrMult || 1);
       hero.stealthTimer = 0;
       actor.play('punch', 0.04, true, 2.40, 0.85, 0.54);
-      hero.pnStrike = { isKick: false, isFlurry: true, isBite: false, facing: hero.facing, t: 0.13 };
+      hero.pnStrike = { isKick: false, isFlurry: true, isBite: false, facing: hero.facing, t: 0.13, castId: KitFx.castId(), st };
       hero.pnFlurryT = 0.21; // then the Gnash bite
+      hero.pnCastId = KitFx.castId();
+      hero.pnSt = st;
       SFX.play('dash');
       spawnFloat(hero.x, 2.65, hero.z, 'SLASH!', '#2dd4bf');
     } else if (slot === 'E') {
@@ -389,6 +401,8 @@ H.panther = {
       hero.leapTz = hero.z + (dz / dist) * leapDist;
       hero.leapDur = 0.36;
       hero.leapTimer = 0.36;
+      hero.leapCastId = KitFx.castId(); // the landing pounce (leapLandFor) belongs to this cast
+      hero.leapSt = ctx.st; // ...and uses the stats from cast time
       actor.play('jump', 0.04, true, 1.65, 0.0, 0.42);
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.22, 1.2, 0.22);
@@ -418,7 +432,7 @@ H.panther = {
         const a = actor.aim();
         u.facing = Math.atan2(a.x - u.x, a.z - u.z);
         u.gnashAnim = 0.22; // the engine's forward bite lunge
-        u.pnStrike = { isKick: false, isFlurry: true, isBite: true, facing: u.facing, t: 0.14 };
+        u.pnStrike = { isKick: false, isFlurry: true, isBite: true, facing: u.facing, t: 0.14, castId: u.pnCastId, st: u.pnSt };
       }
     }
     if (u.pnStrike) {

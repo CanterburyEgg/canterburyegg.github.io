@@ -91,7 +91,7 @@ window.MOBA_ITEMS = (function () {
       ['Rimed Pauldrons', 'frostbitePlate', { asSlow: 0.20, spdSlow: 0.10, dur: 2 }],
       ['Vendetta', 'grudge', { perStack: 0.04, maxStacks: 6, dropAfter: 4 }]],
     'atk+asp': ['Javelin',
-      ["Hawk's Reach", 'longshot', { rangePct: 0.15, meleeAsPct: 0.15 }],
+      ["Hawk's Reach", 'longshot', { rangePct: 0.15 }, { rangedOnly: true }],
       ['Whirling Glaive', 'windUp', { perStack: 0.06, maxStacks: 6, dropAfter: 3 }]],
     'atk+haste': ['Kukri',
       ['Tempered Edge', 'temperedSpells', { pctAttack: 0.40 }],
@@ -158,7 +158,7 @@ window.MOBA_ITEMS = (function () {
     crossover: 'Once every 5s, your first hit of your weaker damage type uses your stronger stat.',
     frostbitePlate: 'Enemies who hit you lose 20% Attack speed and 10% Move speed for 2s.',
     grudge: 'Each hit on the same hero grants +4% Attack (max 24%); resets when you switch targets.',
-    longshot: 'Ranged: +15% basic attack range. Melee: +15% Attack speed.',
+    longshot: '+15% basic attack range. Ranged heroes only.',
     windUp: 'Each basic attack grants +6% Attack speed (max 36%) for the fight; can exceed the Attack speed cap.',
     temperedSpells: 'Each ability\'s first hit deals bonus damage equal to 40% of your Attack.',
     ambush: 'Your first hit while unseen (or within 1.2s of being spotted) deals 80 + 60% Attack bonus damage (8s cooldown).',
@@ -212,7 +212,8 @@ window.MOBA_ITEMS = (function () {
           id: slug(e[0]), name: e[0], tier: 3, line, cost: COST.epic,
           from: [t2.id, compId(a), compId(b)],
           stats: Object.assign({}, epicStats),
-          passive: { id: e[1], params: e[2], text: PASSIVE_TEXT[e[1]] || '' }
+          passive: { id: e[1], params: e[2], text: PASSIVE_TEXT[e[1]] || '' },
+          rangedOnly: !!(e[3] && e[3].rangedOnly) // the shop won't sell it to melee heroes
         });
       });
     }

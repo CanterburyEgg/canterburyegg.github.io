@@ -169,6 +169,7 @@ function spawnAstralBolt(actor, angle, dmg, opts) {
     src: opts ? 'ability' : 'attack', // her bolt is a basic attack; Rift bolts are Ability damage
     owner: actor.isPlayer ? null : actor,
     slowDur: opts ? (opts.slowDur || 0) : 0,
+    castId: (opts && opts.castId) || 0, // the E cast for Rift bolts (0 for basics)
     // Starmark: Rift bolts (abilities) mark what they hit; her basic bolt pops a mark
     onHit: opts ? (x, z, u) => markTarget(hero, u) : (x, z, u, t) => popMark(actor, u, t)
   });
@@ -214,12 +215,13 @@ function spawnStarfallPillar(actor, tx, tz, radius, delay, dmg, isFromQ, slowDur
     dmg,
     isFromQ,
     owner: actor.isPlayer ? null : actor,
-    slowDur
+    slowDur,
+    castId: KitFx.castId() // spawned during the Q cast; erupts later
   });
 }
 
 // Spawn Sorceress R (Cataclysm Monolith): 5.0s expanding arcane field (2.0m -> 4.5m)
-function spawnCataclysmMonolith(tx, tz) {
+function spawnCataclysmMonolith(tx, tz, castId, st) {
   if (sorcMonolith) scene.remove(sorcMonolith.grp);
   const grp = new THREE.Group();
 
@@ -262,7 +264,9 @@ function spawnCataclysmMonolith(tx, tz) {
     startR: 2.0, maxR: 4.5, curR: 2.0,
     t: 0, dur: 5.0,
     tickTimer: 0.1,
-    collapsed: false
+    collapsed: false,
+    castId: castId || 0,
+    st: st || null // stats from cast time (pulses use these)
   };
 }
 
@@ -468,7 +472,7 @@ H.sorceress = {
 
       // When the dash ends: one homing Fantasy bolt at each of the (up to) 3 nearest enemies in range
       const eDmg = Math.round(H.sorceress.dmg.riftBolt(st, pProg.level, rQE) * RIFT.boltPct);
-      setPend(actor, 'rift', { t: dashDur, dmg: eDmg, slowDur: 0 });
+      setPend(actor, 'rift', { t: dashDur, dmg: eDmg, slowDur: 0, castId: KitFx.castId() });
       if (!actor.isPlayer) actor.play('punch', 0.05, true, 2.25, 0.22, dashDur);
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
@@ -492,7 +496,7 @@ H.sorceress = {
       const tx = hero.x + (dx / dist) * clamped;
       const tz = hero.z + (dz / dist) * clamped;
       spawnShockRing(tx, tz, 0xe879f9, 2.0, 0.4, 0.50);
-      setPend(actor, 'ult', { tx, tz, t: 0.50 });
+      setPend(actor, 'ult', { tx, tz, t: 0.50, castId: KitFx.castId(), st });
     }
     return;
   },
@@ -532,7 +536,7 @@ H.sorceress = {
             // Fan out a little, then curve in (spread: left / center / right)
             const fan = (idx - (targets.length - 1) / 2) * RIFT.spread;
             const ang = Math.atan2(tx - hero.x, tz - hero.z) + fan;
-            spawnAstralBolt(actor, ang, rb.dmg, { homeTo: tg.d ? { d: tg.d } : { ref: tg.ref }, slowDur: rb.slowDur, fromBody: true });
+            spawnAstralBolt(actor, ang, rb.dmg, { homeTo: tg.d ? { d: tg.d } : { ref: tg.ref }, slowDur: rb.slowDur, fromBody: true, castId: rb.castId });
           });
         }
       }
@@ -554,10 +558,10 @@ H.sorceress = {
       if (pu.t <= 0) {
         setPend(actor, 'ult', null);
         if (actor.isPlayer) {
-          if (live) spawnCataclysmMonolith(pu.tx, pu.tz);
+          if (live) spawnCataclysmMonolith(pu.tx, pu.tz, pu.castId, pu.st);
         } else if (actor.monolith) {
           // bots: the engine's bot monolith (same pulse numbers; the collapse only with the 10L talent, like the player)
-          const st = actor.stats(), rU = KitFx.rUlt(actor.level());
+          const st = pu.st || actor.stats(), rU = KitFx.rUlt(actor.level());
           const pulse = H.sorceress.dmg.monolithPulse(st, rU);
           const collapse = 0; // (the end-of-zone pull is a talent candidate)
           actor.monolith(pu.tx, pu.tz, pulse, collapse);
@@ -606,6 +610,7 @@ H.sorceress = {
                 const hit = pa.damage(t, finalPillarDmg, {
                   dmgType: 'fantasy',
                   slowDur: p.slowDur || 0,
+                  castId: p.castId,
                   color: '#e879f9'
                 });
                 if (hit) {
@@ -656,7 +661,7 @@ H.sorceress = {
       if (sorcMonolith.tickTimer <= 0) {
         sorcMonolith.tickTimer = 0.5;
         const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-        const tickDmg = H.sorceress.dmg.monolithPulse(st, rUlt);
+        const tickDmg = H.sorceress.dmg.monolithPulse(sorcMonolith.st || st, rUlt);
         spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0xa855f7, 0.4, sorcMonolith.curR, 0.28);
 
         dummies.forEach((d) => {
@@ -674,7 +679,8 @@ H.sorceress = {
                 dmgType: 'fantasy',
                 slowDur: 0.65,
                 color: '#e879f9',
-                isDoT: true
+                isDoT: true,
+                castId: sorcMonolith.castId
               })) markTarget(hero, t.ref);
             }
           });
@@ -684,7 +690,7 @@ H.sorceress = {
       // (old 10L Gravity Collapse: the end-of-zone pull is a talent candidate; off for now)
       if (false) {
         sorcMonolith.collapsed = true;
-        const collapseDmg = H.sorceress.dmg.collapse(st);
+        const collapseDmg = H.sorceress.dmg.collapse(sorcMonolith.st || st);
         SFX.play('arena');
         spawnShockRing(sorcMonolith.x, sorcMonolith.z, 0x38bdf8, sorcMonolith.curR, 0.4, 0.34);
         spawnFloat(sorcMonolith.x, 3.1, sorcMonolith.z, 'GRAVITY COLLAPSE!', '#38bdf8');
@@ -700,7 +706,7 @@ H.sorceress = {
                 t.ref.x += (dx / dist) * pull;
                 t.ref.z += (dz / dist) * pull;
               }
-              phase1Engine.dealPlayerDamageToUnit(t, collapseDmg, { dmgType: 'fantasy', color: '#38bdf8' });
+              phase1Engine.dealPlayerDamageToUnit(t, collapseDmg, { dmgType: 'fantasy', color: '#38bdf8', castId: sorcMonolith.castId });
             }
           });
         }

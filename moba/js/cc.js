@@ -19,6 +19,7 @@
   const CC = {
     // Tenacity (0..1) shortens every CC except knock-ups, slows included (SHOP_PLAN; the engine sets tenacityOf)
     tenacityOf(u) { return 0; },
+    onHard(target, srcUnit) {}, // item passives hook (Exposed, Shrug off): hard CC landed on target from srcUnit
     dur(u, d) { const t = CC.tenacityOf(u) || 0; return t > 0 ? d * (1 - Math.min(0.95, t)) : d; },
     apply(u, opts, src) {
       if (!u || !opts) return;
@@ -36,6 +37,7 @@
         u.fearTimer = max(u.fearTimer, CC.dur(u, opts.fearDur));
         u.fearFromX = src.x; u.fearFromZ = src.z;
       }
+      if ((opts.stunDur > 0 || opts.rootDur > 0 || opts.silenceDur > 0 || opts.knockupDur > 0 || opts.sleepDur > 0 || opts.fearDur > 0 || opts.tauntDur > 0)) CC.onHard(u, (src && src.unit) || null);
       if (opts.tauntDur > 0 && src) {
         u.tauntTimer = max(u.tauntTimer, CC.dur(u, opts.tauntDur));
         u.tauntBy = src.unit || null;

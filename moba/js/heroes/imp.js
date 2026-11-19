@@ -101,7 +101,7 @@ function stepTurret(t, dt, actor) {
       const fx = t.x + Math.sin(t.facing) * 1.3, fz = t.z + Math.cos(t.facing) * 1.3;
       smoke(fx, fz, 0.9);
       SFX.play('arena');
-      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor });
+      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor, castId: t.castId });
     }
   }
   t.kick = Math.max(0, (t.kick || 0) - dt * 5);
@@ -139,7 +139,7 @@ function stepBall(b, dt, actor) {
       const key = t.kind + (t.ref && t.ref.id || j);
       if (!b.hit.has(key) && Math.hypot(t.x - b.x, t.z - b.z) <= 1.1 + (t.r || 0.5)) {
         b.hit.add(key);
-        actor.damage(t, b.dmg, { dmgType: 'physical', knockupDur: 1.0, color: '#fb923c' });
+        actor.damage(t, b.dmg, { dmgType: 'physical', knockupDur: 1.0, color: '#fb923c', castId: b.castId });
       }
     });
   }
@@ -346,7 +346,7 @@ H.imp = {
         hero.cdQ = wtfMode ? 0.3 : 3.0 * cdrMult;
         hero.kickAnim = 0.8;
         if (lift) fadeToAction(lift, 0.06, true, 2.6, 4.6); // set-down phase: touches the ground at clip 5.5s -> ~0.35s
-        pendingQ = { t: 0.35, kind: 'plant', x: hero.x + Math.sin(hero.facing) * 1.6, z: hero.z + Math.cos(hero.facing) * 1.6, facing: hero.facing };
+        pendingQ = { t: 0.35, kind: 'plant', x: hero.x + Math.sin(hero.facing) * 1.6, z: hero.z + Math.cos(hero.facing) * 1.6, facing: hero.facing, castId: KitFx.castId() };
       } else if (scrap) {
         if (Math.hypot(hero.x - scrap.x, hero.z - scrap.z) > 2.0) {
           spawnFloat(hero.x, 2.6, hero.z, 'SALVAGE YOUR SCRAP (OR GO HOME)!', '#fb923c');
@@ -416,7 +416,7 @@ H.imp = {
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.6, 18, 14), new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.7, roughness: 0.35, emissive: 0x7c2d12, emissiveIntensity: 0.4 }));
       scene.add(mesh);
       const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-      superball = { mesh, x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(), dmg: H.imp.dmg.superball(st, pProg.level, rUlt) };
+      superball = { mesh, x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(), dmg: H.imp.dmg.superball(st, pProg.level, rUlt), castId: KitFx.castId() };
       smoke(superball.x, superball.z, 2.0);
       SFX.play('arena');
       spawnFloat(from.x, 3.0, from.z, 'SUPERBALL!', '#fb923c');
@@ -463,7 +463,7 @@ H.imp = {
       u.cdQ = 3.0 * (ctx.cdrMult || 1);
       u.kickAnim = 0.8;
       actor.play('kick', 0.06, true, 2.6, 4.6, 0.4);
-      u.impPendingQ = { t: 0.35, kind: 'plant', x: u.x + Math.sin(u.facing) * 1.6, z: u.z + Math.cos(u.facing) * 1.6, facing: u.facing };
+      u.impPendingQ = { t: 0.35, kind: 'plant', x: u.x + Math.sin(u.facing) * 1.6, z: u.z + Math.cos(u.facing) * 1.6, facing: u.facing, castId: KitFx.castId() };
     } else if (slot === 'E') {
       if (u.cdE > 0 || u.leapTimer > 0) return;
       u.cdE = 8.5 * (ctx.cdrMult || 1);
@@ -504,7 +504,7 @@ H.imp = {
       else { u.impRecoil = 1.6; u.facing = ang; }
       const b = {
         mesh: makeSuperballMesh(), x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(),
-        dmg: H.imp.dmg.superball(st, pProg.level, KitFx.rUlt(pProg.level || 1)), owner: actor
+        dmg: H.imp.dmg.superball(st, pProg.level, KitFx.rUlt(pProg.level || 1)), owner: actor, castId: KitFx.castId()
       };
       botBalls.push(b);
       smoke(b.x, b.z, 2.0);
@@ -542,7 +542,7 @@ H.imp = {
       if (q.kind === 'plant') {
         const mhp = 520 + (u.level || 1) * 70;
         const t = {
-          id: 'impturret_' + u.id, x: q.x, z: q.z, facing: q.facing, shootCd: 0.8, plantedAt: performance.now() / 1000,
+          id: 'impturret_' + u.id, x: q.x, z: q.z, facing: q.facing, castId: q.castId, shootCd: 0.8, plantedAt: performance.now() / 1000,
           hp: mhp, maxHp: mhp, armor: 25, r: 0.9, team: u.team, owner: actor,
           onDestroyed: () => botTurretDestroyed(u)
         };
@@ -721,7 +721,7 @@ H.imp = {
         if (q.kind === 'plant') {
           const mhp = turretMaxHp();
           turret = {
-            x: q.x, z: q.z, facing: q.facing, shootCd: 0.8, plantedAt: performance.now() / 1000, id: 'impturret_player',
+            x: q.x, z: q.z, facing: q.facing, castId: q.castId, shootCd: 0.8, plantedAt: performance.now() / 1000, id: 'impturret_player',
             hp: mhp, maxHp: mhp, armor: 25, r: 0.9, team: 0,
             onDestroyed: () => destroyTurret()
           };

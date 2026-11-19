@@ -17,18 +17,32 @@
   'use strict';
   const listeners = {};
   const Combat = {
+    // The cast running right now (set by the engine's cast wrapper while a kit's cast code runs): { id, unit, slot }.
+    // Hits made during it are tagged with its id; delayed hits (projectiles, zones, pending strikes) carry the id the
+    // kit stored when it created them (KitFx.castId()).
+    currentCast: null,
+    casts: {}, // id -> { unit, slot, t } for casts that fired (recent ones only)
+    nextCastId: 1,
     hitInfo(attacker, opts) {
       const o = opts || {};
       const isBasic = !!o.isBasic;
+      const cur = Combat.currentCast;
       return {
         attacker: attacker || null,
         src: o.src === 'attack' || o.src === 'ability' ? o.src : (isBasic ? 'attack' : 'ability'),
         isBasic,
         isDoT: !!o.isDoT,
         aoe: !!o.aoe,
-        castId: o.castId || null
+        castId: o.castId || (!isBasic && cur && cur.unit === attacker ? cur.id : null),
+        proc: !!o.proc,             // item damage (never triggers other on-hit passives)
+        passiveTick: !!o.passiveTick, // a passive's damage over time (e.g. Coyote's bleed): not an ability
+        redirected: !!o.redirected  // damage moved to a Redirect holder (not redirected again)
       };
     },
+    // engine hook (item passives): part of a hero's mitigated damage moved to an ally; returns what the target keeps
+    redirectShare(target, dealt, info) { return dealt; },
+    // engine hook (Spell shield): true = this hit (and its CC) is blocked
+    blocks(info, target) { return false; },
     // hits from minions, camps and towers: plain basic attacks
     unitHitInfo(attacker, isDoT) {
       return { attacker: attacker || null, src: 'attack', isBasic: true, isDoT: !!isDoT, aoe: false, castId: null };
@@ -70,11 +84,17 @@
     healMult(u, info) {
       return 1;
     },
+    // a shield someone gives a unit (info.healer = who): Wellspring makes shields on allies stronger
+    shieldAmount(u, amount, info) { return amount * Combat.shieldMult(u, info); },
+    shieldMult(u, info) { return 1; },
     heal(u, amount, info) {
       if (!u || !(amount > 0) || !(u.maxHp > 0)) return 0;
       const before = u.hp;
-      u.hp = Math.min(u.maxHp, u.hp + amount * Combat.healMult(u, info));
-      return Math.max(0, u.hp - before);
+      const amt = amount * Combat.healMult(u, info);
+      u.hp = Math.min(u.maxHp, u.hp + amt);
+      const gained = Math.max(0, u.hp - before);
+      if (amt - gained > 0.01) Combat.emit('overheal', { unit: u, extra: amt - gained, info }); // healing past full HP
+      return gained;
     },
     on(evt, fn) { (listeners[evt] = listeners[evt] || []).push(fn); return fn; },
     off(evt, fn) { const l = listeners[evt]; if (l) { const i = l.indexOf(fn); if (i >= 0) l.splice(i, 1); } },

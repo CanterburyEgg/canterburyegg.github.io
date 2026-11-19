@@ -13,7 +13,7 @@ let crossbowMounted = false;
 // Spawn a 3D glowing Crossbow Bolt (or R Heartseeker Piercing Bolt!)
 // rangeMult scales how far it flies; popScale scales the Heartseeker's Bleed detonation damage (see loop.js heroBolts)
 // actor: KitFx.player or a bot actor (phase1Engine.botActor). Bolts remember a bot owner so loop.js hits that bot's enemies.
-function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false, rangeMult = 1, popScale = 1) {
+function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = false, forcePierce = false, rangeMult = 1, popScale = 1, castId = 0, st = null) {
   const u = actor.unit;
   const boltGrp = new THREE.Group();
   const len = isPiercingHeartseeker ? 1.55 : 0.85;
@@ -53,6 +53,8 @@ function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = 
     pierce: isPiercingHeartseeker || forcePierce,
     hitIds: new Set(),
     popScale,
+    castId, // the R cast for Heartseeker bolts (0 for basics)
+    st, // Heartseeker: the stats from cast time (loop.js uses them for the Bleed pop)
     owner: actor.isPlayer ? null : actor,
     life: (isPiercingHeartseeker ? 0.68 : 0.55) * rangeMult
   });
@@ -109,7 +111,7 @@ function throwTrap(actor, tx, tz) {
   const mesh = makeTrapMesh();
   mesh.position.set(u.x, 1.2, u.z);
   scene.add(mesh);
-  traps.push({ owner, team, sx: u.x, sz: u.z, tx, tz, x: tx, z: tz, t: 0, dur: 0.35, armT: TRAP.arm, life: TRAP.life, snapT: 0, state: 'flying', mesh });
+  traps.push({ owner, team, sx: u.x, sz: u.z, tx, tz, x: tx, z: tz, t: 0, dur: 0.35, armT: TRAP.arm, life: TRAP.life, snapT: 0, state: 'flying', mesh, castId: KitFx.castId() });
   SFX.play('dash');
 }
 function removeTrap(i) {
@@ -184,7 +186,7 @@ function springTrap(tr, v) {
     v.dummy.hitFlash = 0.09;
     return;
   }
-  const opts = { rootDur: TRAP.root, bleedAdd: TRAP.bleed, color: '#f43f5e' };
+  const opts = { rootDur: TRAP.root, bleedAdd: TRAP.bleed, color: '#f43f5e', castId: tr.castId };
   if (tr.owner) tr.owner.damage(v.unit, 0, opts);
   else if (phase1Engine) phase1Engine.dealPlayerDamageToUnit(v.unit, 0, opts);
 }
@@ -205,8 +207,8 @@ function fireHeartseekerRelease(actor) {
   actor.play('punch', 0.04, true, 1.0, 0, 0.35);
   SFX.play('arena');
   spawnShockRing(hero.x + Math.sin(hero.facing) * 0.8, hero.z + Math.cos(hero.facing) * 0.8, 0xf43f5e, 0.2, 1.6, 0.26);
-  const st = actor.stats();
-  spawnCrossbowBolt(actor, hero.facing, Math.round(H.coyote.dmg.heartseeker(st, KitFx.rUlt(actor.level())) * power), 1, true, true, range, popScale);
+  const st = hero.rSt || actor.stats(); // stats from the R cast
+  spawnCrossbowBolt(actor, hero.facing, Math.round(H.coyote.dmg.heartseeker(st, KitFx.rUlt(actor.level())) * power), 1, true, true, range, popScale, hero.rCastId, st);
   if (isPerfect) {
     spawnFloat(hero.x, 2.75, hero.z, 'PERFECT SHOT! (+25% BLEED POP)', '#fde047');
   } else {
@@ -217,7 +219,7 @@ function fireHeartseekerRelease(actor) {
 // E: bleed + baseline slow (outer ring / bullseye)
 const GRENADE = { bleedOuter: 1, bleedBull: 3, slowDur: 2.0, slowOuter: 0.25, slowBull: 0.45 };
 
-function launchShrapnelGrenade(actor, tx, tz) {
+function launchShrapnelGrenade(actor, tx, tz, castId, st) {
   const hero = actor.unit; // (local alias: the caster)
   const outerR = 2.45;
   const bullseyeR = 0.92;
@@ -261,7 +263,9 @@ function launchShrapnelGrenade(actor, tx, tz) {
     outerR, bullseyeR,
     owner: actor.isPlayer ? null : actor,
     t: 0,
-    dur: 0.48
+    dur: 0.48,
+    castId: castId || 0,
+    st: st || null // stats from cast time
   });
 }
 
@@ -469,7 +473,7 @@ H.coyote = {
       const tz = hero.z + (dz / dist) * clampedDist;
 
       actor.play('kick', 0.05, true, 1.85, 1.28, 0.4);
-      setPendingGrenade(actor, { tx, tz, t: 0.22 });
+      setPendingGrenade(actor, { tx, tz, t: 0.22, castId: KitFx.castId(), st });
     } else if (slot === 'R') {
       if (hero.rChargeTimer > 0) {
         if (hero.rChargeTimer <= 1.65) fireHeartseekerRelease(actor);
@@ -483,6 +487,8 @@ H.coyote = {
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.5 : [42.0, 36.0, 30.0][rUlt] * (ctx.ultCdrMult || cdrMult);
       hero.rChargeTimer = 2.0;
+      hero.rCastId = KitFx.castId(); // the Heartseeker fires later (full charge or recast)
+      hero.rSt = st;
       SFX.play('chime');
       spawnFloat(hero.x, 2.55, hero.z, 'CHARGING HEARTSEEKER!', '#fb7185');
     }
@@ -505,7 +511,7 @@ H.coyote = {
         pg.t -= dt;
         if (pg.t <= 0) {
           setPendingGrenade(actor, null);
-          launchShrapnelGrenade(actor, pg.tx, pg.tz);
+          launchShrapnelGrenade(actor, pg.tx, pg.tz, pg.castId, pg.st);
         }
       }
     }
@@ -568,14 +574,14 @@ H.coyote = {
         SFX.play('arena');
         spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
         spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
-        const ost = o.stats(), otal = o.talents();
+        const ost = g.st || o.stats(), otal = o.talents();
         const oRank = KitFx.rQE(o.level());
         const outerDmg = H.coyote.dmg.grenadeOuter(ost, o.level(), oRank);
         o.hostiles().forEach((t) => {
           if (t.kind === 'structure') return;
           const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
-          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047' });
-          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter });
+          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047', castId: g.castId });
+          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter, castId: g.castId });
         });
         scene.remove(g.mesh);
         scene.remove(g.teleGrp);
@@ -585,7 +591,7 @@ H.coyote = {
         spawnShockRing(g.tx, g.tz, 0xf59e0b, 0.3, g.outerR, 0.32);
         spawnShockRing(g.tx, g.tz, 0xf43f5e, 0.15, g.bullseyeR, 0.24);
         const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-        const outerDmg = H.coyote.dmg.grenadeOuter(st, pProg.level || 1, rQE);
+        const outerDmg = H.coyote.dmg.grenadeOuter(g.st || st, pProg.level || 1, rQE);
         const bullDmg = outerDmg * 2;
         dummies.forEach((d) => {
           if (d.isShooter && !shooterEnabled) return;
@@ -607,10 +613,10 @@ H.coyote = {
             if (t.kind === 'structure') return;
             const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
             if (realDist <= g.bullseyeR + t.r * 0.45) {
-              const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047' });
+              const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047', castId: g.castId });
               if (didHit) spawnFloat(t.x, 2.8, t.z, 'BULLSEYE 2X!', '#fde047');
             } else if (realDist <= g.outerR + t.r) {
-              phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter });
+              phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter, castId: g.castId });
             }
           });
         }

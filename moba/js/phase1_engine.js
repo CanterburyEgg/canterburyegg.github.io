@@ -8,6 +8,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
   const DATA = window.MOBA_PHASE1;
   const MAP = window.MOBA_MAP;
   const Combat = window.MOBA_COMBAT; // shared damage / heal / hit events (js/combat_core.js)
+  const IP = window.MOBA_ITEM_PASSIVES; // item passives (js/item_passives.js)
 
   function createEngine(ctx) {
     const {
@@ -1477,6 +1478,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       bot.heroType = heroType;
       // same stat calculation as the player (spec + level + the bot's items, if any)
       const st = computeUnitStats(heroType, bot.level || 1, bot.items);
+      st.passiveAsPct = 0;
+      bot.baseStats = st;
       bot.unitStats = st;
       bot.maxHp = st.maxHp;
       bot.hp = Math.min(bot.hp || bot.maxHp, bot.maxHp);
@@ -1489,6 +1492,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       bot.atk = heroType === 'sorceress' ? Math.round(bot.physAtk * 0.40 + bot.fant * 0.55) : bot.physAtk;
       bot.dmgType = heroType === 'sorceress' ? 'fantasy' : 'physical';
       bot.range = isRanged ? 8.2 : (heroType === 'panther' ? 2.15 : 1.95);
+      bot.baseRange = bot.range;
       bot.spd = DATA.HERO_SPECS[heroType].baseSpd * 0.97 * (1 + st.spdPct);
     }
 
@@ -2026,6 +2030,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
         // Tenacity from several sources multiplies (25% + 25% = 44%, never 100%)
         if (st.tenacity) o.tenacity = 1 - (1 - o.tenacity) * (1 - st.tenacity);
       });
+      IP.applyStatic(o, items || []); // passives that only depend on what you own (Mana engine, Amplifier)
+      o.maxHp = Math.round(o.maxHp);
+      o.ability = Math.round(o.ability);
       // Per-hero resource (spec.resource, e.g. the Scientist's fuel) replaces mana: fixed pool, no natural regen
       // (the kit refills it), and mana items do nothing for that hero.
       if (spec.resource) { o.maxMp = spec.resource.max; o.mpRegen = 0; }
@@ -2056,13 +2063,152 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return u.unitStats || null;
     }
     Combat.statsOf = unitStatsOf;
+    // Item passive engine adapter (js/item_passives.js)
+    IP.setEngine({
+      now: () => matchTime,
+      itemsOf: (u) => (u === hero ? playerProg.items : (u && u.items) || null),
+      heroes: () => {
+        const list = [];
+        if (playerProg.respawnTimer <= 0) list.push(hero);
+        bots.forEach((b) => { if (b.respawnTimer <= 0 && b.hp > 0) list.push(b); });
+        return list;
+      },
+      isHero: (u) => u === hero || bots.indexOf(u) >= 0,
+      team: (u) => (u === hero ? 0 : u.team),
+      mana: (u) => (u === hero ? hero.mp : (u.mp !== undefined ? u.mp : ((u.unitStats && u.unitStats.maxMp) || 0))),
+      maxMana: (u) => (u === hero ? hero.maxMp : ((u.unitStats && u.unitStats.maxMp) || 0)),
+      spendMana: (u, amt) => {
+        if (u === hero) hero.mp = Math.max(0, hero.mp - amt);
+        else if (u.mp !== undefined) u.mp = Math.max(0, u.mp - amt);
+      },
+      addMana: (u, amt) => {
+        if (u === hero) hero.mp = Math.min(hero.maxMp, hero.mp + amt);
+        else if (u.mp !== undefined) u.mp = Math.min((u.unitStats && u.unitStats.maxMp) || 0, u.mp + amt);
+      },
+      resistOf: (u) => (u === hero ? getPlayerStats().resist : unitResist(u)),
+      enemiesOf: (u) => (u === hero ? getHostileTargets() : hostilesForTeam(u.team)),
+      isUnseen: (u) => isUnseen(u),
+      baseStats: (u) => (u === hero ? computeUnitStats(getActiveHeroId(), playerProg.level, playerProg.items) : u.baseStats || null),
+      isRanged: (u) => {
+        const id = u === hero ? getActiveHeroId() : u.heroType;
+        return id === 'coyote' || id === 'sorceress' || id === 'fairy' || (id === 'imp' && !(u.impPlanted || u.impWrench));
+      },
+      manaCost: (u, slot) => { const sp = DATA.HERO_SPECS[u === hero ? getActiveHeroId() : u.heroType]; return (sp && sp.mpCosts && sp.mpCosts[slot]) || 0; },
+      resetAttack: (u) => { if (u === hero) hero.atkTimer = 0; else u.atkCd = 0; },
+      // item damage from a hero unit (info.proc: never triggers other on-hit passives)
+      proc: (a, t, amount, src, extra) => {
+        if (!(amount > 0) || !t || !t.ref || (t.ref.hp !== undefined && t.ref.hp <= 0)) return;
+        const o = Object.assign({ src, proc: true }, extra || {});
+        if (a === hero) dealPlayerDamageToUnit(t, Math.round(amount), o);
+        else applyBotDamageToTarget(t, Math.round(amount), a, 'physical', null, false, Combat.hitInfo(a, o));
+      },
+      // Redirect: the holder takes the moved damage as a hit (their own Resist applies, never redirected again)
+      redirectTo: (h, amount) => {
+        const info = { attacker: null, src: 'attack', isBasic: false, isDoT: true, aoe: false, castId: null, proc: true, redirected: true };
+        if (h === hero || h.team === 0) damageOrderHeroOrBot(h, amount, 'physical', null, true, info);
+        else applyBotDamageToTarget({ kind: 'bot', ref: h }, amount, null, 'physical', null, true, info);
+      },
+      fx: (u, text, color) => spawnFloat(u.x, 2.95, u.z, text, color),
+      zap: (from, to, color) => spawnShockRing(to.x, to.z, color, 0.15, 0.9, 0.18)
+    });
+    // Kit entry points wrapped for item passives:
+    //  - every cast runs inside Combat.currentCast (its hits get tagged with the cast id); a cast "happened" when it
+    //    spent a cooldown, a charge or mana for that slot -> Combat 'cast' event { unit, slot, castId }
+    //  - bots pay mana for their casts (and can't cast without it), with Overcharge / Momentum cost changes
+    //  - Crossover: while it's ready, the cast / basic attack runs with the weaker of Attack / Ability raised to the
+    //    stronger one (IP.crossoverArmed)
+    (function wrapKitCasts() {
+      const snap = (u, slot) => {
+        let ch = 0;
+        if (u.charges) for (const k in u.charges) ch += u.charges[k].n;
+        return { cd: u['cd' + slot] || 0, ch, mp: u.mp || 0 };
+      };
+      const fired = (a, b) => b.cd > a.cd + 0.05 || b.ch < a.ch || b.mp < a.mp - 0.5;
+      const botManaCost = (b, slot) => {
+        const sp = DATA.HERO_SPECS[b.heroType];
+        if (!sp || sp.resource) return 0; // custom resources (Scientist fuel) are handled by the kit
+        return Math.round(((sp.mpCosts && sp.mpCosts[slot]) || 0) * IP.manaCostMult(b));
+      };
+      // run fn with Crossover's stat swap on (stats rebuilt so the kit reads the swapped numbers)
+      const withCrossover = (u, fn) => {
+        if (u._crossoverOn) return fn(u === hero ? getPlayerStats() : u.unitStats); // nested (a cast that does a basic attack)
+        if (!IP.crossoverReady(u)) return fn(null);
+        u._crossoverOn = true;
+        if (u !== hero) refreshBotStats(u);
+        try { return fn(u === hero ? getPlayerStats() : u.unitStats); } finally {
+          u._crossoverOn = false;
+          if (u !== hero) refreshBotStats(u);
+        }
+      };
+      const runCast = (u, slot, call) => {
+        const id = Combat.nextCastId++;
+        const prev = Combat.currentCast;
+        Combat.currentCast = { id, unit: u, slot };
+        const a = snap(u, slot);
+        let r;
+        try { r = call(); } finally { Combat.currentCast = prev; }
+        const did = fired(a, snap(u, slot));
+        if (did) {
+          Combat.casts[id] = { unit: u, slot, t: matchTime };
+          Combat.emit('cast', { unit: u, slot, castId: id });
+        }
+        return { r, did };
+      };
+      let inPlayerCast = false;
+      Object.values(window.MOBA_HEROES || {}).forEach((kit) => {
+        if (kit._castWrapped) return;
+        kit._castWrapped = true;
+        if (typeof kit.castFor === 'function') {
+          const orig = kit.castFor;
+          kit.castFor = function (actor, slot, ctx) {
+            const u = actor && actor.unit;
+            if (!u || inPlayerCast || slot === 'LMB') return orig.apply(this, arguments);
+            const self = this;
+            const isBot = u !== hero;
+            const cost = isBot ? botManaCost(u, slot) : 0;
+            if (isBot && cost > 0) {
+              if (u.mp === undefined) u.mp = (u.unitStats && u.unitStats.maxMp) || 0;
+              if (u.mp < cost) return; // not enough mana
+            }
+            return withCrossover(u, (xst) => {
+              const c2 = xst && ctx ? Object.assign({}, ctx, { st: xst }) : (xst && !ctx ? undefined : ctx);
+              const res = runCast(u, slot, () => orig.call(self, actor, slot, c2));
+              if (res.did && isBot && cost > 0) u.mp = Math.max(0, u.mp - cost);
+              return res.r;
+            });
+          };
+        }
+        if (typeof kit.cast === 'function') {
+          const origCast = kit.cast;
+          kit.cast = function (slot, ctx) {
+            if (slot === 'LMB') return origCast.apply(this, arguments);
+            const self = this;
+            return withCrossover(hero, (xst) => {
+              const c2 = xst && ctx ? Object.assign({}, ctx, { st: xst }) : ctx;
+              inPlayerCast = true;
+              try { return runCast(hero, slot, () => origCast.call(self, slot, c2)).r; } finally { inPlayerCast = false; }
+            });
+          };
+        }
+        if (typeof kit.basicAttackFor === 'function') {
+          const origBasic = kit.basicAttackFor;
+          kit.basicAttackFor = function (actor, st) {
+            const u = actor && actor.unit;
+            if (!u) return origBasic.apply(this, arguments);
+            const args = Array.prototype.slice.call(arguments);
+            const self = this;
+            return withCrossover(u, (xst) => { if (xst) args[1] = xst; return origBasic.apply(self, args); });
+          };
+        }
+      });
+    })();
     CC.tenacityOf = (u) => { const st = unitStatsOf(u); return (st && st.tenacity) || 0; };
     // Lifesteal / Spell Vamp for bots (the player's is in dealPlayerDamageToUnit); area hits heal at 1/3
     Combat.on('hit', (e) => {
       const a = e.attacker;
       if (!a || a === hero || !a.unitStats || !(e.dealt > 0) || !(a.hp > 0)) return;
       const vamp = e.info.src === 'attack' ? a.unitStats.lifesteal : a.unitStats.spellVamp * (e.info.aoe ? 1 / 3 : 1);
-      if (vamp > 0) Combat.heal(a, Math.round(e.dealt * vamp), e.info);
+      if (vamp > 0) Combat.heal(a, Math.round(e.dealt * vamp), Object.assign({ vamp: true }, e.info));
     });
 
     // the active hero's own resource spec ({ name, max, colors }) or null for mana
@@ -2106,11 +2252,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const maxBleed = 4;
       const qeRank = playerProg.level >= 9 ? 3 : (playerProg.level >= 6 ? 2 : 1);
       const ultRank = playerProg.level >= 12 ? 3 : (playerProg.level >= 8 ? 2 : (playerProg.level >= 4 ? 1 : 0));
-      return withStatAliases({
+      return withStatAliases(IP.applyDynamic(hero, {
         attack, ability, maxHp, maxMp, mpRegen, hpRegen, resist, haste,
-        asPct, spdPct, lifesteal, spellVamp, onHit, penResist, ultHaste, tenacity,
+        asPct, spdPct, lifesteal, spellVamp, onHit, penResist, ultHaste, tenacity, passiveAsPct: 0,
         maxBleed, guardStacks, pantherUnseen, qeRank, ultRank
-      });
+      }));
     }
 
     // =========================================================
@@ -2166,6 +2312,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.knockbackVz = ((opts.knockbackDirZ || 0) / kl) * (opts.knockbackDist / 0.25);
         u.knockbackTimer = 0.25;
         u.knockbackWallStun = +opts.wallStun || 0; // seconds of stun if the knockback hits a wall
+        u.knockbackSrc = casterBot || null;
         u.knockbackBotLvl = opts.casterLevel || 4;
       }
     }
@@ -2217,7 +2364,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           opts = opts || {};
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
           const onHit = opts.isBasic && dmg > 0 ? ((b.unitStats && b.unitStats.onHit) || 0) : 0; // On-hit: flat Attack damage on basic attacks
-          applyBotDamageToTarget(t, Math.round((dmg + onHit) * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT, Combat.hitInfo(b, opts));
+          const res = applyBotDamageToTarget(t, Math.round((dmg + onHit) * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT, Combat.hitInfo(b, opts));
+          if (res === 'blocked') return true; // Spell shield: no damage, no effects
           applyActorEffects(t, opts, b);
           return true;
         }
@@ -2256,6 +2404,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // what kind of hit this is (Attack / Ability, basic, DoT, area): items and passives read it (js/combat_core.js)
       const info = Combat.hitInfo(hero, opts);
+      if (targetObj.kind === 'bot' && Combat.blocks(info, u)) return false; // Spell shield
 
       // 0. Deployables (an enemy Imp's turret): plain armor-mitigated damage, destroyed at 0
       if (targetObj.kind === 'deployable') {
@@ -2311,6 +2460,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const isAttackDmg = info.src === 'attack';
       // On-hit (Attack speed double): flat Attack damage on basic attacks
       let dmg = rawDmg > 0 && info.isBasic && st.onHit > 0 ? rawDmg + st.onHit : rawDmg;
+      const hitRaw = dmg; // raw damage of this hit incl. on-hit (Ricochet bounces a share of it)
 
       // One Resist reduces both sources
       dmg = Combat.mitigate(dmg, unitResist(u), info, u);
@@ -2324,13 +2474,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       dmg = rawDmg > 0 ? Math.max(1, Math.round(dmg)) : 0; // 0 = effects only (e.g. a trap's root + bleed)
+      if (targetObj.kind === 'bot' && dmg > 0) dmg = Math.max(1, Math.round(Combat.redirectShare(u, dmg, info))); // Redirect
       u.hp -= targetObj.kind === 'bot' ? absorbShield(u, dmg) : dmg; // enemy bot shields soak player damage first
       u.lastDamagedByPlayerAt = matchTime;
 
       // Lifesteal (Attack damage) / Spell Vamp (Ability damage; area hits heal at 1/3)
       const vamp = isAttackDmg ? st.lifesteal : st.spellVamp * (opts.aoe ? 1 / 3 : 1);
-      if (vamp > 0 && hero.hp < hero.maxHp) {
-        Combat.heal(hero, Math.round(dmg * vamp), info);
+      if (vamp > 0 && dmg > 0) {
+        Combat.heal(hero, Math.round(dmg * vamp), Object.assign({ vamp: true }, info));
       }
 
       // Bleed Stacks (Coyote Passive)
@@ -2354,12 +2505,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Stun (Brawler Q Kick / Wall Stun)
       if (opts.stunDur && targetObj.kind !== 'structure') {
         u.stunTimer = Math.max(u.stunTimer || 0, CC.dur(u, opts.stunDur));
+        CC.onHard(u, hero);
         spawnFloat(u.x, 2.6, u.z, 'STUNNED!', '#fde047');
       }
 
       // Taunt (Bodyguard R Eyes On Me!)
       if (opts.tauntDur && targetObj.kind !== 'structure') {
         u.tauntTimer = Math.max(u.tauntTimer || 0, CC.dur(u, opts.tauntDur));
+        CC.onHard(u, hero);
         u.tauntBy = hero;
         spawnFloat(u.x, 2.65, u.z, 'TAUNTED!', '#fde047');
       }
@@ -2384,6 +2537,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.knockbackVz = (dirZ / kLen) * (opts.knockbackDist / kDur);
         u.knockbackTimer = kDur;
         u.knockbackWallStun = +opts.wallStun || 0; // seconds of stun if the knockback hits a wall
+        u.knockbackSrc = hero;
         if (opts.knockbackDist > 0) {
           spawnFloat(u.x, 2.55, u.z, 'KNOCKBACK!', '#38bdf8');
         }
@@ -2395,7 +2549,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
       const defaultCol = dmgType === 'fantasy' ? '#38bdf8' : '#fb7185';
       if (dmg > 0) spawnFloat(u.x, 2.2, u.z, String(dmg), opts.color || defaultCol);
-      Combat.emit('hit', { attacker: hero, target: u, targetObj, raw: rawDmg, dealt: dmg, info });
+      Combat.emit('hit', { attacker: hero, target: u, targetObj, raw: hitRaw, dealt: dmg, info });
 
       // Check Unit Death & Rewards!
       if (u.hp <= 0) {
@@ -2422,9 +2576,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (idx >= 0) minions.splice(idx, 1);
         if (!u._dead) {
           u._dead = true;
+          Combat.emit('death', { victim: u, kind: 'minion' });
           grantProximityReward(u.team, u.x, u.z, u.kind === 'super' ? 68 : 34, u.kind === 'super' ? 85 : 46);
         }
       } else if (targetObj.kind === 'camp') {
+        Combat.emit('death', { victim: u, kind: 'camp' });
         u.hp = 0;
         u.respawnTimer = u.respawnDur;
         u.state = 'idle';
@@ -2451,6 +2607,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           spawnFloat(u.x, 3.4, u.z, 'BOSS SLAIN! +10% ALL STATS (90s)', '#fde047');
         }
       } else if (targetObj.kind === 'bot') {
+        Combat.emit('death', { victim: u, kind: 'bot' });
         u.hp = 0;
         u.respawnTimer = 8 + u.level * 1.5;
         u.bleedStacks = 0;
@@ -2696,6 +2853,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       return Math.hypot(hero.x - MAP.BASE.fountain.x, hero.z - MAP.BASE.fountain.z) <= 9.5 || ctx.isWtfMode();
     }
 
+    function isRangedHero(id) { return id === 'coyote' || id === 'sorceress' || id === 'fairy' || id === 'imp'; }
     // feedback line inside the shop (floating text near the hero can sit behind the shop panel)
     function shopMsg(text, color) {
       const el = document.getElementById('p1-shop-status');
@@ -2710,6 +2868,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
         return;
       }
       // recipe pricing: parts you already hold count toward the price and are used up (js/items.js costGiven)
+      if (item.rangedOnly && !isRangedHero(getActiveHeroId())) {
+        shopMsg(item.name + ' is for ranged heroes only.', '#fb7185');
+        return;
+      }
       const price = window.MOBA_ITEMS.costGiven(item.id, playerProg.items.map((it) => it.id));
       if (playerProg.items.length - price.used.length >= 4) {
         spawnFloat(hero.x, 2.6, hero.z, '4 ITEM SLOTS FULL!', '#fb7185');
@@ -2975,6 +3137,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       spawnFloat(tx, 2.9, tz, 'CATACLYSM MONOLITH!', '#e879f9');
 
       botMonoliths.push({
+        castId: Combat.currentCast ? Combat.currentCast.id : 0, // item passives: hits belong to this R cast
         grp, obelisk, zoneRing, zoneDisc,
         x: tx, z: tz,
         startR: 2.0, maxR: 4.5, curR: 2.0,
@@ -3090,6 +3253,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.knockbackWallStun = 0;
         u.knockbackTimer = 0;
         u.stunTimer = Math.max(u.stunTimer || 0, CC.dur(u, wallStunDur));
+        CC.onHard(u, u.knockbackSrc || null);
         SFX.play('arena');
         spawnShockRing(u.x, u.z, 0xfde047, 0.25, 1.7, 0.28);
         spawnFloat(u.x, 2.85, u.z, 'WALL STUN!', '#fde047');
@@ -3103,7 +3267,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!info) info = Combat.unitHitInfo(attackerObj && attackerObj.ref, isDoT);
       if (unit === hero) {
         if (playerProg.respawnTimer > 0) return;
-        const mitigated = Math.round(Combat.mitigate(rawDmg, st.resist, info, hero));
+        const mitigated = Math.round(Combat.redirectShare(hero, Combat.mitigate(rawDmg, st.resist, info, hero), info));
         playerProg.recallTimer = 0; // Interrupt recall on taking damage!
         if (spyglass.channel > 0) { spyglass.channel = 0; spawnFloat(hero.x, 2.5, hero.z, 'SPYGLASS INTERRUPTED', '#fb7185'); }
 
@@ -3119,6 +3283,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         Combat.emit('hit', { attacker: info.attacker, target: hero, targetObj: { kind: 'player', ref: hero }, raw: rawDmg, dealt: mitigated, info });
         if (hero.hp <= 0) {
           hero.hp = 0;
+          Combat.emit('death', { victim: hero, kind: 'player', killer: info.attacker });
           playerProg.deaths++;
           teamKills[1]++;
           playerProg.respawnTimer = 6.0 + playerProg.level * 1.2;
@@ -3132,7 +3297,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       } else {
         const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
         const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES;
-        const mitigated = rawDmg > 0 ? Math.max(1, Math.round(Combat.mitigate(rawDmg, totalRes, info, unit))) : 0;
+        const mitigated = rawDmg > 0 ? Math.max(1, Math.round(Combat.redirectShare(unit, Combat.mitigate(rawDmg, totalRes, info, unit), info))) : 0;
         if (unit.shield && unit.shield > 0) {
           if (unit.shield >= mitigated) {
             unit.shield -= mitigated;
@@ -3153,7 +3318,27 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
     }
 
+    // Item passives change bot stats while they run (buffs, stacks, auras): rebuild them from the base stats every frame
+    function refreshBotStats(b) {
+      if (!b.baseStats) return;
+      const st = withStatAliases(IP.applyDynamic(b, Object.assign({}, b.baseStats)));
+      b.unitStats = st;
+      b.resist = st.resist; b.armor = st.resist; b.fResist = st.resist;
+      b.physAtk = st.atk; b.fant = st.fant;
+      b.atk = b.heroType === 'sorceress' ? Math.round(b.physAtk * 0.40 + b.fant * 0.55) : b.physAtk;
+      b.spd = DATA.HERO_SPECS[b.heroType].baseSpd * 0.97 * (1 + st.spdPct);
+      if (b.baseRange === undefined) b.baseRange = b.range;
+      b.range = b.baseRange * (1 + (st.rangePct || 0)); // Longshot
+    }
+
     function updateBots(dt) {
+      bots.forEach((b) => {
+        refreshBotStats(b);
+        // bot mana (spent by their casts in the cast wrapper; Scientist's fuel is his kit's own resource)
+        const mx = (b.unitStats && b.unitStats.maxMp) || 0;
+        if (b.mp === undefined || b.respawnTimer > 0) b.mp = mx;
+        else b.mp = Math.min(mx, b.mp + ((b.unitStats && b.unitStats.mpRegen) || 0) * dt);
+      });
       const isEasy = botDifficulty === 'easy';
       const isHard = botDifficulty === 'hard';
       const activePing = pings.length > 0 ? pings[pings.length - 1] : null;
@@ -3210,18 +3395,18 @@ window.MOBA_PHASE1_ENGINE = (function () {
           m.tickTimer = 0.50;
           spawnShockRing(m.x, m.z, 0xd946ef, m.curR * 0.35, m.curR, 0.24);
           if (cb.team === 1 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - m.x, hero.z - m.z) <= m.curR + (hero.r || 0.52)) {
-            applyBotDamageToTarget({ kind: 'player', ref: hero }, m.pulseDmg, cb, 'fantasy', null, true); // zone pulse = damage over time (doesn't wake sleepers)
+            applyBotDamageToTarget({ kind: 'player', ref: hero }, m.pulseDmg, cb, 'fantasy', null, true, Combat.hitInfo(cb, { isDoT: true, aoe: true, castId: m.castId })); // zone pulse = damage over time (doesn't wake sleepers)
             applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: 0.65 });
           }
           bots.forEach((ob) => {
             if (ob.team !== cb.team && ob.respawnTimer <= 0 && Math.hypot(ob.x - m.x, ob.z - m.z) <= m.curR + ob.r) {
-              applyBotDamageToTarget({ kind: 'bot', ref: ob }, m.pulseDmg, cb, 'fantasy', null, true); // zone pulse = damage over time (doesn't wake sleepers)
+              applyBotDamageToTarget({ kind: 'bot', ref: ob }, m.pulseDmg, cb, 'fantasy', null, true, Combat.hitInfo(cb, { isDoT: true, aoe: true, castId: m.castId })); // zone pulse = damage over time (doesn't wake sleepers)
               applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: 0.65 });
             }
           });
           minions.forEach((em) => {
             if (em.team !== cb.team && em.hp > 0 && Math.hypot(em.x - m.x, em.z - m.z) <= m.curR + em.r) {
-              applyBotDamageToTarget({ kind: 'minion', ref: em }, m.pulseDmg, cb, 'fantasy', null, true); // zone pulse = damage over time (doesn't wake sleepers)
+              applyBotDamageToTarget({ kind: 'minion', ref: em }, m.pulseDmg, cb, 'fantasy', null, true, Combat.hitInfo(cb, { isDoT: true, aoe: true, castId: m.castId })); // zone pulse = damage over time (doesn't wake sleepers)
             }
           });
         }
@@ -3237,7 +3422,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
                   u.x -= ((u.x - m.x) / d) * pullDist;
                   u.z -= ((u.z - m.z) / d) * pullDist;
                 }
-                applyBotDamageToTarget(targetObj, m.collapseDmg, cb, 'fantasy');
+                applyBotDamageToTarget(targetObj, m.collapseDmg, cb, 'fantasy', null, false, Combat.hitInfo(cb, { aoe: true, castId: m.castId }));
                 applyBotCcAndEffects(targetObj, { slowDur: 1.5 });
               }
             };
@@ -3368,7 +3553,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           b.bleedTickAccum = (b.bleedTickAccum || 0) + dt;
           if (b.bleedTickAccum >= 0.65) {
             b.bleedTickAccum -= 0.65;
-            dealPlayerDamageToUnit({ kind: 'bot', ref: b }, Math.round(b.bleedStacks * bleedTickRate), { color: '#f43f5e', isDoT: true });
+            dealPlayerDamageToUnit({ kind: 'bot', ref: b }, Math.round(b.bleedStacks * bleedTickRate), { color: '#f43f5e', isDoT: true, passiveTick: true });
             if (b.respawnTimer > 0) return;
           }
           if (b.bleedTimer <= 0) {
@@ -3969,6 +4154,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!targetObj || !targetObj.ref) return;
       const u = targetObj.ref;
       if (!info) info = attackerBot ? Combat.hitInfo(attackerBot, { isDoT }) : Combat.unitHitInfo(attackerObj && attackerObj.ref, isDoT);
+      if ((targetObj.kind === 'player' || targetObj.kind === 'bot') && Combat.blocks(info, u)) return 'blocked'; // Spell shield
       CC.wake(u, isDoT); // direct hits wake sleepers (damage over time doesn't)
       if (targetObj.kind === 'structure' && !isStructureVulnerable(u)) return;
       if (targetObj.kind === 'camp') {
@@ -3997,7 +4183,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         damageOrderHeroOrBot(u, dmg, dmgType, atkRef, isDoT, info);
       } else {
         const res = unitResist(u);
-        const mitigated = Math.max(1, Math.round(Combat.mitigate(dmg, res, info, u)));
+        let mitigated = Math.max(1, Math.round(Combat.mitigate(dmg, res, info, u)));
+        if (targetObj.kind === 'bot') mitigated = Math.max(1, Math.round(Combat.redirectShare(u, mitigated, info))); // Redirect
         u.hp -= targetObj.kind === 'bot' ? absorbShield(u, mitigated) : mitigated;
         Combat.emit('hit', { attacker: info.attacker, target: u, targetObj, raw: dmg, dealt: mitigated, info });
         if (u.hp <= 0) {
@@ -4315,7 +4502,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           m.bleedTickAccum = (m.bleedTickAccum || 0) + dt;
           if (m.bleedTickAccum >= 0.65) {
             m.bleedTickAccum -= 0.65;
-            dealPlayerDamageToUnit({ kind: 'minion', ref: m }, Math.round(m.bleedStacks * bleedTickMinion), { color: '#f43f5e', isDoT: true });
+            dealPlayerDamageToUnit({ kind: 'minion', ref: m }, Math.round(m.bleedStacks * bleedTickMinion), { color: '#f43f5e', isDoT: true, passiveTick: true });
             if (m.hp <= 0) continue;
           }
           if (m.bleedTimer <= 0) {
@@ -4385,7 +4572,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           m.mesh.rotation.y = Math.atan2(bestT.ref.x - m.x, bestT.ref.z - m.z);
           m.moving = false;
           if (m.atkCd <= 0) {
-            m.atkCd = 1.35;
+            m.atkCd = 1.35 * IP.atkTimeMult(m); // (Frostbite plate slows their attacks)
             if (m.rig && m.rig.acts.attack) { playMinionAct(m, 'attack', 0.08); m.rig.acts.attack.reset().play(); m.attackAnimT = 0.9; }
             if (m.kind === 'ranged') {
               spawnUnitProjectile(m.x, m.z, bestT, m.atk, m.team === 0 ? 0x38bdf8 : 0xf43f5e, 14.0, 'physical', { kind: 'minion', ref: m });
@@ -4511,7 +4698,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               }
             }
             if (target) {
-              s.shootCd = 1.35;
+              s.shootCd = 1.35 * IP.atkTimeMult(s);
               spawnUnitProjectile(s.x, s.z, target, s.atk, s.team === 0 ? 0x38bdf8 : 0xf43f5e, 18.5);
             }
           }
@@ -4566,7 +4753,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           c.bleedTickAccum = (c.bleedTickAccum || 0) + dt;
           if (c.bleedTickAccum >= 0.65) {
             c.bleedTickAccum -= 0.65;
-            dealPlayerDamageToUnit({ kind: 'camp', ref: c }, Math.round(c.bleedStacks * bleedTickCamp), { color: '#f43f5e', isDoT: true });
+            dealPlayerDamageToUnit({ kind: 'camp', ref: c }, Math.round(c.bleedStacks * bleedTickCamp), { color: '#f43f5e', isDoT: true, passiveTick: true });
             if (c.respawnTimer > 0) return;
           }
           if (c.bleedTimer <= 0) {
@@ -4611,7 +4798,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             c.mobGrp.rotation.y = Math.atan2(dx, dz);
             if (distT <= c.atkRange + (t.r || 0.5)) {
               if (c.atkCd <= 0) {
-                c.atkCd = 1.15;
+                c.atkCd = 1.15 * IP.atkTimeMult(c);
                 c.swingLock = 0.6; // stay planted while the swing plays (no sliding mid-attack)
                 damageOrderHeroOrBot(t, c.atk, 'physical', { kind: 'camp', ref: c });
               }
@@ -4863,6 +5050,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!matchMode || gameOver) return;
 
       matchTime += dt;
+      IP.tick(dt); // item passives (regen, shields, timers)
       // per-frame velocity of every unit (_vx/_vz; e.g. Brawler's "Don't Turn Your Back" checks who's running away)
       if (dt > 0) {
         const trackVel = (u) => {
@@ -5060,7 +5248,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           stunTimer: 0, slowTimer: 0, tauntTimer: 0, stealthTimer: 0, knockbackTimer: 0, knockbackVx: 0, knockbackVz: 0,
           bleedStacks: 0, bleedTimer: 0, leapTimer: 0, leapOnLand: null, leapHeight: undefined, dashTimer: 0, dashOnEnd: null,
           rChargeTimer: 0, arenaTimer: 0, monoTimer: 0, eRecast: 0, aimTarget: null,
-          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null, fuel: undefined, _fuelHp: undefined, guardStacks: 0, guardT: 0,
+          sawOn: false, sawT: 0, pendingInject: null, injectTimer: 0, charges: null, fuel: undefined, mp: undefined, _ip: null, _fuelHp: undefined, guardStacks: 0, guardT: 0,
           impPendingQ: null, impStrike: null, impRocket: false, laneDone: false
         });
         CC.clear(b);

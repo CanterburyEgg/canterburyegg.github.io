@@ -220,7 +220,7 @@ H.bodyguard = {
 
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const dmg = strike.isHaymaker
-      ? H.bodyguard.dmg.haymaker(st, pProg.level, rQE)
+      ? H.bodyguard.dmg.haymaker(strike.st || st, pProg.level, rQE) // (Q: the stats from cast time)
       : H.bodyguard.dmg.punch(st);
     const kbDist = strike.isHaymaker ? 3.8 : 0;
     const wallStun = strike.isHaymaker ? WALL_STUN : 0; // Q: knocked into a wall / tree / tower = stunned
@@ -266,6 +266,7 @@ H.bodyguard = {
             knockbackDirZ: dirZ,
             kbOriginX: hero.x,
             kbOriginZ: hero.z,
+            castId: strike.castId, // Q haymaker strikes carry their cast (basics leave it unset)
             wallStun
           });
         }
@@ -294,7 +295,7 @@ H.bodyguard = {
       const act = actions.kick || actions.punch;
       if (act) fadeToAction(act, 0.05, true, 1.65);
       SFX.play('chime');
-      pendingStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24 };
+      pendingStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24, castId: KitFx.castId(), st };
       spawnFloat(hero.x, 2.6, hero.z, 'BOUNCER HAYMAKER!', '#38bdf8');
     } else if (slot === 'E') {
       if (hero.leapTimer > 0) return;
@@ -319,6 +320,8 @@ H.bodyguard = {
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.3, 1.4, 0.24);
       spawnFloat(hero.x, 2.7, hero.z, 'CROWD DIVE!', '#38bdf8');
+      hero.leapCastId = KitFx.castId(); // the landing slam (leapLandFor) belongs to this cast
+      hero.leapSt = st; // ...and uses the stats from cast time
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
@@ -391,7 +394,7 @@ H.bodyguard = {
     // Bodyguard E (Crowd Dive) Landing Slam!
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const slamR = 2.85;
-    const slamDmg = H.bodyguard.dmg.slam(st, pProg.level, rQE);
+    const slamDmg = H.bodyguard.dmg.slam(hero.leapSt || st, pProg.level, rQE);
     // landing: a short knock-up, then a short slow (the slow runs past the knock-up)
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.35, slamR, 0.32);
@@ -411,6 +414,7 @@ H.bodyguard = {
             dmgType: 'physical',
             knockupDur: SLAM_KNOCKUP,
             slowDur: SLAM_KNOCKUP + SLAM_SLOW,
+            castId: hero.leapCastId,
             color: '#38bdf8'
           });
         }
@@ -429,7 +433,7 @@ H.bodyguard = {
       if (hero.cdQ > 0 || hero.leapTimer > 0) return;
       hero.cdQ = [7.5, 6.5, 5.5][rQE] * (ctx.cdrMult || 1);
       actor.play('kick', 0.05, true, 1.65, 0, 0.4);
-      hero.bgStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24 };
+      hero.bgStrike = { isKick: false, isHaymaker: true, facing: hero.facing, t: 0.24, castId: KitFx.castId(), st };
       spawnFloat(hero.x, 2.6, hero.z, 'BOUNCER HAYMAKER!', '#38bdf8');
     } else if (slot === 'E') {
       if (hero.cdE > 0 || hero.leapTimer > 0) return;
@@ -447,6 +451,8 @@ H.bodyguard = {
       actor.play('jump', 0.05, true, 2.55, 0.52, 0.54);
       spawnShockRing(hero.x, hero.z, 0x38bdf8, 0.3, 1.4, 0.24);
       spawnFloat(hero.x, 2.7, hero.z, 'CROWD DIVE!', '#38bdf8');
+      hero.leapCastId = KitFx.castId(); // the landing slam (leapLandFor) belongs to this cast
+      hero.leapSt = st; // ...and uses the stats from cast time
       hero.leapOnLand = () => {
         const lvl = actor.level();
         this.leapLandFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });

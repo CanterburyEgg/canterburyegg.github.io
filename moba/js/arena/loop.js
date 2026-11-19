@@ -339,8 +339,8 @@ function tick(now) {
       if (b.isHeartseeker) {
         const stacks = t.ref.bleedStacks || 0;
         const rU = KitFx.rUlt(o.level());
-        const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(o.stats(), rU) * 1.0) * (b.popScale || 1));
-        o.damage(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185', src: 'ability' });
+        const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(b.st || o.stats(), rU) * 1.0) * (b.popScale || 1));
+        o.damage(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185', src: 'ability', castId: b.castId });
         if (stacks > 0) {
           t.ref.bleedStacks = 0;
           t.ref.bleedTimer = 0;
@@ -348,7 +348,7 @@ function tick(now) {
           spawnFloat(t.x, 2.85, t.z, 'BLEED DETONATED (' + stacks + 'x)!', '#fde047');
         }
       } else {
-        o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical', src: b.src });
+        o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical', src: b.src, castId: b.castId });
         spawnShockRing(t.x, t.z, b.dmgType === 'fantasy' ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
         if (b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref, t);
         if (!b.pierce) { scene.remove(b.mesh); return true; }
@@ -400,7 +400,7 @@ function tick(now) {
         if (b.isHeartseeker) {
           const stacks = d.bleedStacks;
           const pst = phase1Engine ? phase1Engine.getPlayerStats() : { ability: 0 };
-          const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(pst, KitFx.rUlt(pProg.level || 1)) * 1.0) * (b.popScale || 1));
+          const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(b.st || pst, KitFx.rUlt(pProg.level || 1)) * 1.0) * (b.popScale || 1));
           damageDummy(d, b.dmg + popDmg, stacks > 0 ? '#fde047' : '#fb7185');
           if (stacks > 0) {
             d.bleedStacks = 0;
@@ -437,8 +437,8 @@ function tick(now) {
           if (b.isHeartseeker) {
             const stacks = t.ref.bleedStacks || 0;
             const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-            const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(phase1Engine.getPlayerStats(), rUlt) * 1.0) * (b.popScale || 1));
-            const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185', src: 'ability' });
+            const popDmg = Math.round(stacks * Math.round(window.MOBA_HEROES.coyote.dmg.popPerStack(b.st || phase1Engine.getPlayerStats(), rUlt) * 1.0) * (b.popScale || 1));
+            const didHit = phase1Engine.dealPlayerDamageToUnit(t, b.dmg + popDmg, { color: stacks > 0 ? '#fde047' : '#fb7185', src: 'ability', castId: b.castId });
             if (didHit && stacks > 0) {
               t.ref.bleedStacks = 0;
               t.ref.bleedTimer = 0;
@@ -451,7 +451,8 @@ function tick(now) {
               isBasic: b.isBasic !== false,
               slowDur: b.slowDur || 0,
               dmgType: b.dmgType || 'physical',
-              src: b.src
+              src: b.src,
+              castId: b.castId
             });
             if (didHit) spawnShockRing(t.x, t.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
             if (didHit && b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref, t);

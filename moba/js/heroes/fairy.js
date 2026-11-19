@@ -88,7 +88,7 @@ function softBlobTexture() {
   return dustTex;
 }
 let _limbAxis = null;
-function spawnDust(x, z, r, life, ring = false, owner = null) {
+function spawnDust(x, z, r, life, ring = false, owner = null, castId = KitFx.castId()) {
   const grp = new THREE.Group();
   const disc = new THREE.MeshBasicMaterial({ color: 0x86efac, map: softBlobTexture(), transparent: true, opacity: 0.32, depthWrite: false });
   // overlapping soft blobs: a loose ring for R, a lumpy patch otherwise
@@ -114,7 +114,7 @@ function spawnDust(x, z, r, life, ring = false, owner = null) {
   }
   grp.position.set(x, 0, z);
   scene.add(grp);
-  dustPatches.push({ grp, disc, x, z, r, t: life, life, dream: lullabyOn(owner), owner });
+  dustPatches.push({ grp, disc, x, z, r, t: life, life, dream: lullabyOn(owner), owner, castId });
 }
 
 // Hover, bank/lean and the limb flutter, shared by the player's Fairy and bot Fairies.
@@ -316,7 +316,7 @@ H.fairy = {
       scene.add(mesh);
       bubbles.push({
         mesh, sx: hero.x, sz: hero.z, tx: hero.x + Math.sin(ang) * dist, tz: hero.z + Math.cos(ang) * dist,
-        delay: 0.34, t: 0, dur: 0.6, dmg: H.fairy.dmg.bubble(st, pProg.level, rQE), owner
+        delay: 0.34, t: 0, dur: 0.6, dmg: H.fairy.dmg.bubble(st, pProg.level, rQE), owner, castId: KitFx.castId()
       });
     } else if (slot === 'E') {
       if (!wtfMode && KitFx.charges.count(hero, 'hop', HOP_MAX) <= 0) return;
@@ -364,14 +364,16 @@ H.fairy = {
       hero.kickAnim = 0.75;
       actor.play('slide', 0.06, true, 1.6, 1.25, 0.75); // just the second spin (clip ~1.25-2.5s)
       if (owner) hero.fairyLullaby = 10; else lullabyTimer = 10;
+      const rCastId = KitFx.castId(); // the Dreamdust ring drops after the spin, outside the cast
       dustPatches.forEach((p) => { if (p.owner === owner) p.dream = true; });
       spawnFloat(hero.x, 3.0, hero.z, 'LULLABY!', '#c4b5fd');
       if (owner) {
         hero.fairyRing = 0.4; // tickActor drops the ring after the spin
+        hero.fairyRingCastId = rCastId;
       } else {
         setTimeout(() => {
           if (activeHeroId !== 'fairy') return;
-          spawnDust(hero.x, hero.z, 4.0, 10, true);
+          spawnDust(hero.x, hero.z, 4.0, 10, true, null, rCastId);
           spawnShockRing(hero.x, hero.z, 0xc4b5fd, 0.4, 4.2, 0.5);
           SFX.play('arena');
         }, 400);
@@ -400,7 +402,7 @@ H.fairy = {
       }
     }
     if ((u.fairyRing || 0) > 0 && (u.fairyRing -= dt) <= 0) {
-      spawnDust(u.x, u.z, 4.0, 10, true, actor);
+      spawnDust(u.x, u.z, 4.0, 10, true, actor, u.fairyRingCastId);
       spawnShockRing(u.x, u.z, 0xc4b5fd, 0.4, 4.2, 0.5);
       SFX.play('arena');
     }
@@ -423,7 +425,7 @@ H.fairy = {
         bubbles.splice(bi, 1);
         SFX.play('chime');
         spawnShockRing(b.tx, b.tz, 0xa7f3d0, 0.3, 2.6, 0.3);
-        KitFx.hitArea(b.tx, b.tz, 2.5, b.dmg, { dmgType: 'fantasy', slowDur: 2.0, color: '#a7f3d0', by: b.owner || KitFx.player });
+        KitFx.hitArea(b.tx, b.tz, 2.5, b.dmg, { dmgType: 'fantasy', slowDur: 2.0, color: '#a7f3d0', by: b.owner || KitFx.player, castId: b.castId });
         // allies inside the pop (and the Fairy herself) get a shield (DESIGN_RULES: "allies inside get a shield")
         const ca = b.owner || KitFx.player;
         const caster = ca.unit;
@@ -431,13 +433,13 @@ H.fairy = {
         const shieldUnit = (u) => {
           if (!u || (u.hp !== undefined && u.hp <= 0)) return;
           if (Math.hypot(u.x - b.tx, u.z - b.tz) > 2.5 + (u.r || 0.5) * 0.5) return;
-          u.shield = Math.max(u.shield || 0, sh);
+          u.shield = Math.max(u.shield || 0, MOBA_COMBAT.shieldAmount(u, sh, { healer: caster })); // (Wellspring: stronger on allies)
           u.shieldTimer = 3.0;
           spawnFloat(u.x, 2.6, u.z, 'BUBBLE SHIELD', '#a7f3d0');
         };
         shieldUnit(caster);
         if (phase1Engine) ca.allies().forEach((a) => shieldUnit(a.ref));
-        spawnDust(b.tx, b.tz, 2.5, 3.5, false, b.owner);
+        spawnDust(b.tx, b.tz, 2.5, 3.5, false, b.owner, b.castId);
       }
     }
     for (let i = dustPatches.length - 1; i >= 0; i--) {
@@ -452,16 +454,16 @@ H.fairy = {
       const pa = po || KitFx.player;
       const heal = H.fairy.dmg.dustHealPerSec(pa.stats(), pa.level()) * dt;
       if (!po && activeHeroId === 'fairy' && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r) {
-        MOBA_COMBAT.heal(hero, heal);
+        MOBA_COMBAT.heal(hero, heal, { healer: hero });
       }
       if (po && po.unit.hp > 0 && Math.hypot(po.unit.x - p.x, po.unit.z - p.z) <= p.r) {
-        MOBA_COMBAT.heal(po.unit, heal);
+        MOBA_COMBAT.heal(po.unit, heal, { healer: po.unit });
       }
       if (phase1Engine) {
         (po || KitFx.player).allies().forEach((a) => {
           const b = a.ref;
           if (b.hp > 0 && b.hp < b.maxHp && Math.hypot(a.x - p.x, a.z - p.z) <= p.r + (a.r || 0.5) * 0.5) {
-            MOBA_COMBAT.heal(b, heal);
+            MOBA_COMBAT.heal(b, heal, { healer: po ? po.unit : hero });
           }
         });
       }
@@ -470,7 +472,7 @@ H.fairy = {
         p.sleepTick = (p.sleepTick || 0) - dt;
         if (p.sleepTick <= 0) {
           p.sleepTick = 0.5;
-          KitFx.hitArea(p.x, p.z, p.r, 0, { sleepDur: 2.0, isDoT: true, color: '#c4b5fd', by: p.owner || KitFx.player });
+          KitFx.hitArea(p.x, p.z, p.r, 0, { sleepDur: 2.0, isDoT: true, color: '#c4b5fd', by: p.owner || KitFx.player, castId: p.castId });
         }
       }
       if (p.t <= 0) {

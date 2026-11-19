@@ -259,7 +259,7 @@ H.brawler = {
       const L = (window.__kitBotLog = window.__kitBotLog || {}); const k = isKick ? 'br_kick' : 'br_lmb'; L[k] = (L[k] || 0) + 1;
       if (isKick) actor.play('kick', 0.06, true, 1.45, 0, 0.5);
       else actor.play('punch', 0.05, true, 1.35, 0, 0.36);
-      u.brStrike = { isKick, isHaymaker: false, facing: u.facing, t: isKick ? 0.23 : 0.16 };
+      u.brStrike = { isKick, isHaymaker: false, facing: u.facing, t: isKick ? 0.23 : 0.16, castId: isKick ? KitFx.castId() : 0, st: isKick ? st : null };
       return;
     }
 
@@ -272,7 +272,8 @@ H.brawler = {
         const dur = kickAct.getClip().duration || 1.6;
         fadeToAction(kickAct, 0.06, true, THREE.MathUtils.clamp(dur / 0.78, 1.25, 2.25));
       }
-      pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23 };
+      // the kick belongs to the Q cast that armed it (it may land on a later click, outside the cast)
+      pendingStrike = { isKick: true, isHaymaker: false, facing: hero.facing, t: 0.23, castId: KitFx.castId() || hero.qCastId, st: hero.qSt || st };
     } else {
       hero.atkTimer = KitFx.atkInterval(H.brawler.spec.atkCd, st);
       hero.punchAnim = 0.48;
@@ -315,7 +316,7 @@ H.brawler = {
     spawnShockRing(fx, fz, strike.isKick ? 0xfbbf24 : 0xf43f5e, 0.25, hitRadius, 0.24);
 
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
-    const baseStrikeDmg = strike.isKick ? H.brawler.dmg.kick(st, rQE) : H.brawler.dmg.punch(st);
+    const baseStrikeDmg = strike.isKick ? H.brawler.dmg.kick(strike.st || st, rQE) : H.brawler.dmg.punch(st);
     const stunDur = [1.0, 1.1, 1.2][rQE];
     const dtyb = H.brawler.dmg.dontTurn(st, pProg.level);
 
@@ -344,7 +345,8 @@ H.brawler = {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
           const didHit = actor.damage(t, baseStrikeDmg * arenaMult, {
             isBasic: true, src: 'attack', // punches, and the kick (counts as a basic attack)
-            stunDur: strike.isKick ? stunDur : 0
+            stunDur: strike.isKick ? stunDur : 0,
+            castId: strike.castId // the Q kick carries its cast; punches leave it unset
           });
           // Passive: the first hit on someone running away from her = bonus damage + a crippling slow
           if (didHit && t.kind !== 'structure' && t.ref && dontTurnReady(hero, t.ref)) {
@@ -374,6 +376,8 @@ H.brawler = {
       const baseQCd = [7.5, 6.8, 6.0][rQE];
       hero.cdQ = wtfMode ? 0.15 : baseQCd * cdrMult;
       hero.qArmed = true;
+      hero.qCastId = KitFx.castId();
+      hero.qSt = st; // the kick uses the stats from cast time
       hero.atkTimer = 0;
       const dummyNear = dummies.some((d) => (!d.isShooter || shooterEnabled) && Math.hypot(d.x - hero.x, d.z - hero.z) <= 2.9);
       const unitNear = phase1Engine && phase1Engine.getHostileTargets().some((t) => Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.9);
@@ -391,6 +395,8 @@ H.brawler = {
         hero.dashTimer = 0.36;
         hero.dashKind = 'second';
         hero.dashHit = false;
+        hero.dashCastId = KitFx.castId(); // dash hits land on later frames
+        hero.dashSt = st; // (stats from cast time)
         triggerDashAnimation(true);
         SFX.play('dash');
         return;
@@ -403,6 +409,8 @@ H.brawler = {
       hero.dashTimer = 0.36;
       hero.dashKind = 'first';
       hero.dashHit = false;
+      hero.dashCastId = KitFx.castId(); // dash hits land on later frames
+      hero.dashSt = st; // (stats from cast time)
       triggerDashAnimation(false);
       SFX.play('dash');
     } else if (slot === 'R') {
@@ -436,10 +444,10 @@ H.brawler = {
     if (!hero.dashHit && (hitWall || hitDummy || hitHostile)) {
       hero.dashHit = true;
       const rimMult = hitArenaRim ? 1.35 : 1.0;
-      const dashDmg = Math.round(H.brawler.dmg.dash(st, pProg.level, KitFx.rQE(pProg.level || 1)) * rimMult);
+      const dashDmg = Math.round(H.brawler.dmg.dash(hero.dashSt || st, pProg.level, KitFx.rQE(pProg.level || 1)) * rimMult);
       if (hitDummy) damageDummy(hitDummy, dashDmg);
       if (hitHostile && phase1Engine) {
-        actor.damage(hitHostile, dashDmg, { src: 'ability' });
+        actor.damage(hitHostile, dashDmg, { src: 'ability', castId: hero.dashCastId });
         if (hero.dashKind === 'first') {
           const ux = hero.x - hitHostile.x;
           const uz = hero.z - hitHostile.z;
@@ -460,7 +468,7 @@ H.brawler = {
         if (phase1Engine) {
           actor.hostiles().forEach((t) => {
             if ((!hitHostile || t.ref !== hitHostile.ref) && Math.hypot(t.x - hero.x, t.z - hero.z) <= 2.8 + t.r) {
-              actor.damage(t, dashDmg, { color: '#fde047', src: 'ability', aoe: true });
+              actor.damage(t, dashDmg, { color: '#fde047', src: 'ability', aoe: true, castId: hero.dashCastId });
             }
           });
         }
@@ -508,6 +516,8 @@ H.brawler = {
       hero.dashTimer = 0.36;
       hero.dashKind = second ? 'second' : 'first';
       hero.dashHit = false;
+      hero.dashCastId = KitFx.castId(); // dash hits land on later frames
+      hero.dashSt = st; // (stats from cast time)
       if (second) actor.play('slide', 0.05, true, 2.35, 0.14, 0.36);
       else actor.play('jump', 0.05, true, 1.75, 0.03, 0.36);
       spawnShockRing(hero.x, hero.z, 0xfde047, 0.25, 1.15, 0.22);

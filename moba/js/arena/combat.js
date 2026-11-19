@@ -277,7 +277,8 @@ let pendingSorcUlt = null;
 function trySpendMana(slot) {
   if (wtfMode) return true;
   const specs = window.MOBA_PHASE1 && window.MOBA_PHASE1.HERO_SPECS[activeHeroId];
-  const cost = (specs && specs.mpCosts && specs.mpCosts[slot]) || 0;
+  const ipm = window.MOBA_ITEM_PASSIVES;
+  const cost = Math.round(((specs && specs.mpCosts && specs.mpCosts[slot]) || 0) * (ipm ? ipm.manaCostMult(hero) : 1)); // Overcharge / Momentum
   if ((hero.mp || 0) < cost) {
     SFX.play('block');
     const res = specs && specs.resource;
