@@ -19,6 +19,7 @@ const container = document.getElementById('three-container');
 const labelLayer = document.getElementById('label-layer');
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+renderer.localClippingEnabled = true; // bridge sections clip off the railings where the road opens (phase1_engine.js)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;

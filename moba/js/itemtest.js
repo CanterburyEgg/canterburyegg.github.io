@@ -743,6 +743,32 @@
     prog.items = []; SH.reset(); prog.gold = saved.gold;
   }
 
+  async function runBotShop() {
+    section('13. Bots buying items');
+    const b = grabBot(1, 0);
+    if (!b) return;
+    eng.devDuelSetBot(b, b.heroType, 12, []);
+    const bd = eng.devBotBuild(b);
+    b.gold = 600;
+    eng.devBotShop(b);
+    const first = (b.items || []).map((o) => o.id);
+    check('Bot with starting gold (600) buys basic boots first', first.join(',') === 'footwraps' && b.gold === 300, first.join(', ') + ' (gold left ' + b.gold + ')');
+    b.gold += 350;
+    eng.devBotShop(b);
+    const part = (b.items || []).map((o) => o.id);
+    check('...then a component toward its first epic when it can afford one', part.length === 2 && I.byId[part[1]].tier === 1 && I.byId[bd.epics[0]].line.split('+').indexOf(I.byId[part[1]].line) >= 0, part.join(', '));
+    b.gold = 2600;
+    eng.devBotShop(b);
+    const mid = (b.items || []).map((o) => o.id);
+    check('...then finishes the first epic from its parts (' + bd.epics[0] + ')', mid.indexOf(bd.epics[0]) >= 0, mid.join(', ') + ' (gold left ' + b.gold + ')');
+    b.gold = 20000;
+    eng.devBotShop(b);
+    const full = (b.items || []).map((o) => o.id).sort().join(', ');
+    const want = [bd.boots].concat(bd.epics).sort().join(', ');
+    check('Full build: upgraded boots + 3 epics, 4 slots, one epic per line', full === want, full);
+    check('Bot stats include its items', b.unitStats && b.unitStats.maxHp >= eng.computeUnitStats(b.heroType, 12, []).maxHp, 'HP ' + (b.unitStats && b.unitStats.maxHp));
+  }
+
   function restore() {
     restoreBots();
     prog.level = saved.level;
@@ -762,7 +788,7 @@
     // let the match finish booting
     while (!(eng.devBots && eng.devBots().length)) await sleep();
     await waitGame(1.0);
-    try { await run(); await runBatch1(); await runBatch2(); await runBatch3to6(); await runFixes(); await runShop(); } catch (e) { check('test crashed', false, String(e && e.stack || e)); }
+    try { await run(); await runBatch1(); await runBatch2(); await runBatch3to6(); await runFixes(); await runShop(); await runBotShop(); } catch (e) { check('test crashed', false, String(e && e.stack || e)); }
     restore();
     const fails = results.filter((r) => !r.ok).length;
     statusEl.textContent = fails ? fails + ' FAILED of ' + results.length : 'all ' + results.length + ' passed';

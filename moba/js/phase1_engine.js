@@ -1023,7 +1023,140 @@ window.MOBA_PHASE1_ENGINE = (function () {
     }
 
     // Castle walls & gates, bridge railings and the behemoth hollow's cliffs (code-built; see MAP_DESIGN.md)
+    // ---- Castle work models (assets/map/map_bundle.js; parsed in boot.js) ----
+    // Hunyuan exports carry their own Y-up node rotation, so no rotX here. Each fit: scale + where the walkable top sits.
+    const CASTLE_FIT = {
+      castleWall: { height: 4.1, depth: 1.75 },     // tiled along each castle wall (model long axis = x)
+      tower: { widthPerR: 2.25 },                   // corner / gate towers: footprint = r * this
+      cliff: { height: 3.0, overlap: 0.9 },         // tiled along the hollow's cliffs, overlapping a little
+      // bridge road sections: railings take the outer 15% of the width on each side, so 9.4m wide puts them just
+      // outside the 6.4m road (inner edge ~3.3m from the center); deck surface at 64.6% of the model height
+      bridge: { width: 9.4, deck: 0.646, clipAt: 3.3, lift: 0.07 },
+      fountain: { width: 11.2, deck: 0.5 }          // spawn platform: top surface at 50% of the model height
+    };
+    // normalized clone: centered on x/z, base on y = 0, uniformly scaled by k; returns { obj, size }
+    function castleModel(tmpl, sizeTo) {
+      const inner = tmpl.clone(true);
+      const holder = new THREE.Group();
+      holder.add(inner);
+      holder.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(holder);
+      const size = box.getSize(new THREE.Vector3());
+      const k = sizeTo(size);
+      const c = box.getCenter(new THREE.Vector3());
+      inner.position.set(-c.x, -box.min.y, -c.z);
+      inner.traverse((ch) => { if (ch.isMesh) { ch.castShadow = true; ch.receiveShadow = true; } });
+      const outer = new THREE.Group();
+      holder.scale.setScalar(k);
+      outer.add(holder);
+      return { obj: outer, size: size.clone().multiplyScalar(k), mesh: inner };
+    }
+    // world-space clipping planes on a model's materials (cloned so other copies aren't affected)
+    function clipModel(obj, planes) {
+      obj.traverse((ch) => {
+        if (!ch.isMesh) return;
+        ch.material = ch.material.clone();
+        ch.material.clippingPlanes = planes;
+        ch.material.clipShadows = true;
+      });
+    }
+    function applyCastleModels() {
+      const T = window.MOBA_MAP_TEMPLATES || {};
+      const clear = (g) => { while (g.children.length) g.remove(g.children[0]); };
+      let wallsDone = false;
+      castleParts.forEach((p) => {
+        if (p.modeled) return;
+        if (p.kind === 'castleWall' && T.castleWall) {
+          const F = CASTLE_FIT.castleWall;
+          const probe = castleModel(T.castleWall, (sz) => F.height / sz.y);
+          const n = Math.max(1, Math.round((p.len + 1.5) / probe.size.x));
+          const dx = (p.w.x1 - p.w.x0), dz = (p.w.z1 - p.w.z0);
+          clear(p.grp);
+          for (let i = 0; i < n; i++) {
+            const m = i === 0 ? probe : castleModel(T.castleWall, (sz) => F.height / sz.y);
+            const t = (i + 0.5) / n;
+            // stretch each piece to cover its share of the wall (plus the corner overlap), depth to the wall's thickness
+            m.obj.scale.set((p.len + 1.5) / n / probe.size.x, 1, F.depth / probe.size.z);
+            m.obj.position.set(p.w.x0 + dx * t, 0, p.w.z0 + dz * t);
+            m.obj.rotation.y = p.rotY;
+            p.grp.add(m.obj);
+          }
+          p.modeled = true;
+          wallsDone = true;
+        } else if (p.kind === 'tower' && T.cornerTower) {
+          const m = castleModel(T.cornerTower, (sz) => (p.r * CASTLE_FIT.tower.widthPerR) / Math.max(sz.x, sz.z));
+          m.obj.position.set(p.x, 0, p.z);
+          m.obj.rotation.y = Math.atan2(-p.x, -p.z); // face the map center
+          clear(p.grp);
+          p.grp.add(m.obj);
+          if (p.banner) p.banner.position.y = m.size.y * 0.42;
+          p.modeled = true;
+        } else if (p.kind === 'cliff' && T.cliffChunk) {
+          const F = CASTLE_FIT.cliff;
+          const probe = castleModel(T.cliffChunk, (sz) => F.height / sz.y);
+          const step = probe.size.x * F.overlap;
+          const n = Math.max(1, Math.ceil((p.len + 1.2) / step));
+          const dx = (p.w.x1 - p.w.x0), dz = (p.w.z1 - p.w.z0);
+          clear(p.grp);
+          for (let i = 0; i < n; i++) {
+            const k = 0.92 + ((i * 37) % 5) * 0.04; // a little variety so the tiling doesn't read
+            const m = i === 0 ? probe : castleModel(T.cliffChunk, (sz) => F.height / sz.y);
+            // n pieces spread over the wall plus 0.6m past each end; each a little longer than its share (overlap)
+            const ext = 0.6 / Math.max(1, p.len);
+            const tt = -ext + ((i + 0.5) / n) * (1 + 2 * ext);
+            m.obj.scale.set(((p.len + 1.2) / n / F.overlap) / probe.size.x, k, 1);
+            m.obj.position.set(p.w.x0 + dx * tt, 0, p.w.z0 + dz * tt);
+            m.obj.rotation.y = p.rotY + (i % 2 ? 0.05 : -0.04);
+            p.grp.add(m.obj);
+          }
+          p.modeled = true;
+        } else if (p.kind === 'fountain' && T.fountain) {
+          const F = CASTLE_FIT.fountain;
+          const m = castleModel(T.fountain, (sz) => F.width / Math.max(sz.x, sz.z));
+          m.obj.position.set(p.f.x, -m.size.y * F.deck, p.f.z);
+          clear(p.grp);
+          p.grp.add(m.obj);
+          if (p.glow) p.glow.position.y = 0.06;
+          p.modeled = true;
+        }
+      });
+      // merlons belong to the code-built walls
+      if (wallsDone) castleParts.forEach((p) => { if (p.kind === 'merlons') p.grp.visible = false; });
+      // Bridge: the top lane from castle to castle becomes bridge sections. Their south railing is clipped off
+      // everywhere (the lane wall is the south edge); across the lookout mouth both railings are clipped (deck only).
+      if (T.bridgeSection && !castleParts.some((p) => p.kind === 'bridge')) {
+        const F = CASTLE_FIT.bridge;
+        const bg = castleGroup('bridge');
+        const edgeS = MAP.TOP_Z + F.clipAt, edgeN = MAP.TOP_Z - F.clipAt;
+        const keepNorthOf = new THREE.Plane(new THREE.Vector3(0, 0, -1), edgeS); // keeps z <= edgeS
+        const keepSouthOf = new THREE.Plane(new THREE.Vector3(0, 0, 1), -edgeN); // keeps z >= edgeN
+        const runs = [[-MAP.CASTLE.x0, -MAP.DECK.mouthHalf, false], [-MAP.DECK.mouthHalf, MAP.DECK.mouthHalf, true], [MAP.DECK.mouthHalf, MAP.CASTLE.x0, false]];
+        runs.forEach(([xa, xb, mouth]) => {
+          const probe = castleModel(T.bridgeSection, (sz) => F.width / sz.z);
+          const len = xb - xa;
+          const n = Math.max(1, Math.round(len / probe.size.x));
+          for (let i = 0; i < n; i++) {
+            const m = i === 0 ? probe : castleModel(T.bridgeSection, (sz) => F.width / sz.z);
+            m.obj.scale.x = len / n / probe.size.x;
+            m.obj.position.set(xa + len * (i + 0.5) / n, -m.size.y * F.deck + F.lift, MAP.TOP_Z); // deck just above the painted road
+            clipModel(m.obj, mouth ? [keepNorthOf, keepSouthOf] : [keepNorthOf]);
+            bg.add(m.obj);
+          }
+        });
+        castleParts.forEach((p) => { if (p.kind === 'rail') p.grp.visible = false; });
+      }
+    }
+
+    // Castle works can swap to models (applyCastleModels): every code-built piece lives in its own group, listed here
+    const castleParts = []; // { kind: 'castleWall' | 'tower' | 'cliff' | 'rail' | 'merlons' | 'fountain', grp, ... }
+    function castleGroup(kind, data) {
+      const grp = new THREE.Group();
+      mapGroup.add(grp);
+      castleParts.push(Object.assign({ kind, grp }, data || {}));
+      return grp;
+    }
     function buildCastleWorks() {
+      castleParts.length = 0;
       const sandMat = new THREE.MeshStandardMaterial({ color: 0xb79d74, roughness: 0.9 });
       const greyMat = new THREE.MeshStandardMaterial({ color: 0x8d8a83, roughness: 0.92 });
       const roofMat = new THREE.MeshStandardMaterial({ color: 0x9a4a32, roughness: 0.85 });
@@ -1032,28 +1165,30 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const mossMat = new THREE.MeshStandardMaterial({ color: 0x3e5a2c, roughness: 0.95, flatShading: true });
       const WALL_H = 3.4, WALL_D = 1.5;
 
+      let into = mapGroup; // where addBox puts things (a castle part's group while building that part)
       const addBox = (mat, w, h, d, x, y, z, rotY = 0) => {
         const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
         m.position.set(x, y, z);
         m.rotation.y = rotY;
         m.castShadow = true;
         m.receiveShadow = true;
-        mapGroup.add(m);
+        into.add(m);
         return m;
       };
       const addTower = (x, z, r, h, team, withBanner) => {
+        const tg = castleGroup('tower', { x, z, r, h, team });
         const body = new THREE.Mesh(new THREE.CylinderGeometry(r, r * 1.08, h, 14), sandMat);
         body.position.set(x, h / 2, z);
         body.castShadow = true;
         body.receiveShadow = true;
-        mapGroup.add(body);
+        tg.add(body);
         const band = new THREE.Mesh(new THREE.CylinderGeometry(r * 1.12, r * 1.12, 0.5, 14), greyMat);
         band.position.set(x, h - 0.25, z);
-        mapGroup.add(band);
+        tg.add(band);
         const roof = new THREE.Mesh(new THREE.ConeGeometry(r * 1.3, r * 1.6, 14), roofMat);
         roof.position.set(x, h + r * 0.8, z);
         roof.castShadow = true;
-        mapGroup.add(roof);
+        tg.add(roof);
         if (withBanner) {
           const banner = new THREE.Mesh(
             new THREE.PlaneGeometry(1.1, 2.2),
@@ -1062,6 +1197,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           banner.position.set(x, h - 1.6, z);
           banner.lookAt(0, h - 1.6, z); // face the map center
           banner.position.x += Math.sign(-x) * (r + 0.05);
+          castleParts[castleParts.length - 1].banner = banner;
           mapGroup.add(banner);
         }
       };
@@ -1074,7 +1210,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const len = Math.hypot(dx, dz);
         const cx = (w.x0 + w.x1) / 2, cz = (w.z0 + w.z1) / 2;
         const rotY = Math.atan2(dx, dz) + Math.PI / 2;
+        into = mapGroup;
         if (w.kind === 'castle') {
+          into = castleGroup('castleWall', { w, len, cx, cz, rotY });
           addBox(sandMat, len + WALL_D, WALL_H, WALL_D, cx, WALL_H / 2, cz, rotY);
           addBox(greyMat, len + WALL_D + 0.1, 0.6, WALL_D + 0.12, cx, 0.3, cz, rotY);
           const n = Math.floor(len / 1.8);
@@ -1083,6 +1221,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
             merlonSpots.push({ x: w.x0 + dx * t, z: w.z0 + dz * t, rotY });
           }
         } else if (w.kind === 'rail') {
+          // the two long bridge railings get replaced by the bridge section models; the lookout deck keeps these
+          if (w.z0 === MAP.RAIL_Z && w.z1 === MAP.RAIL_Z) into = castleGroup('rail', { w });
           addBox(greyMat, len, 1.0, 0.6, cx, 0.5, cz, rotY);
           // posts every ~6 m
           const n = Math.floor(len / 6);
@@ -1125,6 +1265,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (w.crumble0) crumble(false);
           if (w.crumble1) crumble(true);
         } else if (w.kind === 'cliff') {
+          // the hollow's back wall (under the bridge) is the top lane's own wall, drawn as lane wall: no cliff here
+          // (collision stays). A lane wall model that joins the lane and the pit naturally is on the backlog.
+          if (w.z0 === MAP.HOLLOW.top && w.z1 === MAP.HOLLOW.top) return;
+          into = castleGroup('cliff', { w, len, cx, cz, rotY });
           addBox(rockMat, len + 1.2, 2.6, 1.8, cx, 1.3, cz, rotY);
           // irregular boulders along the cliff so it reads as rock, not a wall
           const n = Math.floor(len / 2.2);
@@ -1134,10 +1278,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
             b.position.set(w.x0 + dx * t + Math.sin(i * 2.3) * 0.5, 1.6 + ((i * 13) % 5) * 0.25, w.z0 + dz * t + Math.cos(i * 1.7) * 0.5);
             b.rotation.set(i * 0.7, i * 1.3, i * 0.4);
             b.castShadow = true;
-            mapGroup.add(b);
+            into.add(b);
           }
         }
       });
+      into = mapGroup;
       const merlons = new THREE.InstancedMesh(merlonGeo, sandMat, merlonSpots.length);
       const mtx = new THREE.Matrix4();
       merlonSpots.forEach((p, i) => {
@@ -1146,7 +1291,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         merlons.setMatrixAt(i, mtx);
       });
       merlons.castShadow = true;
-      mapGroup.add(merlons);
+      castleGroup('merlons').add(merlons);
 
       // Corner towers and gate towers (gatehouse structures add their own targetable tower on one flank)
       [0, 1].forEach((team) => {
@@ -1180,15 +1325,18 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // 1. Lanes, jungle paths, castle courtyards and the hollow are painted into the ground texture (arena/core.js).
       //    Here: fountains, castle walls & gates, bridge railings, hollow cliffs.
+      const fountainParts = [];
       [[0, 0x38bdf8], [1, 0xf43f5e]].forEach(([team, col]) => {
         const f = MAP.teamPoint(team, MAP.BASE.fountain);
+        const fg = new THREE.Group();
+        mapGroup.add(fg);
         const pad = new THREE.Mesh(
           new THREE.CylinderGeometry(5.2, 5.6, 0.28, 32),
           new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6, metalness: 0.3 })
         );
         pad.position.set(f.x, 0.14, f.z);
         pad.receiveShadow = true;
-        mapGroup.add(pad);
+        fg.add(pad);
 
         const glow = new THREE.Mesh(
           new THREE.RingGeometry(4.4, 5.1, 40),
@@ -1197,8 +1345,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
         glow.rotation.x = -Math.PI / 2;
         glow.position.set(f.x, 0.30, f.z);
         mapGroup.add(glow);
+        fountainParts.push({ kind: 'fountain', grp: fg, team, f, col, glow });
       });
       buildCastleWorks();
+      castleParts.push(...fountainParts.splice(0));
+      applyCastleModels();
 
       // 2. LOS-Blocking Jungle Trees & Stone Pillars
       mapObstacles = DATA.buildMapObstacles();
@@ -1536,7 +1687,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           facing: cfg.team === 0 ? Math.PI / 2 : -Math.PI / 2,
           level: 1,
           xp: 0,
-          gold: 500,
+          gold: 600, // same start as the player
           hp: 1500,
           maxHp: 1500,
           resist: 22,
@@ -2203,6 +2354,13 @@ window.MOBA_PHASE1_ENGINE = (function () {
       });
     })();
     CC.tenacityOf = (u) => { const st = unitStatsOf(u); return (st && st.tenacity) || 0; };
+    // Bots earn hero-kill gold like the player does (killer: the last hero to hit the victim within 10s)
+    Combat.on('death', (e) => {
+      const v = e.victim;
+      if (!v || duelMode || (e.kind !== 'bot' && e.kind !== 'player')) return;
+      const k = e.killer || (v._lastHeroHit && matchTime - v._lastHeroHit.t <= 10 ? v._lastHeroHit.by : null);
+      if (k && k !== hero && bots.indexOf(k) >= 0 && k.team !== (v === hero ? 0 : v.team)) k.gold = (k.gold || 0) + 240 + (v === hero ? playerProg.level : (v.level || 1)) * 20;
+    });
     // Lifesteal / Spell Vamp for bots (the player's is in dealPlayerDamageToUnit); area hits heal at 1/3
     Combat.on('hit', (e) => {
       const a = e.attacker;
@@ -3251,6 +3409,69 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
     }
 
+    // ---- Bot shopping (SHOP_IMPL_PLAN Phase 5) ----
+    // Each bot follows one of its hero's build orders: basic boots, epic 1, boot upgrade, epic 2, epic 3. On every
+    // shopping stop it buys the current goal outright if it can, otherwise the most advanced part toward it that it can
+    // afford and has a slot for (same rules and recipe pricing as the player's shop: js/items.js).
+    function botBuildFor(b) {
+      if (!b.build || b.buildHero !== b.heroType) {
+        const opts = (DATA.BOT_BUILDS && DATA.BOT_BUILDS[b.heroType]) || [];
+        b.build = opts.length ? opts[Math.floor(Math.random() * opts.length)] : null;
+        b.buildHero = b.heroType;
+      }
+      return b.build;
+    }
+    function botGoals(b) {
+      const bd = botBuildFor(b);
+      if (!bd) return [];
+      return ['footwraps', bd.epics[0], bd.boots, bd.epics[1], bd.epics[2]].filter(Boolean);
+    }
+    function botBuyOne(b) {
+      const I = window.MOBA_ITEMS;
+      const items = b.items || (b.items = []);
+      const ranged = isRangedHero(b.heroType);
+      const has = (id) => items.some((o) => o.id === id);
+      const goal = botGoals(b).find((id) => !(id === 'footwraps' ? items.some((o) => o.boots) : has(id)));
+      if (!goal) return null;
+      // the goal itself, else the deepest affordable part on the way (tier 2 before components)
+      const tryBuy = (id) => {
+        const it = I.byId[id];
+        const price = I.costGiven(id, items.map((o) => o.id));
+        if (price.owed > b.gold || I.buyBlock(id, items, { ranged })) return null;
+        return { it, price };
+      };
+      const walk = (id, pool) => {
+        const got = tryBuy(id);
+        if (got) return got;
+        const parts = I.byId[id].from.slice().sort((x, y) => I.byId[y].tier - I.byId[x].tier);
+        for (const fid of parts) {
+          const k = pool.indexOf(fid);
+          if (k >= 0) { pool.splice(k, 1); continue; } // already holding this part
+          const r = walk(fid, pool);
+          if (r) return r;
+        }
+        return null;
+      };
+      const pick = walk(goal, items.map((o) => o.id));
+      if (!pick) return null;
+      pick.price.used.forEach((uid) => { const k = items.findIndex((o) => o.id === uid); if (k >= 0) items.splice(k, 1); });
+      items.push(pick.it);
+      b.gold -= pick.price.owed;
+      return pick.it;
+    }
+    function botShop(b, dt) {
+      b.shopT = (b.shopT || 0) - dt;
+      if (b.shopT > 0) return;
+      b.shopT = 0.5;
+      let bought = 0;
+      while (bought < 6 && botBuyOne(b)) bought++;
+      if (b.shopTrip && b.hp >= b.maxHp * 0.9) b.shopTrip = false; // shopped and healed up: back to the fight
+      if (!bought) return;
+      const before = b.maxHp;
+      applyBotSpecStats(b, b.heroType);
+      b.hp = Math.min(b.maxHp, b.hp + Math.max(0, b.maxHp - before)); // new item HP counts as healed
+    }
+
     // Item passives change bot stats while they run (buffs, stacks, auras): rebuild them from the base stats every frame
     function refreshBotStats(b) {
       if (!b.baseStats) return;
@@ -3497,6 +3718,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
         // Fountain Healing for low-HP bots
         const homeDist = Math.hypot(b.x - b.homeX, b.z - b.homeZ);
+        if (homeDist <= 7.5 && !duelMode) botShop(b, dt); // bots buy at their fountain (js/phase1_data.js BOT_BUILDS)
         if (homeDist <= 7.5 && b.hp < b.maxHp) {
           b.hp = Math.min(b.maxHp, b.hp + 220 * dt);
         }
@@ -3864,7 +4086,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
           // MOVEMENT, HARD-MODE ORB-WALK KITING, JUNGLE GANKS & BASIC ATTACKS
           // =========================================================
           let gx = b.x, gz = b.z;
-          const lowHpRetreat = !duelMode && (b.tauntTimer <= 0) && ((b.hp / b.maxHp < (isHard ? 0.28 : 0.22)) || (b.team === 0 && activePing && activePing.kind === 'retreat'));
+          // shopping trip: plenty of gold and already hurt -> head home to buy (cleared once it has shopped)
+          if (!duelMode && !b.shopTrip && b.gold >= 1500 && b.hp / b.maxHp < 0.5) b.shopTrip = true;
+          const lowHpRetreat = !duelMode && (b.tauntTimer <= 0) && ((b.hp / b.maxHp < (isHard ? 0.28 : 0.22)) || b.shopTrip || (b.team === 0 && activePing && activePing.kind === 'retreat'));
 
           // Hard Mode Tower Dive Safety: Don't walk under an active enemy Tower without allied minions unless executing < 22% HP target
           let unsafeTowerDive = false;
@@ -5004,6 +5228,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Passive Gold Trickle (3g/sec)
       if (Math.floor(matchTime) !== Math.floor(matchTime - dt)) {
         playerProg.gold += 3;
+        if (!duelMode) bots.forEach((b) => { b.gold = (b.gold || 0) + 3; }); // bots get the same trickle
         refreshShopAndHudUI();
       }
 
@@ -5191,6 +5416,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       },
       devDuelEnd: () => { duelMode = null; },
       devBotActor: (b) => botActor(b),
+      devBotShop: (b) => { b.shopT = 0; botShop(b, 0); return b.items; },
+      devBotBuild: (b) => botBuildFor(b),
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns
       setBotsEnabled: (on) => {
         bots.forEach((b) => {
@@ -5210,6 +5437,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // Map models finished loading (boot.js): rebuild structure visuals with them, keeping game state
       notifyJungleModelsReady: () => applyJungleModels(),
       notifyMapModelsReady: () => {
+        applyCastleModels();
         structures.forEach((s) => {
           if (s.mesh) mapGroup.remove(s.mesh);
           if (s.plate) s.plate.remove();

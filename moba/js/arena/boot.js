@@ -6,7 +6,7 @@
 // Map structure models: assets/map/map_bundle.js (base64 GLBs) -> window.MOBA_MAP_TEMPLATES -> engine rebuilds structures.
 // Missing bundle or a parse error just leaves the old primitive structures in place.
 // Bump when a map/jungle/golem/minion bundle changes, so browsers (localhost server) don't keep serving the old copy
-const MAP_BUNDLE_VER = '2026-11-16a';
+const MAP_BUNDLE_VER = '2026-11-18a';
 async function loadMapModels() {
   if (!window.MOBA_MAP_MODELS) await loadScriptAsync('assets/map/map_bundle.js?v=' + MAP_BUNDLE_VER);
   const src = window.MOBA_MAP_MODELS;
@@ -19,10 +19,16 @@ async function loadMapModels() {
     }
   });
   const tmpl = {};
-  const [tower, hearth, gatehouse] = await Promise.all([parseGlb(src.towerGlbB64), parseGlb(src.hearthGlbB64), src.gatehouseGlbB64 ? parseGlb(src.gatehouseGlbB64) : null]);
+  const opt = (b64) => (b64 ? parseGlb(b64) : null);
+  const [tower, hearth, gatehouse, castleWall, cornerTower, cliffChunk, bridgeSection, fountain] = await Promise.all([
+    parseGlb(src.towerGlbB64), parseGlb(src.hearthGlbB64), opt(src.gatehouseGlbB64),
+    opt(src.castleWallGlbB64), opt(src.cornerTowerGlbB64), opt(src.cliffChunkGlbB64), opt(src.bridgeSectionGlbB64), opt(src.fountainGlbB64)]);
   if (tower) tmpl.tower = tower;
   if (hearth) tmpl.hearth = hearth;
   if (gatehouse) tmpl.gatehouse = gatehouse;
+  // castle works (js/phase1_engine.js applyCastleModels swaps the code-built walls / towers / cliffs / bridge / fountains)
+  Object.assign(tmpl, { castleWall, cornerTower, cliffChunk, bridgeSection, fountain });
+  Object.keys(tmpl).forEach((k) => { if (!tmpl[k]) delete tmpl[k]; });
   window.MOBA_MAP_TEMPLATES = tmpl;
   if (phase1Engine && phase1Engine.notifyMapModelsReady) phase1Engine.notifyMapModelsReady();
 

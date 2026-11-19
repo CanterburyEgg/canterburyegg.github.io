@@ -51,6 +51,27 @@ window.MOBA_PHASE1 = (function () {
     tank:    { 1: [], 6: ['quilted_gambeson', 'insulated_sabatons', 'garnet_brooch'], 12: ['chameleon_hide', 'old_grizzlys_hide', 'tortoise_shell', 'insulated_sabatons'] },
     support: { 1: [], 6: ['amber_phial', 'monks_sandals', 'dewdrop_vial'], 12: ['wellspring', 'temple_censer', 'calm_waters', 'monks_sandals'] }
   };
+  // Bot build orders (SHOP_IMPL_PLAN Phase 5): per hero, 2 variants (one picked at random per match). Bots buy basic
+  // boots first, then work toward the epics in order (parts on the way), upgrading boots after the first epic.
+  const BOT_BUILDS = {
+    coyote:    [{ boots: 'fencers_slippers', epics: ['whirling_glaive', 'misericorde', 'hornets_nest'] },
+                { boots: 'fencers_slippers', epics: ['hawks_reach', 'misericorde', 'rusted_chakram'] }],
+    brawler:   [{ boots: 'insulated_sabatons', epics: ['rending_flail', 'death_grip', 'rimed_pauldrons'] },
+                { boots: 'fencers_slippers', epics: ['vendetta', 'chameleon_hide', 'ogre_knuckles'] }],
+    imp:       [{ boots: 'fencers_slippers', epics: ['misericorde', 'hornets_nest', 'tempered_edge'] },
+                { boots: 'fencers_slippers', epics: ['whirling_glaive', 'rending_flail', 'misericorde'] }],
+    sorceress: [{ boots: 'monks_sandals', epics: ['magnum_opus', 'supernova', 'tuning_fork'] },
+                { boots: 'monks_sandals', epics: ['unraveling_codex', 'infinity_scrolls', 'lunar_halo'] }],
+    fairy:     [{ boots: 'monks_sandals', epics: ['wellspring', 'temple_censer', 'calm_waters'] },
+                { boots: 'monks_sandals', epics: ['wellspring', 'horn_of_steel_sun', 'breakwater'] }],
+    scientist: [{ boots: 'insulated_sabatons', epics: ['wildfire_totem', 'stone_litany', 'magnum_opus'] },
+                { boots: 'insulated_sabatons', epics: ['hoarfrost_staff', 'lunar_halo', 'chameleon_hide'] }],
+    panther:   [{ boots: 'fencers_slippers', epics: ['twin_scales', 'vipers_kiss', 'hex_needle'] },
+                { boots: 'monks_sandals', epics: ['mirror_blade', 'reapers_orrery', 'misericorde'] }],
+    bodyguard: [{ boots: 'insulated_sabatons', epics: ['chameleon_hide', 'cloak_of_the_oathsworn', 'tortoise_shell'] },
+                { boots: 'insulated_sabatons', epics: ['inquisitors_plate', 'rimed_pauldrons', 'spellbreakers_veil'] }]
+  };
+
   // Item objects for a hero's test build at a level ('none' = no items; a lean name overrides the hero's own lean).
   // Uses the nearest defined level at or below the requested one.
   function testBuildItems(heroId, level, build) {
@@ -80,6 +101,7 @@ window.MOBA_PHASE1 = (function () {
     SHOP_ITEMS,
     HERO_LEAN,
     TEST_BUILDS,
+    BOT_BUILDS,
     testBuildItems
   };
 })();
