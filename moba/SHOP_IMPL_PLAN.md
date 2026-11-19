@@ -1,5 +1,10 @@
 # Shop implementation plan
 
+> **Status 2026-11-18:** Phases 0-5 done and committed (`30e2e13`, `4ded3d3`, `13343f1`, `3c480f7`, `9a2c0c2`, `8e967f2`).
+> `?itemtest` = 109 in-game checks (`js/itemtest.js`). **Next: Phase 6** (new test builds, profile + duel at Lv6 / Lv12,
+> compare with the damage budget; watch the tank build's EHP, ~2.7x a carry at Lv12 vs the 1.5x target).
+> Backlog from this work: shop UI aesthetic pass, item icons, lane wall model (REFACTOR_NOTES.md).
+
 Source of truth for every number and name: [SHOP_PLAN.md](file:///Users/bmyersmorgan/Documents/GitHub/canterburyegg.github.io/moba/SHOP_PLAN.md). One commit per phase, after you check it.
 
 ## What the code looks like today
