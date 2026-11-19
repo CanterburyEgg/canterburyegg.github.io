@@ -36684,7 +36684,7 @@
   },
   "jupiter": {
     "title": "Jupiter, the Bringer of Jollity (Gustav Holst)",
-    "sidecar_sha256": "6b12a5ef91bcd04f863de84cf150c6a8b9db0a4eede121758caaa2a63bf663e6",
+    "sidecar_sha256": "cc1a81399ce4565ed71c25faca24c723fc45d1c54740815908b9000dce72a955",
     "mode": "4k:more",
     "notes": [
       {
@@ -38506,8 +38506,8 @@
         "isChordPartner": false
       },
       {
-        "time": 65.1552,
-        "endTime": 65.1552,
+        "time": 65.1126,
+        "endTime": 65.1126,
         "type": "tap",
         "lane": 1,
         "midi": 66,
@@ -38515,8 +38515,8 @@
         "isChordPartner": false
       },
       {
-        "time": 65.399,
-        "endTime": 65.399,
+        "time": 65.3577,
+        "endTime": 65.3577,
         "type": "tap",
         "lane": 0,
         "midi": 62,
@@ -38524,7 +38524,7 @@
         "isChordPartner": false
       },
       {
-        "time": 65.6428,
+        "time": 65.6028,
         "endTime": 66.4532,
         "type": "hold",
         "lane": 0,
@@ -38695,8 +38695,8 @@
         "isChordPartner": false
       },
       {
-        "time": 72.7094,
-        "endTime": 72.7094,
+        "time": 72.6758,
+        "endTime": 72.6758,
         "type": "tap",
         "lane": 3,
         "midi": 57,
@@ -38704,8 +38704,8 @@
         "isChordPartner": false
       },
       {
-        "time": 72.9542,
-        "endTime": 72.9542,
+        "time": 72.9121,
+        "endTime": 72.9121,
         "type": "tap",
         "lane": 2,
         "midi": 54,
@@ -38713,8 +38713,8 @@
         "isChordPartner": false
       },
       {
-        "time": 73.199,
-        "endTime": 73.199,
+        "time": 73.1485,
+        "endTime": 73.1485,
         "type": "tap",
         "lane": 1,
         "midi": 50,
@@ -38722,8 +38722,8 @@
         "isChordPartner": false
       },
       {
-        "time": 73.4437,
-        "endTime": 74.5047,
+        "time": 73.3849,
+        "endTime": 74.4459,
         "type": "hold",
         "lane": 1,
         "midi": 50,
@@ -41071,8 +41071,8 @@
         "isChordPartner": false
       },
       {
-        "time": 150.6692,
-        "endTime": 150.6692,
+        "time": 150.631,
+        "endTime": 150.631,
         "type": "tap",
         "lane": 0,
         "midi": 67,
@@ -41080,8 +41080,8 @@
         "isChordPartner": false
       },
       {
-        "time": 150.8492,
-        "endTime": 150.8492,
+        "time": 150.7952,
+        "endTime": 150.7952,
         "type": "tap",
         "lane": 1,
         "midi": 69,
@@ -41089,8 +41089,8 @@
         "isChordPartner": false
       },
       {
-        "time": 151.0226,
-        "endTime": 151.0226,
+        "time": 150.9593,
+        "endTime": 150.9593,
         "type": "tap",
         "lane": 2,
         "midi": 71,
@@ -41107,8 +41107,8 @@
         "isChordPartner": false
       },
       {
-        "time": 151.3244,
-        "endTime": 151.3244,
+        "time": 151.2875,
+        "endTime": 151.2875,
         "type": "tap",
         "lane": 3,
         "midi": 72,
@@ -44842,8 +44842,8 @@
         "isChordPartner": false
       },
       {
-        "time": 354.0463,
-        "endTime": 354.0463,
+        "time": 354.0776,
+        "endTime": 354.0776,
         "type": "tap",
         "lane": 1,
         "midi": 65,
@@ -45103,8 +45103,8 @@
         "isChordPartner": false
       },
       {
-        "time": 364.3443,
-        "endTime": 364.3443,
+        "time": 364.3775,
+        "endTime": 364.3775,
         "type": "tap",
         "lane": 3,
         "midi": 67,
@@ -45112,8 +45112,8 @@
         "isChordPartner": false
       },
       {
-        "time": 364.6113,
-        "endTime": 364.6113,
+        "time": 364.6495,
+        "endTime": 364.6495,
         "type": "tap",
         "lane": 1,
         "midi": 64,
@@ -46714,8 +46714,8 @@
         "isChordPartner": false
       },
       {
-        "time": 412.2204,
-        "endTime": 412.2204,
+        "time": 412.1803,
+        "endTime": 412.1803,
         "type": "tap",
         "lane": 2,
         "midi": 69,
@@ -46723,8 +46723,8 @@
         "isChordPartner": false
       },
       {
-        "time": 412.5501,
-        "endTime": 412.5501,
+        "time": 412.4967,
+        "endTime": 412.4967,
         "type": "tap",
         "lane": 1,
         "midi": 67,
@@ -47596,8 +47596,8 @@
         "isChordPartner": false
       },
       {
-        "time": 436.1056,
-        "endTime": 436.1056,
+        "time": 436.1359,
+        "endTime": 436.1359,
         "type": "tap",
         "lane": 2,
         "midi": 76,
@@ -47605,8 +47605,8 @@
         "isChordPartner": false
       },
       {
-        "time": 436.2101,
-        "endTime": 436.2101,
+        "time": 436.2475,
+        "endTime": 436.2475,
         "type": "tap",
         "lane": 0,
         "midi": 72,
@@ -47623,8 +47623,8 @@
         "isChordPartner": false
       },
       {
-        "time": 436.5584,
-        "endTime": 436.5584,
+        "time": 436.6101,
+        "endTime": 436.6101,
         "type": "tap",
         "lane": 2,
         "midi": 76,
@@ -47632,8 +47632,8 @@
         "isChordPartner": false
       },
       {
-        "time": 436.6512,
-        "endTime": 436.6512,
+        "time": 436.6938,
+        "endTime": 436.6938,
         "type": "tap",
         "lane": 3,
         "midi": 77,
@@ -47641,8 +47641,8 @@
         "isChordPartner": false
       },
       {
-        "time": 436.9647,
-        "endTime": 436.9647,
+        "time": 437.0286,
+        "endTime": 437.0286,
         "type": "tap",
         "lane": 2,
         "midi": 76,
@@ -47650,8 +47650,8 @@
         "isChordPartner": false
       },
       {
-        "time": 437.313,
-        "endTime": 437.313,
+        "time": 437.3633,
+        "endTime": 437.3633,
         "type": "tap",
         "lane": 1,
         "midi": 74,
@@ -47722,8 +47722,8 @@
         "isChordPartner": false
       },
       {
-        "time": 440.0065,
-        "endTime": 440.0065,
+        "time": 439.9576,
+        "endTime": 439.9576,
         "type": "tap",
         "lane": 0,
         "midi": 72,
@@ -47794,8 +47794,8 @@
         "isChordPartner": false
       },
       {
-        "time": 442.0774,
-        "endTime": 442.0774,
+        "time": 442.0795,
+        "endTime": 442.0795,
         "type": "tap",
         "lane": 1,
         "midi": 42,
@@ -47803,8 +47803,8 @@
         "isChordPartner": false
       },
       {
-        "time": 442.4749,
-        "endTime": 442.4749,
+        "time": 442.481,
+        "endTime": 442.481,
         "type": "tap",
         "lane": 2,
         "midi": 44,
@@ -47812,8 +47812,8 @@
         "isChordPartner": false
       },
       {
-        "time": 442.8723,
-        "endTime": 442.8723,
+        "time": 442.8825,
+        "endTime": 442.8825,
         "type": "tap",
         "lane": 3,
         "midi": 47,
@@ -47821,7 +47821,7 @@
         "isChordPartner": false
       },
       {
-        "time": 443.2758,
+        "time": 443.2922,
         "endTime": 444.0032,
         "type": "hold",
         "lane": 2,

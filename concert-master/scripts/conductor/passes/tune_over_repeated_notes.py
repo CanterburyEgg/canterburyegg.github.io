@@ -6,7 +6,7 @@ thing being played").
 
 The accompaniment: a stretch of the lead in one part, 4+ notes, 80%+ of them one pitch. The tune: a phrase in another
 part (split at rests of 0.3s+) of 4+ notes with 3+ different pitch classes (octave leaps aren't a tune), no one pitch
-more than 75% of them, median note 0.2s+ (a tune, not figuration), not a mallet/harp part, sounding
+more than 75% of them, notes averaging 0.2s+ (a tune, not figuration), not a mallet/harp part, sounding
 through 60%+ of the stretch. Brass first, then the highest. The tune leads from its first note to its last (only over
 the accompaniment). Exact scores only.
 """
@@ -65,8 +65,8 @@ def run(ctx):
             if len({p % 12 for p in ps}) < 3 or max(ps.count(p) for p in set(ps)) > 0.75 * len(inside):
                 continue
             # (a tune, not quick figuration: Jupiter 0:47's piccolo arpeggios over the violins' held 86 aren't one)
-            ds = sorted(float(m["end"]) - float(m["start"]) for m in inside)
-            if ds[len(ds) // 2] < 0.2:
+            # (by average length: Mars 2:33's euphonium triplets 62 61 62 between quarters are still the tune)
+            if sum(float(m["end"]) - float(m["start"]) for m in inside) / len(inside) < 0.2:
                 continue
             b0, b1 = float(inside[0]["start"]), min(s1, max(float(m["end"]) for m in inside))
             cover = sum(min(b1, float(m["end"])) - max(b0, float(m["start"])) for m in inside) / max(1e-6, s1 - s0)

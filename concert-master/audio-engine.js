@@ -1423,6 +1423,7 @@ const LAYOUT_RULES = [
   ['twoNoteSwingKeys', (n, l, c) => { if (c.exactScore) applyTwoNoteSwingKeys(n, l, c.chordHits); }],
   ['slowRepeatsKeepKey', (n, l, c) => { if (c.exactScore) applySlowRepeatsKeepKey(n, l); }],
   ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l); }],
+  ['longRunsEndOnEdge', (n, l, c) => { if (c.exactScore) applyLongRunsEndOnEdge(n, l); }],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -4892,14 +4893,50 @@ function applyQuickRipsFourKeys(notes, lanes) {
     const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
     let b = a;
     while (b + 1 < prim.length && dir && prim[b + 1].time - prim[b].time < 0.1 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir) b++;
-    const midRun = a > 0 && prim[a].time - prim[a - 1].time < 0.1 && Math.sign(prim[a].midi - prim[a - 1].midi) === dir;
-    if (!midRun && b - a + 1 >= 5 && b - a + 1 <= 7 && !prim.slice(a, b + 1).some((x) => x.type === 'hold' && x !== prim[b])) {
+    // (a rip on its own: not a stretch of a longer run -- the notes either side don't carry on the same way within 0.2s)
+    const midRun = a > 0 && prim[a].time - prim[a - 1].time < 0.2 && Math.sign(prim[a].midi - prim[a - 1].midi) === dir;
+    const runsOn = b + 1 < prim.length && prim[b + 1].time - prim[b].time < 0.2 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir;
+    if (!midRun && !runsOn && b - a + 1 >= 5 && b - a + 1 <= 7 && !prim.slice(a, b + 1).some((x) => x.type === 'hold' && x !== prim[b])) {
       const run = prim.slice(a, b + 1);
       const keep = [run[0], ...run.slice(-3)];
       run.forEach((x) => {
         if (!keep.includes(x)) notes.splice(notes.indexOf(x), 1);
       });
       keep.forEach((x, j) => (x.lane = dir > 0 ? j : lanes - 1 - j));
+      a = b + 1;
+    } else a++;
+  }
+}
+
+/**
+ * Long runs end on the end key: a quick run of 6+ notes one way (each under 0.2s apart, its landing note included)
+ * that wraps round the keys is laid so it ends on K going up, D going down -- counting back from its last note
+ * (Mars 2:52: the clarinets' 55 ... 89 scale ended on D; user, Nov 18: "for extended woodwind runs like this I'd like
+ * them to end on K"). Exact scores only.
+ */
+function applyLongRunsEndOnEdge(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  for (let a = 0; a + 5 < prim.length; ) {
+    const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
+    let b = a;
+    while (b + 1 < prim.length && dir && prim[b + 1].time - prim[b].time < 0.2 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir) b++;
+    const run = prim.slice(a, b + 1);
+    if (run.length >= 6 && !run.some((x) => x.fixedLane || x.localPin || x.ghost)) {
+      const L = run.length;
+      run.forEach((x, j) => {
+        const back = L - 1 - j;
+        x.lane = dir > 0 ? (((3 - back) % 4) + 4) % 4 : back % 4;
+      });
+      // (a long run that would start mid-keyboard or on the far key straight after another note drops its first note
+      // or two so it starts on D going up (K going down) -- Mars 2:48: the trumpets end on D, the clarinet scale
+      // started on K right after; user, Nov 18: "I don't mind having a gap and skipping the K")
+      const startEdge = dir > 0 ? 0 : lanes - 1;
+      const pv = a > 0 ? prim[a - 1] : null;
+      if (L >= 10 && pv && run[0].time - pv.time < 0.4 && run[0].lane !== startEdge) {
+        const k = run.findIndex((x) => x.lane === startEdge);
+        if (k > 0 && k <= 2) run.slice(0, k).forEach((x) => notes.splice(notes.indexOf(x), 1));
+      }
       a = b + 1;
     } else a++;
   }

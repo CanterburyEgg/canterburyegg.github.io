@@ -1,5 +1,9 @@
 [
-  {"song": "jupiter", "start": 31, "end": 37, "label": "Jupiter 0:31-0:37 - no more D D", "issue": "J72 F71 D65 again (the 71 and 65 had both landed on D). 0:33.2 is now K76 (was J76)."},
-  {"song": "jupiter", "start": 412, "end": 418, "label": "Jupiter 6:52-6:58 - the approved F D F J K climb", "issue": "55 57 | 58 60 62 = F D F J K (you approved this on Nov 17)."},
-  {"song": "jupiter", "start": 428, "end": 433, "label": "Jupiter 7:08-7:13 - the F D before the flourish", "issue": "67 69 | 70 72 74 = F D F J K -- the same shape as 6:55. Should this one be F J | F J K?"}
+ {
+  "song": "mars",
+  "start": 120,
+  "end": 180,
+  "label": "Mars 2:00-3:00 (full minute)",
+  "issue": "Fixed: 2:46 trumpet riff now follows the audio (rule: a brass figure landing on a held note takes its tempo from that landing). Same rule pulls the 2:30 and 2:36 figure tails ~0.1s earlier, also onto the audio. 2:21-2:30 keys shifted up a lane (repeat matching), as staged before."
+ }
 ]

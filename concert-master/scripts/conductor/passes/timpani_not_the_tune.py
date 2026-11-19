@@ -8,7 +8,8 @@ which it shouldn't"). A timpani solo -- nothing else striking -- keeps the lead.
 def run(ctx):
     if ctx.score_path is None or ctx.score_path.suffix.lower() not in (".mxl", ".musicxml", ".xml"):
         return
-    others = [st for st in ctx.staves if not st.get("is_drum") and "timp" not in st["name"].lower()]
+    skip = ("timp", "glock", "xylo", "bell", "celesta", "vib", "marimba", "harp")
+    others = [st for st in ctx.staves if not st.get("is_drum") and not any(k in st["name"].lower() for k in skip)]
     out, swapped = [], 0
     for x in sorted(ctx.lead_notes, key=lambda m: float(m["start"])):
         if "timp" not in str(x.get("staff", "")).lower():
