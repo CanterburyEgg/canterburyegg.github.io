@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drifter · Asset Lab</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; color: #e8ecf2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    #app { position: fixed; inset: 0; }
+    #panel { position: fixed; top: 12px; left: 12px; width: 330px; max-height: calc(100vh - 24px); overflow-y: auto; background: rgba(12, 16, 24, 0.88); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 12px 14px; font-size: 12.5px; line-height: 1.5; }
+    h1 { font-size: 14px; letter-spacing: 0.12em; margin: 0 0 8px; }
+    h2 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8b95a7; margin: 12px 0 4px; }
+    .row { display: flex; gap: 6px; align-items: center; margin: 4px 0; flex-wrap: wrap; }
+    select, input[type=range] { flex: 1; }
+    select { background: #151b26; color: #e8ecf2; border: 1px solid #2a3344; border-radius: 6px; padding: 4px 6px; }
+    button { background: #22304a; color: #e8ecf2; border: 1px solid #34466a; border-radius: 6px; padding: 4px 9px; cursor: pointer; font-size: 12px; }
+    button.on { background: #4a3f1a; border-color: #ffd77a; color: #ffd77a; }
+    .muted { color: #8b95a7; }
+    #stats { position: fixed; top: 12px; right: 12px; background: rgba(12, 16, 24, 0.85); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-variant-numeric: tabular-nums; }
+    #labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+    .lbl { position: absolute; transform: translate(-50%, 0); font-size: 10.5px; color: #dfe6f0; background: rgba(10, 12, 18, 0.65); padding: 1px 5px; border-radius: 4px; white-space: nowrap; }
+    .lbl b { color: #ffe680; font-weight: 600; }
+    #anims button { margin: 2px; }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="labels"></div>
+  <div id="stats"></div>
+  <section id="panel">
+    <h1>ASSET LAB <span class="muted" style="letter-spacing:0">local only (packs are gitignored)</span></h1>
+    <div class="row">
+      <button id="mode-human" class="on" type="button">Human</button>
+      <button id="mode-gallery" type="button">Gallery</button>
+      <button id="mode-rig" type="button">Astronaut rig</button>
+      <button id="mode-density" type="button">Density test</button>
+    </div>
+
+    <div id="human-ui">
+      <h2>Faceted human (UAL skeleton, 86 animations)</h2>
+      <div class="row"><span class="muted" style="width:78px">Body</span><select id="h-body"><option value="male">Male</option><option value="female">Female</option><option value="android">Android (segmented, future NPCs)</option></select></div>
+      <div class="row"><span class="muted" style="width:78px">Chunkiness</span><input id="h-cell" type="range" min="2" max="60" value="2" /><span id="h-tris" class="muted"></span></div>
+      <div class="row"><span class="muted" style="width:78px">Height</span><input id="h-height" type="range" min="88" max="112" value="100" /></div>
+      <div class="row"><span class="muted" style="width:78px">Weight</span><input id="h-weight" type="range" min="-100" max="100" value="-25" /><span class="muted">slim · heavy</span></div>
+      <div class="row"><span class="muted" style="width:78px">Muscle</span><input id="h-muscle" type="range" min="-100" max="100" value="-20" /><span class="muted">soft · strong</span></div>
+      <div class="row"><span class="muted" style="width:78px">Bust</span><input id="h-bust" type="range" min="-100" max="100" value="20" /><span class="muted">female</span></div>
+      <div class="row"><span class="muted" style="width:78px">Lift</span><input id="h-lift" type="range" min="0" max="100" value="55" /></div>
+      <div class="row"><span class="muted" style="width:78px">Shoulders</span><input id="h-shoulders" type="range" min="88" max="125" value="100" /></div>
+      <div class="row"><span class="muted" style="width:78px">Neck</span><input id="h-neck" type="range" min="50" max="110" value="78" /></div>
+      <div class="row"><span class="muted" style="width:78px">Head</span><input id="h-head" type="range" min="88" max="125" value="105" /></div>
+      <h2>Look</h2>
+      <div class="row"><span class="muted" style="width:78px">Hair</span><select id="h-hair"><option value="parted">parted</option><option value="buzz">buzzed</option><option value="buzzSoft">buzzed (soft)</option><option value="long">long</option><option value="buns">buns</option><option value="none">none</option></select>
+        <label class="muted"><input id="h-beard" type="checkbox" /> beard</label></div>
+      <h2>Face</h2>
+      <div class="row"><span class="muted" style="width:78px">Expression</span><select id="f-expr"><option>neutral</option><option>happy</option><option>grin</option><option>smug</option><option>angry</option><option>sad</option><option>worried</option><option>surprised</option><option>asleep</option></select>
+        <label class="muted"><input id="f-talk" type="checkbox" /> talking</label></div>
+      <div class="row"><span class="muted" style="width:78px">Jaw</span><input id="f-jaw" type="range" min="-100" max="100" value="0" /></div>
+      <div class="row"><span class="muted" style="width:78px">Chin</span><input id="f-chin" type="range" min="-100" max="100" value="0" /></div>
+      <div class="row"><span class="muted" style="width:78px">Cheekbones</span><input id="f-cheeks" type="range" min="-100" max="100" value="0" /></div>
+      <div class="row"><span class="muted" style="width:78px">Brow ridge</span><input id="f-brow" type="range" min="-100" max="100" value="0" /></div>
+      <div class="row"><span class="muted" style="width:78px">Nose</span><input id="f-nose" type="range" min="-100" max="100" value="0" /></div>
+      <div class="row"><span class="muted" style="width:78px">Face width</span><input id="f-width" type="range" min="-100" max="100" value="0" /></div>
+      <div class="row"><span class="muted" style="width:78px">Eye size</span><input id="f-eyesize" type="range" min="70" max="140" value="100" /></div>
+      <div class="row"><span class="muted" style="width:78px">Eye spacing</span><input id="f-eyespace" type="range" min="80" max="120" value="100" /></div>
+      <div class="row"><span class="muted" style="width:78px">Mouth</span><input id="f-mouth" type="range" min="70" max="140" value="100" /></div>
+      <div class="row">
+        <label class="muted">eyes <input id="c-eyes" type="color" value="#4a6a8a" /></label>
+        <label class="muted">lips <input id="c-lips" type="color" value="#9a4a44" /></label>
+      </div>
+      <h2>Outfit cuts</h2>
+      <div class="row"><span class="muted" style="width:78px">Sleeves</span><select id="o-sleeves"><option value="tank">tank</option><option value="short" selected>short</option><option value="elbow">elbow</option><option value="long">long</option></select></div>
+      <div class="row"><span class="muted" style="width:78px">Neck</span><select id="o-neck"><option value="crew">crew</option><option value="v">V-neck</option><option value="scoop">scoop</option><option value="turtle">turtleneck</option></select>
+        <select id="o-hem"><option value="full">full hem</option><option value="crop">cropped</option></select></div>
+      <div class="row"><span class="muted" style="width:78px">Layer</span><select id="o-layer"><option value="none">none</option><option value="vest">vest</option><option value="jacket">open jacket</option></select></div>
+      <div class="row"><span class="muted" style="width:78px">Pants</span><select id="o-pants"><option value="shorts">shorts</option><option value="capri">capris</option><option value="full" selected>full</option></select></div>
+      <div class="row"><span class="muted" style="width:78px">Boots</span><select id="o-boots"><option value="short">short</option><option value="tall">tall</option></select>
+        <label class="muted"><input id="o-gloves" type="checkbox" /> gloves</label></div>
+      <div class="row">
+        <label class="muted">skin <input id="c-skin" type="color" value="#d9a982" /></label>
+        <label class="muted">hair <input id="c-hair" type="color" value="#4a3020" /></label>
+        <label class="muted">shirt <input id="c-shirt" type="color" value="#4f6a8a" /></label>
+        <label class="muted">layer <input id="c-layer" type="color" value="#6b4f36" /></label>
+      </div>
+      <div class="row">
+        <label class="muted">pants <input id="c-pants" type="color" value="#5a4a3a" /></label>
+        <label class="muted">belt <input id="c-belt" type="color" value="#2e2620" /></label>
+        <label class="muted">boots <input id="c-boots" type="color" value="#3a3028" /></label>
+        <label class="muted">gloves <input id="c-gloves" type="color" value="#6b5a48" /></label>
+      </div>
+      <div class="row"><button id="h-random" type="button">🎲 Randomize</button><button id="h-orig" type="button">Show stock mannequin</button></div>
+      <h2>Animation</h2>
+      <div class="row"><select id="h-anim"></select></div>
+      <div class="row" id="h-quick"></div>
+    </div>
+
+    <div id="gallery-ui" style="display:none">
+      <h2>Pack</h2>
+      <div class="row"><select id="pack"></select></div>
+      <div class="row"><select id="category"></select></div>
+      <h2>Style</h2>
+      <div class="row">
+        <button id="style-orig" class="on" type="button">Original</button>
+        <button id="style-flat" type="button">Flat recolor</button>
+      </div>
+      <div class="row"><span class="muted" style="width:70px">Palette</span><select id="palette"></select></div>
+      <div class="row"><span class="muted" style="width:70px">Hue shift</span><input id="hue" type="range" min="-180" max="180" value="0" /></div>
+      <div class="row"><span class="muted" style="width:70px">Saturation</span><input id="sat" type="range" min="0" max="200" value="100" /></div>
+      <p class="muted">The yellow capsule is our player (1.8m) for scale. Models are shown at native pack scale × the scale slider.</p>
+      <div class="row"><span class="muted" style="width:70px">Scale</span><input id="scale" type="range" min="10" max="300" value="100" /></div>
+    </div>
+
+    <div id="rig-ui" style="display:none">
+      <h2>Faceted body on the Space Kit astronaut skeleton</h2>
+      <p class="muted">Our low-poly primitive parts ride the astronaut's 43 bones, so they play its 18 real animations.</p>
+      <div class="row">
+        <button id="rig-show-orig" type="button">Show original mesh</button>
+        <button id="rig-reroll" type="button">Reroll look</button>
+      </div>
+      <h2>Animations</h2>
+      <div id="anims"></div>
+    </div>
+
+    <div id="density-ui" style="display:none">
+      <h2>How many can we draw?</h2>
+      <div class="row"><select id="density-model"></select></div>
+      <div class="row"><span class="muted" style="width:60px">Count</span><input id="density-count" type="range" min="100" max="6000" step="100" value="1500" /><span id="density-n">1500</span></div>
+      <div class="row"><button id="density-shadows" class="on" type="button">Shadows</button></div>
+      <p class="muted">A Large planet currently has ~3,000 trees and ~4,000 shrubs. Watch FPS and total triangles.</p>
+    </div>
+  </section>
+  <script type="module" src="js/asset_lab.js"></script>
+</body>
+</html>
