@@ -2488,7 +2488,7 @@ function submitMammal() {
     // Typo or one-animal shorthand: put the full name in the box and ask for a second Enter
     if (lastMatchKind !== "exact" && normalizeStr(raw) !== normalizeStr(mammal.name)) {
         input.value = mammal.name;
-        showAutocorrectNote(`${raw} => ${mammal.name}. Press enter again to submit`);
+        showAutocorrectNote(`${raw} → ${mammal.name}. Press enter again to submit`);
         return;
     }
     hideAutocorrectNote();
