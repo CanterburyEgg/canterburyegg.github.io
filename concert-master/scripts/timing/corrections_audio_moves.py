@@ -1,7 +1,8 @@
 """<song>_corrections.json 'audio_moves' (by ear): a lead note the alignment places at the wrong moment in the recording
 (e.g. a chord that swells in after a molto rit., with no sharp attack to align to). Matched by its score start (within
 0.02s) and written pitch; 'to' is its audio time. The note before it releases just before. With
-'keep_length': true the note keeps its length instead of keeping its end."""
+'keep_length': true the note keeps its length instead of keeping its end; with 'hold': true it is held up to the next note
+(and flagged, 9th field 1, so the chart holds it)."""
 import json
 from pathlib import Path
 
@@ -23,3 +24,14 @@ def run(ns):
                 warped[k]["start"] = t_new
                 if k > 0 and float(melody_out[k - 1][1]) > t_new - 0.015:
                     melody_out[k - 1][1] = round(max(float(melody_out[k - 1][0]) + 0.04, t_new - 0.015), 4)
+
+    # (moved notes marked 'hold' are held up to the next note, once every move is in place)
+    for mv in json.loads(corr.read_text(encoding="utf-8")).get("audio_moves", []):
+        if not mv.get("hold"):
+            continue
+        for k in range(min(len(melody_out), len(warped)) - 1):
+            if abs(float(warped[k]["score_start"]) - float(mv["score_start"])) < 0.02 and int(melody_out[k][2]) == int(mv["midi"]):
+                melody_out[k][1] = round(max(float(melody_out[k][1]), float(melody_out[k + 1][0]) - 0.015), 4)
+                while len(melody_out[k]) < 9:
+                    melody_out[k].append(0)
+                melody_out[k][8] = 1

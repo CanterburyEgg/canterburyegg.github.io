@@ -1036,7 +1036,10 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
     const isSlow = act < 0.42;
     const releaseBuf = isSlow ? 0.09 : 0.13;
     const usableHold = Math.min(tEnd - tStart, gapToNext - releaseBuf);
-    const minHold = isSlow ? 0.46 : 0.56;
+    // (a note the score wants held -- 9th field 1: the long notes of a 3+1 pattern -- holds down to 0.3s; user, Nov 19:
+    // "some of the 3+1s have the 3s as holds, and some don't ... ALL of them should probably be held")
+    const wantHold = rawMel[i].length > 8 && rawMel[i][8] === 1;
+    const minHold = wantHold ? 0.3 : isSlow ? 0.46 : 0.56;
     const holdDuration = usableHold >= minHold ? usableHold : 0;
 
     notes.push({

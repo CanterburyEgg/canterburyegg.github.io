@@ -106,6 +106,16 @@ def run(ns):
                     mo[q][1] = round(tn + d, 4)
                     moved += 1
             qs = sorted(new)
+            # (every long note is held, right up to the short note after it -- the alignment had cut some short by
+            # articulation, so some 3s were holds and some taps; user, Nov 19: "I do think ALL of them should probably
+            # be held")
+            for q in longs:
+                if q + 1 < n:
+                    mo[q][1] = round(max(float(mo[q][1]), float(mo[q + 1][0]) - 0.015), 4)
+                # (and flagged, 9th field = 1, so the chart holds it even when the pattern runs quick)
+                while len(mo[q]) < 9:
+                    mo[q].append(0)
+                mo[q][8] = 1
             for q in range(max(0, qs[0] - 1), min(n - 1, qs[-1] + 1)):
                 nxt = float(mo[q + 1][0])
                 if float(mo[q][1]) > nxt - 0.015:

@@ -31,6 +31,13 @@
       "end": 150.75,
       "late": true,
       "why": "2:42.9-2:43.5 (score 150-150.8): the woodwinds' 83 (doubled by the first violins) starts the phrase 83 80 80 83 85 88 ...; the rules pick the fourth horn's 66 66 under it -- a chord-filling part, not a repeated note, so the tune-over-repeated-notes rule doesn't apply (user, Nov 18: 'locking onto the low brass background')."
+    },
+    {
+      "staff": "Trumpet 3 in C",
+      "start": 365.25,
+      "end": 366.35,
+      "late": true,
+      "why": "6:54.4-6:55.5 (score 365.3-366.3): the long-short line goes on 72 | 74 75 74 | 73 in the third trumpet, the second and fifth horns and the violins, while the first horn (the lead until here) joins the whole brass on a held 71 -- the band's chord covers the line there, and the rules followed the first horn into the chord (user, Nov 19: \"it's just 6:55~ where the brass chord covers the line\"). The third trumpet carries the line into the final chord's 73."
     }
   ],
   "ghost_notes": false,
@@ -237,6 +244,42 @@
       "to": 410.8147,
       "keep_length": true,
       "why": "6:50.81 (score 362.0857): pinned by ear in the sandbox (user, Nov 19)."
+    },
+    {
+      "score_start": 365.2857,
+      "midi": 74,
+      "to": 414.5451,
+      "keep_length": true,
+      "why": "6:54.55 (score 365.2857): pinned by ear in the sandbox (user, Nov 20)."
+    },
+    {
+      "score_start": 365.4857,
+      "midi": 75,
+      "to": 414.8874,
+      "keep_length": true,
+      "why": "6:54.89 (score 365.4857): pinned by ear in the sandbox (user, Nov 20). Held up to the next note: it's the long note of the 3+1, and every 3 is held (user, Nov 19).",
+      "hold": true
+    },
+    {
+      "score_start": 366.0857,
+      "midi": 74,
+      "to": 415.7283,
+      "keep_length": true,
+      "why": "6:55.73 (score 366.0857): pinned by ear in the sandbox (user, Nov 20)."
+    },
+    {
+      "score_start": 366.2857,
+      "midi": 73,
+      "to": 416.3741,
+      "keep_length": true,
+      "why": "6:56.37 (score 366.2857): pinned by ear in the sandbox (user, Nov 20)."
+    },
+    {
+      "score_start": 373.1429,
+      "midi": 77,
+      "to": 421.3376,
+      "keep_length": true,
+      "why": "7:01.34 (score 373.1429): pinned by ear in the sandbox (user, Nov 20)."
     }
   ]
 }
