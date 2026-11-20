@@ -4724,7 +4724,8 @@ function applyQuickBurstsLandHome(notes, lanes) {
   const runs = [];
   for (let s = 0; s < n; ) {
     let e = s;
-    while (e + 1 < n && prim[e + 1].midi === prim[s].midi && prim[e + 1].time - prim[e].time < 0.5) e++;
+    // (a quarter in a broad tempo can run past half a second -- Mars 4:50, 0.52s -- and the ostinato goes on through it)
+    while (e + 1 < n && prim[e + 1].midi === prim[s].midi && prim[e + 1].time - prim[e].time < 0.6) e++;
     const run = prim.slice(s, e + 1);
     s = e + 1;
     if (run.length < 5 || run.some((x) => x.fixedLane || x.localPin || x.ghost || x.type === 'hold')) continue;
@@ -4912,7 +4913,12 @@ function applyNoDoubledKeyInSteps(notes, lanes) {
   for (let i = 1; i < prim.length; i++) {
     const p = prim[i - 1];
     const q = prim[i];
-    if (p.midi === q.midi || p.lane !== q.lane || q.time - p.time >= 0.7 || Math.abs(q.midi - p.midi) > 7) continue;
+    // (a step off a held note counts out to 1.3s: Mars 4:24 / 4:45, J76h J78 and F64h F62 -- user, Nov 19)
+    const reach = p.type === 'hold' && Math.abs(q.midi - p.midi) <= 2 ? 1.3 : 0.7;
+    if (p.midi === q.midi || p.lane !== q.lane || q.time - p.time >= reach || Math.abs(q.midi - p.midi) > 7) continue;
+    // (...unless that note comes back on this key right after: Jupiter 3:55's F74h F72 J74 F72h keeps its F72s -- moving
+    // the first one made it D72 J74 F72; user, Nov 19: "net worse")
+    if (q.time - p.time >= 0.7 && prim.some((r) => r !== q && r.midi === q.midi && r.lane === q.lane && r.time > q.time && r.time - q.time < 2.5)) continue;
     if (q.fixedLane || q.localPin || q.ghost) continue;
     const dir = Math.sign(q.midi - p.midi);
     const want = q.lane + dir;

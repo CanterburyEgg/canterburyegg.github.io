@@ -69,7 +69,7 @@ def run(ns):
         # 72 . 71 then a quick 70 71 72 73: that 71 is the next figure's start, not a long note to anchor on)
         S0 = wl(k + 1)
         longs = [q for q in range(k, j + 3, 2) if q < n and warped[q].get("staff") == warped[k].get("staff") and (q <= j or wl(q) >= 2.5 * S0)]
-        if len(longs) >= 5:
+        if len(longs) >= 3:
             s = np.array([sc(q) for q in longs])
             t = np.array([float(mo[q][0]) for q in longs])
             # (a bass-register line -- averaging under E3: cellos and basses, soft bowed attacks under held chords -- is anchored on where each long

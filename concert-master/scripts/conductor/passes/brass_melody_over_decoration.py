@@ -121,7 +121,16 @@ def run(ctx):
             # woodwinds are only decorating: 7:20's slow low line 39 42 44 47 under the flute and clarinet runs is
             # what you follow, but 7:00's low 55 57 58 stays under the woodwinds' answer 67 72 77)
             # (...and then only a slow-moving one, half-second notes and longer)
-            if _doubled(ns, others) >= 3 and (not riff or nd[len(nd) // 2] < 0.45):
+            # (...but a brass part playing the very tune the lead has -- the same notes or an octave away, struck with it
+            # -- is the brass carrying that tune on, and it leads: Mars 4:45, the third and fourth trumpets take up the
+            # woodwinds' 76 74 73 74 79 ... an octave down while the first two hold a chord; user, Nov 19: "picked up a
+            # held note instead of the brass continuation of the melody")
+            # (over the lead's notes while this phrase plays)
+            span = [x for x in seg if float(ns[0]["start"]) - 0.02 <= float(x["start"]) < float(ns[-1]["end"]) - 0.02]
+            tune = sum(1 for x in span if any(abs(float(m["start"]) - float(x["start"])) <= 0.03 and (int(m["midi"]) - int(x["midi"])) % 12 == 0 for m in ns))
+            # (a tune that moves -- a part doubling a one-note ostinato isn't carrying a melody: 1:29's repeated 84s)
+            carries = len(span) >= 4 and tune >= 0.7 * len(span) and len({int(x["midi"]) for x in span}) >= 3 and not fanfare
+            if not carries and _doubled(ns, others) >= 3 and (not riff or nd[len(nd) // 2] < 0.45):
                 continue
             # (a phrase of 1.5s+ that sounds through most of its own span)
             b0, b1 = float(ns[0]["start"]), float(ns[-1]["end"])
@@ -130,10 +139,10 @@ def run(ctx):
             cover = sum(min(b1, float(m["end"])) - max(b0, float(m["start"])) for m in ns) / (b1 - b0)
             if cover < 0.6:
                 continue
-            if not riff and sorted(pitches)[len(pitches) // 2] < seg_mid + 12:
+            if not riff and not carries and sorted(pitches)[len(pitches) // 2] < seg_mid + 12:
                 continue
             # (the tune is the top brass line: trumpets over a trombone counter-line, unless only low brass plays)
-            key = (sorted(pitches)[len(pitches) // 2], round(cover, 2), b0)
+            key = (carries, sorted(pitches)[len(pitches) // 2], round(cover, 2), b0)
             if best is None:
                 best = []
             best.append((key, st["name"], ns))

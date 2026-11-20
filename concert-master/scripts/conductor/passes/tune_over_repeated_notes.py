@@ -53,11 +53,16 @@ def run(ctx):
     replace = []  # (s0, s1, name, notes)
     for seg in stretches:
         s0, s1 = float(seg[0]["start"]), float(seg[-1]["end"])
+        # (the tune's note in a gap just before the repeated notes, where the lead plays nothing, comes too -- Mars 4:24:
+        # the woodwinds' 76 . 78 | 80, the 78 falling between the held 76 and the trumpets' 71s; user, Nov 19: "missing
+        # the note after the held J")
+        prev_end = max([float(x["end"]) for x in lead if float(x["start"]) < s0 - 0.02] or [-1e9])
+        lo = min(s0 - 0.05, max(prev_end - 0.02, s0 - 0.5))
         best = None
         for name, ph in phrases:
             if name == seg[0].get("staff") or any(k in name.lower() for k in ("glock", "xylo", "bell", "celesta", "harp", "timp")):
                 continue
-            inside = [m for m in ph if s0 - 0.05 <= float(m["start"]) < s1]
+            inside = [m for m in ph if lo <= float(m["start"]) < s1]
             if len(inside) < 4:
                 continue
             ps = [int(m["midi"]) for m in inside]
