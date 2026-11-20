@@ -126,6 +126,13 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   weave basic attacks between casts and not open short fights with the R charge. Kit numbers are on budget (profile).
 - [ ] **Bodyguard EHP (noted 2026-11-19)**: ~11.3s for a carry to kill at Lv12 vs the 7.5s 1v1 target; left as is
   on purpose (teamfights focus him with 3-4 attackers, and pen items cut it). Revisit after playtests.
+- [ ] **Jungle + elevation design session (next up, noted 2026-11-20)**: how the jungle is formed, and Stage B
+  look-only elevation (`groundHeight` in map_layout.js still returns 0). Planned logic: castles on plateaus, bridge road
+  at plateau height with the lane wall as its parapet, boss pit floor ~3-4m lower, pit back wall = the bridge's tall
+  masonry foundation, side walls = natural cliffs, entrance = a ramp. Decide this before modelling the wall-to-cliff
+  corner (concept in assets/map/wall_cliff/ is at parapet height, so likely wrong) or a bridge foundation wall.
+- [ ] **Model batch 2026-11-19 (meshes tonight, texture next)**: lane wall, crumbled lane wall end, castle gate arch,
+  boss pit shrine, lookout deck railing. Concepts in assets/map/<name>/<name>_concept.png.
 - [ ] **Lane wall model (noted 2026-11-18)**: the top lane's south wall (code-built tan boxes, with crumbled jungle
   gaps) is also the boss hollow's back wall. Needs a model piece that reads as the lane's wall and joins the lane
   and the pit naturally. Then the lookout deck railings + gate arches could get a matching pass too.
