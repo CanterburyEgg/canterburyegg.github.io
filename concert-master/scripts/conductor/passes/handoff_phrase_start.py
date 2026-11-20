@@ -39,7 +39,14 @@ def run(ctx):
                 # nothing else was picked until later -- Mars 3:30, the band's held chord ends on the cellos' 45 44 | 43
                 # 44 45 ..., which the lead only joined at the 43; user, Nov 19: "missing the first two notes")
                 held_over = not outgoing and len(pre) >= 2 and abs(float(a_n["end"]) - p0) <= 0.05
-                if held_over or (len(outgoing) == 1 and len(pre) >= 2 and abs(float(outgoing[0]["start"]) - p0) < 0.05 and float(outgoing[0]["end"]) - float(outgoing[0]["start"]) >= 0.9):
+                # (or the outgoing part's last note falls on the new part's first: the new part takes that note -- Mars
+                # 5:45, the horns end on 71 just as the trombones start 55 55 55 ...; user, Nov 19: "it should do it on
+                # their first note and not play the last hold of the previous section")
+                nm_a = str(a_n.get("staff", ""))
+                shared = (len(outgoing) == 1 and len(pre) >= 1 and abs(float(outgoing[0]["start"]) - p0) < 0.05
+                          and str(outgoing[0].get("staff", "")) == nm_a and nm_a in by_nm_h
+                          and not any(float(outgoing[0]["end"]) - 0.02 <= float(m["start"]) < float(outgoing[0]["end"]) + 1.0 for m in by_nm_h[nm_a]))
+                if held_over or shared or (len(outgoing) == 1 and len(pre) >= 2 and abs(float(outgoing[0]["start"]) - p0) < 0.05 and float(outgoing[0]["end"]) - float(outgoing[0]["start"]) >= 0.9):
                     lead_notes = [n for n in lead_notes if not (p0 - 0.02 <= float(n["start"]) < t_b - 0.02)]
                     for ln in lead_notes:
                         if float(ln["start"]) < p0 and float(ln["end"]) > p0:

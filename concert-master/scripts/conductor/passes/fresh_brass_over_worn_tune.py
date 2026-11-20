@@ -26,7 +26,12 @@ def run(ctx):
         seen.setdefault(_iv(lead[a:a + N]), []).append(a)
     # lead notes inside a statement of a shape that already led twice before it
     worn = [False] * len(lead)
-    for occ in seen.values():
+    for shape, occ in seen.items():
+        # (a tune moves: a shape of one repeated note -- an ostinato or a fanfare on one pitch -- isn't a worn tune;
+        # Mars 5:50, the fourth trumpet's 59 59 59 59 59 59 was taken for one and swapped for a held 59; user, Nov 19: "I
+        # should do the low brass triplet section INTO the trumpets here, and not have the trumpet hold")
+        if not any(shape):
+            continue
         for k, a in enumerate(occ):
             prior = [b for b in occ[:k] if float(lead[b + N - 1]["end"]) <= float(lead[a]["start"]) + 0.02]
             # (two earlier statements that don't overlap each other)

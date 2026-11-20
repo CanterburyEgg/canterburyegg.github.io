@@ -71,7 +71,12 @@ def run(ctx):
                 same = [int(x["midi"]) for x in cur] == [int(m["midi"]) for m in seg]
                 # (the lead there is really quick figuration -- notes 0.25s or shorter -- under a tune of 0.35s+ notes)
                 md, mt = durs[len(durs) // 2], tune[len(tune) // 2]
-                if not same and md <= 0.25 and mt >= 0.35 and md <= 0.6 * mt:
+                # (one note hammered in the brass doesn't take over from a brass line that moves -- Mars 5:50, the fourth trumpet's 59 59 59
+                # 59 59 over the tenor tuba's 55 55 55 55 54 55 55 54 55 58; user, Nov 19: "I should do the low brass
+                # triplet section INTO the trumpets")
+                _br = lambda nm: any(b in str(nm).lower() for b in ("trumpet", "cornet", "horn", "trombone", "tuba", "euph", "baritone")) and "english" not in str(nm).lower()
+                flat = len({int(m["midi"]) for m in seg}) == 1 and len({int(x["midi"]) for x in cur}) >= 3 and _br(st["name"]) and all(_br(x.get("staff")) for x in cur)
+                if not same and not flat and md <= 0.25 and mt >= 0.35 and md <= 0.6 * mt:
                     windows.append((s0, s1, st["name"], seg))
             k += e
     if not windows:
