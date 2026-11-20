@@ -50,6 +50,10 @@ def run(ns):
             gp_c = mn_t - melody_out[best_k - 1][0] if best_k > 0 else 9.0
             gn_c = melody_out[best_k + 1][0] - mn_t if best_k + 1 < len(melody_out) else 9.0
             even_c = max(gp_c, gn_c) < 0.45 and abs(gp_c - gn_c) <= 0.15 * max(gp_c, gn_c)
+            # (so does the first note of an even quick run -- Mars 3:19, the violins' flourish starts a 16th after the
+            # downbeat hit; pulled onto it, the run's start came out bunched and the figure rule then squeezed it)
+            gnn_c = melody_out[best_k + 2][0] - melody_out[best_k + 1][0] if best_k + 2 < len(melody_out) else 9.0
+            even_c = even_c or (gn_c < 0.2 and abs(gn_c - gnn_c) <= 0.25 * max(gn_c, gnn_c))
             if (
                 not even_c
                 and not warped[best_k].get("is_scalar_lick")

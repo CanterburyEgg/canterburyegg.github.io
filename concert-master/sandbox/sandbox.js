@@ -139,13 +139,14 @@ function markDiffs(oldN, newN) {
 }
 
 // rv: optional rules version to force (clips.json "rulesVersion"), e.g. to preview a locked song on the unified rules
-async function currentChart(songId, rv) {
-  const cacheKey = `${rv ? `${songId}@v${rv}` : songId}|${state.easy ? 'easy' : 'hard'}`;
+async function currentChart(songId, rv, tryRules) {
+  const cacheKey = `${rv ? `${songId}@v${rv}` : songId}|${(tryRules || []).join(',')}|${state.easy ? 'easy' : 'hard'}`;
   if (state.charts.has(cacheKey)) return state.charts.get(cacheKey);
   const track = trackFor(songId);
   const resp = await fetch(`${resolveUrl(track.sidecarUrl.split('?')[0])}?t=${Date.now()}`, { cache: 'no-store' });
   const sidecar = await resp.json();
   if (rv) sidecar.rulesVersion = rv;
+  if (tryRules) sidecar.tryRules = tryRules; // (a clip can preview layout rules not yet on for its song)
   const { hydrateSidecarFeatures, buildChart } = await import(`../audio-engine.js?t=${Date.now()}`);
   const chart = buildChart(hydrateSidecarFeatures(sidecar, null), { keyMode: '4k', density: state.easy ? 'fewer' : 'more' });
   const notes = chart.notes.map((n) => ({
@@ -397,7 +398,7 @@ async function selectClip(i, autoplay) {
 
   const base = refSnapshot()[clip.song];
   state.oldNotes = base ? clipNotes(base.notes, clip) : [];
-  state.newNotes = clipNotes(await currentChart(clip.song, clip.rulesVersion), clip);
+  state.newNotes = clipNotes(await currentChart(clip.song, clip.rulesVersion, clip.tryRules), clip);
   markDiffs(state.oldNotes, state.newNotes);
   applyPins(state.newNotes, clip.song);
   state.sel = state.pinMode ? primaryIdx(-1, 1) : -1;
@@ -728,7 +729,7 @@ async function countAllDiffs() {
     const base = refSnapshot()[c.song];
     if (!base) continue;
     const o = clipNotes(base.notes, c);
-    const n = clipNotes(await currentChart(c.song, c.rulesVersion), c);
+    const n = clipNotes(await currentChart(c.song, c.rulesVersion, c.tryRules), c);
     markDiffs(o, n);
     c.diffCount = o.filter((x) => x.diff).length + n.filter((x) => x.diff).length;
   }

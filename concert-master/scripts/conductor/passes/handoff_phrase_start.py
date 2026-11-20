@@ -35,7 +35,11 @@ def run(ctx):
                 outgoing = [n for n in lead_notes if p0 - 0.02 <= float(n["start"]) < t_b - 0.02]
                 # (only when the outgoing part just sat on one held note that started together with the new phrase,
                 # i.e. it was accompanying it; a real line handing over, e.g. Arabesque 1:58 flute -> trumpet, stays)
-                if len(outgoing) == 1 and len(pre) >= 2 and abs(float(outgoing[0]["start"]) - p0) < 0.05 and float(outgoing[0]["end"]) - float(outgoing[0]["start"]) >= 0.9:
+                # (or the line went quiet just as the new phrase started: the outgoing hold ends where it begins and
+                # nothing else was picked until later -- Mars 3:30, the band's held chord ends on the cellos' 45 44 | 43
+                # 44 45 ..., which the lead only joined at the 43; user, Nov 19: "missing the first two notes")
+                held_over = not outgoing and len(pre) >= 2 and abs(float(a_n["end"]) - p0) <= 0.05
+                if held_over or (len(outgoing) == 1 and len(pre) >= 2 and abs(float(outgoing[0]["start"]) - p0) < 0.05 and float(outgoing[0]["end"]) - float(outgoing[0]["start"]) >= 0.9):
                     lead_notes = [n for n in lead_notes if not (p0 - 0.02 <= float(n["start"]) < t_b - 0.02)]
                     for ln in lead_notes:
                         if float(ln["start"]) < p0 and float(ln["end"]) > p0:

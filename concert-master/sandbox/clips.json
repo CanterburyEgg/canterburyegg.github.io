@@ -1,9 +1,9 @@
 [
  {
   "song": "mars",
-  "start": 120,
-  "end": 180,
-  "label": "Mars 2:00-3:00 (full minute)",
-  "issue": "Fixed: 2:46 trumpet riff now follows the audio (rule: a brass figure landing on a held note takes its tempo from that landing). Same rule pulls the 2:30 and 2:36 figure tails ~0.1s earlier, also onto the audio. 2:21-2:30 keys shifted up a lane (repeat matching), as staged before."
+  "start": 240,
+  "end": 300,
+  "label": "Mars 4:00-5:00",
+  "issue": ""
  }
 ]

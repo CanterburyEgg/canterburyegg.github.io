@@ -762,6 +762,7 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     impacts: sidecar.impacts || [],
     chordNotes: sidecar.chordNotes || [], // score chords entering under a held melody note: [start, end, midi]
     ghostNotes: sidecar.ghostNotes, // false = this song never uses ghost keys (e.g. Sevens, by taste)
+    tryRules: sidecar.tryRules || [], // (sandbox previews only: layout rules switched on for a song they don't yet apply to)
     // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
     exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
     chordHits: sidecar.chordHits || [], // ensemble chord hits on a melody note: [time, chord tone above, chord tone below]
@@ -1136,7 +1137,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
   ghostEdgeOK = isDense && features.ghostNotes !== false;
-  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore });
+  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore, tryRules: features.tryRules || [] });
   if (isDense) addCounterLine(notes, features.counterNotes || [], lanes);
 
   // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)
@@ -1424,6 +1425,7 @@ const LAYOUT_RULES = [
   ['slowRepeatsKeepKey', (n, l, c) => { if (c.exactScore) applySlowRepeatsKeepKey(n, l); }],
   ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l); }],
   ['longRunsEndOnEdge', (n, l, c) => { if (c.exactScore) applyLongRunsEndOnEdge(n, l); }],
+  ['runsThatRoll', (n, l, c) => { if (c.exactScore || (c.tryRules || []).includes('runsThatRoll')) applyRunsThatRoll(n, l); }],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -4652,19 +4654,24 @@ function applySlowEntryClimbRises(notes, lanes) {
   const n = prim.length;
   const reads = (p, q, lp, lq) => p.midi === q.midi ? lp === lq : lp !== lq && Math.sign(lq - lp) === Math.sign(q.midi - p.midi);
   for (let a = 0; a < n; a++) {
-    if (!prim[a].partEntry) continue;
+    if (!prim[a].partEntry || a + 1 >= n) continue;
+    // (and falls the same way, mirrored -- Mars 3:30: the cellos come in 45 . 44 | 43 under the held chord and were
+    // laid D45 F44 D43, the 44 stepping back; user, Nov 19: "JFD makes so much sense")
+    const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
+    if (!dir) continue;
     let b = a;
-    while (b + 1 < n && b - a < 3 && prim[b + 1].midi > prim[b].midi && prim[b + 1].time - prim[b].time < 1.2 && !prim[b + 1].partEntry) b++;
+    while (b + 1 < n && b - a < 3 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir && prim[b + 1].time - prim[b].time < 1.2 && !prim[b + 1].partEntry) b++;
     const run = prim.slice(a, b + 1);
     const k = run.length;
     if (k < 3 || run.some((x) => x.fixedLane || x.altRun || x.localPin || x.ghost || x.lane >= lanes)) continue;
     // (only the broad ones -- quick climbs belong to climbFitsKeys -- and only when the keys step back somewhere)
     if (!run.slice(1).some((x, j) => x.time - run[j].time >= 0.6)) continue;
-    if (!run.slice(1).some((x, j) => x.lane <= run[j].lane)) continue;
+    if (!run.slice(1).some((x, j) => (dir > 0 ? x.lane <= run[j].lane : x.lane >= run[j].lane))) continue;
     const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
     const nx = b + 1 < n && prim[b + 1].time - run[k - 1].time < 1.2 ? prim[b + 1] : null;
     const options = [];
-    for (let st = 0; st + k <= lanes; st++) options.push(run.map((_, j) => st + j));
+    for (let st = 0; st + k <= lanes; st++) options.push(run.map((_, j) => (dir > 0 ? st + j : lanes - 1 - st - j)));
+    if (dir < 0) options.reverse(); // (lowest-first either way, so the last that fits is the highest)
     const ok = options.filter((o) => (!pv || reads(pv, run[0], pv.lane, o[0]) || pv.lane !== o[0])
       && (!nx || nx.partEntry || reads(run[k - 1], nx, o[k - 1], nx.lane)));
     if (!ok.length) continue;
@@ -4846,6 +4853,54 @@ function applySlowRepeatsKeepKey(notes, lanes) {
 }
 
 /**
+ * Runs that roll: a long quick run (12+ notes, each under 0.2s apart) that both steps back by a step somewhere and
+ * drops back a third or more somewhere -- not a plain scale -- follows its shape instead of restarting D F J K every four
+ * notes: each step on is the next key (wrapping K to D when it runs out of room), a step back of a tone or less is one
+ * key back (a little K J K roll), a drop of a third or more starts afresh on the first key, a repeated note keeps its
+ * key. Mars 3:19-3:23: the violins' run 76 78 80 81 | 72 ... | 60 64 69 72 | 66 68 69 73 72 76 81 84 | 78 80 81 85 84 88
+ * 90 92 93 played D F J K sixteen times over (user, Nov 19: "it'd be more fun to play something other than
+ * DFJKDFJKDFJK over and over again", "what I want to avoid is random jumps that don't read well"). Up runs shown;
+ * down runs mirror it. Exact scores only.
+ */
+function applyRunsThatRoll(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  for (let a = 0; a < prim.length; ) {
+    let b = a;
+    while (b + 1 < prim.length && prim[b + 1].time - prim[b].time < 0.2) b++;
+    const run = prim.slice(a, b + 1);
+    a = b + 1;
+    if (run.length < 12 || run.some((x) => x.fixedLane || x.localPin || x.ghost)) continue;
+    const st = run.slice(1).map((x, j) => x.midi - run[j].midi);
+    const dir = Math.sign(run[run.length - 1].midi - run[0].midi) || 1;
+    const back = st.some((d) => d * dir < 0 && Math.abs(d) <= 2);
+    // (a drop inside the run, not just the note it lands on)
+    const drop = st.slice(0, -1).some((d) => d * dir < 0 && Math.abs(d) >= 3);
+    // (and it gets somewhere: an octave or more from its first note to its last -- a figure turning round the same few
+    // notes (Arabesque 1:02, 76 77 80 79 80 77 three times) or a short dip-and-fall (Ride 1:19) keeps its keys; tried in
+    // the sandbox, user, Nov 19: "MUCH worse at Arabesque 1:02", "slightly worse at Ride 1:19")
+    if (!back || !drop || Math.abs(run[run.length - 1].midi - run[0].midi) < 12) continue;
+    const first = dir > 0 ? 0 : lanes - 1;
+    const last = lanes - 1 - first;
+    let l = run[0].lane;
+    const plan = [l];
+    let ok = true;
+    for (let j = 1; j < run.length && ok; j++) {
+      const d = (run[j].midi - run[j - 1].midi) * dir;
+      if (d === 0) {
+        // (same note, same key)
+      } else if (d > 0) l = l === last ? first : l + dir;
+      else if (d >= -2) {
+        if (l === first) ok = false; // (no key to step back to: the run keeps the keys it had)
+        else l -= dir;
+      } else l = first;
+      plan.push(l);
+    }
+    if (ok) run.forEach((x, j) => (x.lane = plan[j]));
+  }
+}
+
+/**
  * No doubled key in a step: two different notes close together (under 0.7s apart, a 5th or less) never share a key
  * (Mars 2:17: the cor anglais' 70 71 | 72 73 | 75 70 came out D F | F J | K D, the 71 and 72 both on F; user, Nov 18:
  * "something that doesn't double the note"). The second note moves on a key the way the line goes (and the next note
@@ -4920,9 +4975,55 @@ function applyLongRunsEndOnEdge(notes, lanes) {
   for (let a = 0; a + 5 < prim.length; ) {
     const dir = Math.sign(prim[a + 1].midi - prim[a].midi);
     let b = a;
-    while (b + 1 < prim.length && dir && prim[b + 1].time - prim[b].time < 0.2 && Math.sign(prim[b + 1].midi - prim[b].midi) === dir) b++;
+    // (a long run -- 8+ notes -- may turn back once by a step on its way: Mars 3:22, the flutes' 78 80 81 85 84 88 90
+    // 92 93; shorter brass figures with a turn keep the figure rules' keys)
+    let turned = -1;
+    for (;;) {
+      if (!(b + 1 < prim.length && dir && prim[b + 1].time - prim[b].time < 0.2)) break;
+      const st = prim[b + 1].midi - prim[b].midi;
+      if (Math.sign(st) === dir) { b++; continue; }
+      if (turned < 0 && b > a && Math.abs(st) <= 2 && st !== 0 && b + 2 < prim.length && prim[b + 2].time - prim[b + 1].time < 0.2 &&
+          Math.sign(prim[b + 2].midi - prim[b + 1].midi) === dir) { turned = b + 1 - a; b++; continue; }
+      break;
+    }
+    if (turned >= 0 && b - a + 1 < 8) { b = a + turned - 1; turned = -1; }
     const run = prim.slice(a, b + 1);
-    if (run.length >= 6 && !run.some((x) => x.fixedLane || x.localPin || x.ghost)) {
+    if (turned >= 0 && run.length >= 8 && !run.some((x) => x.fixedLane || x.localPin || x.ghost)) {
+      // (with a turn in it, the keys are planned: each step on a key the way it goes, wrapping round the end key only
+      // where it must, ending on the end key if it can -- K J back for the turn: D F J K J K | D F J)
+      const L = run.length;
+      const cost = (j, lp, l) => {
+        const up = Math.sign(run[j].midi - run[j - 1].midi) * dir > 0;
+        const want = up ? (dir > 0 ? lp + 1 : lp - 1) : dir > 0 ? lp - 1 : lp + 1;
+        if (l === want) return 0;
+        if (up && (dir > 0 ? lp === lanes - 1 && l === 0 : lp === 0 && l === lanes - 1)) return 1;
+        // (the turn back starts the next group afresh on the first key, and that's preferred -- K73 to D72, then
+        // D F J K again; user, Nov 18: D F J K J K D F J "without a full cycle" was hard to follow)
+        if (!up && l === (dir > 0 ? 0 : lanes - 1) && l !== lp) return -0.5;
+        return 10;
+      };
+      let best = [0, 1, 2, 3].map((l) => (l === (dir > 0 ? 0 : lanes - 1) ? 0 : 0.5));
+      const back = [];
+      for (let j = 1; j < L; j++) {
+        const nb = [];
+        const bk = [];
+        for (let l = 0; l < lanes; l++) {
+          let m = Infinity;
+          let arg = 0;
+          for (let lp = 0; lp < lanes; lp++) { const c = best[lp] + cost(j, lp, l); if (c < m) { m = c; arg = lp; } }
+          nb.push(m);
+          bk.push(arg);
+        }
+        best = nb;
+        back.push(bk);
+      }
+      best = best.map((c, l) => c + (l === (dir > 0 ? lanes - 1 : 0) ? 0 : 2));
+      let l = best.indexOf(Math.min(...best));
+      const plan = [l];
+      for (let j = L - 2; j >= 0; j--) { l = back[j][l]; plan.unshift(l); }
+      run.forEach((x, j) => (x.lane = plan[j]));
+      a = b + 1;
+    } else if (turned < 0 && run.length >= 6 && !run.some((x) => x.fixedLane || x.localPin || x.ghost)) {
       const L = run.length;
       run.forEach((x, j) => {
         const back = L - 1 - j;

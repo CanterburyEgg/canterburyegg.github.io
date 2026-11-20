@@ -8,9 +8,9 @@ import {
   hydrateSidecarFeatures,
   buildChart,
   ConcertAudioController,
-} from './audio-engine.js?v=cm77';
-import { StageRenderer } from './stage-renderer.js?v=cm77';
-import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm77';
+} from './audio-engine.js?v=cm91';
+import { StageRenderer } from './stage-renderer.js?v=cm91';
+import { BUILTIN_REPERTOIRE } from './repertoire.js?v=cm91';
 
 
 const DIFFICULTY_LABELS = { fewer: 'Easy', more: 'Hard' };

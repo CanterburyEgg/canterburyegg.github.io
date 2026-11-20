@@ -61,6 +61,17 @@ def run(ctx):
                 durs = sorted(float(x["end"]) - float(x["start"]) for x in fig[:-1] or fig)
                 if len(fig) < 4 or durs[len(durs) // 2] >= 0.2:
                     continue
+                # (a call the lead answers -- the line after the hold plays the same figure, in any key, within 4s:
+                # Mars 3:01, the euphoniums' 60 59 60 60 59 60 63 and the trumpets' 72 71 72 72 71 72 75 two beats
+                # later -- is left to the answer, and the hold carries over the call: user, Nov 18, "I like the idea of
+                # the euphonium trumpet handoff, but the lines are too busy")
+                iv = [b - a for a, b in zip(fp, fp[1:])]
+                # (another part answering -- the same part playing it again higher is a sequence, and both are
+                # played: Mars 2:36 / 2:38, the trumpets' 71 71 71 70 ... then 74 74 74 73 ...)
+                after = [int(x["midi"]) for x in lead if s1 - 0.05 <= float(x["start"]) <= t + 4.0 and x.get("staff") != st["name"]]
+                if len(iv) >= 4 and any([b - a for a, b in zip(after[j:j + len(fp)], after[j + 1:j + len(fp)])] == iv
+                                        for j in range(len(after) - len(fp) + 1)):
+                    continue
                 med = sorted(int(x["midi"]) for x in fig)[len(fig) // 2]
                 if best is None or med > best[0]:
                     best = (med, st["name"], fig)
