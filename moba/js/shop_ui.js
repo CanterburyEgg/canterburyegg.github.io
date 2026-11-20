@@ -92,8 +92,8 @@ window.MOBA_SHOP_UI = (function () {
   }
 
   // ---- view ----
-  // Layout (user direction 2026-11-19): item grid on the left (40%) in three tiers, Basic / Advanced / Epic;
-  // the selected item's view on the right (60%) with a League-style build tree and a BUILDS INTO row along its bottom.
+  // Layout (user direction 2026-11-19): item grid on the left (50%) in three tiers, Basic / Advanced / Epic;
+  // the selected item's view on the right (50%) with a League-style build tree and a BUILDS INTO row along its bottom.
   const TIERS = [[1, 'BASIC'], [2, 'ADVANCED'], [3, 'EPIC']];
   const tierOf = (it) => it.tier; // boots: Footwraps is Basic (tier 1), upgraded boots are Advanced (tier 2)
   const CSS = `
@@ -210,8 +210,8 @@ window.MOBA_SHOP_UI = (function () {
         ${FILTERS.map(([k, label]) => `<button type="button" class="sb-btn" data-filter="${k}" style="padding:2px 8px;font-size:10.5px;${filter === k ? 'border-color:#38bdf8;color:#7dd3fc' : ''}">${label}</button>`).join('')}
       </div>
       <div style="display:flex;gap:12px;height:min(56vh,470px)">
-        <div style="flex:0 0 ${selected ? '40%' : '100%'};overflow-y:auto;padding-right:4px" data-no-cam-wheel="1">${TIERS.map(section).join('')}</div>
-        ${selected ? `<div style="flex:1 1 60%;min-width:0;background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px;overflow-y:auto" data-no-cam-wheel="1">
+        <div style="flex:0 0 ${selected ? '50%' : '100%'};overflow-y:auto;padding-right:4px" data-no-cam-wheel="1">${TIERS.map(section).join('')}</div>
+        ${selected ? `<div style="flex:1 1 50%;min-width:0;background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px;overflow-y:auto" data-no-cam-wheel="1">
           <div style="text-align:right;margin:-4px -2px 0 0"><button type="button" class="sb-btn" data-deselect="1" style="padding:0 7px;font-size:11px">✕</button></div>${detail()}</div>` : ''}
       </div>
       <div style="margin-top:8px;font-size:10.5px;color:#cbd5e1">${statsLine()}</div>
