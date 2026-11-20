@@ -2928,7 +2928,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         </div>
 
         <!-- 4-Slot Base Item Shop Drawer -->
-        <div id="p1-shop-modal" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);width:940px;max-width:96vw;background:rgba(11,17,26,0.97);border:1px solid rgba(251,191,36,0.55);border-radius:10px;padding:12px 14px;z-index:35;color:#f8fafc;box-shadow:0 16px 40px rgba(0,0,0,0.8);"></div>
+        <div id="p1-shop-modal" style="display:none;position:absolute;top:80px;left:50%;transform:translateX(-50%);width:1080px;max-width:97vw;background:rgba(11,17,26,0.97);border:1px solid rgba(251,191,36,0.55);border-radius:10px;padding:12px 14px;z-index:35;color:#f8fafc;box-shadow:0 16px 40px rgba(0,0,0,0.8);"></div>
 
         <!-- Bottom-Right Interactive 2D Minimap & Tactical Bot Pings -->
         <div id="p1-minimap-box" style="position:absolute;right:14px;bottom:14px;background:rgba(9,14,22,0.94);border:1px solid rgba(251,191,36,0.45);border-radius:8px;padding:8px;z-index:24;box-shadow:0 8px 24px rgba(0,0,0,0.65);">
