@@ -121,6 +121,11 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   good yet. Needs aesthetic direction from the user first (layout, sizing, colours, how the build tree reads).
 - [ ] **Item icon image pass (noted 2026-11-18)**: icons for all 96 shop items (7 components, 28 tier 2, 56 epics,
   5 boots; names in SHOP_PLAN.md) for the shop tiles, inventory slots and HUD.
+- [ ] **Coyote bot attack uptime (noted 2026-11-19)**: in duels the Coyote bot manages ~0.7-1.2 basic attacks/s
+  (cap 2.5) because it spends short fights charging Heartseeker, throwing the grenade and laying traps. Make the bot
+  weave basic attacks between casts and not open short fights with the R charge. Kit numbers are on budget (profile).
+- [ ] **Bodyguard EHP (noted 2026-11-19)**: ~11.3s for a carry to kill at Lv12 vs the 7.5s 1v1 target; left as is
+  on purpose (teamfights focus him with 3-4 attackers, and pen items cut it). Revisit after playtests.
 - [ ] **Lane wall model (noted 2026-11-18)**: the top lane's south wall (code-built tan boxes, with crumbled jungle
   gaps) is also the boss hollow's back wall. Needs a model piece that reads as the lane's wall and joins the lane
   and the pit naturally. Then the lookout deck railings + gate arches could get a matching pass too.

@@ -101,7 +101,8 @@ function stepTurret(t, dt, actor) {
       const fx = t.x + Math.sin(t.facing) * 1.3, fz = t.z + Math.cos(t.facing) * 1.3;
       smoke(fx, fz, 0.9);
       SFX.play('arena');
-      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor, castId: t.castId });
+      // turret shots: Attack damage, but not basic attacks (no on-hit effects; the Imp's wrench swings are his basics)
+      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor, castId: t.castId, isBasic: false, src: 'attack' });
     }
   }
   t.kick = Math.max(0, (t.kick || 0) - dt * 5);
@@ -218,6 +219,9 @@ function stats() {
 
 H.imp = {
   id: 'imp',
+  // Q (plant / pick up the cannon) is a stance swap, not a spell: it doesn't count as a cast for item passives
+  // (Tempered Edge, Bulwark casting, Snap-back, Battle tempo, Momentum, Accumulation, ...)
+  nonCastSlots: ['Q'],
   roster: { order: 8, emoji: '💣', short: 'Imp' },
   bundle: { label: 'Cannon Imp', src: 'assets/imp/imp_bundle.js', globalKey: 'IMP_MIXAMO', pStart: 75, pEnd: 88 },
   bundleClips: { idle: 'idleFbxB64', run: 'runFreeFbxB64', idleFree: 'idleFreeFbxB64', runFree: 'runFbxB64', punch: 'punchFbxB64', kick: 'kickFbxB64', jump: 'jumpFbxB64' },
@@ -232,10 +236,11 @@ H.imp = {
     overlay: { run: { from: 'idle', bones: UPPER_BODY } }
   },
 
-  // All of the Imp's damage numbers in one place. Cannon shots, wrench swings and turret shots (they count as his basic
-  // attacks) are Attack damage; Superball is Ability damage.
+  // All of the Imp's damage numbers in one place. Cannon shots and wrench swings (his basic attacks) and turret shots
+  // (not basic attacks: no on-hit) are Attack damage; Superball is Ability damage.
+  // (2026-11-19 shop balance: cannon 1.5x Attack -> 30 + 1.3x, so Attack items aren't worth 50% more to him than to others)
   dmg: {
-    cannon: (st) => Math.round(st.attack * 1.5),
+    cannon: (st) => Math.round(30 + st.attack * 1.3),
     wrench: (st) => Math.round(st.attack * 1.2),
     turretShot: (st) => Math.round(20 + st.attack * 1.1),
     superball: (st, lvl, rUlt) => Math.round([260, 390, 520][rUlt] + 8 * ((lvl || 1) - 1) + st.ability * 1.2)

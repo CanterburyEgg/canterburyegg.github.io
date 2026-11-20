@@ -1,5 +1,9 @@
 # Shop implementation plan
 
+> **Status 2026-11-19:** Phase 6 done: per-hero test builds (BOT_BUILDS), Resist trim, Coyote HP buff, Imp cannon
+> 30 + 1.3x Attack / turret not basic / Q not a cast, bot Bleed fix (ticks use the applier's stats). Reports:
+> balance/2026-11-19_*. Shop implementation complete; balance follow-ups go to playtests.
+>
 > **Status 2026-11-18:** Phases 0-5 done and committed (`30e2e13`, `4ded3d3`, `13343f1`, `3c480f7`, `9a2c0c2`, `8e967f2`).
 > `?itemtest` = 109 in-game checks (`js/itemtest.js`). **Next: Phase 6** (new test builds, profile + duel at Lv6 / Lv12,
 > compare with the damage budget; watch the tank build's EHP, ~2.7x a carry at Lv12 vs the 1.5x target).

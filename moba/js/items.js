@@ -10,11 +10,11 @@ window.MOBA_ITEMS = (function () {
   'use strict';
   // stat keys used by computeUnitStats (js/phase1_engine.js)
   const STAT = { hp: 'maxHp', mana: 'maxMp', atk: 'attack', abil: 'ability', res: 'resist', asp: 'asPct', haste: 'haste' };
-  const COMP_AMT = { hp: 180, mana: 200, atk: 15, abil: 25, res: 12, asp: 0.12, haste: 12 };
-  const MIX_T2 = { hp: 210, mana: 230, atk: 17, abil: 30, res: 14, asp: 0.14, haste: 14 };
-  const MIX_EPIC = { hp: 420, mana: 460, atk: 35, abil: 60, res: 28, asp: 0.28, haste: 28 };
-  const DBL_T2 = { hp: 360, mana: 400, atk: 30, abil: 50, res: 24, asp: 0.24, haste: 24 };
-  const DBL_EPIC = { hp: 720, mana: 800, atk: 60, abil: 100, res: 48, asp: 0.48, haste: 48 };
+  const COMP_AMT = { hp: 180, mana: 200, atk: 15, abil: 25, res: 10, asp: 0.12, haste: 12 }; // (Resist trimmed 12 -> 10, 2026-11-19 balance)
+  const MIX_T2 = { hp: 210, mana: 230, atk: 17, abil: 30, res: 12, asp: 0.14, haste: 14 };
+  const MIX_EPIC = { hp: 420, mana: 460, atk: 35, abil: 60, res: 24, asp: 0.28, haste: 28 };
+  const DBL_T2 = { hp: 360, mana: 400, atk: 30, abil: 50, res: 20, asp: 0.24, haste: 24 };
+  const DBL_EPIC = { hp: 720, mana: 800, atk: 60, abil: 100, res: 40, asp: 0.48, haste: 48 };
   // double specialty: [stat key, tier-2 amount, epic amount]
   const SPECIALTY = {
     hp: ['hpRegen', 8, 12], mana: ['mpRegen', 4, 6], atk: ['lifesteal', 0.10, 0.15], abil: ['spellVamp', 0.08, 0.12],
@@ -221,7 +221,7 @@ window.MOBA_ITEMS = (function () {
 
   const BOOTS = add({ id: 'footwraps', name: 'Footwraps', tier: 1, line: 'boots', cost: COST.boots, from: [], stats: { spdPct: 0.08 }, boots: true });
   [
-    ['Insulated Sabatons', { spdPct: 0.12, resist: 18, tenacity: 0.25 }],
+    ['Insulated Sabatons', { spdPct: 0.12, resist: 15, tenacity: 0.25 }],
     ["Fencer's Slippers", { spdPct: 0.12, asPct: 0.25 }],
     ["Monk's Sandals", { spdPct: 0.12, haste: 15 }],
     ['Jackrabbit Moccasins', { spdPct: 0.20 }]

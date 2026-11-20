@@ -261,7 +261,7 @@ K.spawnBolt = function (angle, dmg, opts = {}) {
   heroBolts.push({
     mesh, vx: Math.sin(angle) * spd, vz: Math.cos(angle) * spd, dmg,
     dmgType: opts.dmgType || 'physical', bleedAdd: 0, isHeartseeker: false, pierce: !!opts.pierce,
-    hitIds: new Set(), life: (opts.life || 0.6) * (opts.isBasic !== false ? 1 + ((by.stats().rangePct) || 0) : 1), isBasic: opts.isBasic !== false, slowDur: opts.slowDur || 0, // Longshot: basic attack bolts fly farther
+    hitIds: new Set(), life: (opts.life || 0.6) * (opts.isBasic !== false ? 1 + ((by.stats().rangePct) || 0) : 1), isBasic: opts.isBasic !== false, src: opts.src, slowDur: opts.slowDur || 0, // Longshot: basic attack bolts fly farther; src = 'attack' | 'ability' override
     owner: by.isPlayer ? null : by,
     castId: opts.castId || K.castId(), // the cast this bolt came from (0 for basics fired outside a cast)
     onHit: opts.onHit || null // onHit(x, z, hitRefOrDummy, targetObj|undefined) after it damages something (e.g. Imp splash shells)

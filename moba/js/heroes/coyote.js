@@ -286,7 +286,7 @@ H.coyote = {
     glyph: 'C',
     color: '#f59e0b',
     height: 1.98,
-    baseHp: 1380, hpGrow: 114,
+    baseHp: 1480, hpGrow: 122, // (2026-11-19 shop balance: +100 / +8 per level)
     baseMp: 310, mpGrow: 26, mpRegen: 5.5,
     // Stat model (DESIGN_RULES §2): Attack-leaning carry. Budget (Damage Profile, no items): ~160 / 285 / 558 dps
     baseAttack: 70, attackGrow: 12.0,

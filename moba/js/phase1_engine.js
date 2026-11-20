@@ -2291,7 +2291,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (u !== hero) refreshBotStats(u);
         }
       };
-      const runCast = (u, slot, call) => {
+      const runCast = (u, slot, call, kit) => {
         const id = Combat.nextCastId++;
         const prev = Combat.currentCast;
         Combat.currentCast = { id, unit: u, slot };
@@ -2299,7 +2299,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         let r;
         try { r = call(); } finally { Combat.currentCast = prev; }
         const did = fired(a, snap(u, slot));
-        if (did) {
+        if (did && !(kit && kit.nonCastSlots && kit.nonCastSlots.indexOf(slot) >= 0)) { // (kit stance swaps aren't casts)
           Combat.casts[id] = { unit: u, slot, t: matchTime };
           Combat.emit('cast', { unit: u, slot, castId: id });
         }
@@ -2323,7 +2323,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             }
             return withCrossover(u, (xst) => {
               const c2 = xst && ctx ? Object.assign({}, ctx, { st: xst }) : (xst && !ctx ? undefined : ctx);
-              const res = runCast(u, slot, () => orig.call(self, actor, slot, c2));
+              const res = runCast(u, slot, () => orig.call(self, actor, slot, c2), kit);
               if (res.did && isBot && cost > 0) u.mp = Math.max(0, u.mp - cost);
               return res.r;
             });
@@ -2337,7 +2337,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
             return withCrossover(hero, (xst) => {
               const c2 = xst && ctx ? Object.assign({}, ctx, { st: xst }) : ctx;
               inPlayerCast = true;
-              try { return runCast(hero, slot, () => origCast.call(self, slot, c2)).r; } finally { inPlayerCast = false; }
+              try { return runCast(hero, slot, () => origCast.call(self, slot, c2), kit).r; } finally { inPlayerCast = false; }
             });
           };
         }
@@ -2463,6 +2463,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (opts.bleedAdd > 0 && u !== hero) {
         u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
         u.bleedTimer = 5.5;
+        u.bleedBy = casterBot || null; // the ticks scale with (and are credited to) whoever applied the bleed
       }
       if (opts.knockbackDist > 0) {
         const kl = Math.hypot(opts.knockbackDirX || 0, opts.knockbackDirZ || 0) || 1;
@@ -2543,6 +2544,20 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const k = window.MOBA_HEROES && window.MOBA_HEROES.coyote;
       const base = k && k.dmg ? k.dmg.bleedTick(getPlayerStats()) : (10 + playerProg.level * 2.0);
       return base;
+    }
+    // One Bleed tick on a unit: scales with whoever applied it (a Coyote bot's own Attack, or the player's), dealt as
+    // that unit's damage over time. (Before 2026-11-19 every tick used the player's stats and counted as the player's.)
+    function bleedTickOn(targetObj, playerRate) {
+      const u = targetObj.ref;
+      const by = u.bleedBy;
+      if (by && by !== hero && bots.indexOf(by) >= 0 && by.unitStats) {
+        const k = window.MOBA_HEROES && window.MOBA_HEROES.coyote;
+        const per = k && k.dmg ? k.dmg.bleedTick(by.unitStats) : playerRate;
+        const scale = (by.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[by.team] > 0 ? 1.10 : 1.0);
+        applyBotDamageToTarget(targetObj, Math.round(u.bleedStacks * per * scale), by, 'physical', null, true, Combat.hitInfo(by, { isDoT: true, passiveTick: true }));
+      } else {
+        dealPlayerDamageToUnit(targetObj, Math.round(u.bleedStacks * playerRate), { color: '#f43f5e', isDoT: true, passiveTick: true });
+      }
     }
     function botDiffMult() { return botDifficulty === 'easy' ? 0.78 : (botDifficulty === 'hard' ? 1.22 : 1.0); }
 
@@ -2646,6 +2661,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (opts.bleedAdd && targetObj.kind !== 'structure') {
         u.bleedStacks = Math.min(st.maxBleed, (u.bleedStacks || 0) + opts.bleedAdd);
         u.bleedTimer = 5.5;
+        u.bleedBy = hero;
       }
 
       // Ability slow
@@ -3707,7 +3723,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           b.bleedTickAccum = (b.bleedTickAccum || 0) + dt;
           if (b.bleedTickAccum >= 0.65) {
             b.bleedTickAccum -= 0.65;
-            dealPlayerDamageToUnit({ kind: 'bot', ref: b }, Math.round(b.bleedStacks * bleedTickRate), { color: '#f43f5e', isDoT: true, passiveTick: true });
+            bleedTickOn({ kind: 'bot', ref: b }, bleedTickRate);
             if (b.respawnTimer > 0) return;
           }
           if (b.bleedTimer <= 0) {
@@ -4659,7 +4675,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           m.bleedTickAccum = (m.bleedTickAccum || 0) + dt;
           if (m.bleedTickAccum >= 0.65) {
             m.bleedTickAccum -= 0.65;
-            dealPlayerDamageToUnit({ kind: 'minion', ref: m }, Math.round(m.bleedStacks * bleedTickMinion), { color: '#f43f5e', isDoT: true, passiveTick: true });
+            bleedTickOn({ kind: 'minion', ref: m }, bleedTickMinion);
             if (m.hp <= 0) continue;
           }
           if (m.bleedTimer <= 0) {
@@ -4910,7 +4926,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           c.bleedTickAccum = (c.bleedTickAccum || 0) + dt;
           if (c.bleedTickAccum >= 0.65) {
             c.bleedTickAccum -= 0.65;
-            dealPlayerDamageToUnit({ kind: 'camp', ref: c }, Math.round(c.bleedStacks * bleedTickCamp), { color: '#f43f5e', isDoT: true, passiveTick: true });
+            bleedTickOn({ kind: 'camp', ref: c }, bleedTickCamp);
             if (c.respawnTimer > 0) return;
           }
           if (c.bleedTimer <= 0) {

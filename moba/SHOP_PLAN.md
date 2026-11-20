@@ -200,6 +200,11 @@ Tenacity stacks multiplicatively (25% + 25% ≈ 44%).
 
 **Attack speed cap (locked 2026-11-17):** stat attack speed (levels, item stats, boots) hard-caps at 2.5 attacks/s. Epic passive attack speed (Frenzy, Wind-up, Battle tempo, Last stand) is added *after* the cap, as a % of the hero's **base** attack rate (e.g. Panther with Wind-up: 2.5 + 1.28 × 36% ≈ 2.96), with an absolute ceiling of ~3.5/s. The shop shows "(max)" when stat attack speed is capped. Watch Wind-up in playtests (it may become the default carry item; trim stacks if so).
 
+### Phase 6 balance changes (2026-11-19)
+- **Resist trimmed ~20%** (tank time-to-kill was ~12s vs the 7.5s target): component +12 -> +10, mixed tier 2 +14 -> +12, mixed epic +28 -> +24, Resist double +24 -> +20 (epic +48 -> +40), Insulated Sabatons +18 -> +15.
+- Coyote: +100 base HP, +8 HP per level (kit). Imp turret shots: Attack damage but not basic attacks (no on-hit).
+- Reading the duels: bruisers are expected to beat carries 1v1 (carries win on positioning); judge carry vs carry, bruiser vs bruiser and the time-to-kill targets.
+
 ## Names (locked 2026-11-18; picked in rounds of 6)
 Rules: nouns may overlap League item names, adjectives/descriptors may not (user kept "Infinity Scrolls" as an exception); fake compounds / hyphens only if truly the best option; an item never reuses the noun of the item it upgrades from. Working names in brackets are the passive's design name.
 

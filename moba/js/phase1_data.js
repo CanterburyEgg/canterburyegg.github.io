@@ -74,8 +74,26 @@ window.MOBA_PHASE1 = (function () {
 
   // Item objects for a hero's test build at a level ('none' = no items; a lean name overrides the hero's own lean).
   // Uses the nearest defined level at or below the requested one.
+  // 'standard' = the hero's own bot build (BOT_BUILDS variant A), so the balance tools test what bots actually buy:
+  //   Lv12: upgraded boots + all 3 epics. Lv6 (~2,500 gold): upgraded boots + epic 1's tier-2 item + one of its
+  //   components (the stage a bot is at around then). Lv1: nothing. A lean name ('attack', 'tank', ...) uses TEST_BUILDS.
+  function heroBuild(heroId, level) {
+    const bd = BOT_BUILDS[heroId] && BOT_BUILDS[heroId][0];
+    const I = window.MOBA_ITEMS;
+    if (!bd || !I) return null;
+    if (level >= 12) return [bd.boots].concat(bd.epics);
+    if (level >= 6) {
+      const ep = I.byId[bd.epics[0]];
+      return [bd.boots, ep.from[0], ep.from[1]];
+    }
+    return [];
+  }
   function testBuildItems(heroId, level, build) {
     if (build === 'none') return [];
+    if (!build || build === 'standard') {
+      const hb = heroBuild(heroId, level || 1);
+      if (hb) return hb.map((id) => SHOP_ITEMS.find((it) => it.id === id)).filter(Boolean);
+    }
     const lean = (build && build !== 'standard' && TEST_BUILDS[build]) ? build : (HERO_LEAN[heroId] || 'attack');
     const byLvl = TEST_BUILDS[lean];
     const lv = Object.keys(byLvl).map(Number).filter((k) => k <= (level || 1)).sort((a, b) => b - a)[0] || 1;

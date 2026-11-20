@@ -2,7 +2,7 @@
 // Open arena3d.html?duel=brawler,coyote   (one matchup)
 //   or ?duel=all                          (round-robin of every non-support hero, 1v1)
 //   or ?duel=support                      (2v2: [support + partner] vs [hero + partner] for each support)
-// Options: &level=6  &build=standard|none|attack|ability|hybrid|tank|support  &trials=6  &partner=coyote
+// ?duel=<hero> = that hero vs every other fighter. Options: &level=6  &build=standard|none|attack|ability|hybrid|tank|support  &trials=6  &partner=coyote
 //          &dt=0.033 (game step; bigger = faster, rougher)  &norender
 // Each trial puts the teams 6-10m apart (random axis, small reaction/cooldown jitter) in an open spot (no minions, towers or other heroes), fights until one side is
 // dead or 45s pass (a draw), then resets. Sides are swapped every trial so the map can't favor anyone.
@@ -41,7 +41,8 @@
     SUPPORTS.forEach((s) => fighters.forEach((x) => matchups.push([[s, partner], [x, partner]])));
   } else {
     const p = arg.split(',').filter((h) => allHeroes.includes(h));
-    if (p.length === 2) matchups.push([[p[0]], [p[1]]]);
+    if (p.length === 1) fighters.forEach((x) => { if (x !== p[0]) matchups.push([[p[0]], [x]]); }); // one hero vs every other fighter
+    else if (p.length === 2) matchups.push([[p[0]], [p[1]]]);
     else if (p.length === 4) { mode = '2v2'; matchups.push([[p[0], p[1]], [p[2], p[3]]]); }
   }
 
@@ -69,6 +70,16 @@
     for (const [teamA, teamB] of matchups) {
       const res = { a: teamA, b: teamB, winsA: 0, winsB: 0, draws: 0, times: [], hpLeft: [] };
       const logBefore = Object.assign({}, window.__kitBotLog || {}); // kit cast counters, to report what the bots used
+      // damage dealt per hero by kind of hit (basic / ability / item proc / passive tick), for balance digging
+      const dmgBy = {};
+      const onHit = (e) => {
+        const a = e.attacker;
+        if (!a || !a.heroType || !(e.dealt > 0)) return;
+        const kind = e.info.proc ? 'proc' : (e.info.passiveTick || e.info.isDoT ? 'dot' : (e.info.isBasic ? 'basic' : 'ability'));
+        const d = dmgBy[a.heroType] = dmgBy[a.heroType] || {};
+        d[kind] = (d[kind] || 0) + e.dealt;
+      };
+      window.MOBA_COMBAT.on('hit', onHit);
       for (let t = 0; t < TRIALS; t++) {
         n++;
         statusEl.textContent = 'trial ' + n + '/' + total + ': ' + teamA.join('+') + ' vs ' + teamB.join('+');
@@ -80,7 +91,10 @@
         const axis = Math.random() * Math.PI * 2, gap = 6 + Math.random() * 4;
         const place = (list, heroes, side) => heroes.forEach((h, i) => {
           const b = list[i];
-          eng.devDuelSetBot(b, h, level, DATA.testBuildItems(h, level, build));
+          // &items_<hero>=id,id,... overrides that hero's items (balance experiments)
+          const ov = qs.get('items_' + h);
+          const its = ov !== null ? ov.split(',').filter(Boolean).map((id) => window.MOBA_ITEMS.byId[id]).filter(Boolean) : DATA.testBuildItems(h, level, build);
+          eng.devDuelSetBot(b, h, level, its);
           const lat = heroes.length > 1 ? (i === 0 ? -1.6 : 1.6) : 0;
           const px = CENTER.x + Math.sin(axis) * side * gap / 2 + Math.cos(axis) * lat + (Math.random() - 0.5);
           const pz = CENTER.z + Math.cos(axis) * side * gap / 2 - Math.sin(axis) * lat + (Math.random() - 0.5);
@@ -121,13 +135,15 @@
         inPlay.forEach((b) => { b.respawnTimer = 1e9; b.pivot.visible = false; if (b.plate) b.plate.style.display = 'none'; });
         await waitGame(0.6); // let projectiles and zones from the last round die out
       }
+      window.MOBA_COMBAT.off('hit', onHit);
+      res.dmgBy = dmgBy;
       const logAfter = window.__kitBotLog || {};
       res.casts = {};
       Object.keys(logAfter).forEach((k) => { const d = (logAfter[k] || 0) - (logBefore[k] || 0); if (d) res.casts[k] = d; });
       res.avgTime = res.times.length ? res.times.reduce((x, y) => x + y, 0) / res.times.length : null;
       res.avgHpLeft = res.hpLeft.length ? res.hpLeft.reduce((x, y) => x + y, 0) / res.hpLeft.length : null;
       rows.push(res);
-      console.log('DUEL ROW ' + JSON.stringify({ a: res.a, b: res.b, winsA: res.winsA, winsB: res.winsB, draws: res.draws, avgTime: res.avgTime, avgHpLeft: res.avgHpLeft, casts: res.casts }));
+      console.log('DUEL ROW ' + JSON.stringify({ a: res.a, b: res.b, winsA: res.winsA, winsB: res.winsB, draws: res.draws, avgTime: res.avgTime, avgHpLeft: res.avgHpLeft, casts: res.casts, dmgBy: res.dmgBy }));
     }
     eng.devDuelEnd();
     report(rows);
