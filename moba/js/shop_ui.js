@@ -154,6 +154,7 @@ window.MOBA_SHOP_UI = (function () {
         </div>
         <div style="text-align:right">
           <button type="button" class="sb-btn" data-buy="${it.id}" style="padding:5px 14px;font-size:12px;opacity:${why ? 0.45 : 1}">Buy ${p.owed}g</button>
+          <button type="button" class="sb-btn" data-deselect="1" title="Close the item view" style="padding:5px 9px;font-size:12px;margin-left:4px">✕</button>
           ${why ? `<div style="font-size:10.5px;color:#fb7185;margin-top:3px">${esc(why)}</div>` : ''}
         </div>
       </div>
@@ -211,8 +212,7 @@ window.MOBA_SHOP_UI = (function () {
       </div>
       <div style="display:flex;gap:12px;height:min(56vh,470px)">
         <div style="flex:0 0 ${selected ? '50%' : '100%'};overflow-y:auto;padding-right:4px" data-no-cam-wheel="1">${TIERS.map(section).join('')}</div>
-        ${selected ? `<div style="flex:1 1 50%;min-width:0;background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px;overflow-y:auto" data-no-cam-wheel="1">
-          <div style="text-align:right;margin:-4px -2px 0 0"><button type="button" class="sb-btn" data-deselect="1" style="padding:0 7px;font-size:11px">✕</button></div>${detail()}</div>` : ''}
+        ${selected ? `<div style="flex:1 1 50%;min-width:0;background:rgba(15,23,42,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:10px;overflow-y:auto" data-no-cam-wheel="1">${detail()}</div>` : ''}
       </div>
       <div style="margin-top:8px;font-size:10.5px;color:#cbd5e1">${statsLine()}</div>
       <div style="margin-top:6px;display:flex;gap:6px">${inventory()}</div>`;
