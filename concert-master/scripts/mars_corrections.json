@@ -277,9 +277,22 @@
     {
       "score_start": 373.1429,
       "midi": 77,
-      "to": 421.3376,
+      "to": 421.25,
       "keep_length": true,
-      "why": "7:01.34 (score 373.1429): pinned by ear in the sandbox (user, Nov 20)."
+      "why": "7:01.25 (score 373.14): the trumpets' 77 after the rit. Pinned by ear in the sandbox (Nov 20), then a touch earlier: the hit comes slightly before the taps (user, Nov 20: 'the pin on this note is wrong ... The hit comes a tiny bit earlier')."
+    },
+    {
+      "score_start": 379.1429,
+      "midi": 67,
+      "to": 428.77,
+      "why": "7:08.77 (score 379.14): the whole band's chord comes after a slight pause in the recording -- the attack is at 7:08.77 (onset), not 7:08.32 where the alignment put it (user, Nov 20: 'the hit on this note comes later. there's a slight pause in the recording')."
+    },
+    {
+      "score_start": 409.6071,
+      "midi": 55,
+      "to": 468.4,
+      "end": 473.0,
+      "why": "7:48.40-7:53.0 (score 409.61): the last chord -- struck at 7:48.40 and swelling until the cutoff at 7:53.0 in the recording; the written 2.25s ends far too soon (user, Nov 20: 'the last note should be a D and be held for longer')."
     }
   ]
 }

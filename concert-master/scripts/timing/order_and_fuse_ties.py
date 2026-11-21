@@ -26,6 +26,12 @@ def run(ns):
     warped.sort(key=lambda x: x["start"])
     _sp = ns.get("score_path")
     _exact = _sp is not None and str(_sp).lower().endswith((".mxl", ".musicxml", ".xml"))
+    _stv = [st for st in (ns.get("staves") or []) if not st.get("is_drum")]
+
+    def _tutti_restrike(t):
+        hit = [st["name"] for st in _stv if any(abs(float(m["start"]) - t) <= 0.02 for m in st["notes"])]
+        return len(hit) >= 6 and any("timp" in h.lower() for h in hit)
+
     fused_ties = []
     for wn in warped:
         if fused_ties and wn["start"] - fused_ties[-1]["start"] < 0.048:
@@ -49,6 +55,10 @@ def run(ns):
             # song's time map moves the line onto the recording's attacks.)
             and not (_exact and wn["staff"] == fused_ties[-1]["staff"] and wn["score_gap_prev"] >= 0.08)
             and not (wn is warped[-1] and wn["score_gap_prev"] >= 0.08)
+            # (nor is the whole band striking the chord again, 6+ parts and the timpani together: Mars 7:40-7:46's
+            # hammered chords 79 | 79 79 79 with no gap written between them; user, Nov 20: "I'm missing the third hit of
+            # this chord")
+            and not (_exact and _tutti_restrike(float(wn["score_start"])))
             and wn["midi"] == fused_ties[-1]["midi"]
             and fused_ties[-1]["score_dur"] >= 0.68
             and wn["score_dur"] >= 0.35
