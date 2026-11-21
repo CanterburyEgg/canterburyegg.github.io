@@ -707,6 +707,8 @@ function updateNpcs(dt, now) {
         body.rotation.y = burst ? Math.sin(n.t * 60) * 0.35 : 0;
         body.position.y = burst ? Math.abs(Math.sin(n.t * 40)) * 0.06 : 0;
       }
+    } else if (n.group.userData.idle) {
+      n.group.userData.idle(body, n.t, !!(n.wander && n.target && !(n.pause > 0) && !n.talking)); // species motion
     } else if (!n.wander || n.pause > 0 || n.talking) {
       body.position.y = Math.sin(n.t * 2 + n.homeX) * 0.02;
     } else {

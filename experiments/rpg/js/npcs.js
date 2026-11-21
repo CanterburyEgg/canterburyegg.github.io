@@ -1,6 +1,7 @@
 // Ambient townsfolk generation (pure, seeded per planet).
 import { Rng } from './rng.js';
 import { randomLook } from './character_look.js';
+import { SPECIES, ALIEN_IDS, SPECIES_PER_PLANET } from '../data/aliens.js';
 import { FIRST_NAMES, LAST_NAMES, ALIEN_SYLLABLES, ROBOT_NAMES, AMBIENT_TINTS, AMBIENT_ACCENTS, SKINS, ROLE_QUIPS, QUIRK_QUIPS, FEATURE_QUIPS } from '../data/npcs.js';
 
 const ACCESSORY_POOL = { humanoid: ['cap', 'scarf', 'apron', null, null], blob_alien: ['scarf', 'reading_goggles', null], robot_small: ['antenna', 'tiny_bowtie', null] };
@@ -10,8 +11,30 @@ function frontOf(b, dist) {
   return { x: b.x - Math.sin(b.rot) * (b.d / 2 + dist), z: b.z + Math.cos(b.rot) * (b.d / 2 + dist) };
 }
 
-function makeLook(rng) {
-  const body = rng.weighted([['humanoid', 5], ['blob_alien', 2], ['robot_small', 1]]);
+// Each settlement draws its aliens from a few species, so towns on different planets feel distinct.
+export function planetSpecies(seed) {
+  const rng = new Rng(seed + ':species');
+  const n = rng.int(SPECIES_PER_PLANET[0], SPECIES_PER_PLANET[1]);
+  return rng.shuffle([...ALIEN_IDS]).slice(0, n);
+}
+
+function makeLook(rng, species) {
+  const alienW = 3 / species.length;
+  const body = rng.weighted([['humanoid', 5], ['robot_small', 1], ...species.map((s) => [s, alienW])]);
+  const sp = SPECIES[body];
+  if (sp) {
+    const acc = rng.pick(sp.accessories);
+    return {
+      body,
+      tint: rng.pick(sp.tints),
+      accent: rng.pick(sp.accents),
+      skin: rng.pick(SKINS),
+      scale: rng.range(sp.scale[0], sp.scale[1]),
+      v: [rng.float(), rng.float(), rng.float()],
+      accessories: acc ? [acc] : [],
+      voice: { pitch: rng.range(sp.voice.pitch[0], sp.voice.pitch[1]), wobble: rng.range(sp.voice.wobble[0], sp.voice.wobble[1]), bitcrush: !!sp.voice.bitcrush },
+    };
+  }
   const acc = rng.pick(ACCESSORY_POOL[body]);
   return {
     body,
@@ -24,8 +47,17 @@ function makeLook(rng) {
   };
 }
 
+// An individual's name, by species rule (syllables or a list of real words).
+function speciesName(rng, sp, fresh) {
+  const n = sp.names;
+  if (n.kind === 'list') return fresh(() => rng.pick(n.list));
+  const word = () => { const w = rng.pick(n.start) + rng.pick(n.end); return w[0].toUpperCase() + w.slice(1).toLowerCase(); };
+  return rng.chance(n.twoPart || 0) ? `${fresh(word)} ${fresh(word)}` : fresh(word);
+}
+
 export function generateAmbientNpcs(P) {
   const rng = new Rng(P.meta.seed + ':npcs');
+  const species = planetSpecies(P.meta.seed);
   // Unique first and last names within the settlement; style depends on body type.
   const used = new Set();
   const fresh = (gen) => {
@@ -42,6 +74,7 @@ export function generateAmbientNpcs(P) {
   const nameFor = (look) => {
     if (look.body === 'robot_small') return fresh(() => rng.pick(ROBOT_NAMES));
     if (look.body === 'blob_alien') return rng.chance(0.5) ? fresh(alienWord) : `${fresh(alienWord)} ${fresh(alienWord)}`;
+    if (SPECIES[look.body]) return speciesName(rng, SPECIES[look.body], fresh);
     return `${fresh(() => rng.pick(FIRST_NAMES))} ${fresh(() => rng.pick(LAST_NAMES))}`;
   };
   // Humanoids get a faceted-human look from their own seeded stream (so names/positions don't shift
@@ -61,20 +94,20 @@ export function generateAmbientNpcs(P) {
   const locker = o.buildings.find((b) => b.kind === 'locker');
   if (shop) {
     const p = frontOf(shop, 1.4);
-    out.push(npc({ id: 'shopkeeper', role: 'shopkeeper', x: p.x, z: p.z, faceX: o.x, faceZ: o.z }, makeLook(rng)));
+    out.push(npc({ id: 'shopkeeper', role: 'shopkeeper', x: p.x, z: p.z, faceX: o.x, faceZ: o.z }, makeLook(rng, species)));
   }
   if (locker) {
     const p = frontOf(locker, 1.4);
-    out.push(npc({ id: 'clerk', role: 'clerk', x: p.x, z: p.z, faceX: o.x, faceZ: o.z }, makeLook(rng)));
+    out.push(npc({ id: 'clerk', role: 'clerk', x: p.x, z: p.z, faceX: o.x, faceZ: o.z }, makeLook(rng, species)));
   }
-  const locals = rng.int(2, 4);
+  const locals = rng.int(3, 6);
   for (let k = 0; k < locals; k++) {
     const a = rng.range(0, Math.PI * 2), r = rng.range(3, 8);
     out.push(npc({
       id: `local${k}`, role: 'local',
       x: o.x + Math.cos(a) * r, z: o.z + Math.sin(a) * r,
       wander: { cx: o.x, cz: o.z, r: 9 },
-    }, makeLook(rng)));
+    }, makeLook(rng, species)));
   }
   return out;
 }

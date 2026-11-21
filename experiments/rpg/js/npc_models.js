@@ -1,6 +1,7 @@
 // NPC models from primitives (placeholder until real rigged assets).
 // Bodies: humanoid, blob_alien, robot_small. Model faces +z.
 import * as THREE from 'three';
+import { ALIEN_BUILDERS } from './alien_models.js';
 
 const mat = (c, extra = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.7, flatShading: true, ...extra });
 
@@ -25,7 +26,12 @@ export function buildNpcModel(def) {
   let frontZ = 0.3;
   let neckY = 1.3;
 
-  if (def.body === 'blob_alien') {
+  let idle = null;
+  if (ALIEN_BUILDERS[def.body]) {
+    const r = ALIEN_BUILDERS[def.body](body, { ...def, tint, accent, v: def.v || [0.5, 0.5, 0.5] });
+    ({ headY, frontZ, neckY } = r);
+    idle = r.idle;
+  } else if (def.body === 'blob_alien') {
     const blob = new THREE.Mesh(new THREE.SphereGeometry(0.55, 16, 12), mat(tint));
     blob.scale.set(1, 0.88, 1);
     blob.position.y = 0.5;
@@ -140,6 +146,7 @@ export function buildNpcModel(def) {
   const sc = def.scale || 1;
   root.scale.setScalar(sc);
   root.userData.body = body;
+  root.userData.idle = idle; // species idle motion (body, t, moving), replaces the generic bob
   root.userData.headY = headY * sc;
   root.userData.height = (headY + 0.4) * sc;
   return root;
