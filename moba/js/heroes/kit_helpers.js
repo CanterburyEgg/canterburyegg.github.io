@@ -72,6 +72,8 @@ K.smoothSeams = function (geometry, maxAngleDeg = 60) {
 K.time = 0;
 K.rQE = (lvl) => (lvl >= 9 ? 2 : (lvl >= 6 ? 1 : 0));
 K.rUlt = (lvl) => (lvl >= 12 ? 2 : (lvl >= 8 ? 1 : 0));
+// talent check from a cast / impact ctx: K.tal(ctx, 7, 'L') = took the Lv7 left talent and has reached Lv7
+K.tal = (ctx, tier, side) => !!ctx && !!ctx.talents && ctx.talents[tier] === side && ((ctx.pProg && ctx.pProg.level) || 1) >= tier;
 
 // ---- Charge abilities (shared): N charges; every spent charge recharges on its own timer, all at the same time ----
 // K.charges.use(u, key, max, rechargeTime, tag)  spend one (false if none left); tag rides along with that charge's timer

@@ -50,7 +50,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       wardCharges: 2,
       wardRechargeTimer: 0,
       items: [], // max 4 item objects from DATA.SHOP_ITEMS (js/items.js)
-      talents: { 3: null, 6: null, 10: null }, // 'L' | 'R'
+      talents: { 3: null, 7: null, 10: null }, // 'L' | 'R'
       punchCounter: 0 // For Brawler 6R Haymaker Cleave (every 3rd punch)
     };
 
@@ -1032,8 +1032,33 @@ window.MOBA_PHASE1_ENGINE = (function () {
       // bridge road sections: railings take the outer 15% of the width on each side, so 9.4m wide puts them just
       // outside the 6.4m road (inner edge ~3.3m from the center); deck surface at 64.6% of the model height
       bridge: { width: 9.4, deck: 0.646, clipAt: 3.3, lift: 0.07 },
-      fountain: { width: 11.2, deck: 0.5 }          // spawn platform: top surface at 50% of the model height
+      fountain: { width: 11.2, deck: 0.5 },         // spawn platform: top surface at 50% of the model height
+      // lane wall: straight pieces tiled along the solid run; crumbled end pieces (broken end = model -x, rubble spills
+      // to model +z; the intact core is the -z 47% of the depth) at each jungle break, rubble on the jungle side
+      laneWall: { height: 2.1, depth: 1.0 },
+      laneWallEnd: { height: 2.1, coreFrac: 0.47 },
+      // gate arch: the opening is the middle 45% of the model width (its wings tuck into the castle wall), so 13.3m
+      // wide clears the 6m gate; squashed to 7.2m tall so it reads as a gatehouse over the 4.1m walls
+      gateArch: { width: 13.3, height: 7.2, depth: 1.95 },
+      deckRail: { height: 1.3, depth: 0.7 },        // lookout deck railing, tiled along its three sides
+      pitShrine: { width: 6.0, backGap: 0.3 }       // against the pit's back wall (the lane wall), facing the entrance
     };
+    // place n stretched copies of a model end to end along a straight run from (ax, az) to (bx, bz) (model long axis = x)
+    function tileAlong(grp, tmpl, sizeTo, ax, az, bx, bz, pieceLen, depth) {
+      const len = Math.hypot(bx - ax, bz - az);
+      if (len < 0.05) return;
+      const probe = castleModel(tmpl, sizeTo);
+      const n = Math.max(1, Math.round(len / (pieceLen || probe.size.x)));
+      const ux = (bx - ax) / len, uz = (bz - az) / len;
+      for (let i = 0; i < n; i++) {
+        const m = i === 0 ? probe : castleModel(tmpl, sizeTo);
+        const t = (i + 0.5) / n;
+        m.obj.scale.set(len / n / probe.size.x, 1, depth ? depth / probe.size.z : 1);
+        m.obj.position.set(ax + (bx - ax) * t, 0, az + (bz - az) * t);
+        m.obj.rotation.y = Math.atan2(-uz, ux); // model +x along the run
+        grp.add(m.obj);
+      }
+    }
     // normalized clone: centered on x/z, base on y = 0, uniformly scaled by k; returns { obj, size }
     function castleModel(tmpl, sizeTo) {
       const inner = tmpl.clone(true);
@@ -1118,8 +1143,61 @@ window.MOBA_PHASE1_ENGINE = (function () {
           p.grp.add(m.obj);
           if (p.glow) p.glow.position.y = 0.06;
           p.modeled = true;
+        } else if (p.kind === 'laneWall' && T.laneWall && T.laneWallEnd) {
+          const F = CASTLE_FIT.laneWall, FE = CASTLE_FIT.laneWallEnd;
+          const w = p.w, len = p.len;
+          const ux = (w.x1 - w.x0) / len, uz = (w.z1 - w.z0) / len;
+          const theta = Math.atan2(-uz, ux); // model +x along the wall
+          clear(p.grp);
+          // crumbled ends (shortened if the run is too short for them)
+          const endSizeTo = (sz) => FE.height / sz.y;
+          const endProbe = castleModel(T.laneWallEnd, endSizeTo);
+          const nEnds = (w.crumble0 ? 1 : 0) + (w.crumble1 ? 1 : 0);
+          const E = nEnds ? Math.min(endProbe.size.x, len / nEnds) : 0;
+          // the intact core is the model's -z side: shift the piece so the core sits on the wall line
+          const coreOff = (0.5 - FE.coreFrac / 2) * endProbe.size.z;
+          const placeEnd = (m, atStart) => {
+            const along = atStart ? E / 2 : len - E / 2;
+            const sx = E / endProbe.size.x;
+            m.obj.scale.set(atStart ? sx : -sx, 1, 1); // broken end (model -x) faces the gap; mirrored keeps rubble south
+            m.obj.rotation.y = theta;
+            m.obj.position.set(w.x0 + ux * along + Math.sin(theta) * coreOff, 0, w.z0 + uz * along + Math.cos(theta) * coreOff);
+            p.grp.add(m.obj);
+          };
+          if (w.crumble0) placeEnd(endProbe, true);
+          if (w.crumble1) placeEnd(w.crumble0 ? castleModel(T.laneWallEnd, endSizeTo) : endProbe, false);
+          // straight run between them
+          const s0 = w.crumble0 ? E : 0, s1 = w.crumble1 ? E : 0;
+          if (len - s0 - s1 > 0.1) {
+            tileAlong(p.grp, T.laneWall, (sz) => F.height / sz.y,
+              w.x0 + ux * s0, w.z0 + uz * s0, w.x0 + ux * (len - s1), w.z0 + uz * (len - s1), null, F.depth);
+          }
+          p.modeled = true;
+        } else if (p.kind === 'gateArch' && T.gateArch) {
+          const F = CASTLE_FIT.gateArch;
+          const m = castleModel(T.gateArch, (sz) => F.width / sz.x);
+          m.obj.scale.set(1, F.height / m.size.y, F.depth / m.size.z);
+          m.obj.position.set(p.x, 0, p.z);
+          m.obj.rotation.y = p.rotY;
+          clear(p.grp);
+          p.grp.add(m.obj);
+          p.modeled = true;
+        } else if (p.kind === 'deckRail' && T.deckRailing) {
+          const F = CASTLE_FIT.deckRail;
+          clear(p.grp);
+          tileAlong(p.grp, T.deckRailing, (sz) => F.height / sz.y, p.w.x0, p.w.z0, p.w.x1, p.w.z1, null, F.depth);
+          p.modeled = true;
         }
       });
+      // Pit shrine: new dressing (no code-built version) against the pit's back wall, facing the entrance
+      if (T.pitShrine && !castleParts.some((p) => p.kind === 'pitShrine')) {
+        const F = CASTLE_FIT.pitShrine;
+        const back = MAP.WALLS.find((w) => w.kind === 'lanewall' && w.z0 > MAP.TOP_Z && w.x0 <= 0 && w.x1 >= 0);
+        const backZ = (back ? back.z0 : MAP.HOLLOW.top) + CASTLE_FIT.laneWall.depth / 2 + F.backGap;
+        const m = castleModel(T.pitShrine, (sz) => F.width / sz.x);
+        m.obj.position.set(MAP.HOLLOW.boss.x, 0, backZ + m.size.z / 2);
+        castleGroup('pitShrine').add(m.obj);
+      }
       // merlons belong to the code-built walls
       if (wallsDone) castleParts.forEach((p) => { if (p.kind === 'merlons') p.grp.visible = false; });
       // Bridge: the top lane from castle to castle becomes bridge sections. Their south railing is clipped off
@@ -1221,8 +1299,10 @@ window.MOBA_PHASE1_ENGINE = (function () {
             merlonSpots.push({ x: w.x0 + dx * t, z: w.z0 + dz * t, rotY });
           }
         } else if (w.kind === 'rail') {
-          // the two long bridge railings get replaced by the bridge section models; the lookout deck keeps these
+          // the two long bridge railings get replaced by the bridge section models; the lookout deck's three get the
+          // deck railing model
           if (w.z0 === MAP.RAIL_Z && w.z1 === MAP.RAIL_Z) into = castleGroup('rail', { w });
+          else into = castleGroup('deckRail', { w, len });
           addBox(greyMat, len, 1.0, 0.6, cx, 0.5, cz, rotY);
           // posts every ~6 m
           const n = Math.floor(len / 6);
@@ -1232,6 +1312,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           }
         } else if (w.kind === 'lanewall') {
           // Low stone wall along the top lane's south side; ends next to a jungle break crumble into rubble
+          into = castleGroup('laneWall', { w, len });
           const LW_H = 1.9, LW_D = 0.9, CR = 3.2; // height, depth, crumble length
           const ux = dx / len, uz = dz / len;
           const s0 = w.crumble0 ? CR : 0, s1 = w.crumble1 ? CR : 0;
@@ -1259,7 +1340,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
               rb.position.set(w.x0 + ux * along - uz * side, 0.15, w.z0 + uz * along + ux * side);
               rb.rotation.set(k * 0.9, k * 1.7, k * 0.3);
               rb.castShadow = true;
-              mapGroup.add(rb);
+              into.add(rb);
             }
           };
           if (w.crumble0) crumble(false);
@@ -1301,11 +1382,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
         // Upper gate: flank on the south side (north flank is the gatehouse structure), plus an arch
         const gz = MAP.UPPER_GATE_Z, gh = MAP.GATE_HALF;
         addTower(s * C.x0, gz + gh + 1.2, 1.7, 4.8, team, true);
+        into = castleGroup('gateArch', { x: s * C.x0, z: gz, rotY: Math.PI / 2 });
         addBox(sandMat, WALL_D + 0.4, 1.1, gh * 2 + 1.4, s * C.x0, 4.2, gz);
         // Side gate: flank on the east/west (inner) side, plus an arch
         const gx = MAP.SIDE_GATE_X;
         addTower(s * (gx - gh - 1.2), C.z1, 1.7, 4.8, team, true);
+        into = castleGroup('gateArch', { x: s * gx, z: C.z1, rotY: 0 });
         addBox(sandMat, gh * 2 + 1.4, 1.1, WALL_D + 0.4, s * gx, 4.2, C.z1);
+        into = mapGroup;
       });
     }
 
@@ -1687,6 +1771,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           facing: cfg.team === 0 ? Math.PI / 2 : -Math.PI / 2,
           level: 1,
           xp: 0,
+          // talent picks for Lv 3 / 7 / 10, rolled once (each one switches on when the bot reaches that level)
+          talents: { 3: Math.random() < 0.5 ? 'L' : 'R', 7: Math.random() < 0.5 ? 'L' : 'R', 10: Math.random() < 0.5 ? 'L' : 'R' },
           gold: 600, // same start as the player
           hp: 1500,
           maxHp: 1500,
@@ -2101,6 +2187,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const enemies = bots.filter((b) => b.team !== team && b.respawnTimer <= 0);
       if (team === 1 && playerProg.respawnTimer <= 0) enemies.push(hero);
       let count = 0, ally = null, allyBest = 0;
+      const list = [];
       allies.forEach((al) => {
         let n = 0;
         enemies.forEach((en) => {
@@ -2112,14 +2199,16 @@ window.MOBA_PHASE1_ENGINE = (function () {
           if (t > 0.08 && t < 0.94 && Math.hypot(g.x - (al.x + t * sx), g.z - (al.z + t * sz)) <= 2.9) n++;
         });
         count += n;
+        if (n > 0) list.push(al);
         if (n > allyBest) { allyBest = n; ally = al; }
       });
-      return { count, ally };
+      return { count, ally, list };
     }
     function tickGuardStacks(g, team, dt, alive) {
-      if (!alive) { g.guardStacks = 0; g.guardT = 0; g.guardAlly = null; return; }
+      if (!alive) { g.guardStacks = 0; g.guardT = 0; g.guardAlly = null; g.guardScreened = null; return; }
       const sc = guardScreening(g, team);
       g.guardAlly = sc.ally;
+      g.guardScreened = sc.list; // every ally he's screening right now (talents: Broad Shoulders, Counterpunch, Last Stand)
       // screening anyone at all builds toward max (held position = more stacks); screening nobody fades them
       const target = sc.count > 0 ? GUARD_MAX : 0;
       const cur = g.guardStacks || 0;
@@ -2131,6 +2220,63 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (getActiveHeroId() !== 'bodyguard' || playerProg.respawnTimer > 0) return 0;
       return hero.guardStacks || 0;
     }
+
+    // ---- Talents (TALENTS_PLAN.md): which side a hero unit took at a tier, once it has reached that level ----
+    function unitTalent(u, tier) {
+      if (!u) return null;
+      if (u === hero) return playerProg.level >= tier ? (playerProg.talents[tier] || null) : null;
+      if (bots.indexOf(u) < 0 || !u.talents || (u.level || 1) < tier) return null;
+      return u.talents[tier] || null;
+    }
+    Combat.talentOf = unitTalent;
+    const heroTeamOf = (u) => (u === hero ? 0 : u.team);
+    const isHeroUnit = (u) => u === hero || bots.indexOf(u) >= 0;
+    // living Bodyguards (player or bots) on a team that took a talent
+    function guardsWith(team, tier, side) {
+      const list = [];
+      if (team === 0 && getActiveHeroId() === 'bodyguard' && playerProg.respawnTimer <= 0 && unitTalent(hero, tier) === side) list.push(hero);
+      bots.forEach((b) => { if (b.heroType === 'bodyguard' && b.team === team && b.respawnTimer <= 0 && unitTalent(b, tier) === side) list.push(b); });
+      return list;
+    }
+    const screens = (g, u) => !!g.guardScreened && g.guardScreened.indexOf(u) >= 0;
+    // Bodyguard 3L Broad Shoulders: allies he's screening get half his Guard Resist (+7 per stack)
+    const GUARD_SHARE = 7;
+    function guardShareOf(u) {
+      if (!u || !isHeroUnit(u)) return 0;
+      let best = 0;
+      guardsWith(heroTeamOf(u), 3, 'L').forEach((g) => { if (g !== u && screens(g, u)) best = Math.max(best, (g.guardStacks || 0) * GUARD_SHARE); });
+      return best;
+    }
+    // Bodyguard 7L Counterpunch: an enemy hero damages an ally he's screening -> his next Haymaker within 3s stuns
+    Combat.on('hit', (e) => {
+      const t = e.target, a = e.attacker;
+      if (!(e.dealt > 0) || !t || !a || e.info.redirected || !isHeroUnit(t) || !isHeroUnit(a)) return;
+      if (heroTeamOf(a) === heroTeamOf(t)) return;
+      guardsWith(heroTeamOf(t), 7, 'L').forEach((g) => {
+        if (g === t || !screens(g, t)) return;
+        if (!((g.counterUntil || 0) > KitFx.time)) spawnFloat(g.x, 2.9, g.z, 'COUNTERPUNCH READY', '#38bdf8');
+        g.counterUntil = KitFx.time + 3.0;
+      });
+    });
+    // Bodyguard 10L Last Stand: once per 60s, a lethal hit on an ally he's screening lands on him instead and the ally
+    // is untargetable for 1s
+    function takeHitFor(h, amount) {
+      const info = { attacker: null, src: 'attack', isBasic: false, isDoT: true, aoe: false, castId: null, proc: true, redirected: true };
+      if (h === hero || h.team === 0) damageOrderHeroOrBot(h, amount, 'physical', null, true, info);
+      else applyBotDamageToTarget({ kind: 'bot', ref: h }, amount, null, 'physical', null, true, info);
+    }
+    Combat.saves.push((t, dealt, info) => {
+      if (info.redirected || !isHeroUnit(t) || !(t.hp > 0) || dealt < t.hp + (t.shield || 0)) return dealt;
+      const g = guardsWith(heroTeamOf(t), 10, 'L').find((x) => x !== t && screens(x, t) && KitFx.time >= (x.lastStandReady || 0));
+      if (!g) return dealt;
+      g.lastStandReady = KitFx.time + 60;
+      t.untargetableUntil = KitFx.time + 1.0;
+      spawnShockRing(t.x, t.z, 0xfde047, 0.4, 1.6, 0.3);
+      spawnFloat(g.x, 3.0, g.z, 'LAST STAND!', '#fde047');
+      spawnFloat(t.x, 2.7, t.z, 'UNTARGETABLE', '#fde047');
+      takeHitFor(g, dealt);
+      return 0;
+    });
     // faint tether to the guarded ally while he's screening them
     function updateGuardTether(g, visible) {
       const show = visible && !!g.guardAlly && (g.guardStacks || 0) > 0;
@@ -2202,10 +2348,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
     // damage after Resist (one Resist reduces both Attack and Ability damage)
     function unitResist(u) {
       if (!u) return 0;
-      const guard = (u.guardStacks || 0) * GUARD_RES; // bot Bodyguard passive (the player's is in getPlayerStats)
+      const guard = (u.guardStacks || 0) * GUARD_RES + guardShareOf(u); // bot Bodyguard passive (the player's is in getPlayerStats)
       if (u.resist !== undefined) return u.resist + (u === hero ? 0 : guard);
       return (u.armor || 0) + (u === hero ? 0 : guard);
     }
+    // what a hit leaves after Combat.preHit: 0 stays 0 (taken elsewhere), anything else is at least 1
+    const keptDmg = (d) => (d > 0 ? Math.max(1, Math.round(d)) : 0);
 
     // Current stats of a hero unit for the shared combat core (pen resistance, tenacity, ...): player or bot
     function unitStatsOf(u) {
@@ -2384,6 +2532,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (heroId === 'bodyguard' && guardStacks > 0) {
         resist += guardStacks * GUARD_RES;
       }
+      // Bodyguard 3L Broad Shoulders: an allied Bodyguard screening the player shares half his Guard
+      resist += guardShareOf(hero);
 
       // Panther Passive ("Shadow Stalker"): +28% Move Speed while unseen by enemies (lingering 2.2s after being spotted)
       let pantherUnseen = false;
@@ -2424,7 +2574,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       const list = [];
       if (!matchMode) return list;
       bots.forEach((b) => {
-        if (b.team === 1 && b.respawnTimer <= 0) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r });
+        if (b.team === 1 && b.respawnTimer <= 0 && !Combat.untargetable(b)) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r });
       });
       minions.forEach((m) => {
         if (m.team === 1 && m.hp > 0) list.push({ kind: 'minion', ref: m, x: m.x, z: m.z, r: m.r });
@@ -2446,8 +2596,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (team === 0) return getHostileTargets();
       const list = [];
       if (!matchMode) return list;
-      if (playerProg.respawnTimer <= 0 && !stealthHiddenFrom(hero, 1)) list.push({ kind: 'player', ref: hero, x: hero.x, z: hero.z, r: hero.r || 0.52 });
-      bots.forEach((b) => { if (b.team === 0 && b.respawnTimer <= 0) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r }); });
+      if (playerProg.respawnTimer <= 0 && !stealthHiddenFrom(hero, 1) && !Combat.untargetable(hero)) list.push({ kind: 'player', ref: hero, x: hero.x, z: hero.z, r: hero.r || 0.52 });
+      bots.forEach((b) => { if (b.team === 0 && b.respawnTimer <= 0 && !Combat.untargetable(b)) list.push({ kind: 'bot', ref: b, x: b.x, z: b.z, r: b.r }); });
       minions.forEach((m) => { if (m.team === 0 && m.hp > 0) list.push({ kind: 'minion', ref: m, x: m.x, z: m.z, r: m.r }); });
       camps.forEach((c) => { if (c.respawnTimer <= 0 && c.hp > 0) list.push({ kind: 'camp', ref: c, x: c.x, z: c.z, r: c.r }); });
       structures.forEach((st) => { if (st.team === 0 && st.hp > 0) list.push({ kind: 'structure', ref: st, x: st.x, z: st.z, r: st.r }); });
@@ -2465,11 +2615,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
         u.bleedTimer = 5.5;
         u.bleedBy = casterBot || null; // the ticks scale with (and are credited to) whoever applied the bleed
       }
-      if (opts.knockbackDist > 0) {
+      if (opts.knockbackDist > 0 && !CC.immuneOf(u)) {
         const kl = Math.hypot(opts.knockbackDirX || 0, opts.knockbackDirZ || 0) || 1;
-        u.knockbackVx = ((opts.knockbackDirX || 0) / kl) * (opts.knockbackDist / 0.25);
-        u.knockbackVz = ((opts.knockbackDirZ || 0) / kl) * (opts.knockbackDist / 0.25);
-        u.knockbackTimer = 0.25;
+        const kDur = opts.knockbackDur || 0.25;
+        u.knockbackVx = ((opts.knockbackDirX || 0) / kl) * (opts.knockbackDist / kDur);
+        u.knockbackVz = ((opts.knockbackDirZ || 0) / kl) * (opts.knockbackDist / kDur);
+        u.knockbackTimer = kDur;
         u.knockbackWallStun = +opts.wallStun || 0; // seconds of stun if the knockback hits a wall
         u.knockbackSrc = casterBot || null;
         u.knockbackBotLvl = opts.casterLevel || 4;
@@ -2482,7 +2633,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         get team() { return b.team; },
         isPlayer: false,
         level: () => b.level || 1,
-        talents: () => ({}),
+        talents: () => b.talents || {},
         stats: () => b.unitStats || withStatAliases({ attack: b.physAtk || b.atk || 52, ability: b.fant || 0, resist: b.resist || 0, haste: 0, asPct: ((b.level || 1) - 1) * 0.035 }),
         aim: () => {
           const t = b.aimTarget && b.aimTarget.ref;
@@ -2524,7 +2675,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const scale = (b.team === 1 ? botDiffMult() : 1.0) * (bossBuffTimer[b.team] > 0 ? 1.10 : 1.0);
           const onHit = opts.isBasic && dmg > 0 ? ((b.unitStats && b.unitStats.onHit) || 0) : 0; // On-hit: flat Attack damage on basic attacks
           const res = applyBotDamageToTarget(t, Math.round((dmg + onHit) * scale), b, opts.dmgType || 'physical', null, !!opts.isDoT, Combat.hitInfo(b, opts));
-          if (res === 'blocked') return true; // Spell shield: no damage, no effects
+          if (res === 'blocked' || Combat.untargetable(t.ref)) return true; // Spell shield / Last Stand: no damage, no effects
           applyActorEffects(t, opts, b);
           return true;
         }
@@ -2577,7 +2728,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       // what kind of hit this is (Attack / Ability, basic, DoT, area): items and passives read it (js/combat_core.js)
       const info = Combat.hitInfo(hero, opts);
-      if (targetObj.kind === 'bot' && Combat.blocks(info, u)) return false; // Spell shield
+      if (targetObj.kind === 'bot' && (Combat.blocks(info, u) || Combat.untargetable(u))) return false; // Spell shield / untargetable
 
       // 0. Deployables (an enemy Imp's turret): plain armor-mitigated damage, destroyed at 0
       if (targetObj.kind === 'deployable') {
@@ -2647,7 +2798,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       dmg = rawDmg > 0 ? Math.max(1, Math.round(dmg)) : 0; // 0 = effects only (e.g. a trap's root + bleed)
-      if (targetObj.kind === 'bot' && dmg > 0) dmg = Math.max(1, Math.round(Combat.redirectShare(u, dmg, info))); // Redirect
+      if (targetObj.kind === 'bot' && dmg > 0) dmg = keptDmg(Combat.preHit(u, dmg, info)); // Redirect + talent saves
+      if (dmg === 0 && Combat.untargetable(u)) return true; // Last Stand caught this hit: no damage, no effects
       u.hp -= targetObj.kind === 'bot' ? absorbShield(u, dmg) : dmg; // enemy bot shields soak player damage first
       u.lastDamagedByPlayerAt = matchTime;
 
@@ -2677,14 +2829,14 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       // Stun (Brawler Q Kick / Wall Stun)
-      if (opts.stunDur && targetObj.kind !== 'structure') {
+      if (opts.stunDur && targetObj.kind !== 'structure' && !CC.immuneOf(u)) {
         u.stunTimer = Math.max(u.stunTimer || 0, CC.dur(u, opts.stunDur));
         CC.onHard(u, hero);
         spawnFloat(u.x, 2.6, u.z, 'STUNNED!', '#fde047');
       }
 
       // Taunt (Bodyguard R Eyes On Me!)
-      if (opts.tauntDur && targetObj.kind !== 'structure') {
+      if (opts.tauntDur && targetObj.kind !== 'structure' && !CC.immuneOf(u)) {
         u.tauntTimer = Math.max(u.tauntTimer || 0, CC.dur(u, opts.tauntDur));
         CC.onHard(u, hero);
         u.tauntBy = hero;
@@ -2692,7 +2844,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       // Knockback Displacement (Bodyguard Q Bouncer Haymaker / Sorceress 10L Gravity Collapse)
-      if (opts.knockbackDist && targetObj.kind !== 'structure') {
+      if (opts.knockbackDist && targetObj.kind !== 'structure' && !CC.immuneOf(u)) {
         let dirX = opts.knockbackDirX;
         let dirZ = opts.knockbackDirZ;
         if (dirX === undefined || dirZ === undefined) {
@@ -3370,11 +3522,12 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
     function damageOrderHeroOrBot(unit, rawDmg, dmgType = 'physical', attackerObj = null, isDoT = false, info = null) {
       const st = getPlayerStats();
+      if (Combat.untargetable(unit)) return; // Last Stand
       CC.wake(unit, isDoT);
       if (!info) info = Combat.unitHitInfo(attackerObj && attackerObj.ref, isDoT);
       if (unit === hero) {
         if (playerProg.respawnTimer > 0) return;
-        const mitigated = Math.round(Combat.redirectShare(hero, Combat.mitigate(rawDmg, st.resist, info, hero), info));
+        const mitigated = Math.round(Combat.preHit(hero, Combat.mitigate(rawDmg, st.resist, info, hero), info));
         playerProg.recallTimer = 0; // Interrupt recall on taking damage!
         if (spyglass.channel > 0) { spyglass.channel = 0; spawnFloat(hero.x, 2.5, hero.z, 'SPYGLASS INTERRUPTED', '#fb7185'); }
 
@@ -3403,8 +3556,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
       } else {
         const baseRes = unit.resist !== undefined ? unit.resist : (unit.armor || 20);
-        const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES;
-        const mitigated = rawDmg > 0 ? Math.max(1, Math.round(Combat.redirectShare(unit, Combat.mitigate(rawDmg, totalRes, info, unit), info))) : 0;
+        const totalRes = baseRes + (unit.guardStacks || 0) * GUARD_RES + guardShareOf(unit);
+        const mitigated = rawDmg > 0 ? keptDmg(Combat.preHit(unit, Combat.mitigate(rawDmg, totalRes, info, unit), info)) : 0;
         if (unit.shield && unit.shield > 0) {
           if (unit.shield >= mitigated) {
             unit.shield -= mitigated;
@@ -3530,7 +3683,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
           u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
           u.bleedTimer = 5.5;
         }
-        if (opts.kbDist && opts.kbDist > 0 && opts.fromBot) {
+        if (opts.kbDist && opts.kbDist > 0 && opts.fromBot && !CC.immuneOf(u)) {
           let kx = u.x - opts.fromBot.x;
           let kz = u.z - opts.fromBot.z;
           const kl = Math.hypot(kx, kz) || 0.01;
@@ -4327,7 +4480,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!targetObj || !targetObj.ref) return;
       const u = targetObj.ref;
       if (!info) info = attackerBot ? Combat.hitInfo(attackerBot, { isDoT }) : Combat.unitHitInfo(attackerObj && attackerObj.ref, isDoT);
-      if ((targetObj.kind === 'player' || targetObj.kind === 'bot') && Combat.blocks(info, u)) return 'blocked'; // Spell shield
+      if ((targetObj.kind === 'player' || targetObj.kind === 'bot') && (Combat.blocks(info, u) || Combat.untargetable(u))) return 'blocked'; // Spell shield / untargetable
       CC.wake(u, isDoT); // direct hits wake sleepers (damage over time doesn't)
       if (targetObj.kind === 'structure' && !isStructureVulnerable(u)) return;
       if (targetObj.kind === 'camp') {
@@ -4357,7 +4510,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       } else {
         const res = unitResist(u);
         let mitigated = Math.max(1, Math.round(Combat.mitigate(dmg, res, info, u)));
-        if (targetObj.kind === 'bot') mitigated = Math.max(1, Math.round(Combat.redirectShare(u, mitigated, info))); // Redirect
+        if (targetObj.kind === 'bot') mitigated = keptDmg(Combat.preHit(u, mitigated, info)); // Redirect + talent saves
         u.hp -= targetObj.kind === 'bot' ? absorbShield(u, mitigated) : mitigated;
         Combat.emit('hit', { attacker: info.attacker, target: u, targetObj, raw: dmg, dealt: mitigated, info });
         if (u.hp <= 0) {
@@ -5432,6 +5585,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
       },
       devDuelEnd: () => { duelMode = null; },
       devBotActor: (b) => botActor(b),
+      devGuardTick: (g, team) => tickGuardStacks(g, team, 0, true), // refresh a Bodyguard's screened-ally list now
+      devUnitResist: (u) => unitResist(u),
       devBotShop: (b) => { b.shopT = 0; botShop(b, 0); return b.items; },
       devBotBuild: (b) => botBuildFor(b),
       // Dev toggle: park every bot hero (hidden, untargetable, not updated) or bring them all back at their spawns

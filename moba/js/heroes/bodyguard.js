@@ -1,7 +1,8 @@
 // Shirtless Bodyguard: Support • Melee Vanguard
 // Hero kit: data (stats, talents, UI text) + player ability code moved verbatim from js/arena/*.js and phase1_data.js.
 // Functions run in the shared global scope of js/arena/*.js (hero, actions, fadeToAction, damageDummy, ...).
-// Still in phase1_engine.js until Phase 2: Stand Behind Me! guard stacks (getPlayerStats) and 10L Thorns of Brass reflect.
+// Still in phase1_engine.js: Stand Behind Me! guard stacks (getPlayerStats / unitResist) and the talents that read
+// them (3L Broad Shoulders, 7L Counterpunch arming, 10L Last Stand).
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -63,6 +64,15 @@ function lockGuardianHeadSkinWeights(fbxRoot) {
 const WALL_STUN = 0.5;      // Q: stun when the knockback slams them into a wall / tree / tower
 const SLAM_KNOCKUP = 0.25;  // E landing: knock-up
 const SLAM_SLOW = 1.0;      // E landing: slow after the knock-up
+// Talents
+const BIG_LUNGS = 1.20;       // 3R: Eyes On Me! radius
+const COUNTER_STUN = 0.75;    // 7L: Counterpunch Haymaker stun
+const BRACE_TIME = 1.5;       // 7R: damage reduction after landing
+const BRACE_MULT = 0.80;      //     (20% less damage taken)
+const BOUNCER_PULL = 2.5;     // 10R: drag taunted enemies toward him
+
+// 7R Unstoppable: 20% less damage for a moment after Crowd Dive lands (every damage path runs Combat.mitigate)
+window.MOBA_COMBAT.damageMults.push((info, target) => (target && (target.bgBraceUntil || 0) > KitFx.time ? BRACE_MULT : 1));
 
 H.bodyguard = {
   id: 'bodyguard',
@@ -102,10 +112,21 @@ H.bodyguard = {
     mpCosts: { Q: 45, E: 55, R: 90 }
   },
 
+  // TALENTS_PLAN.md: L = Protector, R = Initiator. Broad Shoulders, Counterpunch and Last Stand need the guard data,
+  // so they live next to the passive in phase1_engine.js; the rest are in this file.
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Broad Shoulders', desc: 'Every ally you are screening gets half your Guard Resist (+7 per stack).' },
+      R: { id: '3R', name: 'Big Lungs', desc: 'Eyes On Me! reaches 20% farther.' }
+    },
+    7: {
+      L: { id: '7L', name: 'Counterpunch', desc: 'When an enemy hero damages an ally you are screening, your next Haymaker within 3s stuns for 0.75s, wall or no wall.' },
+      R: { id: '7R', name: 'Unstoppable', desc: 'Crowd control can\'t touch you during Crowd Dive, and you take 20% less damage for 1.5s after landing.' }
+    },
+    10: {
+      L: { id: '10L', name: 'Last Stand', desc: 'Once every 60s, a hit that would kill an ally you are screening lands on you instead, and they are untargetable for 1s.' },
+      R: { id: '10R', name: "Bouncer's Call", desc: 'Eyes On Me! drags taunted enemies 2.5m toward you before the taunt.' }
+    }
   },
 
   ui: {
@@ -224,11 +245,19 @@ H.bodyguard = {
       : H.bodyguard.dmg.punch(st);
     const kbDist = strike.isHaymaker ? 3.8 : 0;
     const wallStun = strike.isHaymaker ? WALL_STUN : 0; // Q: knocked into a wall / tree / tower = stunned
+    // 7L Counterpunch: armed by the engine (an enemy hero hit someone he's screening in the last 3s); used up by this Haymaker
+    const counter = strike.isHaymaker && (hero.counterUntil || 0) > KitFx.time;
+    if (counter) {
+      hero.counterUntil = 0;
+      spawnFloat(hero.x, 2.9, hero.z, 'COUNTERPUNCH!', '#38bdf8');
+    }
+    const stunDur = counter ? COUNTER_STUN : 0;
 
     if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - fx, d.z - fz) <= hitRadius + d.r) {
         damageDummy(d, dmg, strike.isHaymaker ? '#38bdf8' : '#fb7185');
+        if (stunDur > 0) CC.apply(d, { stunDur }, { x: hero.x, z: hero.z, unit: hero });
         if (kbDist > 0) {
           let dirX = d.x - hero.x;
           let dirZ = d.z - hero.z;
@@ -267,7 +296,8 @@ H.bodyguard = {
             kbOriginX: hero.x,
             kbOriginZ: hero.z,
             castId: strike.castId, // Q haymaker strikes carry their cast (basics leave it unset)
-            wallStun
+            wallStun,
+            stunDur: stunDur || undefined
           });
         }
       });
@@ -322,6 +352,7 @@ H.bodyguard = {
       spawnFloat(hero.x, 2.7, hero.z, 'CROWD DIVE!', '#38bdf8');
       hero.leapCastId = KitFx.castId(); // the landing slam (leapLandFor) belongs to this cast
       hero.leapSt = st; // ...and uses the stats from cast time
+      if (KitFx.tal(ctx, 7, 'R')) this.unstoppable(hero);
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
         spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
@@ -340,7 +371,10 @@ H.bodyguard = {
     const { st, pProg, talents, rUlt } = ctx;
     const hero = actor.unit;
     {
-      const rRad = 4.8;
+      const rRad = 4.8 * (KitFx.tal(ctx, 3, 'R') ? BIG_LUNGS : 1); // 3R Big Lungs
+      const pull = KitFx.tal(ctx, 10, 'R'); // 10R Bouncer's Call
+      // how far to drag a target at (x, z): up to 2.5m, stopping short of his body
+      const pullDist = (x, z, r) => Math.max(0, Math.min(BOUNCER_PULL, Math.hypot(x - hero.x, z - hero.z) - (hero.r || 0.62) - (r || 0.5) - 0.3));
       const rDmg = H.bodyguard.dmg.taunt(st, rUlt);
       const tauntDur = [1.5, 1.75, 2.0][rUlt];
       let enemyScore = 0;
@@ -351,16 +385,32 @@ H.bodyguard = {
           damageDummy(d, rDmg, '#fde047');
           enemyScore += 2;
           spawnFloat(d.x, 2.75, d.z, 'TAUNTED (' + tauntDur + 's)!', '#fde047');
+          const pd = pull ? pullDist(d.x, d.z, d.r) : 0;
+          if (pd > 0) {
+            const l = Math.hypot(hero.x - d.x, hero.z - d.z) || 1, kbDur = 0.2;
+            d.kbVx = ((hero.x - d.x) / l) * (pd / kbDur);
+            d.kbVz = ((hero.z - d.z) / l) * (pd / kbDur);
+            d.kbTimer = kbDur;
+            d.kbWallStun = 0;
+            d.resetDelay = 3.5;
+          }
         }
       });
       if (phase1Engine) {
         actor.hostiles().forEach((t) => {
           if (t.kind === 'structure') return;
           if (Math.hypot(t.x - hero.x, t.z - hero.z) <= rRad + t.r) {
+            const pd = pull && t.kind !== 'deployable' ? pullDist(t.x, t.z, t.r) : 0;
             const hit = actor.damage(t, rDmg, {
               dmgType: 'physical',
               tauntDur,
-              color: '#fde047'
+              color: '#fde047',
+              // 10R: a short knockback toward him (no wall stun)
+              knockbackDist: pd > 0 ? pd : undefined,
+              knockbackDirX: hero.x - t.x,
+              knockbackDirZ: hero.z - t.z,
+              knockbackDur: 0.2,
+              wallStun: 0
             });
             if (hit) enemyScore += (t.kind === 'bot' || t.kind === 'player' ? 2 : 1);
           }
@@ -383,7 +433,13 @@ H.bodyguard = {
     return;
   },
 
-  // E Crowd Dive landing slam (+ 7R Heroic Rescue shields)
+  // 7R Unstoppable: no new crowd control for the whole leap (CC.immuneOf)
+  unstoppable(u) {
+    u.ccImmuneTimer = (u.leapDur || 0.42) + 0.05;
+    spawnFloat(u.x, 3.0, u.z, 'UNSTOPPABLE', '#fbbf24');
+  },
+
+  // E Crowd Dive landing slam (+ 7R Unstoppable damage reduction)
   onLeapLand(ctx) {
     return this.leapLandFor(KitFx.player, ctx);
   },
@@ -391,6 +447,8 @@ H.bodyguard = {
   leapLandFor(actor, ctx) {
     const { st, pProg, talents } = ctx;
     const hero = actor.unit; // (local alias: the lander)
+    // 7R Unstoppable: 20% less damage for 1.5s after landing (damageMults hook at the top of this file)
+    if (KitFx.tal(ctx, 7, 'R')) hero.bgBraceUntil = KitFx.time + BRACE_TIME;
     // Bodyguard E (Crowd Dive) Landing Slam!
     const rQE = (pProg.level || 1) >= 9 ? 2 : ((pProg.level || 1) >= 6 ? 1 : 0);
     const slamR = 2.85;
@@ -453,6 +511,7 @@ H.bodyguard = {
       spawnFloat(hero.x, 2.7, hero.z, 'CROWD DIVE!', '#38bdf8');
       hero.leapCastId = KitFx.castId(); // the landing slam (leapLandFor) belongs to this cast
       hero.leapSt = st; // ...and uses the stats from cast time
+      if (KitFx.tal(ctx, 7, 'R')) this.unstoppable(hero);
       hero.leapOnLand = () => {
         const lvl = actor.level();
         this.leapLandFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents() });

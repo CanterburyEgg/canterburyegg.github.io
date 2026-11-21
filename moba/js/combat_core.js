@@ -11,6 +11,8 @@
 //   Combat.atkInterval(baseCd, st, asScale)   seconds between basic attacks: stat attack speed is hard-capped at
 //                                       2.5 attacks/s; passive attack speed (st.passiveAsPct, % of the BASE rate) goes on
 //                                       top, up to an absolute 3.5/s (DESIGN_RULES §2, SHOP_PLAN 'Attack speed cap')
+//   Combat.preHit(target, dealt, info)  mitigated damage a hero unit keeps after Redirect + talent saves
+//   Combat.talentOf(unit, tier)         'L' | 'R' | null (set by the engine; player and bots)
 //   Combat.on(evt, fn) / off / emit     event bus: 'hit' { attacker, target, targetObj, raw, dealt, info } fires after
 //                                       any damage lands (player, bots, minions, camps, towers)
 (function () {
@@ -41,8 +43,20 @@
     },
     // engine hook (item passives): part of a hero's mitigated damage moved to an ally; returns what the target keeps
     redirectShare(target, dealt, info) { return dealt; },
+    // Last step before mitigated damage lands on a hero unit: Redirect, then talent saves (Bodyguard Last Stand).
+    // Each save is fn(target, dealt, info) -> what the target keeps (0 = the whole hit was taken elsewhere).
+    saves: [],
+    preHit(target, dealt, info) {
+      let d = Combat.redirectShare(target, dealt, info);
+      for (let i = 0; i < Combat.saves.length && d > 0; i++) d = Combat.saves[i](target, d, info);
+      return d;
+    },
     // engine hook (Spell shield): true = this hit (and its CC) is blocked
     blocks(info, target) { return false; },
+    // untargetable (Bodyguard Last Stand): no damage, no CC, dropped from target lists
+    untargetable(u) { return !!u && (u.untargetableUntil || 0) > (window.KitFx ? window.KitFx.time : 0); },
+    // engine hook: the talent a hero unit has taken at a tier ('L' | 'R'), or null (not taken yet / not reached)
+    talentOf(u, tier) { return null; },
     // hits from minions, camps and towers: plain basic attacks
     unitHitInfo(attacker, isDoT) {
       return { attacker: attacker || null, src: 'attack', isBasic: true, isDoT: !!isDoT, aoe: false, castId: null };

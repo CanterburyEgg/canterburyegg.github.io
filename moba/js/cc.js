@@ -20,9 +20,12 @@
     // Tenacity (0..1) shortens every CC except knock-ups, slows included (SHOP_PLAN; the engine sets tenacityOf)
     tenacityOf(u) { return 0; },
     onHard(target, srcUnit) {}, // item passives hook (Exposed, Shrug off): hard CC landed on target from srcUnit
-    dur(u, d) { const t = CC.tenacityOf(u) || 0; return t > 0 ? d * (1 - Math.min(0.95, t)) : d; },
+    // CC immunity (Bodyguard Unstoppable during Leap Slam): u.ccImmuneTimer > 0 ignores every new CC, slows and
+    // knockbacks included (the engine's knockback code checks this too)
+    immuneOf(u) { return !!u && (u.ccImmuneTimer || 0) > 0; },
+    dur(u, d) { if (CC.immuneOf(u)) return 0; const t = CC.tenacityOf(u) || 0; return t > 0 ? d * (1 - Math.min(0.95, t)) : d; },
     apply(u, opts, src) {
-      if (!u || !opts) return;
+      if (!u || !opts || CC.immuneOf(u)) return;
       if (opts.stunDur > 0) u.stunTimer = max(u.stunTimer, CC.dur(u, opts.stunDur));
       if (opts.slowDur > 0) CC.slow(u, opts.slowDur, opts.slowPct);
       if (opts.rootDur > 0) u.rootTimer = max(u.rootTimer, CC.dur(u, opts.rootDur));
@@ -46,7 +49,7 @@
     // Slow with a strength (slowPct 0.25 = 25% slower). Without one it's the old standard slow (32%; minions and camps
     // read it as their own 28%). While a slow is running the stronger strength wins; the timer is shared.
     slow(u, dur, pct) {
-      if (!u || !(dur > 0)) return;
+      if (!u || !(dur > 0) || CC.immuneOf(u)) return;
       const p = pct > 0 ? pct : 0;
       const eff = (x) => (x > 0 ? x : 0.32); // 0 = the standard slow
       u.slowPct = (u.slowTimer > 0 && eff(u.slowPct) > eff(p)) ? u.slowPct : p;
@@ -62,6 +65,7 @@
     // the timers this file owns (stun / slow / taunt keep ticking where they always did)
     tick(u, dt) {
       if (!u) return;
+      if (u.ccImmuneTimer > 0) u.ccImmuneTimer = Math.max(0, u.ccImmuneTimer - dt);
       if (u.rootTimer > 0) u.rootTimer = Math.max(0, u.rootTimer - dt);
       if (u.silenceTimer > 0) u.silenceTimer = Math.max(0, u.silenceTimer - dt);
       if (u.fearTimer > 0) u.fearTimer = Math.max(0, u.fearTimer - dt);

@@ -131,11 +131,14 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   at plateau height with the lane wall as its parapet, boss pit floor ~3-4m lower, pit back wall = the bridge's tall
   masonry foundation, side walls = natural cliffs, entrance = a ramp. Decide this before modelling the wall-to-cliff
   corner (concept in assets/map/wall_cliff/ is at parapet height, so likely wrong) or a bridge foundation wall.
-- [ ] **Model batch 2026-11-19 (meshes tonight, texture next)**: lane wall, crumbled lane wall end, castle gate arch,
-  boss pit shrine, lookout deck railing. Concepts in assets/map/<name>/<name>_concept.png.
-- [ ] **Lane wall model (noted 2026-11-18)**: the top lane's south wall (code-built tan boxes, with crumbled jungle
-  gaps) is also the boss hollow's back wall. Needs a model piece that reads as the lane's wall and joins the lane
-  and the pit naturally. Then the lookout deck railings + gate arches could get a matching pass too.
+- [ ] **Lane shape refinement (noted 2026-11-21, do with the jungle pass)**: refine the lanes' shape together with the
+  jungle. The gate arch clips oddly into the castle wall (fit is `CASTLE_FIT.gateArch`: 13.3m wide, squashed to 7.2m);
+  sort it out then.
+- [ ] **Boss pit (noted 2026-11-21, do with the elevation pass)**: the pit isn't really formed yet, and the pit shrine
+  placed against its back wall looks wrong for now (no collision either). Redo the shrine with the pit's shape.
+- [x] **Model batch 2026-11-19 (in game 2026-11-21)**: lane wall + crumbled ends (whole south lane wall and the deck's
+  front wall), gate arches (4 castle gates), lookout deck railing, pit shrine. Textured `_raw.glb` files are slimmed to
+  `_game.glb` and added to `map_bundle.js` (31.7 MB now).
 
 ## Model batch 2026-11-15
 - **In game:** gatehouse (the gate flank tower), boulders (replace the stone pillars), fallen logs (3 per side, new line-of-sight
