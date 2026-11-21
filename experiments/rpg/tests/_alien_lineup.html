@@ -1,12 +1,13 @@
-<!DOCTYPE html><html><head><style>body{margin:0;background:#a9d4e0;font-family:sans-serif}canvas{display:block}#l{position:fixed;inset:0;pointer-events:none}#l div{position:absolute;transform:translateX(-50%);font-size:12px;font-weight:700;color:#1a2230}</style></head><body><div id="l"></div>
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>Alien lineup</title><style>body{margin:0;background:#a9d4e0;font-family:sans-serif}canvas{display:block}#l{position:fixed;inset:0;pointer-events:none}#l div{position:absolute;transform:translateX(-50%);font-size:12px;font-weight:700;color:#1a2230}</style></head><body><div id="l"></div><div style="position:fixed;top:10px;left:12px;font:13px sans-serif;color:#1a2230"><b>Alien lineup</b> · drag to orbit · scroll to zoom · <b>W</b> toggles walking motion</div>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
 <script type="module">
 // Dev page: every alien species in three seeded variants, for eyeballing the bodies.
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { buildNpcModel } from '../js/npc_models.js';
 import { SPECIES } from '../data/aliens.js';
 import { Rng } from '../js/rng.js';
-const W = 1500, H = 560;
+let W = innerWidth, H = innerHeight;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(W, H);
 document.body.appendChild(renderer.domElement);
@@ -29,7 +30,39 @@ ids.forEach((id, i) => {
   }
 });
 const cam = new THREE.PerspectiveCamera(30, W / H, 0.1, 100);
+cam.position.set(0, 3.5, 23);
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 0.9, 0);
+controls.enableDamping = true;
+controls.update();
+addEventListener('resize', () => { W = innerWidth; H = innerHeight; renderer.setSize(W, H); cam.aspect = W / H; cam.updateProjectionMatrix(); });
 const labels = document.getElementById('l');
+function drawLabels() {
+  labels.innerHTML = '';
+  ids.forEach((id, i) => {
+    const p = models[i * 3 + 1].position.clone(); p.y = -0.25; p.project(cam);
+    if (p.z > 1) return;
+    const d = document.createElement('div');
+    d.innerHTML = `${SPECIES[id].name}<br><span style="font-weight:400;font-size:11px">${SPECIES[id].blurb}</span>`;
+    d.style.left = ((p.x + 1) / 2 * W) + 'px'; d.style.top = ((1 - p.y) / 2 * H) + 'px'; d.style.width = '150px'; d.style.textAlign = 'center';
+    labels.appendChild(d);
+  });
+}
+// Live view: idle motion, drag to orbit, scroll to zoom. Press W to toggle walking motion.
+let live = !navigator.webdriver, walking = false;
+addEventListener('keydown', (e) => { if (e.key === 'w') walking = !walking; });
+const t0 = performance.now();
+function loop() {
+  if (!live) return;
+  const t = (performance.now() - t0) / 1000;
+  for (const m of models) if (m.userData.idle) m.userData.idle(m.userData.body, t, walking);
+  controls.update();
+  renderer.render(scene, cam);
+  drawLabels();
+  requestAnimationFrame(loop);
+}
+renderer.setSize(W, H);
+loop();
 window.__render = (t, view) => {
   for (const m of models) if (m.userData.idle) m.userData.idle(m.userData.body, t, false);
   if (view === 'front') { cam.position.set(0, 2.2, 15); cam.lookAt(0, 0.9, 0); }
