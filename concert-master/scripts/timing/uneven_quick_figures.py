@@ -59,7 +59,7 @@ def run(ns):
                     if t_a is not None and t_b is None:
                         # a soft last note with no clear attack (0:56 flute): keep the pace of the figure's unstretched gap
                         t_b = t_a + (s_b - s_a) * min(x / y for x, y in zip(ag, sg))
-                    if t_a is not None and t_b is not None and t_a < t_b < nxt_t - 0.05 and 0.6 <= (t_b - t_a) / (s_b - s_a) <= 1.8:
+                    if t_a is not None and t_b is not None and t_a < t_b < nxt_t - 0.05 and 0.8 <= (t_b - t_a) / (s_b - s_a) <= 1.8:
                         print(f"    -> re-spaced uneven quick figure at {float(melody_out[k_a][0]):.2f}s ({k_b - k_a + 1} notes)")
                         for k in range(k_a, k_b + 1):
                             nt = t_a + (float(warped[k]["score_start"]) - s_a) * (t_b - t_a) / (s_b - s_a)

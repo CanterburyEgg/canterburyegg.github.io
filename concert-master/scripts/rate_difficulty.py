@@ -39,6 +39,7 @@ SONGS = {
     "what-we-do": "what-we-do.cadenza.json",
     "arabesque": "arabesque.cadenza.json",
     "jupiter": "jupiter.cadenza.json",
+    "mars": "mars.cadenza.json",
     "maslanka4": "maslanka-symphony-4.cadenza.json",
 }
 

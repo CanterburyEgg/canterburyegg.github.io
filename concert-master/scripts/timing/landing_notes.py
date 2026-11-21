@@ -38,11 +38,17 @@ def run(ns):
     if len(warped) == len(melody_out):
         nm = len(melody_out)
         k_a = 1
+        _sp_ln = ns.get("score_path")
+        _exact_ln = _sp_ln is not None and str(_sp_ln).lower().endswith((".mxl", ".musicxml", ".xml"))
         while k_a < nm - 3:
             k_b = k_a
             while k_b + 1 < nm and k_b - k_a < 11:
                 g = float(warped[k_b + 1]["score_start"]) - float(warped[k_b]["score_start"])
                 if not (0.03 < g <= 0.2):
+                    break
+                # (in an exact score, a figure doesn't run on into a repeated-note entry in another part: Mars 7:27.8, the
+                # violins' climb lands on the trumpets' 79, not on their second 79)
+                if _exact_ln and k_b > k_a and warped[k_b + 1].get("staff") != warped[k_b].get("staff") and int(melody_out[k_b + 1][2]) == int(melody_out[k_b + 2][2] if k_b + 2 < nm else -1):
                     break
                 k_b += 1
             if k_b - k_a >= 2 and k_b + 1 < nm and not any(str(warped[k].get("staff", "")).startswith("Restored") for k in range(k_a - 1, k_b + 2)):

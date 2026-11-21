@@ -43,6 +43,29 @@ def run(ctx):
                 key = (dbl, -abs(sum(int(m["midi"]) for m in part) / len(part) - sum(int(x["midi"]) for x in seg) / len(seg)))
                 if best is None or key > best[0]:
                     best = (key, nm, part)
+        # (...or the passage began in another part, in a silence before the lead picked it up, and that part -- above the
+        # lead -- plays straight on through it: the lead joined an inner voice partway. Mars 7:20-7:28, the first violins
+        # start the run 2.7s before the cor anglais the lead joined, and climb to the top while it circles down; user,
+        # Nov 20: "at the end does the run really go down?")
+        if best is None and len(seg) >= 8 and quick >= 0.7 * (len(seg) - 1):
+            t0, t1 = float(seg[0]["start"]), float(seg[-1]["start"])
+            prev_end = max([float(x["end"]) for x in lead[:i]] or [-1e9])
+            seg_mid = sorted(int(x["midi"]) for x in seg)[len(seg) // 2]
+            for nm, ns in by.items():
+                if nm == a:
+                    continue
+                part = [m for m in ns if prev_end - 0.02 <= float(m["start"]) <= t1 + 0.02]
+                if len(part) < len(seg) + 8 or float(part[0]["start"]) > t0 - 1.0:
+                    continue
+                # (straight on, a breath of one note at most -- the violins' groups of 3 and 4 skip a 16th here and there)
+                if any(float(y["start"]) - float(x["start"]) > 2 * QUICK + 0.02 for x, y in zip(part, part[1:])):
+                    continue
+                inside = [m for m in part if float(m["start"]) >= t0 - 0.02]
+                if sorted(int(m["midi"]) for m in inside)[len(inside) // 2] < seg_mid + 5:
+                    continue
+                key = (len(part), sorted(int(m["midi"]) for m in inside)[len(inside) // 2])
+                if best is None or key > best[0]:
+                    best = (key, nm, inside)
         if best:
             _, nm, part = best
             # (from the passage's own first note: where the part started it earlier, under a held note or a last note

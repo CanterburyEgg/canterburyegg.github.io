@@ -1429,6 +1429,8 @@ const LAYOUT_RULES = [
   ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l); }],
   ['longRunsEndOnEdge', (n, l, c) => { if (c.exactScore) applyLongRunsEndOnEdge(n, l); }],
   ['runsThatRoll', (n, l, c) => { if (c.exactScore || (c.tryRules || []).includes('runsThatRoll')) applyRunsThatRoll(n, l); }],
+  ['steppingThreesAlternate', (n, l, c) => { if (c.exactScore) applySteppingThreesAlternate(n, l); }],
+  ['backToBackFourShift', (n, l, c) => { if (c.exactScore) applyBackToBackFourShift(n, l); }],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -4894,13 +4896,92 @@ function applyRunsThatRoll(notes, lanes) {
       if (d === 0) {
         // (same note, same key)
       } else if (d > 0) l = l === last ? first : l + dir;
-      else if (d >= -2) {
-        if (l === first) ok = false; // (no key to step back to: the run keeps the keys it had)
-        else l -= dir;
-      } else l = first;
+      // (a step back starts afresh too, like a drop, so the groups line up as D F J K and the 12-note waves can take
+      // them -- the K J K rolls read as J K J K; user, Nov 20: "is it possible to clean that up with the new DFJFJK
+      // ligature? it's more pleasing to play by a mile")
+      else l = first;
       plan.push(l);
     }
     if (ok) run.forEach((x, j) => (x.lane = plan[j]));
+  }
+}
+
+/**
+ * Stepping-down threes alternate: a sequence of rising three-note groups (each a quick step-step-up, 3+ in a row), each
+ * starting below where the last one ended -- the sequence stepping down -- alternates its keys F J K | D F J | F J K |
+ * D F J, so the groups feel like they step down instead of all landing on F J K (Mars 7:23.8: the violins' 69 71 72 |
+ * 66 67 69 | 63 64 66 | 57 59 60; user, Nov 20: "it'd be fun to play FJKDFJFJKDFJ there"). Mirrored for falling
+ * groups stepping up. Exact scores only.
+ */
+function applySteppingThreesAlternate(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const cellAt = (i) => {
+    if (i + 2 >= prim.length) return 0;
+    const [a, b, c] = [prim[i], prim[i + 1], prim[i + 2]];
+    if (b.time - a.time >= 0.2 || c.time - b.time >= 0.2) return 0;
+    const d1 = b.midi - a.midi;
+    const d2 = c.midi - b.midi;
+    if (!d1 || Math.sign(d1) !== Math.sign(d2) || Math.abs(d1) > 3 || Math.abs(d2) > 3) return 0;
+    if ([a, b, c].some((x) => x.fixedLane || x.localPin || x.ghost)) return 0;
+    // (a group of exactly three: the next note turns back -- 55 57 59 61 is a four-note climb, not a three)
+    const nx = prim[i + 3];
+    if (nx && nx.time - c.time < 0.25 && Math.sign(nx.midi - c.midi) === Math.sign(d1)) return 0;
+    return Math.sign(d1);
+  };
+  for (let i = 0; i < prim.length; ) {
+    const dir = cellAt(i);
+    if (!dir) { i++; continue; }
+    const cells = [i];
+    let k = i;
+    while (cellAt(k + 3) === dir && prim[k + 3].time - prim[k + 2].time < 0.25 &&
+           (prim[k + 3].midi - prim[k].midi) * dir < 0) {
+      k += 3;
+      cells.push(k);
+    }
+    if (cells.length >= 3) {
+      const A = dir > 0 ? [1, 2, 3] : [2, 1, 0];
+      const B = dir > 0 ? [0, 1, 2] : [3, 2, 1];
+      cells.forEach((c, n) => [0, 1, 2].forEach((q) => (prim[c + q].lane = (n % 2 ? B : A)[q])));
+      i = k + 3;
+    } else i++;
+  }
+}
+
+/**
+ * Back-to-back D F J K: where a quick run plays three groups of four on D F J K in a row (12 notes), they play
+ * D F J F J K D F J F J K instead -- two six-note waves -- so the run doesn't cycle the same four keys three times
+ * over; a longer stretch does this for every three groups, and any leftover groups stay D F J K (going down, mirrored:
+ * K J F J F D ...). Mars 7:24.9-7:27.7, the violins' climb (user, Nov 20: "can I have runs of 12 go DFJFJKDFJFJK?").
+ * Exact scores only.
+ */
+function applyBackToBackFourShift(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
+  const groupAt = (i, want) => {
+    if (i + 3 >= prim.length) return false;
+    for (let q = 0; q < 4; q++) {
+      const x = prim[i + q];
+      if (x.lane !== want[q] || x.fixedLane || x.localPin || x.ghost) return false;
+      if (q && x.time - prim[i + q - 1].time >= 0.2) return false;
+    }
+    return true;
+  };
+  for (const base of [[0, 1, 2, 3], [3, 2, 1, 0]]) {
+    for (let i = 0; i < prim.length; ) {
+      if (!groupAt(i, base)) { i++; continue; }
+      const groups = [i];
+      let k = i;
+      while (groupAt(k + 4, base) && prim[k + 4].time - prim[k + 3].time < 0.2) {
+        k += 4;
+        groups.push(k);
+      }
+      for (let g = 0; g + 2 < groups.length; g += 3) {
+        const wave = base[0] === 0 ? [0, 1, 2, 1, 2, 3, 0, 1, 2, 1, 2, 3] : [3, 2, 1, 2, 1, 0, 3, 2, 1, 2, 1, 0];
+        for (let q = 0; q < 12; q++) prim[groups[g] + q].lane = wave[q];
+      }
+      i = k + 4;
+    }
   }
 }
 
@@ -4990,6 +5071,9 @@ function applyLongRunsEndOnEdge(notes, lanes) {
     for (;;) {
       if (!(b + 1 < prim.length && dir && prim[b + 1].time - prim[b].time < 0.2)) break;
       const st = prim[b + 1].midi - prim[b].midi;
+      // (a leap of more than a 5th starts a new run: Mars 7:22.8, the climb 81 83 85 then the fall from 71 -- the 85
+      // was planned as the fall's first note and doubled the 83's key; user, Nov 20: "there's a repeated FF in there")
+      if (Math.abs(st) > 7) break;
       if (Math.sign(st) === dir) { b++; continue; }
       if (turned < 0 && b > a && Math.abs(st) <= 2 && st !== 0 && b + 2 < prim.length && prim[b + 2].time - prim[b + 1].time < 0.2 &&
           Math.sign(prim[b + 2].midi - prim[b + 1].midi) === dir) { turned = b + 1 - a; b++; continue; }
@@ -5077,7 +5161,10 @@ function applyLinesKeepDirection(notes, lanes, ghosts) {
     // a step back inside it that isn't a wrap or a restart
     const backs = run.map((x, j) => j && !reads(run[j - 1], x, run[j - 1].lane, x.lane) && !wrapOK(run[j - 1], x)
       && !(x.partEntry) && !(gaps[j - 1] >= 1.5 * pace && gaps[j - 1] >= 0.3)).slice(1);
-    if (!backs.some(Boolean)) continue;
+    // (or a step of a tone or less that skips a key -- Mars 7:24.1, the run's 66 67 69 came out D F-skipped J K; user,
+    // Nov 20: "two two-note jumps that feel strange")
+    const skips = run.map((x, j) => j && Math.abs(x.midi - run[j - 1].midi) <= 2 && Math.abs(kp(x.lane) - kp(run[j - 1].lane)) >= 2 && !wrapOK(run[j - 1], x)).slice(1);
+    if (!backs.some(Boolean) && !skips.some(Boolean)) continue;
     const k = run.length;
     const pv = a > 0 && run[0].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
     const nx = b + 1 < n && prim[b + 1].time - run[k - 1].time < 0.6 ? prim[b + 1] : null;
@@ -5095,7 +5182,10 @@ function applyLinesKeepDirection(notes, lanes, ghosts) {
       else if (med >= 0.18) options.push(dir > 0 ? [1, 0, 1, 2, 3] : [2, 3, 2, 1, 0]);
       else if (ghosts) options.push(dir > 0 ? [S, 0, 1, 2, 3] : [L, 3, 2, 1, 0]);
     }
-    const fits = (o) => (!pv || run[0].partEntry || reads(pv, run[0], pv.lane, o[0])) && (!nx || nx.partEntry || reads(run[k - 1], nx, o[k - 1], nx.lane));
+    // (a new part's entry may break the line, but never onto the same key as a different note: Mars 7:27.7, F69 then the
+    // trumpets' F79)
+    const fits = (o) => (!pv || (run[0].partEntry ? !(kp(o[0]) === kp(pv.lane) && pv.midi !== run[0].midi) : reads(pv, run[0], pv.lane, o[0])))
+      && (!nx || (nx.partEntry ? !(kp(o[k - 1]) === kp(nx.lane) && nx.midi !== run[k - 1].midi) : reads(run[k - 1], nx, o[k - 1], nx.lane)));
     options = options.filter(fits);
     if (!options.length) continue;
     // (closest to where the line already sits)

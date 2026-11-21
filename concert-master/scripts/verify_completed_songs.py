@@ -36,6 +36,7 @@ COMPLETED_SONGS = [
     ("what-we-do", "What We Do (RuneScape 3)", ROOT_DIR / "audio" / "what-we-do.cadenza.json"),
     ("sound-of-guthix", "The Sound of Guthix (RuneScape 3)", ROOT_DIR / "audio" / "sound-of-guthix.cadenza.json"),
     ("jupiter", "Jupiter, the Bringer of Jollity (Gustav Holst)", ROOT_DIR / "audio" / "jupiter.cadenza.json"),
+    ("mars", "Mars, the Bringer of War (Gustav Holst)", ROOT_DIR / "audio" / "mars.cadenza.json"),
 ]
 
 KEY_LABELS_4K = {-1: "SPACE", 0: "D", 1: "F", 2: "J", 3: "K", 4: "S(ghost)", 5: "L(ghost)"}

@@ -81,18 +81,34 @@
   },
   "jupiter": {
     "hard": {
-      "score": 9.16,
+      "score": 9.17,
       "rating": 3,
       "burst": 8.72,
-      "endurance": 9.71,
+      "endurance": 9.72,
       "notes": 1264
     },
     "easy": {
-      "score": 2.75,
+      "score": 2.68,
       "rating": 0,
-      "burst": 1.94,
-      "endurance": 3.74,
+      "burst": 1.79,
+      "endurance": 3.76,
       "notes": 732
+    }
+  },
+  "mars": {
+    "hard": {
+      "score": 14.05,
+      "rating": 3,
+      "burst": 11.57,
+      "endurance": 17.09,
+      "notes": 936
+    },
+    "easy": {
+      "score": 1.76,
+      "rating": 0,
+      "burst": 1.57,
+      "endurance": 1.99,
+      "notes": 518
     }
   },
   "maslanka4": {

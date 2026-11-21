@@ -20,7 +20,11 @@ def run(ctx):
             continue
         best = None
         for st in staves:
-            ns = [m for m in st["notes"] if g0 - 0.02 <= float(m["start"]) < g1 - 0.02]
+            # (from the part's first note, even one that comes in under the end of a short last note before the gap --
+            # Mars 7:19.9, the violins' 75 a 16th after the trombones' short 59; user, Nov 20: "the VERY first note of the
+            # pattern might be early")
+            lo = g0 - 0.15 if float(a["end"]) - float(a["start"]) < 0.3 else g0
+            ns = [m for m in st["notes"] if lo - 0.02 <= float(m["start"]) < g1 - 0.02]
             if not ns or float(min(ns, key=lambda m: float(m["start"]))["start"]) > g0 + 0.5:
                 continue
             ns.sort(key=lambda m: float(m["start"]))
