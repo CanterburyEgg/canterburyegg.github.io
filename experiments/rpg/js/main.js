@@ -27,8 +27,12 @@ import { QUARTERMASTER } from '../data/npcs.js';
 import { QUESTS, QUEST_BY_ID } from '../data/quests/index.js';
 import { questsForPlanet, questPlanetIndex, resolveSlots, fillText, quirkLine, pickEntry, slotRef, journalEntry, questStatus } from './quests.js';
 import { freeSlots } from './inventory.js';
-import { createCharacter, randomLook, preloadCharacterAssets } from './player_character.js';
+import { createCharacter, randomLook, preloadCharacterAssets, createToolMesh, attachToHand } from './player_character.js';
 import { createQuirkRuntime, discoverSites, crystalCompass } from './quirk_mechanics.js';
+import { loadSettings, QUALITY } from './settings.js';
+import { createCreator } from './creator.js';
+import { createPause } from './pause.js';
+import { startArrival } from './arrival.js';
 
 // ---------------------------------------------------------------------
 // Renderer / scene / camera
@@ -47,6 +51,30 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.5, 1200);
 const cam = { yaw: Math.PI * 0.25, pitch: 0.92, dist: 36, target: new THREE.Vector3() };
 
+// Game mode: 'title' (menus over a live planet), 'creator', 'arrival' (landing), 'play'.
+let mode = 'title';
+const playing = () => mode === 'play' && !pause.isOpen();
+function setMode(m) {
+  mode = m;
+  document.body.dataset.mode = m;
+  player.mesh.visible = m === 'play' || (m === 'arrival' && arrival && arrival.stepped);
+}
+
+// Settings (device-level, localStorage)
+const settings = loadSettings();
+function applySettings(changed) {
+  const q = QUALITY[settings.quality];
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, q.pixelRatio));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  if (renderer.shadowMap.enabled !== q.shadows) {
+    renderer.shadowMap.enabled = q.shadows;
+    scene.traverse((o) => { if (o.material) [].concat(o.material).forEach((m) => { m.needsUpdate = true; }); });
+  }
+  SFX.setVolume(settings.master, settings.sfx);
+  document.getElementById('fps').style.display = settings.showFps ? 'block' : 'none';
+  if (changed === 'quality' && mode === 'play') rebuildPlayerModel();
+}
+
 // ---------------------------------------------------------------------
 // Player: the faceted human (js/player_character.js), built from state.look.
 // ---------------------------------------------------------------------
@@ -57,65 +85,31 @@ const player = {
   char: null,          // { root, play, update, hand, ... } once built
 };
 scene.add(player.mesh);
-const JOG_NATIVE_SPEED = 3.3; // m/s the jog clip's stride matches at timeScale 1
+// Movement clip and the ground speed (m/s) its stride matches at timeScale 1, measured from the
+// planted foot (tests/_measure_gait.html): Walk 0.96, Jog 2.5, Sprint 3.3.
+const GAITS = { jog: { clip: 'Jog_Fwd_Loop', native: 2.5 }, sprint: { clip: 'Sprint_Loop', native: 3.3 } };
+let gait = GAITS.sprint; // the jog clip has to play at 1.6x to keep up with 4.4 m/s and looks frantic
 let charBuild = 0;
 async function rebuildPlayerModel() {
   const token = ++charBuild;
   const look = state.look || (state.look = randomLook());
   try {
-    const c = await createCharacter(look);
+    const c = await createCharacter(look, { cellFrac: QUALITY[settings.quality].cellFrac });
     if (token !== charBuild) { c.dispose(); return; }
     if (player.char) player.char.dispose();
     player.char = c;
     player.mesh.add(c.root);
-    if (c.hand) {
-      // the armature may be authored in centimeters: undo the hand's world scale so tools are in meters
-      player.mesh.updateMatrixWorld(true);
-      const ws = c.hand.getWorldScale(new THREE.Vector3());
-      toolMesh.scale.setScalar(1 / ws.x);
-      c.hand.add(toolMesh);
-    } else player.mesh.add(toolMesh);
+    if (!attachToHand(c, toolMesh)) player.mesh.add(toolMesh);
     c.play('idle', { fade: 0 });
   } catch (e) {
     console.error('Player model failed to build', e);
   }
 }
 
-// Hand tool shown while gathering: one simple model per tool type, parented to the right hand.
-const toolMesh = new THREE.Group();
-const toolHeads = {};
-{
-  const wood = new THREE.MeshStandardMaterial({ color: '#6b4f36', roughness: 0.8, flatShading: true });
-  const metal = new THREE.MeshStandardMaterial({ color: '#c9a2e8', metalness: 0.6, roughness: 0.35, flatShading: true });
-  const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.018, 0.62, 6), wood);
-  handle.position.y = 0.2;
-  toolMesh.add(handle);
-  const pick = new THREE.Group();
-  for (const side of [-1, 1]) {
-    const prong = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.22, 5), metal);
-    prong.rotation.z = -side * Math.PI / 2;
-    prong.position.x = side * 0.11;
-    pick.add(prong);
-  }
-  pick.position.y = 0.48;
-  const hatchet = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.11, 0.025), metal);
-  hatchet.position.set(0.08, 0.46, 0);
-  const sickle = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.014, 4, 10, Math.PI * 1.1), metal);
-  sickle.position.set(0.1, 0.46, 0);
-  sickle.rotation.z = -0.3;
-  Object.assign(toolHeads, { pick, hatchet, sickle });
-  toolMesh.add(pick, hatchet, sickle);
-  toolMesh.userData.metal = metal;
-  // grip in the palm: the handle runs along the hand bone's forward axis (tuned with renders)
-  toolMesh.position.set(0.0, 0.08, 0.0);
-  toolMesh.rotation.set(0, 0, 0);
-  toolMesh.visible = false;
-}
-function showTool(kind, color) {
-  toolMesh.visible = !!toolHeads[kind];
-  for (const [k, m] of Object.entries(toolHeads)) m.visible = k === kind;
-  if (color) toolMesh.userData.metal.color.set(color);
-}
+// Hand tool shown while gathering (player_character.js builds and grips it).
+const tool = createToolMesh();
+const toolMesh = tool.group;
+const showTool = (kind, color) => tool.show(kind, color);
 
 // ---------------------------------------------------------------------
 // Player state (inventory, skills, credits). Saves come in Phase D.
@@ -131,6 +125,7 @@ const state = {
   playtime: 0,
   quests: {},
   reputation: 0,
+  name: 'Drifter',
   look: null,               // character appearance (slider units, see player_character.js)
   discovered: {},           // planetIndex -> [siteId] found by walking near them
 };
@@ -253,7 +248,7 @@ function markDirty() { dirty = true; }
 function resetState() {
   Object.assign(state, {
     inventory: createInventory(), xp: { mining: 0, foraging: 0 }, credits: 0, bank: {},
-    permits: new Set([0]), visited: new Set(), planetIndex: 0, playtime: 0, quests: {}, reputation: 0, look: null, discovered: {},
+    permits: new Set([0]), visited: new Set(), planetIndex: 0, playtime: 0, quests: {}, reputation: 0, name: 'Drifter', look: null, discovered: {},
   });
 }
 
@@ -281,15 +276,61 @@ function updateSaveStatus(now) {
   saveStatusEl.textContent = sec < 3 ? 'Saved ✓' : `Saved ${sec < 60 ? sec + 's' : Math.round(sec / 60) + 'm'} ago`;
 }
 
-function newGame(slotId, seed) {
+// New Game: slot picked -> creator -> random world -> arrival.
+let pendingSlot = null;
+function newGame(slotId) {
+  pendingSlot = slotId;
+  setMode('creator');
+  creator.show({});
+}
+function beginNewGame(name, look) {
   resetState();
-  state.look = randomLook(); // stand-in until the character creator (start-of-game menus)
+  state.name = name;
+  state.look = look;
   rebuildPlayerModel();
-  currentSlot = slotId;
-  loadSystem(seed, 0);
+  currentSlot = pendingSlot;
+  loadSystem(randomSeed(), 0);
   refreshUI();
-  toast(`Welcome, drifter. Talk to ${QUARTERMASTER.name} at the launch pad for your starter kit.`);
   saveNow();
+  beginArrival();
+}
+
+// Arrival: the lander drops onto the pad while the camera swoops down; click or Esc skips.
+let arrival = null;
+function beginArrival() {
+  const pad = planet.outpost.anchors.pad;
+  arrival = startArrival(scene, { x: pad.x, y: sampleHeight(planet, pad.x, pad.z), z: pad.z });
+  setMode('arrival');
+}
+function endArrival() {
+  if (arrival && !arrival.done) arrival.skip();
+  arrival = null;
+  cam.dist = 36; cam.pitch = 0.92;
+  setMode('play');
+  toast(`Welcome, ${state.name}. Talk to ${QUARTERMASTER.name} at the launch pad for your starter kit.`);
+}
+function updateArrival(dt) {
+  arrival.update(dt);
+  const k = arrival.progress, e = 1 - (1 - k) ** 2;
+  cam.dist = 120 + (36 - 120) * e;
+  cam.pitch = 1.3 + (0.92 - 1.3) * e;
+  cam.yaw += dt * 0.12 * (1 - e);
+  player.mesh.visible = arrival.stepped;
+  if (arrival.done) endArrival();
+}
+
+// Title: a slow drift over a showcase planet (changes daily) behind the menus.
+function showcaseSeed() {
+  const d = new Date();
+  return `showcase${d.getFullYear()}${d.getMonth() + 1}${d.getDate()}`;
+}
+function enterTitle(where = 'title') {
+  currentSlot = null;
+  setMode('title');
+  if (!system || !system.seed.startsWith('showcase')) loadSystem(showcaseSeed(), 0);
+  cam.dist = 70; cam.pitch = 0.62;
+  cam.target.set(planet.outpost.x, sampleHeight(planet, planet.outpost.x, planet.outpost.z), planet.outpost.z);
+  menu.show(where);
 }
 
 async function continueGame(slotId) {
@@ -300,9 +341,8 @@ async function continueGame(slotId) {
     Object.assign(state, {
       inventory: d.inventory, xp: d.xp, credits: d.credits, bank: d.bank,
       permits: d.permits, visited: d.visited, playtime: d.playtime, quests: d.quests, reputation: d.reputation,
-      look: d.look || randomLook(), discovered: d.discovered,
+      name: d.name, look: d.look || randomLook(), discovered: d.discovered,
     });
-    if (!d.look) markDirty(); // older saves get a look rolled once, then kept
     rebuildPlayerModel();
     currentSlot = slotId;
     loadSystem(d.seed, d.planetIndex);
@@ -313,20 +353,38 @@ async function continueGame(slotId) {
     }
     refreshUI();
     lastSaveAt = performance.now();
+    cam.dist = 36; cam.pitch = 0.92;
+    setMode('play');
     if (d.dropped.length) toast(`Some unknown items were removed from this save (${d.dropped.length}).`);
-    else toast('Welcome back, drifter.');
+    else toast(`Welcome back, ${state.name}.`);
   } catch (e) {
     alert(`Could not load that save: ${e.message}`);
-    menu.show();
+    enterTitle('load');
   }
 }
 
 const menu = createMenu({
   onContinue: continueGame,
   onNewGame: newGame,
-  randomSeed: () => randomSeed(),
-  canResume: () => !!planet,
-  onResume: () => {},
+  settings,
+  onSettingsChange: (s, k) => applySettings(k),
+});
+const creator = createCreator({
+  getCellFrac: () => QUALITY[settings.quality].cellFrac,
+  onBegin: beginNewGame,
+  onBack: () => enterTitle('new'),
+});
+function exportSave() {
+  if (!planet || !currentSlot) return;
+  const data = serialize(state, { slotId: currentSlot, seed: system.seed, pos: { x: player.x, z: player.z }, planetName: planet.meta.name });
+  downloadJSON(data, `drifter-${state.name.replace(/\W+/g, '_')}-${new Date().toISOString().slice(0, 10)}.json`);
+}
+const pause = createPause({
+  settings,
+  onSettingsChange: (s, k) => applySettings(k),
+  onSave: async () => { if (!currentSlot) return 'Nothing to save here.'; await saveNow(); return 'Game saved.'; },
+  onQuit: async () => { await saveNow(); enterTitle(); },
+  onExport: exportSave,
 });
 
 document.getElementById('btn-save').addEventListener('click', async () => {
@@ -336,7 +394,7 @@ document.getElementById('btn-save').addEventListener('click', async () => {
 });
 document.getElementById('btn-menu').addEventListener('click', async () => {
   await saveNow();
-  menu.show();
+  enterTitle();
 });
 document.getElementById('btn-journal').addEventListener('click', () => panels.open('journal', null, {}));
 document.getElementById('btn-export').addEventListener('click', () => {
@@ -359,7 +417,12 @@ function flags() {
 }
 
 function clearNpcs() {
-  for (const n of npcs) { scene.remove(n.group); n.labelEl.remove(); }
+  npcGen++;
+  for (const n of npcs) {
+    scene.remove(n.group);
+    n.labelEl.remove();
+    if (n.group.userData.char) n.group.userData.char.dispose();
+  }
   npcs = [];
 }
 
@@ -368,6 +431,39 @@ function standablePoint(x, z) {
   if (c.gx >= 0 && c.gy >= 0 && c.gx < planet.W && c.gy < planet.H && planet.passable[c.gy * planet.W + c.gx]) return { x, z };
   const t = nearestReachable(planet, c.gx, c.gy, 8);
   return t ? cellToWorld(planet, t.gx, t.gy) : { x, z };
+}
+
+// Humanoid NPCs become faceted humans (def.human = look). Builds are queued one at a time so a
+// town doesn't freeze the frame; the primitive model stands in until its character is ready.
+const NPC_DETAIL = { high: 0.005, medium: 0.007, low: 0.01 };
+let npcBuildQueue = [], npcBuilding = false, npcGen = 0;
+function queueNpcCharacter(n) {
+  npcBuildQueue.push(n);
+  if (!npcBuilding) pumpNpcBuilds();
+}
+async function pumpNpcBuilds() {
+  npcBuilding = true;
+  while (npcBuildQueue.length) {
+    const n = npcBuildQueue.shift();
+    if (n.gen !== npcGen) continue;
+    try {
+      const c = await createCharacter(n.def.human, { cellFrac: NPC_DETAIL[settings.quality] || 0.006 });
+      if (n.gen !== npcGen) { c.dispose(); continue; }
+      const g = n.group, body = g.userData.body;
+      body.visible = false;
+      g.scale.setScalar(1); // the character carries its own height
+      g.add(c.root);
+      c.play('idle', { fade: 0 });
+      const h = 1.8 * (n.def.human.height || 100) / 100;
+      g.userData.char = c;
+      g.userData.headY = h * 0.93;
+      g.userData.height = h + 0.15;
+    } catch (e) {
+      console.error('NPC character failed', n.def.name, e);
+    }
+    await new Promise((r) => setTimeout(r, 30));
+  }
+  npcBuilding = false;
 }
 
 function spawnNpc(def, x, z, extra) {
@@ -381,7 +477,9 @@ function spawnNpc(def, x, z, extra) {
   el.className = 'lbl lbl-npc';
   labelsEl.appendChild(el);
   n.labelEl = el;
+  n.gen = npcGen;
   npcs.push(n);
+  if (def.human) queueNpcCharacter(n);
   return n;
 }
 
@@ -427,11 +525,33 @@ function npcMarker(n) {
 }
 
 function speakerFrom(id, q) {
-  if (id === 'player') return { name: 'You' };
+  if (id === 'player') return { name: state.name || 'You' };
   const n = npcs.find((x) => (q ? x.questId === q.id && x.castId === id : x.id === id));
-  if (n) return { name: n.def.name, voice: n.def.voice || { pitch: 1 }, model: n.group };
+  if (n) return { name: n.def.name, voice: n.def.voice || { pitch: 1 }, model: n.group, robot: n.def.body === 'robot_small' };
   const def = q && q.cast[id];
-  return def ? { name: def.name, voice: def.voice } : { name: id };
+  return def ? { name: def.name, voice: def.voice, robot: def.body === 'robot_small' } : { name: id };
+}
+
+// What this planet actually has, so locals don't talk about lakes that aren't there.
+let featureCache = null;
+function planetFeatures() {
+  if (featureCache && featureCache.planet === planet) return featureCache.f;
+  let lake = false;
+  for (let i = 0; i < planet.water.length && !lake; i++) if (planet.water[i] && planet.land[i]) lake = true;
+  const f = {
+    lake,
+    bridges: (planet.bridges || []).length > 0,
+    tower: planet.outpost.buildings.some((b) => b.kind === 'tower'),
+    sweeper: questsForPlanet(system, state.planetIndex).some((q) => q.id === 'a_clean_break'),
+  };
+  featureCache = { planet, f };
+  return f;
+}
+
+// Every dialogue can say {player}.
+function startDialogue(d) {
+  const fill = d.fill || ((x) => x);
+  dialogue.start({ ...d, fill: (str) => String(fill(str)).replace(/\{player\}/g, state.name || 'Drifter') });
 }
 
 function talkTo(npcId) {
@@ -439,6 +559,13 @@ function talkTo(npcId) {
   if (!n) return;
   SFX.unlock();
   n.talking = true;
+  // personal space: step back if we ended up too close
+  const gap = Math.hypot(player.x - n.x, player.z - n.z);
+  if (gap < 1.3) {
+    const ux = gap > 0.01 ? (player.x - n.x) / gap : 1, uz = gap > 0.01 ? (player.z - n.z) / gap : 0;
+    const nx = n.x + ux * 1.4, nz = n.z + uz * 1.4;
+    if (canStand(nx, nz)) { player.x = nx; player.z = nz; }
+  }
   n.facing = Math.atan2(player.x - n.x, player.z - n.z);
   player.facing = Math.atan2(n.x - player.x, n.z - player.z);
 
@@ -446,7 +573,7 @@ function talkTo(npcId) {
     const q = QUEST_BY_ID[n.questId];
     const slots = questSlots[q.id];
     const entries = (q.dialogue.entryByCast && q.dialogue.entryByCast[n.castId]) || q.dialogue.entry;
-    dialogue.start({
+    startDialogue({
       nodes: q.dialogue.nodes,
       startNode: pickEntry(entries, questCtx(q)),
       speaker: (id) => speakerFrom(id, q),
@@ -455,7 +582,7 @@ function talkTo(npcId) {
     });
   } else if (n.kind === 'qm') {
     const dlg = QUARTERMASTER.dialogue;
-    dialogue.start({
+    startDialogue({
       nodes: dlg.nodes,
       startNode: pickEntry(dlg.entry, { flags: flags() }),
       speaker: (id) => speakerFrom(id),
@@ -463,7 +590,7 @@ function talkTo(npcId) {
       onAction: (a) => qmAction(a),
     });
   } else {
-    const pool = quipPool(n.role, planet.meta.quirks);
+    const pool = quipPool(n.role, planet.meta.quirks, planetFeatures());
     const line = pool[Math.floor(Math.random() * pool.length)];
     const service = n.role === 'shopkeeper' ? 'shop' : n.role === 'clerk' ? 'bank' : null;
     const nodes = {
@@ -476,7 +603,7 @@ function talkTo(npcId) {
         ],
       },
     };
-    dialogue.start({
+    startDialogue({
       nodes, startNode: 'start',
       speaker: (id) => speakerFrom(id),
       fill: (str) => str,
@@ -592,6 +719,20 @@ function updateNpcs(dt, now) {
     while (df > Math.PI) df -= Math.PI * 2;
     while (df < -Math.PI) df += Math.PI * 2;
     n.group.rotation.y += df * Math.min(1, dt * 6);
+    // faceted humans: walk / talk / idle clips, mouth moves while their line types out
+    const ch = n.group.userData.char;
+    if (ch) {
+      const walking = n.wander && !n.talking && n.target && !(n.pause > 0);
+      if (n.talking) ch.play('talk');
+      else if (walking) ch.play('walk', { timeScale: 1.1 / 0.96 });
+      else ch.play('idle');
+      if (ch.face) {
+        const sid = dialogue.speakingId();
+        const talk = !!n.talking && !!sid && (sid === n.id || sid === n.castId);
+        if (talk !== n.faceTalking) { n.faceTalking = talk; ch.face.setTalking(talk); }
+      }
+      if (Math.hypot(n.x - player.x, n.z - player.z) < 70) ch.update(dt);
+    }
     const it = n.group.userData.interact;
     it.x = n.x; it.z = n.z;
     // Label
@@ -716,6 +857,7 @@ function loadPlanet(index) {
   spawnNpcsForPlanet();
   checkDiscovery(true);
   buildMinimapBase();
+  if (system.seed.startsWith('showcase')) return;
   const url = new URL(window.location.href);
   url.searchParams.set('seed', system.seed);
   url.searchParams.set('planet', index);
@@ -919,6 +1061,8 @@ function updatePlayer(dt) {
     return;
   }
 
+  // walking to something you clicked: stop once it's comfortably in reach, not on top of it
+  if (pendingInteract && player.path.length && Math.hypot(pendingInteract.x - player.x, pendingInteract.z - player.z) <= pendingInteract.reach * 0.75) player.path = [];
   player.moving = player.path.length > 0;
   let remaining = speed * dt;
   while (remaining > 0 && player.path.length) {
@@ -1004,7 +1148,7 @@ function updatePlayerAnimation(dt) {
   if (!c) return;
   if (cheerAfterSwing && !gathering) { cheerAfterSwing = false; c.play('cheer'); }
   if (gathering) c.play(gathering.res.tool, { timeScale: gathering.res.tool === 'gloves' ? 1 : 0.9 });
-  else if (player.moving) c.play('run', { timeScale: (player.baseSpeed * walkMult) / JOG_NATIVE_SPEED });
+  else if (player.moving) c.play(gait.clip, { timeScale: Math.min(1.6, (player.baseSpeed * walkMult) / gait.native) });
   else c.play('idle');
   c.update(dt);
 }
@@ -1015,6 +1159,7 @@ function updatePlayerAnimation(dt) {
 const toastEl = document.getElementById('toast');
 let toastTimer = 0;
 function toast(msg) {
+  if (mode !== 'play' && mode !== 'arrival') return;
   toastEl.textContent = msg;
   toastEl.classList.add('show');
   toastTimer = 2.4;
@@ -1168,6 +1313,8 @@ let rightDrag = false;
 
 renderer.domElement.addEventListener('contextmenu', (e) => e.preventDefault());
 renderer.domElement.addEventListener('pointerdown', (e) => {
+  if (mode === 'arrival') { endArrival(); return; }
+  if (!playing()) return;
   if (e.button === 0) leftDown = { x: e.clientX, y: e.clientY };
   if (e.button === 2 || e.button === 1) rightDrag = true;
 });
@@ -1185,20 +1332,27 @@ window.addEventListener('pointerup', (e) => {
 const hoverEl = document.getElementById('hover-tip');
 let hoverPending = null;
 window.addEventListener('pointermove', (e) => {
+  if (!playing()) return;
   if (!rightDrag && e.target === renderer.domElement) hoverPending = { x: e.clientX, y: e.clientY };
   if (rightDrag) {
-    cam.yaw -= e.movementX * 0.006;
-    cam.pitch = Math.min(1.35, Math.max(0.45, cam.pitch + e.movementY * 0.004));
+    const sens = settings.camSens / 100;
+    cam.yaw -= e.movementX * 0.006 * sens;
+    cam.pitch = Math.min(1.35, Math.max(0.45, cam.pitch + e.movementY * 0.004 * sens));
   }
 });
 renderer.domElement.addEventListener('wheel', (e) => {
   e.preventDefault();
+  if (!playing()) return;
   cam.dist = Math.min(90, Math.max(12, cam.dist * (1 + Math.sign(e.deltaY) * 0.1)));
 }, { passive: false });
 window.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-  if (menu.isOpen()) return;
+  if (e.code === 'F3') { e.preventDefault(); document.body.classList.toggle('debug-hud'); return; }
+  if (mode === 'arrival' && (e.code === 'Escape' || e.code === 'Space' || e.code === 'Enter')) { endArrival(); return; }
+  if (mode !== 'play') return;
+  if (pause.isOpen()) { if (e.code === 'Escape') pause.hide(); return; }
   if (dialogue.keydown(e.code)) { e.preventDefault(); return; }
+  if (e.code === 'Escape' && !panels.isOpen()) { for (const k in keys) keys[k] = false; pause.show(); return; }
   if (e.code === 'KeyJ') { if (panels.current && panels.current.kind === 'journal') panels.close(); else panels.open('journal', null, {}); return; }
   keys[e.code] = true;
   if (e.code === 'Escape' && panels.isOpen()) { panels.close(); return; }
@@ -1268,7 +1422,7 @@ function tick(now) {
   const dt = Math.min(0.05, (now - last) / 1000);
   last = now;
   if (!planet || !view) { requestAnimationFrame(tick); return; }
-  if (!menu.isOpen()) state.playtime += dt;
+  if (mode === 'play') state.playtime += dt;
   if (currentSlot && !saving && ((dirty && now - lastSaveAt > 5000) || now - lastSaveAt > 30000)) saveNow();
   updateSaveStatus(now);
 
@@ -1277,13 +1431,14 @@ function tick(now) {
     const src = panels.current.source;
     if (Math.hypot(src.x - player.x, src.z - player.z) > 9) panels.close();
   }
-  updateQuirks(dt);
+  if (mode === 'play') updateQuirks(dt);
+  else { view.setStorm(0); }
   updateGathering(dt);
   updateNpcs(dt, now);
   updateRespawns();
 
-  if (keys.KeyQ) cam.yaw += 1.6 * dt;
-  if (keys.KeyE) cam.yaw -= 1.6 * dt;
+  if (keys.KeyQ) cam.yaw += 1.6 * dt * settings.camSens / 100;
+  if (keys.KeyE) cam.yaw -= 1.6 * dt * settings.camSens / 100;
 
   if (hoverPending) {
     const t = pickInteractable(hoverPending.x, hoverPending.y);
@@ -1301,7 +1456,8 @@ function tick(now) {
   }
   if (toastTimer > 0) { toastTimer -= dt; if (toastTimer <= 0) toastEl.classList.remove('show'); }
 
-  updatePlayer(dt);
+  if (mode === 'play' && !pause.isOpen()) updatePlayer(dt);
+  if (mode === 'arrival') updateArrival(dt);
   player.y = sampleHeight(planet, player.x, player.z);
   player.mesh.position.set(player.x, player.y, player.z);
   let diff = player.facing - player.mesh.rotation.y;
@@ -1310,7 +1466,8 @@ function tick(now) {
   player.mesh.rotation.y += diff * Math.min(1, dt * 14);
   updatePlayerAnimation(dt);
 
-  cam.target.lerp(tmpV.set(player.x, player.y, player.z), Math.min(1, dt * 6));
+  if (mode === 'title' || mode === 'creator') cam.yaw += dt * 0.04; // slow title drift around the outpost
+  else cam.target.lerp(tmpV.set(player.x, player.y, player.z), Math.min(1, dt * 6));
   camera.position.set(
     cam.target.x + Math.sin(cam.yaw) * Math.cos(cam.pitch) * cam.dist,
     cam.target.y + Math.sin(cam.pitch) * cam.dist,
@@ -1324,12 +1481,14 @@ function tick(now) {
     clickMarker.scale.setScalar(1 + (0.7 - markerLife) * 0.8);
   }
 
-  view.update(dt, player);
-  renderer.render(scene, camera);
-  updateLabels();
-  ui.update(dt, project);
-  dialogue.update(dt);
-  drawMinimap();
+  view.update(dt, mode === 'play' || mode === 'arrival' ? player : { x: cam.target.x, y: cam.target.y, z: cam.target.z });
+  if (mode !== 'creator') renderer.render(scene, camera); // the creator has its own preview
+  if (mode === 'play') {
+    updateLabels();
+    ui.update(dt, project);
+    dialogue.update(dt);
+    drawMinimap();
+  }
 
   fpsAcc += dt; fpsFrames++;
   if (fpsAcc > 0.5) { fpsEl.textContent = `${Math.round(fpsFrames / fpsAcc)} fps`; fpsAcc = 0; fpsFrames = 0; }
@@ -1342,14 +1501,15 @@ function tick(now) {
 refreshUI();
 // Test hook for headless checks (tests/ and render scripts).
 window.__game = {
-  player, cam, state, keys, rebuildPlayerModel, startInteract, loadPlanet,
+  player, cam, state, keys, rebuildPlayerModel, startInteract, loadPlanet, menu, creator, pause, endArrival,
+  get mode() { return mode; }, setGait(k) { gait = GAITS[k]; }, get npcs() { return npcs; }, talkTo,
   get system() { return system; }, get quirkRT() { return quirkRT; }, get view() { return view; },
   get planet() { return planet; }, get gathering() { return gathering; },
-  nearestNode(skill) {
+  nearestNode(skill, tool) {
     let best = null;
     for (const s of planet.sites) {
       const res = RESOURCE_BY_ID[s.resourceId];
-      if (skill && res.skill !== skill) continue;
+      if ((skill && res.skill !== skill) || (tool && res.tool !== tool)) continue;
       for (const node of s.nodes) {
         const d = Math.hypot(node.x - player.x, node.z - player.z);
         if (!best || d < best.d) best = { d, t: { type: 'node', node, resource: res, name: res.name, verb: 'Gather', x: node.x, z: node.z, reach: 1.6 } };
@@ -1359,5 +1519,6 @@ window.__game = {
   },
 };
 preloadCharacterAssets().catch((e) => console.error('Character assets failed to load', e));
-menu.show();
+applySettings();
+enterTitle();
 requestAnimationFrame(tick);

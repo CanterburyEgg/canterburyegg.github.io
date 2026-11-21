@@ -1,4 +1,6 @@
-# Procedural Single-Player RPG: Design Doc (living doc, built via /grill-me)
+# Second System: Design Doc (living doc, built via /grill-me)
+
+**Name:** *Second System*. **Type:** Syncopate for titles, Exo 2 for readable UI text, Orbitron when robots speak (Google Fonts).
 
 The goal: a single-player, RuneScape-style RPG in the browser. You take on quests, fight farmable bosses, and level skills that unlock what you need, across a star system of weird planets that's procedurally generated fresh for every save.
 
@@ -63,7 +65,10 @@ Goal: prove world gen, skilling, saves, and the quest pipeline end-to-end.
 - [x] Player character model, built in the Asset Lab (`asset-lab.html`, `js/faceted_human.js`, `js/face.js`): faceted UBC male/female bodies on the 86 UAL clips; build sliders (height, weight, muscle, bust, lift, shoulders, neck, head); outfit cuts and colors; UBC hair; real eyeballs with lid blinks; expressions; split jaw with lip shapes for talking
 - [x] Faceted human in game (`js/player_character.js`, `js/character_look.js`); used pack files curated into `assets/characters/` (3.5 MB, CC0) by `tools/curate_character_assets.py`
 - [x] Quirk mechanics (`js/quirk_mechanics.js`, `tests/quirk_check.mjs`): Spore Fog hides undiscovered sites and shortens discovery range; Magnetic Storms every ~2.5-4 min for 30s (+10% Mining, minimap static, darker sky, lightning); Singing Crystals chime toward the nearest undiscovered site within 60m (panned audio + minimap arc); Tidal Shores raise/lower the sea on a 4 min cycle, with low-shore sites that go underwater at high tide (tidal planets always get a sea border); Low Gravity +15% speed
-- [ ] **Character creator**: deferred to the start-of-game menus session (bind sliders to `character_look.js`)
+- [x] **Start menus + character creator**: live title screen over a daily showcase planet (Continue / New Game / Load / Settings); New Game = slot, name + creator (Body / Face / Hair / Outfit / Colors tabs, 6 presets, Randomize, turntable preview with expressions), random hidden seed, lander arrival; Settings (volume, quality, camera sensitivity, FPS); Esc pause menu; debug panel behind F3; saves v2 (name required, v1 prototype saves retired)
+- [x] **Humanoid NPCs are faceted humans**: seeded looks per townsperson (full 88-112 height range), a designed Quartermaster, walk / talk / idle clips with talking mouths, built one at a time at lower detail; blob aliens and robots keep their primitive models
+- [ ] **Makeover NPC** (free, reuses the creator minus body type and height): with the cities pass
+- [ ] Bust/Lift sliders for body type 1 (the bust morph only fits the type 2 mesh today)
 - [ ] Tick-based gathering for **Mining + Foraging**, with node depletion and respawn (see §5)
 - [ ] **Quartermaster NPC** at the landing pad who hands over the tier-1 tools with a one-line joke (mini-tutorial moment)
 - [ ] 28-slot inventory, storage locker UI at the outpost, compressed XP curve and level-ups
@@ -128,4 +133,5 @@ Goal: prove world gen, skilling, saves, and the quest pipeline end-to-end.
 | **World feels sparse (quick wins)** ✅ first pass done (denser sites + settlement rings, clustered forests/rock fields/clearings, dirt trails) | Raise site density (especially within ~2 min of settlements; current sqrt scaling gives ~1 site per 20,000 m² on Large planets), cluster decor into forests/rock fields/clearings instead of even scatter, add worn dirt trails linking outpost, camps and bridges. |
 | **Landmarks (design session)** | A catalog of points of interest (ruins, wrecks, lone huts, monoliths, abandoned camps) placed per planet; hooks for quests, lore, and the future collection log. |
 | **Ambient wildlife (design session)** | Harmless critters and fauna per biome/planet for life and motion; later become Hunting targets and combat creatures. |
+| **Character props** | Bone-attached props for faceted humans (the old primitive NPCs had them; the new bodies don't yet): caps and hats on the Head bone, scarves on the neck, aprons and tool belts on the spine, clipboards and lanterns in a hand (reuse the tool grip system in `player_character.js`). Bring back the Quartermaster's cap and clipboard, let townsfolk roll one, and later make them player-equippable cosmetics. |
 | **Number tuning** | Needs real playtesting: gather rhythm (2.4s), success odds (38% at L1), XP curve/yields, respawn timers, site density, pop-up noise, quest XP rewards vs. grind XP. |

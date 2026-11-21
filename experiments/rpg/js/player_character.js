@@ -12,7 +12,7 @@ import { BODY_PATHS, HAIR_PATHS, BEARD_PATH, BROW_PATHS, buildFacetedHuman, head
 import { DEFAULT_LOOK, lookToOpts } from './character_look.js';
 export { DEFAULT_LOOK, randomLook, lookToOpts } from './character_look.js';
 
-const DIR = 'assets/characters/';
+const DIR = new URL('../assets/characters/', import.meta.url).href; // relative to this module, so any page can load it
 const flat = (p) => DIR + encodeURI(p.split('/').pop());
 const loader = new GLTFLoader();
 const cache = new Map();
@@ -49,9 +49,10 @@ function loadHeadBoxes() {
 }
 
 // Build a character. Returns { root, mesh, face, play(role|clip, opts), update(dt), hand, dispose() }.
-export async function createCharacter(look) {
+// options.cellFrac: faceting cell size (smaller = more detail; see settings.js QUALITY).
+export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
   const L = { ...DEFAULT_LOOK, ...look };
-  const opts = lookToOpts(L);
+  const opts = lookToOpts(L, cellFrac);
   const bodyKey = L.body === 'female' ? 'female' : 'male';
   const [clips, heads, gltf, hair, beard, brows] = await Promise.all([
     loadClips(), loadHeadBoxes(), load(BODY_PATHS[bodyKey]),
@@ -112,9 +113,73 @@ export async function createCharacter(look) {
   }
 
   root.traverse((o) => { if (o.isMesh) o.frustumCulled = false; });
-  return { root, mesh: built.mesh, face: built.face, tris: built.tris, play, update, hand, dispose, get clip() { return currentName; } };
+  // Jump the current clip to time t (seconds) and pose immediately (dev tools, previews).
+  function seek(t) { if (current) { current.time = t; current.weight = 1; current.setEffectiveWeight(1); mixer.update(0); } }
+  return { root, mesh: built.mesh, face: built.face, tris: built.tris, play, update, seek, hand, dispose, get clip() { return currentName; } };
 }
 
 export function preloadCharacterAssets() {
   return Promise.all([loadClips(), loadHeadBoxes()]);
+}
+
+// ---------------------------------------------------------------------
+// Hand tools: one simple model per tool type. The group's local +Y runs along the handle (grip at
+// the origin, head at the top); GRIP rotates that into the hand bone's frame so the head faces the
+// swing. Tuned with renders of TreeChopping_Loop.
+// ---------------------------------------------------------------------
+// Solved with tests/_tool_grip.html (__bestSpin): spin about the handle so the blade edge leads the
+// hand at the fastest point of TreeChopping_Loop, with the handle tilted ~45 degrees off the forearm.
+export const GRIP = { pos: [0, 0.08, 0], rot: [0, 3.4, 0.8, 'ZYX'] };
+const HANDLE_LEN = { pick: 0.62, hatchet: 0.62, sickle: 0.32 };
+export function createToolMesh() {
+  const group = new THREE.Group();
+  const heads = {};
+  const wood = new THREE.MeshStandardMaterial({ color: '#6b4f36', roughness: 0.8, flatShading: true });
+  const metal = new THREE.MeshStandardMaterial({ color: '#c9a2e8', metalness: 0.6, roughness: 0.35, flatShading: true });
+  const inner = new THREE.Group(); // tool in its own frame (+Y handle, +Z = the striking side)
+  const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.018, 0.62, 6), wood);
+  handle.position.y = 0.2;
+  inner.add(handle);
+  const pick = new THREE.Group();
+  for (const side of [-1, 1]) {
+    const prong = new THREE.Mesh(new THREE.ConeGeometry(0.03, 0.22, 5), metal);
+    prong.rotation.x = side * Math.PI / 2; // points along +Z / -Z
+    prong.position.z = side * 0.11;
+    pick.add(prong);
+  }
+  pick.position.y = 0.48;
+  const hatchet = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.11, 0.15), metal); // blade edge toward +Z
+  hatchet.position.set(0, 0.46, 0.08);
+  const sickle = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.014, 4, 10, Math.PI * 1.1), metal);
+  sickle.rotation.y = -Math.PI / 2;
+  sickle.position.set(0, 0.26, 0.1); // short handle (see HANDLE_LEN)
+  Object.assign(heads, { pick, hatchet, sickle });
+  inner.add(pick, hatchet, sickle);
+  group.add(inner);
+  group.userData.inner = inner;
+  inner.position.fromArray(GRIP.pos);
+  inner.rotation.fromArray(GRIP.rot);
+  group.visible = false;
+  return {
+    group,
+    show(kind, color) {
+      group.visible = !!heads[kind];
+      const len = HANDLE_LEN[kind] || 0.62; // sickles are hand tools, not polearms
+      handle.scale.y = len / 0.62;
+      handle.position.y = 0.2 * (len / 0.62) - (0.62 - len) * 0.08;
+      for (const [k, m] of Object.entries(heads)) m.visible = k === kind;
+      if (color) metal.color.set(color);
+    },
+    setGrip(pos, rot) { inner.position.fromArray(pos); inner.rotation.fromArray(rot); },
+  };
+}
+// Parent a tool group to a character's right hand, compensating the armature's unit scale.
+export function attachToHand(char, group) {
+  if (!char.hand) return false;
+  char.root.updateMatrixWorld(true);
+  const ws = char.hand.getWorldScale(new THREE.Vector3());
+  const rs = char.root.getWorldScale(new THREE.Vector3());
+  group.scale.setScalar(rs.x / ws.x);
+  char.hand.add(group);
+  return true;
 }

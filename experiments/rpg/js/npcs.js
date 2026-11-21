@@ -1,6 +1,7 @@
 // Ambient townsfolk generation (pure, seeded per planet).
 import { Rng } from './rng.js';
-import { FIRST_NAMES, LAST_NAMES, ALIEN_SYLLABLES, ROBOT_NAMES, AMBIENT_TINTS, AMBIENT_ACCENTS, SKINS, ROLE_QUIPS, QUIRK_QUIPS } from '../data/npcs.js';
+import { randomLook } from './character_look.js';
+import { FIRST_NAMES, LAST_NAMES, ALIEN_SYLLABLES, ROBOT_NAMES, AMBIENT_TINTS, AMBIENT_ACCENTS, SKINS, ROLE_QUIPS, QUIRK_QUIPS, FEATURE_QUIPS } from '../data/npcs.js';
 
 const ACCESSORY_POOL = { humanoid: ['cap', 'scarf', 'apron', null, null], blob_alien: ['scarf', 'reading_goggles', null], robot_small: ['antenna', 'tiny_bowtie', null] };
 
@@ -43,7 +44,17 @@ export function generateAmbientNpcs(P) {
     if (look.body === 'blob_alien') return rng.chance(0.5) ? fresh(alienWord) : `${fresh(alienWord)} ${fresh(alienWord)}`;
     return `${fresh(() => rng.pick(FIRST_NAMES))} ${fresh(() => rng.pick(LAST_NAMES))}`;
   };
-  const npc = (base, look) => ({ ...base, name: nameFor(look), ...look });
+  // Humanoids get a faceted-human look from their own seeded stream (so names/positions don't shift
+  // when the look generator changes). Townsfolk span the whole height range.
+  const npc = (base, look) => {
+    const d = { ...base, name: nameFor(look), ...look };
+    if (look.body === 'humanoid') {
+      const lr = new Rng(`${P.meta.seed}:look:${base.id}`);
+      d.human = randomLook(() => lr.float());
+      d.human.height = 88 + Math.floor(lr.float() * 25);
+    }
+    return d;
+  };
   const out = [];
   const o = P.outpost;
   const shop = o.buildings.find((b) => b.kind === 'shop');
@@ -68,8 +79,10 @@ export function generateAmbientNpcs(P) {
   return out;
 }
 
-export function quipPool(role, quirks) {
+// features: { lake, bridges, sweeper, tower } booleans for this planet; lines about absent things are skipped.
+export function quipPool(role, quirks, features = {}) {
   const pool = [...(ROLE_QUIPS[role] || ROLE_QUIPS.local)];
+  if (!ROLE_QUIPS[role] || role === 'local') for (const [f, lines] of Object.entries(FEATURE_QUIPS)) if (features[f]) pool.push(...lines);
   for (const q of quirks) if (QUIRK_QUIPS[q]) pool.push(...QUIRK_QUIPS[q], ...QUIRK_QUIPS[q]); // quirk lines weighted up
   return pool;
 }

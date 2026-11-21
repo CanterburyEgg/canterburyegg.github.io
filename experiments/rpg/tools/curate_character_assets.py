@@ -26,7 +26,7 @@ UAL = [
 BODIES = ['Superhero_Male_FullBody', 'Superhero_Female_FullBody']
 HAIR = ['Hair_Buzzed', 'Hair_BuzzedFemale', 'Hair_SimpleParted', 'Hair_Long', 'Hair_Buns', 'Hair_Beard',
         'Eyebrows_Regular', 'Eyebrows_Female']
-GAME_CLIPS = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'TreeChopping_Loop', 'Farm_Harvest', 'Fixing_Kneeling',
+GAME_CLIPS = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Walk_Formal_Loop', 'TreeChopping_Loop', 'Farm_Harvest', 'Fixing_Kneeling',
               'Idle_Talking_Loop', 'Interact', 'Yes', 'PickUp_Table']
 KEEP_TEXTURE_MATERIALS = {'MI_Eyes'}
 

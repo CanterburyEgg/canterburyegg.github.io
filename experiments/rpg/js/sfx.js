@@ -1,10 +1,13 @@
 // Tiny WebAudio synth for gathering feedback. No assets.
-let ctx = null;
+let ctx = null, out = null, volume = 0.64; // volume = master * effects (settings)
 function ac() {
   if (!ctx) {
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return null;
     ctx = new AC();
+    out = ctx.createGain();
+    out.gain.value = volume;
+    out.connect(ctx.destination);
   }
   if (ctx.state === 'suspended') ctx.resume().catch(() => {});
   return ctx;
@@ -20,7 +23,7 @@ function tone(f0, f1, dur, type = 'triangle', gain = 0.06, delay = 0) {
   if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(20, f1), t + dur);
   g.gain.setValueAtTime(gain, t);
   g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-  o.connect(g).connect(c.destination);
+  o.connect(g).connect(out);
   o.start(t);
   o.stop(t + dur);
 }
@@ -39,12 +42,14 @@ function noise(dur, freq, gain = 0.06) {
   f.frequency.value = freq;
   const g = c.createGain();
   g.gain.value = gain;
-  src.connect(f).connect(g).connect(c.destination);
+  src.connect(f).connect(g).connect(out);
   src.start();
 }
 
 export const SFX = {
   unlock() { ac(); },
+  // master, effects: 0..100 from Settings
+  setVolume(master, effects) { volume = (master / 100) * (effects / 100); if (out) out.gain.value = volume; },
   swing(tool) {
     if (tool === 'pick') { tone(900, 700, 0.06, 'square', 0.03); noise(0.05, 2400, 0.04); }
     else if (tool === 'hatchet') { tone(160, 90, 0.09, 'triangle', 0.07); noise(0.06, 600, 0.05); }
@@ -62,7 +67,7 @@ export const SFX = {
     const c = ac();
     if (!c) return;
     const p = c.createStereoPanner ? c.createStereoPanner() : null;
-    if (p) { p.pan.value = Math.max(-1, Math.min(1, pan)); p.connect(c.destination); }
+    if (p) { p.pan.value = Math.max(-1, Math.min(1, pan)); p.connect(out); }
     const t = c.currentTime;
     for (const [f, d] of [[1318, 0], [1976, 0.07]]) {
       const o = c.createOscillator(), g = c.createGain();
@@ -71,7 +76,7 @@ export const SFX = {
       g.gain.setValueAtTime(0.0001, t + d);
       g.gain.exponentialRampToValueAtTime(gain, t + d + 0.02);
       g.gain.exponentialRampToValueAtTime(0.0001, t + d + 0.7);
-      o.connect(g).connect(p || c.destination);
+      o.connect(g).connect(p || out);
       o.start(t + d);
       o.stop(t + d + 0.75);
     }

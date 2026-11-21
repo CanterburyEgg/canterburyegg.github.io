@@ -4,7 +4,7 @@ import { ITEMS } from '../data/items.js';
 import { levelForXp } from '../data/skills.js';
 import { INV_SIZE } from './inventory.js';
 
-export const SAVE_VERSION = 1;
+export const SAVE_VERSION = 2; // v2: drifter name + look required (v1 prototype saves are retired)
 export const SLOT_IDS = ['slot1', 'slot2', 'slot3'];
 const DB_NAME = 'drifter-rpg';
 const STORE = 'slots';
@@ -17,6 +17,7 @@ export function serialize(state, extra) {
   return {
     version: SAVE_VERSION,
     id: extra.slotId,
+    name: state.name || 'Drifter',
     seed: extra.seed,
     planetIndex: state.planetIndex,
     pos: extra.pos ? { x: +extra.pos.x.toFixed(2), z: +extra.pos.z.toFixed(2) } : null,
@@ -32,7 +33,7 @@ export function serialize(state, extra) {
     discovered: state.discovered || {},
     playtime: Math.round(state.playtime || 0),
     savedAt: Date.now(),
-    summary: { planetName: extra.planetName || '', totalLevel },
+    summary: { planetName: extra.planetName || '', totalLevel, name: state.name || 'Drifter' },
   };
 }
 
@@ -41,6 +42,7 @@ export function deserialize(raw) {
   if (!raw || typeof raw !== 'object') throw new Error('Not a save file.');
   if (typeof raw.version !== 'number') throw new Error('Missing save version.');
   if (raw.version > SAVE_VERSION) throw new Error('This save is from a newer version of the game.');
+  if (raw.version < SAVE_VERSION) throw new Error('This is an old prototype save and can no longer be loaded.');
   if (typeof raw.seed !== 'string' || !raw.seed) throw new Error('Save has no world seed.');
   const dropped = [];
   const inv = new Array(INV_SIZE).fill(null);
@@ -60,6 +62,7 @@ export function deserialize(raw) {
   const nums = (a) => (Array.isArray(a) ? a.filter((n) => Number.isInteger(n) && n >= 0) : []);
   return {
     seed: raw.seed,
+    name: typeof raw.name === 'string' && raw.name.trim() ? raw.name.trim().slice(0, 24) : 'Drifter',
     planetIndex: Number.isInteger(raw.planetIndex) && raw.planetIndex >= 0 ? raw.planetIndex : 0,
     pos: raw.pos && typeof raw.pos.x === 'number' && typeof raw.pos.z === 'number' ? raw.pos : null,
     inventory: inv,

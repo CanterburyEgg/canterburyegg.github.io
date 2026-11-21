@@ -1,6 +1,7 @@
 // RS-style chatbox: live 3D portrait, typewriter text with blip voices, reply options.
 import * as THREE from 'three';
 import { SFX } from './sfx.js';
+import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
 
 const CPS = 48; // characters per second
 
@@ -38,7 +39,8 @@ export function createDialogue({ onClose }) {
     if (portraitModel) { pScene.remove(portraitModel); portraitModel = null; }
     if (!speaker || !speaker.model) { canvas.style.visibility = 'hidden'; return; }
     canvas.style.visibility = 'visible';
-    portraitModel = speaker.model.clone(true);
+    // faceted humans are skinned: SkeletonUtils keeps the clone bound to its own bones (a snapshot of the pose)
+    portraitModel = speaker.model.userData.char ? SkeletonUtils.clone(speaker.model) : speaker.model.clone(true);
     portraitModel.position.set(0, 0, 0);
     portraitModel.rotation.set(0, 0.35, 0);
     pScene.add(portraitModel);
@@ -79,6 +81,7 @@ export function createDialogue({ onClose }) {
     setPortrait(spk);
     nameEl.textContent = spk ? spk.name : '';
     box.classList.toggle('narrator', node.speaker === 'narrator');
+    box.classList.toggle('robot', !!(spk && spk.robot)); // robots speak in Orbitron
     run.full = run.lines[run.lineIdx];
     run.shown = 0;
     run.lastBlip = 0;
@@ -169,5 +172,7 @@ export function createDialogue({ onClose }) {
     return false;
   }
 
-  return { start, close, update, keydown, isOpen: () => !!run };
+  // speakingId: who is mid-line right now (for mouth animation), or null
+  const speakingId = () => (run && run.nodeId && run.full && run.shown < run.full.length ? run.nodes[run.nodeId].speaker : null);
+  return { start, close, update, keydown, isOpen: () => !!run, speakingId };
 }

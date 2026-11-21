@@ -3,11 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drifter (working title) · Phase A: World</title>
+  <title>Second System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Orbitron:wght@500;700&family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <meta name="description" content="Procedural sci-fi RPG prototype: seeded star system, planet generation, click-to-move." />
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #e8ecf2; }
+    /* Fonts: Syncopate for titles, Exo 2 for everything you read, Orbitron when robots talk */
+    :root { --font-title: 'Syncopate', 'Exo 2', sans-serif; --font-ui: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --font-robot: 'Orbitron', 'Exo 2', sans-serif; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; font-family: var(--font-ui); color: #e8ecf2; }
+    button, input, select { font-family: inherit; }
+    .menu-title, .screen-head, .pause-title, .cr-title, .modal-head #modal-title, .lu-title, .jsec-head { font-family: var(--font-title); font-weight: 700; text-transform: uppercase; }
+    #chat.robot #chat-text { font-family: var(--font-robot); font-weight: 500; font-size: 14px; letter-spacing: 0.02em; }
     #app { position: fixed; inset: 0; }
     #hud {
       position: fixed; top: 12px; left: 12px; width: 360px; max-width: calc(100vw - 260px);
@@ -74,11 +82,85 @@
     .star-dot { width: 14px; height: 14px; border-radius: 50%; }
     .star-dot.t1 { background: #b8f0c8; } .star-dot.t2 { background: #8fd0ff; } .star-dot.t3 { background: #e0a8ff; } .star-dot.t4 { background: #ffb08a; }
     .tag.here { color: #ffd77a; font-size: 12px; font-weight: 700; }
-    #menu { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, rgba(20, 26, 40, 0.88), rgba(6, 8, 12, 0.97)); z-index: 50; }
+    /* ---- modes: only the play HUD shows in play; the debug panel lives behind F3 */
+    body:not([data-mode="play"]) :is(#hud, #side, #minimap, #quirk-status, #hotbar, #help, #labels, #chat, #modal, #hover-tip, #levelup) { display: none !important; }
+    body:not([data-mode="play"]):not([data-mode="arrival"]) #toast { display: none; }
+    body:not(.debug-hud) #hud { display: none; }
+    /* ---- start menus (over the live planet) */
+    #menu { position: fixed; inset: 0; display: none; align-items: center; justify-content: flex-start; padding-left: 8vw; background: linear-gradient(90deg, rgba(6, 8, 12, 0.9) 0%, rgba(6, 8, 12, 0.55) 45%, rgba(6, 8, 12, 0) 75%); z-index: 50; }
     #menu.show { display: flex; }
-    .menu-inner { width: min(560px, 92vw); }
-    .menu-title { font-size: 46px; font-weight: 900; letter-spacing: 0.3em; color: #ffd77a; text-align: center; }
-    .menu-sub { text-align: center; color: #8b95a7; margin-bottom: 22px; }
+    #menu:not([data-screen="title"]) { background: linear-gradient(90deg, rgba(6, 8, 12, 0.94) 0%, rgba(6, 8, 12, 0.75) 55%, rgba(6, 8, 12, 0.2) 100%); }
+    .menu-inner { width: min(520px, 88vw); max-height: 92vh; overflow-y: auto; padding-right: 6px; }
+    .menu-title { font-size: 78px; line-height: 0.98; letter-spacing: 0.14em; }
+    /* gradient + glow per line (on the parent, Chrome shadows the whole box) */
+    .menu-title span { display: block; width: fit-content; background: linear-gradient(180deg, #fff3c4 0%, #ffd77a 45%, #c8862e 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 3px 0 #5a3a10) drop-shadow(0 0 22px rgba(255, 190, 90, 0.35)); }
+    .menu-sub { color: #c9d1dd; margin: 14px 0 30px; font-family: var(--font-title); font-size: 12px; letter-spacing: 0.42em; text-transform: uppercase; text-shadow: 0 1px 6px #000; }
+    #menu:not([data-screen="title"]) .menu-title { font-size: 44px; }
+    #menu:not([data-screen="title"]) .menu-sub { margin-bottom: 18px; }
+    .menu-credit { position: fixed; bottom: 14px; left: 8vw; font-size: 11.5px; }
+    .title-btns { display: flex; flex-direction: column; gap: 10px; width: 300px; }
+    button.big { text-align: left; font-size: 18px !important; font-weight: 800; letter-spacing: 0.04em; padding: 12px 18px !important; border-radius: 10px !important; background: rgba(14, 18, 27, 0.82) !important; border: 1px solid rgba(255, 255, 255, 0.14) !important; color: #e8ecf2; cursor: pointer; transition: transform 0.12s, border-color 0.12s; }
+    button.big:hover { border-color: #ffd77a !important; transform: translateX(4px); }
+    button.big.primary { border-color: rgba(255, 215, 122, 0.7) !important; color: #ffd77a; }
+    button.big span { display: block; font-size: 12px; font-weight: 500; color: #8b95a7; letter-spacing: 0; margin-top: 2px; }
+    .screen-head { font-size: 18px; font-weight: 800; color: #ffd77a; margin-bottom: 12px; }
+    .slot-card.old { opacity: 0.75; }
+    .slot-card { text-align: left; }
+    #menu button.primary { border-color: #ffd77a; color: #ffd77a; }
+    /* ---- settings */
+    .settings-box { background: rgba(14, 18, 27, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; }
+    .set-group { margin-bottom: 12px; }
+    .set-head { font-weight: 800; color: #8b95a7; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .set-row { display: grid; grid-template-columns: 150px 1fr 34px; gap: 10px; align-items: center; padding: 4px 0; font-size: 13px; }
+    .set-row b { text-align: right; color: #ffe680; font-size: 12px; }
+    .set-row select { background: #151b26; color: #e8ecf2; border: 1px solid #2a3344; border-radius: 6px; padding: 5px 7px; }
+    .set-row input[type="checkbox"] { justify-self: start; width: 18px; height: 18px; }
+    .set-note { font-size: 11.5px; margin: 0 0 4px; }
+    input[type="range"] { accent-color: #ffd77a; }
+    /* ---- pause */
+    #pause { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(6, 8, 12, 0.6); z-index: 45; backdrop-filter: blur(3px); }
+    #pause.show { display: flex; }
+    .pause-box { display: flex; flex-direction: column; gap: 9px; width: 300px; }
+    .pause-box.wide { width: min(520px, 92vw); }
+    .pause-title { font-size: 28px; font-weight: 900; letter-spacing: 0.2em; color: #ffd77a; text-align: center; margin-bottom: 6px; }
+    .pause-note { text-align: center; min-height: 18px; font-size: 12.5px; }
+    /* ---- character creator */
+    #creator { position: fixed; inset: 0; display: none; z-index: 55; background: radial-gradient(ellipse at 35% 45%, #1e2738 0%, #0b0e14 75%); }
+    #creator.show { display: flex; }
+    .cr-stage { position: relative; flex: 1; min-width: 0; }
+    .cr-canvas { width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+    .cr-canvas:active { cursor: grabbing; }
+    .cr-building { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); font-size: 12px; color: #ffd77a; opacity: 0; transition: opacity 0.2s; pointer-events: none; }
+    .cr-building.show { opacity: 0.9; }
+    .cr-expr { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+    .cr-hint { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: 11.5px; }
+    .cr-panel { width: 420px; max-width: 48vw; display: flex; flex-direction: column; background: rgba(12, 16, 24, 0.92); border-left: 1px solid rgba(255, 255, 255, 0.1); padding: 18px 18px 14px; }
+    .cr-title { font-size: 22px; font-weight: 900; color: #ffd77a; letter-spacing: 0.04em; margin-bottom: 10px; }
+    .cr-name { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .cr-name span { color: #8b95a7; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .cr-name input { flex: 1; background: #151b26; color: #e8ecf2; border: 1px solid #34466a; border-radius: 8px; padding: 8px 10px; font-size: 16px; font-weight: 700; }
+    .cr-name input:focus { outline: none; border-color: #ffd77a; }
+    .cr-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .cr-tabs { display: flex; gap: 2px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 10px; }
+    .cr-tabs button { flex: 1; background: none !important; border: none !important; border-bottom: 2px solid transparent !important; border-radius: 0 !important; padding: 8px 4px !important; color: #8b95a7; font-weight: 800; font-size: 13px; cursor: pointer; }
+    .cr-tabs button.on { color: #ffd77a; border-bottom-color: #ffd77a !important; }
+    .cr-controls { flex: 1; overflow-y: auto; padding-right: 4px; }
+    .cr-row { display: grid; grid-template-columns: 104px 1fr; gap: 10px; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+    .cr-label { font-size: 13px; font-weight: 600; color: #c9d1dd; }
+    .cr-row input[type="range"] { width: 100%; }
+    .cr-seg { display: flex; flex-wrap: wrap; gap: 4px; }
+    .cr-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+    .sw { width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.15) !important; background: var(--c) !important; padding: 0 !important; cursor: pointer; position: relative; overflow: hidden; }
+    .sw.on { border-color: #ffd77a !important; box-shadow: 0 0 0 2px rgba(255, 215, 122, 0.35); }
+    .sw.custom { background: conic-gradient(#f66, #fd6, #6f6, #6df, #66f, #f6f, #f66) !important; }
+    .sw.custom::after { content: ''; position: absolute; inset: 5px; border-radius: 50%; background: var(--c); }
+    .sw.custom input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    #creator button { background: #1b2436; color: #e8ecf2; border: 1px solid #34466a; border-radius: 7px; padding: 5px 10px; font-size: 12.5px; cursor: pointer; }
+    #creator button:hover { border-color: #ffe680; }
+    #creator button.on { border-color: #ffd77a; color: #ffd77a; background: #2a2a1e; }
+    .cr-foot { display: flex; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .cr-foot button { font-size: 15px !important; font-weight: 800; padding: 9px 22px !important; }
+    #creator .cr-foot button.primary { background: #ffd77a; color: #1a1408; border-color: #ffd77a; }
     .slot-card { background: rgba(14, 18, 27, 0.92); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; font-size: 13px; line-height: 1.6; }
     .slot-card.empty { border-style: dashed; }
     .slot-title { font-weight: 800; font-size: 15px; }
@@ -151,7 +233,7 @@
   <div id="labels"></div>
 
   <section id="hud" aria-label="World debug panel">
-    <div class="title">DRIFTER <span>Phase A · world gen debug</span></div>
+    <div class="title">SECOND SYSTEM <span>debug panel (F3)</span></div>
     <div class="row">
       <label for="seed-input">Seed</label>
       <input id="seed-input" spellcheck="false" />
@@ -188,14 +270,12 @@
   <div id="levelup"></div>
   <section id="menu" aria-label="Start menu">
     <div class="menu-inner">
-      <div class="menu-title">DRIFTER</div>
-      <div class="menu-sub">A procedural frontier RPG · prototype</div>
-      <div id="menu-slots"></div>
-      <div class="menu-foot">
-        <button id="menu-resume" type="button">Back to game</button>
-        <input id="menu-import-file" type="file" accept=".json,application/json" hidden />
-      </div>
+      <div class="menu-title"><span>Second</span><span>System</span></div>
+      <div class="menu-sub">A frontier adventure</div>
+      <div id="menu-screen"></div>
+      <input id="menu-import-file" type="file" accept=".json,application/json" hidden />
     </div>
+    <div class="menu-credit muted">Prototype · F3 toggles the debug panel in game</div>
   </section>
   <section id="chat" aria-label="Dialogue">
     <canvas id="chat-portrait" width="104" height="104"></canvas>

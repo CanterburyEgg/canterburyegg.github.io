@@ -10,6 +10,13 @@ export const QUARTERMASTER = {
   scale: 1.05,
   accessories: ['cap', 'clipboard'],
   voice: { pitch: 0.95, wobble: 0.05 },
+  // Faceted-human look (character_look.js): a tall, tidy officer in issue blue with a yellow vest.
+  human: {
+    body: 'male', height: 108, weight: 15, muscle: 0, shoulders: 104, neck: 76, head: 104, hair: 'parted', beard: true,
+    face: { jaw: 25, chin: 15, cheeks: 0, brow: 30, nose: 20, width: 10, eyeColor: '#5a3a22', lipColor: '#8a5a50' },
+    outfit: { sleeves: 'long', neck: 'crew', hem: 'full', layer: 'vest', pants: 'full', boots: 'tall', gloves: false },
+    colors: { skin: '#d9b48f', hair: '#9a9a9a', shirt: '#4f6a8a', layer: '#e0b640', pants: '#3a4a5a', belt: '#2e2620', boots: '#2a2d34', gloves: '#6b5a48' },
+  },
   dialogue: {
     entry: [
       { when: { notFlag: 'qm_kit' }, node: 'qm_intro' },
@@ -19,8 +26,8 @@ export const QUARTERMASTER = {
       qm_intro: {
         speaker: 'quartermaster',
         lines: [
-          'New arrival? Wonderful. Paperwork first.',
-          "Sign here, here, and... there. Congratulations, you're now legally a drifter.",
+          'New arrival? Wonderful. The manifest says... {player}. Paperwork first.',
+          "Sign here, here, and... there. Congratulations, {player}, you're now legally a drifter.",
         ],
         next: 'qm_kit',
       },
@@ -90,13 +97,17 @@ export const ROLE_QUIPS = {
   ],
   local: [
     "You're new. I can tell because you're still clean.",
-    "Don't drink from the lake. Or do. I'm not your supervisor.",
     "My cousin went to the outer rim once. Came back with a hat. Wouldn't talk about the hat.",
     'Lovely day. Probably. Hard to say with this sky.',
-    "Watch the bridges. They're fine. I just like saying it.",
-    "If you see a small robot sweeping, say hello. He's very polite.",
-    'The relay tower hums a little song at night. Nobody admits to programming it.',
   ],
+};
+
+// Lines that mention something specific: only said where that thing exists (see planetFeatures in main.js).
+export const FEATURE_QUIPS = {
+  lake: ["Don't drink from the lake. Or do. I'm not your supervisor."],
+  bridges: ["Watch the bridges. They're fine. I just like saying it."],
+  sweeper: ["If you see a small robot sweeping, say hello. He's very polite."],
+  tower: ['The relay tower hums a little song at night. Nobody admits to programming it.'],
 };
 
 export const QUIRK_QUIPS = {

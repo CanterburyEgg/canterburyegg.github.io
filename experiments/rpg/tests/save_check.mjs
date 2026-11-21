@@ -9,7 +9,7 @@ const ok = (c, m) => { if (!c) { failures++; log('  FAIL: ' + m); } };
 const state = {
   inventory: createInventory(), xp: { mining: 1234.5, foraging: 77 }, credits: 321,
   bank: { bismuth_ore: 40, pale_log: 12 }, permits: new Set([0, 2]), visited: new Set([0, 2]),
-  planetIndex: 2, playtime: 4000, quests: { a_clean_break: { step: 1 } },
+  planetIndex: 2, playtime: 4000, quests: { a_clean_break: { step: 1 } }, name: 'Rook Vale',
 };
 addItem(state.inventory, 'bismuth_pick');
 addItem(state.inventory, 'cobalt_ore', 3);
@@ -36,6 +36,10 @@ ok(!('bismuth_ore' in cleaned.bank), 'non-positive bank qty dropped');
 let threw = false;
 try { deserialize({ version: SAVE_VERSION + 1, seed: 'x' }); } catch { threw = true; }
 ok(threw, 'newer version rejected');
+threw = false;
+try { deserialize({ version: 1, seed: 'x' }); } catch { threw = true; }
+ok(threw, 'v1 prototype saves rejected');
+ok(back.name === 'Rook Vale', 'drifter name round-trips');
 threw = false;
 try { deserialize({ foo: 1 }); } catch { threw = true; }
 ok(threw, 'garbage rejected');

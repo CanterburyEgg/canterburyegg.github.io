@@ -1,0 +1,34 @@
+<!DOCTYPE html><html><body><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const g = await new GLTFLoader().loadAsync('/experiments/rpg/assets/characters/anims.glb');
+const out = {};
+for (const name of ['Walk_Loop', 'Walk_Formal_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop']) {
+  const clip = g.animations.find((c) => c.name === name);
+  const mixer = new THREE.AnimationMixer(g.scene);
+  const a = mixer.clipAction(clip).play();
+  const foot = g.scene.getObjectByName('foot_l'), root = g.scene.getObjectByName('root'), pelvis = g.scene.getObjectByName('pelvis');
+  const N = 120, samples = [];
+  for (let i = 0; i <= N; i++) {
+    a.time = (clip.duration * i) / N; mixer.update(0);
+    g.scene.updateMatrixWorld(true);
+    const f = new THREE.Vector3(); foot.getWorldPosition(f);
+    const r = new THREE.Vector3(); root.getWorldPosition(r);
+    samples.push({ t: a.time, fy: f.y, fz: f.z, rz: r.z });
+  }
+  const minY = Math.min(...samples.map((s) => s.fy)), maxY = Math.max(...samples.map((s) => s.fy));
+  // contact: foot within 15% of its lowest height; ground speed = how fast the planted foot slides back
+  const contact = samples.filter((s) => s.fy < minY + (maxY - minY) * 0.15);
+  let speeds = [];
+  for (let i = 1; i < samples.length; i++) {
+    const s0 = samples[i - 1], s1 = samples[i];
+    if (s0.fy < minY + (maxY - minY) * 0.15 && s1.fy < minY + (maxY - minY) * 0.15) speeds.push(Math.abs((s1.fz - s0.fz) / (s1.t - s0.t)));
+  }
+  speeds.sort((x, y) => x - y);
+  const zr = samples.map((s) => s.fz);
+  out[name] = { duration: clip.duration.toFixed(3), footZRange: (Math.max(...zr) - Math.min(...zr)).toFixed(3), contactSpeedMedian: (speeds[speeds.length >> 1] || 0).toFixed(3), rootTravel: (samples[N].rz - samples[0].rz).toFixed(3), scale: g.scene.getObjectByName('root').getWorldScale(new THREE.Vector3()).x };
+  mixer.stopAllAction();
+}
+window.__out = out;
+</script></body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html><html><head><style>body{margin:0;background:#a9d4e0}canvas{display:block}</style></head><body>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module">
+// Dev page: renders a character holding a tool through a gathering clip, for tuning GRIP.
+// Query: ?tool=hatchet&clip=TreeChopping_Loop&pos=0,0.06,0.01&rot=0,0,0
+import * as THREE from 'three';
+import { createCharacter, createToolMesh, attachToHand } from '../js/player_character.js';
+import { PRESETS } from '../data/presets.js';
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(360, 360);
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#a9d4e0');
+scene.add(new THREE.HemisphereLight('#ffffff', '#445', 1.2));
+const sun = new THREE.DirectionalLight('#fff', 1.8); sun.position.set(2, 4, 3); scene.add(sun);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(10, 10), new THREE.MeshStandardMaterial({ color: '#5f9c7a' })); ground.rotation.x = -Math.PI / 2; scene.add(ground);
+const c = await createCharacter(PRESETS.find((p) => p.id === 'courier').look, { cellFrac: 0.004 });
+scene.add(c.root);
+const tool = createToolMesh();
+attachToHand(c, tool.group);
+tool.show(q.get('tool') || 'hatchet', '#c9a2e8');
+if (q.get('pos')) tool.setGrip(q.get('pos').split(',').map(Number), q.get('rot').split(',').map((v) => (isNaN(+v) ? v : +v)));
+c.play(q.get('clip') || 'TreeChopping_Loop', { fade: 0 });
+const cam = new THREE.PerspectiveCamera(35, 1, 0.05, 50);
+window.__render = (t, view) => {
+  c.seek(t);
+  const views = { side: [2.6, 1.4, 0], front: [0, 1.4, 2.6], back: [0.6, 1.5, -2.6], top: [0.5, 3.2, 1.2] };
+  cam.position.fromArray(views[view]); cam.lookAt(0, 1.1, 0.2);
+  renderer.render(scene, cam);
+};
+// Find the spin about the handle that points the blade edge (+Z in tool space) along the hand's
+// motion at the fastest moment of the swing. base: [x, z] tilt (order ZYX, spin is Y).
+window.__bestSpin = (tiltZ = 0) => {
+  const inner = tool.group.userData.inner;
+  const dur = 0.9667, N = 60, hp = [];
+  for (let i = 0; i <= N; i++) { c.seek((dur * i) / N); c.root.updateMatrixWorld(true); hp.push(c.hand.getWorldPosition(new THREE.Vector3())); }
+  let best = 1, bestV = 0;
+  for (let i = 1; i < N; i++) { const v = hp[i + 1].distanceTo(hp[i - 1]); if (v > bestV) { bestV = v; best = i; } }
+  const vel = hp[best + 1].clone().sub(hp[best - 1]).normalize();
+  c.seek((dur * best) / N);
+  let bestSpin = 0, bestDot = -2;
+  for (let deg = 0; deg < 360; deg += 5) {
+    inner.rotation.set(0, (deg * Math.PI) / 180, tiltZ, 'ZYX');
+    c.root.updateMatrixWorld(true);
+    const o = new THREE.Vector3(0, 0.46, 0).applyMatrix4(inner.matrixWorld);
+    const e = new THREE.Vector3(0, 0.46, 0.15).applyMatrix4(inner.matrixWorld);
+    const d = e.sub(o).normalize().dot(vel);
+    if (d > bestDot) { bestDot = d; bestSpin = deg; }
+  }
+  return { strikeT: (dur * best) / N, bestSpin, bestDot };
+};
+window.__ready = true;
+</script></body></html>

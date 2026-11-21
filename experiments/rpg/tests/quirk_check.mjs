@@ -81,8 +81,8 @@ const ok = (c, m) => { if (!c) { failures++; log('  FAIL: ' + m); } };
   const back = deserialize(JSON.parse(JSON.stringify(serialize(state, { slotId: 'slot1', seed: 'x1' }))));
   ok(back.look && back.look.body === look.body && back.look.colors.skin === look.colors.skin, 'look round-trips');
   ok(back.discovered[0].length === 2 && !('bogus' in back.discovered), 'discovered round-trips (cleaned)');
-  const old = deserialize({ version: 1, seed: 'x2' });
-  ok(old.look === null && Object.keys(old.discovered).length === 0, 'old saves load without look/discovered');
+  const bare = deserialize({ version: 2, seed: 'x2' });
+  ok(bare.look === null && Object.keys(bare.discovered).length === 0 && bare.name === 'Drifter', 'minimal v2 save loads with defaults');
   const o = lookToOpts(DEFAULT_LOOK);
   ok(Math.abs(o.weight - -0.1) < 1e-9 && o.outfit.top === 'shirt', 'lookToOpts mirrors the lab mapping');
 }
