@@ -14,7 +14,7 @@ import { createInventory, addItem, removeAt } from './inventory.js';
 import { checkGather, attemptGather, initialNodeState, afterSuccess, ATTEMPT_SECONDS } from './gathering.js';
 import { levelForXp, SKILLS } from '../data/skills.js';
 import { SFX } from './sfx.js';
-import { createUI } from './ui.js';
+import { createUI, itemIconHTML } from './ui.js';
 import { createPanels, sellPrice } from './panels.js';
 import { permitPrice } from '../data/travel.js';
 import { countItem, removeItems, canAdd } from './inventory.js';
@@ -33,6 +33,11 @@ import { loadSettings, QUALITY } from './settings.js';
 import { createCreator } from './creator.js';
 import { createPause } from './pause.js';
 import { startArrival } from './arrival.js';
+import { TICK, REGEN, hpOf, weaponOf, totalArmor, hitDamage, armorReduce, combatXp, equipFromInventory, unequip, splitForCrate } from './combat.js';
+import { spawnCreatures, updateCreatures, hurtCreature, safeZones, inSafeZone } from './creatures.js';
+import { buildCreatureModel } from './creature_models.js';
+import { CREATURES } from '../data/creatures.js';
+import { SLOTS, SLOT_NAMES } from '../data/equipment.js';
 
 // ---------------------------------------------------------------------
 // Renderer / scene / camera
@@ -92,7 +97,8 @@ let gait = GAITS.sprint; // the jog clip has to play at 1.6x to keep up with 4.4
 let charBuild = 0;
 async function rebuildPlayerModel() {
   const token = ++charBuild;
-  const look = state.look || (state.look = randomLook());
+  if (!state.look) state.look = randomLook();
+  const look = lookWithArmor(state.look, state.equipment);
   try {
     const c = await createCharacter(look, { cellFrac: QUALITY[settings.quality].cellFrac });
     if (token !== charBuild) { c.dispose(); return; }
@@ -100,10 +106,50 @@ async function rebuildPlayerModel() {
     player.char = c;
     player.mesh.add(c.root);
     if (!attachToHand(c, toolMesh)) player.mesh.add(toolMesh);
+    addHelmet(c, state.equipment && state.equipment.head);
+    refreshHeldItem();
     c.play('idle', { fade: 0 });
   } catch (e) {
     console.error('Player model failed to build', e);
   }
+}
+
+// Armor shows on the drifter: a chestplate becomes a metal vest over the shirt, greaves recolor the
+// legs and boots, a helmet is a simple shell on the Head bone.
+const ARMOR_TINT = { bismuth: '#b79acb', cobalt: '#3d5fae', tungsten: '#7d848f' };
+function lookWithArmor(look, eq) {
+  const L = JSON.parse(JSON.stringify(look));
+  L.outfit = L.outfit || {}; L.colors = L.colors || {};
+  const metal = (id) => id && ITEMS[id] && ARMOR_TINT[ITEMS[id].metal];
+  if (eq && metal(eq.body)) { L.outfit.layer = 'vest'; L.colors.layer = metal(eq.body); }
+  if (eq && metal(eq.legs)) { L.outfit.pants = 'full'; L.outfit.boots = 'tall'; L.colors.pants = metal(eq.legs); L.colors.boots = '#2a2d34'; }
+  return L;
+}
+function addHelmet(c, id) {
+  const def = id && ITEMS[id];
+  if (!def) return;
+  const head = c.mesh.skeleton.bones.find((b) => b.name === 'Head');
+  if (!head) return;
+  c.root.updateMatrixWorld(true);
+  const ws = head.getWorldScale(new THREE.Vector3()).x, rs = c.root.getWorldScale(new THREE.Vector3()).x;
+  const helm = new THREE.Group();
+  helm.scale.setScalar(rs / ws);
+  const shell = new THREE.Mesh(new THREE.SphereGeometry(0.135, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55), new THREE.MeshStandardMaterial({ color: ARMOR_TINT[def.metal], metalness: 0.5, roughness: 0.4, flatShading: true }));
+  shell.position.set(0, 0.11, -0.005);
+  shell.scale.set(1, 0.95, 1.12);
+  const brim = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.012, 4, 16), shell.material);
+  brim.rotation.x = Math.PI / 2;
+  brim.position.set(0, 0.105, 0);
+  brim.scale.set(1, 1.12, 1);
+  helm.add(shell, brim);
+  helm.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  head.add(helm);
+}
+// The hand shows the gathering tool while gathering, otherwise the equipped weapon (if any).
+function refreshHeldItem() {
+  if (gathering) return;
+  const w = state.equipment && state.equipment.weapon && ITEMS[state.equipment.weapon];
+  showTool(w ? w.weaponKind : null, w ? w.color : null);
 }
 
 // Hand tool shown while gathering (player_character.js builds and grips it).
@@ -128,6 +174,10 @@ const state = {
   name: 'Drifter',
   look: null,               // character appearance (slider units, see player_character.js)
   discovered: {},           // planetIndex -> [siteId] found by walking near them
+  equipment: { weapon: null, head: null, body: null, legs: null },
+  hp: null,                 // current health (null = full)
+  crate: null,              // salvage crate from your last death: { planetIndex, x, z, items }
+  lastSettlement: null,     // where you wake up: { planetIndex, x, z, name }
 };
 // (starter items are granted in newGame(); stand-in for the Quartermaster)
 let gathering = null;
@@ -144,10 +194,27 @@ const ui = createUI({
     if (mode === 'bank') { deposit(s.id, shift ? Infinity : 1); return; }
     if (mode === 'shop') { sell(s.id, shift ? Infinity : 1); return; }
     if (shift) { dropSlot(i); return; }
+    if (def.kind === 'weapon' || def.kind === 'armor') { equipSlot(i); return; }
     toast(def.kind === 'tool' ? `${def.name}: needs ${SKILLS[def.skill].name} ${def.levelReq}.` : `${def.name}. Sells for ${sellPrice(def)} cr.`);
   },
   onSlotDrop(i) { dropSlot(i); },
 });
+function equipSlot(i) {
+  const r = equipFromInventory(state, i);
+  if (!r.ok) { if (r.reason) { SFX.fail(); toast(r.reason); } return; }
+  SFX.clank();
+  afterGearChange();
+}
+function unequipSlot(slot) {
+  const r = unequip(state, slot);
+  if (!r.ok) { if (r.reason) toast(r.reason); return; }
+  afterGearChange();
+}
+function afterGearChange() {
+  markDirty();
+  refreshUI();
+  rebuildPlayerModel(); // armor changes the outfit; the weapon is re-gripped on rebuild
+}
 function dropSlot(i) {
   const s = removeAt(state.inventory, i);
   if (!s) return;
@@ -249,6 +316,7 @@ function resetState() {
   Object.assign(state, {
     inventory: createInventory(), xp: { mining: 0, foraging: 0 }, credits: 0, bank: {},
     permits: new Set([0]), visited: new Set(), planetIndex: 0, playtime: 0, quests: {}, reputation: 0, name: 'Drifter', look: null, discovered: {},
+    equipment: { weapon: null, head: null, body: null, legs: null }, hp: null, crate: null, lastSettlement: null,
   });
 }
 
@@ -342,6 +410,7 @@ async function continueGame(slotId) {
       inventory: d.inventory, xp: d.xp, credits: d.credits, bank: d.bank,
       permits: d.permits, visited: d.visited, playtime: d.playtime, quests: d.quests, reputation: d.reputation,
       name: d.name, look: d.look || randomLook(), discovered: d.discovered,
+      equipment: d.equipment, hp: d.hp, crate: d.crate, lastSettlement: d.lastSettlement,
     });
     rebuildPlayerModel();
     currentSlot = slotId;
@@ -766,6 +835,7 @@ function getJournal() {
 }
 
 function refreshUI() {
+  renderGear();
   ui.renderInventory(state.inventory);
   ui.renderSkills(state.xp);
   ui.renderCredits(state.credits, state.reputation);
@@ -857,6 +927,8 @@ function loadPlanet(index) {
   document.getElementById('planet-select').value = index;
   updateInfo(meta, tGen, tView);
   spawnNpcsForPlanet();
+  spawnCreatureViews();
+  buildCrateView();
   checkDiscovery(true);
   buildMinimapBase();
   if (system.seed.startsWith('showcase')) return;
@@ -977,6 +1049,11 @@ function drawMinimap() {
     mctx.arc(pc.gx * k, pc.gy * k, r, base - 0.6, base + 0.6);
     mctx.stroke();
   }
+  if (state.crate && state.crate.planetIndex === state.planetIndex) {
+    const cc = worldToCell(planet, state.crate.x, state.crate.z);
+    mctx.fillStyle = '#ffcf4a'; mctx.strokeStyle = '#000';
+    mctx.fillRect(cc.gx * k - 3, cc.gy * k - 3, 6, 6); mctx.strokeRect(cc.gx * k - 3, cc.gy * k - 3, 6, 6);
+  }
   mctx.fillStyle = '#ffe680';
   mctx.beginPath();
   mctx.arc(pc.gx * k, pc.gy * k, 3.5, 0, Math.PI * 2);
@@ -1094,6 +1171,257 @@ function updatePlayer(dt) {
 }
 
 // ---------------------------------------------------------------------
+// Combat core (M2): creatures, targeting, tick auto-attacks, damage, death and the salvage crate
+// ---------------------------------------------------------------------
+let creatures = [], zones = [];
+const combat = { target: null, atk: 0, lastHitT: -99, repath: 0 };
+const gearEl = document.getElementById('gear');
+const hpFillEl = document.getElementById('hp-fill'), hpTextEl = document.getElementById('hp-text');
+const crateGroup = new THREE.Group();
+scene.add(crateGroup);
+
+function curHp() { const m = hpOf(state); if (state.hp == null || state.hp > m) state.hp = m; return state.hp; }
+
+function renderGear() {
+  if (!gearEl) return;
+  gearEl.innerHTML = SLOTS.map((sl) => {
+    const id = state.equipment[sl], def = id && ITEMS[id];
+    const tip = def ? `${def.name}${def.armor ? ` (+${def.armor} armor)` : def.damage ? ` (${def.damage} dmg, ${(def.ticks * TICK).toFixed(1)}s)` : ''}\nClick to unequip` : `${SLOT_NAMES[sl]}: empty\nClick a weapon or armor piece in your inventory to equip it`;
+    return `<div class="gear-slot ${def ? 'filled' : ''}" data-slot="${sl}" title="${tip}">${def ? itemIconHTML(def, 1) : `<span class="gear-lbl">${SLOT_NAMES[sl]}</span>`}</div>`;
+  }).join('');
+  updateHpBar();
+}
+if (gearEl) gearEl.addEventListener('click', (e) => { const el = e.target.closest('[data-slot]'); if (el) unequipSlot(el.dataset.slot); });
+function updateHpBar() {
+  if (!hpFillEl) return;
+  const m = hpOf(state), h = curHp();
+  hpFillEl.style.width = `${Math.max(0, (h / m) * 100)}%`;
+  hpFillEl.classList.toggle('low', h / m < 0.3);
+  hpTextEl.textContent = `${Math.ceil(h)} / ${m}  ·  armor ${totalArmor(state)}`;
+}
+
+function clearCreatures() {
+  for (const c of creatures) { scene.remove(c.group); if (c.barEl) c.barEl.remove(); }
+  creatures = [];
+  combat.target = null;
+}
+function spawnCreatureViews() {
+  clearCreatures();
+  zones = safeZones(planet);
+  creatures = spawnCreatures(planet);
+  for (const c of creatures) {
+    c.group = buildCreatureModel(c);
+    c.group.userData.interact = { type: 'enemy', creature: c, name: c.name, verb: 'Attack', x: c.x, z: c.z, reach: 2 };
+    scene.add(c.group);
+  }
+}
+
+function startCombat(c) {
+  if (c.state === 'dead') return;
+  if (gathering) stopGathering();
+  pendingInteract = null;
+  player.path = [];
+  combat.target = c;
+  combat.repath = 0;
+  refreshHeldItem();
+}
+
+function playerReach() { return weaponOf(state).reach + 0.35; }
+
+function updateCombat(dt) {
+  const c = combat.target;
+  if (c && (c.state === 'dead' || player.dead)) combat.target = null;
+  if (!combat.target) return;
+  const d = Math.hypot(c.x - player.x, c.z - player.z);
+  const steering = keys.KeyW || keys.KeyA || keys.KeyS || keys.KeyD || keys.ArrowUp || keys.ArrowDown || keys.ArrowLeft || keys.ArrowRight;
+  if (d > playerReach()) {
+    if (steering) return; // you're kiting: no auto-chase
+    if (d > 40) { combat.target = null; return; }
+    // close in: straight line when open, a path when something's in the way
+    const step = player.baseSpeed * walkMult * dt;
+    const ux = (c.x - player.x) / d, uz = (c.z - player.z) / d;
+    const nx = player.x + ux * step, nz = player.z + uz * step;
+    let moved = false;
+    if (canStand(nx, player.z)) { player.x = nx; moved = true; }
+    if (canStand(player.x, nz)) { player.z = nz; moved = true; }
+    player.facing = Math.atan2(ux, uz);
+    player.moving = true;
+    player.combatMove = true;
+    if (!moved) { combat.repath -= dt; if (combat.repath <= 0) { combat.repath = 0.6; const cell = worldToCell(planet, c.x, c.z); moveToCell(cell.gx, cell.gy, false); } }
+    combat.atk = Math.min(combat.atk, TICK * 0.5);
+    return;
+  }
+  player.facing = Math.atan2(c.x - player.x, c.z - player.z);
+  combat.atk -= dt;
+  if (combat.atk > 0) return;
+  const w = weaponOf(state);
+  combat.atk = w.ticks * TICK;
+  if (player.char) player.char.play('attack', { timeScale: Math.max(1, 1.6 / (w.ticks * TICK)) });
+  SFX.swing('hatchet');
+  const dmg = hitDamage(w.damage, levelForXp(state.xp.melee || 0), Math.random);
+  const killed = hurtCreature(c, dmg, gameTime);
+  ui.floatText(String(dmg), '#ffe680', { x: c.x, y: sampleHeight(planet, c.x, c.z) + (c.group.userData.height || 1) + 0.4, z: c.z });
+  const xp = combatXp(dmg);
+  addXpQuiet('melee', xp.melee);
+  addXpQuiet('vitality', xp.vitality);
+  combat.lastHitT = gameTime;
+  if (killed) onCreatureKilled(c);
+}
+
+// XP without a floating label per hit (a fight would spam them); level-ups still announce.
+function addXpQuiet(skill, amount) {
+  const before = levelForXp(state.xp[skill] || 0);
+  state.xp[skill] = (state.xp[skill] || 0) + amount;
+  const after = levelForXp(state.xp[skill]);
+  if (after > before) {
+    SFX.levelUp();
+    ui.levelUp(SKILLS[skill].name, after);
+    if (player.char) player.char.play('cheer');
+    if (skill === 'vitality') updateHpBar();
+  }
+  markDirty();
+}
+
+function onCreatureKilled(c) {
+  combat.target = null;
+  addXpQuiet('melee', c.xp);
+  ui.floatText(`+${c.xp} Melee XP`, '#9fe8ff', { x: player.x, y: player.y + 2.8, z: player.z });
+  SFX.success();
+  ui.renderSkills(state.xp);
+  // Phase C: creature parts and a small loot roll
+}
+
+function onCreatureAttack(c, raw) {
+  if (player.dead) return;
+  const dmg = armorReduce(raw, totalArmor(state));
+  state.hp = curHp() - dmg;
+  combat.lastHitT = gameTime;
+  ui.floatText(String(dmg), '#ff6a5a', { x: player.x, y: player.y + 2.2, z: player.z });
+  SFX.fail();
+  if (!combat.target && !gathering && !player.moving) startCombat(c); // auto-retaliate
+  if (player.char && Math.random() < 0.35) player.char.play('hit');
+  updateHpBar();
+  markDirty();
+  if (state.hp <= 0) playerDies();
+}
+
+// Death: drop your pack in a salvage crate, wake at the last settlement. A second death before you
+// recover it means the old crate is gone.
+function playerDies() {
+  if (player.dead) return;
+  player.dead = true;
+  combat.target = null;
+  if (gathering) stopGathering();
+  player.path = [];
+  pendingInteract = null;
+  if (player.char) player.char.play('death');
+  const lost = state.crate && state.crate.items.length;
+  const { keep, crate } = splitForCrate(state.inventory);
+  state.inventory = keep;
+  state.crate = crate.length ? { planetIndex: state.planetIndex, x: player.x, z: player.z, items: crate } : null;
+  refreshUI();
+  saveNow();
+  const fade = document.getElementById('death-fade');
+  fade.querySelector('.death-sub').textContent = lost ? 'Your old salvage crate is gone. Your pack is in a new one where you fell.' : crate.length ? 'Your pack is in a salvage crate where you fell. Go get it back.' : '';
+  setTimeout(() => fade.classList.add('show'), 1400);
+  setTimeout(() => {
+    const ls = state.lastSettlement && state.lastSettlement.planetIndex === state.planetIndex ? state.lastSettlement : { x: planet.spawn.x, z: planet.spawn.z, name: planet.outpost.name };
+    player.x = ls.x; player.z = ls.z;
+    player.y = sampleHeight(planet, player.x, player.z);
+    cam.target.set(player.x, player.y, player.z);
+    state.hp = hpOf(state);
+    player.dead = false;
+    if (player.char) player.char.play('idle', { fade: 0.3 });
+    buildCrateView();
+    updateHpBar();
+    fade.classList.remove('show');
+    toast(`You come to in ${ls.name || 'town'}, sore but breathing.`);
+    markDirty();
+  }, 3600);
+}
+
+function trackSettlement() {
+  // the last settlement you stood in is where you wake up
+  for (const z of zones) {
+    if (Math.hypot(player.x - z.x, player.z - z.z) < z.r) {
+      const name = z === zones[0] ? planet.outpost.name : (planet.camps[zones.indexOf(z) - 1] || {}).name;
+      const ls = state.lastSettlement;
+      if (!ls || ls.planetIndex !== state.planetIndex || ls.name !== name) {
+        const spot = z === zones[0] ? planet.spawn : { x: z.x, z: z.z };
+        state.lastSettlement = { planetIndex: state.planetIndex, x: spot.x, z: spot.z, name };
+        markDirty();
+      }
+      return;
+    }
+  }
+}
+
+function buildCrateView() {
+  crateGroup.clear();
+  const cr = state.crate;
+  if (!cr || cr.planetIndex !== state.planetIndex) return;
+  const box = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.6, 0.6), new THREE.MeshStandardMaterial({ color: '#8a6a3a', roughness: 0.8, flatShading: true }));
+  box.position.y = 0.3;
+  const band = new THREE.Mesh(new THREE.BoxGeometry(0.94, 0.12, 0.64), new THREE.MeshStandardMaterial({ color: '#ffcf4a', emissive: '#806010', emissiveIntensity: 0.5 }));
+  band.position.y = 0.42;
+  const g = new THREE.Group();
+  g.add(box, band);
+  g.position.set(cr.x, sampleHeight(planet, cr.x, cr.z), cr.z);
+  g.rotation.y = 0.4;
+  g.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+  g.userData.interact = { type: 'crate', name: 'Salvage crate', verb: 'Open', x: cr.x, z: cr.z, reach: 1.8 };
+  crateGroup.add(g);
+}
+function openCrate() {
+  const cr = state.crate;
+  if (!cr) return;
+  const left = [];
+  for (const it of cr.items) { if (canAdd(state.inventory, it.id)) addItem(state.inventory, it.id, it.qty); else left.push(it); }
+  cr.items = left;
+  if (!left.length) { state.crate = null; toast('You recover everything from the salvage crate.'); }
+  else toast(`Your pack is full. ${left.length} item${left.length > 1 ? 's' : ''} still in the crate.`);
+  SFX.success();
+  buildCrateView();
+  refreshUI();
+  markDirty();
+}
+
+function updateCreatureViews(dt) {
+  const ev = updateCreatures(creatures, { t: gameTime, dt, player: { x: player.x, z: player.z, alive: !player.dead }, canStand, zones, rand: Math.random });
+  for (const e of ev) if (e.type === 'attack') onCreatureAttack(e.creature, e.damage);
+  for (const c of creatures) {
+    const g = c.group;
+    if (c.respawned) { c.respawned = false; g.visible = true; }
+    if (c.state === 'dead' && gameTime - c.diedAt > 2.5) g.visible = false;
+    const y = sampleHeight(planet, c.x, c.z);
+    g.position.set(c.x, y, c.z);
+    let df = c.facing - g.rotation.y;
+    while (df > Math.PI) df -= Math.PI * 2;
+    while (df < -Math.PI) df += Math.PI * 2;
+    g.rotation.y += df * Math.min(1, dt * 10);
+    const near = Math.hypot(c.x - player.x, c.z - player.z) < 60;
+    if (near && g.userData.animate) g.userData.animate(gameTime, c.moving, c.state === 'chase' && Math.hypot(c.x - player.x, c.z - player.z) < 2.2, c.state === 'dead');
+    g.userData.interact.x = c.x; g.userData.interact.z = c.z;
+    // health bar over hurt or targeted creatures
+    const show = near && c.state !== 'dead' && (c.hp < c.maxHp || combat.target === c);
+    if (show) {
+      if (!c.barEl) { c.barEl = document.createElement('div'); c.barEl.className = 'hpbar'; c.barEl.innerHTML = '<div></div>'; labelsEl.appendChild(c.barEl); }
+      const pr = project(c.x, y + (g.userData.height || 1) + 0.25, c.z);
+      c.barEl.style.display = 'block';
+      c.barEl.style.left = pr.x + 'px'; c.barEl.style.top = pr.y + 'px';
+      c.barEl.firstChild.style.width = `${(c.hp / c.maxHp) * 100}%`;
+      c.barEl.classList.toggle('target', combat.target === c);
+    } else if (c.barEl) c.barEl.style.display = 'none';
+  }
+  // out-of-combat regeneration
+  if (!player.dead && gameTime - combat.lastHitT > REGEN.delaySec && curHp() < hpOf(state)) {
+    state.hp = Math.min(hpOf(state), state.hp + REGEN.perSec * dt);
+    updateHpBar();
+  }
+  trackSettlement();
+}
+
+// ---------------------------------------------------------------------
 // Quirk mechanics (see quirk_mechanics.js)
 // ---------------------------------------------------------------------
 const quirkStatusEl = document.getElementById('quirk-status');
@@ -1149,8 +1477,10 @@ function updatePlayerAnimation(dt) {
   const c = player.char;
   if (!c) return;
   if (cheerAfterSwing && !gathering) { cheerAfterSwing = false; c.play('cheer'); }
+  if (player.dead) { c.update(dt); return; }
   if (gathering) c.play(gathering.res.tool, { timeScale: gathering.res.tool === 'gloves' ? 1 : 0.9 });
-  else if (player.moving) c.play(gait.clip, { timeScale: Math.min(1.6, (player.baseSpeed * walkMult) / gait.native) });
+  else if (combat.target && !player.moving) c.play('guard');
+  else if (player.moving || player.combatMove) c.play(gait.clip, { timeScale: Math.min(1.6, (player.baseSpeed * walkMult) / gait.native) });
   else c.play('idle');
   c.update(dt);
 }
@@ -1179,6 +1509,7 @@ const DEPLETE_MSG = { pick: 'The vein runs dry.', hatchet: 'The tree comes down.
 function interact(t) {
   if (t.type === 'node') return startGathering(t);
   if (t.type === 'npc') return talkTo(t.npcId);
+  if (t.type === 'crate') return openCrate();
   const src = { x: t.x, z: t.z };
   if (player.char && ['locker', 'camp_locker', 'shop', 'pad'].includes(t.kind)) player.char.play('interact');
   if (t.kind === 'locker' || t.kind === 'camp_locker') return panels.open('bank', src, { title: t.kind === 'camp_locker' ? 'Camp Locker' : 'Storage Locker' });
@@ -1207,6 +1538,7 @@ function nodeStateFor(node, res) {
 function stopGathering(msg) {
   gathering = null;
   showTool(null);
+  refreshHeldItem();
   if (msg) toast(msg);
 }
 
@@ -1274,6 +1606,9 @@ function updateRespawns() {
 }
 
 function startInteract(t) {
+  if (player.dead) return;
+  if (t.type === 'enemy') { startCombat(t.creature); return; }
+  combat.target = null;
   if (gathering) stopGathering();
   pendingInteract = t;
   if (Math.hypot(t.x - player.x, t.z - player.z) <= t.reach) {
@@ -1288,7 +1623,7 @@ const pickRay = new THREE.Raycaster();
 function pickInteractable(cx, cy) {
   ndc.set((cx / window.innerWidth) * 2 - 1, -(cy / window.innerHeight) * 2 + 1);
   pickRay.setFromCamera(ndc, camera);
-  const targets = view.nodeMeshes.concat(view.interactables, npcs.map((n) => n.group));
+  const targets = view.nodeMeshes.concat(view.interactables, npcs.map((n) => n.group), creatures.filter((c) => c.state !== 'dead').map((c) => c.group), crateGroup.children);
   const hits = pickRay.intersectObjects(targets, true);
   for (const h of hits) {
     if (h.object.isInstancedMesh && h.object.userData.nodes) {
@@ -1458,7 +1793,9 @@ function tick(now) {
   }
   if (toastTimer > 0) { toastTimer -= dt; if (toastTimer <= 0) toastEl.classList.remove('show'); }
 
-  if (mode === 'play' && !pause.isOpen()) updatePlayer(dt);
+  player.combatMove = false;
+  if (mode === 'play' && !pause.isOpen() && !player.dead) { updatePlayer(dt); updateCombat(dt); }
+  if (mode === 'play') updateCreatureViews(dt);
   if (mode === 'arrival') updateArrival(dt);
   player.y = sampleHeight(planet, player.x, player.z);
   player.mesh.position.set(player.x, player.y, player.z);
@@ -1504,7 +1841,7 @@ refreshUI();
 // Test hook for headless checks (tests/ and render scripts).
 window.__game = {
   player, cam, state, keys, rebuildPlayerModel, startInteract, loadPlanet, menu, creator, pause, endArrival,
-  get mode() { return mode; }, setGait(k) { gait = GAITS[k]; }, get npcs() { return npcs; }, talkTo,
+  get mode() { return mode; }, get creatures() { return creatures; }, combat, playerDies, startCombat, setGait(k) { gait = GAITS[k]; }, get npcs() { return npcs; }, talkTo,
   get system() { return system; }, get quirkRT() { return quirkRT; }, get view() { return view; },
   get planet() { return planet; }, get gathering() { return gathering; },
   nearestNode(skill, tool) {

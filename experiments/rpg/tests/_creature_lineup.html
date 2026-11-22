@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>Creature lineup</title><style>body{margin:0;background:#a9d4e0;font-family:sans-serif;overflow:hidden}canvas{display:block}#l{position:fixed;inset:0;pointer-events:none}#l div{position:absolute;transform:translateX(-50%);font-size:12px;font-weight:700;color:#1a2230;text-align:center;width:160px}#hud{position:fixed;top:10px;left:12px;font:13px sans-serif;color:#1a2230}</style></head><body><div id="l"></div>
+<div id="hud"><b>Creature lineup</b> · drag to orbit · scroll to zoom · <b>W</b> walk/run · <b>A</b> attack · <b>D</b> die · <span id="mode">idle</span><br><span style="opacity:.7">Phase A has the Skarl (one per planet tier). Gallox, Vorm, Dart Fly and Grondak join in Phase C.</span></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module">
+// Dev page: every creature family at every planet tier, with their idle / move / attack / death motion.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { buildCreatureModel, CREATURE_BUILDERS } from '../js/creature_models.js';
+import { CREATURES } from '../data/creatures.js';
+import { creatureStats } from '../js/combat.js';
+
+let W = innerWidth, H = innerHeight;
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(W, H);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#a9d4e0');
+scene.add(new THREE.HemisphereLight('#ffffff', '#445', 1.1));
+const sun = new THREE.DirectionalLight('#fff4e0', 1.8);
+sun.position.set(4, 8, 6); sun.castShadow = true; scene.add(sun);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(60, 30), new THREE.MeshStandardMaterial({ color: '#5f9c7a' }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+// a 1.8 m reference post so sizes read
+const post = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1.8, 6), new THREE.MeshStandardMaterial({ color: '#e8e2cf' }));
+
+const rows = [];
+const families = Object.keys(CREATURES).filter((f) => CREATURE_BUILDERS[f]);
+families.forEach((family, fi) => {
+  const def = CREATURES[family];
+  def.hp.forEach((_, ti) => {
+    const st = creatureStats(def, ti + 1);
+    // a pack: the leader plus two smaller ones
+    for (let k = 0; k < 3; k++) {
+      const c = { family, colors: st.colors, variant: st.variant, scale: k === 0 ? 1.15 : 0.9 };
+      const g = buildCreatureModel(c);
+      g.position.set((ti - (def.hp.length - 1) / 2) * 3.2 + (k - 1) * 0.9, 0, fi * -3 + (k === 0 ? 0.4 : -0.5));
+      g.rotation.y = 0.5;
+      scene.add(g);
+      rows.push({ g, label: k === 0 ? `${st.name}<br><span style="font-weight:400;font-size:11px">tier ${ti + 1} · ${st.hp} hp · hits up to ${st.damage}</span>` : null });
+    }
+  });
+});
+post.position.set(-7.2, 0.9, 0.4); scene.add(post);
+
+const cam = new THREE.PerspectiveCamera(32, W / H, 0.1, 100);
+cam.position.set(0, 4, 13);
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 0.6, -1);
+controls.enableDamping = true;
+addEventListener('resize', () => { W = innerWidth; H = innerHeight; renderer.setSize(W, H); cam.aspect = W / H; cam.updateProjectionMatrix(); });
+
+let moving = false, attacking = false, dead = false;
+const modeEl = document.getElementById('mode');
+addEventListener('keydown', (e) => {
+  if (e.key === 'w') moving = !moving;
+  if (e.key === 'a') attacking = !attacking;
+  if (e.key === 'd') dead = !dead;
+  modeEl.textContent = [dead && 'dead', moving && 'moving', attacking && 'attacking'].filter(Boolean).join(' + ') || 'idle';
+});
+
+const labels = document.getElementById('l');
+const t0 = performance.now();
+function loop() {
+  const t = (performance.now() - t0) / 1000;
+  for (const r of rows) r.g.userData.animate && r.g.userData.animate(t, moving, attacking, dead);
+  controls.update();
+  renderer.render(scene, cam);
+  labels.innerHTML = '';
+  for (const r of rows) {
+    if (!r.label) continue;
+    const p = r.g.position.clone(); p.y = -0.2; p.project(cam);
+    if (p.z > 1) continue;
+    const d = document.createElement('div');
+    d.innerHTML = r.label;
+    d.style.left = ((p.x + 1) / 2 * W) + 'px'; d.style.top = ((1 - p.y) / 2 * H) + 'px';
+    labels.appendChild(d);
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+window.__ready = true;
+</script></body></html>

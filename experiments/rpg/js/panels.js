@@ -62,18 +62,19 @@ export function createPanels(actions) {
   function renderShop(st) {
     titleEl.textContent = current.ctx.title || 'Shop';
     const maxTier = shopStockTiers(current.ctx.meta);
-    const stock = TOOLS.filter((t) => t.tier <= maxTier);
-    const rows = stock.map((t) => {
-      const def = ITEMS[t.id];
+    // tools, then weapons and armor (M2: bought here until Smithing exists)
+    const stock = [...TOOLS.map((t) => ITEMS[t.id]), ...Object.values(ITEMS).filter((d) => d.kind === 'weapon' || d.kind === 'armor')].filter((d) => d.tier <= maxTier);
+    const rows = stock.map((def) => {
       const afford = st.credits >= def.value;
+      const stat = def.kind === 'weapon' ? ` · ${def.damage} dmg` : def.kind === 'armor' ? ` · +${def.armor} armor` : '';
       return `<div class="shop-row">
         <div class="shop-icon">${itemIconHTML(def, 1)}</div>
-        <div class="shop-name">${def.name}<div class="muted">Needs ${def.skill[0].toUpperCase() + def.skill.slice(1)} ${def.levelReq}</div></div>
-        <button type="button" data-buy="${t.id}" ${afford ? '' : 'disabled'}>Buy · ${def.value} cr</button>
+        <div class="shop-name">${def.name}<div class="muted">Needs ${def.skill[0].toUpperCase() + def.skill.slice(1)} ${def.levelReq}${stat}</div></div>
+        <button type="button" data-buy="${def.id}" ${afford ? '' : 'disabled'}>Buy · ${def.value} cr</button>
       </div>`;
     }).join('');
     bodyEl.innerHTML = `<div class="shop-credits">You have <b>${st.credits} cr</b></div><div class="shop-list">${rows}</div>`;
-    hintEl.textContent = 'Click inventory items to sell one (shift: sell all of that kind). Resources sell at full value, tools at 40%.';
+    hintEl.textContent = 'Click inventory items to sell one (shift: sell all of that kind). Resources sell at full value, tools and gear at 40%.';
     bodyEl.querySelectorAll('[data-buy]').forEach((el) => {
       el.addEventListener('click', () => { actions.buy(el.dataset.buy); render(); });
     });

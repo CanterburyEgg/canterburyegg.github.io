@@ -201,6 +201,23 @@
     .jobj.ok { color: #8ff0a8; }
     .jhidden { margin-top: 8px; }
     .lu-sub { font-size: 15px; font-weight: 700; color: #e8ecf2; text-shadow: 0 1px 4px #000; }
+    /* ---- combat core */
+    #hp-bar { height: 8px; background: #3a1f24; border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+    #hp-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #3fbf6a, #8ff0a8); transition: width 0.15s; }
+    #hp-fill.low { background: linear-gradient(90deg, #d84a3a, #ff8a6a); }
+    #hp-text { color: #c9d1dd; letter-spacing: 0; text-transform: none; font-weight: 600; }
+    #gear { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .gear-slot { aspect-ratio: 1; background: #141a25; border: 1px dashed #2a3344; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+    .gear-slot.filled { border-style: solid; border-color: #34466a; }
+    .gear-slot.filled:hover { border-color: #ffe680; }
+    .gear-lbl { font-size: 9.5px; color: #5a6478; text-transform: uppercase; letter-spacing: 0.05em; }
+    .hpbar { position: absolute; transform: translate(-50%, -100%); width: 46px; height: 5px; background: #3a1f24; border: 1px solid rgba(0, 0, 0, 0.6); border-radius: 3px; overflow: hidden; display: none; }
+    .hpbar div { height: 100%; background: #d84a3a; }
+    .hpbar.target { border-color: #ffe680; }
+    #death-fade { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(6, 8, 12, 0.92); opacity: 0; pointer-events: none; transition: opacity 0.8s; z-index: 40; }
+    #death-fade.show { opacity: 1; }
+    .death-title { font-family: var(--font-title); font-size: 34px; font-weight: 700; color: #ff8a6a; letter-spacing: 0.2em; text-transform: uppercase; }
+    .death-sub { margin-top: 12px; color: #c9d1dd; font-size: 14px; }
     #help { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(12, 16, 24, 0.75); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #c9d1dd; white-space: nowrap; }
     #help b { color: #ffe680; }
     #labels { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
@@ -262,6 +279,11 @@
       <div class="panel-head"><span>Skills</span><span id="credits">0 cr</span></div>
       <div id="skills-list"></div>
     </section>
+    <section class="panel" aria-label="Gear">
+      <div class="panel-head"><span>Gear</span><span id="hp-text"></span></div>
+      <div id="hp-bar"><div id="hp-fill"></div></div>
+      <div id="gear"></div>
+    </section>
     <section class="panel" aria-label="Inventory">
       <div class="panel-head"><span>Inventory</span><span id="inv-count">0/28</span></div>
       <div id="inv-grid"></div>
@@ -298,6 +320,7 @@
     <div class="hot-slot" data-slot="4"><span>4</span>·</div>
   </div>
   <div id="hover-tip"></div>
+  <div id="death-fade"><div class="death-title">You collapse.</div><div class="death-sub"></div></div>
   <div id="toast"></div>
   <div id="help"><b>WASD</b> move · <b>Click</b> interact/talk · <b>J</b> journal · <b>Shift-click item</b> drop · <b>1-4</b> abilities · <b>Right drag</b> or <b>Q/E</b> rotate · <b>Wheel</b> zoom · <b>Minimap</b> click to travel</div>
 

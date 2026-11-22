@@ -33,4 +33,9 @@ export const SKILLS = {
   mining:   { name: 'Mining',   icon: '⛏️', kind: 'gathering', tools: ['pick'],   milestone: 1 },
   foraging: { name: 'Foraging', icon: '🌿', kind: 'gathering', tools: ['hatchet', 'sickle', 'gloves'], milestone: 1 },
   hunting:  { name: 'Hunting',  icon: '🏹', kind: 'gathering', tools: [],  milestone: 'post-combat' },
+  // Milestone 2 combat (Defense is folded into armor stats)
+  melee:    { name: 'Melee',    icon: '🗡️', kind: 'combat', milestone: 2, shown: true },
+  ranged:   { name: 'Ranged',   icon: '🎯', kind: 'combat', milestone: 2, shown: false }, // shown once guns exist (Phase B)
+  vitality: { name: 'Vitality', icon: '❤️', kind: 'combat', milestone: 2, shown: true },
 };
+export const shownSkill = (s) => s.shown ?? s.milestone === 1;

@@ -26,8 +26,9 @@ export const CLIPS = {
   idle: 'Idle_Loop', walk: 'Walk_Loop', run: 'Jog_Fwd_Loop',
   pick: 'TreeChopping_Loop', hatchet: 'TreeChopping_Loop', sickle: 'Farm_Harvest', gloves: 'Fixing_Kneeling',
   interact: 'Interact', cheer: 'Yes', pickup: 'PickUp_Table', talk: 'Idle_Talking_Loop',
+  attack: 'Sword_Attack', guard: 'Sword_Idle', hit: 'Hit_Chest', death: 'Death01', shoot: 'Pistol_Shoot', aim: 'Pistol_Idle_Loop',
 };
-const ONE_SHOTS = new Set(['Interact', 'Yes', 'PickUp_Table']);
+const ONE_SHOTS = new Set(['Interact', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Hit_Chest', 'Pistol_Shoot', 'Death01']);
 
 let clipsPromise = null;
 function loadClips() {
@@ -72,14 +73,19 @@ export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
     const clip = clips.get(name);
     if (!clip) return;
     if (ONE_SHOTS.has(name)) {
+      // hold: stay on the last frame (death) until something else plays
+      const hold = name === 'Death01';
       const a = mixer.clipAction(clip);
       a.reset().setLoop(THREE.LoopOnce, 1);
-      a.clampWhenFinished = false;
-      a.setEffectiveWeight(1).fadeIn(0.15).play();
-      if (current) current.fadeOut(0.15);
-      oneShot = { action: a, until: clip.duration - 0.2 };
+      a.clampWhenFinished = hold;
+      a.timeScale = timeScale;
+      a.setEffectiveWeight(1).fadeIn(0.12).play();
+      if (oneShot && oneShot.action !== a) oneShot.action.fadeOut(0.12);
+      if (current) current.fadeOut(0.12);
+      oneShot = { action: a, until: hold ? Infinity : clip.duration / timeScale - 0.15 };
       return;
     }
+    if (oneShot && oneShot.until === Infinity) { oneShot.action.fadeOut(fade); oneShot = null; restart = true; } // getting up from a hold
     if (name === currentName && !restart) { current.timeScale = timeScale; return; }
     const a = mixer.clipAction(clip);
     a.reset().setLoop(THREE.LoopRepeat, Infinity);
@@ -130,7 +136,7 @@ export function preloadCharacterAssets() {
 // Solved with tests/_tool_grip.html (__bestSpin): spin about the handle so the blade edge leads the
 // hand at the fastest point of TreeChopping_Loop, with the handle tilted ~45 degrees off the forearm.
 export const GRIP = { pos: [0, 0.08, 0], rot: [0, 3.4, 0.8, 'ZYX'] };
-const HANDLE_LEN = { pick: 0.62, hatchet: 0.62, sickle: 0.32 };
+const HANDLE_LEN = { pick: 0.62, hatchet: 0.62, sickle: 0.32, machete: 0.16, cleaver: 0.2, maul: 0.75, spear: 1.5 };
 export function createToolMesh() {
   const group = new THREE.Group();
   const heads = {};
@@ -153,8 +159,17 @@ export function createToolMesh() {
   const sickle = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.014, 4, 10, Math.PI * 1.1), metal);
   sickle.rotation.y = -Math.PI / 2;
   sickle.position.set(0, 0.26, 0.1); // short handle (see HANDLE_LEN)
-  Object.assign(heads, { pick, hatchet, sickle });
-  inner.add(pick, hatchet, sickle);
+  // melee weapons (M2): the blade/head sits past the grip along +Y, edge toward +Z like the tools
+  const machete = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.5, 0.07), metal);
+  machete.position.set(0, 0.34, 0.015);
+  const cleaver = new THREE.Mesh(new THREE.BoxGeometry(0.016, 0.34, 0.16), metal);
+  cleaver.position.set(0, 0.3, 0.05);
+  const maul = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 0.24), metal);
+  maul.position.set(0, 0.58, 0);
+  const spear = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.26, 5), metal);
+  spear.position.set(0, 1.48, 0);
+  Object.assign(heads, { pick, hatchet, sickle, machete, cleaver, maul, spear });
+  inner.add(pick, hatchet, sickle, machete, cleaver, maul, spear);
   group.add(inner);
   group.userData.inner = inner;
   inner.position.fromArray(GRIP.pos);
@@ -166,7 +181,7 @@ export function createToolMesh() {
       group.visible = !!heads[kind];
       const len = HANDLE_LEN[kind] || 0.62; // sickles are hand tools, not polearms
       handle.scale.y = len / 0.62;
-      handle.position.y = 0.2 * (len / 0.62) - (0.62 - len) * 0.08;
+      handle.position.y = len / 2 - 0.1; // handle runs from just below the grip to its length
       for (const [k, m] of Object.entries(heads)) m.visible = k === kind;
       if (color) metal.color.set(color);
     },

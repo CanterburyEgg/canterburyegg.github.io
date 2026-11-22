@@ -1,10 +1,10 @@
 // DOM UI: inventory, skills, credits, floating text, level-up banner.
 import { ITEMS } from '../data/items.js';
-import { SKILLS, levelForXp, xpForLevel, MAX_LEVEL } from '../data/skills.js';
+import { SKILLS, levelForXp, xpForLevel, MAX_LEVEL, shownSkill } from '../data/skills.js';
 import { INV_SIZE } from './inventory.js';
 
 export function itemIconHTML(def, qty = 1) {
-  let html = def.kind === 'tool'
+  let html = def.kind === 'tool' || def.kind === 'weapon' || def.kind === 'armor'
     ? `<div class="icon tool" style="--c:${def.color}">${def.icon}</div>`
     : `<div class="icon res res-${def.skill}" style="--c:${def.color}"></div>`;
   if (qty > 1) html += `<span class="qty">${qty}</span>`;
@@ -38,9 +38,10 @@ export function createUI({ onSlotUse, onSlotDrop }) {
       used++;
       const def = ITEMS[s.id];
       el.classList.add('filled');
-      el.title = def.kind === 'tool'
-        ? `${def.name} (needs ${def.skill[0].toUpperCase() + def.skill.slice(1)} ${def.levelReq})\nShift-click or right-click to drop`
-        : `${def.name}\nShift-click or right-click to drop`;
+      const req = def.levelReq ? ` (needs ${def.skill[0].toUpperCase() + def.skill.slice(1)} ${def.levelReq})` : '';
+      const stat = def.kind === 'weapon' ? `\n${def.damage} damage every ${(def.ticks * 0.6).toFixed(1)}s` : def.kind === 'armor' ? `\n+${def.armor} armor` : '';
+      const use = def.kind === 'weapon' || def.kind === 'armor' ? '\nClick to equip' : '';
+      el.title = `${def.name}${req}${stat}${use}\nShift-click or right-click to drop`;
       el.innerHTML = itemIconHTML(def, s.qty);
     });
     invCount.textContent = `${used}/${INV_SIZE}`;
@@ -48,7 +49,7 @@ export function createUI({ onSlotUse, onSlotDrop }) {
 
   function renderSkills(xp) {
     skillsEl.innerHTML = Object.entries(SKILLS)
-      .filter(([, s]) => s.milestone === 1)
+      .filter(([, s]) => shownSkill(s))
       .map(([id, s]) => {
         const x = xp[id] || 0;
         const lvl = levelForXp(x);

@@ -3,6 +3,7 @@
 import { ITEMS } from '../data/items.js';
 import { levelForXp } from '../data/skills.js';
 import { INV_SIZE } from './inventory.js';
+import { SLOTS } from '../data/equipment.js';
 
 export const SAVE_VERSION = 2; // v2: drifter name + look required (v1 prototype saves are retired)
 export const SLOT_IDS = ['slot1', 'slot2', 'slot3'];
@@ -31,6 +32,10 @@ export function serialize(state, extra) {
     quests: state.quests || {},
     look: state.look || null,
     discovered: state.discovered || {},
+    equipment: { ...(state.equipment || {}) },
+    hp: state.hp ?? null,
+    crate: state.crate || null,
+    lastSettlement: state.lastSettlement || null,
     playtime: Math.round(state.playtime || 0),
     savedAt: Date.now(),
     summary: { planetName: extra.planetName || '', totalLevel, name: state.name || 'Drifter' },
@@ -57,7 +62,7 @@ export function deserialize(raw) {
     const n = Math.floor(q);
     if (n > 0) bank[id] = n;
   }
-  const xp = { mining: 0, foraging: 0 };
+  const xp = { mining: 0, foraging: 0, melee: 0, ranged: 0, vitality: 0 };
   for (const [k, v] of Object.entries(raw.xp || {})) if (typeof v === 'number' && v >= 0) xp[k] = v;
   const nums = (a) => (Array.isArray(a) ? a.filter((n) => Number.isInteger(n) && n >= 0) : []);
   return {
@@ -75,6 +80,10 @@ export function deserialize(raw) {
     quests: raw.quests && typeof raw.quests === 'object' ? raw.quests : {},
     look: raw.look && typeof raw.look === 'object' && !Array.isArray(raw.look) ? raw.look : null,
     discovered: cleanDiscovered(raw.discovered),
+    equipment: cleanEquipment(raw.equipment, dropped),
+    hp: typeof raw.hp === 'number' && raw.hp > 0 ? raw.hp : null,
+    crate: cleanCrate(raw.crate, dropped),
+    lastSettlement: raw.lastSettlement && typeof raw.lastSettlement.x === 'number' ? raw.lastSettlement : null,
     playtime: Math.max(0, raw.playtime || 0),
     savedAt: raw.savedAt || 0,
     summary: raw.summary || {},
@@ -82,6 +91,20 @@ export function deserialize(raw) {
   };
 }
 
+function cleanEquipment(e, dropped) {
+  const out = {};
+  for (const s of SLOTS) {
+    const id = e && e[s];
+    if (id && ITEMS[id] && ITEMS[id].slot === s) out[s] = id;
+    else { out[s] = null; if (id) dropped.push(id); }
+  }
+  return out;
+}
+function cleanCrate(c, dropped) {
+  if (!c || !Array.isArray(c.items) || typeof c.x !== 'number') return null;
+  const items = c.items.filter((it) => { if (it && ITEMS[it.id]) return true; if (it) dropped.push(it.id); return false; }).map((it) => ({ id: it.id, qty: Math.max(1, Math.floor(it.qty) || 1) }));
+  return items.length ? { planetIndex: Number(c.planetIndex) || 0, x: c.x, z: c.z, items } : null;
+}
 function cleanDiscovered(d) {
   const out = {};
   if (!d || typeof d !== 'object') return out;

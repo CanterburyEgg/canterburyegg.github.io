@@ -33,9 +33,10 @@ export const QUARTERMASTER = {
       },
       qm_kit: {
         speaker: 'quartermaster',
-        actions: [{ requireFreeSlots: 3, failNode: 'qm_full' }, { giveItems: ['bismuth_pick', 'bismuth_hatchet', 'bismuth_sickle'] }, { setFlag: 'qm_kit' }],
+        actions: [{ requireFreeSlots: 4, failNode: 'qm_full' }, { giveItems: ['bismuth_pick', 'bismuth_hatchet', 'bismuth_sickle', 'bismuth_machete'] }, { setFlag: 'qm_kit' }],
         lines: [
           'Standard issue: one Bismuth Pick, one Bismuth Hatchet, one Bismuth Sickle.',
+          "And a Bismuth Machete. The Skarl out past the fences don't read the safety notices. Click it to wield it.",
           "Please return them in the condition you found them. Which, I'll be honest, was 'questionable.'",
         ],
         next: 'qm_kit_end',
