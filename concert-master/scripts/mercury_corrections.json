@@ -1,4 +1,6 @@
 {
+  "ghost_notes": "runs",
+  "ghost_notes_why": "Mercury keeps the ghost keys for its quick runs but not to fit its tune (the 79 79 81 79 77 76 ... statements came out K79 K79 L81 some times and J79 J79 K81 others; user, Nov 21: 'I think if we can avoid ghost notes, we should', 'I didn't necessarily want ghost keys ENTIRELY off ... They're still fine in long runs').",
   "rests": [
     {
       "start": 28.0,
@@ -13,6 +15,80 @@
       "to": 32.2873,
       "end": 41.45,
       "why": "0:32.3-0:41.5: the held 100 is held on through the shimmer and drops off when the woodwinds start their falling 79 76 72 69 lines at 0:41.5 (user, Nov 21: 'at some point I should drop off of this held note onto the new bells line, probably as soon as it starts its K J F D lines down')."
+    },
+    {
+      "score_start": 56.8,
+      "midi": 62,
+      "to": 67.9,
+      "end": 68.088,
+      "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    },
+    {
+      "score_start": 56.93,
+      "midi": 67,
+      "to": 68.118,
+      "end": 68.306,
+      "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    },
+    {
+      "score_start": 57.05,
+      "midi": 62,
+      "to": 68.336,
+      "end": 68.524,
+      "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    },
+    {
+      "score_start": 57.17,
+      "midi": 67,
+      "to": 68.554,
+      "end": 68.742,
+      "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    },
+    {
+      "score_start": 57.3,
+      "midi": 62,
+      "to": 68.772,
+      "end": 68.96,
+      "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    },
+    {
+      "score_start": 57.42,
+      "midi": 67,
+      "to": 68.99,
+      "end": 69.1,
+      "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    }
+  ],
+  "thin": [
+    {
+      "staff": "Violins II",
+      "start": 56.75,
+      "end": 57.85,
+      "keep": [
+        56.8,
+        56.93,
+        57.05,
+        57.17,
+        57.3,
+        57.42
+      ],
+      "why": "1:07.9-1:09.0 (score 56.8-57.8): the recording plays six even notes here (attacks at 67.90 68.13 68.32 68.53 68.76 68.99), rocking low-high, not the score's nine sixteenths 62 67 62 67 ...; the chart's version came out lopsided (user, Nov 21: 'this sounds like eighth notes to me but it plays like triplets', 'I'd rather just have those than any shenanigans. I think it'd be six total notes? DKDKDK K(flute beginning)')."
+    }
+  ],
+  "time_map": [
+    {
+      "score_from": 54.84,
+      "score_to": 56.8,
+      "audio_from": 65.57,
+      "audio_to": 67.9,
+      "why": "1:05.6-1:07.9 (score 54.84-56.80): the second violins' rocking sixteenths 65 65 66 65 62 65 62 ..., laid out evenly in their written rhythm (user, Nov 21: 'can you make sure these are exactly evenly spaced for their meters?')."
+    },
+    {
+      "score_from": 67.13,
+      "score_to": 82.38,
+      "audio_from": 79.8,
+      "audio_to": 97.3,
+      "why": "1:19.8-1:37.3 (score 67.13-82.38): the tune's statements (oboe, flute, celesta, clarinet) at the recording's steady tempo, each phrase start on the recording's (79.8, 82.3, 85.0, 87.3, 89.8, 92.6, 95.1 by its pitch); the warp had the sixteenths spread out and late (user, Nov 21: '1:23~: this flute melody seems a little behind the beat')."
     }
   ]
 }

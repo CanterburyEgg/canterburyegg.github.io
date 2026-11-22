@@ -32,6 +32,13 @@ def run(ctx):
             mate = (m_ch.group(1) + " 2") if m_ch else None
             mate_ns = [m for nm2, ns in solo_by_name.items() if mate and re.sub(r"\s+", " ", nm2.strip()) == re.sub(r"\s+", " ", mate) for m in ns if t_w <= float(m["start"]) < t_w + win_s]
             chair_split = mate is not None and mate in {re.sub(r"\s+", " ", x.strip()) for x in solo_by_name} and len(mate_ns) <= 0.2 * len(mine)
+            # (and a solo is a tune, not a part rocking back and forth between two notes -- Mercury 1:09, the harp's
+            # 62 65 62 65 ... 74 77 74 77 marked "Solo" under the violins' tune; user, Nov 21: "I should DEFINITELY be on
+            # the flute melody here")
+            ms = sorted(mine, key=lambda m: float(m["start"]))
+            rocking = sum(1 for q in range(2, len(ms)) if int(ms[q]["midi"]) == int(ms[q - 2]["midi"]) != int(ms[q - 1]["midi"]))
+            if len(ms) >= 3 and rocking >= 0.7 * (len(ms) - 2):
+                chair_split = False
             solo_win.append((t_w, nm_s if doubled <= 0.3 * len(mine) and chair_split else None))
         else:
             solo_win.append((t_w, None))

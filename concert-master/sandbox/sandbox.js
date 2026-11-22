@@ -827,7 +827,8 @@ window.addEventListener('keydown', (e) => {
     return;
   }
   if (e.repeat) return;
-  if (state.pinMode && e.code === 'KeyT') {
+  // (T and Y both pin while it plays, so quick notes can be tapped with two fingers; paused, Y still toggles the ticks)
+  if (state.pinMode && (e.code === 'KeyT' || (e.code === 'KeyY' && !state.audio.paused))) {
     e.preventDefault();
     if (!state.audio.paused) pinSelected(songTime());
     return;

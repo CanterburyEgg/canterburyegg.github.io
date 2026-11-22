@@ -161,6 +161,26 @@ def run(ctx):
             dbl = sum(1 for o in alls if o is not st and sum(1 for m in r if any(abs(float(x["start"]) - float(m["start"])) <= 0.03 and (int(x["midi"]) - int(m["midi"])) % 12 == 0 for x in o["notes"])) >= 0.75 * len(r))
             if dbl >= 1:
                 tunes.append((st["name"], r))
+    # (a tune coming in near the end of the stream and carrying on after it takes over where it comes in: a part's
+    # note of a quaver or longer in the stream's last 2s, then 6+ notes in the 3s after the stream, not rocking between
+    # two notes, pitched over the stream -- Mercury 1:09, the first violins' 83 . 83 83 83 81 79 79 81 ... coming in
+    # over the second violins' 62 66 62 66; user, Nov 21: "I should DEFINITELY be on the flute melody here")
+    for line in streams:
+        s0, s1 = float(line[0][1]["start"]), float(line[-1][1]["end"])
+        med = sorted(int(m["midi"]) for _nm, m in line)[len(line) // 2]
+        for st in staves:
+            ent = sorted((m for m in st["notes"] if s1 - 2.0 <= float(m["start"]) < s1 - 0.1 and
+                          float(m["end"]) - float(m["start"]) >= 0.2), key=lambda m: float(m["start"]))
+            if not ent:
+                continue
+            after = sorted((m for m in st["notes"] if s1 - 0.02 <= float(m["start"]) < s1 + 3.0), key=lambda m: float(m["start"]))
+            if len(after) < 6 or len({int(m["midi"]) for m in after}) < 3:
+                continue
+            rock = sum(1 for q in range(2, len(after)) if int(after[q]["midi"]) == int(after[q - 2]["midi"]) != int(after[q - 1]["midi"]))
+            if rock >= 0.5 * (len(after) - 2) or sorted(int(m["midi"]) for m in after)[len(after) // 2] < med + 3:
+                continue
+            r = sorted((m for m in st["notes"] if float(ent[0]["start"]) - 0.02 <= float(m["start"]) < s1 + 0.5), key=lambda m: float(m["start"]))
+            tunes.append((st["name"], r))
     out, laid = list(lead), 0
     for line in streams:
         s0, s1 = float(line[0][1]["start"]), float(line[-1][1]["end"])

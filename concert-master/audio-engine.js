@@ -761,7 +761,7 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     melodyNotes: sidecar.melodyNotes || [],
     impacts: sidecar.impacts || [],
     chordNotes: sidecar.chordNotes || [], // score chords entering under a held melody note: [start, end, midi]
-    ghostNotes: sidecar.ghostNotes, // false = this song never uses ghost keys (e.g. Sevens, by taste)
+    ghostNotes: sidecar.ghostNotes, // false = this song never uses ghost keys (e.g. Sevens, by taste); 'runs' = only in quick runs
     tryRules: sidecar.tryRules || [], // (sandbox previews only: layout rules switched on for a song they don't yet apply to)
     // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
     exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
@@ -1140,7 +1140,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
   ghostEdgeOK = isDense && features.ghostNotes !== false;
-  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore, tryRules: features.tryRules || [] });
+  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore, tryRules: features.tryRules || [], ghostTunes: features.ghostNotes !== 'runs' });
   if (isDense) addCounterLine(notes, features.counterNotes || [], lanes);
 
   // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)
@@ -1414,7 +1414,7 @@ const LAYOUT_RULES = [
   ['repeatedFigureMajority', (n, l) => applyRepeatedFigureMajority(n, l)],
   ['backToBackRepeat', (n, l) => applyBackToBackRepeat(n, l)],
   ['fourPitchPhrases', (n, l) => applyFourPitchPhrases(n, l)],
-  ['fivePitchTurnGhost', (n, l) => applyFivePitchTurnGhost(n, l), 'ghosts'],
+  ['fivePitchTurnGhost', (n, l, c) => { if (c.ghostTunes) applyFivePitchTurnGhost(n, l); }, 'ghosts'],
   ['entryAboveK', (n, l) => applyEntryAboveK(n, l)],
   ['repeatAltOnlyQuick', (n, l) => applyRepeatAltOnlyQuick(n, l)],
   ['climbFitsKeys', (n, l) => applyClimbFitsKeys(n, l)],
@@ -1428,7 +1428,7 @@ const LAYOUT_RULES = [
   ['quickBurstsLandHome', (n, l, c) => { if (c.exactScore) applyQuickBurstsLandHome(n, l); }],
   ['twoNoteSwingKeys', (n, l, c) => { if (c.exactScore) applyTwoNoteSwingKeys(n, l, c.chordHits); }],
   ['slowRepeatsKeepKey', (n, l, c) => { if (c.exactScore) applySlowRepeatsKeepKey(n, l); }],
-  ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l); }],
+  ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l, c.ghosts && c.ghostTunes); }],
   ['longRunsEndOnEdge', (n, l, c) => { if (c.exactScore) applyLongRunsEndOnEdge(n, l); }],
   ['runsThatRoll', (n, l, c) => { if (c.exactScore || (c.tryRules || []).includes('runsThatRoll')) applyRunsThatRoll(n, l); }],
   ['steppingThreesAlternate', (n, l, c) => { if (c.exactScore) applySteppingThreesAlternate(n, l); }],
@@ -1436,6 +1436,9 @@ const LAYOUT_RULES = [
   ['backAndForthOneKey', (n, l, c) => { if (c.exactScore) applyBackAndForthOneKey(n, l); }],
   ['leapOffEdgeFresh', (n, l, c) => { if (c.exactScore) applyLeapOffEdgeFresh(n, l); }],
   ['figureEchoKeys', (n, l, c) => { if (c.exactScore) applyFigureEchoKeys(n, l); }],
+  ['oneKeyPerNoteInFigure', (n, l, c) => { if (c.exactScore) applyOneKeyPerNoteInFigure(n, l); }],
+  ['handoffsTakeTurns', (n, l, c) => { if (c.exactScore) applyHandoffsTakeTurns(n, l); }],
+  ['tuneStatementsKeepShape', (n, l, c) => { if (c.exactScore) applyTuneStatementsKeepShape(n, l); }],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -3045,6 +3048,9 @@ function applyTurnLeadIns(notes, lanes) {
     const falls = n1.midi < z.midi && n2.midi < n1.midi;
     const rises = n1.midi > z.midi && n2.midi > n1.midi;
     if (!(up ? falls : rises) || n1.time - z.time >= 0.5 || n2.time - n1.time >= 0.5) continue;
+    // (a descent by steps, not a leap away: Mercury 1:03, the horns' 68 70 68 67 then the bassoons' 43 an octave and
+    // more below)
+    if (Math.abs(n1.midi - z.midi) > 4 || Math.abs(n2.midi - n1.midi) > 4) continue;
     // (a turn that launches a five-note run is the ghost run's business: Ride 0:06 70 68 | 70 72 73 75 77 = S D F J K)
     let m = k + 1;
     while (m + 1 < prim.length && Math.sign(prim[m + 1].midi - prim[m].midi) === (up ? -1 : 1) && prim[m + 1].time - prim[m].time < 0.3) m++;
@@ -4878,7 +4884,9 @@ function applyRunsThatRoll(notes, lanes) {
   const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let a = 0; a < prim.length; ) {
     let b = a;
-    while (b + 1 < prim.length && prim[b + 1].time - prim[b].time < 0.2) b++;
+    // (a leap of more than a fifth ends the run: Mercury 1:09, the violins' tune coming in on 83 over the 62 66 62 66
+    // figure isn't the figure running on)
+    while (b + 1 < prim.length && prim[b + 1].time - prim[b].time < 0.2 && Math.abs(prim[b + 1].midi - prim[b].midi) <= 7) b++;
     const run = prim.slice(a, b + 1);
     a = b + 1;
     if (run.length < 12 || run.some((x) => x.fixedLane || x.localPin || x.ghost)) continue;
@@ -4942,6 +4950,153 @@ function applyFigureEchoKeys(notes, lanes) {
         if ((before && clash(before, B[0])) || (after && clash(B[k - 1], after))) B.forEach((x, q) => (x.lane = saved[q]));
         break;
       }
+    }
+  }
+}
+
+/**
+ * One key per note in a figure: inside a quick figure (4+ notes, each within 0.3s of the last), a note that comes
+ * back more than once sits on one key every time -- the key, of those it already uses, that keeps every move in the
+ * figure going the right way and doesn't share a key with a different note next to it (Mercury 1:03.9: the bassoons'
+ * 43 43 45 43 37 came out D D J F D, the 43 on two keys and then the 37 on top of it; user: "same notes, same keys").
+ * Exact scores.
+ */
+function applyOneKeyPerNoteInFigure(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo && !x.ghost);
+  const n = prim.length;
+  for (let a = 0; a < n; ) {
+    let b = a;
+    // (a leap of more than an octave starts another figure: Mercury 1:04, the bassoons' 43 43 45 43 37 then the violins'
+    // 68 68 70 68)
+    while (b + 1 < n && prim[b + 1].time - prim[b].time <= 0.3 && Math.abs(prim[b + 1].midi - prim[b].midi) <= 12) b++;
+    const fig = prim.slice(a, b + 1);
+    const before = a > 0 && prim[a].time - prim[a - 1].time < 0.6 ? prim[a - 1] : null;
+    const after = b + 1 < n && prim[b + 1].time - prim[b].time < 0.6 ? prim[b + 1] : null;
+    a = b + 1;
+    if (fig.length < 4 || fig.some((x) => x.fixedLane || x.localPin)) continue;
+    const reads = (x, y, strict) => x.midi === y.midi ? x.lane === y.lane :
+      x.lane !== y.lane && (!strict && Math.abs(y.midi - x.midi) >= 3 || Math.sign(y.lane - x.lane) === Math.sign(y.midi - x.midi));
+    const okAll = () => fig.every((x, q) => !q || reads(fig[q - 1], x, true)) &&
+      (!before || reads(before, fig[0], false)) && (!after || reads(fig[fig.length - 1], after, false));
+    // (only where the figure has a key doubled for two different notes, next to each other or with the note before)
+    const seq = before ? [before, ...fig] : fig;
+    if (!seq.some((x, q) => q && x.lane === seq[q - 1].lane && x.midi !== seq[q - 1].midi)) continue;
+    for (const p of new Set(fig.map((x) => x.midi))) {
+      const mine = fig.filter((x) => x.midi === p);
+      const used = [...new Set(mine.map((x) => x.lane))];
+      if (used.length < 2) continue;
+      const saved = mine.map((x) => x.lane);
+      const pick = used.find((l) => {
+        mine.forEach((x) => (x.lane = l));
+        return okAll();
+      });
+      if (pick === undefined) mine.forEach((x, q) => (x.lane = saved[q]));
+      else mine.forEach((x) => (x.lane = pick));
+    }
+  }
+}
+
+/**
+ * Handoffs take turns: a little x x y x cell (a note, again, a step away and back) passed back and forth between parts
+ * -- each cell within 2.5s of the last -- starts its turns on alternating keys, F then J, so the trade reads as a trade
+ * instead of the same four keys every time (Mercury 1:01-1:05: the horns' 68 68 70 68 and the bassoons' 43 43 45 43,
+ * all F F J F; user, Nov 21: "as I do the handoffs, can I switch the start notes? like one starting on F then the next
+ * on J, for variance"). A big drop that lands on D after the cell stays there. Not where the cell's notes carry on
+ * just after it. Exact scores, 4 keys only.
+ */
+function applyHandoffsTakeTurns(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo && !x.ghost);
+  const n = prim.length;
+  const cells = [];
+  for (let i = 0; i + 3 < n; i++) {
+    const [a, b, c, d] = prim.slice(i, i + 4);
+    if (a.midi !== b.midi || d.midi !== a.midi || c.midi === a.midi || Math.abs(c.midi - a.midi) > 2) continue;
+    if (d.time - a.time > 0.8 || (i > 0 && a.time - prim[i - 1].time < 0.25 && prim[i - 1].midi === a.midi)) continue;
+    cells.push(i);
+    i += 3;
+  }
+  let chainPos = 0;
+  for (let q = 0; q < cells.length; q++) {
+    const i = cells[q];
+    if (q === 0 || prim[i].time - prim[cells[q - 1]].time > 2.5) { chainPos = 0; continue; }
+    chainPos++;
+    const prev = prim[cells[q - 1]];
+    const cell = prim.slice(i, i + 4);
+    if (chainPos % 2 === 0 || cell[0].lane !== prev.lane) continue;
+    if (cell.some((x) => x.fixedLane || x.localPin)) continue;
+    const shift = Math.max(...cell.map((x) => x.lane)) < lanes - 1 ? 1 : Math.min(...cell.map((x) => x.lane)) > 0 ? -1 : 0;
+    if (!shift) continue;
+    const drop = i + 4 < n && prim[i + 4].time - cell[3].time < 0.6 ? prim[i + 4] : null;
+    // (not where the cell's notes carry on just after it)
+    const tailEnd = cell[3].time + 1.0;
+    if (prim.slice(i + 4).some((x) => x.time <= tailEnd && cell.some((y) => y.midi === x.midi) && x !== drop)) continue;
+    const saved = cell.map((x) => x.lane);
+    cell.forEach((x) => (x.lane += shift));
+    const before = i > 0 && cell[0].time - prim[i - 1].time < 0.6 ? prim[i - 1] : null;
+    let bad = before && before.midi !== cell[0].midi && before.lane === cell[0].lane;
+    if (drop && drop.midi !== cell[3].midi && drop.lane === cell[3].lane) bad = true;
+    if (drop && !(drop.lane === 0 && cell[3].midi - drop.midi >= 3) && Math.sign(drop.lane - cell[3].lane) !== Math.sign(drop.midi - cell[3].midi) && Math.abs(drop.midi - cell[3].midi) < 3) bad = true;
+    if (bad) cell.forEach((x, k) => (x.lane = saved[k]));
+  }
+}
+
+/**
+ * A tune's statements keep its shape: the phrase of 10-12 notes that comes round most often in the song (5+ times) (the same steps
+ * and the same rhythm, at any pitch) plays on the keys most of its statements use, every time -- even when the note
+ * before it pushes one statement's start onto other keys (Mercury 1:19-2:12: the 79 79 81 79 77 76 77 79 77 76 tune,
+ * J J K J F D J K J F, came out F F K J ... after the celesta's 86, and D D K J ... for the horns' 67 67 69; user, Nov
+ * 21: "Each section is exactly the same two forms"). Not where it would put two different notes on one key next to
+ * each other. Exact scores, 4 keys.
+ */
+function applyTuneStatementsKeepShape(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo && !x.ghost);
+  const n = prim.length;
+  // (twice round: a statement held back by the one after it can follow once that one is fixed)
+  for (const k of [12, 11, 10, 12, 11, 10]) {
+    const groups = new Map();
+    for (let i = 0; i + k <= n; i++) {
+      const w = prim.slice(i, i + k);
+      const span = w[k - 1].time - w[0].time;
+      if (span <= 0 || span > 4 || new Set(w.map((x) => x.midi)).size < 4) continue;
+      const iv = w.slice(1).map((x, j) => x.midi - w[j].midi).join(',');
+      const rh = w.slice(1).map((x, j) => Math.round(((x.time - w[j].time) / span) * 24)).join(',');
+      const key = iv + '|' + rh;
+      if (!groups.has(key)) groups.set(key, []);
+      const g = groups.get(key);
+      if (!g.length || g[g.length - 1] + k <= i) g.push(i);
+    }
+    // (only the phrase heard most often, counted from its own first note -- not the same notes counted from one note
+    // further in)
+    const top = [...groups.values()].sort((a, b) => b.length - a.length)[0];
+    for (const starts of top ? [top] : []) {
+      if (starts.length < 5) continue;
+      const seqs = starts.map((i) => prim.slice(i, i + k).map((x) => x.lane).join(''));
+      const count = {};
+      seqs.forEach((q) => (count[q] = (count[q] || 0) + 1));
+      const best = Object.keys(count).sort((a, b) => count[b] - count[a])[0];
+      if (count[best] < 2) continue;
+      const want = best.split('').map(Number);
+      starts.forEach((i) => {
+        const w = prim.slice(i, i + k);
+        if (w.every((x, j) => x.lane === want[j]) || w.some((x) => x.fixedLane || x.localPin)) return;
+        const saved = w.map((x) => x.lane);
+        w.forEach((x, j) => (x.lane = want[j]));
+        const before = i > 0 && w[0].time - prim[i - 1].time < 0.6 ? prim[i - 1] : null;
+        const after = i + k < n && prim[i + k].time - w[k - 1].time < 0.6 ? prim[i + k] : null;
+        const clash = (a, b) => a.midi !== b.midi && a.lane === b.lane;
+        // (the last note of the phrase before, a leap away, moves aside if it's in the way -- Mercury 1:32, the celesta's
+        // 84 86 ending D J, then the clarinets' 79 on J: the 86 plays F)
+        if (before && clash(before, w[0]) && Math.abs(before.midi - w[0].midi) >= 5 && !before.fixedLane && !before.localPin) {
+          const pp = i > 1 && before.time - prim[i - 2].time < 0.6 ? prim[i - 2] : null;
+          const okLane = (l) => l !== w[0].lane && (!pp || (pp.midi === before.midi ? l === pp.lane :
+            l !== pp.lane && Math.sign(l - pp.lane) === Math.sign(before.midi - pp.midi)));
+          const alt = [before.lane - 1, before.lane + 1, before.lane - 2, before.lane + 2].find((l) => l >= 0 && l < lanes && okLane(l));
+          if (alt !== undefined) before.lane = alt;
+        }
+        if ((before && clash(before, w[0])) || (after && clash(w[k - 1], after))) w.forEach((x, j) => (x.lane = saved[j]));
+      });
     }
   }
 }
@@ -5102,7 +5257,7 @@ function applyBackToBackFourShift(notes, lanes) {
  * follows if it now doubles). At the edge, a note that starts a new pair (0.5s+ after the last) cheats back one key
  * instead: D F | J K | J D, the 75 a new group's start. Exact scores only.
  */
-function applyNoDoubledKeyInSteps(notes, lanes) {
+function applyNoDoubledKeyInSteps(notes, lanes, ghosts = false) {
   const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let i = 1; i < prim.length; i++) {
     const p = prim[i - 1];
@@ -5118,17 +5273,36 @@ function applyNoDoubledKeyInSteps(notes, lanes) {
     const want = q.lane + dir;
     if (want >= 0 && want < lanes) q.lane = want;
     else if (q.time - p.time >= 0.5) q.lane = q.lane - dir;
+    // (no room past the edge, in a song with the ghost keys, on a step: the note steps out onto the ghost key, rather
+    // than pushing the line back into the notes before it (a leap still pushes back, Jupiter 0:34) -- Mercury 1:54, the trumpets' 77 76 74 | 72 came out K79 K77 J76 F74 D72;
+    // it plays J77 F76 D74 S72)
+    else if (ghosts && Math.abs(q.midi - p.midi) <= 2 && !(i + 1 < prim.length && prim[i + 1].time - q.time < 0.6 && Math.sign(prim[i + 1].midi - q.midi) === dir)) {
+      q.lane = dir < 0 ? lanes : lanes + 1;
+      q.ghost = dir < 0 ? 'S' : 'L';
+    }
     else if (!p.fixedLane && !p.localPin && !p.ghost) {
       // (no room past the edge: the note before steps back from it instead, and the one before that if it now doubles
       // -- Jupiter 0:34: 72 71 | 65 came out F72 D71 D65; it plays J72 F71 D65)
+      const saved = prim.slice(Math.max(0, i - 5), i).map((x) => x.lane);
       p.lane -= dir;
-      for (let k = i - 1; k >= 1 && i - k <= 3; k--) {
+      let k = i - 1;
+      for (; k >= 1 && i - k <= 3; k--) {
         const a = prim[k - 1];
         const b = prim[k];
         if (a.midi === b.midi || a.lane !== b.lane || b.time - a.time >= 0.7 || a.fixedLane || a.localPin || a.ghost) break;
         const nl = a.lane - dir;
         if (nl < 0 || nl >= lanes) break;
         a.lane = nl;
+      }
+      // (if pushing back only moves the doubled key further up the line -- Mercury 1:54, the trumpets' 79 77 76 74 | 72
+      // came out K79 K77 J76 F74 D72 -- leave the line alone and let the last note cheat back a key instead: J77 K79 J77
+      // F76 D74 F72, the 72 a new pair's end)
+      const lo = Math.max(0, i - 5);
+      const stillDoubled = prim.slice(lo, i).some((x, j) => j && x.lane === prim[lo + j - 1].lane && x.midi !== prim[lo + j - 1].midi &&
+        x.time - prim[lo + j - 1].time < 0.7);
+      if (stillDoubled) {
+        prim.slice(lo, i).forEach((x, j) => (x.lane = saved[j]));
+        q.lane = q.lane - dir;
       }
     }
   }

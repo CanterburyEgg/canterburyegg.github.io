@@ -10,5 +10,6 @@ def run(ns):
     if sp is None:
         return
     f = Path(__file__).resolve().parents[1] / f"{sp.stem.lower()}_corrections.json"
-    if f.exists() and json.loads(f.read_text(encoding="utf-8")).get("ghost_notes") is False:
-        ns["ghost_notes"] = False
+    g = json.loads(f.read_text(encoding="utf-8")).get("ghost_notes") if f.exists() else None
+    if g is False or g == "runs":
+        ns["ghost_notes"] = g
