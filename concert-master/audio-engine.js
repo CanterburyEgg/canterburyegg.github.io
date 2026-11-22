@@ -1435,6 +1435,7 @@ const LAYOUT_RULES = [
   ['backToBackFourShift', (n, l, c) => { if (c.exactScore) applyBackToBackFourShift(n, l); }],
   ['backAndForthOneKey', (n, l, c) => { if (c.exactScore) applyBackAndForthOneKey(n, l); }],
   ['leapOffEdgeFresh', (n, l, c) => { if (c.exactScore) applyLeapOffEdgeFresh(n, l); }],
+  ['figureEchoKeys', (n, l, c) => { if (c.exactScore) applyFigureEchoKeys(n, l); }],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -4907,6 +4908,41 @@ function applyRunsThatRoll(notes, lanes) {
       plan.push(l);
     }
     if (ok) run.forEach((x, j) => (x.lane = plan[j]));
+  }
+}
+
+/**
+ * A figure echoed keeps its keys: a 4-5-note run (all different notes, one way) played again within a second and a
+ * half, quicker or slower, plays on the same keys as the first time, unless that would step the wrong way or share a
+ * key with a different note next to it (Mercury 0:43.4 / 0:48.5 / 0:53.5: the woodwinds' 79 76 72 69 echoed quick
+ * after the slow statement came out F D K J; user, Nov 21: "this should be KJFD rather than FDKJ"). Exact scores.
+ */
+function applyFigureEchoKeys(notes, lanes) {
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  // (a wrong-way move is only a clash on a step; a leap of a third or more off the figure can go either way, like the
+  // D85 F68 the user okayed at 0:59.2)
+  const clash = (a, b) =>
+    b.time - a.time < 0.6 && a.midi !== b.midi &&
+    (a.lane === b.lane || (Math.abs(b.midi - a.midi) < 3 && Math.sign(b.lane - a.lane) !== Math.sign(b.midi - a.midi)));
+  const bad = (x) => x.fixedLane || x.localPin || x.ghost || x.lane >= lanes;
+  for (let k = 5; k >= 4; k--) {
+    for (let i = 0; i + k < n; i++) {
+      const A = prim.slice(i, i + k);
+      if (A.some(bad) || new Set(A.map((x) => x.midi)).size < k) continue;
+      const dir = Math.sign(A[1].midi - A[0].midi);
+      if (!A.every((x, q) => !q || (Math.sign(x.midi - A[q - 1].midi) === dir && Math.sign(x.lane - A[q - 1].lane) === dir))) continue;
+      for (let j = i + k; j + k <= n && prim[j].time - A[k - 1].time <= 1.5; j++) {
+        const B = prim.slice(j, j + k);
+        if (B.some(bad) || !B.every((x, q) => x.midi === A[q].midi) || B.every((x, q) => x.lane === A[q].lane)) continue;
+        const saved = B.map((x) => x.lane);
+        B.forEach((x, q) => (x.lane = A[q].lane));
+        const before = j > 0 ? prim[j - 1] : null;
+        const after = j + k < n ? prim[j + k] : null;
+        if ((before && clash(before, B[0])) || (after && clash(B[k - 1], after))) B.forEach((x, q) => (x.lane = saved[q]));
+        break;
+      }
+    }
   }
 }
 
