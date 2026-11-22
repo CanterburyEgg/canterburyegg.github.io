@@ -38,7 +38,8 @@
         castId: o.castId || (!isBasic && cur && cur.unit === attacker ? cur.id : null),
         proc: !!o.proc,             // item damage (never triggers other on-hit passives)
         passiveTick: !!o.passiveTick, // a passive's damage over time (e.g. Coyote's bleed): not an ability
-        redirected: !!o.redirected  // damage moved to a Redirect holder (not redirected again)
+        redirected: !!o.redirected,  // damage moved to a Redirect holder (not redirected again)
+        structMult: o.structMult > 0 ? o.structMult : 1 // extra damage multiplier vs structures (Imp demolition talents)
       };
     },
     // engine hook (item passives): part of a hero's mitigated damage moved to an ally; returns what the target keeps
@@ -57,6 +58,14 @@
     untargetable(u) { return !!u && (u.untargetableUntil || 0) > (window.KitFx ? window.KitFx.time : 0); },
     // engine hook: the talent a hero unit has taken at a tier ('L' | 'R'), or null (not taken yet / not reached)
     talentOf(u, tier) { return null; },
+    // engine hook: is this a hero unit (player or bot)?
+    isHero(u) { return false; },
+    // engine hook: is this a structure (tower / gatehouse / hearth)?
+    isStructure(u) { return false; },
+    // engine hook: can this structure be damaged right now (outer towers first)?
+    structureVulnerable(u) { return true; },
+    // kit vision (engine reads it): fn(team) -> [{ x, z, r }]
+    visionSources: [],
     // hits from minions, camps and towers: plain basic attacks
     unitHitInfo(attacker, isDoT) {
       return { attacker: attacker || null, src: 'attack', isBasic: true, isDoT: !!isDoT, aoe: false, castId: null };
@@ -91,6 +100,7 @@
     },
     mitigate(raw, resist, info, target) {
       let dmg = raw * (100 / (100 + Combat.effectiveResist(resist, info, target)));
+      if (info && info.structMult !== 1 && info.structMult > 0 && Combat.isStructure(target)) dmg *= info.structMult;
       for (let i = 0; i < Combat.damageMults.length; i++) dmg *= Combat.damageMults[i](info, target, info && info.attacker);
       return dmg;
     },

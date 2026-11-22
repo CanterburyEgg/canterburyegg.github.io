@@ -1,7 +1,7 @@
 // Panther Rogue: Jungle • Melee Stealth Assassin
 // Hero kit: data (stats, talents, UI text) + player ability code moved verbatim from js/arena/*.js and phase1_data.js.
 // Functions run in the shared global scope of js/arena/*.js (hero, actions, fadeToAction, damageDummy, ...).
-// Still in phase1_engine.js until Phase 2: Shadow Stalker speed bonus (getPlayerStats) and 10L Apex Reset (kill handler).
+// Still in phase1_engine.js until Phase 2: Shadow Stalker speed bonus (getPlayerStats; 3R Silent Paws adds to it there).
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -12,6 +12,39 @@ const POUNCE_FEAR = 0.9;
 const POUNCE_LINGER = 1.2;
 const UNSEEN_LINGER = 2.2;
 const pounceUnseen = (u) => (u.stealthTimer || 0) > 0 || (u.unseenLingerTimer || 0) >= UNSEEN_LINGER - POUNCE_LINGER;
+
+// ---- Talents (TALENTS_PLAN.md: L = Ambusher, R = Roamer) ----
+const C = window.MOBA_COMBAT;
+const TERROR_FEAR = 1.3;                    // 3L: unseen pounce fear on heroes
+const THROAT = { hpPct: 0.40, mult: 1.35 }; // 7L: Gnash vs low heroes
+const PROWL = { base: 6.0, long: 9.0 };     // R stealth (7R Long Night)
+const SPREE_WINDOW = 3.0;                   // 10L: takedown within 3s of her damage resets Pounce
+const isPanther = (u) => (u === hero ? activeHeroId === 'panther' : u && u.heroType === 'panther');
+// 10L Killing Spree: remember when each Panther with the talent last hurt a hero; a takedown inside the window resets E
+C.on('hit', (e) => {
+  const a = e.attacker, t = e.target;
+  if (!a || !t || !(e.dealt > 0) || !C.isHero(t) || !isPanther(a) || C.talentOf(a, 10) !== 'L') return;
+  (t._pnTouch || (t._pnTouch = new Map())).set(a, KitFx.time);
+});
+C.on('death', (e) => {
+  const v = e.victim;
+  if (!v || !v._pnTouch) return;
+  v._pnTouch.forEach((t, p) => {
+    if (KitFx.time - t > SPREE_WINDOW || C.talentOf(p, 10) !== 'L') return;
+    p.cdE = 0;
+    spawnFloat(p.x, 3.0, p.z, 'KILLING SPREE! POUNCE READY', '#2dd4bf');
+  });
+  v._pnTouch = null;
+});
+// R Nightprowl for any caster: 7R Long Night (9s), 10R Shadow Cloak (clears slows and roots)
+function nightprowl(u, ctx) {
+  u.stealthTimer = KitFx.tal(ctx, 7, 'R') ? PROWL.long : PROWL.base;
+  if (KitFx.tal(ctx, 10, 'R')) {
+    u.slowTimer = 0; u.slowPct = 0; u.rootTimer = 0;
+    spawnFloat(u.x, 3.15, u.z, 'SHADOW CLOAK', '#a78bfa');
+  }
+  return u.stealthTimer;
+}
 
 H.panther = {
   id: 'panther',
@@ -51,9 +84,18 @@ H.panther = {
   },
 
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Terror', desc: 'A pounce from unseen fears heroes for 1.3s (was 0.9s).' },
+      R: { id: '3R', name: 'Silent Paws', desc: 'Shadow Stalker gives +38% move speed while unseen (was +28%).' }
+    },
+    7: {
+      L: { id: '7L', name: 'Go for the Throat', desc: 'Gnash deals 35% more damage to heroes below 40% HP.' },
+      R: { id: '7R', name: 'Long Night', desc: 'Nightprowl stealth lasts 9s (was 6s).' }
+    },
+    10: {
+      L: { id: '10L', name: 'Killing Spree', desc: 'A hero takedown within 3s of you damaging them resets Pounce\'s cooldown.' },
+      R: { id: '10R', name: 'Shadow Cloak', desc: 'Casting Nightprowl removes slows and roots on you.' }
+    }
   },
 
   ui: {
@@ -190,10 +232,13 @@ H.panther = {
     });
 
     if (phase1Engine) {
+      const throat = strike.isBite && KitFx.tal(ctx, 7, 'L'); // 7L Go for the Throat
       actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
           const u = t.ref;
-          const hit = actor.damage(t, baseClawDmg, {
+          const low = throat && C.isHero(u) && u.hp < u.maxHp * THROAT.hpPct;
+          if (low) spawnFloat(u.x, 2.95, u.z, 'GO FOR THE THROAT!', '#f43f5e');
+          const hit = actor.damage(t, low ? Math.round(baseClawDmg * THROAT.mult) : baseClawDmg, {
             isBasic: true, src: 'attack', // swipes, and the Q flurry (counts as a basic attack)
             dmgType: 'physical',
             color: strike.isFlurry ? '#2dd4bf' : '#fb7185',
@@ -294,12 +339,12 @@ H.panther = {
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.4 : [38.0, 32.0, 26.0][rUlt] * (ctx.ultCdrMult || cdrMult);
-      hero.stealthTimer = 6.0;
+      const dur = nightprowl(hero, ctx);
       hero.unseenLingerTimer = 2.2;
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);
       spawnShockRing(hero.x, hero.z, 0xa855f7, 0.2, 1.8, 0.26);
-      spawnFloat(hero.x, 2.9, hero.z, 'NIGHTPROWL STEALTH (6.0s)!', '#2dd4bf');
+      spawnFloat(hero.x, 2.9, hero.z, 'NIGHTPROWL STEALTH (' + dur.toFixed(1) + 's)!', '#2dd4bf');
     }
     return;
   },
@@ -335,7 +380,7 @@ H.panther = {
     const hero = actor.unit; // (local alias: the pouncer)
     const pounceR = 2.65;
     const pounceDmg = H.panther.dmg.pounce(hero.leapSt || st, pProg.level, KitFx.rQE(pProg.level || 1));
-    const fear = hero.leapFromStealth ? POUNCE_FEAR : 0; // leapt while unseen (fog / out of sight / R stealth)
+    const fear = hero.leapFromStealth ? (KitFx.tal(ctx, 3, 'L') ? TERROR_FEAR : POUNCE_FEAR) : 0; // leapt while unseen (3L Terror: longer)
     const src = { x: hero.x, z: hero.z, unit: hero };
     SFX.play('arena');
     spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.30, pounceR, 0.28);
@@ -414,7 +459,7 @@ H.panther = {
     } else if (slot === 'R') {
       if (pProg.level < 4 || hero.cdR > 0) return;
       hero.cdR = [38.0, 32.0, 26.0][rUlt] * (ctx.ultCdrMult || ctx.cdrMult || 1);
-      hero.stealthTimer = 6.0;
+      nightprowl(hero, ctx);
       SFX.play('dash');
       spawnShockRing(hero.x, hero.z, 0x2dd4bf, 0.35, 2.6, 0.32);
       spawnShockRing(hero.x, hero.z, 0xa855f7, 0.2, 1.8, 0.26);

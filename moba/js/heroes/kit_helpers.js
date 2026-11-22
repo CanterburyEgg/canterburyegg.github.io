@@ -266,6 +266,7 @@ K.spawnBolt = function (angle, dmg, opts = {}) {
     hitIds: new Set(), life: (opts.life || 0.6) * (opts.isBasic !== false ? 1 + ((by.stats().rangePct) || 0) : 1), isBasic: opts.isBasic !== false, src: opts.src, slowDur: opts.slowDur || 0, // Longshot: basic attack bolts fly farther; src = 'attack' | 'ability' override
     owner: by.isPlayer ? null : by,
     castId: opts.castId || K.castId(), // the cast this bolt came from (0 for basics fired outside a cast)
+    structMult: opts.structMult || 1, // extra damage vs structures (Imp 10R Siege Mode turret shots)
     onHit: opts.onHit || null // onHit(x, z, hitRefOrDummy, targetObj|undefined) after it damages something (e.g. Imp splash shells)
   });
   return mesh;

@@ -6,6 +6,7 @@
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
+const C = window.MOBA_COMBAT;
 
 // Left/right hook combo (clip times measured from the Punching / Punching2 Mixamo clips' spine bend)
 const COMBO = {
@@ -76,7 +77,8 @@ function buildArena3D(x, z) {
   const rUlt = pLvl >= 12 ? 2 : (pLvl >= 8 ? 1 : 0);
   const baseArenaAmp = [1.20, 1.25, 1.30][rUlt];
   const arenaDur = 5.5;
-  arena = { x, z, r: radius, life: arenaDur, group, wall, amp: baseArenaAmp };
+  const shrink = KitFx.tal({ talents, pProg: { level: pLvl } }, 7, 'L'); // 7L Shrinking Ring
+  arena = { x, z, r: radius, r0: radius, life: arenaDur, dur: arenaDur, group, wall, amp: baseArenaAmp, shrink };
   if (phase1Engine && phase1Engine.onArenaSpawned) {
     phase1Engine.onArenaSpawned(arena);
   }
@@ -90,17 +92,34 @@ function buildArena3D(x, z) {
 // that target has its own cooldown. "Moving away" = its speed away from her (engine-tracked _vx/_vz) above DTYB.away.
 const DTYB = { away: 1.2, slowDur: 1.0, slowPct: 0.4, cd: 6.0 };
 const dtybReady = new WeakMap(); // target -> Map(caster -> time it's ready again)
-function dontTurnReady(by, u) {
+const movingAway = (by, u) => {
   const vx = u._vx || 0, vz = u._vz || 0;
   const dx = u.x - by.x, dz = u.z - by.z, d = Math.hypot(dx, dz) || 0.01;
-  if ((vx * dx + vz * dz) / d < DTYB.away) return false;
+  return (vx * dx + vz * dz) / d >= DTYB.away;
+};
+function dontTurnReady(by, u) {
+  if (!movingAway(by, u)) return false;
   const now = KitFx.time;
   let m = dtybReady.get(u);
   if (!m) dtybReady.set(u, (m = new Map()));
   if ((m.get(by) || 0) > now) return false;
-  m.set(by, now + DTYB.cd);
+  m.set(by, now + (C.talentOf(by, 3) === 'L' ? SHORT_MEMORY : DTYB.cd)); // 3L Short Memory
   return true;
 }
+
+// ---- Talents (TALENTS_PLAN.md: L = Chaser, R = Bruiser; all six in this file + the bot Pit shrink in the engine) ----
+const SHORT_MEMORY = 4.0;               // 3L: Don't Turn Your Back per-target cooldown
+const SECOND_GUARD = 0.5;               // 3R: Running Slide shield (x the collision shield)
+const SHRINK = 0.30;                    // 7L: Pit shrinks 30% over its duration
+const SECOND_WIND = 0.08;               // 7R: kick on a hero heals 8% max HP
+const DRAG_BACK = 2.0;                  // 10L: kick pulls a fleeing target back toward her
+const HOME_TURF = 0.80;                 // 10R: 20% less damage inside her own Pit
+// 10R Home Turf: player = inside her Pit zone; bot = her engine Pit is up (she's locked inside it)
+C.damageMults.push((info, target) => {
+  if (!target || C.talentOf(target, 10) !== 'R') return 1;
+  if (target === hero) return activeHeroId === 'brawler' && arena && Math.hypot(hero.x - arena.x, hero.z - arena.z) <= arena.r ? HOME_TURF : 1;
+  return target.heroType === 'brawler' && (target.arenaTimer || 0) > 0 ? HOME_TURF : 1;
+});
 
 // E dash clips: 1st dash = flying kick (jump), rebound 2nd dash = running slide
 function triggerDashAnimation(isRebound) {
@@ -163,9 +182,18 @@ H.brawler = {
   },
 
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Short Memory', desc: 'Don\'t Turn Your Back can hit the same target again after 4s (was 6s).' },
+      R: { id: '3R', name: 'Second Guard', desc: 'Running Slide also grants a shield, half the size of the collision shield, on top of it.' }
+    },
+    7: {
+      L: { id: '7L', name: 'Shrinking Ring', desc: 'The Pit shrinks by 30% over its duration, squeezing enemies toward the center.' },
+      R: { id: '7R', name: 'Second Wind', desc: 'A Roundhouse Kick that lands on a hero heals you for 8% of your max HP.' }
+    },
+    10: {
+      L: { id: '10L', name: 'Drag Back', desc: 'A Roundhouse Kick on a target running away from you pulls them 2m back toward you.' },
+      R: { id: '10R', name: 'Home Turf', desc: 'Inside your own Pit you take 20% less damage.' }
+    }
   },
 
   ui: {
@@ -341,13 +369,27 @@ H.brawler = {
       const arenaMult = actor.isPlayer
         ? ((arena && Math.hypot(hero.x - arena.x, hero.z - arena.z) <= arena.r) ? (arena.amp || 1.25) : 1.0)
         : ((hero.arenaTimer || 0) > 0 ? [1.20, 1.25, 1.30][KitFx.rUlt(pProg.level || 1)] : 1.0);
+      const secondWind = strike.isKick && KitFx.tal(ctx, 7, 'R');  // 7R Second Wind
+      const dragBack = strike.isKick && KitFx.tal(ctx, 10, 'L');   // 10L Drag Back
+      let healed = false;
       actor.hostiles().forEach((t) => {
         if (Math.hypot(t.x - fx, t.z - fz) <= hitRadius + t.r) {
+          // 10L: a kicked target running away gets yanked back toward her (checked before the hit stops them)
+          const yank = dragBack && t.kind !== 'structure' && t.ref && movingAway(hero, t.ref);
+          const pull = yank ? Math.max(0, Math.min(DRAG_BACK, Math.hypot(t.x - hero.x, t.z - hero.z) - (hero.r || 0.55) - (t.r || 0.5) - 0.2)) : 0;
           const didHit = actor.damage(t, baseStrikeDmg * arenaMult, {
             isBasic: true, src: 'attack', // punches, and the kick (counts as a basic attack)
             stunDur: strike.isKick ? stunDur : 0,
-            castId: strike.castId // the Q kick carries its cast; punches leave it unset
+            castId: strike.castId, // the Q kick carries its cast; punches leave it unset
+            knockbackDist: pull > 0 ? pull : undefined, knockbackDirX: hero.x - t.x, knockbackDirZ: hero.z - t.z, knockbackDur: 0.2, wallStun: 0
           });
+          if (didHit && pull > 0) spawnFloat(t.x, 3.0, t.z, 'DRAG BACK!', '#fde047');
+          if (didHit && secondWind && !healed && C.isHero(t.ref)) {
+            healed = true;
+            const amt = Math.round((hero.maxHp || 0) * SECOND_WIND);
+            C.heal(hero, amt, { healer: hero });
+            spawnFloat(hero.x, 2.75, hero.z, '+' + amt + ' SECOND WIND', '#4ade80');
+          }
           // Passive: the first hit on someone running away from her = bonus damage + a crippling slow
           if (didHit && t.kind !== 'structure' && t.ref && dontTurnReady(hero, t.ref)) {
             actor.damage(t, dtyb * arenaMult, { src: 'attack', slowDur: DTYB.slowDur, slowPct: DTYB.slowPct, color: '#fde047' });
@@ -397,6 +439,7 @@ H.brawler = {
         hero.dashHit = false;
         hero.dashCastId = KitFx.castId(); // dash hits land on later frames
         hero.dashSt = st; // (stats from cast time)
+        if (KitFx.tal(ctx, 3, 'R')) this.secondGuard(hero, pProg.level, rQE);
         triggerDashAnimation(true);
         SFX.play('dash');
         return;
@@ -518,6 +561,7 @@ H.brawler = {
       hero.dashHit = false;
       hero.dashCastId = KitFx.castId(); // dash hits land on later frames
       hero.dashSt = st; // (stats from cast time)
+      if (second && KitFx.tal(ctx, 3, 'R')) this.secondGuard(hero, pProg.level, rQE);
       if (second) actor.play('slide', 0.05, true, 2.35, 0.14, 0.36);
       else actor.play('jump', 0.05, true, 1.75, 0.03, 0.36);
       spawnShockRing(hero.x, hero.z, 0xfde047, 0.25, 1.15, 0.22);
@@ -572,6 +616,23 @@ H.brawler = {
       this.dashImpactFor(actor, { st: actor.stats(), pProg: { level: lvl }, talents: actor.talents(), hitWall, hitArenaRim: false, hitDummy: null, hitHostile });
       if (u.dashTimer <= 0) u.dashKind = null;
     }
+  },
+
+  // 3R Second Guard: Running Slide adds half the collision shield on top
+  secondGuard(u, lvl, rQE) {
+    const add = Math.round(H.brawler.dmg.shield(lvl, rQE) * SECOND_GUARD);
+    u.shield = (u.shield || 0) + add;
+    u.shieldTimer = Math.max(u.shieldTimer || 0, 3.5);
+    spawnFloat(u.x, 2.8, u.z, '+' + add + ' SECOND GUARD', '#fbbf24');
+  },
+
+  // 7L Shrinking Ring (the player's Pit; bot Pits shrink in the engine)
+  updateWorld(dt) {
+    if (!arena || !arena.shrink || !arena.r0) return;
+    const frac = THREE.MathUtils.clamp(1 - arena.life / arena.dur, 0, 1);
+    arena.r = arena.r0 * (1 - SHRINK * frac);
+    const k = arena.r / arena.r0;
+    arena.group.scale.set(k, 1, k);
   },
 
   // Passive slot pip text ('' hides it)

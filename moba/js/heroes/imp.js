@@ -5,7 +5,7 @@
 //  - Unburdened: +22% move speed, wrench swings.
 //  - E: rocket jump while carrying (frozen pose, cannon blasting downward) or a short hop while unburdened.
 //  - R Superball: giant piercing cannonball from wherever the cannon is, knock-up (stun) on hit.
-// Talents are placeholders until the talent pass.
+// Talents: TALENTS_PLAN.md (all six in this file; see the Talents block below).
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -31,9 +31,60 @@ const UPPER_BODY = /^(Spine|Spine1|Spine2|Neck|Head|LeftShoulder|LeftArm|LeftFor
 
 function carrying() { return !turret && !scrap; }
 
+// ---- Talents (TALENTS_PLAN.md: L = Engineer, R = Demolitionist; all six in this file) ----
+// Note: the base turret and Superball ignore structures; the Demolitionist talents are what point them at buildings.
+const C = window.MOBA_COMBAT;
+const tal = (u, tier) => C.talentOf(u, tier);
+const PLATING = 1.3;                                   // 3L: turret HP
+const WRECK = 1.5;                                     // 3R: Superball also hits structures, x1.5
+const MECHANIC = { repair: 2, haste: 1.2, dur: 3.0 };  // 7L: wrench repairs x2, then the turret fires 20% faster for 3s
+const BREACH = { base: 100, atk: 0.5, r: 2.6, structMult: 2 }; // 7R: Blast Hop take-off blast
+const SPARE = 0.7;                                     // 10L: spare cannon shots
+const SIEGE = { mult: 2, range: 1.25 };                // 10R: turret vs structures
+const TURRET_RANGE = 8.5;
+const REPAIR_PCT = 0.12;
+// spare cannon tucked under the left arm during a repair swing (offsets from the LeftArm bone, in his facing frame:
+// x = sideways, y = up, z = forward); barrel length along his facing, muzzle forward and a little down
+const TUCK = { off: { x: 0.14, y: -0.10, z: -0.12 }, rot: { x: 0, y: Math.PI / 2, z: 0.30 }, scale: 0.8 };
+const DEV_TUCK = /[?&]devtuck/.test(location.search); // dev: always show the tucked pose (screenshots)
+// 10L Spare Cannon: with the turret planted he still fights in carrying form (cannon in hand)
+function armed() { return carrying() || (!!turret && tal(hero, 10) === 'L'); }
+function botArmed(u) { return botCarrying(u) || (!!u.impTurret && tal(u, 10) === 'L'); }
+// a damaged own turret within wrench reach in front of him (spare cannon users still swing the wrench to repair)
+function wantsRepair(u, t) {
+  if (!t || t.hp >= t.maxHp) return false;
+  const dx = t.x - u.x, dz = t.z - u.z, d = Math.hypot(dx, dz);
+  return d <= 2.0 + t.r && (d < 0.8 || (dx * Math.sin(u.facing) + dz * Math.cos(u.facing)) / d > Math.cos(0.9));
+}
+// Player repair targeting: cursor on his own damaged turret = a wrench repair (he turns to it), from any form.
+// 'repair' = in wrench reach, 'far' = cursor on it but too far away, null = not aiming at a damaged turret.
+const REPAIR_REACH = 2.0, CURSOR_PAD = 0.6;
+function repairState() {
+  if (!turret || turret.hp >= turret.maxHp) return null;
+  if (Math.hypot(aimWorld.x - turret.x, aimWorld.z - turret.z) > turret.r + CURSOR_PAD) return null;
+  return Math.hypot(turret.x - hero.x, turret.z - hero.z) <= REPAIR_REACH + turret.r + CURSOR_PAD ? 'repair' : 'far';
+}
+let repairSwing = 0;   // > 0 while a repair swing plays (the spare cannon is tucked)
+let farHintT = 0;
+// Wrench repair for any owner (7L Master Mechanic: double, and a burst of turret fire rate)
+function repairTurret(owner, t) {
+  const mech = tal(owner, 7) === 'L';
+  const heal = Math.round(t.maxHp * REPAIR_PCT * (mech ? MECHANIC.repair : 1));
+  t.hp = Math.min(t.maxHp, t.hp + heal);
+  if (mech) t.rapidUntil = KitFx.time + MECHANIC.dur;
+  spawnFloat(t.x, 2.2, t.z, '+' + heal + (mech ? ' REPAIRED (FAST FIRE)' : ' REPAIRED'), '#4ade80');
+  spawnShockRing(t.x, t.z, 0x4ade80, 0.3, 1.3, 0.25);
+}
+// 7R Breaching Charge: the take-off blast of Blast Hop (both forms)
+function breachBlast(actor, st) {
+  const u = actor.unit;
+  KitFx.hitArea(u.x, u.z, BREACH.r, Math.round(BREACH.base + BREACH.atk * st.attack), { by: actor, structures: true, structMult: BREACH.structMult, aoe: true, color: '#fb923c' });
+  spawnShockRing(u.x, u.z, 0xfb923c, 0.3, BREACH.r, 0.3);
+}
+
 function turretMaxHp() {
   const lvl = phase1Engine ? (phase1Engine.getPlayerProg().level || 1) : 1;
-  return 520 + lvl * 70;
+  return Math.round((520 + lvl * 70) * (tal(hero, 3) === 'L' ? PLATING : 1)); // 3L Reinforced Plating
 }
 
 function destroyTurret() {
@@ -72,21 +123,32 @@ function cannonball(r) {
   return new THREE.Mesh(new THREE.SphereGeometry(r, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
 }
 
-// One turret step for any owner: turn toward the nearest enemy in range and fire (player turrets also shoot dummies)
+// One turret step for any owner: turn toward the nearest enemy in range and fire (player turrets also shoot dummies).
+// 10R Siege Mode: with nothing else in range it shoots structures, from 25% farther, for double damage.
 function stepTurret(t, dt, actor) {
   t.shootCd -= dt;
-  let best = null, bestD = 8.5;
+  const siege = tal(actor.unit, 10) === 'R';
+  let best = null, bestD = TURRET_RANGE;
   if (actor.isPlayer) dummies.forEach((d) => {
     if (d.isShooter && !shooterEnabled) return;
     const dd = Math.hypot(d.x - t.x, d.z - t.z);
     if (dd < bestD) { bestD = dd; best = d; }
   });
   if (phase1Engine) {
-    actor.hostiles().forEach((h) => {
+    const list = actor.hostiles();
+    list.forEach((h) => {
       if (h.kind === 'structure') return;
       const dd = Math.hypot(h.x - t.x, h.z - t.z);
       if (dd < bestD) { bestD = dd; best = h; }
     });
+    if (!best && siege) {
+      bestD = TURRET_RANGE * SIEGE.range;
+      list.forEach((h) => {
+        if (h.kind !== 'structure' || !C.structureVulnerable(h.ref)) return; // (skips towers that can't be hurt yet)
+        const dd = Math.hypot(h.x - t.x, h.z - t.z);
+        if (dd < bestD) { bestD = dd; best = h; }
+      });
+    }
   }
   if (best) {
     const want = Math.atan2(best.x - t.x, best.z - t.z);
@@ -95,14 +157,17 @@ function stepTurret(t, dt, actor) {
     while (df < -Math.PI) df += Math.PI * 2;
     t.facing += Math.max(-dt * 6, Math.min(dt * 6, df));
     if (t.shootCd <= 0 && Math.abs(df) < 0.25) {
-      t.shootCd = 1.4;
+      t.shootCd = 1.4 / ((t.rapidUntil || 0) > KitFx.time ? MECHANIC.haste : 1); // 7L Master Mechanic burst
       t.kick = 1;
       const st = actor.stats();
       const fx = t.x + Math.sin(t.facing) * 1.3, fz = t.z + Math.cos(t.facing) * 1.3;
       smoke(fx, fz, 0.9);
       SFX.play('arena');
       // turret shots: Attack damage, but not basic attacks (no on-hit effects; the Imp's wrench swings are his basics)
-      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), { mesh: cannonball(0.22), speed: 15, life: 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor, castId: t.castId, isBasic: false, src: 'attack' });
+      KitFx.spawnBolt(t.facing, H.imp.dmg.turretShot(st), {
+        mesh: cannonball(0.22), speed: 15, life: (siege ? SIEGE.range : 1) * 0.75, y: 1.1, fromX: fx, fromZ: fz, by: actor, castId: t.castId,
+        isBasic: false, src: 'attack', structMult: siege ? SIEGE.mult : 1
+      });
     }
   }
   t.kick = Math.max(0, (t.kick || 0) - dt * 5);
@@ -136,11 +201,11 @@ function stepBall(b, dt, actor) {
   });
   if (phase1Engine) {
     actor.hostiles().forEach((t, j) => {
-      if (t.kind === 'structure') return;
+      if (t.kind === 'structure' && !b.wreck) return; // 3R Wrecking Ball: it hits buildings too
       const key = t.kind + (t.ref && t.ref.id || j);
       if (!b.hit.has(key) && Math.hypot(t.x - b.x, t.z - b.z) <= 1.1 + (t.r || 0.5)) {
         b.hit.add(key);
-        actor.damage(t, b.dmg, { dmgType: 'physical', knockupDur: 1.0, color: '#fb923c', castId: b.castId });
+        actor.damage(t, b.dmg, { dmgType: 'physical', knockupDur: 1.0, color: '#fb923c', castId: b.castId, structMult: b.wreck ? WRECK : 1 });
       }
     });
   }
@@ -266,9 +331,18 @@ H.imp = {
   },
 
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Reinforced Plating', desc: 'Your turret has 30% more HP.' },
+      R: { id: '3R', name: 'Wrecking Ball', desc: 'Superball also hits structures, dealing 50% more damage to them.' }
+    },
+    7: {
+      L: { id: '7L', name: 'Master Mechanic', desc: 'Wrench hits repair the turret twice as much, and each repair makes it fire 20% faster for 3s.' },
+      R: { id: '7R', name: 'Breaching Charge', desc: 'Blast Hop\'s take-off blast deals 100 + 50% Attack around you, doubled against structures.' }
+    },
+    10: {
+      L: { id: '10L', name: 'Spare Cannon', desc: 'With the turret planted you pull out a spare cannon and keep fighting in carrying form at 70% damage (clicking your damaged turret up close still swings the wrench to repair it, cannon tucked under your arm).' },
+      R: { id: '10R', name: 'Siege Mode', desc: 'With no enemy in range, your turret shoots structures from 25% farther (outranging towers) for double damage.' }
+    }
   },
 
   ui: {
@@ -285,7 +359,7 @@ H.imp = {
     r: 'Superball',
     banner: '<b>Q</b> Plant / pick up the cannon &bull; <b>E</b> Rocket jump (carrying) or hop &bull; <b>R</b> Superball &bull; <b>P</b> Shop',
     tooltips: {
-      P: { title: 'Passive • Two Forms', meta: 'Carrying vs. Unburdened', body: 'Carrying: slow, long-range cannon shots that <b>splash</b> (50% to enemies within 1.6m of the impact). Unburdened: <b>+22% move speed</b> and fast wrench swings. <b>Wrench hits repair your turret.</b>' },
+      P: { title: 'Passive • Two Forms', meta: 'Carrying vs. Unburdened', body: 'Carrying: slow, long-range cannon shots that <b>splash</b> (50% to enemies within 1.6m of the impact). Unburdened: <b>+22% move speed</b> and fast wrench swings. <b>Click your damaged turret while next to it to repair it with the wrench</b> (a wrench shows over its HP bar).' },
       LMB: { title: 'LMB • Siege Shot / Wrench', meta: '0 MP • 1.05s Base ATK', body: 'Carrying: fire a cannonball for <b>Attack damage</b>. Unburdened: a quick wrench swing.' },
       Q: { title: 'Q • Anchor Turret', meta: '20 MP • 3s CD', body: 'Plant the cannon as a <b>turret</b> with its own HP that fires at nearby enemies. Press Q next to it to pick it back up (after 1.5s). If it is destroyed it leaves <b>scrap</b>: Q on it to salvage, or head home for a fresh cannon.' },
       E: { title: 'E • Blast Hop', meta: '50 MP • 8.5s CD', body: 'Carrying: the cannon blasts downward for a <b>long rocket jump</b>. Unburdened: a <b>short nimble hop</b>.' },
@@ -298,15 +372,24 @@ H.imp = {
   },
 
   locomotion() {
-    return carrying() ? null : { idle: 'idleFree', move: 'runFree' };
+    return armed() ? null : { idle: 'idleFree', move: 'runFree' };
   },
   speedMult() {
-    return carrying() ? 1 : 1.22;
+    return armed() ? 1 : 1.22;
   },
 
   onBasicAttack(st) {
     hero.facing = Math.atan2(aimWorld.x - hero.x, aimWorld.z - hero.z);
-    if (carrying()) {
+    const rep = repairState();
+    if (rep === 'far') {
+      // cursor on the turret but out of reach: no wasted shot, just a hint
+      if (KitFx.time >= farHintT) { farHintT = KitFx.time + 1.0; spawnFloat(turret.x, 2.4, turret.z, 'GET CLOSER TO REPAIR', '#fde68a'); }
+      return;
+    }
+    // 10L Spare Cannon: the cannon comes out unless he's repairing (cursor on a damaged turret in reach)
+    const shoot = rep !== 'repair' && armed();
+    if (shoot) {
+      const dmg = Math.round(H.imp.dmg.cannon(st) * (carrying() ? 1 : SPARE));
       hero.atkTimer = KitFx.atkInterval(H.imp.spec.atkCd, st);
       hero.punchAnim = 0.25;
       recoil = 1;
@@ -315,28 +398,21 @@ H.imp = {
       const fx = hero.x + Math.sin(ang) * 0.9, fz = hero.z + Math.cos(ang) * 0.9;
       smoke(fx, fz, 0.9);
       const ball = new THREE.Mesh(new THREE.SphereGeometry(0.2, 12, 10), new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.6, roughness: 0.4 }));
-      KitFx.spawnBolt(ang, H.imp.dmg.cannon(st), { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, onHit: splashShell(KitFx.player, H.imp.dmg.cannon(st)) });
+      KitFx.spawnBolt(ang, dmg, { mesh: ball, speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, onHit: splashShell(KitFx.player, dmg) });
     } else {
+      if (rep === 'repair') { hero.facing = Math.atan2(turret.x - hero.x, turret.z - hero.z); repairSwing = 0.4; }
       hero.atkTimer = KitFx.atkInterval(0.7, st);
       hero.punchAnim = 0.3;
       if (actions.punch) fadeToAction(actions.punch, 0.05, true, 2.2, 0.35);
-      pendingStrike = { isKick: false, facing: hero.facing, t: 0.15 };
+      pendingStrike = { isKick: false, facing: hero.facing, t: 0.15, repair: rep === 'repair' };
     }
   },
 
   onStrikeImpact(strike, ctx) {
     KitFx.hitCone(2.0, 0.8, H.imp.dmg.wrench(ctx.st), { isBasic: true, color: '#fb923c' });
-    // Tinkerer: wrench hits on his own turret repair it
-    if (turret && turret.hp < turret.maxHp) {
-      const dx = turret.x - hero.x, dz = turret.z - hero.z, d = Math.hypot(dx, dz);
-      const inFront = d < 0.8 || (dx * Math.sin(hero.facing) + dz * Math.cos(hero.facing)) / d > Math.cos(0.9);
-      if (d <= 2.0 + turret.r && inFront) {
-        const heal = Math.round(turret.maxHp * 0.12);
-        turret.hp = Math.min(turret.maxHp, turret.hp + heal);
-        spawnFloat(turret.x, 2.2, turret.z, '+' + heal + ' REPAIRED', '#4ade80');
-        spawnShockRing(turret.x, turret.z, 0x4ade80, 0.3, 1.3, 0.25);
-      }
-    }
+    // Tinkerer: wrench hits on his own turret repair it (a repair swing always lands; a stray swing in front of it too)
+    if (turret && turret.hp < turret.maxHp && Math.hypot(turret.x - hero.x, turret.z - hero.z) <= REPAIR_REACH + turret.r + CURSOR_PAD &&
+      (strike.repair || wantsRepair(hero, turret))) repairTurret(hero, turret);
   },
 
   cast(slot, ctx) {
@@ -381,7 +457,8 @@ H.imp = {
       if (!wtfMode && hero.cdE > 0) return;
       if (!trySpendMana('E')) return;
       hero.cdE = wtfMode ? 0.4 : 8.5 * cdrMult;
-      const longJump = carrying();
+      const longJump = armed();
+      if (KitFx.tal(ctx, 7, 'R')) breachBlast(KitFx.player, st); // 7R Breaching Charge
       const maxD = longJump ? 9.0 : 4.5;
       const dx = aimWorld.x - hero.x, dz = aimWorld.z - hero.z;
       const d = Math.min(maxD, Math.hypot(dx, dz) || 0.01);
@@ -421,7 +498,7 @@ H.imp = {
       const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.6, 18, 14), new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.7, roughness: 0.35, emissive: 0x7c2d12, emissiveIntensity: 0.4 }));
       scene.add(mesh);
       const rUlt = (pProg.level || 1) >= 12 ? 2 : ((pProg.level || 1) >= 8 ? 1 : 0);
-      superball = { mesh, x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(), dmg: H.imp.dmg.superball(st, pProg.level, rUlt), castId: KitFx.castId() };
+      superball = { mesh, x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(), dmg: H.imp.dmg.superball(st, pProg.level, rUlt), castId: KitFx.castId(), wreck: KitFx.tal(ctx, 3, 'R') };
       smoke(superball.x, superball.z, 2.0);
       SFX.play('arena');
       spawnFloat(from.x, 3.0, from.z, 'SUPERBALL!', '#fb923c');
@@ -434,12 +511,13 @@ H.imp = {
     const u = actor.unit, a = actor.aim();
     u.facing = Math.atan2(a.x - u.x, a.z - u.z);
     const L = (window.__kitBotLog = window.__kitBotLog || {}); L.imp_lmb = (L.imp_lmb || 0) + 1;
-    if (botCarrying(u)) {
+    if (botArmed(u) && !(!botCarrying(u) && wantsRepair(u, u.impTurret))) {
+      const dmg = Math.round(H.imp.dmg.cannon(st) * (botCarrying(u) ? 1 : SPARE)); // 10L Spare Cannon: 70%
       u.impRecoil = 1;
       SFX.play('arena');
       const fx = u.x + Math.sin(u.facing) * 0.9, fz = u.z + Math.cos(u.facing) * 0.9;
       smoke(fx, fz, 0.9);
-      KitFx.spawnBolt(u.facing, H.imp.dmg.cannon(st), { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor, onHit: splashShell(actor, H.imp.dmg.cannon(st)) });
+      KitFx.spawnBolt(u.facing, dmg, { mesh: cannonball(0.2), speed: 15, life: 0.75, y: 1.0, fromX: fx, fromZ: fz, by: actor, onHit: splashShell(actor, dmg) });
     } else {
       u.atkCd = (u.atkCd || 0) * (0.7 / 1.05); // wrench swings faster than the cannon fires
       u.punchAnim = 0.3;
@@ -472,7 +550,8 @@ H.imp = {
     } else if (slot === 'E') {
       if (u.cdE > 0 || u.leapTimer > 0) return;
       u.cdE = 8.5 * (ctx.cdrMult || 1);
-      const longJump = botCarrying(u);
+      const longJump = botArmed(u);
+      if (KitFx.tal(ctx, 7, 'R')) breachBlast(actor, st); // 7R Breaching Charge
       const maxD = longJump ? 9.0 : 4.5;
       const dx = a.x - u.x, dz = a.z - u.z;
       const d = Math.min(maxD, Math.hypot(dx, dz) || 0.01);
@@ -509,7 +588,7 @@ H.imp = {
       else { u.impRecoil = 1.6; u.facing = ang; }
       const b = {
         mesh: makeSuperballMesh(), x: from.x + Math.sin(ang) * 1.2, z: from.z + Math.cos(ang) * 1.2, ang, dist: 0, hit: new Set(),
-        dmg: H.imp.dmg.superball(st, pProg.level, KitFx.rUlt(pProg.level || 1)), owner: actor, castId: KitFx.castId()
+        dmg: H.imp.dmg.superball(st, pProg.level, KitFx.rUlt(pProg.level || 1)), owner: actor, castId: KitFx.castId(), wreck: KitFx.tal(ctx, 3, 'R')
       };
       botBalls.push(b);
       smoke(b.x, b.z, 2.0);
@@ -524,7 +603,7 @@ H.imp = {
     u.kickAnim = Math.max(0, (u.kickAnim || 0) - dt);
     u.punchAnim = Math.max(0, (u.punchAnim || 0) - dt);
     u.impRecoil = Math.max(0, (u.impRecoil || 0) - dt * 6);
-    u.range = botCarrying(u) && !u.impPendingQ ? 7.5 : 1.95; // cannon at range, wrench up close
+    u.range = botArmed(u) && !u.impPendingQ && !wantsRepair(u, u.impTurret) ? 7.5 : 1.95; // cannon at range, wrench up close
     if ((u.stunTimer || 0) > 0) { u.impStrike = null; u.impPendingQ = null; }
     // back home (respawn / retreat): a fresh cannon from the workshop
     if (u.impScrap && Math.hypot(u.x - u.homeX, u.z - u.homeZ) < 9) botClearScrap(u);
@@ -534,18 +613,13 @@ H.imp = {
       KitFx.hitCone(2.0, 0.8, sk.dmg, { isBasic: true, color: '#fb923c', by: actor });
       // Tinkerer: wrench hits on his own turret repair it
       const t = u.impTurret;
-      if (t && t.hp < t.maxHp && Math.hypot(t.x - u.x, t.z - u.z) <= 2.0 + t.r) {
-        const heal = Math.round(t.maxHp * 0.12);
-        t.hp = Math.min(t.maxHp, t.hp + heal);
-        spawnFloat(t.x, 2.2, t.z, '+' + heal + ' REPAIRED', '#4ade80');
-        spawnShockRing(t.x, t.z, 0x4ade80, 0.3, 1.3, 0.25);
-      }
+      if (t && t.hp < t.maxHp && Math.hypot(t.x - u.x, t.z - u.z) <= 2.0 + t.r) repairTurret(u, t);
     }
     if (u.impPendingQ && (u.impPendingQ.t -= dt) <= 0) {
       const q = u.impPendingQ;
       u.impPendingQ = null;
       if (q.kind === 'plant') {
-        const mhp = 520 + (u.level || 1) * 70;
+        const mhp = Math.round((520 + (u.level || 1) * 70) * (tal(u, 3) === 'L' ? PLATING : 1)); // 3L Reinforced Plating
         const t = {
           id: 'impturret_' + u.id, x: q.x, z: q.z, facing: q.facing, castId: q.castId, shootCd: 0.8, plantedAt: performance.now() / 1000,
           hp: mhp, maxHp: mhp, armor: 25, r: 0.9, team: u.team, owner: actor,
@@ -587,9 +661,9 @@ H.imp = {
   },
 
   // Bots: +22% unburdened (the engine multiplies bot speed by this)
-  botSpeedMult(b) { return botCarrying(b) ? 1 : 1.22; },
+  botSpeedMult(b) { return botArmed(b) ? 1 : 1.22; },
   // Bots: carry idle/run with the cannon, the free set without it
-  botLocomotion(b) { return botCarrying(b) ? null : { idle: 'idleFree', move: 'runFree' }; },
+  botLocomotion(b) { return botArmed(b) ? null : { idle: 'idleFree', move: 'runFree' }; },
   // Bots with nothing to fight walk back to their turret (to pick it up) or nearby scrap (to salvage it)
   botGoal(b) {
     if (b.impTurret) return { x: b.impTurret.x, z: b.impTurret.z };
@@ -634,11 +708,15 @@ H.imp = {
     }
     const P = b.impProps;
     b.model.updateMatrixWorld(true);
-    const carryNow = botCarrying(b);
+    const tuckB = botArmed(b) && !botCarrying(b) && !!(b.impStrike || b.punchAnim > 0); // spare cannon tucked for a swing
+    const carryNow = botArmed(b) && !tuckB;
     const srcB = { bones: b.bones, yaw: b.facing || 0 };
     if (P.barrel) {
-      P.barrel.visible = b.pivot.visible && carryNow && !(b.impPendingQ && b.impPendingQ.kind === 'plant' && b.impPendingQ.t < 0.15);
-      if (P.barrel.visible) {
+      P.barrel.visible = b.pivot.visible && (carryNow || tuckB) && !(b.impPendingQ && b.impPendingQ.kind === 'plant' && b.impPendingQ.t < 0.15);
+      P.barrel.scale.setScalar(tuckB ? TUCK.scale : 1);
+      if (P.barrel.visible && tuckB) {
+        KitFx.placeAtBone(P.barrel, 'LeftArm', TUCK.off, TUCK.rot, srcB);
+      } else if (P.barrel.visible) {
         if (b.impRocket && b.leapTimer > 0) {
           KitFx.placeAtBone(P.barrel, 'Spine2', { x: 0.02, y: -0.5, z: 0.22 }, { x: 0, y: Math.PI / 2, z: Math.PI / 2 - 0.12 }, srcB);
           P.puffT -= 1 / 60;
@@ -657,6 +735,7 @@ H.imp = {
     }
     const fist = !carryNow;
     KitFx.curlHand('Right', fist ? 1 : 0, b.bones);
+    KitFx.curlHand('Left', tuckB ? 1 : 0, b.bones);
     if (P.wrench) {
       P.wrench.visible = b.pivot.visible && fist;
       if (P.wrench.visible) KitFx.seatInFist(P.wrench, 'Right', WRENCH_OFF, WRENCH_TWIST, b.bones);
@@ -712,6 +791,7 @@ H.imp = {
 
   tickTimers(dt) {
     recoil = Math.max(0, recoil - dt * 6);
+    repairSwing = Math.max(0, repairSwing - dt);
     // dead or back at base (recall / respawn): the workshop hands him a fresh cannon
     if (scrap && activeHeroId === 'imp' && phase1Engine && phase1Engine.getPlayerProg().respawnTimer > 0) clearScrap();
     if (scrap && activeHeroId === 'imp' && window.MOBA_MAP) {
@@ -800,9 +880,17 @@ H.imp = {
         [c1, c2, w].forEach((p) => p && scene.add(p));
       });
     }
+    // carried barrel: carrying form, or the 10L spare cannon. During a repair swing the spare cannon is tucked under
+    // his left arm (wrench in the right fist) instead of vanishing.
+    const repairing = !carrying() && armed() && repairSwing > 0;
+    const tucked = repairing || DEV_TUCK;
+    const barrelOut = armed() && !tucked;
     if (cannonCarry) {
-      cannonCarry.visible = carrying() && !(pendingQ && pendingQ.kind === 'plant' && pendingQ.t < 0.15);
-      if (cannonCarry.visible) {
+      cannonCarry.visible = (barrelOut || tucked) && !(pendingQ && pendingQ.kind === 'plant' && pendingQ.t < 0.15);
+      cannonCarry.scale.setScalar(tucked ? TUCK.scale : 1);
+      if (cannonCarry.visible && tucked) {
+        KitFx.placeAtBone(cannonCarry, 'LeftArm', TUCK.off, TUCK.rot);
+      } else if (cannonCarry.visible) {
         const kick = recoil * 0.12;
         // the bare barrel cradled across his chest, muzzle (-X) forward. Rocket jump: muzzle straight down under him,
         // breech at his chest. (Pitch is about the barrel's side axis = local Z; local X is the barrel's length.)
@@ -835,7 +923,7 @@ H.imp = {
       turretPlate = document.createElement('div');
       turretPlate.className = 'plate-3d';
       turretPlate.style.zIndex = '14';
-      turretPlate.innerHTML = '<div class="plate-tag" style="background:rgba(15,23,42,0.82);border:1px solid rgba(251,146,60,0.6);padding:1px 5px;border-radius:3px;color:#fed7aa;">Turret</div><div class="plate-bar" style="width:56px;"><div class="plate-hp ally"></div><div class="plate-sh"></div></div>';
+      turretPlate.innerHTML = '<div class="plate-tag" style="background:rgba(15,23,42,0.82);border:1px solid rgba(251,146,60,0.6);padding:1px 5px;border-radius:3px;color:#fed7aa;">Turret<span class="imp-wrench" style="display:none;margin-left:4px;">🔧</span></div><div class="plate-bar" style="width:56px;"><div class="plate-hp ally"></div><div class="plate-sh"></div></div>';
       labelLayer.appendChild(turretPlate);
     }
     if (turret && activeHeroId === 'imp') {
@@ -844,12 +932,19 @@ H.imp = {
       turretPlate.style.left = sp.x + 'px';
       turretPlate.style.top = sp.y + 'px';
       turretPlate.querySelector('.plate-hp').style.width = Math.max(0, turret.hp / turret.maxHp * 100) + '%';
+      // repair cue: bright wrench = a click repairs, faint = cursor on it but too far
+      const rs = repairState();
+      const wr = turretPlate.querySelector('.imp-wrench');
+      wr.style.display = rs ? 'inline' : 'none';
+      wr.style.opacity = rs === 'repair' ? '1' : '0.35';
+      wr.style.filter = rs === 'repair' ? 'drop-shadow(0 0 4px #4ade80)' : 'none';
     } else {
       turretPlate.style.display = 'none';
     }
     if (scrap) scrap.mesh.visible = activeHeroId === 'imp';
     // Unburdened: right hand balls into a fist around the wrench handle
-    const fist = !carrying();
+    const fist = !barrelOut;
+    KitFx.curlHand('Left', tucked && cannonCarry && cannonCarry.visible ? 1 : 0); // left hand clamps the tucked cannon
     KitFx.curlHand('Right', fist ? 1 : 0);
     if (wrench) {
       wrench.visible = fist;
@@ -870,9 +965,17 @@ H.imp = {
 
   // Dev (&devturret=N in boot.js): blow up the planted turret to test scrap/salvage
   devDestroyTurret() { if (turret) { turret.hp = 0; if (phase1Engine) phase1Engine.removeDeployable(turret); destroyTurret(); } },
+  // (talent test) the player's turret, and a clean slate: cannon back in hand
+  devTurret() { return turret; },
+  devReset() {
+    if (turret && phase1Engine && phase1Engine.removeDeployable) phase1Engine.removeDeployable(turret);
+    turret = null;
+    pendingQ = null;
+    clearScrap();
+  },
 
-  hudTag() { return scrap ? ' [SCRAPPED]' : (carrying() ? ' [CARRYING]' : ' [UNBURDENED]'); },
-  passivePip() { return carrying() ? '' : '+22%'; },
+  hudTag() { return scrap ? ' [SCRAPPED]' : (carrying() ? ' [CARRYING]' : (armed() ? ' [SPARE CANNON]' : ' [UNBURDENED]')); },
+  passivePip() { return armed() ? '' : '+22%'; },
   qEmpowered() { return !carrying(); }
 };
 })();

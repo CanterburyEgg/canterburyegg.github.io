@@ -223,6 +223,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       structures.forEach((st) => { if (st.team === 0 && st.hp > 0) fogSource(v, st.x, st.z, 14.5, false); });
       minions.forEach((m) => { if (m.team === 0 && m.hp > 0) fogSource(v, m.x, m.z, 10.5, true, 40); });
       wards.forEach((w) => fogSource(v, w.x, w.z, 16.0, true));
+      extraVision(0).forEach((s) => fogSource(v, s.x, s.z, s.r, false));
       if (spyglass.revealT > 0) {
         const Ho = MAP.HOLLOW;
         v.beginPath();
@@ -323,6 +324,9 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (Math.hypot(tx - w.x, tz - w.z) <= 16.0 && !segmentBlockedByObstacle(w.x, w.z, tx, tz)) return true;
       }
 
+      // 8. Kit vision (Coyote 7L Watchful Traps)
+      if (inExtraVision(0, tx, tz)) return true;
+
       return false;
     }
 
@@ -354,7 +358,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const d = Math.hypot(tx - m.x, tz - m.z);
         if (d <= 10.5 && !segmentBlockedByObstacle(m.x, m.z, tx, tz)) return true;
       }
-      return false;
+      return inExtraVision(1, tx, tz);
     }
     function isPointVisibleToTeam(tx, tz, team) {
       return team === 0 ? isPointVisibleToOrder(tx, tz) : isPointVisibleToChaos(tx, tz);
@@ -371,7 +375,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const m = minions[i];
         if (m.team === team && m.hp > 0 && Math.hypot(m.x - u.x, m.z - u.z) <= R) return true;
       }
-      return false;
+      return inExtraVision(team, u.x, u.z, u.r || 0.5); // kit vision reveals stealth too
     }
     // stealthed and nobody of `team` close enough to see the shimmer (can't be targeted by that team's AI)
     function stealthHiddenFrom(u, team) {
@@ -2277,6 +2281,46 @@ window.MOBA_PHASE1_ENGINE = (function () {
       takeHitFor(g, dealt);
       return 0;
     });
+
+    // ---- Coyote Bleed (passive): one place that adds stacks (max 4), so every path caps and credits the same way ----
+    const MAX_BLEED = 4;
+    function addBleed(u, n, by) {
+      if (!u || !(n > 0)) return;
+      u.bleedStacks = Math.min(MAX_BLEED, (u.bleedStacks || 0) + n);
+      u.bleedTimer = 5.5;
+      if (by) u.bleedBy = by; // the ticks scale with (and are credited to) whoever applied the bleed
+    }
+    Combat.isHero = isHeroUnit;
+    Combat.isStructure = (u) => structures.indexOf(u) >= 0;
+    Combat.structureVulnerable = (u) => isStructureVulnerable(u);
+    // Coyote 10R Plague: a bleeding unit dies -> its stacks jump to the nearest other enemy (of the Coyote) within 6m
+    const PLAGUE_R = 6.0;
+    Combat.on('death', (e) => {
+      const v = e.victim;
+      if (!v || !(v.bleedStacks > 0) || !(v.bleedTimer > 0)) return;
+      const by = v.bleedBy;
+      if (!by || unitTalent(by, 10) !== 'R' || (by !== hero && !(by.respawnTimer <= 0))) return;
+      const list = by === hero ? getHostileTargets() : hostilesForTeam(by.team);
+      let best = null, bestD = PLAGUE_R;
+      list.forEach((t) => {
+        if (t.ref === v || t.kind === 'structure' || t.kind === 'deployable' || t.ref === hero) return;
+        const d = Math.hypot(t.x - v.x, t.z - v.z) - (t.r || 0.5);
+        if (d <= bestD) { bestD = d; best = t; }
+      });
+      if (!best) return;
+      addBleed(best.ref, v.bleedStacks, by);
+      spawnShockRing(best.x, best.z, 0xf43f5e, 0.25, 1.4, 0.28);
+      spawnFloat(best.x, 2.8, best.z, 'PLAGUE (' + best.ref.bleedStacks + 'x)', '#f43f5e');
+    });
+    // Extra vision from kits (Coyote 7L Watchful Traps): each fn(team) returns [{ x, z, r }] spots that team sees around
+    // (also reveals stealthed units in range)
+    Combat.visionSources = Combat.visionSources || [];
+    function extraVision(team) {
+      const out = [];
+      (Combat.visionSources || []).forEach((fn) => { const l = fn(team); if (l) out.push(...l); });
+      return out;
+    }
+    function inExtraVision(team, x, z, pad) { return extraVision(team).some((s) => Math.hypot(x - s.x, z - s.z) <= s.r + (pad || 0)); }
     // faint tether to the guarded ally while he's screening them
     function updateGuardTether(g, visible) {
       const show = visible && !!g.guardAlly && (g.guardStacks || 0) > 0;
@@ -2543,7 +2587,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         }
         if ((hero.stealthTimer || 0) > 0 || (hero.unseenLingerTimer || 0) > 0) {
           pantherUnseen = true;
-          spdPct += 0.28;
+          spdPct += unitTalent(hero, 3) === 'R' ? 0.38 : 0.28; // Panther 3R Silent Paws
         }
       }
 
@@ -2610,11 +2654,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       if (!u || targetObj.kind === 'structure' || targetObj.kind === 'deployable') return;
       // every CC type goes through the shared module (js/cc.js); fear runs from / taunt walks at the caster
       CC.apply(u, opts, casterBot ? { x: casterBot.x, z: casterBot.z, unit: casterBot } : null);
-      if (opts.bleedAdd > 0 && u !== hero) {
-        u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
-        u.bleedTimer = 5.5;
-        u.bleedBy = casterBot || null; // the ticks scale with (and are credited to) whoever applied the bleed
-      }
+      if (opts.bleedAdd > 0 && u !== hero) addBleed(u, opts.bleedAdd, casterBot || null);
       if (opts.knockbackDist > 0 && !CC.immuneOf(u)) {
         const kl = Math.hypot(opts.knockbackDirX || 0, opts.knockbackDirZ || 0) || 1;
         const kDur = opts.knockbackDur || 0.25;
@@ -2810,11 +2850,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
       }
 
       // Bleed Stacks (Coyote Passive)
-      if (opts.bleedAdd && targetObj.kind !== 'structure') {
-        u.bleedStacks = Math.min(st.maxBleed, (u.bleedStacks || 0) + opts.bleedAdd);
-        u.bleedTimer = 5.5;
-        u.bleedBy = hero;
-      }
+      if (opts.bleedAdd && targetObj.kind !== 'structure') addBleed(u, opts.bleedAdd, hero);
 
       // Ability slow
       if (opts.slowDur && targetObj.kind !== 'structure') {
@@ -3465,7 +3501,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
 
       spawnShockRing(x, z, b.team === 0 ? 0x38bdf8 : 0xf43f5e, 0.8, radius, 0.35);
       spawnFloat(x, 2.8, z, b.name + ': WELCOME TO THE PIT!', '#fb7185');
-      botArenas.push({ x, z, r: radius, life: dur, group, wall, team: b.team, casterBot: b, insideMap });
+      botArenas.push({ x, z, r: radius, r0: radius, life: dur, dur, group, wall, team: b.team, casterBot: b, insideMap });
     }
 
 
@@ -3679,10 +3715,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         if (opts.tauntDur && opts.tauntDur > 0 && u !== hero) {
           u.tauntTimer = Math.max(u.tauntTimer || 0, CC.dur(u, opts.tauntDur));
         }
-        if (opts.bleedAdd && opts.bleedAdd > 0 && u !== hero) {
-          u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + opts.bleedAdd);
-          u.bleedTimer = 5.5;
-        }
+        if (opts.bleedAdd && opts.bleedAdd > 0 && u !== hero) addBleed(u, opts.bleedAdd, opts.fromBot || null);
         if (opts.kbDist && opts.kbDist > 0 && opts.fromBot && !CC.immuneOf(u)) {
           let kx = u.x - opts.fromBot.x;
           let kz = u.z - opts.fromBot.z;
@@ -3714,17 +3747,18 @@ window.MOBA_PHASE1_ENGINE = (function () {
         m.zoneDisc.scale.setScalar(m.curR);
         m.tickTimer -= dt;
         const cb = m.casterBot;
+        const heavy = cb && unitTalent(cb, 3) === 'R' ? 0.45 : undefined; // Sorceress 3R Heavy Gravity
         if (m.tickTimer <= 0 && cb) {
           m.tickTimer = 0.50;
           spawnShockRing(m.x, m.z, 0xd946ef, m.curR * 0.35, m.curR, 0.24);
           if (cb.team === 1 && playerProg.respawnTimer <= 0 && Math.hypot(hero.x - m.x, hero.z - m.z) <= m.curR + (hero.r || 0.52)) {
             applyBotDamageToTarget({ kind: 'player', ref: hero }, m.pulseDmg, cb, 'fantasy', null, true, Combat.hitInfo(cb, { isDoT: true, aoe: true, castId: m.castId })); // zone pulse = damage over time (doesn't wake sleepers)
-            applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: 0.65 });
+            applyBotCcAndEffects({ kind: 'player', ref: hero }, { slowDur: 0.65, slowPct: heavy });
           }
           bots.forEach((ob) => {
             if (ob.team !== cb.team && ob.respawnTimer <= 0 && Math.hypot(ob.x - m.x, ob.z - m.z) <= m.curR + ob.r) {
               applyBotDamageToTarget({ kind: 'bot', ref: ob }, m.pulseDmg, cb, 'fantasy', null, true, Combat.hitInfo(cb, { isDoT: true, aoe: true, castId: m.castId })); // zone pulse = damage over time (doesn't wake sleepers)
-              applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: 0.65 });
+              applyBotCcAndEffects({ kind: 'bot', ref: ob }, { slowDur: 0.65, slowPct: heavy });
             }
           });
           minions.forEach((em) => {
@@ -3758,6 +3792,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
             });
           }
           if (m.collapseDmg > 0) spawnFloat(m.x, 3.0, m.z, 'GRAVITY COLLAPSE!', '#fde047');
+          // Sorceress 10R Event Horizon (the kit's shared pull + stun)
+          if (cb && cb.respawnTimer <= 0 && unitTalent(cb, 10) === 'R' && window.MOBA_HEROES.sorcEventHorizon) window.MOBA_HEROES.sorcEventHorizon(m, botActor(cb));
           scene.remove(m.grp);
           botMonoliths.splice(i, 1);
         }
@@ -3769,6 +3805,11 @@ window.MOBA_PHASE1_ENGINE = (function () {
         ar.life -= dt;
         ar.wall.material.opacity = 0.16 + Math.sin(ar.life * 8) * 0.06;
         const cb = ar.casterBot;
+        // Brawler 7L Shrinking Ring: 30% smaller by the end
+        if (cb && ar.r0 && unitTalent(cb, 7) === 'L') {
+          ar.r = ar.r0 * (1 - 0.30 * THREE.MathUtils.clamp(1 - ar.life / ar.dur, 0, 1));
+          ar.group.scale.set(ar.r / ar.r0, 1, ar.r / ar.r0);
+        }
         const casterLeft = !cb || cb.respawnTimer > 0 || Math.hypot(cb.x - ar.x, cb.z - ar.z) > ar.r + 0.35;
         if (ar.life <= 0 || casterLeft) {
           if (cb) cb.arenaTimer = 0;
@@ -4347,7 +4388,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
           const isKitingStep = isHard && b.range > 4.0 && bestTarget && bestDist < 5.4;
           if (distGoal > 0.6 && CC.canMove(b) && b.atkAnimTimer <= 0 && b.leapTimer <= 0 && b.dashTimer <= 0 && (!bestTarget || bestDist > b.range + targetRad + 0.25 || lowHpRetreat || unsafeTowerDive || isKitingStep)) {
             isMoving = true;
-            const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : (b.heroType === 'panther' && (b.unseenLingerTimer || 0) > 0 ? 0.28 : 0));
+            const pnUnseen = b.heroType === 'panther' && (b.stealthTimer > 0 || (b.unseenLingerTimer || 0) > 0) && unitTalent(b, 3) === 'R' ? 0.10 : 0; // Panther 3R Silent Paws
+            const bonusSpd = (b.siphonBonus || 0) + (b.stealthTimer > 0 ? 0.32 : (b.heroType === 'panther' && (b.unseenLingerTimer || 0) > 0 ? 0.28 : 0)) + pnUnseen;
             const spdKit = window.MOBA_HEROES && window.MOBA_HEROES[b.heroType];
             const kitSpdMult = (spdKit && spdKit.botSpeedMult && kitBotReady(b.heroType)) ? spdKit.botSpeedMult(b) : 1;
             const spd = b.spd * (1 + bonusSpd) * CC.slowMult(b) * kitSpdMult;
@@ -4509,8 +4551,8 @@ window.MOBA_PHASE1_ENGINE = (function () {
         damageOrderHeroOrBot(u, dmg, dmgType, atkRef, isDoT, info);
       } else {
         const res = unitResist(u);
-        let mitigated = Math.max(1, Math.round(Combat.mitigate(dmg, res, info, u)));
-        if (targetObj.kind === 'bot') mitigated = keptDmg(Combat.preHit(u, mitigated, info)); // Redirect + talent saves
+        let mitigated = dmg > 0 ? Math.max(1, Math.round(Combat.mitigate(dmg, res, info, u))) : 0; // 0 = effects only (slow / bleed)
+        if (targetObj.kind === 'bot' && mitigated > 0) mitigated = keptDmg(Combat.preHit(u, mitigated, info)); // Redirect + talent saves
         u.hp -= targetObj.kind === 'bot' ? absorbShield(u, mitigated) : mitigated;
         Combat.emit('hit', { attacker: info.attacker, target: u, targetObj, raw: dmg, dealt: mitigated, info });
         if (u.hp <= 0) {
@@ -5213,10 +5255,7 @@ window.MOBA_PHASE1_ENGINE = (function () {
         const d = Math.hypot(dx, dz) || 0.01;
         if (d <= 0.55) {
           applyBotDamageToTarget(p.target, p.dmg, null, p.dmgType || 'physical', p.attackerObj || null);
-          if (p.extraOpts && p.extraOpts.bleedAdd && u !== hero && p.target.kind !== 'structure') {
-            u.bleedStacks = Math.min(5, (u.bleedStacks || 0) + p.extraOpts.bleedAdd);
-            u.bleedTimer = 5.5;
-          }
+          if (p.extraOpts && p.extraOpts.bleedAdd && u !== hero && p.target.kind !== 'structure') addBleed(u, p.extraOpts.bleedAdd, null);
           scene.remove(p.mesh);
           projectiles.splice(i, 1);
         } else {

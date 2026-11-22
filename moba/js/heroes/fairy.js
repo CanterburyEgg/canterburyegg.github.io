@@ -1,7 +1,7 @@
 // Little Fairy: Support • Ranged Enchanter (guardian angel + trickster). See DESIGN_RULES.md.
 // First playable pass: real model + clips, hover/lean/wings in code, stand-in versions of the designed kit
 // (Glimmer Dart, Pop! Bubble lob + Fairy Dust heal, 2-charge Pixie Hop, Lullaby Dreamdust ring that puts enemies to sleep).
-// Talents are placeholders until the roster-wide talent pass.
+// Talents: TALENTS_PLAN.md (L = Healer, R = Trickster). 7R Rude Awakening lives in cc.js (CC.wake); the rest are here.
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -17,6 +17,16 @@ const bubbles = [];      // in-flight Pop! bubbles { mesh, sx, sz, tx, tz, t, du
 let lullabyTimer = 0;    // the player's Lullaby (bots keep theirs on their unit as fairyLullaby)
 function lullabyOn(owner) { return owner ? (owner.unit.fairyLullaby || 0) > 0 : lullabyTimer > 0; }
 let wings = null;
+
+// ---- Talents ----
+const C = window.MOBA_COMBAT;
+const casterOf = (owner) => (owner ? owner.unit : hero);
+const FRESH = { dur: 1.0, mult: 2 };        // 3L Fresh Dust: a patch heals double for its first second
+const HUSH_SILENCE = 1.5;                   // 3R Hush
+const QUICK_POP = 1.6;                      // 7L Quick Pop: bubble flight speed
+const WINGS = { scale: 0.5, r: 1.8 };       // 10L Guardian Wings: mini bubble on a hopped ally
+const DECOY = { life: 3.0, hpPct: 0.15, dartPct: 0.30, range: 8.0, every: 0.86 }; // 10R Decoy
+const decoys = [];                          // { x, z, hp, maxHp, r, team, t, shootT, owner, mesh } (engine deployables)
 
 function makeWings() {
   const g = new THREE.Group();
@@ -114,7 +124,100 @@ function spawnDust(x, z, r, life, ring = false, owner = null, castId = KitFx.cas
   }
   grp.position.set(x, 0, z);
   scene.add(grp);
-  dustPatches.push({ grp, disc, x, z, r, t: life, life, dream: lullabyOn(owner), owner, castId });
+  const fresh = C.talentOf(casterOf(owner), 3) === 'L'; // 3L Fresh Dust
+  dustPatches.push({ grp, disc, x, z, r, t: life, life, dream: lullabyOn(owner), owner, castId, fresh });
+}
+
+// Pop! Bubble burst for any caster at (x, z): damage + slow to enemies, shield to allies (and her), then a dust patch.
+// scale < 1 = the 10L Guardian Wings mini bubble (smaller, weaker).
+function popBubble(owner, x, z, dmg, castId, scale) {
+  const k = scale || 1;
+  const R = 2.5 * (k < 1 ? WINGS.r / 2.5 : 1);
+  SFX.play('chime');
+  spawnShockRing(x, z, 0xa7f3d0, 0.3, R + 0.1, 0.3);
+  KitFx.hitArea(x, z, R, Math.round(dmg * k), { dmgType: 'fantasy', slowDur: 2.0, color: '#a7f3d0', by: owner || KitFx.player, castId });
+  // allies inside the pop (and the Fairy herself) get a shield (DESIGN_RULES: "allies inside get a shield")
+  const ca = owner || KitFx.player;
+  const caster = ca.unit;
+  const sh = H.fairy.dmg.bubbleShield(ca.stats(), ca.level()) * k;
+  const shieldUnit = (u) => {
+    if (!u || (u.hp !== undefined && u.hp <= 0)) return;
+    if (Math.hypot(u.x - x, u.z - z) > R + (u.r || 0.5) * 0.5) return;
+    u.shield = Math.max(u.shield || 0, MOBA_COMBAT.shieldAmount(u, sh, { healer: caster })); // (Wellspring: stronger on allies)
+    u.shieldTimer = 3.0;
+    spawnFloat(u.x, 2.6, u.z, 'BUBBLE SHIELD', '#a7f3d0');
+  };
+  shieldUnit(caster);
+  if (phase1Engine) ca.allies().forEach((a) => shieldUnit(a.ref));
+  spawnDust(x, z, R, 3.5, false, owner, castId);
+}
+
+// 10R Decoy: a glittering copy left where she hopped from. It throws Glimmer Darts at the nearest enemy, can be hit
+// (an engine deployable), and pops into Fairy Dust when it dies or runs out.
+function makeDecoyMesh() {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.24, 0.85, 10), new THREE.MeshBasicMaterial({ color: 0xbbf7d0, transparent: true, opacity: 0.45, depthWrite: false, blending: THREE.AdditiveBlending }));
+  body.position.y = 0.55 + HOVER;
+  g.add(body);
+  const w = makeWings();
+  scene.remove(w);
+  w.position.set(0, 0.85 + HOVER, -0.12);
+  g.add(w);
+  for (let i = 0; i < 8; i++) {
+    const s = new THREE.Mesh(new THREE.OctahedronGeometry(0.05, 0), new THREE.MeshBasicMaterial({ color: 0xfef9c3 }));
+    s.userData.sparkle = true; s.userData.phase = i;
+    g.add(s);
+  }
+  scene.add(g);
+  return g;
+}
+function spawnDecoy(owner, x, z) {
+  const u = casterOf(owner);
+  const mhp = Math.round((u.maxHp || 1000) * DECOY.hpPct);
+  const d = {
+    id: 'fairy_decoy_' + Math.random().toString(36).slice(2, 7), x, z, hp: mhp, maxHp: mhp, armor: 0, r: 0.5,
+    team: owner ? owner.team : 0, t: DECOY.life, shootT: 0.25, owner, facing: u.facing || 0, mesh: makeDecoyMesh(),
+    onDestroyed: () => popDecoy(d, true)
+  };
+  d.mesh.position.set(x, 0, z);
+  decoys.push(d);
+  if (phase1Engine && phase1Engine.addDeployable) phase1Engine.addDeployable(d);
+  spawnFloat(x, 2.6, z, 'DECOY', '#bbf7d0');
+  return d;
+}
+function popDecoy(d, killed) {
+  const i = decoys.indexOf(d);
+  if (i < 0) return;
+  decoys.splice(i, 1);
+  if (!killed && phase1Engine && phase1Engine.removeDeployable) phase1Engine.removeDeployable(d);
+  scene.remove(d.mesh);
+  spawnShockRing(d.x, d.z, 0xfef9c3, 0.2, 1.4, 0.3);
+  spawnDust(d.x, d.z, 2.5, 3.5, false, d.owner); // Dreamdust during Lullaby (spawnDust checks)
+}
+function stepDecoys(dt) {
+  for (let i = decoys.length - 1; i >= 0; i--) {
+    const d = decoys[i];
+    d.t -= dt;
+    if (d.t <= 0 || d.hp <= 0) { popDecoy(d, d.hp <= 0); continue; }
+    d.mesh.children.forEach((c) => { if (c.userData.sparkle) c.position.set(Math.cos(KitFx.time * 3 + c.userData.phase) * 0.45, 0.6 + HOVER + Math.sin(KitFx.time * 4 + c.userData.phase) * 0.35, Math.sin(KitFx.time * 3 + c.userData.phase) * 0.45); });
+    d.mesh.position.y = Math.sin(KitFx.time * 3) * 0.06;
+    d.shootT -= dt;
+    if (d.shootT > 0 || !phase1Engine) continue;
+    const actor = d.owner || KitFx.player;
+    let best = null, bestD = DECOY.range;
+    actor.hostiles().forEach((t) => {
+      if (t.kind === 'structure') return;
+      const dd = Math.hypot(t.x - d.x, t.z - d.z);
+      if (dd < bestD) { bestD = dd; best = t; }
+    });
+    if (!best) continue;
+    d.shootT = DECOY.every;
+    d.facing = Math.atan2(best.x - d.x, best.z - d.z);
+    d.mesh.rotation.y = d.facing;
+    const dmg = Math.round(H.fairy.dmg.dart(actor.stats()) * DECOY.dartPct);
+    const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.1, 0), new THREE.MeshBasicMaterial({ color: 0xbbf7d0 }));
+    KitFx.spawnBolt(d.facing, dmg, { mesh: m, speed: 12.5, life: 0.75, y: 1.3 + HOVER, dmgType: 'physical', by: actor, fromX: d.x, fromZ: d.z, isBasic: false, src: 'attack' });
+  }
 }
 
 // Hover, bank/lean and the limb flutter, shared by the player's Fairy and bot Fairies.
@@ -222,9 +325,18 @@ H.fairy = {
   },
 
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Fresh Dust', desc: 'Each Fairy Dust patch heals double for its first second.' },
+      R: { id: '3R', name: 'Hush', desc: 'Pixie Hop\'s silence on an enemy lasts 1.5s (was 1s).' }
+    },
+    7: {
+      L: { id: '7L', name: 'Quick Pop', desc: 'Pop! Bubble flies 60% faster.' },
+      R: { id: '7R', name: 'Rude Awakening', desc: 'Enemies woken from your sleep by damage are silenced for 1s.' }
+    },
+    10: {
+      L: { id: '10L', name: 'Guardian Wings', desc: 'Hopping to an ally drops a quick mini bubble on them: it pops at once at 50% strength (damage, slow, shield, a smaller dust patch).' },
+      R: { id: '10R', name: 'Decoy', desc: 'Each hop leaves a glittering copy of you for 3s that throws Glimmer Darts (30% damage) and can be hit; when it dies or runs out it pops into Fairy Dust (Dreamdust during Lullaby).' }
+    }
   },
 
   ui: {
@@ -316,7 +428,7 @@ H.fairy = {
       scene.add(mesh);
       bubbles.push({
         mesh, sx: hero.x, sz: hero.z, tx: hero.x + Math.sin(ang) * dist, tz: hero.z + Math.cos(ang) * dist,
-        delay: 0.34, t: 0, dur: 0.6, dmg: H.fairy.dmg.bubble(st, pProg.level, rQE), owner, castId: KitFx.castId()
+        delay: 0.34, t: 0, dur: 0.6 / (KitFx.tal(ctx, 7, 'L') ? QUICK_POP : 1), dmg: H.fairy.dmg.bubble(st, pProg.level, rQE), owner, castId: KitFx.castId() // (7L Quick Pop)
       });
     } else if (slot === 'E') {
       if (!wtfMode && KitFx.charges.count(hero, 'hop', HOP_MAX) <= 0) return;
@@ -334,6 +446,7 @@ H.fairy = {
       }
       if (!trySpendMana('E')) return;
       if (!wtfMode) KitFx.charges.use(hero, 'hop', HOP_MAX, HOP_CHARGE_CD * cdrMult, target.unit ? target.unit.ref : (target.dummy || null));
+      if (KitFx.tal(ctx, 10, 'R')) spawnDecoy(owner, hero.x, hero.z); // 10R Decoy: left where she hopped from
       spawnShockRing(hero.x, hero.z, 0x86efac, 0.2, 1.3, 0.25);
       const ang = Math.atan2(target.x - hero.x, target.z - hero.z);
       hero.x = target.x - Math.sin(ang) * 1.1;
@@ -344,14 +457,19 @@ H.fairy = {
       SFX.play('dash');
       if (target.enemy) {
         const dmg = H.fairy.dmg.hop(st, pProg.level);
-        // enemy: minor Ability damage + a real 1s silence (can move and attack, can't cast)
+        const silence = KitFx.tal(ctx, 3, 'R') ? HUSH_SILENCE : HOP_SILENCE; // 3R Hush
+        // enemy: minor Ability damage + a real silence (can move and attack, can't cast)
         if (target.dummy) {
           damageDummy(target.dummy, dmg, '#86efac');
-          CC.apply(target.dummy, { silenceDur: HOP_SILENCE }, { x: hero.x, z: hero.z, unit: hero });
+          CC.apply(target.dummy, { silenceDur: silence }, { x: hero.x, z: hero.z, unit: hero });
         } else if (target.unit && phase1Engine) {
-          actor.damage(target.unit, dmg, { dmgType: 'fantasy', src: 'ability', silenceDur: HOP_SILENCE, color: '#86efac' });
+          actor.damage(target.unit, dmg, { dmgType: 'fantasy', src: 'ability', silenceDur: silence, color: '#86efac' });
         }
         spawnFloat(target.x, 2.6, target.z, 'HUSH!', '#86efac');
+      } else if (KitFx.tal(ctx, 10, 'L')) {
+        // 10L Guardian Wings: a quick mini bubble pops on the ally she hopped to
+        popBubble(owner, target.x, target.z, H.fairy.dmg.bubble(st, pProg.level, rQE), KitFx.castId(), WINGS.scale);
+        spawnFloat(target.x, 2.9, target.z, 'GUARDIAN WINGS', '#a7f3d0');
       }
     } else if (slot === 'R') {
       if (!wtfMode && pProg.level < 4) {
@@ -423,25 +541,10 @@ H.fairy = {
       if (u >= 1) {
         scene.remove(b.mesh);
         bubbles.splice(bi, 1);
-        SFX.play('chime');
-        spawnShockRing(b.tx, b.tz, 0xa7f3d0, 0.3, 2.6, 0.3);
-        KitFx.hitArea(b.tx, b.tz, 2.5, b.dmg, { dmgType: 'fantasy', slowDur: 2.0, color: '#a7f3d0', by: b.owner || KitFx.player, castId: b.castId });
-        // allies inside the pop (and the Fairy herself) get a shield (DESIGN_RULES: "allies inside get a shield")
-        const ca = b.owner || KitFx.player;
-        const caster = ca.unit;
-        const sh = H.fairy.dmg.bubbleShield(ca.stats(), ca.level());
-        const shieldUnit = (u) => {
-          if (!u || (u.hp !== undefined && u.hp <= 0)) return;
-          if (Math.hypot(u.x - b.tx, u.z - b.tz) > 2.5 + (u.r || 0.5) * 0.5) return;
-          u.shield = Math.max(u.shield || 0, MOBA_COMBAT.shieldAmount(u, sh, { healer: caster })); // (Wellspring: stronger on allies)
-          u.shieldTimer = 3.0;
-          spawnFloat(u.x, 2.6, u.z, 'BUBBLE SHIELD', '#a7f3d0');
-        };
-        shieldUnit(caster);
-        if (phase1Engine) ca.allies().forEach((a) => shieldUnit(a.ref));
-        spawnDust(b.tx, b.tz, 2.5, 3.5, false, b.owner, b.castId);
+        popBubble(b.owner, b.tx, b.tz, b.dmg, b.castId, 1);
       }
     }
+    stepDecoys(dt);
     for (let i = dustPatches.length - 1; i >= 0; i--) {
       const p = dustPatches[i];
       p.t -= dt;
@@ -452,7 +555,8 @@ H.fairy = {
       // Heal the Fairy and her allies standing inside (her own team's, whoever cast it); scales with the caster's Ability
       const po = p.owner;
       const pa = po || KitFx.player;
-      const heal = H.fairy.dmg.dustHealPerSec(pa.stats(), pa.level()) * dt;
+      const fresh = p.fresh && p.life - p.t <= FRESH.dur ? FRESH.mult : 1; // 3L Fresh Dust: double for the first second
+      const heal = H.fairy.dmg.dustHealPerSec(pa.stats(), pa.level()) * dt * fresh;
       if (!po && activeHeroId === 'fairy' && Math.hypot(hero.x - p.x, hero.z - p.z) <= p.r) {
         MOBA_COMBAT.heal(hero, heal, { healer: hero });
       }
@@ -530,7 +634,11 @@ H.fairy = {
 
   onSwitchedAway() {
     if (wings) wings.visible = false;
+    for (let i = decoys.length - 1; i >= 0; i--) if (!decoys[i].owner) popDecoy(decoys[i], false);
   },
+  devDecoys() { return decoys; }, // (talent test)
+  devBubbles() { return bubbles; },
+  devDust() { return dustPatches; },
 
   hudTag() {
     const n = KitFx.charges.count(hero, 'hop', HOP_MAX);

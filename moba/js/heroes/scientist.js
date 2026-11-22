@@ -2,7 +2,7 @@
 // First playable pass: real model + clips + saw gun prop, stand-in versions of the designed kit
 // (stab LMB, Rev the Saw toggle channel, Adrenal Injection, Boomerang Blade out-and-back with a pull).
 // Saw Fuel (spec.resource) replaces mana: the player's lives in hero.mp (so the HUD bar / costs work), a bot's in b.fuel.
-// Talents are placeholders until the talent pass.
+// Talents: TALENTS_PLAN.md (all six in this file).
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -22,6 +22,18 @@ let _hv = null;
 // Fills when he takes damage (1 fuel per 1% of max HP lost, his own injection included) and refills slowly while the
 // saw is off; the saw drains while it runs (no start cost); R costs 40.
 const FUEL = { max: 100, drain: 9, refill: 4, perHpPct: 1.0 };
+// Talents
+const C = window.MOBA_COMBAT;
+const tal = (u, tier) => C.talentOf(u, tier);
+const OVERCLOCK_DRAIN = 1.3;    // 3L: fuel drain while the saw runs (and no saw slow)
+const HANG_TIME = 0.5;          // 3R: hover at the far point
+const HANG_SLOW = { dur: 1.5, pct: 0.35 };
+const FRESH_FUEL = 2;           // 7L: fuel per saw hit on a hero
+const SHOCK = { r: 4.0, dur: 1.5, pct: 0.30 }; // 7R: injection pulse
+const RAMP = { step: 0.08, max: 0.60, gap: 0.6 }; // 10L: +8% per tick on the same target (forgotten after a missed tick)
+const RETHROW = { window: 3.0, dmg: 0.75 };      // 10R
+const drainOf = (u) => FUEL.drain * (tal(u, 3) === 'L' ? OVERCLOCK_DRAIN : 1);
+const sawSlowOf = (u) => (u.sawOn && tal(u, 3) !== 'L' ? 0.75 : 1);
 const fuelOf = (u) => (u.fuel === undefined ? FUEL.max : u.fuel);
 function addFuel(h, amt) { h.mp = Math.min(h.maxMp || FUEL.max, (h.mp || 0) + amt); }
 // damage taken since last frame (heals and respawns don't count)
@@ -35,7 +47,7 @@ function fuelTick(h, dt) {
   const lost = hpLost(h);
   if (lost > 0) addFuel(h, (lost / Math.max(1, h.maxHp)) * 100 * FUEL.perHpPct);
   if (wtfMode) return;
-  if (h.sawOn) h.mp = Math.max(0, (h.mp || 0) - FUEL.drain * dt);
+  if (h.sawOn) h.mp = Math.max(0, (h.mp || 0) - drainOf(h) * dt);
   else addFuel(h, FUEL.refill * dt);
 }
 // bots: fuel lives in b.fuel (bots have no mana)
@@ -44,8 +56,70 @@ function botFuelTick(u, dt) {
   let f = fuelOf(u);
   const lost = hpLost(u);
   if (lost > 0) f += (lost / Math.max(1, u.maxHp)) * 100 * FUEL.perHpPct;
-  f += (u.sawOn ? -FUEL.drain : FUEL.refill) * dt;
+  f += (u.sawOn ? -drainOf(u) : FUEL.refill) * dt;
   u.fuel = Math.max(0, Math.min(FUEL.max, f));
+}
+function refuel(u, amt) {
+  if (u === hero) addFuel(hero, amt);
+  else u.fuel = Math.min(FUEL.max, fuelOf(u) + amt);
+}
+
+// 7L Fresh Fuel + 10L Butcher's Ramp read the saw's hits (saw ticks carry the saw's castId)
+const isSawHit = (e) => !!e.attacker && !!e.attacker.sawOn && !!e.info.castId && e.info.castId === e.attacker.sawCastId;
+C.on('hit', (e) => {
+  if (!isSawHit(e)) return;
+  const a = e.attacker;
+  if (tal(a, 7) === 'L' && C.isHero(e.target)) refuel(a, FRESH_FUEL);
+  if (tal(a, 10) === 'L') {
+    const m = a.scRamp || (a.scRamp = new Map());
+    const r = m.get(e.target);
+    const fresh = !r || KitFx.time - r.t > RAMP.gap;
+    m.set(e.target, { n: fresh ? 1 : r.n + 1, t: KitFx.time });
+  }
+});
+// the ramp bonus for the next tick on a target (ticks so far on it x 8%, max 60%)
+function rampOf(a, target) {
+  const r = a.scRamp && a.scRamp.get(target);
+  if (!r || KitFx.time - r.t > RAMP.gap) return 0;
+  return Math.min(RAMP.max, r.n * RAMP.step);
+}
+C.damageMults.push((info, target, attacker) => {
+  if (!attacker || !attacker.sawOn || !info || !info.castId || info.castId !== attacker.sawCastId || tal(attacker, 10) !== 'L') return 1;
+  return 1 + rampOf(attacker, target);
+});
+
+// 7R Shock Dose: the injection pulse (any caster)
+function shockPulse(actor) {
+  const u = actor.unit;
+  KitFx.hitArea(u.x, u.z, SHOCK.r, 0, { slowDur: SHOCK.dur, slowPct: SHOCK.pct, color: '#4ade80', by: actor });
+  spawnShockRing(u.x, u.z, 0x86efac, 0.3, SHOCK.r, 0.3);
+}
+
+// R Boomerang Blade throw for any caster (second = the 10R free re-throw at 75% damage)
+function makeThrow(actor, ctx, second) {
+  const u = actor.unit;
+  const lvl = (ctx.pProg && ctx.pProg.level) || 1;
+  const mesh = makeBladeMesh();
+  mesh.visible = false;
+  scene.add(mesh);
+  if (second) spawnFloat(u.x, 2.7, u.z, 'SECOND THROW!', '#4ade80');
+  u.scRethrowUntil = 0;
+  return {
+    delay: 0.24, // release frame of the throw (clip 0.93s)
+    mesh, out: true, t: 0, sx: u.x, sz: u.z, ang: u.facing, range: 11, spd: 16,
+    hitOut: new Set(), hitHover: new Set(), hitBack: new Set(),
+    dmg: Math.round(H.scientist.dmg.blade(ctx.st, lvl, KitFx.rUlt(lvl)) * (second ? RETHROW.dmg : 1)),
+    castId: KitFx.castId(),
+    hang: KitFx.tal(ctx, 3, 'R') ? HANG_TIME : 0,             // 3R Hang Time
+    canRethrow: !second && KitFx.tal(ctx, 10, 'R'),           // 10R Second Throw (not after the second one)
+    second: !!second
+  };
+}
+// the blade came back: open the 10R re-throw window
+function bladeBack(u, b) {
+  if (!b.canRethrow) return;
+  u.scRethrowUntil = KitFx.time + RETHROW.window;
+  spawnFloat(u.x, 2.7, u.z, 'SECOND THROW READY', '#4ade80');
 }
 
 function makeBladeMesh() {
@@ -105,10 +179,20 @@ H.scientist = {
     resource: { name: 'FUEL', max: 100, colors: ['#c2410c', '#fb923c'] }
   },
 
+  // TALENTS_PLAN.md: L = Butcher, R = Wrangler. All six live in this file.
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Overclock', desc: 'The saw no longer slows you while it runs, but drains 30% more fuel.' },
+      R: { id: '3R', name: 'Hang Time', desc: 'The Boomerang Blade hovers at its farthest point for 0.5s before coming back, slowing anyone it touches.' }
+    },
+    7: {
+      L: { id: '7L', name: 'Fresh Fuel', desc: 'Each saw hit on an enemy hero refunds 2 fuel.' },
+      R: { id: '7R', name: 'Shock Dose', desc: 'Adrenal Injection releases a pulse that slows enemies within 4m by 30% for 1.5s.' }
+    },
+    10: {
+      L: { id: '10L', name: "Butcher's Ramp", desc: 'Each saw tick on the same target deals 8% more, up to +60%. Resets when the saw stops hitting them.' },
+      R: { id: '10R', name: 'Second Throw', desc: 'After the Boomerang Blade returns, throw it once more within 3s for free. The second throw deals 75% damage.' }
+    }
   },
 
   ui: {
@@ -142,7 +226,7 @@ H.scientist = {
     return hero.sawOn ? { idle: 'idle', move: 'crawl' } : null;
   },
   speedMult() {
-    return hero.sawOn ? 0.75 : 1;
+    return sawSlowOf(hero); // 3L Overclock: no saw slow
   },
 
   onBasicAttack(st) {
@@ -202,27 +286,24 @@ H.scientist = {
       hero.cdE = wtfMode ? 0.3 : 10 * cdrMult;
       hero.kickAnim = 0.65;
       if (actions.kick) fadeToAction(actions.kick, 0.06, true, 2.2, 0.6); // bottle reaches his mouth at clip 1.73s -> ~0.5s
-      hero.pendingInject = { t: 0.5, rQE };
+      hero.pendingInject = { t: 0.5, rQE, shock: KitFx.tal(ctx, 7, 'R') };
     } else if (slot === 'R') {
-      if (!wtfMode && pProg.level < 4) {
-        spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
-        return;
+      // 10R Second Throw: a free re-throw (no fuel, no cooldown) within 3s of the blade coming back
+      const rethrow = !blade && (hero.scRethrowUntil || 0) > KitFx.time;
+      if (!rethrow) {
+        if (!wtfMode && pProg.level < 4) {
+          spawnFloat(hero.x, 2.6, hero.z, 'ULTIMATE UNLOCKS AT LEVEL 4!', '#fb7185');
+          return;
+        }
+        if (!wtfMode && hero.cdR > 0) return;
+        if (blade) return;
+        if (!trySpendMana('R')) return;
+        hero.cdR = wtfMode ? 0.5 : 40 * (ctx.ultCdrMult || cdrMult);
       }
-      if (!wtfMode && hero.cdR > 0) return;
-      if (blade) return;
-      if (!trySpendMana('R')) return;
-      hero.cdR = wtfMode ? 0.5 : 40 * (ctx.ultCdrMult || cdrMult);
       hero.sawOn = false;
       hero.kickAnim = 0.45;
       if (actions.slide) fadeToAction(actions.slide, 0.06, true, 1.8, 0.5);
-      const mesh = makeBladeMesh();
-      mesh.visible = false;
-      scene.add(mesh);
-      blade = {
-        delay: 0.24, // release frame of the throw (clip 0.93s)
-        mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
-        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1)), castId: KitFx.castId()
-      };
+      blade = makeThrow(KitFx.player, ctx, rethrow);
       SFX.play('dash');
     }
   },
@@ -232,8 +313,10 @@ H.scientist = {
       hero.pendingInject.t -= dt;
       if (hero.pendingInject.t <= 0) {
         const rQE = hero.pendingInject.rQE;
+        const shock = hero.pendingInject.shock;
         hero.pendingInject = null;
         if (activeHeroId === 'scientist') {
+          if (shock) shockPulse(KitFx.player);
           const cost = Math.round(hero.hp * 0.06);
           hero.hp = Math.max(1, hero.hp - cost);
           spawnFloat(hero.x, 2.4, hero.z, '-' + cost, '#fb7185');
@@ -291,22 +374,19 @@ H.scientist = {
       hero.cdE = 10 * (ctx.cdrMult || 1);
       hero.kickAnim = 0.65;
       actor.play('kick', 0.06, true, 2.2, 0.6, 0.65);
-      hero.pendingInject = { t: 0.5, rQE };
+      hero.pendingInject = { t: 0.5, rQE, shock: KitFx.tal(ctx, 7, 'R') };
     } else if (slot === 'R') {
-      if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade || fuelOf(hero) < H.scientist.spec.mpCosts.R) return;
-      hero.fuel = fuelOf(hero) - H.scientist.spec.mpCosts.R;
-      hero.cdR = 40 * (ctx.ultCdrMult || ctx.cdrMult || 1);
+      const rethrow = !hero.scBlade && (hero.scRethrowUntil || 0) > KitFx.time; // 10R Second Throw
+      if (!rethrow) {
+        if (pProg.level < 4 || hero.cdR > 0 || hero.scBlade || fuelOf(hero) < H.scientist.spec.mpCosts.R) return;
+        hero.fuel = fuelOf(hero) - H.scientist.spec.mpCosts.R;
+        hero.cdR = 40 * (ctx.ultCdrMult || ctx.cdrMult || 1);
+      }
       hero.sawOn = false;
       hero.kickAnim = 0.45;
       actor.play('slide', 0.06, true, 1.8, 0.5, 0.45);
-      const mesh = makeBladeMesh();
-      mesh.visible = false;
-      scene.add(mesh);
-      const b = {
-        delay: 0.24, mesh, out: true, t: 0, sx: hero.x, sz: hero.z, ang: hero.facing, range: 11, spd: 16,
-        hitOut: new Set(), hitBack: new Set(), dmg: H.scientist.dmg.blade(st, pProg.level, KitFx.rUlt(pProg.level || 1)), castId: KitFx.castId(),
-        owner: actor
-      };
+      const b = makeThrow(actor, ctx, rethrow);
+      b.owner = actor;
       hero.scBlade = b;
       botBlades.push(b);
       SFX.play('dash');
@@ -327,6 +407,7 @@ H.scientist = {
     }
     if (u.pendingInject && (u.pendingInject.t -= dt) <= 0) {
       const rQE = u.pendingInject.rQE;
+      if (u.pendingInject.shock) shockPulse(actor);
       u.pendingInject = null;
       const cost = Math.round(u.hp * 0.06);
       u.hp = Math.max(1, u.hp - cost);
@@ -342,6 +423,11 @@ H.scientist = {
       MOBA_COMBAT.heal(u, (u.injectHealPerSec || 0) * dt);
     }
     botFuelTick(u, dt);
+    // 10R Second Throw: a bot takes the free re-throw right away if its target is still in reach
+    if ((u.scRethrowUntil || 0) > KitFx.time && !u.scBlade && !CC.helpless(u)) {
+      const t = u.aimTarget && u.aimTarget.ref;
+      if (t && (t.hp === undefined || t.hp > 0) && Math.hypot(t.x - u.x, t.z - u.z) <= 11) this.botCast(actor, 'R', KitFx.castCtx(actor));
+    }
     if (u.sawOn && ((u.sawT || 0) > 6 || fuelOf(u) <= 0)) { u.sawOn = false; u.cdQ = 1.0; } // out of fuel (or the 6s safety cap)
     if (u.sawOn) {
       u.sawT = (u.sawT || 0) + dt;
@@ -360,7 +446,7 @@ H.scientist = {
 
   // Bots: revved saw = 25% slower, injection = +25% burst (the engine multiplies bot speed by this)
   botSpeedMult(b) {
-    return (b.sawOn ? 0.75 : 1) * ((b.eSpeedBuffTimer || 0) > 0 ? 1.25 : 1);
+    return sawSlowOf(b) * ((b.eSpeedBuffTimer || 0) > 0 ? 1.25 : 1);
   },
 
   // Bots: the saw gun in the right hand, its blade hidden while the boomerang is out
@@ -405,10 +491,10 @@ H.scientist = {
     // bots' boomerang blades
     for (let i = botBlades.length - 1; i >= 0; i--) {
       const b = botBlades[i];
-      if (this.stepBlade(b, dt, b.owner)) { botBlades.splice(i, 1); b.owner.unit.scBlade = null; }
+      if (this.stepBlade(b, dt, b.owner)) { botBlades.splice(i, 1); b.owner.unit.scBlade = null; bladeBack(b.owner.unit, b); }
     }
     if (!blade) return;
-    if (this.stepBlade(blade, dt, KitFx.player)) blade = null;
+    if (this.stepBlade(blade, dt, KitFx.player)) { bladeBack(hero, blade); blade = null; }
   },
 
   // One boomerang blade step for any caster; returns true when it's back (done)
@@ -423,10 +509,19 @@ H.scientist = {
     b.t += dt;
     const sx = Math.sin(b.ang), sz = Math.cos(b.ang);
     let x, z;
-    if (b.out) {
+    if (b.hovering > 0) {
+      // 3R Hang Time: parked at the far point, slowing whoever it touches
+      b.hovering -= dt;
+      x = b.turnX; z = b.turnZ;
+      if (b.hovering <= 0) { b.out = false; b.t = 0; }
+    } else if (b.out) {
       const d = Math.min(b.range, b.t * b.spd);
       x = b.sx + sx * d; z = b.sz + sz * d;
-      if (d >= b.range) { b.out = false; b.t = 0; b.turnX = x; b.turnZ = z; }
+      if (d >= b.range) {
+        b.turnX = x; b.turnZ = z;
+        if (b.hang > 0) b.hovering = b.hang;
+        else { b.out = false; b.t = 0; }
+      }
     } else {
       // return toward the scientist's current position
       const tx = hero.x, tz = hero.z;
@@ -441,12 +536,14 @@ H.scientist = {
     }
     b.mesh.position.set(x, 1.2, z);
     b.mesh.rotation.y += dt * 22;
-    // hits: once per target per leg (out: slow; back: pull toward him)
-    const set = b.out ? b.hitOut : b.hitBack;
+    // hits: once per target per leg (out: slow; hover: slow only; back: pull toward him)
+    const hover = b.hovering > 0;
+    const set = hover ? b.hitHover : (b.out ? b.hitOut : b.hitBack);
     const hitOne = (key, fn) => { if (!set.has(key)) { set.add(key); fn(); } };
     if (actor.isPlayer) dummies.forEach((d) => {
       if (d.isShooter && !shooterEnabled) return;
       if (Math.hypot(d.x - x, d.z - z) <= 0.9 + d.r) hitOne('d' + d.id, () => {
+        if (hover) { CC.slow(d, HANG_SLOW.dur, HANG_SLOW.pct); return; }
         damageDummy(d, b.dmg, '#4ade80');
         if (b.out) d.slowTimer = Math.max(d.slowTimer || 0, 1.5);
         else KitFx.knockDummy(d, hero.x - d.x, hero.z - d.z, Math.min(4, Math.hypot(hero.x - d.x, hero.z - d.z) - 1.2));
@@ -456,6 +553,7 @@ H.scientist = {
       actor.hostiles().forEach((t, j) => {
         if (t.kind === 'structure') return;
         if (Math.hypot(t.x - x, t.z - z) <= 0.9 + (t.r || 0.5)) hitOne(t.kind + (t.ref && t.ref.id || j), () => {
+          if (hover) { actor.damage(t, 0, { slowDur: HANG_SLOW.dur, slowPct: HANG_SLOW.pct, castId: b.castId }); return; }
           const opts = { dmgType: 'physical', color: '#4ade80', castId: b.castId };
           if (b.out) opts.slowDur = 1.5;
           else {
@@ -543,6 +641,9 @@ H.scientist = {
 
   hudTag() { return hero.sawOn ? ' [SAW]' : ''; },
   passivePip() { return ''; },
-  qEmpowered() { return !!hero.sawOn; }
+  qEmpowered() { return !!hero.sawOn; },
+  // R glows while the 10R free re-throw is up
+  rEmpowered() { return !blade && (hero.scRethrowUntil || 0) > KitFx.time; },
+  devBlade() { return blade; } // (talent test)
 };
 })();

@@ -35,7 +35,7 @@
         u.knockupDur = Math.max(u.knockupTimer, u.knockupDur || 0);
         u.stunTimer = max(u.stunTimer, opts.knockupDur);
       }
-      if (opts.sleepDur > 0) { u.sleepTimer = max(u.sleepTimer, CC.dur(u, opts.sleepDur)); u.sleepGrace = 0.1; }
+      if (opts.sleepDur > 0) { u.sleepTimer = max(u.sleepTimer, CC.dur(u, opts.sleepDur)); u.sleepGrace = 0.1; u.sleepBy = (src && src.unit) || null; }
       if (opts.fearDur > 0 && src) {
         u.fearTimer = max(u.fearTimer, CC.dur(u, opts.fearDur));
         u.fearFromX = src.x; u.fearFromZ = src.z;
@@ -59,8 +59,20 @@
     FEAR_SPEED: 0.6,
     // move-speed multiplier from slows (defPct = this unit type's standard slow when none was given)
     slowMult(u, defPct = 0.32) {
-      if (!u || !(u.slowTimer > 0)) return 1;
-      return 1 - (u.slowPct > 0 ? u.slowPct : defPct);
+      if (!u) return 1;
+      let extra = 1 - CC.bleedSlow(u);
+      for (let i = 0; i < CC.slowSources.length; i++) extra *= 1 - (CC.slowSources[i](u) || 0);
+      if (!(u.slowTimer > 0)) return extra;
+      return (1 - (u.slowPct > 0 ? u.slowPct : defPct)) * extra;
+    },
+    // kit slows that last as long as some state does (Sorceress 7R Gravity Mark: while Starmarked): fn(u) -> pct
+    slowSources: [],
+    // Coyote 7R Crippling Bleed: a hero bleeding from a Coyote with that talent is slowed 5% per stack (stacks on top
+    // of other slows)
+    bleedSlow(u) {
+      const C = window.MOBA_COMBAT;
+      if (!C || !(u.bleedStacks > 0) || !(u.bleedTimer > 0) || !u.bleedBy || !C.isHero(u)) return 0;
+      return C.talentOf(u.bleedBy, 7) === 'R' ? 0.05 * Math.min(4, u.bleedStacks) : 0;
     },
     // the timers this file owns (stun / slow / taunt keep ticking where they always did)
     tick(u, dt) {
@@ -75,9 +87,17 @@
       if (!(u.tauntTimer > 0)) u.tauntBy = null;
     },
     // a direct hit wakes a sleeping unit (call from damage paths unless the hit is damage over time)
+    // Fairy 7R Rude Awakening: woken from that Fairy's sleep -> silenced 1s
     wake(u, isDoT) {
       if (!u || isDoT || !(u.sleepTimer > 0) || u.sleepGrace > 0) return;
       u.sleepTimer = 0;
+      const C = window.MOBA_COMBAT;
+      if (u.sleepBy && C && C.talentOf(u.sleepBy, 7) === 'R') {
+        u.silenceTimer = max(u.silenceTimer, CC.dur(u, 1.0));
+        CC.onHard(u, u.sleepBy);
+        if (typeof spawnFloat === 'function') spawnFloat(u.x, 2.7, u.z, 'RUDE AWAKENING!', '#c4b5fd');
+      }
+      u.sleepBy = null;
     },
     clear(u) {
       if (!u) return;

@@ -75,6 +75,18 @@ function markTarget(by, u) {
   m.t = STARMARK.dur;
 }
 function dropMark(i) { scene.remove(marks[i].sprite); marks.splice(i, 1); }
+
+// ---- Talents (TALENTS_PLAN.md: L = Artillery, R = Zone Controller; all six in this file) ----
+const C = window.MOBA_COMBAT;
+const WIDE_PILLAR = 1.15;                   // 3L: Starfall area
+const HEAVY_SLOW = 0.45;                    // 3R: Monolith slow (default is the standard 32%)
+const SWIFT_CHARGES = 3;                    // 7L: Rift Stride charges
+const GRAVITY_MARK = 0.15;                  // 7R: slow on Starmarked enemies
+const METEOR = { n: 2, delay: 0.4, dmg: 0.5, size: 0.7, off: 1.9 }; // 10L: extra pillars around the target
+const HORIZON = { stun: 0.75 };             // 10R: Monolith end pull + stun
+const riftMax = (u) => (C.talentOf(u, 7) === 'L' ? SWIFT_CHARGES : 2);
+// 7R Gravity Mark: a Starmarked enemy is slowed while the mark lasts (marks from a caster with the talent)
+CC.slowSources.push((u) => (marks.some((m) => m.u === u && C.talentOf(m.by, 7) === 'R') ? GRAVITY_MARK : 0));
 function tickMarks(dt) {
   for (let i = marks.length - 1; i >= 0; i--) {
     const m = marks[i];
@@ -206,7 +218,7 @@ function spawnStarfallPillar(actor, tx, tz, radius, delay, dmg, isFromQ, slowDur
   grp.position.set(tx, 0, tz);
   scene.add(grp);
 
-  sorcPillars.push({
+  const p = {
     grp, crystal, innerFill,
     x: tx, z: tz, r: radius,
     delay,
@@ -217,11 +229,14 @@ function spawnStarfallPillar(actor, tx, tz, radius, delay, dmg, isFromQ, slowDur
     owner: actor.isPlayer ? null : actor,
     slowDur,
     castId: KitFx.castId() // spawned during the Q cast; erupts later
-  });
+  };
+  sorcPillars.push(p);
+  return p;
 }
 
 // Spawn Sorceress R (Cataclysm Monolith): 5.0s expanding arcane field (2.0m -> 4.5m)
-function spawnCataclysmMonolith(tx, tz, castId, st) {
+// flags: { heavy (3R Heavy Gravity slow), horizon (10R Event Horizon at the end) }
+function spawnCataclysmMonolith(tx, tz, castId, st, flags) {
   if (sorcMonolith) scene.remove(sorcMonolith.grp);
   const grp = new THREE.Group();
 
@@ -266,9 +281,34 @@ function spawnCataclysmMonolith(tx, tz, castId, st) {
     tickTimer: 0.1,
     collapsed: false,
     castId: castId || 0,
-    st: st || null // stats from cast time (pulses use these)
+    st: st || null, // stats from cast time (pulses use these)
+    heavy: !!(flags && flags.heavy),
+    horizon: !!(flags && flags.horizon)
   };
 }
+
+// 10R Event Horizon: when the Monolith ends, everyone still inside is pulled to its center and stunned (any caster)
+function eventHorizon(m, actor) {
+  spawnShockRing(m.x, m.z, 0x38bdf8, m.curR, 0.3, 0.36);
+  spawnFloat(m.x, 3.1, m.z, 'EVENT HORIZON!', '#38bdf8');
+  SFX.play('arena');
+  const pullOpts = (x, z) => {
+    const d = Math.hypot(m.x - x, m.z - z);
+    return { stunDur: HORIZON.stun, knockbackDist: Math.max(0, d - 0.6) || undefined, knockbackDirX: m.x - x, knockbackDirZ: m.z - z, knockbackDur: 0.22, wallStun: 0, color: '#38bdf8', castId: m.castId };
+  };
+  if (actor.isPlayer) dummies.forEach((d) => {
+    if (d.isShooter && !shooterEnabled) return;
+    if (Math.hypot(d.x - m.x, d.z - m.z) > m.curR + d.r) return;
+    CC.apply(d, { stunDur: HORIZON.stun }, { x: m.x, z: m.z });
+    KitFx.knockDummy(d, m.x - d.x, m.z - d.z, Math.max(0, Math.hypot(m.x - d.x, m.z - d.z) - 0.6));
+  });
+  if (phase1Engine) actor.hostiles().forEach((t) => {
+    if (t.kind === 'structure' || t.kind === 'deployable') return;
+    if (Math.hypot(t.x - m.x, t.z - m.z) > m.curR + (t.r || 0.5)) return;
+    actor.damage(t, 0, pullOpts(t.x, t.z));
+  });
+}
+H.sorcEventHorizon = eventHorizon; // (the engine's bot monolith calls it too)
 
 H.sorceress = {
   id: 'sorceress',
@@ -310,10 +350,21 @@ H.sorceress = {
     mpCosts: { Q: 38, E: 40, R: 100 } // E: per step
   },
 
+  // TALENTS_PLAN.md: L = Artillery, R = Zone Controller. All in this file (the bot Monolith in phase1_engine.js reads
+  // 3R / 10R from the caster and calls H.sorcEventHorizon).
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Wide Pillar', desc: 'Starfall\'s area is 15% larger.' },
+      R: { id: '3R', name: 'Heavy Gravity', desc: 'The Monolith slows by 45% (was the standard 32%).' }
+    },
+    7: {
+      L: { id: '7L', name: 'Stellar Swiftness', desc: 'Rift Stride gets a third charge.' },
+      R: { id: '7R', name: 'Gravity Mark', desc: 'Starmarked enemies are slowed 15% for as long as the mark lasts (4s).' }
+    },
+    10: {
+      L: { id: '10L', name: 'Meteor Shower', desc: 'Each Starfall calls down 2 smaller pillars either side of its target 0.4s later, at 50% damage each.' },
+      R: { id: '10R', name: 'Event Horizon', desc: 'When the Monolith ends, enemies still inside are pulled to its center and stunned for 0.75s.' }
+    }
   },
 
   ui: {
@@ -439,7 +490,7 @@ H.sorceress = {
       } else actor.play('punch', 0.05, true, 2.25, 0.22, 0.54);
 
       const maxRange = 9.5;
-      const radius = 1.65;
+      const radius = 1.65 * (KitFx.tal(ctx, 3, 'L') ? WIDE_PILLAR : 1); // 3L Wide Pillar
       const dx = aimWorld.x - hero.x;
       const dz = aimWorld.z - hero.z;
       const dist = Math.hypot(dx, dz) || 0.01;
@@ -450,11 +501,20 @@ H.sorceress = {
       const baseDmg = H.sorceress.dmg.starfall(st, pProg.level, rQE);
       SFX.play('chime');
       spawnStarfallPillar(actor, tx, tz, radius, 0.38, Math.round(baseDmg), true, 0);
+      // 10L Meteor Shower: two smaller pillars either side of the target, 0.4s later, at half damage (they mark too)
+      if (KitFx.tal(ctx, 10, 'L')) {
+        const px = -dz / dist, pz = dx / dist; // across the cast direction
+        [-1, 1].forEach((s) => {
+          const p = spawnStarfallPillar(actor, tx + px * METEOR.off * s, tz + pz * METEOR.off * s, radius * METEOR.size, 0.38 + METEOR.delay, Math.round(baseDmg * METEOR.dmg), false, 0);
+          p.marks = true;
+        });
+      }
     } else if (slot === 'E') {
       if ((hero.dashTimer || 0) > 0 || pend(actor, 'rift')) return; // one step at a time
-      if (!wtfMode && KitFx.charges.count(hero, 'rift', 2) <= 0) return;
+      const maxCh = riftMax(hero); // 7L Stellar Swiftness: a third charge
+      if (!wtfMode && KitFx.charges.count(hero, 'rift', maxCh) <= 0) return;
       if (!trySpendMana('E')) return;
-      if (!wtfMode) KitFx.charges.use(hero, 'rift', 2, RIFT.recharge[rQE] * cdrMult);
+      if (!wtfMode) KitFx.charges.use(hero, 'rift', maxCh, RIFT.recharge[rQE] * cdrMult);
       else hero.cdE = 0.3;
 
       // Step toward the cursor (bots: toward the brain's aim point)
@@ -496,7 +556,7 @@ H.sorceress = {
       const tx = hero.x + (dx / dist) * clamped;
       const tz = hero.z + (dz / dist) * clamped;
       spawnShockRing(tx, tz, 0xe879f9, 2.0, 0.4, 0.50);
-      setPend(actor, 'ult', { tx, tz, t: 0.50, castId: KitFx.castId(), st });
+      setPend(actor, 'ult', { tx, tz, t: 0.50, castId: KitFx.castId(), st, heavy: KitFx.tal(ctx, 3, 'R'), horizon: KitFx.tal(ctx, 10, 'R') });
     }
     return;
   },
@@ -558,13 +618,12 @@ H.sorceress = {
       if (pu.t <= 0) {
         setPend(actor, 'ult', null);
         if (actor.isPlayer) {
-          if (live) spawnCataclysmMonolith(pu.tx, pu.tz, pu.castId, pu.st);
+          if (live) spawnCataclysmMonolith(pu.tx, pu.tz, pu.castId, pu.st, pu);
         } else if (actor.monolith) {
-          // bots: the engine's bot monolith (same pulse numbers; the collapse only with the 10L talent, like the player)
+          // bots: the engine's bot monolith (same pulse numbers; it reads 3R / 10R from the caster's talents)
           const st = pu.st || actor.stats(), rU = KitFx.rUlt(actor.level());
           const pulse = H.sorceress.dmg.monolithPulse(st, rU);
-          const collapse = 0; // (the end-of-zone pull is a talent candidate)
-          actor.monolith(pu.tx, pu.tz, pulse, collapse);
+          actor.monolith(pu.tx, pu.tz, pulse, 0);
         }
       }
     }
@@ -597,7 +656,7 @@ H.sorceress = {
             if (d.isShooter && !shooterEnabled) return;
             if (Math.hypot(d.x - p.x, d.z - p.z) <= p.r + d.r) {
               damageDummy(d, finalPillarDmg, '#e879f9');
-              if (p.isFromQ) markTarget(pa.unit, d);
+              if (p.isFromQ || p.marks) markTarget(pa.unit, d);
               stackCap = 3;
               hitHeroOrBoss = true;
               hitAny = true;
@@ -615,7 +674,7 @@ H.sorceress = {
                 });
                 if (hit) {
                   hitAny = true;
-                  if (p.isFromQ) markTarget(pa.unit, t.ref);
+                  if (p.isFromQ || p.marks) markTarget(pa.unit, t.ref);
                   stackCap = Math.max(stackCap, (t.kind === 'bot' || t.kind === 'player') ? 3 : (t.kind === 'camp' ? 2 : (t.kind === 'minion' ? 1 : 0)));
                   if (t.kind === 'bot' || t.kind === 'player') {
                     hitHeroOrBoss = true;
@@ -678,6 +737,7 @@ H.sorceress = {
               if (phase1Engine.dealPlayerDamageToUnit(t, tickDmg, {
                 dmgType: 'fantasy',
                 slowDur: 0.65,
+                slowPct: sorcMonolith.heavy ? HEAVY_SLOW : undefined, // 3R Heavy Gravity
                 color: '#e879f9',
                 isDoT: true,
                 castId: sorcMonolith.castId
@@ -713,6 +773,7 @@ H.sorceress = {
       }
 
       if (sorcMonolith.t >= sorcMonolith.dur) {
+        if (sorcMonolith.horizon) eventHorizon(sorcMonolith, KitFx.player); // 10R Event Horizon
         scene.remove(sorcMonolith.grp);
         sorcMonolith = null;
       }

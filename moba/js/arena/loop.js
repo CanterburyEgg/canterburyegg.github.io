@@ -348,7 +348,7 @@ function tick(now) {
           spawnFloat(t.x, 2.85, t.z, 'BLEED DETONATED (' + stacks + 'x)!', '#fde047');
         }
       } else {
-        o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical', src: b.src, castId: b.castId });
+        o.damage(t, b.dmg, { bleedAdd: b.bleedAdd, isBasic: b.isBasic !== false, slowDur: b.slowDur || 0, dmgType: b.dmgType || 'physical', src: b.src, castId: b.castId, structMult: b.structMult });
         spawnShockRing(t.x, t.z, b.dmgType === 'fantasy' ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
         if (b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref, t);
         if (!b.pierce) { scene.remove(b.mesh); return true; }
@@ -452,7 +452,8 @@ function tick(now) {
               slowDur: b.slowDur || 0,
               dmgType: b.dmgType || 'physical',
               src: b.src,
-              castId: b.castId
+              castId: b.castId,
+              structMult: b.structMult
             });
             if (didHit) spawnShockRing(t.x, t.z, isFant ? 0xe879f9 : 0xf43f5e, 0.15, 0.65, 0.16);
             if (didHit && b.onHit) b.onHit(b.mesh.position.x, b.mesh.position.z, t.ref, t);

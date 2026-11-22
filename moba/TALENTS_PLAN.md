@@ -3,16 +3,29 @@
 Process (2026-11-20): one hero at a time. For each hero: pick 2 of 4 playstyles, then each tier (Lv3 small → Lv7 medium → Lv10 large) offers 3 options per playstyle and the user picks one per side. Tiers are **mix and match**: every cross-tier combination should work (no locked L/L/L lanes).
 **Coverage rule:** across the four Lv3 + Lv7 talents, each of P, Q, E and R gets exactly one (basic attacks don't count). Lv10 is free.
 
-**Implementation status:** Bodyguard done (2026-11-21, checked by `arena3d.html?talenttest`). The other 7 are still "TBD" placeholders in `js/heroes/*.js`.
-Shared plumbing for the rest:
+**Implementation status:** all 8 heroes done (Bodyguard 2026-11-21 morning, the other 7 the same evening). `arena3d.html?talenttest` checks every talent.
+Notes from implementing:
+- **Imp Demolitionist:** the base turret and Superball never hit structures. Wrecking Ball and Siege Mode are what point them at buildings.
+  - Wrecking Ball: Superball hits structures, +50%.
+  - Siege Mode: when nothing else is in range, the turret shoots vulnerable structures from 25% farther, for x2.
+- **Coyote Through the Trees:** bolts have no terrain collision yet, so today the talent is the +40% range. The bolt carries `ignoresTerrain` for when collision exists.
+- **Fairy Decoy:**
+  - Decoy HP is 15% of her max HP; its darts are not basic attacks (no on-hit).
+  - The look is a placeholder: a glowing body, her wings and sparkles.
+- **Heavy Gravity:** the Monolith's old slow was the standard 32%, not 30%.
+- **Bots:** they roll a random side per tier. A Scientist bot with Second Throw re-throws by itself if its target is still within 11m.
+
+Shared plumbing:
 - `KitFx.tal(ctx, tier, side)` inside kit code.
 - `Combat.talentOf(unit, tier)` anywhere else (player and bots).
 - `CC.immuneOf` / `u.ccImmuneTimer` for CC immunity.
+- `CC.slowSources` for slows that last as long as some state does.
 - `Combat.saves` for "instead of dying" effects.
 - `Combat.untargetable(u)` for untargetable.
 - `Combat.damageMults` for damage taken or dealt.
-- Bots roll a random side per tier at spawn.
-- Add each hero's checks as a new section in `js/talenttest.js`.
+- `structMult` on a hit for extra damage vs structures.
+- `Combat.visionSources` for kit vision.
+- `addBleed` in the engine is the one place that adds Bleed (max 4 everywhere now).
 
 ## Bodyguard: Protector / Initiator
 

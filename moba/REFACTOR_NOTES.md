@@ -136,6 +136,9 @@ Merged into `main` (2026-11-08). Verification: `arena3d.html?selftest` must matc
   sort it out then.
 - [ ] **Boss pit (noted 2026-11-21, do with the elevation pass)**: the pit isn't really formed yet, and the pit shrine
   placed against its back wall looks wrong for now (no collision either). Redo the shrine with the pit's shape.
+- [ ] **Talent follow-ups (noted 2026-11-21)**: projectiles have no terrain collision, so Coyote's Through the Trees is
+  only its +40% range for now; the Fairy Decoy needs a real look (it's a glowing stand-in); bots pick talents at random
+  (smarter picks per role later); playtest the numbers.
 - [x] **Model batch 2026-11-19 (in game 2026-11-21)**: lane wall + crumbled ends (whole south lane wall and the deck's
   front wall), gate arches (4 castle gates), lookout deck railing, pit shrine. Textured `_raw.glb` files are slimmed to
   `_game.glb` and added to `map_bundle.js` (31.7 MB now).

@@ -2,8 +2,8 @@
 // Hero kit: data (stats, talents, UI text) + player ability code moved verbatim from js/arena/*.js and phase1_data.js.
 // Functions run in the shared global scope of js/arena/*.js (hero, actions, fadeToAction, damageDummy, heroBolts, ...).
 // Still shared until Phase 2: bolt flight/collision (heroBolts loop in loop.js), Bleed ticking on dummies (loop.js) and
-// applyBleedStacks (combat.js), bleed talents in phase1_engine.js, the crossbow/laser/grenade prop meshes (models.js),
-// and the HEARTSEEKER plate tag / R glow driven by hero.rChargeTimer (loop.js).
+// applyBleedStacks (combat.js), Bleed stacks + 10R Plague in phase1_engine.js (addBleed), 7R Crippling Bleed in cc.js,
+// the crossbow/laser/grenade prop meshes (models.js), and the HEARTSEEKER plate tag / R glow driven by hero.rChargeTimer (loop.js).
 (function () {
 'use strict';
 const H = (window.MOBA_HEROES = window.MOBA_HEROES || {});
@@ -65,7 +65,12 @@ function spawnCrossbowBolt(actor, angle, dmg, bleedAdd, isPiercingHeartseeker = 
 function getPendingGrenade(actor) { return actor.isPlayer ? pendingGrenadeThrow : actor.unit.coyPendingGrenade; }
 function setPendingGrenade(actor, g) { if (actor.isPlayer) pendingGrenadeThrow = g; else actor.unit.coyPendingGrenade = g; }
 
-const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBonus: 1.25 };
+const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBonus: 1.25, earlyAfter: 0.35 };
+// Talents
+const STEADY_AIM_DUR = 1.5;      // 3L: full charge time
+const SHRAPNEL_BONUS = 1;        // 3R: extra Bleed stack from the grenade
+const WATCH_R = 5.0;             // 7L: armed trap vision radius
+const TREES_RANGE = 1.4;         // 10L: Perfect Shot range
 
 // ---- Q: Bear Trap (DESIGN_RULES Coyote) ----
 // Thrown to a spot within TRAP.range; arms after TRAP.arm s, then it's invisible to enemies (they see a faint shimmer
@@ -73,6 +78,17 @@ const HEARTSEEKER = { chargeDur: 2.0, minPower: 0.5, minRange: 0.6, perfectPopBo
 const TRAP = { range: 6.0, arm: 0.5, life: 30, root: 1.0, bleed: 2, trigR: 0.65, maxActive: 3, recharge: [12, 11, 10], reveal: 2.25 }; // reveal = the shared stealth reveal radius
 KitFx.charges.slotFor.trap = 'Q';
 const traps = [];
+// 7L Watchful Traps: every armed trap whose owner took the talent sees 5m around it (for the owner's team)
+window.MOBA_COMBAT.visionSources.push((team) => {
+  const C = window.MOBA_COMBAT;
+  const out = [];
+  traps.forEach((tr) => {
+    if (tr.state !== 'armed' || tr.team !== team) return;
+    const owner = tr.owner ? tr.owner.unit : hero;
+    if (C.talentOf(owner, 7) === 'L') out.push({ x: tr.x, z: tr.z, r: WATCH_R });
+  });
+  return out;
+});
 function makeTrapMesh() {
   const g = new THREE.Group();
   const iron = new THREE.MeshStandardMaterial({ color: 0x4b5563, metalness: 0.7, roughness: 0.45, transparent: true });
@@ -193,10 +209,13 @@ function springTrap(tr, v) {
 
 function fireHeartseekerRelease(actor) {
   const hero = actor.unit; // (local alias: the caster)
-  const charge = THREE.MathUtils.clamp(1 - (hero.rChargeTimer / HEARTSEEKER.chargeDur), 0, 1);
+  const dur = hero.rChargeDur || HEARTSEEKER.chargeDur;
+  const charge = THREE.MathUtils.clamp(1 - (hero.rChargeTimer / dur), 0, 1);
   const isPerfect = charge >= 0.999;
   const power = HEARTSEEKER.minPower + (1 - HEARTSEEKER.minPower) * charge;
-  const range = HEARTSEEKER.minRange + (1 - HEARTSEEKER.minRange) * charge;
+  // 10L Through the Trees: a Perfect Shot flies 40% farther (and ignores terrain; bolts have no terrain collision yet)
+  const trees = isPerfect && window.MOBA_COMBAT.talentOf(hero, 10) === 'L';
+  const range = (HEARTSEEKER.minRange + (1 - HEARTSEEKER.minRange) * charge) * (trees ? TREES_RANGE : 1);
   const popScale = power * (isPerfect ? HEARTSEEKER.perfectPopBonus : 1);
   hero.rChargeTimer = 0;
   if (actor.isPlayer) {
@@ -209,8 +228,9 @@ function fireHeartseekerRelease(actor) {
   spawnShockRing(hero.x + Math.sin(hero.facing) * 0.8, hero.z + Math.cos(hero.facing) * 0.8, 0xf43f5e, 0.2, 1.6, 0.26);
   const st = hero.rSt || actor.stats(); // stats from the R cast
   spawnCrossbowBolt(actor, hero.facing, Math.round(H.coyote.dmg.heartseeker(st, KitFx.rUlt(actor.level())) * power), 1, true, true, range, popScale, hero.rCastId, st);
+  if (trees) heroBolts[heroBolts.length - 1].ignoresTerrain = true;
   if (isPerfect) {
-    spawnFloat(hero.x, 2.75, hero.z, 'PERFECT SHOT! (+25% BLEED POP)', '#fde047');
+    spawnFloat(hero.x, 2.75, hero.z, trees ? 'PERFECT SHOT! (THROUGH THE TREES)' : 'PERFECT SHOT! (+25% BLEED POP)', '#fde047');
   } else {
     spawnFloat(hero.x, 2.75, hero.z, 'QUICK SHOT (' + Math.round(power * 100) + '%)', '#fb7185');
   }
@@ -219,7 +239,7 @@ function fireHeartseekerRelease(actor) {
 // E: bleed + baseline slow (outer ring / bullseye)
 const GRENADE = { bleedOuter: 1, bleedBull: 3, slowDur: 2.0, slowOuter: 0.25, slowBull: 0.45 };
 
-function launchShrapnelGrenade(actor, tx, tz, castId, st) {
+function launchShrapnelGrenade(actor, tx, tz, castId, st, bonusBleed) {
   const hero = actor.unit; // (local alias: the caster)
   const outerR = 2.45;
   const bullseyeR = 0.92;
@@ -265,7 +285,8 @@ function launchShrapnelGrenade(actor, tx, tz, castId, st) {
     t: 0,
     dur: 0.48,
     castId: castId || 0,
-    st: st || null // stats from cast time
+    st: st || null, // stats from cast time
+    bonusBleed: bonusBleed || 0 // 3R Shrapnel
   });
 }
 
@@ -308,10 +329,21 @@ H.coyote = {
     popPerStack: (st, rUlt) => Math.round([80, 140, 200][rUlt] + st.ability * 0.3)   // per Bleed stack detonated
   },
 
+  // TALENTS_PLAN.md: L = Sniper, R = Bleeder. Crippling Bleed lives in cc.js (slowMult) and Plague in phase1_engine.js
+  // (next to the shared Bleed helper); the rest are in this file.
   talents: {
-    3: { L: { id: '3L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '3R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    7: { L: { id: '7L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '7R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } },
-    10: { L: { id: '10L', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' }, R: { id: '10R', name: 'TBD (talent pass)', desc: 'Placeholder until the roster-wide talent pass' } }
+    3: {
+      L: { id: '3L', name: 'Steady Aim', desc: 'Heartseeker reaches full charge in 1.5s (was 2.0s).' },
+      R: { id: '3R', name: 'Shrapnel', desc: 'Shrapnel Grenade adds one more Bleed stack to everyone hit (outer ring 2, Bullseye 4).' }
+    },
+    7: {
+      L: { id: '7L', name: 'Watchful Traps', desc: 'Each armed Bear Trap reveals enemies within 5m (stealthed ones too).' },
+      R: { id: '7R', name: 'Crippling Bleed', desc: 'Bleeding heroes are slowed 5% per stack (20% at the max of 4).' }
+    },
+    10: {
+      L: { id: '10L', name: 'Through the Trees', desc: 'A fully charged Perfect Shot flies 40% farther and goes through walls and trees.' },
+      R: { id: '10R', name: 'Plague', desc: 'When a bleeding enemy dies, its Bleed stacks jump to the nearest enemy within 6m.' }
+    }
   },
 
   ui: {
@@ -473,10 +505,10 @@ H.coyote = {
       const tz = hero.z + (dz / dist) * clampedDist;
 
       actor.play('kick', 0.05, true, 1.85, 1.28, 0.4);
-      setPendingGrenade(actor, { tx, tz, t: 0.22, castId: KitFx.castId(), st });
+      setPendingGrenade(actor, { tx, tz, t: 0.22, castId: KitFx.castId(), st, bonusBleed: KitFx.tal(ctx, 3, 'R') ? SHRAPNEL_BONUS : 0 });
     } else if (slot === 'R') {
       if (hero.rChargeTimer > 0) {
-        if (hero.rChargeTimer <= 1.65) fireHeartseekerRelease(actor);
+        if (hero.rChargeTimer <= (hero.rChargeDur || HEARTSEEKER.chargeDur) - HEARTSEEKER.earlyAfter) fireHeartseekerRelease(actor);
         return;
       }
       if (!wtfMode && pProg.level < 4) {
@@ -486,7 +518,8 @@ H.coyote = {
       if (!wtfMode && hero.cdR > 0) return;
       if (!trySpendMana('R')) return;
       hero.cdR = wtfMode ? 0.5 : [42.0, 36.0, 30.0][rUlt] * (ctx.ultCdrMult || cdrMult);
-      hero.rChargeTimer = 2.0;
+      hero.rChargeDur = KitFx.tal(ctx, 3, 'L') ? STEADY_AIM_DUR : HEARTSEEKER.chargeDur; // 3L Steady Aim
+      hero.rChargeTimer = hero.rChargeDur;
       hero.rCastId = KitFx.castId(); // the Heartseeker fires later (full charge or recast)
       hero.rSt = st;
       SFX.play('chime');
@@ -511,7 +544,7 @@ H.coyote = {
         pg.t -= dt;
         if (pg.t <= 0) {
           setPendingGrenade(actor, null);
-          launchShrapnelGrenade(actor, pg.tx, pg.tz, pg.castId, pg.st);
+          launchShrapnelGrenade(actor, pg.tx, pg.tz, pg.castId, pg.st, pg.bonusBleed);
         }
       }
     }
@@ -537,7 +570,7 @@ H.coyote = {
       laserSightMesh.position.set(hero.x + Math.sin(hero.facing) * 0.55, 0.09, hero.z + Math.cos(hero.facing) * 0.55);
       // Plane points along local +Y; after rotation.x = -PI/2 that's (-sin z, 0, -cos z), so z = facing + PI aims it at (sin f, cos f)
       laserSightMesh.rotation.z = hero.facing + Math.PI;
-      const chargePct = 1 - (hero.rChargeTimer / 2.0);
+      const chargePct = 1 - (hero.rChargeTimer / (hero.rChargeDur || HEARTSEEKER.chargeDur));
       laserSightMesh.scale.x = 0.7 + chargePct * 1.6;
       // enemies can't see the laser while she's unseen: show that by dimming it
       laserSightMesh.material.opacity = hero.isUnseen ? 0.25 : 0.65;
@@ -580,8 +613,8 @@ H.coyote = {
         o.hostiles().forEach((t) => {
           if (t.kind === 'structure') return;
           const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
-          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047', castId: g.castId });
-          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter, castId: g.castId });
+          if (realDist <= g.bullseyeR + t.r * 0.45) o.damage(t, outerDmg * 2, { bleedAdd: (GRENADE.bleedBull + g.bonusBleed), slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047', castId: g.castId });
+          else if (realDist <= g.outerR + t.r) o.damage(t, outerDmg, { bleedAdd: (GRENADE.bleedOuter + g.bonusBleed), slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter, castId: g.castId });
         });
         scene.remove(g.mesh);
         scene.remove(g.teleGrp);
@@ -598,12 +631,12 @@ H.coyote = {
           const dist = Math.hypot(d.x - g.tx, d.z - g.tz);
           if (dist <= g.bullseyeR + d.r * 0.45) {
             damageDummy(d, bullDmg, '#fde047');
-            applyBleedStacks(d, GRENADE.bleedBull);
+            applyBleedStacks(d, (GRENADE.bleedBull + g.bonusBleed));
             CC.slow(d, GRENADE.slowDur, GRENADE.slowBull);
             spawnFloat(d.x, 2.8, d.z, 'BULLSEYE 2X!', '#fde047');
           } else if (dist <= g.outerR + d.r) {
             damageDummy(d, outerDmg);
-            applyBleedStacks(d, GRENADE.bleedOuter);
+            applyBleedStacks(d, (GRENADE.bleedOuter + g.bonusBleed));
             CC.slow(d, GRENADE.slowDur, GRENADE.slowOuter);
           }
         });
@@ -613,10 +646,10 @@ H.coyote = {
             if (t.kind === 'structure') return;
             const realDist = Math.hypot(t.x - g.tx, t.z - g.tz);
             if (realDist <= g.bullseyeR + t.r * 0.45) {
-              const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: GRENADE.bleedBull, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047', castId: g.castId });
+              const didHit = phase1Engine.dealPlayerDamageToUnit(t, bullDmg, { bleedAdd: (GRENADE.bleedBull + g.bonusBleed), slowDur: GRENADE.slowDur, slowPct: GRENADE.slowBull, color: '#fde047', castId: g.castId });
               if (didHit) spawnFloat(t.x, 2.8, t.z, 'BULLSEYE 2X!', '#fde047');
             } else if (realDist <= g.outerR + t.r) {
-              phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: GRENADE.bleedOuter, slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter, castId: g.castId });
+              phase1Engine.dealPlayerDamageToUnit(t, outerDmg, { bleedAdd: (GRENADE.bleedOuter + g.bonusBleed), slowDur: GRENADE.slowDur, slowPct: GRENADE.slowOuter, castId: g.castId });
             }
           });
         }
