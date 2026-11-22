@@ -26,7 +26,7 @@ General rule: **simpler is better.** Combat and progression systems should stay 
 | **Planet quirks** | A data list of possible quirks (e.g., low gravity, spore fog, tidal shorelines, eternal night, magnetic storms, crystal resonance). Each planet **rolls a variable number** of them. Quirks give flavor plus light mechanical twists, and quest/boss generation can play off them. |
 | **Core loop** | Quests and bosses are the heart. Skilling is the means: gather → forge/cook → gear up → quest and farm bosses. |
 | **Controls / camera** | Isometric camera (right drag or Q/E rotate, wheel zoom). **WASD moves** (camera-relative). **Click to interact**: clicking a node, building or NPC auto-walks there and triggers it; WASD cancels. **Number keys 1-4 = weapon abilities.** Clicking bare ground does nothing; minimap click travels. |
-| **Combat** | **Weapon-driven and small.** The equipped weapon type (melee tool, sidearm, long gun, maybe a thrown/gadget type) sets 2-3 simple abilities. Forged gear increases power. Melee / Ranged / Defense / Vitality level with use. No classes. |
+| **Combat** | **Weapon-driven and small.** The equipped weapon type (melee tool, sidearm, long gun, maybe a thrown/gadget type) sets 2-3 simple abilities. Forged gear increases power. Melee / Ranged / Vitality level with use (Defense folded into armor). No classes. Details in §7. |
 | **Bosses** | Every planet/tier has farmable bosses scaled to it, with telegraphed attacks (Soulslike patterns from `experiments/soulslike`). |
 | **Persistence & death** | One long-lived save per seed. Death drops your carried inventory at a gravestone (corpse beacon) you can run back to. Skills and the bank are kept. |
 | **Settlements** | Procedural outposts built from templates. Each planet gets 1+ with a bank (storage locker), a shop, the planet's crafting stations, and NPCs. The player always starts beside a starter outpost. |
@@ -40,7 +40,7 @@ General rule: **simpler is better.** Combat and progression systems should stay 
 
 1. **Quest generation**: how seeded quests get their checklists, characters, and risk (templated questlines, task boards, quirk-driven hooks, boss gates).
 1. ~~**Quest generation**~~: resolved, see §4.
-2. **Exact skill list**: gathering family resolved (§5). Still open: processing/crafting skills, combat skills, and the full gather → process → consume graph.
+2. **Exact skill list**: gathering family resolved (§5); combat skills, Hunting and Brewing resolved (§7). Still open: Smithing and other crafting skills, and the full gather → process → consume graph.
 3. **Planet quirk mechanics**: the M1 starter list exists (§6). Still open: the full catalog and deeper mechanical effects.
 4. **Collection Log / per-planet logs**: post-MVP. Design it once a generated planet exists.
 
@@ -120,7 +120,45 @@ Goal: prove world gen, skilling, saves, and the quest pipeline end-to-end.
 | **Settlements** | Three sizes. **Camp**: bank + pad, on outlying landmasses. **Outpost**: Lumbridge-like compact basics plus accent pieces, ~30-40m. **City**: Varrock/Falador-like, ~80-120m, with streets, a market square with several shops, multiple crafting stations, many ambient NPCs, and dense quests. Systems roll 1-2 Cities on Medium/Large planets in tier 2+. The starter planet always has an Outpost. **M1 builds Outpost + Camp; City generation comes later.** |
 | **Defaults I'll pick and show in the build** | Camera controls (pan/zoom/rotate), minimap, day/night (off unless a quirk sets it), pathfinding grid resolution, render budget. |
 
-## 7. Backlog
+## 7. Milestone 2: Combat (locked, combat session Nov 21)
+
+Goal: fights that feel good without RuneScape's whiffing, plus the first gather → process → consume loop (Hunting + Brewing feed healing).
+
+### Locked decisions
+| Area | Decision |
+|---|---|
+| **Feel** | RS3-lite. Click an enemy to **auto-attack** on the game tick; **auto-attacks always hit** (no whiffs). Keys **1-4 fire weapon abilities** with cooldowns, and abilities are **skillshots**: hold the key to preview a line / cone / circle on the ground at the mouse, release to fire. Big damage if it lands, nothing if it misses. WASD still moves, so you can kite and dodge. |
+| **Enemy telegraphs** | Creatures' big attacks flash a ground telegraph (circle / cone / line) first; step out with WASD. Normal hits just land. |
+| **Danger** | **Settlements are safe**; everything outside can attack. Danger scales with **planet tier**. Each creature family has a **temperament**: skittish (flees, may rally), territorial (attacks if you get close or hit it), aggressive (hunts on sight). Most are territorial. |
+| **Death** | Wake at the last settlement you visited. Your pack drops as a **salvage crate** where you fell (tools and equipped gear always kept). **No timer**, but if you die again before recovering it, the old crate is gone. |
+| **Damage model** | Simple: auto-attacks deal weapon damage plus a small level bonus, always landing. Ability damage scales the same way. Armor reduces damage taken. No accuracy rolls. |
+| **Weapons** | Abilities come from the **weapon item** (better weapons have different abilities); levels only raise numbers. **Melee:** frontier tools named `<Metal> <Weapon>`, 2 per tier (Bismuth / Cobalt / Tungsten) = 6. **Ranged:** the gun is standard issue (**Revolver**: fast, short range; **Rifle**: slow, long range, piercing); **ammo carries the tier** (`<Metal> Rounds`) and sets damage. Scattergun later. A future third style, **energy**, loads **catalysts** into the same guns. |
+| **Equipment** | Weapon slot + armor in **head / body / legs**, visible on the character. Bought from shops in M2; **Smithing** (forge your own gear, craft ammo and catalysts) comes with the crafting milestone. |
+| **Ammo** | Shops sell all three ammo tiers in M2. Crafting ammo arrives with Smithing. |
+| **Healing** | Brewed consumables: **Brewing** combines foraged plants and creature parts at a camp stove or outpost kettle into stews, tinctures and draughts (heal over time, instant heal, short buffs). Slow regen out of combat. |
+| **Skills added** | **Melee, Ranged, Vitality** (max health; Defense is folded into armor stats), **Hunting**, **Brewing**. |
+| **Hunting** | Its own gathering skill: **tracking and trapping** (snares, bait) for critters and rarer parts. Separate from combat kills. |
+| **Kill drops** | XP, creature parts by species (hide, chitin, glands...), and a small variable loot drop by enemy. No big RS loot tables yet. |
+| **Scope** | 2 weapon styles (melee + ranged), **4 creature families** with tier variants, Hunting, Brewing, **one combat quest** (from a user pitch). No boss in M2. |
+
+### Drafts (mine, veto freely)
+- **Melee roster**: Bismuth Machete (Lunge: short dash line; Sweep: wide cone) and Bismuth Maul (Slam: circle ahead; Shove: cone knockback). Cobalt Machete (adds Flurry: three quick cuts) and Cobalt Spear (Thrust: long line; Vault: leap to a point; Pin: slowing line). Tungsten Cleaver (Whirl: circle around you; Rend: bleed cone; Lunge) and Tungsten Maul (Slam; Quake: big slow circle; Shove).
+- **Ranged abilities**: Revolver: Quickdraw (instant line, high damage), Fan the Hammer (cone of three shots), Dive (short dodge roll). Rifle: Piercing Shot (long line through every enemy in it), Steady Aim (charge for a heavy shot), Flare (circle that slows and reveals).
+- **Creature families** (primitive models, lineup page like the aliens; **names chosen by the user**, invented words that sound like animals): **Gallox**: skittish herd grazers, the biggest one charges (line telegraph) if the herd is attacked. **Vorm**: territorial burrowing ambusher, erupts when you step close (circle telegraph) and spits. **Dart Fly**: aggressive flying pests in groups of 3-5, low health, dive attacks (line telegraph). **Grondak**: territorial armored brute, slow ground slam (big circle telegraph), weak spot behind. Tier variants by size, color and a biome name ("Ridge Gallox").
+- **Health**: ~50 + 10 per Vitality level. Tick-based auto-attacks (machete 3 ticks, maul 5, revolver 3, rifle 5).
+- **Hunting loop**: critter burrows and trails appear as nodes; set a snare (bought, later crafted), optionally baited with foraged plants; come back later to collect parts. Tracking (follow prints to a rare critter) is a stretch goal.
+
+### M2 build phases
+| Phase | Scope |
+|---|---|
+| **A. Combat core** | Health and Vitality, targeting, tick auto-attacks, hitsplats, death and salvage crate, equipment slots + armor (visible), shop stock |
+| **B. Weapons and abilities** | Skillshot aiming previews, cooldowns on the hotbar, the 6 melee weapons + Revolver and Rifle, ammo, Melee and Ranged skills |
+| **C. Creatures** | 4 families from primitives (lineup page), temperament AI, telegraphs, spawns by planet tier away from settlements, respawns, drops |
+| **D. Hunting** | Critter nodes, snares and bait, parts |
+| **E. Brewing** | Stations, recipes, consumables (heal and buff), eating/drinking from the inventory |
+| **F. Combat quest + tuning** | One quest from a user pitch; numbers pass |
+
+## 8. Backlog
 
 | Item | Notes |
 |---|---|
