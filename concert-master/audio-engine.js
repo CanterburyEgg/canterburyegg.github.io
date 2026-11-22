@@ -1374,7 +1374,9 @@ function applyBackToBackRepeat(notes, lanes) {
       const before = prim[i + k - 1];
       const after = i + 2 * k < n ? prim[i + 2 * k] : null;
       if (clash(before, B[0]) || (after && clash(B[k - 1], after))) B.forEach((x, q) => (x.lane = saved[q]));
-      else i += 2 * k - 1;
+      // (no skip ahead: the next statements check against this one, so a figure played three or more times keeps its
+      // keys all the way, even when the cell is counted from a different note: Mercury 0:25's 81 73 76 68 x3; user,
+      // Nov 21: "same notes, same keys")
     }
   }
 }
@@ -1431,6 +1433,8 @@ const LAYOUT_RULES = [
   ['runsThatRoll', (n, l, c) => { if (c.exactScore || (c.tryRules || []).includes('runsThatRoll')) applyRunsThatRoll(n, l); }],
   ['steppingThreesAlternate', (n, l, c) => { if (c.exactScore) applySteppingThreesAlternate(n, l); }],
   ['backToBackFourShift', (n, l, c) => { if (c.exactScore) applyBackToBackFourShift(n, l); }],
+  ['backAndForthOneKey', (n, l, c) => { if (c.exactScore) applyBackAndForthOneKey(n, l); }],
+  ['leapOffEdgeFresh', (n, l, c) => { if (c.exactScore) applyLeapOffEdgeFresh(n, l); }],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -4903,6 +4907,76 @@ function applyRunsThatRoll(notes, lanes) {
       plan.push(l);
     }
     if (ok) run.forEach((x, j) => (x.lane = plan[j]));
+  }
+}
+
+/**
+ * A leap off the edge doesn't land on the same key: a falling cell that ends on D, followed at once by a drop to a
+ * lower note that's also on D (two different notes on one key), moves up a key so the drop lands fresh (Mercury
+ * 0:05.2: the flutes' 76 71 68 then the violas' 53, J F D | D became K J F | D; user, Nov 21: "there's a double D here
+ * I'd like to eliminate"). Mirrored for a rising cell ending on K before a leap up. Exact scores, 4 keys only.
+ */
+function applyLeapOffEdgeFresh(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo && !x.ghost);
+  for (let i = 1; i + 1 < prim.length; i++) {
+    const p = prim[i], q = prim[i + 1];
+    if (q.time - p.time > 0.3 || p.lane !== q.lane || p.midi === q.midi) continue;
+    const dir = p.lane === 0 && q.midi < p.midi ? -1 : p.lane === lanes - 1 && q.midi > p.midi ? 1 : 0;
+    if (!dir) continue;
+    // (the cell: the notes before p moving the same way, key by key)
+    let a = i;
+    while (a > 0 && prim[a].time - prim[a - 1].time <= 0.3 && Math.sign(prim[a].midi - prim[a - 1].midi) === dir &&
+      prim[a - 1].lane === prim[a].lane - dir) a--;
+    const cell = prim.slice(a, i + 1);
+    if (cell.length < 2 || cell.some((x) => x.fixedLane || x.localPin)) continue;
+    const top = cell[0].lane - dir;
+    if (top < 0 || top >= lanes) continue;
+    const before = a > 0 ? prim[a - 1] : null;
+    // (the note before the cell still steps the right way into it)
+    if (before && cell[0].time - before.time <= 0.6 && before.midi !== cell[0].midi &&
+      (before.lane === top || Math.sign(top - before.lane) !== Math.sign(cell[0].midi - before.midi))) continue;
+    cell.forEach((x) => (x.lane -= dir));
+  }
+}
+
+/**
+ * Back and forth on one key: a quick zigzag where every other note dips down (high low high low, 8+ notes, the low
+ * notes not all the same pitch) puts all its low notes on D and swings the high notes K, J, K, J (a high note repeated
+ * keeps its key), so the figure swings off a single home key with only two keys above it (Mercury 0:25.0: the flutes'
+ * 81 73 76 . 81 73 76 with the oboes' 68 in the gap, K D J D; user, Nov 21: "this back and forth part is playing three
+ * notes above the consistent D, but I think it should only be two. I think KDJDKDJD makes the most sense"; and on into
+ * the first violins' 73 76 68 73 64 69 61 66 57 63 at 0:27, which falls as it zigzags). Exact scores, 4 keys only.
+ */
+function applyBackAndForthOneKey(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo && !x.ghost);
+  const n = prim.length;
+  const lowAt = (p) => p > 0 && p + 1 < n && prim[p].midi < prim[p - 1].midi && prim[p].midi < prim[p + 1].midi;
+  const quick = (p) => prim[p].time - prim[p - 1].time <= 0.2;
+  let a = 0;
+  while (a < n) {
+    // (the longest zigzag from a: a high note, then low and high by turns, every gap quick)
+    let b = a + 1;
+    while (b + 1 < n && quick(b) && quick(b + 1) && lowAt(b) && !lowAt(b + 1)) b += 2;
+    // (prim[a..b) is high low ... high low; its last low is at b - 1)
+    const len = b - a;
+    if (len >= 8 && !lowAt(a)) {
+      const seg = prim.slice(a, b);
+      const lows = seg.filter((_, p) => p % 2 === 1);
+      const highs = seg.filter((_, p) => p % 2 === 0);
+      if (new Set(lows.map((x) => x.midi)).size >= 2 && !seg.some((x) => x.fixedLane || x.localPin)) {
+        lows.forEach((x) => (x.lane = 0));
+        let lane = highs.length > 1 && highs.find((x) => x.midi !== highs[0].midi)?.midi > highs[0].midi ? 2 : 3;
+        highs.forEach((x, q) => {
+          if (q > 0 && x.midi !== highs[q - 1].midi) lane = lane === 3 ? 2 : 3;
+          x.lane = lane;
+        });
+        a = b;
+        continue;
+      }
+    }
+    a++;
   }
 }
 

@@ -1,0 +1,18 @@
+{
+  "rests": [
+    {
+      "start": 28.0,
+      "end": 28.06,
+      "why": "0:34.6 (score 28.03): the first violins' 88 comes in under the held 100, but what you hear is the bells (celesta 94 91 88) striking during the flute's hold, not a new note to play (user, Nov 21: 'I should be holding the F at the end all the way through. The D is a bells interjection that happens during the flute hold')."
+    }
+  ],
+  "audio_moves": [
+    {
+      "score_start": 26.19,
+      "midi": 100,
+      "to": 32.2873,
+      "end": 36.27,
+      "why": "0:32.3-0:36.3: the held 100 is held on through the bells' interjection to where the next 88s start (same quote as the rest at score 28.03)."
+    }
+  ]
+}
