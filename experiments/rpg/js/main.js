@@ -27,7 +27,7 @@ import { QUARTERMASTER } from '../data/npcs.js';
 import { QUESTS, QUEST_BY_ID } from '../data/quests/index.js';
 import { questsForPlanet, questPlanetIndex, resolveSlots, fillText, quirkLine, pickEntry, slotRef, journalEntry, questStatus } from './quests.js';
 import { freeSlots } from './inventory.js';
-import { createCharacter, randomLook, preloadCharacterAssets, createToolMesh, attachToHand } from './player_character.js';
+import { createCharacter, randomLook, preloadCharacterAssets, createToolMesh, attachToHand, ATTACK_CLIPS } from './player_character.js';
 import { createQuirkRuntime, discoverSites, crystalCompass } from './quirk_mechanics.js';
 import { loadSettings, QUALITY } from './settings.js';
 import { createCreator } from './creator.js';
@@ -116,13 +116,14 @@ async function rebuildPlayerModel() {
 
 // Armor shows on the drifter: a chestplate becomes a metal vest over the shirt, greaves recolor the
 // legs and boots, a helmet is a simple shell on the Head bone.
-const ARMOR_TINT = { bismuth: '#b79acb', cobalt: '#3d5fae', tungsten: '#7d848f' };
+// darker, metal-leaning versions of the tool colors (the bright bismuth lilac read as pajamas)
+const ARMOR_TINT = { bismuth: '#8c7a99', cobalt: '#3f5684', tungsten: '#666c75' };
 function lookWithArmor(look, eq) {
   const L = JSON.parse(JSON.stringify(look));
   L.outfit = L.outfit || {}; L.colors = L.colors || {};
   const metal = (id) => id && ITEMS[id] && ARMOR_TINT[ITEMS[id].metal];
   if (eq && metal(eq.body)) { L.outfit.layer = 'vest'; L.colors.layer = metal(eq.body); }
-  if (eq && metal(eq.legs)) { L.outfit.pants = 'full'; L.outfit.boots = 'tall'; L.colors.pants = metal(eq.legs); L.colors.boots = '#2a2d34'; }
+  if (eq && metal(eq.legs)) { L.outfit.pants = 'full'; L.outfit.boots = 'tall'; L.colors.boots = metal(eq.legs); } // greaves = tall metal shin guards; the pants stay yours
   return L;
 }
 function addHelmet(c, id) {
@@ -1256,7 +1257,13 @@ function updateCombat(dt) {
   if (combat.atk > 0) return;
   const w = weaponOf(state);
   combat.atk = w.ticks * TICK;
-  if (player.char) player.char.play('attack', { timeScale: Math.max(1, 1.6 / (w.ticks * TICK)) });
+  if (player.char) {
+    // alternate swings; speed a swing up only if it's longer than the weapon's attack interval
+    const list = ATTACK_CLIPS[w.weaponKind] || ATTACK_CLIPS.fists;
+    const clip = list[(combat.swing = (combat.swing || 0) + 1) % list.length];
+    const dur = player.char.clipDuration(clip) || 1;
+    player.char.play(clip, { timeScale: Math.max(1, dur / (w.ticks * TICK * 0.95)) });
+  }
   SFX.swing('hatchet');
   const dmg = hitDamage(w.damage, levelForXp(state.xp.melee || 0), Math.random);
   const killed = hurtCreature(c, dmg, gameTime);
@@ -1331,7 +1338,7 @@ function playerDies() {
     cam.target.set(player.x, player.y, player.z);
     state.hp = hpOf(state);
     player.dead = false;
-    if (player.char) player.char.play('idle', { fade: 0.3 });
+    if (player.char) { player.char.play('idle', { fade: 0 }); player.char.play('getUp'); } // wake up off the ground
     buildCrateView();
     updateHpBar();
     fade.classList.remove('show');

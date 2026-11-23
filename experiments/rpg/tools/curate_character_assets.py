@@ -27,7 +27,7 @@ BODIES = ['Superhero_Male_FullBody', 'Superhero_Female_FullBody']
 HAIR = ['Hair_Buzzed', 'Hair_BuzzedFemale', 'Hair_SimpleParted', 'Hair_Long', 'Hair_Buns', 'Hair_Beard',
         'Eyebrows_Regular', 'Eyebrows_Female']
 GAME_CLIPS = ['Idle_Loop', 'Walk_Loop', 'Jog_Fwd_Loop', 'Sprint_Loop', 'Walk_Formal_Loop', 'TreeChopping_Loop', 'Farm_Harvest', 'Fixing_Kneeling',
-              'Idle_Talking_Loop', 'Interact', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Sword_Idle', 'Death01', 'Hit_Chest', 'Pistol_Shoot', 'Pistol_Idle_Loop']
+              'Idle_Talking_Loop', 'Interact', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Sword_Idle', 'Death01', 'Hit_Chest', 'Pistol_Shoot', 'Pistol_Idle_Loop', 'Sword_Regular_A', 'Sword_Regular_B', 'Sword_Heavy_Combo', 'Punch_Jab', 'Punch_Cross', 'Chest_Open', 'LayToIdle']
 KEEP_TEXTURE_MATERIALS = {'MI_Eyes'}
 
 

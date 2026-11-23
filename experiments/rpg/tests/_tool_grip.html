@@ -21,6 +21,8 @@ const tool = createToolMesh();
 attachToHand(c, tool.group);
 tool.show(q.get('tool') || 'hatchet', '#c9a2e8');
 if (q.get('pos')) tool.setGrip(q.get('pos').split(',').map(Number), q.get('rot').split(',').map((v) => (isNaN(+v) ? v : +v)));
+// flip=1: same grip, blade out of the other side of the fist (spin 180 degrees about the fingers)
+if (q.get('flip')) { const inner = tool.group.userData.inner; inner.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)); }
 c.play(q.get('clip') || 'TreeChopping_Loop', { fade: 0 });
 const cam = new THREE.PerspectiveCamera(35, 1, 0.05, 50);
 window.__render = (t, view) => {
@@ -49,6 +51,36 @@ window.__bestSpin = (tiltZ = 0) => {
     if (d > bestDot) { bestDot = d; bestSpin = deg; }
   }
   return { strikeT: (dur * best) / N, bestSpin, bestDot };
+};
+// Solve a whole grip: at the fastest moment of the clip the blade (+Y, tool space) should continue
+// the line from shoulder to hand (reach), and the edge (+Z) should lead the swing.
+window.__alongMax = 0.35;
+window.__solveGrip = (dur = 1) => {
+  const inner = tool.group.userData.inner;
+  const sh = c.mesh.skeleton.bones.find((b) => b.name === 'upperarm_r');
+  const N = 60, hp = [];
+  for (let i = 0; i <= N; i++) { c.seek((dur * i) / N); c.root.updateMatrixWorld(true); hp.push(c.hand.getWorldPosition(new THREE.Vector3())); }
+  let best = 1, bestV = 0;
+  for (let i = 1; i < N; i++) { const v = hp[i + 1].distanceTo(hp[i - 1]); if (v > bestV) { bestV = v; best = i; } }
+  const vel = hp[best + 1].clone().sub(hp[best - 1]).normalize();
+  c.seek((dur * best) / N); c.root.updateMatrixWorld(true);
+  const reach = c.hand.getWorldPosition(new THREE.Vector3()).sub(sh.getWorldPosition(new THREE.Vector3())).normalize();
+  let top = null;
+  const st = Math.PI / 12;
+  for (let x = 0; x < 24; x++) for (let y = 0; y < 24; y++) for (let z = 0; z < 24; z++) {
+    inner.rotation.set(x * st, y * st, z * st, 'XYZ');
+    // a fist holds a handle across the palm: the blade leaves the hand roughly perpendicular to the
+    // fingers (hand bone +Y), so skip grips where it runs along them
+    const local = new THREE.Vector3(0, 1, 0).applyEuler(inner.rotation);
+    if (Math.abs(local.y) > window.__alongMax) continue;
+    inner.updateMatrixWorld(true);
+    const o = new THREE.Vector3(0, 0, 0).applyMatrix4(inner.matrixWorld);
+    const b = new THREE.Vector3(0, 1, 0).applyMatrix4(inner.matrixWorld).sub(o).normalize();
+    const e = new THREE.Vector3(0, 0, 1).applyMatrix4(inner.matrixWorld).sub(o).normalize();
+    const score = b.dot(reach) * 1.0 + e.dot(vel) * 0.8;
+    if (!top || score > top.score) top = { score, rot: [x * st, y * st, z * st] };
+  }
+  return { strikeT: (dur * best) / N, ...top };
 };
 window.__ready = true;
 </script></body></html>

@@ -25,10 +25,16 @@ const load = (path) => {
 export const CLIPS = {
   idle: 'Idle_Loop', walk: 'Walk_Loop', run: 'Jog_Fwd_Loop',
   pick: 'TreeChopping_Loop', hatchet: 'TreeChopping_Loop', sickle: 'Farm_Harvest', gloves: 'Fixing_Kneeling',
-  interact: 'Interact', cheer: 'Yes', pickup: 'PickUp_Table', talk: 'Idle_Talking_Loop',
-  attack: 'Sword_Attack', guard: 'Sword_Idle', hit: 'Hit_Chest', death: 'Death01', shoot: 'Pistol_Shoot', aim: 'Pistol_Idle_Loop',
+  // interact: a reach-and-open (the old Interact clip kneels first, then points)
+  interact: 'Chest_Open', cheer: 'Yes', pickup: 'PickUp_Table', talk: 'Idle_Talking_Loop',
+  guard: 'Sword_Idle', hit: 'Hit_Chest', death: 'Death01', getUp: 'LayToIdle', shoot: 'Pistol_Shoot', aim: 'Pistol_Idle_Loop',
 };
-const ONE_SHOTS = new Set(['Interact', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Hit_Chest', 'Pistol_Shoot', 'Death01']);
+// Auto-attack swings per weapon kind (animation audit, Nov 23). Lists alternate swing to swing.
+export const ATTACK_CLIPS = {
+  machete: ['Sword_Regular_A', 'Sword_Regular_B'], cleaver: ['Sword_Regular_B', 'Sword_Regular_A'],
+  maul: ['Sword_Heavy_Combo'], spear: ['Sword_Attack'], fists: ['Punch_Jab', 'Punch_Cross'],
+};
+const ONE_SHOTS = new Set(['Interact', 'Chest_Open', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Sword_Regular_A', 'Sword_Regular_B', 'Sword_Heavy_Combo', 'Punch_Jab', 'Punch_Cross', 'Hit_Chest', 'Pistol_Shoot', 'Death01', 'LayToIdle']);
 
 let clipsPromise = null;
 function loadClips() {
@@ -76,10 +82,12 @@ export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
       // hold: stay on the last frame (death) until something else plays
       const hold = name === 'Death01';
       const a = mixer.clipAction(clip);
+      const again = oneShot && oneShot.action === a; // re-triggering the same swing: restart in place
       a.reset().setLoop(THREE.LoopOnce, 1);
       a.clampWhenFinished = hold;
       a.timeScale = timeScale;
-      a.setEffectiveWeight(1).fadeIn(0.12).play();
+      if (again) a.setEffectiveWeight(1).play(); // a fade-in from zero would flash the bind pose
+      else a.setEffectiveWeight(1).fadeIn(0.12).play();
       if (oneShot && oneShot.action !== a) oneShot.action.fadeOut(0.12);
       if (current) current.fadeOut(0.12);
       oneShot = { action: a, until: hold ? Infinity : clip.duration / timeScale - 0.15 };
@@ -91,7 +99,7 @@ export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
     a.reset().setLoop(THREE.LoopRepeat, Infinity);
     a.timeScale = timeScale;
     a.fadeIn(fade).play();
-    if (current && !oneShot) current.fadeOut(fade);
+    if (current && current !== a && !oneShot) current.fadeOut(fade); // restarting the same clip must not fade it out
     current = a;
     currentName = name;
   }
@@ -121,7 +129,21 @@ export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
   root.traverse((o) => { if (o.isMesh) o.frustumCulled = false; });
   // Jump the current clip to time t (seconds) and pose immediately (dev tools, previews).
   function seek(t) { if (current) { current.time = t; current.weight = 1; current.setEffectiveWeight(1); mixer.update(0); } }
-  return { root, mesh: built.mesh, face: built.face, tris: built.tris, play, update, seek, hand, dispose, get clip() { return currentName; } };
+  const clipDuration = (roleOrClip) => { const c = clips.get(CLIPS[roleOrClip] || roleOrClip); return c ? c.duration : 0; };
+  return { root, mesh: built.mesh, face: built.face, tris: built.tris, play, update, seek, clipDuration, hand, dispose, get clip() { return currentName; } };
+}
+
+// Dev tools (animation audit): add clips from another glTF (e.g. the full UAL library) so play()
+// can use them by name. Scale and per-bone position tracks are dropped like the curated set.
+export async function registerExtraClips(animations) {
+  const byName = await loadClips();
+  for (const c of animations) {
+    if (byName.has(c.name)) continue;
+    const k = c.clone();
+    k.tracks = k.tracks.filter((t) => !t.name.endsWith('.scale') && !(t.name.endsWith('.position') && !/^(root|pelvis)\./.test(t.name)));
+    byName.set(c.name, k);
+  }
+  return [...byName.keys()];
 }
 
 export function preloadCharacterAssets() {
@@ -136,6 +158,16 @@ export function preloadCharacterAssets() {
 // Solved with tests/_tool_grip.html (__bestSpin): spin about the handle so the blade edge leads the
 // hand at the fastest point of TreeChopping_Loop, with the handle tilted ~45 degrees off the forearm.
 export const GRIP = { pos: [0, 0.08, 0], rot: [0, 3.4, 0.8, 'ZYX'] };
+// Blades and hafted weapons (solved in tests/_tool_grip.html with __solveGrip + flip): the handle
+// crosses the fist and the blade leaves the thumb side, continuing the arm at the strike.
+export const BLADE_GRIP = { pos: [0, 0.08, 0], rot: [3.665, 6.021, 4.4506, 'XYZ'], flip: true };
+const GRIP_OF = { machete: BLADE_GRIP, cleaver: BLADE_GRIP, maul: BLADE_GRIP, spear: BLADE_GRIP };
+const FLIP_Q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
+function applyGrip(inner, g) {
+  inner.position.fromArray(g.pos);
+  inner.rotation.fromArray(g.rot);
+  if (g.flip) inner.quaternion.premultiply(FLIP_Q);
+}
 const HANDLE_LEN = { pick: 0.62, hatchet: 0.62, sickle: 0.32, machete: 0.16, cleaver: 0.2, maul: 0.75, spear: 1.5 };
 export function createToolMesh() {
   const group = new THREE.Group();
@@ -143,6 +175,7 @@ export function createToolMesh() {
   const wood = new THREE.MeshStandardMaterial({ color: '#6b4f36', roughness: 0.8, flatShading: true });
   const metal = new THREE.MeshStandardMaterial({ color: '#c9a2e8', metalness: 0.6, roughness: 0.35, flatShading: true });
   const inner = new THREE.Group(); // tool in its own frame (+Y handle, +Z = the striking side)
+  let overrideGrip = false; // dev pages can pin a grip
   const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.018, 0.62, 6), wood);
   handle.position.y = 0.2;
   inner.add(handle);
@@ -172,20 +205,20 @@ export function createToolMesh() {
   inner.add(pick, hatchet, sickle, machete, cleaver, maul, spear);
   group.add(inner);
   group.userData.inner = inner;
-  inner.position.fromArray(GRIP.pos);
-  inner.rotation.fromArray(GRIP.rot);
+  applyGrip(inner, GRIP);
   group.visible = false;
   return {
     group,
     show(kind, color) {
       group.visible = !!heads[kind];
+      if (!overrideGrip) applyGrip(inner, GRIP_OF[kind] || GRIP); // tools and blades sit differently in the fist
       const len = HANDLE_LEN[kind] || 0.62; // sickles are hand tools, not polearms
       handle.scale.y = len / 0.62;
       handle.position.y = len / 2 - 0.1; // handle runs from just below the grip to its length
       for (const [k, m] of Object.entries(heads)) m.visible = k === kind;
       if (color) metal.color.set(color);
     },
-    setGrip(pos, rot) { inner.position.fromArray(pos); inner.rotation.fromArray(rot); },
+    setGrip(pos, rot) { overrideGrip = true; inner.position.fromArray(pos); inner.rotation.fromArray(rot); },
   };
 }
 // Parent a tool group to a character's right hand, compensating the armature's unit scale.

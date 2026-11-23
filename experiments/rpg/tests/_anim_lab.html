@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>Animation lab</title>
+<style>body{margin:0;background:#a9d4e0;font:13px sans-serif;overflow:hidden}canvas{display:block}#ui{position:fixed;top:10px;left:10px;background:rgba(255,255,255,.85);padding:8px 10px;border-radius:8px;display:flex;flex-direction:column;gap:6px;min-width:250px}#ui select,#ui input{width:100%}</style></head><body>
+<div id="ui"><b>Animation lab</b>
+  <label>Clip <select id="clip"></select></label>
+  <label>In hand <select id="tool"><option value="">nothing</option><option>pick</option><option>hatchet</option><option>sickle</option><option>machete</option><option>maul</option><option>spear</option><option>cleaver</option></select></label>
+  <label>Speed <input id="speed" type="range" min="0.25" max="2" step="0.05" value="1" /></label>
+  <label><input id="full" type="checkbox" style="width:auto" /> load the full 86-clip library (local packs)</label>
+  <span id="info" style="opacity:.7"></span>
+</div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<script type="module">
+// Dev page for the player animation audit: any clip on the real player character, with any tool or
+// weapon in hand. Headless scripts drive it through window.__lab.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { createCharacter, createToolMesh, attachToHand, registerExtraClips, CLIPS } from '../js/player_character.js';
+import { PRESETS } from '../data/presets.js';
+const q = new URLSearchParams(location.search);
+let W = innerWidth, H = innerHeight;
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setSize(W, H);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('#a9d4e0');
+scene.add(new THREE.HemisphereLight('#ffffff', '#445', 1.1));
+const sun = new THREE.DirectionalLight('#fff', 1.8); sun.position.set(2, 5, 3); sun.castShadow = true; scene.add(sun);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.MeshStandardMaterial({ color: '#5f9c7a' }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+// a grid of foot marks so foot sliding is visible
+for (let i = -5; i <= 5; i++) { const l = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 10), new THREE.MeshBasicMaterial({ color: '#4a7a60' })); l.rotation.x = -Math.PI / 2; l.position.set(i * 0.5, 0.002, 0); scene.add(l); }
+const c = await createCharacter(PRESETS.find((p) => p.id === (q.get('preset') || 'courier')).look, { cellFrac: 0.003 });
+c.root.traverse((o) => { if (o.isMesh) o.castShadow = true; });
+scene.add(c.root);
+const tool = createToolMesh();
+attachToHand(c, tool.group);
+const cam = new THREE.PerspectiveCamera(35, W / H, 0.05, 50);
+cam.position.set(2.6, 1.5, 2.6);
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 1, 0);
+addEventListener('resize', () => { W = innerWidth; H = innerHeight; renderer.setSize(W, H); cam.aspect = W / H; cam.updateProjectionMatrix(); });
+
+const clipSel = document.getElementById('clip'), toolSel = document.getElementById('tool'), speed = document.getElementById('speed'), info = document.getElementById('info');
+let names = await registerExtraClips([]);
+const fill = () => { const cur = clipSel.value; clipSel.innerHTML = names.sort().map((n) => `<option ${n === cur ? 'selected' : ''}>${n}</option>`).join(''); };
+async function loadFull() {
+  const L = new GLTFLoader();
+  const base = '../assets/_extracted/UAL/';
+  const files = ['Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb', 'Universal Animation Library 2[Standard]/Unreal-Godot/UAL2_Standard.glb'];
+  for (const f of files) { const g = await L.loadAsync(base + encodeURI(f)); names = await registerExtraClips(g.animations.filter((a) => a.name !== 'A_TPose')); }
+  fill();
+}
+fill();
+clipSel.value = q.get('clip') || 'Idle_Loop';
+const apply = () => { c.play(clipSel.value, { fade: 0.15, timeScale: +speed.value, restart: true }); tool.show(toolSel.value || null, '#c9a2e8'); info.textContent = `${clipSel.value} · role names: ${Object.entries(CLIPS).filter(([, v]) => v === clipSel.value).map(([k]) => k).join(', ') || 'unused'}`; };
+clipSel.onchange = apply; toolSel.onchange = apply; speed.oninput = apply;
+document.getElementById('full').onchange = (e) => e.target.checked && loadFull();
+toolSel.value = q.get('tool') || '';
+if (q.get('full')) await loadFull();
+apply();
+
+let live = !navigator.webdriver, last = performance.now();
+if (navigator.webdriver) document.getElementById('ui').style.display = 'none';
+function loop(now) {
+  if (!live) return;
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  c.update(dt); controls.update(); renderer.render(scene, cam);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// Headless API: set up a clip, step time, render from a named view.
+const VIEWS = { side: [3.6, 1.2, 0], front: [0, 1.25, 3.6], three: [2.6, 1.5, 2.6], back: [0, 1.4, -3.6], close: [1.0, 1.5, 1.0] };
+window.__lab = {
+  names: () => names,
+  async full() { await loadFull(); return names.length; },
+  play(clip, toolKind = null, ts = 1, fade = 0) { live = false; c.play(clip, { fade, timeScale: ts, restart: true }); tool.show(toolKind, '#c9a2e8'); c.update(0.0001); },
+  step(dt) { c.update(dt); },
+  render(view = 'three') { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); cam.position.fromArray(VIEWS[view] || VIEWS.three); cam.lookAt(0, view === 'close' ? 1.2 : 0.95, 0); renderer.render(scene, cam); },
+};
+window.__ready = true;
+</script></body></html>
