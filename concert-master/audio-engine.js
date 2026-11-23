@@ -1429,7 +1429,7 @@ const LAYOUT_RULES = [
   ['twoNoteSwingKeys', (n, l, c) => { if (c.exactScore) applyTwoNoteSwingKeys(n, l, c.chordHits); }],
   ['slowRepeatsKeepKey', (n, l, c) => { if (c.exactScore) applySlowRepeatsKeepKey(n, l); }],
   ['noDoubledKeyInSteps', (n, l, c) => { if (c.exactScore) applyNoDoubledKeyInSteps(n, l, c.ghosts && c.ghostTunes); }],
-  ['longRunsEndOnEdge', (n, l, c) => { if (c.exactScore) applyLongRunsEndOnEdge(n, l); }],
+  ['longRunsEndOnEdge', (n, l, c) => { if (c.exactScore) applyLongRunsEndOnEdge(n, l, c.ghosts); }],
   ['runsThatRoll', (n, l, c) => { if (c.exactScore || (c.tryRules || []).includes('runsThatRoll')) applyRunsThatRoll(n, l); }],
   ['steppingThreesAlternate', (n, l, c) => { if (c.exactScore) applySteppingThreesAlternate(n, l); }],
   ['backToBackFourShift', (n, l, c) => { if (c.exactScore) applyBackToBackFourShift(n, l); }],
@@ -4906,6 +4906,9 @@ function applyRunsThatRoll(notes, lanes) {
     let ok = true;
     for (let j = 1; j < run.length && ok; j++) {
       const d = (run[j].midi - run[j - 1].midi) * dir;
+      // (two steps back in a row aren't a roll in a run but figures going the other way -- Mercury 2:22, the triplets'
+      // 58 62 64 inside a falling stretch all came out on K)
+      if (d < 0 && j > 1 && (run[j - 1].midi - run[j - 2].midi) * dir < 0) { ok = false; break; }
       if (d === 0) {
         // (same note, same key)
       } else if (d > 0) l = l === last ? first : l + dir;
@@ -5343,7 +5346,7 @@ function applyQuickRipsFourKeys(notes, lanes) {
  * (Mars 2:52: the clarinets' 55 ... 89 scale ended on D; user, Nov 18: "for extended woodwind runs like this I'd like
  * them to end on K"). Exact scores only.
  */
-function applyLongRunsEndOnEdge(notes, lanes) {
+function applyLongRunsEndOnEdge(notes, lanes, ghosts = false) {
   if (lanes !== 4) return;
   const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && x.lane < lanes && !x.isPercussionSolo);
   for (let a = 0; a + 5 < prim.length; ) {
@@ -5413,7 +5416,13 @@ function applyLongRunsEndOnEdge(notes, lanes) {
       const pv = a > 0 ? prim[a - 1] : null;
       if (L >= 10 && pv && run[0].time - pv.time < 0.4 && run[0].lane !== startEdge) {
         const k = run.findIndex((x) => x.lane === startEdge);
-        if (k > 0 && k <= 2) run.slice(0, k).forEach((x) => notes.splice(notes.indexOf(x), 1));
+        // (in a song with the ghost keys, one note before the edge steps out onto the ghost key instead of being dropped
+        // -- Mercury 2:24.3, the climb from 58 starts S58 D60 ...; user, Nov 22: "the 'drop the first note' rule only
+        // matters if we don't have ghost notes; I think we should start the second sweep on S")
+        if (k === 1 && ghosts) {
+          run[0].lane = dir > 0 ? lanes : lanes + 1;
+          run[0].ghost = dir > 0 ? 'S' : 'L';
+        } else if (k > 0 && k <= 2) run.slice(0, k).forEach((x) => notes.splice(notes.indexOf(x), 1));
       }
       a = b + 1;
     } else a++;

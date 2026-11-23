@@ -1,9 +1,100 @@
 [
  {
   "song": "mercury",
-  "start": 119,
+  "start": 130,
+  "end": 141,
+  "label": "Mercury 2:10-2:21: on your taps (held F, flourish, held F, clarinets, bassoons, clarinets)",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 130,
+  "end": 138,
+  "label": "Mercury 2:10-2:18: flourish 2:14.6, held F right after",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 140,
+  "end": 145,
+  "label": "Mercury 2:20-2:25",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 145,
   "end": 150,
-  "label": "Mercury 2:00-2:30",
+  "label": "Mercury 2:25-2:30",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 150,
+  "end": 155,
+  "label": "Mercury 2:30-2:35",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 155,
+  "end": 160,
+  "label": "Mercury 2:35-2:40",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 160,
+  "end": 165,
+  "label": "Mercury 2:40-2:45",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 165,
+  "end": 170,
+  "label": "Mercury 2:45-2:50",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 178,
+  "end": 183,
+  "label": "Mercury 2:58-3:03",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 183,
+  "end": 188,
+  "label": "Mercury 3:03-3:08",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 188,
+  "end": 193,
+  "label": "Mercury 3:08-3:13",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 193,
+  "end": 206,
+  "label": "Mercury 3:13-3:26",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 6,
+  "end": 15,
+  "label": "REVIEW Mercury 0:06-0:15 (approved): climbs at 0:08.3 and 0:12.1 now start with S58",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 26,
+  "end": 33,
+  "label": "REVIEW Mercury 0:26-0:33 (approved): climb at 0:28.4 now starts with S46",
   "issue": ""
  }
 ]

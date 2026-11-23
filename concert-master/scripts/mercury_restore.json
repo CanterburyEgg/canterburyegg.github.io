@@ -1,5 +1,5 @@
 {
-  "why": "Mercury, by ear. Key pins (audio time, lane 0-3 = D F J K): 1:07.9-1:09.1, the six even notes rock D K D K D K and the tune comes in on K (user, Nov 21: 'I think it'd be six total notes? DKDKDK K(flute beginning)'). Notes: 1:19.7-2:12.3, the tune section laid out from the user's taps (three runs, Nov 21): every statement is one of the tune's two forms, 79 79 81 79 77 76 77 79 77 76 74 or ... 76 72 74 (an octave up on the celesta, an octave and two down for the horns and bassoons), in its written rhythm, starting where the user taps it (the two forms take turns all the way: at 1:37.5-1:47.8 A B A B, starting 97.47 / 99.97 / 102.62 / 105.13 by the user's taps, user: 'at 1:40 it plays the wrong form. It plays the second form a second time, which is wrong'); 2:00.8-2:12.3 B A B A (starting 120.79 / 123.45 / 126.04 / 128.76: the user's taps there, read one note on -- the chart had cut the 2:00.8 statement short; user: 'at 2:03, the same issue happens. The chart is wrong'), then the 64 62 64 run-in and the held 58 on the user's taps (131.33 131.66 131.95 | 132.28) (user: 'Each section is exactly the same two forms', 'a lot of your notes won't line up, because you don't have the same pattern all across the section, but you should').",
+  "why": "Mercury, by ear. Key pins (audio time, lane 0-3 = D F J K): 2:18.7-2:20.8, the figures that come back keep the keys they had the first time (bassoons 41 46 50 52 47 44 = D F J K F D, clarinets 53 58 62 64 59 56 = D F J K J F) and the flutes' 65 70 74 76 71 68 81 keep the D F J K F D K the user okayed; 2:15.65, the second held 64 on F like the first (same note, same key); 1:07.9-1:09.1, the six even notes rock D K D K D K and the tune comes in on K (user, Nov 21: 'I think it'd be six total notes? DKDKDK K(flute beginning)'). Notes: 1:19.7-2:12.3, the tune section laid out from the user's taps (three runs, Nov 21): every statement is one of the tune's two forms, 79 79 81 79 77 76 77 79 77 76 74 or ... 76 72 74 (an octave up on the celesta, an octave and two down for the horns and bassoons), in its written rhythm, starting where the user taps it (the two forms take turns all the way: at 1:37.5-1:47.8 A B A B, starting 97.47 / 99.97 / 102.62 / 105.13 by the user's taps, user: 'at 1:40 it plays the wrong form. It plays the second form a second time, which is wrong'); 2:00.8-2:12.3 B A B A (starting 120.79 / 123.45 / 126.04 / 128.76: the user's taps there, read one note on -- the chart had cut the 2:00.8 statement short; user: 'at 2:03, the same issue happens. The chart is wrong'), then 2:11.4-2:19.8 on the user's taps (three runs, Nov 22, medians): the flutes' 64 62 64 with the last 64 held from 2:12.28, the cellos' six-note figure 41 46 50 52 47 44 from 2:14.41, the 64 held again from 2:15.39 (key-pinned on F like the first), the clarinets' 53 58 62 64 59 56 from 2:17.25, the bassoons' 41 46 50 52 47 44 from 2:18.10, and the clarinets' 53 58 62 64 59 56 again from 2:19.07 (user: '2:19: clarinet triplets'), into the flutes at 2:19.9.",
   "pins": [
     [
       67.9,
@@ -28,12 +28,60 @@
     [
       69.13,
       3
+    ],
+    [
+      135.394,
+      1
+    ],
+    [
+      138.722,
+      1
+    ],
+    [
+      138.886,
+      0
+    ],
+    [
+      139.649,
+      2
+    ],
+    [
+      139.79,
+      1
+    ],
+    [
+      139.94,
+      0
+    ],
+    [
+      140.1,
+      1
+    ],
+    [
+      140.2,
+      2
+    ],
+    [
+      140.34,
+      3
+    ],
+    [
+      140.52,
+      1
+    ],
+    [
+      140.64,
+      0
+    ],
+    [
+      140.81,
+      3
     ]
   ],
   "windows": [
     [
       79.6,
-      134.0
+      139.88
     ]
   ],
   "notes": [
@@ -1878,38 +1926,232 @@
       1.0
     ],
     [
-      131.33,
-      131.63,
+      131.363,
+      131.503,
       64,
       0.8,
       1,
       1.0
     ],
     [
-      131.66,
-      131.92,
+      131.821,
+      131.941,
       62,
       0.8,
       1,
       1.0
     ],
     [
-      131.95,
-      132.25,
+      132.278,
+      134.36,
+      64,
+      0.8,
+      1,
+      1.0,
+      0,
+      1
+    ],
+    [
+      134.406,
+      134.546,
+      41,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      134.611,
+      134.73,
+      46,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      134.76,
+      134.9,
+      50,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      134.936,
+      135.057,
+      52,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      135.087,
+      135.191,
+      47,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      135.221,
+      135.36,
+      44,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      135.394,
+      137.2,
+      64,
+      0.8,
+      1,
+      1.0,
+      0,
+      1
+    ],
+    [
+      137.246,
+      137.373,
+      53,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      137.403,
+      137.506,
+      58,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      137.536,
+      137.657,
+      62,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      137.687,
+      137.813,
       64,
       0.8,
       1,
       1.0
     ],
     [
-      132.28,
-      135.2,
+      137.843,
+      137.94,
+      59,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      137.97,
+      138.07,
+      56,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      138.104,
+      138.231,
+      41,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      138.261,
+      138.398,
+      46,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      138.428,
+      138.531,
+      50,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      138.561,
+      138.692,
+      52,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      138.722,
+      138.856,
+      47,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      138.886,
+      139.03,
+      44,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      139.068,
+      139.189,
+      53,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      139.219,
+      139.336,
       58,
       0.8,
       1,
-      1.0,
-      0,
-      1
+      1.0
+    ],
+    [
+      139.366,
+      139.483,
+      62,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      139.513,
+      139.619,
+      64,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      139.649,
+      139.76,
+      59,
+      0.8,
+      1,
+      1.0
+    ],
+    [
+      139.79,
+      139.9,
+      56,
+      0.8,
+      1,
+      1.0
     ]
   ]
 }

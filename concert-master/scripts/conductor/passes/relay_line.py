@@ -26,6 +26,52 @@ def run(ctx):
                 quick.setdefault(st["name"], []).append(m)
     for nm in quick:
         quick[nm].sort(key=lambda m: float(m["start"]))
+
+    # (the sweeps -- quick rising scale runs, 4+ notes a step at a time, a tenth of a second apart -- and which of them
+    # hand on to each other as one glissando: the next part starting on the note the last one reached, or a step above,
+    # as it gets there)
+    def sweep_runs():
+        out = []
+        for nm, ns in quick.items():
+            r = []
+            for m in ns + [None]:
+                if m is not None and r and float(m["start"]) - float(r[-1]["start"]) <= 0.11 and \
+                        float(r[-1]["end"]) - float(r[-1]["start"]) <= 0.11 and 1 <= int(m["midi"]) - int(r[-1]["midi"]) <= 2:
+                    r.append(m)
+                    continue
+                if len(r) >= 4:
+                    out.append((nm, r))
+                r = [m] if m is not None else []
+        return sorted(out, key=lambda nr: float(nr[1][0]["start"]))
+
+    def linked(p, q):
+        return p[0] != q[0] and 0 <= int(q[1][0]["midi"]) - int(p[1][-1]["midi"]) <= 2 and \
+            -0.02 <= float(q[1][0]["start"]) - float(p[1][-1]["start"]) <= 0.13
+
+    all_sweeps = sweep_runs()
+    in_chain = set()
+    for i, p in enumerate(all_sweeps):
+        for q in all_sweeps[i + 1:]:
+            if linked(p, q):
+                in_chain.add(id(p[1]))
+                in_chain.add(id(q[1]))
+    # (a sweep on its own, under a triplet figure -- a part's notes an eighth of a beat apart, 3+ in a row, while it plays --
+    # is the texture, not the line: the stream follows the figures there -- Mercury 2:23, the clarinets' 69 64 61 64 59 56
+    # with the violas', cor anglais' and second violins' sweeps going up around them; user, Nov 22: "I'm hearing triplets
+    # here, but being asked to play a sweep. I want to follow the triplet line that seems to lead this section")
+    def figure_near(a, b):
+        for nm, ns in quick.items():
+            fig = [m for m in ns if 0.1 < float(m["end"]) - float(m["start"]) <= 0.15 and a - 0.02 <= float(m["start"]) <= b + 0.02]
+            if sum(1 for j in range(1, len(fig)) if float(fig[j]["start"]) - float(fig[j - 1]["start"]) <= 0.15) >= 2:
+                return True
+        return False
+    drop = set()
+    for nm, r in all_sweeps:
+        if id(r) not in in_chain and figure_near(float(r[0]["start"]), float(r[-1]["start"])):
+            drop.update(id(m) for m in r)
+    if drop:
+        quick = {nm: [m for m in ns if id(m) not in drop] for nm, ns in quick.items()}
+        quick = {nm: ns for nm, ns in quick.items() if ns}
     slots = sorted({round(float(m["start"]), 2) for ns in quick.values() for m in ns})
     if not slots:
         return
@@ -101,6 +147,75 @@ def run(ctx):
         line.append((pick, at(pick, t)))
     if line:
         streams.append(line)
+    # (glissandos ride on through: quick rising scale runs -- 4+ notes, a step at a time, a tenth of a second apart --
+    # are followed run to run, each taking over where the one before ends, instead of the stream hopping part to part
+    # note by note where several voices sweep up a few notes apart -- Mercury 2:20, the violas' 48 50 51 52, the cor
+    # anglais' 58 ... 64, the second violins' 64 ... 70, then 2:23's 58 60 62 63 64 | 64 66 68 69 70 | 70 72 74 75 76 |
+    # 76 78 ...; user, Nov 22: "I'm hearing mostly glissandos, but what I play seems super random")
+    runs = []
+    for st in staves:
+        ns = sorted(quick.get(st["name"], []), key=lambda m: float(m["start"]))
+        r = []
+        for m in ns + [None]:
+            ok = m is not None and r and float(m["start"]) - float(r[-1]["start"]) <= 0.11 and float(r[-1]["end"]) - float(r[-1]["start"]) <= 0.11 \
+                and 1 <= int(m["midi"]) - int(r[-1]["midi"]) <= 2
+            if ok:
+                r.append(m)
+                continue
+            if len(r) >= 4:
+                runs.append((st["name"], r))
+            r = [m] if m is not None else []
+    runs.sort(key=lambda nr: float(nr[1][0]["start"]))
+    for li, line in enumerate(streams):
+        l0, l1 = float(line[0][1]["start"]), float(line[-1][1]["start"])
+        chosen, cur_end, cur_top = [], -1.0, -1
+        for nm, r in runs:
+            r0 = float(r[0]["start"])
+            if not (l0 - 0.02 <= r0 <= l1 + 0.02):
+                continue
+            if r0 >= cur_end - 0.02 + 0.13:
+                chosen.append((nm, list(r)))
+            else:
+                # (a voice already sweeping up when this one's run ends carries it on from the next note above)
+                rest = [m for m in r if float(m["start"]) > cur_end + 0.06 and int(m["midi"]) > cur_top]
+                if not rest:
+                    continue
+                chosen.append((nm, rest))
+            cur_end, cur_top = float(chosen[-1][1][-1]["start"]), int(chosen[-1][1][-1]["midi"])
+        if not chosen:
+            continue
+        # (a glissando is runs taken up part to part, each starting on the note the last one reached or a step above it
+        # -- 2+ runs in a chain; a lone run is the stream's own business, and so are runs it already follows)
+        chains, cur_c = [], []
+        for c in chosen:
+            if cur_c and linked(cur_c[-1], c):
+                cur_c.append(c)
+                continue
+            if len(cur_c) >= 2:
+                chains.append(cur_c)
+            cur_c = [c]
+        if len(cur_c) >= 2:
+            chains.append(cur_c)
+        chosen = [c for ch in chains for c in ch]
+
+        def same(nm_r):
+            a, b = float(nm_r[1][0]["start"]) - 0.02, float(nm_r[1][-1]["start"]) + 0.02
+            have = sorted((round(float(m["start"]), 2), int(m["midi"])) for _nm, m in line if a <= float(m["start"]) <= b)
+            return have == sorted((round(float(m["start"]), 2), int(m["midi"])) for m in nm_r[1])
+        if all(same(c) for c in chosen):
+            continue
+        spans = []
+        for _nm, r in chosen:
+            a, b = float(r[0]["start"]) - 0.02, float(r[-1]["start"]) + 0.07
+            if spans and a - spans[-1][1] <= 0.3:
+                spans[-1] = (spans[-1][0], b)
+            else:
+                spans.append((a, b))
+        keep = [(nm, m) for nm, m in line if not any(a <= float(m["start"]) <= b for a, b in spans)]
+        keep += [(nm, m) for nm, r in chosen for m in r]
+        keep.sort(key=lambda nm_m: float(nm_m[1]["start"]))
+        streams[li] = keep
+
     # (a line that lands on a held note lands held: its last note struck with the same pitch held in another part --
     # Mercury 0:32, the piccolo's run up to 100 with the first violins holding that 100; user, Nov 21: "that last
     # flute note is held all the way through, and I should play that")
