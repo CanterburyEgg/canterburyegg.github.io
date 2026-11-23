@@ -1478,6 +1478,7 @@ function updateQuirks(dt) {
   if (quirkStatusEl.textContent !== txt) { quirkStatusEl.textContent = txt; quirkStatusEl.style.display = txt ? 'block' : 'none'; }
 }
 
+const PICK_LEAN = 0.7; // radians of extra forward bend while mining (animation audit)
 // Pick the player's clip from what they're doing: gathering (per tool), moving, or idle.
 let cheerAfterSwing = false;
 function updatePlayerAnimation(dt) {
@@ -1485,6 +1486,7 @@ function updatePlayerAnimation(dt) {
   if (!c) return;
   if (cheerAfterSwing && !gathering) { cheerAfterSwing = false; c.play('cheer'); }
   if (player.dead) { c.update(dt); return; }
+  c.setLean(gathering && gathering.res.tool === 'pick' ? PICK_LEAN : 0);
   if (gathering) c.play(gathering.res.tool, { timeScale: gathering.res.tool === 'gloves' ? 1 : 0.9 });
   else if (combat.target && !player.moving) c.play('guard');
   else if (player.moving || player.combatMove) c.play(gait.clip, { timeScale: Math.min(1.6, (player.baseSpeed * walkMult) / gait.native) });

@@ -77,6 +77,7 @@ window.__lab = {
   async full() { await loadFull(); return names.length; },
   play(clip, toolKind = null, ts = 1, fade = 0) { live = false; c.play(clip, { fade, timeScale: ts, restart: true }); tool.show(toolKind, '#c9a2e8'); c.update(0.0001); },
   step(dt) { c.update(dt); },
+  lean(rad) { c.setLean(rad); c.update(0.5); },
   render(view = 'three') { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); cam.position.fromArray(VIEWS[view] || VIEWS.three); cam.lookAt(0, view === 'close' ? 1.2 : 0.95, 0); renderer.render(scene, cam); },
 };
 window.__ready = true;

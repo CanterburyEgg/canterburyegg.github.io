@@ -104,8 +104,15 @@ export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
     currentName = name;
   }
 
+  // Lean: an extra forward bend of the spine layered on top of the clip (mining reuses the chop,
+  // leaned over so the swing lands on a rock instead of at chest height). Eased in and out.
+  const spine = [built.mesh.skeleton.bones.find((b) => b.name === 'spine_01'), built.mesh.skeleton.bones.find((b) => b.name === 'spine_02')].filter(Boolean);
+  let lean = 0, leanGoal = 0;
+  function setLean(rad) { leanGoal = rad; }
   function update(dt) {
     mixer.update(dt);
+    lean += (leanGoal - lean) * Math.min(1, dt * 6);
+    if (Math.abs(lean) > 0.001) for (const b of spine) b.rotateX(lean / spine.length);
     if (built.face) built.face.update(dt);
     if (oneShot) {
       oneShot.until -= dt;
@@ -128,9 +135,9 @@ export async function createCharacter(look, { cellFrac = 0.002 } = {}) {
 
   root.traverse((o) => { if (o.isMesh) o.frustumCulled = false; });
   // Jump the current clip to time t (seconds) and pose immediately (dev tools, previews).
-  function seek(t) { if (current) { current.time = t; current.weight = 1; current.setEffectiveWeight(1); mixer.update(0); } }
+  function seek(t) { if (current) { current.time = t; current.weight = 1; current.setEffectiveWeight(1); mixer.update(0); lean = leanGoal; if (Math.abs(lean) > 0.001) for (const b of spine) b.rotateX(lean / spine.length); } }
   const clipDuration = (roleOrClip) => { const c = clips.get(CLIPS[roleOrClip] || roleOrClip); return c ? c.duration : 0; };
-  return { root, mesh: built.mesh, face: built.face, tris: built.tris, play, update, seek, clipDuration, hand, dispose, get clip() { return currentName; } };
+  return { root, mesh: built.mesh, face: built.face, tris: built.tris, play, update, seek, clipDuration, setLean, hand, dispose, get clip() { return currentName; } };
 }
 
 // Dev tools (animation audit): add clips from another glTF (e.g. the full UAL library) so play()
