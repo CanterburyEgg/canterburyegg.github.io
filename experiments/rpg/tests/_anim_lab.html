@@ -29,7 +29,11 @@ const sun = new THREE.DirectionalLight('#fff', 1.8); sun.position.set(2, 5, 3); 
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.MeshStandardMaterial({ color: '#5f9c7a' }));
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
 // a grid of foot marks so foot sliding is visible
-for (let i = -5; i <= 5; i++) { const l = new THREE.Mesh(new THREE.PlaneGeometry(0.02, 10), new THREE.MeshBasicMaterial({ color: '#4a7a60' })); l.rotation.x = -Math.PI / 2; l.position.set(i * 0.5, 0.002, 0); scene.add(l); }
+// ground lines every 0.25 m across the walking direction (+z); they scroll at the treadmill speed so
+// a planted foot that matches the ground stays on its line
+const lines = new THREE.Group(); scene.add(lines);
+for (let i = -20; i <= 20; i++) { const l = new THREE.Mesh(new THREE.PlaneGeometry(4, i % 4 ? 0.012 : 0.03), new THREE.MeshBasicMaterial({ color: i % 4 ? '#4a7a60' : '#ffe680' })); l.rotation.x = -Math.PI / 2; l.position.set(0, 0.002, i * 0.25); lines.add(l); }
+let treadmill = 0;
 const c = await createCharacter(PRESETS.find((p) => p.id === (q.get('preset') || 'courier')).look, { cellFrac: 0.003 });
 c.root.traverse((o) => { if (o.isMesh) o.castShadow = true; });
 scene.add(c.root);
@@ -76,7 +80,9 @@ window.__lab = {
   names: () => names,
   async full() { await loadFull(); return names.length; },
   play(clip, toolKind = null, ts = 1, fade = 0) { live = false; c.play(clip, { fade, timeScale: ts, restart: true }); tool.show(toolKind, '#c9a2e8'); c.update(0.0001); },
-  step(dt) { c.update(dt); },
+  step(dt) { c.update(dt); lines.position.z = ((lines.position.z - treadmill * dt) % 1 + 1) % 1 - 0.5; },
+  treadmill(v) { treadmill = v; },
+  footY() { const f = c.mesh.skeleton.bones.find((b) => b.name === 'foot_l'), g = c.mesh.skeleton.bones.find((b) => b.name === 'foot_r'); const a = new THREE.Vector3(), b = new THREE.Vector3(); f.getWorldPosition(a); g.getWorldPosition(b); return [a.y, a.z, b.y, b.z]; },
   lean(rad) { c.setLean(rad); c.update(0.5); },
   render(view = 'three') { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); cam.position.fromArray(VIEWS[view] || VIEWS.three); cam.lookAt(0, view === 'close' ? 1.2 : 0.95, 0); renderer.render(scene, cam); },
 };
