@@ -1,5 +1,0 @@
-{"a":["imp"],"b":["coyote"],"winsA":0,"winsB":4,"draws":0,"avgTime":4.850000000000055,"avgHpLeft":0.5010089217919507,"casts":{"imp_lmb":24,"lmb":16,"E":4,"R":4,"imp_R":1}}
-{"a":["imp"],"b":["brawler"],"winsA":0,"winsB":4,"draws":0,"avgTime":10.758333333332978,"avgHpLeft":0.22611013986013256,"casts":{"imp_lmb":48,"imp_R":4,"br_E":16,"br_shield_t1":4,"br_R":4,"br_Q":8,"br_kick":8,"br_lmb":32,"imp_E":4,"br_shield_t0":4}}
-{"a":["imp"],"b":["sorceress"],"winsA":3,"winsB":1,"draws":0,"avgTime":7.183333333332925,"avgHpLeft":0.10432347540711312,"casts":{"imp_lmb":36,"imp_R":4,"so_lmb":24,"so_R":4,"so_Q":8,"so_E":1}}
-{"a":["imp"],"b":["panther"],"winsA":3,"winsB":1,"draws":0,"avgTime":10.66666666666606,"avgHpLeft":0.1259445249845032,"casts":{"imp_lmb":49,"imp_R":4,"imp_E":4,"pn_R":4,"pn_E":8,"pn_lmb":49,"pn_Q":6}}
-{"a":["imp"],"b":["scientist"],"winsA":1,"winsB":3,"draws":0,"avgTime":10.266666666666083,"avgHpLeft":0.0585425217571285,"casts":{"imp_lmb":49,"imp_R":4,"imp_E":4,"sc_R":4,"sc_E":4,"sc_Q":23,"sc_lmb":6}}
