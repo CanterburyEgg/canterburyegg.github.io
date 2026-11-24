@@ -5436,7 +5436,13 @@ function applyLongRunsEndOnEdge(notes, lanes, ghosts = false) {
           // feels like there's one more D I'm not hitting")
           const endsFigure = Math.abs(run[1].midi - run[0].midi) >= 3 && run[0].time - pv.time < 0.2 && Math.abs(run[0].midi - pv.midi) >= 3;
           const g = endsFigure ? run[1] : run[0];
-          if (endsFigure) run[0].lane = startEdge;
+          if (endsFigure) {
+            // (and the run carries on from the edge key after its ghost step, every key in turn -- S D F J K, not
+            // S F J K; user, Nov 24: "what's up with this SFJK pattern? why am I skipping a full key?")
+            const plan = run.map((x) => x.lane);
+            run[0].lane = startEdge;
+            for (let j = run.length - 1; j >= 2; j--) run[j].lane = plan[j - 1];
+          }
           g.lane = dir > 0 ? lanes : lanes + 1;
           g.ghost = dir > 0 ? 'S' : 'L';
         } else if (k > 0 && k <= 2) run.slice(0, k).forEach((x) => notes.splice(notes.indexOf(x), 1));
