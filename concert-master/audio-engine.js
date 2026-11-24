@@ -5116,7 +5116,10 @@ function applyLeapOffEdgeFresh(notes, lanes) {
   for (let i = 1; i + 1 < prim.length; i++) {
     const p = prim[i], q = prim[i + 1];
     if (q.time - p.time > 0.3 || p.lane !== q.lane || p.midi === q.midi) continue;
-    const dir = p.lane === 0 && q.midi < p.midi ? -1 : p.lane === lanes - 1 && q.midi > p.midi ? 1 : 0;
+    let dir = p.lane === 0 && q.midi < p.midi ? -1 : p.lane === lanes - 1 && q.midi > p.midi ? 1 : 0;
+    // (also a falling cell landing on D followed by a leap back up that starts on D too -- Mercury 2:23.9, the bassoons'
+    // 52 47 44 then the climb from 58, K F D | D58: the cell moves up a key, K52 J47 F44 | D58)
+    if (!dir && p.lane === 0 && q.midi - p.midi >= 5 && i > 0 && prim[i - 1].midi > p.midi && prim[i - 1].lane > p.lane) dir = -1;
     if (!dir) continue;
     // (the cell: the notes before p moving the same way, key by key)
     let a = i;
@@ -5159,7 +5162,14 @@ function applyBackAndForthOneKey(notes, lanes) {
       const seg = prim.slice(a, b);
       const lows = seg.filter((_, p) => p % 2 === 1);
       const highs = seg.filter((_, p) => p % 2 === 0);
-      if (new Set(lows.map((x) => x.midi)).size >= 2 && !seg.some((x) => x.fixedLane || x.localPin)) {
+      // (lows of more than one pitch, or one low note under highs that alternate between two -- Mercury 2:39, the cor
+      // anglais' 67 60 63 60 67 60 ...; user, Nov 23: 'that KFJ(F) pattern of sixteenths back and forth')
+      const highSet = new Set(highs.map((x) => x.midi));
+      // (one low note: only where the keys came out scattered -- the low note on more than one key, or a high note on
+      // two -- not a figure already swinging off one key, like the approved 0:22 F61 D54 J57 D54)
+      const scattered = new Set(lows.map((x) => x.lane)).size > 1 ||
+        [...highSet].some((m) => new Set(highs.filter((x) => x.midi === m).map((x) => x.lane)).size > 1);
+      if ((new Set(lows.map((x) => x.midi)).size >= 2 || (highSet.size >= 2 && scattered)) && !seg.some((x) => x.fixedLane || x.localPin)) {
         lows.forEach((x) => (x.lane = 0));
         let lane = highs.length > 1 && highs.find((x) => x.midi !== highs[0].midi)?.midi > highs[0].midi ? 2 : 3;
         highs.forEach((x, q) => {
@@ -5420,8 +5430,15 @@ function applyLongRunsEndOnEdge(notes, lanes, ghosts = false) {
         // -- Mercury 2:24.3, the climb from 58 starts S58 D60 ...; user, Nov 22: "the 'drop the first note' rule only
         // matters if we don't have ghost notes; I think we should start the second sweep on S")
         if (k === 1 && ghosts) {
-          run[0].lane = dir > 0 ? lanes : lanes + 1;
-          run[0].ghost = dir > 0 ? 'S' : 'L';
+          // (unless that note ends the figure before -- a leap into the run from it, the figure's own note just
+          // before: it keeps the figure's edge key and the run's first step goes on the ghost key instead -- Mercury
+          // 2:39, the cor anglais' ... J63 D60 then the violins' S64 F66 ...; user, Nov 24: "my notes end on J but it
+          // feels like there's one more D I'm not hitting")
+          const endsFigure = Math.abs(run[1].midi - run[0].midi) >= 3 && run[0].time - pv.time < 0.2 && Math.abs(run[0].midi - pv.midi) >= 3;
+          const g = endsFigure ? run[1] : run[0];
+          if (endsFigure) run[0].lane = startEdge;
+          g.lane = dir > 0 ? lanes : lanes + 1;
+          g.ghost = dir > 0 ? 'S' : 'L';
         } else if (k > 0 && k <= 2) run.slice(0, k).forEach((x) => notes.splice(notes.indexOf(x), 1));
       }
       a = b + 1;

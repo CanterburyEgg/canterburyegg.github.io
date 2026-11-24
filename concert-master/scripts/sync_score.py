@@ -306,7 +306,7 @@ def parse_musescore_xml(xml_bytes: bytes) -> list[dict]:
 _STEP_SEMI = {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
 
 
-def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
+def parse_musicxml_bytes(xml_bytes: bytes, metre_fix_from: int = 1) -> list[dict]:
     root = ET.fromstring(xml_bytes)
     part_names = {}
     for sp in root.findall(".//score-part"):
@@ -318,6 +318,7 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
     parts_raw = []
     meter_grid.reset()
     first_part = True
+    global_bars = []
 
     for part in root.findall("part"):
         pid = part.attrib.get("id", "")
@@ -330,12 +331,14 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
         chromatic_shift = 0
         q_pos = 0.0
         pnotes = []
+        poly_seen = False
 
         bars = []  # (q_start, num, den) -- the bar grid, from the first part
         ts = (4, 4)
-        for meas in part.findall("measure"):
+        for mi, meas in enumerate(part.findall("measure")):
             last_chord_start = q_pos
             bar_q0 = q_pos
+            n_before = len(pnotes)
             for elem in meas:
                 tag = elem.tag.split("}")[-1]
                 if tag == "attributes":
@@ -395,8 +398,26 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
                         (note_start, note_start + dur_q, midi_p, 88, "start" in ties, "stop" in ties, is_trill)
                     )
             bars.append((bar_q0, ts[0], ts[1]))
+            # (a part in its own metre against the others -- Mercury's oboes, cor anglais, strings and harps in 2/4
+            # against the band's 6/8 -- fills the same bar: its measure is laid over the first part's bar of the same
+            # number, stretched to fit, instead of running on at its own length and drifting a beat a bar out of line;
+            # Mercury m.79-83 / 108-113 put those parts two bars early from there on. Only where the metres differ.)
+            if not first_part and mi < len(global_bars):
+                g0, g_len = global_bars[mi]
+                l_len = ts[0] * 4.0 / ts[1]
+                if abs(l_len - g_len) > 1e-6:
+                    poly_seen = True
+                if (abs(l_len - g_len) > 1e-6 or abs(bar_q0 - g0) > 1e-6) and poly_seen and mi + 1 >= metre_fix_from:
+                    if True:
+                        sc = g_len / l_len
+                        for k in range(n_before, len(pnotes)):
+                            ns, ne, *rest = pnotes[k]
+                            pnotes[k] = (g0 + (ns - bar_q0) * sc, g0 + (ne - bar_q0) * sc, *rest)
 
         if first_part:
+            global_bars = []
+            for bi, (bq0, num, den) in enumerate(bars):
+                global_bars.append((bq0, num * 4.0 / den))
             first_part = False
             for bi, (bq0, num, den) in enumerate(bars):
                 bq1 = bars[bi + 1][0] if bi + 1 < len(bars) else bq0 + num * 4.0 / den
@@ -446,6 +467,17 @@ def parse_musicxml_bytes(xml_bytes: bytes) -> list[dict]:
     return staves_out
 
 
+def _metre_fix_from(score_path: Path) -> int:
+    """<song>_corrections.json 'metre_fix_from_measure': parts in their own metre are laid over the band's bars only
+    from this measure on (default 1, everywhere). Mercury: 150, because 0:00-2:21 was played and approved on the old
+    reading, where those parts ran two bars early from m.79/m.108 (user, Nov 24, charting m.156-188 from the score)."""
+    f = Path(__file__).resolve().parent / f"{score_path.stem.lower()}_corrections.json"
+    try:
+        return int(json.loads(f.read_text(encoding="utf-8")).get("metre_fix_from_measure", 1))
+    except Exception:
+        return 1
+
+
 def load_any_score(score_path: Path) -> list[dict]:
     meter_grid.reset()  # (each parser that knows its bars records them; others leave Easy to thin by time)
     ext = score_path.suffix.lower()
@@ -467,9 +499,9 @@ def load_any_score(score_path: Path) -> list[dict]:
                 xml_name = rf.attrib["full-path"] if rf is not None else [n for n in zf.namelist() if n.endswith(".xml")][0]
             else:
                 xml_name = [n for n in zf.namelist() if n.endswith((".xml", ".musicxml"))][0]
-            return parse_musicxml_bytes(zf.read(xml_name))
+            return parse_musicxml_bytes(zf.read(xml_name), _metre_fix_from(score_path))
     elif ext in (".musicxml", ".xml"):
-        return parse_musicxml_bytes(score_path.read_bytes())
+        return parse_musicxml_bytes(score_path.read_bytes(), _metre_fix_from(score_path))
     elif ext == ".pdf":
         from parse_finale_pdf import parse_finale_pdf_score
         return parse_finale_pdf_score(score_path)

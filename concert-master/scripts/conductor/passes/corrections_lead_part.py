@@ -24,6 +24,10 @@ def apply(ctx, entries):
         # ("as": the part the ear hears, when the notes are read from a part that doubles it -- e.g. Ride's horn chorale,
         # taken from the oboes' concert-pitch copy -- so the borrowed notes count as one line for the later rules)
         new = [dict(n, staff=lp.get("as", src["name"])) for n in src["notes"] if s0 <= float(n["start"]) < s1]
+        # ("keep_restrikes": the part's notes are heard as struck, even one restruck under the note before -- Mercury
+        # 0:28.3, the violas' 54 after the violins' 63; held_over_reattack leaves these alone)
+        if lp.get("keep_restrikes"):
+            new = [dict(n, keep_restrike=True) for n in new]
         # ("legato": a slow sung line -- each note is timed as a legato suspension, held into the next)
         if lp.get("legato"):
             new = [dict(n, is_legato_suspension=True) for n in new]

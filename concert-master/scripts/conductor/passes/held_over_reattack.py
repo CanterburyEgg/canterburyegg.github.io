@@ -29,7 +29,7 @@ def run(ctx):
         st_r = by_nm_r.get(n.get("staff"))
         # (the previous note has to reach the re-attack, more or less: one that stopped well before it -- Jupiter 3:02's
         # flute 82, an eighth, then 1.5s later the 79 -- doesn't ring on through the gap)
-        if (prev_r is not None and st_r is not None and prev_r.get("staff") != n.get("staff") and int(n["midi"]) < int(prev_r["midi"])
+        if (prev_r is not None and st_r is not None and not n.get("keep_restrike") and prev_r.get("staff") != n.get("staff") and int(n["midi"]) < int(prev_r["midi"])
                 and float(n["start"]) - float(prev_r["end"]) < 0.6):
             held = any(
                 q is not n and int(q["midi"]) == int(n["midi"]) and abs(float(q["end"]) - float(n["start"])) < 0.02

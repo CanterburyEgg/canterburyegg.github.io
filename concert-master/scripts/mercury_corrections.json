@@ -1,4 +1,6 @@
 {
+  "metre_fix_from_measure": 150,
+  "metre_fix_why": "The oboe 1, cor anglais, strings and harps switch to 2/4 against the band's 6/8 (m.79-83, m.108-113, ...); the score reader used to run those bars short, putting those parts two bars early from there on. Fixed in the reader, but applied from m.150 on here: 0:00-2:21 was played and approved on the old reading (user, Nov 24: the m.156-188 part list from the score only lines up with the fix).",
   "ghost_notes": "runs",
   "ghost_notes_why": "Mercury keeps the ghost keys for its quick runs but not to fit its tune (the 79 79 81 79 77 76 ... statements came out K79 K79 L81 some times and J79 J79 K81 others; user, Nov 21: 'I think if we can avoid ghost notes, we should', 'I didn't necessarily want ghost keys ENTIRELY off ... They're still fine in long runs').",
   "rests": [
@@ -89,51 +91,16 @@
       "audio_from": 79.8,
       "audio_to": 97.3,
       "why": "1:19.8-1:37.3 (score 67.13-82.38): the tune's statements (oboe, flute, celesta, clarinet) at the recording's steady tempo, each phrase start on the recording's (79.8, 82.3, 85.0, 87.3, 89.8, 92.6, 95.1 by its pitch); the warp had the sixteenths spread out and late (user, Nov 21: '1:23~: this flute melody seems a little behind the beat')."
+    },
+    {
+      "score_from": 19.92,
+      "score_to": 22.75,
+      "audio_from": 25.03,
+      "audio_to": 28.32,
+      "why": "0:25.0-0:28.3 (score 19.92-22.75): the flutes' 81 73 76 68 pattern and the violins' zigzag after it, evenly on the recording's attacks (a sixteenth every 0.143s from 25.03 to the violas' 54 at 28.32); the warp had them 0.05-0.1s early and uneven (user, Nov 24: 'the pattern at 0:25 seems to be de-synced. I think it starts a little early on the taps')."
     }
   ],
   "lead_part": [
-    {
-      "staff": "Bass Clarinet",
-      "start": 119.45,
-      "end": 120.2,
-      "late": true,
-      "why": "2:23: the run up starts in the bass clarinet, 46 48 50 51 52, and goes on up through the second violins and oboes (user's timeline, Nov 22: '2:23: sixteenth note run straight up, starting in the bass clarinet?')."
-    },
-    {
-      "staff": "Bassoon 1",
-      "start": 121.7,
-      "end": 123.9,
-      "late": true,
-      "why": "2:26-2:28: between the two runs the ear follows the eighth notes, 62 58 60 55 58 57 51 55 53 (the tune's shape, doubled by the bass oboe), not the flutes' arpeggios or the strings' run starting under them (user's timeline, Nov 22: '2:26: flute eighth notes like earlier in the piece')."
-    },
-    {
-      "staff": "Oboe 1",
-      "start": 131.2,
-      "end": 132.7,
-      "late": true,
-      "why": "2:36-2:38: the falling three-note pattern carries on (oboe 75 67 72 ...), not the violins' eighths or the bass clarinet (user's timeline, Nov 22: '2:32: flute offset eighth/sixteenth note pattern, walking down ... (same flute pattern) to 2:38')."
-    },
-    {
-      "staff": "Clarinet 3 in B♭",
-      "start": 132.7,
-      "end": 133.9,
-      "late": true,
-      "why": "2:38: the same pattern, in the clarinets: 75 67 72 75 67 72 75 67 72 (user's timeline, Nov 22)."
-    },
-    {
-      "staff": "Violins I",
-      "start": 134.6,
-      "end": 135.74,
-      "late": true,
-      "why": "2:40-2:41: the run up through the high instruments, 70 72 74 75 76, 82 84 86 89 87 (user's timeline, Nov 22: '2:40: sixteenth note run up through the high woodwinds again')."
-    },
-    {
-      "staff": "Flute 1",
-      "start": 135.74,
-      "end": 137.21,
-      "late": true,
-      "why": "2:42-2:45: the high woodwinds' pattern, 87 79 82 87 79 82 ... falling to 63 69 (user's timeline, Nov 22: '2:42: offset eighth/sixteenth pattern in high woodwinds')."
-    },
     {
       "staff": "Oboe 1",
       "start": 152.65,
@@ -154,6 +121,294 @@
       "end": 160.75,
       "late": true,
       "why": "3:10: the second three bursts down, 83 81 78 74 | 78 76 73 69 | 71 69 66 62 (user's timeline, Nov 22: '3:10: three quick bursts of descending notes')."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 116.537,
+      "end": 117.275,
+      "late": true,
+      "why": "m.159: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 117.275,
+      "end": 118.013,
+      "late": true,
+      "why": "m.160: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Clarinet 3 in B♭",
+      "start": 118.013,
+      "end": 118.382,
+      "late": true,
+      "why": "m.161: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 3 in B♭ here."
+    },
+    {
+      "staff": "Clarinet 2 in A",
+      "start": 118.382,
+      "end": 118.751,
+      "late": true,
+      "why": "m.161: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 2 in A here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 118.751,
+      "end": 119.488,
+      "late": true,
+      "why": "m.162: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Bass Clarinet",
+      "start": 119.488,
+      "end": 119.857,
+      "late": true,
+      "why": "m.163: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Bass Clarinet here."
+    },
+    {
+      "staff": "Bassoon 1",
+      "start": 119.857,
+      "end": 120.226,
+      "late": true,
+      "why": "m.163: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Bassoon 1 here."
+    },
+    {
+      "staff": "Bass Oboe",
+      "start": 120.226,
+      "end": 120.595,
+      "late": true,
+      "why": "m.164: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Bass Oboe here."
+    },
+    {
+      "staff": "Oboe 2",
+      "start": 120.595,
+      "end": 120.964,
+      "late": true,
+      "why": "m.164: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 2 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 120.964,
+      "end": 121.332,
+      "late": true,
+      "why": "m.165: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 121.332,
+      "end": 121.70100000000001,
+      "late": true,
+      "why": "m.165: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 121.70100000000001,
+      "end": 122.43900000000001,
+      "late": true,
+      "why": "m.166: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 122.43900000000001,
+      "end": 123.177,
+      "late": true,
+      "why": "m.167: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 123.177,
+      "end": 123.914,
+      "late": true,
+      "why": "m.168: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 123.914,
+      "end": 124.283,
+      "late": true,
+      "why": "m.169: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Clarinet 3 in B♭",
+      "start": 124.283,
+      "end": 124.652,
+      "late": true,
+      "why": "m.169: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 3 in B♭ here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 124.652,
+      "end": 125.021,
+      "late": true,
+      "why": "m.170: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Clarinet 3 in B♭",
+      "start": 125.021,
+      "end": 125.39,
+      "late": true,
+      "why": "m.170: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 3 in B♭ here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 125.39,
+      "end": 125.759,
+      "late": true,
+      "why": "m.171: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 125.759,
+      "end": 126.128,
+      "late": true,
+      "why": "m.171: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Piccolo 2",
+      "start": 126.128,
+      "end": 126.496,
+      "late": true,
+      "why": "m.172: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Piccolo 2 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 126.496,
+      "end": 126.86500000000001,
+      "late": true,
+      "why": "m.172: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 126.86500000000001,
+      "end": 127.60300000000001,
+      "late": true,
+      "why": "m.173: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 127.60300000000001,
+      "end": 128.34099999999998,
+      "late": true,
+      "why": "m.174: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 128.34099999999998,
+      "end": 129.078,
+      "late": true,
+      "why": "m.175: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 129.078,
+      "end": 129.816,
+      "late": true,
+      "why": "m.176: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 129.816,
+      "end": 130.554,
+      "late": true,
+      "why": "m.177: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 130.554,
+      "end": 131.291,
+      "late": true,
+      "why": "m.178: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Oboe 2",
+      "start": 131.291,
+      "end": 132.029,
+      "late": true,
+      "why": "m.179: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 2 here."
+    },
+    {
+      "staff": "Oboe 2",
+      "start": 132.029,
+      "end": 132.767,
+      "late": true,
+      "why": "m.180: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 2 here."
+    },
+    {
+      "staff": "English Horn",
+      "start": 132.767,
+      "end": 133.505,
+      "late": true,
+      "why": "m.181: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to English Horn here."
+    },
+    {
+      "staff": "English Horn",
+      "start": 133.505,
+      "end": 134.242,
+      "late": true,
+      "why": "m.182: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to English Horn here."
+    },
+    {
+      "staff": "Violins II",
+      "start": 134.242,
+      "end": 134.611,
+      "late": true,
+      "why": "m.183: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Violins II here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 134.611,
+      "end": 134.98,
+      "late": true,
+      "why": "m.183: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins II",
+      "start": 134.98,
+      "end": 135.349,
+      "late": true,
+      "why": "m.184: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Violins II here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 135.349,
+      "end": 135.718,
+      "late": true,
+      "why": "m.184: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Violins I here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 135.718,
+      "end": 136.45499999999998,
+      "late": true,
+      "why": "m.185: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 136.45499999999998,
+      "end": 137.19299999999998,
+      "late": true,
+      "why": "m.186: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 137.19299999999998,
+      "end": 137.93099999999998,
+      "late": true,
+      "why": "m.187: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 137.93099999999998,
+      "end": 138.66899999999998,
+      "late": true,
+      "why": "m.188: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Violas",
+      "start": 22.7,
+      "end": 22.8,
+      "late": true,
+      "why": "0:28.3: the first violins' zigzag (73 76 68 73 64 69 61 66 57 63) takes one more low note before the bass clarinet's run, the violas' 54 (user, Nov 24: 'right before the S that starts the run, my notes end on J but it feels like there's one more D I'm not hitting').",
+      "keep_restrikes": true
     }
   ]
 }
