@@ -23,7 +23,9 @@ def apply(ctx, entries):
             continue
         # ("as": the part the ear hears, when the notes are read from a part that doubles it -- e.g. Ride's horn chorale,
         # taken from the oboes' concert-pitch copy -- so the borrowed notes count as one line for the later rules)
-        new = [dict(n, staff=lp.get("as", src["name"])) for n in src["notes"] if s0 <= float(n["start"]) < s1]
+        # ("by_ear": the part was chosen by ear, so section_top_voice doesn't swap it for a higher part of its section --
+        # Mercury m.179-182, the second oboe's single eighths under the first oboe's continuous line)
+        new = [dict(n, staff=lp.get("as", src["name"]), by_ear=True) for n in src["notes"] if s0 <= float(n["start"]) < s1]
         # ("keep_restrikes": the part's notes are heard as struck, even one restruck under the note before -- Mercury
         # 0:28.3, the violas' 54 after the violins' 63; held_over_reattack leaves these alone)
         if lp.get("keep_restrikes"):

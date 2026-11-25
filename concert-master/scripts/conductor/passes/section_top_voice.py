@@ -24,7 +24,8 @@ def run(ctx):
         i = j + 1
         name = seg[0].get("staff", "")
         best = None
-        if len(seg) >= 4 and name in by:
+        # (a part picked by ear in the corrections file stays: the ear already chose it over the section's top voice)
+        if len(seg) >= 4 and name in by and not any(x.get("by_ear") for x in seg):
             sec = _section(name)
             for other, ns in by.items():
                 if other == name or _section(other) != sec:

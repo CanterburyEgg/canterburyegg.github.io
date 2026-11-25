@@ -1026,6 +1026,8 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
       unpinnedLane = lane;
       lane = lanes <= 4 ? Math.min(lanes - 1, hint4) : Math.floor((lanes - 4) / 2) + hint4;
     }
+    // (24 = pinned here only onto the S ghost key, where the song has ghost keys -- placed after the layout rules)
+    const pinGhost = rawMel[i].length > 6 && rawMel[i][6] === 24;
 
     sameLaneStreak = lane === prevLane ? sameLaneStreak + 1 : 1;
 
@@ -1054,6 +1056,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
       fixedLane: rawMel[i].length > 6 && rawMel[i][6] >= 1, // score-planned lane (hint / percussion tap)
       localHint: rawMel[i].length > 6 && rawMel[i][6] >= 20 && rawMel[i][6] < 30, // one-off pin: never votes
       localPin: rawMel[i].length > 6 && rawMel[i][6] >= 30, // usual-fingering pin: votes, never forces
+      pinGhost,
       partEntry: rawMel[i].length > 7 && rawMel[i][7] === 1, // the lead moves to a new part here (score)
       unpinnedLane,
       edgeReset,
@@ -1439,6 +1442,10 @@ const LAYOUT_RULES = [
   ['oneKeyPerNoteInFigure', (n, l, c) => { if (c.exactScore) applyOneKeyPerNoteInFigure(n, l); }],
   ['handoffsTakeTurns', (n, l, c) => { if (c.exactScore) applyHandoffsTakeTurns(n, l); }],
   ['tuneStatementsKeepShape', (n, l, c) => { if (c.exactScore) applyTuneStatementsKeepShape(n, l); }],
+  ['quickCellsInPitchOrder', (n, l, c) => { if (c.exactScore) applyQuickCellsInPitchOrder(n, l); }],
+  // (a one-off pin onto the S ghost key: Mercury 0:23.3, the violins' run starts S D F after the bassoons' 47; user,
+  // Nov 24: "I thought the run should start SDF and it seems to just go FJ")
+  ['pinnedGhosts', (n, l, c) => { if (c.ghosts && l === 4) n.forEach((x) => { if (x.pinGhost && !x.isChordPartner) { x.lane = l; x.ghost = 'S'; } }); }, 'ghosts'],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
@@ -4958,6 +4965,38 @@ function applyFigureEchoKeys(notes, lanes) {
 }
 
 /**
+ * Quick cells in pitch order: a quick four-note cell of four different pitches (each note within 0.3s of the last)
+ * played three or more times back to back puts its notes on D F J K in pitch order, the same keys every time. If the
+ * pitches walk, the keys walk; a cell whose two low notes are the same note still swings off one D (backAndForthOneKey).
+ * Mercury 0:25, the flutes' 81 73 76 with the oboes' 68 in the gap, and 2:42, the first flute's 87 79 82 with the first
+ * oboe's 74: K F J D over and over (user, Nov 24: "KFJD is just the pattern if the notes actually walk that way. KDJD is
+ * if the two base notes are the same note", "if the pitches walk, the notes walk. If the pitches don't walk, the notes
+ * don't walk"). The cell must still lead the right way into the note after it. Exact scores, 4 keys.
+ */
+function applyQuickCellsInPitchOrder(notes, lanes) {
+  if (lanes !== 4) return;
+  const prim = notes.filter((x) => !x.isChordPartner && x.lane >= 0 && !x.isPercussionSolo);
+  const n = prim.length;
+  for (let i = 0; i + 12 <= n; ) {
+    const cell = prim.slice(i, i + 4).map((x) => x.midi);
+    if (new Set(cell).size < 4) { i++; continue; }
+    let r = 0;
+    while (i + 4 * (r + 1) <= n && prim.slice(i + 4 * r, i + 4 * r + 4).every((x, q) => x.midi === cell[q])) r++;
+    const run = prim.slice(i, i + 4 * r);
+    const quick = run.every((x, j) => !j || x.time - run[j - 1].time <= 0.3);
+    if (r < 3 || !quick || run.some((x) => x.fixedLane || x.localPin || x.ghost || x.lane >= lanes)) { i++; continue; }
+    const order = [...cell].sort((a, b) => a - b);
+    const want = run.map((x) => order.indexOf(x.midi));
+    const nx = i + 4 * r < n && prim[i + 4 * r].time - run[run.length - 1].time < 0.6 ? prim[i + 4 * r] : null;
+    const last = want[want.length - 1];
+    const outOk = !nx || nx.lane >= lanes || (nx.midi === run[run.length - 1].midi ? nx.lane === last :
+      nx.lane !== last && Math.sign(nx.lane - last) === Math.sign(nx.midi - run[run.length - 1].midi));
+    if (outOk) run.forEach((x, j) => (x.lane = want[j]));
+    i += 4 * r;
+  }
+}
+
+/**
  * One key per note in a figure: inside a quick figure (4+ notes, each within 0.3s of the last), a note that comes
  * back more than once sits on one key every time -- the key, of those it already uses, that keeps every move in the
  * figure going the right way and doesn't share a key with a different note next to it (Mercury 1:03.9: the bassoons'
@@ -5160,22 +5199,53 @@ function applyBackAndForthOneKey(notes, lanes) {
     const len = b - a;
     if (len >= 8 && !lowAt(a)) {
       const seg = prim.slice(a, b);
+      // (the zigzag ends on a high note; if the line climbs on from it, that note starts a run and isn't part of the
+      // zigzag -- Mercury 0:23.3, the violins' 58 60 62 ... after the bassoons' 47)
+      if (b < n && prim[b].midi > prim[b - 1].midi && seg.length > 2) seg.pop();
       const lows = seg.filter((_, p) => p % 2 === 1);
       const highs = seg.filter((_, p) => p % 2 === 0);
       // (lows of more than one pitch, or one low note under highs that alternate between two -- Mercury 2:39, the cor
       // anglais' 67 60 63 60 67 60 ...; user, Nov 23: 'that KFJ(F) pattern of sixteenths back and forth')
       const highSet = new Set(highs.map((x) => x.midi));
-      // (one low note: only where the keys came out scattered -- the low note on more than one key, or a high note on
-      // two -- not a figure already swinging off one key, like the approved 0:22 F61 D54 J57 D54)
-      const scattered = new Set(lows.map((x) => x.lane)).size > 1 ||
-        [...highSet].some((m) => new Set(highs.filter((x) => x.midi === m).map((x) => x.lane)).size > 1);
-      if ((new Set(lows.map((x) => x.midi)).size >= 2 || (highSet.size >= 2 && scattered)) && !seg.some((x) => x.fixedLane || x.localPin)) {
+      // (one low note under two high notes always swings off one D, K D J D, with the higher of the two on K -- the user,
+      // Nov 24, on 0:21.6's 61 54 57 54, which had stayed F D J D: 'I think this passage is inverted ... I think it SHOULD
+      // be KDJDKDJDKDJD')
+      if ((new Set(lows.map((x) => x.midi)).size >= 2 || highSet.size >= 2) && !seg.some((x) => x.fixedLane || x.localPin)) {
         lows.forEach((x) => (x.lane = 0));
         let lane = highs.length > 1 && highs.find((x) => x.midi !== highs[0].midi)?.midi > highs[0].midi ? 2 : 3;
         highs.forEach((x, q) => {
           if (q > 0 && x.midi !== highs[q - 1].midi) lane = lane === 3 ? 2 : 3;
           x.lane = lane;
         });
+        // (but if the pitches walk, the keys walk: each group of four -- high low high low -- whose two low notes are
+        // different pitches goes on its own pitches in order, K F J D for 79 70 75 67, J F J D for 76 73 76 68; only
+        // lows that are the same note stay on one D. A short group at the end takes the last group's keys if they still
+        // read right. Mercury 0:26.7-0:28.3 and 2:44.7; user, Nov 24: "KFJD is just the pattern if the notes actually
+        // walk that way. KDJD is if the two base notes are the same note", "if the pitches walk, the notes walk")
+        let prevKeys = null;
+        let prevGrp = null;
+        for (let g = 0; g < seg.length; g += 4) {
+          const grp = seg.slice(g, g + 4);
+          if (grp.length === 4) {
+            // (the cell again with only its last note changed -- a bass downbeat ending the figure, Mercury 0:23.1's
+            // bassoons' 47 after 61 54 57 -- keeps the cell's keys; the new last note lands on the cell's last key)
+            if (prevGrp && prevKeys && grp.slice(0, 3).every((x, q) => x.midi === prevGrp[q].midi) &&
+                grp[3].midi < Math.min(...grp.slice(0, 3).map((x) => x.midi))) {
+              grp.forEach((x, q) => (x.lane = prevKeys[q]));
+              prevGrp = grp;
+              continue;
+            }
+            prevGrp = grp;
+            if (grp[1].midi === grp[3].midi) { prevKeys = grp.map((x) => x.lane); continue; }
+            const order = [...new Set(grp.map((x) => x.midi))].sort((p, q) => p - q);
+            prevKeys = grp.map((x) => order.indexOf(x.midi));
+            grp.forEach((x, q) => (x.lane = prevKeys[q]));
+          } else if (prevKeys && prevGrp && prevGrp[1].midi !== prevGrp[3].midi) {
+            const keys = prevKeys.slice(0, grp.length);
+            const fits = grp.every((x, q) => !q || Math.sign(keys[q] - keys[q - 1]) === Math.sign(x.midi - grp[q - 1].midi));
+            if (fits) grp.forEach((x, q) => (x.lane = keys[q]));
+          }
+        }
         a = b;
         continue;
       }

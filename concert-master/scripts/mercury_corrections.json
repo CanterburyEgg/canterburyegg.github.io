@@ -59,6 +59,20 @@
       "to": 68.99,
       "end": 69.1,
       "why": "1:07.9-1:09.0: the six even notes, evenly spaced from the recording's first attack (67.90) to its last (68.99) (see the 'thin' entry at score 56.75; user, Nov 21: 'exactly evenly spaced for their meters')."
+    },
+    {
+      "score_start": 137.21,
+      "midi": 87,
+      "to": 164.08,
+      "keep_length": true,
+      "why": "2:44.08: m.187's first note (Flute 1's 87) on the even grid with the rest (see the time map for m.187-188)."
+    },
+    {
+      "score_start": 18.32,
+      "midi": 47,
+      "to": 23.1,
+      "keep_length": true,
+      "why": "0:23.10: the bassoons' 47 downbeat ending the 61 54 57 figure, on the recording's attack (the pitch track's 47 peaks at 23.10) (user, Nov 24: 'I still don't have the D ... it's at exactly 23.1. There's a gap between the J and the D that starts the next run, where I hear a down beat (you might be charting one of the instruments that doesn't play it)')."
     }
   ],
   "thin": [
@@ -98,6 +112,13 @@
       "audio_from": 25.03,
       "audio_to": 28.32,
       "why": "0:25.0-0:28.3 (score 19.92-22.75): the flutes' 81 73 76 68 pattern and the violins' zigzag after it, evenly on the recording's attacks (a sixteenth every 0.143s from 25.03 to the violas' 54 at 28.32); the warp had them 0.05-0.1s early and uneven (user, Nov 24: 'the pattern at 0:25 seems to be de-synced. I think it starts a little early on the taps')."
+    },
+    {
+      "score_from": 137.21,
+      "score_to": 138.57,
+      "audio_from": 164.08,
+      "audio_to": 165.66,
+      "why": "2:44.1-2:45.7 (m.187-188): m.187-188 on an even grid, a sixteenth every 0.144s (now Flute 1's 87 79 82 74 79 70 | 75 67 72 63 69); the warp had them 0.08-0.17s apart (user, Nov 24: 'there's a doubled note ... it's impossible to play', option A)."
     }
   ],
   "lead_part": [
@@ -337,14 +358,14 @@
       "start": 132.767,
       "end": 133.505,
       "late": true,
-      "why": "m.181: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to English Horn here."
+      "why": "m.181: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to English Horn here (its 67 60 63 60 figure, KDJD; kept when the gapped eighths were standardized, user: 'This feels like it took out the KDJDKDJD pattern')."
     },
     {
       "staff": "English Horn",
       "start": 133.505,
       "end": 134.242,
       "late": true,
-      "why": "m.182: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to English Horn here."
+      "why": "m.182: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to English Horn here (its 67 60 63 60 figure, KDJD; kept when the gapped eighths were standardized, user: 'This feels like it took out the KDJDKDJD pattern')."
     },
     {
       "staff": "Violins II",
@@ -375,32 +396,56 @@
       "why": "m.184: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Violins I here."
     },
     {
-      "staff": "Piccolo 1",
+      "staff": "Flute 1",
       "start": 135.718,
-      "end": 136.45499999999998,
+      "end": 136.1,
       "late": true,
-      "why": "m.185: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Piccolo 1 here."
-    },
-    {
-      "staff": "Piccolo 1",
-      "start": 136.45499999999998,
-      "end": 137.19299999999998,
-      "late": true,
-      "why": "m.186: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Piccolo 1 here."
+      "why": "m.185-188 (2:42-2:46): Flute 1's 87 79 82 (and, from m.187, its 74 79 70 75 67 72 63 69) (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern')."
     },
     {
       "staff": "Oboe 1",
-      "start": 137.19299999999998,
-      "end": 137.93099999999998,
+      "start": 136.1,
+      "end": 136.2,
       "late": true,
-      "why": "m.187: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+      "why": "m.185-188 (2:42-2:46): the first oboe's 74 in the flute's rest, the fourth note of each KFJD group (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern').",
+      "keep_restrikes": true
+    },
+    {
+      "staff": "Flute 1",
+      "start": 136.2,
+      "end": 136.59,
+      "late": true,
+      "why": "m.185-188 (2:42-2:46): Flute 1's 87 79 82 (and, from m.187, its 74 79 70 75 67 72 63 69) (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern')."
     },
     {
       "staff": "Oboe 1",
-      "start": 137.93099999999998,
-      "end": 138.66899999999998,
+      "start": 136.59,
+      "end": 136.7,
       "late": true,
-      "why": "m.188: the user's part-by-part plan from the score, m.156-188 (Nov 24): the line goes to Oboe 1 here."
+      "why": "m.185-188 (2:42-2:46): the first oboe's 74 in the flute's rest, the fourth note of each KFJD group (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern').",
+      "keep_restrikes": true
+    },
+    {
+      "staff": "Flute 1",
+      "start": 136.7,
+      "end": 137.08,
+      "late": true,
+      "why": "m.185-188 (2:42-2:46): Flute 1's 87 79 82 (and, from m.187, its 74 79 70 75 67 72 63 69) (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern')."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 137.08,
+      "end": 137.2,
+      "late": true,
+      "why": "m.185-188 (2:42-2:46): the first oboe's 74 in the flute's rest, the fourth note of each KFJD group (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern').",
+      "keep_restrikes": true
+    },
+    {
+      "staff": "Flute 1",
+      "start": 137.2,
+      "end": 138.669,
+      "late": true,
+      "why": "m.185-188 (2:42-2:46): Flute 1's 87 79 82 (and, from m.187, its 74 79 70 75 67 72 63 69) (user, Nov 24: 'the pattern I'm hearing is definitely fl 1 with the last note from the ob 1. It's like a KFJD KFJD KFJD pattern')."
     },
     {
       "staff": "Violas",
@@ -409,6 +454,13 @@
       "late": true,
       "why": "0:28.3: the first violins' zigzag (73 76 68 73 64 69 61 66 57 63) takes one more low note before the bass clarinet's run, the violas' 54 (user, Nov 24: 'right before the S that starts the run, my notes end on J but it feels like there's one more D I'm not hitting').",
       "keep_restrikes": true
+    },
+    {
+      "staff": "Bassoon 1",
+      "start": 18.3,
+      "end": 18.4,
+      "late": true,
+      "why": "0:23.1: the figure's last note is the bassoons' (and bass oboe's) low 47 downbeat, not the cor anglais' 54 over it (user, Nov 24: 'I still don't have the D ... it's at exactly 23.1. There's a gap between the J and the D that starts the next run, where I hear a down beat (you might be charting one of the instruments that doesn't play it)')."
     }
   ]
 }

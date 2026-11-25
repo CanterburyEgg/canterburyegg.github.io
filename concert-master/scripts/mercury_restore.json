@@ -1,5 +1,5 @@
 {
-  "why": "Mercury, by ear. Key pins (audio time, lane 0-3 = D F J K): m.186, the piccolo's 87 82 rocks on F D all the way (not K J for the last pair); 2:44.4, the third 87 79 82 plays like the first two (J D F), and the clarinets' 82 82 79 75 72 after it falls K K J F D; 2:32-2:39, the four falling eighth-note statements play on the tune's keys from 0:15-0:21, F D K F K J each time; 2:18.7-2:20.8, the figures that come back keep the keys they had the first time (bassoons 41 46 50 52 47 44 = D F J K F D, clarinets 53 58 62 64 59 56 = D F J K J F) and the flutes' 65 70 74 76 71 68 81 keep the D F J K F D K the user okayed; 2:15.65, the second held 64 on F like the first (same note, same key); 1:07.9-1:09.1, the six even notes rock D K D K D K and the tune comes in on K (user, Nov 21: 'I think it'd be six total notes? DKDKDK K(flute beginning)'). Notes: 1:19.7-2:12.3, the tune section laid out from the user's taps (three runs, Nov 21): every statement is one of the tune's two forms, 79 79 81 79 77 76 77 79 77 76 74 or ... 76 72 74 (an octave up on the celesta, an octave and two down for the horns and bassoons), in its written rhythm, starting where the user taps it (the two forms take turns all the way: at 1:37.5-1:47.8 A B A B, starting 97.47 / 99.97 / 102.62 / 105.13 by the user's taps, user: 'at 1:40 it plays the wrong form. It plays the second form a second time, which is wrong'); 2:00.8-2:12.3 B A B A (starting 120.79 / 123.45 / 126.04 / 128.76: the user's taps there, read one note on -- the chart had cut the 2:00.8 statement short; user: 'at 2:03, the same issue happens. The chart is wrong'), then 2:11.4-2:19.8 on the user's taps (three runs, Nov 22, medians): the flutes' 64 62 64 with the last 64 held from 2:12.28, the cellos' six-note figure 41 46 50 52 47 44 from 2:14.41, the 64 held again from 2:15.39 (key-pinned on F like the first), the clarinets' 53 58 62 64 59 56 from 2:17.25, the bassoons' 41 46 50 52 47 44 from 2:18.10, and the clarinets' 53 58 62 64 59 56 again from 2:19.07 (user: '2:19: clarinet triplets'), into the flutes at 2:19.9.",
+  "why": "Mercury, by ear. Key pins (audio time, lane 0-3 = D F J K): 0:23.3-0:24.7, the violins' run up to the flutes starts S D F (lane 4 = the S ghost key) and then keeps the wave the user approved, J K D F J F J K D F J K, now that the bassoons' 47 comes before it instead of the 54 (user, Nov 24: 'I thought the run should start SDF and it seems to just go FJ'); 2:32-2:39, the four falling eighth-note statements play on the tune's keys from 0:15-0:21, F D K F K J each time; 2:18.7-2:20.8, the figures that come back keep the keys they had the first time (bassoons 41 46 50 52 47 44 = D F J K F D, clarinets 53 58 62 64 59 56 = D F J K J F) and the flutes' 65 70 74 76 71 68 81 keep the D F J K F D K the user okayed; 2:15.65, the second held 64 on F like the first (same note, same key); 1:07.9-1:09.1, the six even notes rock D K D K D K and the tune comes in on K (user, Nov 21: 'I think it'd be six total notes? DKDKDK K(flute beginning)'). Notes: 1:19.7-2:12.3, the tune section laid out from the user's taps (three runs, Nov 21): every statement is one of the tune's two forms, 79 79 81 79 77 76 77 79 77 76 74 or ... 76 72 74 (an octave up on the celesta, an octave and two down for the horns and bassoons), in its written rhythm, starting where the user taps it (the two forms take turns all the way: at 1:37.5-1:47.8 A B A B, starting 97.47 / 99.97 / 102.62 / 105.13 by the user's taps, user: 'at 1:40 it plays the wrong form. It plays the second form a second time, which is wrong'); 2:00.8-2:12.3 B A B A (starting 120.79 / 123.45 / 126.04 / 128.76: the user's taps there, read one note on -- the chart had cut the 2:00.8 statement short; user: 'at 2:03, the same issue happens. The chart is wrong'), then 2:11.4-2:19.8 on the user's taps (three runs, Nov 22, medians): the flutes' 64 62 64 with the last 64 held from 2:12.28, the cellos' six-note figure 41 46 50 52 47 44 from 2:14.41, the 64 held again from 2:15.39 (key-pinned on F like the first), the clarinets' 53 58 62 64 59 56 from 2:17.25, the bassoons' 41 46 50 52 47 44 from 2:18.10, and the clarinets' 53 58 62 64 59 56 again from 2:19.07 (user: '2:19: clarinet triplets'), into the flutes at 2:19.9.",
   "pins": [
     [
       67.9,
@@ -50,12 +50,64 @@
       1
     ],
     [
-      163.61,
+      23.38,
+      0
+    ],
+    [
+      23.48,
       1
     ],
     [
-      163.89,
+      23.66,
+      2
+    ],
+    [
+      23.76,
+      3
+    ],
+    [
+      23.85,
       0
+    ],
+    [
+      23.93,
+      1
+    ],
+    [
+      24.04,
+      2
+    ],
+    [
+      24.13,
+      1
+    ],
+    [
+      24.2,
+      2
+    ],
+    [
+      24.35,
+      3
+    ],
+    [
+      24.43,
+      0
+    ],
+    [
+      24.53,
+      1
+    ],
+    [
+      24.65,
+      2
+    ],
+    [
+      24.73,
+      3
+    ],
+    [
+      23.28,
+      4
     ]
   ],
   "windows": [

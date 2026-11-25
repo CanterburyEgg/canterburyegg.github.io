@@ -1,9 +1,16 @@
 [
  {
   "song": "mercury",
-  "start": 157,
+  "start": 21.5,
+  "end": 29,
+  "label": "REVIEW Mercury 0:21.5-0:29 (approved): K D J D x3 from 0:21.6, the bassoons' D47 downbeat at 0:23.10, run starts S D F; the flutes' 81 73 76 + oboes' 68 and the violins zigzag to 0:28 now K F J D (pitches walk, keys walk)",
+  "issue": ""
+ },
+ {
+  "song": "mercury",
+  "start": 152,
   "end": 167,
-  "label": "Mercury m.181-189 (2:37-2:47)",
+  "label": "Mercury m.181-189 (2:32-2:47): KDJD at 2:39, then Fl 1 + Ob 1 KFJD x4, zigzag down KFJD KFJ",
   "issue": ""
  }
 ]
