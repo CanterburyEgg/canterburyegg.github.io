@@ -696,9 +696,9 @@
                         <div class="actor-name">?</div>
                     </div>
 
-                    <div id="edge-0" class="edge-info" data-edge="0"><div class="edge-label"><span class="edge-num">1</span><span class="edge-text">???</span></div></div>
-                    <div id="edge-1" class="edge-info" data-edge="1"><div class="edge-label"><span class="edge-num">2</span><span class="edge-text">???</span></div></div>
-                    <div id="edge-2" class="edge-info" data-edge="2"><div class="edge-label"><span class="edge-num">3</span><span class="edge-text">???</span></div></div>
+                    <div id="edge-0" class="edge-info" data-edge="0"><div class="edge-label"><span class="edge-num">2</span><span class="edge-text">???</span></div></div>
+                    <div id="edge-1" class="edge-info" data-edge="1"><div class="edge-label"><span class="edge-num">3</span><span class="edge-text">???</span></div></div>
+                    <div id="edge-2" class="edge-info" data-edge="2"><div class="edge-label"><span class="edge-num">1</span><span class="edge-text">???</span></div></div>
                 </div>
             </section>
 
@@ -750,8 +750,12 @@
         const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w185";
         const BLANK_IMG = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
-        // Edge i connects these two node indices
-        const EDGE_NODES = [[0, 1], [1, 2], [2, 0]];
+        // Edge i connects these two node indices (listed top first, then left to right)
+        // Edge 0 = right bar, 1 = bottom bar, 2 = left bar
+        const EDGE_NODES = [[0, 1], [2, 1], [0, 2]];
+        // Number shown for each edge, and the panel order (1 = left, 2 = right, 3 = bottom)
+        const EDGE_NUM = [2, 3, 1];
+        const CARD_ORDER = [2, 0, 1];
         // Hints shown in each movie card, and the strike count that unlocks them
         const HINTS = [
             { key: 'year', label: 'Year', at: 2 },
@@ -801,13 +805,13 @@
         function buildMovieCards() {
             const list = document.getElementById('movie-list');
             list.innerHTML = '';
-            for (let i = 0; i < 3; i++) {
+            for (const i of CARD_ORDER) {
                 const card = document.createElement('div');
                 card.className = 'movie-card';
                 card.id = `card-${i}`;
                 card.dataset.edge = i;
                 card.innerHTML = `
-                    <div class="mc-head"><span class="edge-num">${i + 1}</span><span class="mc-actors"></span></div>
+                    <div class="mc-head"><span class="edge-num">${EDGE_NUM[i]}</span><span class="mc-actors"></span></div>
                     <div class="mc-title"></div>
                     <div class="mc-hints">
                         ${HINTS.map(h => `
