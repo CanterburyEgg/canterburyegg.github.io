@@ -8,6 +8,11 @@
       "start": 28.0,
       "end": 33.9,
       "why": "0:34.6-0:41.3 (score 28.03-33.9): the first violins' 88s (held, then struck over and over: the DFDFDF) are a shimmer under the held 100 with the bells striking through it, not a line to play (user, Nov 21: 'I should be holding the F at the end all the way through. The D is a bells interjection that happens during the flute hold'; 'Definitely I shouldn't have whatever this DFDFDF part is, I guess that's flute ... tremolo?')."
+    },
+    {
+      "start": 172.7,
+      "end": 174.83,
+      "why": "3:25.4-3:27.8 (score 172.70-174.83, m.235-237): the timpani roll after the big hit isn't played; nothing until the celesta at m.238 (user, Nov 24: 'm. 235: hit. not hold. m. 236: nothing. m. 237: nothing ... this is essentially just editing out the weird timpani roll')."
     }
   ],
   "audio_moves": [
@@ -73,6 +78,13 @@
       "to": 23.1,
       "keep_length": true,
       "why": "0:23.10: the bassoons' 47 downbeat ending the 61 54 57 figure, on the recording's attack (the pitch track's 47 peaks at 23.10) (user, Nov 24: 'I still don't have the D ... it's at exactly 23.1. There's a gap between the J and the D that starts the next run, where I hear a down beat (you might be charting one of the instruments that doesn't play it)')."
+    },
+    {
+      "score_start": 172.62,
+      "midi": 100,
+      "to": 205.28,
+      "end": 205.4,
+      "why": "3:25.3, m.235: the piccolo's top 100 on the big hit is a tap, not a hold (user, Nov 24: 'm. 235: hit. not hold')."
     }
   ],
   "thin": [
@@ -123,11 +135,11 @@
   ],
   "lead_part": [
     {
-      "staff": "Oboe 1",
+      "staff": "Flute 1",
       "start": 152.65,
       "end": 154.15,
       "late": true,
-      "why": "3:01-3:03: the descending sixteenths, 83 81 78 74 | 78 76 72 69 | 71 69 66 62 (user's timeline, Nov 22: '3:01: descending sixteenth notes')."
+      "why": "m.208-209 (3:02.0-3:03.5): the falling groups of four, 88 86 83 79 | 83 81 78 74 | 76 74 71 67, on the first flute, the top of the flutes and clarinets that play it (the earlier timeline's Oboe 1 is silent here; user, Nov 24: 'I didn't chart this measure, so give it to whoever plays it all')."
     },
     {
       "staff": "Violins I",
@@ -482,13 +494,27 @@
       "end": 147.58,
       "late": true,
       "why": "2:55.9, m.200: the first violins' second 85 becomes the second violins' 80, the step down under it (user, Nov 24, on the first violins' repeated top note: 'are the two doubled notes necessary?' then 'swap them for the step down')."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 147.6,
+      "end": 150.43,
+      "late": true,
+      "why": "m.201-204 (2:56.0-2:59.4): when the first violins stop, the woodwinds take the top line: the first piccolo's 90 92 | 94 92 90 | 89 88 89 | 88 86 88 | 89 90 92 ... (doubled by Piccolo 2 and Flute 1); the rules had the second violins, which run the other way here (80 78 77 75 ..., with the oboes) (user, Nov 24: follow the top line; 'triplet groups makes the most sense to me')."
+    },
+    {
+      "staff": "Violins I",
+      "start": 150.43,
+      "end": 152.64,
+      "late": true,
+      "why": "m.205-207 (2:59.4-3:01.9): the first violins come back on top, 83 84 86 | 88 86 84 | 83 82 83 | 82 80 82 | 83 84 86 | 88 86 84 (doubled by Flute 1) (user, Nov 24: the triplet section follows its top line)."
     }
   ],
   "no_ghosts": [
     {
       "from": 165.7,
-      "to": 181.9,
-      "why": "2:45.7-3:01.9, m.189-208: the triplet section isn't a run, so no ghost keys (user, Nov 24: 'I also don't like the ghost note in this section because this isn't really a run', 'I would like no ghost notes in this section, yeah')."
+      "to": 263.6,
+      "why": "2:45.7 to the end, m.189 on: the triplet section and everything after it plays at triplet-eighth speed, too slow for ghost keys (user, Nov 24: 'I also don't like the ghost note in this section because this isn't really a run', 'I would like no ghost notes in this section, yeah', and at 3:18: 'these runs aren't fast enough for ghost notes, I don't think')."
     }
   ]
 }
