@@ -236,9 +236,9 @@
     }
     .actor-node.revealed .actor-name { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
     .actor-node.revealed .actor-img { border-color: var(--border-strong); }
-    .actor-node.solved .actor-name { background: var(--ok-bg); color: var(--ok-fg); border-color: var(--ok-border); }
+    .actor-node.solved .actor-name { background: linear-gradient(var(--ok-bg), var(--ok-bg)), var(--bg-surface); color: var(--ok-fg); border-color: var(--ok-border); }
     .actor-node.solved .actor-img { border-color: var(--ok-fg); box-shadow: 0 0 0 3px var(--ok-bg), var(--shadow-card); }
-    .actor-node.missed .actor-name { background: var(--err-bg); color: var(--err-fg); border-color: var(--err-border); }
+    .actor-node.missed .actor-name { background: linear-gradient(var(--err-bg), var(--err-bg)), var(--bg-surface); color: var(--err-fg); border-color: var(--err-border); }
     .actor-node.missed .actor-img { border-color: var(--err-fg); box-shadow: 0 0 0 3px var(--err-bg), var(--shadow-card); }
 
     #node-0 { top: 12%; left: 50%; }
@@ -279,10 +279,14 @@
         border-style: solid;
         animation: pop 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
     }
-    .edge-info.solved .edge-label { background: var(--ok-bg); border-color: var(--ok-border); color: var(--ok-fg); }
-    .edge-info.missed .edge-label { background: var(--err-bg); border-color: var(--err-border); color: var(--err-fg); }
+    /* Tints are translucent in dark mode, so layer them over the surface color
+       to keep the pill opaque and hide the connection line behind it. */
+    .edge-info.solved .edge-label { background: linear-gradient(var(--ok-bg), var(--ok-bg)), var(--bg-surface); border-color: var(--ok-border); color: var(--ok-fg); }
+    .edge-info.missed .edge-label { background: linear-gradient(var(--err-bg), var(--err-bg)), var(--bg-surface); border-color: var(--err-border); color: var(--err-fg); }
+    .edge-info.solved .edge-label,
+    .edge-info.missed .edge-label { border-radius: 14px; justify-content: center; }
     .edge-info.solved .edge-text,
-    .edge-info.missed .edge-text { letter-spacing: -0.01em; white-space: normal; text-align: left; line-height: 1.2; padding: 2px 0; }
+    .edge-info.missed .edge-text { letter-spacing: -0.01em; white-space: normal; text-align: center; line-height: 1.2; }
 
     /* Number bubble: sits over the top-left corner of its pill / card.
        The ring matches the surface behind it so it reads as a separate badge. */
@@ -318,7 +322,28 @@
     }
 
     /* --- PANEL: INPUT --- */
-    .input-container { position: relative; z-index: 30; }
+    .input-container { position: relative; z-index: 30; display: flex; align-items: center; gap: 8px; }
+    .input-wrap { position: relative; flex: 1; min-width: 0; }
+    .input-wrap.open input {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: var(--bg-elevated);
+        border-color: var(--border-strong);
+        border-bottom-color: var(--border-subtle);
+        box-shadow: none;
+    }
+    .btn.skip-btn {
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+        border-color: var(--border-subtle);
+    }
+    .btn.skip-btn:hover { background: var(--bg-hover); border-color: var(--border-default); }
+    .btn.skip-btn svg { width: 17px; height: 17px; }
     input {
         width: 100%;
         height: 44px;
@@ -341,12 +366,13 @@
 
     .suggestions {
         position: absolute;
-        top: calc(100% + 6px);
+        top: 100%;
         left: 0;
         width: 100%;
         background: var(--bg-elevated);
-        border: 1px solid var(--border-default);
-        border-radius: 11px;
+        border: 1px solid var(--border-strong);
+        border-top: none;
+        border-radius: 0 0 11px 11px;
         box-shadow: var(--shadow-dropdown);
         max-height: 260px;
         overflow-y: auto;
@@ -367,17 +393,21 @@
     .suggestions li:hover, .suggestions li.kb { background: var(--bg-subtle); }
 
     /* Result banner (replaces input when game ends) */
+    /* One line, same height as the guess box so the panel doesn't shift */
     .result-banner {
         display: none;
-        padding: 11px 14px;
+        height: 44px;
+        align-items: center;
+        padding: 0 14px;
         border-radius: 11px;
         border: 1px solid;
-        font-size: 13.5px;
-        line-height: 1.35;
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
     }
-    .result-banner strong { display: block; font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: -0.01em; }
-    .result-banner.win  { display: block; background: var(--ok-bg);  border-color: var(--ok-border);  color: var(--ok-fg); }
-    .result-banner.lose { display: block; background: var(--err-bg); border-color: var(--err-border); color: var(--err-fg); }
+    .result-banner.win  { display: flex; background: var(--ok-bg);  border-color: var(--ok-border);  color: var(--ok-fg); }
+    .result-banner.lose { display: flex; background: var(--err-bg); border-color: var(--err-border); color: var(--err-fg); }
 
     /* --- PANEL: STRIKES --- */
     .strikes { display: flex; align-items: center; gap: 6px; }
@@ -414,6 +444,34 @@
         -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
                 mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
     }
+
+    /* Tooltip showing the wrong guess. Anchored to the right edge because the
+       strike boxes sit on the right side of the panel. */
+    .strike-dot { position: relative; }
+    .strike-dot[data-guess] { cursor: help; }
+    .strike-dot[data-guess]::before {
+        content: attr(data-guess);
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: -4px;
+        width: max-content;
+        max-width: 220px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        background: var(--accent);
+        color: var(--accent-fg);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.3;
+        text-align: left;
+        box-shadow: var(--shadow-dropdown);
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(3px);
+        transition: opacity 0.12s ease, transform 0.12s ease;
+        z-index: 50;
+    }
+    .strike-dot[data-guess]:hover::before { opacity: 1; transform: translateY(0); }
 
     /* --- PANEL: MOVIE CARDS --- */
     .movie-list { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
@@ -704,8 +762,11 @@
 
             <aside class="panel surface">
                 <div class="input-container" id="input-container">
-                    <input type="text" id="guess-input" placeholder="Enter a movie title..." autocomplete="off">
-                    <ul class="suggestions" id="suggestions"></ul>
+                    <div class="input-wrap">
+                        <input type="text" id="guess-input" placeholder="Enter a movie title..." autocomplete="off">
+                        <ul class="suggestions" id="suggestions"></ul>
+                    </div>
+                    <button type="button" class="btn skip-btn" onclick="skipGuess()" aria-label="Skip" title="Skip this guess: costs a strike and unlocks the next hint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6.2v11.6a.8.8 0 0 0 1.25.66L12 13.2v4.6a.8.8 0 0 0 1.25.66l8.4-5.8a.8.8 0 0 0 0-1.32l-8.4-5.8A.8.8 0 0 0 12 6.2v4.6L4.25 5.54A.8.8 0 0 0 3 6.2z"/></svg></button>
                 </div>
                 <div class="result-banner" id="result-banner"></div>
 
@@ -768,6 +829,7 @@
         let currentPuzzle = null;
         let strikes = 0;
         let solvedEdges = [false, false, false];
+        let guessedMovies = []; // every title guessed this game, hidden from autocomplete
         let revealedNodes = [true, false, false];
         let gameOver = false;
         let currentDifficulty = 'medium';
@@ -951,13 +1013,21 @@
         // --- INPUT ---
         const input = document.getElementById('guess-input');
         const list = document.getElementById('suggestions');
+        const inputWrap = document.querySelector('.input-wrap');
+
+        // Dropdown attaches to the bottom of the search box; .open squares off the box's bottom corners
+        function setSuggestions(open) {
+            list.style.display = open ? 'block' : 'none';
+            inputWrap.classList.toggle('open', open);
+        }
 
         input.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             list.innerHTML = '';
-            if (val.length < 2) { list.style.display = 'none'; return; }
+            if (val.length < 2) { setSuggestions(false); return; }
 
-            const matches = movieList.filter(m => m.toLowerCase().includes(val));
+            const guessedSet = new Set(guessedMovies);
+            const matches = movieList.filter(m => !guessedSet.has(m) && m.toLowerCase().includes(val));
             if (matches.length) {
                 matches.forEach((m, i) => {
                     const li = document.createElement('li');
@@ -966,14 +1036,14 @@
                     li.onclick = () => submitGuess(m);
                     list.appendChild(li);
                 });
-                list.style.display = 'block';
-            } else list.style.display = 'none';
+                setSuggestions(true);
+            } else setSuggestions(false);
         });
 
         // Keyboard: arrows move through suggestions, Enter picks the highlighted one
         input.addEventListener('keydown', (e) => {
             const items = [...list.querySelectorAll('li')];
-            if (!items.length || list.style.display === 'none') return;
+            if (!items.length || !inputWrap.classList.contains('open')) return;
             let idx = items.findIndex(li => li.classList.contains('kb'));
             if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
                 e.preventDefault();
@@ -985,22 +1055,28 @@
                 e.preventDefault();
                 submitGuess(items[Math.max(idx, 0)].textContent);
             } else if (e.key === 'Escape') {
-                list.style.display = 'none';
+                setSuggestions(false);
             }
         });
 
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.input-container')) list.style.display = 'none';
+            if (!e.target.closest('.input-container')) setSuggestions(false);
         });
 
+        // Skip: take a strike on purpose to unlock the next hint
+        function skipGuess() {
+            submitGuess(null);
+        }
+
+        // guess === null means the player skipped
         function submitGuess(guess) {
             if (gameOver) return;
             input.value = '';
-            list.style.display = 'none';
-            const cleanGuess = guess.toLowerCase().replace(/[^a-z0-9]/g, '');
+            setSuggestions(false);
+            const cleanGuess = guess === null ? null : guess.toLowerCase().replace(/[^a-z0-9]/g, '');
             let hit = false;
 
-            currentPuzzle.movies.forEach((movie, idx) => {
+            if (cleanGuess !== null) currentPuzzle.movies.forEach((movie, idx) => {
                 const cleanAns = movie.toLowerCase().replace(/[^a-z0-9]/g, '');
                 if (cleanGuess === cleanAns && !solvedEdges[idx]) {
                     solveEdge(idx, movie);
@@ -1010,8 +1086,12 @@
 
             if (!hit) {
                 strikes++;
+                // Remember the wrong guess on its strike box for the hover tooltip
+                const dot = document.querySelectorAll('.strike-dot')[strikes - 1];
+                if (dot) dot.dataset.guess = guess === null ? 'Skipped' : guess;
                 updateClueState();
             }
+            if (guess !== null && !guessedMovies.includes(guess)) guessedMovies.push(guess);
 
             if (solvedEdges.every(x => x)) {
                 for (let i = 0; i < 3; i++) {
@@ -1019,21 +1099,20 @@
                     document.getElementById(`node-${i}`).classList.add('solved');
                 }
                 renderCards();
-                const s = strikes === 1 ? 'strike' : 'strikes';
-                endGame('win', `<strong>You connected the triangle! 🎉</strong>Finished with ${strikes} ${s}.`);
+                endGame('win', 'Triangle connected!');
             } else if (strikes >= MAX_STRIKES) {
                 revealAll();
-                endGame('lose', `<strong>Out of strikes</strong>The answers are revealed on the board.`);
+                endGame('lose', 'Out of strikes');
             }
         }
 
-        function endGame(kind, html) {
+        function endGame(kind, message) {
             gameOver = true;
             input.disabled = true;
             document.getElementById('input-container').style.display = 'none';
             const banner = document.getElementById('result-banner');
             banner.className = `result-banner ${kind}`;
-            banner.innerHTML = html;
+            banner.textContent = message;
         }
 
         function solveEdge(idx, title) {
@@ -1093,10 +1172,12 @@
             strikes = 0;
             solvedEdges = [false, false, false];
             gameOver = false;
+            guessedMovies = [];
+            document.querySelectorAll('.strike-dot').forEach(d => delete d.dataset.guess);
 
             input.value = '';
             input.disabled = false;
-            list.style.display = 'none';
+            setSuggestions(false);
             document.getElementById('input-container').style.display = '';
             document.getElementById('result-banner').className = 'result-banner';
 
