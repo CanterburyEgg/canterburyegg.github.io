@@ -5,439 +5,722 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Hollywood Triangle</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <script>(function(){try{if(localStorage.getItem('triangle-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+    /* --- DESIGN TOKENS (borrowed from Melodle: Editorial Light / Studio Dark) --- */
+    :root {
+        color-scheme: light;
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+        --bg-canvas: #f5f3ee;
+        --bg-canvas-accent: rgba(24, 24, 27, 0.035);
+        --bg-surface: #ffffff;
+        --bg-elevated: #ffffff;
+        --bg-subtle: #efede7;
+        --bg-slot: #faf9f6;
+        --bg-hover: #e7e4dc;
+
+        --border-subtle: #e2dfd6;
+        --border-default: #d2cec3;
+        --border-strong: #18181b;
+        --shadow-sm: 0 1px 2px rgba(24, 24, 27, 0.05);
+        --shadow-card: 0 10px 30px -10px rgba(24, 24, 27, 0.08), 0 2px 6px rgba(24, 24, 27, 0.04);
+        --shadow-dropdown: 0 14px 32px -6px rgba(24, 24, 27, 0.16), 0 4px 10px rgba(24, 24, 27, 0.07);
+        --shadow-dropdown-up: 0 -14px 28px -8px rgba(24, 24, 27, 0.16), 0 -3px 8px rgba(24, 24, 27, 0.06);
+
+        --text-primary: #18181b;
+        --text-secondary: #5c5c66;
+        --text-muted: #8c8c96;
+
+        --accent: #18181b;
+        --accent-hover: #2d2d33;
+        --accent-fg: #ffffff;
+        --accent-soft: rgba(24, 24, 27, 0.07);
+
+        --ok-fg: #15803d;   --ok-bg: #eefbf3;   --ok-border: #bbf7d0;
+        --warn-fg: #b45309; --warn-bg: #fffbeb; --warn-border: #fde68a;
+        --err-fg: #dc2626;  --err-bg: #fef2f2;  --err-border: #fecaca;
+        --gold-fg: #92400e; --gold-bg: #fef3c7; --gold-border: #f59e0b;
+        --info-fg: #6d28d9; --info-bg: #f5f3ff; --info-border: #ddd6fe;
+
+        --line-idle: #d2cec3;
+        --logo-filter: none;
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 18px;
+    }
+
+    [data-theme="dark"] {
+        color-scheme: dark;
+        --bg-canvas: #111317;
+        --bg-canvas-accent: rgba(255, 255, 255, 0.03);
+        --bg-surface: #191c22;
+        --bg-elevated: #20242c;
+        --bg-subtle: #232730;
+        --bg-slot: #1d2027;
+        --bg-hover: #2c313c;
+
+        --border-subtle: #2b303b;
+        --border-default: #383e4c;
+        --border-strong: #f2efe9;
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+        --shadow-card: 0 16px 38px -10px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+        --shadow-dropdown: 0 18px 38px -6px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.45);
+        --shadow-dropdown-up: 0 -18px 36px -6px rgba(0, 0, 0, 0.68), 0 -4px 12px rgba(0, 0, 0, 0.42);
+
+        --text-primary: #f3f1ec;
+        --text-secondary: #a0a5b5;
+        --text-muted: #6b7182;
+
+        --accent: #f3f1ec;
+        --accent-hover: #dcd8cf;
+        --accent-fg: #111317;
+        --accent-soft: rgba(243, 241, 236, 0.11);
+
+        --ok-fg: #4ade80;   --ok-bg: rgba(34, 197, 94, 0.13);   --ok-border: rgba(74, 222, 128, 0.32);
+        --warn-fg: #fbbf24; --warn-bg: rgba(245, 158, 11, 0.14); --warn-border: rgba(251, 191, 36, 0.34);
+        --err-fg: #f87171;  --err-bg: rgba(239, 68, 68, 0.13);  --err-border: rgba(248, 113, 113, 0.32);
+        --gold-fg: #fcd34d; --gold-bg: rgba(245, 158, 11, 0.16); --gold-border: rgba(251, 191, 36, 0.4);
+        --info-fg: #c4b5fd; --info-bg: rgba(139, 92, 246, 0.14); --info-border: rgba(196, 181, 253, 0.3);
+
+        --line-idle: #383e4c;
+        --logo-filter: invert(1) brightness(0.96);
+    }
+
     /* --- GLOBAL --- */
-    body { font-family: 'Helvetica Neue', sans-serif; max-width: 500px; margin: 2rem auto; padding: 0 1rem; background: #f8f9fa; color: #333; }
-    h1 { text-align: center; margin-bottom: 5px; color: #2c3e50; }
-    .subtitle { text-align: center; color: #7f8c8d; padding-bottom: 40px; font-size: 0.9rem; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* Theme switches snap instantly: no transitions/animations while swapping */
+    html.theme-snap,
+    html.theme-snap *,
+    html.theme-snap *::before,
+    html.theme-snap *::after {
+        transition: none !important;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        color: var(--text-primary);
+        background-color: var(--bg-canvas);
+        background-image: radial-gradient(ellipse 80% 50% at 50% -10%, var(--bg-canvas-accent), transparent);
+        margin: 0;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex; /* lets .app's margin:auto center it vertically */
+        line-height: 1.45;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+        width: 1080px;
+        max-width: 100%;
+        margin: auto; /* equal space above and below; falls back to top-aligned scroll if taller than the window */
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .surface {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+    }
+
+    /* --- HEADER BAR --- */
+    .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 12px 20px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-logo {
+        width: 28px; height: 28px; object-fit: contain;
+        filter: var(--logo-filter);
+        transition: transform 0.25s ease;
+    }
+    .brand:hover .brand-logo { transform: rotate(-8deg) scale(1.05); }
+    h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+    }
+    .subtitle { color: var(--text-secondary); font-size: 13.5px; text-align: right; }
+
+    /* --- MAIN LAYOUT --- */
+    .layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .board-card {
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .panel {
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
 
     /* --- THE BOARD --- */
     .triangle-board {
         position: relative;
         width: 100%;
-        height: 350px;
-        margin: 30px auto;
+        max-width: 640px;
+        height: clamp(380px, calc(100vh - 190px), 560px);
+        margin: 0 auto;
     }
 
-    /* --- ACTOR NODES --- */
+    .connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
+    line { stroke: var(--line-idle); stroke-width: 2.5; stroke-dasharray: 2 7; transition: all 0.35s; stroke-linecap: round; }
+    line.hl { stroke: var(--text-secondary); stroke-width: 3.5; }
+    line.active { stroke: var(--ok-fg); stroke-width: 4; stroke-dasharray: none; }
+    line.missed { stroke: var(--err-fg); stroke-width: 3; stroke-dasharray: none; opacity: 0.8; }
+
+    /* Actor nodes */
     .actor-node {
         position: absolute;
         transform: translate(-50%, -50%);
         display: flex;
-        flex-direction: column; /* Stack Image on top of Name */
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
         z-index: 10;
-        transition: all 0.3s;
-    }
-
-    /* NEW: Actor Image Circle */
-    .actor-img {
-        width: 80px;
-        height: 80px;
-        border-radius: 20%;
-        object-fit: cover;
-        border: 3px solid #bdc3c7;
-        background: #e0e0e0;
-        margin-bottom: -10px; /* Overlap nicely with the name pill */
-        z-index: 1;
-        transition: border-color 0.3s;
-        /* Default Silhouette */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2395a5a6'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
-        background-size: 60%;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-
-    /* THE NAME PILL (Updated to sit below image) */
-    .actor-node {
-        color: #2c3e50;
+        font-family: var(--font-display);
         font-weight: 700;
         font-size: 0.85rem;
     }
-    
-    /* We need to style the text div inside the node specifically */
+    .actor-img {
+        width: 96px;
+        height: 96px;
+        border-radius: 18px;
+        object-fit: cover;
+        border: 1px solid var(--border-default);
+        background-color: var(--bg-subtle);
+        box-shadow: var(--shadow-card);
+        margin-bottom: -12px;
+        z-index: 1;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238c8c96'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+        background-size: 55%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
     .actor-name {
-        background: #bdc3c7;
-        color: #2c3e50;
-        padding: 6px 14px;
-        border-radius: 50px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        background: var(--bg-elevated);
+        color: var(--text-muted);
+        border: 1px solid var(--border-default);
+        padding: 5px 13px;
+        border-radius: 999px;
+        box-shadow: var(--shadow-sm);
         white-space: nowrap;
         z-index: 2;
-        min-width: 20px;
+        min-width: 32px;
         text-align: center;
+        letter-spacing: -0.01em;
+        transition: background 0.3s, color 0.3s, border-color 0.3s;
     }
+    .actor-node.revealed .actor-name { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+    .actor-node.revealed .actor-img { border-color: var(--border-strong); }
+    .actor-node.solved .actor-name { background: var(--ok-bg); color: var(--ok-fg); border-color: var(--ok-border); }
+    .actor-node.solved .actor-img { border-color: var(--ok-fg); box-shadow: 0 0 0 3px var(--ok-bg), var(--shadow-card); }
+    .actor-node.missed .actor-name { background: var(--err-bg); color: var(--err-fg); border-color: var(--err-border); }
+    .actor-node.missed .actor-img { border-color: var(--err-fg); box-shadow: 0 0 0 3px var(--err-bg), var(--shadow-card); }
 
-    /* STATE STYLES */
-    .actor-node.revealed .actor-img { border-color: #34495e; }
-    .actor-node.revealed .actor-name { background: #34495e; color: white; }
+    #node-0 { top: 12%; left: 50%; }
+    #node-1 { top: 86%; left: 86%; }
+    #node-2 { top: 86%; left: 14%; }
 
-    /* POSITIONS */
-    #node-0 { top: 5%;  left: 50%; }
-    #node-1 { top: 85%; left: 85%; }
-    #node-2 { top: 85%; left: 15%; }
-    
-    /* NEW: MOVIE PLACEHOLDER (Dashed Box) */
-    .movie-placeholder {
-        width: 80px;
-        height: 24px;
-        border: 2px dashed #bdc3c7;
-        border-radius: 50px;
-        background: rgba(255, 255, 255, 0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #bdc3c7;
-        font-weight: bold;
-        font-size: 1.2rem;
-        letter-spacing: 2px;
-        padding-top: 3px;
-    }
-
-    /* --- EDGE INFO (THE CLUES CONTAINER) --- */
+    /* Edge labels (number + ??? or title) */
     .edge-info {
         position: absolute;
         transform: translate(-50%, -50%);
-
-        /* FIX: Change fixed width to auto so it shrinks to fit content */
-        width: auto;
-        max-width: 300px; /* Cap it so long titles wrap */
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
         z-index: 20;
-        pointer-events: none;
     }
+    #edge-0 { top: 49%; left: 68%; }
+    #edge-1 { top: 86%; left: 50%; }
+    #edge-2 { top: 49%; left: 32%; }
 
-    .edge-info > * { pointer-events: auto; }
-
-    /* Positions remain the same */
-    #edge-0 { top: 45%; left: 78%; }
-    #edge-1 { top: 85%; left: 50%; }
-    #edge-2 { top: 45%; left: 22%; }
-
-
-    /* --- THE GREEN CORRECT BOX --- */
-    .solved-title {
-        font-weight: bold; color: white; font-size: 0.85rem;
-        background: #27ae60; padding: 6px 12px; border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(39, 174, 96, 0.4);
-
-        /* FIX: Ensure text centers and box hugs the content */
-        text-align: center;
-        width: fit-content;
-        min-width: 60px; /* Prevents it from being too tiny for short words */
-        max-width: 180px;
-
-        display: none;
-    }
-
-    /* Small Pills for Year/Cast */
-    .clue-pill {
-        font-size: 0.75rem; font-weight: bold;
-        padding: 4px 8px; border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        white-space: nowrap;
-        display: none;
-    }
-
-    .clue-year { background: #fff3e0; color: #e67e22; border: 1px solid #ffe0b2; }
-    .clue-cast { background: #f3e5f5; color: #8e44ad; border: 1px solid #e1bee7; }
-
-    /* --- THE PLOT FIX --- */
-    .clue-plot-container {
+    .edge-label {
         position: relative;
-        display: none;
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 13px;
+        border-radius: 999px;
+        border: 1.5px dashed var(--border-default);
+        background: var(--bg-surface);
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        cursor: default;
+        max-width: 190px;
+        transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
     }
+    .edge-text { letter-spacing: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .edge-info.hl .edge-label { border-color: var(--text-secondary); color: var(--text-primary); transform: scale(1.05); }
 
-    .plot-badge {
-        background: #34495e; color: white;
-        font-size: 0.7rem; padding: 4px 10px;
-        border-radius: 12px; cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        transition: background 0.2s;
+    .edge-info.solved .edge-label,
+    .edge-info.missed .edge-label {
+        border-style: solid;
+        animation: pop 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
     }
-    .plot-badge:hover { background: #2c3e50; }
+    .edge-info.solved .edge-label { background: var(--ok-bg); border-color: var(--ok-border); color: var(--ok-fg); }
+    .edge-info.missed .edge-label { background: var(--err-bg); border-color: var(--err-border); color: var(--err-fg); }
+    .edge-info.solved .edge-text,
+    .edge-info.missed .edge-text { letter-spacing: -0.01em; white-space: normal; text-align: left; line-height: 1.2; padding: 2px 0; }
 
-    /* The Popup Text */
-    .plot-text {
+    /* Number bubble: sits over the top-left corner of its pill / card.
+       The ring matches the surface behind it so it reads as a separate badge. */
+    .edge-num {
         position: absolute;
-        bottom: 120%; /* Sits above the badge */
-        left: 50%; transform: translateX(-50%);
-        width: 250px;
-        background: #fff; color: #333;
-        padding: 10px; border-radius: 8px;
-        font-size: 0.75rem; line-height: 1.3;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        border: 1px solid #eee;
-        text-align: justify;
-        display: none; /* Hidden until hover */
-        z-index: 100;
-    }
-
-    /* FIX: When hovering over an edge (to read the plot), 
-       force it to the very top of the stack so nothing blocks it. */
-    .edge-info:hover {
-        z-index: 1000 !important;
-    }
-
-    /* Show plot on hover */
-    .clue-plot-container:hover .plot-text { display: block; }
-
-    /* --- INPUT --- */
-    .input-container { position: relative; max-width: 320px; margin: 0 auto; z-index: 20; }
-    input {
-        width: 100%; padding: 14px;
-        border: 2px solid #bdc3c7; border-radius: 3px;
-        font-size: 1rem; text-align: center; outline: none;
-        box-sizing: border-box; background: white;
-    }
-    input:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52,152,219,0.2); }
-
-    /* --- STRIKES --- */
-    .strikes { text-align: center; margin: 20px 0; font-size: 1.2rem; height: 24px; }
-    .strike-dot { display: inline-block; width: 10px; height: 10px; background: #e0e0e0; border-radius: 50%; margin: 0 4px; transition: 0.3s; }
-    .strike-dot.active { background: #e74c3c; transform: scale(1.2); }
-
-    /* --- AUTOCOMPLETE --- */
-    .suggestions {
-        position: absolute; bottom: 100%; left: 0; width: 100%;
-        background: white; border: 1px solid #ddd; border-radius: 3px;
-        max-height: 220px; overflow-y: auto; list-style: none; padding: 0; margin: 0;
-        display: none; z-index: 100; text-align: left;
-        box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
-    }
-    .suggestions li { padding: 12px; border-bottom: 1px solid #f1f1f1; cursor: pointer; color: #333; }
-    .suggestions li:hover { background: #f0f8ff; color: #2980b9; }
-
-    /* SVG Lines */
-    .connections { position: absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events: none; }
-    line { stroke: #bdc3c7; stroke-width: 3; transition: all 0.5s; stroke-linecap: round; }
-    line.active { stroke: #27ae60; stroke-width: 5; }
-
-    /* --- GAME OVER STYLES --- */
-
-    /* Red Lines */
-    line.missed {
-        stroke: #e74c3c; /* Red */
-        stroke-width: 4;
-    }
-
-    /* --- CONTROLS --- */
-    .controls { display: flex; justify-content: center; gap: 20px; padding-top: 20px; }
-
-    /* --- DIFFICULTY BUTTON COLORS --- */
-    #btn-diff {
-        min-width: 100px; /* Prevents button jumping size when text changes */
-    }
-
-    /* True Soft Green */
-    .diff-easy {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb; 
-    }
-    
-    /* True Soft Yellow */
-    .diff-medium { 
-        background-color: #fff3cd;
-        color: #856404;
-        border: 1px solid #ffeeba; 
-    }
-
-    .diff-hard { 
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb; 
-    }
-
-    /* Hover effects for all */
-    .diff-easy:hover, .diff-medium:hover, .diff-hard:hover {
-        filter: brightness(0.95);
-    }
-    
-    .btn {
-        padding: 8px 16px; border: none; border-radius: 5px;
-        font-size: 0.85rem; font-weight: bold; cursor: pointer;
-        transition: transform 0.1s;
-    }
-    .btn:active { transform: scale(0.95); }
-
-    .btn-new { background: #34495e; color: white; }
-    
-    /* Easy Mode Styles */
-    .btn-easy { background: #ecf0f1; color: #7f8c8d; border: 1px solid #bdc3c7; }
-    
-    /* When Active (Yellow) */
-    .btn-easy.active { 
-        background: #f1c40f; color: #2c3e50; border-color: #f39c12; 
-        box-shadow: 0 0 8px rgba(241, 196, 15, 0.5);
-    }
-
-    #loading-screen {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: white; /* or your background color */
-        display: flex;
-        flex-direction: column;
+        top: -10px;
+        left: -10px;
+        width: 21px;
+        height: 21px;
+        border-radius: 50%;
+        background: var(--bg-elevated);
+        color: var(--text-secondary);
+        border: 1px solid var(--border-default);
+        box-shadow: 0 0 0 2px var(--bg-surface), var(--shadow-sm);
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 0.68rem;
+        letter-spacing: 0;
+        line-height: 1;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        z-index: 100;
-    }
-
-    .spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-bottom: 15px;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    /* --- HELP BUTTON --- */
-    #btn-help {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: #fff;
-        border: 2px solid #bdc3c7;
-        color: #7f8c8d;
-        font-weight: bold;
-        font-size: 1.2rem;
-        cursor: pointer;
         z-index: 1;
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    #btn-help:hover {
-        filter: brightness(.95);
-        transform: scale(1.05);
+    .edge-info.hl .edge-num, .movie-card.hl .edge-num { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+    .edge-info.solved .edge-num, .movie-card.solved .edge-num { background: var(--ok-fg); color: var(--bg-surface); border-color: var(--ok-fg); }
+    .edge-info.missed .edge-num, .movie-card.missed .edge-num { background: var(--err-fg); color: var(--bg-surface); border-color: var(--err-fg); }
+
+    @keyframes pop {
+        0% { transform: scale(0.85); opacity: 0.3; }
+        100% { transform: scale(1); opacity: 1; }
     }
 
-    /* --- MODAL OVERLAY --- */
-    .modal-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.6); /* Dim background */
-        backdrop-filter: blur(3px);      /* Blur background */
-        z-index: 2000;
-        display: none; /* Hidden by default */
-        align-items: center;
-        justify-content: center;
+    /* --- PANEL: INPUT --- */
+    .input-container { position: relative; z-index: 30; }
+    input {
+        width: 100%;
+        height: 44px;
+        padding: 10px 14px;
+        font-family: var(--font-sans);
+        font-size: 14.5px;
+        color: var(--text-primary);
+        background-color: var(--bg-slot);
+        border: 1px solid var(--border-default);
+        border-radius: 11px;
+        outline: none;
+        transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    input::placeholder { color: var(--text-muted); }
+    input:focus {
+        background-color: var(--bg-surface);
+        border-color: var(--border-strong);
+        box-shadow: 0 0 0 3px var(--accent-soft);
     }
 
-    /* --- MODAL CONTENT --- */
-    .modal-content {
-        background: white;
-        padding: 25px;
-        border-radius: 10px;
-        max-width: 400px;
-        width: 90%;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        position: relative;
+    .suggestions {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        width: 100%;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-default);
+        border-radius: 11px;
+        box-shadow: var(--shadow-dropdown);
+        max-height: 260px;
+        overflow-y: auto;
+        list-style: none;
+        padding: 4px;
+        margin: 0;
+        display: none;
         text-align: left;
     }
+    .suggestions li {
+        padding: 8px 11px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        font-weight: 500;
+        cursor: pointer;
+        color: var(--text-primary);
+    }
+    .suggestions li:hover, .suggestions li.kb { background: var(--bg-subtle); }
 
-    .modal-content h2 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px; }
-    .modal-content ul { padding-left: 20px; line-height: 1.6; color: #333; }
+    /* Result banner (replaces input when game ends) */
+    .result-banner {
+        display: none;
+        padding: 11px 14px;
+        border-radius: 11px;
+        border: 1px solid;
+        font-size: 13.5px;
+        line-height: 1.35;
+    }
+    .result-banner strong { display: block; font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: -0.01em; }
+    .result-banner.win  { display: block; background: var(--ok-bg);  border-color: var(--ok-border);  color: var(--ok-fg); }
+    .result-banner.lose { display: block; background: var(--err-bg); border-color: var(--err-border); color: var(--err-fg); }
+
+    /* --- PANEL: STRIKES --- */
+    .strikes { display: flex; align-items: center; gap: 6px; }
+    .strikes-label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-muted);
+        margin-right: auto;
+    }
+    .strike-dot {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        border: 1.5px dashed var(--border-default);
+        background: var(--bg-slot);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .strike-dot.active {
+        border-style: solid;
+        border-color: var(--err-border);
+        background: var(--err-bg);
+        animation: pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    }
+    .strike-dot.active::after {
+        content: "";
+        width: 11px;
+        height: 11px;
+        background: var(--err-fg);
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+                mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    /* --- PANEL: MOVIE CARDS --- */
+    .movie-list { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+    .movie-card {
+        position: relative;
+        border: 1px solid var(--border-subtle);
+        background: var(--bg-slot);
+        border-radius: var(--radius-md);
+        padding: 10px 12px 10px 16px;
+        transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .movie-card.hl { border-color: var(--border-default); background: var(--bg-surface); box-shadow: var(--shadow-sm); }
+    .movie-card.solved { background: var(--ok-bg); border-color: var(--ok-border); }
+    .movie-card.missed { background: var(--err-bg); border-color: var(--err-border); }
+
+    .mc-head { display: flex; align-items: center; gap: 8px; }
+    .mc-actors { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .mc-person {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 13.5px;
+        letter-spacing: -0.01em;
+    }
+    .mc-person span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 2px; }
+    .mc-avatar {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid var(--border-default);
+        background-color: var(--bg-subtle);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238c8c96'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+        background-size: 70%;
+        background-repeat: no-repeat;
+        background-position: center 60%;
+    }
+    .mc-person.locked span { color: var(--text-muted); font-family: var(--font-sans); font-weight: 400; font-style: italic; font-size: 12.5px; }
+    .mc-title {
+        display: none;
+        margin: 6px 0 0 0;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+        line-height: 1.25;
+    }
+    .movie-card.solved .mc-title { display: block; color: var(--ok-fg); }
+    .movie-card.missed .mc-title { display: block; color: var(--err-fg); }
+    .movie-card.solved .mc-hints, .movie-card.missed .mc-hints { display: none; }
+
+    .mc-hints { margin: 6px 0 0 0; display: flex; flex-direction: column; gap: 3px; }
+    .hint-row { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 8px; font-size: 12.5px; line-height: 1.4; }
+    .hint-key {
+        color: var(--text-muted);
+        font-size: 10.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding-top: 2px;
+    }
+    .hint-val { color: var(--text-primary); font-weight: 500; min-width: 0; }
+    .hint-val.locked { color: var(--text-muted); font-weight: 400; font-style: italic; }
+    .hint-val.fresh { animation: pop 0.25s ease; }
+
+    .plot-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: 400;
+        color: var(--text-secondary);
+    }
+    .plot-text.expanded { -webkit-line-clamp: unset; display: block; }
+    .more-btn {
+        background: none;
+        border: none;
+        padding: 0;
+        margin-top: 1px;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-primary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        cursor: pointer;
+    }
+
+    /* --- PANEL: CONTROLS --- */
+    .controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid var(--border-subtle);
+    }
+    .controls .btn-new { flex: 1; }
+
+    .btn {
+        font-family: var(--font-display);
+        font-size: 13.5px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-new { background: var(--accent); color: var(--accent-fg); }
+    .btn-new:hover { background: var(--accent-hover); }
+
+    #btn-diff { min-width: 88px; }
+    .diff-easy   { background: var(--ok-bg);   color: var(--ok-fg);   border-color: var(--ok-border); }
+    .diff-medium { background: var(--warn-bg); color: var(--warn-fg); border-color: var(--warn-border); }
+    .diff-hard   { background: var(--err-bg);  color: var(--err-fg);  border-color: var(--err-border); }
+    .diff-easy:hover, .diff-medium:hover, .diff-hard:hover { filter: brightness(0.97); }
+
+    .icon-btn {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        padding: 0;
+        border-radius: 10px;
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .icon-btn:hover { background: var(--bg-hover); border-color: var(--border-default); }
+    .icon-btn:active { transform: translateY(1px); }
+    .icon-btn svg { width: 17px; height: 17px; }
+
+    /* --- LOADING --- */
+    #loading-screen {
+        position: fixed;
+        inset: 0;
+        background: var(--bg-canvas);
+        color: var(--text-secondary);
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 3000;
+    }
+    .spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid var(--border-subtle);
+        border-top-color: var(--text-primary);
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+        margin-bottom: 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* --- MODAL --- */
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(17, 19, 23, 0.45);
+        backdrop-filter: blur(4px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-content {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+        padding: 24px 26px 22px;
+        border-radius: var(--radius-lg);
+        max-width: 420px;
+        width: 90%;
+        box-shadow: var(--shadow-dropdown);
+        position: relative;
+        animation: pop 0.2s ease;
+    }
+    .modal-content h2 {
+        margin: 0 0 4px;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 22px;
+        letter-spacing: -0.02em;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+    .modal-content ul { padding-left: 18px; line-height: 1.55; color: var(--text-secondary); font-size: 14px; }
     .modal-content li { margin-bottom: 8px; }
-
-    /* Close X button */
+    .modal-content strong, .modal-content b { color: var(--text-primary); }
+    .modal-content ul ul { margin-top: 6px; color: var(--text-muted); }
+    .modal-content .btn { width: 100%; }
     .close-btn {
         position: absolute;
-        top: 10px; right: 15px;
-        font-size: 1.5rem;
+        top: 14px;
+        right: 16px;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
         cursor: pointer;
-        color: #aaa;
+        color: var(--text-muted);
     }
-    .close-btn:hover { color: #333; }
-</style>
+    .close-btn:hover { color: var(--text-primary); background: var(--bg-hover); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 900px) {
+        .layout { grid-template-columns: 1fr; }
+        .triangle-board { height: 400px; }
+    }
+    @media (max-width: 560px) {
+        body { padding: 12px; }
+        .topbar { flex-direction: column; gap: 4px; }
+        .subtitle { text-align: center; }
+        .board-card { padding: 12px; }
+        .triangle-board { height: 340px; }
+        .actor-img { width: 70px; height: 70px; }
+        .actor-node { font-size: 0.74rem; }
+        .edge-label { max-width: 130px; font-size: 0.72rem; }
+    }
+    </style>
 </head>
 <body>
     <div id="loading-screen">
         <div class="spinner"></div>
-        <p>Loading Movie Database...</p>
-    </div>
-    <h1>The Hollywood Triangle</h1>
-    <div class="subtitle">Guess the 3 movies to connect the actors.</div>
-
-    <div class="triangle-board">
-        <svg class="connections">
-            <line id="line-0" x1="50%" y1="5%" x2="85%" y2="85%" />
-            <line id="line-1" x1="85%" y1="85%" x2="15%" y2="85%" />
-            <line id="line-2" x1="15%" y1="85%" x2="50%" y2="5%" />
-        </svg>
-
-        <div id="node-0" class="actor-node revealed">
-            <img class="actor-img" src="">
-            <div class="actor-name">A</div>
-        </div>
-        <div id="node-1" class="actor-node">
-            <img class="actor-img" src="">
-            <div class="actor-name">?</div>
-        </div>
-        <div id="node-2" class="actor-node">
-            <img class="actor-img" src="">
-            <div class="actor-name">?</div>
-        </div>
-
-        <div id="edge-0" class="edge-info">
-            <div class="solved-title"></div>
-            <div class="movie-placeholder">???</div>
-            <div class="clue-pill clue-year"></div>
-            <div class="clue-pill clue-cast"></div>
-            <div class="clue-plot-container">
-                <div class="plot-badge">📖 Plot Hint</div>
-                <div class="plot-text"></div>
-            </div>
-        </div>
-
-        <div id="edge-1" class="edge-info">
-            <div class="solved-title"></div>
-            <div class="movie-placeholder">???</div>
-            <div class="clue-pill clue-year"></div>
-            <div class="clue-pill clue-cast"></div>
-            <div class="clue-plot-container">
-                <div class="plot-badge">📖 Plot Hint</div>
-                <div class="plot-text"></div>
-            </div>
-        </div>
-
-        <div id="edge-2" class="edge-info">
-            <div class="solved-title"></div>
-            <div class="movie-placeholder">???</div>
-            <div class="clue-pill clue-year"></div>
-            <div class="clue-pill clue-cast"></div>
-            <div class="clue-plot-container">
-                <div class="plot-badge">📖 Plot Hint</div>
-                <div class="plot-text"></div>
-            </div>
-        </div>
+        <p>Loading movie database...</p>
     </div>
 
-    <div class="input-container">
-        <ul class="suggestions" id="suggestions"></ul>
-        <input type="text" id="guess-input" placeholder="Enter a movie title..." autocomplete="off">
-    </div>
+    <div class="app">
+        <header class="topbar surface">
+            <div class="brand">
+                <img src="img/triangle.png" class="brand-logo" alt="">
+                <h1>The Hollywood Triangle</h1>
+            </div>
+            <div class="subtitle">Name the 3 movies that connect the actors.</div>
+        </header>
 
-    <div class="strikes" id="strikes-display"></div>
+        <div class="layout">
+            <section class="board-card surface">
+                <div class="triangle-board">
+                    <svg class="connections">
+                        <line id="line-0" x1="50%" y1="12%" x2="86%" y2="86%" />
+                        <line id="line-1" x1="86%" y1="86%" x2="14%" y2="86%" />
+                        <line id="line-2" x1="14%" y1="86%" x2="50%" y2="12%" />
+                    </svg>
 
-    <div class="controls">
-        <button class="btn btn-new" onclick="resetGame()">New Game</button>
-        <button id="btn-diff" class="btn diff-medium" onclick="cycleDifficulty()">Medium</button>
-        <button id="btn-help" onclick="toggleHelp()">?</button>
+                    <div id="node-0" class="actor-node revealed">
+                        <img class="actor-img" src="" alt="">
+                        <div class="actor-name">?</div>
+                    </div>
+                    <div id="node-1" class="actor-node">
+                        <img class="actor-img" src="" alt="">
+                        <div class="actor-name">?</div>
+                    </div>
+                    <div id="node-2" class="actor-node">
+                        <img class="actor-img" src="" alt="">
+                        <div class="actor-name">?</div>
+                    </div>
+
+                    <div id="edge-0" class="edge-info" data-edge="0"><div class="edge-label"><span class="edge-num">1</span><span class="edge-text">???</span></div></div>
+                    <div id="edge-1" class="edge-info" data-edge="1"><div class="edge-label"><span class="edge-num">2</span><span class="edge-text">???</span></div></div>
+                    <div id="edge-2" class="edge-info" data-edge="2"><div class="edge-label"><span class="edge-num">3</span><span class="edge-text">???</span></div></div>
+                </div>
+            </section>
+
+            <aside class="panel surface">
+                <div class="input-container" id="input-container">
+                    <input type="text" id="guess-input" placeholder="Enter a movie title..." autocomplete="off">
+                    <ul class="suggestions" id="suggestions"></ul>
+                </div>
+                <div class="result-banner" id="result-banner"></div>
+
+                <div class="strikes" id="strikes-display"></div>
+
+                <div class="movie-list" id="movie-list"></div>
+
+                <div class="controls">
+                    <button class="btn btn-new" onclick="resetGame()">New Game</button>
+                    <button id="btn-diff" class="btn diff-medium" onclick="cycleDifficulty()">Medium</button>
+                    <button id="btn-help" class="icon-btn" onclick="toggleHelp()" aria-label="How to play">?</button>
+                    <button id="btn-theme" class="icon-btn" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+                </div>
+            </aside>
+        </div>
     </div>
 
     <div id="help-modal" class="modal-overlay" onclick="toggleHelp()">
@@ -445,10 +728,10 @@
             <span class="close-btn" onclick="toggleHelp()">&times;</span>
             <h2>How to Play</h2>
             <ul>
-                <li><strong>The Goal:</strong> Connect the 3 actors by naming the movies they starred in together.</li>
-                <li><strong>The Board:</strong> You start with one actor revealed. Guess the movie that links them to the hidden actors to reveal the rest of the triangle.</li>
-                <li><strong>Strikes & Clues:</strong> Every wrong guess is a <b>Strike</b>. Strikes unlock hints to help you:
-                    <ul style="margin-top:5px; color:#666;">
+                <li><strong>The Goal:</strong> Connect the 3 actors by naming the movies they starred in together. Each numbered edge of the triangle is one movie.</li>
+                <li><strong>The Board:</strong> You start with one actor revealed. Solve movies to complete the triangle.</li>
+                <li><strong>Strikes &amp; Clues:</strong> Every wrong guess is a <b>Strike</b>. Strikes unlock hints:
+                    <ul>
                         <li>1 Strike: Second Actor</li>
                         <li>2 Strikes: Release Year</li>
                         <li>3 Strikes: Third Actor</li>
@@ -458,48 +741,55 @@
                 </li>
                 <li><strong>Game Over:</strong> If you get <b>6 Strikes</b> before completing the triangle, you lose!</li>
             </ul>
-            <button class="btn btn-new" onclick="toggleHelp()" style="width:100%">Got it!</button>
+            <button class="btn btn-new" onclick="toggleHelp()">Got it!</button>
         </div>
     </div>
 
     <script>
         const MAX_STRIKES = 6;
+        const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w185";
+        const BLANK_IMG = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+        // Edge i connects these two node indices
+        const EDGE_NODES = [[0, 1], [1, 2], [2, 0]];
+        // Hints shown in each movie card, and the strike count that unlocks them
+        const HINTS = [
+            { key: 'year', label: 'Year', at: 2 },
+            { key: 'cast', label: 'Co-star', at: 4 },
+            { key: 'plot', label: 'Plot', at: 5 }
+        ];
+
         let allPuzzles = [];
         let movieList = [];
         let currentPuzzle = null;
         let strikes = 0;
         let solvedEdges = [false, false, false];
-
+        let revealedNodes = [true, false, false];
+        let gameOver = false;
         let currentDifficulty = 'medium';
 
-        const TMDB_IMG_BASE = "https://image.tmdb.org/t/p/w185";
-
         window.addEventListener('DOMContentLoaded', async () => {
-            // Setup Dots
             const dots = document.getElementById('strikes-display');
-            for(let i=0; i<MAX_STRIKES; i++) dots.innerHTML += '<span class="strike-dot"></span>';
+            dots.innerHTML = '<span class="strikes-label">Strikes</span>';
+            for (let i = 0; i < MAX_STRIKES; i++) dots.innerHTML += '<span class="strike-dot"></span>';
 
+            buildMovieCards();
+            wireHighlights();
+            updateThemeIcon();
             await loadData();
-            initGame();
         });
 
         async function loadData() {
             try {
                 const res = await fetch('jsons/triangles.json');
                 const data = await res.json();
-
-                // 1. Get Puzzles
                 allPuzzles = data.puzzles;
-
-                // 2. Get Full Movie List (The pool we plumbed)
                 movieList = data.all_movies;
 
-                initGame(); // The board updates here
-                
-                // NOW we remove the loading screen
-                const loader = document.getElementById('loading-screen');
-                if(loader) loader.style.display = 'none';
+                initGame();
 
+                const loader = document.getElementById('loading-screen');
+                if (loader) loader.style.display = 'none';
                 console.log(`Loaded ${allPuzzles.length} puzzles and ${movieList.length} movies.`);
             } catch (e) {
                 console.error(e);
@@ -507,73 +797,151 @@
             }
         }
 
+        // --- MOVIE CARDS ---
+        function buildMovieCards() {
+            const list = document.getElementById('movie-list');
+            list.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.id = `card-${i}`;
+                card.dataset.edge = i;
+                card.innerHTML = `
+                    <div class="mc-head"><span class="edge-num">${i + 1}</span><span class="mc-actors"></span></div>
+                    <div class="mc-title"></div>
+                    <div class="mc-hints">
+                        ${HINTS.map(h => `
+                            <div class="hint-row" data-hint="${h.key}">
+                                <span class="hint-key">${h.label}</span>
+                                <span class="hint-val locked">Locked</span>
+                            </div>`).join('')}
+                    </div>`;
+                list.appendChild(card);
+            }
+        }
+
+        function wireHighlights() {
+            const setHl = (i, on) => {
+                document.getElementById(`card-${i}`).classList.toggle('hl', on);
+                document.getElementById(`edge-${i}`).classList.toggle('hl', on);
+                document.getElementById(`line-${i}`).classList.toggle('hl', on);
+            };
+            for (let i = 0; i < 3; i++) {
+                [document.getElementById(`card-${i}`), document.getElementById(`edge-${i}`)].forEach(el => {
+                    el.addEventListener('mouseenter', () => setHl(i, true));
+                    el.addEventListener('mouseleave', () => setHl(i, false));
+                });
+            }
+        }
+
+        function lastName(full) {
+            const parts = full.trim().split(/\s+/);
+            // Stage names like "Cedric the Entertainer" don't have a usable last name
+            if (parts.some(p => p.toLowerCase() === 'the')) return full;
+            const suffixes = ['jr.', 'jr', 'sr.', 'sr', 'ii', 'iii', 'iv'];
+            let last = parts[parts.length - 1];
+            if (parts.length > 2 && suffixes.includes(last.toLowerCase())) last = parts[parts.length - 2];
+            return last;
+        }
+
+        // Small headshot + last name, or a silhouette + "Locked" if the actor isn't revealed yet
+        function personChip(nodeIdx) {
+            if (!revealedNodes[nodeIdx]) {
+                return `<span class="mc-person locked"><img class="mc-avatar" src="${BLANK_IMG}" alt=""><span>Locked</span></span>`;
+            }
+            const name = currentPuzzle.actors[nodeIdx];
+            const img = currentPuzzle.actor_images[nodeIdx];
+            const src = img ? TMDB_IMG_BASE + img : BLANK_IMG;
+            return `<span class="mc-person" title="${name}"><img class="mc-avatar" src="${src}" alt="" onerror="this.onerror=null;this.src='${BLANK_IMG}'"><span>${lastName(name)}</span></span>`;
+        }
+
+        function renderCards() {
+            for (let i = 0; i < 3; i++) {
+                const card = document.getElementById(`card-${i}`);
+                const [a, b] = EDGE_NODES[i];
+                card.querySelector('.mc-actors').innerHTML = personChip(a) + personChip(b);
+
+                HINTS.forEach(h => {
+                    const val = card.querySelector(`[data-hint="${h.key}"] .hint-val`);
+                    const unlocked = strikes >= h.at;
+                    const wasLocked = val.classList.contains('locked');
+                    if (!unlocked) {
+                        val.className = 'hint-val locked';
+                        val.textContent = 'Locked';
+                        return;
+                    }
+                    if (!wasLocked) return; // already rendered
+                    val.className = 'hint-val fresh';
+                    if (h.key === 'year') val.textContent = currentPuzzle.years[i];
+                    if (h.key === 'cast') val.textContent = currentPuzzle.clue_cast[i];
+                    if (h.key === 'plot') {
+                        const plot = currentPuzzle.plots[i] || '';
+                        val.innerHTML = '';
+                        const p = document.createElement('div');
+                        p.className = 'plot-text';
+                        p.textContent = plot;
+                        val.appendChild(p);
+                        if (plot.length > 70) {
+                            const more = document.createElement('button');
+                            more.className = 'more-btn';
+                            more.textContent = 'more';
+                            more.onclick = () => {
+                                const exp = p.classList.toggle('expanded');
+                                more.textContent = exp ? 'less' : 'more';
+                            };
+                            val.appendChild(more);
+                        }
+                    }
+                });
+            }
+        }
+
+        // --- GAME SETUP ---
         function initGame() {
             let limit = 2500;
             if (currentDifficulty === 'easy') limit = 475;
             else if (currentDifficulty === 'medium') limit = 1000;
 
             let pool = allPuzzles.filter(p => p.difficulty && p.difficulty <= limit);
-            if(pool.length === 0) pool = allPuzzles;
+            if (pool.length === 0) pool = allPuzzles;
 
             const rawPuzzle = pool[Math.floor(Math.random() * pool.length)];
             const rotation = Math.floor(Math.random() * 3);
-
-            // Handle Missing Image Array (Backward Compatibility)
             const rawImages = rawPuzzle.actor_images || [null, null, null];
 
             currentPuzzle = {
                 ...rawPuzzle,
                 actors: rotateArray(rawPuzzle.actors, rotation),
-                actor_images: rotateArray(rawImages, rotation), // Rotate Images too
+                actor_images: rotateArray(rawImages, rotation),
                 movies: rotateArray(rawPuzzle.movies, rotation),
                 years: rotateArray(rawPuzzle.years, rotation),
                 clue_cast: rotateArray(rawPuzzle.clue_cast, rotation),
                 plots: rotateArray(rawPuzzle.plots, rotation)
             };
-            
-            // Setup Nodes with Images
-            setNode(0, currentPuzzle.actors[0], currentPuzzle.actor_images[0], true);   
-            setNode(1, currentPuzzle.actors[1], currentPuzzle.actor_images[1], false); 
-            setNode(2, currentPuzzle.actors[2], currentPuzzle.actor_images[2], false); 
 
-            // Setup Edges
-            for(let i=0; i<3; i++) {
-                const edge = document.getElementById(`edge-${i}`);
-                edge.querySelector('.clue-year').textContent = currentPuzzle.years[i];
-                edge.querySelector('.clue-cast').textContent = "⭐ " + currentPuzzle.clue_cast[i];
-                edge.querySelector('.plot-text').textContent = currentPuzzle.plots[i];
-                
-                // Reset Placeholder
-                edge.querySelector('.movie-placeholder').style.display = 'flex';
-                edge.querySelector('.solved-title').style.display = 'none';
-            }
+            revealedNodes = [true, false, false];
+            for (let i = 0; i < 3; i++) setNode(i, revealedNodes[i]);
             updateClueState();
         }
 
-        function setNode(idx, name, imgPath, isRevealed) {
+        function setNode(idx, isRevealed) {
             const node = document.getElementById(`node-${idx}`);
             const nameEl = node.querySelector('.actor-name');
             const imgEl = node.querySelector('.actor-img');
+            const name = currentPuzzle.actors[idx];
+            const imgPath = currentPuzzle.actor_images[idx];
 
             nameEl.textContent = isRevealed ? name : "?";
-            
-            if(isRevealed && imgPath) {
-                // Load the real actor image
+            if (isRevealed && imgPath) {
+                imgEl.onerror = function () { this.onerror = null; this.src = BLANK_IMG; };
                 imgEl.src = TMDB_IMG_BASE + imgPath;
-                
-                // Fallback: If TMDB link breaks, revert to transparent pixel (showing silhouette)
-                imgEl.onerror = function() { 
-                    this.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"; 
-                }; 
             } else {
-                // THE FIX: Set to a transparent 1x1 pixel.
-                // This makes the 'foreground' image invisible, so the CSS 
-                // background-image (the silhouette) shows through without a broken icon.
-                imgEl.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+                imgEl.src = BLANK_IMG;
             }
 
+            revealedNodes[idx] = isRevealed;
             node.classList.toggle('revealed', isRevealed);
-            node.classList.remove('solved', 'missed'); 
+            node.classList.remove('solved', 'missed');
         }
 
         // --- INPUT ---
@@ -583,13 +951,14 @@
         input.addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             list.innerHTML = '';
-            if(val.length < 2) { list.style.display = 'none'; return; }
+            if (val.length < 2) { list.style.display = 'none'; return; }
 
             const matches = movieList.filter(m => m.toLowerCase().includes(val));
-            if(matches.length) {
-                matches.forEach(m => {
+            if (matches.length) {
+                matches.forEach((m, i) => {
                     const li = document.createElement('li');
                     li.textContent = m;
+                    if (i === 0) li.classList.add('kb');
                     li.onclick = () => submitGuess(m);
                     list.appendChild(li);
                 });
@@ -597,7 +966,31 @@
             } else list.style.display = 'none';
         });
 
+        // Keyboard: arrows move through suggestions, Enter picks the highlighted one
+        input.addEventListener('keydown', (e) => {
+            const items = [...list.querySelectorAll('li')];
+            if (!items.length || list.style.display === 'none') return;
+            let idx = items.findIndex(li => li.classList.contains('kb'));
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                items[idx]?.classList.remove('kb');
+                idx = e.key === 'ArrowDown' ? Math.min(idx + 1, items.length - 1) : Math.max(idx - 1, 0);
+                items[idx].classList.add('kb');
+                items[idx].scrollIntoView({ block: 'nearest' });
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                submitGuess(items[Math.max(idx, 0)].textContent);
+            } else if (e.key === 'Escape') {
+                list.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.input-container')) list.style.display = 'none';
+        });
+
         function submitGuess(guess) {
+            if (gameOver) return;
             input.value = '';
             list.style.display = 'none';
             const cleanGuess = guess.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -605,241 +998,149 @@
 
             currentPuzzle.movies.forEach((movie, idx) => {
                 const cleanAns = movie.toLowerCase().replace(/[^a-z0-9]/g, '');
-                if(cleanGuess === cleanAns && !solvedEdges[idx]) {
+                if (cleanGuess === cleanAns && !solvedEdges[idx]) {
                     solveEdge(idx, movie);
                     hit = true;
                 }
             });
 
-            if(!hit) {
+            if (!hit) {
                 strikes++;
                 updateClueState();
             }
 
-            if(solvedEdges.every(x => x)) {
+            if (solvedEdges.every(x => x)) {
                 for (let i = 0; i < 3; i++) {
-                    // true = force it to be visible/active
-                    setNode(
-                        i, 
-                        currentPuzzle.actors[i], 
-                        currentPuzzle.actor_images[i],
-                        true
-                    ); 
+                    setNode(i, true);
+                    document.getElementById(`node-${i}`).classList.add('solved');
                 }
-                document.querySelector('.subtitle').innerHTML = "<b style='color:green'>YOU WON! 🎉</b>";
-                input.disabled = true;
-            } else if(strikes >= MAX_STRIKES) {
-                document.querySelector('.subtitle').innerHTML = "<b style='color:red'>GAME OVER</b>";
+                renderCards();
+                const s = strikes === 1 ? 'strike' : 'strikes';
+                endGame('win', `<strong>You connected the triangle! 🎉</strong>Finished with ${strikes} ${s}.`);
+            } else if (strikes >= MAX_STRIKES) {
                 revealAll();
-                input.disabled = true;
+                endGame('lose', `<strong>Out of strikes</strong>The answers are revealed on the board.`);
             }
+        }
+
+        function endGame(kind, html) {
+            gameOver = true;
+            input.disabled = true;
+            document.getElementById('input-container').style.display = 'none';
+            const banner = document.getElementById('result-banner');
+            banner.className = `result-banner ${kind}`;
+            banner.innerHTML = html;
         }
 
         function solveEdge(idx, title) {
             solvedEdges[idx] = true;
             const edge = document.getElementById(`edge-${idx}`);
-            const titleEl = edge.querySelector('.solved-title');
+            edge.classList.add('solved');
+            edge.querySelector('.edge-text').textContent = title;
 
-            titleEl.textContent = title;
-            titleEl.style.display = 'block';
-
-            // HIDE ALL CLUES on this edge immediately
-            edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
-            edge.querySelector('.movie-placeholder').style.display = 'none';
+            const card = document.getElementById(`card-${idx}`);
+            card.classList.add('solved');
+            card.querySelector('.mc-title').textContent = title;
 
             document.getElementById(`line-${idx}`).classList.add('active');
 
-            if(idx === 0 || idx === 2) checkNodeSolved(0);
-            if(idx === 0 || idx === 1) checkNodeSolved(1);
-            if(idx === 1 || idx === 2) checkNodeSolved(2);
-        }
-
-        function checkNodeSolved(nodeIdx) {
-            let isSolved = false;
-            // Node 0 (Top) needs Edge 0 & 2
-            if(nodeIdx === 0 && solvedEdges[0] && solvedEdges[2]) isSolved = true;
-            // Node 1 (BR) needs Edge 0 & 1
-            if(nodeIdx === 1 && solvedEdges[0] && solvedEdges[1]) isSolved = true;
-            // Node 2 (BL) needs Edge 1 & 2
-            if(nodeIdx === 2 && solvedEdges[1] && solvedEdges[2]) isSolved = true;
-
-            if(isSolved) document.getElementById(`node-${nodeIdx}`).classList.add('solved');
+            // A node is solved once both of its edges are solved
+            for (let n = 0; n < 3; n++) {
+                const touching = EDGE_NODES.map((pair, e) => pair.includes(n) ? e : -1).filter(e => e >= 0);
+                if (touching.every(e => solvedEdges[e])) document.getElementById(`node-${n}`).classList.add('solved');
+            }
         }
 
         function updateClueState() {
-            // 1. Update the visual "Strike Dots"
-            document.querySelectorAll('.strike-dot').forEach((d, i) => {
-                if (i < strikes) d.classList.add('active');
-            });
+            document.querySelectorAll('.strike-dot').forEach((d, i) => d.classList.toggle('active', i < strikes));
 
-            // 2. Unlock hints based on strike count
-            // STRIKE 1: Reveal Bottom Right Actor
-            if (strikes >= 1) {
-                setNode(1, currentPuzzle.actors[1], currentPuzzle.actor_images[1], true);
-            }
+            if (strikes >= 1 && !revealedNodes[1]) setNode(1, true);
+            if (strikes >= 3 && !revealedNodes[2]) setNode(2, true);
 
-            // STRIKE 2: Show Release Years
-            if (strikes >= 2) {
-                toggleClue('.clue-year');
-            }
-
-            // STRIKE 3: Reveal Bottom Left Actor
-            if (strikes >= 3) {
-                setNode(2, currentPuzzle.actors[2], currentPuzzle.actor_images[2], true);
-            }
-
-            // STRIKE 4: Show Cast Member Hint
-            if (strikes >= 4) {
-                toggleClue('.clue-cast');
-            }
-
-            // STRIKE 5: Show Plot Hint
-            if (strikes >= 5) {
-                toggleClue('.clue-plot-container');
-            }
-        }
-
-        function toggleClue(selector) {
-            for(let i=0; i<3; i++) {
-                // Only show if NOT solved
-                if(!solvedEdges[i]) {
-                    const edge = document.getElementById(`edge-${i}`);
-
-                    // --- THE FIX ---
-                    // We must make the container visible (opacity: 1)
-                    edge.classList.add('visible');
-
-                    // Then show the specific clue
-                    edge.querySelector(selector).style.display = 'block';
-                }
-            }
-        }
-
-        function resetGame() {
-            // 1. Reset Game State
-            strikes = 0;
-            solvedEdges = [false, false, false];
-            
-            // 2. Reset UI Header/Input
-            document.querySelectorAll('.strike-dot').forEach(d => d.classList.remove('active'));
-            document.querySelector('.subtitle').innerHTML = "Guess the 3 movies to connect the actors.";
-            
-            const input = document.getElementById('guess-input');
-            input.value = '';
-            input.disabled = false;
-            
-            // 3. Clear Board Elements
-            for(let i=0; i<3; i++) {
-                // --- RESET NODES ---
-                const node = document.getElementById(`node-${i}`);
-                node.className = 'actor-node'; // Reset classes to default
-
-                // FIX: Use setNode to reset content without destroying the <img> tag
-                setNode(i, "?", null, false);
-
-                // --- RESET LINES ---
-                const line = document.getElementById(`line-${i}`);
-                line.classList.remove('active', 'missed');
-                line.setAttribute('class', ''); 
-
-                // --- RESET EDGES ---
-                const edge = document.getElementById(`edge-${i}`);
-                edge.classList.remove('visible'); 
-                
-                // --- RESET PLACEHOLDERS & TITLES ---
-                edge.querySelector('.movie-placeholder').style.display = 'flex';
-                
-                const title = edge.querySelector('.solved-title');
-                title.style.display = 'none';
-                title.style.background = ''; 
-                title.style.color = '';
-                title.style.border = '';
-                title.textContent = '';
-                
-                // Hide Clues
-                edge.querySelectorAll('.clue-pill, .clue-plot-container').forEach(el => el.style.display = 'none');
-            }
-
-            // 4. Start New Game
-            initGame();
-        }
-
-        function cycleDifficulty() {
-            const btn = document.getElementById('btn-diff');
-            
-            // 1. Cycle State
-            if (currentDifficulty === 'easy') {
-                currentDifficulty = 'medium';
-                btn.textContent = "Medium";
-                btn.className = "btn diff-medium"; // Swap class
-            } 
-            else if (currentDifficulty === 'medium') {
-                currentDifficulty = 'hard';
-                btn.textContent = "Hard";
-                btn.className = "btn diff-hard";
-            } 
-            else {
-                currentDifficulty = 'easy';
-                btn.textContent = "Easy";
-                btn.className = "btn diff-easy";
-            }
+            renderCards();
         }
 
         function revealAll() {
-            // 1. Reveal Missed Edges (Lines & Titles)
             for (let i = 0; i < 3; i++) {
-                if (!solvedEdges[i]) {
-                    const edge = document.getElementById(`edge-${i}`);
+                if (solvedEdges[i]) continue;
+                const edge = document.getElementById(`edge-${i}`);
+                edge.classList.add('missed');
+                edge.querySelector('.edge-text').textContent = currentPuzzle.movies[i];
 
-                    // Reveal the Correct Movie Title
-                    const titleEl = edge.querySelector('.solved-title');
-                    titleEl.textContent = currentPuzzle.movies[i];
-                    titleEl.style.cssText = `
-                        display: block;
-                        background: white;
-                        color: #e74c3c;
-                        border: 2px solid #e74c3c;
-                    `;
+                const card = document.getElementById(`card-${i}`);
+                card.classList.add('missed');
+                card.querySelector('.mc-title').textContent = currentPuzzle.movies[i];
 
-                    // Hide the "???" Placeholder
-                    edge.querySelector('.movie-placeholder').style.display = 'none';
-
-                    // Hide any other active clues to clean up the UI
-                    edge.querySelectorAll('.clue-pill, .clue-plot-container')
-                        .forEach(el => el.style.display = 'none');
-
-                    // Ensure the container is visible so we can see the title
-                    edge.classList.add('visible');
-
-                    // Turn the SVG line red
-                    document.getElementById(`line-${i}`).classList.add('missed');
-                }
+                document.getElementById(`line-${i}`).classList.add('missed');
             }
 
-            // 2. Reveal Missed Nodes (Actors)
             for (let i = 0; i < 3; i++) {
                 const node = document.getElementById(`node-${i}`);
-                
-                // If the actor wasn't solved (green), force reveal them now
                 if (!node.classList.contains('solved')) {
-                    setNode(
-                        i, 
-                        currentPuzzle.actors[i], 
-                        currentPuzzle.actor_images[i], 
-                        true
-                    );
-                    
-                    // Remove standard styles and apply the red "Missed" style
+                    setNode(i, true);
                     node.classList.remove('revealed');
                     node.classList.add('missed');
                 }
             }
+            renderCards();
+        }
+
+        function resetGame() {
+            strikes = 0;
+            solvedEdges = [false, false, false];
+            gameOver = false;
+
+            input.value = '';
+            input.disabled = false;
+            list.style.display = 'none';
+            document.getElementById('input-container').style.display = '';
+            document.getElementById('result-banner').className = 'result-banner';
+
+            for (let i = 0; i < 3; i++) {
+                document.getElementById(`node-${i}`).className = 'actor-node';
+                document.getElementById(`line-${i}`).setAttribute('class', '');
+                const edge = document.getElementById(`edge-${i}`);
+                edge.classList.remove('solved', 'missed', 'hl');
+                edge.querySelector('.edge-text').textContent = '???';
+
+                const card = document.getElementById(`card-${i}`);
+                card.classList.remove('solved', 'missed', 'hl');
+                card.querySelector('.mc-title').textContent = '';
+            }
+            initGame(); // strikes = 0, so renderCards() relocks every hint
+        }
+
+        function cycleDifficulty() {
+            const btn = document.getElementById('btn-diff');
+            const next = { easy: 'medium', medium: 'hard', hard: 'easy' }[currentDifficulty];
+            currentDifficulty = next;
+            btn.textContent = next[0].toUpperCase() + next.slice(1);
+            btn.className = `btn diff-${next}`;
         }
 
         function toggleHelp() {
             const modal = document.getElementById('help-modal');
-            // Toggle between flex (to center it) and none
             modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        const ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+        const ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const dark = root.getAttribute('data-theme') !== 'dark';
+            root.classList.add('theme-snap');
+            if (dark) root.setAttribute('data-theme', 'dark');
+            else root.removeAttribute('data-theme');
+            void root.offsetHeight; // flush styles while transitions are off
+            requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-snap')));
+            try { localStorage.setItem('triangle-theme', dark ? 'dark' : 'light'); } catch (e) {}
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.getElementById('btn-theme').innerHTML = dark ? ICON_SUN : ICON_MOON;
         }
 
         function rotateArray(arr, n) {
