@@ -13,3 +13,8 @@ def run(ns):
     g = json.loads(f.read_text(encoding="utf-8")).get("ghost_notes") if f.exists() else None
     if g is False or g == "runs":
         ns["ghost_notes"] = g
+    # ("no_ghosts": [{"from": audio s, "to": audio s, "why": ...}] -- stretches with no ghost keys even where the song
+    # has them: Mercury's triplet section, "I would like no ghost notes in this section")
+    w = json.loads(f.read_text(encoding="utf-8")).get("no_ghosts", []) if f.exists() else []
+    if w:
+        ns["no_ghost_windows"] = [[float(x["from"]), float(x["to"])] for x in w]

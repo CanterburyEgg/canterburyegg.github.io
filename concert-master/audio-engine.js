@@ -762,6 +762,7 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     impacts: sidecar.impacts || [],
     chordNotes: sidecar.chordNotes || [], // score chords entering under a held melody note: [start, end, midi]
     ghostNotes: sidecar.ghostNotes, // false = this song never uses ghost keys (e.g. Sevens, by taste); 'runs' = only in quick runs
+    noGhostWindows: sidecar.noGhostWindows || [], // [from, to] audio seconds with no ghost keys (the song's corrections)
     tryRules: sidecar.tryRules || [], // (sandbox previews only: layout rules switched on for a song they don't yet apply to)
     // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
     exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
@@ -1143,7 +1144,21 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
   // back mid-run: S D F J K up, L K J F D down (or, continuing straight off a run that just used the end key, the
   // ghost lands on the far end instead, e.g. Ride 1:13 S D F J K J F D S)
   ghostEdgeOK = isDense && features.ghostNotes !== false;
-  runLayoutRules(notes, lanes, { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore, tryRules: features.tryRules || [], ghostTunes: features.ghostNotes !== 'runs' });
+  const layoutCtx = { isDense, ghosts: isDense && features.ghostNotes !== false, chordHits: features.chordHits || [], exactScore: !!features.exactScore, tryRules: features.tryRules || [], ghostTunes: features.ghostNotes !== 'runs' };
+  const noGhostWindows = features.noGhostWindows || [];
+  if (layoutCtx.ghosts && noGhostWindows.length) {
+    // (stretches with no ghost keys, from the song's corrections: the layout is worked out twice, with and without the
+    // ghost keys, and notes inside a window take the ghost-free keys -- Mercury 2:45.8-3:02, the triplet section;
+    // user, Nov 24: "I would like no ghost notes in this section")
+    const inWin = (x) => noGhostWindows.some(([a, b]) => x.time >= a && x.time < b);
+    const withGhosts = notes.map((x) => ({ ...x }));
+    runLayoutRules(withGhosts, lanes, layoutCtx);
+    ghostEdgeOK = false;
+    runLayoutRules(notes, lanes, { ...layoutCtx, ghosts: false });
+    ghostEdgeOK = isDense && features.ghostNotes !== false;
+    const merged = [...withGhosts.filter((x) => !inWin(x)), ...notes.filter((x) => inWin(x))].sort((a, b) => a.time - b.time);
+    notes.splice(0, notes.length, ...merged);
+  } else runLayoutRules(notes, lanes, layoutCtx);
   if (isDense) addCounterLine(notes, features.counterNotes || [], lanes);
 
   // Add Demucs drum/bass stem impacts -> Percussion-Solo Handoff (F/J)

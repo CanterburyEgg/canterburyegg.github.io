@@ -461,6 +461,34 @@
       "end": 18.4,
       "late": true,
       "why": "0:23.1: the figure's last note is the bassoons' (and bass oboe's) low 47 downbeat, not the cor anglais' 54 over it (user, Nov 24: 'I still don't have the D ... it's at exactly 23.1. There's a gap between the J and the D that starts the next run, where I hear a down beat (you might be charting one of the instruments that doesn't play it)')."
+    },
+    {
+      "staff": "Violins I",
+      "start": 138.68,
+      "end": 147.6,
+      "late": true,
+      "why": "m.189-200 (2:45.8-2:56): the triplet section follows the first violins, the top line, which climbs straight up from its first note (59 61 62 64 66 67 69 71 74 | 73 67 69 ...); the rules had the second violins, whose 59 55 57 dip and lower pitches the ear doesn't follow (user, Nov 24: 'this is monumentally hard to follow because the notes I'm playing don't match the notes I'm hearing in terms of progression ... is there one single instrument that follows the top line?' and, on switching to Violins I: 'yes, let's try that')."
+    },
+    {
+      "staff": "Violins II",
+      "start": 141.25,
+      "end": 141.45,
+      "late": true,
+      "why": "2:48.75, m.192: the first violins' second 85 becomes the strings' step down, the second violins' 79 74, then back to the first violins' 81 85 83 (83 85 79 74 81 ...: the peak and back down the ear follows, without the first violins' 79 doubling the borrowed 79; user: 'do the borrow there. We're not doing any merging or doubling in this section') (user, Nov 24, on the first violins' repeated top note: 'are the two doubled notes necessary?' then 'swap them for the step down')."
+    },
+    {
+      "staff": "Violins II",
+      "start": 147.52,
+      "end": 147.58,
+      "late": true,
+      "why": "2:55.9, m.200: the first violins' second 85 becomes the second violins' 80, the step down under it (user, Nov 24, on the first violins' repeated top note: 'are the two doubled notes necessary?' then 'swap them for the step down')."
+    }
+  ],
+  "no_ghosts": [
+    {
+      "from": 165.7,
+      "to": 181.9,
+      "why": "2:45.7-3:01.9, m.189-208: the triplet section isn't a run, so no ghost keys (user, Nov 24: 'I also don't like the ghost note in this section because this isn't really a run', 'I would like no ghost notes in this section, yeah')."
     }
   ]
 }
