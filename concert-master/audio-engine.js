@@ -1154,7 +1154,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
     const withGhosts = notes.map((x) => ({ ...x }));
     runLayoutRules(withGhosts, lanes, layoutCtx);
     ghostEdgeOK = false;
-    runLayoutRules(notes, lanes, { ...layoutCtx, ghosts: false });
+    runLayoutRules(notes, lanes, { ...layoutCtx, ghosts: false, ghostWindow: true }); // (ghostWindow: not a no-ghost song, so no rip drops its notes)
     ghostEdgeOK = isDense && features.ghostNotes !== false;
     const merged = [...withGhosts.filter((x) => !inWin(x)), ...notes.filter((x) => inWin(x))].sort((a, b) => a.time - b.time);
     notes.splice(0, notes.length, ...merged);
@@ -1461,7 +1461,7 @@ const LAYOUT_RULES = [
   // (a one-off pin onto the S ghost key: Mercury 0:23.3, the violins' run starts S D F after the bassoons' 47; user,
   // Nov 24: "I thought the run should start SDF and it seems to just go FJ")
   ['pinnedGhosts', (n, l, c) => { if (c.ghosts && l === 4) n.forEach((x) => { if (x.pinGhost && !x.isChordPartner) { x.lane = l; x.ghost = 'S'; } }); }, 'ghosts'],
-  ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense) applyQuickRipsFourKeys(n, l); }],
+  ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense && !c.ghostWindow) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],
 ];
@@ -5117,6 +5117,8 @@ function applyTuneStatementsKeepShape(notes, lanes) {
       const w = prim.slice(i, i + k);
       const span = w[k - 1].time - w[0].time;
       if (span <= 0 || span > 4 || new Set(w.map((x) => x.midi)).size < 4) continue;
+      // (a scale running one way isn't a tune statement -- evenly timed sweeps all match each other: Mercury 2:24)
+      if (w.every((x, j) => !j || Math.sign(x.midi - w[j - 1].midi) === Math.sign(w[1].midi - w[0].midi))) continue;
       const iv = w.slice(1).map((x, j) => x.midi - w[j].midi).join(',');
       const rh = w.slice(1).map((x, j) => Math.round(((x.time - w[j].time) / span) * 24)).join(',');
       const key = iv + '|' + rh;

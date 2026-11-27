@@ -21,8 +21,10 @@ def run(ns):
     restore_path = Path(__file__).resolve().parents[1] / f"{score_path.stem.lower()}_restore.json"
     if restore_path.exists():
         for t_pin, lane_pin in json.loads(restore_path.read_text(encoding="utf-8")).get("pins", []):
-            for r in melody_out:
-                if abs(float(r[0]) - t_pin) < 0.03:
+            # (a note steady_lines moved is still found by the time it had before)
+            orig = ns.get('steady_orig', {})
+            for k_r, r in enumerate(melody_out):
+                if abs(float(r[0]) - t_pin) < 0.03 or (k_r in orig and abs(orig[k_r] - t_pin) < 0.03):
                     del r[6:]
                     r.append(20 + int(lane_pin))
 

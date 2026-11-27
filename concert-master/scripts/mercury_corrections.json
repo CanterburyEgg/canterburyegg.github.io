@@ -13,6 +13,11 @@
       "start": 172.7,
       "end": 174.83,
       "why": "3:25.4-3:27.8 (score 172.70-174.83, m.235-237): the timpani roll after the big hit isn't played; nothing until the celesta at m.238 (user, Nov 24: 'm. 235: hit. not hold. m. 236: nothing. m. 237: nothing ... this is essentially just editing out the weird timpani roll')."
+    },
+    {
+      "start": 214.65,
+      "end": 215.39,
+      "why": "m.292 (score 214.65-215.39): nothing (user, Nov 26, measure-by-measure plan: 'm. 292: -')."
     }
   ],
   "audio_moves": [
@@ -85,6 +90,20 @@
       "to": 205.28,
       "end": 205.4,
       "why": "3:25.3, m.235: the piccolo's top 100 on the big hit is a tap, not a hold (user, Nov 24: 'm. 235: hit. not hold')."
+    },
+    {
+      "score_start": 210.61,
+      "midi": 91,
+      "to": 248.6,
+      "keep_length": true,
+      "why": "4:08.60, m.286: the celesta's 91 on the recording's attack (onsets 248.16 / 248.60 / 249.03 for its 94 91 88, a dotted quarter apart) (user, Nov 27: 'the FD around 4:10 is way late')."
+    },
+    {
+      "score_start": 210.98,
+      "midi": 88,
+      "to": 249.03,
+      "keep_length": true,
+      "why": "4:09.03, m.286: the celesta's held 88 on its attack (it was 0.12s late at 249.15) (user, Nov 27: 'the FD around 4:10 is way late')."
     }
   ],
   "thin": [
@@ -508,13 +527,474 @@
       "end": 152.64,
       "late": true,
       "why": "m.205-207 (2:59.4-3:01.9): the first violins come back on top, 83 84 86 | 88 86 84 | 83 82 83 | 82 80 82 | 83 84 86 | 88 86 84 (doubled by Flute 1) (user, Nov 24: the triplet section follows its top line)."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 177.2,
+      "end": 177.767,
+      "late": true,
+      "why": "m.241: the user's measure-by-measure plan for m.241-296 (Nov 26), m.241: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 177.767,
+      "end": 178.505,
+      "late": true,
+      "why": "m.242: the user's measure-by-measure plan for m.241-296 (Nov 26), m.242: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 178.505,
+      "end": 179.242,
+      "late": true,
+      "why": "m.243: the user's measure-by-measure plan for m.241-296 (Nov 26), m.243: 'cl 1': the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Clarinet 3 in B♭",
+      "start": 179.242,
+      "end": 179.61,
+      "late": true,
+      "why": "m.244: the user's measure-by-measure plan for m.241-296 (Nov 26), m.244: 'cl 3 + fl 1': the line goes to Clarinet 3 in B♭ here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 179.61,
+      "end": 179.98,
+      "late": true,
+      "why": "m.244: the user's measure-by-measure plan for m.241-296 (Nov 26), m.244: 'cl 3 + fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 2",
+      "start": 179.98,
+      "end": 180.35,
+      "late": true,
+      "why": "m.245: the user's measure-by-measure plan for m.241-296 (Nov 26), m.245: 'fl 2 + fl 1': the line goes to Flute 2 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 180.35,
+      "end": 180.718,
+      "late": true,
+      "why": "m.245: the user's measure-by-measure plan for m.241-296 (Nov 26), m.245: 'fl 2 + fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 2",
+      "start": 180.718,
+      "end": 181.09,
+      "late": true,
+      "why": "m.246: the user's measure-by-measure plan for m.241-296 (Nov 26), m.246: 'fl 2 + fl 1': the line goes to Flute 2 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 181.09,
+      "end": 181.455,
+      "late": true,
+      "why": "m.246: the user's measure-by-measure plan for m.241-296 (Nov 26), m.246: 'fl 2 + fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 181.455,
+      "end": 182.193,
+      "late": true,
+      "why": "m.247: the user's measure-by-measure plan for m.241-296 (Nov 26), m.247: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 182.193,
+      "end": 182.931,
+      "late": true,
+      "why": "m.248: the user's measure-by-measure plan for m.241-296 (Nov 26), m.248: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 182.931,
+      "end": 183.669,
+      "late": true,
+      "why": "m.249: the user's measure-by-measure plan for m.241-296 (Nov 26), m.249: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 183.669,
+      "end": 183.914,
+      "late": true,
+      "why": "m.250: the user's measure-by-measure plan for m.241-296 (Nov 26), m.250: 'cel + ob 1': the line goes to Celesta here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 183.914,
+      "end": 184.406,
+      "late": true,
+      "why": "m.250: the user's measure-by-measure plan for m.241-296 (Nov 26), m.250: 'cel + ob 1': the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 184.406,
+      "end": 185.144,
+      "late": true,
+      "why": "m.251: the user's measure-by-measure plan for m.241-296 (Nov 26), m.251: 'ob 1': the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 185.144,
+      "end": 185.882,
+      "late": true,
+      "why": "m.252: the user's measure-by-measure plan for m.241-296 (Nov 26), m.252: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 185.882,
+      "end": 186.619,
+      "late": true,
+      "why": "m.253: the user's measure-by-measure plan for m.241-296 (Nov 26), m.253: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 186.619,
+      "end": 186.87,
+      "late": true,
+      "why": "m.254: the user's measure-by-measure plan for m.241-296 (Nov 26), m.254: 'picc 1 + ob 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 186.87,
+      "end": 187.357,
+      "late": true,
+      "why": "m.254: the user's measure-by-measure plan for m.241-296 (Nov 26), m.254: 'picc 1 + ob 1': the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 187.357,
+      "end": 188.095,
+      "late": true,
+      "why": "m.255: the user's measure-by-measure plan for m.241-296 (Nov 26), m.255: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 188.095,
+      "end": 188.832,
+      "late": true,
+      "why": "m.256: the user's measure-by-measure plan for m.241-296 (Nov 26), m.256: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 188.832,
+      "end": 189.57,
+      "late": true,
+      "why": "m.257: the user's measure-by-measure plan for m.241-296 (Nov 26), m.257: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 189.57,
+      "end": 190.308,
+      "late": true,
+      "why": "m.258: the user's measure-by-measure plan for m.241-296 (Nov 26), m.258: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 190.308,
+      "end": 191.046,
+      "late": true,
+      "why": "m.259: the user's measure-by-measure plan for m.241-296 (Nov 26), m.259: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 191.046,
+      "end": 191.783,
+      "late": true,
+      "why": "m.260: the user's measure-by-measure plan for m.241-296 (Nov 26), m.260: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 191.783,
+      "end": 192.521,
+      "late": true,
+      "why": "m.261: the user's measure-by-measure plan for m.241-296 (Nov 26), m.261: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 192.521,
+      "end": 193.259,
+      "late": true,
+      "why": "m.262: the user's measure-by-measure plan for m.241-296 (Nov 26), m.262: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 193.259,
+      "end": 193.5,
+      "late": true,
+      "why": "m.263: the user's measure-by-measure plan for m.241-296 (Nov 26), m.263: 'vln 1 + ob 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 193.5,
+      "end": 193.996,
+      "late": true,
+      "why": "m.263: the user's measure-by-measure plan for m.241-296 (Nov 26), m.263: 'vln 1 + ob 1': the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 193.996,
+      "end": 194.734,
+      "late": true,
+      "why": "m.264: the user's measure-by-measure plan for m.241-296 (Nov 26), m.264: 'ob 1': the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 194.734,
+      "end": 195.472,
+      "late": true,
+      "why": "m.265: the user's measure-by-measure plan for m.241-296 (Nov 26), m.265: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 195.472,
+      "end": 196.21,
+      "late": true,
+      "why": "m.266: the user's measure-by-measure plan for m.241-296 (Nov 26), m.266: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 196.21,
+      "end": 196.947,
+      "late": true,
+      "why": "m.267: the user's measure-by-measure plan for m.241-296 (Nov 26), m.267: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 196.947,
+      "end": 197.685,
+      "late": true,
+      "why": "m.268: the user's measure-by-measure plan for m.241-296 (Nov 26), m.268: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 197.685,
+      "end": 198.423,
+      "late": true,
+      "why": "m.269: the user's measure-by-measure plan for m.241-296 (Nov 26), m.269: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 198.423,
+      "end": 199.16,
+      "late": true,
+      "why": "m.270: the user's measure-by-measure plan for m.241-296 (Nov 26), m.270: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 199.16,
+      "end": 199.898,
+      "late": true,
+      "why": "m.271: the user's measure-by-measure plan for m.241-296 (Nov 26), m.271: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 199.898,
+      "end": 200.636,
+      "late": true,
+      "why": "m.272: the user's measure-by-measure plan for m.241-296 (Nov 26), m.272: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 200.636,
+      "end": 201.373,
+      "late": true,
+      "why": "m.273: the user's measure-by-measure plan for m.241-296 (Nov 26), m.273: 'fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 201.373,
+      "end": 202.111,
+      "late": true,
+      "why": "m.274: the user's measure-by-measure plan for m.241-296 (Nov 26), m.274: 'fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 202.111,
+      "end": 202.849,
+      "late": true,
+      "why": "m.275: the user's measure-by-measure plan for m.241-296 (Nov 26), m.275: 'fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 202.849,
+      "end": 203.587,
+      "late": true,
+      "why": "m.276: the user's measure-by-measure plan for m.241-296 (Nov 26), m.276: 'fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Clarinet 3 in B♭",
+      "start": 203.587,
+      "end": 203.955,
+      "late": true,
+      "why": "m.277: the user's measure-by-measure plan for m.241-296 (Nov 26), m.277: 'cl 3 + cl 1': the line goes to Clarinet 3 in B♭ here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 203.955,
+      "end": 204.324,
+      "late": true,
+      "why": "m.277: the user's measure-by-measure plan for m.241-296 (Nov 26), m.277: 'cl 3 + cl 1': the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Clarinet 3 in B♭",
+      "start": 204.324,
+      "end": 204.693,
+      "late": true,
+      "why": "m.278: the user's measure-by-measure plan for m.241-296 (Nov 26), m.278: 'cl 3 + cl 1': the line goes to Clarinet 3 in B♭ here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 204.693,
+      "end": 205.062,
+      "late": true,
+      "why": "m.278: the user's measure-by-measure plan for m.241-296 (Nov 26), m.278: 'cl 3 + cl 1': the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Flute 2",
+      "start": 205.062,
+      "end": 205.431,
+      "late": true,
+      "why": "m.279: the user's measure-by-measure plan for m.241-296 (Nov 26), m.279: 'fl 2 + fl 1': the line goes to Flute 2 here."
+    },
+    {
+      "staff": "Flute 1",
+      "start": 205.431,
+      "end": 205.8,
+      "late": true,
+      "why": "m.279: the user's measure-by-measure plan for m.241-296 (Nov 26), m.279: 'fl 2 + fl 1': the line goes to Flute 1 here."
+    },
+    {
+      "staff": "Bassoon 1",
+      "start": 205.8,
+      "end": 206.537,
+      "late": true,
+      "why": "m.280: the user's measure-by-measure plan for m.241-296 (Nov 26), m.280: 'bsn 1': the line goes to Bassoon 1 here."
+    },
+    {
+      "staff": "Clarinet 1 in A",
+      "start": 206.537,
+      "end": 207.275,
+      "late": true,
+      "why": "m.281: the user's measure-by-measure plan for m.241-296 (Nov 26), m.281: 'cl 1': the line goes to Clarinet 1 in A here."
+    },
+    {
+      "staff": "Oboe 1",
+      "start": 207.275,
+      "end": 208.013,
+      "late": true,
+      "why": "m.282: the user's measure-by-measure plan for m.241-296 (Nov 26), m.282: 'ob 1': the line goes to Oboe 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 208.013,
+      "end": 208.751,
+      "late": true,
+      "why": "m.283: the user's measure-by-measure plan for m.241-296 (Nov 26), m.283: 'picc 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 208.751,
+      "end": 209.119,
+      "late": true,
+      "why": "m.284: the user's measure-by-measure plan for m.241-296 (Nov 26), m.284: 'picc 1 + vln 1': the line goes to Piccolo 1 here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 209.119,
+      "end": 209.488,
+      "late": true,
+      "why": "m.284: the user's measure-by-measure plan for m.241-296 (Nov 26), m.284: 'picc 1 + vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Violins I",
+      "start": 209.488,
+      "end": 210.226,
+      "late": true,
+      "why": "m.285: the user's measure-by-measure plan for m.241-296 (Nov 26), m.285: 'vln 1': the line goes to Violins I here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 210.226,
+      "end": 210.964,
+      "late": true,
+      "why": "m.286: the user's measure-by-measure plan for m.241-296 (Nov 26), m.286: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Celesta",
+      "start": 210.964,
+      "end": 211.701,
+      "late": true,
+      "why": "m.287: the user's measure-by-measure plan for m.241-296 (Nov 26), m.287: 'cel': the line goes to Celesta here."
+    },
+    {
+      "staff": "Violins II",
+      "start": 211.701,
+      "end": 212.439,
+      "late": true,
+      "why": "m.288: the user's measure-by-measure plan for m.241-296 (Nov 26), m.288: 'vln 2': the line goes to Violins II here."
+    },
+    {
+      "staff": "Violins II",
+      "start": 212.439,
+      "end": 213.177,
+      "late": true,
+      "why": "m.289: the user's measure-by-measure plan for m.241-296 (Nov 26), m.289: 'vln 2': the line goes to Violins II here."
+    },
+    {
+      "staff": "Harp 1",
+      "start": 213.177,
+      "end": 213.914,
+      "late": true,
+      "why": "m.290: the user's measure-by-measure plan for m.241-296 (Nov 26), m.290: 'hrp 1': the line goes to Harp 1 here."
+    },
+    {
+      "staff": "Harp 1",
+      "start": 213.914,
+      "end": 214.652,
+      "late": true,
+      "why": "m.291: the user's measure-by-measure plan for m.241-296 (Nov 26), m.291: 'hrp 1': the line goes to Harp 1 here."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 215.39,
+      "end": 216.128,
+      "late": true,
+      "why": "m.293: the user's measure-by-measure plan for m.241-296 (Nov 26), m.293: 'cbsn': the line goes to Contrabassoon here."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 216.128,
+      "end": 216.865,
+      "late": true,
+      "why": "m.294: the user's measure-by-measure plan for m.241-296 (Nov 26), m.294: 'cbsn': the line goes to Contrabassoon here."
+    },
+    {
+      "staff": "Piccolo 1",
+      "start": 217.6,
+      "end": 218.2,
+      "late": true,
+      "why": "m.296: the final chord hit, the whole band on one stroke, its top note the piccolo's 88 (user, Nov 26, measure-by-measure plan: 'm. 296: final chord hit')."
     }
   ],
   "no_ghosts": [
     {
       "from": 165.7,
-      "to": 263.6,
+      "to": 240.4,
       "why": "2:45.7 to the end, m.189 on: the triplet section and everything after it plays at triplet-eighth speed, too slow for ghost keys (user, Nov 24: 'I also don't like the ghost note in this section because this isn't really a run', 'I would like no ghost notes in this section, yeah', and at 3:18: 'these runs aren't fast enough for ghost notes, I don't think')."
+    },
+    {
+      "from": 246.9,
+      "to": 263.6,
+      "why": "4:06.9 to the end: back to no ghost keys after the fast sweeps and climb at 4:00.5-4:06.8, which use them (user, Nov 26)."
+    }
+  ],
+  "layer_notes": [
+    {
+      "staff": "Bassoon 1",
+      "start": 216.89,
+      "midi": 56,
+      "why": "m.295: the bassoons' 56 joins the contrabassoon's held 28 as a second hold, a chord (user, Nov 26, measure-by-measure plan: 'm. 295: cbsn + bsn 1 (joined chord)')."
     }
   ]
 }
