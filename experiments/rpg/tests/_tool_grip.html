@@ -82,5 +82,19 @@ window.__solveGrip = (dur = 1) => {
   }
   return { strikeT: (dur * best) / N, ...top };
 };
+// Solve a gun grip: at time t the barrel (+Y, tool space) points straight ahead of the character
+// (+Z world, tipped down by `dip` radians) and the top of the gun (+Z) faces up.
+window.__solveAim = (t = 0.5, dip = 0.03) => {
+  const inner = tool.group.userData.inner;
+  c.seek(t); c.root.updateMatrixWorld(true);
+  const fwd = new THREE.Vector3(0, -Math.sin(dip), Math.cos(dip));
+  const up = new THREE.Vector3(0, Math.cos(dip), Math.sin(dip));
+  const right = new THREE.Vector3().crossVectors(fwd, up);
+  const target = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(right, fwd, up));
+  const parentQ = tool.group.getWorldQuaternion(new THREE.Quaternion());
+  inner.quaternion.copy(parentQ.invert().multiply(target));
+  const e = new THREE.Euler().setFromQuaternion(inner.quaternion, 'XYZ');
+  return [+e.x.toFixed(4), +e.y.toFixed(4), +e.z.toFixed(4)];
+};
 window.__ready = true;
 </script></body></html>

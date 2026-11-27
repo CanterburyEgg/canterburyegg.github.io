@@ -63,14 +63,15 @@ export function createPanels(actions) {
     titleEl.textContent = current.ctx.title || 'Shop';
     const maxTier = shopStockTiers(current.ctx.meta);
     // tools, then weapons and armor (M2: bought here until Smithing exists)
-    const stock = [...TOOLS.map((t) => ITEMS[t.id]), ...Object.values(ITEMS).filter((d) => d.kind === 'weapon' || d.kind === 'armor')].filter((d) => d.tier <= maxTier);
+    const stock = [...TOOLS.map((t) => ITEMS[t.id]), ...Object.values(ITEMS).filter((d) => d.kind === 'weapon' || d.kind === 'armor' || d.kind === 'ammo')].filter((d) => d.tier <= maxTier);
     const rows = stock.map((def) => {
-      const afford = st.credits >= def.value;
-      const stat = def.kind === 'weapon' ? ` · ${def.damage} dmg` : def.kind === 'armor' ? ` · +${def.armor} armor` : '';
+      const price = def.boxPrice || def.value;
+      const afford = st.credits >= price;
+      const stat = def.kind === 'weapon' ? ` · ${def.damage} dmg${def.style === 'ranged' ? ' x rounds' : ''}` : def.kind === 'armor' ? ` · +${def.armor} armor` : def.kind === 'ammo' ? ` · x${def.mult} damage · box of ${def.boxQty}` : '';
       return `<div class="shop-row">
         <div class="shop-icon">${itemIconHTML(def, 1)}</div>
         <div class="shop-name">${def.name}<div class="muted">Needs ${def.skill[0].toUpperCase() + def.skill.slice(1)} ${def.levelReq}${stat}</div></div>
-        <button type="button" data-buy="${def.id}" ${afford ? '' : 'disabled'}>Buy · ${def.value} cr</button>
+        <button type="button" data-buy="${def.id}" ${afford ? '' : 'disabled'}>Buy · ${price} cr</button>
       </div>`;
     }).join('');
     bodyEl.innerHTML = `<div class="shop-credits">You have <b>${st.credits} cr</b></div><div class="shop-list">${rows}</div>`;

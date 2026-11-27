@@ -19,6 +19,20 @@ export const MELEE_WEAPONS = [
   { id: 'tungsten_maul', name: 'Tungsten Maul', tier: 3, kind: 'maul', damage: 17, ticks: 5, reach: 2.1, price: 1700 },
 ];
 
+// Ranged: the gun is standard issue; the ammo carries the tier (and most of the damage).
+// damage = gun damage x round multiplier. reach in meters. Guns need Ranged levels too.
+export const RANGED_WEAPONS = [
+  { id: 'standard_revolver', name: 'Standard Revolver', kind: 'revolver', damage: 4, ticks: 3, reach: 9, levelReq: 1, price: 60 },
+  { id: 'standard_rifle', name: 'Standard Rifle', kind: 'rifle', damage: 7, ticks: 5, reach: 15, levelReq: 5, price: 160 },
+];
+// <Metal> Rounds: stackable, sold in boxes of 25. A gun fires the best rounds you can use.
+export const ROUNDS = [
+  { id: 'bismuth_rounds', name: 'Bismuth Rounds', tier: 1, mult: 1.0, levelReq: 1, pricePerBox: 25 },
+  { id: 'cobalt_rounds', name: 'Cobalt Rounds', tier: 2, mult: 1.6, levelReq: 10, pricePerBox: 150 },
+  { id: 'tungsten_rounds', name: 'Tungsten Rounds', tier: 3, mult: 2.3, levelReq: 20, pricePerBox: 600 },
+];
+export const ROUNDS_PER_BOX = 25;
+
 // Armor: head / body / legs per metal. `armor` points reduce damage taken (see combat.js).
 const ARMOR_PIECES = [
   { slot: 'head', name: 'Helmet', armor: [2, 4, 7], price: [25, 260, 1100] },

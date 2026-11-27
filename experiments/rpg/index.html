@@ -234,6 +234,10 @@
     .hot-slot { position: relative; width: 52px; height: 52px; border-radius: 8px; background: rgba(12, 16, 24, 0.8); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; color: #4a5468; font-size: 20px; }
     .hot-slot span { position: absolute; top: 2px; left: 5px; font-size: 11px; font-weight: 800; color: #8b95a7; }
     .hot-slot.flash { animation: slotflash 0.35s; }
+    .hot-slot { pointer-events: auto; overflow: hidden; }
+    .hot-slot.has { color: #e8ecf2; font-size: 24px; border-color: rgba(255, 215, 122, 0.35); }
+    .hot-slot .cd { position: absolute; inset: 0; border-radius: 8px; pointer-events: none; }
+    .hot-slot.aiming { border-color: #ffe680; box-shadow: 0 0 0 2px rgba(255, 230, 128, 0.5); }
     @keyframes slotflash { 0% { background: rgba(255, 230, 128, 0.5); } 100% { background: rgba(12, 16, 24, 0.8); } }
   </style>
   <script type="importmap">

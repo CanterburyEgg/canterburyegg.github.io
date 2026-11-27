@@ -32,9 +32,9 @@ export const CLIPS = {
 // Auto-attack swings per weapon kind (animation audit, Nov 23). Lists alternate swing to swing.
 export const ATTACK_CLIPS = {
   machete: ['Sword_Regular_A', 'Sword_Regular_B'], cleaver: ['Sword_Regular_B', 'Sword_Regular_A'],
-  maul: ['Sword_Heavy_Combo'], spear: ['Sword_Attack'], fists: ['Punch_Jab', 'Punch_Cross'],
+  maul: ['Sword_Heavy_Combo'], spear: ['Sword_Attack'], fists: ['Punch_Jab', 'Punch_Cross'], revolver: ['Pistol_Shoot'], rifle: ['Pistol_Shoot'],
 };
-const ONE_SHOTS = new Set(['Interact', 'Chest_Open', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Sword_Regular_A', 'Sword_Regular_B', 'Sword_Heavy_Combo', 'Punch_Jab', 'Punch_Cross', 'Hit_Chest', 'Pistol_Shoot', 'Death01', 'LayToIdle']);
+const ONE_SHOTS = new Set(['Interact', 'Chest_Open', 'Yes', 'PickUp_Table', 'Sword_Attack', 'Sword_Regular_A', 'Sword_Regular_B', 'Sword_Regular_C', 'Sword_Heavy_Combo', 'Punch_Jab', 'Punch_Cross', 'Hit_Chest', 'Pistol_Shoot', 'Death01', 'LayToIdle', 'NinjaJump_Start', 'NinjaJump_Land', 'Roll']);
 
 let clipsPromise = null;
 function loadClips() {
@@ -168,14 +168,16 @@ export const GRIP = { pos: [0, 0.08, 0], rot: [0, 3.4, 0.8, 'ZYX'] };
 // Blades and hafted weapons (solved in tests/_tool_grip.html with __solveGrip + flip): the handle
 // crosses the fist and the blade leaves the thumb side, continuing the arm at the strike.
 export const BLADE_GRIP = { pos: [0, 0.08, 0], rot: [3.665, 6.021, 4.4506, 'XYZ'], flip: true };
-const GRIP_OF = { machete: BLADE_GRIP, cleaver: BLADE_GRIP, maul: BLADE_GRIP, spear: BLADE_GRIP };
+// Guns (solved with __solveAim on Pistol_Idle_Loop): barrel level and straight ahead, sights up.
+export const GUN_GRIP = { pos: [0, 0.03, 0], rot: [-0.2169, -0.041, -0.0313, 'XYZ'] };
+const GRIP_OF = { machete: BLADE_GRIP, cleaver: BLADE_GRIP, maul: BLADE_GRIP, spear: BLADE_GRIP, revolver: GUN_GRIP, rifle: GUN_GRIP };
 const FLIP_Q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI);
 function applyGrip(inner, g) {
   inner.position.fromArray(g.pos);
   inner.rotation.fromArray(g.rot);
   if (g.flip) inner.quaternion.premultiply(FLIP_Q);
 }
-const HANDLE_LEN = { pick: 0.62, hatchet: 0.62, sickle: 0.32, machete: 0.16, cleaver: 0.2, maul: 0.75, spear: 1.5 };
+const HANDLE_LEN = { pick: 0.62, hatchet: 0.62, sickle: 0.32, machete: 0.16, cleaver: 0.2, maul: 0.75, spear: 1.5, revolver: 0, rifle: 0 };
 export function createToolMesh() {
   const group = new THREE.Group();
   const heads = {};
@@ -208,8 +210,22 @@ export function createToolMesh() {
   maul.position.set(0, 0.58, 0);
   const spear = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.26, 5), metal);
   spear.position.set(0, 1.48, 0);
-  Object.assign(heads, { pick, hatchet, sickle, machete, cleaver, maul, spear });
-  inner.add(pick, hatchet, sickle, machete, cleaver, maul, spear);
+  // guns (Phase B): the barrel runs along +Y out of the fist like a blade; no wooden handle
+  const gunMetal = new THREE.MeshStandardMaterial({ color: '#3a3e46', metalness: 0.6, roughness: 0.35, flatShading: true });
+  const gunWood = new THREE.MeshStandardMaterial({ color: '#7a5236', roughness: 0.7, flatShading: true });
+  const revolver = new THREE.Group();
+  const rBarrel = new THREE.Mesh(new THREE.BoxGeometry(0.035, 0.24, 0.045), gunMetal); rBarrel.position.set(0, 0.14, 0.02);
+  const rDrum = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.06, 8), gunMetal); rDrum.position.set(0, 0.04, 0.02);
+  const rGrip = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.05, 0.1), gunWood); rGrip.position.set(0, -0.01, -0.03); rGrip.rotation.x = 0.35;
+  revolver.add(rBarrel, rDrum, rGrip);
+  const rifle = new THREE.Group();
+  const fBarrel = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.75, 6), gunMetal); fBarrel.position.set(0, 0.45, 0.02);
+  const fBody = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.3, 0.07), gunWood); fBody.position.set(0, 0.1, 0.0);
+  const fStock = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.3, 0.1), gunWood); fStock.position.set(0, -0.18, -0.03);
+  const fScope = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.16, 6), gunMetal); fScope.position.set(0, 0.2, 0.065);
+  rifle.add(fBarrel, fBody, fStock, fScope);
+  Object.assign(heads, { pick, hatchet, sickle, machete, cleaver, maul, spear, revolver, rifle });
+  inner.add(pick, hatchet, sickle, machete, cleaver, maul, spear, revolver, rifle);
   group.add(inner);
   group.userData.inner = inner;
   applyGrip(inner, GRIP);
@@ -219,8 +235,9 @@ export function createToolMesh() {
     show(kind, color) {
       group.visible = !!heads[kind];
       if (!overrideGrip) applyGrip(inner, GRIP_OF[kind] || GRIP); // tools and blades sit differently in the fist
-      const len = HANDLE_LEN[kind] || 0.62; // sickles are hand tools, not polearms
-      handle.scale.y = len / 0.62;
+      const len = HANDLE_LEN[kind] ?? 0.62; // sickles are hand tools, not polearms; guns have none
+      handle.visible = len > 0;
+      handle.scale.y = Math.max(0.01, len) / 0.62;
       handle.position.y = len / 2 - 0.1; // handle runs from just below the grip to its length
       for (const [k, m] of Object.entries(heads)) m.visible = k === kind;
       if (color) metal.color.set(color);

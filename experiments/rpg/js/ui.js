@@ -4,7 +4,7 @@ import { SKILLS, levelForXp, xpForLevel, MAX_LEVEL, shownSkill } from '../data/s
 import { INV_SIZE } from './inventory.js';
 
 export function itemIconHTML(def, qty = 1) {
-  let html = def.kind === 'tool' || def.kind === 'weapon' || def.kind === 'armor'
+  let html = def.kind === 'tool' || def.kind === 'weapon' || def.kind === 'armor' || def.kind === 'ammo'
     ? `<div class="icon tool" style="--c:${def.color}">${def.icon}</div>`
     : `<div class="icon res res-${def.skill}" style="--c:${def.color}"></div>`;
   if (qty > 1) html += `<span class="qty">${qty}</span>`;
@@ -39,7 +39,7 @@ export function createUI({ onSlotUse, onSlotDrop }) {
       const def = ITEMS[s.id];
       el.classList.add('filled');
       const req = def.levelReq ? ` (needs ${def.skill[0].toUpperCase() + def.skill.slice(1)} ${def.levelReq})` : '';
-      const stat = def.kind === 'weapon' ? `\n${def.damage} damage every ${(def.ticks * 0.6).toFixed(1)}s` : def.kind === 'armor' ? `\n+${def.armor} armor` : '';
+      const stat = def.kind === 'weapon' ? `\n${def.damage} damage${def.style === 'ranged' ? ' x rounds' : ''} every ${(def.ticks * 0.6).toFixed(1)}s, reach ${def.reach} m` : def.kind === 'armor' ? `\n+${def.armor} armor` : def.kind === 'ammo' ? `\nx${def.mult} damage for guns` : '';
       const use = def.kind === 'weapon' || def.kind === 'armor' ? '\nClick to equip' : '';
       el.title = `${def.name}${req}${stat}${use}\nShift-click or right-click to drop`;
       el.innerHTML = itemIconHTML(def, s.qty);

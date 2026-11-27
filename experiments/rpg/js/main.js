@@ -34,7 +34,10 @@ import { createCreator } from './creator.js';
 import { createPause } from './pause.js';
 import { startArrival } from './arrival.js';
 import { TICK, REGEN, hpOf, weaponOf, totalArmor, hitDamage, armorReduce, combatXp, equipFromInventory, unequip, splitForCrate } from './combat.js';
-import { spawnCreatures, updateCreatures, hurtCreature, safeZones, inSafeZone } from './creatures.js';
+import { spawnCreatures, updateCreatures, hurtCreature, safeZones, inSafeZone, pushCreature, applyEffects } from './creatures.js';
+import { ABILITIES } from '../data/abilities.js';
+import { abilityIdsFor, resolveShape, targetsHit, bestRounds, weaponHitBase } from './abilities.js';
+import { createTelegraph, flashShape, tracer } from './telegraph.js';
 import { buildCreatureModel } from './creature_models.js';
 import { CREATURES } from '../data/creatures.js';
 import { SLOTS, SLOT_NAMES } from '../data/equipment.js';
@@ -268,13 +271,14 @@ function sell(id, qty) {
 }
 function buy(id) {
   const def = ITEMS[id];
-  if (state.credits < def.value) { toast("You can't afford that."); return; }
+  const price = def.boxPrice || def.value, qty = def.boxQty || 1; // rounds come in boxes
+  if (state.credits < price) { toast("You can't afford that."); return; }
   if (!canAdd(state.inventory, id)) { toast('Your inventory is full.'); return; }
-  state.credits -= def.value;
-  addItem(state.inventory, id, 1);
+  state.credits -= price;
+  addItem(state.inventory, id, qty);
   markDirty();
   SFX.success();
-  toast(`Bought a ${def.name}.`);
+  toast(qty > 1 ? `Bought ${qty} ${def.name}.` : `Bought a ${def.name}.`);
   refreshUI();
 }
 function buyPermit(index) {
@@ -837,6 +841,7 @@ function getJournal() {
 
 function refreshUI() {
   renderGear();
+  if (typeof renderHotbar === 'function') renderHotbar();
   ui.renderInventory(state.inventory);
   ui.renderSkills(state.xp);
   ui.renderCredits(state.credits, state.reputation);
@@ -1256,6 +1261,10 @@ function updateCombat(dt) {
   combat.atk -= dt;
   if (combat.atk > 0) return;
   const w = weaponOf(state);
+  const ranged = w.style === 'ranged';
+  const base = weaponHitBase(state, w);
+  if (base == null) { toast("You're out of rounds. The shop sells them by the box."); combat.target = null; return; }
+  if (ranged) { removeItems(state.inventory, bestRounds(state).id, 1); ui.renderInventory(state.inventory); }
   combat.atk = w.ticks * TICK;
   if (player.char) {
     // alternate swings; speed a swing up only if it's longer than the weapon's attack interval
@@ -1264,12 +1273,14 @@ function updateCombat(dt) {
     const dur = player.char.clipDuration(clip) || 1;
     player.char.play(clip, { timeScale: Math.max(1, dur / (w.ticks * TICK * 0.95)) });
   }
-  SFX.swing('hatchet');
-  const dmg = hitDamage(w.damage, levelForXp(state.xp.melee || 0), Math.random);
+  const skill = ranged ? 'ranged' : 'melee';
+  if (ranged) { SFX.shot(); addFx(tracer(scene, muzzlePos(), { x: c.x, y: sampleHeight(planet, c.x, c.z) + 0.6, z: c.z })); }
+  else SFX.swing('hatchet');
+  const dmg = hitDamage(base, levelForXp(state.xp[skill] || 0), Math.random);
   const killed = hurtCreature(c, dmg, gameTime);
   ui.floatText(String(dmg), '#ffe680', { x: c.x, y: sampleHeight(planet, c.x, c.z) + (c.group.userData.height || 1) + 0.4, z: c.z });
   const xp = combatXp(dmg);
-  addXpQuiet('melee', xp.melee);
+  addXpQuiet(skill, xp.melee);
   addXpQuiet('vitality', xp.vitality);
   combat.lastHitT = gameTime;
   if (killed) onCreatureKilled(c);
@@ -1290,9 +1301,10 @@ function addXpQuiet(skill, amount) {
 }
 
 function onCreatureKilled(c) {
-  combat.target = null;
-  addXpQuiet('melee', c.xp);
-  ui.floatText(`+${c.xp} Melee XP`, '#9fe8ff', { x: player.x, y: player.y + 2.8, z: player.z });
+  if (combat.target === c) combat.target = null;
+  const skill = weaponOf(state).style === 'ranged' ? 'ranged' : 'melee';
+  addXpQuiet(skill, c.xp);
+  ui.floatText(`+${c.xp} ${SKILLS[skill].name} XP`, '#9fe8ff', { x: player.x, y: player.y + 2.8, z: player.z });
   SFX.success();
   ui.renderSkills(state.xp);
   // Phase C: creature parts and a small loot roll
@@ -1395,7 +1407,14 @@ function openCrate() {
 
 function updateCreatureViews(dt) {
   const ev = updateCreatures(creatures, { t: gameTime, dt, player: { x: player.x, z: player.z, alive: !player.dead }, canStand, zones, rand: Math.random });
-  for (const e of ev) if (e.type === 'attack') onCreatureAttack(e.creature, e.damage);
+  for (const e of ev) {
+    if (e.type === 'attack') onCreatureAttack(e.creature, e.damage);
+    else if (e.type === 'bleed' && e.creature.state !== 'dead') {
+      const c = e.creature;
+      ui.floatText(String(e.damage), '#d84a3a', { x: c.x, y: sampleHeight(planet, c.x, c.z) + (c.group.userData.height || 1) + 0.4, z: c.z });
+      if (hurtCreature(c, e.damage, gameTime)) onCreatureKilled(c);
+    }
+  }
   for (const c of creatures) {
     const g = c.group;
     if (c.respawned) { c.respawned = false; g.visible = true; }
@@ -1488,7 +1507,7 @@ function updatePlayerAnimation(dt) {
   if (player.dead) { c.update(dt); return; }
   c.setLean(gathering && gathering.res.tool === 'pick' ? PICK_LEAN : 0);
   if (gathering) c.play(gathering.res.tool, { timeScale: gathering.res.tool === 'gloves' ? 1 : 0.9 });
-  else if (combat.target && !player.moving) c.play('guard');
+  else if (combat.target && !player.moving) c.play(weaponOf(state).style === 'ranged' ? 'aim' : 'guard');
   else if (player.moving || player.combatMove) c.play(gait.clip, { timeScale: Math.min(1.6, (player.baseSpeed * walkMult) / gait.native) });
   else c.play('idle');
   c.update(dt);
@@ -1703,15 +1722,195 @@ window.addEventListener('keydown', (e) => {
   keys[e.code] = true;
   if (e.code === 'Escape' && panels.isOpen()) { panels.close(); return; }
   const m = /^Digit([1-4])$/.exec(e.code);
-  if (m) useAbility(Number(m[1]));
+  if (m && !e.repeat) startAim(Number(m[1]));
 });
 
-function useAbility(slot) {
-  const el = document.querySelector(`.hot-slot[data-slot="${slot}"]`);
-  if (el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
-  toast(`Ability ${slot}: no weapon equipped yet`);
+// ---------------------------------------------------------------------
+// Abilities (M2 Phase B): hold 1-4 to aim a shape at the mouse, release to fire.
+// ---------------------------------------------------------------------
+const abil = { cd: {}, aiming: null, pending: [], fx: [], screen: { x: innerWidth / 2, y: innerHeight / 2 }, mouse: { x: 0, z: 0 } };
+const aimTele = createTelegraph(scene, '#ffe680', 0.3);
+const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+const heightAt = (x, z) => sampleHeight(planet, x, z);
+const hotbarEl = document.getElementById('hotbar');
+const FX_COLOR = { melee: '#ffd77a', ranged: '#9fe8ff' };
+
+function muzzlePos() {
+  return { x: player.x + Math.sin(player.facing) * 0.5, y: player.y + 1.35, z: player.z + Math.cos(player.facing) * 0.5 };
 }
-window.addEventListener('keyup', (e) => { keys[e.code] = false; });
+function addFx(f) { abil.fx.push(f); }
+
+function renderHotbar() {
+  const ids = abilityIdsFor(state);
+  hotbarEl.title = ids.length ? 'Hold a key to aim at the mouse, release to fire' : 'Equip a weapon to get abilities';
+  hotbarEl.innerHTML = [1, 2, 3, 4].map((k) => {
+    const id = ids[k - 1], def = id && ABILITIES[id];
+    return `<div class="hot-slot ${def ? 'has' : ''}" data-slot="${k}" title="${def ? `${def.name}: ${def.blurb} (${def.cd}s)` : 'Empty'}"><span>${k}</span>${def ? def.icon : '·'}<div class="cd"></div></div>`;
+  }).join('');
+}
+function updateHotbar() {
+  const ids = abilityIdsFor(state);
+  hotbarEl.querySelectorAll('.hot-slot').forEach((el, i) => {
+    const id = ids[i];
+    const left = id ? Math.max(0, (abil.cd[id] || 0) - gameTime) : 0;
+    const def = id && ABILITIES[id];
+    el.querySelector('.cd').style.background = left > 0 ? `conic-gradient(rgba(10,12,18,0.75) ${(left / def.cd) * 360}deg, transparent 0)` : 'none';
+    el.classList.toggle('aiming', !!(abil.aiming && abil.aiming.slot === i + 1));
+  });
+}
+
+function startAim(slot) {
+  if (player.dead) return;
+  const id = abilityIdsFor(state)[slot - 1];
+  if (!id) { toast(weaponOf(state).weaponKind === 'fists' || !state.equipment.weapon ? 'Equip a weapon to use abilities.' : 'No ability on that key.'); return; }
+  const def = ABILITIES[id];
+  const left = (abil.cd[id] || 0) - gameTime;
+  if (left > 0) { toast(`${def.name} is ready in ${Math.ceil(left)}s.`); return; }
+  abil.aiming = { slot, id, def, t0: gameTime };
+}
+
+function aimShape(def) { return resolveShape(def, { x: player.x, z: player.z }, abil.mouse); }
+
+function fireAim() {
+  const a = abil.aiming;
+  abil.aiming = null;
+  aimTele.hide();
+  if (!a || player.dead) return;
+  const def = a.def, w = weaponOf(state);
+  // guns spend rounds on abilities too
+  if (def.shots) {
+    const r = bestRounds(state);
+    if (!r) { SFX.fail(); toast("You're out of rounds."); return; }
+    removeItems(state.inventory, r.id, def.shots);
+    ui.renderInventory(state.inventory);
+  }
+  abil.cd[a.id] = gameTime + def.cd;
+  if (gathering) stopGathering();
+  pendingInteract = null;
+  player.path = [];
+  const shape = aimShape(def);
+  player.facing = shape.angle;
+  player.mesh.rotation.y = shape.angle; // snap to face the shot
+  const power = def.charge ? Math.max(0.35, Math.min(1, (gameTime - a.t0) / def.charge)) : 1;
+  if (player.char && def.clip) player.char.play(def.clip, { timeScale: def.shape === 'dash' && def.hits === 'none' ? 1.3 : 1 });
+  const from = { x: player.x, z: player.z };
+  if (def.shape === 'dash' || def.shape === 'leap') startDash(def, shape);
+  const wait = def.shape === 'dash' ? 0.22 : def.shape === 'leap' ? 0.45 : def.windup || 0;
+  abil.pending.push({ at: gameTime + wait, def, shape, from, power, weapon: w });
+}
+
+// Dashes and leaps move you along the aimed path, stopping at anything you can't walk through.
+function startDash(def, shape) {
+  const from = { x: player.x, z: player.z };
+  const len = def.shape === 'leap' ? shape.dist : def.length;
+  let to = { ...from };
+  for (let t = 0.25; t <= len; t += 0.25) {
+    const p = { x: from.x + shape.ux * t, z: from.z + shape.uz * t };
+    if (!canStand(p.x, p.z)) { if (def.shape === 'dash') break; else continue; }
+    to = p;
+  }
+  player.dash = { from, to, t: 0, dur: def.shape === 'leap' ? 0.45 : 0.22, arc: def.shape === 'leap' };
+}
+function updateDash(dt) {
+  const d = player.dash;
+  d.t += dt;
+  const k = Math.min(1, d.t / d.dur), e = 1 - (1 - k) * (1 - k);
+  player.x = d.from.x + (d.to.x - d.from.x) * e;
+  player.z = d.from.z + (d.to.z - d.from.z) * e;
+  player.moving = false;
+  player.hop = d.arc ? Math.sin(k * Math.PI) * 1.2 : 0;
+  if (k >= 1) { player.dash = null; player.hop = 0; }
+}
+
+function resolveAbility(p) {
+  const def = p.def;
+  let shape = p.shape;
+  if (def.shape === 'dash') {
+    const len = Math.hypot(player.x - p.from.x, player.z - p.from.z);
+    shape = { ...shape, ox: p.from.x, oz: p.from.z, length: Math.max(len, 0.8) };
+  } else if (def.shape === 'leap') {
+    shape = { type: 'circle', cx: player.x, cz: player.z, radius: def.radius, ux: shape.ux, uz: shape.uz, angle: shape.angle };
+    if (player.char) player.char.play('NinjaJump_Land');
+  } else if (def.shape === 'self') {
+    shape = { ...shape, cx: player.x, cz: player.z };
+  } else if (shape.type !== 'circle') {
+    shape = { ...shape, ox: player.x, oz: player.z }; // lines and cones fire from where you are now
+  }
+  const ranged = p.weapon.style === 'ranged';
+  const skill = ranged ? 'ranged' : 'melee';
+  addFx(flashShape(scene, shape, heightAt, FX_COLOR[skill], 0.35));
+  if (ranged) SFX.shot(); else if (def.hits !== 'none') SFX.swing(def.damage >= 2 ? 'hatchet' : 'pick');
+  const alive = creatures.filter((c) => c.state !== 'dead');
+  const hit = targetsHit(def, shape, alive);
+  if (ranged && def.shape === 'line') {
+    const end = hit[0] && def.hits === 'first' ? hit[0] : { x: shape.ox + shape.ux * shape.length, z: shape.oz + shape.uz * shape.length };
+    addFx(tracer(scene, muzzlePos(), { x: end.x, y: heightAt(end.x, end.z) + 0.6, z: end.z }));
+  }
+  if (!hit.length || !def.damage) return;
+  const base = weaponHitBase(state, p.weapon) ?? p.weapon.damage;
+  const lvl = levelForXp(state.xp[skill] || 0);
+  let total = 0;
+  for (const c of hit) {
+    let dmg = 0;
+    for (let k = 0; k < (def.strikes || 1); k++) dmg += hitDamage(base * def.damage * p.power, lvl, Math.random);
+    total += dmg;
+    ui.floatText(String(dmg), '#ffb347', { x: c.x, y: heightAt(c.x, c.z) + (c.group.userData.height || 1) + 0.55, z: c.z });
+    const killed = hurtCreature(c, dmg, gameTime);
+    if (!killed) {
+      applyEffects(c, def, gameTime, base);
+      if (def.knockback) {
+        const dx = c.x - player.x, dz = c.z - player.z, d = Math.hypot(dx, dz) || 1;
+        pushCreature(c, dx / d, dz / d, def.knockback, { canStand, zones });
+      }
+    } else onCreatureKilled(c);
+  }
+  const xp = combatXp(total);
+  addXpQuiet(skill, xp.melee);
+  addXpQuiet('vitality', xp.vitality);
+  combat.lastHitT = gameTime;
+  const firstAlive = hit.find((c) => c.state !== 'dead');
+  if (!combat.target && firstAlive) startCombat(firstAlive);
+}
+
+function updateAbilities(dt) {
+  // aim preview follows the mouse (projected onto the ground at your height)
+  ndc.set((abil.screen.x / innerWidth) * 2 - 1, -(abil.screen.y / innerHeight) * 2 + 1);
+  raycaster.setFromCamera(ndc, camera);
+  groundPlane.constant = -player.y;
+  const v = new THREE.Vector3();
+  if (raycaster.ray.intersectPlane(groundPlane, v)) { abil.mouse.x = v.x; abil.mouse.z = v.z; }
+  if (abil.aiming) {
+    const def = abil.aiming.def;
+    const shape = aimShape(def);
+    const charged = def.charge ? Math.min(1, (gameTime - abil.aiming.t0) / def.charge) : 1;
+    const noAmmo = def.shots && !bestRounds(state);
+    aimTele.color(noAmmo ? '#ff6a5a' : charged >= 1 ? '#ffe680' : '#c9a24a', 0.22 + 0.15 * charged);
+    aimTele.set(shape, heightAt);
+    player.facing = shape.angle; // turn toward where you aim
+  }
+  for (let i = abil.pending.length - 1; i >= 0; i--) {
+    if (gameTime >= abil.pending[i].at) { const p = abil.pending.splice(i, 1)[0]; if (!player.dead) resolveAbility(p); }
+  }
+  for (let i = abil.fx.length - 1; i >= 0; i--) {
+    const f = abil.fx[i];
+    f.life -= dt;
+    const k = Math.max(0, f.life / f.max);
+    if (f.t) f.t.mesh.material.opacity = 0.5 * k;
+    if (f.line) f.line.material.opacity = k;
+    if (f.life <= 0) {
+      if (f.t) f.t.dispose();
+      if (f.line) { scene.remove(f.line); f.line.geometry.dispose(); f.line.material.dispose(); }
+      abil.fx.splice(i, 1);
+    }
+  }
+  updateHotbar();
+}
+window.addEventListener('keyup', (e) => {
+  keys[e.code] = false;
+  const m = /^Digit([1-4])$/.exec(e.code);
+  if (m && abil.aiming && abil.aiming.slot === Number(m[1])) fireAim();
+});
+window.addEventListener('pointermove', (e) => { abil.screen.x = e.clientX; abil.screen.y = e.clientY; });
 
 function clickTerrain(cx, cy) {
   ndc.set((cx / window.innerWidth) * 2 - 1, -(cy / window.innerHeight) * 2 + 1);
@@ -1803,11 +2002,14 @@ function tick(now) {
   if (toastTimer > 0) { toastTimer -= dt; if (toastTimer <= 0) toastEl.classList.remove('show'); }
 
   player.combatMove = false;
-  if (mode === 'play' && !pause.isOpen() && !player.dead) { updatePlayer(dt); updateCombat(dt); }
+  if (mode === 'play' && !pause.isOpen() && !player.dead) {
+    if (player.dash) updateDash(dt); else { updatePlayer(dt); updateCombat(dt); }
+  }
+  if (mode === 'play') updateAbilities(dt);
   if (mode === 'play') updateCreatureViews(dt);
   if (mode === 'arrival') updateArrival(dt);
   player.y = sampleHeight(planet, player.x, player.z);
-  player.mesh.position.set(player.x, player.y, player.z);
+  player.mesh.position.set(player.x, player.y + (player.hop || 0), player.z);
   let diff = player.facing - player.mesh.rotation.y;
   while (diff > Math.PI) diff -= Math.PI * 2;
   while (diff < -Math.PI) diff += Math.PI * 2;
@@ -1850,7 +2052,7 @@ refreshUI();
 // Test hook for headless checks (tests/ and render scripts).
 window.__game = {
   player, cam, state, keys, rebuildPlayerModel, startInteract, loadPlanet, menu, creator, pause, endArrival,
-  get mode() { return mode; }, get creatures() { return creatures; }, combat, playerDies, startCombat, setGait(k) { gait = GAITS[k]; }, get npcs() { return npcs; }, talkTo,
+  get mode() { return mode; }, get creatures() { return creatures; }, combat, playerDies, startCombat, screenOf: (x, z) => project(x, sampleHeight(planet, x, z) + 0.3, z), get abil() { return abil; }, setGait(k) { gait = GAITS[k]; }, get npcs() { return npcs; }, talkTo,
   get system() { return system; }, get quirkRT() { return quirkRT; }, get view() { return view; },
   get planet() { return planet; }, get gathering() { return gathering; },
   nearestNode(skill, tool) {

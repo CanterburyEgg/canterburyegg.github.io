@@ -81,6 +81,7 @@ export const SFX = {
       o.stop(t + d + 0.75);
     }
   },
+  shot() { noise(0.09, 1800, 0.09); tone(180, 60, 0.12, 'square', 0.05); },
   storm() { noise(1.4, 140, 0.08); tone(70, 45, 1.2, 'sawtooth', 0.025); },
   // Per-character voice blip (Animal Crossing style). voice: { pitch, wobble, bitcrush }
   blip(voice, ch) {

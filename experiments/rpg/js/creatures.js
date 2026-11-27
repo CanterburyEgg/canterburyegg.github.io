@@ -67,6 +67,13 @@ export function updateCreatures(list, ctx) {
       continue;
     }
     const def = CREATURES[c.family];
+    // ability effects: bleed ticks once a second; stunned creatures do nothing; slowed ones crawl
+    if (c.bleed && ctx.t < c.bleed.until) {
+      c.bleed.acc = (c.bleed.acc || 0) + ctx.dt;
+      if (c.bleed.acc >= 1) { c.bleed.acc -= 1; ev.push({ type: 'bleed', creature: c, damage: c.bleed.perTick }); }
+    }
+    if (c.stunUntil && ctx.t < c.stunUntil) { c.moving = false; c.lastX = c.x; c.lastZ = c.z; continue; }
+    const speedMult = c.slowUntil && ctx.t < c.slowUntil ? c.slowMult : 1;
     const dPlayer = Math.hypot(p.x - c.x, p.z - c.z);
     const dDen = Math.hypot(c.x - c.denX, c.z - c.denZ);
     const provoked = ctx.t - c.lastHurt < 8;
@@ -79,7 +86,7 @@ export function updateCreatures(list, ctx) {
     if (c.state === 'chase') {
       if (!p.alive || playerSafe || dDen > def.leash) { c.state = 'return'; }
       else if (dPlayer > def.reach) {
-        stepToward(c, p.x, p.z, def.speed * ctx.dt, ctx);
+        stepToward(c, p.x, p.z, def.speed * speedMult * ctx.dt, ctx);
         c.atk = Math.min(c.atk, TICK); // first bite comes quickly once in reach
       } else {
         c.facing = Math.atan2(p.x - c.x, p.z - c.z);
@@ -91,7 +98,7 @@ export function updateCreatures(list, ctx) {
       }
     } else if (c.state === 'return') {
       if (dDen < 1.5) { c.state = 'idle'; c.timer = 2; c.hp = Math.min(c.maxHp, c.hp + c.maxHp * 0.5); }
-      else stepToward(c, c.denX, c.denZ, def.speed * 0.8 * ctx.dt, ctx);
+      else stepToward(c, c.denX, c.denZ, def.speed * 0.8 * speedMult * ctx.dt, ctx);
     } else { // idle wander near the den
       c.timer -= ctx.dt;
       if (c.wanderTo) {
@@ -119,13 +126,30 @@ function stepToward(c, tx, tz, step, ctx) {
   return moved;
 }
 
+// Push a creature away along (ux, uz) by up to `dist` meters, stopping at walls and settlements.
+export function pushCreature(c, ux, uz, dist, ctx) {
+  const steps = Math.ceil(dist / 0.25);
+  for (let i = 0; i < steps; i++) {
+    const nx = c.x + ux * 0.25, nz = c.z + uz * 0.25;
+    if (inSafeZone(ctx.zones, nx, nz) || !ctx.canStand(nx, nz)) break;
+    c.x = nx; c.z = nz;
+  }
+}
+
+// Apply an ability's lasting effects to a creature hit at time t.
+export function applyEffects(c, def, t, weaponDamage) {
+  if (def.stun) c.stunUntil = Math.max(c.stunUntil || 0, t + def.stun);
+  if (def.slow) { c.slowUntil = t + def.slow.sec; c.slowMult = def.slow.mult; }
+  if (def.bleed) c.bleed = { until: t + def.bleed.sec, perTick: Math.max(1, Math.round(def.bleed.perSec * weaponDamage)), acc: 0 };
+}
+
 // Damage a creature (from the player). Returns true if it died.
 export function hurtCreature(c, dmg, t) {
   c.hp -= dmg;
   c.lastHurt = t;
   if (c.state !== 'dead' && c.state !== 'return') c.state = 'chase';
   if (c.hp <= 0) {
-    c.hp = 0; c.state = 'dead'; c.diedAt = t; c.deadUntil = t + SPAWN.respawnSec; c.wanderTo = null;
+    c.hp = 0; c.state = 'dead'; c.diedAt = t; c.deadUntil = t + SPAWN.respawnSec; c.wanderTo = null; c.bleed = null; c.stunUntil = 0; c.slowUntil = 0;
     return true;
   }
   return false;
