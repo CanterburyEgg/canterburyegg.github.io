@@ -57362,7 +57362,7 @@
   },
   "mercury": {
     "title": "Mercury, the Winged Messenger (Gustav Holst)",
-    "sidecar_sha256": "ce8260e15fc739dbd5d41f42e39f3a89e84a726a9eb355ef7e07be6f00124674",
+    "sidecar_sha256": "e57eec5b7d29f32f906fb34f9438bea5cfaa778334d6f4a6cccda15198c30a97",
     "mode": "4k:more",
     "notes": [
       {
@@ -58599,8 +58599,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.3988,
-        "endTime": 23.3988,
+        "time": 23.4033,
+        "endTime": 23.4033,
         "type": "tap",
         "lane": 0,
         "midi": 60,
@@ -58608,8 +58608,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.5087,
-        "endTime": 23.5087,
+        "time": 23.508,
+        "endTime": 23.508,
         "type": "tap",
         "lane": 1,
         "midi": 62,
@@ -58617,8 +58617,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.6172,
-        "endTime": 23.6172,
+        "time": 23.6127,
+        "endTime": 23.6127,
         "type": "tap",
         "lane": 2,
         "midi": 63,
@@ -58626,8 +58626,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.7244,
-        "endTime": 23.7244,
+        "time": 23.7173,
+        "endTime": 23.7173,
         "type": "tap",
         "lane": 3,
         "midi": 64,
@@ -58635,8 +58635,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.8303,
-        "endTime": 23.8303,
+        "time": 23.8219,
+        "endTime": 23.8219,
         "type": "tap",
         "lane": 0,
         "midi": 66,
@@ -58644,8 +58644,8 @@
         "isChordPartner": false
       },
       {
-        "time": 23.9349,
-        "endTime": 23.9349,
+        "time": 23.9282,
+        "endTime": 23.9282,
         "type": "tap",
         "lane": 1,
         "midi": 68,
@@ -58653,8 +58653,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.0381,
-        "endTime": 24.0381,
+        "time": 24.0309,
+        "endTime": 24.0309,
         "type": "tap",
         "lane": 2,
         "midi": 69,
@@ -58662,8 +58662,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.14,
-        "endTime": 24.14,
+        "time": 24.1354,
+        "endTime": 24.1354,
         "type": "tap",
         "lane": 1,
         "midi": 70,
@@ -58671,8 +58671,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.2406,
-        "endTime": 24.2406,
+        "time": 24.2398,
+        "endTime": 24.2398,
         "type": "tap",
         "lane": 2,
         "midi": 72,
@@ -58680,8 +58680,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.3398,
-        "endTime": 24.3398,
+        "time": 24.3461,
+        "endTime": 24.3461,
         "type": "tap",
         "lane": 3,
         "midi": 74,
@@ -58689,8 +58689,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.4377,
-        "endTime": 24.4377,
+        "time": 24.4485,
+        "endTime": 24.4485,
         "type": "tap",
         "lane": 0,
         "midi": 75,
@@ -58698,8 +58698,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.5319,
-        "endTime": 24.5319,
+        "time": 24.5528,
+        "endTime": 24.5528,
         "type": "tap",
         "lane": 1,
         "midi": 76,
@@ -58707,8 +58707,8 @@
         "isChordPartner": false
       },
       {
-        "time": 24.6296,
-        "endTime": 24.6296,
+        "time": 24.6571,
+        "endTime": 24.6571,
         "type": "tap",
         "lane": 2,
         "midi": 78,
@@ -58716,11 +58716,20 @@
         "isChordPartner": false
       },
       {
-        "time": 24.7235,
-        "endTime": 24.7235,
+        "time": 24.7613,
+        "endTime": 24.7613,
         "type": "tap",
-        "lane": 3,
+        "lane": 1,
         "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 24.8654,
+        "endTime": 24.8654,
+        "type": "tap",
+        "lane": 2,
+        "midi": 81,
         "isPercussionSolo": false,
         "isChordPartner": false
       },

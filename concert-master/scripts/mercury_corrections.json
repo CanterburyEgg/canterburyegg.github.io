@@ -1024,6 +1024,14 @@
       "end": 218.2,
       "late": true,
       "why": "m.296: the final chord hit, the whole band on one stroke, its top note the piccolo's 88 (user, Nov 26, measure-by-measure plan: 'm. 296: final chord hit')."
+    },
+    {
+      "staff": "Violins II",
+      "start": 19.8,
+      "end": 19.88,
+      "late": true,
+      "keep_restrikes": true,
+      "why": "0:24.8: the second violins' run tops out on 81 just before the flutes strike 81 again on the downbeat; both are played, so the run reaches the top instead of stopping on 80 with a gap (user, Nov 27: 'there's a run that ends on a K, with a gap after it before the next KFJD pattern. I still hear some movement in there')."
     }
   ],
   "no_ghosts": [
