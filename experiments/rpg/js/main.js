@@ -1426,7 +1426,7 @@ function updateCreatureViews(dt) {
     while (df < -Math.PI) df += Math.PI * 2;
     g.rotation.y += df * Math.min(1, dt * 10);
     const near = Math.hypot(c.x - player.x, c.z - player.z) < 60;
-    if (near && g.userData.animate) g.userData.animate(gameTime, c.moving, c.state === 'chase' && Math.hypot(c.x - player.x, c.z - player.z) < 2.2, c.state === 'dead');
+    if (near && g.userData.animate) g.userData.animate(gameTime, c.moving, c.state === 'chase' && Math.hypot(c.x - player.x, c.z - player.z) < CREATURES[c.family].reach + 0.5, c.state === 'dead');
     g.userData.interact.x = c.x; g.userData.interact.z = c.z;
     // health bar over hurt or targeted creatures
     const show = near && c.state !== 'dead' && (c.hp < c.maxHp || combat.target === c);

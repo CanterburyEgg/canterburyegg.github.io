@@ -13,6 +13,14 @@ export function safeZones(P) {
 }
 export function inSafeZone(zones, x, z) { return zones.some((s) => Math.hypot(x - s.x, z - s.z) < s.r); }
 
+// Which family lives at a den, weighted by spawnWeight (Phase C: also by biome).
+function pickFamily(rng) {
+  const fams = Object.entries(CREATURES).filter(([, d]) => (d.spawnWeight || 0) > 0);
+  let r = rng.range(0, fams.reduce((s, [, d]) => s + d.spawnWeight, 0));
+  for (const [id, d] of fams) { r -= d.spawnWeight; if (r < 0) return id; }
+  return fams[fams.length - 1][0];
+}
+
 // Packs placed on reachable, open cells, well away from settlements. Deterministic per planet.
 export function spawnCreatures(P) {
   const rng = new Rng(P.meta.seed + ':creatures');
@@ -36,7 +44,7 @@ export function spawnCreatures(P) {
     }
     if (!den) continue;
     dens.push(den);
-    const family = 'skarl'; // Phase C: pick by biome and tier from all five families
+    const family = pickFamily(rng);
     const def = CREATURES[family];
     const st = creatureStats(def, tier);
     const n = rng.int(def.pack[0], def.pack[1]);

@@ -45,6 +45,10 @@ const list = spawnCreatures(P);
 const zones = safeZones(P);
 ok(list.length >= 8, `creatures spawned (${list.length})`);
 ok(list.every((c) => !inSafeZone(zones, c.x, c.z)), 'no creatures inside settlements');
+const fams = new Set(list.map((c) => c.family));
+ok(fams.has('skarl') && fams.has('grondak'), `Skarl and Grondak both spawn (${[...fams].join(', ')})`);
+ok(list.every((c) => (CREATURES[c.family].spawnWeight || 0) > 0), 'only enabled families spawn');
+log(`  ${list.filter((c) => c.family === 'grondak').length} Grondak, ${list.filter((c) => c.family === 'skarl').length} Skarl`);
 const canStand = (x, z) => { const c = worldToCell(P, x, z); return c.gx >= 0 && c.gy >= 0 && c.gx < P.W && c.gy < P.H && !!P.passable[c.gy * P.W + c.gx]; };
 // stand a few meters from one pack and let it come
 const c0 = list[0];
