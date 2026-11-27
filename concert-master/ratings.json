@@ -90,8 +90,8 @@
     "easy": {
       "score": 2.68,
       "rating": 0,
-      "burst": 1.79,
-      "endurance": 3.76,
+      "burst": 1.8,
+      "endurance": 3.77,
       "notes": 732
     }
   },
@@ -109,6 +109,22 @@
       "burst": 1.57,
       "endurance": 1.99,
       "notes": 518
+    }
+  },
+  "mercury": {
+    "hard": {
+      "score": 16.66,
+      "rating": 4,
+      "burst": 12.36,
+      "endurance": 21.91,
+      "notes": 1296
+    },
+    "easy": {
+      "score": 1.67,
+      "rating": 0,
+      "burst": 1.28,
+      "endurance": 2.14,
+      "notes": 370
     }
   },
   "maslanka4": {
