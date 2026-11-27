@@ -57362,7 +57362,7 @@
   },
   "mercury": {
     "title": "Mercury, the Winged Messenger (Gustav Holst)",
-    "sidecar_sha256": "4dccd79accbcbc365eb99778a25d61600500d68ebb63867ff0550c314ef386dc",
+    "sidecar_sha256": "ce8260e15fc739dbd5d41f42e39f3a89e84a726a9eb355ef7e07be6f00124674",
     "mode": "4k:more",
     "notes": [
       {
@@ -68887,7 +68887,7 @@
       },
       {
         "time": 246.8625,
-        "endTime": 247.9868,
+        "endTime": 248.054,
         "type": "hold",
         "lane": 3,
         "midi": 100,
@@ -68895,8 +68895,8 @@
         "isChordPartner": false
       },
       {
-        "time": 248.1168,
-        "endTime": 248.1168,
+        "time": 248.184,
+        "endTime": 248.184,
         "type": "tap",
         "lane": 2,
         "midi": 94,
@@ -68904,8 +68904,8 @@
         "isChordPartner": false
       },
       {
-        "time": 248.6,
-        "endTime": 248.6,
+        "time": 248.613,
+        "endTime": 248.613,
         "type": "tap",
         "lane": 1,
         "midi": 91,
@@ -68913,8 +68913,8 @@
         "isChordPartner": false
       },
       {
-        "time": 249.03,
-        "endTime": 249.5337,
+        "time": 249.049,
+        "endTime": 249.5527,
         "type": "hold",
         "lane": 0,
         "midi": 88,
@@ -68922,8 +68922,8 @@
         "isChordPartner": false
       },
       {
-        "time": 250.2647,
-        "endTime": 250.2647,
+        "time": 250.164,
+        "endTime": 250.164,
         "type": "tap",
         "lane": 3,
         "midi": 74,
@@ -68931,8 +68931,8 @@
         "isChordPartner": false
       },
       {
-        "time": 250.3924,
-        "endTime": 250.3924,
+        "time": 250.352,
+        "endTime": 250.352,
         "type": "tap",
         "lane": 2,
         "midi": 70,
@@ -68940,8 +68940,8 @@
         "isChordPartner": false
       },
       {
-        "time": 250.88,
-        "endTime": 250.88,
+        "time": 250.688,
+        "endTime": 250.688,
         "type": "tap",
         "lane": 1,
         "midi": 67,
@@ -68949,8 +68949,8 @@
         "isChordPartner": false
       },
       {
-        "time": 251.1238,
-        "endTime": 251.1238,
+        "time": 250.826,
+        "endTime": 250.826,
         "type": "tap",
         "lane": 0,
         "midi": 64,
@@ -68958,8 +68958,8 @@
         "isChordPartner": false
       },
       {
-        "time": 251.9044,
-        "endTime": 251.9044,
+        "time": 251.809,
+        "endTime": 251.809,
         "type": "tap",
         "lane": 2,
         "midi": 58,
@@ -68967,8 +68967,8 @@
         "isChordPartner": false
       },
       {
-        "time": 252.9814,
-        "endTime": 252.9814,
+        "time": 252.877,
+        "endTime": 252.877,
         "type": "tap",
         "lane": 1,
         "midi": 55,

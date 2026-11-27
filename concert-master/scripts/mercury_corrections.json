@@ -92,18 +92,67 @@
       "why": "3:25.3, m.235: the piccolo's top 100 on the big hit is a tap, not a hold (user, Nov 24: 'm. 235: hit. not hold')."
     },
     {
+      "score_start": 210.25,
+      "midi": 94,
+      "to": 248.184,
+      "keep_length": true,
+      "why": "4:08.18: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
       "score_start": 210.61,
       "midi": 91,
-      "to": 248.6,
+      "to": 248.613,
       "keep_length": true,
-      "why": "4:08.60, m.286: the celesta's 91 on the recording's attack (onsets 248.16 / 248.60 / 249.03 for its 94 91 88, a dotted quarter apart) (user, Nov 27: 'the FD around 4:10 is way late')."
+      "why": "4:08.61: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
     },
     {
       "score_start": 210.98,
       "midi": 88,
-      "to": 249.03,
+      "to": 249.049,
       "keep_length": true,
-      "why": "4:09.03, m.286: the celesta's held 88 on its attack (it was 0.12s late at 249.15) (user, Nov 27: 'the FD around 4:10 is way late')."
+      "why": "4:09.05: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
+      "score_start": 211.97,
+      "midi": 74,
+      "to": 250.164,
+      "keep_length": true,
+      "why": "4:10.16: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
+      "score_start": 212.09,
+      "midi": 70,
+      "to": 250.352,
+      "keep_length": true,
+      "why": "4:10.35: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
+      "score_start": 212.34,
+      "midi": 67,
+      "to": 250.688,
+      "keep_length": true,
+      "why": "4:10.69: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
+      "score_start": 212.46,
+      "midi": 64,
+      "to": 250.826,
+      "keep_length": true,
+      "why": "4:10.83: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
+      "score_start": 213.2,
+      "midi": 58,
+      "to": 251.809,
+      "keep_length": true,
+      "why": "4:11.81: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
+    },
+    {
+      "score_start": 214.3,
+      "midi": 55,
+      "to": 252.877,
+      "keep_length": true,
+      "why": "4:12.88: on the user's taps (three runs in the sandbox, Nov 27, median), the notes after the piccolo's high hold: the celesta's 94 91 88, the second violins' 74 70 67 64, the harp's 58 55 ('here are the pins for the notes after the high piccolo hold')."
     }
   ],
   "thin": [
