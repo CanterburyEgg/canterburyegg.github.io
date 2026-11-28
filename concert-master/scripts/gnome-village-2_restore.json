@@ -1,5 +1,5 @@
 {
-  "why": "Gnome Village II, by ear. Key pins (audio time, lane 0-3 = D F J K): 0:00-0:18, the contrabassoon's 47 46 43 pattern plays K J F with the 43 on F next to the 46, three keys in a row (user, Nov 27: 'I'm hearing what should be J FD FJ FD or K JF JK JF'). 0:17.6-0:35, the intro's second time, on the cello an octave up: 71 70 67 the same K J F. The dizi's melody, every time it plays (0:35, 1:28.5, 2:20, 2:37.5; user, Nov 27: 'same notes apply wherever this melody plays'): the 78s on one key, J, from the phrase-end hits through the hold and back (J78 F74 D71 J78; '0:37: the Kh and J are the exact same pitches'); 76 74 76 81 F D F K; the run down 78 76 74 73 71 69 67 as K J F D K J F, ending downward ('0:43: ... ends on a DF that should be played down, not up'); 69 71 74 (74) 73 69 71 as D F J J F D F, a three-note walk up to the held 74 and the grace 69 walking up to 71 ('0:43: ... This should just be a three note walk up', '0:45: the FF ... should walk up'); the walk down 80 78 76 74 73 71 68 from the held 71 as K J F D K J F, the score's high 80 trusted ('0:47: let's trust the score here'), then the walk up 71 73 74 76 as D F J K ('0:49: this FJFJ is a walk straight up'); 74 73 74 76 right after the walk up as J F J K, the same keys the walk up gave those notes ('0:50: ... the first and third notes are the same'; 'the walk up is DFJK but followed by exactly matching notes to the top three: JFJK'), and the next 74 73 74 the same J F J ('0:51'). The melody's octave-up statements (0:53, 1:46) take the same keys as the first: 88 86 88 93 F D F K; the run down 90 88 86 85 83 81 79 K J F D K J F; 81 83 86 86 81 83 D F J J D F; the walk down 92 ... 80 K J F D K J F and walk up 83 85 86 88 D F J K; 86 85 86 88 J F J K ('The second time the melody is played didn't get any of the same fixed notes'). 0:33.5, the contrabassoon's first phrase-end hit on J with the cello's four ('0:35: I'm actually missing the first J here'). 0:54.2 and 1:46.8, the 90 that opens the octave-up melody after the held K90 stays on K with it ('can't that top note just be moved to K with nothing else affected?').",
+  "why": "Gnome Village II, by ear. Key pins (audio time, lane 0-3 = D F J K): 0:00-0:18, the contrabassoon's 47 46 43 pattern plays K J F with the 43 on F next to the 46, three keys in a row (user, Nov 27: 'I'm hearing what should be J FD FJ FD or K JF JK JF'). 0:17.6-0:35, the intro's second time, on the cello an octave up: 71 70 67 the same K J F. The dizi's melody, every time it plays (0:35, 1:28.5, 2:20, 2:37.5; user, Nov 27: 'same notes apply wherever this melody plays'): the 78s on one key, J, from the phrase-end hits through the hold and back (J78 F74 D71 J78; '0:37: the Kh and J are the exact same pitches'); 76 74 76 81 F D F K; the run down 78 76 74 73 71 69 67 as K J F D K J F, ending downward ('0:43: ... ends on a DF that should be played down, not up'); 69 71 74 (74) 73 69 71 as D F J J F D F, a three-note walk up to the held 74 and the grace 69 walking up to 71 ('0:43: ... This should just be a three note walk up', '0:45: the FF ... should walk up'); the walk down 80 78 76 74 73 71 68 from the held 71 as K J F D K J F, the score's high 80 trusted ('0:47: let's trust the score here'), then the walk up 71 73 74 76 as D F J K ('0:49: this FJFJ is a walk straight up'); 74 73 74 76 right after the walk up as J F J K, the same keys the walk up gave those notes ('0:50: ... the first and third notes are the same'; 'the walk up is DFJK but followed by exactly matching notes to the top three: JFJK'), and the next 74 73 74 the same J F J ('0:51'). The melody's octave-up statements (0:53, 1:46) take the same keys as the first: 88 86 88 93 F D F K; the run down 90 88 86 85 83 81 79 K J F D K J F; 81 83 86 86 81 83 D F J J D F; the walk down 92 ... 80 K J F D K J F and walk up 83 85 86 88 D F J K; 86 85 86 88 J F J K ('The second time the melody is played didn't get any of the same fixed notes'). 0:33.5, the contrabassoon's first phrase-end hit on J with the cello's four ('0:35: I'm actually missing the first J here'). 0:54.2 and 1:46.8, the 90 that opens the octave-up melody after the held K90 stays on K with it ('can't that top note just be moved to K with nothing else affected?'). 1:10-1:27, the intro pattern's return on the contrabassoon, the same K J F ('1:10~: I should play the bassoon part here').",
   "pins": [
     [
       1.3,
@@ -82,19 +82,11 @@
       2
     ],
     [
-      88.5,
-      2
-    ],
-    [
-      88.73,
-      1
-    ],
-    [
-      88.77,
+      88.62,
       0
     ],
     [
-      89.32,
+      89.17,
       2
     ],
     [
@@ -162,35 +154,35 @@
       1
     ],
     [
-      93.68,
+      93.53,
       2
     ],
     [
-      94.23,
+      94.08,
       3
     ],
     [
-      94.41,
+      94.26,
       2
     ],
     [
-      94.59,
+      94.44,
       1
     ],
     [
-      94.77,
+      94.62,
       0
     ],
     [
-      94.95,
+      94.8,
       3
     ],
     [
-      95.11,
+      94.96,
       2
     ],
     [
-      95.32,
+      95.17,
       1
     ],
     [
@@ -274,19 +266,19 @@
       3
     ],
     [
-      90.95,
+      90.8,
       1
     ],
     [
-      91.68,
+      91.53,
       0
     ],
     [
-      91.86,
+      91.71,
       1
     ],
     [
-      92.05,
+      91.9,
       3
     ],
     [
@@ -350,31 +342,31 @@
       1
     ],
     [
-      96.05,
+      95.9,
       0
     ],
     [
-      96.23,
+      96.08,
       1
     ],
     [
-      96.5,
+      96.35,
       2
     ],
     [
-      96.95,
+      96.8,
       2
     ],
     [
-      97.14,
+      96.99,
       1
     ],
     [
-      97.32,
+      97.17,
       0
     ],
     [
-      97.5,
+      97.35,
       1
     ],
     [
@@ -462,31 +454,31 @@
       1
     ],
     [
-      100.77,
+      100.62,
       3
     ],
     [
-      100.95,
+      100.8,
       2
     ],
     [
-      101.14,
+      100.99,
       1
     ],
     [
-      101.32,
+      101.17,
       0
     ],
     [
-      101.5,
+      101.35,
       3
     ],
     [
-      101.68,
+      101.53,
       2
     ],
     [
-      101.86,
+      101.71,
       1
     ],
     [
@@ -562,19 +554,19 @@
       3
     ],
     [
-      102.41,
+      102.26,
       0
     ],
     [
-      102.59,
+      102.44,
       1
     ],
     [
-      102.77,
+      102.62,
       2
     ],
     [
-      102.95,
+      102.8,
       3
     ],
     [
@@ -626,19 +618,19 @@
       3
     ],
     [
-      103.5,
+      103.35,
       2
     ],
     [
-      103.68,
+      103.53,
       1
     ],
     [
-      103.86,
+      103.71,
       2
     ],
     [
-      104.05,
+      103.9,
       3
     ],
     [
@@ -674,19 +666,19 @@
       3
     ],
     [
-      104.59,
+      104.44,
       2
     ],
     [
-      104.77,
+      104.62,
       1
     ],
     [
-      104.95,
+      104.8,
       2
     ],
     [
-      105.14,
+      104.99,
       3
     ],
     [
@@ -714,27 +706,27 @@
       1
     ],
     [
-      113.5,
+      113.35,
       0
     ],
     [
-      113.68,
+      113.53,
       1
     ],
     [
-      113.86,
+      113.71,
       2
     ],
     [
-      114.41,
+      114.26,
       2
     ],
     [
-      114.77,
+      114.62,
       0
     ],
     [
-      114.95,
+      114.8,
       1
     ],
     [
@@ -770,35 +762,35 @@
       1
     ],
     [
-      111.14,
+      110.99,
       2
     ],
     [
-      111.68,
+      111.53,
       3
     ],
     [
-      111.86,
+      111.71,
       2
     ],
     [
-      112.05,
+      111.9,
       1
     ],
     [
-      112.23,
+      112.08,
       0
     ],
     [
-      112.41,
+      112.26,
       3
     ],
     [
-      112.57,
+      112.42,
       2
     ],
     [
-      112.77,
+      112.62,
       1
     ],
     [
@@ -830,31 +822,31 @@
       1
     ],
     [
-      118.23,
+      118.08,
       3
     ],
     [
-      118.41,
+      118.26,
       2
     ],
     [
-      118.59,
+      118.44,
       1
     ],
     [
-      118.77,
+      118.62,
       0
     ],
     [
-      118.95,
+      118.8,
       3
     ],
     [
-      119.14,
+      118.99,
       2
     ],
     [
-      119.32,
+      119.17,
       1
     ],
     [
@@ -874,19 +866,19 @@
       3
     ],
     [
-      119.86,
+      119.71,
       0
     ],
     [
-      120.05,
+      119.9,
       1
     ],
     [
-      120.23,
+      120.08,
       2
     ],
     [
-      120.41,
+      120.26,
       3
     ],
     [
@@ -906,19 +898,19 @@
       3
     ],
     [
-      120.95,
+      120.8,
       2
     ],
     [
-      121.14,
+      120.99,
       1
     ],
     [
-      121.32,
+      121.17,
       2
     ],
     [
-      121.5,
+      121.35,
       3
     ],
     [
@@ -938,19 +930,19 @@
       3
     ],
     [
-      108.41,
+      108.26,
       1
     ],
     [
-      109.14,
+      108.99,
       0
     ],
     [
-      109.32,
+      109.17,
       1
     ],
     [
-      109.5,
+      109.35,
       3
     ],
     [
@@ -962,7 +954,7 @@
       3
     ],
     [
-      106.77,
+      106.62,
       3
     ],
     [
@@ -983,6 +975,42 @@
     ],
     [
       55.48,
+      1
+    ],
+    [
+      71.11,
+      1
+    ],
+    [
+      73.3,
+      1
+    ],
+    [
+      75.48,
+      1
+    ],
+    [
+      79.84,
+      1
+    ],
+    [
+      82.02,
+      1
+    ],
+    [
+      84.2,
+      1
+    ],
+    [
+      70.02,
+      3
+    ],
+    [
+      87.53,
+      2
+    ],
+    [
+      88.44,
       1
     ]
   ],

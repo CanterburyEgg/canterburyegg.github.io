@@ -10,9 +10,9 @@
     {
       "score_from": 122.0,
       "score_to": 156.75,
-      "audio_from": 87.5,
-      "audio_to": 122.25,
-      "why": "1:27.5-2:02: the recording jumps past score 104.5-122 and plays score 122-156.75 at its tempo (chroma match) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+      "audio_from": 87.35,
+      "audio_to": 122.1,
+      "why": "1:27.5-2:02: the recording jumps past score 104.5-122 and plays score 122-156.75 at its tempo (chroma match) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57). Placed 0.15s earlier, on the recording's attacks (user, Nov 27: 'it was only the second section that was wrong, and it should be pinned to the audio'; the recording's onsets put this section 0.15s ahead of the old mapping)."
     },
     {
       "score_from": 226.75,
@@ -122,6 +122,13 @@
       "end": 50.8,
       "late": true,
       "why": "0:33.5: the first of the five phrase-end hits is only in the contrabassoon (the cello plays the last four 78s); it's played, on the cello's key (user, Nov 27: '0:35: I'm actually missing the first J here as well')."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 87.2,
+      "end": 104.5,
+      "late": true,
+      "why": "1:10-1:27: the intro's pattern comes back on the contrabassoon (47 46 43 ...); the dizi's 74 83 78 over it is accompaniment (user, Nov 27: '1:10~: I should play the bassoon part here, not the high flute accompaniment')."
     }
   ],
   "thin": [
@@ -169,6 +176,50 @@
         34.909
       ],
       "why": "0:00-0:18: the contrabassoon's upper line (47 46 43 ...) without the low 35 / 31 it drops to between them (on the bass's beats, not part of the pattern the user hears); its repeated hits at the phrase ends stay (user, Nov 27: 'I'm hearing what should be J FD FJ FD or K JF JK JF, but it's having me go up on a downstep')."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 87.2,
+      "end": 104.5,
+      "keep": [
+        87.273,
+        88.182,
+        88.364,
+        89.273,
+        89.455,
+        90.364,
+        90.545,
+        91.455,
+        91.636,
+        92.545,
+        92.727,
+        93.636,
+        93.818,
+        94.364,
+        94.909,
+        95.091,
+        95.273,
+        95.455,
+        96.0,
+        96.909,
+        97.091,
+        98.0,
+        98.182,
+        99.091,
+        99.273,
+        100.227,
+        100.364,
+        101.273,
+        101.455,
+        102.364,
+        102.545,
+        103.091,
+        103.636,
+        103.818,
+        103.977,
+        104.182
+      ],
+      "why": "1:10-1:27: the contrabassoon's upper line without the low 35 / 31 between its notes, like the intro (user, Nov 27: '1:10~: I should play the bassoon part here, not the high flute accompaniment')."
     }
   ],
   "ghost_notes": false,
@@ -189,6 +240,18 @@
         43.09,
         50.73
       ]
+    },
+    {
+      "start": 87.2,
+      "end": 104.5,
+      "min_dur": 0.5,
+      "except": [
+        94.364,
+        95.455,
+        103.091,
+        104.182
+      ],
+      "why": "1:10-1:27: the pattern's long notes held, like the intro (user, Nov 27: '1:10~: I should play the bassoon part here, not the high flute accompaniment')."
     }
   ],
   "pitch": [
@@ -199,7 +262,7 @@
       "why": "0:44.75: the dizi's grace note before its 71 sounds as 69, a step up into the 71 (the score writes 71 71; user, Nov 27: 'the FF at the end here sounds like it should walk up')."
     },
     {
-      "time": 97.32,
+      "time": 97.17,
       "from": 71,
       "to": 69,
       "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
@@ -223,10 +286,52 @@
       "why": "the octave-up statement's grace note before its 83 sounds as 81, a step up like the first statement's 69 71 (user, Nov 27: 'The second time the melody is played didn't get any of the same fixed notes')."
     },
     {
-      "time": 114.77,
+      "time": 114.62,
       "from": 83,
       "to": 81,
       "why": "the octave-up statement's grace note before its 83 sounds as 81, a step up like the first statement's 69 71 (user, Nov 27: 'The second time the melody is played didn't get any of the same fixed notes')."
+    }
+  ],
+  "missing_parts": [
+    {
+      "staff": "Dizi",
+      "start": 79.27,
+      "end": 79.43,
+      "midi": 85,
+      "why": "1:02.0: the octave-up statement's walk down 86 85 | 81 83, the 85 the score leaves out (the first statement plays 74 73 | 69 71; user, Nov 27: '1:02: this is missing a note in the walkdown JFDF')."
+    }
+  ],
+  "insert_notes": [
+    {
+      "time": 114.44,
+      "end": 114.6,
+      "midi": 85,
+      "score_start": 149.09,
+      "staff": "Dizi",
+      "why": "1:54.6: the same missing 85 in the octave-up statement's repeat (the walk down 86 85 | 81 83), placed on the recording's clock because the first alignment crams this stretch and loses an added score note (user, Nov 27: '1:02: this is missing a note in the walkdown JFDF', same notes wherever this melody plays)."
+    }
+  ],
+  "audio_moves": [
+    {
+      "score_start": 104.18,
+      "midi": 30,
+      "to": 86.93,
+      "end": 87.05,
+      "why": "1:26.9: the last phrase-end 30 on its written place at the end of the section (it had been pushed onto the hit before it, 0.01s apart) and a tap, like the intro's (user, Nov 27: the hits are taps)."
+    },
+    {
+      "score_start": 122.18,
+      "midi": 78,
+      "to": 87.53,
+      "hold": true,
+      "why": "1:27.7: the dizi's held 78 that opens the melody's return, on its written place (it had been pushed a bar late onto the 74, leaving the entry empty) (user, Nov 27: '1:27.5: missing the entry note', '1:28.7: there's a fake 32nd note here. This sounds like the exact same start to the other flute sections')."
+    },
+    {
+      "score_start": 123.09,
+      "midi": 74,
+      "to": 88.44,
+      "keep_length": true,
+      "why": "1:28.6: the 74 back on its written place, an eighth before the 71, like the melody's other starts (it was crowded 0.04s before the 71) (user, Nov 27: '1:27.5: missing the entry note', '1:28.7: there's a fake 32nd note here. This sounds like the exact same start to the other flute sections')."
     }
   ]
 }
