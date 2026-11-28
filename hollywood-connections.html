@@ -177,7 +177,8 @@
 
         solvedCategories.forEach((cat, index) => { 
             const row = document.createElement('div');
-            row.className = `solved-row cat-${index}`;
+            // Color by difficulty tier (0 yellow ... 3 purple); older puzzles without a tier fall back to solve order
+            row.className = `solved-row cat-${cat.tier ?? index}`;
             row.innerHTML = `<div class="solved-title">${cat.title}</div><div class="solved-actors">${cat.actors.map(a=>a.name).join(', ')}</div>`;
             solvedSection.appendChild(row);
         });

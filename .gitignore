@@ -26,3 +26,6 @@ concert-master/scores/wine-dark-sea*.*
 # RPG asset pack sources (kept on disk only; only curated, optimized files get committed)
 experiments/rpg/assets/*.zip
 experiments/rpg/assets/_extracted/
+
+# Hollywood Connections TMDB cache
+scripts/hollywood_connections/.cache/
