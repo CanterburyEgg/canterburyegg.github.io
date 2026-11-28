@@ -1,9 +1,37 @@
 [
  {
-  "song": "mercury",
-  "start": 21.5,
+  "song": "gnome-village-2",
+  "start": 0,
+  "end": 60,
+  "label": "Gnome Village II 0:00-1:00 (full first minute, for sign-off)",
+  "issue": ""
+ },
+ {
+  "song": "gnome-village-2",
+  "start": 50.5,
+  "end": 55.5,
+  "label": "Gnome Village II 0:50.5-0:55.5 the hinge: J74 F73 J74 K90h, then F86 D83 J90 (the lone 90 now on K)",
+  "issue": ""
+ },
+ {
+  "song": "gnome-village-2",
+  "start": 23.5,
   "end": 27.0,
-  "label": "REVIEW Mercury 0:21.5-0:27 (locked): the run tops out F80 J81 into the flutes' K81",
+  "label": "Gnome Village II 0:25 the second intro's D D D D D hits",
+  "issue": ""
+ },
+ {
+  "song": "gnome-village-2",
+  "start": 32.8,
+  "end": 36.5,
+  "label": "Gnome Village II 0:34 five J hits into the J78 hold",
+  "issue": ""
+ },
+ {
+  "song": "gnome-village-2",
+  "start": 52.0,
+  "end": 71.0,
+  "label": "Gnome Village II 0:53-1:10 the melody an octave up, same keys as the first time (0:52-0:55 hinge pending)",
   "issue": ""
  }
 ]

@@ -1,0 +1,232 @@
+{
+  "time_map": [
+    {
+      "score_from": 17.25,
+      "score_to": 104.5,
+      "audio_from": 0.0,
+      "audio_to": 87.25,
+      "why": "0:00-1:27: the recording starts at the score's second statement of the intro (the contrabassoon's 47 46 43 and the guitar's 59 58 over the bass, m.9) and plays on at the score's tempo; matched on the recording's chroma, a steady line (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+    },
+    {
+      "score_from": 122.0,
+      "score_to": 156.75,
+      "audio_from": 87.5,
+      "audio_to": 122.25,
+      "why": "1:27.5-2:02: the recording jumps past score 104.5-122 and plays score 122-156.75 at its tempo (chroma match) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+    },
+    {
+      "score_from": 226.75,
+      "score_to": 281.0,
+      "audio_from": 122.5,
+      "audio_to": 176.75,
+      "why": "2:02.5-end: the recording jumps past score 156.75-226.75 and plays the last section, score 226.75 to the end, at its tempo (chroma match; its last tune statement lines up with score 247 at 2:22.6) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+    }
+  ],
+  "rests": [
+    {
+      "start": 0.0,
+      "end": 17.2,
+      "why": "score 0-17.25 (the bass's intro alone) isn't in the recording (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+    },
+    {
+      "start": 104.5,
+      "end": 122.0,
+      "why": "score 104.5-122 isn't in the recording (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+    },
+    {
+      "start": 156.75,
+      "end": 226.75,
+      "why": "score 156.75-226.75 isn't in the recording (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+    },
+    {
+      "start": 61.071,
+      "end": 61.141,
+      "why": "score 61.091: the dizi's 32nd-note 74 right before its held 74 is heard as one note, so 69 71 74 is a three-note walk up (user, Nov 27: '0:43: I only hear one note here. Might be a score error. This should just be a three note walk up')."
+    },
+    {
+      "start": 130.889,
+      "end": 130.959,
+      "why": "score 130.909: the dizi's 32nd-note 74 right before its held 74 is heard as one note, so 69 71 74 is a three-note walk up (user, Nov 27: '0:43: I only hear one note here. Might be a score error. This should just be a three note walk up')."
+    },
+    {
+      "start": 253.071,
+      "end": 253.141,
+      "why": "score 253.091: the dizi's 32nd-note 74 right before its held 74 is heard as one note, so 69 71 74 is a three-note walk up (user, Nov 27: '0:43: I only hear one note here. Might be a score error. This should just be a three note walk up')."
+    },
+    {
+      "start": 270.525,
+      "end": 270.595,
+      "why": "score 270.545: the dizi's 32nd-note 74 right before its held 74 is heard as one note, so 69 71 74 is a three-note walk up (user, Nov 27: '0:43: I only hear one note here. Might be a score error. This should just be a three note walk up')."
+    }
+  ],
+  "lead_part": [
+    {
+      "staff": "Contrabassoon",
+      "start": 17.4,
+      "end": 35.4,
+      "late": true,
+      "why": "0:00-0:18: the intro's line is the contrabassoon's 47 46 43 46 47 ..., long then short-long, J F D F J (user, Nov 27: 'I'm hearing what should be J FD FJ FD or K JF JK JF, but it's having me go up on a downstep')."
+    },
+    {
+      "staff": "Violoncello",
+      "start": 34.85,
+      "end": 52.3,
+      "late": true,
+      "why": "0:17.6-0:35: the intro plays twice in the recording; the second time the same B A# G A# B pattern is the cello's, an octave up (71 70 67 70 71 ...), with its phrase-end hits (user, Nov 27: 'the intro is repeated in the track twice, so it's starting the next section about 50% too early')."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 41.2,
+      "end": 41.6,
+      "late": true,
+      "why": "0:24.0, the end of the intro's second line: the contrabassoon's 50 47 stepping down like the first time (J F), not the cello's grace 70 into 71 (user, Nov 27: '0:24.50: these two notes go the wrong way')."
+    },
+    {
+      "staff": "Dizi",
+      "start": 52.344,
+      "end": 103.111,
+      "late": true,
+      "why": "the dizi (the flute) carries the tune; the guitar's arpeggios under it are accompaniment (user, Nov 27: '0:40: this jumps off the lead line (flute) and becomes something else. should stay flute')."
+    },
+    {
+      "staff": "Dizi",
+      "start": 122.162,
+      "end": 156.929,
+      "late": true,
+      "why": "the dizi (the flute) carries the tune; the guitar's arpeggios under it are accompaniment (user, Nov 27: '0:40: this jumps off the lead line (flute) and becomes something else. should stay flute')."
+    },
+    {
+      "staff": "Dizi",
+      "start": 226.889,
+      "end": 242.747,
+      "late": true,
+      "why": "the dizi (the flute) carries the tune; the guitar's arpeggios under it are accompaniment (user, Nov 27: '0:40: this jumps off the lead line (flute) and becomes something else. should stay flute')."
+    },
+    {
+      "staff": "Dizi",
+      "start": 244.344,
+      "end": 278.202,
+      "late": true,
+      "why": "the dizi (the flute) carries the tune; the guitar's arpeggios under it are accompaniment (user, Nov 27: '0:40: this jumps off the lead line (flute) and becomes something else. should stay flute')."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 41.95,
+      "end": 43.2,
+      "late": true,
+      "why": "0:24.7-0:25.8: the second intro's phrase-end 35 hits (the cello rests there), the same D D D D D as the first time (user, Nov 27: '0:25: I'm missing a D DDDD pickup here like we have in the previous section')."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 50.7,
+      "end": 50.8,
+      "late": true,
+      "why": "0:33.5: the first of the five phrase-end hits is only in the contrabassoon (the cello plays the last four 78s); it's played, on the cello's key (user, Nov 27: '0:35: I'm actually missing the first J here as well')."
+    }
+  ],
+  "thin": [
+    {
+      "staff": "Contrabassoon",
+      "start": 17.4,
+      "end": 35.4,
+      "keep": [
+        17.455,
+        18.364,
+        18.545,
+        19.455,
+        19.636,
+        20.545,
+        20.727,
+        21.636,
+        21.818,
+        22.727,
+        22.909,
+        23.818,
+        24.0,
+        24.545,
+        25.091,
+        25.273,
+        25.455,
+        25.636,
+        26.182,
+        27.091,
+        27.273,
+        28.182,
+        28.364,
+        29.273,
+        29.455,
+        30.409,
+        30.545,
+        31.455,
+        31.636,
+        32.545,
+        32.727,
+        33.273,
+        33.818,
+        34.0,
+        34.159,
+        34.364,
+        34.909
+      ],
+      "why": "0:00-0:18: the contrabassoon's upper line (47 46 43 ...) without the low 35 / 31 it drops to between them (on the bass's beats, not part of the pattern the user hears); its repeated hits at the phrase ends stay (user, Nov 27: 'I'm hearing what should be J FD FJ FD or K JF JK JF, but it's having me go up on a downstep')."
+    }
+  ],
+  "ghost_notes": false,
+  "ghost_notes_why": "no ghost keys in this song (user, Nov 27: 'I think this should be a no-ghosts song').",
+  "holds": [
+    {
+      "start": 17.25,
+      "end": 52.3,
+      "min_dur": 0.5,
+      "why": "0:00-0:35, both intros: the long notes of the pattern (the contrabassoon's 47s and 43s, the cello's 71s and 67s) are holds all the way through, not only from 0:28 where the recording gets quieter (user, Nov 27: 'why are these suddenly holds? I actually think they make sense as holds across the whole section'). Not the last strike of the phrase-end hits (35s, 30s, 78s): written long, but not heard held (user, Nov 27: 'The last D in the DDDD pattern is now a hold -- I don't hear it being held'). Nor the first strike of those runs ('the D BEFORE the DDDD taps also is just a tap to my ear').",
+      "except": [
+        25.64,
+        34.36,
+        51.82,
+        24.55,
+        33.27,
+        42.0,
+        43.09,
+        50.73
+      ]
+    }
+  ],
+  "pitch": [
+    {
+      "time": 44.75,
+      "from": 71,
+      "to": 69,
+      "why": "0:44.75: the dizi's grace note before its 71 sounds as 69, a step up into the 71 (the score writes 71 71; user, Nov 27: 'the FF at the end here sounds like it should walk up')."
+    },
+    {
+      "time": 97.32,
+      "from": 71,
+      "to": 69,
+      "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
+    },
+    {
+      "time": 149.75,
+      "from": 71,
+      "to": 69,
+      "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
+    },
+    {
+      "time": 167.2,
+      "from": 71,
+      "to": 69,
+      "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
+    },
+    {
+      "time": 62.2,
+      "from": 83,
+      "to": 81,
+      "why": "the octave-up statement's grace note before its 83 sounds as 81, a step up like the first statement's 69 71 (user, Nov 27: 'The second time the melody is played didn't get any of the same fixed notes')."
+    },
+    {
+      "time": 114.77,
+      "from": 83,
+      "to": 81,
+      "why": "the octave-up statement's grace note before its 83 sounds as 81, a step up like the first statement's 69 71 (user, Nov 27: 'The second time the melody is played didn't get any of the same fixed notes')."
+    }
+  ]
+}

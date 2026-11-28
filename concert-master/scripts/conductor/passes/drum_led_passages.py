@@ -102,5 +102,11 @@ def run(ctx):
                     break
                 psg[1] = max(psg[1], float(n["end"]))
 
+    # (not inside the song's corrections 'rests': music the recording leaves out stays empty -- Gnome Village II's
+    # score 0-17.25, the bass intro the recording skips)
+    if score_path is not None:
+        corr = Path(__file__).resolve().parents[2] / f"{score_path.stem.lower()}_corrections.json"
+        rests = json.loads(corr.read_text(encoding="utf-8")).get("rests", []) if corr.exists() else []
+        lead_score_notes = [n for n in lead_score_notes if not any(float(r["start"]) <= float(n["start"]) < float(r["end"]) for r in rests)]
     ctx.lead_notes = lead_score_notes
     ctx.drum_passages = drum_passages
