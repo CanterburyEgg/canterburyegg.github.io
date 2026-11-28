@@ -113,18 +113,34 @@
   },
   "mercury": {
     "hard": {
-      "score": 16.66,
+      "score": 16.65,
       "rating": 4,
-      "burst": 12.36,
+      "burst": 12.35,
       "endurance": 21.91,
-      "notes": 1296
+      "notes": 1297
     },
     "easy": {
       "score": 1.67,
       "rating": 0,
       "burst": 1.28,
       "endurance": 2.14,
-      "notes": 370
+      "notes": 373
+    }
+  },
+  "gnome-village-2": {
+    "hard": {
+      "score": 4.31,
+      "rating": 0,
+      "burst": 3.73,
+      "endurance": 5.01,
+      "notes": 477
+    },
+    "easy": {
+      "score": 0.92,
+      "rating": 0,
+      "burst": 0.86,
+      "endurance": 1.01,
+      "notes": 230
     }
   },
   "maslanka4": {

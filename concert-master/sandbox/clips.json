@@ -3,35 +3,14 @@
   "song": "gnome-village-2",
   "start": 120,
   "end": 177,
-  "label": "Gnome Village II 2:00-2:57 (full third minute, for sign-off)",
+  "label": "Gnome Village II 2:00-2:57 (full last section, for sign-off)",
   "issue": ""
  },
  {
   "song": "gnome-village-2",
-  "start": 120,
-  "end": 135,
-  "label": "Gnome Village II 2:00-2:15",
-  "issue": ""
- },
- {
-  "song": "gnome-village-2",
-  "start": 135,
-  "end": 150,
-  "label": "Gnome Village II 2:15-2:30",
-  "issue": ""
- },
- {
-  "song": "gnome-village-2",
-  "start": 150,
-  "end": 165,
-  "label": "Gnome Village II 2:30-2:45",
-  "issue": ""
- },
- {
-  "song": "gnome-village-2",
-  "start": 165,
+  "start": 166.5,
   "end": 177,
-  "label": "Gnome Village II 2:45-2:57",
+  "label": "Gnome Village II 2:50 fadeout [FJ] [FJ]x4 [FJ][FJ][FJ][DF], all taps",
   "issue": ""
  }
 ]

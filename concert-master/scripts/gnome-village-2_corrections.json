@@ -9,17 +9,17 @@
     },
     {
       "score_from": 122.0,
-      "score_to": 156.75,
+      "score_to": 157.0,
       "audio_from": 87.35,
-      "audio_to": 122.1,
-      "why": "1:27.5-2:02: the recording jumps past score 104.5-122 and plays score 122-156.75 at its tempo (chroma match) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57). Placed 0.15s earlier, on the recording's attacks (user, Nov 27: 'it was only the second section that was wrong, and it should be pinned to the audio'; the recording's onsets put this section 0.15s ahead of the old mapping)."
+      "audio_to": 122.35,
+      "why": "1:27.5-2:02: the recording jumps past score 104.5-122 and plays score 122-156.75 at its tempo (chroma match) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57). Placed 0.15s earlier, on the recording's attacks (user, Nov 27: 'it was only the second section that was wrong, and it should be pinned to the audio'; the recording's onsets put this section 0.15s ahead of the old mapping). Runs to score 157 so the dizi's closing triplet 86 85 86 is included (user, Nov 27: 'at 2:02 it should be a flute triplet')."
     },
     {
       "score_from": 226.75,
       "score_to": 281.0,
-      "audio_from": 122.5,
-      "audio_to": 176.75,
-      "why": "2:02.5-end: the recording jumps past score 156.75-226.75 and plays the last section, score 226.75 to the end, at its tempo (chroma match; its last tune statement lines up with score 247 at 2:22.6) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
+      "audio_from": 122.3,
+      "audio_to": 176.55,
+      "why": "2:02.5-end: the recording jumps past score 156.75-226.75 and plays the last section, score 226.75 to the end, at its tempo (chroma match; its last tune statement lines up with score 247 at 2:22.6) (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57). Placed 0.2s earlier, on the recording's attacks (user, Nov 27: 'the bassoon part is ~0.1s late again. Is it not lined up with the audio?')."
     }
   ],
   "rests": [
@@ -34,7 +34,7 @@
       "why": "score 104.5-122 isn't in the recording (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
     },
     {
-      "start": 156.75,
+      "start": 157.0,
       "end": 226.75,
       "why": "score 156.75-226.75 isn't in the recording (user, Nov 27: 'I'm confused about the pattern right at the beginning'; the score runs 4:38 against the recording's 2:57)."
     },
@@ -129,6 +129,42 @@
       "end": 104.5,
       "late": true,
       "why": "1:10-1:27: the intro's pattern comes back on the contrabassoon (47 46 43 ...); the dizi's 74 83 78 over it is accompaniment (user, Nov 27: '1:10~: I should play the bassoon part here, not the high flute accompaniment')."
+    },
+    {
+      "staff": "Violoncello",
+      "start": 226.85,
+      "end": 244.3,
+      "late": true,
+      "why": "2:02.6-2:20: the intro's return, the cello's B A# G pattern (71 70 67) like the second intro (user, Nov 27: 'It loops back and plays the bassoon part again, then the flute melody one more time'; score 226.9-244.3 is the second intro written out again)."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 233.2,
+      "end": 233.6,
+      "late": true,
+      "why": "2:09: the contrabassoon's 50 47 stepping down at the end of the line, like the second intro (user, Nov 27: 'It loops back and plays the bassoon part again, then the flute melody one more time'; score 226.9-244.3 is the second intro written out again)."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 233.95,
+      "end": 235.2,
+      "late": true,
+      "why": "2:09.7: the contrabassoon's phrase-end 35 hits, like the second intro (user, Nov 27: 'It loops back and plays the bassoon part again, then the flute melody one more time'; score 226.9-244.3 is the second intro written out again)."
+    },
+    {
+      "staff": "Contrabassoon",
+      "start": 242.7,
+      "end": 242.8,
+      "late": true,
+      "why": "2:18.5: the first of the five phrase-end hits, from the contrabassoon, like the second intro (user, Nov 27: 'It loops back and plays the bassoon part again, then the flute melody one more time'; score 226.9-244.3 is the second intro written out again)."
+    },
+    {
+      "staff": "Horn",
+      "start": 274.88,
+      "end": 281.0,
+      "late": true,
+      "why": "2:50 to the end: after the dizi's last held 71 the flute fades out; what's left is the band's backing chords, struck with the horn's rhythm (1, 4, 3, 1) (user, Nov 27: 'all I can hear are the backing triplet chords', 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]').",
+      "keep_restrikes": true
     }
   ],
   "thin": [
@@ -252,6 +288,18 @@
         104.182
       ],
       "why": "1:10-1:27: the pattern's long notes held, like the intro (user, Nov 27: '1:10~: I should play the bassoon part here, not the high flute accompaniment')."
+    },
+    {
+      "start": 226.85,
+      "end": 244.3,
+      "min_dur": 0.5,
+      "except": [
+        234.0,
+        235.09,
+        242.73,
+        243.82
+      ],
+      "why": "2:02.6-2:20: the pattern's long notes held and the phrase-end hits' first and last strikes tapped, like the second intro (user, Nov 27: 'It loops back and plays the bassoon part again, then the flute melody one more time'; score 226.9-244.3 is the second intro written out again)."
     }
   ],
   "pitch": [
@@ -268,13 +316,13 @@
       "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
     },
     {
-      "time": 149.75,
+      "time": 149.55,
       "from": 71,
       "to": 69,
       "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
     },
     {
-      "time": 167.2,
+      "time": 167.0,
       "from": 71,
       "to": 69,
       "why": "the same grace note as 0:44.75 in the melody's later statements: 69 stepping up into the 71 (user, Nov 27: 'same notes apply wherever this melody plays')."
@@ -309,6 +357,14 @@
       "score_start": 149.09,
       "staff": "Dizi",
       "why": "1:54.6: the same missing 85 in the octave-up statement's repeat (the walk down 86 85 | 81 83), placed on the recording's clock because the first alignment crams this stretch and loses an added score note (user, Nov 27: '1:02: this is missing a note in the walkdown JFDF', same notes wherever this melody plays)."
+    },
+    {
+      "time": 172.65,
+      "end": 173.0,
+      "midi": 71,
+      "score_start": 277.64,
+      "staff": "Horn",
+      "why": "2:52.65: the last chord, [DF], right after the three [FJ]s, on the recording's attack (the score has it later, but the recording's last stroke is at 2:52.65; user, Nov 27: 'the end isn't right ... I gave you the exact pattern')."
     }
   ],
   "audio_moves": [
@@ -332,6 +388,95 @@
       "to": 88.44,
       "keep_length": true,
       "why": "1:28.6: the 74 back on its written place, an eighth before the 71, like the melody's other starts (it was crowded 0.04s before the 71) (user, Nov 27: '1:27.5: missing the entry note', '1:28.7: there's a fake 32nd note here. This sounds like the exact same start to the other flute sections')."
+    },
+    {
+      "score_start": 226.91,
+      "midi": 71,
+      "to": 122.46,
+      "why": "2:02.66: the intro's return starts on its written place (its first notes had been pushed late and crowded together) (user, Nov 27: the intro's return at 2:02).",
+      "end": 123.01
+    },
+    {
+      "score_start": 227.82,
+      "midi": 70,
+      "to": 123.37,
+      "keep_length": true,
+      "why": "2:03.57: the intro's return starts on its written place (its first notes had been pushed late and crowded together) (user, Nov 27: the intro's return at 2:02)."
+    },
+    {
+      "score_start": 228.0,
+      "midi": 67,
+      "to": 123.55,
+      "keep_length": true,
+      "why": "2:03.75: the intro's return starts on its written place (its first notes had been pushed late and crowded together) (user, Nov 27: the intro's return at 2:02)."
+    },
+    {
+      "score_start": 156.73,
+      "midi": 85,
+      "to": 122.08,
+      "keep_length": true,
+      "why": "2:02.08: the dizi's closing triplet 86 85 86 evenly on its written eighths (user, Nov 27: 'at 2:02 it should be a flute triplet')."
+    },
+    {
+      "score_start": 156.91,
+      "midi": 86,
+      "to": 122.26,
+      "keep_length": true,
+      "why": "2:02.26: the dizi's closing triplet 86 85 86 evenly on its written eighths (user, Nov 27: 'at 2:02 it should be a flute triplet')."
+    },
+    {
+      "score_start": 276.91,
+      "midi": 71,
+      "to": 172.459,
+      "end": 172.6,
+      "why": "2:52.46: the horn's 71 is a short stroke like the chords before it, not a hold (user, Nov 27: 'I gave you the exact pattern, that FJ is not a h')."
+    }
+  ],
+  "chord_hits": [
+    {
+      "time": 170.527,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 171.005,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 171.209,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 171.345,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 171.55,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 172.095,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 172.277,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 172.459,
+      "lane": 2,
+      "why": "the fadeout's chords, [FJ] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
+    },
+    {
+      "time": 172.65,
+      "lane": 1,
+      "why": "the last chord a step lower, [DF] (user, Nov 27: 'I'm hearing something that'd be like [FJ] [FJ][FJ][FJ][FJ] [FJ][FJ][FJ][DF]')."
     }
   ]
 }

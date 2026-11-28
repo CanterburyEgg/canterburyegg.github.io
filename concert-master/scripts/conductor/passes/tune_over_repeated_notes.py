@@ -44,7 +44,9 @@ def run(ctx):
             j += 1
         seg = lead[i:j + 1]
         ps = [int(x["midi"]) for x in seg]
-        if len(seg) >= 4 and max(ps.count(p) for p in set(ps)) >= 0.8 * len(seg):
+        # (not a part picked by ear in the corrections: Gnome Village II's ending, the band's chords on the horn's
+        # rhythm once the flute has faded)
+        if len(seg) >= 4 and max(ps.count(p) for p in set(ps)) >= 0.8 * len(seg) and not any(x.get("by_ear") for x in seg):
             stretches.append(seg)
         i = j + 1
     if not stretches:
