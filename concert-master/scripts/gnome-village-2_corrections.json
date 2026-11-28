@@ -430,6 +430,30 @@
       "to": 172.459,
       "end": 172.6,
       "why": "2:52.46: the horn's 71 is a short stroke like the chords before it, not a hold (user, Nov 27: 'I gave you the exact pattern, that FJ is not a h')."
+    },
+    {
+      "score_start": 61.182,
+      "midi": 74,
+      "to": 43.84,
+      "why": "0:43.84: the three-note walk up 69 71 74 even, the 74 struck where the folded-in 32nd was, an eighth after the 71 (user, Nov 27: 'at 1:36, the J in the DFJ pattern ... might come a touch late. If it does, can you check all of them across the track?'; after the dizi's 32nd-note 74 was folded into its held 74, the walk up's last note sat on the held note's start, a 32nd late)."
+    },
+    {
+      "score_start": 131.0,
+      "midi": 74,
+      "to": 96.26,
+      "why": "1:36.26: the three-note walk up 69 71 74 even, the 74 struck where the folded-in 32nd was, an eighth after the 71 (user, Nov 27: 'at 1:36, the J in the DFJ pattern ... might come a touch late. If it does, can you check all of them across the track?'; after the dizi's 32nd-note 74 was folded into its held 74, the walk up's last note sat on the held note's start, a 32nd late)."
+    },
+    {
+      "score_start": 253.182,
+      "midi": 74,
+      "to": 148.64,
+      "why": "2:28.64: the three-note walk up 69 71 74 even, the 74 struck where the folded-in 32nd was, an eighth after the 71 (user, Nov 27: 'at 1:36, the J in the DFJ pattern ... might come a touch late. If it does, can you check all of them across the track?'; after the dizi's 32nd-note 74 was folded into its held 74, the walk up's last note sat on the held note's start, a 32nd late)."
+    },
+    {
+      "score_start": 270.636,
+      "midi": 74,
+      "to": 166.09,
+      "why": "2:46.09: the three-note walk up 69 71 74 even, the 74 struck where the folded-in 32nd was, an eighth after the 71 (user, Nov 27: 'at 1:36, the J in the DFJ pattern ... might come a touch late. If it does, can you check all of them across the track?'; after the dizi's 32nd-note 74 was folded into its held 74, the walk up's last note sat on the held note's start, a 32nd late)."
     }
   ],
   "chord_hits": [

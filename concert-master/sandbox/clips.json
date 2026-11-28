@@ -1,16 +1,30 @@
 [
  {
   "song": "gnome-village-2",
-  "start": 120,
-  "end": 177,
-  "label": "Gnome Village II 2:00-2:57 (full last section, for sign-off)",
+  "start": 42.5,
+  "end": 45.0,
+  "label": "Gnome Village II 0:43.8 walk up D F J, the J on time",
   "issue": ""
  },
  {
   "song": "gnome-village-2",
-  "start": 166.5,
-  "end": 177,
-  "label": "Gnome Village II 2:50 fadeout [FJ] [FJ]x4 [FJ][FJ][FJ][DF], all taps",
+  "start": 95.0,
+  "end": 97.5,
+  "label": "Gnome Village II 1:36.3 walk up D F J",
+  "issue": ""
+ },
+ {
+  "song": "gnome-village-2",
+  "start": 147.5,
+  "end": 150.0,
+  "label": "Gnome Village II 2:28.6 walk up D F J",
+  "issue": ""
+ },
+ {
+  "song": "gnome-village-2",
+  "start": 165.0,
+  "end": 167.5,
+  "label": "Gnome Village II 2:46.1 walk up D F J",
   "issue": ""
  }
 ]

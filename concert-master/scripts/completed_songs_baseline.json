@@ -69060,7 +69060,7 @@
   },
   "gnome-village-2": {
     "title": "Gnome Village II (RuneScape)",
-    "sidecar_sha256": "4933f1ec172ce9f8ccbe331d172ce746659038d6228ab504fabf30d0742b5bad",
+    "sidecar_sha256": "f6ab4256169318320e994b0b033d217f71ebe146318aba6154a9312bb61efba4",
     "mode": "4k:more",
     "notes": [
       {
@@ -69955,8 +69955,8 @@
         "isChordPartner": false
       },
       {
-        "time": 43.9318,
-        "endTime": 43.9318,
+        "time": 43.84,
+        "endTime": 43.84,
         "type": "tap",
         "lane": 2,
         "midi": 74,
@@ -71305,8 +71305,8 @@
         "isChordPartner": false
       },
       {
-        "time": 96.35,
-        "endTime": 96.35,
+        "time": 96.26,
+        "endTime": 96.26,
         "type": "tap",
         "lane": 2,
         "midi": 74,
@@ -72655,8 +72655,8 @@
         "isChordPartner": false
       },
       {
-        "time": 148.7318,
-        "endTime": 148.7318,
+        "time": 148.64,
+        "endTime": 148.64,
         "type": "tap",
         "lane": 2,
         "midi": 74,
@@ -73168,8 +73168,8 @@
         "isChordPartner": false
       },
       {
-        "time": 166.1864,
-        "endTime": 166.1864,
+        "time": 166.09,
+        "endTime": 166.09,
         "type": "tap",
         "lane": 2,
         "midi": 74,
