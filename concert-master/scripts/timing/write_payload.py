@@ -46,6 +46,8 @@ def run(ns):
         payload["chordHits"] = chord_hits
     if ns.get("ghost_notes") is False or ns.get("ghost_notes") == "runs":
         payload["ghostNotes"] = ns["ghost_notes"]  # (corrections_no_ghosts)
+    if ns.get("exact_score"):
+        payload["exactScore"] = True  # (corrections_no_ghosts: a hand-made exact score that isn't MusicXML)
     if ns.get("no_ghost_windows"):
         payload["noGhostWindows"] = ns["no_ghost_windows"]  # (corrections_no_ghosts: stretches with no ghost keys)
     if ns.get("counter_notes"):

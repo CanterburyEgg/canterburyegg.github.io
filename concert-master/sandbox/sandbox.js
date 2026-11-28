@@ -195,7 +195,7 @@ function applyPins(notes, song) {
     n.endTime = n.at + len;
     n.pinned = false;
   }
-  for (const p of state.pins.filter((q) => q.song === song)) {
+  for (const p of state.pins.filter((q) => q.song === song && q.at !== null)) {
     const prim = notes.find((n) => !n.isChordPartner && n.midi === p.midi && Math.abs(n.at - p.at) <= PIN_TOL);
     if (!prim) continue;
     const d = p.to - p.at;
@@ -229,14 +229,24 @@ function selectNote(i) {
 }
 
 function pinSelected(t) {
+  const clip = state.clips[state.idx];
+  // (past the clip's last note: the tap is still kept, as an extra tap with no chart note -- "at": null -- so a
+  // phrase longer than the current chart isn't cut short; Sea Shanty II's theme, user, Nov 27: "There weren't enough
+  // notes in this section of the chart for my last pins, so they got eaten")
+  if (state.sel === -2) {
+    state.pins.push({ song: clip.song, at: null, midi: null, key: null, to: +t.toFixed(4) });
+    savePins();
+    renderPinBar();
+    return;
+  }
   const n = state.newNotes[state.sel];
   if (!n) return;
-  const clip = state.clips[state.idx];
   state.pins = state.pins.filter((p) => !(p.song === clip.song && p.midi === n.midi && Math.abs(p.at - n.at) <= PIN_TOL));
   state.pins.push({ song: clip.song, at: +n.at.toFixed(4), midi: n.midi, key: LANE_KEYS[n.lane], to: +t.toFixed(4) });
   savePins();
   applyPins(state.newNotes, clip.song);
-  state.sel = primaryIdx(state.sel, 1); // (next note: tap a whole phrase in one pass)
+  const nextSel = primaryIdx(state.sel, 1); // (next note: tap a whole phrase in one pass)
+  state.sel = nextSel === state.sel ? -2 : nextSel; // (-2: no notes left, further taps are extra taps)
   renderPinBar();
   renderList(els.listNew, state.newNotes);
 }
@@ -265,7 +275,7 @@ function playFromSelected() {
 }
 
 function pinsText() {
-  const ps = songPins().sort((a, b) => a.at - b.at);
+  const ps = songPins().sort((a, b) => (a.at ?? a.to) - (b.at ?? b.to));
   const lines = ps.map(({ song, at, midi, key, to }) => JSON.stringify({ song, at, midi, key, to }));
   return `{"pins": [\n${lines.join(',\n')}\n]}`;
 }
@@ -276,11 +286,11 @@ function renderPinBar() {
   bar.hidden = !state.pinMode;
   document.getElementById('btn-pin').classList.toggle('active', state.pinMode);
   document.getElementById('btn-ticks').textContent = `Ticks: ${state.ticks ? 'On' : 'Off'}`;
-  const n = state.newNotes[state.sel];
-  const pin = n && songPins().find((p) => p.midi === n.midi && Math.abs(p.at - n.at) <= PIN_TOL);
+  const n = state.sel >= 0 ? state.newNotes[state.sel] : null;
+  const pin = n && songPins().find((p) => p.at !== null && p.midi === n.midi && Math.abs(p.at - n.at) <= PIN_TOL);
   document.getElementById('pin-sel').textContent = n
     ? `Next tap pins: ${LANE_KEYS[n.lane]} midi ${n.midi} at ${fmt(n.at)}${pin ? ` (pinned → ${fmt(pin.to)})` : ''}`
-    : 'Click a note in the Current build list to pick where to start';
+    : state.sel === -2 ? 'No chart notes left: further taps are kept as extra taps' : 'Click a note in the Current build list to pick where to start';
   document.getElementById('pin-count').textContent = `${songPins().length} pin(s) in this song`;
 }
 
@@ -791,7 +801,7 @@ renderOffset();
 
 function togglePinMode() {
   state.pinMode = !state.pinMode;
-  if (state.pinMode && state.sel < 0) state.sel = primaryIdx(-1, 1);
+  if (state.pinMode && state.sel === -1) state.sel = primaryIdx(-1, 1);
   if (state.pinMode && state.side !== 'new') setSide('new');
   renderPinBar();
   renderList(els.listNew, state.newNotes);

@@ -132,7 +132,7 @@
       "score": 4.31,
       "rating": 0,
       "burst": 3.73,
-      "endurance": 5.01,
+      "endurance": 5.0,
       "notes": 477
     },
     "easy": {
@@ -141,6 +141,22 @@
       "burst": 0.86,
       "endurance": 1.01,
       "notes": 230
+    }
+  },
+  "sea-shanty-2": {
+    "hard": {
+      "score": 8.17,
+      "rating": 2,
+      "burst": 6.82,
+      "endurance": 9.81,
+      "notes": 586
+    },
+    "easy": {
+      "score": 1.15,
+      "rating": 0,
+      "burst": 0.97,
+      "endurance": 1.37,
+      "notes": 262
     }
   },
   "maslanka4": {

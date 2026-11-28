@@ -73438,5 +73438,5286 @@
         "isChordPartner": true
       }
     ]
+  },
+  "sea-shanty-2": {
+    "title": "Sea Shanty II (RuneScape)",
+    "sidecar_sha256": "bd29aa63ed9926cc04f1986a6e83824448e65ae6944e7e3849afcd80709061d6",
+    "mode": "4k:more",
+    "notes": [
+      {
+        "time": 0.245,
+        "endTime": 0.245,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 0.532,
+        "endTime": 0.532,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 0.669,
+        "endTime": 0.669,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 0.842,
+        "endTime": 0.842,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 1.313,
+        "endTime": 1.313,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 1.44,
+        "endTime": 1.44,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 1.582,
+        "endTime": 1.582,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 1.735,
+        "endTime": 1.735,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 1.843,
+        "endTime": 1.843,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 2.001,
+        "endTime": 2.001,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 2.607,
+        "endTime": 2.607,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 2.892,
+        "endTime": 2.892,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 3.039,
+        "endTime": 3.039,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 3.179,
+        "endTime": 3.179,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 3.468,
+        "endTime": 3.468,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 3.777,
+        "endTime": 3.777,
+        "type": "tap",
+        "lane": 0,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 4.07,
+        "endTime": 4.07,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 4.392,
+        "endTime": 4.392,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 4.984,
+        "endTime": 4.984,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 5.301,
+        "endTime": 5.301,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 5.429,
+        "endTime": 5.429,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 5.582,
+        "endTime": 5.582,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 6.034,
+        "endTime": 6.034,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 6.191,
+        "endTime": 6.191,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 6.334,
+        "endTime": 6.334,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 6.479,
+        "endTime": 6.479,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 6.612,
+        "endTime": 6.612,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 6.765,
+        "endTime": 6.765,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 7.366,
+        "endTime": 7.366,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 7.498,
+        "endTime": 7.498,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 7.659,
+        "endTime": 7.659,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 7.806,
+        "endTime": 7.806,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 7.949,
+        "endTime": 7.949,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 8.116,
+        "endTime": 8.116,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 8.268,
+        "endTime": 8.268,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 8.41,
+        "endTime": 8.41,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 8.569,
+        "endTime": 8.569,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 8.709,
+        "endTime": 8.709,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 8.851,
+        "endTime": 8.851,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 9.002,
+        "endTime": 9.002,
+        "type": "tap",
+        "lane": 2,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 9.178,
+        "endTime": 9.178,
+        "type": "tap",
+        "lane": 1,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 9.855,
+        "endTime": 9.855,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 10.142,
+        "endTime": 10.142,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 10.279,
+        "endTime": 10.279,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 10.452,
+        "endTime": 10.452,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 10.923,
+        "endTime": 10.923,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 11.05,
+        "endTime": 11.05,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 11.192,
+        "endTime": 11.192,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 11.345,
+        "endTime": 11.345,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 11.453,
+        "endTime": 11.453,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 11.611,
+        "endTime": 11.611,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 12.217,
+        "endTime": 12.217,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 12.502,
+        "endTime": 12.502,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 12.649,
+        "endTime": 12.649,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 12.789,
+        "endTime": 12.789,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 13.078,
+        "endTime": 13.078,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 13.387,
+        "endTime": 13.387,
+        "type": "tap",
+        "lane": 0,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 13.68,
+        "endTime": 13.68,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 14.002,
+        "endTime": 14.002,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 14.594,
+        "endTime": 14.594,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 14.911,
+        "endTime": 14.911,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 15.039,
+        "endTime": 15.039,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 15.192,
+        "endTime": 15.192,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 15.644,
+        "endTime": 15.644,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 15.801,
+        "endTime": 15.801,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 15.944,
+        "endTime": 15.944,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 16.089,
+        "endTime": 16.089,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 16.222,
+        "endTime": 16.222,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 16.375,
+        "endTime": 16.375,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 16.976,
+        "endTime": 16.976,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 17.108,
+        "endTime": 17.108,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 17.269,
+        "endTime": 17.269,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 17.416,
+        "endTime": 17.416,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 17.559,
+        "endTime": 17.559,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 17.726,
+        "endTime": 17.726,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 17.878,
+        "endTime": 17.878,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 18.02,
+        "endTime": 18.02,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 18.179,
+        "endTime": 18.179,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 18.319,
+        "endTime": 18.319,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 18.461,
+        "endTime": 18.461,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 18.612,
+        "endTime": 18.612,
+        "type": "tap",
+        "lane": 2,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 18.788,
+        "endTime": 18.788,
+        "type": "tap",
+        "lane": 1,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 19.362,
+        "endTime": 19.362,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 19.511,
+        "endTime": 19.511,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 19.664,
+        "endTime": 19.664,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 19.959,
+        "endTime": 19.959,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 20.254,
+        "endTime": 20.254,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 20.379,
+        "endTime": 20.379,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 20.547,
+        "endTime": 20.547,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 20.851,
+        "endTime": 20.851,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 21.162,
+        "endTime": 21.162,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 21.74,
+        "endTime": 21.74,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 21.89,
+        "endTime": 21.89,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 22.197,
+        "endTime": 22.197,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 22.399,
+        "endTime": 22.399,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 22.477,
+        "endTime": 22.477,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 22.555,
+        "endTime": 22.555,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 22.637,
+        "endTime": 22.637,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 22.966,
+        "endTime": 22.966,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 23.555,
+        "endTime": 23.555,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 24.167,
+        "endTime": 24.167,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 24.294,
+        "endTime": 24.294,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 24.459,
+        "endTime": 24.459,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 24.7675,
+        "endTime": 24.7675,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 25.076,
+        "endTime": 25.076,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 25.234,
+        "endTime": 25.234,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 25.387,
+        "endTime": 25.387,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 25.66,
+        "endTime": 25.66,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 25.977,
+        "endTime": 25.977,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 26.564,
+        "endTime": 26.564,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 26.709,
+        "endTime": 26.709,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 27.023,
+        "endTime": 27.023,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 27.195,
+        "endTime": 27.195,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 27.28,
+        "endTime": 27.28,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 27.359,
+        "endTime": 27.359,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 27.442,
+        "endTime": 27.442,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 27.782,
+        "endTime": 27.782,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 28.361,
+        "endTime": 28.361,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 28.975,
+        "endTime": 28.975,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 29.128,
+        "endTime": 29.128,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 29.281,
+        "endTime": 29.281,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 29.577,
+        "endTime": 29.577,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 29.879,
+        "endTime": 29.879,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 30.021,
+        "endTime": 30.021,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 30.171,
+        "endTime": 30.171,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 30.444,
+        "endTime": 30.444,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 30.756,
+        "endTime": 30.756,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 31.355,
+        "endTime": 31.355,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 31.842,
+        "endTime": 31.842,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 31.976,
+        "endTime": 31.976,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 32.27,
+        "endTime": 32.27,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 32.57,
+        "endTime": 32.57,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 33.15,
+        "endTime": 33.15,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 33.778,
+        "endTime": 33.778,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 33.932,
+        "endTime": 33.932,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 34.087,
+        "endTime": 34.087,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 34.3825,
+        "endTime": 34.3825,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 34.678,
+        "endTime": 34.678,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 34.816,
+        "endTime": 34.816,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 34.98,
+        "endTime": 34.98,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 35.274,
+        "endTime": 35.274,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 35.563,
+        "endTime": 35.563,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 36.153,
+        "endTime": 36.153,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 36.295,
+        "endTime": 36.295,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 36.45,
+        "endTime": 36.45,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 36.596,
+        "endTime": 36.596,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 36.781,
+        "endTime": 36.781,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 37.084,
+        "endTime": 37.084,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 37.385,
+        "endTime": 37.385,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 37.984,
+        "endTime": 37.984,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 38.599,
+        "endTime": 38.599,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 38.8823,
+        "endTime": 38.8823,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 39.1657,
+        "endTime": 39.1657,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 39.449,
+        "endTime": 39.449,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 39.754,
+        "endTime": 39.754,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 40.054,
+        "endTime": 40.054,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 40.354,
+        "endTime": 40.354,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 40.654,
+        "endTime": 40.654,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 40.965,
+        "endTime": 40.965,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 41.2687,
+        "endTime": 41.2687,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 41.5723,
+        "endTime": 41.5723,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 41.876,
+        "endTime": 41.876,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 42.175,
+        "endTime": 42.175,
+        "type": "tap",
+        "lane": 0,
+        "midi": 62,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 42.362,
+        "endTime": 42.362,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 42.463,
+        "endTime": 42.463,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 42.639,
+        "endTime": 42.639,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 42.76,
+        "endTime": 42.76,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 43.374,
+        "endTime": 43.374,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 43.961,
+        "endTime": 43.961,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 44.582,
+        "endTime": 44.582,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 45.156,
+        "endTime": 45.808,
+        "type": "hold",
+        "lane": 0,
+        "midi": 62,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 45.938,
+        "endTime": 45.938,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 46.046,
+        "endTime": 46.046,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 46.236,
+        "endTime": 46.236,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 46.708,
+        "endTime": 46.708,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 46.901,
+        "endTime": 46.901,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 47.024,
+        "endTime": 47.024,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 47.593,
+        "endTime": 47.593,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 48.188,
+        "endTime": 48.188,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 48.483,
+        "endTime": 48.483,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 48.778,
+        "endTime": 48.778,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 49.073,
+        "endTime": 49.073,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 49.364,
+        "endTime": 49.364,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 49.664,
+        "endTime": 49.664,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 49.964,
+        "endTime": 49.964,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 50.264,
+        "endTime": 50.264,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 50.575,
+        "endTime": 50.575,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 50.8787,
+        "endTime": 50.8787,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 51.1823,
+        "endTime": 51.1823,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 51.486,
+        "endTime": 51.486,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 51.785,
+        "endTime": 51.785,
+        "type": "tap",
+        "lane": 0,
+        "midi": 62,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 51.972,
+        "endTime": 51.972,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 52.073,
+        "endTime": 52.073,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 52.249,
+        "endTime": 52.249,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 52.37,
+        "endTime": 52.37,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 52.984,
+        "endTime": 52.984,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 53.571,
+        "endTime": 53.571,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 54.192,
+        "endTime": 54.192,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 54.766,
+        "endTime": 55.418,
+        "type": "hold",
+        "lane": 0,
+        "midi": 62,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 55.548,
+        "endTime": 55.548,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 55.656,
+        "endTime": 55.656,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 55.846,
+        "endTime": 55.846,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 55.954,
+        "endTime": 55.954,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 56.318,
+        "endTime": 56.318,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 56.511,
+        "endTime": 56.511,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 56.634,
+        "endTime": 56.634,
+        "type": "tap",
+        "lane": 2,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 57.203,
+        "endTime": 57.203,
+        "type": "tap",
+        "lane": 1,
+        "midi": 64,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 57.798,
+        "endTime": 57.798,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 58.086,
+        "endTime": 58.086,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 58.259,
+        "endTime": 58.259,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 58.5,
+        "endTime": 58.5,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 58.634,
+        "endTime": 58.634,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 58.959,
+        "endTime": 58.959,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 59.144,
+        "endTime": 59.144,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 59.257,
+        "endTime": 59.257,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 59.433,
+        "endTime": 59.433,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 59.574,
+        "endTime": 59.574,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 59.736,
+        "endTime": 59.736,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 59.873,
+        "endTime": 59.873,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 60.195,
+        "endTime": 60.195,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 60.367,
+        "endTime": 60.367,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 60.494,
+        "endTime": 60.494,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 60.653,
+        "endTime": 60.653,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 60.78,
+        "endTime": 60.78,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 60.961,
+        "endTime": 60.961,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.077,
+        "endTime": 61.077,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.249,
+        "endTime": 61.249,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.363,
+        "endTime": 61.363,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.551,
+        "endTime": 61.551,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.684,
+        "endTime": 61.684,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.853,
+        "endTime": 61.853,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 61.977,
+        "endTime": 61.977,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 62.16,
+        "endTime": 62.16,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 62.293,
+        "endTime": 62.293,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 62.44,
+        "endTime": 62.44,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 62.587,
+        "endTime": 62.587,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 62.714,
+        "endTime": 62.714,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 62.879,
+        "endTime": 62.879,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 63.1875,
+        "endTime": 63.1875,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 63.496,
+        "endTime": 63.496,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 63.654,
+        "endTime": 63.654,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 63.807,
+        "endTime": 63.807,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 64.08,
+        "endTime": 64.08,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 64.397,
+        "endTime": 64.397,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 64.984,
+        "endTime": 64.984,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 65.129,
+        "endTime": 65.129,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 65.443,
+        "endTime": 65.443,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 65.615,
+        "endTime": 65.615,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 65.7,
+        "endTime": 65.7,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 65.779,
+        "endTime": 65.779,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 65.862,
+        "endTime": 65.862,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 66.202,
+        "endTime": 66.202,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 66.781,
+        "endTime": 66.781,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 67.395,
+        "endTime": 67.395,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 67.548,
+        "endTime": 67.548,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 67.701,
+        "endTime": 67.701,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 67.997,
+        "endTime": 67.997,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 68.299,
+        "endTime": 68.299,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 68.441,
+        "endTime": 68.441,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 68.591,
+        "endTime": 68.591,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 68.864,
+        "endTime": 68.864,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 69.176,
+        "endTime": 69.176,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 69.775,
+        "endTime": 69.775,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 70.262,
+        "endTime": 70.262,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 70.396,
+        "endTime": 70.396,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 70.69,
+        "endTime": 70.69,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 70.99,
+        "endTime": 70.99,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 71.57,
+        "endTime": 71.57,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 72.198,
+        "endTime": 72.198,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 72.352,
+        "endTime": 72.352,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 72.507,
+        "endTime": 72.507,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 72.8025,
+        "endTime": 72.8025,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 73.098,
+        "endTime": 73.098,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 73.236,
+        "endTime": 73.236,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 73.4,
+        "endTime": 73.4,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 73.694,
+        "endTime": 73.694,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 73.983,
+        "endTime": 73.983,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 74.573,
+        "endTime": 74.573,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 74.715,
+        "endTime": 74.715,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 74.87,
+        "endTime": 74.87,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 75.016,
+        "endTime": 75.016,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 75.201,
+        "endTime": 75.201,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 75.504,
+        "endTime": 75.504,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 75.805,
+        "endTime": 75.805,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 76.404,
+        "endTime": 76.404,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 77.075,
+        "endTime": 77.075,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 77.362,
+        "endTime": 77.362,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 77.499,
+        "endTime": 77.499,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 77.672,
+        "endTime": 77.672,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 78.143,
+        "endTime": 78.143,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 78.27,
+        "endTime": 78.27,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 78.412,
+        "endTime": 78.412,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 78.565,
+        "endTime": 78.565,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 78.673,
+        "endTime": 78.673,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 78.831,
+        "endTime": 78.831,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 79.437,
+        "endTime": 79.437,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 79.722,
+        "endTime": 79.722,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 79.869,
+        "endTime": 79.869,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 80.009,
+        "endTime": 80.009,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 80.298,
+        "endTime": 80.298,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 80.607,
+        "endTime": 80.607,
+        "type": "tap",
+        "lane": 0,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 80.9,
+        "endTime": 80.9,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 81.222,
+        "endTime": 81.222,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 81.814,
+        "endTime": 81.814,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 82.131,
+        "endTime": 82.131,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 82.259,
+        "endTime": 82.259,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 82.412,
+        "endTime": 82.412,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 82.864,
+        "endTime": 82.864,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 83.021,
+        "endTime": 83.021,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 83.164,
+        "endTime": 83.164,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 83.309,
+        "endTime": 83.309,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 83.442,
+        "endTime": 83.442,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 83.595,
+        "endTime": 83.595,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 84.196,
+        "endTime": 84.196,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 84.328,
+        "endTime": 84.328,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 84.489,
+        "endTime": 84.489,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 84.636,
+        "endTime": 84.636,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 84.779,
+        "endTime": 84.779,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 84.946,
+        "endTime": 84.946,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 85.098,
+        "endTime": 85.098,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 85.24,
+        "endTime": 85.24,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 85.399,
+        "endTime": 85.399,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 85.539,
+        "endTime": 85.539,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 85.681,
+        "endTime": 85.681,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 85.832,
+        "endTime": 85.832,
+        "type": "tap",
+        "lane": 2,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 86.008,
+        "endTime": 86.008,
+        "type": "tap",
+        "lane": 1,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 86.685,
+        "endTime": 86.685,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 86.972,
+        "endTime": 86.972,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 87.109,
+        "endTime": 87.109,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 87.282,
+        "endTime": 87.282,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 87.753,
+        "endTime": 87.753,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 87.88,
+        "endTime": 87.88,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 88.022,
+        "endTime": 88.022,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 88.175,
+        "endTime": 88.175,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 88.283,
+        "endTime": 88.283,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 88.441,
+        "endTime": 88.441,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 89.047,
+        "endTime": 89.047,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 89.332,
+        "endTime": 89.332,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 89.479,
+        "endTime": 89.479,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 89.619,
+        "endTime": 89.619,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 89.908,
+        "endTime": 89.908,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 90.217,
+        "endTime": 90.217,
+        "type": "tap",
+        "lane": 0,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 90.51,
+        "endTime": 90.51,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 90.832,
+        "endTime": 90.832,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 91.424,
+        "endTime": 91.424,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 91.741,
+        "endTime": 91.741,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 91.869,
+        "endTime": 91.869,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 92.022,
+        "endTime": 92.022,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 92.474,
+        "endTime": 92.474,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 92.631,
+        "endTime": 92.631,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 92.774,
+        "endTime": 92.774,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 92.919,
+        "endTime": 92.919,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 93.052,
+        "endTime": 93.052,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 93.205,
+        "endTime": 93.205,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 93.806,
+        "endTime": 93.806,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 93.938,
+        "endTime": 93.938,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 94.099,
+        "endTime": 94.099,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 94.246,
+        "endTime": 94.246,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 94.389,
+        "endTime": 94.389,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 94.556,
+        "endTime": 94.556,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 94.708,
+        "endTime": 94.708,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 94.85,
+        "endTime": 94.85,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 95.009,
+        "endTime": 95.009,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 95.149,
+        "endTime": 95.149,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 95.291,
+        "endTime": 95.291,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 95.442,
+        "endTime": 95.442,
+        "type": "tap",
+        "lane": 2,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 95.618,
+        "endTime": 95.618,
+        "type": "tap",
+        "lane": 1,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 96.182,
+        "endTime": 96.182,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 96.331,
+        "endTime": 96.331,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 96.484,
+        "endTime": 96.484,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 96.779,
+        "endTime": 96.779,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 97.074,
+        "endTime": 97.074,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 97.199,
+        "endTime": 97.199,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 97.367,
+        "endTime": 97.367,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 97.671,
+        "endTime": 97.671,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 97.982,
+        "endTime": 97.982,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 98.56,
+        "endTime": 98.56,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 98.71,
+        "endTime": 98.71,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 99.017,
+        "endTime": 99.017,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 99.219,
+        "endTime": 99.219,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 99.297,
+        "endTime": 99.297,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 99.375,
+        "endTime": 99.375,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 99.457,
+        "endTime": 99.457,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 99.786,
+        "endTime": 99.786,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 100.375,
+        "endTime": 100.375,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 100.987,
+        "endTime": 100.987,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 101.114,
+        "endTime": 101.114,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 101.279,
+        "endTime": 101.279,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 101.5875,
+        "endTime": 101.5875,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 101.896,
+        "endTime": 101.896,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 102.054,
+        "endTime": 102.054,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 102.207,
+        "endTime": 102.207,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 102.48,
+        "endTime": 102.48,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 102.797,
+        "endTime": 102.797,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 103.384,
+        "endTime": 103.384,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 103.529,
+        "endTime": 103.529,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 103.843,
+        "endTime": 103.843,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 104.015,
+        "endTime": 104.015,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 104.1,
+        "endTime": 104.1,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 104.179,
+        "endTime": 104.179,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 104.262,
+        "endTime": 104.262,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 104.602,
+        "endTime": 104.602,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 105.181,
+        "endTime": 105.181,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 105.795,
+        "endTime": 105.795,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 105.948,
+        "endTime": 105.948,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 106.101,
+        "endTime": 106.101,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 106.397,
+        "endTime": 106.397,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 106.699,
+        "endTime": 106.699,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 106.841,
+        "endTime": 106.841,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 106.991,
+        "endTime": 106.991,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 107.264,
+        "endTime": 107.264,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 107.576,
+        "endTime": 107.576,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 108.175,
+        "endTime": 108.175,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 108.662,
+        "endTime": 108.662,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 108.796,
+        "endTime": 108.796,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 109.09,
+        "endTime": 109.09,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 109.39,
+        "endTime": 109.39,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 109.97,
+        "endTime": 109.97,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 110.598,
+        "endTime": 110.598,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 110.752,
+        "endTime": 110.752,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 110.907,
+        "endTime": 110.907,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 111.2025,
+        "endTime": 111.2025,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 111.498,
+        "endTime": 111.498,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 111.636,
+        "endTime": 111.636,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 111.8,
+        "endTime": 111.8,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 112.094,
+        "endTime": 112.094,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 112.383,
+        "endTime": 112.383,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 112.973,
+        "endTime": 112.973,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 113.115,
+        "endTime": 113.115,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 113.27,
+        "endTime": 113.27,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 113.416,
+        "endTime": 113.416,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 113.601,
+        "endTime": 113.601,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 113.904,
+        "endTime": 113.904,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 114.205,
+        "endTime": 114.205,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 114.804,
+        "endTime": 114.804,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 115.485,
+        "endTime": 115.485,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 115.772,
+        "endTime": 115.772,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 115.909,
+        "endTime": 115.909,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 116.082,
+        "endTime": 116.082,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 116.553,
+        "endTime": 116.553,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 116.68,
+        "endTime": 116.68,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 116.822,
+        "endTime": 116.822,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 116.975,
+        "endTime": 116.975,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 117.083,
+        "endTime": 117.083,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 117.241,
+        "endTime": 117.241,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 117.847,
+        "endTime": 117.847,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 118.132,
+        "endTime": 118.132,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 118.279,
+        "endTime": 118.279,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 118.419,
+        "endTime": 118.419,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 118.708,
+        "endTime": 118.708,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 119.017,
+        "endTime": 119.017,
+        "type": "tap",
+        "lane": 0,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 119.31,
+        "endTime": 119.31,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 119.632,
+        "endTime": 119.632,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 120.224,
+        "endTime": 120.224,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 120.541,
+        "endTime": 120.541,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 120.669,
+        "endTime": 120.669,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 120.822,
+        "endTime": 120.822,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 121.274,
+        "endTime": 121.274,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 121.431,
+        "endTime": 121.431,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 121.574,
+        "endTime": 121.574,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 121.719,
+        "endTime": 121.719,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 121.852,
+        "endTime": 121.852,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 122.005,
+        "endTime": 122.005,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 122.606,
+        "endTime": 122.606,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 122.738,
+        "endTime": 122.738,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 122.899,
+        "endTime": 122.899,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.046,
+        "endTime": 123.046,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.189,
+        "endTime": 123.189,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.356,
+        "endTime": 123.356,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.508,
+        "endTime": 123.508,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.65,
+        "endTime": 123.65,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.809,
+        "endTime": 123.809,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 123.949,
+        "endTime": 123.949,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 124.091,
+        "endTime": 124.091,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 124.242,
+        "endTime": 124.242,
+        "type": "tap",
+        "lane": 2,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 124.418,
+        "endTime": 124.418,
+        "type": "tap",
+        "lane": 1,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 125.095,
+        "endTime": 125.095,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 125.382,
+        "endTime": 125.382,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 125.519,
+        "endTime": 125.519,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 125.692,
+        "endTime": 125.692,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 126.163,
+        "endTime": 126.163,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 126.29,
+        "endTime": 126.29,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 126.432,
+        "endTime": 126.432,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 126.585,
+        "endTime": 126.585,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 126.693,
+        "endTime": 126.693,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 126.851,
+        "endTime": 126.851,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 127.457,
+        "endTime": 127.457,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 127.742,
+        "endTime": 127.742,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 127.889,
+        "endTime": 127.889,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 128.029,
+        "endTime": 128.029,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 128.318,
+        "endTime": 128.318,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 128.627,
+        "endTime": 128.627,
+        "type": "tap",
+        "lane": 0,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 128.92,
+        "endTime": 128.92,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 129.242,
+        "endTime": 129.242,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 129.834,
+        "endTime": 129.834,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 130.151,
+        "endTime": 130.151,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 130.279,
+        "endTime": 130.279,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 130.432,
+        "endTime": 130.432,
+        "type": "tap",
+        "lane": 0,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 130.884,
+        "endTime": 130.884,
+        "type": "tap",
+        "lane": 1,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 131.041,
+        "endTime": 131.041,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 131.184,
+        "endTime": 131.184,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 131.329,
+        "endTime": 131.329,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 131.462,
+        "endTime": 131.462,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 131.615,
+        "endTime": 131.615,
+        "type": "tap",
+        "lane": 2,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 132.216,
+        "endTime": 132.216,
+        "type": "tap",
+        "lane": 3,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 132.348,
+        "endTime": 132.348,
+        "type": "tap",
+        "lane": 2,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 132.509,
+        "endTime": 132.509,
+        "type": "tap",
+        "lane": 1,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 132.656,
+        "endTime": 132.656,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 132.799,
+        "endTime": 132.799,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 132.966,
+        "endTime": 132.966,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 133.118,
+        "endTime": 133.118,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 133.26,
+        "endTime": 133.26,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 133.419,
+        "endTime": 133.419,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 133.559,
+        "endTime": 133.559,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 133.701,
+        "endTime": 133.701,
+        "type": "tap",
+        "lane": 3,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 133.852,
+        "endTime": 133.852,
+        "type": "tap",
+        "lane": 2,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 134.028,
+        "endTime": 134.028,
+        "type": "tap",
+        "lane": 1,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 134.592,
+        "endTime": 134.592,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 134.741,
+        "endTime": 134.741,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 134.894,
+        "endTime": 134.894,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 135.189,
+        "endTime": 135.189,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 135.484,
+        "endTime": 135.484,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 135.609,
+        "endTime": 135.609,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 135.777,
+        "endTime": 135.777,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 136.081,
+        "endTime": 136.081,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 136.392,
+        "endTime": 136.392,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 136.97,
+        "endTime": 136.97,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 137.12,
+        "endTime": 137.12,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 137.427,
+        "endTime": 137.427,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 137.629,
+        "endTime": 137.629,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 137.707,
+        "endTime": 137.707,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 137.785,
+        "endTime": 137.785,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 137.867,
+        "endTime": 137.867,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 138.196,
+        "endTime": 138.196,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 138.785,
+        "endTime": 138.785,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 139.397,
+        "endTime": 139.397,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 139.524,
+        "endTime": 139.524,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 139.689,
+        "endTime": 139.689,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 139.9975,
+        "endTime": 139.9975,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 140.306,
+        "endTime": 140.306,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 140.464,
+        "endTime": 140.464,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 140.617,
+        "endTime": 140.617,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 140.89,
+        "endTime": 140.89,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 141.207,
+        "endTime": 141.207,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 141.794,
+        "endTime": 141.794,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 141.939,
+        "endTime": 141.939,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 142.253,
+        "endTime": 142.253,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 142.425,
+        "endTime": 142.425,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 142.51,
+        "endTime": 142.51,
+        "type": "tap",
+        "lane": 3,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 142.589,
+        "endTime": 142.589,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 142.672,
+        "endTime": 142.672,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 143.012,
+        "endTime": 143.012,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 143.591,
+        "endTime": 143.591,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 144.205,
+        "endTime": 144.205,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 144.358,
+        "endTime": 144.358,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 144.511,
+        "endTime": 144.511,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 144.807,
+        "endTime": 144.807,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 145.109,
+        "endTime": 145.109,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 145.251,
+        "endTime": 145.251,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 145.401,
+        "endTime": 145.401,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 145.674,
+        "endTime": 145.674,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 145.986,
+        "endTime": 145.986,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 146.585,
+        "endTime": 146.585,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 147.072,
+        "endTime": 147.072,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 147.206,
+        "endTime": 147.206,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 147.5,
+        "endTime": 147.5,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 147.8,
+        "endTime": 147.8,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 148.38,
+        "endTime": 148.38,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 149.008,
+        "endTime": 149.008,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 149.162,
+        "endTime": 149.162,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 149.317,
+        "endTime": 149.317,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 149.6125,
+        "endTime": 149.6125,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 149.908,
+        "endTime": 149.908,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 150.046,
+        "endTime": 150.046,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 150.21,
+        "endTime": 150.21,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 150.504,
+        "endTime": 150.504,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 150.793,
+        "endTime": 150.793,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 151.383,
+        "endTime": 151.383,
+        "type": "tap",
+        "lane": 3,
+        "midi": 80,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 151.525,
+        "endTime": 151.525,
+        "type": "tap",
+        "lane": 2,
+        "midi": 78,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 151.68,
+        "endTime": 151.68,
+        "type": "tap",
+        "lane": 1,
+        "midi": 76,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 151.826,
+        "endTime": 151.826,
+        "type": "tap",
+        "lane": 0,
+        "midi": 74,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 152.011,
+        "endTime": 152.011,
+        "type": "tap",
+        "lane": 2,
+        "midi": 73,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 152.314,
+        "endTime": 152.314,
+        "type": "tap",
+        "lane": 1,
+        "midi": 71,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 152.615,
+        "endTime": 152.615,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 153.214,
+        "endTime": 153.214,
+        "type": "tap",
+        "lane": 3,
+        "midi": 81,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      },
+      {
+        "time": 153.843,
+        "endTime": 153.843,
+        "type": "tap",
+        "lane": 0,
+        "midi": 69,
+        "isPercussionSolo": false,
+        "isChordPartner": false
+      }
+    ]
   }
 }

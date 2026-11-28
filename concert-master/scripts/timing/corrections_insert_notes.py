@@ -17,8 +17,8 @@ def run(ns):
     for ins in json.loads(corr.read_text(encoding="utf-8")).get("insert_notes", []):
         t, e, m = float(ins["time"]), float(ins["end"]), int(ins["midi"])
         k = next((i for i, r in enumerate(mo) if float(r[0]) > t), len(mo))
-        ref = mo[k - 1] if k > 0 else mo[0]
-        row = [round(t, 4), round(e, 4), m] + list(ref[3:6])
+        ref = mo[k - 1] if k > 0 else (mo[0] if mo else None)
+        row = [round(t, 4), round(e, 4), m] + (list(ref[3:6]) if ref else [0.8, 1, 1.0])
         mo.insert(k, row)
         warped.insert(k, {"start": t, "score_start": float(ins.get("score_start", 0.0)), "score_dur": e - t,
                           "staff": ins.get("staff", "Inserted")})

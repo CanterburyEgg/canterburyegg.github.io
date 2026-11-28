@@ -18,3 +18,7 @@ def run(ns):
     w = json.loads(f.read_text(encoding="utf-8")).get("no_ghosts", []) if f.exists() else []
     if w:
         ns["no_ghost_windows"] = [[float(x["from"]), float(x["to"])] for x in w]
+    # ("exact_score": true -- the score's rhythm and lines can be trusted note for note even though it isn't MusicXML:
+    # Sea Shanty II's arranged MIDI, laid out by hand from the piano score and the user's taps)
+    if f.exists() and json.loads(f.read_text(encoding="utf-8")).get("exact_score"):
+        ns["exact_score"] = True

@@ -765,7 +765,7 @@ export function hydrateSidecarFeatures(sidecar, audioBuffer) {
     noGhostWindows: sidecar.noGhostWindows || [], // [from, to] audio seconds with no ghost keys (the song's corrections)
     tryRules: sidecar.tryRules || [], // (sandbox previews only: layout rules switched on for a song they don't yet apply to)
     // charted from an exact score (MusicXML): its written rhythm and lines can be trusted note for note (Jupiter)
-    exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || ''),
+    exactScore: /\.(mxl|musicxml|xml)$/i.test(sidecar.scoreFile || '') || sidecar.exactScore === true, // (or flagged: a MIDI laid out by hand, like Sea Shanty II's arranged score)
     chordHits: sidecar.chordHits || [], // ensemble chord hits on a melody note: [time, chord tone above, chord tone below]
     counterNotes: sidecar.counterNotes || [], // a second line for the other hand (two_hands corrections): [start, end, midi]
     // how strong each melody note's place in the bar is (0 downbeat, 1 beat, 2 half beat, 3 smaller, -1 unknown), for Easy
@@ -1028,7 +1028,7 @@ function buildChartFromSidecar(features, { keyMode = '4k', density = 'fewer' } =
       lane = lanes <= 4 ? Math.min(lanes - 1, hint4) : Math.floor((lanes - 4) / 2) + hint4;
     }
     // (24 = pinned here only onto the S ghost key, where the song has ghost keys -- placed after the layout rules)
-    const pinGhost = rawMel[i].length > 6 && rawMel[i][6] === 24;
+    const pinGhost = rawMel[i].length > 6 && (rawMel[i][6] === 24 || rawMel[i][6] === 25) ? (rawMel[i][6] === 24 ? 'S' : 'L') : null; // (25 = the L ghost key)
 
     sameLaneStreak = lane === prevLane ? sameLaneStreak + 1 : 1;
 
@@ -1460,7 +1460,7 @@ const LAYOUT_RULES = [
   ['quickCellsInPitchOrder', (n, l, c) => { if (c.exactScore) applyQuickCellsInPitchOrder(n, l); }],
   // (a one-off pin onto the S ghost key: Mercury 0:23.3, the violins' run starts S D F after the bassoons' 47; user,
   // Nov 24: "I thought the run should start SDF and it seems to just go FJ")
-  ['pinnedGhosts', (n, l, c) => { if (c.ghosts && l === 4) n.forEach((x) => { if (x.pinGhost && !x.isChordPartner) { x.lane = l; x.ghost = 'S'; } }); }, 'ghosts'],
+  ['pinnedGhosts', (n, l, c) => { if (c.ghosts && l === 4) n.forEach((x) => { if (x.pinGhost && !x.isChordPartner) { x.lane = x.pinGhost === 'L' ? l + 1 : l; x.ghost = x.pinGhost; } }); }, 'ghosts'],
   ['quickRipsFourKeys', (n, l, c) => { if (c.exactScore && !c.ghosts && c.isDense && !c.ghostWindow) applyQuickRipsFourKeys(n, l); }],
   ['easyRoomToClimb', (n, l, c) => { if (!c.isDense) applyEasyRoomToClimb(n, l); }],
   ['ensembleChordHits', (n, l, c) => addEnsembleChordHits(n, c.chordHits, l), 'hard'],

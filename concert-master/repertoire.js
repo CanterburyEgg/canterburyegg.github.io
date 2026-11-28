@@ -11,7 +11,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'The Sound of Guthix',
     ensemble: 'RuneScape 3 · Orchestral Soundtrack',
     url: 'https://runescape.wiki/images/The_Sound_of_Guthix.ogg',
-    sidecarUrl: './audio/sound-of-guthix.cadenza.json?v=cm194',
+    sidecarUrl: './audio/sound-of-guthix.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -20,7 +20,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Sevens',
     ensemble: 'Symphonic Wind Ensemble · Reference Recording',
     url: 'https://s3.amazonaws.com/halleonard-audio/04002326.mp3',
-    sidecarUrl: './audio/sevens.cadenza.json?v=cm194',
+    sidecarUrl: './audio/sevens.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -29,7 +29,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Ride',
     ensemble: 'Symphonic Wind Ensemble · Reference Recording',
     url: 'https://s3.amazonaws.com/halleonard-audio/48007049.mp3',
-    sidecarUrl: './audio/ride.cadenza.json?v=cm194',
+    sidecarUrl: './audio/ride.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -38,7 +38,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'What We Do',
     ensemble: 'RuneScape 3 · Orchestral Soundtrack',
     url: 'https://runescape.wiki/images/What_We_Do.ogg',
-    sidecarUrl: './audio/what-we-do.cadenza.json?v=cm194',
+    sidecarUrl: './audio/what-we-do.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -47,7 +47,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Arabesque',
     ensemble: 'Symphonic Wind Ensemble · Reference Recording',
     url: 'https://s3.amazonaws.com/halleonard-audio/04002784.mp3',
-    sidecarUrl: './audio/arabesque.cadenza.json?v=cm194',
+    sidecarUrl: './audio/arabesque.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -56,7 +56,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Jupiter, the Bringer of Jollity',
     ensemble: 'United States Air Force Band · Wind Ensemble',
     url: './audio/jupiter.ogg',
-    sidecarUrl: './audio/jupiter.cadenza.json?v=cm194',
+    sidecarUrl: './audio/jupiter.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -65,7 +65,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Mars, the Bringer of War',
     ensemble: 'United States Air Force Band · Wind Ensemble',
     url: './audio/mars.play.ogg',
-    sidecarUrl: './audio/mars.cadenza.json?v=cm194',
+    sidecarUrl: './audio/mars.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -74,7 +74,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Mercury, the Winged Messenger',
     ensemble: 'United States Air Force Band · Wind Ensemble',
     url: './audio/mercury.ogg',
-    sidecarUrl: './audio/mercury.cadenza.json?v=cm194',
+    sidecarUrl: './audio/mercury.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -83,7 +83,16 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Gnome Village II',
     ensemble: 'RuneScape · Soundtrack',
     url: 'https://runescape.wiki/images/Gnome_Village_II.ogg',
-    sidecarUrl: './audio/gnome-village-2.cadenza.json?v=cm194',
+    sidecarUrl: './audio/gnome-village-2.cadenza.json?v=cm220',
+    previewStart: null,
+  },
+  {
+    id: 'sea-shanty-2',
+    composer: 'Ian Taylor',
+    title: 'Sea Shanty II',
+    ensemble: 'RuneScape 3 · Orchestral Soundtrack',
+    url: 'https://runescape.wiki/images/Sea_Shanty_II.ogg',
+    sidecarUrl: './audio/sea-shanty-2.cadenza.json?v=cm220',
     previewStart: null,
   },
   {
@@ -92,7 +101,7 @@ export const BUILTIN_REPERTOIRE = [
     title: 'Symphony No. 4',
     ensemble: 'Wind Ensemble & Organ · Complete Performance',
     url: './audio/maslanka-symphony-4.mp3',
-    sidecarUrl: './audio/maslanka-symphony-4.cadenza.json?v=cm194',
+    sidecarUrl: './audio/maslanka-symphony-4.cadenza.json?v=cm220',
     previewStart: null,
     wip: true,
   },
